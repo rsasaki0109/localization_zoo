@@ -57,6 +57,20 @@ ODOMETRY = [
 ]
 
 
+def verified_current() -> set[tuple[str, str]]:
+    """(aggregate file name, variant id) re-run with the current code and found bit-identical."""
+    verified: set[tuple[str, str]] = set()
+    for name in ("kitti_rte_rescore.json", "kitti_drift_audit.json"):
+        path = RESULTS_DIR / name
+        if not path.is_file():
+            continue
+        for row in json.loads(path.read_text()).get("rows", []):
+            delta = row.get("rerun_rpe_abs_delta")
+            if not row.get("rescore_extra_args") and isinstance(delta, (int, float)) and delta <= 1e-9:
+                verified.add((Path(row["aggregate_path"]).name, str(row["variant_id"])))
+    return verified
+
+
 def collect_cells() -> dict:
     """{(method, dataset): {'ate', 'ate_rpe', 'rpe', 'rpe_ate'}} over all aggregates.
 
@@ -65,6 +79,7 @@ def collect_cells() -> dict:
     by different metrics, so both are kept.
     """
     cells: dict[tuple[str, str], dict] = {}
+    verified = verified_current()
     for path in glob.glob(str(RESULTS_DIR / "*.json")):
         if Path(path).name == "index.json":
             continue
@@ -86,13 +101,20 @@ def collect_cells() -> dict:
             rpe = variant.get("rpe_trans_pct")
             cell = cells.setdefault((method, dataset),
                                     {"ate": None, "ate_rpe": None,
-                                     "rpe": None, "rpe_ate": None})
+                                     "rpe": None, "rpe_ate": None,
+                                     "rpe_current": False})
             if isinstance(ate, (int, float)) and math.isfinite(ate):
                 if cell["ate"] is None or ate < cell["ate"]:
                     cell["ate"], cell["ate_rpe"] = float(ate), rpe
             if isinstance(rpe, (int, float)) and math.isfinite(rpe):
                 if cell["rpe"] is None or rpe < cell["rpe"]:
                     cell["rpe"], cell["rpe_ate"] = float(rpe), ate
+                    # Runs since per-run host provenance (2026-10) carry a
+                    # host record, and older values re-run bit-identically are
+                    # recorded in the rescore/audit files; anything else may
+                    # not reproduce with the current code.
+                    cell["rpe_current"] = isinstance(variant.get("host"), dict) or (
+                        Path(path).name, str(variant.get("id"))) in verified
     return cells
 
 
@@ -142,6 +164,9 @@ def _table(cells, methods, metric):
                 # bold only the leading numeric token to keep <sub> intact
                 lead, _, rest = txt.partition(" ")
                 txt = f"**{lead}**" + (f" {rest}" if rest else "")
+            if metric == "rpe" and not cell.get("rpe_current", True):
+                lead, _, rest = txt.partition(" ")
+                txt = f"{lead}†" + (f" {rest}" if rest else "")
             row.append(txt)
         lines.append("| " + " | ".join(row) + " |")
     return "\n".join(lines)
@@ -179,7 +204,9 @@ _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP 
 LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
 broken port. This RPE averages 100 m segments and is not the official KITTI
 metric (100–800 m) that papers report; see
-[paper-number check](#paper-number-check-official-kitti-rte)._
+[paper-number check](#paper-number-check-official-kitti-rte). † = not re-run
+with the current code since per-run provenance was added (2026-10); such
+values may not reproduce ([drift audit](experiments/results/kitti_drift_audit.json))._
 
 > **No GT-seeded methods here.** NDT / LiTAMIN2 / GICP use the ground-truth pose
 > as the per-frame initial guess, so their ATE is seed adherence, not tracking —

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T23:20:24+00:00",
+  "generated_at": "2026-10-04T06:12:20+00:00",
   "manifest_path": "experiments/aloam_kitti_seq_08_full_transfer_matrix.json",
   "problem": {
     "id": "aloam_kitti_seq_08_full_transfer",
@@ -45,20 +45,30 @@
       "summary_path": "experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json",
       "log_path": "experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/kitti_default/run.log",
       "status": "ok",
-      "ate_m": 18.661434,
-      "rpe_trans_pct": 1.39463,
-      "rpe_rot_deg_per_m": 0.00591,
-      "fps": 2.310718,
-      "time_ms": 1761789.883571,
+      "ate_m": 18.110228,
+      "rpe_trans_pct": 1.390107,
+      "rpe_rot_deg_per_m": 0.00551,
+      "fps": 1.179692,
+      "time_ms": 3450899.99095,
       "frames": 4071,
       "note": "Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.",
-      "benchmark_score": 77.46,
+      "benchmark_score": 70.4,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 0.97473,
+      "kitti_rte_rot_deg_per_100m": 0.329339,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     },
     {
       "id": "fast",
@@ -73,20 +83,30 @@
       "summary_path": "experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/summary.json",
       "log_path": "experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/run.log",
       "status": "ok",
-      "ate_m": 23.357838,
-      "rpe_trans_pct": 1.440398,
-      "rpe_rot_deg_per_m": 0.0064,
-      "fps": 4.20804,
-      "time_ms": 967433.815569,
+      "ate_m": 26.169683,
+      "rpe_trans_pct": 1.436343,
+      "rpe_rot_deg_per_m": 0.006181,
+      "fps": 2.891723,
+      "time_ms": 1407811.156726,
       "frames": 4071,
       "note": "Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.",
-      "benchmark_score": 89.95,
+      "benchmark_score": 84.6,
       "readability_score": 4.3,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.5,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.036261,
+      "kitti_rte_rot_deg_per_100m": 0.401809,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     }
   ]
 }

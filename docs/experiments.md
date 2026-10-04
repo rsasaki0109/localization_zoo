@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -12,11 +12,11 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 3.199 | 4.2 | `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 3.654 | 6.0 | `experiments/results/aloam_kitti_raw_0061_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.459 | 6.0 | `experiments/results/aloam_kitti_raw_0061_matrix.json` |
-| A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 9.521 | 4.9 | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
-| A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast` | 50.790 | 4.5 | `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json` |
-| A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast` | 5.193 | 4.1 | `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json` |
-| A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames) | `ready` | `fast` | 2.505 | 7.3 | `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json` |
-| A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast` | 18.661 | 4.2 | `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `fast` | 12.044 | 3.0 | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast` | 50.114 | 3.2 | `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast` | 4.840 | 3.0 | `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json` |
+| A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames) | `ready` | `fast` | 2.544 | 1.7 | `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast` | 18.110 | 2.9 | `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.077 | 6.7 | `experiments/results/aloam_mcd_kth_day_06_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense` | 0.035 | 5.8 | `experiments/results/aloam_mcd_ntu_day_02_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.336 | 6.5 | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
@@ -47,8 +47,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified) | `ready` | `fine_sigma_0_375` | 12.694 | 14.9 | `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` |
 | CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A) | `ready` | `radius_2_reference` | 12.694 | 16.2 | `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` |
 | CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full | `ready` | `cluster_a_seeded` | 4.906 | 17.6 | `experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json` |
+| CT-ICP seq 00 full: constant-velocity regularization (small weight) | `ready` | `c2f_reference` | 14.099 | 8.7 | `experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json` |
+| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `map_15` | 68.972 | 5.7 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
+| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `map_15` | 68.972 | 5.7 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
+| CT-ICP seq 05 full: constant-velocity regularization sweep | `ready` | `velocity_reg_005` | 11.158 | 5.1 | `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json` |
 | CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D) | `ready` | `cluster_d_full_no_seed_reference` | 1.603 | 21.5 | `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json` |
+| CT-ICP seq 07 full: constant-velocity regularization sweep | `ready` | `velocity_reg_01` | 2.490 | 6.0 | `experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json` |
 | CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full | `ready` | `cluster_a_seeded` | 6.024 | 16.8 | `experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json` |
+| CT-ICP seq 08 full: constant-velocity regularization (small weight) | `ready` | `velocity_reg_001` | 38.901 | 9.4 | `experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_window` | 6.115 | 57.2 | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
 | CT-ICP recipe transfer test on MCD KTH day_06 (108 frames) | `ready` | `dense_reference` | 6.107 | 18.0 | `experiments/results/ct_icp_mcd_kth_day_06_recipes_matrix.json` |
 | CT-ICP cluster A/D + GT seed on MCD KTH day_06 (108 frames) | `ready` | `dense_seeded_reference` | 2.401 | 28.3 | `experiments/results/ct_icp_mcd_kth_day_06_seeded_matrix.json` |
@@ -112,11 +118,11 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.883 | 28.0 | `experiments/results/floam_kitti_raw_0009_nogt_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 3.822 | 30.7 | `experiments/results/floam_kitti_raw_0061_full_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.587 | 25.9 | `experiments/results/floam_kitti_raw_0061_matrix.json` |
-| F-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 8.556 | 12.3 | `experiments/results/floam_kitti_seq_00_full_transfer_matrix.json` |
-| F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 53.822 | 12.2 | `experiments/results/floam_kitti_seq_02_full_transfer_matrix.json` |
-| F-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 6.039 | 12.2 | `experiments/results/floam_kitti_seq_05_full_transfer_matrix.json` |
-| F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 3.174 | 29.8 | `experiments/results/floam_kitti_seq_07_full_sweep_matrix.json` |
-| F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 16.661 | 12.8 | `experiments/results/floam_kitti_seq_08_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 9.834 | 6.5 | `experiments/results/floam_kitti_seq_00_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 52.068 | 5.9 | `experiments/results/floam_kitti_seq_02_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 6.035 | 2.0 | `experiments/results/floam_kitti_seq_05_full_transfer_matrix.json` |
+| F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.972 | 8.7 | `experiments/results/floam_kitti_seq_07_full_sweep_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 16.516 | 6.0 | `experiments/results/floam_kitti_seq_08_full_transfer_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.005 | 31.1 | `experiments/results/floam_mcd_kth_day_06_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.111 | 27.0 | `experiments/results/floam_mcd_ntu_day_02_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.345 | 27.6 | `experiments/results/floam_mcd_tuhh_night_09_matrix.json` |
@@ -167,11 +173,11 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_recent_map` | 2.360 | 18.2 | `experiments/results/kiss_icp_kitti_raw_0009_nogt_matrix.json` |
 | KISS-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 4.343 | 11.2 | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `fast_profile` | 11.976 | 30.6 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast_profile` | 39.231 | 32.7 | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast_profile` | 4.160 | 23.5 | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast_profile` | 1.391 | 35.6 | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 19.409 | 30.8 | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `dense_profile` | 12.323 | 1.7 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `balanced_reference` | 56.234 | 3.4 | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `dense_profile` | 4.556 | 2.1 | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `balanced_reference` | 2.238 | 3.4 | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 17.322 | 2.5 | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 5.568 | 11.3 | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast_recent_map` | 0.017 | 66.7 | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 1.104 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
@@ -184,11 +190,11 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.865 | 9.9 | `experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 5.248 | 11.1 | `experiments/results/lego_loam_kitti_raw_0061_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.458 | 9.7 | `experiments/results/lego_loam_kitti_raw_0061_matrix.json` |
-| LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 12.378 | 3.4 | `experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json` |
-| LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 42.209 | 3.8 | `experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json` |
-| LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 5.218 | 3.7 | `experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json` |
-| LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.558 | 10.0 | `experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json` |
-| LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 19.121 | 3.2 | `experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 12.833 | 1.4 | `experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 41.756 | 1.0 | `experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 6.449 | 0.8 | `experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json` |
+| LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.590 | 2.8 | `experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 17.896 | 0.9 | `experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.072 | 9.9 | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.036 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.344 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
@@ -314,7 +320,6 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `corr_8_reference` | 50.635 | 17.8 | `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` |
 | CT-ICP seq 02 full: corr_dist + ms_chol combinations | `ready` | `bare_corr_8_reference` | 50.635 | 21.6 | `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` |
 | CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `baseline_reference` | 56.537 | 16.8 | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
-| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `map_15` | 56.537 | 23.8 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | CT-ICP seq 02 full: map_size sweep on corr=8 winner | `ready` | `map_20_reference` | 50.635 | 20.9 | `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json` |
 | CT-ICP seq 05 full: simplified recipes from bare + map=50 | `ready` | `bare_map_50_corr_4` | 8.783 | 19.7 | `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json` |
 | CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner | `ready` | `corr_4_reference` | 9.097 | 18.7 | `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` |
@@ -794,14 +799,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 9.521 | 2.6 | 76.5 | 4.65 | 4.75 | Adopt as current default |
-| Fast | throughput-oriented | 19.371 | 4.9 | 74.6 | 4.30 | 4.50 | Keep as active challenger |
+| KITTI default | balanced | 12.044 | 1.3 | 70.7 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 19.121 | 3.0 | 81.5 | 4.30 | 4.50 | Adopt as current default |
 
 ### Observations
 
-1. `kitti_default` is the current default for this problem.
-2. `fast` is the fastest observed variant at 4.9 FPS.
-3. `kitti_default` is the most accurate observed variant at 9.521 m ATE.
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 3.0 FPS.
+3. `kitti_default` is the most accurate observed variant at 12.044 m ATE.
 
 ### Variant Notes
 
@@ -842,14 +847,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 50.790 | 2.5 | 77.8 | 4.65 | 4.75 | Keep as active challenger |
-| Fast | throughput-oriented | 74.966 | 4.5 | 83.9 | 4.30 | 4.50 | Adopt as current default |
+| KITTI default | balanced | 50.114 | 1.3 | 69.9 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 70.870 | 3.2 | 85.4 | 4.30 | 4.50 | Adopt as current default |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 4.5 FPS.
-3. `kitti_default` is the most accurate observed variant at 50.790 m ATE.
+2. `fast` is the fastest observed variant at 3.2 FPS.
+3. `kitti_default` is the most accurate observed variant at 50.114 m ATE.
 
 ### Variant Notes
 
@@ -890,14 +895,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 5.193 | 2.3 | 77.8 | 4.65 | 4.75 | Keep as active challenger |
-| Fast | throughput-oriented | 7.789 | 4.1 | 83.3 | 4.30 | 4.50 | Adopt as current default |
+| KITTI default | balanced | 4.840 | 1.2 | 69.5 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 7.796 | 3.0 | 81.0 | 4.30 | 4.50 | Adopt as current default |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 4.1 FPS.
-3. `kitti_default` is the most accurate observed variant at 5.193 m ATE.
+2. `fast` is the fastest observed variant at 3.0 FPS.
+3. `kitti_default` is the most accurate observed variant at 4.840 m ATE.
 
 ### Variant Notes
 
@@ -938,15 +943,15 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 2.505 | 3.3 | 72.4 | 4.65 | 4.75 | Keep as reference variant |
-| Fast | throughput-oriented | 4.031 | 7.3 | 81.1 | 4.30 | 4.50 | Adopt as current default |
-| Dense | accuracy-oriented | 4.872 | 3.2 | 47.8 | 4.30 | 4.50 | Keep as reference variant |
+| KITTI default | balanced | 2.544 | 0.6 | 68.3 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 4.030 | 1.7 | 81.6 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 4.769 | 0.8 | 50.1 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 7.3 FPS.
-3. `kitti_default` is the most accurate observed variant at 2.505 m ATE.
+2. `fast` is the fastest observed variant at 1.7 FPS.
+3. `kitti_default` is the most accurate observed variant at 2.544 m ATE.
 
 ### Variant Notes
 
@@ -998,14 +1003,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 18.661 | 2.3 | 77.5 | 4.65 | 4.75 | Keep as reference variant |
-| Fast | throughput-oriented | 23.358 | 4.2 | 90.0 | 4.30 | 4.50 | Adopt as current default |
+| KITTI default | balanced | 18.110 | 1.2 | 70.4 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 26.170 | 2.9 | 84.6 | 4.30 | 4.50 | Adopt as current default |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 4.2 FPS.
-3. `kitti_default` is the most accurate observed variant at 18.661 m ATE.
+2. `fast` is the fastest observed variant at 2.9 FPS.
+3. `kitti_default` is the most accurate observed variant at 18.110 m ATE.
 
 ### Variant Notes
 
@@ -2856,6 +2861,258 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
 
 
+## CT-ICP seq 00 full: constant-velocity regularization (small weight)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_velocity_reg`
+- **Question**: Velocity reg at 0.05 helped short/medium seqs but diverged on long ones. On the long seq 00 (4542 frames, prior best 2.059%), does a much smaller velocity weight (0.005-0.01, just above the 0.001 default) lower RPE without the divergence that 0.1 caused?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense + c2f cluster-A (existing best, RPE 2.059%) | reference | 14.099 | 8.7 | 99.8 | 1.00 | 1.60 | Adopt as current default |
+| + constant-velocity-weight 0.005 (worse — landscape is non-monotonic) | regularization | 14.346 | 8.2 | 96.2 | 1.00 | 1.20 | Keep as active challenger |
+| + constant-velocity-weight 0.01 (winner, RPE 1.972%) | regularization | 15.026 | 8.7 | 96.9 | 1.00 | 1.20 | Keep as active challenger |
+
+### Observations
+
+1. `c2f_reference` is the current default for this problem.
+2. `velocity_reg_001` is the fastest observed variant at 8.7 FPS.
+3. `c2f_reference` is the most accurate observed variant at 14.099 m ATE.
+
+### Variant Notes
+
+#### `c2f_reference`
+
+- Intent: Confirm the prior seq 00 leaderboard-best recipe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/c2f_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/c2f_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/c2f_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `velocity_reg_0005`
+
+- Intent: Documents that 0.005 regresses RPE here; the velocity-RPE landscape is bumpy.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-constant-velocity-weight 0.005`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/velocity_reg_0005/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-constant-velocity-weight 0.005`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/velocity_reg_0005/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/velocity_reg_0005/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `velocity_reg_001`
+
+- Intent: Small velocity smoothing lowers RPE on this long seq (-4.2%) with only +9% ATE.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-constant-velocity-weight 0.01`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/velocity_reg_001/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-constant-velocity-weight 0.01`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/velocity_reg_001/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/velocity_reg_001/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
+
+- **Problem ID**: `ct_icp_kitti_seq_02_full_small_map`
+- **Question**: seq 02 catastrophically rejects map=50 (+109%). Does it prefer SMALLER maps?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| baseline map=20 (existing winner) | reference | 68.972 | 3.4 | 79.4 | 3.45 | 3.95 | Keep as active challenger |
+| baseline map=15 | smaller | 76.464 | 4.4 | 83.7 | 3.45 | 3.95 | Adopt as current default |
+| baseline map=10 | smaller | 93.790 | 5.2 | 81.8 | 3.45 | 3.95 | Keep as active challenger |
+| baseline map=5 | extreme small | 113.336 | 5.7 | 80.4 | 3.45 | 3.95 | Keep as active challenger |
+
+### Observations
+
+1. `map_15` is the current default for this problem.
+2. `map_5` is the fastest observed variant at 5.7 FPS.
+3. `map_20_reference` is the most accurate observed variant at 68.972 m ATE.
+
+### Variant Notes
+
+#### `map_20_reference`
+
+- Intent: Confirm 56.54 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_15`
+
+- Intent: Test if seq 02 wants tighter recency window.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_10`
+
+- Intent: Half the existing winner — probe seq 02 small-map regime.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_5`
+
+- Intent: Extreme — likely too tight, but bounds the trend.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
+
+- **Problem ID**: `ct_icp_kitti_seq_02_full_small_map`
+- **Question**: seq 02 catastrophically rejects map=50 (+109%). Does it prefer SMALLER maps?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| baseline map=20 (existing winner) | reference | 68.972 | 3.4 | 79.4 | 3.45 | 3.95 | Keep as active challenger |
+| baseline map=15 | smaller | 76.464 | 4.4 | 83.7 | 3.45 | 3.95 | Adopt as current default |
+| baseline map=10 | smaller | 93.790 | 5.2 | 81.8 | 3.45 | 3.95 | Keep as active challenger |
+| baseline map=5 | extreme small | 113.336 | 5.7 | 80.4 | 3.45 | 3.95 | Keep as active challenger |
+
+### Observations
+
+1. `map_15` is the current default for this problem.
+2. `map_5` is the fastest observed variant at 5.7 FPS.
+3. `map_20_reference` is the most accurate observed variant at 68.972 m ATE.
+
+### Variant Notes
+
+#### `map_20_reference`
+
+- Intent: Confirm 56.54 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_15`
+
+- Intent: Test if seq 02 wants tighter recency window.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_10`
+
+- Intent: Half the existing winner — probe seq 02 small-map regime.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_5`
+
+- Intent: Extreme — likely too tight, but bounds the trend.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 05 full: constant-velocity regularization sweep
+
+- **Problem ID**: `ct_icp_kitti_seq_05_velocity_reg`
+- **Question**: The velocity-only regularizer helped the short seq 07 (1.256 -> 1.168%). Does the same lever transfer to the medium-length seq 05 (2761 frames, prior best 1.122%), or is it short-trajectory only?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense + ceres8 + map50 (existing best, RPE 1.122%) | reference | 11.158 | 4.7 | 96.3 | 3.45 | 3.95 | Keep as active challenger |
+| + constant-velocity-weight 0.05 (winner) | regularization | 11.949 | 5.1 | 96.7 | 2.85 | 3.55 | Adopt as current default |
+
+### Observations
+
+1. `velocity_reg_005` is the current default for this problem.
+2. `velocity_reg_005` is the fastest observed variant at 5.1 FPS.
+3. `dense_map50_reference` is the most accurate observed variant at 11.158 m ATE.
+
+### Variant Notes
+
+#### `dense_map50_reference`
+
+- Intent: Confirm the prior seq 05 leaderboard-best recipe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/dense_map50_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/dense_map50_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/dense_map50_reference/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `velocity_reg_005`
+
+- Intent: Velocity-only smoothing at 0.05; tests transfer from seq 07.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50 --ct-icp-constant-velocity-weight 0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/velocity_reg_005/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50 --ct-icp-constant-velocity-weight 0.05`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/velocity_reg_005/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/velocity_reg_005/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D)
 
 - **Problem ID**: `ct_icp_kitti_seq_07_full_seeded`
@@ -2928,6 +3185,66 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
 
 
+## CT-ICP seq 07 full: constant-velocity regularization sweep
+
+- **Problem ID**: `ct_icp_kitti_seq_07_velocity_reg`
+- **Question**: All exposed flags plateau at RPE 1.256% (ms_chol+flat). The continuous-time constant-velocity regularizer weight was hardcoded at 0.001 and never swept. Does raising it (velocity-only, leaving location/orientation at default) reduce frame-to-frame jitter / drift on this short sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| ms_chol + flat-regularizer (existing best, RPE 1.256%) | reference | 2.715 | 5.1 | 88.3 | 2.40 | 3.20 | Keep as reference variant |
+| + constant-velocity-weight 0.05 (winner) | regularization | 3.161 | 5.4 | 84.3 | 1.80 | 2.80 | Keep as reference variant |
+| + constant-velocity-weight 0.1 | regularization | 2.490 | 6.0 | 100.0 | 1.80 | 2.80 | Adopt as current default |
+
+### Observations
+
+1. `velocity_reg_01` is the current default for this problem.
+2. `velocity_reg_01` is the fastest observed variant at 6.0 FPS.
+3. `velocity_reg_01` is the most accurate observed variant at 2.490 m ATE.
+
+### Variant Notes
+
+#### `ms_chol_flat_reference`
+
+- Intent: Confirm the prior seq 07 leaderboard-best recipe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/ms_chol_flat_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/ms_chol_flat_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/ms_chol_flat_reference/run.log`
+- Readability proxy: 2.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `velocity_reg_005`
+
+- Intent: Velocity-only smoothing at 0.05 (50x the 0.001 default), location/orientation left at default.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/velocity_reg_005/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.05`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/velocity_reg_005/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/velocity_reg_005/run.log`
+- Readability proxy: 1.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `velocity_reg_01`
+
+- Intent: Velocity-only smoothing at 0.1 to bracket the optimum.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/velocity_reg_01/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.1`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/velocity_reg_01/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_velocity_reg_matrix/velocity_reg_01/run.log`
+- Readability proxy: 1.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full
 
 - **Problem ID**: `ct_icp_kitti_seq_08_full_seeded`
@@ -2974,6 +3291,66 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
+## CT-ICP seq 08 full: constant-velocity regularization (small weight)
+
+- **Problem ID**: `ct_icp_kitti_seq_08_velocity_reg`
+- **Question**: Small velocity weights helped the long seq 00 (0.01). Does the same lever transfer to the other long sequence, seq 08 (4071 frames, prior best 1.945%)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense + corr-dist 4.0 + kp 0.5 (existing best, RPE 1.945%) | reference | 38.901 | 8.0 | 92.7 | 2.25 | 3.15 | Keep as active challenger |
+| + constant-velocity-weight 0.01 (RPE 1.935%) | regularization | 40.362 | 9.3 | 97.7 | 1.65 | 2.75 | Adopt as current default |
+| + constant-velocity-weight 0.015 (winner, RPE 1.905%) | regularization | 98.563 | 9.4 | 69.7 | 1.65 | 2.75 | Keep as reference variant |
+
+### Observations
+
+1. `velocity_reg_001` is the current default for this problem.
+2. `velocity_reg_0015` is the fastest observed variant at 9.4 FPS.
+3. `corr_dist_reference` is the most accurate observed variant at 38.901 m ATE.
+
+### Variant Notes
+
+#### `corr_dist_reference`
+
+- Intent: Confirm the prior seq 08 leaderboard-best recipe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/corr_dist_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/corr_dist_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/corr_dist_reference/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `velocity_reg_001`
+
+- Intent: Small velocity smoothing; brackets the optimum below 0.015.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5 --ct-icp-constant-velocity-weight 0.01`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/velocity_reg_001/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5 --ct-icp-constant-velocity-weight 0.01`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/velocity_reg_001/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/velocity_reg_001/run.log`
+- Readability proxy: 1.65 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.75 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `velocity_reg_0015`
+
+- Intent: Best seq 08 operating point: RPE -2.0% and ATE -24% (both improve).
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5 --ct-icp-constant-velocity-weight 0.015`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/velocity_reg_0015/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5 --ct-icp-constant-velocity-weight 0.015`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/velocity_reg_0015/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_velocity_reg_matrix/velocity_reg_0015/run.log`
+- Readability proxy: 1.65 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.75 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
 ## CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
@@ -6744,14 +7121,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 15.795 | 12.3 | 77.1 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 8.556 | 3.4 | 63.7 | 4.30 | 4.50 | Keep as reference variant |
+| KITTI default | balanced | 19.164 | 6.5 | 75.7 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 9.834 | 1.6 | 62.1 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
 1. `kitti_default` is the current default for this problem.
-2. `kitti_default` is the fastest observed variant at 12.3 FPS.
-3. `dense` is the most accurate observed variant at 8.556 m ATE.
+2. `kitti_default` is the fastest observed variant at 6.5 FPS.
+3. `dense` is the most accurate observed variant at 9.834 m ATE.
 
 ### Variant Notes
 
@@ -6792,14 +7169,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 76.320 | 12.2 | 85.3 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 53.822 | 3.3 | 63.6 | 4.30 | 4.50 | Keep as reference variant |
+| KITTI default | balanced | 77.796 | 5.9 | 83.5 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 52.068 | 1.6 | 63.2 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
 1. `kitti_default` is the current default for this problem.
-2. `kitti_default` is the fastest observed variant at 12.2 FPS.
-3. `dense` is the most accurate observed variant at 53.822 m ATE.
+2. `kitti_default` is the fastest observed variant at 5.9 FPS.
+3. `dense` is the most accurate observed variant at 52.068 m ATE.
 
 ### Variant Notes
 
@@ -6840,14 +7217,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 6.959 | 12.2 | 93.4 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 6.039 | 3.5 | 64.3 | 4.30 | 4.50 | Keep as reference variant |
+| KITTI default | balanced | 6.780 | 2.0 | 94.5 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 6.035 | 0.6 | 66.1 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
 1. `kitti_default` is the current default for this problem.
-2. `kitti_default` is the fastest observed variant at 12.2 FPS.
-3. `dense` is the most accurate observed variant at 6.039 m ATE.
+2. `kitti_default` is the fastest observed variant at 2.0 FPS.
+3. `dense` is the most accurate observed variant at 6.035 m ATE.
 
 ### Variant Notes
 
@@ -6888,15 +7265,15 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 3.245 | 13.2 | 71.1 | 4.65 | 4.75 | Keep as reference variant |
-| Fast | throughput-oriented | 5.026 | 29.8 | 81.6 | 4.30 | 4.50 | Adopt as current default |
-| Dense | accuracy-oriented | 3.174 | 3.7 | 56.3 | 4.30 | 4.50 | Keep as reference variant |
+| KITTI default | balanced | 3.245 | 3.8 | 67.6 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 5.026 | 8.7 | 79.6 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 2.972 | 1.0 | 55.6 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 29.8 FPS.
-3. `dense` is the most accurate observed variant at 3.174 m ATE.
+2. `fast` is the fastest observed variant at 8.7 FPS.
+3. `dense` is the most accurate observed variant at 2.972 m ATE.
 
 ### Variant Notes
 
@@ -6948,14 +7325,14 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 16.661 | 12.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 17.318 | 3.2 | 60.7 | 4.30 | 4.50 | Keep as reference variant |
+| KITTI default | balanced | 16.516 | 6.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 20.440 | 1.4 | 52.0 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
 1. `kitti_default` is the current default for this problem.
-2. `kitti_default` is the fastest observed variant at 12.8 FPS.
-3. `kitti_default` is the most accurate observed variant at 16.661 m ATE.
+2. `kitti_default` is the fastest observed variant at 6.0 FPS.
+3. `kitti_default` is the most accurate observed variant at 16.516 m ATE.
 
 ### Variant Notes
 
@@ -10148,16 +10525,16 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| balanced (default) | reference | 15.449 | 18.1 | 68.3 | 5.00 | 5.00 | Keep as reference variant |
-| fast profile | throughput | 20.927 | 30.6 | 78.6 | 4.65 | 4.75 | Adopt as current default |
-| dense profile | accuracy | 11.976 | 12.7 | 70.7 | 4.65 | 4.75 | Keep as reference variant |
-| T1 transfer (voxel=0.5 + iter=12) | transfer | 13.946 | 11.4 | 61.6 | 3.80 | 4.20 | Keep as reference variant |
+| balanced (default) | reference | 15.403 | 1.4 | 83.2 | 5.00 | 5.00 | Keep as active challenger |
+| fast profile | throughput | 21.386 | 1.7 | 78.8 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile | accuracy | 12.323 | 1.2 | 87.8 | 4.65 | 4.75 | Adopt as current default |
+| T1 transfer (voxel=0.5 + iter=12) | transfer | 14.007 | 0.7 | 64.8 | 3.80 | 4.20 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_profile` is the current default for this problem.
-2. `fast_profile` is the fastest observed variant at 30.6 FPS.
-3. `dense_profile` is the most accurate observed variant at 11.976 m ATE.
+1. `dense_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 1.7 FPS.
+3. `dense_profile` is the most accurate observed variant at 12.323 m ATE.
 
 ### Variant Notes
 
@@ -10170,7 +10547,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/balanced_reference/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.949886/2.54942/3.96163; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.42937; algorithm_fps=1.5808.
 
 #### `fast_profile`
 
@@ -10181,7 +10558,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/fast_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.948994/2.54197/3.99846; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.65334; algorithm_fps=1.8211.
 
 #### `dense_profile`
 
@@ -10192,7 +10569,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/dense_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.937402/2.5542/3.94239; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.2486; algorithm_fps=1.34245.
 
 #### `t1_transfer_v05_i12`
 
@@ -10203,7 +10580,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.949632/2.56885/3.9727; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=0.687848; algorithm_fps=0.718315.
 
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames)
@@ -10220,16 +10597,16 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| balanced | reference | 51.326 | 15.5 | 61.9 | 5.00 | 5.00 | Keep as reference variant |
-| fast | throughput | 86.812 | 32.7 | 72.6 | 4.65 | 4.75 | Adopt as current default |
-| dense | accuracy | 39.231 | 10.9 | 66.6 | 4.65 | 4.75 | Keep as active challenger |
-| T1 v0.5+i12 | transfer | 44.114 | 11.1 | 61.4 | 3.80 | 4.20 | Keep as reference variant |
+| balanced | reference | 71.183 | 3.1 | 85.0 | 5.00 | 5.00 | Adopt as current default |
+| fast | throughput | 94.593 | 3.4 | 79.7 | 4.65 | 4.75 | Keep as active challenger |
+| dense | accuracy | 56.234 | 0.8 | 62.4 | 4.65 | 4.75 | Keep as reference variant |
+| T1 v0.5+i12 | transfer | 69.881 | 0.4 | 46.9 | 3.80 | 4.20 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_profile` is the current default for this problem.
-2. `fast_profile` is the fastest observed variant at 32.7 FPS.
-3. `dense_profile` is the most accurate observed variant at 39.231 m ATE.
+1. `balanced_reference` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 3.4 FPS.
+3. `dense_profile` is the most accurate observed variant at 56.234 m ATE.
 
 ### Variant Notes
 
@@ -10242,7 +10619,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/balanced_reference/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=1.5/3.31097/4.76161; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=3.05678; algorithm_fps=3.36673.
 
 #### `fast_profile`
 
@@ -10253,7 +10630,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/fast_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=1.75/3.337/4.80857; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=3.35533; algorithm_fps=3.71426.
 
 #### `dense_profile`
 
@@ -10264,7 +10641,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/dense_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=1.25/3.32154/4.81203; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=0.834271; algorithm_fps=0.876945.
 
 #### `t1_transfer_v05_i12`
 
@@ -10275,7 +10652,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=1.5/3.33141/4.90733; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=0.444647; algorithm_fps=0.4579.
 
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames)
@@ -10292,16 +10669,16 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| balanced | reference | 5.893 | 17.0 | 71.6 | 5.00 | 5.00 | Keep as active challenger |
-| fast | throughput | 9.420 | 23.5 | 72.1 | 4.65 | 4.75 | Adopt as current default |
-| dense | accuracy | 4.160 | 8.5 | 68.2 | 4.65 | 4.75 | Keep as active challenger |
-| T1 v0.5+i12 | transfer | 7.366 | 9.3 | 48.0 | 3.80 | 4.20 | Keep as reference variant |
+| balanced | reference | 6.511 | 1.5 | 72.2 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 8.407 | 2.1 | 77.1 | 4.65 | 4.75 | Keep as reference variant |
+| dense | accuracy | 4.556 | 1.6 | 89.9 | 4.65 | 4.75 | Adopt as current default |
+| T1 v0.5+i12 | transfer | 8.309 | 1.0 | 52.0 | 3.80 | 4.20 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_profile` is the current default for this problem.
-2. `fast_profile` is the fastest observed variant at 23.5 FPS.
-3. `dense_profile` is the most accurate observed variant at 4.160 m ATE.
+1. `dense_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 2.1 FPS.
+3. `dense_profile` is the most accurate observed variant at 4.556 m ATE.
 
 ### Variant Notes
 
@@ -10314,7 +10691,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/balanced_reference/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.15/2.4404/3.50144; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.53156; algorithm_fps=1.71226.
 
 #### `fast_profile`
 
@@ -10325,7 +10702,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/fast_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.175/2.44161/3.51528; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=2.05893; algorithm_fps=2.30487.
 
 #### `dense_profile`
 
@@ -10336,7 +10713,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/dense_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.125/2.44478/3.47999; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.64361; algorithm_fps=1.79029.
 
 #### `t1_transfer_v05_i12`
 
@@ -10347,7 +10724,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.15/2.45413/3.51811; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.01093; algorithm_fps=1.05818.
 
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames)
@@ -10364,17 +10741,17 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| balanced (default) | reference | 1.799 | 20.8 | 67.9 | 5.00 | 5.00 | Keep as reference variant |
-| fast profile | throughput | 2.525 | 35.6 | 77.5 | 4.65 | 4.75 | Adopt as current default |
-| dense profile | accuracy | 1.800 | 14.2 | 58.6 | 4.65 | 4.75 | Keep as reference variant |
-| T1 transfer (voxel=0.5 + iter=12) | transfer | 1.391 | 13.0 | 68.2 | 3.80 | 4.20 | Keep as reference variant |
-| T1 transfer (voxel=0.3 + iter=12) | transfer | 1.450 | 12.8 | 65.9 | 3.80 | 4.20 | Keep as reference variant |
+| balanced (default) | reference | 2.238 | 3.4 | 99.9 | 5.00 | 5.00 | Adopt as current default |
+| fast profile | throughput | 2.613 | 3.4 | 92.8 | 4.65 | 4.75 | Keep as active challenger |
+| dense profile | accuracy | 2.641 | 2.6 | 81.1 | 4.65 | 4.75 | Keep as reference variant |
+| T1 transfer (voxel=0.5 + iter=12) | transfer | 2.538 | 1.8 | 70.2 | 3.80 | 4.20 | Keep as reference variant |
+| T1 transfer (voxel=0.3 + iter=12) | transfer | 2.681 | 1.5 | 63.2 | 3.80 | 4.20 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_profile` is the current default for this problem.
-2. `fast_profile` is the fastest observed variant at 35.6 FPS.
-3. `t1_transfer_v05_i12` is the most accurate observed variant at 1.391 m ATE.
+1. `balanced_reference` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 3.4 FPS.
+3. `balanced_reference` is the most accurate observed variant at 2.238 m ATE.
 
 ### Variant Notes
 
@@ -10387,7 +10764,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/balanced_reference/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.15/1.95752/3.26766; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=3.3796; algorithm_fps=3.77529.
 
 #### `fast_profile`
 
@@ -10398,7 +10775,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/fast_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.175/1.96603/3.34408; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=3.38464; algorithm_fps=3.77591.
 
 #### `dense_profile`
 
@@ -10409,7 +10786,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/dense_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.125/1.96475/3.27512; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=2.62062; algorithm_fps=2.87943.
 
 #### `t1_transfer_v05_i12`
 
@@ -10420,7 +10797,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.15/1.97163/3.29142; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.76657; algorithm_fps=1.85896.
 
 #### `t1_transfer_v03_i12`
 
@@ -10431,7 +10808,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.15/1.97833/3.28958; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.45038; algorithm_fps=1.48434.
 
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames)
@@ -10448,16 +10825,16 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| balanced | reference | 22.157 | 16.4 | 70.4 | 5.00 | 5.00 | Keep as reference variant |
-| fast | throughput | 19.592 | 30.8 | 99.5 | 4.65 | 4.75 | Adopt as current default |
-| dense | accuracy | 19.409 | 9.6 | 65.6 | 4.65 | 4.75 | Keep as reference variant |
-| T1 v0.5+i12 | transfer | 23.591 | 9.2 | 56.1 | 3.80 | 4.20 | Keep as reference variant |
+| balanced | reference | 20.785 | 2.5 | 91.7 | 5.00 | 5.00 | Keep as active challenger |
+| fast | throughput | 18.085 | 2.2 | 92.3 | 4.65 | 4.75 | Adopt as current default |
+| dense | accuracy | 17.322 | 0.9 | 68.5 | 4.65 | 4.75 | Keep as reference variant |
+| T1 v0.5+i12 | transfer | 20.533 | 0.6 | 54.9 | 3.80 | 4.20 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_profile` is the current default for this problem.
-2. `fast_profile` is the fastest observed variant at 30.8 FPS.
-3. `dense_profile` is the most accurate observed variant at 19.409 m ATE.
+2. `balanced_reference` is the fastest observed variant at 2.5 FPS.
+3. `dense_profile` is the most accurate observed variant at 17.322 m ATE.
 
 ### Variant Notes
 
@@ -10470,7 +10847,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/balanced_reference/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.584764/2.42782/3.67739; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=2.51278; algorithm_fps=2.75882.
 
 #### `fast_profile`
 
@@ -10481,7 +10858,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/fast_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.571474/2.42592/3.76342; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=2.23016; algorithm_fps=2.45051.
 
 #### `dense_profile`
 
@@ -10492,7 +10869,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/dense_profile/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.581693/2.43582/3.70097; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=0.927694; algorithm_fps=0.998557.
 
 #### `t1_transfer_v05_i12`
 
@@ -10503,7 +10880,7 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: No extra method note.
+- Method note: Adaptive sigma min/mean/max=0.573177/2.44208/3.69437; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=0.637534; algorithm_fps=0.66509.
 
 
 ## KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
@@ -11240,13 +11617,13 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 12.378 | 3.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| KITTI default | balanced | 12.833 | 1.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `kitti_default` is the current default for this problem.
-2. `kitti_default` is the fastest observed variant at 3.4 FPS.
-3. `kitti_default` is the most accurate observed variant at 12.378 m ATE.
+2. `kitti_default` is the fastest observed variant at 1.4 FPS.
+3. `kitti_default` is the most accurate observed variant at 12.833 m ATE.
 
 ### Variant Notes
 
@@ -11276,13 +11653,13 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 42.209 | 3.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| KITTI default | balanced | 41.756 | 1.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `kitti_default` is the current default for this problem.
-2. `kitti_default` is the fastest observed variant at 3.8 FPS.
-3. `kitti_default` is the most accurate observed variant at 42.209 m ATE.
+2. `kitti_default` is the fastest observed variant at 1.0 FPS.
+3. `kitti_default` is the most accurate observed variant at 41.756 m ATE.
 
 ### Variant Notes
 
@@ -11312,13 +11689,13 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 5.218 | 3.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| KITTI default | balanced | 6.449 | 0.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `kitti_default` is the current default for this problem.
-2. `kitti_default` is the fastest observed variant at 3.7 FPS.
-3. `kitti_default` is the most accurate observed variant at 5.218 m ATE.
+2. `kitti_default` is the fastest observed variant at 0.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 6.449 m ATE.
 
 ### Variant Notes
 
@@ -11348,15 +11725,15 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 2.558 | 3.9 | 69.4 | 4.65 | 4.75 | Keep as reference variant |
-| Fast | throughput-oriented | 4.385 | 10.0 | 79.2 | 4.30 | 4.50 | Adopt as current default |
-| Dense | accuracy-oriented | 3.945 | 3.7 | 50.8 | 4.30 | 4.50 | Keep as reference variant |
+| KITTI default | balanced | 2.590 | 1.0 | 66.7 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 4.196 | 2.8 | 80.9 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 3.940 | 1.0 | 50.5 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 10.0 FPS.
-3. `kitti_default` is the most accurate observed variant at 2.558 m ATE.
+2. `fast` is the fastest observed variant at 2.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 2.590 m ATE.
 
 ### Variant Notes
 
@@ -11408,13 +11785,13 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 19.121 | 3.2 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| KITTI default | balanced | 17.896 | 0.9 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `kitti_default` is the current default for this problem.
-2. `kitti_default` is the fastest observed variant at 3.2 FPS.
-3. `kitti_default` is the most accurate observed variant at 19.121 m ATE.
+2. `kitti_default` is the fastest observed variant at 0.9 FPS.
+3. `kitti_default` is the most accurate observed variant at 17.896 m ATE.
 
 ### Variant Notes
 
@@ -18669,78 +19046,6 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/c2f_only_full/run.log`
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-
-## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
-
-- **Problem ID**: `ct_icp_kitti_seq_02_full_small_map`
-- **Question**: seq 02 catastrophically rejects map=50 (+109%). Does it prefer SMALLER maps?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
-- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `ct_icp`
-- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| baseline map=20 (existing winner) | reference | 56.537 | 14.2 | 79.8 | 3.45 | 3.95 | Keep as active challenger |
-| baseline map=15 | smaller | 66.558 | 19.1 | 82.6 | 3.45 | 3.95 | Adopt as current default |
-| baseline map=10 | smaller | 74.455 | 20.7 | 81.4 | 3.45 | 3.95 | Keep as active challenger |
-| baseline map=5 | extreme small | 121.786 | 23.8 | 73.2 | 3.45 | 3.95 | Keep as reference variant |
-
-### Observations
-
-1. `map_15` is the current default for this problem.
-2. `map_5` is the fastest observed variant at 23.8 FPS.
-3. `map_20_reference` is the most accurate observed variant at 56.537 m ATE.
-
-### Variant Notes
-
-#### `map_20_reference`
-
-- Intent: Confirm 56.54 m.
-- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/run.log`
-- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
-- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `map_15`
-
-- Intent: Test if seq 02 wants tighter recency window.
-- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/run.log`
-- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
-- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `map_10`
-
-- Intent: Half the existing winner — probe seq 02 small-map regime.
-- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/run.log`
-- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
-- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `map_5`
-
-- Intent: Extreme — likely too tight, but bounds the trend.
-- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/run.log`
-- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
-- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 

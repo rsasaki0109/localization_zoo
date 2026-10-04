@@ -212,6 +212,7 @@ def tune(entries: list[dict], output: pathlib.Path) -> dict:
     policy.write_text(json.dumps({"schema":"imu_fall_candidate_policy_v1",
                                   "minimum_posture_change_deg":POSTURE_THRESHOLD_DEG,
                                   "pre_window_s":list(PRE_WINDOW_S),"post_window_s":list(POST_WINDOW_S),
+                                  "early_confirmation":EARLY_CONFIRMATION,
                                   "event_type":"impact"}, indent=2)+"\n", encoding="utf-8")
     return {"schema": "imu_public_profile_tuning_v1", "training_split": "CGU-BES Subject01-09",
             "objective": {"minimum_sensitivity": .95, "maximum_false_positive_rate": .02},
@@ -227,6 +228,11 @@ def tune(entries: list[dict], output: pathlib.Path) -> dict:
 PRE_WINDOW_S = (2.0, 1.0)
 POST_WINDOW_S = (0.5, 1.5)
 POSTURE_THRESHOLD_DEG = 50.0
+# Early confirmation: slide a short window from t + start; confirm as soon as it
+# shows the posture change AND every sample's gravity direction stays within
+# max_spread_deg of the window mean (the body has settled). Chosen on CGU
+# train+validation with train/val jumps kept >= 5 degrees below the threshold.
+EARLY_CONFIRMATION = {"start_s": 0.25, "length_s": 0.25, "step_s": 0.05, "max_spread_deg": 10.0}
 
 
 def _mean_direction(samples, start, end):
@@ -236,6 +242,17 @@ def _mean_direction(samples, start, end):
     mean = [sum(v[i] for v in window) / len(window) for i in range(3)]
     norm = math.sqrt(sum(x * x for x in mean))
     return [x / norm for x in mean] if norm > 0 else None
+
+
+def _max_spread(samples, start, end, mean):
+    worst = 0.0
+    for t, v in samples:
+        if start <= t <= end:
+            norm = math.sqrt(sum(x * x for x in v))
+            if norm > 0:
+                cosine = max(-1.0, min(1.0, sum(a * b / norm for a, b in zip(v, mean))))
+                worst = max(worst, math.degrees(math.acos(cosine)))
+    return worst
 
 
 def causal_confirmation(csv_path: pathlib.Path, impacts: list[float], policy: dict) -> float | None:
@@ -248,10 +265,21 @@ def causal_confirmation(csv_path: pathlib.Path, impacts: list[float], policy: di
         samples = [(float(r["timestamp"]), (float(r["ax"]), float(r["ay"]), float(r["az"])))
                    for r in csv.DictReader(stream)]
     end_time = samples[-1][0] if samples else 0.0
+    early = policy.get("early_confirmation")
     for t in impacts:
+        before = _mean_direction(samples, t - pre[0], t - pre[1])
+        if early and before:
+            start = t + early["start_s"]
+            while start + early["length_s"] <= min(t + post[1], end_time) + 1e-9:
+                window = _mean_direction(samples, start, start + early["length_s"])
+                if window:
+                    cosine = max(-1.0, min(1.0, sum(a * b for a, b in zip(before, window))))
+                    if (math.degrees(math.acos(cosine)) >= threshold and
+                            _max_spread(samples, start, start + early["length_s"], window) <= early["max_spread_deg"]):
+                        return start + early["length_s"]
+                start += early["step_s"]
         if t + post[1] > end_time:
             continue
-        before = _mean_direction(samples, t - pre[0], t - pre[1])
         after = _mean_direction(samples, t + post[0], t + post[1])
         if before and after:
             cosine = max(-1.0, min(1.0, sum(a * b for a, b in zip(before, after))))

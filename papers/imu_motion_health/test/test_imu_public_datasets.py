@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import importlib.util, json, pathlib, tempfile, unittest
+import importlib.util, json, math, pathlib, tempfile, unittest
 
 ROOT = pathlib.Path(__file__).parents[1]
 spec = importlib.util.spec_from_file_location("public_benchmark", ROOT / "evaluation" / "public_dataset_benchmark.py")
@@ -83,7 +83,7 @@ class PublicDatasetTest(unittest.TestCase):
     def test_expected_metrics_match_documented_result(self):
         cgu = json.loads(checker.EXPECTED.read_text())["groups"]["cgu_bes"]
         self.assertEqual(f"{cgu['fall_sensitivity']:.1%}", "96.7%")
-        self.assertEqual(f"{cgu['median_latency_s']:.2f}", "3.28")
+        self.assertEqual(f"{cgu['median_latency_s']:.2f}", "2.95")
         self.assertEqual(f"{cgu['adl_false_positive_rate']:.1%}", "0.0%")
         doc = (ROOT / "evaluation" / "public_datasets.md").read_text()
         self.assertIn("96.7% CGU", doc)
@@ -91,6 +91,29 @@ class PublicDatasetTest(unittest.TestCase):
         policy = json.loads((ROOT / "config" / "wearable-public-v1-policy.json").read_text())
         self.assertEqual((policy["pre_window_s"], policy["post_window_s"], policy["minimum_posture_change_deg"]),
                          ([2.0, 1.0], [0.5, 1.5], 50.0))
+        self.assertEqual(policy["early_confirmation"]["max_spread_deg"], 10.0)
+
+    def test_early_confirmation_needs_a_settled_window(self):
+        policy = {"minimum_posture_change_deg": 50.0, "pre_window_s": [2.0, 1.0], "post_window_s": [0.5, 1.5],
+                  "early_confirmation": {"start_s": 0.25, "length_s": 0.25, "step_s": 0.05, "max_spread_deg": 10.0}}
+        def write(path, wobble):
+            rows = ["timestamp,gx,gy,gz,ax,ay,az"]
+            for i in range(1000):  # 5 s at 200 Hz: upright, impact at 3.0 s, lying from 3.05 s
+                t = i / 200.0
+                if t < 3.05:
+                    accel = (0.0, 0.0, 9.8)
+                else:  # lying; optionally swinging +-40 degrees until 4.0 s
+                    tilt = math.radians(40.0) * math.sin(40.0 * t) if (wobble and t < 4.0) else 0.0
+                    accel = (9.8 * math.cos(tilt), 0.0, 9.8 * math.sin(tilt))
+                rows.append(f"{t:.3f},0,0,0,{accel[0]},{accel[1]},{accel[2]}")
+            path.write_text("\n".join(rows))
+        with tempfile.TemporaryDirectory() as directory:
+            settled = pathlib.Path(directory) / "settled.csv"; write(settled, False)
+            self.assertAlmostEqual(tool.causal_confirmation(settled, [3.0], policy), 3.5)
+            moving = pathlib.Path(directory) / "moving.csv"; write(moving, True)
+            confirmed = tool.causal_confirmation(moving, [3.0], policy)
+            self.assertIsNotNone(confirmed)
+            self.assertGreater(confirmed, 3.9)  # waits until the body settles
 
     def test_posture_confirmation_is_causal(self):
         policy = {"minimum_posture_change_deg": 30.0, "pre_window_s": [1.5, 0.5], "post_window_s": [0.25, 0.75]}

@@ -211,10 +211,50 @@ def tune(entries: list[dict], output: pathlib.Path) -> dict:
     policy = output / "wearable-public-v1-policy.json"
     policy.write_text(json.dumps({"schema":"imu_fall_candidate_policy_v1",
                                   "minimum_posture_change_deg":best["minimum_posture_change_deg"],
+                                  "pre_window_s":list(PRE_WINDOW_S),"post_window_s":list(POST_WINDOW_S),
                                   "event_type":"impact"}, indent=2)+"\n", encoding="utf-8")
     return {"schema": "imu_public_profile_tuning_v1", "training_split": "CGU-BES Subject01-09",
             "objective": {"minimum_sensitivity": .95, "maximum_false_positive_rate": .02},
             "selected": best, "all_candidates": scored, "profile": str(profile)}
+
+
+# Causal posture confirmation (selected on CGU-BES train subjects only): an impact
+# at t is a fall candidate when the mean gravity direction over
+# [t - PRE[0], t - PRE[1]] and [t + POST[0], t + POST[1]] differs by the policy
+# angle. Detection time is t + POST[1], the earliest moment a device knows.
+PRE_WINDOW_S = (1.5, 0.5)
+POST_WINDOW_S = (0.25, 0.75)
+
+
+def _mean_direction(samples, start, end):
+    window = [v for t, v in samples if start <= t <= end]
+    if not window:
+        return None
+    mean = [sum(v[i] for v in window) / len(window) for i in range(3)]
+    norm = math.sqrt(sum(x * x for x in mean))
+    return [x / norm for x in mean] if norm > 0 else None
+
+
+def causal_confirmation(csv_path: pathlib.Path, impacts: list[float], policy: dict) -> float | None:
+    """Earliest confirmation time of an impact by causal posture change, or None."""
+    threshold = float(policy.get("minimum_posture_change_deg", 0.0))
+    if threshold <= 0.0:
+        return impacts[0] if impacts else None
+    pre, post = policy["pre_window_s"], policy["post_window_s"]
+    with csv_path.open(encoding="utf-8") as stream:
+        samples = [(float(r["timestamp"]), (float(r["ax"]), float(r["ay"]), float(r["az"])))
+                   for r in csv.DictReader(stream)]
+    end_time = samples[-1][0] if samples else 0.0
+    for t in impacts:
+        if t + post[1] > end_time:
+            continue
+        before = _mean_direction(samples, t - pre[0], t - pre[1])
+        after = _mean_direction(samples, t + post[0], t + post[1])
+        if before and after:
+            cosine = max(-1.0, min(1.0, sum(a * b for a, b in zip(before, after))))
+            if math.degrees(math.acos(cosine)) >= threshold:
+                return t + post[1]
+    return None
 
 
 def _read_events(path: pathlib.Path) -> list[dict]:
@@ -231,11 +271,13 @@ def benchmark(manifest: dict, root: pathlib.Path, cli: pathlib.Path, profile: pa
         events.parent.mkdir(parents=True, exist_ok=True)
         process = subprocess.run([str(cli), "--input", str(root / entry["path"]), "--profile-file", str(profile),
                                   "--events-output", str(events), "--summary-output", str(summary)], capture_output=True, text=True)
-        records = _read_events(events); detections = [e for e in records if e["phase"] == "started" and e["type"] == "impact"]
-        detected = bool(detections) and entry["posture_change_deg"] >= policy["minimum_posture_change_deg"]; latency = None
+        records = _read_events(events); impacts = [e["timestamp"] for e in records if e["phase"] == "started" and e["type"] == "impact"]
+        confirmed_at = causal_confirmation(root / entry["path"], impacts, policy)
+        detected = confirmed_at is not None; latency = None
         if entry["label"] == "fall" and detected:
-            latency = detections[0]["timestamp"] - entry["fall_onset_s"]
-        results.append({**entry, "detected": detected, "latency_s": latency, "cli_exit": process.returncode})
+            latency = confirmed_at - entry["fall_onset_s"]
+        results.append({**entry, "detected": detected, "confirmed_at_s": confirmed_at, "latency_s": latency,
+                        "cli_exit": process.returncode})
     groups = {}
     for dataset in sorted({e["dataset"] for e in results}):
         rows = [e for e in results if e["dataset"] == dataset]; falls = [e for e in rows if e["label"] == "fall"]; adl = [e for e in rows if e["label"] == "adl"]

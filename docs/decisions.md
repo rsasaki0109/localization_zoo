@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -82,35 +82,35 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
 
-- Current default: `kitti_default`.
-- Active challengers: `fast`.
+- Current default: `fast`.
+- Reference variants: `kitti_default`.
 - Aggregate result: `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| fast | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
 
 - Current default: `fast`.
-- Active challengers: `kitti_default`.
+- Reference variants: `kitti_default`.
 - Aggregate result: `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| kitti_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
 
 - Current default: `fast`.
-- Active challengers: `kitti_default`.
+- Reference variants: `kitti_default`.
 - Aggregate result: `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| kitti_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames)
@@ -500,6 +500,55 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | cluster_a_no_seed_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## CT-ICP seq 00 full: constant-velocity regularization (small weight)
+
+- Current default: `c2f_reference`.
+- Active challengers: `velocity_reg_0005`, `velocity_reg_001`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| c2f_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| velocity_reg_0005 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| velocity_reg_001 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
+
+- Current default: `map_15`.
+- Active challengers: `map_20_reference`, `map_10`, `map_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
+
+- Current default: `map_15`.
+- Active challengers: `map_20_reference`, `map_10`, `map_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 05 full: constant-velocity regularization sweep
+
+- Current default: `velocity_reg_005`.
+- Active challengers: `dense_map50_reference`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_map50_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| velocity_reg_005 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D)
 
 - Current default: `cluster_d_full_no_seed_reference`.
@@ -514,6 +563,18 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | cluster_a_no_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## CT-ICP seq 07 full: constant-velocity regularization sweep
+
+- Current default: `velocity_reg_01`.
+- Reference variants: `ms_chol_flat_reference`, `velocity_reg_005`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| ms_chol_flat_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| velocity_reg_005 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| velocity_reg_01 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full
 
 - Current default: `cluster_a_seeded`.
@@ -524,6 +585,19 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | cluster_a_no_seed_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP seq 08 full: constant-velocity regularization (small weight)
+
+- Current default: `velocity_reg_001`.
+- Active challengers: `corr_dist_reference`.
+- Reference variants: `velocity_reg_0015`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_dist_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| velocity_reg_001 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| velocity_reg_0015 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
@@ -1959,55 +2033,56 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames)
 
-- Current default: `fast_profile`.
-- Reference variants: `balanced_reference`, `dense_profile`, `t1_transfer_v05_i12`.
+- Current default: `dense_profile`.
+- Active challengers: `balanced_reference`.
+- Reference variants: `fast_profile`, `t1_transfer_v05_i12`.
 - Aggregate result: `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| balanced_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fast_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | t1_transfer_v05_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames)
 
-- Current default: `fast_profile`.
-- Active challengers: `dense_profile`.
-- Reference variants: `balanced_reference`, `t1_transfer_v05_i12`.
+- Current default: `balanced_reference`.
+- Active challengers: `fast_profile`.
+- Reference variants: `dense_profile`, `t1_transfer_v05_i12`.
 - Aggregate result: `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| balanced_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | t1_transfer_v05_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames)
 
-- Current default: `fast_profile`.
-- Active challengers: `balanced_reference`, `dense_profile`.
-- Reference variants: `t1_transfer_v05_i12`.
+- Current default: `dense_profile`.
+- Reference variants: `balanced_reference`, `fast_profile`, `t1_transfer_v05_i12`.
 - Aggregate result: `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| balanced_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | t1_transfer_v05_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames)
 
-- Current default: `fast_profile`.
-- Reference variants: `balanced_reference`, `dense_profile`, `t1_transfer_v05_i12`, `t1_transfer_v03_i12`.
+- Current default: `balanced_reference`.
+- Active challengers: `fast_profile`.
+- Reference variants: `dense_profile`, `t1_transfer_v05_i12`, `t1_transfer_v03_i12`.
 - Aggregate result: `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| balanced_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | t1_transfer_v05_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | t1_transfer_v03_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
@@ -2015,12 +2090,13 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 ## KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames)
 
 - Current default: `fast_profile`.
-- Reference variants: `balanced_reference`, `dense_profile`, `t1_transfer_v05_i12`.
+- Active challengers: `balanced_reference`.
+- Reference variants: `dense_profile`, `t1_transfer_v05_i12`.
 - Aggregate result: `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| balanced_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | t1_transfer_v05_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
@@ -3715,20 +3791,6 @@ _Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | c2f_only_sigma | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | c2f_only_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
-
-- Current default: `map_15`.
-- Active challengers: `map_20_reference`, `map_10`.
-- Reference variants: `map_5`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 02 full: map_size sweep on corr=8 winner
 

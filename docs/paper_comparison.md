@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-03T13:07:47+00:00
+> Generated: 2026-10-04T06:13:57+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -168,7 +168,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Hardware**: Not stated in paper
 **Repo scope**: Compact baseline — The repo keeps a small KISS-ICP-style local-map pipeline that preserves the main idea while simplifying the full upstream engineering stack.
 **Current claim**: Benchmark-comparable only — The current implementation is close enough for same-contract comparisons, but it should not be presented as a faithful rerun of the upstream KISS-ICP project.
-**Numeric comparison**: Partial only (one sequence) — The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). The compact pipeline's best swept variant on full seq 00 reaches 1.045 % official KITTI RTE (2.05x), re-run with --kiss-legacy-27-neighborhood so it reproduces the stored aggregate bit for bit; the post-2026-08-02 default search gives 1.211 %. Paper values were re-verified against the arXiv PDF on 2026-10-03. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the full non-GT-seeded sweep for that sequence (experiments/results/kitti_rte_rescore.json); selection on the evaluated sequence makes them optimistic. See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Partial only (one sequence) — The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). With the current default correspondence search the best re-run seq 00 variant reaches 0.954 % official KITTI RTE (1.87x); --kiss-legacy-27-neighborhood (the upstream search) reproduces the pre-2026-08 aggregates. Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
 **Main blocker**: The public aggregates are windowed runs of the compact pipeline, not full-sequence reruns of the reference implementation.
 **Next step**: Run full KITTI sequences and publish an explicit deviation sheet against the upstream KISS-ICP implementation.
 
@@ -193,11 +193,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Fast recent map | 2.578 | 1.675 | 0.004303 | 18.20 |
 | KITTI | Fast recent map | 4.623 | - | - | 11.23 |
 | KITTI | Fast recent map | 0.679 | - | - | 28.26 |
-| KITTI | fast profile | 20.927 | 0.857 | 0.007979 | 30.58 |
-| KITTI | fast | 86.812 | 1.130 | 0.009880 | 32.67 |
-| KITTI | fast | 9.420 | 0.622 | 0.005475 | 23.48 |
-| KITTI | fast profile | 2.525 | 0.671 | 0.007763 | 35.57 |
-| KITTI | fast | 19.592 | 1.380 | 0.006661 | 30.81 |
+| KITTI | dense profile | 12.323 | 0.963 | 0.007617 | 1.25 |
+| KITTI | balanced | 71.183 | 1.178 | 0.008933 | 3.06 |
+| KITTI | dense | 4.556 | 0.715 | 0.005066 | 1.64 |
+| KITTI | balanced (default) | 2.238 | 0.664 | 0.007003 | 3.38 |
+| KITTI | fast | 18.085 | 1.549 | 0.007241 | 2.23 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast recent map | 5.568 | - | - | 11.29 |
 | dogfooding_results/mcd_ntu_day_02_108 | Fast recent map | 0.026 | - | - | 66.68 |
 | dogfooding_results/mcd_tuhh_night_09_108 | Fast recent map | 1.303 | - | - | 24.10 |
@@ -218,8 +218,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported FPS**: ~16.7
 **Hardware**: Not stated; single-thread CPU
 **Repo scope**: Paper-oriented core reimplementation — The repo implements the continuous-time two-pose-per-scan core, interpolation, and point-to-plane optimization described by CT-ICP.
-**Current claim**: Approximate reproduction across KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the best swept variant per sequence: 1.91/3.70/1.58/1.10/1.77 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.49/0.52/0.25/0.31/0.81 % (Table I, KITTI-corrected): 2.19-7.12x, geometric mean 4.23x. Parameter tuning has not closed the gap. Re-runs with the current code differ from the stored 100 m RPE by up to 0.11 points, so these aggregates predate later CT-ICP code changes.
-**Numeric comparison**: Same metric, ~4.2x ratio (parameter-tuning floor) — Official KITTI RTE, repo vs paper: seq 00 1.908 vs 0.49 (3.89x), seq 02 3.701 vs 0.52 (7.12x), seq 05 1.577 vs 0.25 (6.31x), seq 07 1.102 vs 0.31 (3.55x), seq 08 1.772 vs 0.81 (2.19x). Paper values were re-verified against the arXiv PDF on 2026-10-03. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the full non-GT-seeded sweep for that sequence (experiments/results/kitti_rte_rescore.json); selection on the evaluated sequence makes them optimistic. See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Current claim**: Approximate reproduction across KITTI Odometry 00/02/05/07/08 — Official KITTI RTE: 1.83/3.66/1.58/1.07/1.75 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.49/0.52/0.25/0.31/0.81 % (Table I, KITTI-corrected): 2.16-7.03x, geometric mean 4.15x. Parameter tuning has not closed the gap. Only the five leaderboard sweeps were re-run; the other ~300 CT-ICP KITTI variants still hold pre-2026-10 values. Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Same metric, ~4.2x ratio (parameter-tuning floor) — Official KITTI RTE, repo vs paper: seq 00 1.825 vs 0.49 (3.72x), seq 02 3.657 vs 0.52 (7.03x), seq 05 1.577 vs 0.25 (6.31x), seq 07 1.067 vs 0.31 (3.44x), seq 08 1.749 vs 0.81 (2.16x). Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
 **Main blocker**: Parameter-only ceiling at ~4.2x best-of-sweep ratio (official KITTI RTE) on KITTI 00/02/05/07/08. Closing further requires architectural attention to the continuous-time optimization stack (ceres options, planarity threshold weighting, motion compensation precision) rather than more iterations.
 **Next step**: Compare repo CT-ICP step-by-step against the upstream CT-ICP reference implementation to identify which optimization-stack component introduces the remaining ~4.2x ceiling. Also export sequences 01/03/04/06/09/10 for full paper coverage.
 
@@ -260,8 +260,14 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | fine σ=0.375 (slightly tighter) | 13.907 | 2.195 | 0.028680 | 14.21 |
 | KITTI | coarse search radius=2 (5x5x5, cluster A default) | 12.694 | 2.103 | 0.026199 | 16.19 |
 | KITTI | cluster A + GT seed | 4.906 | 5.760 | 0.050591 | 15.23 |
+| KITTI | dense + c2f cluster-A (existing best, RPE 2.059%) | 14.099 | 2.057 | 0.027515 | 8.66 |
+| KITTI | baseline map=15 | 76.464 | 2.651 | 0.033446 | 4.44 |
+| KITTI | baseline map=15 | 76.464 | 2.651 | 0.033446 | 4.44 |
+| KITTI | + constant-velocity-weight 0.05 (winner) | 11.949 | 1.122 | 0.023083 | 5.11 |
 | KITTI | cluster D full no seed (current winner 1.61 m) | 1.607 | 2.057 | 0.019671 | 21.50 |
+| KITTI | + constant-velocity-weight 0.1 | 2.490 | 1.253 | 0.018813 | 5.97 |
 | KITTI | cluster A + GT seed | 6.024 | 9.133 | 0.113997 | 16.76 |
+| KITTI | + constant-velocity-weight 0.01 (RPE 1.935%) | 40.362 | 1.949 | 0.023975 | 9.30 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast window | 6.525 | 31.125 | 2.631934 | 57.24 |
 | dogfooding_results/mcd_kth_day_06_108 | dense_window only (current best 6.12 m) | 6.115 | 29.891 | 2.381092 | 17.96 |
 | dogfooding_results/mcd_kth_day_06_108 | dense_window + GT seed | 2.778 | 17.676 | 1.581335 | 28.26 |
@@ -293,7 +299,6 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | corr=8 (existing seq 02 winner) | 50.635 | 3.189 | 0.033420 | 17.24 |
 | KITTI | bare + corr=8 (existing winner) | 50.635 | 3.189 | 0.033420 | 21.64 |
 | KITTI | dense + iter=6 + map=20 (existing winner) | 56.537 | 3.348 | 0.032189 | 16.80 |
-| KITTI | baseline map=15 | 66.558 | 2.642 | 0.032795 | 19.09 |
 | KITTI | corr=8 + map=20 (existing winner) | 50.635 | 3.189 | 0.033420 | 18.02 |
 | KITTI | bare + map=50 + corr=4 | 8.783 | 1.177 | 0.023619 | 19.68 |
 | KITTI | arch_tuned corr=4 (existing winner) | 9.097 | 1.127 | 0.023189 | 15.74 |
@@ -454,8 +459,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 **Hardware**: Not stated in the citing papers
 **Repo scope**: Paper reimplementation — Curvature features with a three-stage odometry-to-map LOAM pipeline (A-LOAM structure).
-**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the best swept variant: 1.05/1.03/0.54/0.68/0.98 % on KITTI Odometry 00/02/05/07/08 versus LOAM's 0.78/0.92/0.57/0.63/1.12 % (secondary citation): 0.87-1.35x, geometric mean 1.06x. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Numeric comparison**: Same metric, secondary-source paper values — Official KITTI RTE, repo vs LOAM: seq 00 1.052 vs 0.78 (1.35x), seq 02 1.029 vs 0.92 (1.12x), seq 05 0.535 vs 0.57 (0.94x), seq 07 0.681 vs 0.63 (1.08x), seq 08 0.975 vs 1.12 (0.87x). Re-runs differ from stored 100 m RPE by up to 0.017 points (code drift). Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE: 0.86/1.01/0.54/0.68/0.98 % on KITTI Odometry 00/02/05/07/08 versus LOAM's 0.78/0.92/0.57/0.63/1.12 % (secondary citation): 0.87-1.10x, geometric mean 1.01x. Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Same metric, secondary-source paper values — Official KITTI RTE, repo vs LOAM: seq 00 0.855 vs 0.78 (1.10x), seq 02 1.012 vs 0.92 (1.10x), seq 05 0.535 vs 0.57 (0.94x), seq 07 0.681 vs 0.63 (1.08x), seq 08 0.975 vs 1.12 (0.87x). Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
 **Main blocker**: The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers.
 **Next step**: Compare against the official A-LOAM implementation on the same full sequences.
 
@@ -485,11 +490,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Fast | 3.470 | 1.715 | 0.005369 | 4.15 |
 | KITTI | Fast | 3.654 | - | - | 6.01 |
 | KITTI | Fast | 0.527 | - | - | 6.00 |
-| KITTI | KITTI default | 9.521 | 0.914 | 0.007054 | 2.57 |
-| KITTI | Fast | 74.966 | 0.961 | 0.007128 | 4.51 |
-| KITTI | Fast | 7.789 | 0.563 | 0.005456 | 4.06 |
-| KITTI | Fast | 4.031 | 0.691 | 0.006763 | 7.26 |
-| KITTI | Fast | 23.358 | 1.440 | 0.006400 | 4.21 |
+| KITTI | Fast | 19.121 | 0.893 | 0.007859 | 3.05 |
+| KITTI | Fast | 70.870 | 0.961 | 0.006722 | 3.18 |
+| KITTI | Fast | 7.796 | 0.577 | 0.005857 | 3.02 |
+| KITTI | Fast | 4.030 | 0.691 | 0.006795 | 1.75 |
+| KITTI | Fast | 26.170 | 1.436 | 0.006181 | 2.89 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast | 6.100 | - | - | 6.66 |
 | dogfooding_results/mcd_ntu_day_02_108 | Dense | 0.035 | - | - | 2.96 |
 | dogfooding_results/mcd_tuhh_night_09_108 | Fast | 1.374 | - | - | 6.47 |

@@ -4,7 +4,7 @@ aloam,kitti_raw_0009_200,fast
 aloam,kitti_raw_0009_full,fast
 aloam,kitti_raw_0061_200,fast
 aloam,kitti_raw_0061_full,fast
-aloam,kitti_seq_00_full,kitti_default
+aloam,kitti_seq_00_full,fast
 aloam,kitti_seq_02_full,fast
 aloam,kitti_seq_05_full,fast
 aloam,kitti_seq_07_full,fast
@@ -137,10 +137,10 @@ kiss_icp,kitti_raw_0009_200,fast_recent_map
 kiss_icp,kitti_raw_0009_full,fast_recent_map
 kiss_icp,kitti_raw_0061_200,fast_recent_map
 kiss_icp,kitti_raw_0061_full,fast_recent_map
-kiss_icp,kitti_seq_00_full,fast_profile
-kiss_icp,kitti_seq_02_full,fast_profile
-kiss_icp,kitti_seq_05_full,fast_profile
-kiss_icp,kitti_seq_07_full,fast_profile
+kiss_icp,kitti_seq_00_full,dense_profile
+kiss_icp,kitti_seq_02_full,balanced_reference
+kiss_icp,kitti_seq_05_full,dense_profile
+kiss_icp,kitti_seq_07_full,balanced_reference
 kiss_icp,kitti_seq_08_full,fast_profile
 kiss_icp,mcd_kth_day_06_108,fast_recent_map
 kiss_icp,mcd_ntu_day_02_108,fast_recent_map

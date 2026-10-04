@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -87,7 +87,7 @@ The runner is responsible for:
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/aloam_kitti_raw_0009_nogt_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/aloam_kitti_raw_0061_full_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0061_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/aloam_kitti_raw_0061_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0061_matrix.json` |
-| A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/aloam_kitti_seq_00_full_transfer_matrix.json` | `aloam` | `kitti_default` | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/aloam_kitti_seq_00_full_transfer_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
 | A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/aloam_kitti_seq_02_full_transfer_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json` |
 | A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/aloam_kitti_seq_05_full_transfer_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json` |
 | A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames) | `ready` | `experiments/aloam_kitti_seq_07_full_sweep_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json` |
@@ -122,8 +122,14 @@ The runner is responsible for:
 | CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified) | `ready` | `experiments/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` | `ct_icp` | `fine_sigma_0_375` | `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` |
 | CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A) | `ready` | `experiments/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` | `ct_icp` | `radius_2_reference` | `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` |
 | CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full | `ready` | `experiments/ct_icp_kitti_seq_00_full_seeded_matrix.json` | `ct_icp` | `cluster_a_seeded` | `experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json` |
+| CT-ICP seq 00 full: constant-velocity regularization (small weight) | `ready` | `experiments/ct_icp_kitti_seq_00_velocity_reg_matrix.json` | `ct_icp` | `c2f_reference` | `experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json` |
+| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
+| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
+| CT-ICP seq 05 full: constant-velocity regularization sweep | `ready` | `experiments/ct_icp_kitti_seq_05_velocity_reg_matrix.json` | `ct_icp` | `velocity_reg_005` | `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json` |
 | CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D) | `ready` | `experiments/ct_icp_kitti_seq_07_full_seeded_matrix.json` | `ct_icp` | `cluster_d_full_no_seed_reference` | `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json` |
+| CT-ICP seq 07 full: constant-velocity regularization sweep | `ready` | `experiments/ct_icp_kitti_seq_07_velocity_reg_matrix.json` | `ct_icp` | `velocity_reg_01` | `experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json` |
 | CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full | `ready` | `experiments/ct_icp_kitti_seq_08_full_seeded_matrix.json` | `ct_icp` | `cluster_a_seeded` | `experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json` |
+| CT-ICP seq 08 full: constant-velocity regularization (small weight) | `ready` | `experiments/ct_icp_kitti_seq_08_velocity_reg_matrix.json` | `ct_icp` | `velocity_reg_001` | `experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/ct_icp_mcd_kth_day_06_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
 | CT-ICP recipe transfer test on MCD KTH day_06 (108 frames) | `ready` | `experiments/ct_icp_mcd_kth_day_06_recipes_matrix.json` | `ct_icp` | `dense_reference` | `experiments/results/ct_icp_mcd_kth_day_06_recipes_matrix.json` |
 | CT-ICP cluster A/D + GT seed on MCD KTH day_06 (108 frames) | `ready` | `experiments/ct_icp_mcd_kth_day_06_seeded_matrix.json` | `ct_icp` | `dense_seeded_reference` | `experiments/results/ct_icp_mcd_kth_day_06_seeded_matrix.json` |
@@ -242,10 +248,10 @@ The runner is responsible for:
 | KISS-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/kiss_icp_kitti_raw_0009_nogt_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_kitti_raw_0009_nogt_matrix.json` |
 | KISS-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/kiss_icp_kitti_raw_0061_full_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/kiss_icp_kitti_raw_0061_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/kiss_icp_kitti_seq_00_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/kiss_icp_kitti_seq_02_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/kiss_icp_kitti_seq_05_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
-| KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/kiss_icp_kitti_seq_07_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/kiss_icp_kitti_seq_00_full_sweep_matrix.json` | `kiss_icp` | `dense_profile` | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/kiss_icp_kitti_seq_02_full_sweep_matrix.json` | `kiss_icp` | `balanced_reference` | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/kiss_icp_kitti_seq_05_full_sweep_matrix.json` | `kiss_icp` | `dense_profile` | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/kiss_icp_kitti_seq_07_full_sweep_matrix.json` | `kiss_icp` | `balanced_reference` | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/kiss_icp_kitti_seq_08_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/kiss_icp_mcd_kth_day_06_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/kiss_icp_mcd_ntu_day_02_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
@@ -389,7 +395,6 @@ The runner is responsible for:
 | CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `experiments/pending/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` | `ct_icp` | `corr_8_reference` | `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` |
 | CT-ICP seq 02 full: corr_dist + ms_chol combinations | `ready` | `experiments/pending/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` | `ct_icp` | `bare_corr_8_reference` | `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` |
 | CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `experiments/pending/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` | `ct_icp` | `baseline_reference` | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
-| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `experiments/pending/ct_icp_kitti_seq_02_full_small_map_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | CT-ICP seq 02 full: map_size sweep on corr=8 winner | `ready` | `experiments/pending/ct_icp_kitti_seq_02_map_with_corr_matrix.json` | `ct_icp` | `map_20_reference` | `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json` |
 | CT-ICP seq 05 full: simplified recipes from bare + map=50 | `ready` | `experiments/pending/ct_icp_kitti_seq_05_combo_matrix.json` | `ct_icp` | `bare_map_50_corr_4` | `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json` |
 | CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner | `ready` | `experiments/pending/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` | `ct_icp` | `corr_4_reference` | `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` |

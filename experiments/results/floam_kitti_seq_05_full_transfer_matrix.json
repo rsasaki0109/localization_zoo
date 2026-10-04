@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T01:06:03+00:00",
+  "generated_at": "2026-10-04T06:12:20+00:00",
   "manifest_path": "experiments/floam_kitti_seq_05_full_transfer_matrix.json",
   "problem": {
     "id": "floam_kitti_seq_05_full_transfer",
@@ -45,20 +45,30 @@
       "summary_path": "experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json",
       "log_path": "experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/kitti_default/run.log",
       "status": "ok",
-      "ate_m": 6.95887,
-      "rpe_trans_pct": 0.563529,
-      "rpe_rot_deg_per_m": 0.006316,
-      "fps": 12.166844,
-      "time_ms": 226928.199002,
+      "ate_m": 6.780194,
+      "rpe_trans_pct": 0.556133,
+      "rpe_rot_deg_per_m": 0.00624,
+      "fps": 1.950932,
+      "time_ms": 1415220.828492,
       "frames": 2761,
       "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
-      "benchmark_score": 93.39,
+      "benchmark_score": 94.51,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.655107,
+      "kitti_rte_rot_deg_per_100m": 0.37803,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     },
     {
       "id": "dense",
@@ -73,20 +83,30 @@
       "summary_path": "experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/dense/summary.json",
       "log_path": "experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/dense/run.log",
       "status": "ok",
-      "ate_m": 6.038695,
-      "rpe_trans_pct": 0.538788,
-      "rpe_rot_deg_per_m": 0.006248,
-      "fps": 3.481928,
-      "time_ms": 792951.443346,
+      "ate_m": 6.035067,
+      "rpe_trans_pct": 0.537259,
+      "rpe_rot_deg_per_m": 0.006457,
+      "fps": 0.627592,
+      "time_ms": 4399357.790071,
       "frames": 2761,
       "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
-      "benchmark_score": 64.31,
+      "benchmark_score": 66.08,
       "readability_score": 4.3,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.5,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 0.572036,
+      "kitti_rte_rot_deg_per_100m": 0.381914,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T01:06:03+00:00",
+  "generated_at": "2026-10-04T06:12:20+00:00",
   "manifest_path": "experiments/lego_loam_kitti_seq_00_full_transfer_matrix.json",
   "problem": {
     "id": "lego_loam_kitti_seq_00_full_transfer",
@@ -45,11 +45,11 @@
       "summary_path": "experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json",
       "log_path": "experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/run.log",
       "status": "ok",
-      "ate_m": 12.378148,
-      "rpe_trans_pct": 0.842687,
-      "rpe_rot_deg_per_m": 0.008058,
-      "fps": 3.392297,
-      "time_ms": 1338620.893171,
+      "ate_m": 12.833331,
+      "rpe_trans_pct": 0.838536,
+      "rpe_rot_deg_per_m": 0.00729,
+      "fps": 1.380983,
+      "time_ms": 3288238.458223,
       "frames": 4541,
       "note": "Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.",
       "benchmark_score": 100.0,
@@ -58,7 +58,17 @@
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.766059,
+      "kitti_rte_rot_deg_per_100m": 0.390131,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     }
   ]
 }

@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "l_lo_kitti_seq_07_combo_sweep",
+    "title": "L-LO on KITTI Odom seq 07 full: combinations of the best round-1 settings",
+    "question": "Which setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "variants": [
+    {
+      "id": "cell_0p35_gtol_0p15",
+      "label": "cell 0p35 gtol 0p15",
+      "design_style": "balanced",
+      "intent": "Change from the repository defaults: cluster_cell=0.35, ground_tolerance=0.15",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.35",
+        "--l-lo-set",
+        "ground_tolerance=0.15"
+      ]
+    },
+    {
+      "id": "cell_0p35_gtol_0p15_range_80",
+      "label": "cell 0p35 gtol 0p15 range 80",
+      "design_style": "balanced",
+      "intent": "Change from the repository defaults: cluster_cell=0.35, ground_tolerance=0.15, max_range=80",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.35",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80"
+      ]
+    },
+    {
+      "id": "cell_0p35_gtol_0p15_range_80_min15",
+      "label": "cell 0p35 gtol 0p15 range 80 min15",
+      "design_style": "balanced",
+      "intent": "Change from the repository defaults: cluster_cell=0.35, ground_tolerance=0.15, max_range=80, min_cluster_points=15",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.35",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80",
+        "--l-lo-set",
+        "min_cluster_points=15"
+      ]
+    },
+    {
+      "id": "cell_0p35_gtol_0p15_range_80_shape_pitch",
+      "label": "cell 0p35 gtol 0p15 range 80 shape pitch",
+      "design_style": "balanced",
+      "intent": "Change from the repository defaults: cluster_cell=0.35, ground_tolerance=0.15, max_range=80, similarity_weight_shape=0.8, similarity_weight_size=0.2, pitch_ground_min_range=3, pitch_ground_max_range=15",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.35",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80",
+        "--l-lo-set",
+        "similarity_weight_shape=0.8",
+        "--l-lo-set",
+        "similarity_weight_size=0.2",
+        "--l-lo-set",
+        "pitch_ground_min_range=3",
+        "--l-lo-set",
+        "pitch_ground_max_range=15"
+      ]
+    }
+  ]
+}

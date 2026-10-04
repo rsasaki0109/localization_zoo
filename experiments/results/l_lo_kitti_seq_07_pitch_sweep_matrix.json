@@ -1,0 +1,157 @@
+{
+  "generated_at": "2026-10-04T23:19:56+00:00",
+  "manifest_path": "experiments/l_lo_kitti_seq_07_pitch_sweep_matrix.json",
+  "problem": {
+    "id": "l_lo_kitti_seq_07_pitch_sweep",
+    "title": "L-LO on KITTI Odom seq 07 full: vertical pose sweep",
+    "question": "Which vertical pose (ground band for the pitch estimate) setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "pitch_band_3_15",
+      "label": "pitch band 3 15",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: pitch_ground_min_range=3, pitch_ground_max_range=15",
+      "args": [
+        "--l-lo-set",
+        "pitch_ground_min_range=3",
+        "--l-lo-set",
+        "pitch_ground_max_range=15"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_3_15/summary.json --l-lo-set pitch_ground_min_range=3 --l-lo-set pitch_ground_max_range=15",
+      "summary_path": "experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_3_15/summary.json",
+      "log_path": "experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_3_15/run.log",
+      "status": "ok",
+      "ate_m": 2.346159,
+      "rpe_trans_pct": 1.322474,
+      "rpe_rot_deg_per_m": 0.015493,
+      "fps": 5.201785,
+      "time_ms": 211658.111727,
+      "frames": 1101,
+      "note": "Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100",
+      "benchmark_score": 91.71,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 0.988659,
+      "kitti_rte_rot_deg_per_100m": 0.981218,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "pitch_band_10_40",
+      "label": "pitch band 10 40",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: pitch_ground_min_range=10, pitch_ground_max_range=40",
+      "args": [
+        "--l-lo-set",
+        "pitch_ground_min_range=10",
+        "--l-lo-set",
+        "pitch_ground_max_range=40"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_10_40/summary.json --l-lo-set pitch_ground_min_range=10 --l-lo-set pitch_ground_max_range=40",
+      "summary_path": "experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_10_40/summary.json",
+      "log_path": "experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_10_40/run.log",
+      "status": "ok",
+      "ate_m": 1.957085,
+      "rpe_trans_pct": 1.348772,
+      "rpe_rot_deg_per_m": 0.015678,
+      "fps": 5.133734,
+      "time_ms": 214463.787441,
+      "frames": 1101,
+      "note": "Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100",
+      "benchmark_score": 99.35,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.025362,
+      "kitti_rte_rot_deg_per_100m": 0.966311,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "pitch_band_5_40",
+      "label": "pitch band 5 40",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: pitch_ground_min_range=5, pitch_ground_max_range=40",
+      "args": [
+        "--l-lo-set",
+        "pitch_ground_min_range=5",
+        "--l-lo-set",
+        "pitch_ground_max_range=40"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_5_40/summary.json --l-lo-set pitch_ground_min_range=5 --l-lo-set pitch_ground_max_range=40",
+      "summary_path": "experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_5_40/summary.json",
+      "log_path": "experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_5_40/run.log",
+      "status": "ok",
+      "ate_m": 1.989009,
+      "rpe_trans_pct": 1.337732,
+      "rpe_rot_deg_per_m": 0.015563,
+      "fps": 5.091681,
+      "time_ms": 216235.083428,
+      "frames": 1101,
+      "note": "Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100",
+      "benchmark_score": 98.14,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 1.013068,
+      "kitti_rte_rot_deg_per_100m": 0.966945,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

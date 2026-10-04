@@ -29,4 +29,21 @@ Interpretations where the text is ambiguous or not physically consistent:
 
 ## Results
 
-See `experiments/results/l_lo_kitti_seq_*_full_matrix.json` and the Table 6 rows in `docs/assets/paper/paper_ratio_table.csv`.
+See `experiments/results/l_lo_kitti_seq_*_full_matrix.json`, the parameter-sensitivity section below, and the Table 6 rows in `docs/assets/paper/paper_ratio_table.csv`.
+
+## Parameter sensitivity
+
+The paper gives no numeric parameters, so every value above is a conventional choice. To see how much of the gap is parameter choice, 30 settings were run on **seq 07 only** (`experiments/l_lo_kitti_seq_07_*_sweep_matrix.json`); `--l-lo-set key=value` overrides any `LLOParams` field.
+
+- Only the clustering cell size matters much. The 100 m RPE on seq 07 is 1.18 % / 1.28 % / 1.33 % (default) / 1.83 % / 2.11 % for `cluster_cell` 0.25 / 0.35 / 0.5 / 0.7 / 1.0, and 1.32 % at 0.15. Step size, similarity weights, termination, pitch band, voxel size, and SOR all stay within 1.30-1.40 %.
+- The best setting (`cluster_cell=0.25 ground_tolerance=0.15 max_range=80`, 1.17 %) was then run **unchanged** on 00/02/05/08 as the `seq07_tuned` variant:
+
+| Seq | default | seq07_tuned | paper | ratio (tuned) |
+|---|---:|---:|---:|---:|
+| 00 (held out) | 1.653 % | 1.479 % | 0.91 % | 1.63x |
+| 02 (held out) | 4.749 % | 4.478 % | 2.35 % | 1.91x |
+| 05 (held out) | 1.323 % | 1.473 % | 0.82 % | 1.80x |
+| 07 (chosen on) | 0.998 % | 1.004 % | 0.69 % | 1.46x |
+| 08 (held out) | 1.778 % | 1.661 % | 1.37 % | 1.21x |
+
+(Official KITTI RTE.) The tuned setting lowers the 100 m RPE on every held-out sequence, by 6-8 %, but on the official metric it helps 00/02/08 and hurts 05; the geometric-mean ratio moves only from 1.62x to 1.58x. Absolute trajectory error is not consistently better either (seq 02: 58 m to 142 m; seq 00: 19 m to 16 m). Parameter choice therefore explains little of the gap to the paper; the remaining difference is more likely in method details the paper leaves open (see the deviations above). Table 6 uses `seq07_tuned` (`repo_variants` in `evaluation/data/paper_reported_numbers.json`).

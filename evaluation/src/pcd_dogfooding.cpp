@@ -117,6 +117,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <map>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -6707,12 +6708,54 @@ MethodResult runLFGICP(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+// Applies a --l-lo-set key=value override; returns false for an unknown key.
+bool setLLOParam(localization_zoo::l_lo::LLOParams& p, const std::string& kv) {
+  const auto eq = kv.find('=');
+  if (eq == std::string::npos) return false;
+  const std::string key = kv.substr(0, eq);
+  const double v = std::stod(kv.substr(eq + 1));
+  std::map<std::string, double*> doubles = {
+      {"min_range", &p.min_range},
+      {"max_range", &p.max_range},
+      {"voxel_size", &p.voxel_size},
+      {"ground_sector_deg", &p.ground_sector_deg},
+      {"ground_bin_m", &p.ground_bin_m},
+      {"ground_max_slope", &p.ground_max_slope},
+      {"ground_tolerance", &p.ground_tolerance},
+      {"sensor_height", &p.sensor_height},
+      {"cluster_cell", &p.cluster_cell},
+      {"sor_std_mul", &p.sor_std_mul},
+      {"similarity_weight_shape", &p.similarity_weight_shape},
+      {"similarity_weight_size", &p.similarity_weight_size},
+      {"step_coeff_translation", &p.step_coeff_translation},
+      {"step_coeff_rotation", &p.step_coeff_rotation},
+      {"termination", &p.termination},
+      {"pitch_ground_min_range", &p.pitch_ground_min_range},
+      {"pitch_ground_max_range", &p.pitch_ground_max_range}};
+  std::map<std::string, int*> ints = {
+      {"min_cluster_points", &p.min_cluster_points},
+      {"max_cluster_points", &p.max_cluster_points},
+      {"sor_k", &p.sor_k},
+      {"max_rounds", &p.max_rounds},
+      {"min_matches", &p.min_matches}};
+  if (auto it = doubles.find(key); it != doubles.end()) {
+    *it->second = v;
+    return true;
+  }
+  if (auto it = ints.find(key); it != ints.end()) {
+    *it->second = static_cast<int>(v);
+    return true;
+  }
+  return false;
+}
+
 MethodResult runLLO(const std::vector<std::string>& pcd_dirs,
-                    const std::vector<Eigen::Matrix4d>& gt) {
+                    const std::vector<Eigen::Matrix4d>& gt,
+                    const localization_zoo::l_lo::LLOParams& params) {
   using namespace localization_zoo::l_lo;
   MethodResult res;
   res.name = "L-LO";
-  LLOOdometry odom;
+  LLOOdometry odom(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
   long matches = 0, frames = 0, weak = 0;
@@ -11194,7 +11237,7 @@ int main(int argc, char** argv) {
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-legacy-27-neighborhood]"
-              << " [--lf-gicp-no-mitigation] [--lf-gicp-beta X] [--lf-gicp-field-beta X]"
+              << " [--lf-gicp-no-mitigation] [--lf-gicp-beta X] [--lf-gicp-field-beta X] [--l-lo-set key=value]..."
                << " [--kiss-pg-scan-context-threshold X]"
                << " [--kiss-pg-correction-gain X]"
                << " [--kiss-pg-external-poses KITTI_POSES]"
@@ -11320,6 +11363,7 @@ int main(int argc, char** argv) {
   std::string kiss_pose_graph_external_pose_path;
   GenZICPDogfoodingOptions genz_icp_options;
   LFGICPDogfoodingOptions lf_gicp_options;
+  localization_zoo::l_lo::LLOParams l_lo_params;
   AdaptiveICPDogfoodingOptions adaptive_icp_options;
   D2LIODogfoodingOptions d2lio_options;
   CTVoxelMapDogfoodingOptions ct_voxelmap_options;
@@ -14841,6 +14885,14 @@ int main(int argc, char** argv) {
           kiss_icp_options.map_cleanup_interval;
       continue;
     }
+    if (arg == "--l-lo-set" && i + 1 < argc) {
+      const std::string kv = argv[++i];
+      if (!setLLOParam(l_lo_params, kv)) {
+        std::cerr << "error: unknown --l-lo-set key in '" << kv << "'" << std::endl;
+        return 1;
+      }
+      continue;
+    }
     if (arg == "--lf-gicp-no-mitigation") {
       lf_gicp_options.enable_mitigation = false;
       continue;
@@ -16274,7 +16326,7 @@ int main(int argc, char** argv) {
 
   if (isMethodEnabled(selected_methods, "l_lo")) {
     std::cout << "Running L-LO..." << std::endl;
-    results.push_back(runLLO(pcd_dirs, gt));
+    results.push_back(runLLO(pcd_dirs, gt, l_lo_params));
   }
 
   if (isMethodEnabled(selected_methods, "lf_gicp")) {

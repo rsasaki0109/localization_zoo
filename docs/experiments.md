@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T23:19:56+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -218,11 +218,17 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 73.621 | 26.9 | `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `experiments/results/kiss_icp_profile_matrix.json` |
-| L-LO on KITTI Odom seq 00 full (4541 frames) | `ready` | `default` | 19.031 | 4.3 | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
-| L-LO on KITTI Odom seq 02 full (4661 frames) | `ready` | `default` | 58.272 | 3.2 | `experiments/results/l_lo_kitti_seq_02_full_matrix.json` |
+| L-LO on KITTI Odom seq 00 full (4541 frames) | `ready` | `seq07_tuned` | 15.664 | 4.4 | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
+| L-LO on KITTI Odom seq 02 full (4661 frames) | `ready` | `default` | 58.272 | 3.6 | `experiments/results/l_lo_kitti_seq_02_full_matrix.json` |
 | L-LO on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 8.785 | 5.3 | `experiments/results/l_lo_kitti_seq_05_full_matrix.json` |
+| L-LO on KITTI Odom seq 07 full: landmark extraction, finer clustering cells | `ready` | `cluster_cell_0p15` | 1.686 | 17.9 | `experiments/results/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json` |
+| L-LO on KITTI Odom seq 07 full: landmark extraction sweep | `ready` | `sor_std_2` | 1.998 | 6.8 | `experiments/results/l_lo_kitti_seq_07_cluster_sweep_matrix.json` |
+| L-LO on KITTI Odom seq 07 full: combinations of the best round-1 settings | `ready` | `cell_0p35_gtol_0p15_range_80_min15` | 2.561 | 7.9 | `experiments/results/l_lo_kitti_seq_07_combo_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full (1101 frames) | `ready` | `default` | 2.045 | 5.1 | `experiments/results/l_lo_kitti_seq_07_full_matrix.json` |
-| L-LO on KITTI Odom seq 08 full (4071 frames) | `ready` | `default` | 32.662 | 3.7 | `experiments/results/l_lo_kitti_seq_08_full_matrix.json` |
+| L-LO on KITTI Odom seq 07 full: vertical pose sweep | `ready` | `pitch_band_10_40` | 1.957 | 5.2 | `experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json` |
+| L-LO on KITTI Odom seq 07 full: pre-processing sweep | `ready` | `voxel_0p4` | 2.013 | 22.9 | `experiments/results/l_lo_kitti_seq_07_preproc_sweep_matrix.json` |
+| L-LO on KITTI Odom seq 07 full: registration sweep | `ready` | `rounds_600_tol_1e5` | 2.045 | 5.9 | `experiments/results/l_lo_kitti_seq_07_registration_sweep_matrix.json` |
+| L-LO on KITTI Odom seq 08 full (4071 frames) | `ready` | `default` | 32.662 | 4.0 | `experiments/results/l_lo_kitti_seq_08_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.147 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.865 | 8.9 | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |
@@ -13510,13 +13516,14 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 19.031 | 4.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Default | balanced | 19.031 | 4.3 | 89.8 | 5.00 | 5.00 | Keep as reference variant |
+| Seq 07 tuned | balanced | 15.664 | 4.4 | 100.0 | 3.20 | 3.80 | Adopt as current default |
 
 ### Observations
 
-1. `default` is the current default for this problem.
-2. `default` is the fastest observed variant at 4.3 FPS.
-3. `default` is the most accurate observed variant at 19.031 m ATE.
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 4.4 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 15.664 m ATE.
 
 ### Variant Notes
 
@@ -13530,6 +13537,17 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=28.0385 frames_below_3_matches=0/4540
+
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_00_full_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_00_full_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_00_full_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=36.5291 frames_below_3_matches=0/4540
 
 
 ## L-LO on KITTI Odom seq 02 full (4661 frames)
@@ -13546,12 +13564,13 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 58.272 | 3.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Default | balanced | 58.272 | 3.2 | 94.4 | 5.00 | 5.00 | Adopt as current default |
+| Seq 07 tuned | balanced | 142.012 | 3.6 | 70.5 | 3.20 | 3.80 | Keep as reference variant |
 
 ### Observations
 
 1. `default` is the current default for this problem.
-2. `default` is the fastest observed variant at 3.2 FPS.
+2. `seq07_tuned` is the fastest observed variant at 3.6 FPS.
 3. `default` is the most accurate observed variant at 58.272 m ATE.
 
 ### Variant Notes
@@ -13566,6 +13585,17 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=19.2876 frames_below_3_matches=100/4660
+
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_02_full_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_02_full_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_02_full_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.5805 frames_below_3_matches=6/4660
 
 
 ## L-LO on KITTI Odom seq 05 full (2761 frames)
@@ -13583,6 +13613,7 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
 | Default | balanced | 8.785 | 5.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Seq 07 tuned | balanced | 15.453 | 4.4 | 69.8 | 3.20 | 3.80 | Keep as reference variant |
 
 ### Observations
 
@@ -13603,6 +13634,281 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=28.917 frames_below_3_matches=0/2760
 
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_05_full_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_05_full_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_05_full_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=39.913 frames_below_3_matches=0/2760
+
+
+## L-LO on KITTI Odom seq 07 full: landmark extraction, finer clustering cells
+
+- **Problem ID**: `l_lo_kitti_seq_07_cluster_fine_sweep`
+- **Question**: Which setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cluster cell 0p25 | balanced | 3.720 | 10.1 | 50.9 | 4.40 | 4.60 | Keep as reference variant |
+| cluster cell 0p3 | balanced | 5.107 | 9.0 | 41.6 | 4.40 | 4.60 | Keep as reference variant |
+| cell 0p3 gtol 0p15 range 80 | balanced | 5.960 | 7.9 | 36.1 | 3.20 | 3.80 | Keep as reference variant |
+| cluster cell 0p15 | balanced | 2.890 | 17.9 | 79.2 | 4.40 | 4.60 | Adopt as current default |
+| cluster cell 0p2 | balanced | 1.686 | 8.7 | 74.2 | 4.40 | 4.60 | Keep as active challenger |
+| cell 0p25 gtol 0p15 range 80 | balanced | 2.693 | 8.5 | 55.1 | 3.20 | 3.80 | Keep as reference variant |
+
+### Observations
+
+1. `cluster_cell_0p15` is the current default for this problem.
+2. `cluster_cell_0p15` is the fastest observed variant at 17.9 FPS.
+3. `cluster_cell_0p2` is the most accurate observed variant at 1.686 m ATE.
+
+### Variant Notes
+
+#### `cluster_cell_0p25`
+
+- Intent: Change from the repository defaults: cluster_cell=0.25
+- CLI args: `--l-lo-set cluster_cell=0.25`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p25/summary.json --l-lo-set cluster_cell=0.25`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p25/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p25/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=35.9791 frames_below_3_matches=0/1100
+
+#### `cluster_cell_0p3`
+
+- Intent: Change from the repository defaults: cluster_cell=0.3
+- CLI args: `--l-lo-set cluster_cell=0.3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p3/summary.json --l-lo-set cluster_cell=0.3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p3/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p3/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.7964 frames_below_3_matches=0/1100
+
+#### `cell_0p3_gtol_0p15_range_80`
+
+- Intent: Change from the repository defaults: cluster_cell=0.3, ground_tolerance=0.15, max_range=80
+- CLI args: `--l-lo-set cluster_cell=0.3 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cell_0p3_gtol_0p15_range_80/summary.json --l-lo-set cluster_cell=0.3 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cell_0p3_gtol_0p15_range_80/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cell_0p3_gtol_0p15_range_80/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=35.9682 frames_below_3_matches=0/1100
+
+#### `cluster_cell_0p15`
+
+- Intent: Change from the repository defaults: cluster_cell=0.15
+- CLI args: `--l-lo-set cluster_cell=0.15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p15/summary.json --l-lo-set cluster_cell=0.15`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p15/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p15/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.5818 frames_below_3_matches=0/1100
+
+#### `cluster_cell_0p2`
+
+- Intent: Change from the repository defaults: cluster_cell=0.2
+- CLI args: `--l-lo-set cluster_cell=0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p2/summary.json --l-lo-set cluster_cell=0.2`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p2/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cluster_cell_0p2/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.9282 frames_below_3_matches=0/1100
+
+#### `cell_0p25_gtol_0p15_range_80`
+
+- Intent: Change from the repository defaults: cluster_cell=0.25, ground_tolerance=0.15, max_range=80
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cell_0p25_gtol_0p15_range_80/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cell_0p25_gtol_0p15_range_80/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_fine_sweep_matrix/cell_0p25_gtol_0p15_range_80/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=36.7645 frames_below_3_matches=0/1100
+
+
+## L-LO on KITTI Odom seq 07 full: landmark extraction sweep
+
+- **Problem ID**: `l_lo_kitti_seq_07_cluster_sweep`
+- **Question**: Which landmark extraction (clustering and outlier removal) setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_07_cluster_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cluster cell 0p35 | balanced | 3.031 | 6.5 | 81.0 | 4.40 | 4.60 | Keep as reference variant |
+| cluster cell 0p7 | balanced | 2.898 | 4.0 | 64.2 | 4.40 | 4.60 | Keep as reference variant |
+| cluster cell 1p0 | balanced | 6.039 | 3.2 | 40.4 | 4.40 | 4.60 | Keep as reference variant |
+| min cluster 15 | balanced | 2.280 | 5.8 | 86.5 | 4.40 | 4.60 | Keep as reference variant |
+| min cluster 60 | balanced | 2.073 | 6.5 | 96.0 | 4.40 | 4.60 | Keep as active challenger |
+| sor std 2 | balanced | 1.998 | 6.8 | 100.0 | 4.40 | 4.60 | Adopt as current default |
+
+### Observations
+
+1. `sor_std_2` is the current default for this problem.
+2. `sor_std_2` is the fastest observed variant at 6.8 FPS.
+3. `sor_std_2` is the most accurate observed variant at 1.998 m ATE.
+
+### Variant Notes
+
+#### `cluster_cell_0p35`
+
+- Intent: One-factor change from the repository defaults: cluster_cell=0.35
+- CLI args: `--l-lo-set cluster_cell=0.35`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_0p35/summary.json --l-lo-set cluster_cell=0.35`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_0p35/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_0p35/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=33.1545 frames_below_3_matches=0/1100
+
+#### `cluster_cell_0p7`
+
+- Intent: One-factor change from the repository defaults: cluster_cell=0.7
+- CLI args: `--l-lo-set cluster_cell=0.7`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_0p7/summary.json --l-lo-set cluster_cell=0.7`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_0p7/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_0p7/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=21.5373 frames_below_3_matches=0/1100
+
+#### `cluster_cell_1p0`
+
+- Intent: One-factor change from the repository defaults: cluster_cell=1.0
+- CLI args: `--l-lo-set cluster_cell=1.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_1p0/summary.json --l-lo-set cluster_cell=1.0`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_1p0/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/cluster_cell_1p0/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=14.1464 frames_below_3_matches=3/1100
+
+#### `min_cluster_15`
+
+- Intent: One-factor change from the repository defaults: min_cluster_points=15
+- CLI args: `--l-lo-set min_cluster_points=15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/min_cluster_15/summary.json --l-lo-set min_cluster_points=15`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/min_cluster_15/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/min_cluster_15/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=37.7691 frames_below_3_matches=0/1100
+
+#### `min_cluster_60`
+
+- Intent: One-factor change from the repository defaults: min_cluster_points=60
+- CLI args: `--l-lo-set min_cluster_points=60`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/min_cluster_60/summary.json --l-lo-set min_cluster_points=60`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/min_cluster_60/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/min_cluster_60/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=19.5664 frames_below_3_matches=0/1100
+
+#### `sor_std_2`
+
+- Intent: One-factor change from the repository defaults: sor_std_mul=2.0
+- CLI args: `--l-lo-set sor_std_mul=2.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/sor_std_2/summary.json --l-lo-set sor_std_mul=2.0`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/sor_std_2/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_cluster_sweep_matrix/sor_std_2/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=29.1145 frames_below_3_matches=0/1100
+
+
+## L-LO on KITTI Odom seq 07 full: combinations of the best round-1 settings
+
+- **Problem ID**: `l_lo_kitti_seq_07_combo_sweep`
+- **Question**: Which setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_07_combo_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cell 0p35 gtol 0p15 | balanced | 2.879 | 7.8 | 93.6 | 3.80 | 4.20 | Keep as active challenger |
+| cell 0p35 gtol 0p15 range 80 | balanced | 3.294 | 7.7 | 87.1 | 3.20 | 3.80 | Keep as reference variant |
+| cell 0p35 gtol 0p15 range 80 min15 | balanced | 2.561 | 7.7 | 98.6 | 2.60 | 3.40 | Adopt as current default |
+| cell 0p35 gtol 0p15 range 80 shape pitch | balanced | 3.014 | 7.9 | 92.5 | 1.00 | 2.20 | Keep as active challenger |
+
+### Observations
+
+1. `cell_0p35_gtol_0p15_range_80_min15` is the current default for this problem.
+2. `cell_0p35_gtol_0p15_range_80_shape_pitch` is the fastest observed variant at 7.9 FPS.
+3. `cell_0p35_gtol_0p15_range_80_min15` is the most accurate observed variant at 2.561 m ATE.
+
+### Variant Notes
+
+#### `cell_0p35_gtol_0p15`
+
+- Intent: Change from the repository defaults: cluster_cell=0.35, ground_tolerance=0.15
+- CLI args: `--l-lo-set cluster_cell=0.35 --l-lo-set ground_tolerance=0.15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15/summary.json --l-lo-set cluster_cell=0.35 --l-lo-set ground_tolerance=0.15`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=33.4836 frames_below_3_matches=0/1100
+
+#### `cell_0p35_gtol_0p15_range_80`
+
+- Intent: Change from the repository defaults: cluster_cell=0.35, ground_tolerance=0.15, max_range=80
+- CLI args: `--l-lo-set cluster_cell=0.35 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80/summary.json --l-lo-set cluster_cell=0.35 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.7309 frames_below_3_matches=0/1100
+
+#### `cell_0p35_gtol_0p15_range_80_min15`
+
+- Intent: Change from the repository defaults: cluster_cell=0.35, ground_tolerance=0.15, max_range=80, min_cluster_points=15
+- CLI args: `--l-lo-set cluster_cell=0.35 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set min_cluster_points=15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80_min15/summary.json --l-lo-set cluster_cell=0.35 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set min_cluster_points=15`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80_min15/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80_min15/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=50.3727 frames_below_3_matches=0/1100
+
+#### `cell_0p35_gtol_0p15_range_80_shape_pitch`
+
+- Intent: Change from the repository defaults: cluster_cell=0.35, ground_tolerance=0.15, max_range=80, similarity_weight_shape=0.8, similarity_weight_size=0.2, pitch_ground_min_range=3, pitch_ground_max_range=15
+- CLI args: `--l-lo-set cluster_cell=0.35 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set similarity_weight_shape=0.8 --l-lo-set similarity_weight_size=0.2 --l-lo-set pitch_ground_min_range=3 --l-lo-set pitch_ground_max_range=15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80_shape_pitch/summary.json --l-lo-set cluster_cell=0.35 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set similarity_weight_shape=0.8 --l-lo-set similarity_weight_size=0.2 --l-lo-set pitch_ground_min_range=3 --l-lo-set pitch_ground_max_range=15`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80_shape_pitch/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_combo_sweep_matrix/cell_0p35_gtol_0p15_range_80_shape_pitch/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.7345 frames_below_3_matches=0/1100
+
 
 ## L-LO on KITTI Odom seq 07 full (1101 frames)
 
@@ -13619,6 +13925,7 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
 | Default | balanced | 2.045 | 5.1 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Seq 07 tuned | balanced | 2.693 | 4.4 | 81.6 | 3.20 | 3.80 | Keep as reference variant |
 
 ### Observations
 
@@ -13639,6 +13946,257 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100
 
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); chosen on this sequence.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_full_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_full_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_full_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=36.7645 frames_below_3_matches=0/1100
+
+
+## L-LO on KITTI Odom seq 07 full: vertical pose sweep
+
+- **Problem ID**: `l_lo_kitti_seq_07_pitch_sweep`
+- **Question**: Which vertical pose (ground band for the pitch estimate) setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| pitch band 3 15 | balanced | 2.346 | 5.2 | 91.7 | 3.80 | 4.20 | Keep as active challenger |
+| pitch band 10 40 | balanced | 1.957 | 5.1 | 99.3 | 3.80 | 4.20 | Adopt as current default |
+| pitch band 5 40 | balanced | 1.989 | 5.1 | 98.1 | 3.80 | 4.20 | Keep as active challenger |
+
+### Observations
+
+1. `pitch_band_10_40` is the current default for this problem.
+2. `pitch_band_3_15` is the fastest observed variant at 5.2 FPS.
+3. `pitch_band_10_40` is the most accurate observed variant at 1.957 m ATE.
+
+### Variant Notes
+
+#### `pitch_band_3_15`
+
+- Intent: One-factor change from the repository defaults: pitch_ground_min_range=3, pitch_ground_max_range=15
+- CLI args: `--l-lo-set pitch_ground_min_range=3 --l-lo-set pitch_ground_max_range=15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_3_15/summary.json --l-lo-set pitch_ground_min_range=3 --l-lo-set pitch_ground_max_range=15`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_3_15/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_3_15/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100
+
+#### `pitch_band_10_40`
+
+- Intent: One-factor change from the repository defaults: pitch_ground_min_range=10, pitch_ground_max_range=40
+- CLI args: `--l-lo-set pitch_ground_min_range=10 --l-lo-set pitch_ground_max_range=40`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_10_40/summary.json --l-lo-set pitch_ground_min_range=10 --l-lo-set pitch_ground_max_range=40`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_10_40/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_10_40/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100
+
+#### `pitch_band_5_40`
+
+- Intent: One-factor change from the repository defaults: pitch_ground_min_range=5, pitch_ground_max_range=40
+- CLI args: `--l-lo-set pitch_ground_min_range=5 --l-lo-set pitch_ground_max_range=40`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_5_40/summary.json --l-lo-set pitch_ground_min_range=5 --l-lo-set pitch_ground_max_range=40`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_5_40/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_pitch_sweep_matrix/pitch_band_5_40/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100
+
+
+## L-LO on KITTI Odom seq 07 full: pre-processing sweep
+
+- **Problem ID**: `l_lo_kitti_seq_07_preproc_sweep`
+- **Question**: Which pre-processing (downsampling, range, ground) setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_07_preproc_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| voxel 0p1 | balanced | 2.013 | 1.2 | 52.6 | 4.40 | 4.60 | Keep as reference variant |
+| voxel 0p4 | balanced | 3.178 | 22.9 | 81.7 | 4.40 | 4.60 | Adopt as current default |
+| max range 40 | balanced | 2.568 | 6.6 | 53.6 | 4.40 | 4.60 | Keep as reference variant |
+| max range 80 | balanced | 4.065 | 6.8 | 39.5 | 4.40 | 4.60 | Keep as reference variant |
+| ground tol 0p15 | balanced | 2.210 | 7.0 | 60.8 | 4.40 | 4.60 | Keep as reference variant |
+| ground tol 0p4 | balanced | 2.037 | 8.5 | 68.0 | 4.40 | 4.60 | Keep as reference variant |
+
+### Observations
+
+1. `voxel_0p4` is the current default for this problem.
+2. `voxel_0p4` is the fastest observed variant at 22.9 FPS.
+3. `voxel_0p1` is the most accurate observed variant at 2.013 m ATE.
+
+### Variant Notes
+
+#### `voxel_0p1`
+
+- Intent: One-factor change from the repository defaults: voxel_size=0.1
+- CLI args: `--l-lo-set voxel_size=0.1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/voxel_0p1/summary.json --l-lo-set voxel_size=0.1`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/voxel_0p1/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/voxel_0p1/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=31.27 frames_below_3_matches=0/1100
+
+#### `voxel_0p4`
+
+- Intent: One-factor change from the repository defaults: voxel_size=0.4
+- CLI args: `--l-lo-set voxel_size=0.4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/voxel_0p4/summary.json --l-lo-set voxel_size=0.4`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/voxel_0p4/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/voxel_0p4/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=21.2645 frames_below_3_matches=0/1100
+
+#### `max_range_40`
+
+- Intent: One-factor change from the repository defaults: max_range=40
+- CLI args: `--l-lo-set max_range=40`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/max_range_40/summary.json --l-lo-set max_range=40`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/max_range_40/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/max_range_40/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=22.9255 frames_below_3_matches=0/1100
+
+#### `max_range_80`
+
+- Intent: One-factor change from the repository defaults: max_range=80
+- CLI args: `--l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/max_range_80/summary.json --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/max_range_80/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/max_range_80/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=29.7364 frames_below_3_matches=0/1100
+
+#### `ground_tol_0p15`
+
+- Intent: One-factor change from the repository defaults: ground_tolerance=0.15
+- CLI args: `--l-lo-set ground_tolerance=0.15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/ground_tol_0p15/summary.json --l-lo-set ground_tolerance=0.15`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/ground_tol_0p15/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/ground_tol_0p15/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=28.0909 frames_below_3_matches=0/1100
+
+#### `ground_tol_0p4`
+
+- Intent: One-factor change from the repository defaults: ground_tolerance=0.4
+- CLI args: `--l-lo-set ground_tolerance=0.4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/ground_tol_0p4/summary.json --l-lo-set ground_tolerance=0.4`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/ground_tol_0p4/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_preproc_sweep_matrix/ground_tol_0p4/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.4291 frames_below_3_matches=0/1100
+
+
+## L-LO on KITTI Odom seq 07 full: registration sweep
+
+- **Problem ID**: `l_lo_kitti_seq_07_registration_sweep`
+- **Question**: Which registration (step size, similarity weights, termination) setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_07_registration_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| step half | balanced | 2.348 | 5.2 | 88.0 | 3.80 | 4.20 | Keep as reference variant |
+| step double | balanced | 3.069 | 5.1 | 77.0 | 3.80 | 4.20 | Keep as reference variant |
+| shape 0p8 | balanced | 3.239 | 5.1 | 75.1 | 3.80 | 4.20 | Keep as reference variant |
+| shape 0p2 | balanced | 2.189 | 5.9 | 96.6 | 3.80 | 4.20 | Keep as active challenger |
+| rounds 600 tol 1e5 | balanced | 2.045 | 5.9 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `rounds_600_tol_1e5` is the current default for this problem.
+2. `rounds_600_tol_1e5` is the fastest observed variant at 5.9 FPS.
+3. `rounds_600_tol_1e5` is the most accurate observed variant at 2.045 m ATE.
+
+### Variant Notes
+
+#### `step_half`
+
+- Intent: One-factor change from the repository defaults: step_coeff_translation=0.001, step_coeff_rotation=0.0001
+- CLI args: `--l-lo-set step_coeff_translation=0.001 --l-lo-set step_coeff_rotation=0.0001`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/step_half/summary.json --l-lo-set step_coeff_translation=0.001 --l-lo-set step_coeff_rotation=0.0001`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/step_half/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/step_half/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8527 frames_below_3_matches=0/1100
+
+#### `step_double`
+
+- Intent: One-factor change from the repository defaults: step_coeff_translation=0.004, step_coeff_rotation=0.0004
+- CLI args: `--l-lo-set step_coeff_translation=0.004 --l-lo-set step_coeff_rotation=0.0004`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/step_double/summary.json --l-lo-set step_coeff_translation=0.004 --l-lo-set step_coeff_rotation=0.0004`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/step_double/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/step_double/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8545 frames_below_3_matches=0/1100
+
+#### `shape_0p8`
+
+- Intent: One-factor change from the repository defaults: similarity_weight_shape=0.8, similarity_weight_size=0.2
+- CLI args: `--l-lo-set similarity_weight_shape=0.8 --l-lo-set similarity_weight_size=0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/shape_0p8/summary.json --l-lo-set similarity_weight_shape=0.8 --l-lo-set similarity_weight_size=0.2`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/shape_0p8/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/shape_0p8/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8491 frames_below_3_matches=0/1100
+
+#### `shape_0p2`
+
+- Intent: One-factor change from the repository defaults: similarity_weight_shape=0.2, similarity_weight_size=0.8
+- CLI args: `--l-lo-set similarity_weight_shape=0.2 --l-lo-set similarity_weight_size=0.8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/shape_0p2/summary.json --l-lo-set similarity_weight_shape=0.2 --l-lo-set similarity_weight_size=0.8`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/shape_0p2/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/shape_0p2/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.85 frames_below_3_matches=0/1100
+
+#### `rounds_600_tol_1e5`
+
+- Intent: One-factor change from the repository defaults: max_rounds=600, termination=1e-5
+- CLI args: `--l-lo-set max_rounds=600 --l-lo-set termination=1e-5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/rounds_600_tol_1e5/summary.json --l-lo-set max_rounds=600 --l-lo-set termination=1e-5`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/rounds_600_tol_1e5/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_registration_sweep_matrix/rounds_600_tol_1e5/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100
+
 
 ## L-LO on KITTI Odom seq 08 full (4071 frames)
 
@@ -13654,12 +14212,13 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 32.662 | 3.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Default | balanced | 32.662 | 3.7 | 96.9 | 5.00 | 5.00 | Adopt as current default |
+| Seq 07 tuned | balanced | 36.390 | 4.0 | 94.9 | 3.20 | 3.80 | Keep as active challenger |
 
 ### Observations
 
 1. `default` is the current default for this problem.
-2. `default` is the fastest observed variant at 3.7 FPS.
+2. `seq07_tuned` is the fastest observed variant at 4.0 FPS.
 3. `default` is the most accurate observed variant at 32.662 m ATE.
 
 ### Variant Notes
@@ -13674,6 +14233,17 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=32.6204 frames_below_3_matches=0/4070
+
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_08_full_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_08_full_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_08_full_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=43.3509 frames_below_3_matches=0/4070
 
 
 ## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window

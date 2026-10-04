@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "l_lo_kitti_seq_07_preproc_sweep",
+    "title": "L-LO on KITTI Odom seq 07 full: pre-processing sweep",
+    "question": "Which pre-processing (downsampling, range, ground) setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "variants": [
+    {
+      "id": "voxel_0p1",
+      "label": "voxel 0p1",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: voxel_size=0.1",
+      "args": [
+        "--l-lo-set",
+        "voxel_size=0.1"
+      ]
+    },
+    {
+      "id": "voxel_0p4",
+      "label": "voxel 0p4",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: voxel_size=0.4",
+      "args": [
+        "--l-lo-set",
+        "voxel_size=0.4"
+      ]
+    },
+    {
+      "id": "max_range_40",
+      "label": "max range 40",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: max_range=40",
+      "args": [
+        "--l-lo-set",
+        "max_range=40"
+      ]
+    },
+    {
+      "id": "max_range_80",
+      "label": "max range 80",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: max_range=80",
+      "args": [
+        "--l-lo-set",
+        "max_range=80"
+      ]
+    },
+    {
+      "id": "ground_tol_0p15",
+      "label": "ground tol 0p15",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: ground_tolerance=0.15",
+      "args": [
+        "--l-lo-set",
+        "ground_tolerance=0.15"
+      ]
+    },
+    {
+      "id": "ground_tol_0p4",
+      "label": "ground tol 0p4",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: ground_tolerance=0.4",
+      "args": [
+        "--l-lo-set",
+        "ground_tolerance=0.4"
+      ]
+    }
+  ]
+}

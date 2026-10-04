@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-04T23:20:17+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -231,10 +231,16 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | kiss_icp | `mcd_tuhh_night_09_108` | gt-backed | `fast_recent_map` | 1.303 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
 | kiss_icp | `mulran_parkinglot_120` | gt-backed | `fast_recent_map` | 15.641 | 27.3 | `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json` |
 | kiss_icp | `mulran_parkinglot_full` | gt-backed | `fast_recent_map` | 74.337 | 26.9 | `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json` |
-| l_lo | `kitti_seq_00_full` | gt-backed | `default` | 19.031 | 4.3 | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
+| l_lo | `kitti_seq_00_full` | gt-backed | `seq07_tuned` | 15.664 | 4.4 | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
 | l_lo | `kitti_seq_02_full` | gt-backed | `default` | 58.272 | 3.2 | `experiments/results/l_lo_kitti_seq_02_full_matrix.json` |
 | l_lo | `kitti_seq_05_full` | gt-backed | `default` | 8.785 | 5.3 | `experiments/results/l_lo_kitti_seq_05_full_matrix.json` |
+| l_lo | `kitti_seq_07_full` | gt-backed | `cluster_cell_0p15` | 2.890 | 17.9 | `experiments/results/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json` |
+| l_lo | `kitti_seq_07_full` | gt-backed | `sor_std_2` | 1.998 | 6.8 | `experiments/results/l_lo_kitti_seq_07_cluster_sweep_matrix.json` |
+| l_lo | `kitti_seq_07_full` | gt-backed | `cell_0p35_gtol_0p15_range_80_min15` | 2.561 | 7.7 | `experiments/results/l_lo_kitti_seq_07_combo_sweep_matrix.json` |
 | l_lo | `kitti_seq_07_full` | gt-backed | `default` | 2.045 | 5.1 | `experiments/results/l_lo_kitti_seq_07_full_matrix.json` |
+| l_lo | `kitti_seq_07_full` | gt-backed | `pitch_band_10_40` | 1.957 | 5.1 | `experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json` |
+| l_lo | `kitti_seq_07_full` | gt-backed | `voxel_0p4` | 3.178 | 22.9 | `experiments/results/l_lo_kitti_seq_07_preproc_sweep_matrix.json` |
+| l_lo | `kitti_seq_07_full` | gt-backed | `rounds_600_tol_1e5` | 2.045 | 5.9 | `experiments/results/l_lo_kitti_seq_07_registration_sweep_matrix.json` |
 | l_lo | `kitti_seq_08_full` | gt-backed | `default` | 32.662 | 3.7 | `experiments/results/l_lo_kitti_seq_08_full_matrix.json` |
 | lego_loam | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.226 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | lego_loam | `kitti_raw_0009_200` | gt-backed | `fast` | 3.216 | 8.9 | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |

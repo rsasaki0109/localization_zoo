@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T23:19:56+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2618,48 +2618,146 @@ _Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## L-LO on KITTI Odom seq 00 full (4541 frames)
 
-- Current default: `default`.
+- Current default: `seq07_tuned`.
+- Reference variants: `default`.
 - Aggregate result: `experiments/results/l_lo_kitti_seq_00_full_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## L-LO on KITTI Odom seq 02 full (4661 frames)
 
 - Current default: `default`.
+- Reference variants: `seq07_tuned`.
 - Aggregate result: `experiments/results/l_lo_kitti_seq_02_full_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## L-LO on KITTI Odom seq 05 full (2761 frames)
 
 - Current default: `default`.
+- Reference variants: `seq07_tuned`.
 - Aggregate result: `experiments/results/l_lo_kitti_seq_05_full_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## L-LO on KITTI Odom seq 07 full: landmark extraction, finer clustering cells
+
+- Current default: `cluster_cell_0p15`.
+- Active challengers: `cluster_cell_0p2`.
+- Reference variants: `cluster_cell_0p25`, `cluster_cell_0p3`, `cell_0p3_gtol_0p15_range_80`, `cell_0p25_gtol_0p15_range_80`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| cluster_cell_0p25 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_cell_0p3 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cell_0p3_gtol_0p15_range_80 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_cell_0p15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cluster_cell_0p2 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cell_0p25_gtol_0p15_range_80 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## L-LO on KITTI Odom seq 07 full: landmark extraction sweep
+
+- Current default: `sor_std_2`.
+- Active challengers: `min_cluster_60`.
+- Reference variants: `cluster_cell_0p35`, `cluster_cell_0p7`, `cluster_cell_1p0`, `min_cluster_15`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_07_cluster_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| cluster_cell_0p35 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_cell_0p7 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_cell_1p0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| min_cluster_15 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| min_cluster_60 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| sor_std_2 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO on KITTI Odom seq 07 full: combinations of the best round-1 settings
+
+- Current default: `cell_0p35_gtol_0p15_range_80_min15`.
+- Active challengers: `cell_0p35_gtol_0p15`, `cell_0p35_gtol_0p15_range_80_shape_pitch`.
+- Reference variants: `cell_0p35_gtol_0p15_range_80`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_07_combo_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| cell_0p35_gtol_0p15 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cell_0p35_gtol_0p15_range_80 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cell_0p35_gtol_0p15_range_80_min15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cell_0p35_gtol_0p15_range_80_shape_pitch | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## L-LO on KITTI Odom seq 07 full (1101 frames)
 
 - Current default: `default`.
+- Reference variants: `seq07_tuned`.
 - Aggregate result: `experiments/results/l_lo_kitti_seq_07_full_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## L-LO on KITTI Odom seq 07 full: vertical pose sweep
+
+- Current default: `pitch_band_10_40`.
+- Active challengers: `pitch_band_3_15`, `pitch_band_5_40`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| pitch_band_3_15 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| pitch_band_10_40 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| pitch_band_5_40 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## L-LO on KITTI Odom seq 07 full: pre-processing sweep
+
+- Current default: `voxel_0p4`.
+- Reference variants: `voxel_0p1`, `max_range_40`, `max_range_80`, `ground_tol_0p15`, `ground_tol_0p4`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_07_preproc_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| voxel_0p1 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| voxel_0p4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| max_range_40 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| max_range_80 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| ground_tol_0p15 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| ground_tol_0p4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## L-LO on KITTI Odom seq 07 full: registration sweep
+
+- Current default: `rounds_600_tol_1e5`.
+- Active challengers: `shape_0p2`.
+- Reference variants: `step_half`, `step_double`, `shape_0p8`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_07_registration_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| step_half | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| step_double | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| shape_0p8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| shape_0p2 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| rounds_600_tol_1e5 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## L-LO on KITTI Odom seq 08 full (4071 frames)
 
 - Current default: `default`.
+- Active challengers: `seq07_tuned`.
 - Aggregate result: `experiments/results/l_lo_kitti_seq_08_full_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
 

@@ -336,6 +336,9 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
       {"tilt_min_duration_s", &params->tilt_min_duration_s},
       {"vibration_rms_threshold", &params->vibration_rms_threshold},
       {"stationary_bias_gain", &params->stationary_bias_gain},
+      {"stationary_bias_reference_rate_hz", &params->stationary_bias_reference_rate_hz},
+      {"stationary_bias_max_change", &params->stationary_bias_max_change},
+      {"stationary_bias_min_duration_s", &params->stationary_bias_min_duration_s},
       {"leveling_gain", &params->leveling_gain},
       {"gyro_bias_jump_threshold", &params->gyro_bias_jump_threshold},
       {"gyro_bias_jump_min_duration_s",
@@ -405,6 +408,11 @@ bool validateProfileParams(const ImuMotionHealthParams& params,
                 "vibration_rms_threshold") ||
       params.motion_window_samples == 0 ||
       !nonnegative(params.stationary_bias_gain, "stationary_bias_gain") ||
+      !nonnegative(params.stationary_bias_reference_rate_hz,
+                   "stationary_bias_reference_rate_hz") ||
+      !nonnegative(params.stationary_bias_max_change, "stationary_bias_max_change") ||
+      !nonnegative(params.stationary_bias_min_duration_s,
+                   "stationary_bias_min_duration_s") ||
       params.stationary_bias_gain > 1.0 ||
       !nonnegative(params.leveling_gain, "leveling_gain") ||
       params.leveling_gain > 1.0 ||
@@ -941,6 +949,9 @@ ImuMotionHealth::ImuMotionHealth(const ImuMotionHealthParams& params)
 void ImuMotionHealth::clearRuntimeState() {
   posture_.reset();
   attitude_vqf_.reset();
+  startup_gyro_bias_.setZero();
+  stationary_run_active_ = false;
+  stationary_run_start_ = 0.0;
   if (params_.posture_confirmation) {
     PostureConfirmationParams posture;
     posture.threshold_deg = params_.posture_threshold_deg;
@@ -1256,6 +1267,7 @@ void ImuMotionHealth::finalizeStartup() {
   gyro_bias_ = (params_.estimate_gyro_bias && startup_quality_ok_)
                    ? gyro_mean
                    : Eigen::Vector3d::Zero();
+  startup_gyro_bias_ = gyro_bias_;
 
   const double mean_norm = accel_mean.norm();
   Eigen::Vector3d accel_for_alignment = accel_mean;
@@ -1685,10 +1697,25 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
   // A stationary sample is the only time at which the gyro bias is
   // observable without an external reference.  Apply the update before
   // propagation so the current sample benefits from it as well.
-  if (state_.motion_state == MotionState::kStationary &&
-      params_.estimate_gyro_bias && params_.stationary_bias_gain > 0.0) {
-    gyro_bias_ = (1.0 - params_.stationary_bias_gain) * gyro_bias_ +
-                 params_.stationary_bias_gain * sample.gyro;
+  const bool stationary = state_.motion_state == MotionState::kStationary;
+  if (stationary && !stationary_run_active_) stationary_run_start_ = sample.timestamp;
+  stationary_run_active_ = stationary;
+  const bool settled = sample.timestamp - stationary_run_start_ >=
+                       params_.stationary_bias_min_duration_s;
+  if (stationary && settled && params_.estimate_gyro_bias &&
+      params_.stationary_bias_gain > 0.0) {
+    double gain = params_.stationary_bias_gain;
+    if (params_.stationary_bias_reference_rate_hz > 0.0 && dt > 0.0) {
+      gain = 1.0 - std::pow(1.0 - gain, dt * params_.stationary_bias_reference_rate_hz);
+    }
+    gyro_bias_ = (1.0 - gain) * gyro_bias_ + gain * sample.gyro;
+    if (params_.stationary_bias_max_change > 0.0) {
+      const Eigen::Vector3d change = gyro_bias_ - startup_gyro_bias_;
+      if (change.norm() > params_.stationary_bias_max_change) {
+        gyro_bias_ = startup_gyro_bias_ +
+                     change * (params_.stationary_bias_max_change / change.norm());
+      }
+    }
   }
 
   const Eigen::Vector3d corrected_gyro_now = sample.gyro - gyro_bias_;

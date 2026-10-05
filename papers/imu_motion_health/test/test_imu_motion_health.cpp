@@ -469,3 +469,28 @@ TEST(ImuMotionHealth, DetectsPersistentStationaryGyroBiasJump) {
             localization_zoo::imu_motion_health::ImuEventPhase::kEnded);
   EXPECT_EQ(events.back().id, id);
 }
+
+TEST(ImuMotionHealth, StationaryBiasLearningWaitsAndIsRateIndependent) {
+  // A still device whose gyro reads a constant 0.02 rad/s offset after the
+  // 0.2 s startup. With the defaults the bias is learned only once the
+  // stationary state has lasted 1.5 s, and the gain is defined per 100 Hz
+  // sample, so the learned fraction does not depend on the sample rate.
+  auto learned_after = [](double rate, double seconds) {
+    ImuMotionHealthParams params = testParams();
+    params.stationary_bias_gain = 0.01;
+    ImuMotionHealth pipeline(params);
+    const Eigen::Vector3d offset(0.02, 0.0, 0.0);
+    localization_zoo::imu_motion_health::ImuMotionHealthState state;
+    for (int k = 0; k / rate < seconds; ++k) {
+      const double t = k / rate;
+      state = pipeline.process(sample(t, t < 0.25 ? Eigen::Vector3d::Zero() : offset,
+                                      Eigen::Vector3d(0.0, 0.0, kGravity)));
+    }
+    return state.gyro_bias.x() / offset.x();
+  };
+  EXPECT_LT(learned_after(100.0, 1.5), 1e-12);  // stationary for < 1.5 s so far
+  const double at_100 = learned_after(100.0, 3.5);
+  const double at_400 = learned_after(400.0, 3.5);
+  EXPECT_GT(at_100, 0.5);
+  EXPECT_NEAR(at_100, at_400, 0.03);
+}

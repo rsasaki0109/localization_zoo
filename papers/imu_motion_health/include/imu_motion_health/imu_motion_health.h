@@ -84,6 +84,22 @@ struct ImuMotionHealthParams {
   // cannot observe.
   double stationary_bias_gain = 0.01;
   double leveling_gain = 0.03;
+  // Safeguards against the stationary bias update absorbing slow real
+  // rotation (the stationary gate uses the bias-corrected gyro, so a learned
+  // rotation keeps the gate open).  0 disables each one; 0 / 0 / 0 is the
+  // pre-2026-10-05 behaviour.
+  //  - stationary_bias_reference_rate_hz: stationary_bias_gain is the gain per
+  //    sample at this rate and is scaled with dt, so the learning time
+  //    constant does not shrink at higher sample rates.
+  //  - stationary_bias_max_change: limit on the learned bias' departure from
+  //    the startup calibration [rad/s, vector norm].
+  //  - stationary_bias_min_duration_s: learn only after the stationary state
+  //    has lasted this long.
+  // Defaults chosen on half of BROAD (evaluation/stationary_bias_selection.json):
+  // held-out inclination RMSE 24.5 deg -> 9.9 deg.
+  double stationary_bias_reference_rate_hz = 100.0;
+  double stationary_bias_max_change = 0.0;
+  double stationary_bias_min_duration_s = 1.5;
   // A persistent stationary gyro residual is evidence that the previously
   // learned bias changed (or the sensor is failing).  It is intentionally
   // separate from the online bias gain so the jump is observable instead of
@@ -115,8 +131,8 @@ struct ImuMotionHealthParams {
   // Opt-in VQF attitude (papers/attitude_estimation, 6D with its own gyro-bias
   // estimation) for orientation_wxyz, tilt, and the relative dead reckoning,
   // in place of gyro integration with stationary leveling.  Heading stays
-  // unobservable either way.  On BROAD it lowers the inclination RMSE from
-  // 26.8 deg to 0.70 deg (evaluation/broad_attitude.py).
+  // unobservable either way.  On BROAD the inclination RMSE is 0.70 deg,
+  // against 9.6 deg for the default (evaluation/broad_attitude.py).
   bool vqf_attitude = false;
   double vqf_attitude_tau_acc_s = 3.0;
 };
@@ -469,6 +485,9 @@ class ImuMotionHealth {
   bool event_bias_jump_active_ = false;
 
   std::optional<PostureConfirmer> posture_;
+  Eigen::Vector3d startup_gyro_bias_ = Eigen::Vector3d::Zero();
+  bool stationary_run_active_ = false;
+  double stationary_run_start_ = 0.0;
   std::optional<attitude_estimation::VQF> attitude_vqf_;
 
   bool gyro_bias_jump_candidate_ = false;

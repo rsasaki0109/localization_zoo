@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>106 methods</b> · <b>76 paper reimplementations</b> · <b>44 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>107 methods</b> · <b>77 paper reimplementations</b> · <b>44 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -44,6 +44,7 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 | Run a method on my own LiDAR bag | [ROS 2](#ros-2) |
 | Use IMU-only motion / fall detection | [IMU Motion & Health SDK](#imu-motion--health-sdk) |
 | Estimate orientation from an IMU | [IMU attitude estimation](#imu-attitude-estimation-broad) |
+| Measure IMU noise for a LIO / VIO config | [Allan variance](#imu-noise-allan-variance) |
 | Reproduce or extend a benchmark | [Experiment-driven development](#experiment-driven-development) · [CONTRIBUTING](CONTRIBUTING.md) |
 | Add a new paper | [Adding a new paper](#adding-a-new-paper) |
 
@@ -99,7 +100,7 @@ evaluation tools—even when no reusable author code exists.
 
 The catalog is broader than the manuscript-grade evidence set:
 
-- **Catalog**: all 106 methods, including derived variants and compact baselines.
+- **Catalog**: all 107 methods, including derived variants and compact baselines.
 - **Paper-ready subset**: methods satisfying the
   [tier and ablation criteria](docs/paper_ready_reproducibility.md), frozen in
   [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
@@ -508,6 +509,22 @@ moving, impact, fall/tilt, and vibration states; and emits JSON diagnostics plus
 short-term relative attitude, velocity, and position. Its standalone build only
 requires Eigen3 and GTest, and the included deterministic demo needs no sensor
 download.
+
+### IMU Noise (Allan Variance)
+
+[`allan_variance`](papers/allan_variance/) computes the overlapping Allan
+deviation of a static IMU log (CSV or `.npy`) and extracts the white noise
+density, bias random walk, and bias instability. It also writes them as a
+Kalibr-style noise file for LIO/VIO configs. On TUM VI's 111 h static BMI160
+recording, the paper's own fit protocol reproduces its published values within
+0.96-1.01x ([`docs/allan_variance.md`](docs/allan_variance.md)):
+
+| | Repo | TUM VI paper |
+|---|---:|---:|
+| Gyro noise density [rad/s/√Hz] | 8.05e-5 | 8.0e-5 |
+| Gyro random walk [rad/s²/√Hz] | 2.17e-6 | 2.2e-6 |
+| Accel noise density [m/s²/√Hz] | 1.34e-3 | 1.4e-3 |
+| Accel random walk [m/s³/√Hz] | 8.50e-5 | 8.6e-5 |
 
 ### IMU Attitude Estimation (BROAD)
 

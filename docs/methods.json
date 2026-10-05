@@ -1685,6 +1685,22 @@
         "orientation",
         "vqf"
       ]
+    },
+    {
+      "name": "Allan Variance",
+      "family": "IMU noise characterization",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/allan_variance",
+      "summary": "Overlapping Allan deviation of static IMU logs (El-Sheimy et al., IEEE TIM 2008) with white noise density, bias random walk, and bias instability extraction; reproduces the TUM VI benchmark's published BMI160 noise parameters within 0.96-1.01x and writes a Kalibr-style noise file.",
+      "tags": [
+        "imu",
+        "allan-variance",
+        "noise",
+        "calibration"
+      ]
     }
   ],
   "starter_tracks": [

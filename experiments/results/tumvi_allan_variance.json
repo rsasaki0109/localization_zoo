@@ -1,0 +1,108 @@
+{
+  "samples": 79964381,
+  "sampling_rate": 199.368288,
+  "hours": 111.41354664968361,
+  "tum_protocol": {
+    "gyro_white_noise_density": {
+      "value": 8.04734554686913e-05,
+      "published": 8e-05,
+      "ratio": 1.006,
+      "channels": [
+        "gx",
+        "gy",
+        "gz"
+      ],
+      "fit_range_s": [
+        0.02,
+        1.0
+      ],
+      "fit_points": 32,
+      "datasheet": 0.00012
+    },
+    "gyro_bias_random_walk": {
+      "value": 2.1654597769324414e-06,
+      "published": 2.2e-06,
+      "ratio": 0.984,
+      "channels": [
+        "gy",
+        "gz"
+      ],
+      "fit_range_s": [
+        1000.0,
+        6000.0
+      ],
+      "fit_points": 16,
+      "datasheet": null
+    },
+    "accel_white_noise_density": {
+      "value": 0.0013391412434229245,
+      "published": 0.0014,
+      "ratio": 0.957,
+      "channels": [
+        "ax",
+        "ay",
+        "az"
+      ],
+      "fit_range_s": [
+        0.02,
+        1.0
+      ],
+      "fit_points": 32,
+      "datasheet": 0.0018
+    },
+    "accel_bias_random_walk": {
+      "value": 8.503280199197687e-05,
+      "published": 8.6e-05,
+      "ratio": 0.989,
+      "channels": [
+        "ax",
+        "ay",
+        "az"
+      ],
+      "fit_range_s": [
+        1000.0,
+        6000.0
+      ],
+      "fit_points": 16,
+      "datasheet": null
+    }
+  },
+  "per_axis_automatic": {
+    "gx": {
+      "white_noise_density": 8.60590654e-05,
+      "bias_random_walk": 3.23938399e-07,
+      "bias_instability": 5.8608788e-05,
+      "bias_instability_tau": 112.289674
+    },
+    "gy": {
+      "white_noise_density": 7.30405991e-05,
+      "bias_random_walk": 1.63553476e-06,
+      "bias_instability": 3.01133616e-05,
+      "bias_instability_tau": 125.992956
+    },
+    "gz": {
+      "white_noise_density": 7.71583049e-05,
+      "bias_random_walk": 2.07455242e-06,
+      "bias_instability": 2.9452622e-05,
+      "bias_instability_tau": 56.2777566
+    },
+    "ax": {
+      "white_noise_density": 0.00133084233,
+      "bias_random_walk": 0.000194916153,
+      "bias_instability": 0.0005193983,
+      "bias_instability_tau": 44.7062072
+    },
+    "ay": {
+      "white_noise_density": 0.0010205205,
+      "bias_random_walk": 0.000112676645,
+      "bias_instability": 0.000766882814,
+      "bias_instability_tau": 35.5071515
+    },
+    "az": {
+      "white_noise_density": 0.00151113602,
+      "bias_random_walk": 3.96717922e-05,
+      "bias_instability": 0.000643379231,
+      "bias_instability_tau": 224.047668
+    }
+  }
+}

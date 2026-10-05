@@ -40,7 +40,7 @@ void PostureConfirmer::observe(double timestamp, const Eigen::Vector3d& gyro,
   attitude_estimation::VQFParams vqf;
   vqf.sampling_rate = 1.0 / dt;
   vqf.tau_acc = params_.tau_acc_s;
-  vqf_ = std::make_unique<attitude_estimation::VQF>(vqf);
+  vqf_.emplace(vqf);
   for (const Raw& s : startup_) push(s);
   startup_.clear();
 }

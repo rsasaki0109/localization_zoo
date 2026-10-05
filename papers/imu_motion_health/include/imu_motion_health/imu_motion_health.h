@@ -8,11 +8,14 @@
 // snapshot, rather than a callback, which makes the component convenient in a
 // real-time loop as well as in an offline replay or a test.
 
+#include "attitude_estimation/vqf.h"
+#include "imu_motion_health/posture_confirmation.h"
+
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
 #include <cstddef>
-#include <memory>
+#include <optional>
 #include <cstdint>
 #include <array>
 #include <deque>
@@ -31,8 +34,6 @@ struct ImuSample {
 // The alias is useful when migrating code that already calls its input an
 // "IMU reading".  It is intentionally the same type, not a second wire type.
 using ImuReading = ImuSample;
-
-class PostureConfirmer;
 
 struct ImuMotionHealthParams {
   // Startup calibration.  The first window is assumed to be at rest.  This is
@@ -110,6 +111,14 @@ struct ImuMotionHealthParams {
   double posture_dwell_s = 0.1;
   double posture_start_s = 0.0;
   double posture_tau_acc_s = 3.0;
+
+  // Opt-in VQF attitude (papers/attitude_estimation, 6D with its own gyro-bias
+  // estimation) for orientation_wxyz, tilt, and the relative dead reckoning,
+  // in place of gyro integration with stationary leveling.  Heading stays
+  // unobservable either way.  On BROAD it lowers the inclination RMSE from
+  // 26.8 deg to 0.70 deg (evaluation/broad_attitude.py).
+  bool vqf_attitude = false;
+  double vqf_attitude_tau_acc_s = 3.0;
 };
 
 enum class MotionState {
@@ -459,7 +468,8 @@ class ImuMotionHealth {
   bool event_moving_active_ = false;
   bool event_bias_jump_active_ = false;
 
-  std::shared_ptr<PostureConfirmer> posture_;
+  std::optional<PostureConfirmer> posture_;
+  std::optional<attitude_estimation::VQF> attitude_vqf_;
 
   bool gyro_bias_jump_candidate_ = false;
   double gyro_bias_jump_candidate_start_timestamp_ = 0.0;

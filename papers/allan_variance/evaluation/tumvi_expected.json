@@ -1,0 +1,9 @@
+{
+  "description": "TUM-protocol values from experiments/results/tumvi_allan_variance.json; tumvi_allan.py check compares a fresh run (data not in CI: 4.8 GB).",
+  "tum_protocol": {
+    "gyro_white_noise_density": 8.04734554686913e-05,
+    "gyro_bias_random_walk": 2.1654597769324414e-06,
+    "accel_white_noise_density": 0.0013391412434229245,
+    "accel_bias_random_walk": 8.503280199197687e-05
+  }
+}

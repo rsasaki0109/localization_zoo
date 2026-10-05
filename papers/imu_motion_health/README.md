@@ -163,7 +163,7 @@ The final object has `schema: "imu_motion_health_summary_v1"`, stream counts,
 first/last timestamp and duration, final motion/health state, counters, and a
 nested `final_state`.  It also includes `events_started`, `events_ended`,
 `events_dropped`, and `event_counts` (completed events by type, including
-`bias_jump`).  A shortened
+`bias_jump` and `fall_confirmed`).  A shortened
 example is:
 
 ```json
@@ -175,7 +175,7 @@ example is:
   "motion_state": "stationary",
   "health_state": "ready",
   "confidence": 0.92,
-  "event_counts": {"impact": 1, "fall": 0, "vibration": 0, "moving": 0, "bias_jump": 0},
+  "event_counts": {"impact": 1, "fall": 0, "vibration": 0, "moving": 0, "bias_jump": 0, "fall_confirmed": 0},
   "counters": {
     "samples": 120,
     "accepted_samples": 120,
@@ -201,7 +201,10 @@ Event JSON uses `schema: "imu_motion_health_event_v1"` and contains `id`,
 `duration_s`, `peak_accel_norm`, `peak_gyro_norm`, `peak_vibration_rms`, and
 `peak_confidence`.  `bias_jump` is emitted when a quiet, gravity-consistent
 segment has a gyro residual above the configured threshold for the minimum
-duration; it degrades health and appears in the same lifecycle stream.  The
+duration; it degrades health and appears in the same lifecycle stream.
+`fall_confirmed` comes only from the opt-in posture confirmation (below). It is
+a one-shot record: `started` and `ended` share one ID and timestamp, and the
+duration is 0.  The
 core queue is bounded by
 `ImuMotionHealthParams::event_queue_capacity`; when it fills, the oldest
 pending record is dropped and `droppedEventCount()`/`events_dropped` records the
@@ -323,3 +326,25 @@ subject-disjoint tuning/test splits, tunes `wearable-public-v1`, replays the
 real CLI, and emits JSON plus self-contained HTML. Public-data experiments
 also introduced the opt-in `impact_requires_accel_and_gyro` gate; it defaults
 to false, so all existing profiles retain their original OR behavior.
+
+### Posture confirmation (opt-in)
+
+`posture_confirmation: true` adds a VQF attitude estimate (6D,
+[`papers/attitude_estimation`](../attitude_estimation/)) and emits
+`fall_confirmed` once an impact has been followed by a lasting posture change:
+
+- **VQF rule.** The body's up direction must turn by at least
+  `posture_threshold_deg` (default 50) from its mean over [t-2.0, t-1.0] s and
+  hold for `posture_dwell_s` (0.1), within [t + `posture_start_s` (0), t+1.5]
+  s. `posture_tau_acc_s` (3) is VQF's accelerometer time constant.
+- **Fallback.** Otherwise, at t+1.5 s, the mean accelerometer direction over
+  [t+0.5, t+1.5] s must differ by 50° from the [t-2.0, t-1.0] s mean.
+
+The confirmer sees every finite, time-ordered sample. It sets VQF's fixed rate
+from the median interval of the first 16 samples.
+
+The option is off in every built-in profile and on in `wearable-public-v1`.
+There it lowers the CGU-BES median detection latency from 2.95 s to 2.13 s at
+unchanged sensitivity (96.7%) and false-positive rate (0%). The selection
+protocol and test-once evaluation are in
+[`evaluation/public_datasets.md`](evaluation/public_datasets.md).

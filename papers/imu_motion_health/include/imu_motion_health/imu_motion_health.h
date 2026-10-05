@@ -12,6 +12,7 @@
 #include <Eigen/Geometry>
 
 #include <cstddef>
+#include <memory>
 #include <cstdint>
 #include <array>
 #include <deque>
@@ -30,6 +31,8 @@ struct ImuSample {
 // The alias is useful when migrating code that already calls its input an
 // "IMU reading".  It is intentionally the same type, not a second wire type.
 using ImuReading = ImuSample;
+
+class PostureConfirmer;
 
 struct ImuMotionHealthParams {
   // Startup calibration.  The first window is assumed to be at rest.  This is
@@ -97,6 +100,16 @@ struct ImuMotionHealthParams {
   // without limit when a consumer is temporarily slower.
   std::size_t event_queue_capacity = 256;
   bool emit_moving_events = false;
+
+  // Opt-in fall confirmation from a VQF attitude estimate (see
+  // posture_confirmation.h): emits a one-shot fall_confirmed event when the
+  // body's up direction has turned by posture_threshold_deg after an impact
+  // and held for posture_dwell_s, else falls back to the settled-window rule.
+  bool posture_confirmation = false;
+  double posture_threshold_deg = 50.0;
+  double posture_dwell_s = 0.1;
+  double posture_start_s = 0.0;
+  double posture_tau_acc_s = 3.0;
 };
 
 enum class MotionState {
@@ -232,12 +245,16 @@ enum class ImuEventType {
   kVibration,
   kMoving,
   kBiasJump,
+  // Appended to keep the earlier values: a one-shot record (started and
+  // ended at the same time) from the opt-in posture confirmation.
+  kFallConfirmed,
 
   Impact = kImpact,
   Fall = kFall,
   Vibration = kVibration,
   Moving = kMoving,
   BiasJump = kBiasJump,
+  FallConfirmed = kFallConfirmed,
 };
 
 enum class ImuEventPhase {
@@ -441,6 +458,8 @@ class ImuMotionHealth {
   bool event_vibration_active_ = false;
   bool event_moving_active_ = false;
   bool event_bias_jump_active_ = false;
+
+  std::shared_ptr<PostureConfirmer> posture_;
 
   bool gyro_bias_jump_candidate_ = false;
   double gyro_bias_jump_candidate_start_timestamp_ = 0.0;

@@ -775,8 +775,8 @@ std::string makeSummary(const Options& options, const ImuMotionHealth& pipeline,
   stream << ",\"events_dropped\":" << pipeline.droppedEventCount();
   stream << ",\"event_counts\":{";
   const char* const event_names[] = {"impact", "fall", "vibration", "moving",
-                                     "bias_jump"};
-  for (std::size_t i = 0; i < 5; ++i) {
+                                     "bias_jump", "fall_confirmed"};
+  for (std::size_t i = 0; i < 6; ++i) {
     if (i != 0) stream << ',';
     const auto found = event_stats.ended_by_type.find(event_names[i]);
     stream << '\"' << event_names[i] << "\":"

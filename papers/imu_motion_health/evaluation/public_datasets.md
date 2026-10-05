@@ -75,6 +75,54 @@ thresholds and policy, or if any group metric differs from
 [`public_benchmark_expected.json`](public_benchmark_expected.json). Update that
 file only together with a documented reason in this section.
 
+## Reproduced result (2026-10-05): VQF posture confirmation in the SDK
+
+`wearable-public-v1` now turns on the SDK's opt-in `posture_confirmation`.
+
+- **What changed.** The fall decision is a `fall_confirmed` event emitted by
+  the C++ SDK itself. It no longer comes from the accelerometer windows in
+  this script.
+- **The rule.** A 6D VQF attitude (Laidig and Seel 2023,
+  [`papers/attitude_estimation`](../../attitude_estimation/)) gives the body's
+  up direction at every sample. An impact at t is confirmed when that direction
+  has turned by at least 50° from its mean over [t-2.0, t-1.0] s and stayed
+  there for 0.1 s, within [t, t+1.5] s.
+- **The fallback.** Otherwise the earlier settled-window rule decides at
+  t+1.5 s.
+- **Why it is faster.** The gyro-driven attitude sees the posture change while
+  the body is still moving, so there is no need to wait for it to settle.
+
+| CGU-BES | Accelerometer windows (2026-10-04) | VQF in the SDK |
+|---|---:|---:|
+| Fall sensitivity (all / test subjects 13-15) | 96.7% / 100% | 96.7% / 100% |
+| ADL false positives (all / test) | 0% / 0% | 0% / 0% |
+| Median latency (all / test) | 2.95 s / 3.16 s | **2.13 s / 2.30 s** |
+
+UCI HAR and Parkinson stay at 0% false positives, and no CLI replay fails.
+
+**How it was chosen.** `analyze_vqf_confirmation.py` scored 80 candidates on
+CGU train and validation subjects (01-12) only. The grid was threshold
+40-60°, dwell 0.1-0.5 s, start 0 or 0.25 s, and VQF `tau_acc` 1 or 3 s.
+
+With the committed impact thresholds, no train or validation ADL produces an
+impact event at all. The jump margin was therefore measured as if every jump
+had triggered one, at its peak acceleration.
+
+The rule was fixed before the test subjects were opened: 0 false positives,
+train sensitivity of at least 95%, and the largest dwell-held jump angle at
+least 5° below the threshold; then the lowest median latency. The choice
+(50°, 0.1 s, start 0, `tau_acc` 3 s) holds jumps to 40.4° and reaches 2.09 s
+on train and validation, against 2.91 s for the accelerometer rule. It was
+evaluated once on the test subjects. The record is in
+[`vqf_confirmation_selection.json`](vqf_confirmation_selection.json).
+
+**Check of the C++ port.** The SDK's `fall_confirmed` times equal the Python
+analysis on all 595 recordings (difference 0). The impact thresholds are
+unchanged (45 m/s² and 1 rad/s), and `tune` still selects them.
+
+The `causal_confirmation` code path (accelerometer windows) remains in this
+script for policies without `"confirmation_source": "sdk"`.
+
 ## Reproduced result (2026-10-04)
 
 The full run used all 195 CGU-BES recordings, 300 deterministic UCI windows,

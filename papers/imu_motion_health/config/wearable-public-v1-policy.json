@@ -1,8 +1,9 @@
 {
   "schema": "imu_fall_candidate_policy_v1",
   "event_type": "impact",
+  "confirmation_source": "sdk",
   "minimum_posture_change_deg": 50.0,
-  "description": "Confirm an impact at t as a fall candidate when the gravity direction differs from the mean over [t-2.0 s, t-1.0 s] by at least 50 degrees: as soon as a sliding 0.25 s window starting from t+0.25 s shows it with every sample within 10 degrees of the window mean, otherwise at t+1.5 s from the mean over [t+0.5 s, t+1.5 s]. Chosen on CGU-BES Subject01-12 (train+validation) only.",
+  "description": "Confirm an impact at t as a fall in the SDK (posture_confirmation): the up direction of a 6D VQF attitude must turn by at least 50 degrees from its mean over [t-2.0 s, t-1.0 s] and hold for 0.1 s within [t, t+1.5 s]; otherwise, at t+1.5 s, the mean accelerometer direction over [t+0.5 s, t+1.5 s] must differ from the [t-2.0 s, t-1.0 s] mean by 50 degrees. Chosen on CGU-BES Subject01-12 (train+validation) only; see evaluation/vqf_confirmation_selection.json.",
   "pre_window_s": [
     2.0,
     1.0
@@ -11,10 +12,10 @@
     0.5,
     1.5
   ],
-  "early_confirmation": {
-    "start_s": 0.25,
-    "length_s": 0.25,
-    "step_s": 0.05,
-    "max_spread_deg": 10.0
+  "vqf_confirmation": {
+    "threshold_deg": 50.0,
+    "dwell_s": 0.1,
+    "start_s": 0.0,
+    "tau_acc_s": 3.0
   }
 }

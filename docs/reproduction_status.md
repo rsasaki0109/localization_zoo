@@ -1,6 +1,6 @@
 # Reproduction Status
 
-_Generated at 2026-10-04T23:21:16+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
+_Generated at 2026-10-05T02:20:45+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
 
 This page records what the repository can currently claim about reproducing original-paper results.
 The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.

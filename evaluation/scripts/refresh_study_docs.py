@@ -41,6 +41,10 @@ def main() -> None:
     if not args.rerun:
         runner_cmd.append("--reuse-existing")
         runner_cmd.append("--reuse-aggregates")
+        if not args.manifest:
+            # Unindexed manifests have never been run; regenerating docs must
+            # not try to run them (their data is often not on this machine).
+            runner_cmd.append("--indexed-only")
     for manifest in args.manifest:
         runner_cmd.extend(["--manifest", manifest])
 

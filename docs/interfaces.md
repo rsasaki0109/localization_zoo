@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-04T23:19:56+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -57,9 +57,9 @@ Current active selectors: `aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`,
 
 ### Runner Contract
 
-`python3 evaluation/scripts/run_experiment_matrix.py [--manifest <path>]... [--reuse-existing] [--reuse-aggregates] [--variant-timeout-seconds <seconds>]`
+`python3 evaluation/scripts/run_experiment_matrix.py [--manifest <path>]... [--indexed-only] [--reuse-existing] [--reuse-aggregates] [--variant-timeout-seconds <seconds>]`
 
-If no manifest is specified, the runner executes every `experiments/*_matrix.json` file.
+If no manifest is specified, the runner executes every `experiments/*_matrix.json` file; `--indexed-only` limits it to the manifests already in `experiments/results/index.json`.
 
 The runner is responsible for:
 
@@ -428,8 +428,8 @@ The runner is responsible for:
 | ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `experiments/orb_slam3_kitti_raw_0009_matrix.json` | `orb_slam3` | `-` | `experiments/results/orb_slam3_kitti_raw_0009_matrix.json` |
 | ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `experiments/orb_slam3_kitti_raw_0061_full_matrix.json` | `orb_slam3` | `-` | `experiments/results/orb_slam3_kitti_raw_0061_full_matrix.json` |
 | ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `experiments/orb_slam3_kitti_raw_0061_matrix.json` | `orb_slam3` | `-` | `experiments/results/orb_slam3_kitti_raw_0061_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/pending/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `experiments/pending/ct_icp_kitti_seq_07_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `experiments/ct_icp_kitti_seq_07_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full) | `ready` | `experiments/pending/litamin2_kitti_seq_02_full_correspondence_matrix.json` | `litamin2` | `cov_floor_1e_4` | `experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full) | `ready` | `experiments/pending/litamin2_kitti_seq_05_full_correspondence_matrix.json` | `litamin2` | `cov_floor_1e_4` | `experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full) | `ready` | `experiments/pending/litamin2_kitti_seq_07_full_correspondence_matrix.json` | `litamin2` | `cov_floor_1e_4` | `experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json` |

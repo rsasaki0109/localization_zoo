@@ -161,6 +161,14 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--indexed-only",
+        action="store_true",
+        help=(
+            "Process only the manifests listed in the existing output-dir index.json "
+            "(skips manifests that were never run). Cannot be combined with --manifest."
+        ),
+    )
+    parser.add_argument(
         "--merge-existing-index",
         action="store_true",
         help=(
@@ -207,6 +215,18 @@ def discover_manifest_paths(manifest_args: list[str]) -> list[Path]:
     if not resolved:
         raise FileNotFoundError("No experiment manifests found under experiments/*_matrix.json")
     return resolved
+
+
+def indexed_manifest_args(output_dir: Path) -> list[str]:
+    """Manifest paths listed in output_dir/index.json, in index order."""
+    index_path = output_dir / "index.json"
+    if not index_path.exists():
+        raise FileNotFoundError(f"--indexed-only needs an existing index: {index_path}")
+    problems = json.loads(index_path.read_text()).get("problems", [])
+    manifests = [str(problem["manifest_path"]) for problem in problems]
+    if not manifests:
+        raise FileNotFoundError(f"--indexed-only: no problems listed in {index_path}")
+    return manifests
 
 
 def load_manifest(path: Path) -> dict[str, Any]:
@@ -1152,9 +1172,9 @@ def render_interfaces_md(
         "",
         "### Runner Contract",
         "",
-        "`python3 evaluation/scripts/run_experiment_matrix.py [--manifest <path>]... [--reuse-existing] [--reuse-aggregates] [--variant-timeout-seconds <seconds>]`",
+        "`python3 evaluation/scripts/run_experiment_matrix.py [--manifest <path>]... [--indexed-only] [--reuse-existing] [--reuse-aggregates] [--variant-timeout-seconds <seconds>]`",
         "",
-        "If no manifest is specified, the runner executes every `experiments/*_matrix.json` file.",
+        "If no manifest is specified, the runner executes every `experiments/*_matrix.json` file; `--indexed-only` limits it to the manifests already in `experiments/results/index.json`.",
         "",
         "The runner is responsible for:",
         "",
@@ -1354,8 +1374,14 @@ def run_problem(
 
 def main() -> None:
     args = parse_args()
-    manifest_paths = discover_manifest_paths(args.manifest)
     output_dir = resolve_path(args.output_dir)
+    if args.indexed_only:
+        if args.manifest:
+            raise SystemExit("--indexed-only cannot be combined with --manifest")
+        assert output_dir is not None
+        manifest_paths = discover_manifest_paths(indexed_manifest_args(output_dir))
+    else:
+        manifest_paths = discover_manifest_paths(args.manifest)
     docs_dir = resolve_path(args.docs_dir)
     assert output_dir is not None
     assert docs_dir is not None

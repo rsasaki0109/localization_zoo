@@ -722,6 +722,43 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             ],
         )
 
+    def test_refresh_study_docs_limits_default_refresh_to_indexed_manifests(self) -> None:
+        commands: list[list[str]] = []
+        with mock.patch.object(
+            self.refresh_module,
+            "parse_args",
+            return_value=argparse.Namespace(rerun=False, manifest=[]),
+        ), mock.patch.object(
+            self.refresh_module,
+            "run",
+            side_effect=lambda cmd: commands.append(cmd),
+        ):
+            self.refresh_module.main()
+
+        self.assertEqual(commands[0], [
+            "python3",
+            "evaluation/scripts/run_experiment_matrix.py",
+            "--reuse-existing",
+            "--reuse-aggregates",
+            "--indexed-only",
+        ])
+
+    def test_indexed_manifest_args_reads_index_order(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            with self.assertRaises(FileNotFoundError):
+                self.runner_module.indexed_manifest_args(output_dir)
+            (output_dir / "index.json").write_text(json.dumps({
+                "problems": [
+                    {"manifest_path": "experiments/a_matrix.json"},
+                    {"manifest_path": "experiments/b_matrix.json"},
+                ]
+            }))
+            self.assertEqual(
+                self.runner_module.indexed_manifest_args(output_dir),
+                ["experiments/a_matrix.json", "experiments/b_matrix.json"],
+            )
+
     def test_generate_leaderboard_preserves_from_paper_section(self) -> None:
         readme = textwrap.dedent(
             """

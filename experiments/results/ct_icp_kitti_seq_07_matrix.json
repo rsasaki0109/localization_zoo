@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-18T22:03:24+00:00",
-  "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_matrix.json",
+  "manifest_path": "experiments/ct_icp_kitti_seq_07_matrix.json",
   "problem": {
     "id": "ct_icp_profile_tradeoff_kitti_seq_07",
     "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07",

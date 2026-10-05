@@ -1305,9 +1305,16 @@ void ImuMotionHealth::finalizeStartup() {
       vqf.sampling_rate = 1.0 / dt;
       vqf.tau_acc = params_.vqf_attitude_tau_acc_s;
       attitude_vqf_.emplace(vqf);
+      // The startup window is static by assumption: start VQF from its
+      // calibration (the trusted gyro bias) and its mean instead of letting
+      // the filters average the first tau seconds of later motion.
+      if (startup_quality_ok_ && params_.estimate_gyro_bias) {
+        attitude_vqf_->setBiasEstimate(gyro_bias_);
+      }
       for (const ImuSample& sample : startup_samples_) {
         attitude_vqf_->update(sample.gyro, sample.accel);
       }
+      attitude_vqf_->endInitialAveraging();
       orientation_ = vqfOrientation(*attitude_vqf_);
     }
   }
@@ -1407,7 +1414,13 @@ void ImuMotionHealth::classify(double timestamp, double /*dt*/,
   };
   const double orientation_tilt =
       angleToUp(orientation_ * Eigen::Vector3d::UnitZ());
-  const double gravity_tilt = angleToUp(orientation_ * corrected_accel);
+  // With the VQF attitude the orientation itself leans towards the measured
+  // gravity, so the body-frame gravity direction gives the tilt directly
+  // (body z against measured up); the integrating attitude keeps the legacy
+  // world-frame form.
+  const double gravity_tilt = attitude_vqf_
+                                  ? angleToUp(corrected_accel)
+                                  : angleToUp(orientation_ * corrected_accel);
   state_.tilt_angle_rad = std::max(orientation_tilt, gravity_tilt);
   state_.tilt_angle_deg = state_.tilt_angle_rad * kRadToDeg;
 

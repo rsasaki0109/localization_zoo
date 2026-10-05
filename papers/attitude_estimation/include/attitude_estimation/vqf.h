@@ -63,6 +63,15 @@ class VQF {
   /// Sensor orientation relative to ENU (requires magnetometer updates).
   Quat quat9D() const;
   Eigen::Vector3d biasEstimate() const { return bias_; }  // [rad/s]
+
+  // Extensions for callers that know more than the filter (not in the paper):
+  /// Overwrite the gyro bias estimate [rad/s], e.g. from a static
+  /// calibration; the Kalman covariance is left unchanged.
+  void setBiasEstimate(const Eigen::Vector3d& bias) { bias_ = bias; }
+  /// End the initial running-mean phase of every low-pass filter now, starting
+  /// each from its current mean (Appendix A.2 averages the first tau / Ts
+  /// samples). Use only when the samples seen so far are known to be static.
+  void endInitialAveraging();
   bool restDetected() const { return rest_detected_; }
   bool magDisturbanceDetected() const { return mag_disturbed_; }
 
@@ -76,6 +85,7 @@ class VQF {
     bool started = false;
     Eigen::Matrix<double, N, 1> step(const Eigen::Matrix<double, N, 1>& x,
                                      const VQF& owner, double tau);
+    void endAveraging(const VQF& owner, double tau);
   };
   struct Coefficients {
     double b0, b1, b2, a1, a2;

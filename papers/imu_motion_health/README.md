@@ -254,8 +254,16 @@ not silently accept a partial stream.
 - The first startup window is assumed to be stationary.  A moving or noisy
   startup transitions to streaming mode but does not promote its mean to a
   trusted bias.
-- Accelerometer gravity provides roll/pitch leveling only.  Six-axis IMU data
-  cannot observe absolute yaw, so yaw drifts with gyro bias.
+- The orientation comes from a 6D VQF attitude by default (`vqf_attitude`).
+  Accelerometer gravity corrects roll and pitch, with a 3 s time constant
+  (`vqf_attitude_tau_acc_s`).  VQF starts from the static startup window.
+  Six-axis IMU data cannot observe absolute yaw, so yaw drifts with any
+  remaining gyro bias.  `vqf_attitude: false` restores gyro integration with
+  stationary-only leveling.
+- With the VQF attitude, `tilt_angle` is the larger of the orientation's tilt
+  and the tilt of the measured gravity in the body frame.  The latter catches
+  a quiet post-impact pose before the 3 s correction has moved the
+  orientation.
 - Velocity and position are short-term relative dead reckoning.  They drift
   without wheel, GNSS, vision, magnetometer, LiDAR, or another aid; this SDK
   intentionally has no LiDAR input path.
@@ -337,16 +345,35 @@ unobservable without a magnetometer, so it is not scored.
 
 | Configuration | Mean | Median | Max |
 |---|---:|---:|---:|
-| `default` before 2026-10-05 (per-sample bias update) | 26.8° | 25.7° | 97.5° |
-| **`default` now** | **9.6°** | **7.0°** | **24.0°** |
-| `wearable` now (was 45.5°) | 17.6° | 15.0° | 73.1° |
-| `default`, `stationary_bias_gain: 0` | 3.4° | 1.8° | 24.1° |
-| **`vqf_attitude: true`** | **0.70°** | **0.60°** | **1.8°** |
+| **`default` (VQF attitude)** | **0.70°** | **0.60°** | **1.8°** |
+| `wearable` | 0.70° | 0.60° | 1.8° |
+| `vqf_attitude: false` (integrating) | 9.6° | 7.0° | 24.0° |
+| `vqf_attitude: false`, per-sample bias update (before 2026-10-05) | 26.8° | 25.7° | 97.5° |
+| `vqf_attitude: false`, `stationary_bias_gain: 0` | 3.4° | 1.8° | 24.1° |
 
-**The stationary bias update.** The stationary gate uses the bias-corrected
-gyro. Once slow real rotation has been learned as bias, the gate stays open
-and keeps learning it. The old per-sample gain (0.01) made this fast: at
-BROAD's 286 Hz it is a 0.35 s time constant. Two safeguards are now on by
+**The VQF attitude** is a 6D VQF that estimates its own gyro bias with rest
+detection. It starts from the static startup window: VQF's bias is set to the
+trusted startup bias, and its initial averaging is ended with the window
+mean. Two parts of VQF were built for this use and are not in the paper:
+`setBiasEstimate` and `endInitialAveraging`. Its BROAD result equals
+standalone VQF.
+
+**Defaults that existing tests check.** Becoming the default required two
+changes:
+
+- **Tilt from body-frame gravity.** VQF leans towards gravity, so the tilt is
+  also measured from the body-frame gravity direction. The quiet-pose tilt
+  fall still reads 60°.
+- **Integration check moved to the integrating mode.** The exact
+  dead-reckoning check now runs with `vqf_attitude: false`. A VQF variant
+  allows the ~0.01° lean that 0.2 s of sustained 1 m/s² acceleration causes.
+
+The fault matrix (11/11), the CLI tests, the demo's event counts, and the
+public wearable benchmark are unchanged.
+
+**The stationary bias update of the integrating mode.** The stationary gate
+uses the bias-corrected gyro. Once slow real rotation has been learned as
+bias, the gate stays open and keeps learning it. Two safeguards are on by
 default:
 
 - `stationary_bias_reference_rate_hz: 100`: the gain is defined per 100 Hz
@@ -354,23 +381,12 @@ default:
 - `stationary_bias_min_duration_s: 1.5`: learn only after 1.5 s of
   stationarity.
 
-**How they were chosen.** All combinations of these two and a third safeguard
-(`stationary_bias_max_change`, a bound on the departure from the startup bias;
-off by default) were scored on the odd-numbered BROAD trials only. The
-held-out even trials were then evaluated once: 24.5° → 9.9°
+They were chosen on the odd-numbered BROAD trials only, and the held-out even
+trials improved from 24.5° to 9.9°
 ([`analyze_stationary_bias.py`](evaluation/analyze_stationary_bias.py),
 [`stationary_bias_selection.json`](evaluation/stationary_bias_selection.json)).
-
-**What else was checked.** The fault matrix (11/11), the unit and CLI tests,
-and the public wearable benchmark are unchanged. At 100 Hz the learning rate is
-identical to before; only the 1.5 s wait is new. Setting both values to 0
-restores the old behaviour.
-
-**`vqf_attitude` is still far better** (0.70°). It replaces gyro integration
-plus stationary leveling with a 6D VQF that estimates its own bias, and it
-equals standalone VQF. It is not the default: three existing unit tests depend
-on the integrating attitude. One of them is quiet-pose tilt detection, which
-VQF follows only with its 3 s accelerometer time constant.
+The SDK's `gyro_bias` output and the motion gates still use this update in
+both modes.
 
 ### Posture confirmation (opt-in)
 

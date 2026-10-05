@@ -150,7 +150,11 @@ TEST(ImuMotionHealth, DetectsDataQualityFaultsAndDoesNotIntegrateThem) {
 }
 
 TEST(ImuMotionHealth, IntegratesShortTermRelativeMotionWithoutLidar) {
-  ImuMotionHealth pipeline(testParams());
+  // Exact analytic check of the integration with a fixed attitude
+  // (integrating mode); the VQF attitude variant is below.
+  ImuMotionHealthParams params = testParams();
+  params.vqf_attitude = false;
+  ImuMotionHealth pipeline(params);
   feedStatic(&pipeline, 31);
 
   // Constant 1 m/s^2 world-x acceleration for 0.20 seconds.  The first
@@ -208,6 +212,24 @@ TEST(ImuMotionHealth, DetectsImpactFallAndVibrationEvents) {
   EXPECT_EQ(state.motion_state, MotionState::kVibration);
   EXPECT_TRUE(state.vibration);
   EXPECT_GT(state.vibration_rms, params.vibration_rms_threshold);
+}
+
+TEST(ImuMotionHealth, VqfAttitudeKeepsShortTermDeadReckoning) {
+  // Same 0.20 s of 1 m/s^2 world-x acceleration with the VQF attitude. VQF
+  // slowly leans towards sustained acceleration (tau_acc = 3 s); over 0.2 s
+  // that is about 0.01 deg, so the vertical velocity error stays below
+  // 1e-4 m/s while x matches the analytic values.
+  ImuMotionHealth pipeline(testParams());
+  feedStatic(&pipeline, 31);
+  ImuMotionHealth::State state;
+  for (int i = 1; i <= 20; ++i) {
+    state = pipeline.process(sample(0.30 + i * 0.01, Eigen::Vector3d::Zero(),
+                                    Eigen::Vector3d(1.0, 0.0, kGravity)));
+  }
+  EXPECT_NEAR(state.velocity.x(), 0.20, 0.02);
+  EXPECT_NEAR(state.position.x(), 0.02, 0.004);
+  EXPECT_NEAR(state.velocity.y(), 0.0, 1e-6);
+  EXPECT_NEAR(state.velocity.z(), 0.0, 1e-4);
 }
 
 TEST(ImuMotionHealth, DetectsQuietPostImpactTiltAsFall) {

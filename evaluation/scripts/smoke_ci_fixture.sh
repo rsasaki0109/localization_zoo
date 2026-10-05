@@ -16,7 +16,7 @@ fi
 
 METHODS=(
   litamin2 gicp small_gicp voxel_gicp ndt kiss_icp
-  dlo dlio aloam floam lego_loam mulls ct_icp lf_gicp
+  dlo dlio aloam floam lego_loam mulls ct_icp lf_gicp l_lo
   xicp hdl_graph_slam vgicp_slam
   suma balm2 isc_loam loam_livox lio_sam lins
   fast_lio_slam point_lio

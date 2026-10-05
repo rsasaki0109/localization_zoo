@@ -327,7 +327,7 @@ real CLI, and emits JSON plus self-contained HTML. Public-data experiments
 also introduced the opt-in `impact_requires_accel_and_gyro` gate; it defaults
 to false, so all existing profiles retain their original OR behavior.
 
-### Attitude accuracy on BROAD (opt-in `vqf_attitude`)
+### Attitude accuracy on BROAD
 
 [`evaluation/broad_attitude.py`](evaluation/broad_attitude.py) replays the 39
 BROAD trials through the CLI. BROAD has motion-capture ground truth, CC BY 4.0;
@@ -337,25 +337,40 @@ unobservable without a magnetometer, so it is not scored.
 
 | Configuration | Mean | Median | Max |
 |---|---:|---:|---:|
-| `default` | 26.8° | 25.7° | 97.5° |
-| `wearable` | 45.5° | 43.7° | 107.6° |
+| `default` before 2026-10-05 (per-sample bias update) | 26.8° | 25.7° | 97.5° |
+| **`default` now** | **9.6°** | **7.0°** | **24.0°** |
+| `wearable` now (was 45.5°) | 17.6° | 15.0° | 73.1° |
 | `default`, `stationary_bias_gain: 0` | 3.4° | 1.8° | 24.1° |
 | **`vqf_attitude: true`** | **0.70°** | **0.60°** | **1.8°** |
 
-- **The default is dominated by stationary bias learning.** Turning it off
-  takes the mean from 26.8° to 3.4°.
-- **Why this is a plausible cause.** The gain is applied per sample. At
-  BROAD's 286 Hz, 0.01 per sample is a time constant of about 0.35 s, so
-  rotation slower than the stationary gyro gate (0.06 rad/s) can be absorbed
-  as bias.
-- **What `vqf_attitude` does.** The orientation comes from a 6D VQF instead of
-  gyro integration with stationary leveling. VQF estimates its own gyro bias
-  with rest detection and a Kalman filter. The result equals standalone VQF on
-  the same data (0.696° vs 0.696°).
-- **Effect on other outputs.** Tilt and the relative dead reckoning use the
-  same orientation, so they follow.
-- **Defaults are unchanged.** The default and built-in profiles keep their
-  behaviour.
+**The stationary bias update.** The stationary gate uses the bias-corrected
+gyro. Once slow real rotation has been learned as bias, the gate stays open
+and keeps learning it. The old per-sample gain (0.01) made this fast: at
+BROAD's 286 Hz it is a 0.35 s time constant. Two safeguards are now on by
+default:
+
+- `stationary_bias_reference_rate_hz: 100`: the gain is defined per 100 Hz
+  sample and scaled with the sample interval.
+- `stationary_bias_min_duration_s: 1.5`: learn only after 1.5 s of
+  stationarity.
+
+**How they were chosen.** All combinations of these two and a third safeguard
+(`stationary_bias_max_change`, a bound on the departure from the startup bias;
+off by default) were scored on the odd-numbered BROAD trials only. The
+held-out even trials were then evaluated once: 24.5° → 9.9°
+([`analyze_stationary_bias.py`](evaluation/analyze_stationary_bias.py),
+[`stationary_bias_selection.json`](evaluation/stationary_bias_selection.json)).
+
+**What else was checked.** The fault matrix (11/11), the unit and CLI tests,
+and the public wearable benchmark are unchanged. At 100 Hz the learning rate is
+identical to before; only the 1.5 s wait is new. Setting both values to 0
+restores the old behaviour.
+
+**`vqf_attitude` is still far better** (0.70°). It replaces gyro integration
+plus stationary leveling with a 6D VQF that estimates its own bias, and it
+equals standalone VQF. It is not the default: three existing unit tests depend
+on the integrating attitude. One of them is quiet-pose tilt detection, which
+VQF follows only with its 3 s accelerometer time constant.
 
 ### Posture confirmation (opt-in)
 

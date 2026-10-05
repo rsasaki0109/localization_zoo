@@ -27,11 +27,15 @@ import tempfile
 
 import numpy as np
 
+# Each variant: (CLI arguments, extra profile keys written to a temporary
+# --profile-file).  "legacy" restores the per-sample bias update used before
+# 2026-10-05.
 VARIANTS = {
-    "default": [],
-    "wearable": ["--profile", "wearable"],
-    "default_no_stationary_bias_learning": ["--stationary-bias-gain", "0"],
-    "vqf_attitude": ["--vqf-attitude"],
+    "default": ([], {}),
+    "wearable": (["--profile", "wearable"], {}),
+    "legacy_default": ([], {"stationary_bias_reference_rate_hz": 0, "stationary_bias_min_duration_s": 0}),
+    "default_no_stationary_bias_learning": (["--stationary-bias-gain", "0"], {}),
+    "vqf_attitude": (["--vqf-attitude"], {}),
 }
 
 
@@ -47,10 +51,15 @@ def inclination_rmse_deg(estimate: np.ndarray, reference: np.ndarray, movement: 
     return float(np.degrees(np.sqrt(np.mean(error[valid] ** 2))))
 
 
-def run_trial(cli: str, csv_path: pathlib.Path, rate: float, args: list[str]) -> float:
+def run_trial(cli: str, csv_path: pathlib.Path, rate: float, args: list[str],
+              profile: dict | None = None) -> float:
     data = np.loadtxt(csv_path, delimiter=",", skiprows=1)
     times = np.arange(len(data)) / rate
     with tempfile.TemporaryDirectory() as tmp:
+        if profile:
+            path = pathlib.Path(tmp) / "profile.yaml"
+            path.write_text("imu_motion_health:\n" + "".join(f"  {k}: {v}\n" for k, v in profile.items()))
+            args = [*args, "--profile-file", str(path)]
         sdk_input = pathlib.Path(tmp) / "imu.csv"
         np.savetxt(sdk_input, np.column_stack([times, data[:, 0:3], data[:, 3:6]]), delimiter=",",
                    header="timestamp,gx,gy,gz,ax,ay,az", comments="", fmt="%.9f")
@@ -74,13 +83,13 @@ def main() -> int:
     results = {"dataset": "BROAD (Laidig et al., Data 2021, CC BY 4.0), 39 trials",
                "metric": "inclination RMSE over movement phases [deg], mean over trials",
                "variants": {}}
-    for name, extra in VARIANTS.items():
+    for name, (extra, profile) in VARIANTS.items():
         with concurrent.futures.ThreadPoolExecutor(args.jobs) as pool:
             futures = {t: pool.submit(run_trial, args.cli, args.broad_csv / f"{t}.csv",
-                                      info["sampling_rate"], extra) for t, info in trials.items()}
+                                      info["sampling_rate"], extra, profile) for t, info in trials.items()}
             per_trial = {t: round(f.result(), 4) for t, f in futures.items()}
         values = list(per_trial.values())
-        results["variants"][name] = {"args": extra, "mean": round(float(np.mean(values)), 3),
+        results["variants"][name] = {"args": extra, "profile": profile, "mean": round(float(np.mean(values)), 3),
                                      "median": round(float(np.median(values)), 3),
                                      "max": round(float(np.max(values)), 3), "trials": per_trial}
         print(f"{name:38s} mean {np.mean(values):7.3f}  median {np.median(values):7.3f}  max {np.max(values):7.2f}")

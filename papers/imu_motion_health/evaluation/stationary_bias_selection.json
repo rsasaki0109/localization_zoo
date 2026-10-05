@@ -1,0 +1,115 @@
+{
+  "protocol": "odd-numbered BROAD trials only; lowest mean inclination RMSE, ties within 0.05 deg to fewer safeguards; even-numbered trials evaluated once afterwards",
+  "dev_trials": [
+    "01_undisturbed_slow_rotation_A",
+    "03_undisturbed_slow_rotation_C",
+    "05_undisturbed_slow_rotation_with_breaks_B",
+    "07_undisturbed_fast_rotation_B",
+    "09_undisturbed_fast_rotation_with_breaks_B",
+    "11_undisturbed_slow_translation_B",
+    "13_undisturbed_slow_translation_with_breaks_A",
+    "15_undisturbed_fast_translation_A",
+    "17_undisturbed_fast_translation_with_breaks_A",
+    "19_undisturbed_slow_combined_240s",
+    "21_undisturbed_fast_combined",
+    "23_undisturbed_fast_combined_360s",
+    "25_disturbed_tapping_B",
+    "27_disturbed_phone_vibration_B",
+    "29_disturbed_stationary_magnet_B",
+    "31_disturbed_stationary_magnet_D",
+    "33_disturbed_attached_magnet_2cm",
+    "35_disturbed_attached_magnet_4cm",
+    "37_disturbed_office_A",
+    "39_disturbed_mixed"
+  ],
+  "candidates": [
+    {
+      "candidate": "legacy",
+      "params": {},
+      "dev_mean": 28.966,
+      "dev_median": 22.152
+    },
+    {
+      "candidate": "A",
+      "params": {
+        "stationary_bias_reference_rate_hz": 100.0
+      },
+      "dev_mean": 11.585,
+      "dev_median": 10.129
+    },
+    {
+      "candidate": "B",
+      "params": {
+        "stationary_bias_max_change": 0.0175
+      },
+      "dev_mean": 27.761,
+      "dev_median": 17.557
+    },
+    {
+      "candidate": "C",
+      "params": {
+        "stationary_bias_min_duration_s": 1.5
+      },
+      "dev_mean": 20.54,
+      "dev_median": 16.478
+    },
+    {
+      "candidate": "AB",
+      "params": {
+        "stationary_bias_reference_rate_hz": 100.0,
+        "stationary_bias_max_change": 0.0175
+      },
+      "dev_mean": 11.585,
+      "dev_median": 10.129
+    },
+    {
+      "candidate": "AC",
+      "params": {
+        "stationary_bias_reference_rate_hz": 100.0,
+        "stationary_bias_min_duration_s": 1.5
+      },
+      "dev_mean": 9.325,
+      "dev_median": 6.805
+    },
+    {
+      "candidate": "BC",
+      "params": {
+        "stationary_bias_max_change": 0.0175,
+        "stationary_bias_min_duration_s": 1.5
+      },
+      "dev_mean": 19.833,
+      "dev_median": 15.882
+    },
+    {
+      "candidate": "ABC",
+      "params": {
+        "stationary_bias_reference_rate_hz": 100.0,
+        "stationary_bias_max_change": 0.0175,
+        "stationary_bias_min_duration_s": 1.5
+      },
+      "dev_mean": 9.325,
+      "dev_median": 6.805
+    }
+  ],
+  "chosen": {
+    "candidate": "AC",
+    "params": {
+      "stationary_bias_reference_rate_hz": 100.0,
+      "stationary_bias_min_duration_s": 1.5
+    },
+    "dev_mean": 9.325,
+    "dev_median": 6.805
+  },
+  "held_out": {
+    "legacy": {
+      "mean": 24.472,
+      "median": 25.736,
+      "max": 62.336
+    },
+    "chosen": {
+      "mean": 9.863,
+      "median": 8.113,
+      "max": 24.038
+    }
+  }
+}

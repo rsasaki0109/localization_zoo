@@ -1,0 +1,210 @@
+{
+  "dataset": "BROAD (Berlin Robust Orientation Estimation Assessment Dataset)",
+  "citation": "D. Laidig, M. Caruso, A. Cereatti, T. Seel. BROAD - A Benchmark for Robust Inertial Orientation Estimation. Data 6(7):72, 2021. doi:10.3390/data6070072",
+  "license": "CC-BY-4.0",
+  "repository": "https://github.com/dlaidig/broad",
+  "commit": "7e2f8189bb4a3ac91eae32c69b6bc87f08a6e2ad",
+  "raw_url": "https://raw.githubusercontent.com/dlaidig/broad/{commit}/data_mat/{name}",
+  "files": [
+    {
+      "name": "01_undisturbed_slow_rotation_A.mat",
+      "size": 3865812,
+      "git_blob_sha1": "0ec0ee5d7d517dcee07e10f02b3a9805c3560856"
+    },
+    {
+      "name": "02_undisturbed_slow_rotation_B.mat",
+      "size": 3634345,
+      "git_blob_sha1": "8122841e628f6ab17301e5f0ba33d0b1766bfa8f"
+    },
+    {
+      "name": "03_undisturbed_slow_rotation_C.mat",
+      "size": 3840316,
+      "git_blob_sha1": "3bfb492a716e50b86b9b33559bac7c20a17da7f6"
+    },
+    {
+      "name": "04_undisturbed_slow_rotation_with_breaks_A.mat",
+      "size": 4077784,
+      "git_blob_sha1": "a3406b080e07299a0a34f96b1b471f42272af8c8"
+    },
+    {
+      "name": "05_undisturbed_slow_rotation_with_breaks_B.mat",
+      "size": 3892446,
+      "git_blob_sha1": "003deb49928df1c08828a50b7053bc6ed5baa0b1"
+    },
+    {
+      "name": "06_undisturbed_fast_rotation_A.mat",
+      "size": 3985202,
+      "git_blob_sha1": "6de97dce75cd8568bedeb4bd6b0b1916d8b768fe"
+    },
+    {
+      "name": "07_undisturbed_fast_rotation_B.mat",
+      "size": 3830801,
+      "git_blob_sha1": "305918cf7a59bd42c2e0dfef18db9ead529bbf84"
+    },
+    {
+      "name": "08_undisturbed_fast_rotation_with_breaks_A.mat",
+      "size": 4071664,
+      "git_blob_sha1": "1c52c15501be93d51b37dda1b43e2bdfe296f421"
+    },
+    {
+      "name": "09_undisturbed_fast_rotation_with_breaks_B.mat",
+      "size": 3893155,
+      "git_blob_sha1": "3ad6fc70960835038f6f5e16f2e1747e5429ded6"
+    },
+    {
+      "name": "10_undisturbed_slow_translation_A.mat",
+      "size": 3530063,
+      "git_blob_sha1": "351670721ddf826f2d183c968f08deebcd550893"
+    },
+    {
+      "name": "11_undisturbed_slow_translation_B.mat",
+      "size": 3466956,
+      "git_blob_sha1": "9c3d2351bd6ebed65a384cea01af3be2cd647ebd"
+    },
+    {
+      "name": "12_undisturbed_slow_translation_C.mat",
+      "size": 3428106,
+      "git_blob_sha1": "c83450b5818222c52142bbacdf9941c4482cbdee"
+    },
+    {
+      "name": "13_undisturbed_slow_translation_with_breaks_A.mat",
+      "size": 4371744,
+      "git_blob_sha1": "5c95281e5f49fe6efd394ab20c88024627b9632f"
+    },
+    {
+      "name": "14_undisturbed_slow_translation_with_breaks_B.mat",
+      "size": 3381452,
+      "git_blob_sha1": "ddbb78bc46d140fe12e80a58387b3fef3ec6a676"
+    },
+    {
+      "name": "15_undisturbed_fast_translation_A.mat",
+      "size": 3619717,
+      "git_blob_sha1": "110e4065d0486e7b14b2832b112c21d32f5c2f3a"
+    },
+    {
+      "name": "16_undisturbed_fast_translation_B.mat",
+      "size": 3747997,
+      "git_blob_sha1": "d7c536e8e365d5853017d4a338144a157dbc5386"
+    },
+    {
+      "name": "17_undisturbed_fast_translation_with_breaks_A.mat",
+      "size": 4259547,
+      "git_blob_sha1": "e27a9a7d85c96661ac61a8bab0aee218714c6b97"
+    },
+    {
+      "name": "18_undisturbed_fast_translation_with_breaks_B.mat",
+      "size": 3794019,
+      "git_blob_sha1": "412d42711d3ee963e99791c3d054ec0de0793cbb"
+    },
+    {
+      "name": "19_undisturbed_slow_combined_240s.mat",
+      "size": 6257950,
+      "git_blob_sha1": "5aff5c8dd0cd6bda6acad5a5da2529d56bd2a234"
+    },
+    {
+      "name": "20_undisturbed_slow_combined_360s.mat",
+      "size": 8844158,
+      "git_blob_sha1": "21c5a4cfb85842f980f9f4acfc1ef91d28a5bffe"
+    },
+    {
+      "name": "21_undisturbed_fast_combined.mat",
+      "size": 4043263,
+      "git_blob_sha1": "bdafa899ef89fd92c7130d9ed0ce0f4ee87ada31"
+    },
+    {
+      "name": "22_undisturbed_fast_combined_240s.mat",
+      "size": 6733371,
+      "git_blob_sha1": "92343877826e058d72fae514a7beb2e2da765701"
+    },
+    {
+      "name": "23_undisturbed_fast_combined_360s.mat",
+      "size": 9468035,
+      "git_blob_sha1": "5bb6d4f3395895187c0183cd56c5c186c3eeab82"
+    },
+    {
+      "name": "24_disturbed_tapping_A.mat",
+      "size": 3831116,
+      "git_blob_sha1": "1c291a9b45d0fb6976fda6c8410d29586e18e12c"
+    },
+    {
+      "name": "25_disturbed_tapping_B.mat",
+      "size": 3375244,
+      "git_blob_sha1": "f4e19921a101aa103fe46b365ffca0a1af3840eb"
+    },
+    {
+      "name": "26_disturbed_phone_vibration_A.mat",
+      "size": 3856675,
+      "git_blob_sha1": "fb6333292df51fd33fa314bca8821fe8374da57e"
+    },
+    {
+      "name": "27_disturbed_phone_vibration_B.mat",
+      "size": 3375667,
+      "git_blob_sha1": "fe3a8787c64e0d6eebdfe124c8dbe57435e559c1"
+    },
+    {
+      "name": "28_disturbed_stationary_magnet_A.mat",
+      "size": 3927956,
+      "git_blob_sha1": "08c6068f1dabf7e5c38e7202c750681d7732b668"
+    },
+    {
+      "name": "29_disturbed_stationary_magnet_B.mat",
+      "size": 4007864,
+      "git_blob_sha1": "2f06ee286d8abd8412839fde46f7cb69012c8438"
+    },
+    {
+      "name": "30_disturbed_stationary_magnet_C.mat",
+      "size": 3747043,
+      "git_blob_sha1": "d72faa47131b9651b1f6dd38d6054dacd7dc2e3d"
+    },
+    {
+      "name": "31_disturbed_stationary_magnet_D.mat",
+      "size": 3699928,
+      "git_blob_sha1": "8aca3f1331f635da45ff52c6e00208a271a22226"
+    },
+    {
+      "name": "32_disturbed_attached_magnet_1cm.mat",
+      "size": 3064358,
+      "git_blob_sha1": "5ebe9c6621304a743c1286309487900a97bb3e18"
+    },
+    {
+      "name": "33_disturbed_attached_magnet_2cm.mat",
+      "size": 3037631,
+      "git_blob_sha1": "cd7256024360474de5aea75980a459d8fd6152dd"
+    },
+    {
+      "name": "34_disturbed_attached_magnet_3cm.mat",
+      "size": 3097393,
+      "git_blob_sha1": "e975f160e78a293b0936110114b80d3426751bd0"
+    },
+    {
+      "name": "35_disturbed_attached_magnet_4cm.mat",
+      "size": 2962905,
+      "git_blob_sha1": "bd3959587e6a93db0fedbe9e248613a8cd20014b"
+    },
+    {
+      "name": "36_disturbed_attached_magnet_5cm.mat",
+      "size": 3012196,
+      "git_blob_sha1": "05872a4a6e6f389e8b1727a4de970d41c693b621"
+    },
+    {
+      "name": "37_disturbed_office_A.mat",
+      "size": 4426294,
+      "git_blob_sha1": "0fc6b42ca2c481aa6fb55306dd6ea192571a5be3"
+    },
+    {
+      "name": "38_disturbed_office_B.mat",
+      "size": 5558687,
+      "git_blob_sha1": "9734771a85dbcc4d09750e9ad8957adf5ef9020b"
+    },
+    {
+      "name": "39_disturbed_mixed.mat",
+      "size": 7351164,
+      "git_blob_sha1": "4596a374b9c24dc8adf6d351df75fde9f408973d"
+    },
+    {
+      "name": "trials.json",
+      "size": 12177,
+      "git_blob_sha1": "ec696c67880c6b2e05c288f8eb8f4cf0852be287"
+    }
+  ]
+}

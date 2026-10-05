@@ -1,4 +1,5 @@
 #include "attitude_estimation/attitude_estimation.h"
+#include "attitude_estimation/vqf.h"
 
 #include <gtest/gtest.h>
 
@@ -149,4 +150,85 @@ TEST(AttitudeEstimation, LegacyFieldScaleOnlyChangesMagnetometerUpdate) {
   fa.update(gyr, acc, mag);
   fb.update(gyr, acc, mag);
   EXPECT_GT((fa.state() - fb.state()).norm(), 1e-6);
+}
+
+// ---------------------------------------------------------------------------
+// VQF
+
+namespace {
+
+// Static ENU measurements for sensor orientation q (sensor -> ENU); the field
+// points north (+y) and down.
+void staticEnu(const Quat& q, Eigen::Vector3d* acc, Eigen::Vector3d* mag) {
+  const Quat qi = quatConjugate(q);
+  *acc = quatRotate(qi, Eigen::Vector3d(0, 0, 9.81));
+  *mag = quatRotate(qi, Eigen::Vector3d(0, 20, -40));
+}
+
+}  // namespace
+
+TEST(AttitudeEstimation, VqfConvergesToStaticOrientationIn9D) {
+  const Quat truth = axisAngle({0.2, -0.4, 1.0}, 50 * kDeg);
+  Eigen::Vector3d acc, mag;
+  staticEnu(truth, &acc, &mag);
+  VQFParams p;
+  p.sampling_rate = 100;
+  VQF vqf(p);
+  for (int i = 0; i < 6000; ++i) vqf.update(Eigen::Vector3d::Zero(), acc, mag);
+  EXPECT_LT(angleBetween(vqf.quat9D(), truth), 0.1 * kDeg);
+  // 6D: inclination only.
+  const OrientationErrors e = broadErrors({vqf.quat6D()}, {truth}, {true});
+  EXPECT_LT(e.inclination_rmse_deg, 0.1);
+}
+
+TEST(AttitudeEstimation, VqfRestBiasEstimationRecoversGyroBias) {
+  Eigen::Vector3d acc, mag;
+  staticEnu(Quat(1, 0, 0, 0), &acc, &mag);
+  const Eigen::Vector3d bias = Eigen::Vector3d(0.3, -0.5, 0.2) * kDeg;  // within the 2 deg/s clip
+  VQFParams p;
+  p.sampling_rate = 100;
+  VQF vqf(p);
+  for (int i = 0; i < 3000; ++i) vqf.update(bias, acc, mag);
+  EXPECT_TRUE(vqf.restDetected());
+  EXPECT_LT((vqf.biasEstimate() - bias).norm(), 0.01 * kDeg);
+
+  p.rest_bias_estimation = p.motion_bias_estimation = false;
+  VQF basic(p);
+  for (int i = 0; i < 3000; ++i) basic.update(bias, acc, mag);
+  EXPECT_FALSE(basic.restDetected());
+  EXPECT_EQ(basic.biasEstimate().norm(), 0.0);
+}
+
+TEST(AttitudeEstimation, VqfSixDofOutputIgnoresMagnetometer) {
+  Eigen::Vector3d acc, mag;
+  staticEnu(axisAngle({1, 1, 0}, 20 * kDeg), &acc, &mag);
+  VQFParams p;
+  p.sampling_rate = 200;
+  VQF with_mag(p), without_mag(p);
+  const Eigen::Vector3d gyr(0.05, -0.02, 0.1);
+  for (int i = 0; i < 2000; ++i) {
+    with_mag.update(gyr, acc, mag * (1 + 0.5 * std::sin(i * 0.01)));  // disturbed field
+    without_mag.update(gyr, acc);
+  }
+  EXPECT_LT((with_mag.quat6D() - without_mag.quat6D()).norm(), 1e-12);
+}
+
+TEST(AttitudeEstimation, VqfFlagsAChangedFieldAsDisturbance) {
+  Eigen::Vector3d acc, mag;
+  staticEnu(Quat(1, 0, 0, 0), &acc, &mag);
+  VQFParams p;
+  p.sampling_rate = 100;
+  VQF vqf(p);
+  // A reference is only accepted after 5 s of motion (low-passed |gyro| >= 20 deg/s).
+  const Eigen::Vector3d spin(0, 0, 40 * kDeg);
+  Quat q(1, 0, 0, 0);
+  for (int i = 0; i < 1500; ++i) {
+    q = quatNormalized(quatMultiply(q, axisAngle({0, 0, 1}, 40 * kDeg / 100)));
+    staticEnu(q, &acc, &mag);
+    vqf.update(spin, acc, mag);
+  }
+  EXPECT_FALSE(vqf.magDisturbanceDetected());
+  // A 30 % stronger field (e.g. a nearby magnet) is a disturbance.
+  for (int i = 0; i < 50; ++i) vqf.update(Eigen::Vector3d::Zero(), acc, 1.3 * mag);
+  EXPECT_TRUE(vqf.magDisturbanceDetected());
 }

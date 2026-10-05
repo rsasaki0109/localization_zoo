@@ -46,7 +46,7 @@ class BroadBenchmarkTests(unittest.TestCase):
                 {"id": "grid9", "method": "madgwick", "mode": "9d", "args": ["--method", "madgwick"],
                  "grid": {"flag": "--beta", "values": [0.1, 0.2]}, "intent": "-"},
                 {"id": "fixed6", "method": "mahony", "mode": "6d", "args": ["--method", "mahony"],
-                 "reference": "ref6", "intent": "-"},
+                 "reference": "ref6", "reference_impl": "ref6", "intent": "-"},
             ]}
             reference = {"values": {"ref6": {
                 "label": "L", "source": "S", "metric": "inclination_rmse_deg", "all_trials": 2.0,
@@ -71,6 +71,8 @@ class BroadBenchmarkTests(unittest.TestCase):
             self.assertEqual(rows["fixed6"]["reference"]["ratio"], 1.0)
             self.assertEqual(rows["fixed6"]["reference"]["max_abs_trial_diff_deg"], 0.5)
             self.assertIn("TAGP of 2", out_md.read_text())
+            self.assertEqual(rows["fixed6"]["reference_impl"]["max_abs_trial_diff_deg"], 0.5)
+            self.assertIn("0.5000 (L)", out_md.read_text())
 
             expected = tmp / "expected.json"
             expected.write_text(json.dumps({"variants": {

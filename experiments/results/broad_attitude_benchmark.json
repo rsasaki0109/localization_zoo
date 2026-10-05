@@ -736,6 +736,426 @@
         "all_trials": 5.2,
         "ratio": 0.991
       }
+    },
+    {
+      "id": "vqf_9d",
+      "method": "vqf",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "vqf",
+        "--mode",
+        "9d"
+      ],
+      "intent": "Full VQF (rest and motion bias estimation, magnetic disturbance rejection) with the paper defaults tau_acc 3 s, tau_mag 9 s.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 2.3019,
+          "heading_rmse_deg": 2.1545,
+          "inclination_rmse_deg": 0.6958
+        },
+        "undisturbed": {
+          "total_rmse_deg": 1.831,
+          "heading_rmse_deg": 1.674,
+          "inclination_rmse_deg": 0.6668
+        },
+        "rotation": {
+          "total_rmse_deg": 1.9977,
+          "heading_rmse_deg": 1.7964,
+          "inclination_rmse_deg": 0.7836
+        },
+        "translation": {
+          "total_rmse_deg": 1.295,
+          "heading_rmse_deg": 1.1842,
+          "inclination_rmse_deg": 0.4405
+        },
+        "combined": {
+          "total_rmse_deg": 2.4958,
+          "heading_rmse_deg": 2.3354,
+          "inclination_rmse_deg": 0.864
+        },
+        "slow": {
+          "total_rmse_deg": 1.3724,
+          "heading_rmse_deg": 1.2838,
+          "inclination_rmse_deg": 0.4301
+        },
+        "fast": {
+          "total_rmse_deg": 2.3313,
+          "heading_rmse_deg": 2.0997,
+          "inclination_rmse_deg": 0.925
+        },
+        "no_breaks": {
+          "total_rmse_deg": 2.0449,
+          "heading_rmse_deg": 1.9214,
+          "inclination_rmse_deg": 0.6385
+        },
+        "with_breaks": {
+          "total_rmse_deg": 1.43,
+          "heading_rmse_deg": 1.2102,
+          "inclination_rmse_deg": 0.7198
+        },
+        "disturbed": {
+          "total_rmse_deg": 2.9789,
+          "heading_rmse_deg": 2.8452,
+          "inclination_rmse_deg": 0.7375
+        },
+        "tapping": {
+          "total_rmse_deg": 1.5821,
+          "heading_rmse_deg": 1.497,
+          "inclination_rmse_deg": 0.4949
+        },
+        "vibration": {
+          "total_rmse_deg": 4.2433,
+          "heading_rmse_deg": 4.1921,
+          "inclination_rmse_deg": 0.4656
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 3.0513,
+          "heading_rmse_deg": 2.8093,
+          "inclination_rmse_deg": 1.165
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 3.6493,
+          "heading_rmse_deg": 3.5452,
+          "inclination_rmse_deg": 0.6679
+        },
+        "office_environment": {
+          "total_rmse_deg": 2.1008,
+          "heading_rmse_deg": 2.0141,
+          "inclination_rmse_deg": 0.5822
+        },
+        "mixed": {
+          "total_rmse_deg": 1.3574,
+          "heading_rmse_deg": 1.1539,
+          "inclination_rmse_deg": 0.7148
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "total_rmse_deg",
+        "all_trials": 2.3,
+        "ratio": 1.001
+      },
+      "reference_impl": {
+        "label": "VQF code",
+        "source": "VQF reference implementation (pip vqf 2.1.2, MIT), run on BROAD with default parameters; used only to verify this reimplementation",
+        "metric": "total_rmse_deg",
+        "all_trials": 2.3019,
+        "max_abs_trial_diff_deg": 0.0002
+      }
+    },
+    {
+      "id": "vqf_6d",
+      "method": "vqf",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "vqf",
+        "--mode",
+        "6d"
+      ],
+      "intent": "Full VQF without magnetometer (6D output).",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 5.404,
+          "heading_rmse_deg": 5.3106,
+          "inclination_rmse_deg": 0.6958
+        },
+        "undisturbed": {
+          "total_rmse_deg": 5.8894,
+          "heading_rmse_deg": 5.7838,
+          "inclination_rmse_deg": 0.6668
+        },
+        "rotation": {
+          "total_rmse_deg": 4.7927,
+          "heading_rmse_deg": 4.6394,
+          "inclination_rmse_deg": 0.7836
+        },
+        "translation": {
+          "total_rmse_deg": 2.3211,
+          "heading_rmse_deg": 2.228,
+          "inclination_rmse_deg": 0.4405
+        },
+        "combined": {
+          "total_rmse_deg": 14.2866,
+          "heading_rmse_deg": 14.244,
+          "inclination_rmse_deg": 0.864
+        },
+        "slow": {
+          "total_rmse_deg": 3.1673,
+          "heading_rmse_deg": 3.1072,
+          "inclination_rmse_deg": 0.4301
+        },
+        "fast": {
+          "total_rmse_deg": 8.859,
+          "heading_rmse_deg": 8.7037,
+          "inclination_rmse_deg": 0.925
+        },
+        "no_breaks": {
+          "total_rmse_deg": 6.4342,
+          "heading_rmse_deg": 6.3398,
+          "inclination_rmse_deg": 0.6385
+        },
+        "with_breaks": {
+          "total_rmse_deg": 4.8679,
+          "heading_rmse_deg": 4.7412,
+          "inclination_rmse_deg": 0.7198
+        },
+        "disturbed": {
+          "total_rmse_deg": 4.7063,
+          "heading_rmse_deg": 4.6304,
+          "inclination_rmse_deg": 0.7375
+        },
+        "tapping": {
+          "total_rmse_deg": 2.3927,
+          "heading_rmse_deg": 2.2725,
+          "inclination_rmse_deg": 0.4949
+        },
+        "vibration": {
+          "total_rmse_deg": 2.5347,
+          "heading_rmse_deg": 2.4618,
+          "inclination_rmse_deg": 0.4656
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 9.0692,
+          "heading_rmse_deg": 8.9888,
+          "inclination_rmse_deg": 1.165
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 3.388,
+          "heading_rmse_deg": 3.3189,
+          "inclination_rmse_deg": 0.6679
+        },
+        "office_environment": {
+          "total_rmse_deg": 4.6315,
+          "heading_rmse_deg": 4.5947,
+          "inclination_rmse_deg": 0.5822
+        },
+        "mixed": {
+          "total_rmse_deg": 2.9655,
+          "heading_rmse_deg": 2.878,
+          "inclination_rmse_deg": 0.7148
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 0.7,
+        "ratio": 0.994
+      },
+      "reference_impl": {
+        "label": "VQF code",
+        "source": "VQF reference implementation (pip vqf 2.1.2, MIT), run on BROAD with default parameters; used only to verify this reimplementation",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 0.6958,
+        "max_abs_trial_diff_deg": 0.0
+      }
+    },
+    {
+      "id": "basic_vqf_9d",
+      "method": "vqf",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "vqf",
+        "--mode",
+        "9d",
+        "--vqf-basic"
+      ],
+      "intent": "BasicVQF: strapdown integration, inclination correction, and heading correction only (Algorithm 1).",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 3.3721,
+          "heading_rmse_deg": 3.1793,
+          "inclination_rmse_deg": 0.977
+        },
+        "undisturbed": {
+          "total_rmse_deg": 2.7322,
+          "heading_rmse_deg": 2.5325,
+          "inclination_rmse_deg": 0.9733
+        },
+        "rotation": {
+          "total_rmse_deg": 2.6844,
+          "heading_rmse_deg": 2.416,
+          "inclination_rmse_deg": 1.1513
+        },
+        "translation": {
+          "total_rmse_deg": 2.8529,
+          "heading_rmse_deg": 2.6992,
+          "inclination_rmse_deg": 0.8455
+        },
+        "combined": {
+          "total_rmse_deg": 2.6009,
+          "heading_rmse_deg": 2.4423,
+          "inclination_rmse_deg": 0.8831
+        },
+        "slow": {
+          "total_rmse_deg": 2.4175,
+          "heading_rmse_deg": 2.24,
+          "inclination_rmse_deg": 0.8529
+        },
+        "fast": {
+          "total_rmse_deg": 3.0754,
+          "heading_rmse_deg": 2.8516,
+          "inclination_rmse_deg": 1.1047
+        },
+        "no_breaks": {
+          "total_rmse_deg": 2.553,
+          "heading_rmse_deg": 2.3535,
+          "inclination_rmse_deg": 0.9536
+        },
+        "with_breaks": {
+          "total_rmse_deg": 3.068,
+          "heading_rmse_deg": 2.8683,
+          "inclination_rmse_deg": 1.0103
+        },
+        "disturbed": {
+          "total_rmse_deg": 4.2921,
+          "heading_rmse_deg": 4.109,
+          "inclination_rmse_deg": 0.9824
+        },
+        "tapping": {
+          "total_rmse_deg": 2.6205,
+          "heading_rmse_deg": 2.1708,
+          "inclination_rmse_deg": 1.4537
+        },
+        "vibration": {
+          "total_rmse_deg": 4.8414,
+          "heading_rmse_deg": 4.5866,
+          "inclination_rmse_deg": 1.3654
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 3.6426,
+          "heading_rmse_deg": 3.4418,
+          "inclination_rmse_deg": 1.1404
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 5.5449,
+          "heading_rmse_deg": 5.4614,
+          "inclination_rmse_deg": 0.6364
+        },
+        "office_environment": {
+          "total_rmse_deg": 4.3581,
+          "heading_rmse_deg": 4.3016,
+          "inclination_rmse_deg": 0.6697
+        },
+        "mixed": {
+          "total_rmse_deg": 2.7388,
+          "heading_rmse_deg": 2.5509,
+          "inclination_rmse_deg": 0.9971
+        }
+      },
+      "reference_impl": {
+        "label": "VQF code",
+        "source": "VQF reference implementation (pip vqf 2.1.2, MIT), run on BROAD with default parameters; used only to verify this reimplementation",
+        "metric": "total_rmse_deg",
+        "all_trials": 3.3721,
+        "max_abs_trial_diff_deg": 0.0
+      }
+    },
+    {
+      "id": "basic_vqf_6d",
+      "method": "vqf",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "vqf",
+        "--mode",
+        "6d",
+        "--vqf-basic"
+      ],
+      "intent": "BasicVQF without magnetometer.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 22.0773,
+          "heading_rmse_deg": 22.0312,
+          "inclination_rmse_deg": 0.977
+        },
+        "undisturbed": {
+          "total_rmse_deg": 27.023,
+          "heading_rmse_deg": 26.988,
+          "inclination_rmse_deg": 0.9733
+        },
+        "rotation": {
+          "total_rmse_deg": 25.0412,
+          "heading_rmse_deg": 25.0011,
+          "inclination_rmse_deg": 1.1513
+        },
+        "translation": {
+          "total_rmse_deg": 33.001,
+          "heading_rmse_deg": 32.9836,
+          "inclination_rmse_deg": 0.8455
+        },
+        "combined": {
+          "total_rmse_deg": 19.8298,
+          "heading_rmse_deg": 19.7724,
+          "inclination_rmse_deg": 0.8831
+        },
+        "slow": {
+          "total_rmse_deg": 23.6325,
+          "heading_rmse_deg": 23.6052,
+          "inclination_rmse_deg": 0.8529
+        },
+        "fast": {
+          "total_rmse_deg": 30.7217,
+          "heading_rmse_deg": 30.6783,
+          "inclination_rmse_deg": 1.1047
+        },
+        "no_breaks": {
+          "total_rmse_deg": 22.6271,
+          "heading_rmse_deg": 22.5842,
+          "inclination_rmse_deg": 0.9536
+        },
+        "with_breaks": {
+          "total_rmse_deg": 35.2653,
+          "heading_rmse_deg": 35.2451,
+          "inclination_rmse_deg": 1.0103
+        },
+        "disturbed": {
+          "total_rmse_deg": 14.9678,
+          "heading_rmse_deg": 14.9058,
+          "inclination_rmse_deg": 0.9824
+        },
+        "tapping": {
+          "total_rmse_deg": 20.5754,
+          "heading_rmse_deg": 20.5117,
+          "inclination_rmse_deg": 1.4537
+        },
+        "vibration": {
+          "total_rmse_deg": 19.0367,
+          "heading_rmse_deg": 18.97,
+          "inclination_rmse_deg": 1.3654
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 4.685,
+          "heading_rmse_deg": 4.5345,
+          "inclination_rmse_deg": 1.1404
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 10.4483,
+          "heading_rmse_deg": 10.4289,
+          "inclination_rmse_deg": 0.6364
+        },
+        "office_environment": {
+          "total_rmse_deg": 30.3849,
+          "heading_rmse_deg": 30.3774,
+          "inclination_rmse_deg": 0.6697
+        },
+        "mixed": {
+          "total_rmse_deg": 28.509,
+          "heading_rmse_deg": 28.4919,
+          "inclination_rmse_deg": 0.9971
+        }
+      },
+      "reference_impl": {
+        "label": "VQF code",
+        "source": "VQF reference implementation (pip vqf 2.1.2, MIT), run on BROAD with default parameters; used only to verify this reimplementation",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 0.977,
+        "max_abs_trial_diff_deg": 0.0
+      }
     }
   ]
 }

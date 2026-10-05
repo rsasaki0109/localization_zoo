@@ -175,6 +175,14 @@ def report(data_dir: pathlib.Path, runs_path: pathlib.Path, out_json: pathlib.Pa
                 diffs = [abs(per_trial[n][metric] - ref["trials"][n]) for n in ref["trials"]]
                 row["reference"]["max_abs_trial_diff_deg"] = round(max(diffs), 4)
             row["reference"]["ratio"] = round(row["groups"]["all_trials"][metric] / ref["all_trials"], 3)
+        impl = reference["values"].get(variant.get("reference_impl", ""))
+        if impl:
+            # Per-trial agreement with the authors' implementation.
+            metric = impl["metric"]
+            diffs = [abs(per_trial[n][metric] - impl["trials"][n]) for n in impl["trials"]]
+            row["reference_impl"] = {"label": impl["label"], "source": impl["source"], "metric": metric,
+                                     "all_trials": impl["all_trials"],
+                                     "max_abs_trial_diff_deg": round(max(diffs), 4)}
         summary["variants"].append(row)
     out_json.parent.mkdir(parents=True, exist_ok=True)
     out_json.write_text(json.dumps(summary, indent=2) + "\n")
@@ -194,7 +202,8 @@ def render_markdown(summary: dict) -> str:
         "",
         "Sources: BROAD = per-trial TAGP results of the BROAD example code; BROAD issue #1 = "
         "dlaidig/broad#1; VQF Fig. 9 = Laidig and Seel, Inf. Fusion 2023 (arXiv:2203.17024), "
-        "one decimal. See papers/attitude_estimation/README.md.",
+        "one decimal; VQF code = the authors' VQF package (MIT) run on BROAD, used for the "
+        "per-trial check only. See papers/attitude_estimation/README.md.",
         "",
         "Grid variants report the TAGP (BROAD's term): the grid value with the lowest error "
         "averaged over all 39 trials, i.e. selected on the evaluated data.",
@@ -207,9 +216,12 @@ def render_markdown(summary: dict) -> str:
         ref = row.get("reference")
         published = f"{ref['all_trials']:g} {ref['metric'].split('_')[0]} ({ref['label']})" if ref else "-"
         ratio = f"{ref['ratio']:.3f}x" if ref else "-"
-        diff = f"{ref['max_abs_trial_diff_deg']:.4f}" if ref and "max_abs_trial_diff_deg" in ref else "-"
+        per_trial_ref = row.get("reference_impl") or ref
+        diff = (f"{per_trial_ref['max_abs_trial_diff_deg']:.4f} ({per_trial_ref['label']})"
+                if per_trial_ref and "max_abs_trial_diff_deg" in per_trial_ref else "-")
         params = " ".join(a for a in row["args"]
                           if a not in ("--method", row["method"], "--mode", row["mode"]))
+        params = params or "defaults"
         if "tagp" in row:
             params += f" (TAGP of {row['tagp']['grid_size']})"
         lines.append(

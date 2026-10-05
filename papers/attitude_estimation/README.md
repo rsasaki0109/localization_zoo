@@ -1,4 +1,4 @@
-# IMU attitude estimation (Madgwick, Mahony) on BROAD
+# IMU attitude estimation (Madgwick, Mahony, VQF) on BROAD
 
 IMU orientation filters and a reproduction of their published errors on the
 public BROAD benchmark. This is the repository's first IMU **orientation**
@@ -12,6 +12,15 @@ family; the other IMU modules estimate motion or health, not attitude.
 - **Mahony**: R. Mahony, T. Hamel, J.-M. Pflimlin, "Nonlinear complementary
   filters on the special orthogonal group", IEEE TAC 53(5), 2008 (explicit
   complementary filter with gyro-bias estimation).
+- **VQF**: D. Laidig, T. Seel, "VQF: Highly accurate IMU orientation estimation
+  with bias estimation and magnetic disturbance rejection", *Information
+  Fusion* 91, 2023 (arXiv:2203.17024). The pieces are:
+  - BasicVQF (Algorithm 1): strapdown integration, inclination correction from
+    the accelerometer low-passed in the almost-inertial frame, and heading
+    correction as a scalar offset.
+  - Gyro-bias Kalman filter with rest detection and the motion measurement of
+    eq. (42) (Algorithm 2, Appendices C-E).
+  - Magnetic disturbance rejection (Algorithm 3).
 
 Both have widely used public implementations (x-io Technologies C code). The
 code here is written from the papers; the x-io code was only read to match its
@@ -49,6 +58,9 @@ per-trial numbers can be reproduced exactly.
 | Mahony, Kp 1.44 Ki 0.0027 | 9D total | 8.92 | 8.9 | VQF paper Fig. 9 |
 | Madgwick, beta 0.29 | 6D inclination | 5.04 | 5.0 | VQF paper Fig. 9 |
 | Mahony, Kp 1.44 Ki 0.0027 | 6D inclination | 5.16 | 5.2 | VQF paper Fig. 9 |
+| VQF, defaults | 9D total | 2.302 | 2.3 | VQF paper Fig. 9; per trial vs VQF code: max diff 0.0002 |
+| VQF, defaults | 6D inclination | 0.696 | 0.7 | VQF paper Fig. 9; per trial vs VQF code: max diff 0.0000 |
+| BasicVQF | 9D total / 6D incl. | 3.372 / 0.977 | - | per trial vs VQF code: max diff 0.0000 |
 
 The per-trial differences against BROAD's published results come from the
 reference implementation using `float`; this code uses `double`.
@@ -67,6 +79,38 @@ the corrected scale (7.44 deg). The x-io scale gives 6.61 deg. The VQF
 evaluation therefore evidently used an implementation without the x-io error.
 That variant was first run with the x-io scale and switched after comparing
 the two.
+
+### VQF: what the paper leaves open
+
+VQF is written from the paper. To check it, the authors' MIT-licensed package
+(`pip install vqf`, 2.1.2) was run on the same 39 trials. Its per-trial errors
+are stored in `evaluation/broad_reference.json` as "VQF code". BasicVQF and the
+bias estimation matched exactly from the paper alone. The magnetic disturbance
+rejection did not (2.32 deg vs 2.30 deg). The package source was read only for
+the points below, which the paper does not state. They are now matched:
+
+- Defaults the paper does not list: `mag_ref_tau` = 20 s (the `k_ref` time
+  constant) and `mag_new_first_time` = 5 s (acceptance time for the very first
+  field reference). They come from the package's documented parameters.
+- The rejection timer starts at its 60 s limit. Without a reference, heading is
+  corrected at half gain rather than not at all.
+- New-field acceptance counts motion time on the rest detector's low-passed
+  gyro norm. The paper writes `|omega|`.
+- The initial heading averaging (gain 1, 1/2, 1/3, ...) overrides the rejection
+  gain. It stops once `k * tau_mag < Ts`.
+
+Other choices follow the paper:
+
+- The second-order Butterworth filters come from a bilinear transform at
+  `f_c = sqrt(2) / (2 pi tau)` (eq. 8).
+- Each low-pass outputs the running mean for its first `tau / Ts` samples
+  (Appendix A.2) and then starts from that mean.
+- The motion bias measurement is `[-a_y/Ts, a_x/Ts, 0] + diag(1, 1, 0) LPF(R b)`
+  with `C = LPF(R)`, as in eqs. (19) and (42).
+
+VQF runs with its own initialisation and outputs ENU directly, so it does not
+use BROAD's `quatFromAccMag` / 90 deg step (the VQF paper evaluates it the same
+way).
 
 ### Caveats
 
@@ -89,6 +133,8 @@ python3 $E/broad_benchmark.py report     # experiments/results/broad_attitude_be
 python3 $E/broad_benchmark.py check      # drift check against evaluation/broad_expected.json
 ```
 
-`attitude_benchmark_cli <trial.csv> --rate HZ --method madgwick|mahony
+`attitude_benchmark_cli <trial.csv> --rate HZ --method madgwick|mahony|vqf
 [--mode 9d|6d] [--beta B] [--legacy-xio-field-scale] [--kp KP] [--ki KI]
-[--output-quat out.csv]` prints the three RMSE values as JSON.
+[--tau-acc S] [--tau-mag S] [--vqf-basic] [--vqf-no-rest-bias]
+[--vqf-no-motion-bias] [--vqf-no-mag-rejection] [--output-quat out.csv]`
+prints the three RMSE values as JSON.

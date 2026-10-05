@@ -1665,6 +1665,23 @@
         "landmark",
         "convex-hull"
       ]
+    },
+    {
+      "name": "Madgwick / Mahony AHRS",
+      "family": "IMU attitude estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/attitude_estimation",
+      "summary": "Madgwick gradient-descent (2010) and Mahony explicit complementary (TAC 2008) orientation filters, 6D and 9D, evaluated on the BROAD benchmark with its own error metric; reproduces BROAD's published per-trial errors within 0.001 deg and documents the x-io field-scale bug as a variant.",
+      "tags": [
+        "imu",
+        "attitude",
+        "ahrs",
+        "orientation",
+        "broad"
+      ]
     }
   ],
   "starter_tracks": [

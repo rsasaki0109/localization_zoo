@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>105 methods</b> · <b>75 paper reimplementations</b> · <b>44 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>106 methods</b> · <b>76 paper reimplementations</b> · <b>44 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -43,6 +43,7 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 | Call a method from C++ or Python | [Implementations](#implementations) · [Python bindings](#python-bindings-experimental) |
 | Run a method on my own LiDAR bag | [ROS 2](#ros-2) |
 | Use IMU-only motion / fall detection | [IMU Motion & Health SDK](#imu-motion--health-sdk) |
+| Estimate orientation from an IMU | [IMU attitude estimation](#imu-attitude-estimation-broad) |
 | Reproduce or extend a benchmark | [Experiment-driven development](#experiment-driven-development) · [CONTRIBUTING](CONTRIBUTING.md) |
 | Add a new paper | [Adding a new paper](#adding-a-new-paper) |
 
@@ -98,7 +99,7 @@ evaluation tools—even when no reusable author code exists.
 
 The catalog is broader than the manuscript-grade evidence set:
 
-- **Catalog**: all 105 methods, including derived variants and compact baselines.
+- **Catalog**: all 106 methods, including derived variants and compact baselines.
 - **Paper-ready subset**: methods satisfying the
   [tier and ablation criteria](docs/paper_ready_reproducibility.md), frozen in
   [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
@@ -507,6 +508,23 @@ moving, impact, fall/tilt, and vibration states; and emits JSON diagnostics plus
 short-term relative attitude, velocity, and position. Its standalone build only
 requires Eigen3 and GTest, and the included deterministic demo needs no sensor
 download.
+
+### IMU Attitude Estimation (BROAD)
+
+[`attitude_estimation`](papers/attitude_estimation/) holds Madgwick and Mahony
+orientation filters, evaluated on the public BROAD benchmark (39 trials with
+motion-capture ground truth, CC BY 4.0) using the dataset's own error metric.
+The published BROAD per-trial errors are reproduced within 0.001 deg, and the
+VQF paper's values within 1 %. All-trial RMSE in degrees:
+
+| Variant | Mode | Repo | Published |
+|---|---|---:|---:|
+| Madgwick (x-io code, beta 0.12) | 9D total | 4.96 | 4.96 (BROAD) |
+| Madgwick (field-scale bug fixed, beta 0.08) | 9D total | 4.69 | 4.69 (BROAD #1) |
+| Mahony (Kp 0.74, Ki 0.0012) | 9D total | 7.49 | 7.49 (BROAD) |
+| Madgwick / Mahony (VQF parameters) | 6D inclination | 5.04 / 5.16 | 5.0 / 5.2 (VQF) |
+
+Full table: [`docs/attitude_benchmark.md`](docs/attitude_benchmark.md).
 
 ### Place Recognition / Loop Closure
 

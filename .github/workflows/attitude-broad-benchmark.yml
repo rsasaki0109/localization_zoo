@@ -1,0 +1,62 @@
+name: Attitude BROAD benchmark
+
+# Re-runs the BROAD inertial orientation benchmark (~160 MB, CC BY 4.0) with
+# the Madgwick / Mahony filters and fails if the all-trial errors drift from
+# papers/attitude_estimation/evaluation/broad_expected.json.
+on:
+  schedule:
+    - cron: "37 3 * * 1"
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "papers/attitude_estimation/**"
+      - ".github/workflows/attitude-broad-benchmark.yml"
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      DATA: ${{ github.workspace }}/broad_data
+      EVAL: papers/attitude_estimation/evaluation
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake libeigen3-dev libgtest-dev python3-numpy python3-scipy
+
+      - name: Build and unit-test
+        run: |
+          cmake -S papers/attitude_estimation -B build/attitude -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/attitude -j"$(nproc)"
+          ./build/attitude/test_attitude_estimation
+
+      - name: Cache BROAD files
+        uses: actions/cache@v4
+        with:
+          path: broad_data/data_mat
+          key: broad-${{ hashFiles('papers/attitude_estimation/evaluation/broad_dataset.json') }}
+
+      - name: Fetch (git blob SHA-1 verified)
+        run: python3 "$EVAL/broad_benchmark.py" fetch --data-dir "$DATA"
+
+      - name: Convert
+        run: python3 "$EVAL/broad_benchmark.py" convert --data-dir "$DATA"
+
+      - name: Run all variants
+        run: |
+          python3 "$EVAL/broad_benchmark.py" run --data-dir "$DATA" \
+            --binary build/attitude/attitude_benchmark_cli --out "$DATA/runs.json" --jobs "$(nproc)"
+
+      - name: Report
+        run: |
+          python3 "$EVAL/broad_benchmark.py" report --data-dir "$DATA" --runs "$DATA/runs.json" \
+            --out-json "$DATA/results.json" --out-md "$DATA/results.md"
+          cat "$DATA/results.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Drift check
+        run: python3 "$EVAL/broad_benchmark.py" check --results "$DATA/results.json"

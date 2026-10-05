@@ -1,0 +1,40 @@
+{
+  "description": "All-trial BROAD means from experiments/results/broad_attitude_benchmark.json; broad_benchmark.py check fails on a relative drift above 1e-3.",
+  "variants": {
+    "madgwick_xio_9d": {
+      "total_rmse_deg": 4.9587,
+      "heading_rmse_deg": 3.9202,
+      "inclination_rmse_deg": 2.7134
+    },
+    "mahony_xio_9d": {
+      "total_rmse_deg": 7.4889,
+      "heading_rmse_deg": 6.2995,
+      "inclination_rmse_deg": 3.6978
+    },
+    "madgwick_fixed_9d": {
+      "total_rmse_deg": 4.6948,
+      "heading_rmse_deg": 3.7744,
+      "inclination_rmse_deg": 2.5482
+    },
+    "madgwick_vqf_9d": {
+      "total_rmse_deg": 7.4359,
+      "heading_rmse_deg": 5.5812,
+      "inclination_rmse_deg": 4.5577
+    },
+    "mahony_vqf_9d": {
+      "total_rmse_deg": 8.9234,
+      "heading_rmse_deg": 7.1006,
+      "inclination_rmse_deg": 5.1141
+    },
+    "madgwick_vqf_6d": {
+      "total_rmse_deg": 26.0171,
+      "heading_rmse_deg": 25.0091,
+      "inclination_rmse_deg": 5.035
+    },
+    "mahony_vqf_6d": {
+      "total_rmse_deg": 28.3527,
+      "heading_rmse_deg": 27.3967,
+      "inclination_rmse_deg": 5.1557
+    }
+  }
+}

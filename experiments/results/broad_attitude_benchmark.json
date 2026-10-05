@@ -1,0 +1,741 @@
+{
+  "dataset": "D. Laidig, M. Caruso, A. Cereatti, T. Seel. BROAD - A Benchmark for Robust Inertial Orientation Estimation. Data 6(7):72, 2021. doi:10.3390/data6070072",
+  "variants": [
+    {
+      "id": "madgwick_xio_9d",
+      "method": "madgwick",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "madgwick",
+        "--mode",
+        "9d",
+        "--beta",
+        "0.12",
+        "--legacy-xio-field-scale"
+      ],
+      "intent": "x-io C implementation (half-scale earth-field reference) with the BROAD TAGP beta; reproduces the published numbers.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 4.9587,
+          "heading_rmse_deg": 3.9202,
+          "inclination_rmse_deg": 2.7134
+        },
+        "undisturbed": {
+          "total_rmse_deg": 4.2852,
+          "heading_rmse_deg": 3.3595,
+          "inclination_rmse_deg": 2.4443
+        },
+        "rotation": {
+          "total_rmse_deg": 2.5874,
+          "heading_rmse_deg": 2.2215,
+          "inclination_rmse_deg": 1.2717
+        },
+        "translation": {
+          "total_rmse_deg": 5.1372,
+          "heading_rmse_deg": 3.7517,
+          "inclination_rmse_deg": 3.274
+        },
+        "combined": {
+          "total_rmse_deg": 5.8076,
+          "heading_rmse_deg": 4.7017,
+          "inclination_rmse_deg": 3.0617
+        },
+        "slow": {
+          "total_rmse_deg": 2.5496,
+          "heading_rmse_deg": 1.6419,
+          "inclination_rmse_deg": 1.8133
+        },
+        "fast": {
+          "total_rmse_deg": 6.1785,
+          "heading_rmse_deg": 5.2331,
+          "inclination_rmse_deg": 3.1327
+        },
+        "no_breaks": {
+          "total_rmse_deg": 4.7265,
+          "heading_rmse_deg": 3.7789,
+          "inclination_rmse_deg": 2.5817
+        },
+        "with_breaks": {
+          "total_rmse_deg": 3.4577,
+          "heading_rmse_deg": 2.5729,
+          "inclination_rmse_deg": 2.1867
+        },
+        "disturbed": {
+          "total_rmse_deg": 5.9269,
+          "heading_rmse_deg": 4.7264,
+          "inclination_rmse_deg": 3.1002
+        },
+        "tapping": {
+          "total_rmse_deg": 2.8423,
+          "heading_rmse_deg": 2.0005,
+          "inclination_rmse_deg": 2.0192
+        },
+        "vibration": {
+          "total_rmse_deg": 6.7604,
+          "heading_rmse_deg": 6.3829,
+          "inclination_rmse_deg": 1.6916
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 6.6356,
+          "heading_rmse_deg": 5.0063,
+          "inclination_rmse_deg": 3.7976
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 6.924,
+          "heading_rmse_deg": 5.4072,
+          "inclination_rmse_deg": 3.7874
+        },
+        "office_environment": {
+          "total_rmse_deg": 5.6688,
+          "heading_rmse_deg": 4.7851,
+          "inclination_rmse_deg": 2.93
+        },
+        "mixed": {
+          "total_rmse_deg": 3.1247,
+          "heading_rmse_deg": 2.2241,
+          "inclination_rmse_deg": 2.1949
+        }
+      },
+      "reference": {
+        "label": "BROAD",
+        "source": "BROAD paper / example_code TAGP, beta 0.12",
+        "metric": "total_rmse_deg",
+        "all_trials": 4.9587,
+        "max_abs_trial_diff_deg": 0.0001,
+        "ratio": 1.0
+      }
+    },
+    {
+      "id": "mahony_xio_9d",
+      "method": "mahony",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "mahony",
+        "--mode",
+        "9d",
+        "--kp",
+        "0.74",
+        "--ki",
+        "0.0012"
+      ],
+      "intent": "x-io implementation of the explicit complementary filter with the BROAD TAGP gains.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 7.4889,
+          "heading_rmse_deg": 6.2995,
+          "inclination_rmse_deg": 3.6978
+        },
+        "undisturbed": {
+          "total_rmse_deg": 6.9426,
+          "heading_rmse_deg": 5.8906,
+          "inclination_rmse_deg": 3.4246
+        },
+        "rotation": {
+          "total_rmse_deg": 4.3982,
+          "heading_rmse_deg": 4.1535,
+          "inclination_rmse_deg": 1.4129
+        },
+        "translation": {
+          "total_rmse_deg": 10.1458,
+          "heading_rmse_deg": 8.5913,
+          "inclination_rmse_deg": 5.1571
+        },
+        "combined": {
+          "total_rmse_deg": 5.7569,
+          "heading_rmse_deg": 4.1562,
+          "inclination_rmse_deg": 3.9268
+        },
+        "slow": {
+          "total_rmse_deg": 3.9532,
+          "heading_rmse_deg": 3.5849,
+          "inclination_rmse_deg": 1.4264
+        },
+        "fast": {
+          "total_rmse_deg": 10.2038,
+          "heading_rmse_deg": 8.4059,
+          "inclination_rmse_deg": 5.6044
+        },
+        "no_breaks": {
+          "total_rmse_deg": 6.0207,
+          "heading_rmse_deg": 4.9538,
+          "inclination_rmse_deg": 3.2086
+        },
+        "with_breaks": {
+          "total_rmse_deg": 8.6713,
+          "heading_rmse_deg": 7.6471,
+          "inclination_rmse_deg": 3.8294
+        },
+        "disturbed": {
+          "total_rmse_deg": 8.2741,
+          "heading_rmse_deg": 6.8872,
+          "inclination_rmse_deg": 4.0906
+        },
+        "tapping": {
+          "total_rmse_deg": 4.0932,
+          "heading_rmse_deg": 3.7592,
+          "inclination_rmse_deg": 1.6059
+        },
+        "vibration": {
+          "total_rmse_deg": 5.4781,
+          "heading_rmse_deg": 5.1743,
+          "inclination_rmse_deg": 1.6213
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 8.0381,
+          "heading_rmse_deg": 5.5062,
+          "inclination_rmse_deg": 5.8256
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 13.0808,
+          "heading_rmse_deg": 11.5165,
+          "inclination_rmse_deg": 5.3152
+        },
+        "office_environment": {
+          "total_rmse_deg": 4.2592,
+          "heading_rmse_deg": 3.2975,
+          "inclination_rmse_deg": 2.6948
+        },
+        "mixed": {
+          "total_rmse_deg": 7.1679,
+          "heading_rmse_deg": 6.1267,
+          "inclination_rmse_deg": 3.7263
+        }
+      },
+      "reference": {
+        "label": "BROAD",
+        "source": "BROAD paper / example_code TAGP, Kp 0.74, Ki 0.0012",
+        "metric": "total_rmse_deg",
+        "all_trials": 7.4888,
+        "max_abs_trial_diff_deg": 0.001,
+        "ratio": 1.0
+      }
+    },
+    {
+      "id": "madgwick_fixed_9d",
+      "method": "madgwick",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "madgwick",
+        "--mode",
+        "9d",
+        "--beta",
+        "0.08"
+      ],
+      "intent": "Earth-field reference at the scale the paper derives (x-io bug fixed); beta tuned on BROAD's own 0.01-0.30 grid.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 4.6948,
+          "heading_rmse_deg": 3.7744,
+          "inclination_rmse_deg": 2.5482
+        },
+        "undisturbed": {
+          "total_rmse_deg": 4.1557,
+          "heading_rmse_deg": 3.4191,
+          "inclination_rmse_deg": 2.2098
+        },
+        "rotation": {
+          "total_rmse_deg": 2.6732,
+          "heading_rmse_deg": 2.3268,
+          "inclination_rmse_deg": 1.2468
+        },
+        "translation": {
+          "total_rmse_deg": 4.843,
+          "heading_rmse_deg": 3.8192,
+          "inclination_rmse_deg": 2.7805
+        },
+        "combined": {
+          "total_rmse_deg": 5.5871,
+          "heading_rmse_deg": 4.665,
+          "inclination_rmse_deg": 2.916
+        },
+        "slow": {
+          "total_rmse_deg": 2.4458,
+          "heading_rmse_deg": 1.8453,
+          "inclination_rmse_deg": 1.4948
+        },
+        "fast": {
+          "total_rmse_deg": 6.0211,
+          "heading_rmse_deg": 5.1359,
+          "inclination_rmse_deg": 2.9898
+        },
+        "no_breaks": {
+          "total_rmse_deg": 4.6301,
+          "heading_rmse_deg": 3.9078,
+          "inclination_rmse_deg": 2.3051
+        },
+        "with_breaks": {
+          "total_rmse_deg": 3.2662,
+          "heading_rmse_deg": 2.5027,
+          "inclination_rmse_deg": 2.0312
+        },
+        "disturbed": {
+          "total_rmse_deg": 5.4697,
+          "heading_rmse_deg": 4.2851,
+          "inclination_rmse_deg": 3.0345
+        },
+        "tapping": {
+          "total_rmse_deg": 2.4176,
+          "heading_rmse_deg": 1.8242,
+          "inclination_rmse_deg": 1.5839
+        },
+        "vibration": {
+          "total_rmse_deg": 7.1314,
+          "heading_rmse_deg": 6.8673,
+          "inclination_rmse_deg": 1.7296
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 4.7298,
+          "heading_rmse_deg": 2.7337,
+          "inclination_rmse_deg": 3.6726
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 7.0149,
+          "heading_rmse_deg": 5.5571,
+          "inclination_rmse_deg": 4.0216
+        },
+        "office_environment": {
+          "total_rmse_deg": 5.6978,
+          "heading_rmse_deg": 5.0233,
+          "inclination_rmse_deg": 2.648
+        },
+        "mixed": {
+          "total_rmse_deg": 3.0279,
+          "heading_rmse_deg": 2.4117,
+          "inclination_rmse_deg": 1.831
+        }
+      },
+      "tagp": {
+        "flag": "--beta",
+        "value": 0.08,
+        "grid_size": 30,
+        "metric": "total_rmse_deg"
+      },
+      "reference": {
+        "label": "BROAD issue #1",
+        "source": "BROAD issue #1 (dataset author re-ran the TAGP grid with the corrected field scale)",
+        "metric": "total_rmse_deg",
+        "all_trials": 4.69,
+        "ratio": 1.001
+      }
+    },
+    {
+      "id": "madgwick_vqf_9d",
+      "method": "madgwick",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "madgwick",
+        "--mode",
+        "9d",
+        "--beta",
+        "0.29"
+      ],
+      "intent": "Corrected field scale with the VQF paper's TAGPx beta (Table 2). The x-io scale gives 6.61 deg instead of 7.4 deg, so the VQF evaluation evidently used an implementation without the x-io scale error; chosen after comparing both.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 7.4359,
+          "heading_rmse_deg": 5.5812,
+          "inclination_rmse_deg": 4.5577
+        },
+        "undisturbed": {
+          "total_rmse_deg": 5.5921,
+          "heading_rmse_deg": 3.8275,
+          "inclination_rmse_deg": 3.9151
+        },
+        "rotation": {
+          "total_rmse_deg": 3.1383,
+          "heading_rmse_deg": 2.4366,
+          "inclination_rmse_deg": 1.8931
+        },
+        "translation": {
+          "total_rmse_deg": 6.51,
+          "heading_rmse_deg": 3.6827,
+          "inclination_rmse_deg": 5.3055
+        },
+        "combined": {
+          "total_rmse_deg": 8.3569,
+          "heading_rmse_deg": 6.592,
+          "inclination_rmse_deg": 5.052
+        },
+        "slow": {
+          "total_rmse_deg": 4.0749,
+          "heading_rmse_deg": 2.6155,
+          "inclination_rmse_deg": 2.9694
+        },
+        "fast": {
+          "total_rmse_deg": 7.2473,
+          "heading_rmse_deg": 5.1497,
+          "inclination_rmse_deg": 4.9468
+        },
+        "no_breaks": {
+          "total_rmse_deg": 6.2182,
+          "heading_rmse_deg": 4.3766,
+          "inclination_rmse_deg": 4.2253
+        },
+        "with_breaks": {
+          "total_rmse_deg": 4.4183,
+          "heading_rmse_deg": 2.798,
+          "inclination_rmse_deg": 3.3336
+        },
+        "disturbed": {
+          "total_rmse_deg": 10.0864,
+          "heading_rmse_deg": 8.102,
+          "inclination_rmse_deg": 5.4815
+        },
+        "tapping": {
+          "total_rmse_deg": 4.3003,
+          "heading_rmse_deg": 2.3348,
+          "inclination_rmse_deg": 3.5372
+        },
+        "vibration": {
+          "total_rmse_deg": 5.4982,
+          "heading_rmse_deg": 5.1186,
+          "inclination_rmse_deg": 1.9996
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 10.2916,
+          "heading_rmse_deg": 8.0957,
+          "inclination_rmse_deg": 6.2114
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 15.4003,
+          "heading_rmse_deg": 12.9572,
+          "inclination_rmse_deg": 7.2489
+        },
+        "office_environment": {
+          "total_rmse_deg": 9.0694,
+          "heading_rmse_deg": 6.9029,
+          "inclination_rmse_deg": 5.7724
+        },
+        "mixed": {
+          "total_rmse_deg": 5.4795,
+          "heading_rmse_deg": 3.7504,
+          "inclination_rmse_deg": 3.996
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "total_rmse_deg",
+        "all_trials": 7.4,
+        "ratio": 1.005
+      }
+    },
+    {
+      "id": "mahony_vqf_9d",
+      "method": "mahony",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "mahony",
+        "--mode",
+        "9d",
+        "--kp",
+        "1.44",
+        "--ki",
+        "0.0027"
+      ],
+      "intent": "x-io implementation with the VQF paper's TAGPx gains (Table 2).",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 8.9234,
+          "heading_rmse_deg": 7.1006,
+          "inclination_rmse_deg": 5.1141
+        },
+        "undisturbed": {
+          "total_rmse_deg": 7.8063,
+          "heading_rmse_deg": 6.151,
+          "inclination_rmse_deg": 4.6831
+        },
+        "rotation": {
+          "total_rmse_deg": 2.7405,
+          "heading_rmse_deg": 2.3255,
+          "inclination_rmse_deg": 1.355
+        },
+        "translation": {
+          "total_rmse_deg": 12.2301,
+          "heading_rmse_deg": 9.7222,
+          "inclination_rmse_deg": 7.4088
+        },
+        "combined": {
+          "total_rmse_deg": 8.962,
+          "heading_rmse_deg": 6.6087,
+          "inclination_rmse_deg": 5.7672
+        },
+        "slow": {
+          "total_rmse_deg": 3.0184,
+          "heading_rmse_deg": 2.371,
+          "inclination_rmse_deg": 1.7405
+        },
+        "fast": {
+          "total_rmse_deg": 13.0295,
+          "heading_rmse_deg": 10.2746,
+          "inclination_rmse_deg": 7.8932
+        },
+        "no_breaks": {
+          "total_rmse_deg": 7.4132,
+          "heading_rmse_deg": 5.7422,
+          "inclination_rmse_deg": 4.5192
+        },
+        "with_breaks": {
+          "total_rmse_deg": 8.5434,
+          "heading_rmse_deg": 6.9175,
+          "inclination_rmse_deg": 4.9903
+        },
+        "disturbed": {
+          "total_rmse_deg": 10.5293,
+          "heading_rmse_deg": 8.4658,
+          "inclination_rmse_deg": 5.7337
+        },
+        "tapping": {
+          "total_rmse_deg": 3.7041,
+          "heading_rmse_deg": 2.9532,
+          "inclination_rmse_deg": 2.2304
+        },
+        "vibration": {
+          "total_rmse_deg": 4.5963,
+          "heading_rmse_deg": 3.9544,
+          "inclination_rmse_deg": 2.2611
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 12.7157,
+          "heading_rmse_deg": 9.6839,
+          "inclination_rmse_deg": 8.1849
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 16.0731,
+          "heading_rmse_deg": 13.5932,
+          "inclination_rmse_deg": 7.2192
+        },
+        "office_environment": {
+          "total_rmse_deg": 5.6542,
+          "heading_rmse_deg": 3.6853,
+          "inclination_rmse_deg": 4.2176
+        },
+        "mixed": {
+          "total_rmse_deg": 9.3307,
+          "heading_rmse_deg": 7.5646,
+          "inclination_rmse_deg": 5.4857
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "total_rmse_deg",
+        "all_trials": 8.9,
+        "ratio": 1.003
+      }
+    },
+    {
+      "id": "madgwick_vqf_6d",
+      "method": "madgwick",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "madgwick",
+        "--mode",
+        "6d",
+        "--beta",
+        "0.29"
+      ],
+      "intent": "6D (no magnetometer) with the VQF paper's beta.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 26.0171,
+          "heading_rmse_deg": 25.0091,
+          "inclination_rmse_deg": 5.035
+        },
+        "undisturbed": {
+          "total_rmse_deg": 32.8529,
+          "heading_rmse_deg": 32.3767,
+          "inclination_rmse_deg": 4.5466
+        },
+        "rotation": {
+          "total_rmse_deg": 28.264,
+          "heading_rmse_deg": 28.178,
+          "inclination_rmse_deg": 1.9984
+        },
+        "translation": {
+          "total_rmse_deg": 39.1299,
+          "heading_rmse_deg": 38.4419,
+          "inclination_rmse_deg": 6.5929
+        },
+        "combined": {
+          "total_rmse_deg": 29.8144,
+          "heading_rmse_deg": 29.017,
+          "inclination_rmse_deg": 5.4499
+        },
+        "slow": {
+          "total_rmse_deg": 27.8189,
+          "heading_rmse_deg": 27.4945,
+          "inclination_rmse_deg": 3.3073
+        },
+        "fast": {
+          "total_rmse_deg": 38.3445,
+          "heading_rmse_deg": 37.7027,
+          "inclination_rmse_deg": 5.8984
+        },
+        "no_breaks": {
+          "total_rmse_deg": 29.3614,
+          "heading_rmse_deg": 28.7959,
+          "inclination_rmse_deg": 4.825
+        },
+        "with_breaks": {
+          "total_rmse_deg": 39.3994,
+          "heading_rmse_deg": 39.0906,
+          "inclination_rmse_deg": 4.0245
+        },
+        "disturbed": {
+          "total_rmse_deg": 16.1907,
+          "heading_rmse_deg": 14.4183,
+          "inclination_rmse_deg": 5.7371
+        },
+        "tapping": {
+          "total_rmse_deg": 28.4345,
+          "heading_rmse_deg": 28.1254,
+          "inclination_rmse_deg": 3.9862
+        },
+        "vibration": {
+          "total_rmse_deg": 19.6862,
+          "heading_rmse_deg": 19.5841,
+          "inclination_rmse_deg": 1.985
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 14.7142,
+          "heading_rmse_deg": 12.3822,
+          "inclination_rmse_deg": 7.4173
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 9.2133,
+          "heading_rmse_deg": 6.3439,
+          "inclination_rmse_deg": 6.6783
+        },
+        "office_environment": {
+          "total_rmse_deg": 11.162,
+          "heading_rmse_deg": 9.3822,
+          "inclination_rmse_deg": 6.0496
+        },
+        "mixed": {
+          "total_rmse_deg": 35.5622,
+          "heading_rmse_deg": 35.2603,
+          "inclination_rmse_deg": 4.6918
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 5.0,
+        "ratio": 1.007
+      }
+    },
+    {
+      "id": "mahony_vqf_6d",
+      "method": "mahony",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "mahony",
+        "--mode",
+        "6d",
+        "--kp",
+        "1.44",
+        "--ki",
+        "0.0027"
+      ],
+      "intent": "6D (no magnetometer) with the VQF paper's gains.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 28.3527,
+          "heading_rmse_deg": 27.3967,
+          "inclination_rmse_deg": 5.1557
+        },
+        "undisturbed": {
+          "total_rmse_deg": 33.6923,
+          "heading_rmse_deg": 32.7597,
+          "inclination_rmse_deg": 5.1722
+        },
+        "rotation": {
+          "total_rmse_deg": 28.2683,
+          "heading_rmse_deg": 28.2351,
+          "inclination_rmse_deg": 1.2414
+        },
+        "translation": {
+          "total_rmse_deg": 40.9738,
+          "heading_rmse_deg": 38.9321,
+          "inclination_rmse_deg": 8.717
+        },
+        "combined": {
+          "total_rmse_deg": 30.3485,
+          "heading_rmse_deg": 29.7938,
+          "inclination_rmse_deg": 5.8672
+        },
+        "slow": {
+          "total_rmse_deg": 23.8451,
+          "heading_rmse_deg": 23.618,
+          "inclination_rmse_deg": 1.7011
+        },
+        "fast": {
+          "total_rmse_deg": 44.4346,
+          "heading_rmse_deg": 42.7325,
+          "inclination_rmse_deg": 8.959
+        },
+        "no_breaks": {
+          "total_rmse_deg": 30.6979,
+          "heading_rmse_deg": 30.1894,
+          "inclination_rmse_deg": 4.7109
+        },
+        "with_breaks": {
+          "total_rmse_deg": 39.3067,
+          "heading_rmse_deg": 37.5791,
+          "inclination_rmse_deg": 6.0372
+        },
+        "disturbed": {
+          "total_rmse_deg": 20.677,
+          "heading_rmse_deg": 19.6873,
+          "inclination_rmse_deg": 5.1319
+        },
+        "tapping": {
+          "total_rmse_deg": 22.9985,
+          "heading_rmse_deg": 22.8872,
+          "inclination_rmse_deg": 2.2691
+        },
+        "vibration": {
+          "total_rmse_deg": 18.5701,
+          "heading_rmse_deg": 18.4019,
+          "inclination_rmse_deg": 2.5083
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 33.3769,
+          "heading_rmse_deg": 31.8864,
+          "inclination_rmse_deg": 8.8425
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 7.0788,
+          "heading_rmse_deg": 5.5542,
+          "inclination_rmse_deg": 4.2062
+        },
+        "office_environment": {
+          "total_rmse_deg": 22.0744,
+          "heading_rmse_deg": 21.6699,
+          "inclination_rmse_deg": 4.1768
+        },
+        "mixed": {
+          "total_rmse_deg": 34.6449,
+          "heading_rmse_deg": 33.7627,
+          "inclination_rmse_deg": 7.8009
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 5.2,
+        "ratio": 0.991
+      }
+    }
+  ]
+}

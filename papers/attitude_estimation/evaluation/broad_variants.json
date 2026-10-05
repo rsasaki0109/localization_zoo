@@ -1,0 +1,149 @@
+{
+  "variants": [
+    {
+      "id": "madgwick_xio_9d",
+      "method": "madgwick",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "madgwick",
+        "--mode",
+        "9d",
+        "--beta",
+        "0.12",
+        "--legacy-xio-field-scale"
+      ],
+      "reference": "madgwick_xio_9d",
+      "intent": "x-io C implementation (half-scale earth-field reference) with the BROAD TAGP beta; reproduces the published numbers."
+    },
+    {
+      "id": "mahony_xio_9d",
+      "method": "mahony",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "mahony",
+        "--mode",
+        "9d",
+        "--kp",
+        "0.74",
+        "--ki",
+        "0.0012"
+      ],
+      "reference": "mahony_xio_9d",
+      "intent": "x-io implementation of the explicit complementary filter with the BROAD TAGP gains."
+    },
+    {
+      "id": "madgwick_fixed_9d",
+      "method": "madgwick",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "madgwick",
+        "--mode",
+        "9d"
+      ],
+      "grid": {
+        "flag": "--beta",
+        "values": [
+          0.01,
+          0.02,
+          0.03,
+          0.04,
+          0.05,
+          0.06,
+          0.07,
+          0.08,
+          0.09,
+          0.1,
+          0.11,
+          0.12,
+          0.13,
+          0.14,
+          0.15,
+          0.16,
+          0.17,
+          0.18,
+          0.19,
+          0.2,
+          0.21,
+          0.22,
+          0.23,
+          0.24,
+          0.25,
+          0.26,
+          0.27,
+          0.28,
+          0.29,
+          0.3
+        ]
+      },
+      "reference": "madgwick_fixed_9d",
+      "intent": "Earth-field reference at the scale the paper derives (x-io bug fixed); beta tuned on BROAD's own 0.01-0.30 grid."
+    },
+    {
+      "id": "madgwick_vqf_9d",
+      "method": "madgwick",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "madgwick",
+        "--mode",
+        "9d",
+        "--beta",
+        "0.29"
+      ],
+      "reference": "madgwick_vqf_9d",
+      "intent": "Corrected field scale with the VQF paper's TAGPx beta (Table 2). The x-io scale gives 6.61 deg instead of 7.4 deg, so the VQF evaluation evidently used an implementation without the x-io scale error; chosen after comparing both."
+    },
+    {
+      "id": "mahony_vqf_9d",
+      "method": "mahony",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "mahony",
+        "--mode",
+        "9d",
+        "--kp",
+        "1.44",
+        "--ki",
+        "0.0027"
+      ],
+      "reference": "mahony_vqf_9d",
+      "intent": "x-io implementation with the VQF paper's TAGPx gains (Table 2)."
+    },
+    {
+      "id": "madgwick_vqf_6d",
+      "method": "madgwick",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "madgwick",
+        "--mode",
+        "6d",
+        "--beta",
+        "0.29"
+      ],
+      "reference": "madgwick_vqf_6d",
+      "intent": "6D (no magnetometer) with the VQF paper's beta."
+    },
+    {
+      "id": "mahony_vqf_6d",
+      "method": "mahony",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "mahony",
+        "--mode",
+        "6d",
+        "--kp",
+        "1.44",
+        "--ki",
+        "0.0027"
+      ],
+      "reference": "mahony_vqf_6d",
+      "intent": "6D (no magnetometer) with the VQF paper's gains."
+    }
+  ]
+}

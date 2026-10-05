@@ -207,6 +207,8 @@ void printUsage(std::ostream& stream) {
       "  --no-gyro-bias            Disable gyro bias estimation\n"
       "  --estimate-accel-bias     Estimate startup accelerometer bias\n"
       "  --no-zero-velocity        Do not clamp velocity while stationary\n"
+      "  --vqf-attitude            Orientation from VQF (bias-estimating) instead\n"
+      "                            of gyro integration with stationary leveling\n"
       "  --event-queue-capacity N  Bounded pending event FIFO capacity\n"
       "  --emit-moving-events      Also track moving start/end events\n"
       "  --no-moving-events        Disable moving start/end events\n"
@@ -274,6 +276,7 @@ void applyExplicitParams(const ImuMotionHealthParams& source,
   if (has("zero_velocity_when_stationary"))
     destination->zero_velocity_when_stationary =
         source.zero_velocity_when_stationary;
+  if (has("vqf_attitude")) destination->vqf_attitude = source.vqf_attitude;
   if (has("event_queue_capacity"))
     destination->event_queue_capacity = source.event_queue_capacity;
   if (has("emit_moving_events"))
@@ -307,7 +310,7 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
         key == "--emit-events" ||
         key == "--emit-moving-events" || key == "--no-moving-events" ||
         key == "--no-gyro-bias" || key == "--estimate-accel-bias" ||
-        key == "--no-zero-velocity";
+        key == "--no-zero-velocity" || key == "--vqf-attitude";
     if (is_flag) {
       if (has_inline_value) {
         *error = key + " does not take a value";
@@ -338,6 +341,10 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
       if (key == "--no-zero-velocity") {
         options->params.zero_velocity_when_stationary = false;
         markExplicit("zero_velocity_when_stationary");
+      }
+      if (key == "--vqf-attitude") {
+        options->params.vqf_attitude = true;
+        markExplicit("vqf_attitude");
       }
       if (key == "--emit-moving-events") {
         options->params.emit_moving_events = true;

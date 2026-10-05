@@ -1,5 +1,4 @@
 #include "imu_motion_health/imu_motion_health.h"
-#include "imu_motion_health/posture_confirmation.h"
 
 #include <Eigen/SVD>
 
@@ -60,6 +59,11 @@ Eigen::Quaterniond integrateQuaternion(const Eigen::Quaterniond& q,
   if (!(angle > kEpsilon) || !std::isfinite(angle)) return q;
   const Eigen::AngleAxisd delta(angle, omega.normalized());
   return (q * Eigen::Quaterniond(delta)).normalized();
+}
+
+Eigen::Quaterniond vqfOrientation(const attitude_estimation::VQF& vqf) {
+  const attitude_estimation::Quat q = vqf.quat6D();
+  return Eigen::Quaterniond(q[0], q[1], q[2], q[3]).normalized();
 }
 
 std::string jsonEscape(const std::string& value) {
@@ -214,7 +218,7 @@ bool profileKeyIsBool(const std::string& key) {
          key == "zero_velocity_when_stationary" ||
          key == "emit_moving_events" ||
          key == "impact_requires_accel_and_gyro" ||
-         key == "posture_confirmation";
+         key == "posture_confirmation" || key == "vqf_attitude";
 }
 
 bool profileKeyIsSize(const std::string& key) {
@@ -293,6 +297,7 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
     if (key == "impact_requires_accel_and_gyro")
       params->impact_requires_accel_and_gyro = parsed;
     if (key == "posture_confirmation") params->posture_confirmation = parsed;
+    if (key == "vqf_attitude") params->vqf_attitude = parsed;
     return true;
   }
 
@@ -340,6 +345,7 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
       {"posture_dwell_s", &params->posture_dwell_s},
       {"posture_start_s", &params->posture_start_s},
       {"posture_tau_acc_s", &params->posture_tau_acc_s},
+      {"vqf_attitude_tau_acc_s", &params->vqf_attitude_tau_acc_s},
   };
   const auto found = fields.find(key);
   if (found == fields.end()) {
@@ -413,7 +419,8 @@ bool validateProfileParams(const ImuMotionHealthParams& params,
       !nonnegative(params.posture_dwell_s, "posture_dwell_s") ||
       !nonnegative(params.posture_start_s, "posture_start_s") ||
       params.posture_start_s >= 1.5 ||
-      !positive(params.posture_tau_acc_s, "posture_tau_acc_s")) {
+      !positive(params.posture_tau_acc_s, "posture_tau_acc_s") ||
+      !positive(params.vqf_attitude_tau_acc_s, "vqf_attitude_tau_acc_s")) {
     if (error && error->empty()) *error = "invalid profile parameter";
     return false;
   }
@@ -933,13 +940,14 @@ ImuMotionHealth::ImuMotionHealth(const ImuMotionHealthParams& params)
 
 void ImuMotionHealth::clearRuntimeState() {
   posture_.reset();
+  attitude_vqf_.reset();
   if (params_.posture_confirmation) {
     PostureConfirmationParams posture;
     posture.threshold_deg = params_.posture_threshold_deg;
     posture.dwell_s = params_.posture_dwell_s;
     posture.start_s = params_.posture_start_s;
     posture.tau_acc_s = params_.posture_tau_acc_s;
-    posture_ = std::make_shared<PostureConfirmer>(posture);
+    posture_.emplace(posture);
   }
   state_ = ImuMotionHealthState();
   state_.gravity_magnitude = params_.gravity_magnitude;
@@ -1270,6 +1278,26 @@ void ImuMotionHealth::finalizeStartup() {
                         .normalized();
   } else {
     orientation_ = Eigen::Quaterniond::Identity();
+  }
+  if (params_.vqf_attitude && startup_samples_.size() >= 2) {
+    // VQF needs a fixed rate: the median startup interval.  Replaying the
+    // startup window lets its low-pass filters start from the static pose.
+    std::vector<double> dts;
+    for (std::size_t i = 1; i < startup_samples_.size(); ++i) {
+      dts.push_back(startup_samples_[i].timestamp - startup_samples_[i - 1].timestamp);
+    }
+    std::nth_element(dts.begin(), dts.begin() + dts.size() / 2, dts.end());
+    const double dt = dts[dts.size() / 2];
+    if (dt > 0.0 && std::isfinite(dt)) {
+      attitude_estimation::VQFParams vqf;
+      vqf.sampling_rate = 1.0 / dt;
+      vqf.tau_acc = params_.vqf_attitude_tau_acc_s;
+      attitude_vqf_.emplace(vqf);
+      for (const ImuSample& sample : startup_samples_) {
+        attitude_vqf_->update(sample.gyro, sample.accel);
+      }
+      orientation_ = vqfOrientation(*attitude_vqf_);
+    }
   }
   gravity_world_ = Eigen::Vector3d(0.0, 0.0, gravity_magnitude_);
   velocity_.setZero();
@@ -1668,8 +1696,15 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
   const bool can_integrate =
       state_.sample_accepted && !had_data_error && dt > params_.min_dt_s &&
       dt <= params_.max_integration_dt_s;
+  if (attitude_vqf_) {
+    // VQF runs at its fixed rate on every sample and estimates its own bias.
+    attitude_vqf_->update(sample.gyro, sample.accel);
+    orientation_ = vqfOrientation(*attitude_vqf_);
+  }
   if (can_integrate) {
-    orientation_ = integrateQuaternion(orientation_, corrected_gyro_now, dt);
+    if (!attitude_vqf_) {
+      orientation_ = integrateQuaternion(orientation_, corrected_gyro_now, dt);
+    }
     const Eigen::Vector3d world_accel =
         orientation_ * corrected_accel_now - gravity_world_;
     if (state_.motion_state == MotionState::kStationary &&
@@ -1688,7 +1723,7 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
   // Complementary gravity leveling: rotate measured world gravity toward +Z
   // by a small horizontal correction.  Left multiplication preserves yaw in
   // the small-error limit and never pretends acceleration observes heading.
-  if (state_.motion_state == MotionState::kStationary &&
+  if (!attitude_vqf_ && state_.motion_state == MotionState::kStationary &&
       params_.leveling_gain > 0.0 && corrected_accel_now.norm() > kEpsilon) {
     const Eigen::Vector3d measured =
         (orientation_ * corrected_accel_now).normalized();

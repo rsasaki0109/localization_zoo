@@ -15,7 +15,7 @@
 #include <Eigen/Core>
 
 #include <deque>
-#include <memory>
+#include <optional>
 #include <vector>
 
 namespace localization_zoo {
@@ -72,7 +72,7 @@ class PostureConfirmer {
   // interval sets the rate, and the buffer is replayed.
   static constexpr std::size_t kRateSamples = 16;
   std::vector<Raw> startup_;
-  std::unique_ptr<attitude_estimation::VQF> vqf_;
+  std::optional<attitude_estimation::VQF> vqf_;
   std::deque<Record> history_;
   std::vector<Pending> pending_;
 };

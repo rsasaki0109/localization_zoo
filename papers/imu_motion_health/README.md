@@ -327,6 +327,36 @@ real CLI, and emits JSON plus self-contained HTML. Public-data experiments
 also introduced the opt-in `impact_requires_accel_and_gyro` gate; it defaults
 to false, so all existing profiles retain their original OR behavior.
 
+### Attitude accuracy on BROAD (opt-in `vqf_attitude`)
+
+[`evaluation/broad_attitude.py`](evaluation/broad_attitude.py) replays the 39
+BROAD trials through the CLI. BROAD has motion-capture ground truth, CC BY 4.0;
+see [`papers/attitude_estimation`](../attitude_estimation/). The script scores
+`orientation_wxyz` by inclination RMSE over the movement phases. Heading is
+unobservable without a magnetometer, so it is not scored.
+
+| Configuration | Mean | Median | Max |
+|---|---:|---:|---:|
+| `default` | 26.8° | 25.7° | 97.5° |
+| `wearable` | 45.5° | 43.7° | 107.6° |
+| `default`, `stationary_bias_gain: 0` | 3.4° | 1.8° | 24.1° |
+| **`vqf_attitude: true`** | **0.70°** | **0.60°** | **1.8°** |
+
+- **The default is dominated by stationary bias learning.** Turning it off
+  takes the mean from 26.8° to 3.4°.
+- **Why this is a plausible cause.** The gain is applied per sample. At
+  BROAD's 286 Hz, 0.01 per sample is a time constant of about 0.35 s, so
+  rotation slower than the stationary gyro gate (0.06 rad/s) can be absorbed
+  as bias.
+- **What `vqf_attitude` does.** The orientation comes from a 6D VQF instead of
+  gyro integration with stationary leveling. VQF estimates its own gyro bias
+  with rest detection and a Kalman filter. The result equals standalone VQF on
+  the same data (0.696° vs 0.696°).
+- **Effect on other outputs.** Tilt and the relative dead reckoning use the
+  same orientation, so they follow.
+- **Defaults are unchanged.** The default and built-in profiles keep their
+  behaviour.
+
 ### Posture confirmation (opt-in)
 
 `posture_confirmation: true` adds a VQF attitude estimate (6D,

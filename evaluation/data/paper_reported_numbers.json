@@ -320,11 +320,11 @@
       "repo_scope_label": "Paper reimplementation (no author code)",
       "repo_scope_summary": "Frame-to-frame landmark odometry with convex-hull similarity and overlap maximisation; the paper gives no numeric parameters.",
       "reproduction_status_label": "KITTI Odometry 00/02/05/07/08",
-      "reproduction_status_summary": "Official KITTI RTE: 1.65/4.75/1.32/1.00/1.78 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.91/2.35/0.82/0.69/1.37 % (Table I, t_rel): 1.30-2.02x, geometric mean 1.62x. Repository parameters were chosen without tuning on KITTI (the paper gives none); see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).",
-      "numeric_comparison_label": "Same metric, ~1.6x ratio (single configuration)",
-      "numeric_comparison_summary": "Official KITTI RTE, repo vs paper: seq 00 1.653 vs 0.91 (1.82x), seq 02 4.749 vs 2.35 (2.02x), seq 05 1.323 vs 0.82 (1.61x), seq 07 0.998 vs 0.69 (1.45x), seq 08 1.778 vs 1.37 (1.30x). At least three landmark matches on every frame except 100 of 4660 on seq 02. Repository parameters were chosen without tuning on KITTI (the paper gives none); see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).",
-      "main_blocker": "The paper specifies no thresholds and its pitch estimate is not physically consistent as written; see papers/l_lo/README.md.",
-      "next_step": "Ask the authors for parameters or code, or study parameter sensitivity on a held-out sequence.",
+      "reproduction_status_summary": "Official KITTI RTE: 1.48/4.48/1.47/1.00/1.66 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.91/2.35/0.82/0.69/1.37 % (Table I, t_rel): 1.21-1.91x, geometric mean 1.58x. Seq 07 is the best 100 m RPE of the seq 07 sweeps (l_lo_kitti_seq_07_*_sweep_matrix.json, 30 settings); 00/02/05/08 use that choice unchanged, so those rows are held out. The untuned default gives 1.62x, so parameter choice moves the ratio by only ~3 %; see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "numeric_comparison_label": "Same metric, ~1.6x ratio (parameters chosen on seq 07)",
+      "numeric_comparison_summary": "Official KITTI RTE, repo vs paper: seq 00 1.479 vs 0.91 (1.63x), seq 02 4.478 vs 2.35 (1.91x), seq 05 1.473 vs 0.82 (1.80x), seq 07 1.004 vs 0.69 (1.46x), seq 08 1.661 vs 1.37 (1.21x). At least three landmark matches on every frame except 6 of 4660 on seq 02. Seq 07 is the best 100 m RPE of the seq 07 sweeps (l_lo_kitti_seq_07_*_sweep_matrix.json, 30 settings); 00/02/05/08 use that choice unchanged, so those rows are held out. The untuned default gives 1.62x, so parameter choice moves the ratio by only ~3 %; see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "main_blocker": "The paper specifies no thresholds and its pitch estimate is not physically consistent as written; a seq 07 parameter sweep closes only ~3 % of the gap, so the remaining difference is likely in the method details. See papers/l_lo/README.md.",
+      "next_step": "Ask the authors for code, or compare per-frame landmark matches against a reference implementation.",
       "reported_dataset": "KITTI Odometry (sequences 00, 02-10; 01 reported as NA)",
       "reported_metric": "KITTI RTE translation [%] (official 100-800 m segments)",
       "reported_values": {
@@ -346,7 +346,10 @@
       },
       "reported_hardware": "Intel Xeon Gold 6128, 64 GB RAM, Nvidia Quadro P5000",
       "reported_fps": null,
-      "notes": "Paper average 1.59 % over the reported sequences."
+      "notes": "Paper average 1.59 % over the reported sequences.",
+      "repo_variants": [
+        "seq07_tuned"
+      ]
     }
   }
 }

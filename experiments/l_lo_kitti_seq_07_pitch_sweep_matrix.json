@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "l_lo_kitti_seq_07_pitch_sweep",
+    "title": "L-LO on KITTI Odom seq 07 full: vertical pose sweep",
+    "question": "Which vertical pose (ground band for the pitch estimate) setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "variants": [
+    {
+      "id": "pitch_band_3_15",
+      "label": "pitch band 3 15",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: pitch_ground_min_range=3, pitch_ground_max_range=15",
+      "args": [
+        "--l-lo-set",
+        "pitch_ground_min_range=3",
+        "--l-lo-set",
+        "pitch_ground_max_range=15"
+      ]
+    },
+    {
+      "id": "pitch_band_10_40",
+      "label": "pitch band 10 40",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: pitch_ground_min_range=10, pitch_ground_max_range=40",
+      "args": [
+        "--l-lo-set",
+        "pitch_ground_min_range=10",
+        "--l-lo-set",
+        "pitch_ground_max_range=40"
+      ]
+    },
+    {
+      "id": "pitch_band_5_40",
+      "label": "pitch band 5 40",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: pitch_ground_min_range=5, pitch_ground_max_range=40",
+      "args": [
+        "--l-lo-set",
+        "pitch_ground_min_range=5",
+        "--l-lo-set",
+        "pitch_ground_max_range=40"
+      ]
+    }
+  ]
+}

@@ -15,7 +15,7 @@ gicp,mcd_ntu_day_02_108,gt-backed,dense_recent_map,0.016816,12.991898,experiment
 hdl_graph_slam,mcd_ntu_day_02_108,gt-backed,dense,0.179861,6.514175,experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json
 isc_loam,mcd_ntu_day_02_108,gt-backed,fast,0.064940,50.238587,experiments/results/isc_loam_mcd_ntu_day_02_matrix.json
 kiss_icp,mcd_ntu_day_02_108,gt-backed,fast_recent_map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json
-l_lo,kitti_seq_07_full,gt-backed,default,2.045184,5.100472,experiments/results/l_lo_kitti_seq_07_full_matrix.json
+l_lo,kitti_seq_07_full,gt-backed,pitch_band_10_40,1.957085,5.133734,experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json
 lego_loam,mcd_ntu_day_02_108,gt-backed,fast,0.078650,8.362960,experiments/results/lego_loam_mcd_ntu_day_02_matrix.json
 lf_gicp,kitti_seq_07_full,gt-backed,paper_default,0.646241,4.124560,experiments/results/lf_gicp_kitti_seq_07_full_matrix.json
 lins,mcd_ntu_day_02_108,gt-backed,dense,0.110815,34.902843,experiments/results/lins_mcd_ntu_day_02_matrix.json

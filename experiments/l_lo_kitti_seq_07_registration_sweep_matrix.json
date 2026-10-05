@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "l_lo_kitti_seq_07_registration_sweep",
+    "title": "L-LO on KITTI Odom seq 07 full: registration sweep",
+    "question": "Which registration (step size, similarity weights, termination) setting gives the lowest error on seq 07? Seq 07 is the only sequence used for choosing parameters; 00/02/05/08 stay held out.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "variants": [
+    {
+      "id": "step_half",
+      "label": "step half",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: step_coeff_translation=0.001, step_coeff_rotation=0.0001",
+      "args": [
+        "--l-lo-set",
+        "step_coeff_translation=0.001",
+        "--l-lo-set",
+        "step_coeff_rotation=0.0001"
+      ]
+    },
+    {
+      "id": "step_double",
+      "label": "step double",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: step_coeff_translation=0.004, step_coeff_rotation=0.0004",
+      "args": [
+        "--l-lo-set",
+        "step_coeff_translation=0.004",
+        "--l-lo-set",
+        "step_coeff_rotation=0.0004"
+      ]
+    },
+    {
+      "id": "shape_0p8",
+      "label": "shape 0p8",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: similarity_weight_shape=0.8, similarity_weight_size=0.2",
+      "args": [
+        "--l-lo-set",
+        "similarity_weight_shape=0.8",
+        "--l-lo-set",
+        "similarity_weight_size=0.2"
+      ]
+    },
+    {
+      "id": "shape_0p2",
+      "label": "shape 0p2",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: similarity_weight_shape=0.2, similarity_weight_size=0.8",
+      "args": [
+        "--l-lo-set",
+        "similarity_weight_shape=0.2",
+        "--l-lo-set",
+        "similarity_weight_size=0.8"
+      ]
+    },
+    {
+      "id": "rounds_600_tol_1e5",
+      "label": "rounds 600 tol 1e5",
+      "design_style": "balanced",
+      "intent": "One-factor change from the repository defaults: max_rounds=600, termination=1e-5",
+      "args": [
+        "--l-lo-set",
+        "max_rounds=600",
+        "--l-lo-set",
+        "termination=1e-5"
+      ]
+    }
+  ]
+}

@@ -29,6 +29,20 @@
       "design_style": "balanced",
       "intent": "Repository defaults (the paper gives no numeric parameters).",
       "args": []
+    },
+    {
+      "id": "seq07_tuned",
+      "label": "Seq 07 tuned",
+      "design_style": "balanced",
+      "intent": "Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.25",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80"
+      ]
     }
   ]
 }

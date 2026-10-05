@@ -16,7 +16,7 @@ hdl_graph_slam,,,,fast,,,default,default,fast,,,,,,,,,fast,dense,dense,,,,,,
 imu_dead_reckoning,,,,,,,zupt_kitti_0009,nhc_zupt_kitti_0009_full,,,,,,,,,,,,,,,,zupt,,nhc_zupt_full
 isc_loam,,,,fast,,,fast,fast,dense,fast,,,,,,,,fast,fast,fast,,,,,,
 kiss_icp,fast_recent_map,dense_local_map,fast_recent_map,fast_recent_map,fast_recent_map,,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,,dense_profile,balanced_reference,dense_profile,,balanced_reference,fast_profile,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,,,,
-l_lo,,,,,,,,,,,,default,default,default,,default,default,,,,,,,,,
+l_lo,,,,,,,,,,,,seq07_tuned,default,default,,rounds_600_tol_1e5,default,,,,,,,,,
 lego_loam,,,,fast,,,fast,fast,fast,fast,,kitti_default,kitti_default,kitti_default,,fast,kitti_default,fast,fast,fast,,,,,,
 lf_gicp,,,,,,,,,,,,no_mitigation,no_mitigation,no_mitigation,,paper_default,no_mitigation,,,,,,,,,
 lins,,,,fast,,,fast,fast,fast,fast,,,,,,,,fast,dense,fast,,,,,,

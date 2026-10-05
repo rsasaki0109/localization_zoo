@@ -88,6 +88,25 @@ Eigen::Matrix<double, N, 1> VQF::LowPass<N>::step(const Eigen::Matrix<double, N,
   return y;
 }
 
+template <int N>
+void VQF::LowPass<N>::endAveraging(const VQF& owner, double tau) {
+  if (started || count == 0) return;
+  const Coefficients c = owner.coefficients(tau);
+  const Eigen::Matrix<double, N, 1> mean = sum / count;
+  s0 = (1 - c.b0) * mean;
+  s1 = (c.b2 - c.a2) * mean;
+  started = true;
+}
+
+void VQF::endInitialAveraging() {
+  acc_lp_.endAveraging(*this, params_.tau_acc);
+  rest_gyr_lp_.endAveraging(*this, params_.rest_filter_tau);
+  rest_acc_lp_.endAveraging(*this, params_.rest_filter_tau);
+  R_lp_.endAveraging(*this, params_.tau_acc);
+  bias_lp_.endAveraging(*this, params_.tau_acc);
+  mag_lp_.endAveraging(*this, params_.mag_current_tau);
+}
+
 Quat VQF::quat6D() const { return quatMultiply(acc_quat_, gyr_quat_); }
 
 Quat VQF::quat9D() const {

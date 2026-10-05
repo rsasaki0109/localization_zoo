@@ -160,14 +160,16 @@ TEST(PostureConfirmation, ProfileKeysAreStrict) {
 
 TEST(VqfAttitude, SdkOrientationEqualsStandaloneVqfAfterStartup) {
   // The accuracy claim rests on BROAD (evaluation/broad_attitude.py); this
-  // checks the wiring: after the 1 s startup the SDK orientation is exactly
-  // the 6D VQF estimate run over the same samples at the median rate.
-  ImuMotionHealthParams params;
-  params.vqf_attitude = true;
+  // checks the wiring. At the end of the 1 s startup the SDK sets VQF's bias
+  // to the startup gyro mean, replays the startup samples, and ends VQF's
+  // initial averaging; the same steps on a standalone VQF must give exactly
+  // the same orientation afterwards.
+  ImuMotionHealthParams params;  // vqf_attitude is the default
   ImuMotionHealth pipeline(params);
   localization_zoo::attitude_estimation::VQFParams vqf_params;
   vqf_params.sampling_rate = kRate;
   localization_zoo::attitude_estimation::VQF reference(vqf_params);
+  std::vector<ImuSample> startup;
   double max_diff = 0.0;
   for (int k = 0; k < 1500; ++k) {
     const double t = k / kRate;
@@ -178,8 +180,20 @@ TEST(VqfAttitude, SdkOrientationEqualsStandaloneVqfAfterStartup) {
     sample.gyro = Eigen::Vector3d(moving * 0.6 * 1.3 * std::cos(1.3 * (t - 1.5)), 0.01, -0.02);
     sample.accel = gravityAt(angle) + Eigen::Vector3d(0.05 * std::sin(7.0 * t), 0.0, 0.0);
     const ImuMotionHealthState state = pipeline.process(sample);
-    reference.update(sample.gyro, sample.accel);
-    if (state.startup_complete) {
+    if (k <= 100) {  // the startup window is t in [0, 1.0]
+      startup.push_back(sample);
+      if (k == 100) {
+        Eigen::Vector3d gyro_mean = Eigen::Vector3d::Zero();
+        for (const ImuSample& s : startup) gyro_mean += s.gyro;
+        reference.setBiasEstimate(gyro_mean / startup.size());
+        for (const ImuSample& s : startup) reference.update(s.gyro, s.accel);
+        reference.endInitialAveraging();
+      }
+    } else {
+      reference.update(sample.gyro, sample.accel);
+    }
+    if (k >= 100) {
+      ASSERT_TRUE(state.startup_complete);
       const auto q = reference.quat6D();
       const Eigen::Quaterniond expected(q[0], q[1], q[2], q[3]);
       max_diff = std::max(max_diff, state.orientation.angularDistance(expected));

@@ -506,9 +506,10 @@ KITTI Raw drive 0009 with `imu.csv` inputs, not on the KITTI LiDAR leaderboard.
 SDK and CSV replay CLI for 6-axis IMUs. It diagnoses startup calibration,
 bias, timestamp gaps, non-finite values, and saturation; classifies stationary,
 moving, impact, fall/tilt, and vibration states; and emits JSON diagnostics plus
-short-term relative attitude, velocity, and position. Its standalone build only
-requires Eigen3 and GTest, and the included deterministic demo needs no sensor
-download.
+short-term relative attitude, velocity, and position. The attitude comes from a
+VQF filter by default: 0.70° inclination RMSE on the BROAD benchmark. Its
+standalone build only requires Eigen3 and GTest, and the included
+deterministic demo needs no sensor download.
 
 ### IMU Noise (Allan Variance)
 

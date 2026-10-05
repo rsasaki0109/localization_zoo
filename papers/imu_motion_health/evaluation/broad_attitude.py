@@ -28,14 +28,17 @@ import tempfile
 import numpy as np
 
 # Each variant: (CLI arguments, extra profile keys written to a temporary
-# --profile-file).  "legacy" restores the per-sample bias update used before
-# 2026-10-05.
+# --profile-file).  "integrating" is gyro integration with stationary
+# leveling (vqf_attitude: false); "integrating_legacy_bias" adds the
+# per-sample bias update used before 2026-10-05.
+INTEGRATING = {"vqf_attitude": "false"}
 VARIANTS = {
     "default": ([], {}),
     "wearable": (["--profile", "wearable"], {}),
-    "legacy_default": ([], {"stationary_bias_reference_rate_hz": 0, "stationary_bias_min_duration_s": 0}),
-    "default_no_stationary_bias_learning": (["--stationary-bias-gain", "0"], {}),
-    "vqf_attitude": (["--vqf-attitude"], {}),
+    "integrating": ([], INTEGRATING),
+    "integrating_legacy_bias": ([], {**INTEGRATING, "stationary_bias_reference_rate_hz": 0,
+                                     "stationary_bias_min_duration_s": 0}),
+    "integrating_no_stationary_bias_learning": (["--stationary-bias-gain", "0"], INTEGRATING),
 }
 
 

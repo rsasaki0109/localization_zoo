@@ -58,7 +58,9 @@ def candidates():
 def score(params: dict, trials: dict) -> dict:
     with tempfile.TemporaryDirectory() as tmp:
         profile = pathlib.Path(tmp) / "profile.yaml"
-        profile.write_text("imu_motion_health:\n" + "".join(f"  {k}: {v}\n" for k, v in params.items()))
+        # The candidates concern the integrating attitude, so pin it.
+        profile.write_text("imu_motion_health:\n  vqf_attitude: false\n" +
+                           "".join(f"  {k}: {v}\n" for k, v in params.items()))
         args = ["--profile-file", str(profile)]
         with concurrent.futures.ThreadPoolExecutor(8) as pool:
             futures = {t: pool.submit(B.run_trial, CLI, CSV / f"{t}.csv", info["sampling_rate"], args)

@@ -128,12 +128,13 @@ struct ImuMotionHealthParams {
   double posture_start_s = 0.0;
   double posture_tau_acc_s = 3.0;
 
-  // Opt-in VQF attitude (papers/attitude_estimation, 6D with its own gyro-bias
-  // estimation) for orientation_wxyz, tilt, and the relative dead reckoning,
-  // in place of gyro integration with stationary leveling.  Heading stays
-  // unobservable either way.  On BROAD the inclination RMSE is 0.70 deg,
-  // against 9.6 deg for the default (evaluation/broad_attitude.py).
-  bool vqf_attitude = false;
+  // VQF attitude (papers/attitude_estimation, 6D with its own gyro-bias
+  // estimation) for orientation_wxyz, tilt, and the relative dead reckoning.
+  // It starts from the static startup window (trusted startup bias, filters
+  // primed with the window mean).  false restores gyro integration with
+  // stationary leveling.  Heading is unobservable either way.  BROAD
+  // inclination RMSE: see evaluation/broad_attitude.py.
+  bool vqf_attitude = true;
   double vqf_attitude_tau_acc_s = 3.0;
 };
 

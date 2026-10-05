@@ -11,6 +11,7 @@ on:
     branches: [main]
     paths:
       - "papers/imu_motion_health/**"
+      - "papers/attitude_estimation/**"
       - ".github/workflows/imu-public-benchmark.yml"
 
 jobs:

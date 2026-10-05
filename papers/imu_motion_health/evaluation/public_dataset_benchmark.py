@@ -207,12 +207,15 @@ def tune(entries: list[dict], output: pathlib.Path) -> dict:
                        f"  impact_accel_threshold: {best['impact_accel_threshold']}\n" +
                        f"  impact_gyro_threshold: {best['impact_gyro_threshold']}\n" +
                        "  impact_requires_accel_and_gyro: true\n" +
-                       "  fall_freefall_threshold: 0.1\n  tilt_angle_threshold_deg: 179.0\n", encoding="utf-8")
+                       "  fall_freefall_threshold: 0.1\n  tilt_angle_threshold_deg: 179.0\n" +
+                       "  posture_confirmation: true\n" +
+                       "".join(f"  posture_{k}: {v}\n" for k, v in VQF_CONFIRMATION.items()), encoding="utf-8")
     policy = output / "wearable-public-v1-policy.json"
     policy.write_text(json.dumps({"schema":"imu_fall_candidate_policy_v1",
+                                  "confirmation_source":"sdk",
                                   "minimum_posture_change_deg":POSTURE_THRESHOLD_DEG,
                                   "pre_window_s":list(PRE_WINDOW_S),"post_window_s":list(POST_WINDOW_S),
-                                  "early_confirmation":EARLY_CONFIRMATION,
+                                  "vqf_confirmation":VQF_CONFIRMATION,
                                   "event_type":"impact"}, indent=2)+"\n", encoding="utf-8")
     return {"schema": "imu_public_profile_tuning_v1", "training_split": "CGU-BES Subject01-09",
             "objective": {"minimum_sensitivity": .95, "maximum_false_positive_rate": .02},
@@ -233,6 +236,12 @@ POSTURE_THRESHOLD_DEG = 50.0
 # max_spread_deg of the window mean (the body has settled). Chosen on CGU
 # train+validation with train/val jumps kept >= 5 degrees below the threshold.
 EARLY_CONFIRMATION = {"start_s": 0.25, "length_s": 0.25, "step_s": 0.05, "max_spread_deg": 10.0}
+# VQF posture confirmation (2026-10-05), done inside the SDK: the up direction
+# of a 6D VQF attitude must turn by threshold_deg from its [t-2.0, t-1.0] s mean
+# and hold for dwell_s; otherwise the settled-window rule decides at t + 1.5 s.
+# Chosen on CGU train+validation by evaluation/analyze_vqf_confirmation.py
+# (selection record: evaluation/vqf_confirmation_selection.json).
+VQF_CONFIRMATION = {"threshold_deg": 50.0, "dwell_s": 0.1, "start_s": 0.0, "tau_acc_s": 3.0}
 
 
 def _mean_direction(samples, start, end):
@@ -303,7 +312,13 @@ def benchmark(manifest: dict, root: pathlib.Path, cli: pathlib.Path, profile: pa
         process = subprocess.run([str(cli), "--input", str(root / entry["path"]), "--profile-file", str(profile),
                                   "--events-output", str(events), "--summary-output", str(summary)], capture_output=True, text=True)
         records = _read_events(events); impacts = [e["timestamp"] for e in records if e["phase"] == "started" and e["type"] == "impact"]
-        confirmed_at = causal_confirmation(root / entry["path"], impacts, policy)
+        if policy.get("confirmation_source") == "sdk":
+            # The SDK's opt-in VQF posture confirmation emits fall_confirmed records.
+            confirmations = [e["timestamp"] for e in records
+                             if e["phase"] == "started" and e["type"] == "fall_confirmed"]
+            confirmed_at = min(confirmations) if confirmations else None
+        else:
+            confirmed_at = causal_confirmation(root / entry["path"], impacts, policy)
         detected = confirmed_at is not None; latency = None
         if entry["label"] == "fall" and detected:
             latency = confirmed_at - entry["fall_onset_s"]

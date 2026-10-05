@@ -6,3 +6,8 @@ imu_motion_health:
   impact_requires_accel_and_gyro: true
   fall_freefall_threshold: 0.1
   tilt_angle_threshold_deg: 179.0
+  posture_confirmation: true
+  posture_threshold_deg: 50.0
+  posture_dwell_s: 0.1
+  posture_start_s: 0.0
+  posture_tau_acc_s: 3.0

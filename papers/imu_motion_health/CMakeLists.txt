@@ -8,15 +8,23 @@ find_package(Eigen3 REQUIRED)
 find_package(GTest REQUIRED)
 enable_testing()
 
+# VQF attitude for the opt-in posture confirmation.  The top-level build adds
+# papers/attitude_estimation first; a standalone build pulls it in here.
+if(NOT TARGET attitude_estimation)
+  add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../attitude_estimation
+                   ${CMAKE_CURRENT_BINARY_DIR}/attitude_estimation)
+endif()
+
 add_library(imu_motion_health
   src/imu_motion_health.cpp
+  src/posture_confirmation.cpp
 )
 
 target_include_directories(imu_motion_health PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_link_libraries(imu_motion_health PUBLIC Eigen3::Eigen)
+target_link_libraries(imu_motion_health PUBLIC Eigen3::Eigen attitude_estimation)
 
 add_executable(imu_motion_health_cli
   src/imu_motion_health_cli.cpp
@@ -29,6 +37,13 @@ target_link_libraries(test_imu_motion_health PRIVATE
   GTest::gtest_main
 )
 add_test(NAME test_imu_motion_health COMMAND test_imu_motion_health)
+
+add_executable(test_posture_confirmation test/test_posture_confirmation.cpp)
+target_link_libraries(test_posture_confirmation PRIVATE
+  imu_motion_health
+  GTest::gtest_main
+)
+add_test(NAME test_posture_confirmation COMMAND test_posture_confirmation)
 
 # The core tests intentionally stay dependency-light.  When a Python
 # interpreter is available, also exercise the real executable, CSV parser,

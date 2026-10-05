@@ -1,4 +1,5 @@
 #include "imu_motion_health/imu_motion_health.h"
+#include "imu_motion_health/posture_confirmation.h"
 
 #include <Eigen/SVD>
 
@@ -212,7 +213,8 @@ bool profileKeyIsBool(const std::string& key) {
   return key == "estimate_gyro_bias" || key == "estimate_accel_bias" ||
          key == "zero_velocity_when_stationary" ||
          key == "emit_moving_events" ||
-         key == "impact_requires_accel_and_gyro";
+         key == "impact_requires_accel_and_gyro" ||
+         key == "posture_confirmation";
 }
 
 bool profileKeyIsSize(const std::string& key) {
@@ -290,6 +292,7 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
     if (key == "emit_moving_events") params->emit_moving_events = parsed;
     if (key == "impact_requires_accel_and_gyro")
       params->impact_requires_accel_and_gyro = parsed;
+    if (key == "posture_confirmation") params->posture_confirmation = parsed;
     return true;
   }
 
@@ -333,6 +336,10 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
       {"gyro_bias_jump_min_duration_s",
        &params->gyro_bias_jump_min_duration_s},
       {"max_integration_dt_s", &params->max_integration_dt_s},
+      {"posture_threshold_deg", &params->posture_threshold_deg},
+      {"posture_dwell_s", &params->posture_dwell_s},
+      {"posture_start_s", &params->posture_start_s},
+      {"posture_tau_acc_s", &params->posture_tau_acc_s},
   };
   const auto found = fields.find(key);
   if (found == fields.end()) {
@@ -400,7 +407,13 @@ bool validateProfileParams(const ImuMotionHealthParams& params,
       !nonnegative(params.gyro_bias_jump_min_duration_s,
                    "gyro_bias_jump_min_duration_s") ||
       !positive(params.max_integration_dt_s, "max_integration_dt_s") ||
-      params.event_queue_capacity == 0) {
+      params.event_queue_capacity == 0 ||
+      !positive(params.posture_threshold_deg, "posture_threshold_deg") ||
+      params.posture_threshold_deg >= 180.0 ||
+      !nonnegative(params.posture_dwell_s, "posture_dwell_s") ||
+      !nonnegative(params.posture_start_s, "posture_start_s") ||
+      params.posture_start_s >= 1.5 ||
+      !positive(params.posture_tau_acc_s, "posture_tau_acc_s")) {
     if (error && error->empty()) *error = "invalid profile parameter";
     return false;
   }
@@ -455,6 +468,8 @@ const char* eventTypeName(ImuEventType type) {
       return "moving";
     case ImuEventType::kBiasJump:
       return "bias_jump";
+    case ImuEventType::kFallConfirmed:
+      return "fall_confirmed";
   }
   return "unknown";
 }
@@ -846,6 +861,8 @@ std::size_t eventIndex(ImuEventType type) {
       return 3;
     case ImuEventType::kBiasJump:
       return 4;
+    case ImuEventType::kFallConfirmed:
+      return 0;  // one-shot, never an active event
   }
   return 0;
 }
@@ -915,6 +932,15 @@ ImuMotionHealth::ImuMotionHealth(const ImuMotionHealthParams& params)
 }
 
 void ImuMotionHealth::clearRuntimeState() {
+  posture_.reset();
+  if (params_.posture_confirmation) {
+    PostureConfirmationParams posture;
+    posture.threshold_deg = params_.posture_threshold_deg;
+    posture.dwell_s = params_.posture_dwell_s;
+    posture.start_s = params_.posture_start_s;
+    posture.tau_acc_s = params_.posture_tau_acc_s;
+    posture_ = std::make_shared<PostureConfirmer>(posture);
+  }
   state_ = ImuMotionHealthState();
   state_.gravity_magnitude = params_.gravity_magnitude;
   state_.gravity_world = Eigen::Vector3d(0.0, 0.0, params_.gravity_magnitude);
@@ -1567,6 +1593,9 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
     first_timestamp_ = sample.timestamp;
   }
   last_timestamp_ = sample.timestamp;
+  // The posture confirmer sees every finite, time-ordered sample, saturated
+  // or not, from the first one (its attitude needs the history).
+  if (posture_) posture_->observe(sample.timestamp, sample.gyro, sample.accel);
 
   state_.gyro_saturated =
       sample.gyro.cwiseAbs().maxCoeff() >= params_.gyro_saturation_rad_s;
@@ -1690,9 +1719,33 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
   updateStateAliases();
   updateConfidence(had_data_error);
   makeDiagnostic(had_data_error);
+  const bool impact_was_active = active_events_[0].active;
   updateEvents(sample.timestamp, event_impact_active_, event_fall_active_,
                event_vibration_active_, event_moving_active_,
                event_bias_jump_active_);
+  if (posture_) {
+    if (!impact_was_active && active_events_[0].active) {
+      posture_->addImpact(sample.timestamp);
+    }
+    for (const double confirmed_at : posture_->evaluate()) {
+      ImuMotionEvent event;
+      event.id = next_event_id_++;
+      event.type = ImuEventType::kFallConfirmed;
+      event.timestamp = confirmed_at;
+      event.start_timestamp = confirmed_at;
+      event.peak_accel_norm = state_.accel_norm;
+      event.peak_gyro_norm = state_.gyro_norm;
+      event.peak_vibration_rms = state_.vibration_rms;
+      event.peak_confidence = state_.confidence;
+      event.phase = ImuEventPhase::kStarted;
+      syncEventAliases(&event);
+      enqueueEvent(event);
+      event.phase = ImuEventPhase::kEnded;
+      event.end_timestamp = confirmed_at;
+      event.has_end_timestamp = true;
+      enqueueEvent(event);
+    }
+  }
   return state_;
 }
 

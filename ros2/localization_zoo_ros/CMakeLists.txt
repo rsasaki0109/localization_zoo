@@ -26,9 +26,13 @@ set(ZOO_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 # creates the CLI and GTest targets, which are not part of this ament package.
 add_library(imu_motion_health_core STATIC
   ${ZOO_ROOT}/papers/imu_motion_health/src/imu_motion_health.cpp
+  ${ZOO_ROOT}/papers/imu_motion_health/src/posture_confirmation.cpp
+  ${ZOO_ROOT}/papers/attitude_estimation/src/attitude_estimation.cpp
+  ${ZOO_ROOT}/papers/attitude_estimation/src/vqf.cpp
 )
 target_include_directories(imu_motion_health_core PUBLIC
   ${ZOO_ROOT}/papers/imu_motion_health/include
+  ${ZOO_ROOT}/papers/attitude_estimation/include
 )
 target_link_libraries(imu_motion_health_core PUBLIC Eigen3::Eigen)
 

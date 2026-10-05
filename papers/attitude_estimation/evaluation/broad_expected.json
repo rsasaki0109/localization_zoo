@@ -35,6 +35,26 @@
       "total_rmse_deg": 28.3527,
       "heading_rmse_deg": 27.3967,
       "inclination_rmse_deg": 5.1557
+    },
+    "vqf_9d": {
+      "total_rmse_deg": 2.3019,
+      "heading_rmse_deg": 2.1545,
+      "inclination_rmse_deg": 0.6958
+    },
+    "vqf_6d": {
+      "total_rmse_deg": 5.404,
+      "heading_rmse_deg": 5.3106,
+      "inclination_rmse_deg": 0.6958
+    },
+    "basic_vqf_9d": {
+      "total_rmse_deg": 3.3721,
+      "heading_rmse_deg": 3.1793,
+      "inclination_rmse_deg": 0.977
+    },
+    "basic_vqf_6d": {
+      "total_rmse_deg": 22.0773,
+      "heading_rmse_deg": 22.0312,
+      "inclination_rmse_deg": 0.977
     }
   }
 }

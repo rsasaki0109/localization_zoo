@@ -144,6 +144,62 @@
       ],
       "reference": "mahony_vqf_6d",
       "intent": "6D (no magnetometer) with the VQF paper's gains."
+    },
+    {
+      "id": "vqf_9d",
+      "method": "vqf",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "vqf",
+        "--mode",
+        "9d"
+      ],
+      "reference": "vqf_9d",
+      "reference_impl": "vqf_code_9d",
+      "intent": "Full VQF (rest and motion bias estimation, magnetic disturbance rejection) with the paper defaults tau_acc 3 s, tau_mag 9 s."
+    },
+    {
+      "id": "vqf_6d",
+      "method": "vqf",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "vqf",
+        "--mode",
+        "6d"
+      ],
+      "reference": "vqf_6d",
+      "reference_impl": "vqf_code_6d",
+      "intent": "Full VQF without magnetometer (6D output)."
+    },
+    {
+      "id": "basic_vqf_9d",
+      "method": "vqf",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "vqf",
+        "--mode",
+        "9d",
+        "--vqf-basic"
+      ],
+      "reference_impl": "basic_vqf_code_9d",
+      "intent": "BasicVQF: strapdown integration, inclination correction, and heading correction only (Algorithm 1)."
+    },
+    {
+      "id": "basic_vqf_6d",
+      "method": "vqf",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "vqf",
+        "--mode",
+        "6d",
+        "--vqf-basic"
+      ],
+      "reference_impl": "basic_vqf_code_6d",
+      "intent": "BasicVQF without magnetometer."
     }
   ]
 }

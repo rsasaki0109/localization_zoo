@@ -7,6 +7,7 @@
 // movement = 1 for samples that count towards the error.
 
 #include "attitude_estimation/attitude_estimation.h"
+#include "attitude_estimation/vqf.h"
 
 #include <chrono>
 #include <cstdio>
@@ -53,9 +54,11 @@ std::vector<Sample> readCsv(const std::string& path) {
 }
 
 void usage() {
-  std::cerr << "usage: attitude_benchmark_cli <trial.csv> --rate HZ --method madgwick|mahony\n"
+  std::cerr << "usage: attitude_benchmark_cli <trial.csv> --rate HZ --method madgwick|mahony|vqf\n"
                "  [--mode 9d|6d] [--beta B] [--legacy-xio-field-scale]\n"
-               "  [--kp KP] [--ki KI] [--output-quat out.csv]\n";
+               "  [--kp KP] [--ki KI]\n"
+               "  [--tau-acc S] [--tau-mag S] [--vqf-basic] [--vqf-no-rest-bias]\n"
+               "  [--vqf-no-motion-bias] [--vqf-no-mag-rejection] [--output-quat out.csv]\n";
 }
 
 }  // namespace
@@ -70,6 +73,7 @@ int main(int argc, char** argv) {
   double rate = 0;
   MadgwickParams madgwick;
   MahonyParams mahony;
+  VQFParams vqf;
   for (int i = 2; i < argc; ++i) {
     const std::string arg = argv[i];
     auto next = [&]() -> std::string {
@@ -83,6 +87,14 @@ int main(int argc, char** argv) {
     else if (arg == "--legacy-xio-field-scale") madgwick.legacy_xio_field_scale = true;
     else if (arg == "--kp") mahony.kp = std::stod(next());
     else if (arg == "--ki") mahony.ki = std::stod(next());
+    else if (arg == "--tau-acc") vqf.tau_acc = std::stod(next());
+    else if (arg == "--tau-mag") vqf.tau_mag = std::stod(next());
+    else if (arg == "--vqf-basic") {
+      vqf.rest_bias_estimation = vqf.motion_bias_estimation = false;
+      vqf.mag_disturbance_rejection = false;
+    } else if (arg == "--vqf-no-rest-bias") vqf.rest_bias_estimation = false;
+    else if (arg == "--vqf-no-motion-bias") vqf.motion_bias_estimation = false;
+    else if (arg == "--vqf-no-mag-rejection") vqf.mag_disturbance_rejection = false;
     else if (arg == "--output-quat") output_quat = next();
     else {
       std::cerr << "error: unknown argument " << arg << "\n";
@@ -90,12 +102,12 @@ int main(int argc, char** argv) {
       return 2;
     }
   }
-  if (rate <= 0 || (method != "madgwick" && method != "mahony") ||
+  if (rate <= 0 || (method != "madgwick" && method != "mahony" && method != "vqf") ||
       (mode != "9d" && mode != "6d")) {
     usage();
     return 2;
   }
-  madgwick.sampling_rate = mahony.sampling_rate = rate;
+  madgwick.sampling_rate = mahony.sampling_rate = vqf.sampling_rate = rate;
   const bool use_mag = mode == "9d";
 
   const std::vector<Sample> samples = readCsv(csv);
@@ -103,11 +115,12 @@ int main(int argc, char** argv) {
     std::cerr << "error: no samples in " << csv << "\n";
     return 1;
   }
-  // BROAD protocol: initial state from the first accelerometer and
+  // BROAD protocol (Madgwick / Mahony): initial state from the first accelerometer and
   // magnetometer sample; output rotated into ENU.
   const Quat initial = quatFromAccMag(samples.front().acc, samples.front().mag);
   MadgwickFilter mad(madgwick);
   MahonyFilter mah(mahony);
+  VQF vqf_filter(vqf);
   mad.setState(initial);
   mah.setState(initial);
 
@@ -120,9 +133,14 @@ int main(int argc, char** argv) {
     if (method == "madgwick") {
       use_mag ? mad.update(s.gyr, s.acc, s.mag) : mad.updateImu(s.gyr, s.acc);
       q = mad.state();
-    } else {
+    } else if (method == "mahony") {
       use_mag ? mah.update(s.gyr, s.acc, s.mag) : mah.updateImu(s.gyr, s.acc);
       q = mah.state();
+    } else {
+      // VQF initialises itself and estimates directly in ENU (paper protocol).
+      use_mag ? vqf_filter.update(s.gyr, s.acc, s.mag) : vqf_filter.update(s.gyr, s.acc);
+      estimate.push_back(use_mag ? vqf_filter.quat9D() : vqf_filter.quat6D());
+      continue;
     }
     estimate.push_back(quatMultiply(enuCorrection(), q));
   }

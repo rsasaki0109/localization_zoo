@@ -8,7 +8,7 @@ find_package(Eigen3 REQUIRED)
 find_package(GTest REQUIRED)
 enable_testing()
 
-add_library(attitude_estimation src/attitude_estimation.cpp)
+add_library(attitude_estimation src/attitude_estimation.cpp src/vqf.cpp)
 target_include_directories(attitude_estimation PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(attitude_estimation PUBLIC Eigen3::Eigen)
 

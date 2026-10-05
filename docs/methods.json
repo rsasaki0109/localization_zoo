@@ -1667,20 +1667,23 @@
       ]
     },
     {
-      "name": "Madgwick / Mahony AHRS",
+      "name": "Madgwick / Mahony / VQF AHRS",
       "family": "IMU attitude estimation",
       "scope": "Paper reimplementation",
       "signals": [
         "IMU"
       ],
       "href": "papers/attitude_estimation",
-      "summary": "Madgwick gradient-descent (2010) and Mahony explicit complementary (TAC 2008) orientation filters, 6D and 9D, evaluated on the BROAD benchmark with its own error metric; reproduces BROAD's published per-trial errors within 0.001 deg and documents the x-io field-scale bug as a variant.",
+      "summary": "Madgwick (2010), Mahony (TAC 2008), and VQF (Inf. Fusion 2023) orientation filters, 6D and 9D, evaluated on the BROAD benchmark with its own error metric; reproduces BROAD's published per-trial errors within 0.001 deg, the VQF paper's values within 1 %, and the authors' VQF code within 0.0002 deg per trial.",
       "tags": [
-        "imu",
-        "attitude",
         "ahrs",
+        "attitude",
+        "bias-estimation",
+        "broad",
+        "imu",
+        "magnetic-disturbance",
         "orientation",
-        "broad"
+        "vqf"
       ]
     }
   ],

@@ -187,6 +187,35 @@ class ImuMotionHealthNode final : public rclcpp::Node {
         "event_queue_capacity", params->event_queue_capacity);
     params->emit_moving_events = declare_parameter<bool>(
         "emit_moving_events", params->emit_moving_events);
+
+    // Stationary gyro-bias update safeguards (0 disables each).
+    params->stationary_bias_reference_rate_hz = declare_parameter<double>(
+        "stationary_bias_reference_rate_hz",
+        params->stationary_bias_reference_rate_hz);
+    params->stationary_bias_max_change = declare_parameter<double>(
+        "stationary_bias_max_change", params->stationary_bias_max_change);
+    params->stationary_bias_min_duration_s = declare_parameter<double>(
+        "stationary_bias_min_duration_s",
+        params->stationary_bias_min_duration_s);
+
+    // VQF attitude for orientation, tilt, and dead reckoning (default on).
+    params->vqf_attitude =
+        declare_parameter<bool>("vqf_attitude", params->vqf_attitude);
+    params->vqf_attitude_tau_acc_s = declare_parameter<double>(
+        "vqf_attitude_tau_acc_s", params->vqf_attitude_tau_acc_s);
+
+    // Opt-in VQF posture confirmation: one-shot fall_confirmed events on the
+    // events topic.
+    params->posture_confirmation = declare_parameter<bool>(
+        "posture_confirmation", params->posture_confirmation);
+    params->posture_threshold_deg = declare_parameter<double>(
+        "posture_threshold_deg", params->posture_threshold_deg);
+    params->posture_dwell_s =
+        declare_parameter<double>("posture_dwell_s", params->posture_dwell_s);
+    params->posture_start_s =
+        declare_parameter<double>("posture_start_s", params->posture_start_s);
+    params->posture_tau_acc_s = declare_parameter<double>(
+        "posture_tau_acc_s", params->posture_tau_acc_s);
   }
 
   std::size_t positiveSizeParameter(const char* name,

@@ -530,7 +530,7 @@ recording, the paper's own fit protocol reproduces its published values within
 ### IMU Attitude Estimation (BROAD)
 
 [`attitude_estimation`](papers/attitude_estimation/) holds the Madgwick, Mahony,
-and VQF orientation filters, evaluated on the public BROAD benchmark (39 trials
+VQF, Valenti, and Seel orientation filters, evaluated on the public BROAD benchmark (39 trials
 with motion-capture ground truth, CC BY 4.0) using the dataset's own error
 metric. The published BROAD per-trial errors are reproduced within 0.001 deg,
 and the VQF paper's values within 1 %. VQF, written from the paper, matches the
@@ -544,6 +544,7 @@ authors' code within 0.0002 deg per trial. All-trial RMSE in degrees:
 | Madgwick / Mahony (VQF parameters) | 6D inclination | 5.04 / 5.16 | 5.0 / 5.2 (VQF) |
 | VQF (defaults) | 9D total | 2.30 | 2.3 (VQF) |
 | VQF (defaults) | 6D inclination | 0.70 | 0.7 (VQF) |
+| Valenti / Seel (VQF parameters) | 9D total | 6.07 / 5.11 | 6.1 / 5.1 (VQF) |
 
 Full table: [`docs/attitude_benchmark.md`](docs/attitude_benchmark.md).
 

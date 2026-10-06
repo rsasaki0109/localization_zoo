@@ -21,3 +21,9 @@ Grid variants report the TAGP (BROAD's term): the grid value with the lowest err
 | `vqf_6d` | 6d | `defaults` | 5.40 | 5.31 | 0.70 | 0.7 inclination (VQF Fig. 9) | 0.994x | 0.0000 (VQF code) |
 | `basic_vqf_9d` | 9d | `--vqf-basic` | 3.37 | 3.18 | 0.98 | - | - | 0.0000 (VQF code) |
 | `basic_vqf_6d` | 6d | `--vqf-basic` | 22.08 | 22.03 | 0.98 | - | - | 0.0000 (VQF code) |
+| `valenti_vqf_9d` | 9d | `--alpha-acc 0.00085 --beta-mag 0.0005 --alpha-bias 0.00055 --valenti-legacy-ros` | 6.07 | 4.75 | 3.21 | 6.1 total (VQF Fig. 9) | 0.996x | 0.0000 (ROS code (pre-#234)) |
+| `valenti_vqf_6d` | 6d | `--alpha-acc 0.00085 --beta-mag 0.0005 --alpha-bias 0.00055 --valenti-legacy-ros` | 91.04 | 90.91 | 3.21 | 3.2 inclination (VQF Fig. 9) | 1.004x | 0.0000 (ROS code (pre-#234)) |
+| `valenti_paper_9d` | 9d | `--alpha-acc 0.00085 --beta-mag 0.0005 --alpha-bias 0.00055` | 7.07 | 5.34 | 3.81 | - | - | 0.0000 (ROS code) |
+| `valenti_paper_6d` | 6d | `--alpha-acc 0.00085 --beta-mag 0.0005 --alpha-bias 0.00055` | 90.81 | 90.58 | 3.81 | - | - | 0.0000 (ROS code) |
+| `seel_vqf_9d` | 9d | `--seel-tau-acc 3.2 --seel-tau-mag 10 --seel-zeta 5 --seel-acc-rating 2` | 5.11 | 4.21 | 2.55 | 5.1 total (VQF Fig. 9) | 1.002x | 0.0000 (qmt code) |
+| `seel_vqf_6d` | 6d | `--seel-tau-acc 3.2 --seel-tau-mag 10 --seel-zeta 5 --seel-acc-rating 2` | 85.96 | 85.88 | 2.59 | 2.6 inclination (VQF Fig. 9) | 0.996x | 0.0000 (qmt code) |

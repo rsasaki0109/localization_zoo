@@ -7,6 +7,7 @@
 // movement = 1 for samples that count towards the error.
 
 #include "attitude_estimation/attitude_estimation.h"
+#include "attitude_estimation/complementary.h"
 #include "attitude_estimation/vqf.h"
 
 #include <chrono>
@@ -54,11 +55,14 @@ std::vector<Sample> readCsv(const std::string& path) {
 }
 
 void usage() {
-  std::cerr << "usage: attitude_benchmark_cli <trial.csv> --rate HZ --method madgwick|mahony|vqf\n"
+  std::cerr << "usage: attitude_benchmark_cli <trial.csv> --rate HZ --method madgwick|mahony|vqf|valenti|seel\n"
                "  [--mode 9d|6d] [--beta B] [--legacy-xio-field-scale]\n"
                "  [--kp KP] [--ki KI]\n"
                "  [--tau-acc S] [--tau-mag S] [--vqf-basic] [--vqf-no-rest-bias]\n"
-               "  [--vqf-no-motion-bias] [--vqf-no-mag-rejection] [--output-quat out.csv]\n";
+               "  [--vqf-no-motion-bias] [--vqf-no-mag-rejection]\n"
+               "  [--alpha-acc A] [--beta-mag B] [--alpha-bias A] [--valenti-no-bias]\n"
+               "  [--valenti-adaptive] [--valenti-legacy-ros] [--seel-tau-acc S] [--seel-tau-mag S] [--seel-zeta Z]\n"
+               "  [--seel-acc-rating R] [--output-quat out.csv]\n";
 }
 
 }  // namespace
@@ -74,6 +78,8 @@ int main(int argc, char** argv) {
   MadgwickParams madgwick;
   MahonyParams mahony;
   VQFParams vqf;
+  ValentiParams valenti;
+  SeelParams seel;
   for (int i = 2; i < argc; ++i) {
     const std::string arg = argv[i];
     auto next = [&]() -> std::string {
@@ -95,6 +101,16 @@ int main(int argc, char** argv) {
     } else if (arg == "--vqf-no-rest-bias") vqf.rest_bias_estimation = false;
     else if (arg == "--vqf-no-motion-bias") vqf.motion_bias_estimation = false;
     else if (arg == "--vqf-no-mag-rejection") vqf.mag_disturbance_rejection = false;
+    else if (arg == "--alpha-acc") valenti.alpha_acc = std::stod(next());
+    else if (arg == "--beta-mag") valenti.beta_mag = std::stod(next());
+    else if (arg == "--alpha-bias") valenti.alpha_bias = std::stod(next());
+    else if (arg == "--valenti-no-bias") valenti.bias_estimation = false;
+    else if (arg == "--valenti-adaptive") valenti.adaptive_gain = true;
+    else if (arg == "--valenti-legacy-ros") valenti.legacy_ros_interpolation = true;
+    else if (arg == "--seel-tau-acc") seel.tau_acc = std::stod(next());
+    else if (arg == "--seel-tau-mag") seel.tau_mag = std::stod(next());
+    else if (arg == "--seel-zeta") seel.zeta = std::stod(next());
+    else if (arg == "--seel-acc-rating") seel.acc_rating = std::stod(next());
     else if (arg == "--output-quat") output_quat = next();
     else {
       std::cerr << "error: unknown argument " << arg << "\n";
@@ -102,12 +118,14 @@ int main(int argc, char** argv) {
       return 2;
     }
   }
-  if (rate <= 0 || (method != "madgwick" && method != "mahony" && method != "vqf") ||
+  if (rate <= 0 || (method != "madgwick" && method != "mahony" && method != "vqf" &&
+                    method != "valenti" && method != "seel") ||
       (mode != "9d" && mode != "6d")) {
     usage();
     return 2;
   }
   madgwick.sampling_rate = mahony.sampling_rate = vqf.sampling_rate = rate;
+  valenti.sampling_rate = seel.sampling_rate = rate;
   const bool use_mag = mode == "9d";
 
   const std::vector<Sample> samples = readCsv(csv);
@@ -121,6 +139,8 @@ int main(int argc, char** argv) {
   MadgwickFilter mad(madgwick);
   MahonyFilter mah(mahony);
   VQF vqf_filter(vqf);
+  ValentiFilter valenti_filter(valenti);
+  SeelFilter seel_filter(seel);
   mad.setState(initial);
   mah.setState(initial);
 
@@ -136,6 +156,15 @@ int main(int argc, char** argv) {
     } else if (method == "mahony") {
       use_mag ? mah.update(s.gyr, s.acc, s.mag) : mah.updateImu(s.gyr, s.acc);
       q = mah.state();
+    } else if (method == "valenti") {
+      // Initialises itself from the first sample; x-north frame like Madgwick.
+      use_mag ? valenti_filter.update(s.gyr, s.acc, s.mag) : valenti_filter.updateImu(s.gyr, s.acc);
+      q = valenti_filter.state();
+    } else if (method == "seel") {
+      // Starts from its own fixed quaternion and estimates directly in ENU.
+      seel_filter.update(s.gyr, s.acc, use_mag ? s.mag : Eigen::Vector3d::Zero());
+      estimate.push_back(seel_filter.state());
+      continue;
     } else {
       // VQF initialises itself and estimates directly in ENU (paper protocol).
       use_mag ? vqf_filter.update(s.gyr, s.acc, s.mag) : vqf_filter.update(s.gyr, s.acc);

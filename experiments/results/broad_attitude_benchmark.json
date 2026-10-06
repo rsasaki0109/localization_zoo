@@ -1156,6 +1156,682 @@
         "all_trials": 0.977,
         "max_abs_trial_diff_deg": 0.0
       }
+    },
+    {
+      "id": "valenti_vqf_9d",
+      "method": "valenti",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "valenti",
+        "--mode",
+        "9d",
+        "--alpha-acc",
+        "0.00085",
+        "--beta-mag",
+        "0.0005",
+        "--alpha-bias",
+        "0.00055",
+        "--valenti-legacy-ros"
+      ],
+      "intent": "VQF Table 2 gains with the ROS package's pre-2026-09 interpolation (always LERP), which the VQF paper's numbers require.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 6.0738,
+          "heading_rmse_deg": 4.7475,
+          "inclination_rmse_deg": 3.2118
+        },
+        "undisturbed": {
+          "total_rmse_deg": 5.0592,
+          "heading_rmse_deg": 3.2518,
+          "inclination_rmse_deg": 3.4942
+        },
+        "rotation": {
+          "total_rmse_deg": 2.2634,
+          "heading_rmse_deg": 2.0233,
+          "inclination_rmse_deg": 0.9583
+        },
+        "translation": {
+          "total_rmse_deg": 7.7868,
+          "heading_rmse_deg": 4.0375,
+          "inclination_rmse_deg": 6.2124
+        },
+        "combined": {
+          "total_rmse_deg": 5.182,
+          "heading_rmse_deg": 4.0488,
+          "inclination_rmse_deg": 3.1662
+        },
+        "slow": {
+          "total_rmse_deg": 1.5017,
+          "heading_rmse_deg": 1.3383,
+          "inclination_rmse_deg": 0.6291
+        },
+        "fast": {
+          "total_rmse_deg": 8.9401,
+          "heading_rmse_deg": 5.3392,
+          "inclination_rmse_deg": 6.6198
+        },
+        "no_breaks": {
+          "total_rmse_deg": 5.0748,
+          "heading_rmse_deg": 3.5353,
+          "inclination_rmse_deg": 3.3119
+        },
+        "with_breaks": {
+          "total_rmse_deg": 5.0298,
+          "heading_rmse_deg": 2.7202,
+          "inclination_rmse_deg": 3.836
+        },
+        "disturbed": {
+          "total_rmse_deg": 7.5322,
+          "heading_rmse_deg": 6.8976,
+          "inclination_rmse_deg": 2.8058
+        },
+        "tapping": {
+          "total_rmse_deg": 1.7032,
+          "heading_rmse_deg": 1.4921,
+          "inclination_rmse_deg": 0.7844
+        },
+        "vibration": {
+          "total_rmse_deg": 3.5352,
+          "heading_rmse_deg": 3.2812,
+          "inclination_rmse_deg": 1.2506
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 13.9633,
+          "heading_rmse_deg": 12.3743,
+          "inclination_rmse_deg": 6.4609
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 6.4259,
+          "heading_rmse_deg": 6.1879,
+          "inclination_rmse_deg": 1.407
+        },
+        "office_environment": {
+          "total_rmse_deg": 5.916,
+          "heading_rmse_deg": 5.6998,
+          "inclination_rmse_deg": 1.5118
+        },
+        "mixed": {
+          "total_rmse_deg": 10.2235,
+          "heading_rmse_deg": 8.9795,
+          "inclination_rmse_deg": 4.9217
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "total_rmse_deg",
+        "all_trials": 6.1,
+        "ratio": 0.996
+      },
+      "reference_impl": {
+        "label": "ROS code (pre-#234)",
+        "source": "ROS imu_tools imu_complementary_filter (BSD) with the pre-#234 interpolation switch (dq0 < 0), run on BROAD with the VQF Table 2 gains; verification only",
+        "metric": "total_rmse_deg",
+        "all_trials": 6.0738,
+        "max_abs_trial_diff_deg": 0.0
+      }
+    },
+    {
+      "id": "valenti_vqf_6d",
+      "method": "valenti",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "valenti",
+        "--mode",
+        "6d",
+        "--alpha-acc",
+        "0.00085",
+        "--beta-mag",
+        "0.0005",
+        "--alpha-bias",
+        "0.00055",
+        "--valenti-legacy-ros"
+      ],
+      "intent": "As above, 6D.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 91.0412,
+          "heading_rmse_deg": 90.9104,
+          "inclination_rmse_deg": 3.2118
+        },
+        "undisturbed": {
+          "total_rmse_deg": 91.1893,
+          "heading_rmse_deg": 91.0073,
+          "inclination_rmse_deg": 3.4942
+        },
+        "rotation": {
+          "total_rmse_deg": 95.0047,
+          "heading_rmse_deg": 95.0005,
+          "inclination_rmse_deg": 0.9583
+        },
+        "translation": {
+          "total_rmse_deg": 91.6717,
+          "heading_rmse_deg": 91.2542,
+          "inclination_rmse_deg": 6.2124
+        },
+        "combined": {
+          "total_rmse_deg": 83.4531,
+          "heading_rmse_deg": 83.3751,
+          "inclination_rmse_deg": 3.1662
+        },
+        "slow": {
+          "total_rmse_deg": 91.9907,
+          "heading_rmse_deg": 91.989,
+          "inclination_rmse_deg": 0.6291
+        },
+        "fast": {
+          "total_rmse_deg": 90.315,
+          "heading_rmse_deg": 89.9364,
+          "inclination_rmse_deg": 6.6198
+        },
+        "no_breaks": {
+          "total_rmse_deg": 89.0271,
+          "heading_rmse_deg": 88.8687,
+          "inclination_rmse_deg": 3.3119
+        },
+        "with_breaks": {
+          "total_rmse_deg": 95.2433,
+          "heading_rmse_deg": 95.0171,
+          "inclination_rmse_deg": 3.836
+        },
+        "disturbed": {
+          "total_rmse_deg": 90.8282,
+          "heading_rmse_deg": 90.7712,
+          "inclination_rmse_deg": 2.8058
+        },
+        "tapping": {
+          "total_rmse_deg": 86.7142,
+          "heading_rmse_deg": 86.7113,
+          "inclination_rmse_deg": 0.7844
+        },
+        "vibration": {
+          "total_rmse_deg": 87.3003,
+          "heading_rmse_deg": 87.2931,
+          "inclination_rmse_deg": 1.2506
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 98.1259,
+          "heading_rmse_deg": 97.9446,
+          "inclination_rmse_deg": 6.4609
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 88.8863,
+          "heading_rmse_deg": 88.877,
+          "inclination_rmse_deg": 1.407
+        },
+        "office_environment": {
+          "total_rmse_deg": 87.3684,
+          "heading_rmse_deg": 87.358,
+          "inclination_rmse_deg": 1.5118
+        },
+        "mixed": {
+          "total_rmse_deg": 93.5509,
+          "heading_rmse_deg": 93.4506,
+          "inclination_rmse_deg": 4.9217
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 3.2,
+        "ratio": 1.004
+      },
+      "reference_impl": {
+        "label": "ROS code (pre-#234)",
+        "source": "ROS imu_tools imu_complementary_filter (BSD) with the pre-#234 interpolation switch (dq0 < 0), run on BROAD with the VQF Table 2 gains; verification only",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 3.2118,
+        "max_abs_trial_diff_deg": 0.0
+      }
+    },
+    {
+      "id": "valenti_paper_9d",
+      "method": "valenti",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "valenti",
+        "--mode",
+        "9d",
+        "--alpha-acc",
+        "0.00085",
+        "--beta-mag",
+        "0.0005",
+        "--alpha-bias",
+        "0.00055"
+      ],
+      "intent": "Same gains with the paper's LERP/SLERP switch at q0 = 0.9 (current ROS package).",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 7.0658,
+          "heading_rmse_deg": 5.3445,
+          "inclination_rmse_deg": 3.8069
+        },
+        "undisturbed": {
+          "total_rmse_deg": 6.0915,
+          "heading_rmse_deg": 3.6428,
+          "inclination_rmse_deg": 4.3678
+        },
+        "rotation": {
+          "total_rmse_deg": 2.2679,
+          "heading_rmse_deg": 2.0263,
+          "inclination_rmse_deg": 0.9626
+        },
+        "translation": {
+          "total_rmse_deg": 10.2581,
+          "heading_rmse_deg": 4.8961,
+          "inclination_rmse_deg": 8.3523
+        },
+        "combined": {
+          "total_rmse_deg": 5.474,
+          "heading_rmse_deg": 4.2965,
+          "inclination_rmse_deg": 3.3253
+        },
+        "slow": {
+          "total_rmse_deg": 1.5017,
+          "heading_rmse_deg": 1.3383,
+          "inclination_rmse_deg": 0.6291
+        },
+        "fast": {
+          "total_rmse_deg": 11.0985,
+          "heading_rmse_deg": 6.1567,
+          "inclination_rmse_deg": 8.4464
+        },
+        "no_breaks": {
+          "total_rmse_deg": 5.7965,
+          "heading_rmse_deg": 3.8303,
+          "inclination_rmse_deg": 3.9258
+        },
+        "with_breaks": {
+          "total_rmse_deg": 6.6446,
+          "heading_rmse_deg": 3.2912,
+          "inclination_rmse_deg": 5.1966
+        },
+        "disturbed": {
+          "total_rmse_deg": 8.4665,
+          "heading_rmse_deg": 7.7908,
+          "inclination_rmse_deg": 3.0005
+        },
+        "tapping": {
+          "total_rmse_deg": 1.8133,
+          "heading_rmse_deg": 1.5382,
+          "inclination_rmse_deg": 0.8955
+        },
+        "vibration": {
+          "total_rmse_deg": 3.5363,
+          "heading_rmse_deg": 3.2822,
+          "inclination_rmse_deg": 1.2509
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 15.2381,
+          "heading_rmse_deg": 13.5983,
+          "inclination_rmse_deg": 6.8835
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 7.9328,
+          "heading_rmse_deg": 7.7,
+          "inclination_rmse_deg": 1.407
+        },
+        "office_environment": {
+          "total_rmse_deg": 5.9222,
+          "heading_rmse_deg": 5.7061,
+          "inclination_rmse_deg": 1.5129
+        },
+        "mixed": {
+          "total_rmse_deg": 12.3036,
+          "heading_rmse_deg": 10.7071,
+          "inclination_rmse_deg": 6.12
+        }
+      },
+      "reference_impl": {
+        "label": "ROS code",
+        "source": "ROS imu_tools imu_complementary_filter (BSD), rolling branch after #234, run on BROAD with the VQF Table 2 gains; verification only",
+        "metric": "total_rmse_deg",
+        "all_trials": 7.0658,
+        "max_abs_trial_diff_deg": 0.0
+      }
+    },
+    {
+      "id": "valenti_paper_6d",
+      "method": "valenti",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "valenti",
+        "--mode",
+        "6d",
+        "--alpha-acc",
+        "0.00085",
+        "--beta-mag",
+        "0.0005",
+        "--alpha-bias",
+        "0.00055"
+      ],
+      "intent": "As above, 6D.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 90.8136,
+          "heading_rmse_deg": 90.576,
+          "inclination_rmse_deg": 3.8069
+        },
+        "undisturbed": {
+          "total_rmse_deg": 90.7805,
+          "heading_rmse_deg": 90.4244,
+          "inclination_rmse_deg": 4.3678
+        },
+        "rotation": {
+          "total_rmse_deg": 95.0051,
+          "heading_rmse_deg": 95.0008,
+          "inclination_rmse_deg": 0.9626
+        },
+        "translation": {
+          "total_rmse_deg": 90.6488,
+          "heading_rmse_deg": 89.7915,
+          "inclination_rmse_deg": 8.3523
+        },
+        "combined": {
+          "total_rmse_deg": 83.4133,
+          "heading_rmse_deg": 83.3259,
+          "inclination_rmse_deg": 3.3253
+        },
+        "slow": {
+          "total_rmse_deg": 91.9907,
+          "heading_rmse_deg": 91.989,
+          "inclination_rmse_deg": 0.6291
+        },
+        "fast": {
+          "total_rmse_deg": 89.4603,
+          "heading_rmse_deg": 88.7175,
+          "inclination_rmse_deg": 8.4464
+        },
+        "no_breaks": {
+          "total_rmse_deg": 88.6234,
+          "heading_rmse_deg": 88.3393,
+          "inclination_rmse_deg": 3.9258
+        },
+        "with_breaks": {
+          "total_rmse_deg": 94.8251,
+          "heading_rmse_deg": 94.3339,
+          "inclination_rmse_deg": 5.1966
+        },
+        "disturbed": {
+          "total_rmse_deg": 90.8611,
+          "heading_rmse_deg": 90.794,
+          "inclination_rmse_deg": 3.0005
+        },
+        "tapping": {
+          "total_rmse_deg": 86.7154,
+          "heading_rmse_deg": 86.7116,
+          "inclination_rmse_deg": 0.8955
+        },
+        "vibration": {
+          "total_rmse_deg": 87.3003,
+          "heading_rmse_deg": 87.293,
+          "inclination_rmse_deg": 1.2509
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 98.261,
+          "heading_rmse_deg": 98.0539,
+          "inclination_rmse_deg": 6.8835
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 88.8863,
+          "heading_rmse_deg": 88.877,
+          "inclination_rmse_deg": 1.407
+        },
+        "office_environment": {
+          "total_rmse_deg": 87.3687,
+          "heading_rmse_deg": 87.3583,
+          "inclination_rmse_deg": 1.5129
+        },
+        "mixed": {
+          "total_rmse_deg": 93.5339,
+          "heading_rmse_deg": 93.3786,
+          "inclination_rmse_deg": 6.12
+        }
+      },
+      "reference_impl": {
+        "label": "ROS code",
+        "source": "ROS imu_tools imu_complementary_filter (BSD), rolling branch after #234, run on BROAD with the VQF Table 2 gains; verification only",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 3.8069,
+        "max_abs_trial_diff_deg": 0.0
+      }
+    },
+    {
+      "id": "seel_vqf_9d",
+      "method": "seel",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "seel",
+        "--mode",
+        "9d",
+        "--seel-tau-acc",
+        "3.2",
+        "--seel-tau-mag",
+        "10",
+        "--seel-zeta",
+        "5",
+        "--seel-acc-rating",
+        "2"
+      ],
+      "intent": "Port of the authors' implementation with the VQF Table 2 parameters.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 5.1112,
+          "heading_rmse_deg": 4.2143,
+          "inclination_rmse_deg": 2.5473
+        },
+        "undisturbed": {
+          "total_rmse_deg": 4.9917,
+          "heading_rmse_deg": 3.9391,
+          "inclination_rmse_deg": 2.7561
+        },
+        "rotation": {
+          "total_rmse_deg": 3.3836,
+          "heading_rmse_deg": 3.0017,
+          "inclination_rmse_deg": 1.482
+        },
+        "translation": {
+          "total_rmse_deg": 5.8177,
+          "heading_rmse_deg": 3.9891,
+          "inclination_rmse_deg": 3.7966
+        },
+        "combined": {
+          "total_rmse_deg": 6.3996,
+          "heading_rmse_deg": 5.5364,
+          "inclination_rmse_deg": 3.1763
+        },
+        "slow": {
+          "total_rmse_deg": 2.3435,
+          "heading_rmse_deg": 2.1313,
+          "inclination_rmse_deg": 0.8806
+        },
+        "fast": {
+          "total_rmse_deg": 7.8807,
+          "heading_rmse_deg": 5.9112,
+          "inclination_rmse_deg": 4.802
+        },
+        "no_breaks": {
+          "total_rmse_deg": 5.6427,
+          "heading_rmse_deg": 4.3171,
+          "inclination_rmse_deg": 3.2827
+        },
+        "with_breaks": {
+          "total_rmse_deg": 3.7711,
+          "heading_rmse_deg": 3.2304,
+          "inclination_rmse_deg": 1.7685
+        },
+        "disturbed": {
+          "total_rmse_deg": 5.2831,
+          "heading_rmse_deg": 4.6099,
+          "inclination_rmse_deg": 2.2471
+        },
+        "tapping": {
+          "total_rmse_deg": 3.3569,
+          "heading_rmse_deg": 2.7596,
+          "inclination_rmse_deg": 1.6341
+        },
+        "vibration": {
+          "total_rmse_deg": 4.5345,
+          "heading_rmse_deg": 3.8046,
+          "inclination_rmse_deg": 2.4541
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 7.0341,
+          "heading_rmse_deg": 5.6488,
+          "inclination_rmse_deg": 3.9317
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 5.234,
+          "heading_rmse_deg": 4.9614,
+          "inclination_rmse_deg": 1.3001
+        },
+        "office_environment": {
+          "total_rmse_deg": 5.5382,
+          "heading_rmse_deg": 5.2308,
+          "inclination_rmse_deg": 1.817
+        },
+        "mixed": {
+          "total_rmse_deg": 3.3642,
+          "heading_rmse_deg": 2.7657,
+          "inclination_rmse_deg": 1.9159
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "total_rmse_deg",
+        "all_trials": 5.1,
+        "ratio": 1.002
+      },
+      "reference_impl": {
+        "label": "qmt code",
+        "source": "qmt.oriEstIMU (Seel and Ruppin, qmt 0.2.4, MIT) run on BROAD with the VQF Table 2 parameters; verification only",
+        "metric": "total_rmse_deg",
+        "all_trials": 5.1112,
+        "max_abs_trial_diff_deg": 0.0
+      }
+    },
+    {
+      "id": "seel_vqf_6d",
+      "method": "seel",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "seel",
+        "--mode",
+        "6d",
+        "--seel-tau-acc",
+        "3.2",
+        "--seel-tau-mag",
+        "10",
+        "--seel-zeta",
+        "5",
+        "--seel-acc-rating",
+        "2"
+      ],
+      "intent": "As above, 6D.",
+      "groups": {
+        "all_trials": {
+          "total_rmse_deg": 85.9621,
+          "heading_rmse_deg": 85.8766,
+          "inclination_rmse_deg": 2.5898
+        },
+        "undisturbed": {
+          "total_rmse_deg": 92.9404,
+          "heading_rmse_deg": 92.8191,
+          "inclination_rmse_deg": 2.8388
+        },
+        "rotation": {
+          "total_rmse_deg": 97.2854,
+          "heading_rmse_deg": 97.2739,
+          "inclination_rmse_deg": 1.6546
+        },
+        "translation": {
+          "total_rmse_deg": 96.6671,
+          "heading_rmse_deg": 96.4231,
+          "inclination_rmse_deg": 3.9119
+        },
+        "combined": {
+          "total_rmse_deg": 78.4113,
+          "heading_rmse_deg": 78.3133,
+          "inclination_rmse_deg": 3.0389
+        },
+        "slow": {
+          "total_rmse_deg": 90.6219,
+          "heading_rmse_deg": 90.6178,
+          "inclination_rmse_deg": 0.9217
+        },
+        "fast": {
+          "total_rmse_deg": 95.4696,
+          "heading_rmse_deg": 95.2206,
+          "inclination_rmse_deg": 4.9302
+        },
+        "no_breaks": {
+          "total_rmse_deg": 87.6525,
+          "heading_rmse_deg": 87.4765,
+          "inclination_rmse_deg": 3.3629
+        },
+        "with_breaks": {
+          "total_rmse_deg": 102.8551,
+          "heading_rmse_deg": 102.8364,
+          "inclination_rmse_deg": 1.8561
+        },
+        "disturbed": {
+          "total_rmse_deg": 75.9308,
+          "heading_rmse_deg": 75.8968,
+          "inclination_rmse_deg": 2.2317
+        },
+        "tapping": {
+          "total_rmse_deg": 68.4771,
+          "heading_rmse_deg": 68.4593,
+          "inclination_rmse_deg": 1.6427
+        },
+        "vibration": {
+          "total_rmse_deg": 72.4562,
+          "heading_rmse_deg": 72.4095,
+          "inclination_rmse_deg": 2.7825
+        },
+        "stationary_magnet": {
+          "total_rmse_deg": 85.3887,
+          "heading_rmse_deg": 85.3093,
+          "inclination_rmse_deg": 4.0565
+        },
+        "attached_magnet": {
+          "total_rmse_deg": 80.2256,
+          "heading_rmse_deg": 80.219,
+          "inclination_rmse_deg": 1.0671
+        },
+        "office_environment": {
+          "total_rmse_deg": 62.8957,
+          "heading_rmse_deg": 62.8741,
+          "inclination_rmse_deg": 1.7282
+        },
+        "mixed": {
+          "total_rmse_deg": 64.5526,
+          "heading_rmse_deg": 64.5299,
+          "inclination_rmse_deg": 1.8393
+        }
+      },
+      "reference": {
+        "label": "VQF Fig. 9",
+        "source": "VQF paper (Laidig and Seel, Inf. Fusion 2023, arXiv:2203.17024) Fig. 9, BROAD average, one decimal",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 2.6,
+        "ratio": 0.996
+      },
+      "reference_impl": {
+        "label": "qmt code",
+        "source": "qmt.oriEstIMU (Seel and Ruppin, qmt 0.2.4, MIT) run on BROAD with the VQF Table 2 parameters; verification only",
+        "metric": "inclination_rmse_deg",
+        "all_trials": 2.5898,
+        "max_abs_trial_diff_deg": 0.0
+      }
     }
   ]
 }

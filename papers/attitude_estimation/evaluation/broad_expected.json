@@ -55,6 +55,36 @@
       "total_rmse_deg": 22.0773,
       "heading_rmse_deg": 22.0312,
       "inclination_rmse_deg": 0.977
+    },
+    "valenti_vqf_9d": {
+      "total_rmse_deg": 6.0738,
+      "heading_rmse_deg": 4.7475,
+      "inclination_rmse_deg": 3.2118
+    },
+    "valenti_vqf_6d": {
+      "total_rmse_deg": 91.0412,
+      "heading_rmse_deg": 90.9104,
+      "inclination_rmse_deg": 3.2118
+    },
+    "valenti_paper_9d": {
+      "total_rmse_deg": 7.0658,
+      "heading_rmse_deg": 5.3445,
+      "inclination_rmse_deg": 3.8069
+    },
+    "valenti_paper_6d": {
+      "total_rmse_deg": 90.8136,
+      "heading_rmse_deg": 90.576,
+      "inclination_rmse_deg": 3.8069
+    },
+    "seel_vqf_9d": {
+      "total_rmse_deg": 5.1112,
+      "heading_rmse_deg": 4.2143,
+      "inclination_rmse_deg": 2.5473
+    },
+    "seel_vqf_6d": {
+      "total_rmse_deg": 85.9621,
+      "heading_rmse_deg": 85.8766,
+      "inclination_rmse_deg": 2.5898
     }
   }
 }

@@ -1,4 +1,4 @@
-# IMU attitude estimation (Madgwick, Mahony, VQF) on BROAD
+# IMU attitude estimation (Madgwick, Mahony, VQF, Valenti, Seel) on BROAD
 
 IMU orientation filters and a reproduction of their published errors on the
 public BROAD benchmark. This is the repository's first IMU **orientation**
@@ -27,6 +27,23 @@ code here is written from the papers; the x-io code was only read to match its
 conventions (gains `2 Kp`/`2 Ki`, forward-Euler quaternion integration,
 normalised acc/mag, the earth-field reference trick), so that BROAD's published
 per-trial numbers can be reproduced exactly.
+
+- **Valenti**: R. G. Valenti, I. Dryanovski, J. Xiao, "Keeping a good
+  attitude: a quaternion-based orientation filter for IMUs and MARGs",
+  *Sensors* 15(8), 2015 (open access). Written from the paper:
+  - gyro prediction;
+  - accelerometer and magnetometer delta quaternions with LERP/SLERP
+    filtering;
+  - adaptive gain (optional).
+
+  Two details the paper leaves to the implementation follow the authors' ROS
+  package (imu_tools `imu_complementary_filter`, BSD): the steady-state test
+  of the bias low-pass, and initialisation from the first sample.
+- **Seel**: T. Seel, S. Ruppin, "Eliminating the effect of magnetic
+  disturbances on the inclination estimates of inertial sensors", IFAC 2017.
+  The paper is not openly available, so this is a **port** of the authors' MIT
+  implementation (`CsgOriEstIMU`, shipped in qmt as `oriEstIMU`), not a
+  reimplementation from the paper.
 
 ## Benchmark
 
@@ -61,6 +78,9 @@ per-trial numbers can be reproduced exactly.
 | VQF, defaults | 9D total | 2.302 | 2.3 | VQF paper Fig. 9; per trial vs VQF code: max diff 0.0002 |
 | VQF, defaults | 6D inclination | 0.696 | 0.7 | VQF paper Fig. 9; per trial vs VQF code: max diff 0.0000 |
 | BasicVQF | 9D total / 6D incl. | 3.372 / 0.977 | - | per trial vs VQF code: max diff 0.0000 |
+| Valenti, VQF gains, old ROS interpolation | 9D total / 6D incl. | 6.07 / 3.21 | 6.1 / 3.2 | VQF paper Fig. 9; per trial vs ROS code (pre-#234): max diff 0.0000 |
+| Valenti, VQF gains, paper interpolation | 9D total / 6D incl. | 7.07 / 3.81 | - | per trial vs current ROS code: max diff 0.0000 |
+| Seel, VQF parameters | 9D total / 6D incl. | 5.11 / 2.59 | 5.1 / 2.6 | VQF paper Fig. 9; per trial vs qmt code: max diff 0.0000 |
 
 The per-trial differences against BROAD's published results come from the
 reference implementation using `float`; this code uses `double`.
@@ -79,6 +99,23 @@ the corrected scale (7.44 deg). The x-io scale gives 6.61 deg. The VQF
 evaluation therefore evidently used an implementation without the x-io error.
 That variant was first run with the x-io scale and switched after comparing
 the two.
+
+### Valenti: the interpolation switch
+
+Valenti et al. filter each delta quaternion towards identity. They use LERP
+when it is close to identity (q0 > 0.9) and SLERP otherwise (eqs. 50-52).
+
+- **The ROS package's history.** Until 2026-09 the package switched to SLERP
+  only for q0 < 0, so it effectively always used LERP. Its fix
+  ([imu_tools #234](https://github.com/CCNYRoboticsLab/imu_tools/pull/234))
+  restored the paper's 0.9.
+- **What reproduces the VQF paper (2022).** Its values (6.1° / 3.2°) are
+  matched only with the old behaviour: `--valenti-legacy-ros` gives 6.07° /
+  3.21°.
+- **The paper's switch** with the same gains gives 7.07° / 3.81°. Those gains
+  were tuned (in the VQF paper) with the old switch.
+- Both variants are kept, and each equals the matching ROS code on every
+  trial.
 
 ### VQF: what the paper leaves open
 

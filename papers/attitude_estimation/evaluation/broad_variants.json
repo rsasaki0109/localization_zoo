@@ -200,6 +200,130 @@
       ],
       "reference_impl": "basic_vqf_code_6d",
       "intent": "BasicVQF without magnetometer."
+    },
+    {
+      "id": "valenti_vqf_9d",
+      "method": "valenti",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "valenti",
+        "--mode",
+        "9d",
+        "--alpha-acc",
+        "0.00085",
+        "--beta-mag",
+        "0.0005",
+        "--alpha-bias",
+        "0.00055",
+        "--valenti-legacy-ros"
+      ],
+      "reference": "valenti_vqf_9d",
+      "reference_impl": "valenti_ros_legacy_9d",
+      "intent": "VQF Table 2 gains with the ROS package's pre-2026-09 interpolation (always LERP), which the VQF paper's numbers require."
+    },
+    {
+      "id": "valenti_vqf_6d",
+      "method": "valenti",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "valenti",
+        "--mode",
+        "6d",
+        "--alpha-acc",
+        "0.00085",
+        "--beta-mag",
+        "0.0005",
+        "--alpha-bias",
+        "0.00055",
+        "--valenti-legacy-ros"
+      ],
+      "reference": "valenti_vqf_6d",
+      "reference_impl": "valenti_ros_legacy_6d",
+      "intent": "As above, 6D."
+    },
+    {
+      "id": "valenti_paper_9d",
+      "method": "valenti",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "valenti",
+        "--mode",
+        "9d",
+        "--alpha-acc",
+        "0.00085",
+        "--beta-mag",
+        "0.0005",
+        "--alpha-bias",
+        "0.00055"
+      ],
+      "reference_impl": "valenti_ros_9d",
+      "intent": "Same gains with the paper's LERP/SLERP switch at q0 = 0.9 (current ROS package)."
+    },
+    {
+      "id": "valenti_paper_6d",
+      "method": "valenti",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "valenti",
+        "--mode",
+        "6d",
+        "--alpha-acc",
+        "0.00085",
+        "--beta-mag",
+        "0.0005",
+        "--alpha-bias",
+        "0.00055"
+      ],
+      "reference_impl": "valenti_ros_6d",
+      "intent": "As above, 6D."
+    },
+    {
+      "id": "seel_vqf_9d",
+      "method": "seel",
+      "mode": "9d",
+      "args": [
+        "--method",
+        "seel",
+        "--mode",
+        "9d",
+        "--seel-tau-acc",
+        "3.2",
+        "--seel-tau-mag",
+        "10",
+        "--seel-zeta",
+        "5",
+        "--seel-acc-rating",
+        "2"
+      ],
+      "reference": "seel_vqf_9d",
+      "reference_impl": "seel_qmt_9d",
+      "intent": "Port of the authors' implementation with the VQF Table 2 parameters."
+    },
+    {
+      "id": "seel_vqf_6d",
+      "method": "seel",
+      "mode": "6d",
+      "args": [
+        "--method",
+        "seel",
+        "--mode",
+        "6d",
+        "--seel-tau-acc",
+        "3.2",
+        "--seel-tau-mag",
+        "10",
+        "--seel-zeta",
+        "5",
+        "--seel-acc-rating",
+        "2"
+      ],
+      "reference": "seel_vqf_6d",
+      "reference_impl": "seel_qmt_6d",
+      "intent": "As above, 6D."
     }
   ]
 }

@@ -1,4 +1,5 @@
 #include "attitude_estimation/attitude_estimation.h"
+#include "attitude_estimation/complementary.h"
 #include "attitude_estimation/vqf.h"
 
 #include <gtest/gtest.h>
@@ -231,4 +232,66 @@ TEST(AttitudeEstimation, VqfFlagsAChangedFieldAsDisturbance) {
   // A 30 % stronger field (e.g. a nearby magnet) is a disturbance.
   for (int i = 0; i < 50; ++i) vqf.update(Eigen::Vector3d::Zero(), acc, 1.3 * mag);
   EXPECT_TRUE(vqf.magDisturbanceDetected());
+}
+
+// ---------------------------------------------------------------------------
+// Valenti and Seel
+
+TEST(AttitudeEstimation, ValentiConvergesAndEstimatesBiasAtRest) {
+  // Static pose: initialised from the first sample, it must hold the
+  // orientation (x-north frame) while learning a small gyro bias.
+  const Quat truth = axisAngle({0.3, -0.2, 1.0}, 35 * kDeg);
+  Eigen::Vector3d acc, mag;
+  staticMeasurement(truth, &acc, &mag);
+  const Eigen::Vector3d bias(0.004, -0.003, 0.002);
+  ValentiParams p;
+  p.sampling_rate = 100;
+  p.alpha_bias = 0.01;
+  ValentiFilter f(p);
+  for (int i = 0; i < 3000; ++i) f.update(bias, acc * (9.81 / acc.norm()), mag);
+  EXPECT_LT((f.bias() - bias).norm(), 1e-6);
+  EXPECT_LT(angleBetween(f.state(), truth), 0.05 * kDeg);
+}
+
+TEST(AttitudeEstimation, ValentiLegacyRosInterpolationOnlyMattersForLargeCorrections) {
+  // From a 90 deg wrong start the delta quaternion is far from identity, so
+  // the paper's SLERP and the old package's LERP differ; both converge.
+  const Quat truth(1, 0, 0, 0);
+  Eigen::Vector3d acc, mag;
+  staticMeasurement(truth, &acc, &mag);
+  for (bool legacy : {false, true}) {
+    ValentiParams p;
+    p.sampling_rate = 100;
+    p.alpha_acc = 0.05;
+    p.legacy_ros_interpolation = legacy;
+    ValentiFilter f(p);
+    // First sample initialises from a tilted reading, the rest are level.
+    f.updateImu(Eigen::Vector3d::Zero(), quatRotate(quatConjugate(axisAngle({1, 0, 0}, M_PI / 2)), acc));
+    for (int i = 0; i < 2000; ++i) f.updateImu(Eigen::Vector3d::Zero(), acc);
+    const OrientationErrors e = broadErrors({f.state()}, {truth}, {true});
+    EXPECT_LT(e.inclination_rmse_deg, 0.1) << "legacy=" << legacy;
+  }
+}
+
+TEST(AttitudeEstimation, SeelConvergesFromItsFixedStartAndKeepsHeadingOutOfInclination) {
+  // ENU static pose with the field pointing north (+y) and down.
+  const Quat truth = axisAngle({0.1, 0.4, 1.0}, 50 * kDeg);
+  const Quat qi = quatConjugate(truth);
+  const Eigen::Vector3d acc = quatRotate(qi, Eigen::Vector3d(0, 0, 9.81));
+  const Eigen::Vector3d mag = quatRotate(qi, Eigen::Vector3d(0, 20, -40));
+  SeelParams p;
+  p.sampling_rate = 100;
+  p.tau_acc = 1.0;
+  p.tau_mag = 2.0;
+  p.zeta = 1.0;
+  SeelFilter f(p);
+  for (int i = 0; i < 4000; ++i) f.update(Eigen::Vector3d::Zero(), acc, mag);
+  EXPECT_LT(angleBetween(f.state(), truth), 0.05 * kDeg);
+
+  // A strongly disturbed field (pointing up) must not tilt the estimate.
+  SeelFilter g(p);
+  for (int i = 0; i < 4000; ++i) g.update(Eigen::Vector3d::Zero(), acc, Eigen::Vector3d::Zero());
+  const Eigen::Vector3d disturbed = quatRotate(qi, Eigen::Vector3d(30, -10, 35));
+  for (int i = 0; i < 1000; ++i) g.update(Eigen::Vector3d::Zero(), acc, disturbed);
+  EXPECT_LT(broadErrors({g.state()}, {truth}, {true}).inclination_rmse_deg, 0.05);
 }

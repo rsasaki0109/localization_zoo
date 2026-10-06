@@ -1667,22 +1667,25 @@
       ]
     },
     {
-      "name": "Madgwick / Mahony / VQF AHRS",
+      "name": "Madgwick / Mahony / VQF / Valenti / Seel AHRS",
       "family": "IMU attitude estimation",
       "scope": "Paper reimplementation",
       "signals": [
         "IMU"
       ],
       "href": "papers/attitude_estimation",
-      "summary": "Madgwick (2010), Mahony (TAC 2008), and VQF (Inf. Fusion 2023) orientation filters, 6D and 9D, evaluated on the BROAD benchmark with its own error metric; reproduces BROAD's published per-trial errors within 0.001 deg, the VQF paper's values within 1 %, and the authors' VQF code within 0.0002 deg per trial.",
+      "summary": "Madgwick (2010), Mahony (TAC 2008), VQF (Inf. Fusion 2023), Valenti (Sensors 2015), and Seel (IFAC 2017, port of the authors' code) orientation filters, 6D and 9D, evaluated on the BROAD benchmark with its own error metric; reproduces BROAD's published per-trial errors and the VQF paper's comparison (Fig. 9) within 1 %, and matches each reference implementation per trial.",
       "tags": [
         "ahrs",
         "attitude",
         "bias-estimation",
         "broad",
+        "complementary-filter",
         "imu",
         "magnetic-disturbance",
         "orientation",
+        "seel",
+        "valenti",
         "vqf"
       ]
     },

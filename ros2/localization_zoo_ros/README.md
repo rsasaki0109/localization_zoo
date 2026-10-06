@@ -55,6 +55,9 @@ inclination RMSE on the BROAD benchmark is 0.70°.
   The attitude in `/imu/odom` then has a magnetic heading in ENU (BROAD: 2.30°
   total RMSE), with VQF's magnetic disturbance rejection. `use_magnetometer`
   and `vqf_attitude_tau_mag_s` tune it.
+- Calibrate the magnetometer first: `magnetometer_calibration_cli
+  --profile-yaml mag.yaml` writes the hard/soft-iron keys. Pass that file as
+  `profile_file`.
 - `posture_confirmation:=true` adds one-shot `fall_confirmed` records to
   `/imu/events_json`. A fall is confirmed when a lasting posture change follows
   an impact.

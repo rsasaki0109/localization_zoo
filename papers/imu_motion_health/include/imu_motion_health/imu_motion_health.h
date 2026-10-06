@@ -145,6 +145,13 @@ struct ImuMotionHealthParams {
   // y magnetic north), with VQF's magnetic disturbance rejection.
   bool use_magnetometer = true;
   double vqf_attitude_tau_mag_s = 9.0;
+  // Magnetometer hard/soft-iron calibration applied before use:
+  // m_cal = mag_matrix * (m - mag_offset). Identity / zero = uncalibrated.
+  // attitude_estimation's magnetometer_calibration_cli fits and writes these.
+  double mag_offset_x = 0.0, mag_offset_y = 0.0, mag_offset_z = 0.0;
+  double mag_matrix_xx = 1.0, mag_matrix_xy = 0.0, mag_matrix_xz = 0.0;
+  double mag_matrix_yx = 0.0, mag_matrix_yy = 1.0, mag_matrix_yz = 0.0;
+  double mag_matrix_zx = 0.0, mag_matrix_zy = 0.0, mag_matrix_zz = 1.0;
 };
 
 enum class MotionState {

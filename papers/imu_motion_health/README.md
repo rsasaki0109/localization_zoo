@@ -361,6 +361,19 @@ VQF's magnetic disturbance rejection. Its total error, heading included, is
 `magnetic_disturbance` report the state. `use_magnetometer: false` ignores the
 magnetometer.
 
+**Calibrate the magnetometer first.** `mag_offset_*` and `mag_matrix_*`
+apply a hard/soft-iron calibration (`m_cal = W (m - b)`) before VQF. Fit them
+from a recording that rotates the sensor through many orientations:
+
+```sh
+build/papers/attitude_estimation/magnetometer_calibration_cli rotation.csv \
+  --columns 7,8,9 --profile-yaml mag.yaml
+```
+
+Then pass `mag.yaml` as `--profile-file`. On BROAD with a known distortion,
+the uncalibrated heading error is 70° and the calibrated one 2.3°
+(`papers/attitude_estimation`).
+
 **The VQF attitude** is a 6D VQF that estimates its own gyro bias with rest
 detection. It starts from the static startup window: VQF's bias is set to the
 trusted startup bias, and its initial averaging is ended with the window

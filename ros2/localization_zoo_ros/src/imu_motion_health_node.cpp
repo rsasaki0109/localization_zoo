@@ -2,6 +2,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/imu.hpp>
+#include <sensor_msgs/msg/magnetic_field.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
@@ -9,6 +10,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cmath>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -102,6 +104,22 @@ class ImuMotionHealthNode final : public rclcpp::Node {
         imu_topic_, rclcpp::SensorDataQoS(),
         std::bind(&ImuMotionHealthNode::imuCallback, this,
                   std::placeholders::_1));
+    // Optional magnetometer: the latest field is attached to IMU samples
+    // within mag_max_age_s, which gives the VQF attitude a magnetic heading.
+    mag_topic_ = declare_parameter<std::string>("mag_topic", "");
+    mag_max_age_s_ = declare_parameter<double>("mag_max_age_s", 0.1);
+    if (!mag_topic_.empty()) {
+      mag_sub_ = create_subscription<sensor_msgs::msg::MagneticField>(
+          mag_topic_, rclcpp::SensorDataQoS(),
+          [this](const sensor_msgs::msg::MagneticField::SharedPtr message) {
+            if (!message) return;
+            latest_mag_ = Eigen::Vector3d(message->magnetic_field.x,
+                                          message->magnetic_field.y,
+                                          message->magnetic_field.z);
+            latest_mag_stamp_ = rclcpp::Time(message->header.stamp).seconds();
+            have_mag_ = true;
+          });
+    }
 
     RCLCPP_INFO(
         get_logger(),
@@ -203,6 +221,10 @@ class ImuMotionHealthNode final : public rclcpp::Node {
         declare_parameter<bool>("vqf_attitude", params->vqf_attitude);
     params->vqf_attitude_tau_acc_s = declare_parameter<double>(
         "vqf_attitude_tau_acc_s", params->vqf_attitude_tau_acc_s);
+    params->use_magnetometer =
+        declare_parameter<bool>("use_magnetometer", params->use_magnetometer);
+    params->vqf_attitude_tau_mag_s = declare_parameter<double>(
+        "vqf_attitude_tau_mag_s", params->vqf_attitude_tau_mag_s);
 
     // Opt-in VQF posture confirmation: one-shot fall_confirmed events on the
     // events topic.
@@ -258,6 +280,11 @@ class ImuMotionHealthNode final : public rclcpp::Node {
     sample.accel = Eigen::Vector3d(message->linear_acceleration.x,
                                    message->linear_acceleration.y,
                                    message->linear_acceleration.z);
+    if (have_mag_ &&
+        std::abs(sample.timestamp - latest_mag_stamp_) <= mag_max_age_s_) {
+      sample.mag = latest_mag_;
+      sample.has_mag = true;
+    }
     const auto state = pipeline_->process(sample);
 
     nav_msgs::msg::Odometry odometry;
@@ -312,6 +339,12 @@ class ImuMotionHealthNode final : public rclcpp::Node {
   ImuMotionHealthParams params_;
   std::unique_ptr<ImuMotionHealth> pipeline_;
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_sub_;
+  rclcpp::Subscription<sensor_msgs::msg::MagneticField>::SharedPtr mag_sub_;
+  std::string mag_topic_;
+  double mag_max_age_s_ = 0.1;
+  bool have_mag_ = false;
+  Eigen::Vector3d latest_mag_ = Eigen::Vector3d::Zero();
+  double latest_mag_stamp_ = 0.0;
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr health_pub_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr events_pub_;

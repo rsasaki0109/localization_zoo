@@ -50,6 +50,11 @@ The attitude in `/imu/odom` comes from a VQF filter by default. Its
 inclination RMSE on the BROAD benchmark is 0.70°.
 
 - `vqf_attitude:=false` restores gyro integration with stationary leveling.
+- `mag_topic:=/imu/mag` subscribes to `sensor_msgs/msg/MagneticField`. The
+  latest field within `mag_max_age_s` (0.1 s) is attached to each IMU sample.
+  The attitude in `/imu/odom` then has a magnetic heading in ENU (BROAD: 2.30°
+  total RMSE), with VQF's magnetic disturbance rejection. `use_magnetometer`
+  and `vqf_attitude_tau_mag_s` tune it.
 - `posture_confirmation:=true` adds one-shot `fall_confirmed` records to
   `/imu/events_json`. A fall is confirmed when a lasting posture change follows
   an impact.

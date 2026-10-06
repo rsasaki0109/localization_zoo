@@ -201,3 +201,39 @@ TEST(VqfAttitude, SdkOrientationEqualsStandaloneVqfAfterStartup) {
   }
   EXPECT_LT(max_diff, 1e-9);
 }
+
+TEST(VqfAttitude, MagnetometerGivesAnEnuHeading) {
+  // Static sensor yawed 70 deg from ENU, with an ENU field pointing north
+  // (+y) and down. With magnetometer samples the SDK orientation converges to
+  // the true ENU orientation (heading included); without them only the
+  // inclination is defined.
+  const Eigen::Quaterniond truth(Eigen::AngleAxisd(70.0 * M_PI / 180.0, Eigen::Vector3d::UnitZ()) *
+                                 Eigen::AngleAxisd(0.3, Eigen::Vector3d::UnitX()));
+  const Eigen::Vector3d acc = truth.inverse() * Eigen::Vector3d(0, 0, kGravity);
+  const Eigen::Vector3d field = truth.inverse() * Eigen::Vector3d(0, 20, -40);
+  for (bool with_mag : {false, true}) {
+    ImuMotionHealth pipeline{ImuMotionHealthParams()};
+    ImuMotionHealthState state;
+    for (int k = 0; k < 6000; ++k) {
+      ImuSample sample;
+      sample.timestamp = k / kRate;
+      sample.accel = acc;
+      sample.mag = field;
+      sample.has_mag = with_mag;
+      state = pipeline.process(sample);
+    }
+    EXPECT_EQ(state.magnetometer_used, with_mag);
+    // VQF accepts its first field reference only after ~5 s of rotation
+    // (>= 20 deg/s); a sensor that never moves keeps the flag set ("no
+    // trusted field yet") while heading is corrected at the reduced gain.
+    EXPECT_EQ(state.magnetic_disturbance, with_mag);
+    const double heading_error = state.orientation.angularDistance(truth) * 180.0 / M_PI;
+    if (with_mag) {
+      EXPECT_LT(heading_error, 0.5);
+    } else {
+      // Inclination still right, heading arbitrary.
+      const double tilt = std::acos((state.orientation * Eigen::Vector3d::UnitZ()).z());
+      EXPECT_NEAR(tilt, 0.3, 0.01);
+    }
+  }
+}

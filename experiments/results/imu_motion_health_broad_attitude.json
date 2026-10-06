@@ -50,6 +50,61 @@
         "39_disturbed_mixed": 0.7148
       }
     },
+    "default_9d_total": {
+      "mean": 2.303,
+      "median": 1.762,
+      "max": 7.671
+    },
+    "default_9d": {
+      "args": [
+        "--with-mag"
+      ],
+      "profile": {},
+      "mean": 0.696,
+      "median": 0.599,
+      "max": 1.763,
+      "trials": {
+        "01_undisturbed_slow_rotation_A": 0.5987,
+        "02_undisturbed_slow_rotation_B": 0.4288,
+        "03_undisturbed_slow_rotation_C": 0.4204,
+        "04_undisturbed_slow_rotation_with_breaks_A": 0.7874,
+        "05_undisturbed_slow_rotation_with_breaks_B": 0.3531,
+        "06_undisturbed_fast_rotation_A": 0.8041,
+        "07_undisturbed_fast_rotation_B": 1.0228,
+        "08_undisturbed_fast_rotation_with_breaks_A": 1.7629,
+        "09_undisturbed_fast_rotation_with_breaks_B": 0.8742,
+        "10_undisturbed_slow_translation_A": 0.2991,
+        "11_undisturbed_slow_translation_B": 0.4198,
+        "12_undisturbed_slow_translation_C": 0.2545,
+        "13_undisturbed_slow_translation_with_breaks_A": 0.4035,
+        "14_undisturbed_slow_translation_with_breaks_B": 0.4127,
+        "15_undisturbed_fast_translation_A": 0.4706,
+        "16_undisturbed_fast_translation_B": 0.5394,
+        "17_undisturbed_fast_translation_with_breaks_A": 0.5513,
+        "18_undisturbed_fast_translation_with_breaks_B": 0.6136,
+        "19_undisturbed_slow_combined_240s": 0.3917,
+        "20_undisturbed_slow_combined_360s": 0.3921,
+        "21_undisturbed_fast_combined": 1.7163,
+        "22_undisturbed_fast_combined_240s": 1.0041,
+        "23_undisturbed_fast_combined_360s": 0.8156,
+        "24_disturbed_tapping_A": 0.6073,
+        "25_disturbed_tapping_B": 0.3825,
+        "26_disturbed_phone_vibration_A": 0.5611,
+        "27_disturbed_phone_vibration_B": 0.3703,
+        "28_disturbed_stationary_magnet_A": 1.2057,
+        "29_disturbed_stationary_magnet_B": 1.0627,
+        "30_disturbed_stationary_magnet_C": 1.2504,
+        "31_disturbed_stationary_magnet_D": 1.1413,
+        "32_disturbed_attached_magnet_1cm": 0.5596,
+        "33_disturbed_attached_magnet_2cm": 0.5989,
+        "34_disturbed_attached_magnet_3cm": 0.6459,
+        "35_disturbed_attached_magnet_4cm": 0.6583,
+        "36_disturbed_attached_magnet_5cm": 0.8771,
+        "37_disturbed_office_A": 0.6149,
+        "38_disturbed_office_B": 0.5495,
+        "39_disturbed_mixed": 0.7148
+      }
+    },
     "wearable": {
       "args": [
         "--profile",

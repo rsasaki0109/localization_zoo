@@ -23,6 +23,9 @@ imu_motion_health_node:
     # Attitude: a VQF filter by default (0.70 deg inclination RMSE on BROAD);
     # false restores gyro integration with stationary leveling.
     # vqf_attitude: true
+    # Optional sensor_msgs/MagneticField topic for a magnetic heading (ENU);
+    # empty disables it.
+    # mag_topic: /imu/mag
     # Opt-in fall confirmation from a VQF posture change after an impact,
     # published as one-shot fall_confirmed records on events_topic.
     # posture_confirmation: false

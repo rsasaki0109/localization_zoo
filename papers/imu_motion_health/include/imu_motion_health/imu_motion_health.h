@@ -29,6 +29,10 @@ struct ImuSample {
   double timestamp = 0.0;             // seconds, monotonic sensor time
   Eigen::Vector3d gyro = Eigen::Vector3d::Zero();   // rad/s
   Eigen::Vector3d accel = Eigen::Vector3d::Zero();  // m/s^2 (specific force)
+  // Optional magnetometer reading (any unit).  Appended after the original
+  // fields; has_mag = false keeps the six-axis behaviour.
+  Eigen::Vector3d mag = Eigen::Vector3d::Zero();
+  bool has_mag = false;
 };
 
 // The alias is useful when migrating code that already calls its input an
@@ -136,6 +140,11 @@ struct ImuMotionHealthParams {
   // inclination RMSE: see evaluation/broad_attitude.py.
   bool vqf_attitude = true;
   double vqf_attitude_tau_acc_s = 3.0;
+  // With the VQF attitude, use magnetometer samples (has_mag) for heading:
+  // once one is used the orientation is the 9D estimate in ENU (x east,
+  // y magnetic north), with VQF's magnetic disturbance rejection.
+  bool use_magnetometer = true;
+  double vqf_attitude_tau_mag_s = 9.0;
 };
 
 enum class MotionState {
@@ -235,6 +244,14 @@ struct ImuMotionHealthState {
   double tilt_angle_rad = 0.0;
   double tilt_angle_deg = 0.0;
   bool tilted = false;
+  // Heading: true once a magnetometer sample has been used, so the
+  // orientation is referenced to magnetic north (ENU); false = relative yaw.
+  bool magnetometer_used = false;
+  // VQF's magnetic disturbance flag: the field differs from the accepted
+  // reference, or no reference has been accepted yet (that needs about 5 s
+  // of rotation >= 20 deg/s); heading is then corrected at reduced gain or
+  // not at all.
+  bool magnetic_disturbance = false;
 
   // IMU calibration estimates.  accel_bias is exposed even when estimation
   // is disabled (in that case it remains zero).
@@ -417,6 +434,8 @@ class ImuMotionHealth {
   void classify(double timestamp, double dt, bool had_data_error,
                 const Eigen::Vector3d& corrected_accel);
   void updateStateAliases();
+  void updateAttitudeVqf(const ImuSample& sample);
+  Eigen::Quaterniond vqfOrientation() const;
   void updateConfidence(bool had_data_error);
   void makeDiagnostic(bool had_data_error);
   void updateBiasJump(double timestamp, const ImuSample& sample,
@@ -490,6 +509,7 @@ class ImuMotionHealth {
   bool stationary_run_active_ = false;
   double stationary_run_start_ = 0.0;
   std::optional<attitude_estimation::VQF> attitude_vqf_;
+  bool magnetometer_used_ = false;
 
   bool gyro_bias_jump_candidate_ = false;
   double gyro_bias_jump_candidate_start_timestamp_ = 0.0;

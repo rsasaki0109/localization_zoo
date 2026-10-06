@@ -90,9 +90,9 @@ std::vector<std::string> splitCsv(const std::string& line) {
 }
 
 bool isHeader(const std::vector<std::string>& fields) {
-  static const char* const kNames[] = {"timestamp", "gx", "gy", "gz",
-                                        "ax", "ay", "az"};
-  if (fields.size() != 7) return false;
+  static const char* const kNames[] = {"timestamp", "gx", "gy", "gz", "ax",
+                                        "ay", "az", "mx", "my", "mz"};
+  if (fields.size() != 7 && fields.size() != 10) return false;
   for (std::size_t i = 0; i < fields.size(); ++i) {
     if (lower(trim(fields[i])) != kNames[i]) return false;
   }
@@ -162,7 +162,8 @@ bool splitOption(const std::string& argument, std::string* key,
 void printUsage(std::ostream& stream) {
   stream <<
       "Usage: imu_motion_health_cli --input imu.csv [options]\n\n"
-      "CSV format: timestamp,gx,gy,gz,ax,ay,az (seconds, rad/s, m/s^2).\n"
+      "CSV format: timestamp,gx,gy,gz,ax,ay,az (seconds, rad/s, m/s^2),\n"
+      "optionally followed by mx,my,mz (magnetometer, any unit).\n"
       "The header is optional; blank lines and lines beginning with # are\n"
       "ignored.  JSONL snapshots and the final summary are independent\n"
       "outputs.  Use '-' for stdout.\n\n"
@@ -904,18 +905,19 @@ int main(int argc, char** argv) {
     }
     saw_non_comment_line = true;
 
-    if (fields.size() != 7) {
+    if (fields.size() != 7 && fields.size() != 10) {
       ++parse_errors;
       reportCsvError(std::cerr, line_number,
-                     "expected 7 fields (timestamp,gx,gy,gz,ax,ay,az), got " +
+                     "expected 7 fields (timestamp,gx,gy,gz,ax,ay,az) or 10 "
+                     "(+mx,my,mz), got " +
                          std::to_string(fields.size()));
       if (!options.skip_invalid) return kExitInput;
       continue;
     }
 
-    double values[7] = {};
+    double values[10] = {};
     bool parsed = true;
-    for (std::size_t i = 0; i < 7; ++i) {
+    for (std::size_t i = 0; i < fields.size(); ++i) {
       if (!parseNumber(fields[i], &values[i])) {
         parsed = false;
         reportCsvError(std::cerr, line_number,
@@ -934,6 +936,10 @@ int main(int argc, char** argv) {
     sample.timestamp = values[0];
     sample.gyro = Eigen::Vector3d(values[1], values[2], values[3]);
     sample.accel = Eigen::Vector3d(values[4], values[5], values[6]);
+    if (fields.size() == 10) {
+      sample.mag = Eigen::Vector3d(values[7], values[8], values[9]);
+      sample.has_mag = true;
+    }
     const ImuMotionHealthState state = pipeline.process(sample);
     ++rows_read;
     if (std::isfinite(sample.timestamp)) {

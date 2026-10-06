@@ -61,11 +61,6 @@ Eigen::Quaterniond integrateQuaternion(const Eigen::Quaterniond& q,
   return (q * Eigen::Quaterniond(delta)).normalized();
 }
 
-Eigen::Quaterniond vqfOrientation(const attitude_estimation::VQF& vqf) {
-  const attitude_estimation::Quat q = vqf.quat6D();
-  return Eigen::Quaterniond(q[0], q[1], q[2], q[3]).normalized();
-}
-
 std::string jsonEscape(const std::string& value) {
   std::string escaped;
   escaped.reserve(value.size() + 8);
@@ -218,7 +213,8 @@ bool profileKeyIsBool(const std::string& key) {
          key == "zero_velocity_when_stationary" ||
          key == "emit_moving_events" ||
          key == "impact_requires_accel_and_gyro" ||
-         key == "posture_confirmation" || key == "vqf_attitude";
+         key == "posture_confirmation" || key == "vqf_attitude" ||
+         key == "use_magnetometer";
 }
 
 bool profileKeyIsSize(const std::string& key) {
@@ -298,6 +294,7 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
       params->impact_requires_accel_and_gyro = parsed;
     if (key == "posture_confirmation") params->posture_confirmation = parsed;
     if (key == "vqf_attitude") params->vqf_attitude = parsed;
+    if (key == "use_magnetometer") params->use_magnetometer = parsed;
     return true;
   }
 
@@ -349,6 +346,7 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
       {"posture_start_s", &params->posture_start_s},
       {"posture_tau_acc_s", &params->posture_tau_acc_s},
       {"vqf_attitude_tau_acc_s", &params->vqf_attitude_tau_acc_s},
+      {"vqf_attitude_tau_mag_s", &params->vqf_attitude_tau_mag_s},
   };
   const auto found = fields.find(key);
   if (found == fields.end()) {
@@ -428,7 +426,8 @@ bool validateProfileParams(const ImuMotionHealthParams& params,
       !nonnegative(params.posture_start_s, "posture_start_s") ||
       params.posture_start_s >= 1.5 ||
       !positive(params.posture_tau_acc_s, "posture_tau_acc_s") ||
-      !positive(params.vqf_attitude_tau_acc_s, "vqf_attitude_tau_acc_s")) {
+      !positive(params.vqf_attitude_tau_acc_s, "vqf_attitude_tau_acc_s") ||
+      !positive(params.vqf_attitude_tau_mag_s, "vqf_attitude_tau_mag_s")) {
     if (error && error->empty()) *error = "invalid profile parameter";
     return false;
   }
@@ -602,6 +601,10 @@ std::string toJson(const ImuMotionHealthState& state) {
   stream << ",\"tilt_angle_deg\":";
   writeNumber(stream, state.tilt_angle_deg);
   stream << ",\"tilted\":" << (state.tilted ? "true" : "false");
+  stream << ",\"magnetometer_used\":"
+         << (state.magnetometer_used ? "true" : "false");
+  stream << ",\"magnetic_disturbance\":"
+         << (state.magnetic_disturbance ? "true" : "false");
   stream << ",\"gyro_bias\":";
   writeVector(stream, state.gyro_bias);
   stream << ",\"accel_bias\":";
@@ -946,9 +949,31 @@ ImuMotionHealth::ImuMotionHealth(const ImuMotionHealthParams& params)
   reset();
 }
 
+void ImuMotionHealth::updateAttitudeVqf(const ImuSample& sample) {
+  if (params_.use_magnetometer && sample.has_mag && sample.mag.allFinite() &&
+      !sample.mag.isZero()) {
+    attitude_vqf_->update(sample.gyro, sample.accel, sample.mag);
+    magnetometer_used_ = true;
+  } else {
+    attitude_vqf_->update(sample.gyro, sample.accel);
+  }
+  state_.magnetometer_used = magnetometer_used_;
+  state_.magnetic_disturbance =
+      magnetometer_used_ && attitude_vqf_->magDisturbanceDetected();
+}
+
+Eigen::Quaterniond ImuMotionHealth::vqfOrientation() const {
+  // 9D (ENU, magnetic north) once a magnetometer sample has been used, else
+  // 6D with the drifting yaw of the startup frame.
+  const attitude_estimation::Quat q =
+      magnetometer_used_ ? attitude_vqf_->quat9D() : attitude_vqf_->quat6D();
+  return Eigen::Quaterniond(q[0], q[1], q[2], q[3]).normalized();
+}
+
 void ImuMotionHealth::clearRuntimeState() {
   posture_.reset();
   attitude_vqf_.reset();
+  magnetometer_used_ = false;
   startup_gyro_bias_.setZero();
   stationary_run_active_ = false;
   stationary_run_start_ = 0.0;
@@ -1304,6 +1329,7 @@ void ImuMotionHealth::finalizeStartup() {
       attitude_estimation::VQFParams vqf;
       vqf.sampling_rate = 1.0 / dt;
       vqf.tau_acc = params_.vqf_attitude_tau_acc_s;
+      vqf.tau_mag = params_.vqf_attitude_tau_mag_s;
       attitude_vqf_.emplace(vqf);
       // The startup window is static by assumption: start VQF from its
       // calibration (the trusted gyro bias) and its mean instead of letting
@@ -1311,11 +1337,9 @@ void ImuMotionHealth::finalizeStartup() {
       if (startup_quality_ok_ && params_.estimate_gyro_bias) {
         attitude_vqf_->setBiasEstimate(gyro_bias_);
       }
-      for (const ImuSample& sample : startup_samples_) {
-        attitude_vqf_->update(sample.gyro, sample.accel);
-      }
+      for (const ImuSample& sample : startup_samples_) updateAttitudeVqf(sample);
       attitude_vqf_->endInitialAveraging();
-      orientation_ = vqfOrientation(*attitude_vqf_);
+      orientation_ = vqfOrientation();
     }
   }
   gravity_world_ = Eigen::Vector3d(0.0, 0.0, gravity_magnitude_);
@@ -1738,8 +1762,8 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
       dt <= params_.max_integration_dt_s;
   if (attitude_vqf_) {
     // VQF runs at its fixed rate on every sample and estimates its own bias.
-    attitude_vqf_->update(sample.gyro, sample.accel);
-    orientation_ = vqfOrientation(*attitude_vqf_);
+    updateAttitudeVqf(sample);
+    orientation_ = vqfOrientation();
   }
   if (can_integrate) {
     if (!attitude_vqf_) {

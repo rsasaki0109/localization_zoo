@@ -38,10 +38,11 @@ configuration subdirectory if the generator creates one).
 
 ## CSV replay
 
-The input has seven comma-separated columns, in SI units:
+The input has seven comma-separated columns, in SI units. Three optional
+magnetometer columns (any unit) may follow:
 
 ```text
-timestamp,gx,gy,gz,ax,ay,az
+timestamp,gx,gy,gz,ax,ay,az[,mx,my,mz]
 ```
 
 `timestamp` is seconds on a monotonic sensor clock, gyro is rad/s, and accel
@@ -154,7 +155,8 @@ include `timestamp`, `dt`, `sample_rate_hz`, `sample_accepted`, `integrated`,
 `startup_*`, `motion_state`, `health_state`, `confidence`, `gyro_bias`,
 `accel_bias`, `gravity_world`, `orientation_wxyz`, `velocity`, `position`,
 `relative_velocity`, `relative_position`, `tilt_angle_rad`, `tilt_angle_deg`,
-`tilted`, `gyro_bias_jump`, `gyro_bias_delta_norm`,
+`tilted`, `magnetometer_used`, `magnetic_disturbance`, `gyro_bias_jump`,
+`gyro_bias_delta_norm`,
 `gyro_bias_jump_duration_s`, and `diagnostic`.  Vectors are `[x,y,z]`; quaternions are
 `[w,x,y,z]`.  Invalid floating-point values are encoded as JSON `null`, never
 as non-standard `NaN`/`Infinity` tokens.
@@ -346,10 +348,18 @@ unobservable without a magnetometer, so it is not scored.
 | Configuration | Mean | Median | Max |
 |---|---:|---:|---:|
 | **`default` (VQF attitude)** | **0.70°** | **0.60°** | **1.8°** |
+| `default` with magnetometer columns: total error incl. heading | 2.30° | 1.76° | 7.7° |
 | `wearable` | 0.70° | 0.60° | 1.8° |
 | `vqf_attitude: false` (integrating) | 9.6° | 7.0° | 24.0° |
 | `vqf_attitude: false`, per-sample bias update (before 2026-10-05) | 26.8° | 25.7° | 97.5° |
 | `vqf_attitude: false`, `stationary_bias_gain: 0` | 3.4° | 1.8° | 24.1° |
+
+**Heading.** With magnetometer samples (`mx,my,mz` CSV columns, or
+`ImuSample::has_mag`) the orientation becomes VQF's 9D estimate in ENU, with
+VQF's magnetic disturbance rejection. Its total error, heading included, is
+2.30°, equal to standalone VQF. `magnetometer_used` and
+`magnetic_disturbance` report the state. `use_magnetometer: false` ignores the
+magnetometer.
 
 **The VQF attitude** is a 6D VQF that estimates its own gyro bias with rest
 detection. It starts from the static startup window: VQF's bias is set to the

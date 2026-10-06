@@ -54,6 +54,8 @@ class RosImuMotionHealthWiringTest(unittest.TestCase):
             "vqf_attitude",
             "posture_confirmation",
             "stationary_bias_min_duration_s",
+            "sensor_msgs::msg::MagneticField",
+            "mag_topic",
         ):
             self.assertIn(evidence, source)
 

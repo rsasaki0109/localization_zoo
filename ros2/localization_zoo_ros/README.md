@@ -46,6 +46,19 @@ including `impact_accel_threshold`, `impact_gyro_threshold`,
 `event_hold_duration_s`. Put overrides in a ROS parameter YAML file and pass
 it with `params_file:=...`.
 
+The attitude in `/imu/odom` comes from a VQF filter by default. Its
+inclination RMSE on the BROAD benchmark is 0.70°.
+
+- `vqf_attitude:=false` restores gyro integration with stationary leveling.
+- `posture_confirmation:=true` adds one-shot `fall_confirmed` records to
+  `/imu/events_json`. A fall is confirmed when a lasting posture change follows
+  an impact.
+- Tuning keys are also declared: `vqf_attitude_tau_acc_s`, `posture_*`, and
+  the `stationary_bias_*` safeguards.
+
+See the core SDK README (`papers/imu_motion_health`) for their meaning and
+evaluation.
+
 IMU timestamps are taken from `header.stamp`. A zero timestamp is rejected
 with a throttled warning by default. For drivers that omit timestamps, use
 `zero_stamp_policy:=receive_time` (or `receive_time_fallback:=true`) to use

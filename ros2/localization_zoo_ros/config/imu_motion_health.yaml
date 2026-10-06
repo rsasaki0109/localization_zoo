@@ -19,3 +19,10 @@ imu_motion_health_node:
     zero_stamp_policy: reject
     receive_time_fallback: false
     use_sim_time: false
+
+    # Attitude: a VQF filter by default (0.70 deg inclination RMSE on BROAD);
+    # false restores gyro integration with stationary leveling.
+    # vqf_attitude: true
+    # Opt-in fall confirmation from a VQF posture change after an impact,
+    # published as one-shot fall_confirmed records on events_topic.
+    # posture_confirmation: false

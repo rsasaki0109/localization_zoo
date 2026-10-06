@@ -30,6 +30,7 @@ add_library(imu_motion_health_core STATIC
   ${ZOO_ROOT}/papers/attitude_estimation/src/attitude_estimation.cpp
   ${ZOO_ROOT}/papers/attitude_estimation/src/vqf.cpp
   ${ZOO_ROOT}/papers/attitude_estimation/src/complementary.cpp
+  ${ZOO_ROOT}/papers/attitude_estimation/src/magnetometer_calibration.cpp
 )
 target_include_directories(imu_motion_health_core PUBLIC
   ${ZOO_ROOT}/papers/imu_motion_health/include

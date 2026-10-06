@@ -158,6 +158,44 @@ way).
 - 6D filters cannot observe heading, so 6D variants are compared on
   inclination.
 
+## Magnetometer calibration (hard / soft iron)
+
+A real magnetometer reads `m = A h + b`:
+
+- `b` is the hard-iron offset, for example from a magnetised part or a current
+  on the board.
+- `A` is the soft-iron distortion, from nearby ferromagnetic material and the
+  sensor's own scale and cross-axis errors.
+
+Over a full rotation the readings lie on an ellipsoid instead of a sphere.
+`fitMagnetometerCalibration` (CLI: `magnetometer_calibration_cli`) fits that
+ellipsoid with the ellipsoid-specific least squares of Li and Griffiths (GMP
+2004). It returns the correction `m_cal = W (m - b)`, the fitted field norm,
+the RMS norm residual, and the direction coverage (of 26 sphere bins; warns
+below 18). `--profile-yaml` writes the `mag_offset_*` / `mag_matrix_*` keys
+that `imu_motion_health` applies before its VQF attitude.
+
+[`evaluation/broad_mag_calibration.py`](evaluation/broad_mag_calibration.py)
+checks it on BROAD. BROAD's magnetometer is already calibrated, so the script
+applies a known distortion to every trial: soft iron with scale 0.9-1.15 and
+cross terms up to 0.08, plus a 31 µT offset. It fits the calibration from
+trial 01 (a slow rotation) only, and applies it to all 39 trials:
+
+| Magnetometer | VQF 9D total RMSE (mean / max) |
+|---|---:|
+| original BROAD | 2.30° / 7.7° |
+| distorted | **70.5°** / 100.9° |
+| distorted, calibrated from trial 01 | **2.26°** / 7.6° |
+| same, end to end through `imu_motion_health_cli` + the written profile | 2.27° |
+
+- **Fit accuracy.** The fit recovers the offset within 0.5 µT and the soft
+  iron within 0.022, with 24 of 26 directions covered.
+- **Why calibrated beats the original.** The calibrated case is slightly
+  better than the original because the fit also absorbs BROAD's own small
+  residual distortion (its field norm varies by ~3 %).
+- **Noise-free check.** A unit test on noise-free synthetic data recovers the
+  offset and soft iron to 1e-6.
+
 ## Usage
 
 ```bash

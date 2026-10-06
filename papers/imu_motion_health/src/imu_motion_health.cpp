@@ -347,6 +347,18 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
       {"posture_tau_acc_s", &params->posture_tau_acc_s},
       {"vqf_attitude_tau_acc_s", &params->vqf_attitude_tau_acc_s},
       {"vqf_attitude_tau_mag_s", &params->vqf_attitude_tau_mag_s},
+      {"mag_offset_x", &params->mag_offset_x},
+      {"mag_offset_y", &params->mag_offset_y},
+      {"mag_offset_z", &params->mag_offset_z},
+      {"mag_matrix_xx", &params->mag_matrix_xx},
+      {"mag_matrix_xy", &params->mag_matrix_xy},
+      {"mag_matrix_xz", &params->mag_matrix_xz},
+      {"mag_matrix_yx", &params->mag_matrix_yx},
+      {"mag_matrix_yy", &params->mag_matrix_yy},
+      {"mag_matrix_yz", &params->mag_matrix_yz},
+      {"mag_matrix_zx", &params->mag_matrix_zx},
+      {"mag_matrix_zy", &params->mag_matrix_zy},
+      {"mag_matrix_zz", &params->mag_matrix_zz},
   };
   const auto found = fields.find(key);
   if (found == fields.end()) {
@@ -952,7 +964,13 @@ ImuMotionHealth::ImuMotionHealth(const ImuMotionHealthParams& params)
 void ImuMotionHealth::updateAttitudeVqf(const ImuSample& sample) {
   if (params_.use_magnetometer && sample.has_mag && sample.mag.allFinite() &&
       !sample.mag.isZero()) {
-    attitude_vqf_->update(sample.gyro, sample.accel, sample.mag);
+    Eigen::Matrix3d W;
+    W << params_.mag_matrix_xx, params_.mag_matrix_xy, params_.mag_matrix_xz,
+        params_.mag_matrix_yx, params_.mag_matrix_yy, params_.mag_matrix_yz,
+        params_.mag_matrix_zx, params_.mag_matrix_zy, params_.mag_matrix_zz;
+    const Eigen::Vector3d offset(params_.mag_offset_x, params_.mag_offset_y,
+                                 params_.mag_offset_z);
+    attitude_vqf_->update(sample.gyro, sample.accel, W * (sample.mag - offset));
     magnetometer_used_ = true;
   } else {
     attitude_vqf_->update(sample.gyro, sample.accel);

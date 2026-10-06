@@ -1,5 +1,6 @@
 #include "attitude_estimation/attitude_estimation.h"
 #include "attitude_estimation/complementary.h"
+#include "attitude_estimation/magnetometer_calibration.h"
 #include "attitude_estimation/vqf.h"
 
 #include <gtest/gtest.h>
@@ -294,4 +295,43 @@ TEST(AttitudeEstimation, SeelConvergesFromItsFixedStartAndKeepsHeadingOutOfIncli
   const Eigen::Vector3d disturbed = quatRotate(qi, Eigen::Vector3d(30, -10, 35));
   for (int i = 0; i < 1000; ++i) g.update(Eigen::Vector3d::Zero(), acc, disturbed);
   EXPECT_LT(broadErrors({g.state()}, {truth}, {true}).inclination_rmse_deg, 0.05);
+}
+
+// ---------------------------------------------------------------------------
+// Magnetometer calibration
+
+TEST(AttitudeEstimation, MagnetometerCalibrationRecoversHardAndSoftIron) {
+  // Directions over the whole sphere on a 45 uT field, distorted by a known
+  // symmetric soft iron and hard-iron offset (no noise).
+  Eigen::Matrix3d A;
+  A << 1.15, 0.08, -0.05, 0.08, 0.90, 0.03, -0.05, 0.03, 1.05;
+  const Eigen::Vector3d b(25, -15, 10);
+  std::vector<Eigen::Vector3d> readings;
+  for (int i = 0; i < 40; ++i) {
+    for (int j = 0; j < 20; ++j) {
+      const double lon = 2 * M_PI * i / 40, lat = -M_PI / 2 + M_PI * (j + 0.5) / 20;
+      const Eigen::Vector3d h(45 * std::cos(lat) * std::cos(lon), 45 * std::cos(lat) * std::sin(lon),
+                              45 * std::sin(lat));
+      readings.push_back(A * h + b);
+    }
+  }
+  const MagnetometerCalibration c = fitMagnetometerCalibration(readings);
+  ASSERT_TRUE(c.valid);
+  EXPECT_LT((c.offset - b).norm(), 1e-6);
+  EXPECT_LT(c.rms_residual, 1e-6);
+  EXPECT_EQ(c.direction_bins, 26);
+  // W undoes A up to the overall field scale.
+  const Eigen::Matrix3d product = c.matrix * A;
+  EXPECT_LT((product / product(0, 0) - Eigen::Matrix3d::Identity()).norm(), 1e-6);
+}
+
+TEST(AttitudeEstimation, MagnetometerCalibrationRejectsAPlanarSweep) {
+  // Rotation about one axis only: the readings span a circle, not an
+  // ellipsoid, so no calibration is returned.
+  std::vector<Eigen::Vector3d> readings;
+  for (int i = 0; i < 100; ++i) {
+    const double a = 2 * M_PI * i / 100;
+    readings.emplace_back(40 * std::cos(a) + 5, 40 * std::sin(a) - 3, 2.0);
+  }
+  EXPECT_FALSE(fitMagnetometerCalibration(readings).valid);
 }

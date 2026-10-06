@@ -3,922 +3,210 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Localization Zoo Explorer</title>
-    <meta name="description" content="Interactive benchmark dashboard and method explorer for C++ localization paper implementations.">
-    <meta property="og:title" content="Localization Zoo Explorer">
-    <meta property="og:description" content="Choose, compare, and reproduce LiDAR, LIO, VIO, and degeneracy-aware localization methods.">
+    <title>Localization Zoo</title>
+    <meta name="description" content="C++ implementations of localization papers with honest KITTI benchmarks.">
+    <meta property="og:title" content="Localization Zoo">
+    <meta property="og:description" content="C++ implementations of localization papers with honest KITTI benchmarks.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://rsasaki0109.github.io/localization_zoo/assets/social_card.png">
     <meta property="og:url" content="https://rsasaki0109.github.io/localization_zoo/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://rsasaki0109.github.io/localization_zoo/assets/social_card.png">
-    <link rel="stylesheet" href="./assets/site.css">
+    <style>
+      :root {
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --muted: #6b6b6b;
+        --line: #e4e4e4;
+        --soft: #f5f5f4;
+        --accent: #0b6bcb;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #e8e8e8;
+          --muted: #9a9a9a;
+          --line: #2c2c2c;
+          --soft: #1c1c1c;
+          --accent: #6cb2ff;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      main { max-width: 860px; margin: 0 auto; padding: 48px 16px 64px; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      h1 { font-size: 2.2rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+      h2 { font-size: 1.25rem; margin: 56px 0 12px; }
+      p { margin: 0 0 12px; }
+      .lede { font-size: 1.1rem; color: var(--muted); }
+      .links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+      figure { margin: 32px 0 0; }
+      figure img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); }
+      figcaption, .note { font-size: 0.85rem; color: var(--muted); }
+      figcaption { margin-top: 6px; }
+      .cmd { position: relative; }
+      pre {
+        margin: 0;
+        padding: 14px 76px 14px 16px;
+        background: var(--soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.85rem;
+      }
+      .cmd button {
+        position: absolute; top: 8px; right: 8px;
+        font: inherit; font-size: 0.8rem;
+        padding: 3px 10px;
+        color: var(--fg); background: var(--bg);
+        border: 1px solid var(--line); border-radius: 6px;
+        cursor: pointer;
+      }
+      .table-wrap { overflow-x: auto; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+      th, td { padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+      thead th { text-align: right; color: var(--muted); font-weight: 500; }
+      thead th:first-child, tbody th { text-align: left; }
+      tbody th { font-weight: 500; }
+      td { text-align: right; }
+      td small { color: var(--muted); }
+      td.best { font-weight: 700; }
+      input[type="search"] {
+        width: 100%;
+        font: inherit;
+        padding: 8px 12px;
+        color: var(--fg); background: var(--bg);
+        border: 1px solid var(--line); border-radius: 8px;
+      }
+      ul.methods { list-style: none; padding: 0; margin: 12px 0 0; }
+      ul.methods li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+      ul.methods .meta { font-size: 0.8rem; color: var(--muted); margin-left: 8px; }
+      ul.methods p { margin: 2px 0 0; font-size: 0.9rem; color: var(--muted); }
+      footer { margin-top: 56px; font-size: 0.85rem; color: var(--muted); }
+    </style>
   </head>
   <body>
-    <header class="topbar">
-      <a class="brand" href="https://github.com/rsasaki0109/localization_zoo">Localization Zoo</a>
-      <nav class="nav" aria-label="Primary">
-        <a href="#benchmark">Benchmark</a>
-        <a href="#methods">Methods</a>
-        <a href="#quickstart">Quick Start</a>
-        <a href="https://github.com/rsasaki0109/localization_zoo">GitHub</a>
-      </nav>
-    </header>
-
-    <main class="page">
-      <section class="intro-grid">
-        <div class="intro-copy">
-          <p class="eyebrow">Localization research, mapped</p>
-          <h1>Choose, compare, and reproduce localization methods.</h1>
-          <p class="lede">
-            C++ localization paper implementations, derived variants, and compact baselines
-            behind a shared benchmark surface.
-          </p>
-          <div class="actions">
-            <a class="button primary" id="demo-cta" href="#quickstart">Run the 3-minute demo</a>
-            <a class="button secondary" id="explore-cta" href="#methods">Explore Methods</a>
-            <a class="text-link" href="https://github.com/rsasaki0109/localization_zoo">View on GitHub</a>
-          </div>
-          <p class="activation-note">No build or dataset required. The first image download may take longer.</p>
-          <div class="summary-strip" id="catalog-stats">
-            <div>
-              <span>Methods</span>
-              <strong id="method-count">-</strong>
-            </div>
-            <div>
-              <span>Families</span>
-              <strong id="family-count">-</strong>
-            </div>
-            <div>
-              <span>CI Fixture</span>
-              <strong>3 frames</strong>
-            </div>
-          </div>
+    <main>
+      <header>
+        <h1>Localization Zoo</h1>
+        <p class="lede">
+          C++ implementations of localization papers — LiDAR, LIO, VIO and IMU —
+          behind one API, with honest KITTI benchmarks.
+        </p>
+        <p id="stats" class="note">&nbsp;</p>
+        <div class="links">
+          <a href="https://github.com/rsasaki0109/localization_zoo">GitHub</a>
+          <a href="#leaderboard">Leaderboard</a>
+          <a href="#methods">Methods</a>
+          <a href="https://github.com/rsasaki0109/localization_zoo/blob/main/docs/reproducibility_report.md">Reproducibility report</a>
         </div>
+      </header>
 
-        <figure class="trajectory-preview">
-          <img id="hero-trajectory" alt="Latest benchmark trajectory overlay">
-          <figcaption>
-            <span id="hero-dataset">Latest benchmark snapshot</span>
-            <strong id="hero-best">Loading...</strong>
-          </figcaption>
-        </figure>
-      </section>
+      <figure>
+        <img src="./assets/grid_seq07.png" alt="KITTI seq07 trajectories of each method, colored by position error from ground truth" width="1721" height="1259">
+        <figcaption>KITTI seq07, odometry with no ground-truth seed. Paths are colored by error.</figcaption>
+      </figure>
 
-      <section class="panel" id="benchmark">
-        <div class="panel-head">
-          <div>
-            <p class="eyebrow">Current Benchmark Results</p>
-            <h2 id="title">Loading benchmark...</h2>
-          </div>
-          <p class="stamp" id="generated-at"></p>
-        </div>
+      <h2 id="try">Try it</h2>
+      <p>One command, no build or dataset. It writes <code>report.html</code> and <code>manifest.json</code> to <code>./zoo-demo/</code>.</p>
+      <div class="cmd">
+        <pre><code id="demo-command">docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest</code></pre>
+        <button id="copy" type="button">Copy</button>
+      </div>
+      <p class="note" style="margin-top:8px">
+        Native build: clone the repo and run <code>bash evaluation/scripts/demo_localization_zoo.sh</code>.
+      </p>
 
-        <div class="metrics" id="dataset-metrics"></div>
-        <p class="command" id="command"></p>
+      <h2 id="leaderboard">KITTI leaderboard</h2>
+      <p>Full sequences, odometry only. RPE drift in % per 100 m (lower is better); ATE in grey.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Method</th><th>Seq 00</th><th>Seq 02</th><th>Seq 05</th><th>Seq 07</th><th>Seq 08</th></tr>
+          </thead>
+          <tbody id="leaderboard-body">
+            <tr><th scope="row">LF-GICP</th><td class="best">0.82% <small>9 m</small></td><td>0.89% <small>33 m</small></td><td class="best">0.51% <small>6 m</small></td><td>0.54% <small>1 m</small></td><td class="best">1.35% <small>16 m</small></td></tr>
+            <tr><th scope="row">LeGO-LOAM</th><td>0.84% <small>13 m</small></td><td class="best">0.88% <small>42 m</small></td><td>0.56% <small>6 m</small></td><td class="best">0.53% <small>3 m</small></td><td>1.38% <small>18 m</small></td></tr>
+            <tr><th scope="row">A-LOAM</th><td>0.89% <small>12 m</small></td><td>0.92% <small>50 m</small></td><td>0.53% <small>5 m</small></td><td>0.61% <small>3 m</small></td><td>1.39% <small>18 m</small></td></tr>
+            <tr><th scope="row">F-LOAM</th><td>0.92% <small>10 m</small></td><td>0.94% <small>52 m</small></td><td>0.54% <small>6 m</small></td><td>0.61% <small>3 m</small></td><td>1.40% <small>20 m</small></td></tr>
+            <tr><th scope="row">KISS-ICP</th><td>0.94% <small>15 m</small></td><td>1.09% <small>56 m</small></td><td>0.71% <small>7 m</small></td><td>0.66% <small>2 m</small></td><td>1.36% <small>17 m</small></td></tr>
+            <tr><th scope="row">SuMa</th><td>1.25% <small>19 m</small></td><td>1.28% <small>52 m</small></td><td>0.99% <small>10 m</small></td><td>0.94% <small>4 m</small></td><td>1.91% <small>19 m</small></td></tr>
+            <tr><th scope="row">CT-ICP</th><td>2.01% <small>17 m</small></td><td>2.65% <small>76 m</small></td><td>1.12% <small>12 m</small></td><td>1.14% <small>3 m</small></td><td>1.93% <small>99 m</small></td></tr>
+            <tr><th scope="row">L-LO</th><td>1.54% <small>16 m</small></td><td>3.97% <small>142 m</small></td><td>1.59% <small>15 m</small></td><td>1.17% <small>3 m</small></td><td>2.05% <small>36 m</small></td></tr>
+            <tr><th scope="row">MULLS</th><td>2.54% <small>49 m</small></td><td>2.27% <small>261 m</small></td><td>1.73% <small>20 m</small></td><td>2.64% <small>8 m</small></td><td>3.12% <small>81 m</small></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:8px">
+        Methods that need a ground-truth pose as their initial guess are not ranked.
+        More tables and the official KITTI metric are in the
+        <a href="https://github.com/rsasaki0109/localization_zoo#leaderboard--odometry-rpe-drift-100-m-lower-is-better">README</a>.
+      </p>
 
-        <div class="benchmark-grid">
-          <article class="tool-panel">
-            <div class="tool-head">
-              <div>
-                <p class="eyebrow">Accuracy vs Throughput</p>
-                <h3>Benchmark Map</h3>
-              </div>
-              <span class="axis-note">ATE uses log scale; filter by benchmark</span>
-            </div>
-            <div class="benchmark-filter" id="benchmark-map-filters"></div>
-            <p class="map-note" id="benchmark-map-note"></p>
-            <div class="map-legend" id="benchmark-map-legend"></div>
-            <div class="scatter" id="scatter"></div>
-          </article>
+      <h2 id="methods">Methods</h2>
+      <input id="search" type="search" placeholder="Search: kiss, lio, imu, degeneracy…" autocomplete="off" aria-label="Search methods">
+      <ul class="methods" id="method-list"></ul>
 
-          <article class="tool-panel">
-            <div class="tool-head">
-              <div>
-                <p class="eyebrow">Leaderboard</p>
-                <h3>Odometry Results by Benchmark</h3>
-              </div>
-            </div>
-            <p class="leaderboard-note">
-              Rankings are computed only within the same benchmark group. Smoke checks and GT-seeded references are shown separately.
-            </p>
-            <div id="leaderboard" class="leaderboard"></div>
-            <div id="reference-leaderboard" class="leaderboard reference-leaderboard"></div>
-            <div id="smoke-baseline" class="smoke-baseline"></div>
-          </article>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Method</th>
-                <th>Benchmark</th>
-                <th>Status</th>
-                <th>Policy</th>
-                <th>ATE [m]</th>
-                <th>RPE [%/100 m]</th>
-                <th>Coverage</th>
-                <th>Total elapsed [ms]</th>
-                <th>FPS</th>
-                <th>Note</th>
-              </tr>
-            </thead>
-            <tbody id="results-body"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="panel" id="methods">
-        <div class="panel-head">
-          <div>
-            <p class="eyebrow">Method Explorer</p>
-            <h2>Find the right starting point</h2>
-          </div>
-          <label class="search-box">
-            <span>Search</span>
-            <input id="method-search" type="search" autocomplete="off" placeholder="kiss, lio, graph, degeneracy">
-          </label>
-        </div>
-
-        <div class="filter-grid">
-          <div class="filter-group" aria-label="Family filter">
-            <span>Family</span>
-            <div class="segmented" id="family-filters"></div>
-          </div>
-          <div class="filter-group" aria-label="Signal filter">
-            <span>Signal</span>
-            <div class="segmented" id="signal-filters"></div>
-          </div>
-        </div>
-
-        <div class="starter-layout">
-          <article class="tool-panel starter">
-            <div class="tool-head">
-              <div>
-                <p class="eyebrow">Starter Stack</p>
-                <h3 id="track-title">Quick Smoke</h3>
-              </div>
-            </div>
-            <div class="track-buttons" id="track-buttons"></div>
-            <p id="track-note" class="muted"></p>
-            <ol id="track-list" class="track-list"></ol>
-          </article>
-
-          <div class="method-grid" id="method-grid"></div>
-        </div>
-      </section>
-
-      <section class="panel compact" id="quickstart">
-        <div class="panel-head">
-          <div>
-            <p class="eyebrow">3-minute demo</p>
-            <h2>Run a real comparison, no setup required</h2>
-          </div>
-          <span class="privacy-note">No usage data is sent</span>
-        </div>
-        <p class="quickstart-lede">Choose your terminal, paste one command, then open the generated report. Docker runs the prebuilt quick profile against bundled fixtures.</p>
-        <div class="platform-tabs" role="tablist" aria-label="Terminal">
-          <button class="platform-tab active" type="button" role="tab" aria-selected="true" data-platform="linux">Linux</button>
-          <button class="platform-tab" type="button" role="tab" aria-selected="false" data-platform="macos">macOS</button>
-          <button class="platform-tab" type="button" role="tab" aria-selected="false" data-platform="powershell">PowerShell</button>
-        </div>
-        <div class="command-shell">
-          <pre><code id="quickstart-command"></code></pre>
-          <button class="copy-button" id="copy-quickstart" type="button">Copy command</button>
-        </div>
-        <div class="success-path" aria-label="Demo completion steps">
-          <div><span>1</span><strong>Run</strong><p>Docker downloads the image and runs the quick comparison.</p></div>
-          <div><span>2</span><strong>Confirm</strong><p>The terminal ends with <code>== Done ==</code>.</p></div>
-          <div><span>3</span><strong>Continue</strong><p>Open <code>zoo-demo/report.html</code> and choose your next run.</p></div>
-        </div>
-        <details class="native-details">
-          <summary>Prefer a native build?</summary>
-          <pre><code>git clone https://github.com/rsasaki0109/localization_zoo.git
-cd localization_zoo
-sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev
-bash evaluation/scripts/demo_localization_zoo.sh</code></pre>
-        </details>
-        <div class="local-metrics-note">
-          <p>This page keeps anonymous button counts and first/last visit days in this browser only. It never stores searches or command contents and sends no analytics.</p>
-          <button id="clear-local-metrics" type="button">Clear this browser's counts</button>
-        </div>
-      </section>
+      <footer>
+        MIT License ·
+        <a href="https://github.com/rsasaki0109/localization_zoo/blob/main/CITATION.cff">Cite</a> ·
+        <a href="https://github.com/rsasaki0109/localization_zoo/blob/main/CONTRIBUTING.md">Contribute</a>
+      </footer>
     </main>
-
     <script>
-      const dataPath = "./benchmarks/latest/results.json";
-      const paperBundlePath = "./benchmarks/paper_ready_bundle.json";
       const repoBase = "https://github.com/rsasaki0109/localization_zoo";
-
       const catalogPath = "./methods.json";
-      const activationLogKey = "localization-zoo-activation-v1";
-      const quickstartCommands = {
-        linux: 'mkdir -p zoo-demo && docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest\nxdg-open zoo-demo/report.html',
-        macos: 'mkdir -p zoo-demo && docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest\nopen zoo-demo/report.html',
-        powershell: '$demoDir = Join-Path (Get-Location) "zoo-demo"\nNew-Item -ItemType Directory -Force $demoDir | Out-Null\ndocker run --rm -v "${demoDir}:/out" ghcr.io/rsasaki0109/localization_zoo:latest\nStart-Process (Join-Path $demoDir "report.html")'
-      };
-      let catalog = [];
-      let tracks = [];
+      let methods = [];
 
-      const state = {
-        family: "All",
-        signal: "All",
-        benchmarkGroup: "",
-        track: "quick",
-        query: ""
-      };
-
-      function trackActivation(name, detail = {}) {
-        const event = { name, detail, at: new Date().toISOString() };
-        window.dispatchEvent(new CustomEvent("localization-zoo:activation", { detail: event }));
+      document.getElementById("copy").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
         try {
-          const today = event.at.slice(0, 10);
-          const previous = JSON.parse(localStorage.getItem(activationLogKey) || "null") || {
-            schema_version: 1,
-            first_seen_day: today,
-            counts: {}
-          };
-          previous.last_seen_day = today;
-          previous.counts[name] = (previous.counts[name] || 0) + 1;
-          localStorage.setItem(activationLogKey, JSON.stringify(previous));
+          await navigator.clipboard.writeText(document.getElementById("demo-command").textContent);
+          button.textContent = "Copied";
         } catch (_) {
-          // The funnel remains functional when storage is disabled.
+          button.textContent = "Select to copy";
         }
-      }
-
-      function selectPlatform(platform) {
-        document.querySelectorAll(".platform-tab").forEach((button) => {
-          const active = button.dataset.platform === platform;
-          button.classList.toggle("active", active);
-          button.setAttribute("aria-selected", String(active));
-        });
-        document.getElementById("quickstart-command").textContent = quickstartCommands[platform];
-      }
-
-      document.querySelectorAll(".platform-tab").forEach((button) => {
-        button.addEventListener("click", () => {
-          selectPlatform(button.dataset.platform);
-          trackActivation("quickstart_platform_selected", { platform: button.dataset.platform });
-        });
+        setTimeout(() => { button.textContent = "Copy"; }, 1500);
       });
 
-      document.getElementById("demo-cta").addEventListener("click", () => trackActivation("demo_cta_clicked"));
-      document.getElementById("explore-cta").addEventListener("click", () => trackActivation("method_explorer_clicked"));
-      document.getElementById("clear-local-metrics").addEventListener("click", (event) => {
-        localStorage.removeItem(activationLogKey);
-        event.currentTarget.textContent = "Counts cleared";
-      });
-      document.getElementById("copy-quickstart").addEventListener("click", async (event) => {
-        const active = document.querySelector(".platform-tab.active").dataset.platform;
-        try {
-          await navigator.clipboard.writeText(quickstartCommands[active]);
-          event.currentTarget.textContent = "Copied";
-          setTimeout(() => { event.currentTarget.textContent = "Copy command"; }, 1600);
-          trackActivation("quickstart_command_copied", { platform: active });
-        } catch (_) {
-          event.currentTarget.textContent = "Select and copy the command";
-        }
-      });
-
-      selectPlatform("linux");
-
-      const quickstartObserver = new IntersectionObserver((entries, observer) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          trackActivation("quickstart_viewed");
-          observer.disconnect();
-        }
-      }, { threshold: 0.35 });
-      quickstartObserver.observe(document.getElementById("quickstart"));
-
-      function fmt(value, digits = 2) {
-        if (value === null || value === undefined || Number.isNaN(Number(value))) {
-          return "-";
-        }
-        return Number(value).toFixed(digits);
-      }
-
-      function clear(node) {
-        while (node.firstChild) {
-          node.removeChild(node.firstChild);
-        }
-      }
-
-      function el(tag, className, text) {
-        const node = document.createElement(tag);
-        if (className) {
-          node.className = className;
-        }
-        if (text !== undefined) {
-          node.textContent = text;
-        }
-        return node;
-      }
-
-      function addMetric(label, value) {
-        const item = el("div", "metric");
-        item.appendChild(el("span", "", label));
-        item.appendChild(el("strong", "", value));
-        return item;
-      }
-
-      function policyOf(method) {
-        if (method.evaluation_policy) {
-          return method.evaluation_policy;
-        }
-        const note = (method.note || "").toLowerCase();
-        if (note.includes("gt-seeded") || note.includes("ground-truth pose")) {
-          return "gt_seeded_reference";
-        }
-        if (note.includes("odometry-only") || note.includes("first gt pose")) {
-          return "odometry_only";
-        }
-        return method.status === "skipped" ? "not_run" : "unspecified";
-      }
-
-      function policyLabel(policy) {
-        const labels = {
-          gt_seeded_reference: "GT-seeded ref",
-          odometry_only: "Odometry",
-          not_run: "Not run",
-          unspecified: "Unspecified"
-        };
-        return labels[policy] || policy;
-      }
-
-      function statusLabel(status) {
-        return (status || "unknown").replace(/_/g, " ").toUpperCase();
-      }
-
-      function methodStatusClass(method) {
-        return `status-${String(method.status || "unknown").replace(/_/g, "-")}`;
-      }
-
-      function isPublicBenchmarkMethod(method) {
-        return ["ok", "skipped"].includes(method.status);
-      }
-
-      function latestBenchmarkLabel(data) {
-        const name = data.dataset && data.dataset.name ? data.dataset.name : "Latest";
-        if (name.includes("Autoware Istanbul")) {
-          return "Autoware 108";
-        }
-        return name;
-      }
-
-      function latestSequenceOrWindow(data) {
-        const name = data.dataset && data.dataset.name ? data.dataset.name : "";
-        const match = name.match(/frames\s+([0-9-]+)/i);
-        return match ? match[1] : "latest";
-      }
-
-      function publicBenchmarkRows(data, paperBundle) {
-        const rows = data.methods
-          .filter(isPublicBenchmarkMethod)
-          .map((method) => ({
-            ...method,
-            benchmark_id: "autoware_istanbul",
-            benchmark_label: latestBenchmarkLabel(data),
-            comparison_group_id: "autoware_108_reference",
-            sequence_or_window: latestSequenceOrWindow(data),
-            scope: "snapshot",
-            result_role: method.status === "ok" ? "reference_snapshot" : "not_run",
-            rankable: false,
-            rank_metric: null,
-            trajectory_length_m: data.dataset.trajectory_length_m,
-            timestamp_source: data.dataset.timestamp_source || null,
-            generated_at: data.generated_at,
-            artifact: "docs/benchmarks/latest/results.json",
-            method_artifact: method.artifact || null,
-            runtime_profile: "latest_snapshot"
-          }));
-
-        if (paperBundle && Array.isArray(paperBundle.paper_table_rows)) {
-          paperBundle.paper_table_rows.forEach((row) => {
-            rows.push({
-              name: row.method,
-              status: "ok",
-              evaluation_policy: row.evaluation_policy || "odometry_only",
-              ate_m: row.ate_m,
-              time_ms: row.time_ms,
-              frames: row.frames,
-              fps: row.fps,
-              benchmark_id: row.benchmark_id || "kitti_odometry",
-              benchmark_label: row.benchmark_label || `KITTI ${row.sequence} full`,
-              comparison_group_id: row.comparison_group_id || `kitti_${row.sequence}_full`,
-              sequence_or_window: row.sequence_or_window || row.sequence,
-              scope: row.scope || "full_sequence",
-              result_role: row.result_role || "paper_ready_full",
-              rankable: row.rankable !== false,
-              rank_metric: row.rank_metric || "rpe_trans_pct",
-              trajectory_length_m: row.trajectory_length_m,
-              timestamp_source: row.timestamp_source || null,
-              generated_at: row.generated_at || paperBundle.frozen_date,
-              artifact: row.artifact,
-              runtime_profile: row.runtime_profile || row.variant,
-              rpe_trans_pct: row.rpe_trans_pct,
-              rpe_rot_deg_per_m: row.rpe_rot_deg_per_m,
-              command: row.command,
-              note: `${row.tier}; ${row.variant}`
-            });
+      function renderMethods(query) {
+        const list = document.getElementById("method-list");
+        list.replaceChildren();
+        const q = query.trim().toLowerCase();
+        methods
+          .filter((m) => !q || [m.name, m.family, m.scope, m.summary, ...m.signals, ...m.tags]
+            .join(" ").toLowerCase().includes(q))
+          .forEach((m) => {
+            const item = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = `${repoBase}/tree/main/${m.href}`;
+            link.textContent = m.name;
+            const meta = document.createElement("span");
+            meta.className = "meta";
+            meta.textContent = `${m.family} · ${m.signals.join(", ")}`;
+            const summary = document.createElement("p");
+            summary.textContent = m.summary;
+            item.append(link, meta, summary);
+            list.appendChild(item);
           });
-        }
-
-        return rows;
-      }
-
-      function benchmarkGroupLabel(groupId) {
-        const labels = {
-          autoware_108_reference: "Autoware 108 refs",
-          kitti_07_smoke: "KITTI 07 smoke",
-          kitti_00_full: "KITTI 00 full",
-          kitti_07_full: "KITTI 07 full"
-        };
-        return labels[groupId] || groupId.replace(/_/g, " ");
-      }
-
-      function rankableOdometryRows(rows) {
-        return rows.filter((method) =>
-          method.rankable &&
-          method.status === "ok" &&
-          policyOf(method) === "odometry_only" &&
-          method.rank_metric === "rpe_trans_pct" &&
-          method.rpe_trans_pct !== null &&
-          method.rpe_trans_pct !== undefined
-        );
-      }
-
-      function benchmarkGroupIds(rows) {
-        return Array.from(new Set(
-          rows
-            .filter((method) => method.status === "ok" && method.ate_m !== null && method.fps)
-            .map((method) => method.comparison_group_id)
-        ));
-      }
-
-      function benchmarkGroupClass(groupId) {
-        return String(groupId || "unknown").replace(/[^a-z0-9_-]/gi, "-");
-      }
-
-      function coverageText(method) {
-        const frames = method.frames ? `${method.frames} fr` : "-";
-        if (!method.trajectory_length_m) {
-          return frames;
-        }
-        return `${frames} / ${fmt(method.trajectory_length_m, 1)} m`;
-      }
-
-      function findMethod(name) {
-        return catalog.find((method) => method.name === name);
-      }
-
-      function methodHref(method) {
-        return `${repoBase}/tree/main/${method.href}`;
-      }
-
-      function renderFilterButtons(targetId, values, stateKey) {
-        const target = document.getElementById(targetId);
-        clear(target);
-        values.forEach((value) => {
-          const button = el("button", "chip-button", value);
-          button.type = "button";
-          button.dataset.value = value;
-          if (state[stateKey] === value) {
-            button.classList.add("active");
-          }
-          button.addEventListener("click", () => {
-            state[stateKey] = value;
-            renderFilterButtons(targetId, values, stateKey);
-            renderMethods();
-          });
-          target.appendChild(button);
-        });
-      }
-
-      function renderTracks() {
-        const target = document.getElementById("track-buttons");
-        clear(target);
-        tracks.forEach((track) => {
-          const button = el("button", "chip-button", track.label);
-          button.type = "button";
-          if (state.track === track.id) {
-            button.classList.add("active");
-          }
-          button.addEventListener("click", () => {
-            state.track = track.id;
-            renderTracks();
-            renderTrackList();
-          });
-          target.appendChild(button);
-        });
-      }
-
-      function renderTrackList() {
-        const active = tracks.find((track) => track.id === state.track) || tracks[0];
-        document.getElementById("track-title").textContent = active.title;
-        document.getElementById("track-note").textContent = active.note;
-        const list = document.getElementById("track-list");
-        clear(list);
-        active.methods.forEach((name) => {
-          const method = findMethod(name);
-          const item = el("li");
-          if (method) {
-            const link = el("a", "", method.name);
-            link.href = methodHref(method);
-            link.textContent = method.name;
-            item.appendChild(link);
-            item.appendChild(el("span", "", method.summary));
-          } else {
-            item.textContent = name;
-          }
-          list.appendChild(item);
-        });
-      }
-
-      function renderMethods() {
-        const grid = document.getElementById("method-grid");
-        clear(grid);
-        const query = state.query.trim().toLowerCase();
-        const methods = catalog.filter((method) => {
-          const familyMatch = state.family === "All" || method.family === state.family;
-          const signalMatch = state.signal === "All" || method.signals.includes(state.signal);
-          const queryText = `${method.name} ${method.family} ${method.scope} ${method.summary} ${method.tags.join(" ")}`.toLowerCase();
-          const queryMatch = !query || queryText.includes(query);
-          return familyMatch && signalMatch && queryMatch;
-        });
-
-        if (methods.length === 0) {
-          grid.appendChild(el("p", "empty", "No matching methods."));
-          return;
-        }
-
-        methods.forEach((method) => {
-          const card = el("article", "method-card");
-          const head = el("div", "method-card-head");
-          const link = el("a", "", method.name);
-          link.href = methodHref(method);
-          head.appendChild(link);
-          head.appendChild(el("span", "scope", method.scope));
-          card.appendChild(head);
-          card.appendChild(el("p", "", method.summary));
-
-          const tags = el("div", "tag-row");
-          Array.from(new Set([method.family, ...method.signals, ...method.tags.slice(0, 2)])).forEach((tag) => {
-            tags.appendChild(el("span", "tag", tag));
-          });
-          card.appendChild(tags);
-          grid.appendChild(card);
-        });
-      }
-
-      function renderCatalog() {
-        const families = ["All", ...Array.from(new Set(catalog.map((method) => method.family)))];
-        const signals = ["All", "LiDAR", "IMU", "Camera", "Degeneracy"];
-        document.getElementById("method-count").textContent = catalog.length;
-        document.getElementById("family-count").textContent = families.length - 1;
-        renderFilterButtons("family-filters", families, "family");
-        renderFilterButtons("signal-filters", signals, "signal");
-        renderTracks();
-        renderTrackList();
-        renderMethods();
-
-        document.getElementById("method-search").addEventListener("input", (event) => {
-          state.query = event.target.value;
-          renderMethods();
-        });
-      }
-
-      function renderCatalogError(error) {
-        document.getElementById("method-count").textContent = "-";
-        document.getElementById("family-count").textContent = "-";
-        const grid = document.getElementById("method-grid");
-        clear(grid);
-        grid.appendChild(el("p", "empty", `Method catalog unavailable: ${error.message}`));
-      }
-
-      function renderBenchmarkMapFilters(rows) {
-        const target = document.getElementById("benchmark-map-filters");
-        clear(target);
-        const groups = benchmarkGroupIds(rows);
-        if (!state.benchmarkGroup || (!groups.includes(state.benchmarkGroup) && state.benchmarkGroup !== "all")) {
-          state.benchmarkGroup = groups.find((group) => group.includes("_full")) || groups[0] || "";
-        }
-        groups.forEach((groupId) => {
-          const button = el("button", "chip-button", benchmarkGroupLabel(groupId));
-          button.type = "button";
-          if (state.benchmarkGroup === groupId) button.classList.add("active");
-          button.addEventListener("click", () => {
-            state.benchmarkGroup = groupId;
-            renderBenchmarkMapFilters(rows);
-            renderScatter(rows);
-          });
-          target.appendChild(button);
-        });
-        if (groups.length > 1) {
-          const button = el("button", "chip-button", "All results");
-          button.type = "button";
-          if (state.benchmarkGroup === "all") button.classList.add("active");
-          button.addEventListener("click", () => {
-            state.benchmarkGroup = "all";
-            renderBenchmarkMapFilters(rows);
-            renderScatter(rows);
-          });
-          target.appendChild(button);
-        }
-        renderBenchmarkMapLegend(rows);
-      }
-
-      function renderBenchmarkMapLegend(rows) {
-        const target = document.getElementById("benchmark-map-legend");
-        clear(target);
-        benchmarkGroupIds(rows).forEach((groupId) => {
-          const item = el("span", "legend-item");
-          item.appendChild(el("i", `legend-dot ${benchmarkGroupClass(groupId)}`));
-          item.appendChild(document.createTextNode(benchmarkGroupLabel(groupId)));
-          target.appendChild(item);
-        });
-        const odometry = el("span", "legend-item");
-        odometry.appendChild(el("i", "legend-dot shape-odometry"));
-        odometry.appendChild(document.createTextNode("circle: odometry"));
-        target.appendChild(odometry);
-        const reference = el("span", "legend-item");
-        reference.appendChild(el("i", "legend-dot shape-reference"));
-        reference.appendChild(document.createTextNode("square: GT-seeded ref"));
-        target.appendChild(reference);
-      }
-
-      function renderScatter(methods) {
-        const scatter = document.getElementById("scatter");
-        const note = document.getElementById("benchmark-map-note");
-        clear(scatter);
-        const selected = state.benchmarkGroup === "all"
-          ? methods
-          : methods.filter((method) => method.comparison_group_id === state.benchmarkGroup);
-        note.textContent = state.benchmarkGroup === "all"
-          ? "Overview only. Points from different datasets, sequence lengths, policies, or runtime environments are not directly comparable."
-          : `${benchmarkGroupLabel(state.benchmarkGroup)} only. Compare points within this group.`;
-        const ok = selected.filter((method) => method.status === "ok" && method.ate_m !== null && method.fps);
-        if (ok.length === 0) {
-          scatter.appendChild(el("p", "empty", "No FPS and ATE pairs in this benchmark group."));
-          return;
-        }
-
-        const maxFps = Math.max(...ok.map((method) => Number(method.fps)), 1);
-        const logs = ok.map((method) => Math.log10(Math.max(Number(method.ate_m), 0.001)));
-        const minLog = Math.min(...logs);
-        const maxLog = Math.max(...logs);
-        const spread = Math.max(maxLog - minLog, 0.001);
-
-        const plot = el("div", "scatter-plot");
-        plot.appendChild(el("span", "axis-label x-axis", "FPS"));
-        plot.appendChild(el("span", "axis-label y-axis", "ATE"));
-
-        ok.forEach((method) => {
-          const point = el("a", "point");
-          point.classList.add(policyOf(method));
-          point.classList.add(benchmarkGroupClass(method.comparison_group_id));
-          const x = 10 + (Number(method.fps) / maxFps) * 78;
-          const y = 10 + ((Math.log10(Math.max(Number(method.ate_m), 0.001)) - minLog) / spread) * 74;
-          point.href = `${repoBase}/search?q=${encodeURIComponent(method.name)}&type=code`;
-          point.style.left = `${x}%`;
-          point.style.top = `${y}%`;
-          point.title = `${method.benchmark_label || "Benchmark"} / ${method.name}: ${fmt(method.ate_m, 3)} m, ${fmt(method.fps, 1)} FPS`;
-          point.appendChild(el("span", "dot"));
-          point.appendChild(el("span", "point-label", method.name));
-          plot.appendChild(point);
-        });
-
-        scatter.appendChild(plot);
-      }
-
-      function renderRanking(target, methods, emptyText, reference = false) {
-        clear(target);
-        const ranked = methods
-          .slice()
-          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))
-          .slice(0, 8);
-        if (ranked.length === 0) {
-          target.appendChild(el("p", "empty", emptyText));
-          return;
-        }
-        if (reference) {
-          target.appendChild(el("p", "leaderboard-section-title", "GT-seeded references, not ranked with odometry"));
-        }
-        ranked.forEach((method, index) => {
-          const row = el("div", reference ? "leaderboard-row reference" : "leaderboard-row");
-          row.appendChild(el("span", "rank", reference ? "ref" : String(index + 1)));
-          const methodLabel = method.benchmark_label
-            ? `${method.name} · ${method.benchmark_label}`
-            : method.name;
-          row.appendChild(el("span", "method", methodLabel));
-          row.appendChild(el("span", "ate", `${fmt(method.ate_m, 3)} m`));
-          target.appendChild(row);
-        });
-      }
-
-      function renderOdometryRankings(target, rows) {
-        clear(target);
-        const rankedRows = rankableOdometryRows(rows);
-        const groupIds = Array.from(new Set(rankedRows.map((method) => method.comparison_group_id)));
-        if (groupIds.length === 0) {
-          target.appendChild(el("p", "empty", "No full-sequence odometry rankings are stored in this snapshot."));
-          return;
-        }
-        groupIds.sort().forEach((groupId) => {
-          const groupRows = rankedRows.filter((method) => method.comparison_group_id === groupId);
-          target.appendChild(el("p", "leaderboard-section-title", `${benchmarkGroupLabel(groupId)} · ranked by translational RPE`));
-          groupRows
-            .slice()
-            .sort((a, b) => Number(a.rpe_trans_pct) - Number(b.rpe_trans_pct))
-            .forEach((method, index) => {
-              const row = el("div", "leaderboard-row");
-              row.appendChild(el("span", "rank", String(index + 1)));
-              row.appendChild(el("span", "method", method.name));
-              row.appendChild(el("span", "ate", `${fmt(method.rpe_trans_pct, 3)}% RPE`));
-              target.appendChild(row);
-            });
-        });
-      }
-
-      function renderSmokeBaseline(target, baseline) {
-        clear(target);
-        if (!baseline || !Array.isArray(baseline.methods) || baseline.methods.length === 0) {
-          return;
-        }
-        const head = el("div", "smoke-head");
-        const title = el("div");
-        title.appendChild(el("p", "leaderboard-section-title", baseline.title || "Strict evaluator smoke baseline"));
-        title.appendChild(el("p", "smoke-note", baseline.note || ""));
-        head.appendChild(title);
-        const datasetBits = [
-          baseline.dataset,
-          baseline.frames ? `${baseline.frames} frames` : "",
-          baseline.trajectory_length_m ? `${fmt(baseline.trajectory_length_m, 1)} m` : ""
-        ].filter(Boolean);
-        head.appendChild(el("span", "smoke-meta", datasetBits.join(" / ")));
-        target.appendChild(head);
-
-        const rows = el("div", "smoke-grid");
-        baseline.methods
-          .slice()
-          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))
-          .forEach((method) => {
-            const row = el("div", "smoke-row");
-            row.appendChild(el("strong", "", method.name));
-            row.appendChild(el("span", "", `${fmt(method.ate_m, 3)} m ATE`));
-            if (method.rpe_trans_pct !== undefined) {
-              row.appendChild(el("span", "", `${fmt(method.rpe_trans_pct, 3)}% RPE`));
-            }
-            if (method.fps !== undefined) {
-              row.appendChild(el("span", "", `${fmt(method.fps, 1)} FPS`));
-            }
-            rows.appendChild(row);
-          });
-        target.appendChild(rows);
-      }
-
-      function renderBenchmark(data, paperBundle = null) {
-        document.getElementById("title").textContent = data.dataset.name;
-        document.getElementById("generated-at").textContent =
-          `Latest snapshot generated ${new Date(data.generated_at).toLocaleString()}`;
-        document.getElementById("hero-dataset").textContent = data.dataset.name;
-        const tableRows = publicBenchmarkRows(data, paperBundle);
-        const latestMethods = data.methods.filter(isPublicBenchmarkMethod);
-
-        const metrics = document.getElementById("dataset-metrics");
-        clear(metrics);
-        metrics.appendChild(addMetric("Frames", data.dataset.frames));
-        metrics.appendChild(addMetric("Trajectory", `${fmt(data.dataset.trajectory_length_m, 1)} m`));
-        metrics.appendChild(addMetric("Timestamp Source", data.dataset.timestamp_source || "-"));
-
-        const latestOk = latestMethods.filter((method) => method.status === "ok");
-        const latestOdometryOk = latestOk.filter((method) => policyOf(method) === "odometry_only");
-        const seededOk = latestOk.filter((method) => policyOf(method) === "gt_seeded_reference");
-        const bestOdometry = latestOdometryOk
-          .slice()
-          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
-        const bestSeeded = seededOk
-          .slice()
-          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
-        const fastest = latestOk
-          .filter((method) => method.fps)
-          .slice()
-          .sort((a, b) => Number(b.fps) - Number(a.fps))[0];
-
-        if (bestOdometry) {
-          metrics.appendChild(addMetric("Best Odometry ATE", `${bestOdometry.name} ${fmt(bestOdometry.ate_m, 3)} m`));
-          document.getElementById("hero-best").textContent =
-            `${bestOdometry.name} leads odometry at ${fmt(bestOdometry.ate_m, 3)} m ATE`;
-        } else if (bestSeeded) {
-          document.getElementById("hero-best").textContent =
-            `GT-seeded reference: ${bestSeeded.name} ${fmt(bestSeeded.ate_m, 3)} m ATE`;
-        }
-        if (bestSeeded) {
-          metrics.appendChild(addMetric("Best GT-Seeded Ref", `${bestSeeded.name} ${fmt(bestSeeded.ate_m, 3)} m`));
-        }
-        if (fastest) {
-          metrics.appendChild(addMetric("Fastest Snapshot Ref", `${fastest.name} ${fmt(fastest.fps, 1)} FPS`));
-        }
-        const measuredRuns = tableRows.filter((method) => method.status === "ok").length;
-        metrics.appendChild(addMetric("Measured Runs", String(measuredRuns)));
-        metrics.appendChild(addMetric("Benchmark Groups", String(benchmarkGroupIds(tableRows).length)));
-
-        document.getElementById("command").textContent = data.command || "";
-        const plot = document.getElementById("hero-trajectory");
-        if (data.artifacts && data.artifacts.trajectory_plot) {
-          plot.src = `./benchmarks/latest/${data.artifacts.trajectory_plot}`;
-        } else {
-          plot.removeAttribute("src");
-          plot.alt = "No repository-hosted trajectory plot published yet";
-        }
-
-        const leaderboard = document.getElementById("leaderboard");
-        renderOdometryRankings(leaderboard, tableRows);
-        renderRanking(
-          document.getElementById("reference-leaderboard"),
-          seededOk,
-          "No GT-seeded reference methods in this snapshot.",
-          true
-        );
-        renderSmokeBaseline(document.getElementById("smoke-baseline"), data.strict_smoke_baseline);
-
-        renderBenchmarkMapFilters(tableRows);
-        renderScatter(tableRows);
-
-        const body = document.getElementById("results-body");
-        clear(body);
-        if (tableRows.length === 0) {
-          const row = document.createElement("tr");
-          const cell = document.createElement("td");
-          cell.colSpan = 10;
-          cell.textContent = "No benchmark report is stored in this repository yet.";
-          row.appendChild(cell);
-          body.appendChild(row);
-        } else {
-          tableRows.forEach((method) => {
-            const row = document.createElement("tr");
-            row.classList.add(methodStatusClass(method));
-
-            const cells = [
-              { text: method.name },
-              { text: method.benchmark_label || "-" },
-              { text: statusLabel(method.status), className: `status-pill ${methodStatusClass(method)}` },
-              { text: policyLabel(policyOf(method)) },
-              { text: fmt(method.ate_m, 3) },
-              { text: fmt(method.rpe_trans_pct, 3) },
-              { text: coverageText(method) },
-              { text: fmt(method.time_ms, 1) },
-              { text: fmt(method.fps, 1) },
-              { text: method.note || "" }
-            ];
-            cells.forEach((value) => {
-              const cell = document.createElement("td");
-              if (value.className) {
-                const pill = el("span", value.className, value.text);
-                cell.appendChild(pill);
-              } else {
-                cell.textContent = value.text;
-              }
-              row.appendChild(cell);
-            });
-            body.appendChild(row);
-          });
-        }
       }
 
       fetch(catalogPath)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Missing ${catalogPath}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          catalog = data.methods || [];
-          tracks = data.starter_tracks || [];
-          renderCatalog();
-        })
-        .catch(renderCatalogError);
-
-      const benchmarkData = fetch(dataPath)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Missing ${dataPath}`);
-          }
-          return response.json();
+        .then((response) => response.json())
+        .then((catalog) => {
+          methods = catalog.methods;
+          const reimpl = methods.filter((m) => m.scope === "Paper reimplementation").length;
+          document.getElementById("stats").textContent =
+            `${methods.length} methods · ${reimpl} paper reimplementations`;
+          renderMethods("");
         });
-
-      const paperBundleData = fetch(paperBundlePath)
-        .then((response) => response.ok ? response.json() : null)
-        .catch(() => null);
-
-      Promise.all([benchmarkData, paperBundleData])
-        .then(([data, paperBundle]) => renderBenchmark(data, paperBundle))
-        .catch((error) => {
-          document.getElementById("title").textContent = "No benchmark report yet";
-          document.getElementById("hero-best").textContent = "Benchmark artifact not found";
-          document.getElementById("command").textContent = error.message;
-        });
+      document.getElementById("search").addEventListener("input", (event) => renderMethods(event.target.value));
     </script>
   </body>
 </html>

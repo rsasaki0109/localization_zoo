@@ -30,24 +30,15 @@ README_REQUIRED_SNIPPETS = [
 
 INDEX_REQUIRED_SNIPPETS = [
     'const catalogPath = "./methods.json"',
-    'const dataPath = "./benchmarks/latest/results.json"',
-    'const paperBundlePath = "./benchmarks/paper_ready_bundle.json"',
-    "Method Explorer",
-    "Odometry Results by Benchmark",
-    "rankableOdometryRows",
-    "renderOdometryRankings",
-    "Benchmark Groups",
-    "rank_metric",
-    "Coverage",
-    "Overview only. Points from different datasets",
+    "./assets/grid_seq07.png",
+    'docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest',
     "demo_localization_zoo.sh",
-    "Run the 3-minute demo",
-    "quickstart_command_copied",
-    "clear-local-metrics",
-    "No usage data is sent",
-    "PowerShell",
+    'id="leaderboard-body"',
+    'id="method-list"',
     "social_card.png",
 ]
+
+README_LEADERBOARD_HEADING = "## Leaderboard — odometry, RPE [drift %/100 m], lower is better"
 
 METHOD_REQUIRED_FIELDS = {
     "name",
@@ -315,6 +306,45 @@ def validate_pages_index(root: Path) -> None:
     parser.feed(text)
     if not any("github.com/rsasaki0109/localization_zoo" in href for href in parser.links):
         raise SystemExit("docs/index.html is missing the GitHub repository link")
+
+    readme_rows = readme_leaderboard_rows((root / "README.md").read_text())
+    page_rows = page_leaderboard_rows(text)
+    if page_rows != readme_rows:
+        raise SystemExit(
+            "docs/index.html leaderboard drifted from README: "
+            f"page={page_rows} readme={readme_rows}"
+        )
+
+
+def readme_leaderboard_rows(readme: str) -> list[tuple[str, list[str]]]:
+    """Return (method, [RPE cells]) for the README's main KITTI leaderboard."""
+    lines = readme.split("\n")
+    if README_LEADERBOARD_HEADING not in lines:
+        raise SystemExit("README is missing the KITTI leaderboard heading")
+    rows: list[tuple[str, list[str]]] = []
+    for line in lines[lines.index(README_LEADERBOARD_HEADING) + 1:]:
+        if not line.startswith("|"):
+            if rows:
+                break
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        values = [re.match(r"\**([\d.]+%)", cell) for cell in cells[1:]]
+        if cells[0] and all(values):
+            rows.append((cells[0], [match.group(1) for match in values]))
+    if not rows:
+        raise SystemExit("README KITTI leaderboard has no rows")
+    return rows
+
+
+def page_leaderboard_rows(html: str) -> list[tuple[str, list[str]]]:
+    body = re.search(r'<tbody id="leaderboard-body">(.*?)</tbody>', html, re.S)
+    if not body:
+        raise SystemExit("docs/index.html is missing the leaderboard table body")
+    rows = []
+    for row in re.findall(r"<tr>(.*?)</tr>", body.group(1), re.S):
+        name = re.search(r"<th[^>]*>(.*?)</th>", row).group(1).strip()
+        rows.append((name, re.findall(r"<td[^>]*>([\d.]+%)", row)))
+    return rows
 
 
 def validate_method_catalog(root: Path) -> None:

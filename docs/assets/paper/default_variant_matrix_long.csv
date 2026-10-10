@@ -280,6 +280,7 @@ suma,kitti_raw_0061_full,fast
 suma,kitti_seq_00_full,dense_profile
 suma,kitti_seq_02_full,dense_profile
 suma,kitti_seq_05_full,default
+suma,kitti_seq_07_full,dense_profile_elevation
 suma,kitti_seq_08_full,dense_profile
 suma,mcd_kth_day_06_108,fast
 suma,mcd_ntu_day_02_108,dense

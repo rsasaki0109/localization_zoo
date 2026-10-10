@@ -185,6 +185,9 @@ class PcdDogfoodingEvalGuardsTest(unittest.TestCase):
                 summary["gt_sha256"], hashlib.sha256(gt_text.encode()).hexdigest()
             )
             self.assertEqual(summary["total_pcd_frames"], 3)
+            # Input preprocessing defaults keep stored results unchanged.
+            self.assertEqual(summary["input_vertical_angle_correction_deg"], 0)
+            self.assertEqual(summary["input_max_range_m"], 80)
             self.assertEqual(summary["num_frames"], 3)
             self.assertEqual(summary["raw_gt_pose_count"], 3)
             self.assertEqual(summary["used_gt_pose_count"], 3)

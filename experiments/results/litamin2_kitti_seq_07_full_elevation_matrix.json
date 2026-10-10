@@ -1,0 +1,124 @@
+{
+  "generated_at": "2026-10-10T20:03:55+00:00",
+  "manifest_path": "experiments/litamin2_kitti_seq_07_full_elevation_matrix.json",
+  "problem": {
+    "id": "litamin2_kitti_seq_07_full_elevation",
+    "title": "LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation",
+    "question": "Ablation: does the KITTI +0.205 deg elevation correction (used by upstream KISS-ICP and CT-ICP) change LiTAMIN2? Whether the LiTAMIN2 paper used it has not been checked, so the corrected variant is kept out of Table 6.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "coarse_to_fine_3_2_1",
+      "label": "coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans)",
+      "design_style": "reference",
+      "intent": "Table 6 variant on this sequence.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "12",
+        "--litamin2-coarse-to-fine-voxels",
+        "3.0,2.0,1.0"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1/run.log",
+      "status": "ok",
+      "ate_m": 2.242392,
+      "rpe_trans_pct": 0.529735,
+      "rpe_rot_deg_per_m": 0.006386,
+      "fps": 46.337248,
+      "time_ms": 23760.582578,
+      "frames": 1101,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule. Local-map policy=refresh.",
+      "benchmark_score": 95.27,
+      "readability_score": 2.85,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.55,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 0.612746,
+      "kitti_rte_rot_deg_per_100m": 0.46439,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "coarse_to_fine_3_2_1_elevation",
+      "label": "coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction",
+      "design_style": "ablation",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "12",
+        "--litamin2-coarse-to-fine-voxels",
+        "3.0,2.0,1.0",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1_elevation/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0 --input-vertical-angle-correction-deg 0.205",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1_elevation/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1_elevation/run.log",
+      "status": "ok",
+      "ate_m": 2.086205,
+      "rpe_trans_pct": 0.47751,
+      "rpe_rot_deg_per_m": 0.006129,
+      "fps": 47.523689,
+      "time_ms": 23167.393385,
+      "frames": 1101,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule. Local-map policy=refresh.",
+      "benchmark_score": 100.0,
+      "readability_score": 2.25,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.15,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.433043,
+      "kitti_rte_rot_deg_per_100m": 0.495359,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

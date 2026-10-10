@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "kiss_icp_kitti_seq_00_full_elevation",
+    "title": "KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration",
+    "question": "Upstream KISS-ICP corrects the KITTI HDL-64E elevation angle by +0.205 deg in its KITTI loader and the paper reports KITTI-corrected results; the repository runs used raw scans. How much of the paper-number gap does the correction explain?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_reference",
+      "label": "balanced (default)",
+      "design_style": "reference",
+      "intent": "Repository default.",
+      "args": []
+    },
+    {
+      "id": "balanced_reference_elevation",
+      "label": "balanced (default) + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    },
+    {
+      "id": "dense_profile",
+      "label": "dense profile",
+      "design_style": "reference",
+      "intent": "Table 6 best variant on seq 00 (raw scans).",
+      "args": [
+        "--kiss-dense-profile"
+      ]
+    },
+    {
+      "id": "dense_profile_elevation",
+      "label": "dense profile + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--kiss-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    },
+    {
+      "id": "upstream_profile",
+      "label": "upstream KISS-ICP 1.3.0 configuration",
+      "design_style": "reference",
+      "intent": "Match the upstream defaults (voxel 1.0, 20 pts/voxel, threshold 2.0, 500 iterations at 1e-4, 27-voxel search, 1.5x registration subsample, no point cap).",
+      "args": [
+        "--kiss-upstream-profile"
+      ]
+    },
+    {
+      "id": "upstream_profile_elevation",
+      "label": "upstream KISS-ICP 1.3.0 configuration + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--kiss-upstream-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    },
+    {
+      "id": "upstream_profile_range100",
+      "label": "upstream configuration + 100 m loader range",
+      "design_style": "ablation",
+      "intent": "Upstream keeps returns up to 100 m; the shared loader drops them beyond 80 m. Does the cap explain the remaining gap to upstream on corrected scans?",
+      "args": [
+        "--kiss-upstream-profile",
+        "--input-max-range-m",
+        "100"
+      ]
+    },
+    {
+      "id": "upstream_profile_range100_elevation",
+      "label": "upstream configuration + 100 m loader range + KITTI 0.205 deg elevation correction",
+      "design_style": "ablation",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--kiss-upstream-profile",
+        "--input-max-range-m",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    }
+  ]
+}

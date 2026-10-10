@@ -143,6 +143,8 @@ ct\_icp & kitti\_seq\_00\_full & corr\_2 & 273.797 & 4.757 & 10.3 & reference \\
 ct\_icp & kitti\_seq\_00\_full & corr\_4 & 122.933 & 3.330 & 9.3 & reference \\
 ct\_icp & kitti\_seq\_00\_full & corr\_8 & 16.778 & 2.053 & 9.5 & default \\
 ct\_icp & kitti\_seq\_00\_full & corr\_default\_reference & 16.687 & 2.102 & 9.0 & challenger \\
+ct\_icp & kitti\_seq\_00\_full & arch\_tuned\_all\_combined & 93.156 & 2.565 & 16.6 & default \\
+ct\_icp & kitti\_seq\_00\_full & arch\_tuned\_all\_combined\_elevation & 170.163 & 2.739 & 16.3 & reference \\
 ct\_icp & kitti\_seq\_00\_full & fine\_sigma\_0\_25 & 12.351 & 2.040 & 8.4 & default \\
 ct\_icp & kitti\_seq\_00\_full & fine\_sigma\_0\_375 & 16.726 & 2.072 & 8.3 & reference \\
 ct\_icp & kitti\_seq\_00\_full & fine\_sigma\_0\_75 & 17.269 & 2.128 & 10.9 & challenger \\
@@ -235,6 +237,8 @@ ct\_icp & kitti\_seq\_07\_full & ms\_chol\_reference & 2.842 & 2.103 & 10.5 & re
 ct\_icp & kitti\_seq\_07\_full & corr\_4 & 3.967 & 2.067 & 14.3 & reference \\
 ct\_icp & kitti\_seq\_07\_full & corr\_8 & 2.049 & 2.147 & 14.1 & default \\
 ct\_icp & kitti\_seq\_07\_full & default\_reference & 2.842 & 2.103 & 11.1 & reference \\
+ct\_icp & kitti\_seq\_07\_full & velocity\_reg\_01 & 2.231 & 1.302 & 18.5 & default \\
+ct\_icp & kitti\_seq\_07\_full & velocity\_reg\_01\_elevation & 3.388 & 1.069 & 18.3 & reference \\
 ct\_icp & kitti\_seq\_07\_full & cluster\_a\_no\_seed & 2.010 & 1.772 & 8.8 & reference \\
 ct\_icp & kitti\_seq\_07\_full & cluster\_a\_seeded & 1.635 & 1.669 & 9.5 & challenger \\
 ct\_icp & kitti\_seq\_07\_full & cluster\_d\_full\_no\_seed\_reference & 2.842 & 2.103 & 12.5 & reference \\
@@ -640,6 +644,14 @@ kiss\_icp & kitti\_raw\_0061\_200 & fast\_recent\_map & 0.679 & -- & 28.3 & defa
 kiss\_icp & kitti\_raw\_0061\_full & balanced\_local\_map & 4.343 & -- & 9.7 & challenger \\
 kiss\_icp & kitti\_raw\_0061\_full & dense\_local\_map & 4.706 & -- & 3.0 & reference \\
 kiss\_icp & kitti\_raw\_0061\_full & fast\_recent\_map & 4.623 & -- & 11.2 & default \\
+kiss\_icp & kitti\_seq\_00\_full & balanced\_reference & 15.403 & 0.940 & 9.0 & reference \\
+kiss\_icp & kitti\_seq\_00\_full & balanced\_reference\_elevation & 12.099 & 0.884 & 7.2 & reference \\
+kiss\_icp & kitti\_seq\_00\_full & dense\_profile & 12.323 & 0.963 & 5.5 & reference \\
+kiss\_icp & kitti\_seq\_00\_full & dense\_profile\_elevation & 9.244 & 0.934 & 9.5 & reference \\
+kiss\_icp & kitti\_seq\_00\_full & upstream\_profile & 14.047 & 0.874 & 30.6 & reference \\
+kiss\_icp & kitti\_seq\_00\_full & upstream\_profile\_elevation & 9.037 & 0.816 & 32.5 & default \\
+kiss\_icp & kitti\_seq\_00\_full & upstream\_profile\_range100 & 13.568 & 0.876 & 31.0 & reference \\
+kiss\_icp & kitti\_seq\_00\_full & upstream\_profile\_range100\_elevation & 10.266 & 0.815 & 29.4 & reference \\
 kiss\_icp & kitti\_seq\_00\_full & balanced\_reference & 15.403 & 0.940 & 1.4 & challenger \\
 kiss\_icp & kitti\_seq\_00\_full & dense\_profile & 12.323 & 0.963 & 1.2 & default \\
 kiss\_icp & kitti\_seq\_00\_full & fast\_profile & 21.386 & 1.069 & 1.7 & reference \\
@@ -652,6 +664,14 @@ kiss\_icp & kitti\_seq\_05\_full & balanced\_reference & 6.511 & 0.706 & 1.5 & r
 kiss\_icp & kitti\_seq\_05\_full & dense\_profile & 4.556 & 0.715 & 1.6 & default \\
 kiss\_icp & kitti\_seq\_05\_full & fast\_profile & 8.407 & 0.853 & 2.1 & reference \\
 kiss\_icp & kitti\_seq\_05\_full & t1\_transfer\_v05\_i12 & 8.309 & 1.061 & 1.0 & reference \\
+kiss\_icp & kitti\_seq\_07\_full & balanced\_reference & 2.238 & 0.664 & 28.3 & default \\
+kiss\_icp & kitti\_seq\_07\_full & balanced\_reference\_elevation & 2.707 & 0.639 & 24.9 & reference \\
+kiss\_icp & kitti\_seq\_07\_full & dense\_profile & 2.641 & 0.695 & 13.8 & reference \\
+kiss\_icp & kitti\_seq\_07\_full & dense\_profile\_elevation & 1.495 & 0.648 & 12.9 & reference \\
+kiss\_icp & kitti\_seq\_07\_full & upstream\_profile & 1.605 & 0.625 & 5.8 & reference \\
+kiss\_icp & kitti\_seq\_07\_full & upstream\_profile\_elevation & 1.614 & 0.610 & 6.4 & reference \\
+kiss\_icp & kitti\_seq\_07\_full & upstream\_profile\_range100 & 1.390 & 0.620 & 6.5 & reference \\
+kiss\_icp & kitti\_seq\_07\_full & upstream\_profile\_range100\_elevation & 1.576 & 0.609 & 9.0 & reference \\
 kiss\_icp & kitti\_seq\_07\_full & balanced\_reference & 2.238 & 0.664 & 3.4 & default \\
 kiss\_icp & kitti\_seq\_07\_full & dense\_profile & 2.641 & 0.695 & 2.6 & reference \\
 kiss\_icp & kitti\_seq\_07\_full & fast\_profile & 2.613 & 0.795 & 3.4 & challenger \\
@@ -758,6 +778,8 @@ lf\_gicp & kitti\_seq\_05\_full & no\_mitigation & 5.556 & 0.512 & 5.4 & default
 lf\_gicp & kitti\_seq\_05\_full & paper\_default & 5.556 & 0.512 & 3.5 & reference \\
 lf\_gicp & kitti\_seq\_07\_full & no\_mitigation & 0.968 & 0.523 & 4.3 & reference \\
 lf\_gicp & kitti\_seq\_07\_full & paper\_default & 0.646 & 0.540 & 4.1 & default \\
+lf\_gicp & kitti\_seq\_07\_full & paper\_default & 0.646 & 0.540 & 8.8 & default \\
+lf\_gicp & kitti\_seq\_07\_full & paper\_default\_elevation & 1.859 & 0.659 & 8.3 & reference \\
 lf\_gicp & kitti\_seq\_08\_full & no\_mitigation & 16.280 & 1.309 & 2.9 & default \\
 lf\_gicp & kitti\_seq\_08\_full & paper\_default & 16.414 & 1.347 & 2.6 & challenger \\
 lins & hdl\_400\_open\_ct\_lio\_120 & default & 270.992 & -- & 39.3 & reference \\
@@ -897,6 +919,8 @@ litamin2 & kitti\_seq\_07\_full & covariance\_gradient\_w0\_1\_linesearch & 2.18
 litamin2 & kitti\_seq\_07\_full & radius1\_distance\_gate\_1\_5m & 2.315 & 0.575 & 45.7 & reference \\
 litamin2 & kitti\_seq\_07\_full & radius1\_no\_distance\_gate & 2.524 & 0.578 & 48.2 & reference \\
 litamin2 & kitti\_seq\_07\_full & tuned\_voxel1\_iter12 & 1.964 & 0.535 & 75.5 & challenger \\
+litamin2 & kitti\_seq\_07\_full & coarse\_to\_fine\_3\_2\_1 & 2.242 & 0.530 & 46.3 & challenger \\
+litamin2 & kitti\_seq\_07\_full & coarse\_to\_fine\_3\_2\_1\_elevation & 2.086 & 0.478 & 47.5 & default \\
 litamin2 & kitti\_seq\_07\_full & cluster\_t1\_seeded & 0.647 & 0.591 & 58.3 & challenger \\
 litamin2 & kitti\_seq\_07\_full & fast\_seeded\_reference & 0.836 & 1.039 & 94.7 & default \\
 litamin2 & kitti\_seq\_08\_full & coarse\_to\_fine\_3\_2\_1 & 39.472 & 2.582 & 59.4 & reference \\
@@ -1220,6 +1244,8 @@ suma & kitti\_seq\_02\_full & default & 150.183 & 2.354 & 38.0 & reference \\
 suma & kitti\_seq\_02\_full & dense\_profile & 51.911 & 1.276 & 24.2 & default \\
 suma & kitti\_seq\_05\_full & default & 10.983 & 2.013 & 40.3 & default \\
 suma & kitti\_seq\_05\_full & dense\_profile & 9.511 & 0.987 & 27.8 & challenger \\
+suma & kitti\_seq\_07\_full & dense\_profile & 3.971 & 0.944 & 35.6 & challenger \\
+suma & kitti\_seq\_07\_full & dense\_profile\_elevation & 3.694 & 1.533 & 34.5 & default \\
 suma & kitti\_seq\_08\_full & default & 64.033 & 3.555 & 39.6 & reference \\
 suma & kitti\_seq\_08\_full & dense\_profile & 19.290 & 1.909 & 26.6 & default \\
 suma & mcd\_kth\_day\_06\_108 & default & 6.064 & -- & 22.7 & reference \\

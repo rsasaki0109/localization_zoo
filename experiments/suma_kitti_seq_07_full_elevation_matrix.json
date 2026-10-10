@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "suma_kitti_seq_07_full_elevation",
+    "title": "SuMa KITTI Odom seq 07 full: elevation correction ablation",
+    "question": "Ablation: does the KITTI +0.205 deg elevation correction (used by upstream KISS-ICP and CT-ICP) change SuMa? Whether the SuMa paper used it has not been checked, so the corrected variant is kept out of Table 6.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "variants": [
+    {
+      "id": "dense_profile",
+      "label": "dense_profile (Table 6 variant on seq 07, raw scans)",
+      "design_style": "reference",
+      "intent": "Table 6 variant on this sequence.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-dense-profile"
+      ]
+    },
+    {
+      "id": "dense_profile_elevation",
+      "label": "dense_profile (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction",
+      "design_style": "ablation",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    }
+  ]
+}

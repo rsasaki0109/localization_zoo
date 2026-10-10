@@ -637,6 +637,33 @@ bool loadKittiBin(const fs::path& path,
   return true;
 }
 
+// Sensor-level elevation correction applied to every loaded scan before
+// downsampling (--input-vertical-angle-correction-deg). KITTI's HDL-64E needs
+// +0.205 deg; upstream KISS-ICP and CT-ICP apply it in their KITTI loaders.
+// Default 0 keeps every stored result unchanged.
+double g_input_vertical_angle_correction_rad = 0.0;
+// Shared loader range cap (--input-max-range-m). Upstream KISS-ICP keeps
+// returns up to 100 m; the historical default here is 80 m.
+double g_input_max_range_m = 80.0;
+
+template <typename PointT>
+void applyInputVerticalAngleCorrection(pcl::PointCloud<PointT>* cloud) {
+  const double angle = g_input_vertical_angle_correction_rad;
+  if (angle == 0.0) return;
+  const double sin_angle = std::sin(angle);
+  const double cos_angle = std::cos(angle);
+  for (auto& point : cloud->points) {
+    const double horizontal = std::hypot(point.x, point.y);
+    if (!(horizontal > 1e-12)) continue;
+    const double corrected_horizontal =
+        horizontal * cos_angle - point.z * sin_angle;
+    const double scale = corrected_horizontal / horizontal;
+    point.z = static_cast<float>(point.z * cos_angle + horizontal * sin_angle);
+    point.x = static_cast<float>(point.x * scale);
+    point.y = static_cast<float>(point.y * scale);
+  }
+}
+
 std::vector<Eigen::Vector3d> loadPCD(const std::string& path, double leaf = 0.5) {
   const fs::path resolved_path = resolvePointCloudPath(path);
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
@@ -651,13 +678,14 @@ std::vector<Eigen::Vector3d> loadPCD(const std::string& path, double leaf = 0.5)
                  resolved_path.string(), *cloud) == -1) {
     return {};
   }
+  applyInputVerticalAngleCorrection(cloud.get());
 
   if (!(leaf > 1e-9)) {
     std::vector<Eigen::Vector3d> points;
     points.reserve(cloud->size());
     for (auto& p : cloud->points) {
       double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-      if (r > 1.0 && r < 80.0) points.emplace_back(p.x, p.y, p.z);
+      if (r > 1.0 && r < g_input_max_range_m) points.emplace_back(p.x, p.y, p.z);
     }
     return points;
   }
@@ -672,7 +700,7 @@ std::vector<Eigen::Vector3d> loadPCD(const std::string& path, double leaf = 0.5)
   std::vector<Eigen::Vector3d> points;
   for (auto& p : filtered) {
     double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-    if (r > 1.0 && r < 80.0)
+    if (r > 1.0 && r < g_input_max_range_m)
       points.emplace_back(p.x, p.y, p.z);
   }
   return points;
@@ -765,6 +793,7 @@ std::vector<LoadedXYZI> loadPCDXYZI(const std::string& path, double leaf = 0.5) 
                  resolved_path.string(), *cloud) == -1) {
     return {};
   }
+  applyInputVerticalAngleCorrection(cloud.get());
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr selected = cloud;
   pcl::PointCloud<pcl::PointXYZI> filtered;
@@ -785,7 +814,7 @@ std::vector<LoadedXYZI> loadPCDXYZI(const std::string& path, double leaf = 0.5) 
       continue;
     }
     const double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-    if (r <= 1.0 || r >= 80.0) continue;
+    if (r <= 1.0 || r >= g_input_max_range_m) continue;
     points.push_back({Eigen::Vector3d(p.x, p.y, p.z), p.intensity});
   }
   return points;
@@ -869,6 +898,7 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5,
 
   pcl::PointCloud<PointXYZITime>::Ptr cloud(new pcl::PointCloud<PointXYZITime>);
   pcl::fromPCLPointCloud2(raw_cloud, *cloud);
+  applyInputVerticalAngleCorrection(cloud.get());
 
   pcl::PointCloud<PointXYZITime>::Ptr filtered = cloud;
   if (leaf > 1e-9) {
@@ -888,7 +918,7 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5,
       continue;
     }
     double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-    if (filter_range && (r <= 1.0 || r >= 80.0)) continue;
+    if (filter_range && (r <= 1.0 || r >= g_input_max_range_m)) continue;
 
     scan.points.emplace_back(p.x, p.y, p.z);
     scan.relative_times.push_back(p.time);
@@ -2045,6 +2075,10 @@ struct KISSICPDogfoodingOptions {
   // -1 = search all voxels within the correspondence distance (default);
   // 1 = upstream KISS-ICP 27-voxel neighborhood.
   int neighbor_voxel_radius = -1;
+  double min_range = 3.0;
+  double convergence_criterion = 0.001;
+  // Upstream registers a 1.5 * voxel_size subsample; this port used 1.0.
+  double registration_voxel_multiplier = 1.0;
 };
 
 struct KISSMultiHorizonDogfoodingOptions {
@@ -5972,6 +6006,10 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   params.map_cleanup_interval = options.map_cleanup_interval;
   params.update_full_voxels = options.update_full_voxels;
   params.neighbor_voxel_radius = options.neighbor_voxel_radius;
+  params.min_range = options.min_range;
+  params.convergence_criterion = options.convergence_criterion;
+  params.registration_voxel_multiplier =
+      options.registration_voxel_multiplier;
   params.use_model_deviation_threshold =
       options.use_model_deviation_threshold;
   params.model_deviation_correspondence_multiplier =
@@ -10974,6 +11012,10 @@ void writeSummaryJson(const std::string& path,
   out << "  \"pcd_dir\": \"" << jsonEscape(pcd_dir) << "\",\n";
   out << "  \"gt_csv\": \"" << jsonEscape(gt_csv) << "\",\n";
   out << "  \"gt_sha256\": \"" << jsonEscape(gt_sha256) << "\",\n";
+  out << "  \"input_max_range_m\": " << g_input_max_range_m << ",\n";
+  out << "  \"input_vertical_angle_correction_deg\": "
+      << g_input_vertical_angle_correction_rad * (180.0 / std::acos(-1.0))
+      << ",\n";
   out << "  \"total_pcd_frames\": " << total_pcd_frames << ",\n";
   out << "  \"num_frames\": " << num_frames << ",\n";
   out << "  \"raw_gt_pose_count\": " << raw_gt_pose_count << ",\n";
@@ -11234,7 +11276,7 @@ int main(int argc, char** argv) {
               << " [--fixed-map-ndt-scan-context-relock-max-distance X]"
               << " [--fixed-map-ndt-scan-context-relock-max-ndt-score X]"
               << " [--fixed-map-ndt-scan-context-relock-max-score-delta X]"
-              << " [--kiss-fast-profile]"
+              << " [--kiss-fast-profile] [--kiss-upstream-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-legacy-27-neighborhood]"
               << " [--lf-gicp-no-mitigation] [--lf-gicp-beta X] [--lf-gicp-field-beta X] [--l-lo-set key=value]..."
@@ -11246,6 +11288,8 @@ int main(int argc, char** argv) {
               << " [--kiss-model-deviation-threshold]"
               << " [--kiss-model-deviation-correspondence-multiplier X]"
               << " [--kiss-vertical-angle-correction-deg X]"
+              << " [--input-vertical-angle-correction-deg X]"
+              << " [--input-max-range-m X]"
               << " [--kiss-deskew-mulran]"
               << " [--kiss-motion-guard]"
               << " [--kiss-diverse-voxel-points]"
@@ -11435,6 +11479,24 @@ int main(int argc, char** argv) {
     }
     if (arg == "--no-gt-seed") {
       no_gt_seed = true;
+      continue;
+    }
+    if (arg == "--input-max-range-m") {
+      if (i + 1 >= argc) {
+        std::cerr << "--input-max-range-m requires a value" << std::endl;
+        return 1;
+      }
+      g_input_max_range_m = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--input-vertical-angle-correction-deg") {
+      if (i + 1 >= argc) {
+        std::cerr << "--input-vertical-angle-correction-deg requires a value"
+                  << std::endl;
+        return 1;
+      }
+      g_input_vertical_angle_correction_rad =
+          std::stod(argv[++i]) * (std::acos(-1.0) / 180.0);
       continue;
     }
     if (arg == "--ct-icp-gt-seed") {
@@ -13384,6 +13446,28 @@ int main(int argc, char** argv) {
       kiss_icp_options.local_map_radius = 45.0;
       kiss_icp_options.map_cleanup_interval = 2;
       kiss_multi_horizon_options.frontend = kiss_icp_options;
+      continue;
+    }
+    if (arg == "--kiss-upstream-profile") {
+      // Upstream KISS-ICP 1.3.0 defaults (max_range 100 -> voxel 1.0 m,
+      // 20 points/voxel, initial threshold 2.0, 500 iterations at 1e-4,
+      // 27-voxel search, 1.5 * voxel registration subsample, map cropped at
+      // max_range every frame). The scan is no longer pre-voxelized or capped;
+      // the shared loader still drops returns beyond 80 m unless
+      // --input-max-range-m raises it.
+      kiss_icp_options.source_voxel_size = 0.0;
+      kiss_icp_options.max_source_points =
+          std::numeric_limits<std::size_t>::max();
+      kiss_icp_options.voxel_size = 1.0;
+      kiss_icp_options.initial_threshold = 2.0;
+      kiss_icp_options.max_points_per_voxel = 20;
+      kiss_icp_options.max_icp_iterations = 500;
+      kiss_icp_options.local_map_radius = 100.0;
+      kiss_icp_options.map_cleanup_interval = 1;
+      kiss_icp_options.neighbor_voxel_radius = 1;
+      kiss_icp_options.min_range = 0.0;
+      kiss_icp_options.convergence_criterion = 1e-4;
+      kiss_icp_options.registration_voxel_multiplier = 1.5;
       continue;
     }
     if (arg == "--kiss-dense-profile") {

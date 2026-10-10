@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-10-10T20:03:55+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_seq_07_full_elevation_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_07_full_elevation",
+    "title": "CT-ICP KITTI Odom seq 07 full: elevation correction",
+    "question": "Upstream CT-ICP corrects the KITTI HDL-64E elevation angle by +0.205 deg in its KITTI loader and the paper reports KITTI-corrected results; the repository runs used raw scans. How much of the paper-number gap does the correction explain?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "velocity_reg_01",
+      "label": "velocity_reg_01 (Table 6 best on seq 07, raw scans)",
+      "design_style": "reference",
+      "intent": "Table 6 best variant on this sequence.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-flat-regularizer",
+        "--ct-icp-constant-velocity-weight",
+        "0.1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.1",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01/run.log",
+      "status": "ok",
+      "ate_m": 2.23123,
+      "rpe_trans_pct": 1.301973,
+      "rpe_rot_deg_per_m": 0.018304,
+      "fps": 18.509391,
+      "time_ms": 59483.318497,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 1.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.8,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.060136,
+      "kitti_rte_rot_deg_per_100m": 1.234221,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "velocity_reg_01_elevation",
+      "label": "velocity_reg_01 (Table 6 best on seq 07, raw scans) + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-flat-regularizer",
+        "--ct-icp-constant-velocity-weight",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01_elevation/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.1 --input-vertical-angle-correction-deg 0.205",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01_elevation/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01_elevation/run.log",
+      "status": "ok",
+      "ate_m": 3.387857,
+      "rpe_trans_pct": 1.069296,
+      "rpe_rot_deg_per_m": 0.019417,
+      "fps": 18.349001,
+      "time_ms": 60003.267066,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 82.5,
+      "readability_score": 1.2,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.4,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 1.237315,
+      "kitti_rte_rot_deg_per_100m": 1.279107,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

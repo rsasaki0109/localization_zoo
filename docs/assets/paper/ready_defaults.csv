@@ -39,6 +39,7 @@ ct_icp,kitti_raw_0061_200,gt-backed,fast_window,Fast window,1.474966,56.877472,e
 ct_icp,kitti_raw_0061_full,gt-backed,fast_window_reference,fast_window (current best 6.97 m),6.972412,57.762810,experiments/results/ct_icp_kitti_raw_0061_full_recipes_matrix.json
 ct_icp,kitti_raw_0061_full,gt-backed,fast_window,Fast window,6.972412,37.596966,experiments/results/ct_icp_kitti_raw_0061_full_matrix.json
 ct_icp,kitti_seq_00_108,gt-backed,fast_window,Fast window,2.823569,74.875346,experiments/results/ct_icp_kitti_seq_00_matrix.json
+ct_icp,kitti_seq_00_full,gt-backed,arch_tuned_all_combined,"arch_tuned_all_combined (Table 6 best on seq 00, raw scans)",93.156469,16.636028,experiments/results/ct_icp_kitti_seq_00_full_elevation_matrix.json
 ct_icp,kitti_seq_00_full,gt-backed,cauchy_4_0,cauchy=4.0,18.894531,10.579054,experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json
 ct_icp,kitti_seq_00_full,gt-backed,cluster_a_seeded,cluster A + GT seed,5.855169,6.869647,experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json
 ct_icp,kitti_seq_00_full,gt-backed,radius_1,"coarse search radius=1 (3x3x3, same as fine)",14.816728,10.239470,experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json
@@ -69,6 +70,7 @@ ct_icp,kitti_seq_05_full,gt-backed,arch_tuned_map_50,arch_tuned map=50,8.844180,
 ct_icp,kitti_seq_05_full,gt-backed,bare_map_30,bare map=30,11.706514,7.018806,experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json
 ct_icp,kitti_seq_05_full,gt-backed,arch_tuned_map_50,arch_tuned + map=50 (full + bigger),8.844180,10.161478,experiments/results/ct_icp_kitti_seq_05_combo_matrix.json
 ct_icp,kitti_seq_07_108,gt-backed,fast_window,Fast window,0.978124,77.324543,experiments/results/ct_icp_kitti_seq_07_matrix.json
+ct_icp,kitti_seq_07_full,gt-backed,velocity_reg_01,"velocity_reg_01 (Table 6 best on seq 07, raw scans)",2.231230,18.509391,experiments/results/ct_icp_kitti_seq_07_full_elevation_matrix.json
 ct_icp,kitti_seq_07_full,gt-backed,cluster_d_full_seeded,cluster D full + GT seed,1.603308,11.199228,experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json
 ct_icp,kitti_seq_07_full,gt-backed,velocity_reg_01,+ constant-velocity-weight 0.1,2.490372,5.972363,experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json
 ct_icp,kitti_seq_07_full,gt-backed,corr_8,ms_chol + corr_dist=8 m²,2.048823,14.056411,experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json
@@ -197,9 +199,11 @@ kiss_icp,kitti_raw_0009_200,gt-backed,fast_recent_map,Fast recent map,2.577746,1
 kiss_icp,kitti_raw_0009_full,gt-backed,fast_recent_map,Fast recent map,4.207068,10.839305,experiments/results/kiss_icp_kitti_raw_0009_full_matrix.json
 kiss_icp,kitti_raw_0061_200,gt-backed,fast_recent_map,Fast recent map,0.678894,28.258976,experiments/results/kiss_icp_kitti_raw_0061_matrix.json
 kiss_icp,kitti_raw_0061_full,gt-backed,fast_recent_map,Fast recent map,4.622772,11.229322,experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json
+kiss_icp,kitti_seq_00_full,gt-backed,upstream_profile_elevation,upstream KISS-ICP 1.3.0 configuration + KITTI 0.205 deg elevation correction,9.037360,32.509211,experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json
 kiss_icp,kitti_seq_00_full,gt-backed,dense_profile,dense profile,12.323400,1.248601,experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json
 kiss_icp,kitti_seq_02_full,gt-backed,balanced_reference,balanced,71.182842,3.056777,experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json
 kiss_icp,kitti_seq_05_full,gt-backed,dense_profile,dense,4.555696,1.643608,experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json
+kiss_icp,kitti_seq_07_full,gt-backed,balanced_reference,balanced (default),2.238005,28.312191,experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json
 kiss_icp,kitti_seq_07_full,gt-backed,balanced_reference,balanced (default),2.238005,3.379602,experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json
 kiss_icp,kitti_seq_08_full,gt-backed,fast_profile,fast,18.084742,2.230160,experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json
 kiss_icp,mcd_kth_day_06_108,gt-backed,fast_recent_map,Fast recent map,5.567867,11.289632,experiments/results/kiss_icp_mcd_kth_day_06_matrix.json
@@ -235,6 +239,7 @@ lego_loam,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.401108,10.053788,experimen
 lf_gicp,kitti_seq_00_full,gt-backed,no_mitigation,Vanilla VGICP backend,7.848136,3.754108,experiments/results/lf_gicp_kitti_seq_00_full_matrix.json
 lf_gicp,kitti_seq_02_full,gt-backed,no_mitigation,Vanilla VGICP backend,27.185742,3.580422,experiments/results/lf_gicp_kitti_seq_02_full_matrix.json
 lf_gicp,kitti_seq_05_full,gt-backed,no_mitigation,Vanilla VGICP backend,5.555945,5.392308,experiments/results/lf_gicp_kitti_seq_05_full_matrix.json
+lf_gicp,kitti_seq_07_full,gt-backed,paper_default,"paper_default (Table 6 variant on seq 07, raw scans)",0.646241,8.765675,experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json
 lf_gicp,kitti_seq_07_full,gt-backed,paper_default,Paper default,0.646241,4.124560,experiments/results/lf_gicp_kitti_seq_07_full_matrix.json
 lf_gicp,kitti_seq_08_full,gt-backed,no_mitigation,Vanilla VGICP backend,16.280087,2.931235,experiments/results/lf_gicp_kitti_seq_08_full_matrix.json
 lins,hdl_400_open_ct_lio_120,reference-based,fast,Fast,29.745231,71.863775,experiments/results/lins_hdl_400_reference_matrix.json
@@ -277,6 +282,7 @@ litamin2,kitti_seq_02_full,gt-backed,cluster_t1_seeded,cluster T1: voxel=0.5 + i
 litamin2,kitti_seq_02_full,gt-backed,cov_floor_1e_4,Covariance floor: 1e-4,51.894945,91.828586,experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json
 litamin2,kitti_seq_05_full,gt-backed,fast_seeded_reference,fast + seed (baseline),0.957385,17.170825,experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json
 litamin2,kitti_seq_05_full,gt-backed,cov_floor_1e_4,Covariance floor: 1e-4,6.565388,93.444935,experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json
+litamin2,kitti_seq_07_full,gt-backed,coarse_to_fine_3_2_1_elevation,"coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction",2.086205,47.523689,experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json
 litamin2,kitti_seq_07_full,gt-backed,fast_seeded_reference,fast + seed (baseline),0.835570,94.731232,experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json
 litamin2,kitti_seq_07_full,gt-backed,cov_floor_1e_4,Covariance floor: 1e-4,2.201678,106.884652,experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json
 litamin2,kitti_seq_08_full,gt-backed,fast_seeded_reference,fast + seed (baseline),1.130466,104.915246,experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json
@@ -372,6 +378,7 @@ suma,kitti_raw_0061_full,gt-backed,fast,Fast,32.428710,110.931140,experiments/re
 suma,kitti_seq_00_full,gt-backed,dense_profile,dense profile,18.961260,24.174002,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
 suma,kitti_seq_02_full,gt-backed,dense_profile,dense profile,51.910872,24.216214,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
 suma,kitti_seq_05_full,gt-backed,default,default,10.983178,40.331556,experiments/results/suma_kitti_seq_05_full_transfer_matrix.json
+suma,kitti_seq_07_full,gt-backed,dense_profile_elevation,"dense_profile (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction",3.693557,34.501961,experiments/results/suma_kitti_seq_07_full_elevation_matrix.json
 suma,kitti_seq_08_full,gt-backed,dense_profile,dense profile,19.290022,26.626118,experiments/results/suma_kitti_seq_08_full_transfer_matrix.json
 suma,mcd_kth_day_06_108,gt-backed,fast,Fast,7.418622,150.195655,experiments/results/suma_mcd_kth_day_06_matrix.json
 suma,mcd_ntu_day_02_108,gt-backed,dense,Dense,0.035750,33.946904,experiments/results/suma_mcd_ntu_day_02_matrix.json

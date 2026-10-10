@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-05T02:20:33+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-10T21:33:33+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `418` ready, `1` blocked, `14` skipped problems.
+Current coverage: `425` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -51,6 +51,8 @@ Current coverage: `418` ready, `1` blocked, `14` skipped problems.
 | CT-ICP cluster A/D transfer to MulRan parkinglot 120-frame short window | `ready` | `cluster_a_with_seed` | 2.547 | 27.0 | `dogfooding_results/mulran_parkinglot_120` |
 | CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A) | `ready` | `radius_1` | 14.817 | 10.2 | `dogfooding_results/kitti_seq_00_full` |
 | CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified) | `ready` | `fine_sigma_0_25` | 12.351 | 11.4 | `dogfooding_results/kitti_seq_00_full` |
+| CT-ICP KITTI Odom seq 00 full: elevation correction | `ready` | `arch_tuned_all_combined` | 93.156 | 16.6 | `dogfooding_results/kitti_seq_00_full` |
+| CT-ICP KITTI Odom seq 07 full: elevation correction | `ready` | `velocity_reg_01` | 2.231 | 18.5 | `dogfooding_results/kitti_seq_07_full` |
 | CT-ICP map_size sweep on KITTI seq 00 full (4542 frames) | `ready` | `map_20_reference` | 18.370 | 10.4 | `dogfooding_results/kitti_seq_00_full` |
 | CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 65.9 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
 | CT-ICP recipe sensitivity test on MCD NTU day_02 (108 frames) | `ready` | `dense_reference` | 0.325 | 23.9 | `dogfooding_results/mcd_ntu_day_02_108` |
@@ -210,6 +212,8 @@ Current coverage: `418` ready, `1` blocked, `14` skipped problems.
 | KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `dense_profile` | 4.556 | 2.1 | `dogfooding_results/kitti_seq_05_full` |
 | KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `balanced_reference` | 2.238 | 3.4 | `dogfooding_results/kitti_seq_07_full` |
 | KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 17.322 | 2.5 | `dogfooding_results/kitti_seq_08_full` |
+| KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration | `ready` | `upstream_profile_elevation` | 9.037 | 32.5 | `dogfooding_results/kitti_seq_00_full` |
+| KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration | `ready` | `balanced_reference` | 1.390 | 28.3 | `dogfooding_results/kitti_seq_07_full` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 2.360 | 18.7 | `dogfooding_results/kitti_raw_0009_200` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `dogfooding_results/kitti_raw_0061_200` |
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `dogfooding_results/mulran_parkinglot_120` |
@@ -250,6 +254,7 @@ Current coverage: `418` ready, `1` blocked, `14` skipped problems.
 | LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 41.756 | 1.0 | `dogfooding_results/kitti_seq_02_full` |
 | LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 6.449 | 0.8 | `dogfooding_results/kitti_seq_05_full` |
 | LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 17.896 | 0.9 | `dogfooding_results/kitti_seq_08_full` |
+| LF-GICP KITTI Odom seq 07 full: elevation correction ablation | `ready` | `paper_default` | 0.646 | 8.8 | `dogfooding_results/kitti_seq_07_full` |
 | LF-GICP on KITTI Odom seq 00 full (4541 frames) | `ready` | `no_mitigation` | 7.848 | 3.8 | `dogfooding_results/kitti_seq_00_full` |
 | LF-GICP on KITTI Odom seq 02 full (4661 frames) | `ready` | `no_mitigation` | 27.186 | 3.6 | `dogfooding_results/kitti_seq_02_full` |
 | LF-GICP on KITTI Odom seq 05 full (2761 frames) | `ready` | `no_mitigation` | 5.556 | 5.4 | `dogfooding_results/kitti_seq_05_full` |
@@ -290,6 +295,7 @@ Current coverage: `418` ready, `1` blocked, `14` skipped problems.
 | LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full) | `ready` | `cov_floor_1e_4` | 6.069 | 93.4 | `dogfooding_results/kitti_seq_05_full` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full) | `ready` | `cov_floor_1e_4` | 1.964 | 106.9 | `dogfooding_results/kitti_seq_07_full` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 08 (full) | `ready` | `cov_floor_1e_4` | 18.327 | 94.2 | `dogfooding_results/kitti_seq_08_full` |
+| LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation | `ready` | `coarse_to_fine_3_2_1_elevation` | 2.086 | 47.5 | `dogfooding_results/kitti_seq_07_full` |
 | LiTAMIN2 paper-comparable on KITTI Odometry 00 (full) | `ready` | `fast_cov_no_gt_seed` | 110.484 | 98.9 | `dogfooding_results/kitti_seq_00_full` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_icp_only_half_threads` | 1.067 | 31.7 | `dogfooding_results/kitti_raw_0009_200` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_cov_half_threads` | 0.511 | 68.6 | `dogfooding_results/kitti_raw_0061_200` |
@@ -394,6 +400,7 @@ Current coverage: `418` ready, `1` blocked, `14` skipped problems.
 | Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.109 | 110.3 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.462 | 17.3 | `dogfooding_results/kitti_raw_0009_full` |
 | small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory | `ready` | `gate_0_5` | 0.348 | 11.8 | `dogfooding_results/nclt_2013_01_10_full` |
+| SuMa KITTI Odom seq 07 full: elevation correction ablation | `ready` | `dense_profile_elevation` | 3.694 | 35.6 | `dogfooding_results/kitti_seq_07_full` |
 | SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense` | 2.245 | 21.0 | `dogfooding_results/kitti_raw_0009_200` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.245 | 19.6 | `dogfooding_results/kitti_raw_0009_200` |
 | SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 4.073 | 15.9 | `dogfooding_results/kitti_raw_0009_full` |
@@ -459,7 +466,7 @@ Current coverage: `418` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 418 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 425 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

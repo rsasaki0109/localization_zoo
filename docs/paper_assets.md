@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-05T02:20:33+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-10T21:33:33+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -68,6 +68,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | ct_icp | `kitti_seq_00_full` | gt-backed | `cauchy_4_0` | 18.895 | 10.6 | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
 | ct_icp | `kitti_seq_00_full` | gt-backed | `iter_1` | 14.099 | 9.8 | `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` |
 | ct_icp | `kitti_seq_00_full` | gt-backed | `corr_8` | 16.778 | 9.5 | `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | gt-backed | `arch_tuned_all_combined` | 93.156 | 16.6 | `experiments/results/ct_icp_kitti_seq_00_full_elevation_matrix.json` |
 | ct_icp | `kitti_seq_00_full` | gt-backed | `fine_sigma_0_25` | 12.351 | 8.4 | `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` |
 | ct_icp | `kitti_seq_00_full` | gt-backed | `map_20_reference` | 18.370 | 10.4 | `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` |
 | ct_icp | `kitti_seq_00_full` | gt-backed | `balanced_window` | 19.413 | 13.0 | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
@@ -95,6 +96,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | ct_icp | `kitti_seq_07_108` | gt-backed | `fast_window` | 0.978 | 77.3 | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
 | ct_icp | `kitti_seq_07_full` | gt-backed | `ms_chol_plus_simplified_a` | 2.010 | 9.9 | `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json` |
 | ct_icp | `kitti_seq_07_full` | gt-backed | `corr_8` | 2.049 | 14.1 | `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json` |
+| ct_icp | `kitti_seq_07_full` | gt-backed | `velocity_reg_01` | 2.231 | 18.5 | `experiments/results/ct_icp_kitti_seq_07_full_elevation_matrix.json` |
 | ct_icp | `kitti_seq_07_full` | gt-backed | `dense_window` | 2.842 | 17.5 | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
 | ct_icp | `kitti_seq_07_full` | gt-backed | `cluster_d_full_seeded` | 1.603 | 11.2 | `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json` |
 | ct_icp | `kitti_seq_07_full` | gt-backed | `ms_chol_map_50` | 1.472 | 12.7 | `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` |
@@ -221,9 +223,11 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | kiss_icp | `kitti_raw_0009_full` | gt-backed | `fast_recent_map` | 4.207 | 10.8 | `experiments/results/kiss_icp_kitti_raw_0009_full_matrix.json` |
 | kiss_icp | `kitti_raw_0061_200` | gt-backed | `fast_recent_map` | 0.679 | 28.3 | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
 | kiss_icp | `kitti_raw_0061_full` | gt-backed | `fast_recent_map` | 4.623 | 11.2 | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
+| kiss_icp | `kitti_seq_00_full` | gt-backed | `upstream_profile_elevation` | 9.037 | 32.5 | `experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json` |
 | kiss_icp | `kitti_seq_00_full` | gt-backed | `dense_profile` | 12.323 | 1.2 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
 | kiss_icp | `kitti_seq_02_full` | gt-backed | `balanced_reference` | 71.183 | 3.1 | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
 | kiss_icp | `kitti_seq_05_full` | gt-backed | `dense_profile` | 4.556 | 1.6 | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_07_full` | gt-backed | `balanced_reference` | 2.238 | 28.3 | `experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json` |
 | kiss_icp | `kitti_seq_07_full` | gt-backed | `balanced_reference` | 2.238 | 3.4 | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
 | kiss_icp | `kitti_seq_08_full` | gt-backed | `fast_profile` | 18.085 | 2.2 | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
 | kiss_icp | `mcd_kth_day_06_108` | gt-backed | `fast_recent_map` | 5.568 | 11.3 | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
@@ -259,6 +263,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | lf_gicp | `kitti_seq_00_full` | gt-backed | `no_mitigation` | 7.848 | 3.8 | `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json` |
 | lf_gicp | `kitti_seq_02_full` | gt-backed | `no_mitigation` | 27.186 | 3.6 | `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json` |
 | lf_gicp | `kitti_seq_05_full` | gt-backed | `no_mitigation` | 5.556 | 5.4 | `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json` |
+| lf_gicp | `kitti_seq_07_full` | gt-backed | `paper_default` | 0.646 | 8.8 | `experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json` |
 | lf_gicp | `kitti_seq_07_full` | gt-backed | `paper_default` | 0.646 | 4.1 | `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json` |
 | lf_gicp | `kitti_seq_08_full` | gt-backed | `no_mitigation` | 16.280 | 2.9 | `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json` |
 | lins | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
@@ -301,6 +306,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | litamin2 | `kitti_seq_02_full` | gt-backed | `cov_floor_1e_4` | 51.895 | 91.8 | `experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json` |
 | litamin2 | `kitti_seq_05_full` | gt-backed | `fast_seeded_reference` | 0.957 | 17.2 | `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` |
 | litamin2 | `kitti_seq_05_full` | gt-backed | `cov_floor_1e_4` | 6.565 | 93.4 | `experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json` |
+| litamin2 | `kitti_seq_07_full` | gt-backed | `coarse_to_fine_3_2_1_elevation` | 2.086 | 47.5 | `experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json` |
 | litamin2 | `kitti_seq_07_full` | gt-backed | `fast_seeded_reference` | 0.836 | 94.7 | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
 | litamin2 | `kitti_seq_07_full` | gt-backed | `cov_floor_1e_4` | 2.202 | 106.9 | `experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json` |
 | litamin2 | `kitti_seq_08_full` | gt-backed | `fast_seeded_reference` | 1.130 | 104.9 | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
@@ -396,6 +402,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | suma | `kitti_seq_00_full` | gt-backed | `dense_profile` | 18.961 | 24.2 | `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json` |
 | suma | `kitti_seq_02_full` | gt-backed | `dense_profile` | 51.911 | 24.2 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
 | suma | `kitti_seq_05_full` | gt-backed | `default` | 10.983 | 40.3 | `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json` |
+| suma | `kitti_seq_07_full` | gt-backed | `dense_profile_elevation` | 3.694 | 34.5 | `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json` |
 | suma | `kitti_seq_08_full` | gt-backed | `dense_profile` | 19.290 | 26.6 | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |
 | suma | `mcd_kth_day_06_108` | gt-backed | `fast` | 7.419 | 150.2 | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
 | suma | `mcd_ntu_day_02_108` | gt-backed | `dense` | 0.036 | 33.9 | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |

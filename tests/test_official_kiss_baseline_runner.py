@@ -59,6 +59,21 @@ class OfficialKissBaselineRunnerTests(unittest.TestCase):
         self.assertEqual(command[command.index("--max-threads") + 1], "4")
         self.assertNotIn(args.reference_csv, command)
 
+    def test_elevation_correction_opt_out_is_forwarded(self) -> None:
+        args = argparse.Namespace(
+            official_python="/venv/bin/python",
+            dataset_root="/data/kitti-no-gt",
+            sequence="07",
+            reference_csv="/secret/ground_truth.csv",
+            no_kitti_elevation_correction=True,
+        )
+        command = MODULE.build_odometry_command(args, Path("/results/kiss"))
+        self.assertIn("--no-kitti-elevation-correction", command)
+        self.assertEqual(command[-1], "--_odometry-only")
+        args.no_kitti_elevation_correction = False
+        command = MODULE.build_odometry_command(args, Path("/results/kiss"))
+        self.assertNotIn("--no-kitti-elevation-correction", command)
+
 
 if __name__ == "__main__":
     unittest.main()

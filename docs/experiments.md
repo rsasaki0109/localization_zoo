@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-10T21:33:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -50,6 +50,7 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames) | `ready` | `cauchy_4_0` | 18.226 | 10.6 | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
 | CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner | `ready` | `iter_1` | 13.766 | 9.8 | `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` |
 | CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner | `ready` | `corr_8` | 16.687 | 10.3 | `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` |
+| CT-ICP KITTI Odom seq 00 full: elevation correction | `ready` | `arch_tuned_all_combined` | 93.156 | 16.6 | `experiments/results/ct_icp_kitti_seq_00_full_elevation_matrix.json` |
 | CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified) | `ready` | `fine_sigma_0_25` | 12.351 | 11.4 | `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` |
 | CT-ICP map_size sweep on KITTI seq 00 full (4542 frames) | `ready` | `map_20_reference` | 18.370 | 10.4 | `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `balanced_window` | 19.413 | 46.4 | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
@@ -58,6 +59,7 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP seq 00 full: leave-one-out ablation on full recipe | `ready` | `minus_ms_chol` | 12.931 | 11.5 | `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json` |
 | CT-ICP seq 00 full: map=50 + single partner knob isolation | `ready` | `map_50_plus_corr_5` | 14.894 | 12.5 | `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json` |
 | CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?) | `ready` | `bare_map_50` | 15.753 | 13.7 | `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `fast_window` | 1.851 | 74.9 | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
 | CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner | `ready` | `plus_corr_5` | 12.931 | 11.4 | `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json` |
 | CT-ICP seq 00 full: constant-velocity regularization (small weight) | `ready` | `c2f_reference` | 14.099 | 8.7 | `experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json` |
 | CT-ICP seq 02 full: corr_dist sweep on bare baseline | `ready` | `default_reference` | 68.972 | 12.5 | `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` |
@@ -73,9 +75,11 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP seq 05 full: constant-velocity regularization sweep | `ready` | `velocity_reg_005` | 11.158 | 5.1 | `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json` |
 | CT-ICP seq 07 full: ms_chol + simplified pattern combo | `ready` | `ms_chol_plus_simplified_a` | 2.010 | 10.6 | `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json` |
 | CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner | `ready` | `corr_8` | 2.049 | 14.3 | `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json` |
+| CT-ICP KITTI Odom seq 07 full: elevation correction | `ready` | `velocity_reg_01` | 2.231 | 18.5 | `experiments/results/ct_icp_kitti_seq_07_full_elevation_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07 | `ready` | `dense_window` | 2.842 | 52.2 | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
 | CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D) | `ready` | `cluster_d_full_seeded` | 1.603 | 12.5 | `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json` |
 | CT-ICP seq 07 full: map=50 retrofit on ms_chol winner | `ready` | `ms_chol_map_50` | 1.472 | 14.2 | `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `fast_window` | 0.390 | 77.3 | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
 | CT-ICP seq 07 full: constant-velocity regularization sweep | `ready` | `velocity_reg_01` | 2.490 | 6.0 | `experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json` |
 | CT-ICP seq 08 full: c2f without ms_chol — knob reduction probe | `ready` | `cholesky_c2f_no_ms` | 37.043 | 12.2 | `experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json` |
 | CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner | `ready` | `corr_8` | 33.860 | 10.2 | `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json` |
@@ -207,9 +211,11 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_recent_map` | 2.360 | 18.2 | `experiments/results/kiss_icp_kitti_raw_0009_nogt_matrix.json` |
 | KISS-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 4.343 | 11.2 | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
+| KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration | `ready` | `upstream_profile_elevation` | 9.037 | 32.5 | `experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `dense_profile` | 12.323 | 1.7 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `balanced_reference` | 56.234 | 3.4 | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `dense_profile` | 4.556 | 2.1 | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
+| KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration | `ready` | `balanced_reference` | 1.390 | 28.3 | `experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `balanced_reference` | 2.238 | 3.4 | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 17.322 | 2.5 | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 5.568 | 11.3 | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
@@ -246,6 +252,7 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | LF-GICP on KITTI Odom seq 00 full (4541 frames) | `ready` | `no_mitigation` | 7.848 | 3.8 | `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json` |
 | LF-GICP on KITTI Odom seq 02 full (4661 frames) | `ready` | `no_mitigation` | 27.186 | 3.6 | `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json` |
 | LF-GICP on KITTI Odom seq 05 full (2761 frames) | `ready` | `no_mitigation` | 5.556 | 5.4 | `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json` |
+| LF-GICP KITTI Odom seq 07 full: elevation correction ablation | `ready` | `paper_default` | 0.646 | 8.8 | `experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json` |
 | LF-GICP on KITTI Odom seq 07 full (1101 frames) | `ready` | `paper_default` | 0.646 | 4.3 | `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json` |
 | LF-GICP on KITTI Odom seq 08 full (4071 frames) | `ready` | `no_mitigation` | 16.280 | 2.9 | `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json` |
 | LINS on the public HDL-400 reference window | `ready` | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
@@ -285,6 +292,7 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed | `ready` | `tuned_voxel2_iter12_seeded` | 0.731 | 86.8 | `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq) | `ready` | `cluster_t1_seeded` | 0.728 | 68.3 | `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length) | `ready` | `fast_seeded_reference` | 0.751 | 17.2 | `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation | `ready` | `coarse_to_fine_3_2_1_elevation` | 2.086 | 47.5 | `experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json` |
 | LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full | `ready` | `fast_seeded_reference` | 0.647 | 94.7 | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `fast_seeded_reference` | 0.696 | 104.9 | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames) | `ready` | `cluster_t1_seeded` | 0.192 | 33.0 | `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json` |
@@ -353,8 +361,6 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0009_matrix.json` |
 | ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0061_full_matrix.json` |
 | ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0061_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `fast_window` | 1.851 | 74.9 | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `fast_window` | 0.390 | 77.3 | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full) | `ready` | `cov_floor_1e_4` | 44.005 | 91.8 | `experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full) | `ready` | `cov_floor_1e_4` | 6.069 | 93.4 | `experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full) | `ready` | `cov_floor_1e_4` | 1.964 | 106.9 | `experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json` |
@@ -398,6 +404,7 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | SuMa transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `dense_profile` | 18.961 | 33.8 | `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `dense_profile` | 51.911 | 38.0 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 9.511 | 40.3 | `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json` |
+| SuMa KITTI Odom seq 07 full: elevation correction ablation | `ready` | `dense_profile_elevation` | 3.694 | 35.6 | `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `dense_profile` | 19.290 | 39.6 | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |
 | SuMa on MCD KTH day-06 sequence | `ready` | `fast` | 6.064 | 150.2 | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
 | SuMa on MCD NTU day-02 sequence | `ready` | `dense` | 0.036 | 124.1 | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |
@@ -3116,6 +3123,54 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
+## CT-ICP KITTI Odom seq 00 full: elevation correction
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_elevation`
+- **Question**: Upstream CT-ICP corrects the KITTI HDL-64E elevation angle by +0.205 deg in its KITTI loader and the paper reports KITTI-corrected results; the repository runs used raw scans. How much of the paper-number gap does the correction explain?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| arch_tuned_all_combined (Table 6 best on seq 00, raw scans) | reference | 93.156 | 16.6 | 100.0 | 2.25 | 3.15 | Adopt as current default |
+| arch_tuned_all_combined (Table 6 best on seq 00, raw scans) + KITTI 0.205 deg elevation correction | paper_input | 170.163 | 16.3 | 76.5 | 1.65 | 2.75 | Keep as reference variant |
+
+### Observations
+
+1. `arch_tuned_all_combined` is the current default for this problem.
+2. `arch_tuned_all_combined` is the fastest observed variant at 16.6 FPS.
+3. `arch_tuned_all_combined` is the most accurate observed variant at 93.156 m ATE.
+
+### Variant Notes
+
+#### `arch_tuned_all_combined`
+
+- Intent: Table 6 best variant on this sequence.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `arch_tuned_all_combined_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined_elevation/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined_elevation/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined_elevation/run.log`
+- Readability proxy: 1.65 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.75 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified)
 
 - **Problem ID**: `ct_icp_kitti_seq_00_full_fine_cauchy_sweep`
@@ -3665,6 +3720,66 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_50/run.log`
 - Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
+
+- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_00`
+- **Question**: Which CT-ICP profile should stay as the current default on the KITTI Odometry public dataset (sequence 00)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_108`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 2.313 | 40.0 | 66.7 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 2.824 | 74.9 | 82.8 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 1.851 | 27.4 | 68.3 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 74.9 FPS.
+3. `dense_window` is the most accurate observed variant at 1.851 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Keep the current repository default as the continuous-time baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fast_window`
+
+- Intent: Shrink the working set and point budget to improve FPS.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `dense_window`
+
+- Intent: Increase point density and window richness to preserve more structure.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
@@ -4640,6 +4755,54 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
+## CT-ICP KITTI Odom seq 07 full: elevation correction
+
+- **Problem ID**: `ct_icp_kitti_seq_07_full_elevation`
+- **Question**: Upstream CT-ICP corrects the KITTI HDL-64E elevation angle by +0.205 deg in its KITTI loader and the paper reports KITTI-corrected results; the repository runs used raw scans. How much of the paper-number gap does the correction explain?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| velocity_reg_01 (Table 6 best on seq 07, raw scans) | reference | 2.231 | 18.5 | 100.0 | 1.80 | 2.80 | Adopt as current default |
+| velocity_reg_01 (Table 6 best on seq 07, raw scans) + KITTI 0.205 deg elevation correction | paper_input | 3.388 | 18.3 | 82.5 | 1.20 | 2.40 | Keep as reference variant |
+
+### Observations
+
+1. `velocity_reg_01` is the current default for this problem.
+2. `velocity_reg_01` is the fastest observed variant at 18.5 FPS.
+3. `velocity_reg_01` is the most accurate observed variant at 2.231 m ATE.
+
+### Variant Notes
+
+#### `velocity_reg_01`
+
+- Intent: Table 6 best variant on this sequence.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.1`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01/run.log`
+- Readability proxy: 1.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `velocity_reg_01_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.1 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01_elevation/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-flat-regularizer --ct-icp-constant-velocity-weight 0.1 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01_elevation/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_elevation_matrix/velocity_reg_01_elevation/run.log`
+- Readability proxy: 1.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
 
 - **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_07_full`
@@ -4817,6 +4980,66 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_50/run.log`
 - Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
+
+- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_07`
+- **Question**: Which CT-ICP profile should stay as the current default on the KITTI Odometry public dataset (sequence 07)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_108`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 1.050 | 40.8 | 45.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 0.978 | 77.3 | 70.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 0.390 | 26.3 | 67.0 | 4.65 | 4.75 | Keep as active challenger |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 77.3 FPS.
+3. `dense_window` is the most accurate observed variant at 0.390 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Keep the current repository default as the continuous-time baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fast_window`
+
+- Intent: Shrink the working set and point budget to improve FPS.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `dense_window`
+
+- Intent: Increase point density and window richness to preserve more structure.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
@@ -12770,6 +12993,126 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration
+
+- **Problem ID**: `kiss_icp_kitti_seq_00_full_elevation`
+- **Question**: Upstream KISS-ICP corrects the KITTI HDL-64E elevation angle by +0.205 deg in its KITTI loader and the paper reports KITTI-corrected results; the repository runs used raw scans. How much of the paper-number gap does the correction explain?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 15.403 | 9.0 | 43.1 | 5.00 | 5.00 | Keep as reference variant |
+| balanced (default) + KITTI 0.205 deg elevation correction | paper_input | 12.099 | 7.2 | 48.4 | 4.40 | 4.60 | Keep as reference variant |
+| dense profile | reference | 12.323 | 5.5 | 45.1 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile + KITTI 0.205 deg elevation correction | paper_input | 9.244 | 9.5 | 63.5 | 4.05 | 4.35 | Keep as reference variant |
+| upstream KISS-ICP 1.3.0 configuration | reference | 14.047 | 30.6 | 79.2 | 4.65 | 4.75 | Keep as reference variant |
+| upstream KISS-ICP 1.3.0 configuration + KITTI 0.205 deg elevation correction | paper_input | 9.037 | 32.5 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+| upstream configuration + 100 m loader range | ablation | 13.568 | 31.0 | 81.0 | 4.05 | 4.35 | Keep as reference variant |
+| upstream configuration + 100 m loader range + KITTI 0.205 deg elevation correction | ablation | 10.266 | 29.4 | 89.2 | 3.45 | 3.95 | Keep as reference variant |
+
+### Observations
+
+1. `upstream_profile_elevation` is the current default for this problem.
+2. `upstream_profile_elevation` is the fastest observed variant at 32.5 FPS.
+3. `upstream_profile_elevation` is the most accurate observed variant at 9.037 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Repository default.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Adaptive sigma min/mean/max=0.949886/2.54942/3.96163; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=8.96786; algorithm_fps=10.2686.
+
+#### `balanced_reference_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/balanced_reference_elevation/summary.json --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/balanced_reference_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/balanced_reference_elevation/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.953781/2.54952/3.96372; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=7.15499; algorithm_fps=7.905.
+
+#### `dense_profile`
+
+- Intent: Table 6 best variant on seq 00 (raw scans).
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/dense_profile/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Adaptive sigma min/mean/max=0.937402/2.5542/3.94239; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=5.51209; algorithm_fps=5.90575.
+
+#### `dense_profile_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-dense-profile --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/dense_profile_elevation/summary.json --kiss-dense-profile --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/dense_profile_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/dense_profile_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.965537/2.55554/3.96417; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=9.52941; algorithm_fps=10.5603.
+
+#### `upstream_profile`
+
+- Intent: Match the upstream defaults (voxel 1.0, 20 pts/voxel, threshold 2.0, 500 iterations at 1e-4, 27-voxel search, 1.5x registration subsample, no point cap).
+- CLI args: `--kiss-upstream-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile/summary.json --kiss-upstream-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Adaptive sigma min/mean/max=0.940018/2.54972/3.95558; correspondence_multiplier=1; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=30.5865; algorithm_fps=35.0318.
+
+#### `upstream_profile_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_elevation/summary.json --kiss-upstream-profile --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.938394/2.54773/3.94938; correspondence_multiplier=1; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=32.5092; algorithm_fps=38.2021.
+
+#### `upstream_profile_range100`
+
+- Intent: Upstream keeps returns up to 100 m; the shared loader drops them beyond 80 m. Does the cap explain the remaining gap to upstream on corrected scans?
+- CLI args: `--kiss-upstream-profile --input-max-range-m 100`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_range100/summary.json --kiss-upstream-profile --input-max-range-m 100`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_range100/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_range100/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.951104/2.54977/3.93736; correspondence_multiplier=1; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=30.9991; algorithm_fps=36.0402.
+
+#### `upstream_profile_range100_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --input-max-range-m 100 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_range100_elevation/summary.json --kiss-upstream-profile --input-max-range-m 100 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_range100_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_elevation_matrix/upstream_profile_range100_elevation/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.932557/2.54853/3.95935; correspondence_multiplier=1; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=29.3937; algorithm_fps=36.6062.
+
+
 ## KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames)
 
 - **Problem ID**: `kiss_icp_kitti_seq_00_full_sweep`
@@ -12984,6 +13327,126 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Adaptive sigma min/mean/max=0.15/2.45413/3.51811; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.01093; algorithm_fps=1.05818.
+
+
+## KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration
+
+- **Problem ID**: `kiss_icp_kitti_seq_07_full_elevation`
+- **Question**: Upstream KISS-ICP corrects the KITTI HDL-64E elevation angle by +0.205 deg in its KITTI loader and the paper reports KITTI-corrected results; the repository runs used raw scans. How much of the paper-number gap does the correction explain?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 2.238 | 28.3 | 81.1 | 5.00 | 5.00 | Adopt as current default |
+| balanced (default) + KITTI 0.205 deg elevation correction | paper_input | 2.707 | 24.9 | 69.6 | 4.40 | 4.60 | Keep as reference variant |
+| dense profile | reference | 2.641 | 13.8 | 50.7 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile + KITTI 0.205 deg elevation correction | paper_input | 1.495 | 12.9 | 69.2 | 4.05 | 4.35 | Keep as reference variant |
+| upstream KISS-ICP 1.3.0 configuration | reference | 1.605 | 5.8 | 53.5 | 4.65 | 4.75 | Keep as reference variant |
+| upstream KISS-ICP 1.3.0 configuration + KITTI 0.205 deg elevation correction | paper_input | 1.614 | 6.4 | 54.3 | 4.05 | 4.35 | Keep as reference variant |
+| upstream configuration + 100 m loader range | ablation | 1.390 | 6.5 | 61.5 | 4.05 | 4.35 | Keep as reference variant |
+| upstream configuration + 100 m loader range + KITTI 0.205 deg elevation correction | ablation | 1.576 | 9.0 | 59.9 | 3.45 | 3.95 | Keep as reference variant |
+
+### Observations
+
+1. `balanced_reference` is the current default for this problem.
+2. `balanced_reference` is the fastest observed variant at 28.3 FPS.
+3. `upstream_profile_range100` is the most accurate observed variant at 1.390 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Repository default.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Adaptive sigma min/mean/max=0.15/1.95752/3.26766; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=28.3122; algorithm_fps=36.4962.
+
+#### `balanced_reference_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/balanced_reference_elevation/summary.json --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/balanced_reference_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/balanced_reference_elevation/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.15/1.95949/3.31466; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=24.8842; algorithm_fps=31.5946.
+
+#### `dense_profile`
+
+- Intent: Table 6 best variant on seq 00 (raw scans).
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/dense_profile/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Adaptive sigma min/mean/max=0.125/1.96475/3.27512; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=13.7815; algorithm_fps=15.6681.
+
+#### `dense_profile_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-dense-profile --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/summary.json --kiss-dense-profile --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.125/1.96536/3.2875; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=12.8531; algorithm_fps=14.6947.
+
+#### `upstream_profile`
+
+- Intent: Match the upstream defaults (voxel 1.0, 20 pts/voxel, threshold 2.0, 500 iterations at 1e-4, 27-voxel search, 1.5x registration subsample, no point cap).
+- CLI args: `--kiss-upstream-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile/summary.json --kiss-upstream-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Adaptive sigma min/mean/max=0.2/1.9682/3.30032; correspondence_multiplier=1; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=5.78728; algorithm_fps=6.04335.
+
+#### `upstream_profile_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_elevation/summary.json --kiss-upstream-profile --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.2/1.96936/3.28201; correspondence_multiplier=1; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=6.38725; algorithm_fps=6.71312.
+
+#### `upstream_profile_range100`
+
+- Intent: Upstream keeps returns up to 100 m; the shared loader drops them beyond 80 m. Does the cap explain the remaining gap to upstream on corrected scans?
+- CLI args: `--kiss-upstream-profile --input-max-range-m 100`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_range100/summary.json --kiss-upstream-profile --input-max-range-m 100`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_range100/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_range100/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.2/1.9702/3.31751; correspondence_multiplier=1; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=6.52528; algorithm_fps=6.919.
+
+#### `upstream_profile_range100_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --input-max-range-m 100 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_range100_elevation/summary.json --kiss-upstream-profile --input-max-range-m 100 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_range100_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_elevation_matrix/upstream_profile_range100_elevation/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.2/1.97166/3.29186; correspondence_multiplier=1; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=8.96539; algorithm_fps=9.59016.
 
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames)
@@ -15132,6 +15595,54 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 field_beta=0.25 degenerate_frames=0/2761 median_f0=0.180932 median_lambda0=0.0199661
+
+
+## LF-GICP KITTI Odom seq 07 full: elevation correction ablation
+
+- **Problem ID**: `lf_gicp_kitti_seq_07_full_elevation`
+- **Question**: Ablation: does the KITTI +0.205 deg elevation correction (used by upstream KISS-ICP and CT-ICP) change LF-GICP? The LF-GICP paper reports raw scans without mounting-angle correction, so the corrected variant is kept out of Table 6.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| paper_default (Table 6 variant on seq 07, raw scans) | reference | 0.646 | 8.8 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| paper_default (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction | ablation | 1.859 | 8.3 | 64.7 | 4.40 | 4.60 | Keep as reference variant |
+
+### Observations
+
+1. `paper_default` is the current default for this problem.
+2. `paper_default` is the fastest observed variant at 8.8 FPS.
+3. `paper_default` is the most accurate observed variant at 0.646 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Table 6 variant on this sequence.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_07_full_elevation_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_07_full_elevation_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_07_full_elevation_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=13/1101 median_f0=0.200196 median_lambda0=0.020498
+
+#### `paper_default_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_07_full_elevation_matrix/paper_default_elevation/summary.json --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_07_full_elevation_matrix/paper_default_elevation/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_07_full_elevation_matrix/paper_default_elevation/run.log`
+- Readability proxy: 4.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=13/1101 median_f0=0.19735 median_lambda0=0.0201897
 
 
 ## LF-GICP on KITTI Odom seq 07 full (1101 frames)
@@ -17460,6 +17971,54 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation
+
+- **Problem ID**: `litamin2_kitti_seq_07_full_elevation`
+- **Question**: Ablation: does the KITTI +0.205 deg elevation correction (used by upstream KISS-ICP and CT-ICP) change LiTAMIN2? Whether the LiTAMIN2 paper used it has not been checked, so the corrected variant is kept out of Table 6.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans) | reference | 2.242 | 46.3 | 95.3 | 2.85 | 3.55 | Keep as active challenger |
+| coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction | ablation | 2.086 | 47.5 | 100.0 | 2.25 | 3.15 | Adopt as current default |
+
+### Observations
+
+1. `coarse_to_fine_3_2_1_elevation` is the current default for this problem.
+2. `coarse_to_fine_3_2_1_elevation` is the fastest observed variant at 47.5 FPS.
+3. `coarse_to_fine_3_2_1_elevation` is the most accurate observed variant at 2.086 m ATE.
+
+### Variant Notes
+
+#### `coarse_to_fine_3_2_1`
+
+- Intent: Table 6 variant on this sequence.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule. Local-map policy=refresh.
+
+#### `coarse_to_fine_3_2_1_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1_elevation/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1_elevation/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_elevation_matrix/coarse_to_fine_3_2_1_elevation/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule. Local-map policy=refresh.
 
 
 ## LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full
@@ -21116,126 +21675,6 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/run.log` |
 | Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/run.log` |
 
-## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
-
-- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_00`
-- **Question**: Which CT-ICP profile should stay as the current default on the KITTI Odometry public dataset (sequence 00)?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_108`
-- **Reference CSV**: `experiments/reference_data/kitti_seq_00_108_gt.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `ct_icp`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 2.313 | 40.0 | 66.7 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 2.824 | 74.9 | 82.8 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 1.851 | 27.4 | 68.3 | 4.65 | 4.75 | Keep as reference variant |
-
-### Observations
-
-1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 74.9 FPS.
-3. `dense_window` is the most accurate observed variant at 1.851 m ATE.
-
-### Variant Notes
-
-#### `balanced_window`
-
-- Intent: Keep the current repository default as the continuous-time baseline.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/summary.json`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `fast_window`
-
-- Intent: Shrink the working set and point budget to improve FPS.
-- CLI args: `--ct-icp-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/summary.json --ct-icp-fast-profile`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `dense_window`
-
-- Intent: Increase point density and window richness to preserve more structure.
-- CLI args: `--ct-icp-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/summary.json --ct-icp-dense-profile`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-
-## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
-
-- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_07`
-- **Question**: Which CT-ICP profile should stay as the current default on the KITTI Odometry public dataset (sequence 07)?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_108`
-- **Reference CSV**: `experiments/reference_data/kitti_seq_07_108_gt.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `ct_icp`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.050 | 40.8 | 45.0 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 0.978 | 77.3 | 70.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 0.390 | 26.3 | 67.0 | 4.65 | 4.75 | Keep as active challenger |
-
-### Observations
-
-1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 77.3 FPS.
-3. `dense_window` is the most accurate observed variant at 0.390 m ATE.
-
-### Variant Notes
-
-#### `balanced_window`
-
-- Intent: Keep the current repository default as the continuous-time baseline.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/summary.json`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `fast_window`
-
-- Intent: Shrink the working set and point budget to improve FPS.
-- CLI args: `--ct-icp-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/summary.json --ct-icp-fast-profile`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `dense_window`
-
-- Intent: Increase point density and window richness to preserve more structure.
-- CLI args: `--ct-icp-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/summary.json --ct-icp-dense-profile`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full)
 
 - **Problem ID**: `litamin2_correspondence_kitti_seq_02_full`
@@ -23925,6 +24364,54 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/dense_profile/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+
+## SuMa KITTI Odom seq 07 full: elevation correction ablation
+
+- **Problem ID**: `suma_kitti_seq_07_full_elevation`
+- **Question**: Ablation: does the KITTI +0.205 deg elevation correction (used by upstream KISS-ICP and CT-ICP) change SuMa? Whether the SuMa paper used it has not been checked, so the corrected variant is kept out of Table 6.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense_profile (Table 6 variant on seq 07, raw scans) | reference | 3.971 | 35.6 | 96.5 | 4.30 | 4.50 | Keep as active challenger |
+| dense_profile (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction | ablation | 3.694 | 34.5 | 98.5 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile_elevation` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 35.6 FPS.
+3. `dense_profile_elevation` is the most accurate observed variant at 3.694 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Table 6 variant on this sequence.
+- CLI args: `--no-gt-seed --suma-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile/summary.json --no-gt-seed --suma-dense-profile`
+- Summary: `experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+#### `dense_profile_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--no-gt-seed --suma-dense-profile --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/summary.json --no-gt-seed --suma-dense-profile --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 

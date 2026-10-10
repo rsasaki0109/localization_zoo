@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_kitti_seq_07_full_elevation",
+    "title": "LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation",
+    "question": "Ablation: does the KITTI +0.205 deg elevation correction (used by upstream KISS-ICP and CT-ICP) change LiTAMIN2? Whether the LiTAMIN2 paper used it has not been checked, so the corrected variant is kept out of Table 6.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "coarse_to_fine_3_2_1",
+      "label": "coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans)",
+      "design_style": "reference",
+      "intent": "Table 6 variant on this sequence.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "12",
+        "--litamin2-coarse-to-fine-voxels",
+        "3.0,2.0,1.0"
+      ]
+    },
+    {
+      "id": "coarse_to_fine_3_2_1_elevation",
+      "label": "coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction",
+      "design_style": "ablation",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "12",
+        "--litamin2-coarse-to-fine-voxels",
+        "3.0,2.0,1.0",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    }
+  ]
+}

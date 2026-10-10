@@ -92,9 +92,9 @@
       "reproduction_status_label": "Benchmark-comparable only",
       "reproduction_status_summary": "The current implementation is close enough for same-contract comparisons, but it should not be presented as a faithful rerun of the upstream KISS-ICP project.",
       "numeric_comparison_label": "Partial only (one sequence)",
-      "numeric_comparison_summary": "The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). With the current default correspondence search the best re-run seq 00 variant reaches 0.954 % official KITTI RTE (1.87x); --kiss-legacy-27-neighborhood (the upstream search) reproduces the pre-2026-08 aggregates. Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).",
-      "main_blocker": "The public aggregates are windowed runs of the compact pipeline, not full-sequence reruns of the reference implementation.",
-      "next_step": "Run full KITTI sequences and publish an explicit deviation sheet against the upstream KISS-ICP implementation.",
+      "numeric_comparison_summary": "The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). Upstream KISS-ICP corrects the KITTI elevation angle by +0.205 deg in its KITTI loader; the official 1.3.0 code scores 0.528 % on corrected seq 00 and 0.910 % on raw scans. With the same correction (--input-vertical-angle-correction-deg 0.205) and --kiss-upstream-profile the best seq 00 variant reaches 0.708 % official KITTI RTE (1.39x); on raw scans the best was 0.954 % (1.87x). Values are the best variant among the seq 00 sweeps (selected on the evaluated sequence, so optimistic); see docs/kitti_elevation_correction.md and docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "main_blocker": "On corrected scans a 1.3-1.5x gap to the official code remains: it gains 26-42 % from the elevation correction, this port 10-16 %. Configuration and the 80 m loader range are ruled out (docs/kitti_elevation_correction.md).",
+      "next_step": "Find the implementation difference that limits the gain from corrected scans (adaptive threshold, robust kernel, map update), using the deviation sheet in papers/kiss_icp/README.md.",
       "reported_dataset": "KITTI Odometry (sequences 00-10)",
       "reported_metric": "KITTI RTE translation [%] (official 100-800 m segments)",
       "reported_values": {

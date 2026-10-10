@@ -101,6 +101,8 @@ struct KISSICPParams {
   double initial_threshold = 2.0;   // 初期対応距離閾値 [m]
   int max_icp_iterations = 500;
   double convergence_criterion = 0.001;
+  // ICP source = voxel_size * this subsample (upstream KISS-ICP uses 1.5).
+  double registration_voxel_multiplier = 1.0;
   double local_map_radius = 0.0;
   int map_cleanup_interval = 0;
   bool update_full_voxels = false;

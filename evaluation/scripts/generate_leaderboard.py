@@ -90,14 +90,22 @@ def collect_cells() -> dict:
         if not isinstance(agg, dict) or "variants" not in agg:
             continue
         method = agg.get("stable_interface", {}).get("primary_method")
-        dataset = (agg.get("dataset") or {}).get("pcd_dir") \
-            or (agg.get("problem", {}).get("dataset", {}) or {}).get("pcd_dir")
+        # Non-matrix results (e.g. the BROAD attitude benchmark) describe their
+        # dataset as a string; they have no pcd_dir and are not ranked here.
+        dataset_info = agg.get("dataset")
+        problem_dataset = agg.get("problem", {}).get("dataset")
+        dataset = (dataset_info.get("pcd_dir") if isinstance(dataset_info, dict) else None) \
+            or (problem_dataset.get("pcd_dir") if isinstance(problem_dataset, dict) else None)
         if not method or not dataset:
             continue
         for variant in agg.get("variants", []):
             # Ablations (e.g. a method with its key component disabled) are
-            # not the method itself and are never ranked.
-            if variant.get("status") != "ok" or variant.get("design_style") == "ablation":
+            # not the method itself and are never ranked. paper_input variants
+            # change the input scans to match a paper's preprocessing (e.g. the
+            # KITTI elevation correction), so they would break the shared
+            # raw-scan comparison; Table 6 still uses them.
+            if variant.get("status") != "ok" or variant.get("design_style") in (
+                    "ablation", "paper_input"):
                 continue
             ate = variant.get("ate_m")
             rpe = variant.get("rpe_trans_pct")

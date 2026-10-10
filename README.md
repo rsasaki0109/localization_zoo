@@ -45,6 +45,7 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 | Use IMU-only motion / fall detection | [IMU Motion & Health SDK](#imu-motion--health-sdk) |
 | Estimate orientation from an IMU | [IMU attitude estimation](#imu-attitude-estimation-broad) |
 | Measure IMU noise for a LIO / VIO config | [Allan variance](#imu-noise-allan-variance) |
+| Compare loop-closure descriptors | [Place recognition benchmark](docs/place_recognition_benchmark.md) |
 | Reproduce or extend a benchmark | [Experiment-driven development](#experiment-driven-development) · [CONTRIBUTING](CONTRIBUTING.md) |
 | Add a new paper | [Adding a new paper](#adding-a-new-paper) |
 
@@ -124,7 +125,7 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 | LeGO-LOAM | 0.84% <sub>(13 m)</sub> | **0.88%** <sub>(42 m)</sub> | 0.56% <sub>(6 m)</sub> | **0.53%** <sub>(3 m)</sub> | 1.38% <sub>(18 m)</sub> |
 | A-LOAM | 0.89% <sub>(12 m)</sub> | 0.92% <sub>(50 m)</sub> | 0.53% <sub>(5 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.39% <sub>(18 m)</sub> |
 | F-LOAM | 0.92% <sub>(10 m)</sub> | 0.94% <sub>(52 m)</sub> | 0.54% <sub>(6 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.40% <sub>(20 m)</sub> |
-| KISS-ICP | 0.94% <sub>(15 m)</sub> | 1.09% <sub>(56 m)</sub> | 0.71% <sub>(7 m)</sub> | 0.66% <sub>(2 m)</sub> | 1.36% <sub>(17 m)</sub> |
+| KISS-ICP | 0.87% <sub>(14 m)</sub> | 1.09% <sub>(56 m)</sub> | 0.71% <sub>(7 m)</sub> | 0.63% <sub>(2 m)</sub> | 1.36% <sub>(17 m)</sub> |
 | SuMa | 1.25% <sub>(19 m)</sub> | 1.28% <sub>(52 m)</sub> | 0.99% <sub>(10 m)</sub> | 0.94% <sub>(4 m)</sub> | 1.91% <sub>(19 m)</sub> |
 | CT-ICP | 2.01% <sub>(17 m)</sub> | 2.65% <sub>(76 m)</sub> | 1.12% <sub>(12 m)</sub> | 1.14% <sub>(3 m)</sub> | 1.93% <sub>(99 m)</sub> |
 | L-LO | 1.54% <sub>(16 m)</sub> | 3.97% <sub>(142 m)</sub> | 1.59% <sub>(15 m)</sub> | 1.17% <sub>(3 m)</sub> | 2.05% <sub>(36 m)</sub> |
@@ -249,7 +250,7 @@ optimistic bounds.
 | LF-GICP | 00/02/05/07/08 | 0.96x | near paper (no author code) |
 | LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out) |
-| KISS-ICP | 00 | 1.87x | gap remains (compact baseline) |
+| KISS-ICP | 00 | 1.39x | gap remains (compact baseline; 1.87x before matching the upstream KITTI elevation correction, [details](docs/kitti_elevation_correction.md)) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
 | CT-ICP | 00/02/05/07/08 | 4.03x | gap remains |
 | MULLS | 00/02/05/07/08 | 7.62x | gap remains (derived variant) |
@@ -553,6 +554,19 @@ Full table: [`docs/attitude_benchmark.md`](docs/attitude_benchmark.md).
 | Paper | Venue | Key Idea | Reference |
 |-------|-------|----------|-----------|
 | **[Scan Context](papers/scan_context/)** | IROS 2018 | Lightweight place recognition with polar ring-sector descriptors and yaw-shift search | [Paper](https://ieeexplore.ieee.org/document/8593953) |
+
+The [KITTI place-recognition benchmark](docs/place_recognition_benchmark.md)
+scores these descriptors on full KITTI Odometry 00/02/05/07/08 (top-1 retrieval,
+4 m revisit radius, 50-frame exclusion). Scan Context is best on four of five
+sequences (F1max 0.935 on 00, 0.920 on 05); the intensity variant from
+ISC-LOAM trails by 0.03-0.09 except on reverse-direction KITTI 08. The DTD port
+fails on real scans (F1max ≤ 0.035); see [its README](papers/dtd/README.md).
+
+| F1max | 00 | 02 | 05 | 07 | 08 |
+|---|---:|---:|---:|---:|---:|
+| Scan Context | **0.935** | **0.837** | **0.920** | **0.588** | 0.592 |
+| ISC (intensity) | 0.879 | 0.746 | 0.872 | 0.562 | **0.597** |
+| DTD | 0.000 | 0.000 | 0.000 | 0.035 | 0.013 |
 
 ---
 

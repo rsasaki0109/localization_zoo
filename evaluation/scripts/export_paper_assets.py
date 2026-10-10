@@ -250,7 +250,10 @@ def load_pareto_points(results_dir: Path, dataset: str = PARETO_DATASET) -> list
             # NaN RPE (diverged runs) would also break the sort in pareto_front.
             if rpe is None or fps is None or not math.isfinite(float(rpe)) or not float(fps) > 0:
                 continue
-            if GT_SEEDED_NOTE.search(str(variant.get("note", ""))) or variant.get("design_style") == "ablation":
+            # paper_input variants feed modified scans (e.g. KITTI elevation
+            # correction); keep the front on the shared raw-scan input.
+            if GT_SEEDED_NOTE.search(str(variant.get("note", ""))) or variant.get(
+                    "design_style") in ("ablation", "paper_input"):
                 continue
             points.append(OdometryPoint(selector, str(variant["id"]), float(rpe), float(fps), relpath(path)))
     return points
@@ -331,7 +334,7 @@ def render_odometry_pareto(points: list[OdometryPoint], output_path: Path) -> No
                        loc="upper left", bbox_to_anchor=(1.01, 1.0))
     for text in legend.get_texts():
         text.set_color(INK)
-    footnote = ("GT-seeded, ablation, and diverged (NaN) variants excluded. FPS comes from stored aggregates "
+    footnote = ("GT-seeded, ablation, corrected-input, and diverged (NaN) variants excluded. FPS comes from stored aggregates "
                 "and is not normalized across hosts or concurrent load.")
     if hidden:
         footnote += f"\n{hidden} variant(s) with RPE > {PARETO_MAX_RPE_PCT:g} % are off the x-axis (legend counts include them)."

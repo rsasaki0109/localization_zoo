@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-05T02:20:45+00:00
+> Generated: 2026-10-10T21:33:52+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -58,6 +58,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | voxel=2.0 + iter=12 + GT seed | 1.117 | 2.024 | 0.018026 | 86.83 |
 | KITTI | cluster T1: voxel=0.5 + iter=12 + seed | 0.728 | 0.952 | 0.010395 | 68.31 |
 | KITTI | fast + seed (baseline) | 0.957 | 1.419 | 0.013525 | 17.17 |
+| KITTI | coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction | 2.086 | 0.478 | 0.006129 | 47.52 |
 | KITTI | fast + seed (baseline) | 0.836 | 1.039 | 0.011014 | 94.73 |
 | KITTI | fast + seed (baseline) | 1.130 | 2.117 | 0.018472 | 104.92 |
 | dogfooding_results/mcd_kth_day_06_108 | cluster T1 + seed | 0.192 | 3.297 | 0.181810 | 20.06 |
@@ -168,9 +169,9 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Hardware**: Not stated in paper
 **Repo scope**: Compact baseline — The repo keeps a small KISS-ICP-style local-map pipeline that preserves the main idea while simplifying the full upstream engineering stack.
 **Current claim**: Benchmark-comparable only — The current implementation is close enough for same-contract comparisons, but it should not be presented as a faithful rerun of the upstream KISS-ICP project.
-**Numeric comparison**: Partial only (one sequence) — The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). With the current default correspondence search the best re-run seq 00 variant reaches 0.954 % official KITTI RTE (1.87x); --kiss-legacy-27-neighborhood (the upstream search) reproduces the pre-2026-08 aggregates. Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: The public aggregates are windowed runs of the compact pipeline, not full-sequence reruns of the reference implementation.
-**Next step**: Run full KITTI sequences and publish an explicit deviation sheet against the upstream KISS-ICP implementation.
+**Numeric comparison**: Partial only (one sequence) — The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). Upstream KISS-ICP corrects the KITTI elevation angle by +0.205 deg in its KITTI loader; the official 1.3.0 code scores 0.528 % on corrected seq 00 and 0.910 % on raw scans. With the same correction (--input-vertical-angle-correction-deg 0.205) and --kiss-upstream-profile the best seq 00 variant reaches 0.708 % official KITTI RTE (1.39x); on raw scans the best was 0.954 % (1.87x). Values are the best variant among the seq 00 sweeps (selected on the evaluated sequence, so optimistic); see docs/kitti_elevation_correction.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: On corrected scans a 1.3-1.5x gap to the official code remains: it gains 26-42 % from the elevation correction, this port 10-16 %. Configuration and the 80 m loader range are ruled out (docs/kitti_elevation_correction.md).
+**Next step**: Find the implementation difference that limits the gain from corrected scans (adaptive threshold, robust kernel, map update), using the deviation sheet in papers/kiss_icp/README.md.
 
 ### Paper-Reported Values
 
@@ -193,9 +194,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Fast recent map | 2.578 | 1.675 | 0.004303 | 18.20 |
 | KITTI | Fast recent map | 4.623 | - | - | 11.23 |
 | KITTI | Fast recent map | 0.679 | - | - | 28.26 |
+| KITTI | upstream KISS-ICP 1.3.0 configuration + KITTI 0.205 deg elevation correction | 9.037 | 0.816 | 0.006363 | 32.51 |
 | KITTI | dense profile | 12.323 | 0.963 | 0.007617 | 1.25 |
 | KITTI | balanced | 71.183 | 1.178 | 0.008933 | 3.06 |
 | KITTI | dense | 4.556 | 0.715 | 0.005066 | 1.64 |
+| KITTI | balanced (default) | 2.238 | 0.664 | 0.007003 | 28.31 |
 | KITTI | balanced (default) | 2.238 | 0.664 | 0.007003 | 3.38 |
 | KITTI | fast | 18.085 | 1.549 | 0.007241 | 2.23 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast recent map | 5.568 | - | - | 11.29 |
@@ -263,6 +266,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | cauchy=4.0 | 18.895 | 2.066 | 0.027959 | 10.58 |
 | KITTI | coarse_iter=1 | 14.099 | 2.057 | 0.027515 | 9.79 |
 | KITTI | corr_dist=8 m² (2.8 m linear) | 16.778 | 2.053 | 0.026043 | 9.51 |
+| KITTI | arch_tuned_all_combined (Table 6 best on seq 00, raw scans) | 93.156 | 2.565 | 0.031724 | 16.64 |
 | KITTI | fine σ=0.25 (tighter) | 12.351 | 2.040 | 0.025852 | 8.44 |
 | KITTI | c2f_sigma_only map=20 (existing winner) | 18.370 | 2.137 | 0.027809 | 10.39 |
 | KITTI | Balanced window | 19.413 | 2.111 | 0.027532 | 12.99 |
@@ -271,6 +275,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | full minus ms_chol (no multi-scale, no cholesky) | 12.931 | 2.092 | 0.026054 | 11.55 |
 | KITTI | map=50 + corr=5 | 14.894 | 2.149 | 0.027041 | 12.48 |
 | KITTI | bare map=50 | 15.753 | 2.043 | 0.027532 | 11.23 |
+| KITTI | Fast window | 2.824 | 3.773 | 0.047622 | 74.88 |
 | KITTI | + corr=5 | 12.931 | 2.092 | 0.026054 | 11.40 |
 | KITTI | dense + c2f cluster-A (existing best, RPE 2.059%) | 14.099 | 2.057 | 0.027515 | 8.66 |
 | KITTI | baseline (dense + iter=6 + map=20) — existing winner | 68.972 | 2.977 | 0.031920 | 10.31 |
@@ -286,9 +291,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | + constant-velocity-weight 0.05 (winner) | 11.949 | 1.122 | 0.023083 | 5.11 |
 | KITTI | ms_chol + map=50 + c2f σ×2 (full combo) | 2.010 | 1.772 | 0.017504 | 9.86 |
 | KITTI | ms_chol + corr_dist=8 m² | 2.049 | 2.147 | 0.020803 | 14.06 |
+| KITTI | velocity_reg_01 (Table 6 best on seq 07, raw scans) | 2.231 | 1.302 | 0.018304 | 18.51 |
 | KITTI | Dense window | 2.842 | 2.103 | 0.021053 | 17.52 |
 | KITTI | cluster D full + GT seed | 1.603 | 2.082 | 0.020798 | 11.20 |
 | KITTI | ms_chol map=50 | 1.472 | 1.730 | 0.018054 | 12.67 |
+| KITTI | Fast window | 0.978 | 1.359 | 0.082217 | 77.32 |
 | KITTI | + constant-velocity-weight 0.1 | 2.490 | 1.253 | 0.018813 | 5.97 |
 | KITTI | cholesky + c2f (no multi-scale) | 37.043 | 2.113 | 0.025832 | 12.18 |
 | KITTI | c2f_only + corr_dist=8 m² | 33.860 | 2.113 | 0.026506 | 10.18 |
@@ -316,8 +323,6 @@ For an explicit statement of implementation scope and what the repo currently cl
 | dogfooding_results/mulran_parkinglot_full | cluster A (map=50 + c2f σ×2) + GT seed | 9.186 | 9.969 | 0.090951 | 14.58 |
 | dogfooding_results/mulran_parkinglot_full | Fast window | 80.958 | 107.256 | 0.155683 | 59.75 |
 | Istanbul | Fast window | 79.761 | - | - | 2.75 |
-| KITTI | Fast window | 2.824 | 3.773 | 0.047622 | 74.88 |
-| KITTI | Fast window | 0.978 | 1.359 | 0.082217 | 77.32 |
 
 **Notes**: Paper values were re-verified against the arXiv PDF on 2026-10-03. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the full non-GT-seeded sweep for that sequence (experiments/results/kitti_rte_rescore.json); selection on the evaluated sequence makes them optimistic. See docs/assets/paper/paper_ratio_table.csv (Table 6). The --ct-icp-gt-seed toggle remains available for fair-prior dogfooding-style cross-method comparison; GT-seeded rows are excluded from Table 6.
 
@@ -441,6 +446,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | dense profile | 18.961 | 1.254 | 0.012130 | 24.17 |
 | KITTI | dense profile | 51.911 | 1.276 | 0.009604 | 24.22 |
 | KITTI | default | 10.983 | 2.013 | 0.021825 | 40.33 |
+| KITTI | dense_profile (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction | 3.694 | 1.533 | 0.016805 | 34.50 |
 | KITTI | dense profile | 19.290 | 1.909 | 0.012225 | 26.63 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast | 7.419 | - | - | 150.20 |
 | dogfooding_results/mcd_ntu_day_02_108 | Dense | 0.036 | - | - | 33.95 |
@@ -538,6 +544,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Vanilla VGICP backend | 7.848 | 0.831 | 0.006775 | 3.75 |
 | KITTI | Vanilla VGICP backend | 27.186 | 0.884 | 0.005697 | 3.58 |
 | KITTI | Vanilla VGICP backend | 5.556 | 0.512 | 0.004895 | 5.39 |
+| KITTI | paper_default (Table 6 variant on seq 07, raw scans) | 0.646 | 0.540 | 0.003946 | 8.77 |
 | KITTI | Paper default | 0.646 | 0.540 | 0.003946 | 4.12 |
 | KITTI | Vanilla VGICP backend | 16.280 | 1.309 | 0.005269 | 2.93 |
 

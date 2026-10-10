@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-10T21:33:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -543,6 +543,17 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | corr_2 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## CT-ICP KITTI Odom seq 00 full: elevation correction
+
+- Current default: `arch_tuned_all_combined`.
+- Reference variants: `arch_tuned_all_combined_elevation`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_elevation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| arch_tuned_all_combined | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| arch_tuned_all_combined_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified)
 
 - Current default: `fine_sigma_0_25`.
@@ -648,6 +659,18 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | bare_map_20 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | bare_map_30 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | bare_map_50 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
+
+- Current default: `fast_window`.
+- Reference variants: `balanced_window`, `dense_window`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner
 
@@ -842,6 +865,17 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## CT-ICP KITTI Odom seq 07 full: elevation correction
+
+- Current default: `velocity_reg_01`.
+- Reference variants: `velocity_reg_01_elevation`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| velocity_reg_01 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| velocity_reg_01_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
 
 - Current default: `dense_window`.
@@ -878,6 +912,19 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | ms_chol_map_20 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | ms_chol_map_50 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
+
+- Current default: `fast_window`.
+- Active challengers: `dense_window`.
+- Reference variants: `balanced_window`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP seq 07 full: constant-velocity regularization sweep
 
@@ -2473,6 +2520,23 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration
+
+- Current default: `upstream_profile_elevation`.
+- Reference variants: `balanced_reference`, `balanced_reference_elevation`, `dense_profile`, `dense_profile_elevation`, `upstream_profile`, `upstream_profile_range100`, `upstream_profile_range100_elevation`.
+- Aggregate result: `experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| balanced_reference_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_profile_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| upstream_profile_range100 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_profile_range100_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames)
 
 - Current default: `dense_profile`.
@@ -2513,6 +2577,23 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | t1_transfer_v05_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration
+
+- Current default: `balanced_reference`.
+- Reference variants: `balanced_reference_elevation`, `dense_profile`, `dense_profile_elevation`, `upstream_profile`, `upstream_profile_elevation`, `upstream_profile_range100`, `upstream_profile_range100_elevation`.
+- Aggregate result: `experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| balanced_reference_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_profile_range100 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_profile_range100_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames)
 
@@ -2948,6 +3029,17 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 07 full: elevation correction ablation
+
+- Current default: `paper_default`.
+- Reference variants: `paper_default_elevation`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_default_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LF-GICP on KITTI Odom seq 07 full (1101 frames)
 
@@ -3423,6 +3515,17 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast_seeded_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cluster_t1_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation
+
+- Current default: `coarse_to_fine_3_2_1_elevation`.
+- Active challengers: `coarse_to_fine_3_2_1`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| coarse_to_fine_3_2_1 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| coarse_to_fine_3_2_1_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full
 
@@ -4206,31 +4309,6 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Next step: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 - Aggregate result: `experiments/results/orb_slam3_kitti_raw_0061_matrix.json`
 
-## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
-
-- Current default: `fast_window`.
-- Reference variants: `balanced_window`, `dense_window`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
-
-- Current default: `fast_window`.
-- Active challengers: `dense_window`.
-- Reference variants: `balanced_window`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full)
 
 - Current default: `cov_floor_1e_4`.
@@ -4758,6 +4836,17 @@ _Generated at 2026-10-05T02:20:32+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## SuMa KITTI Odom seq 07 full: elevation correction ablation
+
+- Current default: `dense_profile_elevation`.
+- Active challengers: `dense_profile`.
+- Aggregate result: `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| dense_profile_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## SuMa transfer check on KITTI Odom seq 08 full (4071 frames)
 

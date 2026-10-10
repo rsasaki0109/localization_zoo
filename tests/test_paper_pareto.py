@@ -30,6 +30,10 @@ class PaperParetoTests(unittest.TestCase):
                     {"id": "nan", "rpe_trans_pct": float("nan"), "fps": 10.0, "note": ""},
                     {"id": "seeded", "rpe_trans_pct": 0.1, "fps": 10.0, "note": "Uses GT-seeded init"},
                     {"id": "nofps", "rpe_trans_pct": 0.6, "fps": 0.0, "note": ""},
+                    {"id": "ablated", "rpe_trans_pct": 0.2, "fps": 10.0, "note": "",
+                     "design_style": "ablation"},
+                    {"id": "corrected", "rpe_trans_pct": 0.2, "fps": 10.0, "note": "",
+                     "design_style": "paper_input"},
                 ],
             }))
             (root / "b_matrix.json").write_text(json.dumps({

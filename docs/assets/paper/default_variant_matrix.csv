@@ -29,7 +29,7 @@ okvis,,,,,,,fast,fast,fast,fast,,,,,,,,,,,,,,,,
 point_lio,,,,fast,,,fast,fast,fast,fast,,,,,,,,fast,fast,fast,,,,,,
 rko_lio,,,,,,,,,,,,,,,,,,,,,,,,no_bias_feedback,,
 small_gicp,,,,fast_recent_map,,,balanced_local_map,fast_recent_map,fast_recent_map,fast_recent_map,,fast_profile,fast_profile,fast_profile,,fast_profile,fast_profile,fast_recent_map,dense_recent_map,fast_recent_map,,,,,,gate_0_5
-suma,,,,default,,,dense,dense,dense,fast,,dense_profile,dense_profile,default,,,dense_profile,fast,dense,default,,,,,,
+suma,,,,default,,,dense,dense,dense,fast,,dense_profile,dense_profile,default,,dense_profile_elevation,dense_profile,fast,dense,default,,,,,,
 vgicp_slam,,,,fast,,,default,fast,fast,fast,,,,,,,,fast,fast,fast,,,,,,
 vins_fusion,,,,,,,fast,fast,fast,fast,,,,,,,,,,,,,,,,
 voxel_gicp,,,,dense_recent_map,,,fast_recent_map,dense_recent_map,dense_recent_map,dense_recent_map,,dense_profile,dense_profile,dense_profile,,dense_profile,dense_profile,dense_recent_map,dense_recent_map,dense_recent_map,,,,,,

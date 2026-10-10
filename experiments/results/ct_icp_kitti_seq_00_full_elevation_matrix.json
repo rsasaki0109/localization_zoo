@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-10-10T20:22:34+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_seq_00_full_elevation_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_full_elevation",
+    "title": "CT-ICP KITTI Odom seq 00 full: elevation correction",
+    "question": "Upstream CT-ICP corrects the KITTI HDL-64E elevation angle by +0.205 deg in its KITTI loader and the paper reports KITTI-corrected results; the repository runs used raw scans. How much of the paper-number gap does the correction explain?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "arch_tuned_all_combined",
+      "label": "arch_tuned_all_combined (Table 6 best on seq 00, raw scans)",
+      "design_style": "reference",
+      "intent": "Table 6 best variant on this sequence.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "30",
+        "--ct-icp-max-correspondence-distance",
+        "4.0",
+        "--ct-icp-keypoint-voxel-size",
+        "0.5"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined/run.log",
+      "status": "ok",
+      "ate_m": 93.156469,
+      "rpe_trans_pct": 2.564925,
+      "rpe_rot_deg_per_m": 0.031724,
+      "fps": 16.636028,
+      "time_ms": 272961.795323,
+      "frames": 4541,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.25,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.15,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 3.445853,
+      "kitti_rte_rot_deg_per_100m": 1.834331,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "arch_tuned_all_combined_elevation",
+      "label": "arch_tuned_all_combined (Table 6 best on seq 00, raw scans) + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "30",
+        "--ct-icp-max-correspondence-distance",
+        "4.0",
+        "--ct-icp-keypoint-voxel-size",
+        "0.5",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined_elevation/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5 --input-vertical-angle-correction-deg 0.205",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined_elevation/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_00_full_elevation_matrix/arch_tuned_all_combined_elevation/run.log",
+      "status": "ok",
+      "ate_m": 170.162756,
+      "rpe_trans_pct": 2.739354,
+      "rpe_rot_deg_per_m": 0.038031,
+      "fps": 16.336611,
+      "time_ms": 277964.627586,
+      "frames": 4541,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 76.47,
+      "readability_score": 1.65,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.75,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 5.070486,
+      "kitti_rte_rot_deg_per_100m": 2.499294,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

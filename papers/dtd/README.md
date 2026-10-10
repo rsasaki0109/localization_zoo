@@ -46,3 +46,18 @@ if (loop.detected) { /* loop.matched_frame, loop.rotation, loop.translation */ }
 - rotation/translation invariance comes from the sorted-side canonical form +
   entropy, matching the paper; thresholds (`σ_k, σ_s, σ_d, σ_n`) are exposed as
   parameters
+
+## KITTI Result: Retrieval Fails
+
+On the [KITTI place-recognition benchmark](../../docs/place_recognition_benchmark.md)
+this port finds almost no correct loops (F1max 0.035 on KITTI 07, 0.000 on
+KITTI 00), while Scan Context reaches 0.588 and 0.935 under the same
+protocol. Do not use it as a loop detector until this is fixed.
+
+A direct check on KITTI 07 points at the verification step. A scan queried
+against itself verifies with 216 inliers, but the next scan, about 1 m
+further along, gets 5 inliers and the scan after that fewer than 4. Verification
+solves one SVD over every hash-matched triangle of the best-voted frame, with
+no outlier rejection, so a few wrong triangle matches corrupt the transform
+and true revisits score as low as false ones. A per-match RANSAC (or a
+transform from each triangle pair, as in STD) is the likely fix.

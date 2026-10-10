@@ -493,7 +493,8 @@ KISSICPResult KISSICPPipeline::registerFrame(
   // 1. Range filter + Voxel downsample
   auto filtered = rangeFilter(frame);
   auto downsampled = voxelDownsample(filtered, params_.voxel_size * 0.5);
-  auto registration_points = voxelDownsample(downsampled, params_.voxel_size);
+  auto registration_points = voxelDownsample(
+      downsampled, params_.voxel_size * params_.registration_voxel_multiplier);
   if (registration_points.empty()) registration_points = downsampled;
 
   if (frame_count_ == 0) {

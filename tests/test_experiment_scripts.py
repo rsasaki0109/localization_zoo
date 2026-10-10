@@ -780,6 +780,28 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertIn("### From-paper reimplementations", block)
         self.assertIn("curated paper rows stay here", block)
 
+    def test_generate_leaderboard_skips_ablation_and_paper_input_variants(self) -> None:
+        aggregate = {
+            "stable_interface": {"primary_method": "KISS-ICP"},
+            "dataset": {"pcd_dir": "dogfooding_results/kitti_seq_07_full"},
+            "variants": [
+                {"id": "raw", "status": "ok", "design_style": "reference",
+                 "ate_m": 2.0, "rpe_trans_pct": 0.66},
+                {"id": "corrected", "status": "ok", "design_style": "paper_input",
+                 "ate_m": 1.0, "rpe_trans_pct": 0.50},
+                {"id": "ablated", "status": "ok", "design_style": "ablation",
+                 "ate_m": 0.5, "rpe_trans_pct": 0.40},
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            results_dir = Path(tmp)
+            (results_dir / "kiss_icp_seq07_matrix.json").write_text(json.dumps(aggregate))
+            with mock.patch.object(self.leaderboard_module, "RESULTS_DIR", results_dir):
+                cells = self.leaderboard_module.collect_cells()
+        cell = cells[("KISS-ICP", "dogfooding_results/kitti_seq_07_full")]
+        self.assertEqual(cell["rpe"], 0.66)
+        self.assertEqual(cell["ate"], 2.0)
+
     def test_refresh_study_docs_omits_reuse_flags_for_rerun(self) -> None:
         commands: list[list[str]] = []
         with mock.patch.object(

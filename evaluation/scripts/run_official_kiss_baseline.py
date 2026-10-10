@@ -35,6 +35,11 @@ def parse_args() -> argparse.Namespace:
         default=0,
         help="Official registration thread cap; 0 keeps the official default.",
     )
+    parser.add_argument(
+        "--no-kitti-elevation-correction",
+        action="store_true",
+        help="Skip the official 0.205 deg KITTI elevation correction (ablation only).",
+    )
     parser.add_argument("--_odometry-only", action="store_true", help=argparse.SUPPRESS)
     return parser.parse_args()
 
@@ -75,6 +80,8 @@ def build_odometry_command(args: argparse.Namespace, output_dir: Path) -> list[s
     ]
     if getattr(args, "max_threads", 0) > 0:
         command.extend(["--max-threads", str(args.max_threads)])
+    if getattr(args, "no_kitti_elevation_correction", False):
+        command.append("--no-kitti-elevation-correction")
     command.append("--_odometry-only")
     return command
 
@@ -106,11 +113,12 @@ def run_odometry_only(args: argparse.Namespace) -> int:
             .reshape((-1, 4))[:, :3]
             .astype(np.float64)
         )
-        points = np.asarray(
-            kiss_icp_pybind._correct_kitti_scan(
-                kiss_icp_pybind._Vector3dVector(points)
+        if not args.no_kitti_elevation_correction:
+            points = np.asarray(
+                kiss_icp_pybind._correct_kitti_scan(
+                    kiss_icp_pybind._Vector3dVector(points)
+                )
             )
-        )
         frame_started = time.perf_counter_ns()
         odometry.register_frame(points, np.array([]))
         algorithm_ns[index] = time.perf_counter_ns() - frame_started
@@ -198,7 +206,11 @@ def main() -> int:
             "official_default": True,
             "config": str(config_path),
             "config_sha256": sha256_file(config_path),
-            "kitti_elevation_correction": "official _correct_kitti_scan",
+            "kitti_elevation_correction": (
+                "none"
+                if args.no_kitti_elevation_correction
+                else "official _correct_kitti_scan"
+            ),
         },
         "versions": {
             "kiss_icp": timing["kiss_icp_version"],

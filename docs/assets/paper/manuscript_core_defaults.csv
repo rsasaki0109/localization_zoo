@@ -17,7 +17,7 @@ isc_loam,mcd_ntu_day_02_108,gt-backed,fast,0.064940,50.238587,experiments/result
 kiss_icp,mcd_ntu_day_02_108,gt-backed,fast_recent_map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json
 l_lo,kitti_seq_07_full,gt-backed,pitch_band_10_40,1.957085,5.133734,experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json
 lego_loam,mcd_ntu_day_02_108,gt-backed,fast,0.078650,8.362960,experiments/results/lego_loam_mcd_ntu_day_02_matrix.json
-lf_gicp,kitti_seq_07_full,gt-backed,paper_default,0.646241,4.124560,experiments/results/lf_gicp_kitti_seq_07_full_matrix.json
+lf_gicp,kitti_seq_07_full,gt-backed,paper_default,0.646241,8.765675,experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json
 lins,mcd_ntu_day_02_108,gt-backed,dense,0.110815,34.902843,experiments/results/lins_mcd_ntu_day_02_matrix.json
 lio_sam,mcd_ntu_day_02_108,gt-backed,fast,0.072989,31.720395,experiments/results/lio_sam_mcd_ntu_day_02_matrix.json
 litamin2,mcd_ntu_day_02_108,gt-backed,cluster_t1_seeded,0.020511,43.404453,experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json

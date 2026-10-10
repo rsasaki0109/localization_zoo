@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-10-10T20:03:55+00:00",
+  "manifest_path": "experiments/suma_kitti_seq_07_full_elevation_matrix.json",
+  "problem": {
+    "id": "suma_kitti_seq_07_full_elevation",
+    "title": "SuMa KITTI Odom seq 07 full: elevation correction ablation",
+    "question": "Ablation: does the KITTI +0.205 deg elevation correction (used by upstream KISS-ICP and CT-ICP) change SuMa? Whether the SuMa paper used it has not been checked, so the corrected variant is kept out of Table 6.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_profile",
+      "label": "dense_profile (Table 6 variant on seq 07, raw scans)",
+      "design_style": "reference",
+      "intent": "Table 6 variant on this sequence.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile/summary.json --no-gt-seed --suma-dense-profile",
+      "summary_path": "experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 3.970935,
+      "rpe_trans_pct": 0.944163,
+      "rpe_rot_deg_per_m": 0.008807,
+      "fps": 35.600179,
+      "time_ms": 30926.810973,
+      "frames": 1101,
+      "note": "Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 96.51,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 1.095186,
+      "kitti_rte_rot_deg_per_100m": 0.718806,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "dense_profile_elevation",
+      "label": "dense_profile (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction",
+      "design_style": "ablation",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/summary.json --no-gt-seed --suma-dense-profile --input-vertical-angle-correction-deg 0.205",
+      "summary_path": "experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/dense_profile_elevation/run.log",
+      "status": "ok",
+      "ate_m": 3.693557,
+      "rpe_trans_pct": 1.533329,
+      "rpe_rot_deg_per_m": 0.016805,
+      "fps": 34.501961,
+      "time_ms": 31911.229668,
+      "frames": 1101,
+      "note": "Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 98.46,
+      "readability_score": 3.7,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.580859,
+      "kitti_rte_rot_deg_per_100m": 1.141862,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

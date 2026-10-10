@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_full_elevation",
+    "title": "CT-ICP KITTI Odom seq 00 full: elevation correction",
+    "question": "Upstream CT-ICP corrects the KITTI HDL-64E elevation angle by +0.205 deg in its KITTI loader and the paper reports KITTI-corrected results; the repository runs used raw scans. How much of the paper-number gap does the correction explain?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "arch_tuned_all_combined",
+      "label": "arch_tuned_all_combined (Table 6 best on seq 00, raw scans)",
+      "design_style": "reference",
+      "intent": "Table 6 best variant on this sequence.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "30",
+        "--ct-icp-max-correspondence-distance",
+        "4.0",
+        "--ct-icp-keypoint-voxel-size",
+        "0.5"
+      ]
+    },
+    {
+      "id": "arch_tuned_all_combined_elevation",
+      "label": "arch_tuned_all_combined (Table 6 best on seq 00, raw scans) + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "30",
+        "--ct-icp-max-correspondence-distance",
+        "4.0",
+        "--ct-icp-keypoint-voxel-size",
+        "0.5",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    }
+  ]
+}

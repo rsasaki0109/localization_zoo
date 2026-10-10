@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-05T02:20:45+00:00
+> Generated: 2026-10-10T21:33:52+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -151,6 +151,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_00_full | cauchy_4_0 | 18.895 | 10.6 |
 | dogfooding_results/kitti_seq_00_full | iter_1 | 14.099 | 9.8 |
 | dogfooding_results/kitti_seq_00_full | corr_8 | 16.778 | 9.5 |
+| dogfooding_results/kitti_seq_00_full | arch_tuned_all_combined | 93.156 | 16.6 |
 | dogfooding_results/kitti_seq_00_full | fine_sigma_0_25 | 12.351 | 8.4 |
 | dogfooding_results/kitti_seq_00_full | map_20_reference | 18.370 | 10.4 |
 | dogfooding_results/kitti_seq_00_full | balanced_window | 19.413 | 13.0 |
@@ -178,6 +179,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_07_108 | fast_window | 0.978 | 77.3 |
 | dogfooding_results/kitti_seq_07_full | ms_chol_plus_simplified_a | 2.010 | 9.9 |
 | dogfooding_results/kitti_seq_07_full | corr_8 | 2.049 | 14.1 |
+| dogfooding_results/kitti_seq_07_full | velocity_reg_01 | 2.231 | 18.5 |
 | dogfooding_results/kitti_seq_07_full | dense_window | 2.842 | 17.5 |
 | dogfooding_results/kitti_seq_07_full | cluster_d_full_seeded | 1.603 | 11.2 |
 | dogfooding_results/kitti_seq_07_full | ms_chol_map_50 | 1.472 | 12.7 |
@@ -197,7 +199,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/mulran_parkinglot_full | cluster_a_with_seed | 9.186 | 14.6 |
 | dogfooding_results/mulran_parkinglot_full | fast_window | 80.958 | 59.7 |
 
-**Stability**: 45 unique default(s) across 74 windows.
+**Stability**: 46 unique default(s) across 76 windows.
 
 ### CT-LIO
 
@@ -384,15 +386,17 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-KTH | fast_recent_map | 5.568 | 11.3 |
 | MCD-NTU | fast_recent_map | 0.026 | 66.7 |
 | MCD-TUHH | fast_recent_map | 1.303 | 24.1 |
+| dogfooding_results/kitti_seq_00_full | upstream_profile_elevation | 9.037 | 32.5 |
 | dogfooding_results/kitti_seq_00_full | dense_profile | 12.323 | 1.2 |
 | dogfooding_results/kitti_seq_02_full | balanced_reference | 71.183 | 3.1 |
 | dogfooding_results/kitti_seq_05_full | dense_profile | 4.556 | 1.6 |
+| dogfooding_results/kitti_seq_07_full | balanced_reference | 2.238 | 28.3 |
 | dogfooding_results/kitti_seq_07_full | balanced_reference | 2.238 | 3.4 |
 | dogfooding_results/kitti_seq_08_full | fast_profile | 18.085 | 2.2 |
 | dogfooding_results/mulran_parkinglot_120 | fast_recent_map | 15.641 | 27.3 |
 | dogfooding_results/mulran_parkinglot_full | fast_recent_map | 74.337 | 26.9 |
 
-**Stability**: 5 unique default(s) across 19 windows.
+**Stability**: 6 unique default(s) across 21 windows.
 
 ### L-LO
 
@@ -439,10 +443,11 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_00_full | no_mitigation | 7.848 | 3.8 |
 | dogfooding_results/kitti_seq_02_full | no_mitigation | 27.186 | 3.6 |
 | dogfooding_results/kitti_seq_05_full | no_mitigation | 5.556 | 5.4 |
+| dogfooding_results/kitti_seq_07_full | paper_default | 0.646 | 8.8 |
 | dogfooding_results/kitti_seq_07_full | paper_default | 0.646 | 4.1 |
 | dogfooding_results/kitti_seq_08_full | no_mitigation | 16.280 | 2.9 |
 
-**Stability**: 2 unique default(s) across 5 windows.
+**Stability**: 2 unique default(s) across 6 windows.
 
 ### LINS
 
@@ -505,6 +510,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_02_full | cov_floor_1e_4 | 51.895 | 91.8 |
 | dogfooding_results/kitti_seq_05_full | fast_seeded_reference | 0.957 | 17.2 |
 | dogfooding_results/kitti_seq_05_full | cov_floor_1e_4 | 6.565 | 93.4 |
+| dogfooding_results/kitti_seq_07_full | coarse_to_fine_3_2_1_elevation | 2.086 | 47.5 |
 | dogfooding_results/kitti_seq_07_full | fast_seeded_reference | 0.836 | 94.7 |
 | dogfooding_results/kitti_seq_07_full | cov_floor_1e_4 | 2.202 | 106.9 |
 | dogfooding_results/kitti_seq_08_full | fast_seeded_reference | 1.130 | 104.9 |
@@ -516,7 +522,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/nclt_2012_12_01_5000 | voxel_0_5_t1 | 0.519 | 4.4 |
 | dogfooding_results/nclt_2013_01_10_600 | default_voxel_2_0 | 0.380 | 14.7 |
 
-**Stability**: 11 unique default(s) across 37 windows.
+**Stability**: 12 unique default(s) across 38 windows.
 
 ### LOAM-LIVOX
 
@@ -647,9 +653,10 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_00_full | dense_profile | 18.961 | 24.2 |
 | dogfooding_results/kitti_seq_02_full | dense_profile | 51.911 | 24.2 |
 | dogfooding_results/kitti_seq_05_full | default | 10.983 | 40.3 |
+| dogfooding_results/kitti_seq_07_full | dense_profile_elevation | 3.694 | 34.5 |
 | dogfooding_results/kitti_seq_08_full | dense_profile | 19.290 | 26.6 |
 
-**Stability**: 4 unique default(s) across 12 windows.
+**Stability**: 5 unique default(s) across 13 windows.
 
 ### VGICP-SLAM
 
@@ -745,6 +752,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
+| arch_tuned_all_combined | 93.156 | 16.6 | 1 |
+| arch_tuned_all_combined_elevation | 170.163 | 16.3 | 1 |
 | arch_tuned_map_30 | 9.485 | 12.0 | 1 |
 | arch_tuned_map_50 | 8.844 | 10.7 | 2 |
 | balanced_reference | 3.342 | 7.3 | 2 |
@@ -858,7 +867,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | velocity_reg_001 | 27.694 | 9.0 | 2 |
 | velocity_reg_0015 | 98.563 | 9.4 | 1 |
 | velocity_reg_005 | 7.555 | 5.2 | 2 |
-| velocity_reg_01 | 2.490 | 6.0 | 1 |
+| velocity_reg_01 | 2.361 | 12.2 | 2 |
+| velocity_reg_01_elevation | 3.388 | 18.3 | 1 |
 
 ### CT-LIO
 
@@ -990,14 +1000,20 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
 | balanced_local_map | 40.765 | 9.9 | 14 |
-| balanced_reference | 23.224 | 2.4 | 5 |
+| balanced_reference | 19.109 | 7.0 | 7 |
+| balanced_reference_elevation | 7.403 | 16.0 | 2 |
 | dense_local_map | 40.108 | 6.8 | 12 |
-| dense_profile | 18.615 | 1.5 | 5 |
+| dense_profile | 15.434 | 3.8 | 7 |
+| dense_profile_elevation | 5.370 | 11.2 | 2 |
 | dense_recent_map | 44.631 | 6.8 | 2 |
 | fast_profile | 29.017 | 2.5 | 5 |
 | fast_recent_map | 40.645 | 17.7 | 14 |
 | t1_transfer_v03_i12 | 2.681 | 1.5 | 1 |
 | t1_transfer_v05_i12 | 23.054 | 0.9 | 5 |
+| upstream_profile | 7.826 | 18.2 | 2 |
+| upstream_profile_elevation | 5.326 | 19.4 | 2 |
+| upstream_profile_range100 | 7.479 | 18.8 | 2 |
+| upstream_profile_range100_elevation | 5.921 | 19.2 | 2 |
 
 ### L-LO
 
@@ -1049,7 +1065,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
 | no_mitigation | 11.568 | 4.0 | 5 |
-| paper_default | 12.997 | 3.4 | 5 |
+| paper_default | 10.938 | 4.3 | 6 |
+| paper_default_elevation | 1.859 | 8.3 | 1 |
 
 ### LINS
 
@@ -1072,7 +1089,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
 | cluster_t1_seeded | 0.471 | 37.7 | 13 |
-| coarse_to_fine_3_2_1 | 37.968 | 66.3 | 4 |
+| coarse_to_fine_3_2_1 | 30.823 | 62.3 | 5 |
+| coarse_to_fine_3_2_1_elevation | 2.086 | 47.5 | 1 |
 | cov_floor_1e_4 | 20.084 | 96.6 | 4 |
 | covariance_gradient | 104.515 | 79.8 | 4 |
 | covariance_gradient_w0_1_linesearch | 29.073 | 79.9 | 4 |
@@ -1175,7 +1193,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 |---|---:|---:|---:|
 | default | 26.934 | 35.4 | 12 |
 | dense | 3.849 | 27.6 | 8 |
-| dense_profile | 24.918 | 25.7 | 4 |
+| dense_profile | 20.729 | 27.7 | 5 |
+| dense_profile_elevation | 3.694 | 34.5 | 1 |
 | fast | 376.693 | 109.8 | 8 |
 
 ### VGICP-SLAM

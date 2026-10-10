@@ -20,12 +20,12 @@ Across the **five** method families that currently share the **same twelve bench
 The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/ready_defaults.csv` (one row per **ready** LiDAR/visual problem instance; IMU-only dead-reckoning rows are excluded) spans roughly **0.005 m to 292 m** ATE and **0.17 to 1717** FPS on the machine used for the stored aggregates. No single method family dominates the full front; fast scan-to-map variants (e.g., LiTAMIN2 `fast_*`, Small-GICP on KITTI) coexist with high-throughput multimodal OKVIS configurations and high-accuracy NDT configurations on other windows.
 
 **Evidence:**
-- `docs/assets/paper/kitti07_pareto.png` — KITTI 07 pure-odometry Pareto front (106 variants, 8 methods)
+- `docs/assets/paper/kitti07_pareto.png` — KITTI 07 pure-odometry Pareto front (152 variants, 10 methods)
 - `docs/assets/paper/manuscript_core_defaults.csv` — one **manuscript-facing** representative default per **core** method family (subset used for overview figures; full cloud is `ready_defaults.csv`).
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **418** ready problems, **1** blocked manifest, and **14** skipped manifests across **35** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
+The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **425** ready problems, **1** blocked manifest, and **14** skipped manifests across **35** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -55,7 +55,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Near paper | LF-GICP (no author code; gate calibrated on the paper's KITTI 00 trace) | 00/02/05/07/08 | 0.96x |
 | Near paper | LiTAMIN2 (ICP+Cov, no loop closure) | 00/02/05/07/08 | 1.22x |
 | Gap remains | L-LO (no author code; parameters chosen on seq 07) | 00/02/05/07/08 | 1.58x |
-| Gap remains | KISS-ICP (compact baseline) | 00 | 1.87x |
+| Gap remains | KISS-ICP (compact baseline; corrected scans as upstream, see `docs/kitti_elevation_correction.md`) | 00 | 1.39x |
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
 | Gap remains | CT-ICP | 00/02/05/07/08 | 4.03x |
 | Gap remains | MULLS (derived multi-metric variant) | 00/02/05/07/08 | 7.62x |
@@ -100,7 +100,7 @@ unnoticed, which motivates pinning both inputs and code:
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **418** ready + **1** blocked + **14** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **425** ready + **1** blocked + **14** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |

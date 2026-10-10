@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-10-04 (論文値の検証・公式 KITTI RTE・結果ずれ検出と再実行、handoff 更新)**
+> **最終更新: 2026-10-10 (KITTI 仰角補正の調査、place recognition ベンチマーク、論文 Results/Discussion 草稿)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,9 +24,38 @@
 
 ---
 
-## 00. Latest Handoff: 論文値の検証と結果の再現性 (2026-10-04)
+## 00. Latest Handoff: KITTI 仰角補正・place recognition・論文本文 (2026-10-10)
 
-> **これが最新・最優先の handoff。**
+> **これが最新・最優先の handoff。** クラウド環境 (Xeon 4 コア) で KITTI 00/07 を S3 から部分取得して実行した。
+>
+> - **KITTI 仰角補正** ([`docs/kitti_elevation_correction.md`](docs/kitti_elevation_correction.md)):
+>   上流 KISS-ICP と CT-ICP は KITTI ローダーで +0.205 deg 補正するが、repo の KITTI 実行はすべて生スキャンだった。
+>   `pcd_dogfooding --input-vertical-angle-correction-deg 0.205` (全手法共通、既定 0) と `--input-max-range-m` (既定 80) を追加。
+>   公式 KISS-ICP 1.3.0 は seq 00 で補正あり 0.528 % (論文 0.51 %)、生スキャン 0.910 %。
+>   `--kiss-upstream-profile` + 補正で repo は 0.708 % → **Table 6 の KISS-ICP は 1.87x → 1.39x**。
+>   残り 1.3-1.5x は実装差: 公式は補正で 26-42 % 改善、repo は 10-16 %。設定差と 80 m 打ち切りは原因ではないと確認済み。
+>   補正の効果は手法依存 (seq 07: LiTAMIN2 -29 %、KISS -10〜-36 %、CT-ICP +17 %、LF-GICP +18 %、SuMa +44 %)。
+>   補正 variant は `design_style: paper_input` (KISS-ICP / CT-ICP のみ Table 6 候補)、他は `ablation`。
+>   順位表と KITTI 07 Pareto は `paper_input` を除外し、全手法が同じ生スキャン入力のまま。
+> - **CT-ICP のホスト依存**: Table 6 の seq 00 variant は同一ホストでは bit 一致するが、このホストでは公式 RTE 3.446 %
+>   (保存値 1.664 %、i5-1145G7)。seq 07 も 1.067 → 1.060 %。KISS / LiTAMIN2 / SuMa / LF-GICP は bit 一致。原因未特定。
+> - **Place recognition** ([`docs/place_recognition_benchmark.md`](docs/place_recognition_benchmark.md)):
+>   `place_recognition_benchmark` (GT を読まない) + `evaluate_place_recognition.py` + `run_kitti_place_recognition.py`。
+>   KITTI 00/02/05/07/08、top-1・4 m・50 フレーム除外。Scan Context F1max 0.935/0.837/0.920/0.588/0.592、ISC が 0.03-0.09 差、
+>   **DTD は実データで失敗** (F1max ≤ 0.035; 1 回の SVD 検証に外れ値除去がない、`papers/dtd/README.md`)。
+>   per-query 結果は commit 済みなので `--rescore-only` でスキャン無しに再生成できる。
+> - **論文本文**: [`docs/paper_draft.md`](docs/paper_draft.md) に Section 5 Results / 6 Discussion。
+> - その他: `generate_leaderboard.py` が #100 以降 BROAD JSON で落ちていたのを修正。
+>
+> 次にやるとよいこと:
+> 1. KISS-ICP の残り 1.3-1.5x: 補正済みスキャンで効きが弱い原因 (適応閾値、robust kernel、map 更新) を `papers/kiss_icp/README.md` の差分表から潰す。
+> 2. CT-ICP のホスト依存の原因 (BLAS / libm の CPU 分岐など) を特定し、seq 00 を固定する。
+> 3. DTD の検証を RANSAC (または三角形ペアごとの変換) に直して place recognition を再評価。
+> 4. CT-ICP の補正あり variant を 02/05/08 にも (論文は補正済み)。LiTAMIN2 / SuMa の論文の前処理を PDF で確認。
+
+## 00z. 前回 Handoff: 論文値の検証と結果の再現性 (2026-10-04)
+
+> (2026-10-10 の handoff に置き換え済み。)
 >
 > 2026-10-03〜04 に main に入ったもの (#71–#87):
 > - **論文用の表と図**: Table 5 (`generate_full_variant_table.py`)、Table 7 (`generate_ct_appendix_table.py`)、

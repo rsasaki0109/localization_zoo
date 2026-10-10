@@ -122,6 +122,16 @@ target_link_libraries(pcd_dogfooding PRIVATE
 add_executable(kiss_bin_odometry src/kiss_bin_odometry.cpp)
 target_link_libraries(kiss_bin_odometry PRIVATE kiss_icp Eigen3::Eigen)
 
+add_executable(place_recognition_benchmark src/place_recognition_benchmark.cpp)
+target_link_libraries(place_recognition_benchmark PRIVATE
+  scan_context
+  isc_loam
+  dtd
+  Eigen3::Eigen
+  ${PCL_LIBRARIES}
+)
+target_include_directories(place_recognition_benchmark PRIVATE ${PCL_INCLUDE_DIRS})
+
 add_executable(kiss_bin_pose_graph src/kiss_bin_pose_graph.cpp)
 target_link_libraries(kiss_bin_pose_graph PRIVATE
   hdl_graph_slam

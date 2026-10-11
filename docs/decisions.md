@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T18:50:35+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -4159,6 +4159,17 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## MULLS transfer check on KITTI Odom seq 02 full (4661 frames)
 
 - Current default: `fast`.
@@ -4170,6 +4181,28 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## MULLS KITTI Odom seq 03 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_03_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## MULLS KITTI Odom seq 04 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_04_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## MULLS transfer check on KITTI Odom seq 05 full (2761 frames)
 
 - Current default: `fast`.
@@ -4180,6 +4213,28 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS KITTI Odom seq 06 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_06_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## MULLS KITTI Odom seq 07 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_07_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)
 
@@ -4203,6 +4258,28 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS KITTI Odom seq 09 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_09_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## MULLS KITTI Odom seq 10 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_10_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence
 

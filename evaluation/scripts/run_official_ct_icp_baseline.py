@@ -39,7 +39,12 @@ from evaluate_external_kitti_odometry import compute_metrics, load_reference_csv
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--velodyne-dir", required=True, help="KITTI sequences/<seq>/velodyne directory.")
+    parser.add_argument("--velodyne-dir", help="KITTI sequences/<seq>/velodyne directory.")
+    parser.add_argument(
+        "--convert-only",
+        action="store_true",
+        help="Only write the PLY frames to <output-dir>/data (to free the .bin files before the run).",
+    )
     parser.add_argument("--sequence", required=True)
     parser.add_argument("--reference-csv", required=True, help="Zoo lidar_pose GT CSV (metrics only).")
     parser.add_argument("--output-dir", required=True)
@@ -175,7 +180,15 @@ def main() -> int:
     sequence = args.sequence.zfill(2)
     data_root = output_dir / "data"
     frames_dir = data_root / sequence / "frames"
-    num_frames = write_frames(Path(args.velodyne_dir), frames_dir, args.timestamps)
+    if args.velodyne_dir:
+        num_frames = write_frames(Path(args.velodyne_dir), frames_dir, args.timestamps)
+    elif frames_dir.is_dir():
+        # Frames written earlier with --convert-only.
+        num_frames = len(list(frames_dir.glob("frame_*.ply")))
+    else:
+        raise SystemExit("--velodyne-dir is required unless --convert-only frames exist")
+    if args.convert_only:
+        return 0
     # Upstream's runner evaluates against <root>/<seq>/<seq>.txt when it exists;
     # leave it absent so the odometry process never sees ground truth.
     if (data_root / sequence / f"{sequence}.txt").exists():
@@ -231,7 +244,7 @@ def main() -> int:
             "pose_sampling": "interpolated at 0.1 i + 0.05 s (save_mid_frame)",
         },
         "artifacts": {
-            "velodyne_dir": str(Path(args.velodyne_dir).resolve()),
+            "velodyne_dir": str(Path(args.velodyne_dir).resolve()) if args.velodyne_dir else None,
             "trajectory": str(trajectory_path),
             "estimate": str(estimate_path),
             "estimate_sha256": sha256_file(estimate_path),

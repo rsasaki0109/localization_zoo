@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-10T21:33:52+00:00
+> Generated: 2026-10-11T00:01:38+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -386,11 +386,11 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-KTH | fast_recent_map | 5.568 | 11.3 |
 | MCD-NTU | fast_recent_map | 0.026 | 66.7 |
 | MCD-TUHH | fast_recent_map | 1.303 | 24.1 |
-| dogfooding_results/kitti_seq_00_full | upstream_profile_elevation | 9.037 | 32.5 |
+| dogfooding_results/kitti_seq_00_full | upstream_mechanics_elevation | 7.633 | 36.6 |
 | dogfooding_results/kitti_seq_00_full | dense_profile | 12.323 | 1.2 |
 | dogfooding_results/kitti_seq_02_full | balanced_reference | 71.183 | 3.1 |
 | dogfooding_results/kitti_seq_05_full | dense_profile | 4.556 | 1.6 |
-| dogfooding_results/kitti_seq_07_full | balanced_reference | 2.238 | 28.3 |
+| dogfooding_results/kitti_seq_07_full | upstream_mechanics_elevation | 0.537 | 39.5 |
 | dogfooding_results/kitti_seq_07_full | balanced_reference | 2.238 | 3.4 |
 | dogfooding_results/kitti_seq_08_full | fast_profile | 18.085 | 2.2 |
 | dogfooding_results/mulran_parkinglot_120 | fast_recent_map | 15.641 | 27.3 |
@@ -1010,10 +1010,14 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | fast_recent_map | 40.645 | 17.7 | 14 |
 | t1_transfer_v03_i12 | 2.681 | 1.5 | 1 |
 | t1_transfer_v05_i12 | 23.054 | 0.9 | 5 |
+| upstream_mechanics | 7.138 | 38.1 | 2 |
+| upstream_mechanics_elevation | 4.085 | 38.0 | 2 |
 | upstream_profile | 7.826 | 18.2 | 2 |
 | upstream_profile_elevation | 5.326 | 19.4 | 2 |
 | upstream_profile_range100 | 7.479 | 18.8 | 2 |
 | upstream_profile_range100_elevation | 5.921 | 19.2 | 2 |
+| upstream_threshold_elevation | 4.548 | 7.1 | 2 |
+| upstream_threshold_gm_elevation | 4.581 | 33.5 | 2 |
 
 ### L-LO
 

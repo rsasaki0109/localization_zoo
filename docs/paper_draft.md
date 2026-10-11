@@ -79,11 +79,11 @@ an optimistic bound; rows whose variant was chosen on sequence 07 and
 transferred unchanged are marked held-out.
 
 The methods split into two groups. A-LOAM (1.01x against LOAM values cited by
-later papers), LF-GICP (0.96x), and LiTAMIN2 (1.22x) reach paper-level
-accuracy. L-LO (1.58x), KISS-ICP (1.39x, sequence 00 only), SuMa (2.21x),
+later papers), LF-GICP (0.96x), KISS-ICP (1.05x, sequence 00 only), and
+LiTAMIN2 (1.22x) reach paper-level accuracy. L-LO (1.58x), SuMa (2.21x),
 CT-ICP (4.03x), and MULLS (7.62x) run on the same metric but do not reproduce
-the paper numbers. Section 6.5 traces part of the KISS-ICP gap to input
-preprocessing and configuration.
+the paper numbers. KISS-ICP stood at 1.87x until Section 6.5's audit traced
+the gap to input preprocessing and one algorithmic shortcut.
 
 ### 5.5 Mechanism ablations
 
@@ -164,18 +164,23 @@ scans, while every repository KITTI run used raw scans. Measuring the
 correction separately (`docs/kitti_elevation_correction.md`) changes how the
 Table 6 gaps read:
 
-- **It explains most of the KISS-ICP gap.** The official KISS-ICP 1.3.0 code
-  scores 0.528 % on corrected KITTI 00, matching the paper's 0.51 %, but
-  0.910 % on raw scans, close to the repository's old 0.954 %. With the
-  correction and the upstream configuration the repository reaches 0.708 %,
-  so the KISS-ICP row falls from 1.87x to 1.39x. The rest is implementation:
-  on raw scans the port matches or beats the official code on seq 00, yet it
-  gains only 10-16 % from the correction against the official code's
-  26-42 %. Raising the shared 80 m loader range to upstream's 100 m does not
-  close that difference.
+- **Together with one algorithmic shortcut, it explains the KISS-ICP gap.**
+  The official KISS-ICP 1.3.0 code scores 0.528 % on corrected KITTI 00,
+  matching the paper's 0.51 %, but 0.910 % on raw scans, close to the
+  repository's old 0.954 %. Matching the correction and the upstream
+  configuration took the port to 0.708 %. The rest came from the adaptive
+  threshold: the port derived σ from the vehicle's speed (mean 2.5 m on
+  seq 00) instead of from the registration's own prediction error (mean
+  0.5 m), and used it as both correspondence distance and kernel scale. With
+  the upstream threshold, Geman-McClure kernel, and map insertion gate the
+  port scores 0.535 % on corrected seq 00 and 0.363 % on seq 07, against the
+  official code's 0.528 % and 0.375 %, and gains as much from the correction
+  (−41 % and −25 % against −42 % and −26 %). The KISS-ICP row falls from
+  1.87x to 1.05x. The loader's 80 m range cap was ruled out on the way.
 - **It is not a universal fix.** On KITTI 07 the same correction, applied to
   each method's Table 6 variant unchanged, lowers the official RTE of
-  LiTAMIN2 by 29 % and KISS-ICP by 10-36 % but raises CT-ICP by 17 %,
+  LiTAMIN2 by 29 % and KISS-ICP by 10-36 % (25 % with the upstream
+  mechanics) but raises CT-ICP by 17 %,
   LF-GICP by 18 %, and SuMa by 44 %. Those variants were tuned on raw scans,
   and LF-GICP's paper explicitly used raw scans, so a worse corrected result
   says the tuning absorbed the sensor error, not that the correction is wrong.

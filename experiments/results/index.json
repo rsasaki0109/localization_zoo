@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T21:33:32+00:00",
+  "generated_at": "2026-10-11T00:01:18+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1853,7 +1853,7 @@
       "blocker": "",
       "manifest_path": "experiments/kiss_icp_kitti_seq_00_full_elevation_matrix.json",
       "aggregate_path": "experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json",
-      "current_default": "upstream_profile_elevation"
+      "current_default": "upstream_mechanics_elevation"
     },
     {
       "problem_id": "kiss_icp_kitti_seq_00_full_sweep",
@@ -1889,7 +1889,7 @@
       "blocker": "",
       "manifest_path": "experiments/kiss_icp_kitti_seq_07_full_elevation_matrix.json",
       "aggregate_path": "experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json",
-      "current_default": "balanced_reference"
+      "current_default": "upstream_mechanics_elevation"
     },
     {
       "problem_id": "kiss_icp_kitti_seq_07_full_sweep",

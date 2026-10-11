@@ -32,8 +32,13 @@
 >   上流 KISS-ICP と CT-ICP は KITTI ローダーで +0.205 deg 補正するが、repo の KITTI 実行はすべて生スキャンだった。
 >   `pcd_dogfooding --input-vertical-angle-correction-deg 0.205` (全手法共通、既定 0) と `--input-max-range-m` (既定 80) を追加。
 >   公式 KISS-ICP 1.3.0 は seq 00 で補正あり 0.528 % (論文 0.51 %)、生スキャン 0.910 %。
->   `--kiss-upstream-profile` + 補正で repo は 0.708 % → **Table 6 の KISS-ICP は 1.87x → 1.39x**。
->   残り 1.3-1.5x は実装差: 公式は補正で 26-42 % 改善、repo は 10-16 %。設定差と 80 m 打ち切りは原因ではないと確認済み。
+>   `--kiss-upstream-profile` + 補正で repo は 0.708 % (1.39x)。残りの原因は**適応閾値**だった (2026-10-11):
+>   repo 既定は σ = 直近 100 フレームの移動量中央値 × 3 (平均 2.0-2.5 m) を対応距離とカーネルに使うが、上流は
+>   予測と推定のずれの RMS (平均 0.43-0.50 m) で対応距離 3σ・Geman-McClure。`--kiss-model-deviation-threshold`
+>   `--kiss-geman-mcclure-kernel` `--kiss-map-min-point-distance 0.2236068` (後 2 つは新規) を足した「upstream mechanics」は
+>   補正ありで seq 00 0.535 % / seq 07 0.363 % (公式 0.528 / 0.375)、生スキャン 0.901 / 0.481 (公式 0.910 / 0.505)。
+>   **Table 6 の KISS-ICP は 1.87x → 1.05x** で論文に近い側へ。既定値は変えていない (保存結果と CI golden を維持)。
+>   80 m 打ち切りは原因ではないと確認済み。順位表の KISS-ICP seq 07 は 0.60 % に。
 >   補正の効果は手法依存 (seq 07: LiTAMIN2 -29 %、KISS -10〜-36 %、CT-ICP +17 %、LF-GICP +18 %、SuMa +44 %)。
 >   補正 variant は `design_style: paper_input` (KISS-ICP / CT-ICP のみ Table 6 候補)、他は `ablation`。
 >   順位表と KITTI 07 Pareto は `paper_input` を除外し、全手法が同じ生スキャン入力のまま。
@@ -48,7 +53,7 @@
 > - その他: `generate_leaderboard.py` が #100 以降 BROAD JSON で落ちていたのを修正。
 >
 > 次にやるとよいこと:
-> 1. KISS-ICP の残り 1.3-1.5x: 補正済みスキャンで効きが弱い原因 (適応閾値、robust kernel、map 更新) を `papers/kiss_icp/README.md` の差分表から潰す。
+> 1. [2026-10-11 完了] KISS-ICP の残り差 → 適応閾値が原因、1.05x。次は upstream mechanics + 補正で KITTI 01-10 を回し論文の 00-10 平均 0.50 % と比べる。
 > 2. CT-ICP のホスト依存の原因 (BLAS / libm の CPU 分岐など) を特定し、seq 00 を固定する。
 > 3. DTD の検証を RANSAC (または三角形ペアごとの変換) に直して place recognition を再評価。
 > 4. CT-ICP の補正あり variant を 02/05/08 にも (論文は補正済み)。LiTAMIN2 / SuMa の論文の前処理を PDF で確認。

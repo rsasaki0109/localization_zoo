@@ -21,7 +21,7 @@ ct_icp,07,0.310,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_
 ct_icp,08,0.810,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.749,2.16,1.938,45,45,arch_tuned_all_combined,experiments/results/ct_icp_kitti_seq_08_full_arch_tuned_matrix.json
 ct_icp,09,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
 ct_icp,10,0.480,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.708,1.39,0.954,10,10,upstream_profile_elevation,experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json
+kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.535,1.05,0.928,12,12,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json
 kiss_icp,04,0.360,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",,,,,0,0,,
 l_lo,00,0.910,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,1.479,1.63,1.479,1,1,seq07_tuned,experiments/results/l_lo_kitti_seq_00_full_matrix.json
 l_lo,02,2.350,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,4.478,1.91,4.478,1,1,seq07_tuned,experiments/results/l_lo_kitti_seq_02_full_matrix.json

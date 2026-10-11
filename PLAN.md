@@ -24,6 +24,12 @@
 
 ---
 
+## 方針変更 (2026-10-11): 論文の執筆は中止
+
+論文 (Track A/B) は書かない。`docs/paper_*.md` と `docs/assets/paper/` は Table 6・順位表・Pareto の説明として残すが、
+章の追加や図 5-7 の作成はしない。今後の目標は「使えて、数値を信用できる実装集」: 結果の再現性
+(CT-ICP のホスト依存など) と、論文値とのギャップの原因特定・解消 (SuMa / CT-ICP / MULLS) を優先する。
+
 ## 00. Latest Handoff: KITTI 仰角補正・place recognition・論文本文 (2026-10-10)
 
 > **これが最新・最優先の handoff。** クラウド環境 (Xeon 4 コア) で KITTI 00/07 を S3 から部分取得して実行した。

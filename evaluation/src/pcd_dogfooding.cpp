@@ -645,6 +645,21 @@ double g_input_vertical_angle_correction_rad = 0.0;
 // Shared loader range cap (--input-max-range-m). Upstream KISS-ICP keeps
 // returns up to 100 m; the historical default here is 80 m.
 double g_input_max_range_m = 80.0;
+// Per-point time from the azimuth for scans without a time field
+// (--input-azimuth-time). KITTI .bin scans store points ring by ring, so the
+// index fallback (j / N) follows the elevation, not the sweep; this uses the
+// sweep angle as in KISS-ICP's KITTI loader, 0.5 * (1 - atan2(y, x) / pi).
+bool g_input_azimuth_time = false;
+
+void assignAzimuthTimes(LoadedScan* scan) {
+  const double pi = std::acos(-1.0);
+  scan->relative_times.clear();
+  scan->relative_times.reserve(scan->points.size());
+  for (const auto& p : scan->points) {
+    scan->relative_times.push_back(0.5 * (1.0 - std::atan2(p.y(), p.x()) / pi));
+  }
+  scan->has_per_point_time = !scan->relative_times.empty();
+}
 
 template <typename PointT>
 void applyInputVerticalAngleCorrection(pcl::PointCloud<PointT>* cloud) {
@@ -878,6 +893,7 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5,
   const fs::path resolved_path = resolvePointCloudPath(path);
   if (resolved_path.extension() == ".bin") {
     scan.points = loadPCD(resolved_path.string(), leaf);
+    if (g_input_azimuth_time) assignAzimuthTimes(&scan);
     return scan;
   }
 
@@ -893,6 +909,7 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5,
   }
   if (!has_time_field) {
     scan.points = loadPCD(resolved_path.string(), leaf);
+    if (g_input_azimuth_time) assignAzimuthTimes(&scan);
     return scan;
   }
 
@@ -11020,6 +11037,8 @@ void writeSummaryJson(const std::string& path,
   out << "  \"input_vertical_angle_correction_deg\": "
       << g_input_vertical_angle_correction_rad * (180.0 / std::acos(-1.0))
       << ",\n";
+  out << "  \"input_azimuth_time\": "
+      << (g_input_azimuth_time ? "true" : "false") << ",\n";
   out << "  \"total_pcd_frames\": " << total_pcd_frames << ",\n";
   out << "  \"num_frames\": " << num_frames << ",\n";
   out << "  \"raw_gt_pose_count\": " << raw_gt_pose_count << ",\n";
@@ -11294,7 +11313,7 @@ int main(int argc, char** argv) {
               << " [--kiss-model-deviation-correspondence-multiplier X]"
               << " [--kiss-vertical-angle-correction-deg X]"
               << " [--input-vertical-angle-correction-deg X]"
-              << " [--input-max-range-m X]"
+              << " [--input-max-range-m X] [--input-azimuth-time]"
               << " [--kiss-deskew-mulran]"
               << " [--kiss-motion-guard]"
               << " [--kiss-diverse-voxel-points]"
@@ -11492,6 +11511,10 @@ int main(int argc, char** argv) {
         return 1;
       }
       g_input_max_range_m = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--input-azimuth-time") {
+      g_input_azimuth_time = true;
       continue;
     }
     if (arg == "--input-vertical-angle-correction-deg") {

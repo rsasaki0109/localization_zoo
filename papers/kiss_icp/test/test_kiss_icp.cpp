@@ -227,3 +227,57 @@ TEST(KISSICP, MultiFrame) {
       (pipeline.pose().block<3,1>(0,3) - Eigen::Vector3d(2,0,0)).norm();
   EXPECT_LT(err, 2.0);
 }
+
+TEST(KISSICP, MapMinPointDistanceSkipsNearDuplicates) {
+  const Eigen::Vector3d first(0.10, 0.10, 0.10);
+  const Eigen::Vector3d near_duplicate(0.25, 0.10, 0.10);
+  const Eigen::Vector3d query(0.30, 0.10, 0.10);
+
+  VoxelHashMap keep_all(1.0, 20, false, 1);
+  keep_all.addPoints({first, near_duplicate});
+  EXPECT_TRUE(keep_all.getCorrespondences({query}, 1.0)
+                  .front()
+                  .point.isApprox(near_duplicate));
+
+  // Upstream gate for a 1 m voxel with 20 points: sqrt(1 / 20) ~= 0.22 m.
+  VoxelHashMap gated(1.0, 20, false, 1, std::sqrt(1.0 / 20.0));
+  gated.addPoints({first, near_duplicate});
+  EXPECT_TRUE(
+      gated.getCorrespondences({query}, 1.0).front().point.isApprox(first));
+  // A point farther than the gate is still added.
+  const Eigen::Vector3d far_enough(0.50, 0.10, 0.10);
+  gated.addPoints({far_enough});
+  EXPECT_TRUE(gated.getCorrespondences({Eigen::Vector3d(0.55, 0.10, 0.10)}, 1.0)
+                  .front()
+                  .point.isApprox(far_enough));
+}
+
+TEST(KISSICP, UpstreamMechanicsTrackMultiFrame) {
+  // Model-deviation threshold (3 sigma correspondences), Geman-McClure
+  // kernel, and the map insertion gate, as in upstream KISS-ICP.
+  std::mt19937 rng(42);
+  KISSICPParams params;
+  params.voxel_size = 1.0;
+  params.max_icp_iterations = 50;
+  params.use_model_deviation_threshold = true;
+  params.model_deviation_correspondence_multiplier = 3.0;
+  params.geman_mcclure_kernel = true;
+  params.map_min_point_distance = std::sqrt(1.0 / 20.0);
+  KISSICPPipeline pipeline(params);
+
+  auto scene = makeScene(rng);
+  for (int f = 0; f < 3; f++) {
+    Eigen::Matrix3d R =
+        Eigen::AngleAxisd(f * 0.02, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    Eigen::Vector3d t(f * 1.0, 0, 1);
+    std::vector<Eigen::Vector3d> scan;
+    for (auto& p : scene) {
+      Eigen::Vector3d ps = R.transpose() * (p - t);
+      if (ps.norm() > 3 && ps.norm() < 30) scan.push_back(ps);
+    }
+    EXPECT_TRUE(pipeline.registerFrame(scan).converged);
+  }
+  const double err =
+      (pipeline.pose().block<3, 1>(0, 3) - Eigen::Vector3d(2, 0, 0)).norm();
+  EXPECT_LT(err, 0.2);
+}

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-10T21:33:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2522,8 +2522,8 @@ _Generated at 2026-10-10T21:33:32+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration
 
-- Current default: `upstream_profile_elevation`.
-- Reference variants: `balanced_reference`, `balanced_reference_elevation`, `dense_profile`, `dense_profile_elevation`, `upstream_profile`, `upstream_profile_range100`, `upstream_profile_range100_elevation`.
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `balanced_reference`, `balanced_reference_elevation`, `dense_profile`, `dense_profile_elevation`, `upstream_profile`, `upstream_profile_elevation`, `upstream_profile_range100`, `upstream_profile_range100_elevation`, `upstream_threshold_elevation`, `upstream_threshold_gm_elevation`, `upstream_mechanics`.
 - Aggregate result: `experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json`
 
 | Variant | Decision | Why |
@@ -2533,9 +2533,13 @@ _Generated at 2026-10-10T21:33:32+00:00 by `evaluation/scripts/run_experiment_ma
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | upstream_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| upstream_profile_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| upstream_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | upstream_profile_range100 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | upstream_profile_range100_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_threshold_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_threshold_gm_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames)
 
@@ -2580,13 +2584,13 @@ _Generated at 2026-10-10T21:33:32+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration
 
-- Current default: `balanced_reference`.
-- Reference variants: `balanced_reference_elevation`, `dense_profile`, `dense_profile_elevation`, `upstream_profile`, `upstream_profile_elevation`, `upstream_profile_range100`, `upstream_profile_range100_elevation`.
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `balanced_reference`, `balanced_reference_elevation`, `dense_profile`, `dense_profile_elevation`, `upstream_profile`, `upstream_profile_elevation`, `upstream_profile_range100`, `upstream_profile_range100_elevation`, `upstream_threshold_elevation`, `upstream_threshold_gm_elevation`, `upstream_mechanics`.
 - Aggregate result: `experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| balanced_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | balanced_reference_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
@@ -2594,6 +2598,10 @@ _Generated at 2026-10-10T21:33:32+00:00 by `evaluation/scripts/run_experiment_ma
 | upstream_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | upstream_profile_range100 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | upstream_profile_range100_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_threshold_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_threshold_gm_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames)
 

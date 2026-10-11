@@ -1,6 +1,6 @@
 # Paper Tracks
 
-_Generated at 2026-10-10T21:33:33+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
@@ -212,8 +212,8 @@ Current coverage: `425` ready, `1` blocked, `14` skipped problems.
 | KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `dense_profile` | 4.556 | 2.1 | `dogfooding_results/kitti_seq_05_full` |
 | KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `balanced_reference` | 2.238 | 3.4 | `dogfooding_results/kitti_seq_07_full` |
 | KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 17.322 | 2.5 | `dogfooding_results/kitti_seq_08_full` |
-| KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration | `ready` | `upstream_profile_elevation` | 9.037 | 32.5 | `dogfooding_results/kitti_seq_00_full` |
-| KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration | `ready` | `balanced_reference` | 1.390 | 28.3 | `dogfooding_results/kitti_seq_07_full` |
+| KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration | `ready` | `upstream_mechanics_elevation` | 7.633 | 37.7 | `dogfooding_results/kitti_seq_00_full` |
+| KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration | `ready` | `upstream_mechanics_elevation` | 0.537 | 39.5 | `dogfooding_results/kitti_seq_07_full` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 2.360 | 18.7 | `dogfooding_results/kitti_raw_0009_200` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `dogfooding_results/kitti_raw_0061_200` |
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `dogfooding_results/mulran_parkinglot_120` |

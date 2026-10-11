@@ -22,11 +22,13 @@ kiss-icp 1.3.0 from PyPI with its default configuration, run by `run_official_ki
 | 00 | CT-ICP | `arch_tuned_all_combined` | 3.446 | 5.070 | +47 % | 0.49 | yes |
 | 00 | KISS-ICP | `balanced_reference` | 0.982 | 0.832 | -15 % | 0.51 | yes |
 | 00 | KISS-ICP | `dense_profile` | 0.954 | 0.846 | -11 % | 0.51 | yes |
+| 00 | KISS-ICP | `upstream_mechanics` | 0.901 | 0.535 | -41 % | 0.51 | yes |
 | 00 | KISS-ICP | `upstream_profile` | 0.839 | 0.708 | -16 % | 0.51 | yes |
 | 00 | KISS-ICP | `upstream_profile_range100` | 0.823 | 0.708 | -14 % | 0.51 | no (ablation) |
 | 07 | CT-ICP | `velocity_reg_01` | 1.060 | 1.237 | +17 % | 0.31 | yes |
 | 07 | KISS-ICP | `balanced_reference` | 0.799 | 0.682 | -15 % | - | yes |
 | 07 | KISS-ICP | `dense_profile` | 0.905 | 0.584 | -36 % | - | yes |
+| 07 | KISS-ICP | `upstream_mechanics` | 0.481 | 0.363 | -25 % | - | yes |
 | 07 | KISS-ICP | `upstream_profile` | 0.630 | 0.564 | -10 % | - | yes |
 | 07 | KISS-ICP | `upstream_profile_range100` | 0.592 | 0.568 | -4 % | - | no (ablation) |
 | 07 | LF-GICP | `paper_default` | 0.411 | 0.485 | +18 % | 0.50 | no (ablation) |

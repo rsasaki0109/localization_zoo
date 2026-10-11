@@ -102,6 +102,59 @@
         "--input-vertical-angle-correction-deg",
         "0.205"
       ]
+    },
+    {
+      "id": "upstream_threshold_elevation",
+      "label": "upstream profile + model-deviation threshold + elevation correction",
+      "design_style": "ablation",
+      "intent": "Step 1 of matching upstream mechanics: sigma from prediction-vs-estimate deviation (3 sigma correspondences) instead of 3x median frame motion.",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    },
+    {
+      "id": "upstream_threshold_gm_elevation",
+      "label": "upstream profile + model-deviation threshold + Geman-McClure + elevation correction",
+      "design_style": "ablation",
+      "intent": "Step 2: upstream Geman-McClure kernel k^2/(k+r^2)^2 instead of Welsch.",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--kiss-geman-mcclure-kernel",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    },
+    {
+      "id": "upstream_mechanics",
+      "label": "upstream profile + upstream threshold, kernel, and map insertion gate",
+      "design_style": "reference",
+      "intent": "Step 3: also skip map points within sqrt(voxel^2 / 20) of a point already in the voxel, as upstream does.",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--kiss-geman-mcclure-kernel",
+        "--kiss-map-min-point-distance",
+        "0.2236068"
+      ]
+    },
+    {
+      "id": "upstream_mechanics_elevation",
+      "label": "upstream mechanics + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--kiss-geman-mcclure-kernel",
+        "--kiss-map-min-point-distance",
+        "0.2236068",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
     }
   ]
 }

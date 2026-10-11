@@ -2079,6 +2079,8 @@ struct KISSICPDogfoodingOptions {
   double convergence_criterion = 0.001;
   // Upstream registers a 1.5 * voxel_size subsample; this port used 1.0.
   double registration_voxel_multiplier = 1.0;
+  bool geman_mcclure_kernel = false;
+  double map_min_point_distance = 0.0;
 };
 
 struct KISSMultiHorizonDogfoodingOptions {
@@ -6010,6 +6012,8 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   params.convergence_criterion = options.convergence_criterion;
   params.registration_voxel_multiplier =
       options.registration_voxel_multiplier;
+  params.geman_mcclure_kernel = options.geman_mcclure_kernel;
+  params.map_min_point_distance = options.map_min_point_distance;
   params.use_model_deviation_threshold =
       options.use_model_deviation_threshold;
   params.model_deviation_correspondence_multiplier =
@@ -11286,6 +11290,7 @@ int main(int argc, char** argv) {
               << " [--kiss-voxel-size X]"
               << " [--kiss-max-iterations N]"
               << " [--kiss-model-deviation-threshold]"
+              << " [--kiss-geman-mcclure-kernel] [--kiss-map-min-point-distance X]"
               << " [--kiss-model-deviation-correspondence-multiplier X]"
               << " [--kiss-vertical-angle-correction-deg X]"
               << " [--input-vertical-angle-correction-deg X]"
@@ -15051,6 +15056,19 @@ int main(int argc, char** argv) {
           std::max(0.0, std::stod(argv[++i]));
       kiss_multi_horizon_options.frontend.max_step_rotation_deg =
           kiss_icp_options.max_step_rotation_deg;
+      continue;
+    }
+    if (arg == "--kiss-geman-mcclure-kernel") {
+      kiss_icp_options.geman_mcclure_kernel = true;
+      continue;
+    }
+    if (arg == "--kiss-map-min-point-distance") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-map-min-point-distance requires a value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.map_min_point_distance = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--kiss-model-deviation-threshold") {

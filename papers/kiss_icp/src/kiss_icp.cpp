@@ -278,6 +278,13 @@ void VoxelHashMap::addPoints(const std::vector<Eigen::Vector3d>& points) {
   for (auto& p : points) {
     auto key = toVoxel(p);
     auto& vb = map_[key];
+    if (min_point_distance_ > 0.0 &&
+        std::any_of(vb.points.begin(), vb.points.end(),
+                    [&](const Eigen::Vector3d& existing) {
+                      return (existing - p).norm() < min_point_distance_;
+                    })) {
+      continue;
+    }
     if (static_cast<int>(vb.points.size()) < max_points_) {
       vb.points.push_back(p);
     } else if (update_full_voxels_) {
@@ -367,7 +374,8 @@ std::vector<VoxelHashMap::Correspondence> VoxelHashMap::getCorrespondences(
 KISSICPPipeline::KISSICPPipeline(const KISSICPParams& params)
     : params_(params),
       local_map_(params.voxel_size, params.max_points_per_voxel,
-                 params.update_full_voxels, params.neighbor_voxel_radius),
+                 params.update_full_voxels, params.neighbor_voxel_radius,
+                 params.map_min_point_distance),
       model_error_squared_sum_(params.initial_threshold *
                                params.initial_threshold),
       model_error_samples_(1) {}
@@ -428,9 +436,16 @@ Eigen::Matrix4d KISSICPPipeline::runICP(
       if (r_norm > max_correspondence_dist) continue;
       valid_correspondences++;
 
-      // Welsch kernel weight
-      double w = std::exp(-0.5 * (r_norm / kernel_threshold) *
-                          (r_norm / kernel_threshold));
+      double w = 0.0;
+      if (params_.geman_mcclure_kernel) {
+        // Upstream KISS-ICP's GM_weight: k^2 / (k + r^2)^2.
+        const double denominator = kernel_threshold + r_norm * r_norm;
+        w = kernel_threshold * kernel_threshold / (denominator * denominator);
+      } else {
+        // Welsch kernel weight
+        w = std::exp(-0.5 * (r_norm / kernel_threshold) *
+                     (r_norm / kernel_threshold));
+      }
 
       // Residual r = T p - q, so J = [-skew(Tp), I]
       Eigen::Matrix<double, 3, 6> J;

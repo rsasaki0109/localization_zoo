@@ -38,7 +38,12 @@ produced after the change, stays reproducible.
 
 ## Deviations From Upstream KISS-ICP 1.3.0
 
-| Item | Upstream default | This port (`pcd_dogfooding` default) | `--kiss-upstream-profile` |
+`--kiss-upstream-profile` matches the upstream configuration values; three
+algorithmic differences need their own flags. "Upstream mechanics" below means
+`--kiss-upstream-profile --kiss-model-deviation-threshold
+--kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`.
+
+| Item | Upstream default | This port (`pcd_dogfooding` default) | Upstream mechanics |
 |---|---|---|---|
 | KITTI elevation correction | +0.205 deg in the KITTI loader | none | none (add `--input-vertical-angle-correction-deg 0.205`) |
 | Input range | 0-100 m | 1-80 m (shared loader) | 1-80 m (add `--input-max-range-m 100`) |
@@ -49,6 +54,9 @@ produced after the change, stays reproducible.
 | ICP iterations / convergence | 500 / 1e-4 | 30 / 1e-3 | 500 / 1e-4 |
 | Correspondence search | 27 voxels | all voxels within the threshold | 27 voxels |
 | Map crop | voxels beyond 100 m, every frame | 60 m, every 4th frame | 100 m, every frame |
+| Adaptive threshold σ | RMS of prediction-vs-estimate deviation (rotation scaled by max range) | 3 × median frame translation over the last 100 frames | upstream (`--kiss-model-deviation-threshold`) |
+| Correspondence distance / kernel | 3σ / Geman-McClure k²/(k+r²)², k = σ | σ / Welsch, k = σ | upstream (`--kiss-geman-mcclure-kernel`) |
+| Map insertion | skip points within sqrt(voxel² / 20) of a point in the voxel | first 12 points per voxel | upstream (`--kiss-map-min-point-distance 0.2236068`) |
 
 On the KITTI paper-number gap ([full report](../../docs/kitti_elevation_correction.md)),
 official KITTI RTE in percent:
@@ -57,15 +65,30 @@ official KITTI RTE in percent:
 |---|---:|---:|---:|---:|
 | Official KISS-ICP 1.3.0 | 0.910 | **0.528** | 0.505 | **0.375** |
 | This port, default | 0.982 | 0.832 | 0.799 | 0.682 |
-| This port, `--kiss-dense-profile` (Table 6 before) | 0.954 | 0.846 | 0.905 | 0.584 |
+| This port, `--kiss-dense-profile` (Table 6 before 2026-10-10) | 0.954 | 0.846 | 0.905 | 0.584 |
 | This port, `--kiss-upstream-profile` | 0.839 | 0.708 | 0.630 | 0.564 |
+| This port, upstream mechanics | **0.901** | **0.535** | **0.481** | **0.363** |
 
-The paper reports 0.51 % on seq 00. Most of the old 1.87x gap is input
-preprocessing and configuration: the official code itself scores 0.910 % on
-raw scans. On raw seq 00 the upstream profile is even better than the official
-code (0.839 vs 0.910; on seq 07 it trails, 0.630 vs 0.505), but the official
-code gains 26-42 % from the correction while
-the upstream profile gains 10-16 %, so a 1.3-1.5x gap remains on corrected scans.
+With the upstream mechanics and the correction the port reproduces the official
+code (0.535 vs 0.528 on seq 00, 0.363 vs 0.375 on seq 07) and the paper's
+0.51 % on seq 00 (1.05x), and it gains as much from the correction (−41 %
+and −25 %, against −42 % and −26 %). Adding one mechanism at a time on
+corrected scans shows where the earlier gap came from:
+
+| Corrected scans | Seq 00 | Seq 07 |
+|---|---:|---:|
+| `--kiss-upstream-profile` | 0.708 | 0.564 |
+| + model-deviation threshold | 0.544 | 0.346 |
+| + Geman-McClure kernel | 0.536 | 0.343 |
+| + map insertion gate (upstream mechanics) | 0.535 | 0.363 |
+
+The adaptive threshold is the difference that matters. The default σ follows
+the vehicle's speed (mean 2.0 m on seq 07 and 2.5 m on seq 00) and is used as
+both the correspondence distance and the kernel scale. The upstream σ tracks
+the registration's own prediction error (mean 0.43 and 0.50 m), so
+correspondences end at 3σ ≈ 1.3-1.5 m and the kernel is about five times
+tighter. The defaults are unchanged so stored results and the CI golden stay
+reproducible.
 
 ## Not Included Yet
 

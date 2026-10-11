@@ -151,6 +151,29 @@
       "method": "KISS-ICP",
       "selector": "kiss_icp",
       "sequence": "00",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": 0.51,
+      "raw": {
+        "kitti_rte_trans_pct": 0.900758,
+        "kitti_rte_rot_deg_per_100m": 0.391588,
+        "rpe_trans_pct": 0.890216,
+        "ate_m": 13.503027
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.535182,
+        "kitti_rte_rot_deg_per_100m": 0.192834,
+        "rpe_trans_pct": 0.797038,
+        "ate_m": 7.632527
+      },
+      "rte_change_pct": -40.58537365196867,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "00",
       "variant": "upstream_profile",
       "corrected_design_style": "paper_input",
       "paper_rte_pct": 0.51,
@@ -259,6 +282,29 @@
         "ate_m": 1.495432
       },
       "rte_change_pct": -35.548909514195984,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "07",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 0.480823,
+        "kitti_rte_rot_deg_per_100m": 0.330491,
+        "rpe_trans_pct": 0.603432,
+        "ate_m": 0.772832
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.362627,
+        "kitti_rte_rot_deg_per_100m": 0.172648,
+        "rpe_trans_pct": 0.540573,
+        "ate_m": 0.53747
+      },
+      "rte_change_pct": -24.58201874702334,
       "aggregate": "experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json",
       "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
     },

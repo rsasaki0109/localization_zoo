@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-11T16:14:54+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T16:29:31+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1081,6 +1081,17 @@ _Generated at 2026-10-11T16:14:54+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | cluster_a_no_seed_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP KITTI Odom seq 08 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Active challengers: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 08 full: map=50 retrofit on c2f_only winner
 

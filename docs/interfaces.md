@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T20:25:19+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -424,7 +424,7 @@ The runner is responsible for:
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/mulls_kitti_raw_0061_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
 | MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_00_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_00_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/mulls_kitti_seq_00_full_transfer_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json` |
-| MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_01_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_01_full_lo_matrix.json` | `mulls` | `mulls_lo_highway_elevation` | `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json` |
 | MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_02_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_02_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/mulls_kitti_seq_02_full_transfer_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json` |
 | MULLS KITTI Odom seq 03 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_03_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_03_full_lo_matrix.json` |

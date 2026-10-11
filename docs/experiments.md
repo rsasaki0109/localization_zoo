@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T20:25:19+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -349,7 +349,7 @@ _Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_ma
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.425 | 3.3 | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
 | MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 10.786 | 7.6 | `experiments/results/mulls_kitti_seq_00_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `fast` | 48.686 | 1.8 | `experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json` |
-| MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 66.442 | 11.7 | `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_highway_elevation` | 3.658 | 11.7 | `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json` |
 | MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 31.006 | 7.8 | `experiments/results/mulls_kitti_seq_02_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast` | 254.460 | 1.7 | `experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json` |
 | MULLS KITTI Odom seq 03 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 2.360 | 8.6 | `experiments/results/mulls_kitti_seq_03_full_lo_matrix.json` |
@@ -21056,14 +21056,16 @@ _Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| MULLS-LO (KITTI urban profile) on raw scans | reference | 171.706 | 11.7 | 69.2 | 4.65 | 4.75 | Keep as reference variant |
-| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 66.442 | 11.7 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 171.706 | 11.7 | 50.9 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 66.442 | 11.7 | 52.8 | 4.05 | 4.35 | Keep as reference variant |
+| MULLS-LO (KITTI highway profile) on raw scans | reference | 169.513 | 5.0 | 22.4 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO highway profile + 0.195 deg vertical-angle correction | paper_input | 3.658 | 5.7 | 74.2 | 4.05 | 4.35 | Adopt as current default |
 
 ### Observations
 
-1. `mulls_lo_elevation` is the current default for this problem.
+1. `mulls_lo_highway_elevation` is the current default for this problem.
 2. `mulls_lo_elevation` is the fastest observed variant at 11.7 FPS.
-3. `mulls_lo_elevation` is the most accurate observed variant at 66.442 m ATE.
+3. `mulls_lo_highway_elevation` is the most accurate observed variant at 3.658 m ATE.
 
 ### Variant Notes
 
@@ -21088,6 +21090,28 @@ _Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 3 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_highway`
+
+- Intent: The authors' highway profile for sparse scenes (beams registered, looser normal check, no ground balance or dynamic removal).
+- CLI args: `--mulls-lo-highway`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway/summary.json --mulls-lo-highway`
+- Summary: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI highway profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_highway_elevation`
+
+- Intent: Highway profile with the profile's 0.195 deg vertical-angle calibration.
+- CLI args: `--mulls-lo-highway --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway_elevation/summary.json --mulls-lo-highway --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI highway profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
 
 
 ## MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T20:25:19+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -4172,14 +4172,16 @@ _Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction
 
-- Current default: `mulls_lo_elevation`.
-- Reference variants: `mulls_lo`.
+- Current default: `mulls_lo_highway_elevation`.
+- Reference variants: `mulls_lo`, `mulls_lo_elevation`, `mulls_lo_highway`.
 - Aggregate result: `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| mulls_lo_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_highway | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_highway_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction
 

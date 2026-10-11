@@ -55,13 +55,18 @@ public:
   /// neighbor_voxel_radius < 0 searches every voxel within the correspondence
   /// distance; 1 restricts the search to the 27 surrounding voxels as
   /// upstream KISS-ICP does (and as this repo did before 2026-08-02).
+  /// min_point_distance > 0 skips a point that lies closer than this to a
+  /// point already in its voxel (upstream KISS-ICP uses
+  /// sqrt(voxel_size^2 / max_points_per_voxel)); 0 keeps every point.
   explicit VoxelHashMap(double voxel_size, int max_points_per_voxel = 20,
                         bool update_full_voxels = false,
-                        int neighbor_voxel_radius = -1)
+                        int neighbor_voxel_radius = -1,
+                        double min_point_distance = 0.0)
       : voxel_size_(voxel_size),
         max_points_(max_points_per_voxel),
         update_full_voxels_(update_full_voxels),
-        neighbor_voxel_radius_(neighbor_voxel_radius) {}
+        neighbor_voxel_radius_(neighbor_voxel_radius),
+        min_point_distance_(min_point_distance) {}
 
   /// 点群をマップに追加
   void addPoints(const std::vector<Eigen::Vector3d>& points);
@@ -85,6 +90,7 @@ private:
   int max_points_;
   bool update_full_voxels_;
   int neighbor_voxel_radius_;
+  double min_point_distance_;
 
   struct VoxelBlock {
     std::vector<Eigen::Vector3d> points;
@@ -103,6 +109,11 @@ struct KISSICPParams {
   double convergence_criterion = 0.001;
   // ICP source = voxel_size * this subsample (upstream KISS-ICP uses 1.5).
   double registration_voxel_multiplier = 1.0;
+  // Upstream KISS-ICP weights residuals with Geman-McClure,
+  // k^2 / (k + r^2)^2 with k the adaptive threshold; false keeps Welsch.
+  bool geman_mcclure_kernel = false;
+  // See VoxelHashMap::min_point_distance (0 = off).
+  double map_min_point_distance = 0.0;
   double local_map_radius = 0.0;
   int map_cleanup_interval = 0;
   bool update_full_voxels = false;

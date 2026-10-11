@@ -40,6 +40,14 @@ struct LLOParams {
   // Vertical pose: ground band used for the pitch estimate.
   double pitch_ground_min_range = 5.0;
   double pitch_ground_max_range = 25.0;
+  // 0: change of the ground tilt between frames (historical; tracks neither
+  //    road grade nor altitude, since the per-frame changes telescope).
+  // 1: fit the same physical ground patch around the new position in both
+  //    frames; the normal change gives the relative pitch and the plane
+  //    offsets give the height change.
+  int pitch_mode = 0;
+  double patch_half_length = 10.0;  // m, along x of frame k
+  double patch_half_width = 6.0;    // m, along y of frame k
 };
 
 struct Cluster {
@@ -93,6 +101,7 @@ class LLOOdometry {
   bool initialized_ = false;
   std::vector<Cluster> previous_clusters_;
   Eigen::Vector3d previous_ground_normal_ = Eigen::Vector3d::UnitZ();
+  std::vector<Eigen::Vector3d> previous_ground_;
   Eigen::Vector3d last_delta_ = Eigen::Vector3d::Zero();  // dx, dy, dyaw
   Eigen::Matrix4d pose_ = Eigen::Matrix4d::Identity();
 };

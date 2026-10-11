@@ -6878,13 +6878,16 @@ bool setLLOParam(localization_zoo::l_lo::LLOParams& p, const std::string& kv) {
       {"step_coeff_rotation", &p.step_coeff_rotation},
       {"termination", &p.termination},
       {"pitch_ground_min_range", &p.pitch_ground_min_range},
-      {"pitch_ground_max_range", &p.pitch_ground_max_range}};
+      {"pitch_ground_max_range", &p.pitch_ground_max_range},
+      {"patch_half_length", &p.patch_half_length},
+      {"patch_half_width", &p.patch_half_width}};
   std::map<std::string, int*> ints = {
       {"min_cluster_points", &p.min_cluster_points},
       {"max_cluster_points", &p.max_cluster_points},
       {"sor_k", &p.sor_k},
       {"max_rounds", &p.max_rounds},
-      {"min_matches", &p.min_matches}};
+      {"min_matches", &p.min_matches},
+      {"pitch_mode", &p.pitch_mode}};
   if (auto it = doubles.find(key); it != doubles.end()) {
     *it->second = v;
     return true;

@@ -64,6 +64,11 @@ def parse_args() -> argparse.Namespace:
         help="Override upstream's 0.205 deg offset (needs the environment patch); for sensitivity runs.",
     )
     parser.add_argument("--keep-frames", action="store_true", help="Keep the converted PLY frames.")
+    parser.add_argument(
+        "--remove-scans-after-conversion",
+        action="store_true",
+        help="Delete each .bin scan once its PLY frame is written (for small disks; destroys the input).",
+    )
     return parser.parse_args()
 
 
@@ -75,7 +80,7 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def write_frames(velodyne_dir: Path, frames_dir: Path, mode: str) -> int:
+def write_frames(velodyne_dir: Path, frames_dir: Path, mode: str, remove_source: bool = False) -> int:
     frames_dir.mkdir(parents=True, exist_ok=True)
     files = sorted(velodyne_dir.glob("*.bin"))
     dtype = np.dtype([("x", "<f4"), ("y", "<f4"), ("z", "<f4"), ("t", "<f8")])
@@ -97,6 +102,8 @@ def write_frames(velodyne_dir: Path, frames_dir: Path, mode: str) -> int:
         with (frames_dir / f"frame_{index:04d}.ply").open("wb") as handle:
             handle.write(header)
             handle.write(frame.tobytes())
+        if remove_source:
+            path.unlink()
     return len(files)
 
 
@@ -181,7 +188,9 @@ def main() -> int:
     data_root = output_dir / "data"
     frames_dir = data_root / sequence / "frames"
     if args.velodyne_dir:
-        num_frames = write_frames(Path(args.velodyne_dir), frames_dir, args.timestamps)
+        num_frames = write_frames(
+            Path(args.velodyne_dir), frames_dir, args.timestamps, args.remove_scans_after_conversion
+        )
     elif frames_dir.is_dir():
         # Frames written earlier with --convert-only.
         num_frames = len(list(frames_dir.glob("frame_*.ply")))

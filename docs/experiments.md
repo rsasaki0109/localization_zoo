@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-11T15:39:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T15:41:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -69,6 +69,7 @@ _Generated at 2026-10-11T15:39:13+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `baseline_reference` | 66.553 | 10.7 | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
 | CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `map_15` | 68.972 | 5.7 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | CT-ICP seq 02 full: map_size sweep on corr=8 winner | `ready` | `map_15` | 69.536 | 11.7 | `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json` |
+| CT-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 2.035 | 6.1 | `experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json` |
 | CT-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 2.185 | 5.7 | `experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json` |
 | CT-ICP seq 05 full: simplified recipes from bare + map=50 | `ready` | `arch_tuned_map_50` | 8.844 | 12.0 | `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json` |
 | CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner | `ready` | `corr_4_reference` | 9.485 | 12.8 | `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` |
@@ -4369,6 +4370,54 @@ _Generated at 2026-10-11T15:39:13+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `ct_icp_kitti_seq_03_full_upstream`
+- **Question**: Does the CT-ICP pipeline that follows upstream jedeschaud/ct_icp with its driving profile (--ct-icp-upstream-mechanics) reproduce the paper's KITTI-corrected Table I values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream CT-ICP pipeline (driving profile) on raw scans | reference | 6.368 | 6.1 | 66.0 | 4.65 | 4.75 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 2.035 | 6.1 | 99.8 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics` is the fastest observed variant at 6.1 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 2.035 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: The upstream jedeschaud/ct_icp pipeline with config/odometry/driving_config.yaml (papers/ct_icp/README.md).
+- CLI args: `--ct-icp-upstream-mechanics`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_03_full_upstream_matrix/upstream_mechanics/summary.json --ct-icp-upstream-mechanics`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_03_full_upstream_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_03_full_upstream_matrix/upstream_mechanics/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Upstream mechanics (jedeschaud/ct_icp driving_config); anchor matches the first GT pose. 0 frames would have stopped upstream; 0 map insertions skipped.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same pipeline on KITTI-corrected scans (+0.205 deg HDL-64E elevation), as upstream's KITTI loader and the paper's Table I.
+- CLI args: `--ct-icp-upstream-mechanics --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_03_full_upstream_matrix/upstream_mechanics_elevation/summary.json --ct-icp-upstream-mechanics --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_03_full_upstream_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_03_full_upstream_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Upstream mechanics (jedeschaud/ct_icp driving_config); anchor matches the first GT pose. 0 frames would have stopped upstream; 0 map insertions skipped.
 
 
 ## CT-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction

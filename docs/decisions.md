@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-11T15:39:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T15:41:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -786,6 +786,17 @@ _Generated at 2026-10-11T15:39:13+00:00 by `evaluation/scripts/run_experiment_ma
 | map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | map_30 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction
 

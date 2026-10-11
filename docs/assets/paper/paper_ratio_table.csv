@@ -10,17 +10,17 @@ aloam,07,0.630,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from 
 aloam,08,1.120,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.975,0.87,1.005,2,2,kitti_default,experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json
 aloam,09,0.770,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
 aloam,10,0.790,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
-ct_icp,00,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.664,3.40,1.885,82,82,arch_tuned_all_combined,experiments/results/ct_icp_kitti_seq_00_full_arch_tuned_matrix.json
-ct_icp,01,0.760,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,02,0.520,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,3.472,6.68,3.784,78,78,c2f_sigma_only,experiments/results/ct_icp_kitti_seq_02_full_c2f_ablation_matrix.json
-ct_icp,03,0.720,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,04,0.390,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,05,0.250,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.577,6.31,1.837,37,37,velocity_reg_005,experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json
-ct_icp,06,0.270,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,07,0.310,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.060,3.42,1.410,80,80,velocity_reg_01,experiments/results/ct_icp_kitti_seq_07_full_elevation_matrix.json
-ct_icp,08,0.810,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.749,2.16,1.938,45,45,arch_tuned_all_combined,experiments/results/ct_icp_kitti_seq_08_full_arch_tuned_matrix.json
-ct_icp,09,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,10,0.480,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
+ct_icp,00,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.525,1.07,1.885,84,84,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json
+ct_icp,01,0.760,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.716,0.94,1.562,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json
+ct_icp,02,0.520,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.549,1.06,3.757,80,80,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json
+ct_icp,03,0.720,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.586,0.81,0.834,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json
+ct_icp,04,0.390,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.717,1.84,0.979,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json
+ct_icp,05,0.250,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.315,1.26,1.805,39,39,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json
+ct_icp,06,0.270,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.284,1.05,0.534,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json
+ct_icp,07,0.310,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.315,1.02,1.410,82,82,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json
+ct_icp,08,0.810,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.902,1.11,1.938,47,47,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json
+ct_icp,09,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.629,1.28,0.945,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json
+ct_icp,10,0.480,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.742,1.55,1.092,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json
 kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.535,1.05,0.928,12,12,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json
 kiss_icp,04,0.360,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.373,1.04,0.646,2,2,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json
 l_lo,00,0.910,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,1.479,1.63,1.479,1,1,seq07_tuned,experiments/results/l_lo_kitti_seq_00_full_matrix.json

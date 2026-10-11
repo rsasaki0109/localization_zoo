@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -11739,7 +11739,7 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `SKIPPED` | Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames) | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/run.log` |
+| Default | balanced | `skipped` | Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames) | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/run.log` |
 
 ## HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -20543,9 +20543,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/run.log` |
 
 ## LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 
@@ -20565,9 +20565,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/run.log` |
 
 ## LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -20587,9 +20587,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/run.log` |
 
 ## LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -20609,9 +20609,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/run.log` |
 
 ## MULLS throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -22681,9 +22681,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/run.log` |
 
 ## ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 
@@ -22703,9 +22703,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/run.log` |
 
 ## ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -22725,9 +22725,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/run.log` |
 
 ## ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -22747,9 +22747,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/run.log` |
 
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full)
 
@@ -23741,9 +23741,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/run.log` |
 
 ## R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 
@@ -23763,9 +23763,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/run.log` |
 
 ## R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -23785,9 +23785,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/run.log` |
 
 ## R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -23807,9 +23807,9 @@ _Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/run.log` |
-| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/run.log` |
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/run.log` |
 
 ## RKO-LIO gyro-bias feedback gain on the NCLT 2013-01-10 window
 

@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-10-10 (KITTI 仰角補正の調査、place recognition ベンチマーク、論文 Results/Discussion 草稿)**
+> **最終更新: 2026-10-11 (CT-ICP の論文値ギャップ解消とホスト依存の原因特定、公式 MULLS / SuMa の確認)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -30,9 +30,29 @@
 章の追加や図 5-7 の作成はしない。今後の目標は「使えて、数値を信用できる実装集」: 結果の再現性
 (CT-ICP のホスト依存など) と、論文値とのギャップの原因特定・解消 (SuMa / CT-ICP / MULLS) を優先する。
 
-## 00. Latest Handoff: KITTI 仰角補正・place recognition・論文本文 (2026-10-10)
+## 00. Latest Handoff: CT-ICP を公式実装と一致させた / 公式 MULLS・SuMa (2026-10-11)
 
-> **これが最新・最優先の handoff。** クラウド環境 (Xeon 4 コア) で KITTI 00/07 を S3 から部分取得して実行した。
+> **これが最新・最優先の handoff。** 詳細は [`papers/ct_icp/README.md`](papers/ct_icp/README.md)。
+>
+> - **CT-ICP の論文値ギャップ (4.03x) は実装側だった**: 公式 jedeschaud/ct_icp を同じ KITTI スキャンで
+>   動かすと seq 07 で 0.308 % (論文 0.31 %)。`pcd_dogfooding --ct-icp-upstream-mechanics` (専用ランナー
+>   `runCTICPUpstream`、ライブラリ既定値は不変) で上流のパイプラインをなぞると、補正ありで KITTI 00-10 平均
+>   0.587 % (公式 0.585 %、論文の系列値の区間重み付け 0.531 %)、全系列で公式との差 0.05 ポイント以内。
+>   **Table 6 の CT-ICP は 1.15x (00-10)**。順位表の CT-ICP も生スキャンの upstream mechanics で 0.70-1.34 % に。
+>   効いていたのは等速初期値 (外すと発散)、スキャン中央の出力ポーズ、掃引角の時刻 (旧実装は KITTI .bin の
+>   格納順 = 仰角の順を時刻にしていた)、永続マップ。`--ct-icp-upstream-disable a,b` で 1 要素ずつ外せる。
+> - **CT-ICP のホスト依存の原因**: バグではなく旧パイプラインの数値的不安定。同一バイナリでは完全に決定的だが、
+>   1e-6° の仰角摂動で seq 07 ±7 %、seq 00 ±11 % 動く。upstream mechanics と公式コードは ±3 % 程度。
+> - **公式実装の再実行スクリプト**: `run_official_ct_icp_baseline.py` (KITTI .bin → 上流の PLY、GT を見せない)、
+>   `run_official_mulls_baseline.py`。どちらも上流のビルドに要るパッチを docstring に記載。
+> - **MULLS**: 公式 MULLS-LO は seq 07 で 0.311-0.316 % (論文 0.29 %)。7.62x は実装側 (軽量版で MULLS の特徴分類と
+>   multi-metric ICP がない)。詰めるには再実装が要る。
+> - **SuMa**: 公式はビルドできるが、このコンテナのソフトウェア OpenGL (Mesa llvmpipe / LLVM 20) がシェーダの
+>   コード生成で落ちるため未計測。GPU 環境で測る必要がある。
+
+## 01. 前回の Handoff: KITTI 仰角補正・place recognition・論文本文 (2026-10-10)
+
+> クラウド環境 (Xeon 4 コア) で クラウド環境 (Xeon 4 コア) で KITTI 00/07 を S3 から部分取得して実行した。
 >
 > - **KITTI 仰角補正** ([`docs/kitti_elevation_correction.md`](docs/kitti_elevation_correction.md)):
 >   上流 KISS-ICP と CT-ICP は KITTI ローダーで +0.205 deg 補正するが、repo の KITTI 実行はすべて生スキャンだった。
@@ -49,7 +69,8 @@
 >   補正 variant は `design_style: paper_input` (KISS-ICP / CT-ICP のみ Table 6 候補)、他は `ablation`。
 >   順位表と KITTI 07 Pareto は `paper_input` を除外し、全手法が同じ生スキャン入力のまま。
 > - **CT-ICP のホスト依存**: Table 6 の seq 00 variant は同一ホストでは bit 一致するが、このホストでは公式 RTE 3.446 %
->   (保存値 1.664 %、i5-1145G7)。seq 07 も 1.067 → 1.060 %。KISS / LiTAMIN2 / SuMa / LF-GICP は bit 一致。原因未特定。
+>   (保存値 1.664 %、i5-1145G7)。seq 07 も 1.067 → 1.060 %。KISS / LiTAMIN2 / SuMa / LF-GICP は bit 一致。
+>   (2026-10-11 に原因特定: 上の最新 handoff を参照)
 > - **Place recognition** ([`docs/place_recognition_benchmark.md`](docs/place_recognition_benchmark.md)):
 >   `place_recognition_benchmark` (GT を読まない) + `evaluate_place_recognition.py` + `run_kitti_place_recognition.py`。
 >   KITTI 00/02/05/07/08、top-1・4 m・50 フレーム除外。Scan Context F1max 0.935/0.837/0.920/0.588/0.592、ISC が 0.03-0.09 差、

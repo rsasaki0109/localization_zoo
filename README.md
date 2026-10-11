@@ -126,8 +126,8 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 | A-LOAM | 0.89% <sub>(12 m)</sub> | 0.92% <sub>(50 m)</sub> | 0.53% <sub>(5 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.39% <sub>(18 m)</sub> |
 | KISS-ICP | 0.87% <sub>(14 m)</sub> | 0.92% <sub>(35 m)</sub> | 0.67% <sub>(5 m)</sub> | 0.60% <sub>(1 m)</sub> | **1.33%** <sub>(22 m)</sub> |
 | F-LOAM | 0.92% <sub>(10 m)</sub> | 0.94% <sub>(52 m)</sub> | 0.54% <sub>(6 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.40% <sub>(20 m)</sub> |
+| CT-ICP | 0.96% <sub>(12 m)</sub> | 0.97% <sub>(46 m)</sub> | 0.71% <sub>(6 m)</sub> | 0.70% <sub>(2 m)</sub> | 1.34% <sub>(31 m)</sub> |
 | SuMa | 1.25% <sub>(19 m)</sub> | 1.28% <sub>(52 m)</sub> | 0.99% <sub>(10 m)</sub> | 0.94% <sub>(4 m)</sub> | 1.91% <sub>(19 m)</sub> |
-| CT-ICP | 2.01% <sub>(17 m)</sub> | 2.65% <sub>(76 m)</sub> | 1.12% <sub>(12 m)</sub> | 1.14% <sub>(3 m)</sub> | 1.93% <sub>(99 m)</sub> |
 | L-LO | 1.54% <sub>(16 m)</sub> | 3.97% <sub>(142 m)</sub> | 1.59% <sub>(15 m)</sub> | 1.17% <sub>(3 m)</sub> | 2.05% <sub>(36 m)</sub> |
 | MULLS | 2.54% <sub>(49 m)</sub> | 2.27% <sub>(261 m)</sub> | 1.73% <sub>(20 m)</sub> | 2.64% <sub>(8 m)</sub> | 3.12% <sub>(81 m)</sub> |
 
@@ -249,10 +249,10 @@ optimistic bounds.
 | A-LOAM | 00/02/05/07/08 | 1.01x | near paper (vs LOAM values cited by later papers) |
 | LF-GICP | 00/02/05/07/08 | 0.96x | near paper (no author code) |
 | KISS-ICP | 00/04 | 1.04x | near paper with upstream's KITTI elevation correction and adaptive threshold; the 00-10 average equals the official code's ([details](papers/kiss_icp/README.md#deviations-from-upstream-kiss-icp-130)) |
+| CT-ICP | 00-10 | 1.15x | near paper with the upstream pipeline (`--ct-icp-upstream-mechanics`) on corrected scans; the 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
 | LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
-| CT-ICP | 00/02/05/07/08 | 4.03x | gap remains |
 | MULLS | 00/02/05/07/08 | 7.62x | gap remains (derived variant) |
 
 Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);

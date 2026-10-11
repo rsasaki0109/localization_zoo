@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `434` ready, `1` blocked, `14` skipped problems.
+Current coverage: `445` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -52,7 +52,18 @@ Current coverage: `434` ready, `1` blocked, `14` skipped problems.
 | CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A) | `ready` | `radius_1` | 14.817 | 10.2 | `dogfooding_results/kitti_seq_00_full` |
 | CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified) | `ready` | `fine_sigma_0_25` | 12.351 | 11.4 | `dogfooding_results/kitti_seq_00_full` |
 | CT-ICP KITTI Odom seq 00 full: elevation correction | `ready` | `arch_tuned_all_combined` | 93.156 | 16.6 | `dogfooding_results/kitti_seq_00_full` |
+| CT-ICP KITTI Odom seq 00 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 9.445 | 8.8 | `dogfooding_results/kitti_seq_00_full` |
+| CT-ICP KITTI Odom seq 01 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 58.191 | 5.6 | `dogfooding_results/kitti_seq_01_full` |
+| CT-ICP KITTI Odom seq 02 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 20.607 | 8.1 | `dogfooding_results/kitti_seq_02_full` |
+| CT-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 2.035 | 6.1 | `dogfooding_results/kitti_seq_03_full` |
+| CT-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 2.185 | 5.7 | `dogfooding_results/kitti_seq_04_full` |
+| CT-ICP KITTI Odom seq 05 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 4.264 | 7.5 | `dogfooding_results/kitti_seq_05_full` |
+| CT-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 3.963 | 5.8 | `dogfooding_results/kitti_seq_06_full` |
 | CT-ICP KITTI Odom seq 07 full: elevation correction | `ready` | `velocity_reg_01` | 2.231 | 18.5 | `dogfooding_results/kitti_seq_07_full` |
+| CT-ICP KITTI Odom seq 07 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 1.257 | 9.1 | `dogfooding_results/kitti_seq_07_full` |
+| CT-ICP KITTI Odom seq 08 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 26.321 | 6.7 | `dogfooding_results/kitti_seq_08_full` |
+| CT-ICP KITTI Odom seq 09 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 9.703 | 6.8 | `dogfooding_results/kitti_seq_09_full` |
+| CT-ICP KITTI Odom seq 10 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 5.317 | 9.0 | `dogfooding_results/kitti_seq_10_full` |
 | CT-ICP map_size sweep on KITTI seq 00 full (4542 frames) | `ready` | `map_20_reference` | 18.370 | 10.4 | `dogfooding_results/kitti_seq_00_full` |
 | CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 65.9 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
 | CT-ICP recipe sensitivity test on MCD NTU day_02 (108 frames) | `ready` | `dense_reference` | 0.325 | 23.9 | `dogfooding_results/mcd_ntu_day_02_108` |
@@ -475,7 +486,7 @@ Current coverage: `434` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 434 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 445 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

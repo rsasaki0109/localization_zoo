@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-11T02:31:59+00:00
+> Generated: 2026-10-11T17:15:41+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -157,31 +157,39 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_00_full | balanced_window | 19.413 | 13.0 |
 | dogfooding_results/kitti_seq_00_full | radius_1 | 14.817 | 10.2 |
 | dogfooding_results/kitti_seq_00_full | cluster_a_seeded | 5.855 | 6.9 |
+| dogfooding_results/kitti_seq_00_full | upstream_mechanics_elevation | 9.445 | 8.8 |
 | dogfooding_results/kitti_seq_00_full | minus_ms_chol | 12.931 | 11.5 |
 | dogfooding_results/kitti_seq_00_full | map_50_plus_corr_5 | 14.894 | 12.5 |
 | dogfooding_results/kitti_seq_00_full | bare_map_50 | 15.753 | 11.2 |
 | dogfooding_results/kitti_seq_00_full | plus_corr_5 | 12.931 | 11.4 |
 | dogfooding_results/kitti_seq_00_full | c2f_reference | 14.099 | 8.7 |
+| dogfooding_results/kitti_seq_01_full | upstream_mechanics_elevation | 58.191 | 5.6 |
 | dogfooding_results/kitti_seq_02_full | baseline_map_20 | 68.972 | 8.2 |
 | dogfooding_results/kitti_seq_02_full | default_reference | 68.972 | 10.3 |
 | dogfooding_results/kitti_seq_02_full | corr_5 | 65.305 | 10.4 |
 | dogfooding_results/kitti_seq_02_full | ms_chol_corr_5 | 65.305 | 8.6 |
 | dogfooding_results/kitti_seq_02_full | baseline_reference | 68.972 | 10.7 |
 | dogfooding_results/kitti_seq_02_full | map_15 | 76.464 | 4.4 |
+| dogfooding_results/kitti_seq_02_full | upstream_mechanics_elevation | 20.607 | 8.1 |
 | dogfooding_results/kitti_seq_02_full | map_15 | 73.230 | 11.7 |
 | dogfooding_results/kitti_seq_02_full | current_winner | 93.642 | 13.0 |
+| dogfooding_results/kitti_seq_03_full | upstream_mechanics_elevation | 2.035 | 6.1 |
+| dogfooding_results/kitti_seq_04_full | upstream_mechanics_elevation | 2.185 | 5.2 |
 | dogfooding_results/kitti_seq_05_full | arch_tuned_map_50 | 8.844 | 10.2 |
 | dogfooding_results/kitti_seq_05_full | corr_4_reference | 9.485 | 11.6 |
+| dogfooding_results/kitti_seq_05_full | upstream_mechanics_elevation | 4.264 | 7.5 |
 | dogfooding_results/kitti_seq_05_full | arch_tuned_map_50 | 8.844 | 11.3 |
 | dogfooding_results/kitti_seq_05_full | bare_map_30 | 11.707 | 7.0 |
 | dogfooding_results/kitti_seq_05_full | velocity_reg_005 | 11.949 | 5.1 |
 | dogfooding_results/kitti_seq_05_full | map_50_c2f_plus_corr_4 | 9.305 | 9.1 |
+| dogfooding_results/kitti_seq_06_full | upstream_mechanics_elevation | 3.963 | 5.2 |
 | dogfooding_results/kitti_seq_07_108 | fast_window | 0.978 | 77.3 |
 | dogfooding_results/kitti_seq_07_full | ms_chol_plus_simplified_a | 2.010 | 9.9 |
 | dogfooding_results/kitti_seq_07_full | corr_8 | 2.049 | 14.1 |
 | dogfooding_results/kitti_seq_07_full | velocity_reg_01 | 2.231 | 18.5 |
 | dogfooding_results/kitti_seq_07_full | dense_window | 2.842 | 17.5 |
 | dogfooding_results/kitti_seq_07_full | cluster_d_full_seeded | 1.603 | 11.2 |
+| dogfooding_results/kitti_seq_07_full | upstream_mechanics_elevation | 1.257 | 8.9 |
 | dogfooding_results/kitti_seq_07_full | ms_chol_map_50 | 1.472 | 12.7 |
 | dogfooding_results/kitti_seq_07_full | velocity_reg_01 | 2.490 | 6.0 |
 | dogfooding_results/kitti_seq_07_full | simplified_seq_00_pattern | 2.010 | 11.8 |
@@ -190,16 +198,19 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_08_full | cauchy_2_5 | 31.958 | 11.9 |
 | dogfooding_results/kitti_seq_08_full | iter_6 | 30.418 | 10.4 |
 | dogfooding_results/kitti_seq_08_full | cluster_a_seeded | 6.813 | 6.8 |
+| dogfooding_results/kitti_seq_08_full | upstream_mechanics_elevation | 26.321 | 6.2 |
 | dogfooding_results/kitti_seq_08_full | c2f_only_map_20 | 37.043 | 8.6 |
 | dogfooding_results/kitti_seq_08_full | default_reference | 28.427 | 10.9 |
 | dogfooding_results/kitti_seq_08_full | velocity_reg_001 | 40.362 | 9.3 |
 | dogfooding_results/kitti_seq_08_full | simplified_seq_00_pattern | 28.427 | 8.5 |
+| dogfooding_results/kitti_seq_09_full | upstream_mechanics_elevation | 9.703 | 6.8 |
+| dogfooding_results/kitti_seq_10_full | upstream_mechanics_elevation | 5.317 | 9.0 |
 | dogfooding_results/mulran_parkinglot_120 | fast_window | 16.474 | 74.7 |
 | dogfooding_results/mulran_parkinglot_120 | cluster_a_with_seed | 2.547 | 17.9 |
 | dogfooding_results/mulran_parkinglot_full | cluster_a_with_seed | 9.186 | 14.6 |
 | dogfooding_results/mulran_parkinglot_full | fast_window | 80.958 | 59.7 |
 
-**Stability**: 46 unique default(s) across 76 windows.
+**Stability**: 47 unique default(s) across 87 windows.
 
 ### CT-LIO
 
@@ -872,6 +883,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | radius_4 | 15.004 | 7.2 | 1 |
 | simplified_plus_corr_8 | 194.204 | 9.3 | 1 |
 | simplified_seq_00_pattern | 40.851 | 9.9 | 3 |
+| upstream_mechanics | 26.172 | 7.0 | 11 |
+| upstream_mechanics_elevation | 13.026 | 7.0 | 11 |
 | velocity_reg_0005 | 14.346 | 8.2 | 1 |
 | velocity_reg_001 | 27.694 | 9.0 | 2 |
 | velocity_reg_0015 | 98.563 | 9.4 | 1 |

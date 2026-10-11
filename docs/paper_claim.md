@@ -54,18 +54,21 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Near paper | A-LOAM (vs LOAM, secondary-source values) | 00/02/05/07/08 | 1.01x |
 | Near paper | LF-GICP (no author code; gate calibrated on the paper's KITTI 00 trace) | 00/02/05/07/08 | 0.96x |
 | Near paper | KISS-ICP (upstream threshold, kernel, and map gate on corrected scans as upstream; 00-10 average equals the official code's; see `papers/kiss_icp/README.md`) | 00/04 | 1.04x |
+| Near paper | CT-ICP (upstream pipeline, `--ct-icp-upstream-mechanics`, on corrected scans as upstream; 00-10 average equals the official code's; see `papers/ct_icp/README.md`) | 00-10 | 1.15x |
 | Near paper | LiTAMIN2 (ICP+Cov, no loop closure) | 00/02/05/07/08 | 1.22x |
 | Gap remains | L-LO (no author code; parameters chosen on seq 07) | 00/02/05/07/08 | 1.58x |
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
-| Gap remains | CT-ICP | 00/02/05/07/08 | 4.03x |
 | Gap remains | MULLS (derived multi-metric variant) | 00/02/05/07/08 | 7.62x |
 
-What may be claimed: A-LOAM, LF-GICP, KISS-ICP, and LiTAMIN2 reach paper-level odometry accuracy
+What may be claimed: A-LOAM, LF-GICP, KISS-ICP, CT-ICP, and LiTAMIN2 reach paper-level odometry accuracy
 on KITTI (KISS-ICP on seq 00 and 04, and only with the upstream mechanics and the
 KITTI elevation correction; its 00-10 average, 0.564 %, equals the official
-code's on the same pipeline, both 1.13x the paper's 0.50 %); the other four run on the same metric but do **not** reproduce the
-paper numbers. What may not be claimed: faithful reproduction for CT-ICP,
-L-LO, SuMa, or MULLS, a KISS-ICP claim for the repository default, or any ratio as unbiased. The repository value is the
+code's on the same pipeline, both 1.13x the paper's 0.50 %; CT-ICP only with
+`--ct-icp-upstream-mechanics` and the correction, whose 00-10 average, 0.587 %,
+equals the official code's 0.585 % on the same scans, 1.10x the paper's per-sequence
+values); the other three run on the same metric but do **not** reproduce the
+paper numbers. What may not be claimed: faithful reproduction for
+L-LO, SuMa, or MULLS, a KISS-ICP or CT-ICP claim for the repository default, or any ratio as unbiased. The repository value is the
 best variant of a sweep **selected on the evaluated sequence**, so every ratio
 is an optimistic bound, except the L-LO, MULLS, and SuMa rows on 00/02/05/08, whose variants were chosen on seq 07 and transferred unchanged; SuMa's paper values have one decimal, and A-LOAM is
 compared with LOAM values cited by later papers because LOAM has no

@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `425` ready, `1` blocked, `14` skipped problems.
+Current coverage: `434` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -213,7 +213,16 @@ Current coverage: `425` ready, `1` blocked, `14` skipped problems.
 | KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `balanced_reference` | 2.238 | 3.4 | `dogfooding_results/kitti_seq_07_full` |
 | KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 17.322 | 2.5 | `dogfooding_results/kitti_seq_08_full` |
 | KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration | `ready` | `upstream_mechanics_elevation` | 7.633 | 37.7 | `dogfooding_results/kitti_seq_00_full` |
+| KISS-ICP KITTI Odom seq 01 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 7.947 | 20.5 | `dogfooding_results/kitti_seq_01_full` |
+| KISS-ICP KITTI Odom seq 02 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 18.507 | 37.4 | `dogfooding_results/kitti_seq_02_full` |
+| KISS-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 2.185 | 25.6 | `dogfooding_results/kitti_seq_03_full` |
+| KISS-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 0.661 | 25.4 | `dogfooding_results/kitti_seq_04_full` |
+| KISS-ICP KITTI Odom seq 05 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 3.739 | 36.7 | `dogfooding_results/kitti_seq_05_full` |
+| KISS-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 1.802 | 25.0 | `dogfooding_results/kitti_seq_06_full` |
 | KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration | `ready` | `upstream_mechanics_elevation` | 0.537 | 39.5 | `dogfooding_results/kitti_seq_07_full` |
+| KISS-ICP KITTI Odom seq 08 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 15.965 | 27.3 | `dogfooding_results/kitti_seq_08_full` |
+| KISS-ICP KITTI Odom seq 09 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 3.681 | 31.0 | `dogfooding_results/kitti_seq_09_full` |
+| KISS-ICP KITTI Odom seq 10 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 2.835 | 40.7 | `dogfooding_results/kitti_seq_10_full` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 2.360 | 18.7 | `dogfooding_results/kitti_raw_0009_200` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `dogfooding_results/kitti_raw_0061_200` |
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `dogfooding_results/mulran_parkinglot_120` |
@@ -466,13 +475,13 @@ Current coverage: `425` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 425 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 434 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 
 ### Gaps
 
-- LiDAR-only methods now cover 27 repository-stored open sequences across 6 public dataset families, but external validity still rests on only 6 families.
+- LiDAR-only methods now cover 33 repository-stored open sequences across 6 public dataset families, but external validity still rests on only 6 families.
 - Reference-based and GT-backed results are separated, and the GT-backed CT-LIO public benchmark is explicitly scoped out of the main study until independent GT appears.
 - There is no paper-ready comparison against originally reported results yet.
 - Hardware-normalized reruns and confidence intervals are not exported yet.

@@ -60,9 +60,9 @@ sequence; Section 5.1 is the evidence that it moves on other data.
 
 The README leaderboard ranks the non-GT-seeded best variant per cell on five
 full sequences (00/02/05/07/08, 17 135 frames). Point-to-plane and LOAM-style
-front ends cluster at 0.5-1.4 % 100 m RPE: LF-GICP is best on 00, 05, and 08,
-LeGO-LOAM on 02 and 07, with A-LOAM, F-LOAM, and KISS-ICP within 0.1-0.2
-points. SuMa, CT-ICP, L-LO, and MULLS trail at 1-4 %. GT-seeded registration
+front ends cluster at 0.5-1.4 % 100 m RPE: LF-GICP is best on 00 and 05,
+LeGO-LOAM on 02 and 07, and KISS-ICP with the upstream mechanics on 08, with
+A-LOAM, F-LOAM, and KISS-ICP within 0.2 points of the best elsewhere. SuMa, CT-ICP, L-LO, and MULLS trail at 1-4 %. GT-seeded registration
 (NDT, LiTAMIN2 with seeding, GICP) is reported separately: a GT pose as the
 per-frame initial guess measures seed adherence, not tracking, and NDT's
 0.02 m seeded ATE becomes 87 % RPE without the seed.
@@ -79,7 +79,7 @@ an optimistic bound; rows whose variant was chosen on sequence 07 and
 transferred unchanged are marked held-out.
 
 The methods split into two groups. A-LOAM (1.01x against LOAM values cited by
-later papers), LF-GICP (0.96x), KISS-ICP (1.05x, sequence 00 only), and
+later papers), LF-GICP (0.96x), KISS-ICP (1.04x on 00 and 04), and
 LiTAMIN2 (1.22x) reach paper-level accuracy. L-LO (1.58x), SuMa (2.21x),
 CT-ICP (4.03x), and MULLS (7.62x) run on the same metric but do not reproduce
 the paper numbers. KISS-ICP stood at 1.87x until Section 6.5's audit traced
@@ -176,7 +176,11 @@ Table 6 gaps read:
   port scores 0.535 % on corrected seq 00 and 0.363 % on seq 07, against the
   official code's 0.528 % and 0.375 %, and gains as much from the correction
   (−41 % and −25 % against −42 % and −26 %). The KISS-ICP row falls from
-  1.87x to 1.05x. The loader's 80 m range cap was ruled out on the way.
+  1.87x to 1.04x (seq 00 and 04). Over all eleven training sequences the port
+  and the official code give the same pooled average, 0.564 %, so the
+  remaining 1.13x to the paper's 0.50 % average lies between the paper and
+  the released code, not in the port. The loader's 80 m range cap was ruled
+  out on the way.
 - **It is not a universal fix.** On KITTI 07 the same correction, applied to
   each method's Table 6 variant unchanged, lowers the official RTE of
   LiTAMIN2 by 29 % and KISS-ICP by 10-36 % (25 % with the upstream

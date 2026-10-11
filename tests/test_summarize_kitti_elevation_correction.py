@@ -70,6 +70,28 @@ class ElevationCorrectionSummaryTests(unittest.TestCase):
         self.assertEqual(runs[0]["max_threads"], 2)
         self.assertEqual(runs[0]["metrics"]["kitti_rte_trans_pct"], 0.8)
 
+    def test_kitti_average_pools_segments_and_needs_all_sequences(self) -> None:
+        rows, official = [], []
+        for index in range(11):
+            seq = f"{index:02d}"
+            rows.append({
+                "selector": "kiss_icp", "variant": "upstream_mechanics", "sequence": seq,
+                "raw": {"kitti_rte_trans_pct": 1.0},
+                "corrected": {"kitti_rte_trans_pct": 0.5 if index else 2.0},
+            })
+            official.append({
+                "sequence": seq, "elevation_correction": True,
+                "metrics": {"kitti_rte_trans_pct": 0.4,
+                            "kitti_rte_segments": 30 if index else 100},
+            })
+        average = self.module.kitti_average(rows, official)
+        self.assertEqual(average["segments"], 400)
+        # (2.0 * 100 + 0.5 * 300) / 400
+        self.assertAlmostEqual(average["port_corrected"], 0.875)
+        self.assertAlmostEqual(average["official_corrected"], 0.4)
+        self.assertEqual(average["paper"], 0.5)
+        self.assertIsNone(self.module.kitti_average(rows[:-1], official))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-11T00:01:38+00:00
+> Generated: 2026-10-11T02:31:59+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -169,9 +169,9 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Hardware**: Not stated in paper
 **Repo scope**: Compact baseline — The repo keeps a small KISS-ICP-style local-map pipeline that preserves the main idea while simplifying the full upstream engineering stack.
 **Current claim**: Matches the official code on KITTI 00/07 with upstream mechanics — With --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 and the KITTI elevation correction the port scores 0.535 % (seq 00) and 0.363 % (seq 07) official KITTI RTE against 0.528 % and 0.375 % for the official KISS-ICP 1.3.0 code. The repository default keeps a simpler speed-based adaptive threshold and is not a faithful rerun.
-**Numeric comparison**: Partial only (one sequence) — The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). Upstream KISS-ICP corrects the KITTI elevation angle by +0.205 deg in its KITTI loader; the official 1.3.0 code scores 0.528 % on corrected seq 00 and 0.910 % on raw scans. With the same correction and the upstream mechanics (model-deviation threshold, Geman-McClure kernel, map insertion gate) the port reaches 0.535 % on seq 00 (1.05x); with the earlier speed-based threshold it reached 0.708 % (1.39x), and 0.954 % on raw scans (1.87x). Values are the best variant among the seq 00 sweeps (selected on the evaluated sequence, so optimistic); see docs/kitti_elevation_correction.md, papers/kiss_icp/README.md, and docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Only seq 00 has a per-sequence paper value; the paper's 00-10 average and seq 04 have not been run with the upstream mechanics.
-**Next step**: Run the upstream-mechanics variant with the correction on KITTI 01-10 and compare with the paper's 0.50 % average and the 0.36 % on seq 04.
+**Numeric comparison**: KITTI 00/04 per sequence plus the 00-10 average — The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). Upstream KISS-ICP corrects the KITTI elevation angle by +0.205 deg in its KITTI loader. With the same correction and the upstream mechanics (model-deviation threshold, Geman-McClure kernel, map insertion gate) the port scores 0.535 % on seq 00 (1.05x) and 0.373 % on seq 04 (1.04x), and 0.564 % pooled over 00-10, identical to the official KISS-ICP 1.3.0 code on the same pipeline (0.564 %, 1.13x the paper's average). Before matching the adaptive threshold the best seq 00 value was 0.708 % (1.39x), and 0.954 % on raw scans (1.87x). Seq 00/04 values are the best variant among the sweeps on that sequence (selected on the evaluated sequence, so optimistic); see docs/kitti_elevation_correction.md, papers/kiss_icp/README.md, and docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: The remaining 1.13x on the 00-10 average is shared by the official 1.3.0 code, so it lies between the paper and the released code (for example an older release or a different deskewing setup), not in the port.
+**Next step**: Optionally rerun an older official KISS-ICP release on 00-10 to locate the paper-vs-release difference; the port itself needs no further change for KITTI.
 
 ### Paper-Reported Values
 
@@ -196,11 +196,20 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Fast recent map | 0.679 | - | - | 28.26 |
 | KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 7.633 | 0.797 | 0.004292 | 36.56 |
 | KITTI | dense profile | 12.323 | 0.963 | 0.007617 | 1.25 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 7.947 | 0.826 | 0.001348 | 20.32 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 18.507 | 0.789 | 0.002933 | 37.36 |
 | KITTI | balanced | 71.183 | 1.178 | 0.008933 | 3.06 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 2.185 | 0.845 | 0.002308 | 25.56 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 0.661 | 0.411 | 0.001442 | 24.60 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 3.739 | 0.473 | 0.002622 | 34.51 |
 | KITTI | dense | 4.556 | 0.715 | 0.005066 | 1.64 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 1.802 | 0.465 | 0.001403 | 23.85 |
 | KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 0.537 | 0.541 | 0.002913 | 39.53 |
 | KITTI | balanced (default) | 2.238 | 0.664 | 0.007003 | 3.38 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 15.965 | 1.332 | 0.003594 | 26.35 |
 | KITTI | fast | 18.085 | 1.549 | 0.007241 | 2.23 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 3.681 | 0.607 | 0.002472 | 31.02 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 2.835 | 0.681 | 0.003854 | 39.68 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast recent map | 5.568 | - | - | 11.29 |
 | dogfooding_results/mcd_ntu_day_02_108 | Fast recent map | 0.026 | - | - | 66.68 |
 | dogfooding_results/mcd_tuhh_night_09_108 | Fast recent map | 1.303 | - | - | 24.10 |

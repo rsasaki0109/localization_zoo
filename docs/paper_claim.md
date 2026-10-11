@@ -25,7 +25,7 @@ The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/read
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **425** ready problems, **1** blocked manifest, and **14** skipped manifests across **35** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
+The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **434** ready problems, **1** blocked manifest, and **14** skipped manifests across **35** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -53,7 +53,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 |---|---|---|---:|
 | Near paper | A-LOAM (vs LOAM, secondary-source values) | 00/02/05/07/08 | 1.01x |
 | Near paper | LF-GICP (no author code; gate calibrated on the paper's KITTI 00 trace) | 00/02/05/07/08 | 0.96x |
-| Near paper | KISS-ICP (upstream threshold, kernel, and map gate on corrected scans as upstream; see `papers/kiss_icp/README.md`) | 00 | 1.05x |
+| Near paper | KISS-ICP (upstream threshold, kernel, and map gate on corrected scans as upstream; 00-10 average equals the official code's; see `papers/kiss_icp/README.md`) | 00/04 | 1.04x |
 | Near paper | LiTAMIN2 (ICP+Cov, no loop closure) | 00/02/05/07/08 | 1.22x |
 | Gap remains | L-LO (no author code; parameters chosen on seq 07) | 00/02/05/07/08 | 1.58x |
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
@@ -61,9 +61,9 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Gap remains | MULLS (derived multi-metric variant) | 00/02/05/07/08 | 7.62x |
 
 What may be claimed: A-LOAM, LF-GICP, KISS-ICP, and LiTAMIN2 reach paper-level odometry accuracy
-on KITTI (KISS-ICP on seq 00 only, and only with the upstream mechanics and the
-KITTI elevation correction, where it also matches the official code on seq 00
-and 07); the other four run on the same metric but do **not** reproduce the
+on KITTI (KISS-ICP on seq 00 and 04, and only with the upstream mechanics and the
+KITTI elevation correction; its 00-10 average, 0.564 %, equals the official
+code's on the same pipeline, both 1.13x the paper's 0.50 %); the other four run on the same metric but do **not** reproduce the
 paper numbers. What may not be claimed: faithful reproduction for CT-ICP,
 L-LO, SuMa, or MULLS, a KISS-ICP claim for the repository default, or any ratio as unbiased. The repository value is the
 best variant of a sweep **selected on the evaluated sequence**, so every ratio
@@ -102,7 +102,7 @@ unnoticed, which motivates pinning both inputs and code:
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **425** ready + **1** blocked + **14** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **434** ready + **1** blocked + **14** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |

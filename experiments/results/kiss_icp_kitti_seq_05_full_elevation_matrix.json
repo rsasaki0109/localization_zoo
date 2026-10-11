@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-10-11T02:01:41+00:00",
+  "manifest_path": "experiments/kiss_icp_kitti_seq_05_full_elevation_matrix.json",
+  "problem": {
+    "id": "kiss_icp_kitti_seq_05_full_elevation",
+    "title": "KISS-ICP KITTI Odom seq 05 full: upstream mechanics with and without the elevation correction",
+    "question": "Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "upstream_mechanics",
+      "label": "upstream profile + upstream threshold, kernel, and map insertion gate",
+      "design_style": "reference",
+      "intent": "Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--kiss-geman-mcclure-kernel",
+        "--kiss-map-min-point-distance",
+        "0.2236068"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics/run.log",
+      "status": "ok",
+      "ate_m": 5.31892,
+      "rpe_trans_pct": 0.67095,
+      "rpe_rot_deg_per_m": 0.005457,
+      "fps": 36.66421,
+      "time_ms": 75305.045102,
+      "frames": 2761,
+      "note": "Adaptive sigma min/mean/max=0.344515/0.368768/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=36.6642; algorithm_fps=45.5075.",
+      "benchmark_score": 85.15,
+      "readability_score": 3.35,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.85,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 0.764156,
+      "kitti_rte_rot_deg_per_100m": 0.344661,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "upstream_mechanics_elevation",
+      "label": "upstream mechanics + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--kiss-geman-mcclure-kernel",
+        "--kiss-map-min-point-distance",
+        "0.2236068",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics_elevation/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics_elevation/run.log",
+      "status": "ok",
+      "ate_m": 3.739422,
+      "rpe_trans_pct": 0.473459,
+      "rpe_rot_deg_per_m": 0.002622,
+      "fps": 34.514879,
+      "time_ms": 79994.486765,
+      "frames": 2761,
+      "note": "Adaptive sigma min/mean/max=0.339239/0.365191/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=34.5149; algorithm_fps=44.0498.",
+      "benchmark_score": 97.07,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.335224,
+      "kitti_rte_rot_deg_per_100m": 0.144157,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

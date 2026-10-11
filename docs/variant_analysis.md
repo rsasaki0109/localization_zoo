@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-11T00:01:38+00:00
+> Generated: 2026-10-11T02:31:59+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -388,15 +388,24 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-TUHH | fast_recent_map | 1.303 | 24.1 |
 | dogfooding_results/kitti_seq_00_full | upstream_mechanics_elevation | 7.633 | 36.6 |
 | dogfooding_results/kitti_seq_00_full | dense_profile | 12.323 | 1.2 |
+| dogfooding_results/kitti_seq_01_full | upstream_mechanics_elevation | 7.947 | 20.3 |
+| dogfooding_results/kitti_seq_02_full | upstream_mechanics_elevation | 18.507 | 37.4 |
 | dogfooding_results/kitti_seq_02_full | balanced_reference | 71.183 | 3.1 |
+| dogfooding_results/kitti_seq_03_full | upstream_mechanics_elevation | 2.185 | 25.6 |
+| dogfooding_results/kitti_seq_04_full | upstream_mechanics_elevation | 0.661 | 24.6 |
+| dogfooding_results/kitti_seq_05_full | upstream_mechanics_elevation | 3.739 | 34.5 |
 | dogfooding_results/kitti_seq_05_full | dense_profile | 4.556 | 1.6 |
+| dogfooding_results/kitti_seq_06_full | upstream_mechanics_elevation | 1.802 | 23.9 |
 | dogfooding_results/kitti_seq_07_full | upstream_mechanics_elevation | 0.537 | 39.5 |
 | dogfooding_results/kitti_seq_07_full | balanced_reference | 2.238 | 3.4 |
+| dogfooding_results/kitti_seq_08_full | upstream_mechanics_elevation | 15.965 | 26.3 |
 | dogfooding_results/kitti_seq_08_full | fast_profile | 18.085 | 2.2 |
+| dogfooding_results/kitti_seq_09_full | upstream_mechanics_elevation | 3.681 | 31.0 |
+| dogfooding_results/kitti_seq_10_full | upstream_mechanics_elevation | 2.835 | 39.7 |
 | dogfooding_results/mulran_parkinglot_120 | fast_recent_map | 15.641 | 27.3 |
 | dogfooding_results/mulran_parkinglot_full | fast_recent_map | 74.337 | 26.9 |
 
-**Stability**: 6 unique default(s) across 21 windows.
+**Stability**: 6 unique default(s) across 30 windows.
 
 ### L-LO
 
@@ -1010,8 +1019,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | fast_recent_map | 40.645 | 17.7 | 14 |
 | t1_transfer_v03_i12 | 2.681 | 1.5 | 1 |
 | t1_transfer_v05_i12 | 23.054 | 0.9 | 5 |
-| upstream_mechanics | 7.138 | 38.1 | 2 |
-| upstream_mechanics_elevation | 4.085 | 38.0 | 2 |
+| upstream_mechanics | 20.233 | 31.1 | 11 |
+| upstream_mechanics_elevation | 5.954 | 30.8 | 11 |
 | upstream_profile | 7.826 | 18.2 | 2 |
 | upstream_profile_elevation | 5.326 | 19.4 | 2 |
 | upstream_profile_range100 | 7.479 | 18.8 | 2 |

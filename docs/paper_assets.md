@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-11T00:01:19+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-11T02:31:41+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -225,11 +225,20 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | kiss_icp | `kitti_raw_0061_full` | gt-backed | `fast_recent_map` | 4.623 | 11.2 | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
 | kiss_icp | `kitti_seq_00_full` | gt-backed | `upstream_mechanics_elevation` | 7.633 | 36.6 | `experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json` |
 | kiss_icp | `kitti_seq_00_full` | gt-backed | `dense_profile` | 12.323 | 1.2 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_01_full` | gt-backed | `upstream_mechanics_elevation` | 7.947 | 20.3 | `experiments/results/kiss_icp_kitti_seq_01_full_elevation_matrix.json` |
+| kiss_icp | `kitti_seq_02_full` | gt-backed | `upstream_mechanics_elevation` | 18.507 | 37.4 | `experiments/results/kiss_icp_kitti_seq_02_full_elevation_matrix.json` |
 | kiss_icp | `kitti_seq_02_full` | gt-backed | `balanced_reference` | 71.183 | 3.1 | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_03_full` | gt-backed | `upstream_mechanics_elevation` | 2.185 | 25.6 | `experiments/results/kiss_icp_kitti_seq_03_full_elevation_matrix.json` |
+| kiss_icp | `kitti_seq_04_full` | gt-backed | `upstream_mechanics_elevation` | 0.661 | 24.6 | `experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json` |
+| kiss_icp | `kitti_seq_05_full` | gt-backed | `upstream_mechanics_elevation` | 3.739 | 34.5 | `experiments/results/kiss_icp_kitti_seq_05_full_elevation_matrix.json` |
 | kiss_icp | `kitti_seq_05_full` | gt-backed | `dense_profile` | 4.556 | 1.6 | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_06_full` | gt-backed | `upstream_mechanics_elevation` | 1.802 | 23.9 | `experiments/results/kiss_icp_kitti_seq_06_full_elevation_matrix.json` |
 | kiss_icp | `kitti_seq_07_full` | gt-backed | `upstream_mechanics_elevation` | 0.537 | 39.5 | `experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json` |
 | kiss_icp | `kitti_seq_07_full` | gt-backed | `balanced_reference` | 2.238 | 3.4 | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_08_full` | gt-backed | `upstream_mechanics_elevation` | 15.965 | 26.3 | `experiments/results/kiss_icp_kitti_seq_08_full_elevation_matrix.json` |
 | kiss_icp | `kitti_seq_08_full` | gt-backed | `fast_profile` | 18.085 | 2.2 | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_09_full` | gt-backed | `upstream_mechanics_elevation` | 3.681 | 31.0 | `experiments/results/kiss_icp_kitti_seq_09_full_elevation_matrix.json` |
+| kiss_icp | `kitti_seq_10_full` | gt-backed | `upstream_mechanics_elevation` | 2.835 | 39.7 | `experiments/results/kiss_icp_kitti_seq_10_full_elevation_matrix.json` |
 | kiss_icp | `mcd_kth_day_06_108` | gt-backed | `fast_recent_map` | 5.568 | 11.3 | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | kiss_icp | `mcd_ntu_day_02_108` | gt-backed | `fast_recent_map` | 0.026 | 66.7 | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | kiss_icp | `mcd_tuhh_night_09_108` | gt-backed | `fast_recent_map` | 1.303 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |

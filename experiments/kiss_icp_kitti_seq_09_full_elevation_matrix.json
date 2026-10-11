@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "kiss_icp_kitti_seq_09_full_elevation",
+    "title": "KISS-ICP KITTI Odom seq 09 full: upstream mechanics with and without the elevation correction",
+    "question": "Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_09_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_09_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "variants": [
+    {
+      "id": "upstream_mechanics",
+      "label": "upstream profile + upstream threshold, kernel, and map insertion gate",
+      "design_style": "reference",
+      "intent": "Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--kiss-geman-mcclure-kernel",
+        "--kiss-map-min-point-distance",
+        "0.2236068"
+      ]
+    },
+    {
+      "id": "upstream_mechanics_elevation",
+      "label": "upstream mechanics + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--kiss-geman-mcclure-kernel",
+        "--kiss-map-min-point-distance",
+        "0.2236068",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    }
+  ]
+}

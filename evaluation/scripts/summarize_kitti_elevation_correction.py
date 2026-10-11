@@ -124,11 +124,54 @@ def collect_pairs() -> list[dict]:
     return rows
 
 
+KITTI_TRAINING = [f"{index:02d}" for index in range(11)]
+AVERAGE_VARIANT = "upstream_mechanics"
+
+
+def kitti_average(rows: list[dict], official: list[dict]) -> dict | None:
+    """Pooled KITTI devkit average over sequences 00-10 for KISS-ICP.
+
+    The devkit averages every 100-800 m segment of every sequence, so each
+    sequence is weighted by its segment count. Segment counts depend only on
+    the ground truth and come from the official runs on the same files.
+    """
+    official_corrected = {run["sequence"]: run for run in official if run["elevation_correction"]}
+    port = {row["sequence"]: row for row in rows
+            if row["selector"] == "kiss_icp" and row["variant"] == AVERAGE_VARIANT}
+    per_sequence = []
+    for seq in KITTI_TRAINING:
+        run, row = official_corrected.get(seq), port.get(seq)
+        if run is None or row is None or not run["metrics"].get("kitti_rte_segments"):
+            return None
+        per_sequence.append({
+            "sequence": seq,
+            "segments": int(run["metrics"]["kitti_rte_segments"]),
+            "port_raw": row["raw"]["kitti_rte_trans_pct"],
+            "port_corrected": row["corrected"]["kitti_rte_trans_pct"],
+            "official_corrected": run["metrics"]["kitti_rte_trans_pct"],
+        })
+    total = sum(item["segments"] for item in per_sequence)
+
+    def pooled(key: str) -> float:
+        return sum(item[key] * item["segments"] for item in per_sequence) / total
+
+    methods = json.loads(PAPER_NUMBERS.read_text())["methods"]
+    return {
+        "variant": AVERAGE_VARIANT,
+        "segments": total,
+        "per_sequence": per_sequence,
+        "port_raw": pooled("port_raw"),
+        "port_corrected": pooled("port_corrected"),
+        "official_corrected": pooled("official_corrected"),
+        "paper": methods["kiss_icp"]["reported_values"].get("kitti_avg_00_10"),
+    }
+
+
 def fmt(value: float | None, digits: int = 3) -> str:
     return "-" if value is None else f"{value:.{digits}f}"
 
 
-def render(rows: list[dict], official: list[dict]) -> str:
+def render(rows: list[dict], official: list[dict], average: dict | None = None) -> str:
     lines = [
         "# KITTI elevation correction",
         "",
@@ -145,8 +188,9 @@ def render(rows: list[dict], official: list[dict]) -> str:
         "results do not change.",
         "",
         "All errors are the official KITTI translational RTE (100-800 m segments) in percent. "
-        "Each variant is the Table 6 variant for that sequence, tuned on raw scans; its "
-        "corrected twin changes nothing else.",
+        "Each variant is either the Table 6 variant for that sequence, tuned on raw scans, or the "
+        "KISS-ICP configuration that mirrors upstream (`upstream_mechanics`); its corrected twin "
+        "changes nothing else.",
         "",
         "## Official KISS-ICP",
         "",
@@ -173,6 +217,31 @@ def render(rows: list[dict], official: list[dict]) -> str:
         "`run_official_kiss_baseline.py` (`--no-kitti-elevation-correction` for the raw "
         "column). Ground truth is opened only after the odometry process exits.",
         "",
+    ]
+    if average:
+        papers_kiss = {seq: value for (selector, seq), value in papers.items() if selector == "kiss_icp"}
+        lines += [
+            "## KISS-ICP over KITTI 00-10",
+            "",
+            "The repository's `upstream_mechanics` variant next to the official code on every "
+            "KITTI training sequence. The average pools all segments of all sequences, as the "
+            "KITTI devkit does, so each sequence is weighted by its segment count.",
+            "",
+            "| Sequence | Segments | Port raw | Port corrected | Official corrected | Paper |",
+            "|---|---:|---:|---:|---:|---:|",
+        ]
+        for item in average["per_sequence"]:
+            lines.append(
+                f"| {item['sequence']} | {item['segments']} | {fmt(item['port_raw'])} | "
+                f"{fmt(item['port_corrected'])} | {fmt(item['official_corrected'])} | "
+                f"{fmt(papers_kiss.get(item['sequence']), 2)} |")
+        lines += [
+            f"| **00-10** | {average['segments']} | {fmt(average['port_raw'])} | "
+            f"**{fmt(average['port_corrected'])}** | **{fmt(average['official_corrected'])}** | "
+            f"**{fmt(average['paper'], 2)}** |",
+            "",
+        ]
+    lines += [
         "## Repository methods",
         "",
         "| Seq | Method | Variant | Raw | Corrected | Change | Paper | Corrected variant in Table 6 |",
@@ -220,6 +289,7 @@ def render(rows: list[dict], official: list[dict]) -> str:
 def report() -> None:
     rows = collect_pairs()
     official = json.loads(OFFICIAL_PATH.read_text())["runs"] if OFFICIAL_PATH.is_file() else []
+    average = kitti_average(rows, official)
     REPORT_JSON.write_text(json.dumps({
         "schema_version": 1,
         "generated_by": "evaluation/scripts/summarize_kitti_elevation_correction.py",
@@ -227,8 +297,9 @@ def report() -> None:
         "metric": "official KITTI translational RTE [%] (100-800 m)",
         "official_kiss_icp": official,
         "pairs": rows,
+        "kiss_icp_kitti_00_10_average": average,
     }, indent=2) + "\n")
-    REPORT_MD.write_text(render(rows, official))
+    REPORT_MD.write_text(render(rows, official, average))
     print(REPORT_MD.read_text())
 
 

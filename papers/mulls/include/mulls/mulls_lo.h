@@ -79,6 +79,8 @@ struct MullsLOParams {
   int nms_min_points = 10;
   int sparse_pillar = 400;
   int sparse_facade_per_sector = 300;
+  int sparse_beam_per_sector = 50;
+  bool use_beam = false;  // beams enter registration and the map (highway profile)
 
   // Multi-metric ICP.
   double gate_initial = 1.4;
@@ -125,6 +127,11 @@ struct MullsLOParams {
   bool use_scan_to_map = true;  // false: scan-to-scan against the previous frame throughout
 
   unsigned seed = 42;
+
+  // The authors' KITTI highway profile (sparse scenes such as sequence 01):
+  // beams join the registration, a looser normal check, no ground-balance
+  // weight and no dynamic-object removal.
+  static MullsLOParams kittiHighway();
 };
 
 struct LOFeatures {

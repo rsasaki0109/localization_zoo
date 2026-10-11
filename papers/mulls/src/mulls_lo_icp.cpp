@@ -13,7 +13,6 @@ namespace mulls {
 namespace {
 
 constexpr double kDegToRad = M_PI / 180.0;
-constexpr int kUsedClasses[] = {kLOGround, kLOPillar, kLOFacade};
 
 bool isLineClass(int c) { return c == kLOPillar || c == kLOBeam; }
 
@@ -69,6 +68,7 @@ LOICPResult multiMetricICP(const std::array<LOCloud, kLONumClasses>& source_in,
 
   // Work only where both scans overlap: the target extent intersected with
   // the (initially transformed) source features, padded by a margin.
+  const std::vector<int> kUsedClasses = registrationClasses(params);
   std::array<LOCloud, kLONumClasses> src, tgt;
   Eigen::AlignedBox3d source_box;
   for (int c : kUsedClasses) {
@@ -129,7 +129,8 @@ LOICPResult multiMetricICP(const std::array<LOCloud, kLONumClasses>& source_in,
 
     const int line_plane = counts[kLOPillar] + counts[kLOFacade] + counts[kLOBeam];
     const int total = line_plane + counts[kLOGround];
-    const double source_line_plane = static_cast<double>(src[kLOPillar].size() + src[kLOFacade].size());
+    const double source_line_plane =
+        static_cast<double>(src[kLOPillar].size() + src[kLOFacade].size() + src[kLOBeam].size());
     if (total < params.min_pairs || line_plane < params.min_pillar_facade_pairs ||
         (source_line_plane > 0 && line_plane / source_line_plane < params.min_pillar_facade_ratio)) {
       result.aborted = true;

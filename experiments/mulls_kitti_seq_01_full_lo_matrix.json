@@ -41,6 +41,26 @@
         "--input-vertical-angle-correction-deg",
         "0.195"
       ]
+    },
+    {
+      "id": "mulls_lo_highway",
+      "label": "MULLS-LO (KITTI highway profile) on raw scans",
+      "design_style": "reference",
+      "intent": "The authors' highway profile for sparse scenes (beams registered, looser normal check, no ground balance or dynamic removal).",
+      "args": [
+        "--mulls-lo-highway"
+      ]
+    },
+    {
+      "id": "mulls_lo_highway_elevation",
+      "label": "MULLS-LO highway profile + 0.195 deg vertical-angle correction",
+      "design_style": "paper_input",
+      "intent": "Highway profile with the profile's 0.195 deg vertical-angle calibration.",
+      "args": [
+        "--mulls-lo-highway",
+        "--input-vertical-angle-correction-deg",
+        "0.195"
+      ]
     }
   ]
 }

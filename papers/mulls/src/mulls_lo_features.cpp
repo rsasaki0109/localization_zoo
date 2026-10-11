@@ -81,6 +81,30 @@ std::vector<int> sampleIndices(size_t n, size_t k, std::mt19937* rng) {
   return out;
 }
 
+std::vector<int> registrationClasses(const MullsLOParams& params) {
+  std::vector<int> classes{kLOGround, kLOPillar, kLOFacade};
+  if (params.use_beam) classes.push_back(kLOBeam);
+  return classes;
+}
+
+MullsLOParams MullsLOParams::kittiHighway() {
+  MullsLOParams p;
+  p.gf_high_above_mean = 1.5;
+  p.gf_bright_intensity = 100.0;
+  p.nonground_cap = 25000;
+  p.pca_max_neighbors = 30;
+  p.curvature = 0.07;
+  p.beam_max_deg = 15.0;
+  p.facade_max_deg = 30.0;
+  p.sparse_facade_per_sector = 200;
+  p.sparse_beam_per_sector = 100;
+  p.use_beam = true;
+  p.normal_max_deg = 25.0;
+  p.use_ground_balance = false;
+  p.use_dynamic_removal = false;
+  return p;
+}
+
 LOCloud sampleCloud(const LOCloud& cloud, size_t k, std::mt19937* rng) {
   LOCloud out;
   for (int i : sampleIndices(cloud.size(), k, rng)) out.push_back(cloud[i]);
@@ -409,21 +433,29 @@ LOFeatures extractFeatures(const std::vector<Eigen::Vector4d>& xyzi, const Mulls
   const LOCloud pillars = saliencyNms(f.dense[kLOPillar], params.nms_radius, params.nms_min_points);
   f.sparse[kLOPillar] = sampleCloud(pillars, params.sparse_pillar, rng);
 
-  // Facades: balance the normal directions over four azimuth sectors.
-  const LOCloud facades = saliencyNms(f.dense[kLOFacade], params.nms_radius, params.nms_min_points);
-  if (static_cast<int>(facades.size()) <= params.sparse_facade_per_sector) {
-    f.sparse[kLOFacade] = facades;
-  } else {
+  // Facades and beams: balance the directions over four azimuth sectors.
+  auto sector_sample = [&](const LOCloud& cloud, int per_sector) {
+    if (static_cast<int>(cloud.size()) <= per_sector) return cloud;
     std::array<LOCloud, 4> sectors;
-    for (const auto& pt : facades) {
+    for (const auto& pt : cloud) {
       double az = std::atan2(pt.dir.y(), pt.dir.x());
       if (az < 0.0) az += 2.0 * M_PI;
       sectors[std::min(3, static_cast<int>(az / (0.5 * M_PI)))].push_back(pt);
     }
+    LOCloud out;
     for (const auto& s : sectors) {
-      const LOCloud kept = sampleCloud(s, params.sparse_facade_per_sector, rng);
-      f.sparse[kLOFacade].insert(f.sparse[kLOFacade].end(), kept.begin(), kept.end());
+      const LOCloud kept = sampleCloud(s, per_sector, rng);
+      out.insert(out.end(), kept.begin(), kept.end());
     }
+    return out;
+  };
+  f.sparse[kLOFacade] =
+      sector_sample(saliencyNms(f.dense[kLOFacade], params.nms_radius, params.nms_min_points),
+                    params.sparse_facade_per_sector);
+  if (params.use_beam) {
+    f.sparse[kLOBeam] =
+        sector_sample(saliencyNms(f.dense[kLOBeam], params.nms_radius, params.nms_min_points),
+                      params.sparse_beam_per_sector);
   }
   return f;
 }

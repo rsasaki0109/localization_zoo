@@ -10,8 +10,6 @@ namespace mulls {
 
 namespace {
 
-constexpr int kMapClasses[] = {kLOGround, kLOPillar, kLOFacade};
-
 void transformCloud(const Eigen::Isometry3d& T, LOCloud* cloud) {
   for (auto& pt : *cloud) {
     pt.p = T * pt.p;
@@ -24,6 +22,7 @@ void transformCloud(const Eigen::Isometry3d& T, LOCloud* cloud) {
 MullsLO::MullsLO(const MullsLOParams& params) : params_(params), rng_(params.seed) {}
 
 void MullsLO::updateMap() {
+  const std::vector<int> kMapClasses = registrationClasses(params_);
   // The map follows the newest registered scan: re-express it there, then
   // add that scan's sparse features.
   const Eigen::Isometry3d to_previous = last_relative_.inverse();
@@ -154,7 +153,7 @@ MullsLOFrameResult MullsLO::process(const std::vector<Eigen::Vector4d>& xyzi) {
   ++frame_index_;
 
   result.pose = poses_.back();
-  for (int c : kMapClasses) result.map_points += map_[c].size();
+  for (int c : registrationClasses(params_)) result.map_points += map_[c].size();
   return result;
 }
 

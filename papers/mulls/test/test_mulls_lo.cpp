@@ -247,3 +247,28 @@ TEST(MullsLO, OdometryTracksConstantMotion) {
   }
   EXPECT_LT((last.translation() - velocity * 7).norm(), 0.1);
 }
+
+TEST(MullsLO, HighwayProfileRegistersBeams) {
+  MullsLOParams params = MullsLOParams::kittiHighway();
+  params.vertical_angle_correction_deg = 0.0;
+  EXPECT_TRUE(params.use_beam);
+  EXPECT_FALSE(params.use_ground_balance);
+  EXPECT_FALSE(params.use_dynamic_removal);
+  // Guard rails below the sensor along the road.
+  std::mt19937 rng(6);
+  auto scene = makeScene(rng);
+  for (double x = -30.0; x <= 30.0; x += 0.03)
+    for (double y : {-6.5, 6.5}) scene.emplace_back(x, y, -0.9, 90.0);
+  const LOFeatures f = extractFeatures(scene, params, &rng);
+  ASSERT_FALSE(f.sparse[kLOBeam].empty());
+  EXPECT_LE(f.sparse[kLOBeam].size(), 400u);
+  for (const auto& pt : f.sparse[kLOBeam]) EXPECT_LT(std::abs(pt.dir.z()), std::sin(15 * kDeg));
+
+  Eigen::Isometry3d truth = Eigen::Isometry3d::Identity();
+  truth.translation() = Eigen::Vector3d(0.4, 0.1, 0.0);
+  const LOFeatures source = extractFeatures(transformScene(scene, truth.inverse()), params, &rng);
+  const LOICPResult r = multiMetricICP(source.sparse, f.dense, f.bound,
+                                       Eigen::Isometry3d::Identity(), 2.4, params);
+  EXPECT_GT(r.pairs[kLOBeam], 0);
+  EXPECT_LT((truth.inverse() * r.T).translation().norm(), 0.03);
+}

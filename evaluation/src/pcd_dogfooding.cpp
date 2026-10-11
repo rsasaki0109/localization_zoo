@@ -2058,6 +2058,7 @@ struct MULLSDogfoodingOptions {
   // (vertex-promotion, source-pruning, ground-balance, distance-weight, huber,
   // intensity-weight, dynamic-removal, pillar-refresh, scan-to-map).
   std::string lo_disable;
+  bool lo_highway = false;  // --mulls-lo-highway: the authors' KITTI highway profile
 };
 
 struct NDTDogfoodingOptions {
@@ -5500,14 +5501,14 @@ MethodResult runLeGOLOAM(const std::vector<std::string>& pcd_dirs,
 
 MethodResult runMULLSLO(const std::vector<std::string>& pcd_dirs,
                         const std::vector<Eigen::Matrix4d>& gt,
-                        const std::string& disable) {
+                        const std::string& disable, bool highway) {
   using namespace localization_zoo::mulls;
   MethodResult res;
   res.name = "MULLS";
   // The elevation correction comes from --input-vertical-angle-correction-deg
   // like every other method; MULLS-LO applies its own 120 m horizontal limit
   // instead of the shared 80 m loader cap.
-  MullsLOParams params;
+  MullsLOParams params = highway ? MullsLOParams::kittiHighway() : MullsLOParams();
   params.vertical_angle_correction_deg = 0.0;
   {
     std::stringstream ss(disable);
@@ -5557,7 +5558,8 @@ MethodResult runMULLSLO(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   std::ostringstream note;
-  note << "MULLS-LO (KITTI urban profile); anchor matches the first GT pose. "
+  note << "MULLS-LO (KITTI " << (highway ? "highway" : "urban")
+       << " profile); anchor matches the first GT pose. "
        << aborted << " registrations stopped early (too few pairs or an implausible step).";
   if (!disable.empty()) note << " Disabled: " << disable << ".";
   res.note = note.str();
@@ -5568,7 +5570,7 @@ MethodResult runMULLS(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
                       const MULLSDogfoodingOptions& options) {
   using namespace localization_zoo::mulls;
-  if (options.lo) return runMULLSLO(pcd_dirs, gt, options.lo_disable);
+  if (options.lo) return runMULLSLO(pcd_dirs, gt, options.lo_disable, options.lo_highway);
   MethodResult res;
   res.name = "MULLS";
 
@@ -11579,7 +11581,7 @@ int main(int argc, char** argv) {
               << " [--lego-loam-kitti-profile]"
               << " [--lego-loam-fast-profile]"
               << " [--lego-loam-dense-profile]"
-              << " [--mulls-kitti-profile] [--mulls-lo] [--mulls-lo-disable a,b]"
+              << " [--mulls-kitti-profile] [--mulls-lo] [--mulls-lo-disable a,b] [--mulls-lo-highway]"
               << " [--mulls-fast-profile]"
               << " [--mulls-dense-profile]"
               << " [--dlo-kitti-profile]"
@@ -13018,6 +13020,11 @@ int main(int argc, char** argv) {
     }
     if (arg == "--mulls-lo") {
       mulls_options.lo = true;
+      continue;
+    }
+    if (arg == "--mulls-lo-highway") {
+      mulls_options.lo = true;
+      mulls_options.lo_highway = true;
       continue;
     }
     if (arg == "--mulls-lo-disable") {

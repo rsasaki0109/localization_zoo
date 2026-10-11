@@ -11,6 +11,8 @@ namespace mulls {
 // Uniform random subset of k indices out of n, in input order.
 std::vector<int> sampleIndices(size_t n, size_t k, std::mt19937* rng);
 LOCloud sampleCloud(const LOCloud& cloud, size_t k, std::mt19937* rng);
+// Classes that take part in registration and the local map.
+std::vector<int> registrationClasses(const MullsLOParams& params);
 
 class PointTree {
 public:

@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T16:29:31+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T16:53:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -144,6 +144,7 @@ The runner is responsible for:
 | CT-ICP seq 02 full: corr_dist + ms_chol combinations | `ready` | `experiments/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` | `ct_icp` | `ms_chol_corr_5` | `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` |
 | CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `experiments/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` | `ct_icp` | `baseline_reference` | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
 | CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
+| CT-ICP KITTI Odom seq 02 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_02_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json` |
 | CT-ICP seq 02 full: map_size sweep on corr=8 winner | `ready` | `experiments/ct_icp_kitti_seq_02_map_with_corr_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json` |
 | CT-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_03_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json` |
 | CT-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_04_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json` |

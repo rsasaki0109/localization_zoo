@@ -2960,7 +2960,7 @@ struct CTICPDogfoodingOptions {
   // Comma-separated mechanisms to switch off in that mode, for ablation
   // (--ct-icp-upstream-disable): startup, cv-init, rigid-start, radius,
   // farthest-ref, std-a2d, nb-weight, residual-cap, stop, prune,
-  // insert-gate, mid-pose.
+  // insert-gate, mid-pose, azimuth-time, persistent-map.
   std::string upstream_disable;
 };
 
@@ -9514,12 +9514,15 @@ MethodResult runCTICPUpstream(const std::vector<std::string>& pcd_dirs,
   const bool use_prune = !disabled("prune");
   const bool use_insert_gate = !disabled("insert-gate");
   const bool use_mid_pose = !disabled("mid-pose");
+  const bool use_azimuth_time = !disabled("azimuth-time");
+  // "persistent-map": 20-frame sliding window as in runCTICP instead.
+  const bool use_persistent_map = !disabled("persistent-map");
 
   CTICPParams params;
   params.voxel_resolution = 0.8;
   params.max_points_per_voxel = 30;
   params.min_distance_between_points = 0.1;
-  params.max_frames_in_map = 0;
+  params.max_frames_in_map = use_persistent_map ? 0 : 20;
   params.knn = 20;
   params.pca_neighbor_count = 0;
   params.neighbor_search_radius = disabled("radius") ? 0.0 : 0.75;
@@ -9584,7 +9587,14 @@ MethodResult runCTICPUpstream(const std::vector<std::string>& pcd_dirs,
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     const bool startup = use_startup && static_cast<int>(i) < kInitNumFrames;
     LoadedScan scan = loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", 0.0);
-    if (!scan.has_per_point_time) assignAzimuthTimes(&scan);
+    if (!scan.has_per_point_time) {
+      if (use_azimuth_time) {
+        assignAzimuthTimes(&scan);
+      } else {
+        // Previous fallback: point index over the stored order.
+        scan.relative_times.assign(scan.points.size(), 0.0);
+      }
+    }
     normalizeRelativeTimes(scan.relative_times);
 
     std::vector<TimedPoint> frame;
@@ -9671,7 +9681,11 @@ MethodResult runCTICPUpstream(const std::vector<std::string>& pcd_dirs,
       world.reserve(frame.size());
       for (const auto& tp : frame)
         world.push_back(registered.transformPoint(tp.raw_point, tp.timestamp));
-      reg.insertPoints(world);
+      if (use_persistent_map) {
+        reg.insertPoints(world);
+      } else {
+        reg.addPointsToMap(world);
+      }
       ++total_insertions;
       skipped_since_insert = 0;
     } else {

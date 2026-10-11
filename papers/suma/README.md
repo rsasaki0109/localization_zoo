@@ -27,3 +27,20 @@ Before constant-velocity prediction, the same seq07 full run diverged to
 52.943 m / 10.023% with the default profile. The dense profile is promoted only
 for the seq07 full RPE cell; remaining KITTI full sequences still need reruns
 before broader SuMa claims.
+
+## 公式実装との比較 (未完了, 2026-10-11)
+
+公式 SuMa (jbehley/SuMa) は GPU なしのコンテナでもビルドでき
+(`-DENABLE_NVIDIA_EXT=Off`。glow と GTSAM 4.2.0 は CMake が取得する)、
+genvideo.cpp を元にしたヘッドレスのポーズ出力ドライバも動いた。しかし実行には
+OpenGL 4.x が要り、ソフトウェア描画ではどれも動かなかった:
+
+- Mesa llvmpipe (LLVM 20.1.2): frame-to-model の段階でシェーダのコード生成が
+  `LLVM ERROR: Cannot emit physreg copy instruction` で落ちる
+  (`LP_NATIVE_VECTOR_WIDTH=128`、`GALLIVM_PERF=no_opt` でも同じ)。
+- softpipe: GLSL 1.50 / 3.30 までで、SuMa のシェーダ (GLSL 4.00 以上) を読めない。
+- zink + lavapipe: Xvfb 上で GL コンテキストを作れない。
+
+公式コードの KITTI 値は GPU のある環境か、この LLVM の不具合がない Mesa で測る
+必要がある。それまで Table 6 の 2.21x が実装側の差か公式コードと論文の差かは
+切り分けられていない。

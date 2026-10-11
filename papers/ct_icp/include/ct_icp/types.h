@@ -3,6 +3,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
+#include <algorithm>
 #include <unordered_map>
 #include <vector>
 #include <functional>
@@ -105,19 +106,23 @@ struct VoxelBlock {
   // (min_distance_between_points) の方が voxel 内 redundancy を制御する適切な
   // mechanism。
   static constexpr int kMaxPoints = 20;
-  Eigen::Vector3d points[kMaxPoints];
+  // Storage for the upstream driving profile's 30 points per voxel; the
+  // effective cap is the max_points argument (default kMaxPoints).
+  static constexpr int kCapacity = 30;
+  Eigen::Vector3d points[kCapacity];
   int num_points = 0;
 
   // min_distance_sq > 0 で min-distance enforcement。同 voxel 内に既に
   // 距離未満の点があれば追加せず false を返す。0 だと従来通り (kMaxPoints 上限のみ)。
   // paper は 0.1 m (= min_distance_sq = 0.01)。
-  bool addPoint(const Eigen::Vector3d& point, double min_distance_sq = 0.0) {
+  bool addPoint(const Eigen::Vector3d& point, double min_distance_sq = 0.0,
+                int max_points = kMaxPoints) {
     if (min_distance_sq > 0.0) {
       for (int i = 0; i < num_points; ++i) {
         if ((points[i] - point).squaredNorm() < min_distance_sq) return false;
       }
     }
-    if (num_points < kMaxPoints) {
+    if (num_points < std::min(max_points, kCapacity)) {
       points[num_points++] = point;
       return true;
     }

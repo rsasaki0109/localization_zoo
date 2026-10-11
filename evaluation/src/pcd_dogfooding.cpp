@@ -96,6 +96,8 @@
 
 #define PCL_NO_PRECOMPILE
 #include <pcl/io/pcd_io.h>
+#include <random>
+#include <unordered_set>
 #include <pcl/io/ply_io.h>
 #include <pcl/PCLPointCloud2.h>
 #include <pcl/point_cloud.h>
@@ -645,6 +647,21 @@ double g_input_vertical_angle_correction_rad = 0.0;
 // Shared loader range cap (--input-max-range-m). Upstream KISS-ICP keeps
 // returns up to 100 m; the historical default here is 80 m.
 double g_input_max_range_m = 80.0;
+// Per-point time from the azimuth for scans without a time field
+// (--input-azimuth-time). KITTI .bin scans store points ring by ring, so the
+// index fallback (j / N) follows the elevation, not the sweep; this uses the
+// sweep angle as in KISS-ICP's KITTI loader, 0.5 * (1 - atan2(y, x) / pi).
+bool g_input_azimuth_time = false;
+
+void assignAzimuthTimes(LoadedScan* scan) {
+  const double pi = std::acos(-1.0);
+  scan->relative_times.clear();
+  scan->relative_times.reserve(scan->points.size());
+  for (const auto& p : scan->points) {
+    scan->relative_times.push_back(0.5 * (1.0 - std::atan2(p.y(), p.x()) / pi));
+  }
+  scan->has_per_point_time = !scan->relative_times.empty();
+}
 
 template <typename PointT>
 void applyInputVerticalAngleCorrection(pcl::PointCloud<PointT>* cloud) {
@@ -878,6 +895,7 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5,
   const fs::path resolved_path = resolvePointCloudPath(path);
   if (resolved_path.extension() == ".bin") {
     scan.points = loadPCD(resolved_path.string(), leaf);
+    if (g_input_azimuth_time) assignAzimuthTimes(&scan);
     return scan;
   }
 
@@ -893,6 +911,7 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5,
   }
   if (!has_time_field) {
     scan.points = loadPCD(resolved_path.string(), leaf);
+    if (g_input_azimuth_time) assignAzimuthTimes(&scan);
     return scan;
   }
 
@@ -2934,6 +2953,15 @@ struct CTICPDogfoodingOptions {
   double location_consistency_weight = -1.0;
   double orientation_consistency_weight = -1.0;
   double constant_velocity_weight = -1.0;
+  // --ct-icp-upstream-mechanics: run the dedicated pipeline that follows
+  // upstream jedeschaud/ct_icp with config/odometry/driving_config.yaml
+  // (runCTICPUpstream). The other CT-ICP options are ignored in that mode.
+  bool upstream_mechanics = false;
+  // Comma-separated mechanisms to switch off in that mode, for ablation
+  // (--ct-icp-upstream-disable): startup, cv-init, rigid-start, radius,
+  // farthest-ref, std-a2d, nb-weight, residual-cap, stop, prune,
+  // insert-gate, mid-pose, azimuth-time, persistent-map.
+  std::string upstream_disable;
 };
 
 struct CTICPNDTHybridOptions {
@@ -9454,11 +9482,245 @@ MethodResult runDLIO(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+// CT-ICP with the upstream pipeline (jedeschaud/ct_icp, driving_config.yaml),
+// for comparison with the paper numbers. Differences from runCTICP:
+// full-resolution input with per-point time (sweep angle when the scan has no
+// time field), one random point per 0.5 m voxel (0.2 m for the first 20
+// frames) and no point cap, constant-velocity initialisation of both poses,
+// rigid frames 0 and 1, a persistent 0.8 m voxel map (30 points, 0.1 m
+// spacing, voxels beyond 100 m pruned, insertion skipped on > 3 deg in-scan
+// rotation), 20 neighbours within 0.75 m with the farthest as the plane point,
+// a2D on standard deviations, upstream weights, the first 900 residuals,
+// 5 x 5 iterations (15 outer while starting up), Cauchy 0.1 and the
+// mid-scan pose as output.
+MethodResult runCTICPUpstream(const std::vector<std::string>& pcd_dirs,
+                              const std::vector<Eigen::Matrix4d>& gt,
+                              const CTICPDogfoodingOptions& options) {
+  using namespace localization_zoo::ct_icp;
+  MethodResult res;
+  res.name = "CT-ICP";
+
+  auto disabled = [&](const std::string& name) {
+    std::stringstream ss(options.upstream_disable);
+    std::string item;
+    while (std::getline(ss, item, ',')) {
+      if (item == name) return true;
+    }
+    return false;
+  };
+  const bool use_startup = !disabled("startup");
+  const bool use_cv_init = !disabled("cv-init");
+  const bool use_rigid_start = !disabled("rigid-start");
+  const bool use_prune = !disabled("prune");
+  const bool use_insert_gate = !disabled("insert-gate");
+  const bool use_mid_pose = !disabled("mid-pose");
+  const bool use_azimuth_time = !disabled("azimuth-time");
+  // "persistent-map": 20-frame sliding window as in runCTICP instead.
+  const bool use_persistent_map = !disabled("persistent-map");
+
+  CTICPParams params;
+  params.voxel_resolution = 0.8;
+  params.max_points_per_voxel = 30;
+  params.min_distance_between_points = 0.1;
+  params.max_frames_in_map = use_persistent_map ? 0 : 20;
+  params.knn = 20;
+  params.pca_neighbor_count = 0;
+  params.neighbor_search_radius = disabled("radius") ? 0.0 : 0.75;
+  params.max_correspondence_dist = 1e12;
+  params.multi_scale_correspondences = false;
+  params.planarity_threshold = 0.0;
+  params.min_planarity_floor = 0.0;
+  params.a2d_from_std = !disabled("std-a2d");
+  params.power_planarity = 2.0;
+  params.weight_alpha = 0.9;
+  params.weight_neighborhood = disabled("nb-weight") ? 0.0 : 0.1;
+  params.neighborhood_weight_scale = 0.3 * 20;
+  params.farthest_neighbor_reference = !disabled("farthest-ref");
+  params.max_num_residuals = disabled("residual-cap") ? 0 : 900;
+  params.cauchy_loss_param = 0.1;
+  params.location_consistency_weight = 0.001;
+  params.orientation_consistency_weight = 0.0;
+  params.constant_velocity_weight = 0.001;
+  params.flat_regularizer_weight = false;
+  params.regularizer_n_cap = 0;
+  params.max_iterations = 5;
+  params.ceres_max_iterations = 5;
+  params.upstream_convergence = !disabled("stop");
+  params.keypoint_voxel_size = 1.5;
+  params.truncate_voxel_coords = true;
+  CTICPRegistration reg(params);
+
+  constexpr int kInitNumFrames = 20;
+  constexpr double kFrameVoxel = 0.5, kInitFrameVoxel = 0.2;
+  constexpr double kKeypointVoxel = 1.5, kInitKeypointVoxel = 1.0;
+  constexpr double kMinZ = -5.0;
+  constexpr double kMaxDistance = 100.0;
+  constexpr double kInsertionEgoRotationDeg = 3.0;
+  constexpr int kInsertionSkippedFrames = 5;
+  constexpr double kRadToDeg = 180.0 / M_PI;
+
+  auto to_se3 = [](const Eigen::Matrix4d& T) {
+    SE3 p;
+    p.quat = Eigen::Quaterniond(T.block<3, 3>(0, 0)).normalized();
+    p.trans = T.block<3, 1>(0, 3);
+    return p;
+  };
+  auto to_matrix = [](const SE3& p) {
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<3, 3>(0, 0) = p.quat.normalized().toRotationMatrix();
+    T.block<3, 1>(0, 3) = p.trans;
+    return T;
+  };
+  // Constant-velocity extrapolation X1 * X2^-1 * X1, as in upstream.
+  auto extrapolate = [&](const SE3& x1, const SE3& x2) {
+    return to_se3(to_matrix(x1) * to_matrix(x2).inverse() * to_matrix(x1));
+  };
+
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  std::mt19937 rng(42);
+  std::vector<TrajectoryFrame> trajectory;
+  size_t failures = 0, skipped_insertions = 0;
+  int total_insertions = 0, skipped_since_insert = 0;
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    const bool startup = use_startup && static_cast<int>(i) < kInitNumFrames;
+    LoadedScan scan = loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    if (!scan.has_per_point_time) {
+      if (use_azimuth_time) {
+        assignAzimuthTimes(&scan);
+      } else {
+        // Previous fallback: point index over the stored order.
+        scan.relative_times.assign(scan.points.size(), 0.0);
+      }
+    }
+    normalizeRelativeTimes(scan.relative_times);
+
+    std::vector<TimedPoint> frame;
+    frame.reserve(scan.points.size());
+    for (size_t j = 0; j < scan.points.size(); j++) {
+      if (scan.points[j].z() <= kMinZ) continue;
+      TimedPoint tp;
+      tp.raw_point = scan.points[j];
+      tp.timestamp = scan.relative_times[j];
+      frame.push_back(tp);
+    }
+
+    // One random point per voxel (upstream sub_sample_frame truncates the
+    // voxel coordinates toward zero).
+    std::shuffle(frame.begin(), frame.end(), rng);
+    {
+      const double voxel = startup ? kInitFrameVoxel : kFrameVoxel;
+      std::unordered_set<Voxel, VoxelHash> seen;
+      std::vector<TimedPoint> sub;
+      sub.reserve(frame.size() / 4);
+      for (const auto& tp : frame) {
+        Voxel v{static_cast<short>(tp.raw_point.x() / voxel),
+                static_cast<short>(tp.raw_point.y() / voxel),
+                static_cast<short>(tp.raw_point.z() / voxel)};
+        if (seen.insert(v).second) sub.push_back(tp);
+      }
+      frame.swap(sub);
+    }
+    if (use_rigid_start && i <= 1) {
+      for (auto& tp : frame) tp.timestamp = 1.0;
+    }
+    std::shuffle(frame.begin(), frame.end(), rng);
+
+    TrajectoryFrame init;
+    if (i <= 1) {
+      init.begin_pose = init.end_pose = to_se3(world_anchor);
+    } else if (!use_cv_init) {
+      init.begin_pose = init.end_pose = trajectory[i - 1].end_pose;
+    } else if (i == 2) {
+      init.begin_pose = trajectory[1].end_pose;
+      init.end_pose = extrapolate(trajectory[1].end_pose, trajectory[0].end_pose);
+    } else {
+      init.begin_pose =
+          extrapolate(trajectory[i - 1].begin_pose, trajectory[i - 2].begin_pose);
+      init.end_pose =
+          extrapolate(trajectory[i - 1].end_pose, trajectory[i - 2].end_pose);
+    }
+
+    reg.mutableParams().keypoint_voxel_size =
+        startup ? kInitKeypointVoxel : kKeypointVoxel;
+    reg.mutableParams().max_iterations = startup ? 15 : 5;
+
+    TrajectoryFrame registered = init;
+    if (i > 0) {
+      auto result = reg.registerFrame(frame, init, &trajectory[i - 1]);
+      registered = result.frame;
+      const double ego_rot_deg =
+          kRadToDeg * registered.begin_pose.quat.angularDistance(
+                          registered.end_pose.quat);
+      const double rel_rot_deg =
+          kRadToDeg * trajectory[i - 1].end_pose.quat.angularDistance(
+                          registered.end_pose.quat);
+      // Upstream stops the sequence on these; count them instead.
+      if (result.num_residuals < 20 ||
+          (registered.end_pose.trans - registered.begin_pose.trans).norm() > 5.0 ||
+          ego_rot_deg > 30.0 || rel_rot_deg > 30.0) {
+        ++failures;
+      }
+    }
+    trajectory.push_back(registered);
+
+    bool add_points = true;
+    if (use_insert_gate && total_insertions > 0) {
+      const double ego_rot_deg =
+          kRadToDeg * registered.begin_pose.quat.angularDistance(
+                          registered.end_pose.quat);
+      if (ego_rot_deg > kInsertionEgoRotationDeg) {
+        add_points = skipped_since_insert > kInsertionSkippedFrames;
+      }
+    }
+    if (use_prune) reg.removeVoxelsFarFrom(registered.end_pose.trans, kMaxDistance);
+    if (add_points) {
+      std::vector<Eigen::Vector3d> world;
+      world.reserve(frame.size());
+      for (const auto& tp : frame)
+        world.push_back(registered.transformPoint(tp.raw_point, tp.timestamp));
+      if (use_persistent_map) {
+        reg.insertPoints(world);
+      } else {
+        reg.addPointsToMap(world);
+      }
+      ++total_insertions;
+      skipped_since_insert = 0;
+    } else {
+      ++skipped_since_insert;
+      ++skipped_insertions;
+    }
+
+    res.poses.push_back(
+        to_matrix(use_mid_pose ? SE3::interpolate(registered.begin_pose,
+                                                  registered.end_pose, 0.5)
+                               : registered.end_pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [CT-ICP upstream] " << i << "/" << pcd_dirs.size();
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  std::ostringstream note;
+  note << "Upstream mechanics (jedeschaud/ct_icp driving_config); anchor matches "
+          "the first GT pose. "
+       << failures << " frames would have stopped upstream; "
+       << skipped_insertions << " map insertions skipped.";
+  if (!options.upstream_disable.empty())
+    note << " Disabled: " << options.upstream_disable << ".";
+  res.note = note.str();
+  return res;
+}
+
 MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
                       const CTICPDogfoodingOptions& options,
                       bool gt_seed = false) {
   using namespace localization_zoo::ct_icp;
+  if (options.upstream_mechanics && !gt_seed) {
+    return runCTICPUpstream(pcd_dirs, gt, options);
+  }
   MethodResult res;
   res.name = "CT-ICP";
 
@@ -11020,6 +11282,8 @@ void writeSummaryJson(const std::string& path,
   out << "  \"input_vertical_angle_correction_deg\": "
       << g_input_vertical_angle_correction_rad * (180.0 / std::acos(-1.0))
       << ",\n";
+  out << "  \"input_azimuth_time\": "
+      << (g_input_azimuth_time ? "true" : "false") << ",\n";
   out << "  \"total_pcd_frames\": " << total_pcd_frames << ",\n";
   out << "  \"num_frames\": " << num_frames << ",\n";
   out << "  \"raw_gt_pose_count\": " << raw_gt_pose_count << ",\n";
@@ -11294,14 +11558,15 @@ int main(int argc, char** argv) {
               << " [--kiss-model-deviation-correspondence-multiplier X]"
               << " [--kiss-vertical-angle-correction-deg X]"
               << " [--input-vertical-angle-correction-deg X]"
-              << " [--input-max-range-m X]"
+              << " [--input-max-range-m X] [--input-azimuth-time]"
               << " [--kiss-deskew-mulran]"
               << " [--kiss-motion-guard]"
               << " [--kiss-diverse-voxel-points]"
               << " [--kiss-max-step-translation-m X]"
               << " [--kiss-max-step-rotation-deg X]"
               << " [--ct-icp-fast-profile]"
-              << " [--ct-icp-dense-profile]"
+              << " [--ct-icp-dense-profile] [--ct-icp-upstream-mechanics]"
+              << " [--ct-icp-upstream-disable a,b,...]"
               << " [--ct-icp-voxel-resolution X]"
               << " [--ct-icp-max-iterations N]"
               << " [--ct-icp-auto-regularizer-cap]"
@@ -11492,6 +11757,10 @@ int main(int argc, char** argv) {
         return 1;
       }
       g_input_max_range_m = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--input-azimuth-time") {
+      g_input_azimuth_time = true;
       continue;
     }
     if (arg == "--input-vertical-angle-correction-deg") {
@@ -15229,6 +15498,15 @@ int main(int argc, char** argv) {
       ct_icp_options.max_frames_in_map = 6;
       ct_icp_options.multi_scale_correspondences = false;
       ct_icp_options.use_normal_cholesky_solver = false;
+      continue;
+    }
+    if (arg == "--ct-icp-upstream-mechanics") {
+      ct_icp_options.upstream_mechanics = true;
+      continue;
+    }
+    if (arg == "--ct-icp-upstream-disable") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.upstream_disable = argv[++i];
       continue;
     }
     if (arg == "--ct-icp-dense-profile") {

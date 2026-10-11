@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-10-11T16:53:10+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_seq_02_full_upstream_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_02_full_upstream",
+    "title": "CT-ICP KITTI Odom seq 02 full: upstream mechanics with and without the elevation correction",
+    "question": "Does the CT-ICP pipeline that follows upstream jedeschaud/ct_icp with its driving profile (--ct-icp-upstream-mechanics) reproduce the paper's KITTI-corrected Table I values?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "upstream_mechanics",
+      "label": "upstream CT-ICP pipeline (driving profile) on raw scans",
+      "design_style": "reference",
+      "intent": "The upstream jedeschaud/ct_icp pipeline with config/odometry/driving_config.yaml (papers/ct_icp/README.md).",
+      "args": [
+        "--ct-icp-upstream-mechanics"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics/summary.json --ct-icp-upstream-mechanics",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics/run.log",
+      "status": "ok",
+      "ate_m": 46.139146,
+      "rpe_trans_pct": 0.973981,
+      "rpe_rot_deg_per_m": 0.006847,
+      "fps": 7.52152,
+      "time_ms": 619688.563324,
+      "frames": 4661,
+      "note": "Upstream mechanics (jedeschaud/ct_icp driving_config); anchor matches the first GT pose. 0 frames would have stopped upstream; 0 map insertions skipped.",
+      "benchmark_score": 69.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 1.39415,
+      "kitti_rte_rot_deg_per_100m": 0.514036,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "upstream_mechanics_elevation",
+      "label": "upstream mechanics + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same pipeline on KITTI-corrected scans (+0.205 deg HDL-64E elevation), as upstream's KITTI loader and the paper's Table I.",
+      "args": [
+        "--ct-icp-upstream-mechanics",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics_elevation/summary.json --ct-icp-upstream-mechanics --input-vertical-angle-correction-deg 0.205",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics_elevation/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics_elevation/run.log",
+      "status": "ok",
+      "ate_m": 20.606805,
+      "rpe_trans_pct": 0.810338,
+      "rpe_rot_deg_per_m": 0.002946,
+      "fps": 8.058261,
+      "time_ms": 578412.621618,
+      "frames": 4661,
+      "note": "Upstream mechanics (jedeschaud/ct_icp driving_config); anchor matches the first GT pose. 0 frames would have stopped upstream; 0 map insertions skipped.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.05,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.35,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.549227,
+      "kitti_rte_rot_deg_per_100m": 0.185679,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

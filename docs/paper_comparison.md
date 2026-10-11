@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-11T02:31:59+00:00
+> Generated: 2026-10-11T17:15:41+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -229,11 +229,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 **Reported FPS**: ~16.7
 **Hardware**: Not stated; single-thread CPU
-**Repo scope**: Paper-oriented core reimplementation — The repo implements the continuous-time two-pose-per-scan core, interpolation, and point-to-plane optimization described by CT-ICP.
-**Current claim**: Approximate reproduction across KITTI Odometry 00/02/05/07/08 — Official KITTI RTE: 1.66/3.47/1.58/1.07/1.75 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.49/0.52/0.25/0.31/0.81 % (Table I, KITTI-corrected): 2.16-6.68x, geometric mean 4.03x. Parameter tuning has not closed the gap. Values are the official KITTI RTE of the best variant among all ~313 CT-ICP KITTI sweep variants re-run with the current code on 2026-10-05 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Numeric comparison**: Same metric, ~4.0x ratio (parameter-tuning floor) — Official KITTI RTE, repo vs paper: seq 00 1.664 vs 0.49 (3.40x), seq 02 3.472 vs 0.52 (6.68x), seq 05 1.577 vs 0.25 (6.31x), seq 07 1.067 vs 0.31 (3.44x), seq 08 1.749 vs 0.81 (2.16x). Values are the official KITTI RTE of the best variant among all ~313 CT-ICP KITTI sweep variants re-run with the current code on 2026-10-05 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Parameter-only ceiling at ~4.0x best-of-sweep ratio (official KITTI RTE) on KITTI 00/02/05/07/08. Closing further requires architectural attention to the continuous-time optimization stack (ceres options, planarity threshold weighting, motion compensation precision) rather than more iterations.
-**Next step**: Compare repo CT-ICP step-by-step against the upstream CT-ICP reference implementation to identify which optimization-stack component introduces the remaining ~4.0x ceiling. Also export sequences 01/03/04/06/09/10 for full paper coverage.
+**Repo scope**: Paper-oriented core reimplementation with an upstream-mechanics pipeline — The repo implements the continuous-time two-pose-per-scan core, interpolation, and point-to-plane optimization described by CT-ICP. --ct-icp-upstream-mechanics runs a dedicated pipeline that follows upstream jedeschaud/ct_icp with its driving profile (papers/ct_icp/README.md).
+**Current claim**: Matches the official code on KITTI 00-10 with upstream mechanics — With --ct-icp-upstream-mechanics and the KITTI elevation correction the port scores 0.587 % official KITTI RTE pooled over sequences 00-10 against 0.585 % for the official jedeschaud/ct_icp code on the same scans (run_official_ct_icp_baseline.py), and stays within 0.05 points of it on every sequence (seq 07: 0.315 % vs 0.308 %, paper 0.31 %). The default runCTICP pipeline is not a faithful rerun: it used the point index as time, a 20-frame window and zero-motion initialisation, scored 1.03-1.18 % on seq 07, and is numerically unstable (about +/-7-11 % under 1e-6 deg input perturbations), which explains the earlier host dependence.
+**Numeric comparison**: Same metric, KITTI 00-10 per sequence — Official KITTI RTE on KITTI-corrected scans, port with --ct-icp-upstream-mechanics vs paper Table I: 00 0.525/0.49, 01 0.716/0.76, 02 0.549/0.52, 03 0.586/0.72, 04 0.717/0.39, 05 0.315/0.25, 06 0.284/0.27, 07 0.315/0.31, 08 0.902/0.81, 09 0.629/0.49, 10 0.742/0.48; pooled 00-10 0.587 % vs 0.531 % (the paper's per-sequence values weighted by segment count), 1.10x. The official code gives 0.585 % pooled on the same scans, so the remaining difference lies between the paper and the released code. Before the upstream mechanics the best of ~313 sweep variants was 4.03x (geometric mean over 00/02/05/07/08). See papers/ct_icp/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: The remaining 1.10x on the 00-10 average (largest on 04/05/09/10) is shared by the official code on the same scans, so it lies between the paper and the released code (for example the paper's KITTI PLY timestamps or an older release), not in the port.
+**Next step**: Optionally obtain the official KITTI PLY files (password-protected download) to check whether their per-point timestamps explain the paper-vs-release difference; the port itself needs no further change for KITTI.
 
 ### Paper-Reported Values
 
@@ -281,28 +281,36 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Balanced window | 19.413 | 2.111 | 0.027532 | 12.99 |
 | KITTI | coarse search radius=1 (3x3x3, same as fine) | 14.817 | 2.087 | 0.027970 | 10.24 |
 | KITTI | cluster A + GT seed | 5.855 | 5.998 | 0.076457 | 6.87 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 9.445 | 0.831 | 0.004205 | 8.85 |
 | KITTI | full minus ms_chol (no multi-scale, no cholesky) | 12.931 | 2.092 | 0.026054 | 11.55 |
 | KITTI | map=50 + corr=5 | 14.894 | 2.149 | 0.027041 | 12.48 |
 | KITTI | bare map=50 | 15.753 | 2.043 | 0.027532 | 11.23 |
 | KITTI | Fast window | 2.824 | 3.773 | 0.047622 | 74.88 |
 | KITTI | + corr=5 | 12.931 | 2.092 | 0.026054 | 11.40 |
 | KITTI | dense + c2f cluster-A (existing best, RPE 2.059%) | 14.099 | 2.057 | 0.027515 | 8.66 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 58.191 | 0.827 | 0.003356 | 5.57 |
 | KITTI | baseline (dense + iter=6 + map=20) — existing winner | 68.972 | 2.977 | 0.031920 | 10.31 |
 | KITTI | corr=5 | 65.305 | 3.165 | 0.033007 | 10.40 |
 | KITTI | ms_chol + corr=5 | 65.305 | 3.165 | 0.033007 | 8.65 |
 | KITTI | dense + iter=6 + map=20 (existing winner) | 68.972 | 2.977 | 0.031920 | 10.70 |
 | KITTI | baseline map=15 | 76.464 | 2.651 | 0.033446 | 4.44 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 20.607 | 0.810 | 0.002946 | 8.06 |
 | KITTI | corr=8 + map=15 | 73.230 | 2.678 | 0.032340 | 11.73 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 2.035 | 0.818 | 0.003750 | 6.11 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 2.185 | 0.713 | 0.001453 | 5.24 |
 | KITTI | arch_tuned + map=50 (full + bigger) | 8.844 | 1.175 | 0.023420 | 10.16 |
 | KITTI | arch_tuned corr=4 (existing winner) | 9.485 | 1.185 | 0.023558 | 11.60 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 4.264 | 0.470 | 0.002347 | 7.53 |
 | KITTI | arch_tuned map=50 | 8.844 | 1.175 | 0.023420 | 11.31 |
 | KITTI | bare map=30 | 11.707 | 1.227 | 0.023648 | 7.02 |
 | KITTI | + constant-velocity-weight 0.05 (winner) | 11.949 | 1.122 | 0.023083 | 5.11 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 3.963 | 0.389 | 0.002206 | 5.16 |
 | KITTI | ms_chol + map=50 + c2f σ×2 (full combo) | 2.010 | 1.772 | 0.017504 | 9.86 |
 | KITTI | ms_chol + corr_dist=8 m² | 2.049 | 2.147 | 0.020803 | 14.06 |
 | KITTI | velocity_reg_01 (Table 6 best on seq 07, raw scans) | 2.231 | 1.302 | 0.018304 | 18.51 |
 | KITTI | Dense window | 2.842 | 2.103 | 0.021053 | 17.52 |
 | KITTI | cluster D full + GT seed | 1.603 | 2.082 | 0.020798 | 11.20 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 1.257 | 0.455 | 0.002867 | 8.86 |
 | KITTI | ms_chol map=50 | 1.472 | 1.730 | 0.018054 | 12.67 |
 | KITTI | Fast window | 0.978 | 1.359 | 0.082217 | 77.32 |
 | KITTI | + constant-velocity-weight 0.1 | 2.490 | 1.253 | 0.018813 | 5.97 |
@@ -311,9 +319,12 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | cauchy=2.5 | 31.958 | 2.112 | 0.026070 | 11.93 |
 | KITTI | coarse_iter=6 | 30.418 | 2.105 | 0.026321 | 10.39 |
 | KITTI | cluster A + GT seed | 6.813 | 8.142 | 0.078035 | 6.85 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 26.321 | 1.306 | 0.003959 | 6.21 |
 | KITTI | c2f_only map=20 (existing winner) | 37.043 | 2.113 | 0.025832 | 8.63 |
 | KITTI | simplified (map=50 + c2f σ×2) — existing 27.85 m | 28.427 | 2.017 | 0.024197 | 10.95 |
 | KITTI | + constant-velocity-weight 0.01 (RPE 1.935%) | 40.362 | 1.949 | 0.023975 | 9.30 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 9.703 | 0.737 | 0.003053 | 6.84 |
+| KITTI | upstream mechanics + KITTI 0.205 deg elevation correction | 5.317 | 0.781 | 0.003878 | 9.05 |
 | KITTI | bare + corr=8 (existing seq 02 winner) | 93.642 | 3.717 | 0.033521 | 12.98 |
 | KITTI | map=50 + c2f σ×2 + corr=4 (combine both) | 9.305 | 1.214 | 0.023269 | 9.09 |
 | KITTI | map=50 + c2f σ×2 (no ms_chol) | 2.010 | 1.772 | 0.017504 | 11.82 |
@@ -372,8 +383,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Repo scope**: Derived variant — Multi-metric scan-to-map alignment with edge, plane, and point residuals inside the shared benchmark harness.
 **Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the dense variant: 3.79/4.11/2.68/2.63/4.27 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.51/0.55/0.28/0.29/0.80 % (MULLS-LO(mc)): 5.34-9.56x, geometric mean 7.62x. The repo variant is a derived multi-metric scan-to-map registration, not the full MULLS pipeline. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
 **Numeric comparison**: Same metric, ~7.6x ratio — Official KITTI RTE, repo vs paper: seq 00 3.793 vs 0.51 (7.44x), seq 02 4.107 vs 0.55 (7.47x), seq 05 2.678 vs 0.28 (9.56x), seq 07 2.627 vs 0.29 (9.06x), seq 08 4.271 vs 0.80 (5.34x). Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: The derived variant implements only the multi-metric registration core; the gap to MULLS-LO is ~7.6x on the official KITTI RTE.
-**Next step**: Compare step-by-step with the upstream MULLS implementation to locate the missing components.
+**Main blocker**: Official MULLS-LO (KITTI urban profile) scores 0.311-0.316 % official KITTI RTE on seq 07 against the paper's 0.29 %, so the released code reproduces the paper and the 7.62x gap is in the port: it is a lightweight A-LOAM-feature approximation without MULLS's dual-threshold ground filter, PCA-based ground/facade/pillar/beam/roof/vertex classification, and multi-metric linear least-squares ICP.
+**Next step**: Reimplement MULLS's feature classification and multi-metric ICP (compare against run_official_mulls_baseline.py on the same scans); parameter tuning cannot close a structural gap.
 
 ### Paper-Reported Values
 
@@ -423,8 +434,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Repo scope**: Paper reimplementation — Dense surfel odometry from range-image maps inside the shared benchmark harness.
 **Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the dense profile: 1.60/1.78/1.28/1.10/2.03 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.7/1.1/0.5/0.4/1.0 % (Frame-to-Model, no loop closure): 1.62-2.74x, geometric mean 2.21x. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
 **Numeric comparison**: Same metric, ~2.2x ratio — Official KITTI RTE, repo vs paper: seq 00 1.602 vs 0.7 (2.29x), seq 02 1.785 vs 1.1 (1.62x), seq 05 1.279 vs 0.5 (2.56x), seq 07 1.095 vs 0.4 (2.74x), seq 08 2.035 vs 1.0 (2.03x). The paper rounds to one decimal. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: The CPU reimplementation reaches ~2.2x the paper's Frame-to-Model RTE on the official metric.
-**Next step**: Compare surfel stability and map fusion against the upstream SuMa implementation.
+**Main blocker**: Not yet attributed. Official SuMa builds headless (ENABLE_NVIDIA_EXT=Off) but needs OpenGL 4.x; on this container Mesa llvmpipe (LLVM 20.1.2) crashes compiling its frame-to-model shaders, softpipe only supports GLSL 3.30, and zink/lavapipe cannot create a context under Xvfb, so the official code's KITTI numbers are unmeasured (papers/suma/README.md).
+**Next step**: Run official SuMa (frame-to-model, loop closure off) on a GPU host or a Mesa/LLVM without the shader codegen bug, to tell whether the 2.21x gap is in the port or between the paper and the released code.
 
 ### Paper-Reported Values
 

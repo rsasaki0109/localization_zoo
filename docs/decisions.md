@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -619,6 +619,17 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 | cluster_a_no_seed_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## CT-ICP KITTI Odom seq 00 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## CT-ICP seq 00 full: leave-one-out ablation on full recipe
 
 - Current default: `minus_ms_chol`.
@@ -697,6 +708,17 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 | velocity_reg_0005 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | velocity_reg_001 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## CT-ICP KITTI Odom seq 01 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## CT-ICP seq 02 full: corr_dist sweep on bare baseline
 
 - Current default: `default_reference`.
@@ -762,6 +784,17 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 | map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | map_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## CT-ICP KITTI Odom seq 02 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## CT-ICP seq 02 full: map_size sweep on corr=8 winner
 
 - Current default: `map_15`.
@@ -775,6 +808,28 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 | map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | map_30 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 05 full: simplified recipes from bare + map=50
 
@@ -805,6 +860,17 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 | corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | corr_16 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | corr_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP KITTI Odom seq 05 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner
 
@@ -839,6 +905,17 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | dense_map50_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | velocity_reg_005 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Active challengers: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 07 full: ms_chol + simplified pattern combo
 
@@ -901,6 +978,17 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 | cluster_d_full_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cluster_a_no_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP KITTI Odom seq 07 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 07 full: map=50 retrofit on ms_chol winner
 
@@ -1005,6 +1093,17 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 | cluster_a_no_seed_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## CT-ICP KITTI Odom seq 08 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Active challengers: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## CT-ICP seq 08 full: map=50 retrofit on c2f_only winner
 
 - Current default: `c2f_only_map_20`.
@@ -1041,6 +1140,28 @@ _Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_ma
 | corr_dist_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | velocity_reg_001 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | velocity_reg_0015 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP KITTI Odom seq 09 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP KITTI Odom seq 10 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Reference variants: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 02 full: simplified map=50+c2f probe
 

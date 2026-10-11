@@ -89,12 +89,37 @@ struct CTICPParams {
   int coarse_search_radius = 2;
   double coarse_planarity_threshold = 0.05;
   double coarse_cauchy_sigma_mult = 2.0;
+
+  // Upstream mechanics (jedeschaud/ct_icp, config/odometry/driving_config.yaml).
+  // Every default below keeps the historical behaviour.
+  // insertPoints() のボクセル当たり上限 (upstream 30, VoxelBlock::kCapacity まで)。
+  int max_points_per_voxel = VoxelBlock::kMaxPoints;
+  // >0: 半径 [m] 以内の点だけを近傍候補にし、その中の最近傍 knn 点を必須とする
+  // (upstream default_radius 0.75, 20 neighbors)。
+  double neighbor_search_radius = 0.0;
+  // reference = 選ばれた knn 点のうち最遠点。upstream は max-heap を先頭から
+  // 取り出すため neighborhood.points[0] が最遠点になり、これを平面上の点に使う。
+  bool farthest_neighbor_reference = false;
+  // a2D を固有値ではなく標準偏差 (sqrt(固有値)) で計算する (upstream)。
+  bool a2d_from_std = false;
+  // >0: 近傍重み exp(-|reference - x| / scale) を使い、weight_alpha と
+  // weight_neighborhood を和で正規化する (upstream: scale = 0.3 * 20 = 6 m)。
+  double neighborhood_weight_scale = 0.0;
+  // >0: キーポイント順で最初の N 個の対応だけを使う (upstream max_num_residuals 900)。
+  int max_num_residuals = 0;
+  // 収束判定を upstream 形式にする: begin/end の並進変化の和 < 0.01 m かつ
+  // 回転変化の和 < 0.1 deg。
+  bool upstream_convergence = false;
+  // キーポイントのボクセル座標を floor ではなく static_cast<short>(p / size)
+  // (0 方向への切り捨て) で求める (upstream sub_sample_frame)。
+  bool truncate_voxel_coords = false;
 };
 
 struct CTICPResult {
   TrajectoryFrame frame;
   int num_iterations = 0;
   bool converged = false;
+  int num_residuals = 0;  // 最後の反復で使った幾何残差数
 };
 
 /// CT-ICP レジストレーション
@@ -115,8 +140,18 @@ public:
       const TrajectoryFrame& initial_frame,
       const TrajectoryFrame* previous_frame = nullptr);
 
+  /// 点を 1 点ずつ永続マップへ直接追加する (upstream の挿入規則:
+  /// ボクセル上限 max_points_per_voxel、min_distance_between_points)。
+  /// スライディングウィンドウは使わない。
+  void insertPoints(const std::vector<Eigen::Vector3d>& world_points);
+
+  /// 先頭点が location から distance [m] より遠いボクセルを削除する。
+  void removeVoxelsFarFrom(const Eigen::Vector3d& location, double distance);
+
   /// マップをクリア
   void clearMap();
+
+  CTICPParams& mutableParams() { return params_; }
 
   const VoxelHashMap& map() const { return voxel_map_; }
   size_t mapSize() const { return voxel_map_.size(); }

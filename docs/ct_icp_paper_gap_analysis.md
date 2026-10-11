@@ -1,5 +1,11 @@
 # CT-ICP: 現状実装と論文との gap analysis (2026-05-18)
 
+> **2026-10-11 追記 (解決済み)**: 公式実装 (jedeschaud/ct_icp) と同じスキャンで比べたところ、差は
+> パラメータではなくパイプラインの違い (点の時刻に格納順を使っていたこと、等速初期値、出力ポーズ、
+> 永続マップなど) にあった。`--ct-icp-upstream-mechanics` で上流のパイプラインをなぞると KITTI 00-10 の
+> 平均は 0.587 % で公式コードの 0.585 % と一致する。詳細と要素ごとの寄与は
+> [`papers/ct_icp/README.md`](../papers/ct_icp/README.md) を参照。以下は当時の分析で、記録として残す。
+
 > 目的: ms_chol (multi-scale + DENSE_NORMAL_CHOLESKY) で頭打ちになった paper RPE gap (geom-mean 4.45x) を更に縮めるための、次の架構改善候補を整理する。
 >
 > 重要訂正: **pyramid voxel resolution は CT-ICP 論文 (Dellenbach 2022) の default config ではない**。これ以前の memo で言及していたが、jedeschaud/ct_icp の公式 YAML を確認したところ単一 resolution。よって pyramid 追求は中止。

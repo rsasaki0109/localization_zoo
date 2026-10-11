@@ -62,7 +62,7 @@ The README leaderboard ranks the non-GT-seeded best variant per cell on five
 full sequences (00/02/05/07/08, 17 135 frames). Point-to-plane and LOAM-style
 front ends cluster at 0.5-1.4 % 100 m RPE: LF-GICP is best on 00 and 05,
 LeGO-LOAM on 02 and 07, and KISS-ICP with the upstream mechanics on 08, with
-A-LOAM, F-LOAM, and KISS-ICP within 0.2 points of the best elsewhere. SuMa, CT-ICP, L-LO, and MULLS trail at 1-4 %. GT-seeded registration
+A-LOAM, F-LOAM, KISS-ICP, and CT-ICP (upstream pipeline) within 0.2 points of the best elsewhere. SuMa, L-LO, and MULLS trail at 1-4 %. GT-seeded registration
 (NDT, LiTAMIN2 with seeding, GICP) is reported separately: a GT pose as the
 per-frame initial guess measures seed adherence, not tracking, and NDT's
 0.02 m seeded ATE becomes 87 % RPE without the seed.
@@ -79,11 +79,13 @@ an optimistic bound; rows whose variant was chosen on sequence 07 and
 transferred unchanged are marked held-out.
 
 The methods split into two groups. A-LOAM (1.01x against LOAM values cited by
-later papers), LF-GICP (0.96x), KISS-ICP (1.04x on 00 and 04), and
-LiTAMIN2 (1.22x) reach paper-level accuracy. L-LO (1.58x), SuMa (2.21x),
-CT-ICP (4.03x), and MULLS (7.62x) run on the same metric but do not reproduce
-the paper numbers. KISS-ICP stood at 1.87x until Section 6.5's audit traced
-the gap to input preprocessing and one algorithmic shortcut.
+later papers), LF-GICP (0.96x), KISS-ICP (1.04x on 00 and 04), CT-ICP (1.15x
+on 00-10), and LiTAMIN2 (1.22x) reach paper-level accuracy. L-LO (1.58x),
+SuMa (2.21x), and MULLS (7.62x) run on the same metric but do not reproduce
+the paper numbers. KISS-ICP stood at 1.87x and CT-ICP at 4.03x until Section
+6.5's audits traced the gaps to input preprocessing and to pipeline details
+that the ports had simplified. For MULLS the official code reproduces the
+paper on seq 07 (0.31 % against 0.29 %), so its gap is in the port.
 
 ### 5.5 Mechanism ablations
 
@@ -188,6 +190,9 @@ Table 6 gaps read:
   LF-GICP by 18 %, and SuMa by 44 %. Those variants were tuned on raw scans,
   and LF-GICP's paper explicitly used raw scans, so a worse corrected result
   says the tuning absorbed the sensor error, not that the correction is wrong.
+  CT-ICP rebuilt to follow the upstream pipeline shows it: the correction
+  lowers its seq 07 RTE from 0.742 % to 0.315 % and its 00-10 average from
+  1.21 % to 0.587 %.
 
 Two rules follow. A paper-number comparison has to reproduce the paper's input
 preprocessing, not only its metric, so corrected variants enter Table 6 only
@@ -195,13 +200,18 @@ for methods whose published pipeline uses them. A cross-method leaderboard has
 to give every method the same input, so the README ranking and Figure 1 stay
 on raw scans.
 
-The same rerun exposed a second reproducibility limit. CT-ICP's Table 6
-variant on KITTI 00 is deterministic on one host (two identical runs) but gives
-3.446 % official RTE on a 4-core Xeon cloud container against the stored
-1.664 % from an 8-thread i5-1145G7 with the same source, OS release, and
-command. Single-host determinism is therefore not enough for long-sequence
-CT-ICP numbers; they need the host recorded next to them, which the runner
-now does.
+The same rerun exposed a second reproducibility limit. CT-ICP's old Table 6
+variant on KITTI 00 is deterministic on one host but gave 3.446 % or 2.041 %
+official RTE on a cloud container, depending on the build, against the stored
+1.664 % from an i5-1145G7. The cause is numerical instability, not a bug: a
+1e-6 deg elevation perturbation of the input (about 1.4 um at 80 m) moves
+the result by up to 11 % on seq 00 and 7 % on seq 07. The same CT-ICP
+port rebuilt to follow the upstream pipeline (`--ct-icp-upstream-mechanics`)
+varies by about 3 % under the same perturbations, as does the official code,
+and it matches the official code on every KITTI training sequence (0.587 %
+against 0.585 % pooled over 00-10; `papers/ct_icp/README.md`). Single-host
+determinism is therefore not enough for long-sequence numbers; they need a
+perturbation check next to them.
 
 ### Limitations
 
@@ -219,8 +229,9 @@ now does.
   they are optimistic bounds, not held-out estimates; and the variants were
   tuned on raw KITTI scans, which matters for methods whose papers used
   corrected scans (Section 6.5).
-- Some long-sequence results depend on the host: CT-ICP on KITTI 00 differs
-  by 2x in official RTE between two machines (Section 6.5).
+- Some long-sequence results depend on the host: the old CT-ICP variant on
+  KITTI 00 differed by 2x in official RTE between builds and machines
+  (Section 6.5); the upstream-mechanics pipeline does not.
 - The multimodal KITTI extension covers four KITTI Raw windows with
   known-landmark reprojection inputs; it adds breadth but does not replace the
   LiDAR evidence.

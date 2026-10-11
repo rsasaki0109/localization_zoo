@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:31:40+00:00",
+  "generated_at": "2026-10-11T17:15:13+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -452,6 +452,15 @@
       "current_default": "cluster_a_seeded"
     },
     {
+      "problem_id": "ct_icp_kitti_seq_00_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 00 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
+    },
+    {
       "problem_id": "ct_icp_kitti_seq_00_leave_one_out",
       "title": "CT-ICP seq 00 full: leave-one-out ablation on full recipe",
       "status": "ready",
@@ -506,6 +515,15 @@
       "current_default": "c2f_reference"
     },
     {
+      "problem_id": "ct_icp_kitti_seq_01_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 01 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_01_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
+    },
+    {
       "problem_id": "ct_icp_kitti_seq_02_corr_dist_retrofit",
       "title": "CT-ICP seq 02 full: corr_dist sweep on bare baseline",
       "status": "ready",
@@ -551,6 +569,15 @@
       "current_default": "map_15"
     },
     {
+      "problem_id": "ct_icp_kitti_seq_02_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 02 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_02_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
+    },
+    {
       "problem_id": "ct_icp_kitti_seq_02_map_with_corr",
       "title": "CT-ICP seq 02 full: map_size sweep on corr=8 winner",
       "status": "ready",
@@ -558,6 +585,24 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_02_map_with_corr_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json",
       "current_default": "map_15"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_03_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_03_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_04_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_04_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
     },
     {
       "problem_id": "ct_icp_kitti_seq_05_combo",
@@ -576,6 +621,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json",
       "current_default": "corr_4_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_05_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 05 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_05_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
     },
     {
       "problem_id": "ct_icp_kitti_seq_05_map50_retrofit",
@@ -603,6 +657,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_05_velocity_reg_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json",
       "current_default": "velocity_reg_005"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_06_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_06_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
     },
     {
       "problem_id": "ct_icp_kitti_seq_07_combo",
@@ -648,6 +711,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_07_full_seeded_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json",
       "current_default": "cluster_d_full_seeded"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_07_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 07 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_07_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
     },
     {
       "problem_id": "ct_icp_kitti_seq_07_map50_retrofit",
@@ -722,6 +794,15 @@
       "current_default": "cluster_a_seeded"
     },
     {
+      "problem_id": "ct_icp_kitti_seq_08_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 08 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_08_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
+    },
+    {
       "problem_id": "ct_icp_kitti_seq_08_map50_retrofit",
       "title": "CT-ICP seq 08 full: map=50 retrofit on c2f_only winner",
       "status": "ready",
@@ -747,6 +828,24 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_08_velocity_reg_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json",
       "current_default": "velocity_reg_001"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_09_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 09 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_09_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_10_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 10 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_10_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
     },
     {
       "problem_id": "ct_icp_kitti_simplified_cross_seq_02",

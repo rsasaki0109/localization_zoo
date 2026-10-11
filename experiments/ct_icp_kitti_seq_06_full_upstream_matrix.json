@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_06_full_upstream",
+    "title": "CT-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction",
+    "question": "Does the CT-ICP pipeline that follows upstream jedeschaud/ct_icp with its driving profile (--ct-icp-upstream-mechanics) reproduce the paper's KITTI-corrected Table I values?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "upstream_mechanics",
+      "label": "upstream CT-ICP pipeline (driving profile) on raw scans",
+      "design_style": "reference",
+      "intent": "The upstream jedeschaud/ct_icp pipeline with config/odometry/driving_config.yaml (papers/ct_icp/README.md).",
+      "args": [
+        "--ct-icp-upstream-mechanics"
+      ]
+    },
+    {
+      "id": "upstream_mechanics_elevation",
+      "label": "upstream mechanics + KITTI 0.205 deg elevation correction",
+      "design_style": "paper_input",
+      "intent": "Same pipeline on KITTI-corrected scans (+0.205 deg HDL-64E elevation), as upstream's KITTI loader and the paper's Table I.",
+      "args": [
+        "--ct-icp-upstream-mechanics",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ]
+    }
+  ]
+}

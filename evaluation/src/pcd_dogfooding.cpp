@@ -6880,7 +6880,9 @@ bool setLLOParam(localization_zoo::l_lo::LLOParams& p, const std::string& kv) {
       {"pitch_ground_min_range", &p.pitch_ground_min_range},
       {"pitch_ground_max_range", &p.pitch_ground_max_range},
       {"patch_half_length", &p.patch_half_length},
-      {"patch_half_width", &p.patch_half_width}};
+      {"patch_half_width", &p.patch_half_width},
+      {"patch_blind_radius", &p.patch_blind_radius},
+      {"vertical_angle_correction_deg", &p.vertical_angle_correction_deg}};
   std::map<std::string, int*> ints = {
       {"min_cluster_points", &p.min_cluster_points},
       {"max_cluster_points", &p.max_cluster_points},

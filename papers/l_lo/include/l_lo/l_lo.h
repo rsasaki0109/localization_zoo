@@ -45,9 +45,15 @@ struct LLOParams {
   // 1: fit the same physical ground patch around the new position in both
   //    frames; the normal change gives the relative pitch and the plane
   //    offsets give the height change.
+  // 2: pitch as in 0, height change as in 1.
   int pitch_mode = 0;
   double patch_half_length = 10.0;  // m, along x of frame k
   double patch_half_width = 6.0;    // m, along y of frame k
+  double patch_blind_radius = 0.0;  // m, drop points this close to either sensor position
+  // Raises every beam's elevation by this angle before processing. The KITTI
+  // HDL-64 scans make flat ground look bowl-shaped; uncorrected, the
+  // same-patch pitch picks up a systematic per-frame bias (mode 1).
+  double vertical_angle_correction_deg = 0.0;
 };
 
 struct Cluster {

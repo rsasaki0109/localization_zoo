@@ -57,7 +57,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Near paper | MULLS (MULLS-LO reimplementation, `--mulls-lo`, highway profile on 01, 0.195 deg correction as the official profile; 00-10 average equals the official code's; see `papers/mulls/README.md`) | 00-10 | 1.12x |
 | Near paper | CT-ICP (upstream pipeline, `--ct-icp-upstream-mechanics`, on corrected scans as upstream; 00-10 average equals the official code's; see `papers/ct_icp/README.md`) | 00-10 | 1.15x |
 | Near paper | LiTAMIN2 (ICP+Cov, no loop closure) | 00/02/05/07/08 | 1.22x |
-| Gap remains | L-LO (no author code; parameters chosen on seq 07) | 00/02/05/07/08 | 1.58x |
+| Gap remains | L-LO (no author code; parameters chosen on seq 07; horizontal 0.577 % in 2D on 07; the paper's 00/07 values are below every roll-free trajectory built from the ground truth, see `papers/l_lo/README.md`) | 00/02/05/07/08 | 1.58x |
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
 
 What may be claimed: A-LOAM, LF-GICP, KISS-ICP, MULLS, CT-ICP, and LiTAMIN2 reach paper-level odometry accuracy

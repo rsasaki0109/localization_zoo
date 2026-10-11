@@ -252,7 +252,7 @@ optimistic bounds.
 | MULLS | 00-10 | 1.12x | near paper with the MULLS-LO reimplementation (`--mulls-lo`, highway profile on 01) on corrected scans; the 00-10 average equals the official code's ([details](papers/mulls/README.md)) |
 | CT-ICP | 00-10 | 1.15x | near paper with the upstream pipeline (`--ct-icp-upstream-mechanics`) on corrected scans; the 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
 | LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
-| L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out) |
+| L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out). The horizontal module scores 0.577 % in 2D on 07. The paper's 00 and 07 values are below every roll-free trajectory built from the ground truth ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
 
 Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);

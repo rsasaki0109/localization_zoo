@@ -39,6 +39,26 @@ Eigen::Vector3d fitPlaneNormal(const std::vector<Eigen::Vector3d>& points) {
   return n;
 }
 
+// Least-squares plane n.p + d = 0 (n_z > 0), refitted once without points
+// more than 0.1 m off the first fit.
+bool fitPlane(const std::vector<Eigen::Vector3d>& points, Eigen::Vector3d* normal, double* offset) {
+  std::vector<Eigen::Vector3d> pts = points;
+  for (int pass = 0; pass < 2; ++pass) {
+    if (pts.size() < 30) return false;
+    *normal = fitPlaneNormal(pts);
+    Eigen::Vector3d mean = Eigen::Vector3d::Zero();
+    for (const auto& p : pts) mean += p;
+    mean /= static_cast<double>(pts.size());
+    *offset = -normal->dot(mean);
+    if (pass == 1) break;
+    std::vector<Eigen::Vector3d> kept;
+    for (const auto& p : pts)
+      if (std::abs(normal->dot(p) + *offset) < 0.1) kept.push_back(p);
+    pts.swap(kept);
+  }
+  return true;
+}
+
 struct CellHash {
   size_t operator()(const Eigen::Vector3i& k) const {
     return (static_cast<size_t>(k.x()) * 73856093u) ^ (static_cast<size_t>(k.y()) * 19349663u) ^
@@ -326,8 +346,19 @@ Eigen::Vector3d LLOOdometry::estimateHorizontal(const std::vector<Polygon>& prev
   return delta;
 }
 
-LLOResult LLOOdometry::registerFrame(const std::vector<Eigen::Vector3d>& scan) {
+LLOResult LLOOdometry::registerFrame(const std::vector<Eigen::Vector3d>& raw_scan) {
   LLOResult result;
+  std::vector<Eigen::Vector3d> corrected;
+  if (params_.vertical_angle_correction_deg != 0.0) {
+    const double angle = params_.vertical_angle_correction_deg * M_PI / 180.0;
+    corrected.reserve(raw_scan.size());
+    for (const auto& p : raw_scan) {
+      const Eigen::Vector3d axis = p.cross(Eigen::Vector3d::UnitZ());
+      const double norm = axis.norm();
+      corrected.push_back(norm > 1e-9 ? Eigen::AngleAxisd(angle, axis / norm) * p : p);
+    }
+  }
+  const std::vector<Eigen::Vector3d>& scan = corrected.empty() ? raw_scan : corrected;
   std::vector<Eigen::Vector3d> ground, non_ground;
   splitGround(scan, &ground, &non_ground);
   auto clusters = cluster(non_ground);
@@ -345,6 +376,7 @@ LLOResult LLOOdometry::registerFrame(const std::vector<Eigen::Vector3d>& scan) {
     initialized_ = true;
     previous_clusters_ = std::move(clusters);
     previous_ground_normal_ = ground_normal;
+    previous_ground_ = ground;
     result.pose = pose_;
     return result;
   }
@@ -431,7 +463,47 @@ LLOResult LLOOdometry::registerFrame(const std::vector<Eigen::Vector3d>& scan) {
   const double pitch_prev = std::atan2(previous_ground_normal_.x(), previous_ground_normal_.z());
   // R_y(dpitch) maps frame-k vectors into frame k-1, so the k-1 normal's tilt
   // equals the frame-k tilt plus dpitch.
-  const double dpitch = pitch_prev - pitch_k;
+  double dpitch = pitch_prev - pitch_k;
+  double dz = 0.0;
+  if (params_.pitch_mode == 1 || params_.pitch_mode == 2) {
+    // The ground around the vehicle's new position, seen from both frames.
+    // With p_{k-1} = R p_k + t, the frame k-1 plane (n, d) appears in frame k
+    // as (R^T n, n.t + d): the normal change is the relative pitch and the
+    // offset change fixes the vertical part of t.
+    const double cy = std::cos(delta.z()), sy = std::sin(delta.z());
+    // Both scans see the patch only outside their near-sensor blind zones, so
+    // keep the part that lies outside both (q in frame k coordinates).
+    const Eigen::Vector2d previous_origin(-(cy * delta.x() + sy * delta.y()),
+                                          -(-sy * delta.x() + cy * delta.y()));
+    auto inPatch = [&](const Eigen::Vector3d& q) {
+      return std::abs(q.x()) <= params_.patch_half_length &&
+             std::abs(q.y()) <= params_.patch_half_width &&
+             q.head<2>().norm() >= params_.patch_blind_radius &&
+             (q.head<2>() - previous_origin).norm() >= params_.patch_blind_radius;
+    };
+    std::vector<Eigen::Vector3d> patch_k, patch_prev;
+    for (const auto& p : ground)
+      if (inPatch(p)) patch_k.push_back(p);
+    for (const auto& p : previous_ground_) {
+      const double x = p.x() - delta.x(), y = p.y() - delta.y();
+      if (inPatch(Eigen::Vector3d(cy * x + sy * y, -sy * x + cy * y, p.z()))) patch_prev.push_back(p);
+    }
+    Eigen::Vector3d n_k, n_prev;
+    double d_k, d_prev;
+    if (fitPlane(patch_k, &n_k, &d_k) && fitPlane(patch_prev, &n_prev, &d_prev)) {
+      const Eigen::Vector3d m = Eigen::AngleAxisd(delta.z(), Eigen::Vector3d::UnitZ()) * n_k;
+      // Mode 2 keeps the bounded tilt-against-ground pitch: a frame-to-frame
+      // pitch estimate is integrated twice into position, so its noise
+      // random-walks into large drift, while the height change is
+      // integrated only once.
+      if (params_.pitch_mode == 1) {
+        dpitch = std::atan2(n_prev.x(), n_prev.z()) - std::atan2(m.x(), m.z());
+      }
+      dz = (d_k - d_prev - n_prev.x() * delta.x() - n_prev.y() * delta.y()) / n_prev.z();
+    } else if (params_.pitch_mode == 1) {
+      dpitch = 0.0;
+    }
+  }
 
   Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
   step.block<3, 3>(0, 0) = (Eigen::AngleAxisd(delta.z(), Eigen::Vector3d::UnitZ()) *
@@ -439,10 +511,12 @@ LLOResult LLOOdometry::registerFrame(const std::vector<Eigen::Vector3d>& scan) {
                                .toRotationMatrix();
   step(0, 3) = delta.x();
   step(1, 3) = delta.y();
+  step(2, 3) = dz;
   pose_ = pose_ * step;
   last_delta_ = delta;
   previous_clusters_ = std::move(clusters);
   previous_ground_normal_ = ground_normal;
+  previous_ground_ = std::move(ground);
   result.pose = pose_;
   return result;
 }

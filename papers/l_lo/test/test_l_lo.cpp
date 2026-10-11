@@ -13,6 +13,38 @@ Polygon square(double cx, double cy, double half) {
   return {{cx - half, cy - half}, {cx + half, cy - half}, {cx + half, cy + half}, {cx - half, cy + half}};
 }
 
+// Flat ground (rising by `grade` along x) plus box-shaped landmarks (cars,
+// poles, walls) at varying positions.
+std::vector<Eigen::Vector3d> syntheticStreet(double grade) {
+  std::mt19937 rng(3);
+  std::uniform_real_distribution<double> u(0.0, 1.0);
+  struct Box { Eigen::Vector3d c, half; };
+  std::vector<Box> boxes;
+  for (int i = 0; i < 40; ++i) {
+    boxes.push_back({Eigen::Vector3d(-20 + 2.5 * i, (i % 2 ? 7.0 : -7.0) + 2 * u(rng), -0.9 + 0.5 * u(rng)),
+                     Eigen::Vector3d(0.4 + 1.5 * u(rng), 0.4 + 1.0 * u(rng), 0.5 + 1.0 * u(rng))});
+  }
+  std::vector<Eigen::Vector3d> world;
+  for (int i = 0; i < 20000; ++i) {
+    const double x = -40 + 120 * u(rng);
+    world.emplace_back(x, -20 + 40 * u(rng), -1.73 + grade * x);
+  }
+  for (const auto& b : boxes) {
+    for (int i = 0; i < 1500; ++i) {
+      Eigen::Vector3d p = b.c + Eigen::Vector3d((2 * u(rng) - 1) * b.half.x(), (2 * u(rng) - 1) * b.half.y(),
+                                                (2 * u(rng) - 1) * b.half.z());
+      const int face = i % 4;  // points on the vertical faces
+      if (face == 0) p.x() = b.c.x() + b.half.x();
+      if (face == 1) p.x() = b.c.x() - b.half.x();
+      if (face == 2) p.y() = b.c.y() + b.half.y();
+      if (face == 3) p.y() = b.c.y() - b.half.y();
+      p.z() += grade * p.x();
+      world.push_back(p);
+    }
+  }
+  return world;
+}
+
 }  // namespace
 
 TEST(LLO, HullAreaAndIntersection) {
@@ -63,30 +95,8 @@ TEST(LLO, OverlapSearchRecoversPlanarMotion) {
 }
 
 TEST(LLO, OdometryTracksForwardMotionInASyntheticStreet) {
-  // Flat ground plus box-shaped landmarks (cars, poles, walls) at varying
-  // positions; the sensor drives 1 m per frame along x and yaws slightly.
-  std::mt19937 rng(3);
-  std::uniform_real_distribution<double> u(0.0, 1.0);
-  struct Box { Eigen::Vector3d c, half; };
-  std::vector<Box> boxes;
-  for (int i = 0; i < 40; ++i) {
-    boxes.push_back({Eigen::Vector3d(-20 + 2.5 * i, (i % 2 ? 7.0 : -7.0) + 2 * u(rng), -0.9 + 0.5 * u(rng)),
-                     Eigen::Vector3d(0.4 + 1.5 * u(rng), 0.4 + 1.0 * u(rng), 0.5 + 1.0 * u(rng))});
-  }
-  std::vector<Eigen::Vector3d> world;
-  for (int i = 0; i < 20000; ++i) world.emplace_back(-40 + 120 * u(rng), -20 + 40 * u(rng), -1.73);
-  for (const auto& b : boxes) {
-    for (int i = 0; i < 1500; ++i) {
-      Eigen::Vector3d p = b.c + Eigen::Vector3d((2 * u(rng) - 1) * b.half.x(), (2 * u(rng) - 1) * b.half.y(),
-                                                (2 * u(rng) - 1) * b.half.z());
-      const int face = i % 4;  // points on the vertical faces
-      if (face == 0) p.x() = b.c.x() + b.half.x();
-      if (face == 1) p.x() = b.c.x() - b.half.x();
-      if (face == 2) p.y() = b.c.y() + b.half.y();
-      if (face == 3) p.y() = b.c.y() - b.half.y();
-      world.push_back(p);
-    }
-  }
+  // The sensor drives 1 m per frame along x and yaws slightly.
+  const std::vector<Eigen::Vector3d> world = syntheticStreet(0.0);
   LLOParams params;
   LLOOdometry odom(params);
   Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
@@ -104,4 +114,32 @@ TEST(LLO, OdometryTracksForwardMotionInASyntheticStreet) {
     if (k > 0) EXPECT_GE(r.matches, 3) << "frame " << k;
   }
   EXPECT_LT((odom.pose().block<2, 1>(0, 3) - truth.block<2, 1>(0, 3)).norm(), 0.15);
+}
+
+TEST(LLO, SamePatchVerticalModeFollowsAGrade) {
+  // A level sensor drives up a 3 % grade: 1 m along x and 3 cm up per frame.
+  // The historical pitch mode has no height term; the same-patch mode recovers
+  // the climb from the ground-plane offsets.
+  const double grade = 0.03;
+  const std::vector<Eigen::Vector3d> world = syntheticStreet(grade);
+  for (int mode : {0, 1}) {
+    LLOParams params;
+    params.pitch_mode = mode;
+    LLOOdometry odom(params);
+    Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+    for (int k = 0; k < 8; ++k) {
+      truth(0, 3) = k;
+      truth(2, 3) = grade * k;
+      const Eigen::Matrix4d inv = truth.inverse();
+      std::vector<Eigen::Vector3d> scan;
+      for (const auto& p : world) scan.push_back(inv.block<3, 3>(0, 0) * p + inv.block<3, 1>(0, 3));
+      odom.registerFrame(scan);
+    }
+    if (mode == 0) {
+      EXPECT_LT(std::abs(odom.pose()(2, 3)), 0.02);  // only pitch noise moves z
+    } else {
+      EXPECT_NEAR(odom.pose()(2, 3), truth(2, 3), 0.05);
+      EXPECT_LT((odom.pose().block<2, 1>(0, 3) - truth.block<2, 1>(0, 3)).norm(), 0.25);
+    }
+  }
 }

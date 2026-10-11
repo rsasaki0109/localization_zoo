@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T15:58:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T16:06:00+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -170,6 +170,7 @@ The runner is responsible for:
 | CT-ICP seq 08 full: map=50 retrofit on c2f_only winner | `ready` | `experiments/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` | `ct_icp` | `c2f_only_map_20` | `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` |
 | CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base | `ready` | `experiments/ct_icp_kitti_seq_08_simplified_corr_matrix.json` | `ct_icp` | `default_reference` | `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json` |
 | CT-ICP seq 08 full: constant-velocity regularization (small weight) | `ready` | `experiments/ct_icp_kitti_seq_08_velocity_reg_matrix.json` | `ct_icp` | `velocity_reg_001` | `experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json` |
+| CT-ICP KITTI Odom seq 09 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_09_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json` |
 | CT-ICP KITTI Odom seq 10 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_10_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json` |
 | CT-ICP seq 02 full: simplified map=50+c2f probe | `ready` | `experiments/ct_icp_kitti_simplified_cross_seq_02_matrix.json` | `ct_icp` | `current_winner` | `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json` |
 | CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base | `ready` | `experiments/ct_icp_kitti_simplified_cross_seq_05_matrix.json` | `ct_icp` | `map_50_c2f_plus_corr_4` | `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json` |

@@ -351,6 +351,7 @@ void classifyNonGround(const LOCloud& input, const MullsLOParams& params, std::m
 
   // Corner-like points among labelled neighbours join the line classes.
   for (const auto& q : queries) {
+    if (!params.use_vertex_promotion) break;
     if (label[q.index] >= 0) continue;
     const Eigen::Vector3d& l = q.pca.values;
     const double curvature = l(2) / l.sum();

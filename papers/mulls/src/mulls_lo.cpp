@@ -41,7 +41,8 @@ void MullsLO::updateMap() {
   if (!recent_motion_.empty()) speed = speed / recent_motion_.size() * params_.frame_rate;
   const double upper = std::max(0.15 * speed, 0.55);
   const bool remove_dynamic =
-      frame_index_ >= 4 && static_cast<int>(total) > params_.dynamic_min_map_points;
+      params_.use_dynamic_removal && frame_index_ >= 4 &&
+      static_cast<int>(total) > params_.dynamic_min_map_points;
   for (int c : kMapClasses) {
     LOCloud incoming = previous_.sparse[c];
     if (remove_dynamic && (c == kLOPillar || c == kLOFacade) && !map_[c].empty()) {
@@ -77,7 +78,8 @@ void MullsLO::updateMap() {
     }
   }
 
-  if (params_.pillar_refresh_period > 0 && frame_index_ % params_.pillar_refresh_period == 0 &&
+  if (params_.use_pillar_refresh && params_.pillar_refresh_period > 0 &&
+      frame_index_ % params_.pillar_refresh_period == 0 &&
       !map_[kLOPillar].empty()) {
     // Re-fit pillar directions on the accumulated map; keep clean poles only.
     const LOCloud& pillars = map_[kLOPillar];
@@ -134,7 +136,7 @@ MullsLOFrameResult MullsLO::process(const std::vector<Eigen::Vector4d>& xyzi) {
   updateMap();
   const double gate =
       params_.gate_initial + (frame_index_ <= 3 ? params_.gate_startup_bonus : 0.0);
-  result.scan_to_map = frame_index_ > 2;
+  result.scan_to_map = params_.use_scan_to_map && frame_index_ > 2;
   if (result.scan_to_map) {
     result.icp = multiMetricICP(features.sparse, map_, map_bound_, guess_, gate, params_);
   } else {

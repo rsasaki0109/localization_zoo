@@ -2054,6 +2054,10 @@ struct MULLSDogfoodingOptions {
   // --mulls-lo: MULLS-LO pipeline (papers/mulls/include/mulls/mulls_lo.h,
   // KITTI urban profile) instead of the A-LOAM-feature variant above.
   bool lo = false;
+  // --mulls-lo-disable a,b: switch MULLS-LO mechanisms off for ablation
+  // (vertex-promotion, source-pruning, ground-balance, distance-weight, huber,
+  // intensity-weight, dynamic-removal, pillar-refresh, scan-to-map).
+  std::string lo_disable;
 };
 
 struct NDTDogfoodingOptions {
@@ -5495,7 +5499,8 @@ MethodResult runLeGOLOAM(const std::vector<std::string>& pcd_dirs,
 }
 
 MethodResult runMULLSLO(const std::vector<std::string>& pcd_dirs,
-                        const std::vector<Eigen::Matrix4d>& gt) {
+                        const std::vector<Eigen::Matrix4d>& gt,
+                        const std::string& disable) {
   using namespace localization_zoo::mulls;
   MethodResult res;
   res.name = "MULLS";
@@ -5504,6 +5509,22 @@ MethodResult runMULLSLO(const std::vector<std::string>& pcd_dirs,
   // instead of the shared 80 m loader cap.
   MullsLOParams params;
   params.vertical_angle_correction_deg = 0.0;
+  {
+    std::stringstream ss(disable);
+    std::string item;
+    while (std::getline(ss, item, ',')) {
+      if (item == "vertex-promotion") params.use_vertex_promotion = false;
+      else if (item == "source-pruning") params.use_source_pruning = false;
+      else if (item == "ground-balance") params.use_ground_balance = false;
+      else if (item == "distance-weight") params.use_distance_weight = false;
+      else if (item == "huber") params.use_huber = false;
+      else if (item == "intensity-weight") params.use_intensity_weight = false;
+      else if (item == "dynamic-removal") params.use_dynamic_removal = false;
+      else if (item == "pillar-refresh") params.use_pillar_refresh = false;
+      else if (item == "scan-to-map") params.use_scan_to_map = false;
+      else if (!item.empty()) std::cerr << "unknown --mulls-lo-disable item: " << item << "\n";
+    }
+  }
   MullsLO lo(params);
   const Eigen::Matrix4d world_anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
   size_t aborted = 0;
@@ -5538,6 +5559,7 @@ MethodResult runMULLSLO(const std::vector<std::string>& pcd_dirs,
   std::ostringstream note;
   note << "MULLS-LO (KITTI urban profile); anchor matches the first GT pose. "
        << aborted << " registrations stopped early (too few pairs or an implausible step).";
+  if (!disable.empty()) note << " Disabled: " << disable << ".";
   res.note = note.str();
   return res;
 }
@@ -5546,7 +5568,7 @@ MethodResult runMULLS(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
                       const MULLSDogfoodingOptions& options) {
   using namespace localization_zoo::mulls;
-  if (options.lo) return runMULLSLO(pcd_dirs, gt);
+  if (options.lo) return runMULLSLO(pcd_dirs, gt, options.lo_disable);
   MethodResult res;
   res.name = "MULLS";
 
@@ -11557,7 +11579,7 @@ int main(int argc, char** argv) {
               << " [--lego-loam-kitti-profile]"
               << " [--lego-loam-fast-profile]"
               << " [--lego-loam-dense-profile]"
-              << " [--mulls-kitti-profile] [--mulls-lo]"
+              << " [--mulls-kitti-profile] [--mulls-lo] [--mulls-lo-disable a,b]"
               << " [--mulls-fast-profile]"
               << " [--mulls-dense-profile]"
               << " [--dlo-kitti-profile]"
@@ -12996,6 +13018,11 @@ int main(int argc, char** argv) {
     }
     if (arg == "--mulls-lo") {
       mulls_options.lo = true;
+      continue;
+    }
+    if (arg == "--mulls-lo-disable") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      mulls_options.lo_disable = argv[++i];
       continue;
     }
     if (arg == "--mulls-kitti-profile") {

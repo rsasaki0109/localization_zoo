@@ -102,7 +102,8 @@ LOICPResult multiMetricICP(const std::array<LOCloud, kLONumClasses>& source_in,
       if (src[c].empty() || tgt[c].empty()) continue;
       // Large classes keep one source point per target point and drop the
       // source points that found no partner for the rest of the run.
-      const bool prune = static_cast<int>(src[c].size()) >= params.prune_min_points;
+      const bool prune =
+          params.use_source_pruning && static_cast<int>(src[c].size()) >= params.prune_min_points;
       std::vector<char> taken(prune ? tgt[c].size() : 0, 0);
       LOCloud kept;
       for (size_t i = 0; i < src[c].size(); ++i) {
@@ -139,19 +140,22 @@ LOICPResult multiMetricICP(const std::array<LOCloud, kLONumClasses>& source_in,
     // Normal equations of the linearised multi-metric residuals.
     Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
     Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
-    const double ground_weight = groundBalanceWeight(counts);
+    const double ground_weight = params.use_ground_balance ? groundBalanceWeight(counts) : 1.0;
     for (int c : kUsedClasses) {
       const double class_weight = c == kLOGround ? ground_weight : 1.0;
       for (const auto& pr : pairs[c]) {
         const LOPoint& s = src[c][pr.source];
         const LOPoint& t = tgt[c][pr.target];
-        double w = class_weight * distanceWeight(k, t.p.norm(), params.distance_weight_range) *
-                   std::exp(-std::abs(s.intensity - t.intensity) / 255.0);
+        double w = class_weight;
+        if (params.use_distance_weight)
+          w *= distanceWeight(k, t.p.norm(), params.distance_weight_range);
+        if (params.use_intensity_weight) w *= std::exp(-std::abs(s.intensity - t.intensity) / 255.0);
         const Eigen::Vector3d diff = t.p - s.p;
         if (isLineClass(c)) {
           const Eigen::Vector3d& v = t.dir;
           const Eigen::Vector3d rhs = v.cross(diff);
-          if (k >= params.huber_start_iteration) w *= huberWeight(rhs.norm(), params.huber_delta);
+          if (params.use_huber && k >= params.huber_start_iteration)
+            w *= huberWeight(rhs.norm(), params.huber_delta);
           Eigen::Matrix<double, 3, 6> A;
           A.leftCols<3>() = skew(v);
           A.rightCols<3>() = v.dot(s.p) * Eigen::Matrix3d::Identity() - s.p * v.transpose();
@@ -160,7 +164,8 @@ LOICPResult multiMetricICP(const std::array<LOCloud, kLONumClasses>& source_in,
         } else {
           const Eigen::Vector3d& n = t.dir;
           const double rhs = n.dot(diff);
-          if (k >= params.huber_start_iteration) w *= huberWeight(std::abs(rhs), params.huber_delta);
+          if (params.use_huber && k >= params.huber_start_iteration)
+            w *= huberWeight(std::abs(rhs), params.huber_delta);
           Eigen::Matrix<double, 6, 1> J;
           J.head<3>() = n;
           J.tail<3>() = s.p.cross(n);

@@ -113,6 +113,17 @@ struct MullsLOParams {
   int dynamic_min_map_points = 4000;
   double frame_rate = 10.0;
 
+  // Mechanism switches for ablation; all on in the profile.
+  bool use_vertex_promotion = true;
+  bool use_source_pruning = true;
+  bool use_ground_balance = true;
+  bool use_distance_weight = true;
+  bool use_huber = true;
+  bool use_intensity_weight = true;
+  bool use_dynamic_removal = true;
+  bool use_pillar_refresh = true;
+  bool use_scan_to_map = true;  // false: scan-to-scan against the previous frame throughout
+
   unsigned seed = 42;
 };
 

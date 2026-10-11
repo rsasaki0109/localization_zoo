@@ -201,11 +201,20 @@ kiss_icp,kitti_raw_0061_200,gt-backed,fast_recent_map,Fast recent map,0.678894,2
 kiss_icp,kitti_raw_0061_full,gt-backed,fast_recent_map,Fast recent map,4.622772,11.229322,experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json
 kiss_icp,kitti_seq_00_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,7.632527,36.556438,experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json
 kiss_icp,kitti_seq_00_full,gt-backed,dense_profile,dense profile,12.323400,1.248601,experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json
+kiss_icp,kitti_seq_01_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,7.947183,20.318701,experiments/results/kiss_icp_kitti_seq_01_full_elevation_matrix.json
+kiss_icp,kitti_seq_02_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,18.506994,37.357499,experiments/results/kiss_icp_kitti_seq_02_full_elevation_matrix.json
 kiss_icp,kitti_seq_02_full,gt-backed,balanced_reference,balanced,71.182842,3.056777,experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json
+kiss_icp,kitti_seq_03_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,2.184867,25.555731,experiments/results/kiss_icp_kitti_seq_03_full_elevation_matrix.json
+kiss_icp,kitti_seq_04_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,0.661203,24.600802,experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json
+kiss_icp,kitti_seq_05_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,3.739422,34.514879,experiments/results/kiss_icp_kitti_seq_05_full_elevation_matrix.json
 kiss_icp,kitti_seq_05_full,gt-backed,dense_profile,dense,4.555696,1.643608,experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json
+kiss_icp,kitti_seq_06_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,1.801843,23.853917,experiments/results/kiss_icp_kitti_seq_06_full_elevation_matrix.json
 kiss_icp,kitti_seq_07_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,0.537470,39.526899,experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json
 kiss_icp,kitti_seq_07_full,gt-backed,balanced_reference,balanced (default),2.238005,3.379602,experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json
+kiss_icp,kitti_seq_08_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,15.964759,26.346580,experiments/results/kiss_icp_kitti_seq_08_full_elevation_matrix.json
 kiss_icp,kitti_seq_08_full,gt-backed,fast_profile,fast,18.084742,2.230160,experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json
+kiss_icp,kitti_seq_09_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,3.681268,31.016190,experiments/results/kiss_icp_kitti_seq_09_full_elevation_matrix.json
+kiss_icp,kitti_seq_10_full,gt-backed,upstream_mechanics_elevation,upstream mechanics + KITTI 0.205 deg elevation correction,2.834536,39.676046,experiments/results/kiss_icp_kitti_seq_10_full_elevation_matrix.json
 kiss_icp,mcd_kth_day_06_108,gt-backed,fast_recent_map,Fast recent map,5.567867,11.289632,experiments/results/kiss_icp_mcd_kth_day_06_matrix.json
 kiss_icp,mcd_ntu_day_02_108,gt-backed,fast_recent_map,Fast recent map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json
 kiss_icp,mcd_tuhh_night_09_108,gt-backed,fast_recent_map,Fast recent map,1.302876,24.096147,experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json

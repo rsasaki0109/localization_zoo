@@ -82,6 +82,21 @@ corrected scans shows where the earlier gap came from:
 | + Geman-McClure kernel | 0.536 | 0.343 |
 | + map insertion gate (upstream mechanics) | 0.535 | 0.363 |
 
+Over all eleven KITTI training sequences (official RTE, segments pooled as in
+the devkit; per-sequence values in
+[`docs/kitti_elevation_correction.md`](../../docs/kitti_elevation_correction.md)):
+
+| 00-10 average | Raw scans | Corrected |
+|---|---:|---:|
+| This port, upstream mechanics | 1.053 | **0.564** |
+| Official KISS-ICP 1.3.0 | - | **0.564** |
+| Paper (Table II) | - | 0.50 |
+
+The port equals the official code on the average and stays within 0.03
+points of it on every sequence, so the remaining 1.13x to the paper's 0.50 %
+is between the paper and the released code. On seq 04, the other sequence
+with a paper value, the port scores 0.373 % against the paper's 0.36 %.
+
 The adaptive threshold is the difference that matters. The default σ follows
 the vehicle's speed (mean 2.0 m on seq 07 and 2.5 m on seq 00) and is used as
 both the correspondence distance and the kernel scale. The upstream σ tracks

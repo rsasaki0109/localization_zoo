@@ -41,6 +41,114 @@
       }
     },
     {
+      "sequence": "01",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "cfcded772616ba3c744e0c6556fa344e3836ec364ee4dc94133dafd06ce5c75d",
+      "reference_sha256": "5b0099d9adb6bdb0a39ce905068645c911bb24e6bd4e2f303ce88aec9aae1d27",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 1101,
+        "ate_m": 8.764150743518645,
+        "rpe_trans_pct": 0.8312534408689655,
+        "kitti_rte_trans_pct": 0.7864601451263279,
+        "kitti_rte_rot_deg_per_100m": 0.10375752708684477,
+        "kitti_rte_segments": 676,
+        "algorithm_fps": 11.90894723900961
+      }
+    },
+    {
+      "sequence": "02",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "2ab6637cb893d2da8952b917bea38b88edc6ee6fc780ca3d5b15c3d3689ef7fa",
+      "reference_sha256": "cff6c0266c14016bb512f2e6d8fcdda4796bc1d4c9c97ba0f4cff32805106683",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 4661,
+        "ate_m": 16.36847177697804,
+        "rpe_trans_pct": 0.789446607500873,
+        "kitti_rte_trans_pct": 0.5366661319190512,
+        "kitti_rte_rot_deg_per_100m": 0.1507340184899859,
+        "kitti_rte_segments": 3453,
+        "algorithm_fps": 20.364497714193636
+      }
+    },
+    {
+      "sequence": "03",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "4c66cea7ab9f3eb32299d7e7591858d7f2a8a9acd9d1c1d92ba8d93279d9304e",
+      "reference_sha256": "f1ab14759dad481b763374be07d20337785c34a6b68d21a81a2f886b681080ab",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 801,
+        "ate_m": 2.3283456248794794,
+        "rpe_trans_pct": 0.8433211410986365,
+        "kitti_rte_trans_pct": 0.6771913263734197,
+        "kitti_rte_rot_deg_per_100m": 0.1566766349065144,
+        "kitti_rte_segments": 184,
+        "algorithm_fps": 14.109503599945135
+      }
+    },
+    {
+      "sequence": "04",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "984fb82ff515e96f0aede191f22566b271779697e09d13ff87afbc6b2204094c",
+      "reference_sha256": "850488c37a8bc4f4c216fcfa2fcc1e0f17ba6103680acc3985fcedc09ccfa360",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 271,
+        "ate_m": 0.6479061304616758,
+        "rpe_trans_pct": 0.4198009794276524,
+        "kitti_rte_trans_pct": 0.3857529855844778,
+        "kitti_rte_rot_deg_per_100m": 0.12929503513590979,
+        "kitti_rte_segments": 43,
+        "algorithm_fps": 15.536953033138051
+      }
+    },
+    {
+      "sequence": "05",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "86a86c30bda0a18dafb332edadb42a1c35835e4ed2a483703c7250cb652ee3c1",
+      "reference_sha256": "1746feac2f00ee1302520f4d1d0b285a83e3c6faab4b3be96ccd103374c2ce92",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 2761,
+        "ate_m": 3.0022263878637983,
+        "rpe_trans_pct": 0.47985263177200727,
+        "kitti_rte_trans_pct": 0.34176885023458436,
+        "kitti_rte_rot_deg_per_100m": 0.1341278596076843,
+        "kitti_rte_segments": 1806,
+        "algorithm_fps": 21.557922045904068
+      }
+    },
+    {
+      "sequence": "06",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "800d042f7de24fa9933b98f93d365e2e3127dcd3d75d144acb7337cbe3f133c9",
+      "reference_sha256": "61d34585c6ebeadf443c75be853b5149b44c3c7204bbc2ea43dbbc72c94f6128",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 1101,
+        "ate_m": 1.7187576016602253,
+        "rpe_trans_pct": 0.4706445982999071,
+        "kitti_rte_trans_pct": 0.280942129916205,
+        "kitti_rte_rot_deg_per_100m": 0.080455368539432,
+        "kitti_rte_segments": 570,
+        "algorithm_fps": 13.012750096931427
+      }
+    },
+    {
       "sequence": "07",
       "elevation_correction": false,
       "kiss_icp_version": "1.3.0",
@@ -74,6 +182,60 @@
         "kitti_rte_rot_deg_per_100m": 0.16172541465976312,
         "kitti_rte_segments": 317,
         "algorithm_fps": 16.841066227513142
+      }
+    },
+    {
+      "sequence": "08",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "541c703c6c450edaa13e3297a974829dbc9139841e2859d378aa4a0cb58d5d15",
+      "reference_sha256": "9b8c82625159ae78919926bf52fde49e7278fa08abe1fab196346e5c0306ae60",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 4071,
+        "ate_m": 15.790267316151564,
+        "rpe_trans_pct": 1.326306420782546,
+        "kitti_rte_trans_pct": 0.8196375190134417,
+        "kitti_rte_rot_deg_per_100m": 0.1871190169674974,
+        "kitti_rte_segments": 2813,
+        "algorithm_fps": 15.231893769561514
+      }
+    },
+    {
+      "sequence": "09",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "9e123053ef78fead055614faebf1d756939bd3650eeea7b295232e740c952c0e",
+      "reference_sha256": "4e67285814d3d9886cef561608d783c8f4e548f08db7ad0a38a99e7067933b49",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 1591,
+        "ate_m": 3.026189564213062,
+        "rpe_trans_pct": 0.6070189913554842,
+        "kitti_rte_trans_pct": 0.533941465184461,
+        "kitti_rte_rot_deg_per_100m": 0.13554036466589617,
+        "kitti_rte_segments": 958,
+        "algorithm_fps": 15.36773672274907
+      }
+    },
+    {
+      "sequence": "10",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "01941bf04f30237c5369232981c651f9d34ab2a9cff0789fa45326a280b88984",
+      "reference_sha256": "b209e9010aed6209eaf95efda57e95fbf01c6c336b24dce7a857bad15df444d2",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 1201,
+        "ate_m": 2.880662095144199,
+        "rpe_trans_pct": 0.6864993841507809,
+        "kitti_rte_trans_pct": 0.5116053224007582,
+        "kitti_rte_rot_deg_per_100m": 0.1924648855525635,
+        "kitti_rte_segments": 464,
+        "algorithm_fps": 23.15640884280481
       }
     }
   ],
@@ -214,6 +376,144 @@
       },
       "rte_change_pct": -14.019159209925478,
       "aggregate": "experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "01",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 2.080432,
+        "kitti_rte_rot_deg_per_100m": 0.522821,
+        "rpe_trans_pct": 0.993236,
+        "ate_m": 116.177309
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.75935,
+        "kitti_rte_rot_deg_per_100m": 0.099815,
+        "rpe_trans_pct": 0.826466,
+        "ate_m": 7.947183
+      },
+      "rte_change_pct": -63.50036915409877,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_01_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "02",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 1.251578,
+        "kitti_rte_rot_deg_per_100m": 0.422921,
+        "rpe_trans_pct": 0.919878,
+        "ate_m": 34.781999
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.545813,
+        "kitti_rte_rot_deg_per_100m": 0.162339,
+        "rpe_trans_pct": 0.789008,
+        "ate_m": 18.506994
+      },
+      "rte_change_pct": -56.39001324727664,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_02_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "03",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 0.934992,
+        "kitti_rte_rot_deg_per_100m": 0.508837,
+        "rpe_trans_pct": 0.75596,
+        "ate_m": 3.773213
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.672491,
+        "kitti_rte_rot_deg_per_100m": 0.167604,
+        "rpe_trans_pct": 0.845342,
+        "ate_m": 2.184867
+      },
+      "rte_change_pct": -28.075213477762386,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_03_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "04",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": 0.36,
+      "raw": {
+        "kitti_rte_trans_pct": 0.918367,
+        "kitti_rte_rot_deg_per_100m": 0.540399,
+        "rpe_trans_pct": 0.650044,
+        "ate_m": 2.949969
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.37327,
+        "kitti_rte_rot_deg_per_100m": 0.153334,
+        "rpe_trans_pct": 0.411036,
+        "ate_m": 0.661203
+      },
+      "rte_change_pct": -59.35502908967766,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "05",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 0.764156,
+        "kitti_rte_rot_deg_per_100m": 0.344661,
+        "rpe_trans_pct": 0.67095,
+        "ate_m": 5.31892
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.335224,
+        "kitti_rte_rot_deg_per_100m": 0.144157,
+        "rpe_trans_pct": 0.473459,
+        "ate_m": 3.739422
+      },
+      "rte_change_pct": -56.13147053742952,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_05_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "06",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 0.644865,
+        "kitti_rte_rot_deg_per_100m": 0.320213,
+        "rpe_trans_pct": 0.634227,
+        "ate_m": 2.820795
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.278266,
+        "kitti_rte_rot_deg_per_100m": 0.081528,
+        "rpe_trans_pct": 0.464955,
+        "ate_m": 1.801843
+      },
+      "rte_change_pct": -56.84895288161088,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_06_full_elevation_matrix.json",
       "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
     },
     {
@@ -422,6 +722,162 @@
       "rte_change_pct": 44.34616585675858,
       "aggregate": "experiments/results/suma_kitti_seq_07_full_elevation_matrix.json",
       "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "08",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 1.09007,
+        "kitti_rte_rot_deg_per_100m": 0.410613,
+        "rpe_trans_pct": 1.334186,
+        "ate_m": 22.153104
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.810276,
+        "kitti_rte_rot_deg_per_100m": 0.186858,
+        "rpe_trans_pct": 1.332117,
+        "ate_m": 15.964759
+      },
+      "rte_change_pct": -25.66752593870119,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_08_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "09",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 0.888454,
+        "kitti_rte_rot_deg_per_100m": 0.394218,
+        "rpe_trans_pct": 0.69526,
+        "ate_m": 6.953572
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.545845,
+        "kitti_rte_rot_deg_per_100m": 0.140542,
+        "rpe_trans_pct": 0.607159,
+        "ate_m": 3.681268
+      },
+      "rte_change_pct": -38.562379143996196,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_09_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
+    },
+    {
+      "method": "KISS-ICP",
+      "selector": "kiss_icp",
+      "sequence": "10",
+      "variant": "upstream_mechanics",
+      "corrected_design_style": "paper_input",
+      "paper_rte_pct": null,
+      "raw": {
+        "kitti_rte_trans_pct": 1.34225,
+        "kitti_rte_rot_deg_per_100m": 0.520629,
+        "rpe_trans_pct": 0.814198,
+        "ate_m": 13.357303
+      },
+      "corrected": {
+        "kitti_rte_trans_pct": 0.512926,
+        "kitti_rte_rot_deg_per_100m": 0.207501,
+        "rpe_trans_pct": 0.681391,
+        "ate_m": 2.834536
+      },
+      "rte_change_pct": -61.78610542000373,
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_10_full_elevation_matrix.json",
+      "host_cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz"
     }
-  ]
+  ],
+  "kiss_icp_kitti_00_10_average": {
+    "variant": "upstream_mechanics",
+    "segments": 14567,
+    "per_sequence": [
+      {
+        "sequence": "00",
+        "segments": 3283,
+        "port_raw": 0.900758,
+        "port_corrected": 0.535182,
+        "official_corrected": 0.5281984685107003
+      },
+      {
+        "sequence": "01",
+        "segments": 676,
+        "port_raw": 2.080432,
+        "port_corrected": 0.75935,
+        "official_corrected": 0.7864601451263279
+      },
+      {
+        "sequence": "02",
+        "segments": 3453,
+        "port_raw": 1.251578,
+        "port_corrected": 0.545813,
+        "official_corrected": 0.5366661319190512
+      },
+      {
+        "sequence": "03",
+        "segments": 184,
+        "port_raw": 0.934992,
+        "port_corrected": 0.672491,
+        "official_corrected": 0.6771913263734197
+      },
+      {
+        "sequence": "04",
+        "segments": 43,
+        "port_raw": 0.918367,
+        "port_corrected": 0.37327,
+        "official_corrected": 0.3857529855844778
+      },
+      {
+        "sequence": "05",
+        "segments": 1806,
+        "port_raw": 0.764156,
+        "port_corrected": 0.335224,
+        "official_corrected": 0.34176885023458436
+      },
+      {
+        "sequence": "06",
+        "segments": 570,
+        "port_raw": 0.644865,
+        "port_corrected": 0.278266,
+        "official_corrected": 0.280942129916205
+      },
+      {
+        "sequence": "07",
+        "segments": 317,
+        "port_raw": 0.480823,
+        "port_corrected": 0.362627,
+        "official_corrected": 0.3754595050309118
+      },
+      {
+        "sequence": "08",
+        "segments": 2813,
+        "port_raw": 1.09007,
+        "port_corrected": 0.810276,
+        "official_corrected": 0.8196375190134417
+      },
+      {
+        "sequence": "09",
+        "segments": 958,
+        "port_raw": 0.888454,
+        "port_corrected": 0.545845,
+        "official_corrected": 0.533941465184461
+      },
+      {
+        "sequence": "10",
+        "segments": 464,
+        "port_raw": 1.34225,
+        "port_corrected": 0.512926,
+        "official_corrected": 0.5116053224007582
+      }
+    ],
+    "port_raw": 1.0528699943708382,
+    "port_corrected": 0.5638777259559278,
+    "official_corrected": 0.5636682035471631,
+    "paper": 0.5
+  }
 }

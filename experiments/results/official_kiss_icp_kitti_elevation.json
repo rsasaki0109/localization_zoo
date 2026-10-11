@@ -38,6 +38,114 @@
       }
     },
     {
+      "sequence": "01",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "cfcded772616ba3c744e0c6556fa344e3836ec364ee4dc94133dafd06ce5c75d",
+      "reference_sha256": "5b0099d9adb6bdb0a39ce905068645c911bb24e6bd4e2f303ce88aec9aae1d27",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 1101,
+        "ate_m": 8.764150743518645,
+        "rpe_trans_pct": 0.8312534408689655,
+        "kitti_rte_trans_pct": 0.7864601451263279,
+        "kitti_rte_rot_deg_per_100m": 0.10375752708684477,
+        "kitti_rte_segments": 676,
+        "algorithm_fps": 11.90894723900961
+      }
+    },
+    {
+      "sequence": "02",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "2ab6637cb893d2da8952b917bea38b88edc6ee6fc780ca3d5b15c3d3689ef7fa",
+      "reference_sha256": "cff6c0266c14016bb512f2e6d8fcdda4796bc1d4c9c97ba0f4cff32805106683",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 4661,
+        "ate_m": 16.36847177697804,
+        "rpe_trans_pct": 0.789446607500873,
+        "kitti_rte_trans_pct": 0.5366661319190512,
+        "kitti_rte_rot_deg_per_100m": 0.1507340184899859,
+        "kitti_rte_segments": 3453,
+        "algorithm_fps": 20.364497714193636
+      }
+    },
+    {
+      "sequence": "03",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "4c66cea7ab9f3eb32299d7e7591858d7f2a8a9acd9d1c1d92ba8d93279d9304e",
+      "reference_sha256": "f1ab14759dad481b763374be07d20337785c34a6b68d21a81a2f886b681080ab",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 801,
+        "ate_m": 2.3283456248794794,
+        "rpe_trans_pct": 0.8433211410986365,
+        "kitti_rte_trans_pct": 0.6771913263734197,
+        "kitti_rte_rot_deg_per_100m": 0.1566766349065144,
+        "kitti_rte_segments": 184,
+        "algorithm_fps": 14.109503599945135
+      }
+    },
+    {
+      "sequence": "04",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "984fb82ff515e96f0aede191f22566b271779697e09d13ff87afbc6b2204094c",
+      "reference_sha256": "850488c37a8bc4f4c216fcfa2fcc1e0f17ba6103680acc3985fcedc09ccfa360",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 271,
+        "ate_m": 0.6479061304616758,
+        "rpe_trans_pct": 0.4198009794276524,
+        "kitti_rte_trans_pct": 0.3857529855844778,
+        "kitti_rte_rot_deg_per_100m": 0.12929503513590979,
+        "kitti_rte_segments": 43,
+        "algorithm_fps": 15.536953033138051
+      }
+    },
+    {
+      "sequence": "05",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "86a86c30bda0a18dafb332edadb42a1c35835e4ed2a483703c7250cb652ee3c1",
+      "reference_sha256": "1746feac2f00ee1302520f4d1d0b285a83e3c6faab4b3be96ccd103374c2ce92",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 2761,
+        "ate_m": 3.0022263878637983,
+        "rpe_trans_pct": 0.47985263177200727,
+        "kitti_rte_trans_pct": 0.34176885023458436,
+        "kitti_rte_rot_deg_per_100m": 0.1341278596076843,
+        "kitti_rte_segments": 1806,
+        "algorithm_fps": 21.557922045904068
+      }
+    },
+    {
+      "sequence": "06",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "800d042f7de24fa9933b98f93d365e2e3127dcd3d75d144acb7337cbe3f133c9",
+      "reference_sha256": "61d34585c6ebeadf443c75be853b5149b44c3c7204bbc2ea43dbbc72c94f6128",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 1101,
+        "ate_m": 1.7187576016602253,
+        "rpe_trans_pct": 0.4706445982999071,
+        "kitti_rte_trans_pct": 0.280942129916205,
+        "kitti_rte_rot_deg_per_100m": 0.080455368539432,
+        "kitti_rte_segments": 570,
+        "algorithm_fps": 13.012750096931427
+      }
+    },
+    {
       "sequence": "07",
       "elevation_correction": false,
       "kiss_icp_version": "1.3.0",
@@ -71,6 +179,60 @@
         "kitti_rte_rot_deg_per_100m": 0.16172541465976312,
         "kitti_rte_segments": 317,
         "algorithm_fps": 16.841066227513142
+      }
+    },
+    {
+      "sequence": "08",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "541c703c6c450edaa13e3297a974829dbc9139841e2859d378aa4a0cb58d5d15",
+      "reference_sha256": "9b8c82625159ae78919926bf52fde49e7278fa08abe1fab196346e5c0306ae60",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 4071,
+        "ate_m": 15.790267316151564,
+        "rpe_trans_pct": 1.326306420782546,
+        "kitti_rte_trans_pct": 0.8196375190134417,
+        "kitti_rte_rot_deg_per_100m": 0.1871190169674974,
+        "kitti_rte_segments": 2813,
+        "algorithm_fps": 15.231893769561514
+      }
+    },
+    {
+      "sequence": "09",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "9e123053ef78fead055614faebf1d756939bd3650eeea7b295232e740c952c0e",
+      "reference_sha256": "4e67285814d3d9886cef561608d783c8f4e548f08db7ad0a38a99e7067933b49",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 1591,
+        "ate_m": 3.026189564213062,
+        "rpe_trans_pct": 0.6070189913554842,
+        "kitti_rte_trans_pct": 0.533941465184461,
+        "kitti_rte_rot_deg_per_100m": 0.13554036466589617,
+        "kitti_rte_segments": 958,
+        "algorithm_fps": 15.36773672274907
+      }
+    },
+    {
+      "sequence": "10",
+      "elevation_correction": true,
+      "kiss_icp_version": "1.3.0",
+      "config_sha256": "74c5d9c3c20913e938f26d6d6e0fe060e6a46a74f99abbad2242a06877bfb879",
+      "estimate_sha256": "01941bf04f30237c5369232981c651f9d34ab2a9cff0789fa45326a280b88984",
+      "reference_sha256": "b209e9010aed6209eaf95efda57e95fbf01c6c336b24dce7a857bad15df444d2",
+      "max_threads": 2,
+      "metrics": {
+        "frames": 1201,
+        "ate_m": 2.880662095144199,
+        "rpe_trans_pct": 0.6864993841507809,
+        "kitti_rte_trans_pct": 0.5116053224007582,
+        "kitti_rte_rot_deg_per_100m": 0.1924648855525635,
+        "kitti_rte_segments": 464,
+        "algorithm_fps": 23.15640884280481
       }
     }
   ]

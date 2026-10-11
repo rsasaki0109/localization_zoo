@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -213,11 +213,20 @@ _Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
 | KISS-ICP KITTI Odom seq 00 full: elevation correction and upstream configuration | `ready` | `upstream_mechanics_elevation` | 7.633 | 37.7 | `experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `dense_profile` | 12.323 | 1.7 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
+| KISS-ICP KITTI Odom seq 01 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 7.947 | 20.5 | `experiments/results/kiss_icp_kitti_seq_01_full_elevation_matrix.json` |
+| KISS-ICP KITTI Odom seq 02 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 18.507 | 37.4 | `experiments/results/kiss_icp_kitti_seq_02_full_elevation_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `balanced_reference` | 56.234 | 3.4 | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
+| KISS-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 2.185 | 25.6 | `experiments/results/kiss_icp_kitti_seq_03_full_elevation_matrix.json` |
+| KISS-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 0.661 | 25.4 | `experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json` |
+| KISS-ICP KITTI Odom seq 05 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 3.739 | 36.7 | `experiments/results/kiss_icp_kitti_seq_05_full_elevation_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `dense_profile` | 4.556 | 2.1 | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
+| KISS-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 1.802 | 25.0 | `experiments/results/kiss_icp_kitti_seq_06_full_elevation_matrix.json` |
 | KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration | `ready` | `upstream_mechanics_elevation` | 0.537 | 39.5 | `experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `balanced_reference` | 2.238 | 3.4 | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
+| KISS-ICP KITTI Odom seq 08 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 15.965 | 27.3 | `experiments/results/kiss_icp_kitti_seq_08_full_elevation_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 17.322 | 2.5 | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
+| KISS-ICP KITTI Odom seq 09 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 3.681 | 31.0 | `experiments/results/kiss_icp_kitti_seq_09_full_elevation_matrix.json` |
+| KISS-ICP KITTI Odom seq 10 full: upstream mechanics with and without the elevation correction | `ready` | `upstream_mechanics_elevation` | 2.835 | 40.7 | `experiments/results/kiss_icp_kitti_seq_10_full_elevation_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 5.568 | 11.3 | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast_recent_map` | 0.017 | 66.7 | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 1.104 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
@@ -13233,6 +13242,102 @@ _Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Adaptive sigma min/mean/max=0.949632/2.56885/3.9727; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=0.687848; algorithm_fps=0.718315.
 
 
+## KISS-ICP KITTI Odom seq 01 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_01_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_01_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 116.177 | 20.5 | 53.4 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 7.947 | 20.3 | 99.5 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics` is the fastest observed variant at 20.5 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 7.947 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_01_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_01_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_01_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.311355/0.458204/4.14478; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=20.511; algorithm_fps=22.6616.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_01_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_01_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_01_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.309367/0.454561/4.13717; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=20.3187; algorithm_fps=22.7838.
+
+
+## KISS-ICP KITTI Odom seq 02 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_02_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_02_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 34.782 | 37.2 | 76.4 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 18.507 | 37.4 | 100.0 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics_elevation` is the fastest observed variant at 37.4 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 18.507 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_02_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_02_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.35025/0.413639/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=37.1771; algorithm_fps=45.8326.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_02_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_02_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.351073/0.41645/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=37.3575; algorithm_fps=47.7659.
+
+
 ## KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames)
 
 - **Problem ID**: `kiss_icp_kitti_seq_02_full_sweep`
@@ -13305,6 +13410,150 @@ _Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Adaptive sigma min/mean/max=1.5/3.33141/4.90733; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=0.444647; algorithm_fps=0.4579.
 
 
+## KISS-ICP KITTI Odom seq 03 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_03_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_03_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 3.773 | 24.6 | 77.1 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 2.185 | 25.6 | 100.0 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics_elevation` is the fastest observed variant at 25.6 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 2.185 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_03_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_03_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_03_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.362307/0.444697/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=24.6245; algorithm_fps=28.3832.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_03_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_03_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_03_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.373592/0.451481/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=25.5557; algorithm_fps=30.3773.
+
+
+## KISS-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_04_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 2.950 | 25.4 | 61.2 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 0.661 | 24.6 | 98.5 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics` is the fastest observed variant at 25.4 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 0.661 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_04_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_04_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_04_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.289998/0.394906/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=25.358; algorithm_fps=29.4606.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_04_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_04_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_04_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.294872/0.40015/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=24.6008; algorithm_fps=29.4552.
+
+
+## KISS-ICP KITTI Odom seq 05 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_05_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_05_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 5.319 | 36.7 | 85.2 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 3.739 | 34.5 | 97.1 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics` is the fastest observed variant at 36.7 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 3.739 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.344515/0.368768/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=36.6642; algorithm_fps=45.5075.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.339239/0.365191/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=34.5149; algorithm_fps=44.0498.
+
+
 ## KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames)
 
 - **Problem ID**: `kiss_icp_kitti_seq_05_full_sweep`
@@ -13375,6 +13624,54 @@ _Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Adaptive sigma min/mean/max=0.15/2.45413/3.51811; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.01093; algorithm_fps=1.05818.
+
+
+## KISS-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_06_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_06_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 2.821 | 25.0 | 81.9 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 1.802 | 23.9 | 97.8 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics` is the fastest observed variant at 25.0 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 1.802 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_06_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_06_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_06_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.286713/0.32897/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=24.9719; algorithm_fps=28.703.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_06_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_06_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_06_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.283658/0.327674/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=23.8539; algorithm_fps=27.985.
 
 
 ## KISS-ICP KITTI Odom seq 07 full: elevation correction and upstream configuration
@@ -13629,6 +13926,54 @@ _Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Adaptive sigma min/mean/max=0.15/1.97833/3.28958; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=1.45038; algorithm_fps=1.48434.
 
 
+## KISS-ICP KITTI Odom seq 08 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_08_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_08_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 22.153 | 27.3 | 86.0 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 15.965 | 26.3 | 98.3 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics` is the fastest observed variant at 27.3 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 15.965 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_08_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_08_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.359656/0.385296/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=27.2884; algorithm_fps=31.8996.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_08_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_08_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.361018/0.385989/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=26.3466; algorithm_fps=31.4729.
+
+
 ## KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames)
 
 - **Problem ID**: `kiss_icp_kitti_seq_08_full_sweep`
@@ -13699,6 +14044,102 @@ _Generated at 2026-10-11T00:01:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Adaptive sigma min/mean/max=0.573177/2.44208/3.69437; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=0.637534; algorithm_fps=0.66509.
+
+
+## KISS-ICP KITTI Odom seq 09 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_09_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_09_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 6.954 | 28.8 | 73.0 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 3.681 | 31.0 | 100.0 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics_elevation` is the fastest observed variant at 31.0 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 3.681 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_09_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_09_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_09_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.304901/0.341766/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=28.8495; algorithm_fps=33.9919.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_09_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_09_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_09_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.299183/0.335437/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=31.0162; algorithm_fps=37.6485.
+
+
+## KISS-ICP KITTI Odom seq 10 full: upstream mechanics with and without the elevation correction
+
+- **Problem ID**: `kiss_icp_kitti_seq_10_full_elevation`
+- **Question**: Does the upstream-mechanics KISS-ICP configuration that matches the official code on KITTI 00/07 also match it, and the paper's 0.50 % average over 00-10, on the remaining training sequences?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_10_full_elevation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| upstream profile + upstream threshold, kernel, and map insertion gate | reference | 13.357 | 40.7 | 60.6 | 3.35 | 3.85 | Keep as reference variant |
+| upstream mechanics + KITTI 0.205 deg elevation correction | paper_input | 2.835 | 39.7 | 98.8 | 2.75 | 3.45 | Adopt as current default |
+
+### Observations
+
+1. `upstream_mechanics_elevation` is the current default for this problem.
+2. `upstream_mechanics` is the fastest observed variant at 40.7 FPS.
+3. `upstream_mechanics_elevation` is the most accurate observed variant at 2.835 m ATE.
+
+### Variant Notes
+
+#### `upstream_mechanics`
+
+- Intent: Configuration that matches the official KISS-ICP code on KITTI 00/07 (papers/kiss_icp/README.md).
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_10_full_elevation_matrix/upstream_mechanics/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_10_full_elevation_matrix/upstream_mechanics/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_10_full_elevation_matrix/upstream_mechanics/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.476732/0.534788/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=40.6535; algorithm_fps=50.7115.
+
+#### `upstream_mechanics_elevation`
+
+- Intent: Same variant with the HDL-64E +0.205 deg elevation correction applied to every scan before downsampling.
+- CLI args: `--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_10_full_elevation_matrix/upstream_mechanics_elevation/summary.json --kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_10_full_elevation_matrix/upstream_mechanics_elevation/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_10_full_elevation_matrix/upstream_mechanics_elevation/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Adaptive sigma min/mean/max=0.478733/0.539621/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=39.676; algorithm_fps=51.1497.
 
 
 ## KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence

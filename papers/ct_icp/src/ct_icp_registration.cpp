@@ -71,6 +71,28 @@ void CTICPRegistration::addPointsToMap(
   rebuildMapFromWindow();
 }
 
+void CTICPRegistration::insertPoints(
+    const std::vector<Eigen::Vector3d>& world_points) {
+  const double min_dist_sq = params_.min_distance_between_points *
+                             params_.min_distance_between_points;
+  for (const auto& p : world_points) {
+    voxel_map_[pointToVoxel(p, params_.voxel_resolution)].addPoint(
+        p, min_dist_sq, params_.max_points_per_voxel);
+  }
+}
+
+void CTICPRegistration::removeVoxelsFarFrom(const Eigen::Vector3d& location,
+                                            double distance) {
+  for (auto it = voxel_map_.begin(); it != voxel_map_.end();) {
+    if (it->second.num_points == 0 ||
+        (it->second.points[0] - location).norm() > distance) {
+      it = voxel_map_.erase(it);
+    } else {
+      ++it;
+    }
+  }
+}
+
 void CTICPRegistration::clearMap() {
   voxel_map_.clear();
   frame_maps_.clear();
@@ -82,7 +104,15 @@ std::vector<TimedPoint> CTICPRegistration::subsampleKeypoints(
   std::vector<TimedPoint> keypoints;
 
   for (size_t i = 0; i < points.size(); i++) {
-    Voxel v = pointToVoxel(points[i].raw_point, params_.keypoint_voxel_size);
+    Voxel v;
+    if (params_.truncate_voxel_coords) {
+      const Eigen::Vector3d& p = points[i].raw_point;
+      const double size = params_.keypoint_voxel_size;
+      v = Voxel{static_cast<short>(p.x() / size), static_cast<short>(p.y() / size),
+                static_cast<short>(p.z() / size)};
+    } else {
+      v = pointToVoxel(points[i].raw_point, params_.keypoint_voxel_size);
+    }
     if (voxel_to_idx.find(v) == voxel_to_idx.end()) {
       voxel_to_idx[v] = keypoints.size();
       keypoints.push_back(points[i]);
@@ -142,7 +172,21 @@ CTICPRegistration::findCorrespondences(
     // coarse phase では phase_search_radius まで unconditionally に拡げる。
     gather_neighborhood(0, neighbors);
     gather_neighborhood(1, neighbors);
-    if (coarse_phase) {
+    if (params_.neighbor_search_radius > 0.0) {
+      // upstream: ceil(radius / resolution) 個のボクセルシェルを探索し、
+      // 半径外の点を捨てる。
+      const int shells = static_cast<int>(
+          std::ceil(params_.neighbor_search_radius / params_.voxel_resolution));
+      for (int r = 2; r <= shells; ++r) gather_neighborhood(r, neighbors);
+      const double r2 =
+          params_.neighbor_search_radius * params_.neighbor_search_radius;
+      neighbors.erase(
+          std::remove_if(neighbors.begin(), neighbors.end(),
+                         [&](const Eigen::Vector3d& n) {
+                           return (n - world_point).squaredNorm() > r2;
+                         }),
+          neighbors.end());
+    } else if (coarse_phase) {
       for (int r = 2; r <= phase_search_radius; ++r) {
         gather_neighborhood(r, neighbors);
       }
@@ -192,9 +236,17 @@ CTICPRegistration::findCorrespondences(
     Eigen::Vector3d eigenvalues = solver.eigenvalues();
 
     // 平面性 a2D = (lambda2 - lambda1) / lambda3
+    // (a2d_from_std: upstream と同じく sqrt(lambda) で計算)
     double a2D = 0.0;
     if (eigenvalues(2) > 1e-10) {
-      a2D = (eigenvalues(1) - eigenvalues(0)) / eigenvalues(2);
+      if (params_.a2d_from_std) {
+        const double s1 = std::sqrt(std::max(eigenvalues(0), 0.0));
+        const double s2 = std::sqrt(std::max(eigenvalues(1), 0.0));
+        const double s3 = std::sqrt(eigenvalues(2));
+        a2D = (s2 - s1) / s3;
+      } else {
+        a2D = (eigenvalues(1) - eigenvalues(0)) / eigenvalues(2);
+      }
     }
 
     if (a2D < phase_planarity_threshold) continue;
@@ -212,8 +264,21 @@ CTICPRegistration::findCorrespondences(
     double a2D_p = (params_.power_planarity == 1.0)
                        ? a2D
                        : std::pow(a2D, params_.power_planarity);
+    const Eigen::Vector3d reference =
+        params_.farthest_neighbor_reference
+            ? neighbors[dists[k - 1].second]
+            : (params_.use_closest_neighbor_reference
+                   ? neighbors[dists[0].second]
+                   : mean);
     double w = params_.weight_alpha * a2D_p;
-    if (params_.weight_neighborhood > 0.0) {
+    if (params_.neighborhood_weight_scale > 0.0) {
+      // upstream: (alpha * a2D^p + beta * exp(-|ref - x| / scale)) / (alpha + beta)
+      const double sum = params_.weight_alpha + params_.weight_neighborhood;
+      w += params_.weight_neighborhood *
+           std::exp(-(reference - world_point).norm() /
+                    params_.neighborhood_weight_scale);
+      if (sum > 0.0) w /= sum;
+    } else if (params_.weight_neighborhood > 0.0) {
       double d_closest = std::sqrt(dists[0].first);
       double d_max = std::sqrt(params_.max_correspondence_dist);
       double w_nb = (d_max > 1e-9) ? std::exp(-d_closest / d_max) : 0.0;
@@ -226,9 +291,7 @@ CTICPRegistration::findCorrespondences(
     // 遠方では数 m もずれた点を anchor にしてしまい point-to-plane の sign が
     // 不安定になる。closest-neighbor anchor は plane 上の単一点を使うため
     // local geometry に sharp に hooked できる。
-    corr.reference = params_.use_closest_neighbor_reference
-                         ? neighbors[dists[0].second]
-                         : mean;
+    corr.reference = reference;
     corr.normal = normal;
     corr.weight = w;
     corrs.push_back(corr);
@@ -297,6 +360,11 @@ CTICPResult CTICPRegistration::registerFrame(
                 << std::endl;
       break;
     }
+    if (params_.max_num_residuals > 0 &&
+        static_cast<int>(corrs.size()) > params_.max_num_residuals) {
+      corrs.resize(params_.max_num_residuals);
+    }
+    result.num_residuals = static_cast<int>(corrs.size());
 
     // Ceres問題を構築
     ceres::Problem problem;
@@ -384,6 +452,21 @@ CTICPResult CTICPRegistration::registerFrame(
         Eigen::Map<Eigen::Vector3d>(end_t) - result.frame.end_pose.trans;
 
     result.num_iterations = iter + 1;
+
+    if (params_.upstream_convergence) {
+      const double kRadToDeg = 180.0 / M_PI;
+      const double diff_trans = t_diff_begin.norm() + t_diff_end.norm();
+      const double diff_rot =
+          kRadToDeg * (q_begin.normalized().angularDistance(
+                           result.frame.begin_pose.quat.normalized()) +
+                       q_end.normalized().angularDistance(
+                           result.frame.end_pose.quat.normalized()));
+      if (diff_trans < 0.01 && diff_rot < 0.1) {
+        result.converged = true;
+        break;
+      }
+      continue;
+    }
 
     if (t_diff_begin.norm() < params_.convergence_threshold &&
         t_diff_end.norm() < params_.convergence_threshold) {

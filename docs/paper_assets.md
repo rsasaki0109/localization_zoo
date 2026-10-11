@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-11T17:15:16+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-11T20:38:12+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -357,11 +357,22 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | mulls | `kitti_raw_0009_full` | gt-backed | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
 | mulls | `kitti_raw_0061_200` | gt-backed | `fast` | 0.490 | 3.3 | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
 | mulls | `kitti_raw_0061_full` | gt-backed | `fast` | 11.390 | 3.3 | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
+| mulls | `kitti_seq_00_full` | gt-backed | `mulls_lo_elevation` | 10.786 | 7.4 | `experiments/results/mulls_kitti_seq_00_full_lo_matrix.json` |
 | mulls | `kitti_seq_00_full` | gt-backed | `fast` | 56.820 | 1.8 | `experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json` |
+| mulls | `kitti_seq_01_full` | gt-backed | `mulls_lo_highway_elevation` | 3.658 | 5.7 | `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json` |
+| mulls | `kitti_seq_02_full` | gt-backed | `mulls_lo_elevation` | 31.006 | 7.8 | `experiments/results/mulls_kitti_seq_02_full_lo_matrix.json` |
 | mulls | `kitti_seq_02_full` | gt-backed | `fast` | 260.878 | 1.7 | `experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json` |
+| mulls | `kitti_seq_03_full` | gt-backed | `mulls_lo_elevation` | 2.360 | 8.6 | `experiments/results/mulls_kitti_seq_03_full_lo_matrix.json` |
+| mulls | `kitti_seq_04_full` | gt-backed | `mulls_lo_elevation` | 1.030 | 8.2 | `experiments/results/mulls_kitti_seq_04_full_lo_matrix.json` |
+| mulls | `kitti_seq_05_full` | gt-backed | `mulls_lo_elevation` | 4.828 | 8.0 | `experiments/results/mulls_kitti_seq_05_full_lo_matrix.json` |
 | mulls | `kitti_seq_05_full` | gt-backed | `fast` | 26.886 | 1.7 | `experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json` |
+| mulls | `kitti_seq_06_full` | gt-backed | `mulls_lo_elevation` | 2.245 | 7.9 | `experiments/results/mulls_kitti_seq_06_full_lo_matrix.json` |
+| mulls | `kitti_seq_07_full` | gt-backed | `mulls_lo_elevation` | 0.939 | 7.9 | `experiments/results/mulls_kitti_seq_07_full_lo_matrix.json` |
 | mulls | `kitti_seq_07_full` | gt-backed | `fast` | 10.501 | 4.1 | `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json` |
+| mulls | `kitti_seq_08_full` | gt-backed | `mulls_lo_elevation` | 23.593 | 8.1 | `experiments/results/mulls_kitti_seq_08_full_lo_matrix.json` |
 | mulls | `kitti_seq_08_full` | gt-backed | `fast` | 87.759 | 1.7 | `experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json` |
+| mulls | `kitti_seq_09_full` | gt-backed | `mulls_lo_elevation` | 9.245 | 8.6 | `experiments/results/mulls_kitti_seq_09_full_lo_matrix.json` |
+| mulls | `kitti_seq_10_full` | gt-backed | `mulls_lo_elevation` | 4.709 | 8.1 | `experiments/results/mulls_kitti_seq_10_full_lo_matrix.json` |
 | mulls | `mcd_kth_day_06_108` | gt-backed | `fast` | 6.297 | 4.1 | `experiments/results/mulls_mcd_kth_day_06_matrix.json` |
 | mulls | `mcd_ntu_day_02_108` | gt-backed | `kitti_default` | 0.097 | 1.2 | `experiments/results/mulls_mcd_ntu_day_02_matrix.json` |
 | mulls | `mcd_tuhh_night_09_108` | gt-backed | `fast` | 1.206 | 3.8 | `experiments/results/mulls_mcd_tuhh_night_09_matrix.json` |

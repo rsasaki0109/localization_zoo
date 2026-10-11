@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-11T17:15:41+00:00
+> Generated: 2026-10-11T20:38:34+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -380,11 +380,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 **Reported FPS**: ~12.5
 **Hardware**: Intel Core i7-7700HQ @ 2.80 GHz
-**Repo scope**: Derived variant — Multi-metric scan-to-map alignment with edge, plane, and point residuals inside the shared benchmark harness.
-**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the dense variant: 3.79/4.11/2.68/2.63/4.27 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.51/0.55/0.28/0.29/0.80 % (MULLS-LO(mc)): 5.34-9.56x, geometric mean 7.62x. The repo variant is a derived multi-metric scan-to-map registration, not the full MULLS pipeline. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Numeric comparison**: Same metric, ~7.6x ratio — Official KITTI RTE, repo vs paper: seq 00 3.793 vs 0.51 (7.44x), seq 02 4.107 vs 0.55 (7.47x), seq 05 2.678 vs 0.28 (9.56x), seq 07 2.627 vs 0.29 (9.06x), seq 08 4.271 vs 0.80 (5.34x). Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Official MULLS-LO (KITTI urban profile) scores 0.311-0.316 % official KITTI RTE on seq 07 against the paper's 0.29 %, so the released code reproduces the paper and the 7.62x gap is in the port: it is a lightweight A-LOAM-feature approximation without MULLS's dual-threshold ground filter, PCA-based ground/facade/pillar/beam/roof/vertex classification, and multi-metric linear least-squares ICP.
-**Next step**: Reimplement MULLS's feature classification and multi-metric ICP (compare against run_official_mulls_baseline.py on the same scans); parameter tuning cannot close a structural gap.
+**Repo scope**: Lightweight multi-metric variant plus a MULLS-LO reimplementation — The default MULLS path is a lightweight A-LOAM-feature multi-metric variant. --mulls-lo runs MULLS-LO written from the paper and the authors' KITTI profiles: dual-threshold grid ground filter, PCA pillar/beam/facade classification, multi-metric linear least-squares ICP, and a local map (papers/mulls/README.md).
+**Current claim**: MULLS-LO matches the official code on KITTI 00-10 — With --mulls-lo (highway profile on seq 01) and the profile's 0.195 deg vertical-angle correction the reimplementation scores 0.572 % official KITTI RTE pooled over sequences 00-10 against 0.576 % for the official YuePanEdward/MULLS code on the same scans (run_official_mulls_baseline.py), within about 0.02 points on every sequence (seq 07: 0.319 % vs 0.311-0.332 %, paper 0.29 %). The default lightweight variant is not a faithful rerun (2.6 % on seq 07).
+**Numeric comparison**: Same metric, KITTI 00-10 per sequence — Official KITTI RTE with the 0.195 deg correction, --mulls-lo vs paper Table II MULLS-LO(mc): 00 0.536/0.51, 01 0.674/0.62 (highway profile), 02 0.585/0.55, 03 0.609/0.61, 04 0.492/0.35, 05 0.315/0.28, 06 0.297/0.24, 07 0.319/0.29, 08 0.812/0.80, 09 0.548/0.49, 10 0.691/0.61; pooled 00-10 0.572 % vs 0.539 % (the paper's per-sequence values weighted by segment count), 1.06x. The official code gives 0.576 % pooled on the same scans, so the remaining difference lies between the paper and the released code. The lightweight variant was 7.62x (00/02/05/07/08). See papers/mulls/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: The remaining 1.06x on the 00-10 average is shared by the official code on the same scans, so it lies between the paper and the released code, not in the reimplementation.
+**Next step**: None for KITTI odometry; loop closure (MULLS-SLAM) and the other datasets of the paper are not covered.
 
 ### Paper-Reported Values
 
@@ -411,11 +411,22 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Fast | 2.695 | 1.558 | 0.009244 | 1.20 |
 | KITTI | Fast | 11.390 | - | - | 3.28 |
 | KITTI | Fast | 0.490 | - | - | 3.31 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 10.786 | 0.757 | 0.004080 | 7.39 |
 | KITTI | Fast | 56.820 | 2.691 | 0.028323 | 1.79 |
+| KITTI | MULLS-LO highway profile + 0.195 deg vertical-angle correction | 3.658 | 0.815 | 0.001557 | 5.68 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 31.006 | 0.770 | 0.002710 | 7.80 |
 | KITTI | Fast | 260.878 | 2.272 | 0.026005 | 1.72 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 2.360 | 0.770 | 0.003460 | 8.61 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 1.030 | 0.501 | 0.001290 | 8.17 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 4.828 | 0.393 | 0.002175 | 8.04 |
 | KITTI | Fast | 26.886 | 1.939 | 0.021480 | 1.72 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 2.245 | 0.425 | 0.001790 | 7.86 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 0.939 | 0.439 | 0.002297 | 7.89 |
 | KITTI | Fast | 10.501 | 2.994 | 0.028779 | 4.13 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 23.593 | 1.275 | 0.003850 | 8.10 |
 | KITTI | Fast | 87.759 | 3.317 | 0.030065 | 1.69 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 9.245 | 0.609 | 0.002895 | 8.59 |
+| KITTI | MULLS-LO + 0.195 deg vertical-angle correction | 4.709 | 0.696 | 0.003343 | 8.10 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast | 6.297 | - | - | 4.12 |
 | dogfooding_results/mcd_ntu_day_02_108 | KITTI default | 0.097 | - | - | 1.17 |
 | dogfooding_results/mcd_tuhh_night_09_108 | Fast | 1.206 | - | - | 3.81 |

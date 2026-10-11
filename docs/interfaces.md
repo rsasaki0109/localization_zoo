@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T16:06:00+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T16:14:54+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -149,6 +149,7 @@ The runner is responsible for:
 | CT-ICP KITTI Odom seq 04 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_04_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json` |
 | CT-ICP seq 05 full: simplified recipes from bare + map=50 | `ready` | `experiments/ct_icp_kitti_seq_05_combo_matrix.json` | `ct_icp` | `arch_tuned_map_50` | `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json` |
 | CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner | `ready` | `experiments/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` | `ct_icp` | `corr_4_reference` | `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` |
+| CT-ICP KITTI Odom seq 05 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_05_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json` |
 | CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner | `ready` | `experiments/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` | `ct_icp` | `arch_tuned_map_50` | `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` |
 | CT-ICP seq 05 full: map_size on BARE baseline | `ready` | `experiments/ct_icp_kitti_seq_05_map_bare_matrix.json` | `ct_icp` | `bare_map_30` | `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json` |
 | CT-ICP seq 05 full: constant-velocity regularization sweep | `ready` | `experiments/ct_icp_kitti_seq_05_velocity_reg_matrix.json` | `ct_icp` | `velocity_reg_005` | `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json` |

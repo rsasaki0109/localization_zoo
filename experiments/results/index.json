@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:31:40+00:00",
+  "generated_at": "2026-10-11T15:17:01+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -450,6 +450,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_full_seeded_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json",
       "current_default": "cluster_a_seeded"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_full_upstream",
+      "title": "CT-ICP KITTI Odom seq 00 full: upstream mechanics with and without the elevation correction",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_upstream_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json",
+      "current_default": "upstream_mechanics_elevation"
     },
     {
       "problem_id": "ct_icp_kitti_seq_00_leave_one_out",

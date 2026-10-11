@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T02:31:40+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T15:17:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -131,6 +131,7 @@ The runner is responsible for:
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_full_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A) | `ready` | `experiments/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` | `ct_icp` | `radius_1` | `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` |
 | CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full | `ready` | `experiments/ct_icp_kitti_seq_00_full_seeded_matrix.json` | `ct_icp` | `cluster_a_seeded` | `experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json` |
+| CT-ICP KITTI Odom seq 00 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_00_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json` |
 | CT-ICP seq 00 full: leave-one-out ablation on full recipe | `ready` | `experiments/ct_icp_kitti_seq_00_leave_one_out_matrix.json` | `ct_icp` | `minus_ms_chol` | `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json` |
 | CT-ICP seq 00 full: map=50 + single partner knob isolation | `ready` | `experiments/ct_icp_kitti_seq_00_map50_partner_matrix.json` | `ct_icp` | `map_50_plus_corr_5` | `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json` |
 | CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?) | `ready` | `experiments/ct_icp_kitti_seq_00_map_bare_matrix.json` | `ct_icp` | `bare_map_50` | `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json` |

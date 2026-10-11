@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T15:17:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T15:34:58+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -154,6 +154,7 @@ The runner is responsible for:
 | CT-ICP KITTI Odom seq 07 full: elevation correction | `ready` | `experiments/ct_icp_kitti_seq_07_full_elevation_matrix.json` | `ct_icp` | `velocity_reg_01` | `experiments/results/ct_icp_kitti_seq_07_full_elevation_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07 | `ready` | `experiments/ct_icp_kitti_seq_07_full_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
 | CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D) | `ready` | `experiments/ct_icp_kitti_seq_07_full_seeded_matrix.json` | `ct_icp` | `cluster_d_full_seeded` | `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json` |
+| CT-ICP KITTI Odom seq 07 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_07_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json` |
 | CT-ICP seq 07 full: map=50 retrofit on ms_chol winner | `ready` | `experiments/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` | `ct_icp` | `ms_chol_map_50` | `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `experiments/ct_icp_kitti_seq_07_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
 | CT-ICP seq 07 full: constant-velocity regularization sweep | `ready` | `experiments/ct_icp_kitti_seq_07_velocity_reg_matrix.json` | `ct_icp` | `velocity_reg_01` | `experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json` |

@@ -78,6 +78,7 @@
 #include "dlio/dlio.h"
 #include "lego_loam/lego_loam.h"
 #include "mulls/mulls.h"
+#include "mulls/mulls_lo.h"
 #include "ct_icp/ct_icp_registration.h"
 #include "ct_lio/ct_lio_registration.h"
 #include "xicp/xicp_registration.h"
@@ -2050,6 +2051,14 @@ struct MULLSDogfoodingOptions {
   double mulls_point_weight = 0.3;
   int mulls_full_downsample_rate = 5;
   int mulls_max_frames_in_map = 30;
+  // --mulls-lo: MULLS-LO pipeline (papers/mulls/include/mulls/mulls_lo.h,
+  // KITTI urban profile) instead of the A-LOAM-feature variant above.
+  bool lo = false;
+  // --mulls-lo-disable a,b: switch MULLS-LO mechanisms off for ablation
+  // (vertex-promotion, source-pruning, ground-balance, distance-weight, huber,
+  // intensity-weight, dynamic-removal, pillar-refresh, scan-to-map).
+  std::string lo_disable;
+  bool lo_highway = false;  // --mulls-lo-highway: the authors' KITTI highway profile
 };
 
 struct NDTDogfoodingOptions {
@@ -5490,10 +5499,78 @@ MethodResult runLeGOLOAM(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runMULLSLO(const std::vector<std::string>& pcd_dirs,
+                        const std::vector<Eigen::Matrix4d>& gt,
+                        const std::string& disable, bool highway) {
+  using namespace localization_zoo::mulls;
+  MethodResult res;
+  res.name = "MULLS";
+  // The elevation correction comes from --input-vertical-angle-correction-deg
+  // like every other method; MULLS-LO applies its own 120 m horizontal limit
+  // instead of the shared 80 m loader cap.
+  MullsLOParams params = highway ? MullsLOParams::kittiHighway() : MullsLOParams();
+  params.vertical_angle_correction_deg = 0.0;
+  {
+    std::stringstream ss(disable);
+    std::string item;
+    while (std::getline(ss, item, ',')) {
+      if (item == "vertex-promotion") params.use_vertex_promotion = false;
+      else if (item == "source-pruning") params.use_source_pruning = false;
+      else if (item == "ground-balance") params.use_ground_balance = false;
+      else if (item == "distance-weight") params.use_distance_weight = false;
+      else if (item == "huber") params.use_huber = false;
+      else if (item == "intensity-weight") params.use_intensity_weight = false;
+      else if (item == "dynamic-removal") params.use_dynamic_removal = false;
+      else if (item == "pillar-refresh") params.use_pillar_refresh = false;
+      else if (item == "scan-to-map") params.use_scan_to_map = false;
+      else if (!item.empty()) std::cerr << "unknown --mulls-lo-disable item: " << item << "\n";
+    }
+  }
+  MullsLO lo(params);
+  const Eigen::Matrix4d world_anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  size_t aborted = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    const fs::path path = resolvePointCloudPath(pcd_dirs[i] + "/cloud.pcd");
+    pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
+    if (path.extension() == ".bin") {
+      if (!loadKittiBin(path, cloud.get())) cloud->clear();
+    } else if (pcl::io::loadPCDFile<pcl::PointXYZI>(path.string(), *cloud) == -1) {
+      cloud->clear();
+    }
+    applyInputVerticalAngleCorrection(cloud.get());
+    float max_intensity = 0.0f;
+    for (const auto& p : cloud->points)
+      if (std::isfinite(p.intensity)) max_intensity = std::max(max_intensity, p.intensity);
+    // KITTI stores reflectance in [0, 1]; MULLS works in [0, 255].
+    const double scale = max_intensity <= 1.0f ? 255.0 : 1.0;
+    std::vector<Eigen::Vector4d> xyzi;
+    xyzi.reserve(cloud->size());
+    for (const auto& p : cloud->points) {
+      if (!std::isfinite(p.x) || !std::isfinite(p.y) || !std::isfinite(p.z)) continue;
+      xyzi.emplace_back(p.x, p.y, p.z, std::isfinite(p.intensity) ? p.intensity * scale : 0.0);
+    }
+    const MullsLOFrameResult r = lo.process(xyzi);
+    aborted += r.icp.aborted ? 1 : 0;
+    res.poses.push_back(world_anchor * r.pose.matrix());
+    if (i % 10 == 0) std::cerr << "\r  [MULLS-LO] " << i << "/" << pcd_dirs.size();
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  std::ostringstream note;
+  note << "MULLS-LO (KITTI " << (highway ? "highway" : "urban")
+       << " profile); anchor matches the first GT pose. "
+       << aborted << " registrations stopped early (too few pairs or an implausible step).";
+  if (!disable.empty()) note << " Disabled: " << disable << ".";
+  res.note = note.str();
+  return res;
+}
+
 MethodResult runMULLS(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
                       const MULLSDogfoodingOptions& options) {
   using namespace localization_zoo::mulls;
+  if (options.lo) return runMULLSLO(pcd_dirs, gt, options.lo_disable, options.lo_highway);
   MethodResult res;
   res.name = "MULLS";
 
@@ -11504,7 +11581,7 @@ int main(int argc, char** argv) {
               << " [--lego-loam-kitti-profile]"
               << " [--lego-loam-fast-profile]"
               << " [--lego-loam-dense-profile]"
-              << " [--mulls-kitti-profile]"
+              << " [--mulls-kitti-profile] [--mulls-lo] [--mulls-lo-disable a,b] [--mulls-lo-highway]"
               << " [--mulls-fast-profile]"
               << " [--mulls-dense-profile]"
               << " [--dlo-kitti-profile]"
@@ -12939,6 +13016,20 @@ int main(int argc, char** argv) {
       lego_loam_options.map_knn = 7;
       lego_loam_options.map_knn_max_dist_sq = 1.0;
       lego_loam_options.map_plane_threshold = 0.18;
+      continue;
+    }
+    if (arg == "--mulls-lo") {
+      mulls_options.lo = true;
+      continue;
+    }
+    if (arg == "--mulls-lo-highway") {
+      mulls_options.lo = true;
+      mulls_options.lo_highway = true;
+      continue;
+    }
+    if (arg == "--mulls-lo-disable") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      mulls_options.lo_disable = argv[++i];
       continue;
     }
     if (arg == "--mulls-kitti-profile") {

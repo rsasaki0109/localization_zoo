@@ -333,11 +333,22 @@ mulls,kitti_raw_0009_200,gt-backed,fast,Fast,2.695346,1.204493,experiments/resul
 mulls,kitti_raw_0009_full,gt-backed,fast,Fast,4.609734,3.337311,experiments/results/mulls_kitti_raw_0009_full_matrix.json
 mulls,kitti_raw_0061_200,gt-backed,fast,Fast,0.489837,3.313149,experiments/results/mulls_kitti_raw_0061_matrix.json
 mulls,kitti_raw_0061_full,gt-backed,fast,Fast,11.389561,3.276726,experiments/results/mulls_kitti_raw_0061_full_matrix.json
+mulls,kitti_seq_00_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,10.786042,7.394994,experiments/results/mulls_kitti_seq_00_full_lo_matrix.json
 mulls,kitti_seq_00_full,gt-backed,fast,Fast,56.819807,1.793965,experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json
+mulls,kitti_seq_01_full,gt-backed,mulls_lo_highway_elevation,MULLS-LO highway profile + 0.195 deg vertical-angle correction,3.657694,5.676738,experiments/results/mulls_kitti_seq_01_full_lo_matrix.json
+mulls,kitti_seq_02_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,31.005652,7.800151,experiments/results/mulls_kitti_seq_02_full_lo_matrix.json
 mulls,kitti_seq_02_full,gt-backed,fast,Fast,260.877751,1.722641,experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json
+mulls,kitti_seq_03_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,2.360154,8.607549,experiments/results/mulls_kitti_seq_03_full_lo_matrix.json
+mulls,kitti_seq_04_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,1.029749,8.170795,experiments/results/mulls_kitti_seq_04_full_lo_matrix.json
+mulls,kitti_seq_05_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,4.827636,8.037351,experiments/results/mulls_kitti_seq_05_full_lo_matrix.json
 mulls,kitti_seq_05_full,gt-backed,fast,Fast,26.886131,1.721024,experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json
+mulls,kitti_seq_06_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,2.244742,7.859534,experiments/results/mulls_kitti_seq_06_full_lo_matrix.json
+mulls,kitti_seq_07_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,0.939175,7.890748,experiments/results/mulls_kitti_seq_07_full_lo_matrix.json
 mulls,kitti_seq_07_full,gt-backed,fast,Fast,10.501416,4.132687,experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json
+mulls,kitti_seq_08_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,23.592772,8.096136,experiments/results/mulls_kitti_seq_08_full_lo_matrix.json
 mulls,kitti_seq_08_full,gt-backed,fast,Fast,87.759487,1.693054,experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json
+mulls,kitti_seq_09_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,9.244821,8.591696,experiments/results/mulls_kitti_seq_09_full_lo_matrix.json
+mulls,kitti_seq_10_full,gt-backed,mulls_lo_elevation,MULLS-LO + 0.195 deg vertical-angle correction,4.709352,8.099246,experiments/results/mulls_kitti_seq_10_full_lo_matrix.json
 mulls,mcd_kth_day_06_108,gt-backed,fast,Fast,6.296781,4.122743,experiments/results/mulls_mcd_kth_day_06_matrix.json
 mulls,mcd_ntu_day_02_108,gt-backed,kitti_default,KITTI default,0.097083,1.170111,experiments/results/mulls_mcd_ntu_day_02_matrix.json
 mulls,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.205852,3.810992,experiments/results/mulls_mcd_tuhh_night_09_matrix.json

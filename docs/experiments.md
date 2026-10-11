@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -347,11 +347,22 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.695 | 1.2 | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 10.173 | 3.3 | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.425 | 3.3 | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
+| MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 10.786 | 7.6 | `experiments/results/mulls_kitti_seq_00_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `fast` | 48.686 | 1.8 | `experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json` |
+| MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_highway_elevation` | 3.658 | 11.7 | `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 31.006 | 7.8 | `experiments/results/mulls_kitti_seq_02_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast` | 254.460 | 1.7 | `experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json` |
+| MULLS KITTI Odom seq 03 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 2.360 | 8.6 | `experiments/results/mulls_kitti_seq_03_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 04 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 1.030 | 8.2 | `experiments/results/mulls_kitti_seq_04_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 05 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 4.828 | 8.0 | `experiments/results/mulls_kitti_seq_05_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast` | 19.617 | 1.7 | `experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json` |
+| MULLS KITTI Odom seq 06 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 2.245 | 8.1 | `experiments/results/mulls_kitti_seq_06_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 07 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 0.939 | 7.9 | `experiments/results/mulls_kitti_seq_07_full_lo_matrix.json` |
 | MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json` |
+| MULLS KITTI Odom seq 08 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 23.593 | 8.1 | `experiments/results/mulls_kitti_seq_08_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast` | 80.765 | 1.7 | `experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json` |
+| MULLS KITTI Odom seq 09 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 9.245 | 8.6 | `experiments/results/mulls_kitti_seq_09_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 10 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 4.709 | 8.1 | `experiments/results/mulls_kitti_seq_10_full_lo_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.207 | 4.1 | `experiments/results/mulls_mcd_kth_day_06_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.097 | 2.3 | `experiments/results/mulls_mcd_ntu_day_02_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.206 | 3.8 | `experiments/results/mulls_mcd_tuhh_night_09_matrix.json` |
@@ -20935,6 +20946,54 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
 
 
+## MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_00_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_00_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 16.052 | 7.6 | 83.6 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 10.786 | 7.4 | 98.5 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo` is the fastest observed variant at 7.6 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 10.786 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+
 ## MULLS transfer check on KITTI Odom seq 00 full (4541 frames)
 
 - **Problem ID**: `mulls_kitti_seq_00_full_transfer`
@@ -20981,6 +21040,126 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
+## MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_01_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 171.706 | 11.7 | 50.9 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 66.442 | 11.7 | 52.8 | 4.05 | 4.35 | Keep as reference variant |
+| MULLS-LO (KITTI highway profile) on raw scans | reference | 169.513 | 5.0 | 22.4 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO highway profile + 0.195 deg vertical-angle correction | paper_input | 3.658 | 5.7 | 74.2 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_highway_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 11.7 FPS.
+3. `mulls_lo_highway_elevation` is the most accurate observed variant at 3.658 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 3 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_highway`
+
+- Intent: The authors' highway profile for sparse scenes (beams registered, looser normal check, no ground balance or dynamic removal).
+- CLI args: `--mulls-lo-highway`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway/summary.json --mulls-lo-highway`
+- Summary: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI highway profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_highway_elevation`
+
+- Intent: Highway profile with the profile's 0.195 deg vertical-angle calibration.
+- CLI args: `--mulls-lo-highway --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway_elevation/summary.json --mulls-lo-highway --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_01_full_lo_matrix/mulls_lo_highway_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI highway profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+
+## MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_02_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_02_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 47.368 | 7.4 | 80.4 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 31.006 | 7.8 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 7.8 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 31.006 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_02_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_02_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_02_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_02_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_02_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_02_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
 
 
 ## MULLS transfer check on KITTI Odom seq 02 full (4661 frames)
@@ -21031,6 +21210,150 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
 
 
+## MULLS KITTI Odom seq 03 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_03_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_03_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 7.518 | 8.0 | 62.3 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 2.360 | 8.6 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 8.6 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 2.360 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_03_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_03_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_03_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_03_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_03_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_03_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+
+## MULLS KITTI Odom seq 04 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_04_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_04_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 4.737 | 8.0 | 60.1 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 1.030 | 8.2 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 8.2 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 1.030 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_04_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_04_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_04_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_04_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_04_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_04_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+
+## MULLS KITTI Odom seq 05 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_05_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_05_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 6.954 | 7.7 | 82.5 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 4.828 | 8.0 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 8.0 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 4.828 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_05_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_05_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_05_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_05_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_05_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_05_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+
 ## MULLS transfer check on KITTI Odom seq 05 full (2761 frames)
 
 - **Problem ID**: `mulls_kitti_seq_05_full_transfer`
@@ -21077,6 +21400,102 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
+## MULLS KITTI Odom seq 06 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_06_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_06_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 3.569 | 8.1 | 81.4 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 2.245 | 7.9 | 98.4 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo` is the fastest observed variant at 8.1 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 2.245 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_06_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_06_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_06_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_06_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_06_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_06_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+
+## MULLS KITTI Odom seq 07 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_07_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_07_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 1.725 | 7.0 | 71.7 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 0.939 | 7.9 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 7.9 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 0.939 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_07_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_07_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_07_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_07_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
 
 
 ## MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)
@@ -21139,6 +21558,54 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
 
 
+## MULLS KITTI Odom seq 08 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_08_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_08_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 29.745 | 7.6 | 86.9 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 23.593 | 8.1 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 8.1 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 23.593 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_08_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_08_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_08_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_08_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_08_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_08_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+
 ## MULLS transfer check on KITTI Odom seq 08 full (4071 frames)
 
 - **Problem ID**: `mulls_kitti_seq_08_full_transfer`
@@ -21185,6 +21652,102 @@ _Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
+## MULLS KITTI Odom seq 09 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_09_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_09_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 13.238 | 8.3 | 83.4 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 9.245 | 8.6 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 8.6 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 9.245 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_09_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_09_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_09_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_09_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_09_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_09_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+
+## MULLS KITTI Odom seq 10 full: MULLS-LO with and without the elevation correction
+
+- **Problem ID**: `mulls_kitti_seq_10_full_lo`
+- **Question**: Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_10_full_lo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| MULLS-LO (KITTI urban profile) on raw scans | reference | 18.779 | 8.1 | 62.5 | 4.65 | 4.75 | Keep as reference variant |
+| MULLS-LO + 0.195 deg vertical-angle correction | paper_input | 4.709 | 8.1 | 100.0 | 4.05 | 4.35 | Adopt as current default |
+
+### Observations
+
+1. `mulls_lo_elevation` is the current default for this problem.
+2. `mulls_lo_elevation` is the fastest observed variant at 8.1 FPS.
+3. `mulls_lo_elevation` is the most accurate observed variant at 4.709 m ATE.
+
+### Variant Notes
+
+#### `mulls_lo`
+
+- Intent: Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).
+- CLI args: `--mulls-lo`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_10_full_lo_matrix/mulls_lo/summary.json --mulls-lo`
+- Summary: `experiments/results/runs/mulls_kitti_seq_10_full_lo_matrix/mulls_lo/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_10_full_lo_matrix/mulls_lo/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+#### `mulls_lo_elevation`
+
+- Intent: Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.
+- CLI args: `--mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_10_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/mulls_kitti_seq_10_full_lo_matrix/mulls_lo_elevation/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_10_full_lo_matrix/mulls_lo_elevation/run.log`
+- Readability proxy: 4.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
 
 
 ## MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence

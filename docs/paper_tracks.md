@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-11T17:15:13+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `445` ready, `1` blocked, `14` skipped problems.
+Current coverage: `456` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -351,6 +351,17 @@ Current coverage: `445` ready, `1` blocked, `14` skipped problems.
 | LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_full` |
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_full` |
 | MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `dogfooding_results/kitti_seq_07_full` |
+| MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 10.786 | 7.6 | `dogfooding_results/kitti_seq_00_full` |
+| MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_highway_elevation` | 3.658 | 11.7 | `dogfooding_results/kitti_seq_01_full` |
+| MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 31.006 | 7.8 | `dogfooding_results/kitti_seq_02_full` |
+| MULLS KITTI Odom seq 03 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 2.360 | 8.6 | `dogfooding_results/kitti_seq_03_full` |
+| MULLS KITTI Odom seq 04 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 1.030 | 8.2 | `dogfooding_results/kitti_seq_04_full` |
+| MULLS KITTI Odom seq 05 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 4.828 | 8.0 | `dogfooding_results/kitti_seq_05_full` |
+| MULLS KITTI Odom seq 06 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 2.245 | 8.1 | `dogfooding_results/kitti_seq_06_full` |
+| MULLS KITTI Odom seq 07 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 0.939 | 7.9 | `dogfooding_results/kitti_seq_07_full` |
+| MULLS KITTI Odom seq 08 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 23.593 | 8.1 | `dogfooding_results/kitti_seq_08_full` |
+| MULLS KITTI Odom seq 09 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 9.245 | 8.6 | `dogfooding_results/kitti_seq_09_full` |
+| MULLS KITTI Odom seq 10 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 4.709 | 8.1 | `dogfooding_results/kitti_seq_10_full` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.695 | 1.2 | `dogfooding_results/kitti_raw_0009_200` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_200` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.425 | 3.3 | `dogfooding_results/kitti_raw_0061_200` |
@@ -486,7 +497,7 @@ Current coverage: `445` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 445 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 456 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

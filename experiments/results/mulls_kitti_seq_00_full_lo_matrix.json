@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-10-11T19:19:28+00:00",
+  "manifest_path": "experiments/mulls_kitti_seq_00_full_lo_matrix.json",
+  "problem": {
+    "id": "mulls_kitti_seq_00_full_lo",
+    "title": "MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction",
+    "question": "Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "mulls",
+    "primary_method": "MULLS"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "mulls_lo",
+      "label": "MULLS-LO (KITTI urban profile) on raw scans",
+      "design_style": "reference",
+      "intent": "Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).",
+      "args": [
+        "--mulls-lo"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo/summary.json --mulls-lo",
+      "summary_path": "experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo/summary.json",
+      "log_path": "experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo/run.log",
+      "status": "ok",
+      "ate_m": 16.051577,
+      "rpe_trans_pct": 0.976473,
+      "rpe_rot_deg_per_m": 0.00915,
+      "fps": 7.624134,
+      "time_ms": 595608.648855,
+      "frames": 4541,
+      "note": "MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).",
+      "benchmark_score": 83.6,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 1.261807,
+      "kitti_rte_rot_deg_per_100m": 0.582354,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "mulls_lo_elevation",
+      "label": "MULLS-LO + 0.195 deg vertical-angle correction",
+      "design_style": "paper_input",
+      "intent": "Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.",
+      "args": [
+        "--mulls-lo",
+        "--input-vertical-angle-correction-deg",
+        "0.195"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo_elevation/summary.json --mulls-lo --input-vertical-angle-correction-deg 0.195",
+      "summary_path": "experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo_elevation/summary.json",
+      "log_path": "experiments/results/runs/mulls_kitti_seq_00_full_lo_matrix/mulls_lo_elevation/run.log",
+      "status": "ok",
+      "ate_m": 10.786042,
+      "rpe_trans_pct": 0.756898,
+      "rpe_rot_deg_per_m": 0.00408,
+      "fps": 7.394994,
+      "time_ms": 614064.037896,
+      "frames": 4541,
+      "note": "MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).",
+      "benchmark_score": 98.5,
+      "readability_score": 4.05,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.35,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.536137,
+      "kitti_rte_rot_deg_per_100m": 0.214494,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

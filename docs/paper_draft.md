@@ -62,7 +62,7 @@ The README leaderboard ranks the non-GT-seeded best variant per cell on five
 full sequences (00/02/05/07/08, 17 135 frames). Point-to-plane and LOAM-style
 front ends cluster at 0.5-1.4 % 100 m RPE: LF-GICP is best on 00 and 05,
 LeGO-LOAM on 02 and 07, and KISS-ICP with the upstream mechanics on 08, with
-A-LOAM, F-LOAM, KISS-ICP, and CT-ICP (upstream pipeline) within 0.2 points of the best elsewhere. SuMa, L-LO, and MULLS trail at 1-4 %. GT-seeded registration
+A-LOAM, F-LOAM, KISS-ICP, CT-ICP (upstream pipeline), and MULLS (MULLS-LO, best on 08) within 0.2 points of the best elsewhere. SuMa and L-LO trail at 1-4 %. GT-seeded registration
 (NDT, LiTAMIN2 with seeding, GICP) is reported separately: a GT pose as the
 per-frame initial guess measures seed adherence, not tracking, and NDT's
 0.02 m seeded ATE becomes 87 % RPE without the seed.
@@ -79,13 +79,15 @@ an optimistic bound; rows whose variant was chosen on sequence 07 and
 transferred unchanged are marked held-out.
 
 The methods split into two groups. A-LOAM (1.01x against LOAM values cited by
-later papers), LF-GICP (0.96x), KISS-ICP (1.04x on 00 and 04), CT-ICP (1.15x
-on 00-10), and LiTAMIN2 (1.22x) reach paper-level accuracy. L-LO (1.58x),
-SuMa (2.21x), and MULLS (7.62x) run on the same metric but do not reproduce
-the paper numbers. KISS-ICP stood at 1.87x and CT-ICP at 4.03x until Section
-6.5's audits traced the gaps to input preprocessing and to pipeline details
-that the ports had simplified. For MULLS the official code reproduces the
-paper on seq 07 (0.31 % against 0.29 %), so its gap is in the port.
+later papers), LF-GICP (0.96x), KISS-ICP (1.04x on 00 and 04), MULLS (1.12x
+on 00-10), CT-ICP (1.15x on 00-10), and LiTAMIN2 (1.22x) reach paper-level
+accuracy. L-LO (1.58x) and SuMa (2.21x) run on the same metric but do not
+reproduce the paper numbers. KISS-ICP stood at 1.87x, CT-ICP at 4.03x, and
+MULLS at 7.62x until Section 6.5's audits, which ran each official code on
+the same scans, traced the gaps to input preprocessing and to pipelines the
+ports had simplified (for MULLS a lightweight variant without its ground
+filter, feature classes, and multi-metric ICP, now replaced by a
+reimplementation).
 
 ### 5.5 Mechanism ablations
 

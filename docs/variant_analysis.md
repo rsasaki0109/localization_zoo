@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-11T17:15:41+00:00
+> Generated: 2026-10-11T20:38:34+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -570,13 +570,24 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-KTH | fast | 6.297 | 4.1 |
 | MCD-NTU | kitti_default | 0.097 | 1.2 |
 | MCD-TUHH | fast | 1.206 | 3.8 |
+| dogfooding_results/kitti_seq_00_full | mulls_lo_elevation | 10.786 | 7.4 |
 | dogfooding_results/kitti_seq_00_full | fast | 56.820 | 1.8 |
+| dogfooding_results/kitti_seq_01_full | mulls_lo_highway_elevation | 3.658 | 5.7 |
+| dogfooding_results/kitti_seq_02_full | mulls_lo_elevation | 31.006 | 7.8 |
 | dogfooding_results/kitti_seq_02_full | fast | 260.878 | 1.7 |
+| dogfooding_results/kitti_seq_03_full | mulls_lo_elevation | 2.360 | 8.6 |
+| dogfooding_results/kitti_seq_04_full | mulls_lo_elevation | 1.030 | 8.2 |
+| dogfooding_results/kitti_seq_05_full | mulls_lo_elevation | 4.828 | 8.0 |
 | dogfooding_results/kitti_seq_05_full | fast | 26.886 | 1.7 |
+| dogfooding_results/kitti_seq_06_full | mulls_lo_elevation | 2.245 | 7.9 |
+| dogfooding_results/kitti_seq_07_full | mulls_lo_elevation | 0.939 | 7.9 |
 | dogfooding_results/kitti_seq_07_full | fast | 10.501 | 4.1 |
+| dogfooding_results/kitti_seq_08_full | mulls_lo_elevation | 23.593 | 8.1 |
 | dogfooding_results/kitti_seq_08_full | fast | 87.759 | 1.7 |
+| dogfooding_results/kitti_seq_09_full | mulls_lo_elevation | 9.245 | 8.6 |
+| dogfooding_results/kitti_seq_10_full | mulls_lo_elevation | 4.709 | 8.1 |
 
-**Stability**: 2 unique default(s) across 12 windows.
+**Stability**: 4 unique default(s) across 23 windows.
 
 ### NDT
 
@@ -1152,6 +1163,10 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense | 36.323 | 1.1 | 12 |
 | fast | 38.992 | 3.4 | 12 |
 | kitti_default | 4.115 | 1.6 | 8 |
+| mulls_lo | 29.217 | 8.2 | 11 |
+| mulls_lo_elevation | 14.289 | 8.4 | 11 |
+| mulls_lo_highway | 169.513 | 5.0 | 1 |
+| mulls_lo_highway_elevation | 3.658 | 5.7 | 1 |
 
 ### NDT
 

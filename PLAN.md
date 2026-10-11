@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-10-11 (CT-ICP の論文値ギャップ解消とホスト依存の原因特定、公式 MULLS / SuMa の確認)**
+> **最終更新: 2026-10-11 (CT-ICP と MULLS の論文値ギャップ解消、CT-ICP のホスト依存の原因特定、公式 SuMa の確認)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -30,7 +30,7 @@
 章の追加や図 5-7 の作成はしない。今後の目標は「使えて、数値を信用できる実装集」: 結果の再現性
 (CT-ICP のホスト依存など) と、論文値とのギャップの原因特定・解消 (SuMa / CT-ICP / MULLS) を優先する。
 
-## 00. Latest Handoff: CT-ICP を公式実装と一致させた / 公式 MULLS・SuMa (2026-10-11)
+## 00. Latest Handoff: CT-ICP と MULLS を公式実装と一致させた / 公式 SuMa (2026-10-11)
 
 > **これが最新・最優先の handoff。** 詳細は [`papers/ct_icp/README.md`](papers/ct_icp/README.md)。
 >
@@ -45,8 +45,13 @@
 >   1e-6° の仰角摂動で seq 07 ±7 %、seq 00 ±11 % 動く。upstream mechanics と公式コードは ±3 % 程度。
 > - **公式実装の再実行スクリプト**: `run_official_ct_icp_baseline.py` (KITTI .bin → 上流の PLY、GT を見せない)、
 >   `run_official_mulls_baseline.py`。どちらも上流のビルドに要るパッチを docstring に記載。
-> - **MULLS**: 公式 MULLS-LO は seq 07 で 0.311-0.316 % (論文 0.29 %)。7.62x は実装側 (軽量版で MULLS の特徴分類と
->   multi-metric ICP がない)。詰めるには再実装が要る。
+> - **MULLS-LO を再実装** (`--mulls-lo`、`papers/mulls/include/mulls/mulls_lo.h`、公式コードは流用せず論文と著者の
+>   KITTI プロファイルから): 二重閾値のグリッド地面抽出、PCA による pillar / beam / facade 分類、点-平面 / 点-直線の
+>   multi-metric 線形最小二乗 ICP、直前フレーム座標のローカルマップ。補正 0.195° ありで 00-10 平均 0.572 % (公式
+>   0.576 %、論文の区間重み付け 0.539 %)、全系列で公式との差 0.02 ポイント程度。01 (高速道路) は highway プロファイル
+>   (`--mulls-lo-highway`) が必要 (urban では本実装 5.97 %、公式 1.91 %)。**Table 6 の MULLS は 7.62x → 1.12x**、順位表でも
+>   08 で最良 (1.32 %)。効いているのはローカルマップとの位置合わせ (外すと 0.758 %)、他の重みは個々には小さい。
+>   既定の軽量版 `MULLS` は変えていない。
 > - **SuMa**: 公式はビルドできるが、このコンテナのソフトウェア OpenGL (Mesa llvmpipe / LLVM 20) がシェーダの
 >   コード生成で落ちるため未計測。GPU 環境で測る必要がある。
 

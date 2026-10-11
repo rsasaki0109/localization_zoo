@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "mulls_kitti_seq_03_full_lo",
+    "title": "MULLS KITTI Odom seq 03 full: MULLS-LO with and without the elevation correction",
+    "question": "Does the MULLS-LO reimplementation (--mulls-lo, KITTI urban profile) reproduce the official MULLS code and the paper's Table II MULLS-LO values?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_03_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_03_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "mulls",
+    "primary_method": "MULLS"
+  },
+  "variants": [
+    {
+      "id": "mulls_lo",
+      "label": "MULLS-LO (KITTI urban profile) on raw scans",
+      "design_style": "reference",
+      "intent": "Ground filter, PCA pillar/facade classification and multi-metric linear least-squares ICP as in the paper's KITTI profile (papers/mulls/README.md).",
+      "args": [
+        "--mulls-lo"
+      ]
+    },
+    {
+      "id": "mulls_lo_elevation",
+      "label": "MULLS-LO + 0.195 deg vertical-angle correction",
+      "design_style": "paper_input",
+      "intent": "Same pipeline with the profile's 0.195 deg HDL-64E vertical-angle calibration, as the official MULLS KITTI configuration.",
+      "args": [
+        "--mulls-lo",
+        "--input-vertical-angle-correction-deg",
+        "0.195"
+      ]
+    }
+  ]
+}

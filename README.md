@@ -124,12 +124,12 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 | LF-GICP | **0.82%** <sub>(9 m)</sub> | 0.89% <sub>(33 m)</sub> | **0.51%** <sub>(6 m)</sub> | 0.54% <sub>(1 m)</sub> | 1.35% <sub>(16 m)</sub> |
 | LeGO-LOAM | 0.84% <sub>(13 m)</sub> | **0.88%** <sub>(42 m)</sub> | 0.56% <sub>(6 m)</sub> | **0.53%** <sub>(3 m)</sub> | 1.38% <sub>(18 m)</sub> |
 | A-LOAM | 0.89% <sub>(12 m)</sub> | 0.92% <sub>(50 m)</sub> | 0.53% <sub>(5 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.39% <sub>(18 m)</sub> |
-| KISS-ICP | 0.87% <sub>(14 m)</sub> | 0.92% <sub>(35 m)</sub> | 0.67% <sub>(5 m)</sub> | 0.60% <sub>(1 m)</sub> | **1.33%** <sub>(22 m)</sub> |
+| KISS-ICP | 0.87% <sub>(14 m)</sub> | 0.92% <sub>(35 m)</sub> | 0.67% <sub>(5 m)</sub> | 0.60% <sub>(1 m)</sub> | 1.33% <sub>(22 m)</sub> |
 | F-LOAM | 0.92% <sub>(10 m)</sub> | 0.94% <sub>(52 m)</sub> | 0.54% <sub>(6 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.40% <sub>(20 m)</sub> |
 | CT-ICP | 0.96% <sub>(12 m)</sub> | 0.97% <sub>(46 m)</sub> | 0.71% <sub>(6 m)</sub> | 0.70% <sub>(2 m)</sub> | 1.34% <sub>(31 m)</sub> |
+| MULLS | 0.98% <sub>(16 m)</sub> | 1.02% <sub>(47 m)</sub> | 0.78% <sub>(7 m)</sub> | 0.73% <sub>(2 m)</sub> | **1.32%** <sub>(30 m)</sub> |
 | SuMa | 1.25% <sub>(19 m)</sub> | 1.28% <sub>(52 m)</sub> | 0.99% <sub>(10 m)</sub> | 0.94% <sub>(4 m)</sub> | 1.91% <sub>(19 m)</sub> |
 | L-LO | 1.54% <sub>(16 m)</sub> | 3.97% <sub>(142 m)</sub> | 1.59% <sub>(15 m)</sub> | 1.17% <sub>(3 m)</sub> | 2.05% <sub>(36 m)</sub> |
-| MULLS | 2.54% <sub>(49 m)</sub> | 2.27% <sub>(261 m)</sub> | 1.73% <sub>(20 m)</sub> | 2.64% <sub>(8 m)</sub> | 3.12% <sub>(81 m)</sub> |
 
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
 LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
@@ -249,11 +249,11 @@ optimistic bounds.
 | A-LOAM | 00/02/05/07/08 | 1.01x | near paper (vs LOAM values cited by later papers) |
 | LF-GICP | 00/02/05/07/08 | 0.96x | near paper (no author code) |
 | KISS-ICP | 00/04 | 1.04x | near paper with upstream's KITTI elevation correction and adaptive threshold; the 00-10 average equals the official code's ([details](papers/kiss_icp/README.md#deviations-from-upstream-kiss-icp-130)) |
+| MULLS | 00-10 | 1.12x | near paper with the MULLS-LO reimplementation (`--mulls-lo`, highway profile on 01) on corrected scans; the 00-10 average equals the official code's ([details](papers/mulls/README.md)) |
 | CT-ICP | 00-10 | 1.15x | near paper with the upstream pipeline (`--ct-icp-upstream-mechanics`) on corrected scans; the 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
 | LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
-| MULLS | 00/02/05/07/08 | 7.62x | gap remains (derived variant) |
 
 Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);
 claim wording and audit findings: [`docs/paper_claim.md`](docs/paper_claim.md).
@@ -447,7 +447,7 @@ Full results tree: [`experiments/results/hard_pcl_localization/`](experiments/re
 | **[ISC-LOAM](papers/isc_loam/)** | Derived | Lightweight LOAM with intensity descriptors and F-LOAM/GICP loop graph | - |
 | **[LOAM Livox](papers/loam_livox/)** | Derived | LOAM variant for solid-state LiDAR using pseudo scan lines from azimuth sectors | [Reference](https://github.com/hku-mars/loam_livox) |
 | **[LeGO-LOAM](papers/lego_loam/)** | IROS 2018 | Ground-aware feature extraction for vehicle-oriented LOAM | [Paper](https://ieeexplore.ieee.org/document/8594299) |
-| **[MULLS](papers/mulls/)** | Derived | Multi-metric scan-to-map alignment using edge, plane, and point residuals | - |
+| **[MULLS](papers/mulls/)** | Paper + derived | MULLS-LO (`--mulls-lo`): ground filter, PCA pillar/facade classes, multi-metric linear least-squares ICP; the default is a lighter A-LOAM-feature variant | - |
 | **[BALM2](papers/balm2/)** | T-RO 2022 | Local bundle adjustment over recent keyframes with line and plane residuals | [arXiv](https://arxiv.org/abs/2209.08854) |
 | **[SuMa](papers/suma/)** | RSS 2018 | Dense surfel-based point-to-plane odometry from range-image maps | [GitHub](https://github.com/jbehley/SuMa) |
 | **[DLO](papers/dlo/)** | Derived | Direct keyframe odometry that aligns dense scans to a local GICP map | [GitHub](https://github.com/vectr-ucla/direct_lidar_odometry) |

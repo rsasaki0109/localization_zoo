@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T18:50:35+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -422,15 +422,19 @@ The runner is responsible for:
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/mulls_kitti_raw_0009_nogt_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/mulls_kitti_raw_0061_full_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/mulls_kitti_raw_0061_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
+| MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_00_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_00_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/mulls_kitti_seq_00_full_transfer_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json` |
 | MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_01_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_02_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_02_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/mulls_kitti_seq_02_full_transfer_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json` |
 | MULLS KITTI Odom seq 03 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_03_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_03_full_lo_matrix.json` |
 | MULLS KITTI Odom seq 04 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_04_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_04_full_lo_matrix.json` |
+| MULLS KITTI Odom seq 05 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_05_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_05_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/mulls_kitti_seq_05_full_transfer_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json` |
 | MULLS KITTI Odom seq 06 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_06_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_06_full_lo_matrix.json` |
 | MULLS KITTI Odom seq 07 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_07_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_07_full_lo_matrix.json` |
 | MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/mulls_kitti_seq_07_full_sweep_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json` |
+| MULLS KITTI Odom seq 08 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_08_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_08_full_lo_matrix.json` |
 | MULLS transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/mulls_kitti_seq_08_full_transfer_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json` |
 | MULLS KITTI Odom seq 09 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_09_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_09_full_lo_matrix.json` |
 | MULLS KITTI Odom seq 10 full: MULLS-LO with and without the elevation correction | `ready` | `experiments/mulls_kitti_seq_10_full_lo_matrix.json` | `mulls` | `mulls_lo_elevation` | `experiments/results/mulls_kitti_seq_10_full_lo_matrix.json` |

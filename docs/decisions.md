@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-11T18:50:35+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T20:03:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -4148,6 +4148,17 @@ _Generated at 2026-10-11T18:50:35+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_00_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## MULLS transfer check on KITTI Odom seq 00 full (4541 frames)
 
 - Current default: `fast`.
@@ -4164,6 +4175,17 @@ _Generated at 2026-10-11T18:50:35+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `mulls_lo_elevation`.
 - Reference variants: `mulls_lo`.
 - Aggregate result: `experiments/results/mulls_kitti_seq_01_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## MULLS KITTI Odom seq 02 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_02_full_lo_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -4197,6 +4219,17 @@ _Generated at 2026-10-11T18:50:35+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `mulls_lo_elevation`.
 - Reference variants: `mulls_lo`.
 - Aggregate result: `experiments/results/mulls_kitti_seq_04_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## MULLS KITTI Odom seq 05 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_05_full_lo_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -4247,6 +4280,17 @@ _Generated at 2026-10-11T18:50:35+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS KITTI Odom seq 08 full: MULLS-LO with and without the elevation correction
+
+- Current default: `mulls_lo_elevation`.
+- Reference variants: `mulls_lo`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_08_full_lo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| mulls_lo | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| mulls_lo_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## MULLS transfer check on KITTI Odom seq 08 full (4071 frames)
 

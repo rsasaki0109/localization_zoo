@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T15:41:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T15:46:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -138,6 +138,7 @@ The runner is responsible for:
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
 | CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner | `ready` | `experiments/ct_icp_kitti_seq_00_simplified_corr_matrix.json` | `ct_icp` | `plus_corr_5` | `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json` |
 | CT-ICP seq 00 full: constant-velocity regularization (small weight) | `ready` | `experiments/ct_icp_kitti_seq_00_velocity_reg_matrix.json` | `ct_icp` | `c2f_reference` | `experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json` |
+| CT-ICP KITTI Odom seq 01 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_01_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json` |
 | CT-ICP seq 02 full: corr_dist sweep on bare baseline | `ready` | `experiments/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` | `ct_icp` | `default_reference` | `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` |
 | CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `experiments/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` | `ct_icp` | `corr_5` | `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` |
 | CT-ICP seq 02 full: corr_dist + ms_chol combinations | `ready` | `experiments/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` | `ct_icp` | `ms_chol_corr_5` | `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` |

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-11T15:53:17+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T15:58:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -883,6 +883,17 @@ _Generated at 2026-10-11T15:53:17+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | dense_map50_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | velocity_reg_005 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction
+
+- Current default: `upstream_mechanics_elevation`.
+- Active challengers: `upstream_mechanics`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| upstream_mechanics | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| upstream_mechanics_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 07 full: ms_chol + simplified pattern combo
 

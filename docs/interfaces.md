@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-11T15:53:17+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-11T15:58:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -152,6 +152,7 @@ The runner is responsible for:
 | CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner | `ready` | `experiments/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` | `ct_icp` | `arch_tuned_map_50` | `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` |
 | CT-ICP seq 05 full: map_size on BARE baseline | `ready` | `experiments/ct_icp_kitti_seq_05_map_bare_matrix.json` | `ct_icp` | `bare_map_30` | `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json` |
 | CT-ICP seq 05 full: constant-velocity regularization sweep | `ready` | `experiments/ct_icp_kitti_seq_05_velocity_reg_matrix.json` | `ct_icp` | `velocity_reg_005` | `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json` |
+| CT-ICP KITTI Odom seq 06 full: upstream mechanics with and without the elevation correction | `ready` | `experiments/ct_icp_kitti_seq_06_full_upstream_matrix.json` | `ct_icp` | `upstream_mechanics_elevation` | `experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json` |
 | CT-ICP seq 07 full: ms_chol + simplified pattern combo | `ready` | `experiments/ct_icp_kitti_seq_07_combo_matrix.json` | `ct_icp` | `ms_chol_plus_simplified_a` | `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json` |
 | CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner | `ready` | `experiments/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json` | `ct_icp` | `corr_8` | `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json` |
 | CT-ICP KITTI Odom seq 07 full: elevation correction | `ready` | `experiments/ct_icp_kitti_seq_07_full_elevation_matrix.json` | `ct_icp` | `velocity_reg_01` | `experiments/results/ct_icp_kitti_seq_07_full_elevation_matrix.json` |

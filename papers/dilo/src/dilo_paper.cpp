@@ -358,6 +358,7 @@ Eigen::Matrix4d DiloPaperOdometry::process(const std::vector<Eigen::Vector3d>& s
   frame->pose = previous * prediction;
 
   // Init: register the new frame against every queued frame (Huber).
+  const Eigen::Matrix4d predicted = frame->pose;
   for (int it = 0; it < params_.init_iterations; ++it) {
     Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
     Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
@@ -368,6 +369,16 @@ Eigen::Matrix4d DiloPaperOdometry::process(const std::vector<Eigen::Vector3d>& s
     const Eigen::Matrix<double, 6, 1> d = H.ldlt().solve(-g);
     if (!d.allFinite()) break;
     frame->pose = frame->pose * expPose(d);
+  }
+  {
+    // Guard (not in the paper): an initial estimate far from the
+    // constant-velocity prediction is a failed registration; keep the
+    // prediction instead.
+    const Eigen::Matrix4d dev = inversePose(predicted) * frame->pose;
+    if (!frame->pose.allFinite() || dev.block<3, 1>(0, 3).norm() > params_.max_init_deviation_m ||
+        logSO3(dev.block<3, 3>(0, 0)).norm() > params_.max_init_deviation_rad) {
+      frame->pose = predicted;
+    }
   }
   window_.push_back(frame);
 
@@ -386,7 +397,10 @@ Eigen::Matrix4d DiloPaperOdometry::process(const std::vector<Eigen::Vector3d>& s
           Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
           if (accumulate(*window_[b], *window_[a], T, 1, &H, &g) >= 6) {
             const Eigen::Matrix<double, 6, 1> d = H.ldlt().solve(-g);
-            if (d.allFinite()) T = T * expPose(d);
+            // Guard (not in the paper): skip implausibly large pair steps.
+            if (d.allFinite() && d.tail<3>().norm() < params_.max_pair_step_m &&
+                d.head<3>().norm() < params_.max_pair_step_rad)
+              T = T * expPose(d);
           }
           rel[a][b] = T;
           rel[b][a] = inversePose(T);

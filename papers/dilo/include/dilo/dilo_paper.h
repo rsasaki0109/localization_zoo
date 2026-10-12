@@ -52,6 +52,11 @@ struct DiloPaperParams {
   // eq. 11 (range gradient on pixel-centre rays).
   bool point_gradient_normals = true;
   bool planar_prediction = true;
+  // Guards against failed registrations (not in the paper).
+  double max_init_deviation_m = 1.0;
+  double max_init_deviation_rad = 0.1;
+  double max_pair_step_m = 0.5;
+  double max_pair_step_rad = 0.05;
   double huber_delta = 0.25;
   double tukey_c = 1.0;
 };

@@ -197,8 +197,8 @@ hdl_graph_slam,mcd_ntu_day_02_108,gt-backed,dense,Dense,0.179861,6.514175,experi
 hdl_graph_slam,mcd_tuhh_night_09_108,gt-backed,dense,Dense,1.373137,4.163019,experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json
 imls_slam,kitti_seq_00_full,gt-backed,dense_profile,"IMLS-SLAM, dense profile",17.570868,5.311066,experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json
 imls_slam,kitti_seq_07_full,gt-backed,dense_profile,"IMLS-SLAM, dense profile",3.037946,6.253868,experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json
-inten_loam,kitti_seq_00_full,gt-backed,dense_profile,"InTEn-LOAM, dense profile",430.300683,8.480908,experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json
-inten_loam,kitti_seq_07_full,gt-backed,dense_profile,"InTEn-LOAM, dense profile",138.653885,8.880250,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
+inten_loam,kitti_seq_00_full,gt-backed,paper_odometry_no_intensity,InTEn-LOAM paper pipeline without the intensity residual,17.621800,4.902065,experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json
+inten_loam,kitti_seq_07_full,gt-backed,paper_odometry_no_intensity,InTEn-LOAM paper pipeline without the intensity residual,0.917480,4.662998,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
 isc_loam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.161975,37.004353,experiments/results/isc_loam_hdl_400_reference_matrix.json
 isc_loam,kitti_raw_0009_200,gt-backed,fast,Fast,2.321429,37.613257,experiments/results/isc_loam_kitti_raw_0009_nogt_matrix.json
 isc_loam,kitti_raw_0009_200,gt-backed,fast,Fast,2.321429,35.591566,experiments/results/isc_loam_kitti_raw_0009_matrix.json

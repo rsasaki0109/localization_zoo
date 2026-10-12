@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-12T18:10:19+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T22:19:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -210,8 +210,8 @@ _Generated at 2026-10-12T18:10:19+00:00 by `evaluation/scripts/run_experiment_ma
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 201.185 | 1988293.4 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
-| InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 430.301 | 8.5 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
-| InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 138.654 | 8.9 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 17.210 | 9.4 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 0.917 | 11.1 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
@@ -12991,13 +12991,17 @@ _Generated at 2026-10-12T18:10:19+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| InTEn-LOAM, dense profile | reference | 430.301 | 8.5 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| InTEn-LOAM, dense profile | reference | 495.555 | 9.4 | 51.7 | 4.30 | 4.50 | Keep as reference variant |
+| InTEn-LOAM paper pipeline + 0.2 deg correction | reference | 17.210 | 4.1 | 72.0 | 3.10 | 3.70 | Keep as active challenger |
+| InTEn-LOAM paper pipeline without the correction | ablation | 21.739 | 4.1 | 61.6 | 3.70 | 4.10 | Keep as reference variant |
+| InTEn-LOAM paper pipeline without the intensity residual | ablation | 17.622 | 4.9 | 74.9 | 2.75 | 3.45 | Adopt as current default |
+| InTEn-LOAM paper pipeline, S2S only | ablation | 62.886 | 8.9 | 61.0 | 2.75 | 3.45 | Keep as reference variant |
 
 ### Observations
 
-1. `dense_profile` is the current default for this problem.
-2. `dense_profile` is the fastest observed variant at 8.5 FPS.
-3. `dense_profile` is the most accurate observed variant at 430.301 m ATE.
+1. `paper_odometry_no_intensity` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 9.4 FPS.
+3. `paper_odometry` is the most accurate observed variant at 17.210 m ATE.
 
 ### Variant Notes
 
@@ -13010,7 +13014,51 @@ _Generated at 2026-10-12T18:10:19+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/dense_profile/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=2270 mean_intensity_residual=3.237662
+- Method note: InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=2270 mean_intensity_residual=3.243659
+
+#### `paper_odometry`
+
+- Intent: FEF on the range image (ground lines, angle-based clusters, curvature and intensity features), S2S with re-association every iteration (Alg. 1), S2M on a temporal-voxel-filtered keyframe map (Alg. 2), DOR gating map insertion, cubic B-spline intensity residual, and the 0.2 deg KITTI correction the paper applies (Sec. 4.2.1).
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.2`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1176 s2m=2465 dor points/frame=126
+
+#### `paper_odometry_no_correction`
+
+- Intent: Correction off.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_correction/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_correction/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_correction/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1178 s2m=2480 dor points/frame=126
+
+#### `paper_odometry_no_intensity`
+
+- Intent: Reflector residual off.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --inten-loam-paper-no-intensity --input-vertical-angle-correction-deg 0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_intensity/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --inten-loam-paper-no-intensity --input-vertical-angle-correction-deg 0.2`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_intensity/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_intensity/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=off mapping=on dor=on mean pairs s2s=882 s2m=2237 dor points/frame=126
+
+#### `paper_odometry_no_mapping`
+
+- Intent: S2M, TVF map and DOR off.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --inten-loam-paper-no-mapping --input-vertical-angle-correction-deg 0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_mapping/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --inten-loam-paper-no-mapping --input-vertical-angle-correction-deg 0.2`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_mapping/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_mapping/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=off dor=on mean pairs s2s=1176 s2m=0 dor points/frame=0
 
 
 ## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
@@ -13027,13 +13075,17 @@ _Generated at 2026-10-12T18:10:19+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| InTEn-LOAM, dense profile | reference | 138.654 | 8.9 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| InTEn-LOAM, dense profile | reference | 103.968 | 9.1 | 41.2 | 4.30 | 4.50 | Keep as reference variant |
+| InTEn-LOAM paper pipeline + 0.2 deg correction | reference | 0.922 | 4.2 | 68.4 | 3.10 | 3.70 | Keep as active challenger |
+| InTEn-LOAM paper pipeline without the correction | ablation | 2.271 | 4.1 | 38.7 | 3.70 | 4.10 | Keep as reference variant |
+| InTEn-LOAM paper pipeline without the intensity residual | ablation | 0.917 | 4.7 | 70.9 | 2.75 | 3.45 | Adopt as current default |
+| InTEn-LOAM paper pipeline, S2S only | ablation | 10.598 | 11.1 | 54.3 | 2.75 | 3.45 | Keep as reference variant |
 
 ### Observations
 
-1. `dense_profile` is the current default for this problem.
-2. `dense_profile` is the fastest observed variant at 8.9 FPS.
-3. `dense_profile` is the most accurate observed variant at 138.654 m ATE.
+1. `paper_odometry_no_intensity` is the current default for this problem.
+2. `paper_odometry_no_mapping` is the fastest observed variant at 11.1 FPS.
+3. `paper_odometry_no_intensity` is the most accurate observed variant at 0.917 m ATE.
 
 ### Variant Notes
 
@@ -13046,7 +13098,51 @@ _Generated at 2026-10-12T18:10:19+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/dense_profile/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=550 mean_intensity_residual=3.432910
+- Method note: InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=550 mean_intensity_residual=3.395556
+
+#### `paper_odometry`
+
+- Intent: FEF on the range image (ground lines, angle-based clusters, curvature and intensity features), S2S with re-association every iteration (Alg. 1), S2M on a temporal-voxel-filtered keyframe map (Alg. 2), DOR gating map insertion, cubic B-spline intensity residual, and the 0.2 deg KITTI correction the paper applies (Sec. 4.2.1).
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.2`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1176 s2m=2469 dor points/frame=146
+
+#### `paper_odometry_no_correction`
+
+- Intent: Correction off.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_correction/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_correction/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_correction/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1181 s2m=2483 dor points/frame=147
+
+#### `paper_odometry_no_intensity`
+
+- Intent: Reflector residual off.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --inten-loam-paper-no-intensity --input-vertical-angle-correction-deg 0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_intensity/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --inten-loam-paper-no-intensity --input-vertical-angle-correction-deg 0.2`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_intensity/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_intensity/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=off mapping=on dor=on mean pairs s2s=881 s2m=2229 dor points/frame=143
+
+#### `paper_odometry_no_mapping`
+
+- Intent: S2M, TVF map and DOR off.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --inten-loam-paper-no-mapping --input-vertical-angle-correction-deg 0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_mapping/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --inten-loam-paper-no-mapping --input-vertical-angle-correction-deg 0.2`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_mapping/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_mapping/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=off dor=on mean pairs s2s=1176 s2m=0 dor points/frame=0
 
 
 ## ISC-LOAM on the public HDL-400 reference window

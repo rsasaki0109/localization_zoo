@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-12T18:10:52+00:00
+> Generated: 2026-10-12T22:20:15+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -729,11 +729,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00-10)
 **Reported metric**: KITTI RTE translation [%] (KITTI RTE (%))
 **Hardware**: None
-**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 49.769 vs 0.52 (95.71x); seq 07 56.407 vs 0.34 (165.90x); geometric mean 126.01x. Repo values are the best variant of experiments/results/inten_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Numeric comparison**: Fails on KITTI: 50-56 % official RTE on 00/07 (paper 0.52/0.34 %) — seq 00 49.769 vs 0.52 (95.71x); seq 07 56.407 vs 0.34 (165.90x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: The reimplementation does not track on KITTI (documented in papers/inten_loam/README.md: ~63 % RPE with the full pipeline, divergence when TVF, DOR or mapping are dropped). It is listed so the failure stays visible, not as a reproduction.
-**Next step**: Debug the KITTI pipeline (feature extraction on unordered KITTI scans, mapping) before any comparison is meaningful.
+**Repo scope**: Paper reimplementation (no author code) with the paper pipeline — From-paper reimplementation in the shared harness; see the method README.
+**Current claim**: Gap remains on KITTI Odometry 00/07 (paper pipeline) — --inten-loam-paper-odometry follows the paper (FEF on the range image, S2S with re-association every iteration, S2M on a temporal-voxel-filtered keyframe map, DOR gating map insertion, B-spline intensity residual, 0.2 deg correction). Official KITTI RTE, no GT seed: seq 07 0.368 vs 0.34 (1.08x), seq 00 0.816 vs 0.52 (1.57x); geometric mean 1.30x. The plane map voxel (0.2 m) was chosen on seq 07; seq 00 is held out. The earlier pipeline scored 42-48 % (it associated untransformed points once and removed ~40 % of the input in DOR).
+**Numeric comparison**: Same metric, 1.30x on 00/07 (07 1.08x, 00 held out 1.57x) — paper_odometry: seq 00 0.816 vs 0.52 (1.57x); seq 07 0.368 vs 0.34 (1.08x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Seq 00 (held out) stays at 1.57x; free parameters the paper leaves open (ground fit, feature counts, map voxels, kernel) were set on seq 07 only. No motion compensation (KITTI scans are used as given).
+**Next step**: Look at seq 00 where the drift accumulates; run the remaining KITTI sequences.
 
 ### Paper-Reported Values
 
@@ -755,8 +755,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
-| KITTI | InTEn-LOAM, dense profile | 430.301 | 66.456 | 0.387374 | 8.48 |
-| KITTI | InTEn-LOAM, dense profile | 138.654 | 67.650 | 0.605218 | 8.88 |
+| KITTI | InTEn-LOAM paper pipeline without the intensity residual | 17.622 | 0.820 | 0.005815 | 4.90 |
+| KITTI | InTEn-LOAM paper pipeline without the intensity residual | 0.917 | 0.495 | 0.004162 | 4.66 |
 
 **Notes**: Paper average 0.54 % (frame-weighted). Includes scan-to-local-map refinement, no loop closure. Values taken from arXiv v1, not checked against the published version. Values read from the paper PDF on 2026-10-12.
 

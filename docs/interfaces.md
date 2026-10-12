@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-12T18:10:19+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T22:19:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -285,8 +285,8 @@ The runner is responsible for:
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json` | `imu_dead_reckoning` | `zupt_kitti_0009` | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` | `imu_dead_reckoning` | `nhc_zupt_full` | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json` | `imu_dead_reckoning` | `zupt` | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
-| InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `experiments/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` | `inten_loam` | `dense_profile` | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
-| InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `experiments/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` | `inten_loam` | `dense_profile` | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `experiments/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` | `inten_loam` | `paper_odometry_no_intensity` | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `experiments/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` | `inten_loam` | `paper_odometry_no_intensity` | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `experiments/isc_loam_hdl_400_reference_matrix.json` | `isc_loam` | `fast` | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/isc_loam_kitti_raw_0009_full_matrix.json` | `isc_loam` | `fast` | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/isc_loam_kitti_raw_0009_matrix.json` | `isc_loam` | `fast` | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |

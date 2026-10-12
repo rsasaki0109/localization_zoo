@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-12T18:10:25+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-12T22:19:50+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -221,8 +221,8 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | hdl_graph_slam | `mcd_tuhh_night_09_108` | gt-backed | `dense` | 1.373 | 4.2 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
 | imls_slam | `kitti_seq_00_full` | gt-backed | `dense_profile` | 17.571 | 5.3 | `experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json` |
 | imls_slam | `kitti_seq_07_full` | gt-backed | `dense_profile` | 3.038 | 6.3 | `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` |
-| inten_loam | `kitti_seq_00_full` | gt-backed | `dense_profile` | 430.301 | 8.5 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
-| inten_loam | `kitti_seq_07_full` | gt-backed | `dense_profile` | 138.654 | 8.9 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_00_full` | gt-backed | `paper_odometry_no_intensity` | 17.622 | 4.9 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_07_full` | gt-backed | `paper_odometry_no_intensity` | 0.917 | 4.7 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | isc_loam | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.162 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | isc_loam | `kitti_raw_0009_200` | gt-backed | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
 | isc_loam | `kitti_raw_0009_200` | gt-backed | `fast` | 2.321 | 37.6 | `experiments/results/isc_loam_kitti_raw_0009_nogt_matrix.json` |

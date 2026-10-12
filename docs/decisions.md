@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-12T00:14:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T00:18:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -3772,6 +3772,20 @@ _Generated at 2026-10-12T00:14:36+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LiTAMIN2 KITTI Odom seq 05 full: the paper's odometry pipeline
+
+- Current default: `paper_icp`.
+- Active challengers: `paper_icp_first`.
+- Reference variants: `paper_icp_cov`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length)
 

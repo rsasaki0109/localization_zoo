@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-12T00:14:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T00:18:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -389,6 +389,7 @@ The runner is responsible for:
 | LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq) | `ready` | `experiments/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 03 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_03_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 04 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_04_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json` |
+| LiTAMIN2 KITTI Odom seq 05 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_05_full_paper_matrix.json` | `litamin2` | `paper_icp` | `experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length) | `ready` | `experiments/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` | `litamin2` | `fast_seeded_reference` | `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 06 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_06_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation | `ready` | `experiments/litamin2_kitti_seq_07_full_elevation_matrix.json` | `litamin2` | `coarse_to_fine_3_2_1_elevation` | `experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json` |

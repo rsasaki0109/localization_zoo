@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-12T00:23:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -383,9 +383,11 @@ The runner is responsible for:
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/litamin2_kitti_raw_0061_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/litamin2_kitti_seq_00_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |
 | LiTAMIN2 paper-comparable on KITTI Odometry 00 (full) | `ready` | `experiments/litamin2_kitti_seq_00_full_paper_comp_matrix.json` | `litamin2` | `fast_cov_no_gt_seed` | `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json` |
+| LiTAMIN2 KITTI Odom seq 00 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_00_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_00_full_paper_matrix.json` |
 | LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full) | `ready` | `experiments/litamin2_kitti_seq_00_full_tuned_matrix.json` | `litamin2` | `tuned_voxel1_iter12` | `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json` |
 | LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed | `ready` | `experiments/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` | `litamin2` | `tuned_voxel2_iter12_seeded` | `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 01 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_01_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_01_full_paper_matrix.json` |
+| LiTAMIN2 KITTI Odom seq 02 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_02_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_02_full_paper_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq) | `ready` | `experiments/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 03 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_03_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 04 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_04_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json` |

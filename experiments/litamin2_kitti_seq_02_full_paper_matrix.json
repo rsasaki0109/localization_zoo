@@ -35,10 +35,23 @@
       ]
     },
     {
+      "id": "paper_icp_first",
+      "label": "LiTAMIN2 paper odometry, ICP only, scan-distribution map",
+      "design_style": "reference",
+      "intent": "Paper pipeline with the ICP term only (Table III row 'LiTAMIN2 (ICP)'), against the same first-scan-distribution map as paper_icp_cov.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry",
+        "--litamin2-icp-only",
+        "--litamin2-paper-map-mode",
+        "first"
+      ]
+    },
+    {
       "id": "paper_icp",
       "label": "LiTAMIN2 paper odometry, ICP only, aggregated map",
-      "design_style": "reference",
-      "intent": "Paper pipeline with the ICP term only (Table III row 'LiTAMIN2 (ICP)'); map voxels aggregate every registered point.",
+      "design_style": "ablation",
+      "intent": "ICP term only against map voxels that aggregate every registered point; diverges on the seq 04 highway.",
       "args": [
         "--no-gt-seed",
         "--litamin2-paper-odometry",
@@ -53,19 +66,6 @@
       "args": [
         "--no-gt-seed",
         "--litamin2-paper-odometry"
-      ]
-    },
-    {
-      "id": "paper_icp_first",
-      "label": "LiTAMIN2 paper odometry, ICP only, scan-distribution map",
-      "design_style": "ablation",
-      "intent": "ICP term only against the first-scan-distribution map.",
-      "args": [
-        "--no-gt-seed",
-        "--litamin2-paper-odometry",
-        "--litamin2-icp-only",
-        "--litamin2-paper-map-mode",
-        "first"
       ]
     }
   ]

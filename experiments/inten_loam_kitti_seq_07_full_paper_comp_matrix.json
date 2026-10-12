@@ -31,6 +31,62 @@
         "--no-gt-seed",
         "--inten-loam-dense-profile"
       ]
+    },
+    {
+      "id": "paper_odometry",
+      "label": "InTEn-LOAM paper pipeline + 0.2 deg correction",
+      "design_style": "reference",
+      "intent": "FEF on the range image (ground lines, angle-based clusters, curvature and intensity features), S2S with re-association every iteration (Alg. 1), S2M on a temporal-voxel-filtered keyframe map (Alg. 2), DOR gating map insertion, cubic B-spline intensity residual, and the 0.2 deg KITTI correction the paper applies (Sec. 4.2.1).",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.2"
+      ]
+    },
+    {
+      "id": "paper_odometry_no_correction",
+      "label": "InTEn-LOAM paper pipeline without the correction",
+      "design_style": "ablation",
+      "intent": "Correction off.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120"
+      ]
+    },
+    {
+      "id": "paper_odometry_no_intensity",
+      "label": "InTEn-LOAM paper pipeline without the intensity residual",
+      "design_style": "ablation",
+      "intent": "Reflector residual off.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--inten-loam-paper-no-intensity",
+        "--input-vertical-angle-correction-deg",
+        "0.2"
+      ]
+    },
+    {
+      "id": "paper_odometry_no_mapping",
+      "label": "InTEn-LOAM paper pipeline, S2S only",
+      "design_style": "ablation",
+      "intent": "S2M, TVF map and DOR off.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--inten-loam-paper-no-mapping",
+        "--input-vertical-angle-correction-deg",
+        "0.2"
+      ]
     }
   ]
 }

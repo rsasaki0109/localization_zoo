@@ -85,6 +85,20 @@ TEST(InTenLoam, FactorsUseEigenQuaternionLayout) {
   EXPECT_NEAR(residual[2], 0.0, 1e-12);
 }
 
+TEST(InTenLoam, EdgeFactorIsThePointToLineDistance) {
+  const double identity_q[4] = {0.0, 0.0, 0.0, 1.0};
+  const double zero_t[3] = {0.0, 0.0, 0.0};
+  const Eigen::Vector3d a(1.0, 2.0, 0.5), b(2.0, 3.5, 1.5);  // inclined line
+  double residual[3] = {};
+  EdgeFactor on_line(a + 0.3 * (b - a), a, b, 1.0, 1.0);
+  ASSERT_TRUE(on_line(identity_q, zero_t, residual));
+  EXPECT_NEAR(Eigen::Vector3d(residual[0], residual[1], residual[2]).norm(), 0.0, 1e-12);
+  const Eigen::Vector3d off = (b - a).cross(Eigen::Vector3d::UnitZ()).normalized();
+  EdgeFactor beside(a + 0.3 * (b - a) + 0.4 * off, a, b, 1.0, 1.0);
+  ASSERT_TRUE(beside(identity_q, zero_t, residual));
+  EXPECT_NEAR(Eigen::Vector3d(residual[0], residual[1], residual[2]).norm(), 0.4, 1e-9);
+}
+
 TEST(InTenLoam, TracksShortSequence) {
   std::mt19937 rng(3);
   InTenLoam pipeline;

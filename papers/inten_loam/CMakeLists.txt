@@ -2,6 +2,7 @@ find_package(Ceres REQUIRED)
 
 add_library(inten_loam
   src/inten_loam.cpp
+  src/inten_loam_paper.cpp
 )
 
 target_include_directories(inten_loam PUBLIC
@@ -20,3 +21,7 @@ target_link_libraries(inten_loam PUBLIC
 add_executable(test_inten_loam test/test_inten_loam.cpp)
 target_link_libraries(test_inten_loam PRIVATE inten_loam GTest::gtest_main)
 add_test(NAME test_inten_loam COMMAND test_inten_loam)
+
+add_executable(test_inten_loam_paper test/test_inten_loam_paper.cpp)
+target_link_libraries(test_inten_loam_paper PRIVATE inten_loam GTest::gtest_main)
+add_test(NAME test_inten_loam_paper COMMAND test_inten_loam_paper)

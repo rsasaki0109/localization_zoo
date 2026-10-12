@@ -28,6 +28,7 @@
 #include "m_gclo/m_gclo.h"
 #include "quadric_lo/quadric_lo.h"
 #include "dilo/dilo.h"
+#include "dilo/dilo_paper.h"
 #include "nhc_lio/nhc_lio.h"
 #include "student_t_lo/student_t_lo.h"
 #include "spectral_lo/spectral_lo.h"
@@ -2511,6 +2512,12 @@ struct DiloDogfoodingOptions {
   double robust_scale = 0.5;
   double keyframe_translation = 2.0;
   double keyframe_rotation_deg = 10.0;
+  // --dilo-paper-odometry (see papers/dilo/include/dilo/dilo_paper.h).
+  bool paper_odometry = false;
+  int paper_window = 10;
+  int paper_update_iterations = 5;
+  int paper_keypoints_per_list = 100;
+  bool paper_causal_output = false;
 };
 
 struct NhcLioDogfoodingOptions {
@@ -8154,10 +8161,51 @@ MethodResult runQuadricLo(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
+                          const std::vector<Eigen::Matrix4d>& gt,
+                          const DiloDogfoodingOptions& options) {
+  using namespace localization_zoo::dilo;
+  MethodResult res;
+  res.name = "DiLO";
+  DiloPaperParams params;
+  params.window = options.paper_window;
+  params.update_iterations = options.paper_update_iterations;
+  params.keypoints_per_list = options.paper_keypoints_per_list;
+  DiloPaperOdometry odometry(params);
+  const Eigen::Matrix4d anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  std::vector<Eigen::Matrix4d> causal;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    const auto points = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    causal.push_back(odometry.process(points));
+    if (i % 50 == 0) std::cerr << "\r  [DiLO paper] " << i << "/" << pcd_dirs.size();
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  std::vector<Eigen::Matrix4d> poses;
+  if (options.paper_causal_output) {
+    poses = causal;
+  } else {
+    poses = odometry.finalizedPoses();
+    for (const auto& p : odometry.windowPoses()) poses.push_back(p);
+  }
+  for (const auto& p : poses) res.poses.push_back(anchor * p);
+  std::ostringstream note;
+  note << "DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, "
+       << "11 planarity-weighted key-point lists x " << params.keypoints_per_list << ", window of "
+       << params.window << " frames, " << params.update_iterations
+       << " pairwise-averaging iterations; plane key points only); "
+       << (options.paper_causal_output ? "causal poses" : "poses after leaving the window")
+       << "; no GT seed.";
+  res.note = note.str();
+  return res;
+}
+
 MethodResult runDilo(const std::vector<std::string>& pcd_dirs,
                      const std::vector<Eigen::Matrix4d>& gt,
                      const DiloDogfoodingOptions& options) {
   using namespace localization_zoo::dilo;
+  if (options.paper_odometry) return runDiloPaper(pcd_dirs, gt, options);
   MethodResult res;
   res.name = "DiLO";
 
@@ -14557,6 +14605,26 @@ int main(int argc, char** argv) {
       continue;
     }
     // --- dilo ---
+    if (arg == "--dilo-paper-odometry") {
+      dilo_options.paper_odometry = true;
+      continue;
+    }
+    if (arg == "--dilo-paper-window" && i + 1 < argc) {
+      dilo_options.paper_window = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-update-iterations" && i + 1 < argc) {
+      dilo_options.paper_update_iterations = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-keypoints" && i + 1 < argc) {
+      dilo_options.paper_keypoints_per_list = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-causal") {
+      dilo_options.paper_causal_output = true;
+      continue;
+    }
     if (arg == "--dilo-fast-profile") {
       dilo_options.source_voxel_size = 0.0;  // SRI は全点群から
       dilo_options.max_source_points = 200000;

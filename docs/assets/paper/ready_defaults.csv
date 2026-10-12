@@ -133,8 +133,8 @@ dlo,kitti_raw_0061_full,gt-backed,fast,Fast,7.369901,10.593163,experiments/resul
 dlo,mcd_kth_day_06_108,gt-backed,fast,Fast,6.080595,10.720566,experiments/results/dlo_mcd_kth_day_06_matrix.json
 dlo,mcd_ntu_day_02_108,gt-backed,kitti_default,KITTI default,0.016238,10.157369,experiments/results/dlo_mcd_ntu_day_02_matrix.json
 dlo,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.344414,13.920336,experiments/results/dlo_mcd_tuhh_night_09_matrix.json
-elo,kitti_seq_00_full,gt-backed,fast_profile,"ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV)",22.504373,4.264135,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
-elo,kitti_seq_07_full,gt-backed,fast_profile,"ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV)",3.536384,4.392098,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
+elo,kitti_seq_00_full,gt-backed,dense_elevation_paper_normals,ELO dense profile + 0.195 deg correction + the paper's normal patch size,12.632198,3.108108,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
+elo,kitti_seq_07_full,gt-backed,dense_elevation_paper_normals,ELO dense profile + 0.195 deg correction + the paper's normal patch size,1.418131,3.253754,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
 fast_lio2,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.114415,9.128332,experiments/results/fast_lio2_hdl_400_reference_matrix.json
 fast_lio2,kitti_raw_0009_200,gt-backed,fast,Fast,2.328348,12.674145,experiments/results/fast_lio2_kitti_raw_0009_nogt_matrix.json
 fast_lio2,kitti_raw_0009_200,gt-backed,fast,Fast,2.328348,12.286631,experiments/results/fast_lio2_kitti_raw_0009_matrix.json

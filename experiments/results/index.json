@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T04:24:23+00:00",
+  "generated_at": "2026-10-12T11:40:02+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1223,7 +1223,7 @@
       "blocker": "",
       "manifest_path": "experiments/elo_kitti_seq_00_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json",
-      "current_default": "fast_profile"
+      "current_default": "dense_elevation_paper_normals"
     },
     {
       "problem_id": "elo_kitti_seq_07_full_paper_comp",
@@ -1232,7 +1232,7 @@
       "blocker": "",
       "manifest_path": "experiments/elo_kitti_seq_07_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json",
-      "current_default": "fast_profile"
+      "current_default": "dense_elevation_paper_normals"
     },
     {
       "problem_id": "fast_lio2_hdl_400_reference",

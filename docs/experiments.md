@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T11:40:02+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -121,8 +121,8 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `experiments/results/ct_lio_public_readiness_matrix.json` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.488 | 26.0 | `experiments/results/ct_lio_reference_profile_matrix.json` |
-| DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `default` | 38.742 | 42.1 | `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json` |
-| DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 7.161 | 39.1 | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
+| DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `default` | 14.169 | 42.1 | `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json` |
+| DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 2.532 | 39.1 | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
 | DLIO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.239 | 12.1 | `experiments/results/dlio_hdl_400_reference_matrix.json` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.3 | `experiments/results/dlio_kitti_raw_0009_matrix.json` |
@@ -141,8 +141,8 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 | DLO throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.070 | 10.7 | `experiments/results/dlo_mcd_kth_day_06_matrix.json` |
 | DLO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.016 | 16.6 | `experiments/results/dlo_mcd_ntu_day_02_matrix.json` |
 | DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.9 | `experiments/results/dlo_mcd_tuhh_night_09_matrix.json` |
-| ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `fast_profile` | 21.957 | 4.3 | `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json` |
-| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `fast_profile` | 2.891 | 4.4 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals` | 12.632 | 4.3 | `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals` | 1.418 | 4.4 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
 | FAST-LIO2 on the public HDL-400 reference window | `ready` | `fast` | 0.104 | 9.1 | `experiments/results/fast_lio2_hdl_400_reference_matrix.json` |
 | FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.199 | 13.5 | `experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json` |
 | FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.328 | 12.3 | `experiments/results/fast_lio2_kitti_raw_0009_matrix.json` |
@@ -204,8 +204,8 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 | HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 5.057 | 13.9 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
 | HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `dense` | 0.180 | 21.9 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
 | HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `dense` | 1.373 | 14.5 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
-| IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 17.571 | 5.3 | `experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json` |
-| IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 3.038 | 6.3 | `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` |
+| IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 7.123 | 5.3 | `experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json` |
+| IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 0.693 | 6.3 | `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `nhc_zupt_kitti_0009_full` | 1067.301 | 2692976.4 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 201.185 | 1988293.4 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
@@ -7427,14 +7427,17 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| DiLO, default parameters | reference | 38.742 | 42.1 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| DiLO, dense profile | reference | 47.821 | 36.4 | 83.8 | 4.30 | 4.50 | Keep as reference variant |
+| DiLO, default parameters | reference | 38.742 | 42.1 | 68.3 | 4.65 | 4.75 | Adopt as current default |
+| DiLO, dense profile | reference | 47.821 | 36.4 | 58.1 | 4.30 | 4.50 | Keep as reference variant |
+| DiLO paper odometry (plane key points, 10-frame window, pairwise averaging) | reference | 15.682 | 4.4 | 50.4 | 4.30 | 4.50 | Keep as reference variant |
+| DiLO paper odometry + 0.22 deg beam correction | reference | 14.169 | 4.3 | 55.1 | 3.70 | 4.10 | Keep as reference variant |
+| DiLO paper odometry without the window re-estimation | ablation | 71.652 | 5.6 | 16.6 | 3.70 | 4.10 | Keep as reference variant |
 
 ### Observations
 
 1. `default` is the current default for this problem.
 2. `default` is the fastest observed variant at 42.1 FPS.
-3. `default` is the most accurate observed variant at 38.742 m ATE.
+3. `paper_odometry_elevation` is the most accurate observed variant at 14.169 m ATE.
 
 ### Variant Notes
 
@@ -7460,6 +7463,39 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image projective data association (no NN search) + point-to-plane GN; constant-velocity prior, no GT seed. lookup_radius=1 lookup_max_dist=1.50 keyframes=1589
 
+#### `paper_odometry`
+
+- Intent: Sec. 3 of the paper without edge key points: 192x2048 sin-elevation range image with vertical fill, Farid-filter normals, eleven planarity-weighted key-point lists, eq. 18 residual, Algorithm 1 with N = 10 and 5 update iterations. Compare with DiLO-plane in Table 1.
+- CLI args: `--no-gt-seed --dilo-paper-odometry`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry/summary.json --no-gt-seed --dilo-paper-odometry`
+- Summary: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
+#### `paper_odometry_elevation`
+
+- Intent: paper_odometry on scans with the KITTI vertical-angle correction (the paper does not mention it).
+- CLI args: `--no-gt-seed --dilo-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --dilo-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
+#### `paper_odometry_no_window_update`
+
+- Intent: Only the Huber registration of each new frame to the last 10 frames (Algorithm 1 without the update loop).
+- CLI args: `--no-gt-seed --dilo-paper-odometry --dilo-paper-update-iterations 0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_window_update/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-update-iterations 0`
+- Summary: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_window_update/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_no_window_update/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 0 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
 
 ## DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -7475,14 +7511,17 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| DiLO, default parameters | reference | 7.161 | 39.1 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| DiLO, dense profile | reference | 7.650 | 35.6 | 92.3 | 4.30 | 4.50 | Keep as active challenger |
+| DiLO, default parameters | reference | 7.161 | 39.1 | 67.7 | 4.65 | 4.75 | Adopt as current default |
+| DiLO, dense profile | reference | 7.650 | 35.6 | 62.1 | 4.30 | 4.50 | Keep as active challenger |
+| DiLO paper odometry (plane key points, 10-frame window, pairwise averaging) | reference | 2.672 | 4.2 | 52.8 | 4.30 | 4.50 | Keep as reference variant |
+| DiLO paper odometry + 0.22 deg beam correction | reference | 2.532 | 4.2 | 55.3 | 3.70 | 4.10 | Keep as reference variant |
+| DiLO paper odometry without the window re-estimation | ablation | 3.163 | 5.3 | 46.8 | 3.70 | 4.10 | Keep as reference variant |
 
 ### Observations
 
 1. `default` is the current default for this problem.
 2. `default` is the fastest observed variant at 39.1 FPS.
-3. `default` is the most accurate observed variant at 7.161 m ATE.
+3. `paper_odometry_elevation` is the most accurate observed variant at 2.532 m ATE.
 
 ### Variant Notes
 
@@ -7507,6 +7546,39 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image projective data association (no NN search) + point-to-plane GN; constant-velocity prior, no GT seed. lookup_radius=1 lookup_max_dist=1.50 keyframes=303
+
+#### `paper_odometry`
+
+- Intent: Sec. 3 of the paper without edge key points: 192x2048 sin-elevation range image with vertical fill, Farid-filter normals, eleven planarity-weighted key-point lists, eq. 18 residual, Algorithm 1 with N = 10 and 5 update iterations. Compare with DiLO-plane in Table 1.
+- CLI args: `--no-gt-seed --dilo-paper-odometry`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry/summary.json --no-gt-seed --dilo-paper-odometry`
+- Summary: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
+#### `paper_odometry_elevation`
+
+- Intent: paper_odometry on scans with the KITTI vertical-angle correction (the paper does not mention it).
+- CLI args: `--no-gt-seed --dilo-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --dilo-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
+#### `paper_odometry_no_window_update`
+
+- Intent: Only the Huber registration of each new frame to the last 10 frames (Algorithm 1 without the update loop).
+- CLI args: `--no-gt-seed --dilo-paper-odometry --dilo-paper-update-iterations 0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_window_update/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-update-iterations 0`
+- Summary: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_window_update/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_no_window_update/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 0 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
 
 
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
@@ -8603,14 +8675,17 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV) | reference | 22.504 | 4.3 | 98.8 | 4.30 | 4.50 | Adopt as current default |
-| ELO, dense profile | reference | 21.957 | 2.3 | 77.2 | 4.30 | 4.50 | Keep as reference variant |
+| ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV) | reference | 22.504 | 4.3 | 78.1 | 4.30 | 4.50 | Keep as active challenger |
+| ELO, dense profile | reference | 21.957 | 2.3 | 56.0 | 4.30 | 4.50 | Keep as reference variant |
+| ELO dense profile + 0.195 deg correction + the paper's normal patch size | reference | 12.632 | 3.1 | 86.4 | 3.35 | 3.85 | Adopt as current default |
+| ELO dense profile + 0.195 deg correction | ablation | 20.626 | 2.1 | 55.4 | 3.70 | 4.10 | Keep as reference variant |
+| ELO paper profile (all paper mechanics as read) + 0.195 deg correction | ablation | 21.919 | 1.6 | 47.1 | 3.70 | 4.10 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_profile` is the current default for this problem.
+1. `dense_elevation_paper_normals` is the current default for this problem.
 2. `fast_profile` is the fastest observed variant at 4.3 FPS.
-3. `dense_profile` is the most accurate observed variant at 21.957 m ATE.
+3. `dense_elevation_paper_normals` is the most accurate observed variant at 12.632 m ATE.
 
 ### Variant Notes
 
@@ -8636,6 +8711,39 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.027 g=9848 ng=3012
 
+#### `dense_elevation_paper_normals`
+
+- Intent: The two paper mechanics that help on seq 07: the 0.195 deg vertical-angle correction the paper applies (Sec. IV-A) and the range-adaptive normal patch read as the full patch size (eq. 12; the default uses it as the half-width).
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_elevation_paper_normals/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch`
+- Summary: `experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_elevation_paper_normals/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_elevation_paper_normals/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.029 g=8541 ng=7923 w=0.00
+
+#### `dense_elevation`
+
+- Intent: Correction only.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_elevation/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_elevation/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=9623 ng=2948 w=0.00
+
+#### `paper_profile_elevation`
+
+- Intent: Raw scans, count-normalised fusion w = 0.7 w2, two-sided ground test, full-size normal patch, 0.1 m single-vertex BEV, single-pixel association, plain Gauss-Newton; worse than the selective variant on seq 07 (see papers/elo/README.md).
+- CLI args: `--no-gt-seed --elo-paper-profile --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/paper_profile_elevation/summary.json --no-gt-seed --elo-paper-profile --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/paper_profile_elevation/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/paper_profile_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: [paper profile] ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=23502 ng=39110 w=0.51
+
 
 ## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -8651,14 +8759,17 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV) | reference | 3.536 | 4.4 | 90.9 | 4.30 | 4.50 | Adopt as current default |
-| ELO, dense profile | reference | 2.891 | 2.4 | 77.8 | 4.30 | 4.50 | Keep as reference variant |
+| ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV) | reference | 3.536 | 4.4 | 70.0 | 4.30 | 4.50 | Keep as reference variant |
+| ELO, dense profile | reference | 2.891 | 2.4 | 52.3 | 4.30 | 4.50 | Keep as reference variant |
+| ELO dense profile + 0.195 deg correction + the paper's normal patch size | reference | 1.418 | 3.3 | 87.0 | 3.35 | 3.85 | Adopt as current default |
+| ELO dense profile + 0.195 deg correction | ablation | 2.953 | 2.3 | 49.9 | 3.70 | 4.10 | Keep as reference variant |
+| ELO paper profile (all paper mechanics as read) + 0.195 deg correction | ablation | 3.337 | 1.6 | 39.2 | 3.70 | 4.10 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_profile` is the current default for this problem.
+1. `dense_elevation_paper_normals` is the current default for this problem.
 2. `fast_profile` is the fastest observed variant at 4.4 FPS.
-3. `dense_profile` is the most accurate observed variant at 2.891 m ATE.
+3. `dense_elevation_paper_normals` is the most accurate observed variant at 1.418 m ATE.
 
 ### Variant Notes
 
@@ -8683,6 +8794,39 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.024 g=9648 ng=3095
+
+#### `dense_elevation_paper_normals`
+
+- Intent: The two paper mechanics that help on seq 07: the 0.195 deg vertical-angle correction the paper applies (Sec. IV-A) and the range-adaptive normal patch read as the full patch size (eq. 12; the default uses it as the half-width).
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_elevation_paper_normals/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch`
+- Summary: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_elevation_paper_normals/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_elevation_paper_normals/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.026 g=8396 ng=7405 w=0.00
+
+#### `dense_elevation`
+
+- Intent: Correction only.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_elevation/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_elevation/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.023 g=9393 ng=3010 w=0.00
+
+#### `paper_profile_elevation`
+
+- Intent: Raw scans, count-normalised fusion w = 0.7 w2, two-sided ground test, full-size normal patch, 0.1 m single-vertex BEV, single-pixel association, plain Gauss-Newton; worse than the selective variant on seq 07 (see papers/elo/README.md).
+- CLI args: `--no-gt-seed --elo-paper-profile --input-vertical-angle-correction-deg 0.195`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/paper_profile_elevation/summary.json --no-gt-seed --elo-paper-profile --input-vertical-angle-correction-deg 0.195`
+- Summary: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/paper_profile_elevation/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/paper_profile_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: [paper profile] ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.024 g=23572 ng=41079 w=0.53
 
 
 ## FAST-LIO2 on the public HDL-400 reference window
@@ -12212,7 +12356,7 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 ## IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
 - **Problem ID**: `imls_slam_kitti_seq_00_full_paper_comp`
-- **Question**: How close is the IMLS-SLAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Question**: How close is the IMLS-SLAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE), with the harness profile and with the paper's own odometry pipeline?
 - **Status**: `ready`
 - **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
 - **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
@@ -12223,13 +12367,16 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| IMLS-SLAM, dense profile | reference | 17.571 | 5.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| IMLS-SLAM, dense profile | reference | 17.571 | 5.3 | 70.3 | 4.30 | 4.50 | Adopt as current default |
+| IMLS-SLAM paper odometry, window of 100 raw scans, 0.22 deg beam correction | reference | 7.123 | 1.1 | 60.4 | 3.10 | 3.70 | Keep as reference variant |
+| IMLS-SLAM paper odometry, window of 10 raw scans, 0.22 deg beam correction | reference | 7.690 | 1.7 | 62.0 | 3.10 | 3.70 | Keep as reference variant |
+| IMLS-SLAM paper odometry, window 10, no beam correction | ablation | 17.472 | 1.7 | 36.1 | 3.70 | 4.10 | Keep as reference variant |
 
 ### Observations
 
 1. `dense_profile` is the current default for this problem.
 2. `dense_profile` is the fastest observed variant at 5.3 FPS.
-3. `dense_profile` is the most accurate observed variant at 17.571 m ATE.
+3. `paper_odometry_w100` is the most accurate observed variant at 7.123 m ATE.
 
 ### Variant Notes
 
@@ -12244,11 +12391,44 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: IMLS-SLAM: scan-to-model matching on an implicit moving least squares surface (point-to-implicit-surface) with observability-based sampling; CV prior, no GT seed. mean|residual|=0.057 samples=802
 
+#### `paper_odometry_w100`
+
+- Intent: The paper's pipeline and KITTI settings (Sec. V-VI): raw scans with the 0.22 deg vertical-angle correction, the last 100 localized raw scans as the model, h = 0.06 m, r = 0.20 m with a per-query normal, nine planarity-weighted lists of 100 samples walked with the r gate, 20 iterations.
+- CLI args: `--no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 100 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w100/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 100 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w100/summary.json`
+- Log: `experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w100/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0
+
+#### `paper_odometry_w10`
+
+- Intent: As paper_odometry_w100 with the last 10 scans (the paper's Table IV puts n = 10 within 0.01 % of n = 100); about 1.6x faster.
+- CLI args: `--no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 10 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w10/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 10 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w10/summary.json`
+- Log: `experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w10/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: IMLS-SLAM paper odometry (raw scans, window of 10 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0
+
+#### `paper_odometry_w10_no_correction`
+
+- Intent: paper_odometry_w10 without the 0.22 deg correction.
+- CLI args: `--no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 10`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w10_no_correction/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 10`
+- Summary: `experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w10_no_correction/summary.json`
+- Log: `experiments/results/runs/imls_slam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_w10_no_correction/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: IMLS-SLAM paper odometry (raw scans, window of 10 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0
+
 
 ## IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - **Problem ID**: `imls_slam_kitti_seq_07_full_paper_comp`
-- **Question**: How close is the IMLS-SLAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Question**: How close is the IMLS-SLAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE), with the harness profile and with the paper's own odometry pipeline?
 - **Status**: `ready`
 - **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
 - **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
@@ -12259,13 +12439,16 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| IMLS-SLAM, dense profile | reference | 3.038 | 6.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| IMLS-SLAM, dense profile | reference | 3.038 | 6.3 | 61.4 | 4.30 | 4.50 | Adopt as current default |
+| IMLS-SLAM paper odometry, window of 100 raw scans, 0.22 deg beam correction | reference | 0.693 | 1.1 | 58.5 | 3.10 | 3.70 | Keep as active challenger |
+| IMLS-SLAM paper odometry, window of 10 raw scans, 0.22 deg beam correction | reference | 0.885 | 1.7 | 52.9 | 3.10 | 3.70 | Keep as reference variant |
+| IMLS-SLAM paper odometry, window 10, no beam correction | ablation | 1.493 | 1.7 | 37.0 | 3.70 | 4.10 | Keep as reference variant |
 
 ### Observations
 
 1. `dense_profile` is the current default for this problem.
 2. `dense_profile` is the fastest observed variant at 6.3 FPS.
-3. `dense_profile` is the most accurate observed variant at 3.038 m ATE.
+3. `paper_odometry_w100` is the most accurate observed variant at 0.693 m ATE.
 
 ### Variant Notes
 
@@ -12279,6 +12462,39 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: IMLS-SLAM: scan-to-model matching on an implicit moving least squares surface (point-to-implicit-surface) with observability-based sampling; CV prior, no GT seed. mean|residual|=0.055 samples=807
+
+#### `paper_odometry_w100`
+
+- Intent: The paper's pipeline and KITTI settings (Sec. V-VI): raw scans with the 0.22 deg vertical-angle correction, the last 100 localized raw scans as the model, h = 0.06 m, r = 0.20 m with a per-query normal, nine planarity-weighted lists of 100 samples walked with the r gate, 20 iterations.
+- CLI args: `--no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 100 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w100/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 100 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w100/summary.json`
+- Log: `experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w100/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0
+
+#### `paper_odometry_w10`
+
+- Intent: As paper_odometry_w100 with the last 10 scans (the paper's Table IV puts n = 10 within 0.01 % of n = 100); about 1.6x faster.
+- CLI args: `--no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 10 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w10/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 10 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w10/summary.json`
+- Log: `experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w10/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: IMLS-SLAM paper odometry (raw scans, window of 10 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0
+
+#### `paper_odometry_w10_no_correction`
+
+- Intent: paper_odometry_w10 without the 0.22 deg correction.
+- CLI args: `--no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 10`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w10_no_correction/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 10`
+- Summary: `experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w10_no_correction/summary.json`
+- Log: `experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_w10_no_correction/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: IMLS-SLAM paper odometry (raw scans, window of 10 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0
 
 
 ## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)

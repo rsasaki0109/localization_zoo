@@ -7,7 +7,7 @@ ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,seed_only_fast,0.
 dilo,kitti_seq_07_full,gt-backed,default,7.160638,39.120713,experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json
 dlio,mcd_ntu_day_02_108,gt-backed,kitti_default,0.016238,10.289113,experiments/results/dlio_mcd_ntu_day_02_matrix.json
 dlo,mcd_ntu_day_02_108,gt-backed,kitti_default,0.016238,10.157369,experiments/results/dlo_mcd_ntu_day_02_matrix.json
-elo,kitti_seq_07_full,gt-backed,fast_profile,3.536384,4.392098,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
+elo,kitti_seq_07_full,gt-backed,dense_elevation_paper_normals,1.418131,3.253754,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
 fast_lio2,mcd_ntu_day_02_108,gt-backed,fast,0.024772,23.695211,experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json
 fast_lio_slam,mcd_ntu_day_02_108,gt-backed,fast,0.027647,20.416410,experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json
 fast_livo2,kitti_raw_0061_200,gt-backed,fast,27.581017,7.172801,experiments/results/fast_livo2_kitti_raw_0061_matrix.json

@@ -100,7 +100,7 @@ key point の選び方、Algorithm 1 のウィンドウ最適化) をほぼ持�
 | 従来 (default) | 2.687 % | 1.713 % | 40 |
 | 論文どおり (`paper_odometry`) | 1.308 % | 0.619 % | 4 |
 | 論文どおり + 0.22° 仰角補正 (`paper_odometry_elevation`) | **0.797 %** | **0.579 %** | 4 |
-| ウィンドウ更新なし (ablation) | NO_WINDOW_00 | 1.061 % | 5 |
+| ウィンドウ更新なし (ablation) | 4.897 % | 1.061 % | 5 |
 | 論文 DiLO-plane (Table 1) | 0.84 % | 0.58 % | |
 | 論文 DiLO (Table 1) | 0.64 % | 0.42 % | |
 

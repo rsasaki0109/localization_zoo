@@ -1,6 +1,6 @@
 # Reproduction Status
 
-_Generated at 2026-10-12T04:24:50+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
+_Generated at 2026-10-12T11:40:33+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
 
 This page records what the repository can currently claim about reproducing original-paper results.
 The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.
@@ -32,12 +32,12 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 | ALOAM | `indicative` | Paper reimplementation | KITTI Odometry 00/02/05/07/08 | Same metric, secondary-source paper values | The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers. | Compare against the official A-LOAM implementation on the same full sequences. |
 | LF-GICP | `approximately_reproduced` | Paper reimplementation (no author code) | KITTI Odometry 00/02/05/07/08 | Same metric, ~0.96x ratio (single configuration) | The lambda0 scale differs from the paper (planarity definition is ambiguous) and GEODE tunnels for gate calibration are not available. | Obtain GEODE tunnel data to check the gate on genuine absence and recalibrate tau2 with the paper's rule. |
 | L-LO | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/02/05/07/08 | Same metric, ~1.6x ratio (parameters chosen on seq 07) | The paper specifies no thresholds and its pitch estimate is not physically consistent as written; a seq 07 parameter sweep closes only ~3 % of the gap, so the remaining difference is likely in the method details. See papers/l_lo/README.md. | Ask the authors for code, or compare per-frame landmark matches against a reference implementation. |
-| ELO | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/07 against the paper's table | Same metric, 2.60x on 00/07 | Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism. | Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large. |
-| IMLS-SLAM | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/07 against the paper's table | Same metric, 2.66x on 00/07 | Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism. | Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large. |
+| ELO | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/07 with the correction and the paper normal patch | Same metric, 1.37x on 00/07 | The paper fusion weight w2 ("inlier ratio between the non-ground points and ground ones") is ambiguous; the reading implemented here does not help. | Try other readings of w2 and the ground test; run the remaining KITTI sequences. |
+| IMLS-SLAM | `approximately_reproduced` | Paper reimplementation (no author code) with the paper odometry pipeline | Near paper on KITTI Odometry 00/07 (paper pipeline) | Same metric, 1.04x on 00/07 (paper pipeline) | Small-object removal (paper Table II, 0.58 -> 0.55 %) is not implemented; only seq 00/07 have been run. | Run the remaining KITTI sequences with paper_odometry_w10 (1.7 FPS) or w100 (1.1 FPS). |
 | INTEN-LOAM | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/07 against the paper's table | Fails on KITTI: 50-56 % official RTE on 00/07 (paper 0.52/0.34 %) | The reimplementation does not track on KITTI (documented in papers/inten_loam/README.md: ~63 % RPE with the full pipeline, divergence when TVF, DOR or mapping are dropped). It is listed so the failure stays visible, not as a reproduction. | Debug the KITTI pipeline (feature extraction on unordered KITTI scans, mapping) before any comparison is meaningful. |
 | MESH-LOAM | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/07 against the paper's table | Same metric, 1.80x on 00/07 | Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism. | Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large. |
 | QUADRIC-LO | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/07 against the paper's table | Same metric, 0.80x on 00/07 | Only seq 00 and 07 have been run. | Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large. |
-| DILO | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/07 against the paper's table | Same metric, 4.12x on 00/07 | Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism. | Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large. |
+| DILO | `indicative` | Paper reimplementation (no author code) with a paper odometry path (plane key points only) | KITTI Odometry 00/07 with the paper pipeline (no edge key points) | Same metric, 1.31x on 00/07 vs full DiLO (plane key points only; 0.97x vs DiLO-plane) | Edge key points (Sec. 3.5) are not implemented; the remaining gap matches the paper ablation between DiLO-plane and DiLO. | Implement the edge key points and residual (eq. 17); run the remaining KITTI sequences. |
 
 ## LiTAMIN2
 
@@ -201,24 +201,24 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
 - **Reported metric**: KITTI RTE translation [%] (official KITTI t_rel (100-800 m))
 - **Repo scope**: Paper reimplementation (no author code). From-paper reimplementation in the shared harness; see the method README.
-- **Current claim**: KITTI Odometry 00/07 against the paper's table. Official KITTI RTE on full sequences, no GT seed: seq 00 1.272 vs 0.54 (2.36x); seq 07 0.893 vs 0.31 (2.88x); geometric mean 2.60x. Repo values are the best variant of experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-- **Numeric comparison**: Same metric, 2.60x on 00/07. seq 00 1.272 vs 0.54 (2.36x); seq 07 0.893 vs 0.31 (2.88x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-- **Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
-- **Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+- **Current claim**: KITTI Odometry 00/07 with the correction and the paper normal patch. The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07 vs the paper's 0.54 / 0.31 % (1.21x / 1.55x, geometric mean 1.37x; the harness profile was 2.60x). The other paper mechanics as read here (adaptive fusion w = 0.7 w2, two-sided ground test, 0.1 m single-vertex BEV, raw input, plain Gauss-Newton) each make seq 07 worse; all together (--elo-paper-profile) score 1.638 / 1.111 %. See papers/elo/README.md.
+- **Numeric comparison**: Same metric, 1.37x on 00/07. dense_elevation_paper_normals: seq 00 0.656 vs 0.54 (1.21x), seq 07 0.480 vs 0.31 (1.55x). Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+- **Main blocker**: The paper fusion weight w2 ("inlier ratio between the non-ground points and ground ones") is ambiguous; the reading implemented here does not help.
+- **Next step**: Try other readings of w2 and the ground test; run the remaining KITTI sequences.
 - **Notes**: Paper average 0.50 % (online test 0.68 %). The frame-to-frame variant scores 1.14/0.83/0.91/1.25/0.83/0.75/0.76/0.60/1.34/1.18/2.57 %. No loop closure. Values read from the paper PDF on 2026-10-12.
 
 ## IMLS-SLAM
 
-- **Claim level**: `indicative`
+- **Claim level**: `approximately_reproduced`
 - **Paper**: Deschaud, IMLS-SLAM: scan-to-model matching based on 3D data, ICRA 2018
 - **Method README**: `papers/imls_slam/README.md`
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
 - **Reported metric**: KITTI RTE translation [%] (KITTI odometry drift (%))
-- **Repo scope**: Paper reimplementation (no author code). From-paper reimplementation in the shared harness; see the method README.
-- **Current claim**: KITTI Odometry 00/07 against the paper's table. Official KITTI RTE on full sequences, no GT seed: seq 00 1.378 vs 0.50 (2.76x); seq 07 0.846 vs 0.33 (2.56x); geometric mean 2.66x. Repo values are the best variant of experiments/results/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-- **Numeric comparison**: Same metric, 2.66x on 00/07. seq 00 1.378 vs 0.50 (2.76x); seq 07 0.846 vs 0.33 (2.56x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-- **Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
-- **Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+- **Repo scope**: Paper reimplementation (no author code) with the paper odometry pipeline. From-paper reimplementation in the shared harness; see the method README.
+- **Current claim**: Near paper on KITTI Odometry 00/07 (paper pipeline). --imls-slam-paper-odometry follows the paper: raw scans with the 0.22 deg beam correction, the last 100 raw scans as the model, h = 0.06 m / r = 0.20 m with a per-query normal, nine planarity-weighted lists of 100 samples, 20 iterations. Official KITTI RTE 0.523 / 0.339 % on 00 / 07 vs the paper's 0.50 / 0.33 % (1.05x / 1.03x, geometric mean 1.04x). The harness profile scores 1.378 / 0.846 %; without the beam correction the paper pipeline scores 1.327 / 0.706 %. See papers/imls_slam/README.md.
+- **Numeric comparison**: Same metric, 1.04x on 00/07 (paper pipeline). paper_odometry_w100: seq 00 0.523 vs 0.50 (1.05x), seq 07 0.339 vs 0.33 (1.03x); paper_odometry_w10: 0.529 / 0.378 %. Repo values: experiments/results/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+- **Main blocker**: Small-object removal (paper Table II, 0.58 -> 0.55 %) is not implemented; only seq 00/07 have been run.
+- **Next step**: Run the remaining KITTI sequences with paper_odometry_w10 (1.7 FPS) or w100 (1.1 FPS).
 - **Notes**: Paper overall 0.55 % on the training set (0.69 % on the test set). Scans were de-skewed with an external odometry before matching; scan-to-model, no loop closure. Values read from the paper PDF on 2026-10-12.
 
 ## INTEN-LOAM
@@ -270,9 +270,9 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 - **Method README**: `papers/dilo/README.md`
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
 - **Reported metric**: KITTI RTE translation [%] (KITTI average translation error (%), 100-800 m)
-- **Repo scope**: Paper reimplementation (no author code). From-paper reimplementation in the shared harness; see the method README.
-- **Current claim**: KITTI Odometry 00/07 against the paper's table. Official KITTI RTE on full sequences, no GT seed: seq 00 2.687 vs 0.64 (4.20x); seq 07 1.694 vs 0.42 (4.03x); geometric mean 4.12x. Repo values are the best variant of experiments/results/dilo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-- **Numeric comparison**: Same metric, 4.12x on 00/07. seq 00 2.687 vs 0.64 (4.20x); seq 07 1.694 vs 0.42 (4.03x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-- **Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
-- **Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+- **Repo scope**: Paper reimplementation (no author code) with a paper odometry path (plane key points only). From-paper reimplementation in the shared harness; see the method README.
+- **Current claim**: KITTI Odometry 00/07 with the paper pipeline (no edge key points). --dilo-paper-odometry follows Sec. 3 without edge key points: 192x2048 sin-elevation range image with vertical fill, Farid-filter normals, eleven planarity-weighted key-point lists, the eq. 18 residual and Algorithm 1 (10-frame window, pairwise Tukey steps, log-map pose averaging). With the 0.22 deg beam correction it scores official KITTI RTE 0.797 / 0.579 % on 00 / 07: 0.95x / 1.00x the paper's plane-only ablation (DiLO-plane, 0.84 / 0.58 %) and 1.24x / 1.38x its full DiLO (0.64 / 0.42 %, the Table 6 value; geometric mean 1.31x, from 4.12x). Without the correction 1.308 / 0.619 %; without the window re-estimation 4.897 / 1.061 %. Two guards not in the paper (planar prediction, rejecting registrations far from it) were needed on KITTI. See papers/dilo/README.md.
+- **Numeric comparison**: Same metric, 1.31x on 00/07 vs full DiLO (plane key points only; 0.97x vs DiLO-plane). paper_odometry_elevation: seq 00 0.797 vs 0.64 (1.24x), seq 07 0.579 vs 0.42 (1.38x); vs DiLO-plane 0.84 / 0.58. Repo values: experiments/results/dilo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+- **Main blocker**: Edge key points (Sec. 3.5) are not implemented; the remaining gap matches the paper ablation between DiLO-plane and DiLO.
+- **Next step**: Implement the edge key points and residual (eq. 17); run the remaining KITTI sequences.
 - **Notes**: Paper average 0.69 % (frame-weighted). The table is printed rotated; values were rebuilt from word positions and match the stated average. No loop closure. Values read from the paper PDF on 2026-10-12.

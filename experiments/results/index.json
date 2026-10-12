@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T00:10:15+00:00",
+  "generated_at": "2026-10-12T00:12:15+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2781,6 +2781,15 @@
       "manifest_path": "experiments/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json",
       "current_default": "fast_seeded_reference"
+    },
+    {
+      "problem_id": "litamin2_kitti_seq_06_full_paper",
+      "title": "LiTAMIN2 KITTI Odom seq 06 full: the paper's odometry pipeline",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_kitti_seq_06_full_paper_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json",
+      "current_default": "paper_icp_first"
     },
     {
       "problem_id": "litamin2_kitti_seq_07_full_elevation",

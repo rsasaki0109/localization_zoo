@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T18:10:19+00:00",
+  "generated_at": "2026-10-12T22:19:45+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1844,7 +1844,7 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
-      "current_default": "dense_profile"
+      "current_default": "paper_odometry_no_intensity"
     },
     {
       "problem_id": "inten_loam_kitti_seq_07_full_paper_comp",
@@ -1853,7 +1853,7 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
-      "current_default": "dense_profile"
+      "current_default": "paper_odometry_no_intensity"
     },
     {
       "problem_id": "isc_loam_hdl_400_reference",

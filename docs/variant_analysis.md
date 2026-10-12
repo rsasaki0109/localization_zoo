@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-12T18:10:52+00:00
+> Generated: 2026-10-12T22:20:16+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -397,8 +397,8 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
-| dogfooding_results/kitti_seq_00_full | dense_profile | 430.301 | 8.5 |
-| dogfooding_results/kitti_seq_07_full | dense_profile | 138.654 | 8.9 |
+| dogfooding_results/kitti_seq_00_full | paper_odometry_no_intensity | 17.622 | 4.9 |
+| dogfooding_results/kitti_seq_07_full | paper_odometry_no_intensity | 0.917 | 4.7 |
 
 **Stability**: 1 unique default(s) across 2 windows.
 
@@ -1127,7 +1127,11 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| dense_profile | 284.477 | 8.7 | 2 |
+| dense_profile | 299.762 | 9.2 | 2 |
+| paper_odometry | 9.066 | 4.1 | 2 |
+| paper_odometry_no_correction | 12.005 | 4.1 | 2 |
+| paper_odometry_no_intensity | 9.270 | 4.8 | 2 |
+| paper_odometry_no_mapping | 36.742 | 10.0 | 2 |
 
 ### ISC-LOAM
 

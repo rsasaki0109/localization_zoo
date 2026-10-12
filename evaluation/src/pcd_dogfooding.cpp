@@ -50,6 +50,7 @@
 #include "i_loam/i_loam.h"
 #include "pl_loam/pl_loam.h"
 #include "inten_loam/inten_loam.h"
+#include "inten_loam/inten_loam_paper.h"
 #include "mcgicp/mcgicp.h"
 #include "icpsc/icpsc.h"
 #include "vlom/vlom.h"
@@ -1918,6 +1919,13 @@ struct InTenLoamDogfoodingOptions {
   double map_voxel_size = 1.0;
   double local_map_radius = 80.0;
   int mapping_keyframe_interval = 2;
+  // Paper pipeline (InTenLoamPaper).
+  bool paper_odometry = false;
+  bool paper_intensity = true;
+  bool paper_mapping = true;
+  bool paper_dor = true;
+  int paper_s2m_interval = 1;
+  std::vector<std::pair<std::string, double>> paper_overrides;
 };
 
 struct IcpscLoDogfoodingOptions {
@@ -4853,6 +4861,70 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
   using namespace localization_zoo::inten_loam;
   MethodResult res;
   res.name = "InTEn-LOAM";
+  if (options.paper_odometry) {
+    InTenLoamPaperParams pp;
+    pp.use_intensity = options.paper_intensity;
+    pp.use_mapping = options.paper_mapping;
+    pp.use_dor = options.paper_dor;
+    pp.s2m_interval = options.paper_s2m_interval;
+    pp.max_range = g_input_max_range_m;
+    for (const auto& kv : options.paper_overrides) {
+      const std::string& k = kv.first;
+      const double v = kv.second;
+      if (k == "map_plane_voxel") pp.map_plane_voxel = v;
+      else if (k == "map_edge_voxel") pp.map_edge_voxel = v;
+      else if (k == "huber") pp.huber = v;
+      else if (k == "s2m_gate_sq") pp.s2m_gate_sq = v;
+      else if (k == "s2s_gate_sq") pp.s2s_gate_sq = v;
+      else if (k == "max_ground") pp.max_ground = static_cast<int>(v);
+      else if (k == "facades_per_sector") pp.facades_per_sector = static_cast<int>(v);
+      else if (k == "edges_per_sector") pp.edges_per_sector = static_cast<int>(v);
+      else if (k == "edge_threshold") pp.edge_threshold = v;
+      else if (k == "facade_threshold") pp.facade_threshold = v;
+      else if (k == "map_radius") pp.map_radius = v;
+      else if (k == "intensity_weight") pp.intensity_weight = v;
+      else if (k == "s2m_iterations") pp.s2m_iterations = static_cast<int>(v);
+      else if (k == "ground_threshold") pp.ground_threshold = v;
+      else if (k == "deskew") pp.deskew = static_cast<int>(v);
+      else std::cerr << "unknown --inten-loam-paper-set key " << k << std::endl;
+    }
+    InTenLoamPaper paper(pp);
+    const Eigen::Matrix4d anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+    long s2s = 0, s2m = 0, dor = 0, n = 0;
+    auto t_start = Clock::now();
+    for (size_t i = 0; i < pcd_dirs.size(); i++) {
+      const auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
+      if (xyzi.empty()) continue;
+      std::vector<Eigen::Vector3d> pts;
+      std::vector<float> inten;
+      pts.reserve(xyzi.size());
+      inten.reserve(xyzi.size());
+      for (const auto& p : xyzi) {
+        pts.push_back(p.point);
+        inten.push_back(p.intensity);
+      }
+      const auto r = paper.process(pts, inten);
+      res.poses.push_back(anchorRelativePose(anchor, r.pose));
+      s2s += r.s2s_pairs;
+      s2m += r.s2m_pairs;
+      dor += static_cast<long>(r.dor_removed);
+      ++n;
+      if (i % 10 == 0)
+        std::cerr << "\r  [InTEn-LOAM paper] " << i << "/" << pcd_dirs.size() << " g/f/e/r=" << r.num_ground << "/"
+                  << r.num_facade << "/" << r.num_edge << "/" << r.num_reflector << " s2s=" << r.s2s_pairs
+                  << " s2m=" << r.s2m_pairs << " (e/g/f/i " << r.s2m_class_pairs[0] << "/" << r.s2m_class_pairs[1]
+                  << "/" << r.s2m_class_pairs[2] << "/" << r.s2m_class_pairs[3] << ")   ";
+    }
+    std::cerr << std::endl;
+    res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t_start).count();
+    const long d = std::max(1L, n);
+    res.note = "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR "
+               "gating map insertion); no GT seed. intensity=" + std::string(options.paper_intensity ? "on" : "off") +
+               " mapping=" + (options.paper_mapping ? "on" : "off") + " dor=" + (options.paper_dor ? "on" : "off") +
+               " mean pairs s2s=" + std::to_string(s2s / d) + " s2m=" + std::to_string(s2m / d) +
+               " dor points/frame=" + std::to_string(dor / d);
+    return res;
+  }
 
   InTenLoamParams params;
   params.input_stride = options.input_stride;
@@ -12885,6 +12957,36 @@ int main(int argc, char** argv) {
       inten_loam_options.max_edge_features = 220;
       inten_loam_options.max_surface_features = 500;
       inten_loam_options.max_reflector_features = 150;
+      continue;
+    }
+    if (arg == "--inten-loam-paper-odometry") {
+      inten_loam_options.paper_odometry = true;
+      continue;
+    }
+    if (arg == "--inten-loam-paper-no-intensity") {
+      inten_loam_options.paper_intensity = false;
+      continue;
+    }
+    if (arg == "--inten-loam-paper-no-mapping") {
+      inten_loam_options.paper_mapping = false;
+      continue;
+    }
+    if (arg == "--inten-loam-paper-no-dor") {
+      inten_loam_options.paper_dor = false;
+      continue;
+    }
+    if (arg == "--inten-loam-paper-set") {
+      // key=value for a free parameter of InTenLoamPaperParams.
+      if (i + 1 >= argc) { std::cerr << "--inten-loam-paper-set requires key=value" << std::endl; return 1; }
+      const std::string kv = argv[++i];
+      const auto eq = kv.find('=');
+      if (eq == std::string::npos) { std::cerr << "--inten-loam-paper-set requires key=value" << std::endl; return 1; }
+      inten_loam_options.paper_overrides.emplace_back(kv.substr(0, eq), std::stod(kv.substr(eq + 1)));
+      continue;
+    }
+    if (arg == "--inten-loam-paper-s2m-interval") {
+      if (i + 1 >= argc) { std::cerr << "--inten-loam-paper-s2m-interval requires a value" << std::endl; return 1; }
+      inten_loam_options.paper_s2m_interval = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--inten-loam-no-intensity") {

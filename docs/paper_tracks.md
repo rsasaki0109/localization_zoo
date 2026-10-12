@@ -1,6 +1,6 @@
 # Paper Tracks
 
-_Generated at 2026-10-12T18:10:19+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-12T22:19:47+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
@@ -215,8 +215,8 @@ Current coverage: `481` ready, `1` blocked, `14` skipped problems.
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `nhc_zupt_kitti_0009_full` | 1067.301 | 2692976.4 | `dogfooding_results/kitti_raw_0009_full` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `dogfooding_results/nclt_2013_01_10_120` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `/media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full` |
-| InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 430.301 | 8.5 | `dogfooding_results/kitti_seq_00_full` |
-| InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 138.654 | 8.9 | `dogfooding_results/kitti_seq_07_full` |
+| InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 17.210 | 9.4 | `dogfooding_results/kitti_seq_00_full` |
+| InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 0.917 | 11.1 | `dogfooding_results/kitti_seq_07_full` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.321 | 37.6 | `dogfooding_results/kitti_raw_0009_200` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `dogfooding_results/kitti_raw_0009_200` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `dogfooding_results/kitti_raw_0009_full` |

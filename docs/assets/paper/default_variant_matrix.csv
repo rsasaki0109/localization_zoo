@@ -17,7 +17,7 @@ gicp,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent
 hdl_graph_slam,,,,fast,,,default,default,fast,,,,,,,,,,,,,,,fast,dense,dense,,,,,,
 imls_slam,,,,,,,,,,,,dense_profile,,,,,,,,dense_profile,,,,,,,,,,,,
 imu_dead_reckoning,,,,,,,zupt_kitti_0009,nhc_zupt_kitti_0009_full,,,,,,,,,,,,,,,,,,,,,,zupt,,nhc_zupt_full
-inten_loam,,,,,,,,,,,,dense_profile,,,,,,,,dense_profile,,,,,,,,,,,,
+inten_loam,,,,,,,,,,,,paper_odometry_no_intensity,,,,,,,,paper_odometry_no_intensity,,,,,,,,,,,,
 isc_loam,,,,fast,,,fast,fast,dense,fast,,,,,,,,,,,,,,fast,fast,fast,,,,,,
 kiss_icp,fast_recent_map,dense_local_map,fast_recent_map,fast_recent_map,fast_recent_map,,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,,dense_profile,upstream_mechanics_elevation,balanced_reference,upstream_mechanics_elevation,upstream_mechanics_elevation,dense_profile,upstream_mechanics_elevation,,balanced_reference,fast_profile,upstream_mechanics_elevation,upstream_mechanics_elevation,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,,,,
 l_lo,,,,,,,,,,,,seq07_tuned,,default,,,default,,,rounds_600_tol_1e5,default,,,,,,,,,,,

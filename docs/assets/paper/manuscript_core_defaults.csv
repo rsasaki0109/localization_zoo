@@ -16,7 +16,7 @@ genz_icp,nclt_2013_01_10_120,gt-backed,default,3.512657,7.568846,experiments/res
 gicp,mcd_ntu_day_02_108,gt-backed,dense_recent_map,0.016816,12.991898,experiments/results/gicp_mcd_ntu_day_02_matrix.json
 hdl_graph_slam,mcd_ntu_day_02_108,gt-backed,dense,0.179861,6.514175,experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json
 imls_slam,kitti_seq_07_full,gt-backed,dense_profile,3.037946,6.253868,experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json
-inten_loam,kitti_seq_07_full,gt-backed,dense_profile,138.653885,8.880250,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
+inten_loam,kitti_seq_07_full,gt-backed,paper_odometry_no_intensity,0.917480,4.662998,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
 isc_loam,mcd_ntu_day_02_108,gt-backed,fast,0.064940,50.238587,experiments/results/isc_loam_mcd_ntu_day_02_matrix.json
 kiss_icp,mcd_ntu_day_02_108,gt-backed,fast_recent_map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json
 l_lo,kitti_seq_07_full,gt-backed,pitch_band_10_40,1.957085,5.133734,experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json

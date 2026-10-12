@@ -260,7 +260,7 @@ optimistic bounds.
 | ELO | 00/07 | 1.37x | gap remains (no author code); with the 0.195 deg correction the paper applies and its normal patch size, from 2.60x ([details](papers/elo/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
 | IMLS-SLAM | 00/07 | 1.04x | near paper with the paper's pipeline (`--imls-slam-paper-odometry`: raw scans, 0.22 deg correction, a window of 100 raw scans, h = 0.06 m), from 2.66x ([details](papers/imls_slam/README.md)) |
 | DiLO | 00/07 | 1.31x | paper pipeline without edge key points (`--dilo-paper-odometry`, 0.22 deg correction), from 4.12x; equal to the paper's plane-only ablation (0.97x) ([details](papers/dilo/README.md)) |
-| InTEn-LOAM | 00/07 | fails | does not track on KITTI (50-56 % RTE; see [its README](papers/inten_loam/README.md)) |
+| InTEn-LOAM | 00/07 | 1.30x | gap remains: the paper's pipeline (`--inten-loam-paper-odometry`) gives 1.08x on 07, where its plane map voxel was chosen, and 1.57x on held-out 00; the earlier pipeline did not track (42-48 %) ([details](papers/inten_loam/README.md#paper-pipeline)) |
 
 Papers checked but not compared: VLOM and PL-LOAM report visual-LiDAR systems that
 use the camera, and SROM (Spectral-LO) gives an undefined "% error per 100m" on

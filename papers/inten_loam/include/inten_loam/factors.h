@@ -31,9 +31,11 @@ struct EdgeFactor {
     p[0] += T(s_) * t[0];
     p[1] += T(s_) * t[1];
     p[2] += T(s_) * t[2];
-    T nu[3] = {(p[0] - lpa[0]) * (p[2] - lpb[2]) - (p[2] - lpa[2]) * (p[1] - lpb[1]),
-               (p[1] - lpa[1]) * (p[0] - lpb[0]) - (p[0] - lpa[0]) * (p[1] - lpb[1]),
-               (p[2] - lpa[2]) * (p[1] - lpb[1]) - (p[1] - lpa[1]) * (p[2] - lpb[2])};
+    // (p - a) x (p - b): its norm over |a - b| is the point-to-line distance.
+    const T da[3] = {p[0] - lpa[0], p[1] - lpa[1], p[2] - lpa[2]};
+    const T db[3] = {p[0] - lpb[0], p[1] - lpb[1], p[2] - lpb[2]};
+    T nu[3] = {da[1] * db[2] - da[2] * db[1], da[2] * db[0] - da[0] * db[2],
+               da[0] * db[1] - da[1] * db[0]};
     T de[3] = {lpa[0] - lpb[0], lpa[1] - lpb[1], lpa[2] - lpb[2]};
     T de_norm = ceres::sqrt(de[0] * de[0] + de[1] * de[1] + de[2] * de[2]);
     residual[0] = T(weight_) * nu[0] / de_norm;

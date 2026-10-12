@@ -46,7 +46,81 @@ InTEn-LOAM exploits **geometric + intensity + temporal** information in LiDAR sw
 Ablation flags: `--inten-loam-no-intensity`, `--inten-loam-no-tvf`,
 `--inten-loam-no-dor`, `--inten-loam-no-mapping`.
 
-## Result (KITTI Odometry full, `--no-gt-seed`)
+## Paper pipeline
+
+`--inten-loam-paper-odometry` runs `InTenLoamPaper`
+(`include/inten_loam/inten_loam_paper.h`), written against the paper after an
+audit of the pipeline below found why it does not track:
+
+- it associated the **untransformed** current points once per frame, so every
+  correspondence assumed zero motion (trajectory 0.83x the true length
+  scan-to-scan);
+- scan-to-map repeated that bias against a denser map and **overwrote** the
+  scan-to-scan motion (0.60x);
+- DOR ran before feature extraction with the previous pose and a fixed 0.6 m
+  range test, removing ~40 % of the valid pixels, mostly ahead of and behind
+  the car (0.40x overall);
+- `EdgeFactor` used a wrong cross product (nonzero on inclined lines; fixed
+  for both pipelines).
+
+The paper pipeline:
+
+- **FEF** (Sec. 3.1): 2048 x 64 range image (smallest range, largest
+  intensity); segment image of the lowest z per azimuth segment (512) and
+  0.5 m radial bin with per-segment ground lines (Himmelsbach, Th_g 0.2 m);
+  angle-based clustering (10 deg), clusters under 15 points masked;
+  curvature C = sum(D - D_nb) / (N D) along the row, edges |C| > 0.3, facades
+  |C| < 0.1 (Sec. 4.1.1) per row sector with non-maximum suppression, points
+  behind an occluder skipped; reflectors from the row intensity difference
+  (Th_dI 80 / 255) or the 16 x 4 block median.
+- **S2S** (Alg. 1): edge residual to the line through the closest point and
+  its neighbour on an adjacent scan line, plane residual from the closest
+  point and neighbours on the same and an adjacent line, cubic B-spline
+  intensity residual (eqs. 6-7, 0.3 m knots); Gauss-Newton on se(3) with
+  association redone at every iteration from the previous relative motion.
+- **S2M** (Alg. 2): prediction dT_{k-1} T_w'k, local map (100 m) of keyframe
+  features in a temporal voxel filter (voxel mean position, intensity
+  averaged over the last 50 frames), 5-NN PCA lines and planes.
+- **DOR** (Sec. 3.3): after S2M, the local map and the previous scan are
+  rendered into a range image; a cluster is dynamic when half of its pixels
+  differ by more than 10 % of the range; ground never is. Dynamic points are
+  only kept out of the map.
+- No motion compensation: KITTI scans are used as given.
+
+Official KITTI RTE, full sequences, no GT seed, 0.2 deg vertical-angle
+correction (Sec. 4.2.1), `experiments/inten_loam_kitti_seq_{00,07}_full_paper_comp_matrix.json`:
+
+| variant | seq 00 | seq 07 | FPS |
+|---|---:|---:|---:|
+| previous pipeline (`--inten-loam-dense-profile`, edge factor fixed) | 47.783 % | 42.158 % | 9 |
+| paper pipeline (`paper_odometry`) | **0.816 %** | **0.368 %** | 4.1 |
+| without the correction | 1.462 % | 0.855 % | 4.1 |
+| without the intensity residual | 0.830 % | 0.379 % | 4.7 |
+| S2S only (no S2M, map, DOR) | 3.457 % | 2.395 % | 9-11 |
+| paper, Table 1 | 0.52 % | 0.34 % | |
+
+The plane map voxel, which the paper does not give, was chosen on seq 07
+(0.8 m: 0.803 %, 0.4 m: 0.444 %, 0.2 m: 0.368 %, 0.1 m: 0.358 %); seq 00 is
+held out. That gives 1.08x on 07 and 1.57x on 00 (geometric mean 1.30x).
+Mapping and the correction matter most; the intensity residual is worth
+1-3 %.
+
+**Where seq 00 loses accuracy.** Per 100-frame segment the translational
+error ranges from 0.2 % to 2.8 %, with no single failure; the worst stretches
+are the start and the faster section around frames 4000-4300 (12-13 m/s,
+about 90 edge features per scan instead of 150-250). The yaw error has a
+consistent sign: summed per frame it reaches -5.95 deg over the sequence
+(-0.0013 deg per frame), independent of the turn direction. The free
+parameters move seq 00 only within +-5 % (base 0.816 %; edge threshold 0.15:
+0.786 %, 2000 ground points: 0.775 %, facade threshold 0.05: 0.819 %,
+0.1 m plane voxels: 0.822 %), so the defaults stay as chosen on 07 and 00
+stays held out. The paper's motion compensation (Sec. 3.1.1) is available as
+`--inten-loam-paper-set deskew=+-1` (point time from the azimuth, constant
+velocity); both spin directions make seq 07 much worse (1.502 / 1.835 %), so
+the KITTI odometry scans are treated as already compensated. Free parameters can be changed with `--inten-loam-paper-set key=value`
+(`map_plane_voxel`, `max_ground`, `huber`, ...).
+
+## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):
 `docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_ablation.json`
@@ -81,7 +155,7 @@ identity inside the residuals.
 Per-variant raw JSON:
 `docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_{variant}.json`.
 
-**Honest negative (T3).** Post-fix, InTEn-LOAM remains far from the paper's
+**Honest negative (T3).** Post-fix, the simplified pipeline remains far from the paper's
 reported ~0.54% drift on KITTI. seq07 scan-to-scan without mapping is the
 least-bad local row (~30% RPE), but seq00 scan-to-scan diverges catastrophically
 while the default full pipeline stays merely high-drift (~63% RPE). Mapping +
@@ -128,4 +202,9 @@ Scan-to-scan ablation (seq07 least-bad RPE; seq00 diverges on long runs):
 
 `test_inten_loam`: cylindrical projection validity; reflector labeling pipeline;
 intensity residual scaling; Eigen/Ceres quaternion layout in residual factors;
-short-sequence pipeline stability; `clear()` reset.
+edge factor on an inclined line; short-sequence pipeline stability; `clear()`
+reset.
+
+`test_inten_loam_paper`: ground segmentation and feature classes on a
+ray-cast street; the B-spline intensity field on a linear ramp; 1 m per scan
+tracked at full scale.

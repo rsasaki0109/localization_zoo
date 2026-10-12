@@ -1,0 +1,194 @@
+{
+  "generated_at": "2026-10-12T00:08:04+00:00",
+  "manifest_path": "experiments/litamin2_kitti_seq_01_full_paper_matrix.json",
+  "problem": {
+    "id": "litamin2_kitti_seq_01_full_paper",
+    "title": "LiTAMIN2 KITTI Odom seq 01 full: the paper's odometry pipeline",
+    "question": "Does LiTAMIN2 as described in the paper (raw scans voted into 3 m normal distributions, a voxel map of distributions, nearest-distribution pairing, ICP+Cov cost minimised by Newton steps) reproduce the paper's Table III values without loop closure?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_01_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_01_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_01_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_01_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_icp_cov",
+      "label": "LiTAMIN2 paper odometry, ICP+Cov, scan-distribution map",
+      "design_style": "reference",
+      "intent": "Paper pipeline with the full cost (Table III row 'LiTAMIN2 (ICP+Cov)', no loop closure). The map keeps the first scan distribution per 3 m voxel, so the shape term compares like with like.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry",
+        "--litamin2-paper-map-mode",
+        "first"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_cov/summary.json --no-gt-seed --litamin2-paper-odometry --litamin2-paper-map-mode first",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_cov/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_cov/run.log",
+      "status": "ok",
+      "ate_m": 112.385707,
+      "rpe_trans_pct": 0.985603,
+      "rpe_rot_deg_per_m": 0.005271,
+      "fps": 35.032961,
+      "time_ms": 31427.546399,
+      "frames": 1101,
+      "note": "LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map first, nearest-distribution pairing, ICP+Cov); no GT seed. mean distributions/scan 873.0, mean iterations 11.7",
+      "benchmark_score": 63.92,
+      "readability_score": 3.7,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 2.061826,
+      "kitti_rte_rot_deg_per_100m": 0.502737,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_icp_first",
+      "label": "LiTAMIN2 paper odometry, ICP only, scan-distribution map",
+      "design_style": "reference",
+      "intent": "Paper pipeline with the ICP term only (Table III row 'LiTAMIN2 (ICP)'), against the same first-scan-distribution map as paper_icp_cov.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry",
+        "--litamin2-icp-only",
+        "--litamin2-paper-map-mode",
+        "first"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_first/summary.json --no-gt-seed --litamin2-paper-odometry --litamin2-icp-only --litamin2-paper-map-mode first",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_first/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_first/run.log",
+      "status": "ok",
+      "ate_m": 96.992246,
+      "rpe_trans_pct": 0.930478,
+      "rpe_rot_deg_per_m": 0.004868,
+      "fps": 67.821074,
+      "time_ms": 16233.892186,
+      "frames": 1101,
+      "note": "LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map first, nearest-distribution pairing, ICP); no GT seed. mean distributions/scan 873.0, mean iterations 10.9",
+      "benchmark_score": 94.14,
+      "readability_score": 3.35,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.85,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.808671,
+      "kitti_rte_rot_deg_per_100m": 0.456571,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_icp",
+      "label": "LiTAMIN2 paper odometry, ICP only, aggregated map",
+      "design_style": "ablation",
+      "intent": "ICP term only against map voxels that aggregate every registered point; diverges on the seq 04 highway.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry",
+        "--litamin2-icp-only"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp/summary.json --no-gt-seed --litamin2-paper-odometry --litamin2-icp-only",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp/run.log",
+      "status": "ok",
+      "ate_m": 87.449724,
+      "rpe_trans_pct": 1.035722,
+      "rpe_rot_deg_per_m": 0.004883,
+      "fps": 53.404539,
+      "time_ms": 20616.225145,
+      "frames": 1101,
+      "note": "LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map aggregate, nearest-distribution pairing, ICP); no GT seed. mean distributions/scan 873.0, mean iterations 10.1",
+      "benchmark_score": 88.33,
+      "readability_score": 3.95,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.25,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 1.804866,
+      "kitti_rte_rot_deg_per_100m": 0.43096,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_icp_cov_aggregate",
+      "label": "LiTAMIN2 paper odometry, ICP+Cov, aggregated map",
+      "design_style": "ablation",
+      "intent": "Full cost against aggregated map distributions, whose shapes differ from single-scan ones.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_cov_aggregate/summary.json --no-gt-seed --litamin2-paper-odometry",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_cov_aggregate/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_01_full_paper_matrix/paper_icp_cov_aggregate/run.log",
+      "status": "ok",
+      "ate_m": 85.624523,
+      "rpe_trans_pct": 1.054739,
+      "rpe_rot_deg_per_m": 0.004381,
+      "fps": 32.00099,
+      "time_ms": 34405.185848,
+      "frames": 1101,
+      "note": "LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map aggregate, nearest-distribution pairing, ICP+Cov); no GT seed. mean distributions/scan 873.0, mean iterations 10.2",
+      "benchmark_score": 73.59,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 1.775302,
+      "kitti_rte_rot_deg_per_100m": 0.402514,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

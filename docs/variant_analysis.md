@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-11T20:38:34+00:00
+> Generated: 2026-10-12T04:24:50+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -221,6 +221,15 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 **Stability**: 1 unique default(s) across 2 windows.
 
+### DILO
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | default | 38.742 | 42.1 |
+| dogfooding_results/kitti_seq_07_full | default | 7.161 | 39.1 |
+
+**Stability**: 1 unique default(s) across 2 windows.
+
 ### DLIO
 
 | Dataset | Default Variant | ATE [m] | FPS |
@@ -250,6 +259,15 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-TUHH | fast | 1.344 | 13.9 |
 
 **Stability**: 2 unique default(s) across 8 windows.
+
+### ELO
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | fast_profile | 22.504 | 4.3 |
+| dogfooding_results/kitti_seq_07_full | fast_profile | 3.536 | 4.4 |
+
+**Stability**: 1 unique default(s) across 2 windows.
 
 ### FAST-LIO2
 
@@ -355,6 +373,15 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 **Stability**: 3 unique default(s) across 7 windows.
 
+### IMLS-SLAM
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | dense_profile | 17.571 | 5.3 |
+| dogfooding_results/kitti_seq_07_full | dense_profile | 3.038 | 6.3 |
+
+**Stability**: 1 unique default(s) across 2 windows.
+
 ### IMU-DEAD-RECKONING
 
 | Dataset | Default Variant | ATE [m] | FPS |
@@ -365,6 +392,15 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/nclt_2013_01_10_120 | zupt | 2.887 | 1054259.2 |
 
 **Stability**: 4 unique default(s) across 4 windows.
+
+### INTEN-LOAM
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | dense_profile | 430.301 | 8.5 |
+| dogfooding_results/kitti_seq_07_full | dense_profile | 138.654 | 8.9 |
+
+**Stability**: 1 unique default(s) across 2 windows.
 
 ### ISC-LOAM
 
@@ -524,17 +560,28 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-TUHH | fast_icp_only_half_threads | 0.194 | 107.2 |
 | dogfooding_results/kitti_seq_00_full | fast_icp_only_half_threads | 0.998 | 108.9 |
 | dogfooding_results/kitti_seq_00_full | fast_cov_no_gt_seed | 110.484 | 98.9 |
+| dogfooding_results/kitti_seq_00_full | paper_icp_first | 15.440 | 82.3 |
 | dogfooding_results/kitti_seq_00_full | tuned_voxel1_iter12 | 13.464 | 60.9 |
 | dogfooding_results/kitti_seq_00_full | tuned_voxel2_iter12_seeded | 1.117 | 86.8 |
+| dogfooding_results/kitti_seq_01_full | paper_icp_first | 96.992 | 67.8 |
+| dogfooding_results/kitti_seq_02_full | paper_icp_first | 37.095 | 85.9 |
 | dogfooding_results/kitti_seq_02_full | cluster_t1_seeded | 0.728 | 68.3 |
 | dogfooding_results/kitti_seq_02_full | cov_floor_1e_4 | 51.895 | 91.8 |
+| dogfooding_results/kitti_seq_03_full | paper_icp_first | 2.666 | 72.4 |
+| dogfooding_results/kitti_seq_04_full | paper_icp_first | 2.573 | 62.0 |
+| dogfooding_results/kitti_seq_05_full | paper_icp | 6.342 | 55.1 |
 | dogfooding_results/kitti_seq_05_full | fast_seeded_reference | 0.957 | 17.2 |
 | dogfooding_results/kitti_seq_05_full | cov_floor_1e_4 | 6.565 | 93.4 |
+| dogfooding_results/kitti_seq_06_full | paper_icp_first | 3.161 | 68.9 |
 | dogfooding_results/kitti_seq_07_full | coarse_to_fine_3_2_1_elevation | 2.086 | 47.5 |
+| dogfooding_results/kitti_seq_07_full | paper_icp_cov | 1.434 | 58.8 |
 | dogfooding_results/kitti_seq_07_full | fast_seeded_reference | 0.836 | 94.7 |
 | dogfooding_results/kitti_seq_07_full | cov_floor_1e_4 | 2.202 | 106.9 |
+| dogfooding_results/kitti_seq_08_full | paper_icp_first | 20.825 | 73.6 |
 | dogfooding_results/kitti_seq_08_full | fast_seeded_reference | 1.130 | 104.9 |
 | dogfooding_results/kitti_seq_08_full | cov_floor_1e_4 | 19.672 | 94.2 |
+| dogfooding_results/kitti_seq_09_full | paper_icp | 5.688 | 58.2 |
+| dogfooding_results/kitti_seq_10_full | paper_icp_first | 5.615 | 67.7 |
 | dogfooding_results/mulran_parkinglot_120 | cluster_t1_seeded | 0.212 | 30.6 |
 | dogfooding_results/mulran_parkinglot_120 | fast_cov_half_threads | 0.498 | 90.2 |
 | dogfooding_results/mulran_parkinglot_full | cluster_t1_seeded | 0.303 | 34.4 |
@@ -542,7 +589,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/nclt_2012_12_01_5000 | voxel_0_5_t1 | 0.519 | 4.4 |
 | dogfooding_results/nclt_2013_01_10_600 | default_voxel_2_0 | 0.380 | 14.7 |
 
-**Stability**: 12 unique default(s) across 38 windows.
+**Stability**: 15 unique default(s) across 49 windows.
 
 ### LOAM-LIVOX
 
@@ -558,6 +605,15 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-TUHH | fast | 1.192 | 68.8 |
 
 **Stability**: 2 unique default(s) across 8 windows.
+
+### MESH-LOAM
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | dense_profile | 13.474 | 0.4 |
+| dogfooding_results/kitti_seq_07_full | dense_profile | 0.982 | 0.4 |
+
+**Stability**: 1 unique default(s) across 2 windows.
 
 ### MULLS
 
@@ -639,6 +695,15 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 **Stability**: 1 unique default(s) across 8 windows.
 
+### QUADRIC-LO
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | dense_profile | 14.736 | 0.8 |
+| dogfooding_results/kitti_seq_07_full | dense_profile | 2.130 | 0.9 |
+
+**Stability**: 1 unique default(s) across 2 windows.
+
 ### RKO-LIO
 
 | Dataset | Default Variant | ATE [m] | FPS |
@@ -714,6 +779,15 @@ Does the same variant win across all datasets? Instability here is the core evid
 | KITTI-kitti_raw_0061_full | fast | 257.641 | 236.7 |
 
 **Stability**: 1 unique default(s) across 4 windows.
+
+### VLOM
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | default | 9.391 | 2.1 |
+| dogfooding_results/kitti_seq_07_full | default | 2.544 | 2.3 |
+
+**Stability**: 1 unique default(s) across 2 windows.
 
 ### VOXEL-GICP
 
@@ -911,6 +985,13 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | imu_preintegration_default | 2.668 | 17.2 | 2 |
 | seed_only_fast | 0.484 | 18.5 | 2 |
 
+### DILO
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| default | 22.951 | 40.6 | 2 |
+| dense_profile | 27.736 | 36.0 | 2 |
+
 ### DLIO
 
 | Variant | Avg ATE [m] | Avg FPS | N |
@@ -926,6 +1007,13 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense | 3.065 | 2.9 | 8 |
 | fast | 2.902 | 11.1 | 8 |
 | kitti_default | 2.985 | 5.0 | 8 |
+
+### ELO
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| dense_profile | 12.424 | 2.4 | 2 |
+| fast_profile | 13.020 | 4.3 | 2 |
 
 ### FAST-LIO2
 
@@ -983,6 +1071,12 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense | 8.390 | 3.3 | 6 |
 | fast | 12.179 | 15.3 | 6 |
 
+### IMLS-SLAM
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| dense_profile | 10.304 | 5.8 | 2 |
+
 ### IMU-DEAD-RECKONING
 
 | Variant | Avg ATE [m] | Avg FPS | N |
@@ -1019,6 +1113,12 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | zupt_full | 14531.743 | 798152.2 | 1 |
 | zupt_kitti_0009 | 210.224 | 1342750.9 | 1 |
 | zupt_kitti_0009_full | 5994.497 | 2617012.4 | 1 |
+
+### INTEN-LOAM
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| dense_profile | 284.477 | 8.7 | 2 |
 
 ### ISC-LOAM
 
@@ -1137,6 +1237,10 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | fast_icp_only_half_threads | 0.674 | 59.0 | 15 |
 | fast_seeded_reference | 0.725 | 47.8 | 13 |
 | paper_cov_half_threads | 0.888 | 58.5 | 15 |
+| paper_icp | 36.636 | 56.2 | 11 |
+| paper_icp_cov | 19.222 | 45.7 | 11 |
+| paper_icp_cov_aggregate | 41.000 | 39.2 | 11 |
+| paper_icp_first | 18.702 | 74.3 | 11 |
 | paper_icp_only_half_threads | 0.888 | 54.7 | 15 |
 | radius1_distance_gate_1_5m | 17.977 | 41.3 | 4 |
 | radius1_no_distance_gate | 18.373 | 41.9 | 4 |
@@ -1155,6 +1259,12 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | default | 59.700 | 8.9 | 8 |
 | dense | 59.699 | 11.4 | 8 |
 | fast | 74.817 | 52.4 | 8 |
+
+### MESH-LOAM
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| dense_profile | 7.228 | 0.4 | 2 |
 
 ### MULLS
 
@@ -1197,6 +1307,12 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | default | 99.415 | 5.8 | 8 |
 | dense | 88.212 | 14.4 | 8 |
 | fast | 106.515 | 95.2 | 8 |
+
+### QUADRIC-LO
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| dense_profile | 8.433 | 0.8 | 2 |
 
 ### RKO-LIO
 
@@ -1253,6 +1369,12 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | default | 76.709 | 11.2 | 4 |
 | dense | 51.770 | 8.3 | 4 |
 | fast | 135.480 | 167.4 | 4 |
+
+### VLOM
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| default | 5.968 | 2.2 | 2 |
 
 ### VOXEL-GICP
 

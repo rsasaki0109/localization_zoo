@@ -46,6 +46,7 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 | Estimate orientation from an IMU | [IMU attitude estimation](#imu-attitude-estimation-broad) |
 | Measure IMU noise for a LIO / VIO config | [Allan variance](#imu-noise-allan-variance) |
 | Compare loop-closure descriptors | [Place recognition benchmark](docs/place_recognition_benchmark.md) |
+| Re-run a paper-number row myself | [`reproduce_paper_row.py`](#paper-number-check-official-kitti-rte) (one command: fetch, run, score) |
 | Reproduce or extend a benchmark | [Experiment-driven development](#experiment-driven-development) · [CONTRIBUTING](CONTRIBUTING.md) |
 | Add a new paper | [Adding a new paper](#adding-a-new-paper) |
 
@@ -246,17 +247,38 @@ optimistic bounds.
 
 | Method | Sequences | Repo / paper | Reading |
 |---|---|---:|---|
+| LiTAMIN2 | 00-10 | 1.00x | near paper with the paper's odometry pipeline (`--litamin2-paper-odometry`: 3 m distributions from raw scans, a map of scan distributions, ICP+Cov with Newton steps); one fixed setting on all 11 sequences gives 1.05x ([details](papers/litamin2/README.md)) |
 | A-LOAM | 00/02/05/07/08 | 1.01x | near paper (vs LOAM values cited by later papers) |
 | LF-GICP | 00/02/05/07/08 | 0.96x | near paper (no author code) |
 | KISS-ICP | 00/04 | 1.04x | near paper with upstream's KITTI elevation correction and adaptive threshold; the 00-10 average equals the official code's ([details](papers/kiss_icp/README.md#deviations-from-upstream-kiss-icp-130)) |
 | MULLS | 00-10 | 1.12x | near paper with the MULLS-LO reimplementation (`--mulls-lo`, highway profile on 01) on corrected scans; the 00-10 average equals the official code's ([details](papers/mulls/README.md)) |
 | CT-ICP | 00-10 | 1.15x | near paper with the upstream pipeline (`--ct-icp-upstream-mechanics`) on corrected scans; the 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
-| LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out). The horizontal module scores 0.577 % in 2D on 07. The paper's 00 and 07 values are below every roll-free trajectory built from the ground truth ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
+| Quadric-LO | 00/07 | 0.80x | near paper (vs the paper's scan-to-submap Table II; no author code) |
+| Mesh-LOAM | 00/07 | 1.80x | gap remains (no author code) |
+| ELO | 00/07 | 2.60x | gap remains (no author code; CPU profiles) |
+| IMLS-SLAM | 00/07 | 2.66x | gap remains (no author code; the paper de-skews scans with an external odometry first) |
+| DiLO | 00/07 | 4.12x | gap remains (no author code) |
+| InTEn-LOAM | 00/07 | fails | does not track on KITTI (50-56 % RTE; see [its README](papers/inten_loam/README.md)) |
+
+Papers checked but not compared: VLOM and PL-LOAM report visual-LiDAR systems that
+use the camera, and SROM (Spectral-LO) gives an undefined "% error per 100m" on
+01-05 only; about 30 other papers have no KITTI Odometry table in % (the per-paper
+findings are in `docs/paper_claim.md`).
 
 Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);
 claim wording and audit findings: [`docs/paper_claim.md`](docs/paper_claim.md).
+
+**Re-run any row in one command.** The script looks up the variant the table
+uses, fetches only that KITTI sequence (HTTP range requests, not the 80 GB ZIP),
+runs it with the recorded arguments, and prints the official RTE of your run next
+to the recorded value and the paper's:
+
+```bash
+python3 evaluation/scripts/reproduce_paper_row.py --list
+python3 evaluation/scripts/reproduce_paper_row.py --method litamin2 --sequence 07 --kitti-root data/kitti --fetch
+```
 
 ### Does LiDAR intensity actually help? — I-LOAM ablation
 

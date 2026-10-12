@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "imls_slam_kitti_seq_00_full_paper_comp",
+    "title": "IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+    "question": "How close is the IMLS-SLAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "imls_slam",
+    "primary_method": "IMLS-SLAM"
+  },
+  "variants": [
+    {
+      "id": "dense_profile",
+      "label": "IMLS-SLAM, dense profile",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-dense-profile"
+      ]
+    }
+  ]
+}

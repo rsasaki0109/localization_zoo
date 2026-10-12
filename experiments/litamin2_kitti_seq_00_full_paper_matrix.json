@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_kitti_seq_00_full_paper",
+    "title": "LiTAMIN2 KITTI Odom seq 00 full: the paper's odometry pipeline",
+    "question": "Does LiTAMIN2 as described in the paper (raw scans voted into 3 m normal distributions, a voxel map of distributions, nearest-distribution pairing, ICP+Cov cost minimised by Newton steps) reproduce the paper's Table III values without loop closure?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "paper_icp_cov",
+      "label": "LiTAMIN2 paper odometry, ICP+Cov, scan-distribution map",
+      "design_style": "reference",
+      "intent": "Paper pipeline with the full cost (Table III row 'LiTAMIN2 (ICP+Cov)', no loop closure). The map keeps the first scan distribution per 3 m voxel, so the shape term compares like with like.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry",
+        "--litamin2-paper-map-mode",
+        "first"
+      ]
+    },
+    {
+      "id": "paper_icp_first",
+      "label": "LiTAMIN2 paper odometry, ICP only, scan-distribution map",
+      "design_style": "reference",
+      "intent": "Paper pipeline with the ICP term only (Table III row 'LiTAMIN2 (ICP)'), against the same first-scan-distribution map as paper_icp_cov.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry",
+        "--litamin2-icp-only",
+        "--litamin2-paper-map-mode",
+        "first"
+      ]
+    },
+    {
+      "id": "paper_icp",
+      "label": "LiTAMIN2 paper odometry, ICP only, aggregated map",
+      "design_style": "ablation",
+      "intent": "ICP term only against map voxels that aggregate every registered point; diverges on the seq 04 highway.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry",
+        "--litamin2-icp-only"
+      ]
+    },
+    {
+      "id": "paper_icp_cov_aggregate",
+      "label": "LiTAMIN2 paper odometry, ICP+Cov, aggregated map",
+      "design_style": "ablation",
+      "intent": "Full cost against aggregated map distributions, whose shapes differ from single-scan ones.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry"
+      ]
+    }
+  ]
+}

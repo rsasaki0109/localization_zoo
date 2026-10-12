@@ -51,6 +51,8 @@ ct_icp,mulran_parkinglot_120,cluster_a_with_seed
 ct_icp,mulran_parkinglot_full,fast_window
 ct_lio,hdl_400_open_ct_lio_120,seed_only_fast
 ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,seed_only_fast
+dilo,kitti_seq_00_full,default
+dilo,kitti_seq_07_full,default
 dlio,hdl_400_open_ct_lio_120,fast
 dlio,kitti_raw_0009_200,fast
 dlio,kitti_raw_0009_full,fast
@@ -67,6 +69,8 @@ dlo,kitti_raw_0061_full,fast
 dlo,mcd_kth_day_06_108,fast
 dlo,mcd_ntu_day_02_108,kitti_default
 dlo,mcd_tuhh_night_09_108,fast
+elo,kitti_seq_00_full,fast_profile
+elo,kitti_seq_07_full,fast_profile
 fast_lio2,hdl_400_open_ct_lio_120,fast
 fast_lio2,kitti_raw_0009_200,fast
 fast_lio2,kitti_raw_0009_full,fast
@@ -122,10 +126,14 @@ hdl_graph_slam,kitti_raw_0061_200,fast
 hdl_graph_slam,mcd_kth_day_06_108,fast
 hdl_graph_slam,mcd_ntu_day_02_108,dense
 hdl_graph_slam,mcd_tuhh_night_09_108,dense
+imls_slam,kitti_seq_00_full,dense_profile
+imls_slam,kitti_seq_07_full,dense_profile
 imu_dead_reckoning,kitti_raw_0009_200,zupt_kitti_0009
 imu_dead_reckoning,kitti_raw_0009_full,nhc_zupt_kitti_0009_full
 imu_dead_reckoning,nclt_2013_01_10_120,zupt
 imu_dead_reckoning,nclt_2013_01_10_full,nhc_zupt_full
+inten_loam,kitti_seq_00_full,dense_profile
+inten_loam,kitti_seq_07_full,dense_profile
 isc_loam,hdl_400_open_ct_lio_120,fast
 isc_loam,kitti_raw_0009_200,fast
 isc_loam,kitti_raw_0009_full,fast
@@ -208,10 +216,16 @@ litamin2,kitti_raw_0009_full,fast_cov_half_threads
 litamin2,kitti_raw_0061_200,fast_cov_half_threads
 litamin2,kitti_raw_0061_full,fast_icp_only_half_threads
 litamin2,kitti_seq_00_full,tuned_voxel2_iter12_seeded
+litamin2,kitti_seq_01_full,paper_icp_first
 litamin2,kitti_seq_02_full,cov_floor_1e_4
+litamin2,kitti_seq_03_full,paper_icp_first
+litamin2,kitti_seq_04_full,paper_icp_first
 litamin2,kitti_seq_05_full,cov_floor_1e_4
+litamin2,kitti_seq_06_full,paper_icp_first
 litamin2,kitti_seq_07_full,cov_floor_1e_4
 litamin2,kitti_seq_08_full,cov_floor_1e_4
+litamin2,kitti_seq_09_full,paper_icp
+litamin2,kitti_seq_10_full,paper_icp_first
 litamin2,mcd_kth_day_06_108,fast_icp_only_half_threads
 litamin2,mcd_ntu_day_02_108,paper_icp_only_half_threads
 litamin2,mcd_tuhh_night_09_108,fast_icp_only_half_threads
@@ -227,6 +241,8 @@ loam_livox,kitti_raw_0061_full,fast
 loam_livox,mcd_kth_day_06_108,fast
 loam_livox,mcd_ntu_day_02_108,fast
 loam_livox,mcd_tuhh_night_09_108,fast
+mesh_loam,kitti_seq_00_full,dense_profile
+mesh_loam,kitti_seq_07_full,dense_profile
 mulls,hdl_400_open_ct_lio_120,fast
 mulls,kitti_raw_0009_200,fast
 mulls,kitti_raw_0009_full,fast
@@ -275,6 +291,8 @@ point_lio,kitti_raw_0061_full,fast
 point_lio,mcd_kth_day_06_108,fast
 point_lio,mcd_ntu_day_02_108,fast
 point_lio,mcd_tuhh_night_09_108,fast
+quadric_lo,kitti_seq_00_full,dense_profile
+quadric_lo,kitti_seq_07_full,dense_profile
 rko_lio,nclt_2013_01_10_120,no_bias_feedback
 small_gicp,hdl_400_open_ct_lio_120,fast_recent_map
 small_gicp,kitti_raw_0009_200,balanced_local_map
@@ -315,6 +333,8 @@ vins_fusion,kitti_raw_0009_200,fast
 vins_fusion,kitti_raw_0009_full,fast
 vins_fusion,kitti_raw_0061_200,fast
 vins_fusion,kitti_raw_0061_full,fast
+vlom,kitti_seq_00_full,default
+vlom,kitti_seq_07_full,default
 voxel_gicp,hdl_400_open_ct_lio_120,dense_recent_map
 voxel_gicp,kitti_raw_0009_200,fast_recent_map
 voxel_gicp,kitti_raw_0009_full,dense_recent_map

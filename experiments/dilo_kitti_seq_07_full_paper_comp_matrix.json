@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "dilo_kitti_seq_07_full_paper_comp",
+    "title": "DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table",
+    "question": "How close is the DiLO reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dilo",
+    "primary_method": "DiLO"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "DiLO, default parameters",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense_profile",
+      "label": "DiLO, dense profile",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-dense-profile"
+      ]
+    }
+  ]
+}

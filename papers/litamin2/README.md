@@ -64,6 +64,59 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
 | correspondence_search_radius | 0 | 対応探索の近傍ボクセル半径 |
 | max_correspondence_distance | 0.0 m | 対応点距離上限。0で無効 |
 
+## 論文どおりのオドメトリ (`--litamin2-paper-odometry`)
+
+論文 Sec. III の処理をそのまま追う経路 (`LiTAMIN2Odometry`, `include/litamin2/litamin2_odometry.h`)。
+下の「実装ノート」にある従来経路は、入力を 0.5 m で間引き最大 2500 点に制限し、点の地図
+(45000 点上限) を毎回ボクセル化し、同じボクセル座標どうしを対応させていたため、論文の
+仕組みとは別物だった。
+
+- **入力**: 生スキャン (間引きなし) を 3 m ボクセルに投票し、各ボクセルを 1 つの正規分布にする
+  (KITTI で 1 スキャンあたり約 470 分布、論文 Table II の削減率 0.5 % と同程度)。
+- **地図**: world 座標の正規分布ボクセル地図 (3 m)。`--litamin2-paper-map-mode first` は
+  各ボクセルに最初に入ったスキャン分布を保持し、`aggregate` (既定) は登録済みの全点を
+  ボクセルごとに平均・共分散へ積算する。センサから 100 m 超のボクセルは捨てる。
+- **対応**: 変換後のソース分布の平均に最も近い地図分布 (論文は kd-tree。ここでは周囲 27
+  ボクセルの最近傍で、1 ボクセル以内なら kd-tree と同じ相手になり、それより遠い対応は
+  ロバスト重みがほぼ 0)。
+- **コスト**: Table I の `w_ICP E_ICP + w_Cov (tr(X) + tr(X^-1) - 6)`, `X = R C_p^-1 R^T C_q`。
+  第 2 項は二乗誤差ではない (論文が Newton 法を使う理由) ので、回転についての Hessian を
+  解析的に入れ、ペアごとに半正定値へ射影する。重みは式 (5), (6) (σ_ICP = 0.5, σ_Cov = 3)。
+  以前の `--litamin2-covariance-gradient` は第 2 項を二乗した形 (`r^2` の Gauss-Newton) で、
+  `r` 倍だけ過大になり発散していた。
+- **予測**: 等速モデル。GT は初期値に使わない。
+
+フラグ: `--litamin2-paper-odometry`, `--litamin2-icp-only` (ICP 項のみ),
+`--litamin2-paper-map-mode {aggregate,first,latest}`, `--litamin2-paper-voxel-size`,
+`--litamin2-paper-min-points`, `--litamin2-paper-max-iterations`, `--litamin2-paper-map-radius`。
+
+### KITTI Odometry 00-10 (公式 RTE, GT seed なし, ループ閉じなし)
+
+`experiments/litamin2_kitti_seq_NN_full_paper_matrix.json`。全シーケンス同じ設定:
+
+| Seq | ICP+Cov, first 地図 (`paper_icp_cov`) | 論文 ICP+Cov | ICP のみ, first 地図 (`paper_icp_first`) | 論文 ICP |
+|---|---:|---:|---:|---:|
+| 00 | 1.009 % | 0.78 % | 0.948 % | 0.75 % |
+| 01 | 2.062 % | 2.10 % | 1.809 % | 1.88 % |
+| 02 | 1.148 % | 0.95 % | 1.135 % | 0.99 % |
+| 03 | 0.756 % | 0.96 % | 0.788 % | 0.84 % |
+| 04 | 0.902 % | 1.05 % | 0.934 % | 0.90 % |
+| 05 | 0.624 % | 0.55 % | 0.601 % | 0.74 % |
+| 06 | 0.578 % | 0.55 % | 0.494 % | 0.45 % |
+| 07 | **0.477 %** | 0.48 % | 0.811 % | 0.55 % |
+| 08 | 0.984 % | 1.01 % | 0.981 % | 1.25 % |
+| 09 | 0.777 % | 0.69 % | 0.839 % | 0.74 % |
+| 10 | 0.986 % | 0.80 % | 0.939 % | 1.36 % |
+| 幾何平均比 | **1.05x** | | **1.01x** | |
+
+約 60 FPS (1 スレッド)。従来経路の最良値 (シーケンスごとに sweep から選択) は 00/02/05/07/08 で
+1.22x だった。
+
+- 形状項 (Cov) は、地図がスキャン 1 枚分の分布を持つとき (`first`) にだけ効く。積算した
+  地図分布 (`aggregate`) は形がスキャン分布と違い、ICP+Cov は 04/08 で発散する
+  (`paper_icp_cov_aggregate`, ablation)。論文はこの点に触れていない。
+- ICP のみで `aggregate` 地図 (`paper_icp`, ablation) は 07 で 0.496 % と良いが 04 高速道路で発散する。
+
 ## 実装ノート
 
 - この実装はSLAMフロントエンド (オドメトリ) の点群レジストレーション部分を再現

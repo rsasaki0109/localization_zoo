@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-10-12T02:26:36+00:00",
+  "manifest_path": "experiments/vlom_kitti_seq_00_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "vlom_kitti_seq_00_full_paper_comp",
+    "title": "VLOM KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+    "question": "How close is the VLOM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "vlom",
+    "primary_method": "VLOM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "VLOM (scale-corrected A-LOAM, no visual bootstrap)",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods vlom --summary-json experiments/results/runs/vlom_kitti_seq_00_full_paper_comp_matrix/default/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/vlom_kitti_seq_00_full_paper_comp_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/vlom_kitti_seq_00_full_paper_comp_matrix/default/run.log",
+      "status": "ok",
+      "ate_m": 9.391448,
+      "rpe_trans_pct": 0.875872,
+      "rpe_rot_deg_per_m": 0.006923,
+      "fps": 2.130639,
+      "time_ms": 2131285.060394,
+      "frames": 4541,
+      "note": "VLOM (arXiv:2304.08978): scale-corrected A-LOAM with optional visual bootstrap; eval=intensity-pseudo-image; bootstrap=off scale_correction=on; no GT seed. mean_scale=1.010 bootstrap_frames=0 rgb_frames=0 intensity_dilation_radius=2",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.806095,
+      "kitti_rte_rot_deg_per_100m": 0.374033,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

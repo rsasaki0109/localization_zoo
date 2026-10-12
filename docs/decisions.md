@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1415,6 +1415,28 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | seed_only_fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | history_smoother_dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `default`.
+- Reference variants: `dense_profile`.
+- Aggregate result: `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- Current default: `default`.
+- Active challengers: `dense_profile`.
+- Aggregate result: `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
 
 - Current default: `fast`.
@@ -1632,6 +1654,28 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `fast_profile`.
+- Reference variants: `dense_profile`.
+- Aggregate result: `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- Current default: `fast_profile`.
+- Reference variants: `dense_profile`.
+- Aggregate result: `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## FAST-LIO2 on the public HDL-400 reference window
 
@@ -2353,6 +2397,24 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)
 
 - Current default: `nhc_zupt_kitti_0009_full`.
@@ -2421,6 +2483,24 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | nhc | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | nhc_zupt | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | accel_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## ISC-LOAM on the public HDL-400 reference window
 
@@ -3699,6 +3779,20 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast_cov_no_gt_seed | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LiTAMIN2 KITTI Odom seq 00 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_first`.
+- Active challengers: `paper_icp_cov`.
+- Reference variants: `paper_icp`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_00_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full)
 
 - Current default: `tuned_voxel1_iter12`.
@@ -3722,6 +3816,33 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | tuned_voxel2_iter12_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | tuned_voxel1_iter20_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LiTAMIN2 KITTI Odom seq 01 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_first`.
+- Active challengers: `paper_icp`.
+- Reference variants: `paper_icp_cov`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_01_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 KITTI Odom seq 02 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_first`.
+- Reference variants: `paper_icp_cov`, `paper_icp`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_02_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq)
 
 - Current default: `cluster_t1_seeded`.
@@ -3732,6 +3853,46 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast_seeded_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LiTAMIN2 KITTI Odom seq 03 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_first`.
+- Reference variants: `paper_icp_cov`, `paper_icp`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 KITTI Odom seq 04 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_first`.
+- Reference variants: `paper_icp_cov`, `paper_icp`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 KITTI Odom seq 05 full: the paper's odometry pipeline
+
+- Current default: `paper_icp`.
+- Active challengers: `paper_icp_first`.
+- Reference variants: `paper_icp_cov`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_icp | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length)
 
@@ -3744,6 +3905,20 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_seeded_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cluster_t1_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LiTAMIN2 KITTI Odom seq 06 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_first`.
+- Active challengers: `paper_icp`.
+- Reference variants: `paper_icp_cov`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation
 
 - Current default: `coarse_to_fine_3_2_1_elevation`.
@@ -3754,6 +3929,20 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | coarse_to_fine_3_2_1 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | coarse_to_fine_3_2_1_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LiTAMIN2 KITTI Odom seq 07 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_cov`.
+- Active challengers: `paper_icp_first`, `paper_icp`.
+- Reference variants: `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_07_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp_first | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_icp | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full
 
@@ -3766,6 +3955,19 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_seeded_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cluster_t1_seeded | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## LiTAMIN2 KITTI Odom seq 08 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_first`.
+- Reference variants: `paper_icp_cov`, `paper_icp`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory)
 
 - Current default: `fast_seeded_reference`.
@@ -3776,6 +3978,32 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast_seeded_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cluster_t1_seeded | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## LiTAMIN2 KITTI Odom seq 09 full: the paper's odometry pipeline
+
+- Current default: `paper_icp`.
+- Reference variants: `paper_icp_cov`, `paper_icp_first`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 KITTI Odom seq 10 full: the paper's odometry pipeline
+
+- Current default: `paper_icp_first`.
+- Reference variants: `paper_icp_cov`, `paper_icp`, `paper_icp_cov_aggregate`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames)
 
@@ -4080,6 +4308,24 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 - Blocker: Timed out after 120 seconds.
 - Next step: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 - Aggregate result: `experiments/results/lvi_sam_kitti_raw_0061_matrix.json`
+
+## Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## MULLS throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -4835,6 +5081,24 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## Quadric-LO KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `-`.
@@ -5405,6 +5669,24 @@ _Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## VLOM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## VLOM KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window
 

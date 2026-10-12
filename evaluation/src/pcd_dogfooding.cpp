@@ -65,6 +65,7 @@
 #include "rko_lio/rko_lio.h"
 #include "fr_lio/fr_lio.h"
 #include "pg_lio/pg_lio.h"
+#include "litamin2/litamin2_odometry.h"
 #include "litamin2/litamin2_registration.h"
 #include "ndt/ndt_registration.h"
 #include "scan_context/scan_context.h"
@@ -1692,6 +1693,14 @@ struct LiTAMIN2DogfoodingOptions {
   int correspondence_search_radius = 0;
   double max_correspondence_distance = 0.0;
   SeedPerturbation seed_perturbation;
+  // --litamin2-paper-odometry: the paper's pipeline (raw scans, 3 m
+  // distributions, voxel map of distributions, nearest-distribution pairing).
+  bool paper_odometry = false;
+  double paper_voxel_size = 3.0;
+  int paper_min_points = 3;
+  int paper_max_iterations = 30;
+  double paper_map_radius = 100.0;
+  std::string paper_map_mode = "aggregate";
 };
 
 std::string litamin2LocalMapPolicyName(
@@ -3898,11 +3907,61 @@ Eigen::Matrix4d velocityModelPrediction(const Eigen::Matrix4d& T_prev,
   return T_prev * delta_body;
 }
 
+MethodResult runLiTAMIN2PaperOdometry(const std::vector<std::string>& pcd_dirs,
+                                      const std::vector<Eigen::Matrix4d>& gt,
+                                      const LiTAMIN2DogfoodingOptions& options) {
+  using namespace localization_zoo::litamin2;
+  MethodResult res;
+  res.name = options.use_cov_cost ? "LiTAMIN2" : "LiTAMIN2-ICP";
+  LiTAMIN2OdometryParams params;
+  params.voxel_size = options.paper_voxel_size;
+  params.map_voxel_size = options.paper_voxel_size;
+  params.min_points_per_voxel = options.paper_min_points;
+  params.max_iterations = options.paper_max_iterations;
+  params.map_radius = options.paper_map_radius;
+  params.use_cov_cost = options.use_cov_cost;
+  params.min_cov_eigenvalue = options.min_cov_eigenvalue;
+  if (options.paper_map_mode == "first") {
+    params.map_mode = LiTAMIN2OdometryParams::MapMode::kFirst;
+  } else if (options.paper_map_mode == "latest") {
+    params.map_mode = LiTAMIN2OdometryParams::MapMode::kLatest;
+  } else {
+    params.map_mode = LiTAMIN2OdometryParams::MapMode::kAggregate;
+  }
+  LiTAMIN2Odometry odometry(params);
+  double distributions = 0.0, iterations = 0.0;
+  size_t registered = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    const auto points = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    const auto r = odometry.process(points);
+    res.poses.push_back(gt[0] * r.pose);
+    distributions += r.source_distributions;
+    if (i > 0) {
+      iterations += r.iterations;
+      ++registered;
+    }
+    if (i % 100 == 0) std::cerr << "\r  [LiTAMIN2 paper] " << i << "/" << pcd_dirs.size();
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  std::ostringstream note;
+  note << std::fixed << std::setprecision(1)
+       << "LiTAMIN2 paper odometry (raw scans, " << params.voxel_size
+       << " m distributions, map " << options.paper_map_mode << ", nearest-distribution pairing, "
+       << (params.use_cov_cost ? "ICP+Cov" : "ICP") << "); no GT seed. mean distributions/scan "
+       << distributions / std::max<size_t>(1, pcd_dirs.size()) << ", mean iterations "
+       << iterations / std::max<size_t>(1, registered);
+  res.note = note.str();
+  return res;
+}
+
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                          const std::vector<Eigen::Matrix4d>& gt,
                          const LiTAMIN2DogfoodingOptions& options,
                          bool no_gt_seed = false) {
   using namespace localization_zoo::litamin2;
+  if (options.paper_odometry) return runLiTAMIN2PaperOdometry(pcd_dirs, gt, options);
   MethodResult res;
   res.name = options.use_cov_cost ? "LiTAMIN2" : "LiTAMIN2-ICP";
 
@@ -12063,6 +12122,30 @@ int main(int argc, char** argv) {
           std::stod(arg.substr(
               std::string("--litamin2-line-search-min-step=").size())),
           1e-4, 1.0);
+      continue;
+    }
+    if (arg == "--litamin2-paper-odometry") {
+      litamin2_options.paper_odometry = true;
+      continue;
+    }
+    if (arg == "--litamin2-paper-voxel-size" && i + 1 < argc) {
+      litamin2_options.paper_voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--litamin2-paper-min-points" && i + 1 < argc) {
+      litamin2_options.paper_min_points = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--litamin2-paper-max-iterations" && i + 1 < argc) {
+      litamin2_options.paper_max_iterations = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--litamin2-paper-map-radius" && i + 1 < argc) {
+      litamin2_options.paper_map_radius = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--litamin2-paper-map-mode" && i + 1 < argc) {
+      litamin2_options.paper_map_mode = argv[++i];
       continue;
     }
     if (arg == "--litamin2-scan-to-scan") {

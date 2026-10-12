@@ -115,6 +115,12 @@ class PaperRatioTableTests(unittest.TestCase):
         self.assertEqual(pick("suma"), [0.7, 1.1, 0.5, 0.4, 1.0])
         self.assertEqual(pick("aloam"), [0.78, 0.92, 0.57, 0.63, 1.12])
         self.assertIn("secondary", methods["aloam"]["reported_source"]["arxiv"])
+        self.assertEqual(pick("elo"), [0.54, 0.54, 0.33, 0.31, 0.79])
+        self.assertEqual(pick("imls_slam"), [0.50, 0.53, 0.32, 0.33, 0.80])
+        self.assertEqual(pick("mesh_loam"), [0.53, 0.52, 0.34, 0.31, 0.82])
+        self.assertEqual(pick("quadric_lo"), [0.92, 1.16, 0.76, 1.09, 1.68])
+        self.assertEqual(pick("dilo"), [0.64, 0.67, 0.46, 0.42, 0.93])
+        self.assertEqual(pick("inten_loam"), [0.52, 0.54, 0.36, 0.34, 0.71])
 
 
 if __name__ == "__main__":

@@ -68,19 +68,6 @@
         "--input-vertical-angle-correction-deg",
         "0.22"
       ]
-    },
-    {
-      "id": "paper_odometry_elevation_keep_mesh",
-      "label": "Mesh-LOAM paper path + 0.22 deg correction + global mesh kept",
-      "design_style": "ablation",
-      "intent": "Facets survive the 80 m voxel prune (the paper keeps a global triangular mesh, Eq. 3), so revisits register to the old surface.",
-      "args": [
-        "--no-gt-seed",
-        "--mesh-loam-paper-odometry",
-        "--mesh-loam-keep-mesh",
-        "--input-vertical-angle-correction-deg",
-        "0.22"
-      ]
     }
   ]
 }

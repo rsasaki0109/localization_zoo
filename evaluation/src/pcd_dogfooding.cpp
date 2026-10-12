@@ -34,6 +34,7 @@
 #include "gmm_lo/gmm_lo.h"
 #include "gnc_lo/gnc_lo.h"
 #include "mcc_lo/mcc_lo.h"
+#include "imls_slam/imls_paper_odometry.h"
 #include "imls_slam/imls_slam.h"
 #include "mesh_loam/mesh_loam.h"
 #include "elo/elo.h"
@@ -2623,6 +2624,15 @@ struct ImlsSlamDogfoodingOptions {
   bool use_observability_sampling = true;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
+  // --imls-slam-paper-odometry: the paper's pipeline (raw scans, sliding
+  // window of raw scans, h = 0.06 / r = 0.20, nine-list sampling).
+  bool paper_odometry = false;
+  int paper_window_scans = 100;
+  int paper_samples_per_list = 100;
+  int paper_iterations = 20;
+  double paper_h = 0.06;
+  double paper_r = 0.20;
+  double paper_scan_normal_radius = 0.5;
 };
 
 struct MeshLoamDogfoodingOptions {
@@ -2654,6 +2664,14 @@ struct EloDogfoodingOptions {
   double non_ground_weight = 1.0;
   int max_alignment_points = 12000;
   int model_window_frames = 100;
+  // --elo-paper-profile (paper mechanics, see papers/elo/README.md).
+  int fusion_mode = 0;
+  bool ground_requires_both_sides = false;
+  bool normal_patch_full_size = false;
+  bool bev_keep_closest = false;
+  double robust_scale = 0.5;
+  int sri_search_radius_px = 1;
+  bool paper_profile = false;
 };
 
 struct TcLvgfDogfoodingOptions {
@@ -8522,10 +8540,52 @@ MethodResult runMccLo(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runImlsPaperOdometry(const std::vector<std::string>& pcd_dirs,
+                                  const std::vector<Eigen::Matrix4d>& gt,
+                                  const ImlsSlamDogfoodingOptions& options) {
+  using namespace localization_zoo::imls_slam;
+  MethodResult res;
+  res.name = "IMLS-SLAM";
+  ImlsPaperParams params;
+  params.window_scans = options.paper_window_scans;
+  params.samples_per_list = options.paper_samples_per_list;
+  params.iterations = options.paper_iterations;
+  params.h = options.paper_h;
+  params.r = options.paper_r;
+  params.scan_normal_radius = options.paper_scan_normal_radius;
+  ImlsPaperOdometry odometry(params);
+  const Eigen::Matrix4d world_anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  double samples = 0.0;
+  size_t registered = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    const auto points = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    const auto r = odometry.process(points);
+    res.poses.push_back(world_anchor * r.pose);
+    if (i > 0) {
+      samples += r.samples;
+      ++registered;
+    }
+    if (i % 20 == 0)
+      std::cerr << "\r  [IMLS paper] " << i << "/" << pcd_dirs.size() << " model=" << r.model_points;
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  std::ostringstream note;
+  note << std::fixed << std::setprecision(1)
+       << "IMLS-SLAM paper odometry (raw scans, window of " << params.window_scans
+       << " raw scans, h=" << params.h << " r=" << params.r << ", nine lists x "
+       << params.samples_per_list << ", " << params.iterations
+       << " iterations); no GT seed. mean samples " << samples / std::max<size_t>(1, registered);
+  res.note = note.str();
+  return res;
+}
+
 MethodResult runImlsSlam(const std::vector<std::string>& pcd_dirs,
                          const std::vector<Eigen::Matrix4d>& gt,
                          const ImlsSlamDogfoodingOptions& options) {
   using namespace localization_zoo::imls_slam;
+  if (options.paper_odometry) return runImlsPaperOdometry(pcd_dirs, gt, options);
   MethodResult res;
   res.name = "IMLS-SLAM";
 
@@ -8651,6 +8711,12 @@ MethodResult runElo(const std::vector<std::string>& pcd_dirs,
   params.non_ground_weight = options.non_ground_weight;
   params.max_alignment_points = options.max_alignment_points;
   params.model_window_frames = options.model_window_frames;
+  params.fusion_mode = options.fusion_mode;
+  params.ground_requires_both_sides = options.ground_requires_both_sides;
+  params.normal_patch_full_size = options.normal_patch_full_size;
+  params.bev_keep_closest = options.bev_keep_closest;
+  params.robust_scale = options.robust_scale;
+  params.sri_search_radius_px = options.sri_search_radius_px;
   EloPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -8658,6 +8724,7 @@ MethodResult runElo(const std::vector<std::string>& pcd_dirs,
   double residual_sum = 0.0;
   double ground_corr_sum = 0.0;
   double nonground_corr_sum = 0.0;
+  double fusion_weight_sum = 0.0;
   long n = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
@@ -8666,6 +8733,7 @@ MethodResult runElo(const std::vector<std::string>& pcd_dirs,
                                  options.max_source_points);
     if (pts_local.empty()) continue;
     const auto result = pipeline.registerFrame(pts_local);
+    fusion_weight_sum += result.fusion_weight;
     residual_sum += result.mean_abs_residual;
     ground_corr_sum += result.num_ground_correspondences;
     nonground_corr_sum += result.num_non_ground_correspondences;
@@ -8679,12 +8747,14 @@ MethodResult runElo(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  char buf[128];
-  std::snprintf(buf, sizeof(buf), "%.3f g=%.0f ng=%.0f",
+  char buf[160];
+  std::snprintf(buf, sizeof(buf), "%.3f g=%.0f ng=%.0f w=%.2f",
                 n > 0 ? residual_sum / static_cast<double>(n) : 0.0,
                 n > 0 ? ground_corr_sum / static_cast<double>(n) : 0.0,
-                n > 0 ? nonground_corr_sum / static_cast<double>(n) : 0.0);
+                n > 0 ? nonground_corr_sum / static_cast<double>(n) : 0.0,
+                n > 0 ? fusion_weight_sum / static_cast<double>(n) : 0.0);
   res.note =
+      std::string(options.paper_profile ? "[paper profile] " : "") +
       "ELO: frame-to-model projective odometry with non-ground spherical "
       "range-image map, ground BEV map, range-adaptive PCA normals, and "
       "SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=" +
@@ -14778,6 +14848,41 @@ int main(int argc, char** argv) {
       elo_options.ground_weight = 5.0;
       continue;
     }
+    if (arg == "--elo-paper-profile") {
+      // Paper mechanics: every raw point, 2048-wide range image, 0.1 m BEV,
+      // count-normalised fusion w = 0.7 w2 (eqs. 1-2), two-sided ground test
+      // (eq. 13), full-size normal patch (eq. 12), one vertex per BEV cell,
+      // single-pixel association and plain Gauss-Newton.
+      elo_options.paper_profile = true;
+      elo_options.source_voxel_size = 0.0;
+      elo_options.max_source_points = std::numeric_limits<size_t>::max();
+      elo_options.sri_width = 2048;
+      elo_options.bev_resolution = 0.1;
+      elo_options.max_alignment_points = 0;
+      elo_options.max_iterations = 20;
+      elo_options.fusion_mode = 1;
+      elo_options.ground_requires_both_sides = true;
+      elo_options.normal_patch_full_size = true;
+      elo_options.bev_keep_closest = true;
+      elo_options.robust_scale = 0.0;
+      elo_options.sri_search_radius_px = 0;
+      continue;
+    }
+    if (arg == "--elo-fusion-mode") {
+      if (i + 1 >= argc) { std::cerr << "--elo-fusion-mode requires a value" << std::endl; return 1; }
+      elo_options.fusion_mode = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--elo-sri-search-radius") {
+      if (i + 1 >= argc) { std::cerr << "--elo-sri-search-radius requires a value" << std::endl; return 1; }
+      elo_options.sri_search_radius_px = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--elo-robust-scale") {
+      if (i + 1 >= argc) { std::cerr << "--elo-robust-scale requires a value" << std::endl; return 1; }
+      elo_options.robust_scale = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--elo-sri-width") {
       if (i + 1 >= argc) { std::cerr << "--elo-sri-width requires a value" << std::endl; return 1; }
       elo_options.sri_width = std::stoi(argv[++i]);
@@ -14939,6 +15044,34 @@ int main(int argc, char** argv) {
     if (arg == "--imls-slam-h") {
       if (i + 1 >= argc) { std::cerr << "--imls-slam-h requires a value" << std::endl; return 1; }
       imls_slam_options.imls_h = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-paper-odometry") {
+      imls_slam_options.paper_odometry = true;
+      continue;
+    }
+    if (arg == "--imls-slam-paper-window" && i + 1 < argc) {
+      imls_slam_options.paper_window_scans = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-paper-samples" && i + 1 < argc) {
+      imls_slam_options.paper_samples_per_list = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-paper-iterations" && i + 1 < argc) {
+      imls_slam_options.paper_iterations = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-paper-h" && i + 1 < argc) {
+      imls_slam_options.paper_h = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-paper-r" && i + 1 < argc) {
+      imls_slam_options.paper_r = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-paper-normal-radius" && i + 1 < argc) {
+      imls_slam_options.paper_scan_normal_radius = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--imls-slam-no-sampling") {

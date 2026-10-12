@@ -222,6 +222,8 @@ void EloPipeline::segmentGround(FrameData* frame) const {
 
       bool has_slope = false;
       bool flat = false;
+      int sides = 0;
+      int flat_sides = 0;
       for (int dir : {-1, 1}) {
         for (int step = 1; step <= 6; ++step) {
           const int rr = r + dir * step;
@@ -229,15 +231,21 @@ void EloPipeline::segmentGround(FrameData* frame) const {
           const ScanCell& nb = frame->sri[static_cast<size_t>(sriIndex(rr, c))];
           if (!nb.valid) continue;
           has_slope = true;
+          ++sides;
           const Eigen::Vector3d d = nb.point - cell.point;
           const double horiz = std::hypot(d.x(), d.y());
           if (horiz > 1e-6 && std::abs(std::atan2(d.z(), horiz)) < angle_threshold) {
             flat = true;
+            ++flat_sides;
           }
           break;
         }
       }
-      cell.ground = !has_slope || flat;
+      if (params_.ground_requires_both_sides) {
+        cell.ground = sides > 0 && flat_sides == sides;
+      } else {
+        cell.ground = !has_slope || flat;
+      }
     }
   }
 }
@@ -254,16 +262,18 @@ void EloPipeline::computeRangeAdaptiveNormals(FrameData* frame) const {
       if (!center.valid || center.ground) continue;
 
       const double range = std::max(center.range, params_.min_range);
-      const int half_x = std::max(
+      const int lx = std::max(
           params_.normal_lx_min,
           std::min(params_.normal_lx_max,
                    static_cast<int>(std::ceil(params_.normal_range_delta /
                                               (range * kPi) * W))));
-      const int half_y = std::max(
+      const int ly = std::max(
           params_.normal_ly_min,
           std::min(params_.normal_ly_max,
                    static_cast<int>(std::ceil(params_.normal_range_delta /
                                               (range * fov) * H))));
+      const int half_x = params_.normal_patch_full_size ? lx / 2 : lx;
+      const int half_y = params_.normal_patch_full_size ? ly / 2 : ly;
       std::vector<Eigen::Vector3d> neighbors;
       neighbors.reserve(static_cast<size_t>((2 * half_x + 1) * (2 * half_y + 1)));
       int far_count = 0;
@@ -469,6 +479,9 @@ Eigen::Matrix4d EloPipeline::align(const FrameData& frame,
     const Eigen::Vector3d t = T.block<3, 1>(0, 3);
     Mat6 A = Mat6::Zero();
     Vec6 b = Vec6::Zero();
+    Mat6 A_parts[2] = {Mat6::Zero(), Mat6::Zero()};  // [non-ground, ground]
+    Vec6 b_parts[2] = {Vec6::Zero(), Vec6::Zero()};
+    int attempted[2] = {0, 0};
     int corr_count = 0;
     int ground_count = 0;
     int non_ground_count = 0;
@@ -476,6 +489,7 @@ Eigen::Matrix4d EloPipeline::align(const FrameData& frame,
 
     for (const auto& fp : frame.points) {
       const Eigen::Vector3d p_model = R * fp.point + t;
+      ++attempted[fp.ground ? 1 : 0];
       Correspondence corr;
       const bool ok = fp.ground ? lookupGround(p_model, &corr) : lookupSri(p_model, &corr);
       if (!ok) continue;
@@ -491,13 +505,20 @@ Eigen::Matrix4d EloPipeline::align(const FrameData& frame,
       Jp.block<3, 3>(0, 3) = Eigen::Matrix3d::Identity();
       const Eigen::Matrix<double, 1, 6> J = corr.normal.transpose() * Jp;
 
-      double weight = fp.ground ? params_.ground_weight : params_.non_ground_weight;
+      double weight = params_.fusion_mode == 1
+                          ? 1.0
+                          : (fp.ground ? params_.ground_weight : params_.non_ground_weight);
       if (params_.robust_scale > 1e-9) {
         const double s = residual / params_.robust_scale;
         weight /= (1.0 + s * s);
       }
-      A += weight * J.transpose() * J;
-      b -= weight * J.transpose() * residual;
+      if (params_.fusion_mode == 1) {
+        A_parts[fp.ground ? 1 : 0] += weight * J.transpose() * J;
+        b_parts[fp.ground ? 1 : 0] -= weight * J.transpose() * residual;
+      } else {
+        A += weight * J.transpose() * J;
+        b -= weight * J.transpose() * residual;
+      }
 
       ++corr_count;
       if (fp.ground) {
@@ -506,6 +527,26 @@ Eigen::Matrix4d EloPipeline::align(const FrameData& frame,
         ++non_ground_count;
       }
       abs_residual_sum += std::abs(residual);
+    }
+
+    if (params_.fusion_mode == 1) {
+      // Each term is averaged over its correspondences; w = w1 * w2 leans the
+      // solve towards the non-ground (range image) term.
+      const double rho_s =
+          attempted[0] > 0 ? static_cast<double>(non_ground_count) / attempted[0] : 0.0;
+      const double rho_g =
+          attempted[1] > 0 ? static_cast<double>(ground_count) / attempted[1] : 0.0;
+      const double w2 = rho_g > 1e-9 ? std::min(1.0, rho_s / rho_g) : 1.0;
+      const double w = non_ground_count > 0 ? params_.fusion_w1 * w2 : 0.0;
+      if (non_ground_count > 0) {
+        A += w / non_ground_count * A_parts[0];
+        b += w / non_ground_count * b_parts[0];
+      }
+      if (ground_count > 0) {
+        A += (1.0 - w) / ground_count * A_parts[1];
+        b += (1.0 - w) / ground_count * b_parts[1];
+      }
+      if (result) result->fusion_weight = w;
     }
 
     last_corr = corr_count;
@@ -561,6 +602,15 @@ void EloPipeline::insertBev(std::vector<ModelCell>* model,
     cell.stamp = stamp;
     cell.count = std::max(1, count);
     cell.valid = true;
+    return;
+  }
+  if (params_.bev_keep_closest) {
+    const double range = point.norm();
+    if (range < cell.range) {
+      cell.point = point;
+      cell.range = range;
+      cell.stamp = stamp;
+    }
     return;
   }
   const int old_count = std::max(1, cell.count);

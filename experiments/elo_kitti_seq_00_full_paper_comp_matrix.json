@@ -41,6 +41,43 @@
         "--no-gt-seed",
         "--elo-dense-profile"
       ]
+    },
+    {
+      "id": "dense_elevation_paper_normals",
+      "label": "ELO dense profile + 0.195 deg correction + the paper's normal patch size",
+      "design_style": "reference",
+      "intent": "The two paper mechanics that help on seq 07: the 0.195 deg vertical-angle correction the paper applies (Sec. IV-A) and the range-adaptive normal patch read as the full patch size (eq. 12; the default uses it as the half-width).",
+      "args": [
+        "--no-gt-seed",
+        "--elo-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.195",
+        "--elo-normal-full-patch"
+      ]
+    },
+    {
+      "id": "dense_elevation",
+      "label": "ELO dense profile + 0.195 deg correction",
+      "design_style": "ablation",
+      "intent": "Correction only.",
+      "args": [
+        "--no-gt-seed",
+        "--elo-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.195"
+      ]
+    },
+    {
+      "id": "paper_profile_elevation",
+      "label": "ELO paper profile (all paper mechanics as read) + 0.195 deg correction",
+      "design_style": "ablation",
+      "intent": "Raw scans, count-normalised fusion w = 0.7 w2, two-sided ground test, full-size normal patch, 0.1 m single-vertex BEV, single-pixel association, plain Gauss-Newton; worse than the selective variant on seq 07 (see papers/elo/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--elo-paper-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.195"
+      ]
     }
   ]
 }

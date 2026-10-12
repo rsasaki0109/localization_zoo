@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `467` ready, `1` blocked, `14` skipped problems.
+Current coverage: `480` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -126,6 +126,8 @@ Current coverage: `467` ready, `1` blocked, `14` skipped problems.
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `dogfooding_results/hdl_400_open_ct_lio_60` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.488 | 26.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
+| DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `default` | 38.742 | 42.1 | `dogfooding_results/kitti_seq_00_full` |
+| DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 7.161 | 39.1 | `dogfooding_results/kitti_seq_07_full` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.362 | 7.0 | `dogfooding_results/kitti_raw_0009_200` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.3 | `dogfooding_results/kitti_raw_0009_200` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.798 | 8.5 | `dogfooding_results/kitti_raw_0061_200` |
@@ -144,6 +146,8 @@ Current coverage: `467` ready, `1` blocked, `14` skipped problems.
 | DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.9 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | DLO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.101 | 15.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `dogfooding_results/kitti_raw_0009_full` |
+| ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `fast_profile` | 21.957 | 4.3 | `dogfooding_results/kitti_seq_00_full` |
+| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `fast_profile` | 2.891 | 4.4 | `dogfooding_results/kitti_seq_07_full` |
 | F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.972 | 8.7 | `dogfooding_results/kitti_seq_07_full` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.883 | 28.0 | `dogfooding_results/kitti_raw_0009_200` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.883 | 24.6 | `dogfooding_results/kitti_raw_0009_200` |
@@ -205,10 +209,14 @@ Current coverage: `467` ready, `1` blocked, `14` skipped problems.
 | HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `dense` | 1.373 | 14.5 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | HDL-Graph-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `default` | 122.141 | 1.9 | `dogfooding_results/kitti_raw_0009_200` |
 | HDL-Graph-SLAM on the public HDL-400 reference window | `ready` | `fast` | 13.820 | 6.7 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 17.571 | 5.3 | `dogfooding_results/kitti_seq_00_full` |
+| IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 3.038 | 6.3 | `dogfooding_results/kitti_seq_07_full` |
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 201.185 | 1988293.4 | `dogfooding_results/kitti_raw_0009_200` |
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `nhc_zupt_kitti_0009_full` | 1067.301 | 2692976.4 | `dogfooding_results/kitti_raw_0009_full` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `dogfooding_results/nclt_2013_01_10_120` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `/media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full` |
+| InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 430.301 | 8.5 | `dogfooding_results/kitti_seq_00_full` |
+| InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 138.654 | 8.9 | `dogfooding_results/kitti_seq_07_full` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.321 | 37.6 | `dogfooding_results/kitti_raw_0009_200` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `dogfooding_results/kitti_raw_0009_200` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `dogfooding_results/kitti_raw_0009_full` |
@@ -361,6 +369,7 @@ Current coverage: `467` ready, `1` blocked, `14` skipped problems.
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_200` |
 | LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_full` |
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_full` |
+| Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 0.982 | 0.4 | `dogfooding_results/kitti_seq_07_full` |
 | MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `dogfooding_results/kitti_seq_07_full` |
 | MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 10.786 | 7.6 | `dogfooding_results/kitti_seq_00_full` |
 | MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_highway_elevation` | 3.658 | 11.7 | `dogfooding_results/kitti_seq_01_full` |
@@ -421,6 +430,8 @@ Current coverage: `467` ready, `1` blocked, `14` skipped problems.
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `fast` | 0.083 | 77.3 | `dogfooding_results/mcd_ntu_day_02_108` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `fast` | 1.116 | 88.7 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `fast` | 17.929 | 69.9 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| Quadric-LO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 14.736 | 0.8 | `dogfooding_results/kitti_seq_00_full` |
+| Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 2.130 | 0.9 | `dogfooding_results/kitti_seq_07_full` |
 | R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_200` |
 | R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_200` |
 | R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_full` |
@@ -469,6 +480,8 @@ Current coverage: `467` ready, `1` blocked, `14` skipped problems.
 | VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.811 | 255.5 | `dogfooding_results/kitti_raw_0061_200` |
 | VINS-Fusion trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 50.238 | 93.7 | `dogfooding_results/kitti_raw_0009_full` |
 | VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 97.611 | 236.7 | `dogfooding_results/kitti_raw_0061_full` |
+| VLOM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `default` | 9.391 | 2.1 | `dogfooding_results/kitti_seq_00_full` |
+| VLOM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 2.544 | 2.3 | `dogfooding_results/kitti_seq_07_full` |
 | Voxel-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `dense_profile` | 1.047 | 97.9 | `dogfooding_results/kitti_seq_00_full` |
 | Voxel-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `dense_profile` | 0.944 | 84.8 | `dogfooding_results/kitti_seq_02_full` |
 | Voxel-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `dense_profile` | 1.031 | 111.1 | `dogfooding_results/kitti_seq_05_full` |
@@ -508,7 +521,7 @@ Current coverage: `467` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 467 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 480 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

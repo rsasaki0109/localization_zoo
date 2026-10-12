@@ -255,6 +255,17 @@ optimistic bounds.
 | CT-ICP | 00-10 | 1.15x | near paper with the upstream pipeline (`--ct-icp-upstream-mechanics`) on corrected scans; the 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out). The horizontal module scores 0.577 % in 2D on 07. The paper's 00 and 07 values are below every roll-free trajectory built from the ground truth ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
+| Quadric-LO | 00/07 | 0.80x | near paper (vs the paper's scan-to-submap Table II; no author code) |
+| Mesh-LOAM | 07 | 1.70x | gap remains (no author code) |
+| ELO | 00/07 | 2.60x | gap remains (no author code; CPU profiles) |
+| IMLS-SLAM | 00/07 | 2.66x | gap remains (no author code; the paper de-skews scans with an external odometry first) |
+| DiLO | 00/07 | 4.12x | gap remains (no author code) |
+| InTEn-LOAM | 00/07 | fails | does not track on KITTI (50-56 % RTE; see [its README](papers/inten_loam/README.md)) |
+
+Papers checked but not compared: VLOM and PL-LOAM report visual-LiDAR systems that
+use the camera, and SROM (Spectral-LO) gives an undefined "% error per 100m" on
+01-05 only; about 30 other papers have no KITTI Odometry table in % (the per-paper
+findings are in `docs/paper_claim.md`).
 
 Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);
 claim wording and audit findings: [`docs/paper_claim.md`](docs/paper_claim.md).

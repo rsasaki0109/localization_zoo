@@ -1,0 +1,111 @@
+{
+  "generated_at": "2026-10-12T02:26:36+00:00",
+  "manifest_path": "experiments/dilo_kitti_seq_00_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "dilo_kitti_seq_00_full_paper_comp",
+    "title": "DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+    "question": "How close is the DiLO reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dilo",
+    "primary_method": "DiLO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "DiLO, default parameters",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/default/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/default/run.log",
+      "status": "ok",
+      "ate_m": 38.742163,
+      "rpe_trans_pct": 1.199599,
+      "rpe_rot_deg_per_m": 0.022193,
+      "fps": 42.110163,
+      "time_ms": 107836.199847,
+      "frames": 4541,
+      "note": "DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image projective data association (no NN search) + point-to-plane GN; constant-velocity prior, no GT seed. lookup_radius=1 lookup_max_dist=1.50 keyframes=1589",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 2.686792,
+      "kitti_rte_rot_deg_per_100m": 1.584161,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "dense_profile",
+      "label": "DiLO, dense profile",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --dilo-dense-profile",
+      "summary_path": "experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 47.821226,
+      "rpe_trans_pct": 1.127187,
+      "rpe_rot_deg_per_m": 0.022584,
+      "fps": 36.429926,
+      "time_ms": 124650.267665,
+      "frames": 4541,
+      "note": "DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image projective data association (no NN search) + point-to-plane GN; constant-velocity prior, no GT seed. lookup_radius=1 lookup_max_dist=1.50 keyframes=1589",
+      "benchmark_score": 83.76,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 2.79562,
+      "kitti_rte_rot_deg_per_100m": 1.62893,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

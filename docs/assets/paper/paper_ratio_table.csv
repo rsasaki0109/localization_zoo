@@ -21,6 +21,50 @@ ct_icp,07,0.310,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_
 ct_icp,08,0.810,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.902,1.11,1.938,47,47,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json
 ct_icp,09,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.629,1.28,0.945,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json
 ct_icp,10,0.480,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.742,1.55,1.092,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json
+dilo,00,0.640,"Table 1 DiLO, average translation error (%)",kitti_rte,2.687,4.20,2.741,2,2,default,experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json
+dilo,01,1.070,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+dilo,02,0.670,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+dilo,03,0.740,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+dilo,04,0.450,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+dilo,05,0.460,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+dilo,06,0.410,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+dilo,07,0.420,"Table 1 DiLO, average translation error (%)",kitti_rte,1.694,4.03,1.703,2,2,dense_profile,experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json
+dilo,08,0.930,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+dilo,09,0.640,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+dilo,10,0.850,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
+elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,1.272,2.36,1.339,2,2,dense_profile,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
+elo,01,0.610,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+elo,02,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+elo,03,0.650,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+elo,04,0.320,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+elo,05,0.330,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+elo,06,0.300,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.893,2.88,0.985,2,2,dense_profile,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
+elo,08,0.790,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+elo,09,0.480,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+elo,10,0.590,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
+imls_slam,00,0.500,"Table I Our SLAM, drift in translation (%)",kitti_rte,1.378,2.76,1.378,1,1,dense_profile,experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json
+imls_slam,01,0.820,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+imls_slam,02,0.530,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+imls_slam,03,0.680,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+imls_slam,04,0.330,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+imls_slam,05,0.320,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+imls_slam,06,0.330,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+imls_slam,07,0.330,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.846,2.56,0.846,1,1,dense_profile,experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json
+imls_slam,08,0.800,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+imls_slam,09,0.550,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+imls_slam,10,0.530,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
+inten_loam,00,0.520,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,49.769,95.71,49.769,1,1,dense_profile,experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json
+inten_loam,01,0.640,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,02,0.540,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,03,0.630,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,04,0.370,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,05,0.360,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,06,0.240,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,07,0.340,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,56.407,165.90,56.407,1,1,dense_profile,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
+inten_loam,08,0.710,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,09,0.480,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,10,0.450,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
 kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.535,1.05,0.928,12,12,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json
 kiss_icp,04,0.360,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.373,1.04,0.646,2,2,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json
 l_lo,00,0.910,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,1.479,1.63,1.479,1,1,seq07_tuned,experiments/results/l_lo_kitti_seq_00_full_matrix.json
@@ -55,6 +99,17 @@ litamin2,07,0.480,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel
 litamin2,08,1.010,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.981,0.97,0.983,2,2,paper_icp_first,experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json
 litamin2,09,0.690,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.777,1.13,0.808,2,2,paper_icp_cov,experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json
 litamin2,10,0.800,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.939,1.17,0.962,2,2,paper_icp_first,experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json
+mesh_loam,00,0.530,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,01,0.640,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,02,0.520,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,03,0.630,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,04,0.410,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,05,0.340,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,06,0.350,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,07,0.310,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.528,1.70,0.528,1,1,dense_profile,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
+mesh_loam,08,0.820,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,09,0.470,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,10,0.560,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
 mulls,00,0.510,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.536,1.05,2.527,4,4,mulls_lo_elevation,experiments/results/mulls_kitti_seq_00_full_lo_matrix.json
 mulls,01,0.620,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.674,1.09,3.091,4,4,mulls_lo_highway_elevation,experiments/results/mulls_kitti_seq_01_full_lo_matrix.json
 mulls,02,0.550,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.585,1.06,2.881,4,4,mulls_lo_elevation,experiments/results/mulls_kitti_seq_02_full_lo_matrix.json
@@ -66,6 +121,17 @@ mulls,07,0.290,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,
 mulls,08,0.800,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.812,1.01,2.759,4,4,mulls_lo_elevation,experiments/results/mulls_kitti_seq_08_full_lo_matrix.json
 mulls,09,0.490,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.548,1.12,0.990,2,2,mulls_lo_elevation,experiments/results/mulls_kitti_seq_09_full_lo_matrix.json
 mulls,10,0.610,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.691,1.13,1.310,2,2,mulls_lo_elevation,experiments/results/mulls_kitti_seq_10_full_lo_matrix.json
+quadric_lo,00,0.920,"Table II OURS with scan-to-submap mapping, average translation error (%)",kitti_rte,0.966,1.05,0.966,1,1,dense_profile,experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json
+quadric_lo,01,2.610,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
+quadric_lo,02,1.160,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
+quadric_lo,03,1.450,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
+quadric_lo,04,0.870,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
+quadric_lo,05,0.760,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
+quadric_lo,06,0.550,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
+quadric_lo,07,1.090,"Table II OURS with scan-to-submap mapping, average translation error (%)",kitti_rte,0.662,0.61,0.662,1,1,dense_profile,experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json
+quadric_lo,08,1.680,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
+quadric_lo,09,0.850,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
+quadric_lo,10,1.760,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
 suma,00,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.602,2.29,2.911,2,2,dense_profile,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
 suma,01,1.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
 suma,02,1.100,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.785,1.62,3.033,2,2,dense_profile,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json

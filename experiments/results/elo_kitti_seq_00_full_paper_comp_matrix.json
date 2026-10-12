@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-10-12T02:26:36+00:00",
+  "manifest_path": "experiments/elo_kitti_seq_00_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "elo_kitti_seq_00_full_paper_comp",
+    "title": "ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+    "question": "How close is the ELO reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "elo",
+    "primary_method": "ELO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_profile",
+      "label": "ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV)",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed",
+        "--elo-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/fast_profile/summary.json --no-gt-seed --elo-fast-profile",
+      "summary_path": "experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/fast_profile/summary.json",
+      "log_path": "experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/fast_profile/run.log",
+      "status": "ok",
+      "ate_m": 22.504373,
+      "rpe_trans_pct": 1.123524,
+      "rpe_rot_deg_per_m": 0.010471,
+      "fps": 4.264135,
+      "time_ms": 1064928.829604,
+      "frames": 4541,
+      "note": "ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.030 g=5238 ng=419",
+      "benchmark_score": 98.78,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.40494,
+      "kitti_rte_rot_deg_per_100m": 0.654517,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "dense_profile",
+      "label": "ELO, dense profile",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed",
+        "--elo-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --elo-dense-profile",
+      "summary_path": "experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/elo_kitti_seq_00_full_paper_comp_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 21.957439,
+      "rpe_trans_pct": 1.004583,
+      "rpe_rot_deg_per_m": 0.009676,
+      "fps": 2.318063,
+      "time_ms": 1958962.888571,
+      "frames": 4541,
+      "note": "ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.027 g=9848 ng=3012",
+      "benchmark_score": 77.18,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 1.272151,
+      "kitti_rte_rot_deg_per_100m": 0.617279,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

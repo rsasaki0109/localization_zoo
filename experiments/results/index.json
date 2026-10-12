@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T01:12:00+00:00",
+  "generated_at": "2026-10-12T02:28:01+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1037,6 +1037,15 @@
       "current_default": "seed_only_fast"
     },
     {
+      "problem_id": "dilo_kitti_seq_00_full_paper_comp",
+      "title": "DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dilo_kitti_seq_00_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "dilo_kitti_seq_07_full_paper_comp",
       "title": "DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -1206,6 +1215,15 @@
       "manifest_path": "experiments/dlo_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/dlo_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "elo_kitti_seq_00_full_paper_comp",
+      "title": "ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_00_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json",
+      "current_default": "fast_profile"
     },
     {
       "problem_id": "elo_kitti_seq_07_full_paper_comp",
@@ -1766,6 +1784,15 @@
       "current_default": "dense"
     },
     {
+      "problem_id": "imls_slam_kitti_seq_00_full_paper_comp",
+      "title": "IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/imls_slam_kitti_seq_00_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json",
+      "current_default": "dense_profile"
+    },
+    {
       "problem_id": "imls_slam_kitti_seq_07_full_paper_comp",
       "title": "IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -1809,6 +1836,15 @@
       "manifest_path": "experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json",
       "aggregate_path": "experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json",
       "current_default": "zupt"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_paper_comp",
+      "title": "InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
+      "current_default": "dense_profile"
     },
     {
       "problem_id": "inten_loam_kitti_seq_07_full_paper_comp",
@@ -3737,6 +3773,15 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "quadric_lo_kitti_seq_00_full_paper_comp",
+      "title": "Quadric-LO KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json",
+      "current_default": "dense_profile"
+    },
+    {
       "problem_id": "quadric_lo_kitti_seq_07_full_paper_comp",
       "title": "Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -4176,6 +4221,15 @@
       "manifest_path": "experiments/vins_fusion_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/vins_fusion_kitti_raw_0061_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "vlom_kitti_seq_00_full_paper_comp",
+      "title": "VLOM KITTI Odom seq 00 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vlom_kitti_seq_00_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json",
+      "current_default": "default"
     },
     {
       "problem_id": "vlom_kitti_seq_07_full_paper_comp",

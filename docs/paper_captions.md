@@ -1,11 +1,11 @@
 # Paper Caption Snippets
 
-_Generated at 2026-10-12T00:39:57+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-12T02:28:02+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 ## Table Caption
 
 Table X. Current default variants selected from the experiment-driven benchmark contract.
-The table summarizes 463 ready defaults across 429 GT-backed and 34 reference-based problem instances.
+The table summarizes 476 ready defaults across 442 GT-backed and 34 reference-based problem instances.
 
 ## Pareto Figure Caption
 
@@ -15,7 +15,7 @@ In the current GT-backed subset, the fastest default is `okvis:fast` at 1717.1 F
 ## Core Figure Caption
 
 Figure Y. Manuscript-facing core defaults, choosing one representative default per method family.
-The core set currently contains 34 method families and keeps `reference-based` outputs visually distinct from `gt-backed` outputs.
+The core set currently contains 41 method families and keeps `reference-based` outputs visually distinct from `gt-backed` outputs.
 
 ## Variant Fronts Caption
 

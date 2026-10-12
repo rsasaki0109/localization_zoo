@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-12T01:12:00+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1415,6 +1415,17 @@ _Generated at 2026-10-12T01:12:00+00:00 by `evaluation/scripts/run_experiment_ma
 | seed_only_fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | history_smoother_dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `default`.
+- Reference variants: `dense_profile`.
+- Aggregate result: `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `default`.
@@ -1643,6 +1654,17 @@ _Generated at 2026-10-12T01:12:00+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `fast_profile`.
+- Reference variants: `dense_profile`.
+- Aggregate result: `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -2375,6 +2397,15 @@ _Generated at 2026-10-12T01:12:00+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `dense_profile`.
@@ -2452,6 +2483,15 @@ _Generated at 2026-10-12T01:12:00+00:00 by `evaluation/scripts/run_experiment_ma
 | nhc | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | nhc_zupt | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | accel_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -5032,6 +5072,15 @@ _Generated at 2026-10-12T01:12:00+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## Quadric-LO KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `dense_profile`.
@@ -5611,6 +5660,15 @@ _Generated at 2026-10-12T01:12:00+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## VLOM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## VLOM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 

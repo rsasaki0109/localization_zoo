@@ -1,6 +1,6 @@
 # Paper Roadmap
 
-_Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 ## Chosen Direction
 
@@ -10,7 +10,7 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/generate_publicat
 
 ## Phase 1: Lock the Study Contract
 
-- Keep the current `467` ready problems reproducible through `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing`.
+- Keep the current `480` ready problems reproducible through `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing`.
 - Freeze the meaning of `reference-based` versus `GT-backed` results and keep them in separate tables.
 - Do not merge ad-hoc benchmark scripts outside the stable dogfooding `--summary-json` contract.
 

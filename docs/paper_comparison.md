@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-12T00:40:20+00:00
+> Generated: 2026-10-12T02:28:27+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -639,5 +639,244 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Default | 32.662 | 2.193 | 0.018837 | 3.75 |
 
 **Notes**: Paper average 1.59 % over the reported sequences.
+
+---
+
+## ELO
+
+**Paper**: Zheng and Zhu, Efficient LiDAR Odometry for Autonomous Driving, IEEE RA-L 2021
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (official KITTI t_rel (100-800 m))
+**Hardware**: laptop CPU (paper Sec. V)
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
+**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 1.272 vs 0.54 (2.36x); seq 07 0.893 vs 0.31 (2.88x); geometric mean 2.60x. Repo values are the best variant of experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 2.60x on 00/07 — seq 00 1.272 vs 0.54 (2.36x); seq 07 0.893 vs 0.31 (2.88x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
+**Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.54 |
+| kitti_01 | 0.61 |
+| kitti_02 | 0.54 |
+| kitti_03 | 0.65 |
+| kitti_04 | 0.32 |
+| kitti_05 | 0.33 |
+| kitti_06 | 0.30 |
+| kitti_07 | 0.31 |
+| kitti_08 | 0.79 |
+| kitti_09 | 0.48 |
+| kitti_10 | 0.59 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| KITTI | ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV) | 22.504 | 1.124 | 0.010471 | 4.26 |
+| KITTI | ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV) | 3.536 | 0.981 | 0.009988 | 4.39 |
+
+**Notes**: Paper average 0.50 % (online test 0.68 %). The frame-to-frame variant scores 1.14/0.83/0.91/1.25/0.83/0.75/0.76/0.60/1.34/1.18/2.57 %. No loop closure. Values read from the paper PDF on 2026-10-12.
+
+---
+
+## IMLS-SLAM
+
+**Paper**: Deschaud, IMLS-SLAM: scan-to-model matching based on 3D data, ICRA 2018
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (KITTI odometry drift (%))
+**Hardware**: None
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
+**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 1.378 vs 0.50 (2.76x); seq 07 0.846 vs 0.33 (2.56x); geometric mean 2.66x. Repo values are the best variant of experiments/results/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 2.66x on 00/07 — seq 00 1.378 vs 0.50 (2.76x); seq 07 0.846 vs 0.33 (2.56x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
+**Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.50 |
+| kitti_01 | 0.82 |
+| kitti_02 | 0.53 |
+| kitti_03 | 0.68 |
+| kitti_04 | 0.33 |
+| kitti_05 | 0.32 |
+| kitti_06 | 0.33 |
+| kitti_07 | 0.33 |
+| kitti_08 | 0.80 |
+| kitti_09 | 0.55 |
+| kitti_10 | 0.53 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| KITTI | IMLS-SLAM, dense profile | 17.571 | 1.000 | 0.009952 | 5.31 |
+| KITTI | IMLS-SLAM, dense profile | 3.038 | 0.700 | 0.007423 | 6.25 |
+
+**Notes**: Paper overall 0.55 % on the training set (0.69 % on the test set). Scans were de-skewed with an external odometry before matching; scan-to-model, no loop closure. Values read from the paper PDF on 2026-10-12.
+
+---
+
+## INTEN-LOAM
+
+**Paper**: Li et al., InTEn-LOAM: Intensity and Temporal Enhanced LiDAR Odometry and Mapping, Remote Sensing 2022 (arXiv 2209.05708)
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (KITTI RTE (%))
+**Hardware**: None
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
+**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 49.769 vs 0.52 (95.71x); seq 07 56.407 vs 0.34 (165.90x); geometric mean 126.01x. Repo values are the best variant of experiments/results/inten_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Fails on KITTI: 50-56 % official RTE on 00/07 (paper 0.52/0.34 %) — seq 00 49.769 vs 0.52 (95.71x); seq 07 56.407 vs 0.34 (165.90x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: The reimplementation does not track on KITTI (documented in papers/inten_loam/README.md: ~63 % RPE with the full pipeline, divergence when TVF, DOR or mapping are dropped). It is listed so the failure stays visible, not as a reproduction.
+**Next step**: Debug the KITTI pipeline (feature extraction on unordered KITTI scans, mapping) before any comparison is meaningful.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.52 |
+| kitti_01 | 0.64 |
+| kitti_02 | 0.54 |
+| kitti_03 | 0.63 |
+| kitti_04 | 0.37 |
+| kitti_05 | 0.36 |
+| kitti_06 | 0.24 |
+| kitti_07 | 0.34 |
+| kitti_08 | 0.71 |
+| kitti_09 | 0.48 |
+| kitti_10 | 0.45 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| KITTI | InTEn-LOAM, dense profile | 430.301 | 66.456 | 0.387374 | 8.48 |
+| KITTI | InTEn-LOAM, dense profile | 138.654 | 67.650 | 0.605218 | 8.88 |
+
+**Notes**: Paper average 0.54 % (frame-weighted). Includes scan-to-local-map refinement, no loop closure. Values taken from arXiv v1, not checked against the published version. Values read from the paper PDF on 2026-10-12.
+
+---
+
+## MESH-LOAM
+
+**Paper**: Zhu et al., Mesh-LOAM: Real-time Mesh-Based LiDAR Odometry and Mapping, IEEE T-IV 2024
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (KITTI relative translational error (%))
+**Hardware**: None
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
+**Current claim**: KITTI Odometry 07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 07 0.528 vs 0.31 (1.70x); geometric mean 1.70x. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 1.70x on 07 — seq 07 0.528 vs 0.31 (1.70x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
+**Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.53 |
+| kitti_01 | 0.64 |
+| kitti_02 | 0.52 |
+| kitti_03 | 0.63 |
+| kitti_04 | 0.41 |
+| kitti_05 | 0.34 |
+| kitti_06 | 0.35 |
+| kitti_07 | 0.31 |
+| kitti_08 | 0.82 |
+| kitti_09 | 0.47 |
+| kitti_10 | 0.56 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| KITTI | Mesh-LOAM, dense profile (0.25 m input voxel) | 0.982 | 0.616 | 0.005401 | 0.40 |
+
+**Notes**: Paper mean 0.51 %. The point-to-plane ablation row averages 0.71 %. Scan-to-mesh-map odometry, no loop closure. Values read from the paper PDF on 2026-10-12.
+
+---
+
+## QUADRIC-LO
+
+**Paper**: Xia et al., Quadric Representations for LiDAR Odometry, Mapping and Localization, IEEE RA-L 2023
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (KITTI average translation error (%))
+**Hardware**: None
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
+**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 0.966 vs 0.92 (1.05x); seq 07 0.662 vs 1.09 (0.61x); geometric mean 0.80x. Repo values are the best variant of experiments/results/quadric_lo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 0.80x on 00/07 — seq 00 0.966 vs 0.92 (1.05x); seq 07 0.662 vs 1.09 (0.61x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Only seq 00 and 07 have been run.
+**Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.92 |
+| kitti_01 | 2.61 |
+| kitti_02 | 1.16 |
+| kitti_03 | 1.45 |
+| kitti_04 | 0.87 |
+| kitti_05 | 0.76 |
+| kitti_06 | 0.55 |
+| kitti_07 | 1.09 |
+| kitti_08 | 1.68 |
+| kitti_09 | 0.85 |
+| kitti_10 | 1.76 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| KITTI | Quadric-LO, dense profile | 14.736 | 0.867 | 0.007640 | 0.81 |
+| KITTI | Quadric-LO, dense profile | 2.130 | 0.598 | 0.006249 | 0.88 |
+
+**Notes**: Table II (scan-to-scan plus scan-to-submap correction, average 1.25 %) is compared because the repository implementation matches against a local map. Table I (scan-to-scan only) gives 2.64/5.05/3.31/1.34/1.66/1.97/1.30/2.56/2.57/3.32/2.21 %. No loop closure. Values read from the paper PDF on 2026-10-12.
+
+---
+
+## DILO
+
+**Paper**: Han et al., DiLO: Direct light detection and ranging odometry based on spherical range images for autonomous driving, ETRI Journal 2021
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (KITTI average translation error (%), 100-800 m)
+**Hardware**: 4 cores, 2.6 GHz (paper)
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
+**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 2.687 vs 0.64 (4.20x); seq 07 1.694 vs 0.42 (4.03x); geometric mean 4.12x. Repo values are the best variant of experiments/results/dilo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 4.12x on 00/07 — seq 00 2.687 vs 0.64 (4.20x); seq 07 1.694 vs 0.42 (4.03x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
+**Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.64 |
+| kitti_01 | 1.07 |
+| kitti_02 | 0.67 |
+| kitti_03 | 0.74 |
+| kitti_04 | 0.45 |
+| kitti_05 | 0.46 |
+| kitti_06 | 0.41 |
+| kitti_07 | 0.42 |
+| kitti_08 | 0.93 |
+| kitti_09 | 0.64 |
+| kitti_10 | 0.85 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| KITTI | DiLO, default parameters | 38.742 | 1.200 | 0.022193 | 42.11 |
+| KITTI | DiLO, default parameters | 7.161 | 1.533 | 0.023380 | 39.12 |
+
+**Notes**: Paper average 0.69 % (frame-weighted). The table is printed rotated; values were rebuilt from word positions and match the stated average. No loop closure. Values read from the paper PDF on 2026-10-12.
 
 ---

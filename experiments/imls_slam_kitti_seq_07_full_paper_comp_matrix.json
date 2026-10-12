@@ -3,7 +3,7 @@
   "problem": {
     "id": "imls_slam_kitti_seq_07_full_paper_comp",
     "title": "IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table",
-    "question": "How close is the IMLS-SLAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "question": "How close is the IMLS-SLAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE), with the harness profile and with the paper's own odometry pipeline?",
     "dataset": {
       "pcd_dir": "dogfooding_results/kitti_seq_07_full",
       "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
@@ -30,6 +30,46 @@
       "args": [
         "--no-gt-seed",
         "--imls-slam-dense-profile"
+      ]
+    },
+    {
+      "id": "paper_odometry_w100",
+      "label": "IMLS-SLAM paper odometry, window of 100 raw scans, 0.22 deg beam correction",
+      "design_style": "reference",
+      "intent": "The paper's pipeline and KITTI settings (Sec. V-VI): raw scans with the 0.22 deg vertical-angle correction, the last 100 localized raw scans as the model, h = 0.06 m, r = 0.20 m with a per-query normal, nine planarity-weighted lists of 100 samples walked with the r gate, 20 iterations.",
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ]
+    },
+    {
+      "id": "paper_odometry_w10",
+      "label": "IMLS-SLAM paper odometry, window of 10 raw scans, 0.22 deg beam correction",
+      "design_style": "reference",
+      "intent": "As paper_odometry_w100 with the last 10 scans (the paper's Table IV puts n = 10 within 0.01 % of n = 100); about 1.6x faster.",
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "10",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ]
+    },
+    {
+      "id": "paper_odometry_w10_no_correction",
+      "label": "IMLS-SLAM paper odometry, window 10, no beam correction",
+      "design_style": "ablation",
+      "intent": "paper_odometry_w10 without the 0.22 deg correction.",
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "10"
       ]
     }
   ]

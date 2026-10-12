@@ -69,6 +69,9 @@ struct EloParams {
   // fusion_mode 1: w E_S + (1 - w) E_G with each term averaged over its
   //   correspondences and w = w1 * w2, w2 = min(1, inlier ratio of the
   //   non-ground points / inlier ratio of the ground points) (eqs. 1-2).
+  // fusion_mode 2-4: raw sums combined as w A_S + (1 - w) A_G with w = w1 w2
+  //   (w1 balances the point counts) and w2 read as Ns_in / (Ns_in + Ng_in)
+  //   (2), Ns_in / Ng_in (3) or the ratio of inlier rates (4), w <= 1.
   int fusion_mode = 0;
   double fusion_w1 = 0.7;
   // Eq. 13: a pixel in the height band is ground only if the slopes to the

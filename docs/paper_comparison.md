@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-12T11:40:33+00:00
+> Generated: 2026-10-12T18:10:52+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -769,11 +769,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00-10)
 **Reported metric**: KITTI RTE translation [%] (KITTI relative translational error (%))
 **Hardware**: None
-**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 1.011 vs 0.53 (1.91x); seq 07 0.528 vs 0.31 (1.70x); geometric mean 1.80x. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Numeric comparison**: Same metric, 1.80x on 00/07 — seq 00 1.011 vs 0.53 (1.91x); seq 07 0.528 vs 0.31 (1.70x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
-**Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+**Repo scope**: Paper reimplementation (no author code) with the paper association and input — From-paper reimplementation in the shared harness; see the method README.
+**Current claim**: Near paper on KITTI Odometry 00/07 (paper path) — Official KITTI RTE on full sequences, no GT seed, paper path (--mesh-loam-paper-odometry: nearest-facet association, 0.1 m input, 0.22 deg correction): seq 00 0.567 vs 0.53 (1.07x); seq 07 0.340 vs 0.31 (1.10x); geometric mean 1.08x, from 1.80x with the dense profile. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 1.08x on 00/07 — seq 00 0.567 vs 0.53 (1.07x); seq 07 0.340 vs 0.31 (1.10x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: No author code; the default association (smallest plane residual) and the missing elevation correction caused most of the earlier 1.80x. The global mesh (Eq. 3) does not fit in memory with marching-tetrahedra facets.
+**Next step**: Run the paper path on the remaining KITTI sequences.
 
 ### Paper-Reported Values
 
@@ -795,8 +795,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
-| KITTI | Mesh-LOAM, dense profile (0.25 m input voxel) | 13.474 | 0.901 | 0.007371 | 0.36 |
-| KITTI | Mesh-LOAM, dense profile (0.25 m input voxel) | 0.982 | 0.616 | 0.005401 | 0.40 |
+| KITTI | Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | 8.496 | 0.785 | 0.004296 | 0.66 |
+| KITTI | Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | 0.651 | 0.491 | 0.002657 | 0.63 |
 
 **Notes**: Paper mean 0.51 %. The point-to-plane ablation row averages 0.71 %. Scan-to-mesh-map odometry, no loop closure. Values read from the paper PDF on 2026-10-12.
 
@@ -813,7 +813,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 0.966 vs 0.92 (1.05x); seq 07 0.662 vs 1.09 (0.61x); geometric mean 0.80x. Repo values are the best variant of experiments/results/quadric_lo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
 **Numeric comparison**: Same metric, 0.80x on 00/07 — seq 00 0.966 vs 0.92 (1.05x); seq 07 0.662 vs 1.09 (0.61x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
 **Main blocker**: Only seq 00 and 07 have been run.
-**Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
+**Next step**: Run the paper path on the remaining KITTI sequences.
 
 ### Paper-Reported Values
 

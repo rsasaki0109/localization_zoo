@@ -31,6 +31,43 @@
         "--no-gt-seed",
         "--mesh-loam-dense-profile"
       ]
+    },
+    {
+      "id": "paper_odometry_elevation",
+      "label": "Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",
+      "design_style": "reference",
+      "intent": "Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.",
+      "args": [
+        "--no-gt-seed",
+        "--mesh-loam-paper-odometry",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ]
+    },
+    {
+      "id": "dense_elevation_nearest_facet",
+      "label": "Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction",
+      "design_style": "ablation",
+      "intent": "Nearest-facet association and the correction on the 0.25 m / 8000-point input.",
+      "args": [
+        "--no-gt-seed",
+        "--mesh-loam-dense-profile",
+        "--mesh-loam-nearest-facet",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ]
+    },
+    {
+      "id": "dense_elevation",
+      "label": "Mesh-LOAM dense profile + 0.22 deg correction",
+      "design_style": "ablation",
+      "intent": "Correction only.",
+      "args": [
+        "--no-gt-seed",
+        "--mesh-loam-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ]
     }
   ]
 }

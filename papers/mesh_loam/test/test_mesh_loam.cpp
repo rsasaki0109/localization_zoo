@@ -111,3 +111,37 @@ TEST(MeshLoam, RecoversSmallYaw) {
   EXPECT_NEAR(yaw_est, yaw, 0.01);
   EXPECT_LT((res.pose.block<3, 1>(0, 3)).norm(), 0.05);
 }
+
+TEST(MeshLoam, NearestFacetRecoversTranslationAndYaw) {
+  MeshLoamParams params = testParams();
+  params.nearest_facet = true;
+  MeshLoamPipeline pipeline(params);
+  pipeline.registerFrame(makeRoomScan(Eigen::Vector3d(0, 0, 1.2)));
+  const double yaw = 0.02;
+  const Eigen::Vector3d moved(0.1, 0.05, 0.0);
+  const Eigen::Matrix3d R_ws =
+      Eigen::AngleAxisd(yaw, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  auto scan = makeRoomScan(Eigen::Vector3d(0, 0, 1.2) + moved);
+  for (auto& p : scan) p = R_ws.transpose() * p;
+  const auto res = pipeline.registerFrame(scan);
+  EXPECT_TRUE(res.converged);
+  const Eigen::Matrix3d R_est = res.pose.block<3, 3>(0, 0);
+  EXPECT_NEAR(std::atan2(R_est(1, 0), R_est(0, 0)), yaw, 0.005);
+  EXPECT_LT((res.pose.block<3, 1>(0, 3) - moved).norm(), 0.03);
+}
+
+TEST(MeshLoam, KeepMeshSurvivesThePrune) {
+  MeshLoamParams params = testParams();
+  params.local_map_radius = 1.0;  // prunes almost the whole room
+  params.keep_mesh = true;
+  MeshLoamPipeline kept(params);
+  params.keep_mesh = false;
+  MeshLoamPipeline pruned(params);
+  const auto scan = makeRoomScan(Eigen::Vector3d(0, 0, 1.2));
+  for (int i = 0; i < 2; ++i) {
+    kept.registerFrame(scan);
+    pruned.registerFrame(scan);
+  }
+  EXPECT_LT(kept.mapSize(), static_cast<size_t>(5000));
+  EXPECT_GT(kept.liveFacets(), 2 * pruned.liveFacets());
+}

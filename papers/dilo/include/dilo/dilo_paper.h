@@ -57,6 +57,13 @@ struct DiloPaperParams {
   double max_init_deviation_rad = 0.1;
   double max_pair_step_m = 0.5;
   double max_pair_step_rad = 0.05;
+  // Edge key points (Sec. 3.5): Harris on dI_e/du, negative local minima;
+  // the residual is the pixel distance along u to the nearest reference edge
+  // in the same row (eq. 17); edge and plane steps are averaged.
+  bool use_edges = false;
+  int max_edge_points = 1000;
+  double edge_search_px = 4.0;
+  double harris_k = 0.04;
   double huber_delta = 0.25;
   double tukey_c = 1.0;
 };
@@ -71,6 +78,9 @@ struct DiloPaperFrame {
   // Plane key points (sensor frame) with their normals.
   std::vector<Eigen::Vector3d> key_points;
   std::vector<Eigen::Vector3d> key_normals;
+  // Edge key points (sensor frame) and, per row, the sorted edge columns.
+  std::vector<Eigen::Vector3d> edge_points;
+  std::vector<std::vector<int>> edge_cols;
   Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();  // world <- sensor
 };
 
@@ -94,8 +104,16 @@ public:
   int accumulate(const DiloPaperFrame& source, const DiloPaperFrame& reference,
                  const Eigen::Matrix4d& T, int kernel, Eigen::Matrix<double, 6, 6>* H,
                  Eigen::Matrix<double, 6, 1>* g) const;
+  // Same for the edge residual (pixels along u).
+  int accumulateEdges(const DiloPaperFrame& source, const DiloPaperFrame& reference,
+                      const Eigen::Matrix4d& T, int kernel, Eigen::Matrix<double, 6, 6>* H,
+                      Eigen::Matrix<double, 6, 1>* g) const;
 
 private:
+  // Step for one source / reference set: plane step, averaged with the edge
+  // step when edges are on. False if neither has enough pairs.
+  bool step(const DiloPaperFrame& source, const std::vector<const DiloPaperFrame*>& refs,
+            const std::vector<Eigen::Matrix4d>& T, int kernel, Eigen::Matrix<double, 6, 1>* d) const;
   int index(int row, int col) const { return row * params_.width + col; }
   Eigen::Vector3d pixelDirection(int row, int col) const;
 

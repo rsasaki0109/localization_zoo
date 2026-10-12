@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-12T11:40:05+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-12T18:10:25+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -371,8 +371,8 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | loam_livox | `mcd_kth_day_06_108` | gt-backed | `fast` | 4.095 | 66.3 | `experiments/results/loam_livox_mcd_kth_day_06_matrix.json` |
 | loam_livox | `mcd_ntu_day_02_108` | gt-backed | `fast` | 0.137 | 69.0 | `experiments/results/loam_livox_mcd_ntu_day_02_matrix.json` |
 | loam_livox | `mcd_tuhh_night_09_108` | gt-backed | `fast` | 1.192 | 68.8 | `experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json` |
-| mesh_loam | `kitti_seq_00_full` | gt-backed | `dense_profile` | 13.474 | 0.4 | `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` |
-| mesh_loam | `kitti_seq_07_full` | gt-backed | `dense_profile` | 0.982 | 0.4 | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_00_full` | gt-backed | `dense_elevation_nearest_facet` | 8.496 | 0.7 | `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_07_full` | gt-backed | `dense_elevation_nearest_facet` | 0.651 | 0.6 | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | mulls | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.876 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | mulls | `kitti_raw_0009_200` | gt-backed | `fast` | 2.695 | 1.2 | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | mulls | `kitti_raw_0009_full` | gt-backed | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |

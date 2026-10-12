@@ -256,7 +256,7 @@ optimistic bounds.
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out). The horizontal module scores 0.577 % in 2D on 07. The paper's 00 and 07 values are below every roll-free trajectory built from the ground truth ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
 | Quadric-LO | 00/07 | 0.80x | near paper (vs the paper's scan-to-submap Table II; no author code) |
-| Mesh-LOAM | 00/07 | 1.80x | gap remains (no author code) |
+| Mesh-LOAM | 00/07 | 1.08x | near paper with the paper's nearest-facet association, 0.1 m input and the 0.22 deg correction (`--mesh-loam-paper-odometry`), from 1.80x; no author code ([details](papers/mesh_loam/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
 | ELO | 00/07 | 1.37x | gap remains (no author code); with the 0.195 deg correction the paper applies and its normal patch size, from 2.60x ([details](papers/elo/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
 | IMLS-SLAM | 00/07 | 1.04x | near paper with the paper's pipeline (`--imls-slam-paper-odometry`: raw scans, 0.22 deg correction, a window of 100 raw scans, h = 0.06 m), from 2.66x ([details](papers/imls_slam/README.md)) |
 | DiLO | 00/07 | 1.31x | paper pipeline without edge key points (`--dilo-paper-odometry`, 0.22 deg correction), from 4.12x; equal to the paper's plane-only ablation (0.97x) ([details](papers/dilo/README.md)) |

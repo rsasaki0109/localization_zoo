@@ -71,7 +71,12 @@ class MeshLoamPipeline {
 
   const Eigen::Matrix4d& pose() const { return pose_; }
   size_t mapSize() const { return voxels_.size(); }
-  size_t meshSize() const { return facets_.size(); }
+  size_t meshSize() const { return facets_.size(); }  ///< including dead slots
+  size_t liveFacets() const {
+    size_t n = 0;
+    for (const char a : facet_alive_) n += static_cast<size_t>(a);
+    return n;
+  }
 
   /// Force zero-surface extraction of all dirty blocks (exposed for tests).
   void extractMesh();

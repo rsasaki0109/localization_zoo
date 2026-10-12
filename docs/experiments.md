@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-12T00:18:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T00:23:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -320,6 +320,7 @@ _Generated at 2026-10-12T00:18:13+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation | `ready` | `coarse_to_fine_3_2_1_elevation` | 2.086 | 47.5 | `experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 07 full: the paper's odometry pipeline | `ready` | `paper_icp_cov` | 1.434 | 89.1 | `experiments/results/litamin2_kitti_seq_07_full_paper_matrix.json` |
 | LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full | `ready` | `fast_seeded_reference` | 0.647 | 94.7 | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 KITTI Odom seq 08 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 16.099 | 73.6 | `experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `fast_seeded_reference` | 0.696 | 104.9 | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 09 full: the paper's odometry pipeline | `ready` | `paper_icp` | 5.571 | 67.2 | `experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 10 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 5.615 | 67.7 | `experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json` |
@@ -19594,6 +19595,78 @@ _Generated at 2026-10-12T00:18:13+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 KITTI Odom seq 08 full: the paper's odometry pipeline
+
+- **Problem ID**: `litamin2_kitti_seq_08_full_paper`
+- **Question**: Does LiTAMIN2 as described in the paper (raw scans voted into 3 m normal distributions, a voxel map of distributions, nearest-distribution pairing, ICP+Cov cost minimised by Newton steps) reproduce the paper's Table III values without loop closure?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| LiTAMIN2 paper odometry, ICP+Cov, scan-distribution map | reference | 16.099 | 43.2 | 79.3 | 3.70 | 4.10 | Keep as reference variant |
+| LiTAMIN2 paper odometry, ICP only, aggregated map | reference | 24.552 | 51.0 | 67.4 | 3.95 | 4.25 | Keep as reference variant |
+| LiTAMIN2 paper odometry, ICP+Cov, aggregated map | ablation | 78.041 | 34.9 | 34.0 | 4.30 | 4.50 | Keep as reference variant |
+| LiTAMIN2 paper odometry, ICP only, scan-distribution map | ablation | 20.825 | 73.6 | 88.7 | 3.35 | 3.85 | Adopt as current default |
+
+### Observations
+
+1. `paper_icp_first` is the current default for this problem.
+2. `paper_icp_first` is the fastest observed variant at 73.6 FPS.
+3. `paper_icp_cov` is the most accurate observed variant at 16.099 m ATE.
+
+### Variant Notes
+
+#### `paper_icp_cov`
+
+- Intent: Paper pipeline with the full cost (Table III row 'LiTAMIN2 (ICP+Cov)', no loop closure). The map keeps the first scan distribution per 3 m voxel, so the shape term compares like with like.
+- CLI args: `--no-gt-seed --litamin2-paper-odometry --litamin2-paper-map-mode first`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_cov/summary.json --no-gt-seed --litamin2-paper-odometry --litamin2-paper-map-mode first`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_cov/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_cov/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map first, nearest-distribution pairing, ICP+Cov); no GT seed. mean distributions/scan 655.9, mean iterations 10.6
+
+#### `paper_icp`
+
+- Intent: Paper pipeline with the ICP term only (Table III row 'LiTAMIN2 (ICP)'); map voxels aggregate every registered point.
+- CLI args: `--no-gt-seed --litamin2-paper-odometry --litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp/summary.json --no-gt-seed --litamin2-paper-odometry --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map aggregate, nearest-distribution pairing, ICP); no GT seed. mean distributions/scan 655.9, mean iterations 10.8
+
+#### `paper_icp_cov_aggregate`
+
+- Intent: Full cost against aggregated map distributions, whose shapes differ from single-scan ones.
+- CLI args: `--no-gt-seed --litamin2-paper-odometry`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_cov_aggregate/summary.json --no-gt-seed --litamin2-paper-odometry`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_cov_aggregate/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_cov_aggregate/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map aggregate, nearest-distribution pairing, ICP+Cov); no GT seed. mean distributions/scan 655.9, mean iterations 11.5
+
+#### `paper_icp_first`
+
+- Intent: ICP term only against the first-scan-distribution map.
+- CLI args: `--no-gt-seed --litamin2-paper-odometry --litamin2-icp-only --litamin2-paper-map-mode first`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_first/summary.json --no-gt-seed --litamin2-paper-odometry --litamin2-icp-only --litamin2-paper-map-mode first`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_first/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_paper_matrix/paper_icp_first/run.log`
+- Readability proxy: 3.35 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map first, nearest-distribution pairing, ICP); no GT seed. mean distributions/scan 655.9, mean iterations 10.4
 
 
 ## LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory)

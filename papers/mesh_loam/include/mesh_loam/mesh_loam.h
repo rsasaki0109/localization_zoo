@@ -60,6 +60,17 @@ struct MeshLoamResult {
   double mean_abs_residual = 0.0;
 };
 
+/// Cumulative wall time per stage since construction / reset() [ms].
+struct MeshLoamTimings {
+  double preprocess_ms = 0.0;  ///< range filter + kNN PCA normals
+  double icp_ms = 0.0;         ///< point-to-mesh Gauss-Newton
+  double integrate_ms = 0.0;   ///< SDF scatter
+  double extract_ms = 0.0;     ///< zero-surface extraction
+  double prune_ms = 0.0;       ///< radius prune
+  int frames = 0;
+  int extractions = 0;
+};
+
 class MeshLoamPipeline {
  public:
   explicit MeshLoamPipeline(const MeshLoamParams& params = MeshLoamParams());
@@ -77,6 +88,8 @@ class MeshLoamPipeline {
     for (const char a : facet_alive_) n += static_cast<size_t>(a);
     return n;
   }
+
+  const MeshLoamTimings& timings() const { return timings_; }
 
   /// Force zero-surface extraction of all dirty blocks (exposed for tests).
   void extractMesh();
@@ -129,6 +142,7 @@ class MeshLoamPipeline {
                 Eigen::Matrix4d* icp_correction, MeshLoamResult* result) const;
 
   MeshLoamParams params_;
+  MeshLoamTimings timings_;
   int frame_count_ = 0;
   Eigen::Matrix4d pose_ = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d prev_pose_ = Eigen::Matrix4d::Identity();

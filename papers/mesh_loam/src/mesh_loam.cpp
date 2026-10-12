@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 
 #include <algorithm>
+#include <chrono>
 #include <cmath>
 
 #ifdef _OPENMP
@@ -13,6 +14,12 @@ namespace localization_zoo {
 namespace mesh_loam {
 
 namespace {
+
+using Clock = std::chrono::steady_clock;
+
+double msSince(const Clock::time_point& t0) {
+  return std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+}
 
 Eigen::Matrix3d expSo3(const Eigen::Vector3d& w) {
   const double theta = w.norm();
@@ -62,6 +69,7 @@ void MeshLoamPipeline::reset() {
   pose_ = Eigen::Matrix4d::Identity();
   prev_pose_ = Eigen::Matrix4d::Identity();
   has_prev_ = false;
+  timings_ = MeshLoamTimings();
   voxels_.clear();
   block_facets_.clear();
   dirty_blocks_.clear();
@@ -498,12 +506,20 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
 
 MeshLoamResult MeshLoamPipeline::registerFrame(const std::vector<Eigen::Vector3d>& points) {
   MeshLoamResult result;
+  ++timings_.frames;
+  auto t0 = Clock::now();
   const auto oriented = preprocess(points);
+  timings_.preprocess_ms += msSince(t0);
 
   if (frame_count_ == 0) {
     std::vector<OrientedPoint> world = oriented;  // pose is identity
+    t0 = Clock::now();
     integrateScan(world);
+    timings_.integrate_ms += msSince(t0);
+    t0 = Clock::now();
     extractMesh();
+    timings_.extract_ms += msSince(t0);
+    ++timings_.extractions;
     frame_count_ = 1;
     result.pose = pose_;
     result.converged = true;
@@ -530,7 +546,9 @@ MeshLoamResult MeshLoamPipeline::registerFrame(const std::vector<Eigen::Vector3d
   }
 
   Eigen::Matrix4d icp = Eigen::Matrix4d::Identity();
+  t0 = Clock::now();
   result.converged = solveIcp(features, &icp, &result);
+  timings_.icp_ms += msSince(t0);
   const Eigen::Matrix4d new_pose = result.converged ? (icp * prediction).eval() : prediction;
 
   prev_pose_ = pose_;
@@ -549,12 +567,19 @@ MeshLoamResult MeshLoamPipeline::registerFrame(const std::vector<Eigen::Vector3d
     w.n = R * op.n;
     world.push_back(w);
   }
+  t0 = Clock::now();
   integrateScan(world);
+  timings_.integrate_ms += msSince(t0);
 
   ++frame_count_;
   if (facets_.empty() || frame_count_ % params_.mesh_update_interval == 0) {
+    t0 = Clock::now();
     extractMesh();
+    timings_.extract_ms += msSince(t0);
+    ++timings_.extractions;
+    t0 = Clock::now();
     pruneMap();
+    timings_.prune_ms += msSince(t0);
   }
 
   result.pose = pose_;

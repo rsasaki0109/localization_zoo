@@ -522,7 +522,7 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const {
 // S2M (Alg. 2)
 // ---------------------------------------------------------------------------
 
-int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T) const {
+int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4]) const {
   const Map& map = *map_;
   const double gate = params_.s2m_gate_sq;
   const double huber = params_.huber;
@@ -559,9 +559,12 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T) const {
       if (r < 1e-9) continue;
       sys.add(x, perp / r, r, huber);
     }
+    int counts[4];
+    counts[0] = sys.n;
     for (int cls = 0; cls < 2; ++cls) {
       const auto& src = cls == 0 ? curr.ground : curr.facade;
       const Tree& tree = cls == 0 ? map.local_ground : map.local_facade;
+      const int before = sys.n;
       for (const auto& f : src) {
         const Eigen::Vector3d x = R * f.p + t;
         if (tree.knn(x, 5, &idx, &d2) < 5 || d2[4] > gate) continue;
@@ -575,7 +578,9 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T) const {
         if (!planar) continue;
         sys.add(x, nrm, nrm.dot(x - c), huber);
       }
+      counts[1 + cls] = sys.n - before;
     }
+    const int before_intensity = sys.n;
     if (params_.use_intensity) {
       for (const auto& f : curr.reflector) {
         const Eigen::Vector3d x = R * f.p + t;
@@ -587,6 +592,9 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T) const {
       }
     }
     pairs = sys.n;
+    counts[3] = sys.n - before_intensity;
+    if (class_pairs)
+      for (int k = 0; k < 4; ++k) class_pairs[k] = counts[k];
     if (sys.n < 30) return sys.n;
     const Vec6 delta = (sys.H + 1e-6 * Mat6::Identity()).ldlt().solve(-sys.g);
     if (!delta.allFinite()) return 0;
@@ -739,7 +747,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
   if (params_.use_mapping && frame_ % std::max(1, params_.s2m_interval) == 0) {
     buildLocal(pose_.block<3, 1>(0, 3));
     Eigen::Matrix4d T = pose_;
-    result.s2m_pairs = solveS2M(frame, &T);
+    result.s2m_pairs = solveS2M(frame, &T, result.s2m_class_pairs);
     if (result.s2m_pairs >= 30) {
       pose_ = T;
       drift_ = pose_ * odom_.inverse();

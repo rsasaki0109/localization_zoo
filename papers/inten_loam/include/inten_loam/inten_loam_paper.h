@@ -81,7 +81,7 @@ struct InTenLoamPaperParams {
   bool use_mapping = true;
   int s2m_interval = 1;             // frames between S2M (keyframes)
   double map_edge_voxel = 0.4;
-  double map_plane_voxel = 0.8;
+  double map_plane_voxel = 0.2;   // chosen on KITTI 07 (0.8: 0.803 %, 0.4: 0.444 %, 0.2: 0.368 %)
   double map_intensity_voxel = 0.2;
   double map_radius = 100.0;
   int temporal_window = 50;         // Th_t [frames]
@@ -110,6 +110,7 @@ struct InTenLoamPaperResult {
   size_t num_ground = 0, num_facade = 0, num_edge = 0, num_reflector = 0;
   int s2s_pairs = 0;
   int s2m_pairs = 0;
+  int s2m_class_pairs[4] = {0, 0, 0, 0};  // edge, ground, facade, intensity (last iteration)
   size_t dor_removed = 0;
 };
 
@@ -155,7 +156,7 @@ private:
 
   // Gauss-Newton on se(3) with re-association; T maps source into target.
   int solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const;
-  int solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T) const;
+  int solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4] = nullptr) const;
   std::vector<char> dynamicMask(const PaperFrame& curr, const Eigen::Matrix4d& T_w) const;
   void insert(const PaperFrame& curr, const Eigen::Matrix4d& T_w, const std::vector<char>& dynamic);
 

@@ -5,6 +5,10 @@
 #include <algorithm>
 #include <cmath>
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 namespace localization_zoo {
 namespace mesh_loam {
 
@@ -14,6 +18,39 @@ Eigen::Matrix3d expSo3(const Eigen::Vector3d& w) {
   const double theta = w.norm();
   if (theta < 1e-12) return Eigen::Matrix3d::Identity();
   return Eigen::AngleAxisd(theta, w / theta).toRotationMatrix();
+}
+
+// Squared distance from p to the triangle (a, b, c) (Ericson, Real-Time
+// Collision Detection, 5.1.5).
+double pointTriangleDist2(const Eigen::Vector3d& p, const Eigen::Vector3d& a,
+                          const Eigen::Vector3d& b, const Eigen::Vector3d& c) {
+  const Eigen::Vector3d ab = b - a, ac = c - a, ap = p - a;
+  const double d1 = ab.dot(ap), d2 = ac.dot(ap);
+  if (d1 <= 0.0 && d2 <= 0.0) return ap.squaredNorm();
+  const Eigen::Vector3d bp = p - b;
+  const double d3 = ab.dot(bp), d4 = ac.dot(bp);
+  if (d3 >= 0.0 && d4 <= d3) return bp.squaredNorm();
+  const double vc = d1 * d4 - d3 * d2;
+  if (vc <= 0.0 && d1 >= 0.0 && d3 <= 0.0) {
+    const double v = d1 / (d1 - d3);
+    return (p - (a + v * ab)).squaredNorm();
+  }
+  const Eigen::Vector3d cp = p - c;
+  const double d5 = ab.dot(cp), d6 = ac.dot(cp);
+  if (d6 >= 0.0 && d5 <= d6) return cp.squaredNorm();
+  const double vb = d5 * d2 - d1 * d6;
+  if (vb <= 0.0 && d2 >= 0.0 && d6 <= 0.0) {
+    const double w = d2 / (d2 - d6);
+    return (p - (a + w * ac)).squaredNorm();
+  }
+  const double va = d3 * d6 - d5 * d4;
+  if (va <= 0.0 && (d4 - d3) >= 0.0 && (d5 - d6) >= 0.0) {
+    const double w = (d4 - d3) / ((d4 - d3) + (d5 - d6));
+    return (p - (b + w * (c - b))).squaredNorm();
+  }
+  const double denom = 1.0 / (va + vb + vc);
+  const double v = vb * denom, w = vc * denom;
+  return (p - (a + ab * v + ac * w)).squaredNorm();
 }
 
 }  // namespace
@@ -61,7 +98,6 @@ Eigen::Vector3d MeshLoamPipeline::voxelCenter(const Eigen::Vector3i& v) const {
 std::vector<MeshLoamPipeline::OrientedPoint> MeshLoamPipeline::preprocess(
     const std::vector<Eigen::Vector3d>& points) const {
   std::vector<OrientedPoint> out;
-  out.reserve(points.size());
   std::vector<Eigen::Vector3d> kept;
   kept.reserve(points.size());
   for (const auto& p : points) {
@@ -83,48 +119,54 @@ std::vector<MeshLoamPipeline::OrientedPoint> MeshLoamPipeline::preprocess(
   for (size_t i = 0; i < kept.size(); ++i) grid[cellOf(kept[i])].push_back(i);
 
   const int k = std::max(5, params_.normal_neighbors);
-  std::vector<std::pair<double, size_t>> nn;
-  for (size_t i = 0; i < kept.size(); ++i) {
-    const Eigen::Vector3d& p = kept[i];
-    const Eigen::Vector3i c = cellOf(p);
-    nn.clear();
-    for (int dx = -1; dx <= 1; ++dx) {
-      for (int dy = -1; dy <= 1; ++dy) {
-        for (int dz = -1; dz <= 1; ++dz) {
-          const auto it = grid.find(Eigen::Vector3i(c.x() + dx, c.y() + dy, c.z() + dz));
-          if (it == grid.end()) continue;
-          for (const size_t j : it->second) {
-            if (j == i) continue;
-            nn.emplace_back((kept[j] - p).squaredNorm(), j);
+  out.resize(kept.size());
+#pragma omp parallel
+  {
+    std::vector<std::pair<double, size_t>> nn;
+#pragma omp for schedule(dynamic, 256)
+    for (long li = 0; li < static_cast<long>(kept.size()); ++li) {
+      const size_t i = static_cast<size_t>(li);
+      const Eigen::Vector3d& p = kept[i];
+      const Eigen::Vector3i c = cellOf(p);
+      nn.clear();
+      for (int dx = -1; dx <= 1; ++dx) {
+        for (int dy = -1; dy <= 1; ++dy) {
+          for (int dz = -1; dz <= 1; ++dz) {
+            const auto it = grid.find(Eigen::Vector3i(c.x() + dx, c.y() + dy, c.z() + dz));
+            if (it == grid.end()) continue;
+            for (const size_t j : it->second) {
+              if (j == i) continue;
+              nn.emplace_back((kept[j] - p).squaredNorm(), j);
+            }
           }
         }
       }
-    }
-    OrientedPoint op;
-    op.p = p;
-    if (static_cast<int>(nn.size()) >= k) {
-      std::partial_sort(nn.begin(), nn.begin() + k, nn.end());
-      Eigen::Vector3d mean = p;
-      for (int j = 0; j < k; ++j) mean += kept[nn[static_cast<size_t>(j)].second];
-      mean /= static_cast<double>(k + 1);
-      Eigen::Matrix3d cov = (p - mean) * (p - mean).transpose();
-      for (int j = 0; j < k; ++j) {
-        const Eigen::Vector3d d = kept[nn[static_cast<size_t>(j)].second] - mean;
-        cov += d * d.transpose();
+      OrientedPoint op;
+      op.p = p;
+      if (static_cast<int>(nn.size()) >= k) {
+        std::partial_sort(nn.begin(), nn.begin() + k, nn.end());
+        Eigen::Vector3d mean = p;
+        for (int j = 0; j < k; ++j) mean += kept[nn[static_cast<size_t>(j)].second];
+        mean /= static_cast<double>(k + 1);
+        Eigen::Matrix3d cov = (p - mean) * (p - mean).transpose();
+        for (int j = 0; j < k; ++j) {
+          const Eigen::Vector3d d = kept[nn[static_cast<size_t>(j)].second] - mean;
+          cov += d * d.transpose();
+        }
+        cov /= static_cast<double>(k + 1);
+        Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> es(cov);
+        const Eigen::Vector3d evals = es.eigenvalues();
+        Eigen::Vector3d n = es.eigenvectors().col(0);
+        const double sum = evals.sum();
+        op.curvature = sum > 1e-12 ? evals(0) / sum : 1.0;
+        // Orient toward the sensor (origin in the local frame) so that the SDF
+        // is positive on the observed free-space side.
+        if (n.dot(-p) < 0.0) n = -n;
+        op.n = n;
+        op.valid = true;
       }
-      cov /= static_cast<double>(k + 1);
-      Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> es(cov);
-      const Eigen::Vector3d evals = es.eigenvalues();
-      Eigen::Vector3d n = es.eigenvectors().col(0);
-      const double sum = evals.sum();
-      op.curvature = sum > 1e-12 ? evals(0) / sum : 1.0;
-      // Orient toward the sensor (origin in the local frame) so that the SDF
-      // is positive on the observed free-space side.
-      if (n.dot(-p) < 0.0) n = -n;
-      op.n = n;
-      op.valid = true;
+      out[i] = op;
     }
-    out.push_back(op);
   }
   return out;
 }
@@ -200,6 +242,9 @@ void MeshLoamPipeline::extractBlock(const Eigen::Vector3i& block) {
     if (len < 1e-12) return;
     Facet f;
     f.v0 = (a + bb + cc) / 3.0;
+    f.a = a.cast<float>();
+    f.b = bb.cast<float>();
+    f.c = cc.cast<float>();
     f.normal = n / len;
     // Orient from the negative (inside) side toward positive SDF.
     if (f.normal.dot(f.v0 - inside) < 0.0) f.normal = -f.normal;
@@ -313,6 +358,7 @@ void MeshLoamPipeline::pruneMap() {
       ++it;
     }
   }
+  if (params_.keep_mesh) return;
   const double block_span = params_.block_size * params_.voxel_size;
   for (auto it = block_facets_.begin(); it != block_facets_.end();) {
     const Eigen::Vector3d block_center =
@@ -336,6 +382,11 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
                                 MeshLoamResult* result) const {
   Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
   const double max_dist = params_.max_correspondence_dist;
+  const double search2 = params_.search_radius * params_.search_radius;
+  // A facet within search_radius of p has its centroid within search_radius
+  // plus the facet size (at most a voxel diagonal).
+  const double reach = params_.search_radius + std::sqrt(3.0) * params_.voxel_size;
+  const double reach2 = reach * reach;
   int used = 0;
   double abs_residual = 0.0;
 
@@ -348,41 +399,77 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
     const Eigen::Matrix3d R = T.block<3, 3>(0, 0);
     const Eigen::Vector3d t = T.block<3, 1>(0, 3);
 
-    for (const auto& op : features_world) {
-      const Eigen::Vector3d p = R * op.p + t;
-      const Eigen::Vector3d n_pt = R * op.n;
-      const Eigen::Vector3i cell = toFacetCell(p);
+    // Per-thread sums over static chunks, added in thread order so that the
+    // result does not depend on scheduling.
+    int threads = 1;
+#ifdef _OPENMP
+    threads = omp_get_max_threads();
+#endif
+    std::vector<Eigen::Matrix<double, 6, 6>> H_part(threads, Eigen::Matrix<double, 6, 6>::Zero());
+    std::vector<Eigen::Matrix<double, 6, 1>> g_part(threads, Eigen::Matrix<double, 6, 1>::Zero());
+    std::vector<int> used_part(threads, 0);
+    std::vector<double> abs_part(threads, 0.0);
+#pragma omp parallel num_threads(threads)
+    {
+      int tid = 0;
+#ifdef _OPENMP
+      tid = omp_get_thread_num();
+#endif
+      Eigen::Matrix<double, 6, 6>& H_local = H_part[tid];
+      Eigen::Matrix<double, 6, 1>& g_local = g_part[tid];
+      int& used_local = used_part[tid];
+      double& abs_local = abs_part[tid];
+#pragma omp for schedule(static)
+      for (long fi = 0; fi < static_cast<long>(features_world.size()); ++fi) {
+        const auto& op = features_world[static_cast<size_t>(fi)];
+        const Eigen::Vector3d p = R * op.p + t;
+        const Eigen::Vector3d n_pt = R * op.n;
+        const Eigen::Vector3i cell = toFacetCell(p);
 
-      double best = max_dist;
-      const Facet* best_facet = nullptr;
-      for (int dx = -1; dx <= 1; ++dx) {
-        for (int dy = -1; dy <= 1; ++dy) {
-          for (int dz = -1; dz <= 1; ++dz) {
-            const auto it =
-                facet_bins_.find(Eigen::Vector3i(cell.x() + dx, cell.y() + dy, cell.z() + dz));
-            if (it == facet_bins_.end()) continue;
-            for (const size_t idx : it->second) {
-              const Facet& f = facets_[idx];
-              if (std::abs(f.normal.dot(n_pt)) < params_.cos_gate) continue;
-              const double dist = std::abs(f.normal.dot(p - f.v0));
-              if (dist < best) {
-                best = dist;
-                best_facet = &f;
+        double best = params_.nearest_facet ? search2 : max_dist;
+        const Facet* best_facet = nullptr;
+        for (int dx = -1; dx <= 1; ++dx) {
+          for (int dy = -1; dy <= 1; ++dy) {
+            for (int dz = -1; dz <= 1; ++dz) {
+              const auto it =
+                  facet_bins_.find(Eigen::Vector3i(cell.x() + dx, cell.y() + dy, cell.z() + dz));
+              if (it == facet_bins_.end()) continue;
+              for (const size_t idx : it->second) {
+                const Facet& f = facets_[idx];
+                if (std::abs(f.normal.dot(n_pt)) < params_.cos_gate) continue;
+                double dist;
+                if (params_.nearest_facet) {
+                  if ((f.v0 - p).squaredNorm() > reach2) continue;
+                  dist = pointTriangleDist2(p, f.a.cast<double>(), f.b.cast<double>(),
+                                            f.c.cast<double>());
+                } else {
+                  dist = std::abs(f.normal.dot(p - f.v0));
+                }
+                if (dist < best) {
+                  best = dist;
+                  best_facet = &f;
+                }
               }
             }
           }
         }
-      }
-      if (best_facet == nullptr) continue;
+        if (best_facet == nullptr) continue;
 
-      const double r_i = best_facet->normal.dot(p - best_facet->v0);
-      Eigen::Matrix<double, 6, 1> J;
-      J.head<3>() = best_facet->normal;
-      J.tail<3>() = p.cross(best_facet->normal);
-      H += J * J.transpose();
-      g += J * r_i;
-      ++used;
-      abs_residual += std::abs(r_i);
+        const double r_i = best_facet->normal.dot(p - best_facet->v0);
+        Eigen::Matrix<double, 6, 1> J;
+        J.head<3>() = best_facet->normal;
+        J.tail<3>() = p.cross(best_facet->normal);
+        H_local += J * J.transpose();
+        g_local += J * r_i;
+        ++used_local;
+        abs_local += std::abs(r_i);
+      }
+    }
+    for (int k = 0; k < threads; ++k) {
+      H += H_part[k];
+      g += g_part[k];
+      used += used_part[k];
+      abs_residual += abs_part[k];
     }
 
     if (used < params_.min_correspondences) break;

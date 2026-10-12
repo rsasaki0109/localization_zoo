@@ -2656,6 +2656,12 @@ struct MeshLoamDogfoodingOptions {
   int max_iterations = 30;
   int mesh_update_interval = 5;
   double local_map_radius = 80.0;
+  bool nearest_facet = false;
+  bool keep_mesh = false;
+  int normal_neighbors = 8;
+  double normal_search_radius = 1.0;
+  double max_range = 80.0;
+  bool paper_odometry = false;
 };
 
 struct EloDogfoodingOptions {
@@ -8708,6 +8714,11 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
   params.max_iterations = options.max_iterations;
   params.mesh_update_interval = options.mesh_update_interval;
   params.local_map_radius = options.local_map_radius;
+  params.nearest_facet = options.nearest_facet;
+  params.keep_mesh = options.keep_mesh;
+  params.normal_neighbors = options.normal_neighbors;
+  params.normal_search_radius = options.normal_search_radius;
+  params.max_range = options.max_range;
   MeshLoamPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -8738,8 +8749,11 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
   res.note =
       "Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise "
       "zero-surface extraction and point-to-mesh GN odometry (normal cosine "
-      "gate); CV prior, no GT seed. mean|residual|=" +
-      std::string(buf);
+      "gate); CV prior, no GT seed. " +
+      std::string(options.paper_odometry ? "Paper path (0.1 m input, nearest facet). " : "") +
+      std::string(options.nearest_facet ? "nearest-facet association; " : "") +
+      std::string(options.keep_mesh ? "global mesh kept; " : "") +
+      "mean|residual|=" + std::string(buf);
   return res;
 }
 
@@ -14885,6 +14899,58 @@ int main(int argc, char** argv) {
       mesh_loam_options.voxel_size = 0.1;
       mesh_loam_options.mesh_update_interval = 5;
       mesh_loam_options.local_map_radius = 80.0;
+      continue;
+    }
+    if (arg == "--mesh-loam-paper-odometry") {
+      // Paper input and association: 0.1 m input (the map voxel size), no
+      // point cap, normals from 10 NN within 0.5 m cells, nearest facet.
+      mesh_loam_options.paper_odometry = true;
+      mesh_loam_options.source_voxel_size = 0.1;
+      mesh_loam_options.max_source_points = 1000000;
+      mesh_loam_options.voxel_size = 0.1;
+      mesh_loam_options.mesh_update_interval = 5;
+      mesh_loam_options.local_map_radius = 80.0;
+      mesh_loam_options.nearest_facet = true;
+      mesh_loam_options.normal_neighbors = 10;
+      mesh_loam_options.normal_search_radius = 0.5;
+      continue;
+    }
+    if (arg == "--mesh-loam-nearest-facet") {
+      mesh_loam_options.nearest_facet = true;
+      continue;
+    }
+    if (arg == "--mesh-loam-keep-mesh") {
+      mesh_loam_options.keep_mesh = true;
+      continue;
+    }
+    if (arg == "--mesh-loam-source-voxel") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-source-voxel requires a value" << std::endl; return 1; }
+      mesh_loam_options.source_voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--mesh-loam-max-points") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-max-points requires a value" << std::endl; return 1; }
+      mesh_loam_options.max_source_points = static_cast<size_t>(std::stoul(argv[++i]));
+      continue;
+    }
+    if (arg == "--mesh-loam-normal-neighbors") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-normal-neighbors requires a value" << std::endl; return 1; }
+      mesh_loam_options.normal_neighbors = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--mesh-loam-normal-radius") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-normal-radius requires a value" << std::endl; return 1; }
+      mesh_loam_options.normal_search_radius = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--mesh-loam-max-range") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-max-range requires a value" << std::endl; return 1; }
+      mesh_loam_options.max_range = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--mesh-loam-map-radius") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-map-radius requires a value" << std::endl; return 1; }
+      mesh_loam_options.local_map_radius = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--mesh-loam-voxel-size") {

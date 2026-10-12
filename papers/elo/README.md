@@ -92,8 +92,19 @@ with the correction (official KITTI RTE, seq 07):
 Only the correction and the normal patch help; the rest, as implemented here,
 hurt, also in combination (correction + normal patch + BEV 0.517 %, + fusion
 0.581 %, + raw input 0.632 %). The fusion weight is the least certain reading
-("the inlier ratio between the non-ground points and ground ones"), so a
-different reading of `w2` may still matter.
+("the inlier ratio between the non-ground points and ground ones"). Three more
+readings combine the raw sums as `w A_S + (1 - w) A_G`, `w = 0.7 w2` (on top of
+correction + normal patch, seq 07):
+
+| `w2` reading | flag | seq 07 |
+|---|---|---:|
+| none (fixed 5:1 ground weight) | — | **0.480 %** |
+| `Ns_in / (Ns_in + Ng_in)` | `--elo-fusion-mode 2` | 0.488 % |
+| `Ns_in / Ng_in` | `--elo-fusion-mode 3` | 0.544 % |
+| ratio of inlier rates | `--elo-fusion-mode 4` | 0.564 % |
+
+None beats the fixed weight; mode 2 lands close, with a slightly lower rotation
+error (0.250 vs 0.268 deg/100 m).
 
 Full sequences (`experiments/elo_kitti_seq_{00,07}_full_paper_comp_matrix.json`):
 

@@ -31,6 +31,9 @@ struct MeshLoamParams {
   double lambda_n = 0.2;             ///< normal-similarity weight in hybrid weight
   double min_voxel_weight = 0.3;     ///< W(v) floor for surface extraction
   double local_map_radius = 120.0;   ///< prune voxels/mesh beyond this [m]
+  /// true: the radius prune drops voxels only; extracted facets stay as the
+  /// global mesh (Eq. 3) until their block is re-extracted.
+  bool keep_mesh = false;
 
   // Incremental meshing.
   int block_size = 8;                ///< voxels per block edge (cubic blocks)
@@ -40,6 +43,10 @@ struct MeshLoamParams {
   double search_radius = 0.2;        ///< facet candidate search interval [m]
   double max_correspondence_dist = 0.5;
   double cos_gate = 0.98;            ///< |cos| similarity gate c_s
+  /// false: among the gated facets of the 27 search cells take the smallest
+  /// plane residual; true: take the facet nearest to the point (true
+  /// point-to-triangle distance, within search_radius), as in the paper.
+  bool nearest_facet = false;
   int max_iterations = 30;
   double convergence_eps = 1e-4;
   int min_correspondences = 30;
@@ -84,8 +91,10 @@ class MeshLoamPipeline {
   };
 
   struct Facet {
-    Eigen::Vector3d v0 = Eigen::Vector3d::Zero();
+    Eigen::Vector3d v0 = Eigen::Vector3d::Zero();  ///< centroid
     Eigen::Vector3d normal = Eigen::Vector3d::UnitZ();
+    Eigen::Vector3f a = Eigen::Vector3f::Zero(), b = Eigen::Vector3f::Zero(),
+                    c = Eigen::Vector3f::Zero();  ///< vertices
   };
 
   struct VoxelKeyHash {

@@ -107,7 +107,7 @@ Official KITTI RTE on full sequences (`experiments/mesh_loam_kitti_seq_{00,07}_f
 | variant | seq 00 | seq 07 | FPS (07) |
 |---|---:|---:|---:|
 | `--mesh-loam-dense-profile` | 1.011 % | 0.528 % | 0.7 |
-| + 0.22 deg correction (`dense_elevation`) | | 0.419 % | 0.36 |
+| + 0.22 deg correction (`dense_elevation`) | 0.598 % | 0.419 % | 0.36 |
 | + nearest facet (`dense_elevation_nearest_facet`) | **0.556 %** | 0.346 % | 0.63 |
 | paper path + correction (`paper_odometry_elevation`) | 0.567 % | **0.340 %** | 0.29 |
 | paper, Table I | 0.53 % | 0.31 % | |

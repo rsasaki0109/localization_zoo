@@ -347,8 +347,8 @@ loam_livox,kitti_raw_0061_full,gt-backed,fast,Fast,277.147597,36.599518,experime
 loam_livox,mcd_kth_day_06_108,gt-backed,fast,Fast,4.095008,66.275199,experiments/results/loam_livox_mcd_kth_day_06_matrix.json
 loam_livox,mcd_ntu_day_02_108,gt-backed,fast,Fast,0.137012,68.986739,experiments/results/loam_livox_mcd_ntu_day_02_matrix.json
 loam_livox,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.192143,68.823288,experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json
-mesh_loam,kitti_seq_00_full,gt-backed,dense_profile,"Mesh-LOAM, dense profile (0.25 m input voxel)",13.473766,0.357531,experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json
-mesh_loam,kitti_seq_07_full,gt-backed,dense_profile,"Mesh-LOAM, dense profile (0.25 m input voxel)",0.981594,0.400786,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_00_full,gt-backed,dense_elevation_nearest_facet,Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction,8.495846,0.662592,experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_07_full,gt-backed,dense_elevation_nearest_facet,Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction,0.651195,0.627553,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
 mulls,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.875584,9.340595,experiments/results/mulls_hdl_400_reference_matrix.json
 mulls,kitti_raw_0009_200,gt-backed,fast,Fast,2.695346,1.204493,experiments/results/mulls_kitti_raw_0009_nogt_matrix.json
 mulls,kitti_raw_0009_full,gt-backed,fast,Fast,4.609734,3.337311,experiments/results/mulls_kitti_raw_0009_full_matrix.json

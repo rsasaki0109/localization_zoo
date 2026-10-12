@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -435,6 +435,7 @@ The runner is responsible for:
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `experiments/lvi_sam_kitti_raw_0009_matrix.json` | `lvi_sam` | `-` | `experiments/results/lvi_sam_kitti_raw_0009_matrix.json` |
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `experiments/lvi_sam_kitti_raw_0061_full_matrix.json` | `lvi_sam` | `-` | `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json` |
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `experiments/lvi_sam_kitti_raw_0061_matrix.json` | `lvi_sam` | `-` | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `experiments/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` | `mesh_loam` | `dense_profile` | `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` |
 | Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `experiments/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` | `mesh_loam` | `dense_profile` | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/mulls_hdl_400_reference_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/mulls_kitti_raw_0009_full_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |

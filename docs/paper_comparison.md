@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-12T02:28:27+00:00
+> Generated: 2026-10-12T04:24:50+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -770,8 +770,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (KITTI relative translational error (%))
 **Hardware**: None
 **Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: KITTI Odometry 07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 07 0.528 vs 0.31 (1.70x); geometric mean 1.70x. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Numeric comparison**: Same metric, 1.70x on 07 — seq 07 0.528 vs 0.31 (1.70x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 1.011 vs 0.53 (1.91x); seq 07 0.528 vs 0.31 (1.70x); geometric mean 1.80x. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 1.80x on 00/07 — seq 00 1.011 vs 0.53 (1.91x); seq 07 0.528 vs 0.31 (1.70x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
 **Main blocker**: Large gap to the paper; the reimplementation has not been checked against the paper mechanism by mechanism.
 **Next step**: Run the remaining KITTI sequences; compare the pipeline with the paper step by step where the gap is large.
 
@@ -795,6 +795,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
+| KITTI | Mesh-LOAM, dense profile (0.25 m input voxel) | 13.474 | 0.901 | 0.007371 | 0.36 |
 | KITTI | Mesh-LOAM, dense profile (0.25 m input voxel) | 0.982 | 0.616 | 0.005401 | 0.40 |
 
 **Notes**: Paper mean 0.51 %. The point-to-plane ablation row averages 0.71 %. Scan-to-mesh-map odometry, no loop closure. Values read from the paper PDF on 2026-10-12.

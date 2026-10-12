@@ -60,7 +60,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Gap remains | L-LO (no author code; parameters chosen on seq 07; horizontal 0.577 % in 2D on 07; the paper's 00/07 values are below every roll-free trajectory built from the ground truth, see `papers/l_lo/README.md`) | 00/02/05/07/08 | 1.58x |
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
 | Near paper | Quadric-LO (vs the paper's scan-to-submap Table II; no author code) | 00/07 | 0.80x |
-| Gap remains | Mesh-LOAM (no author code) | 07 | 1.70x |
+| Gap remains | Mesh-LOAM (no author code) | 00/07 | 1.80x |
 | Gap remains | ELO (no author code; CPU profiles) | 00/07 | 2.60x |
 | Gap remains | IMLS-SLAM (no author code; the paper de-skews scans with an external odometry) | 00/07 | 2.66x |
 | Gap remains | DiLO (no author code) | 00/07 | 4.12x |

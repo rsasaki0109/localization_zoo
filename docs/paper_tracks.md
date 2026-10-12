@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-12T04:24:24+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `480` ready, `1` blocked, `14` skipped problems.
+Current coverage: `481` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -369,6 +369,7 @@ Current coverage: `480` ready, `1` blocked, `14` skipped problems.
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_200` |
 | LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_full` |
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_full` |
+| Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 13.474 | 0.4 | `dogfooding_results/kitti_seq_00_full` |
 | Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 0.982 | 0.4 | `dogfooding_results/kitti_seq_07_full` |
 | MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `dogfooding_results/kitti_seq_07_full` |
 | MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 10.786 | 7.6 | `dogfooding_results/kitti_seq_00_full` |
@@ -521,7 +522,7 @@ Current coverage: `480` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 480 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 481 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

@@ -241,6 +241,7 @@ loam_livox,kitti_raw_0061_full,fast
 loam_livox,mcd_kth_day_06_108,fast
 loam_livox,mcd_ntu_day_02_108,fast
 loam_livox,mcd_tuhh_night_09_108,fast
+mesh_loam,kitti_seq_00_full,dense_profile
 mesh_loam,kitti_seq_07_full,dense_profile
 mulls,hdl_400_open_ct_lio_120,fast
 mulls,kitti_raw_0009_200,fast

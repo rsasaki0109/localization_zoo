@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -360,6 +360,7 @@ _Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/run_experiment_ma
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0009_matrix.json` |
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json` |
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 13.474 | 0.4 | `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` |
 | Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 0.982 | 0.4 | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.874 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
@@ -21775,6 +21776,42 @@ _Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/run_experiment_ma
 | Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/run.log` |
 | Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/run.log` |
 | Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/run.log` |
+
+## Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_00_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM, dense profile (0.25 m input voxel) | reference | 13.474 | 0.4 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.4 FPS.
+3. `dense_profile` is the most accurate observed variant at 13.474 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --mesh-loam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --mesh-loam-dense-profile`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. mean|residual|=0.016
+
 
 ## Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 

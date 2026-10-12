@@ -256,7 +256,7 @@ optimistic bounds.
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out). The horizontal module scores 0.577 % in 2D on 07. The paper's 00 and 07 values are below every roll-free trajectory built from the ground truth ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
 | Quadric-LO | 00/07 | 0.80x | near paper (vs the paper's scan-to-submap Table II; no author code) |
-| Mesh-LOAM | 07 | 1.70x | gap remains (no author code) |
+| Mesh-LOAM | 00/07 | 1.80x | gap remains (no author code) |
 | ELO | 00/07 | 2.60x | gap remains (no author code; CPU profiles) |
 | IMLS-SLAM | 00/07 | 2.66x | gap remains (no author code; the paper de-skews scans with an external odometry first) |
 | DiLO | 00/07 | 4.12x | gap remains (no author code) |

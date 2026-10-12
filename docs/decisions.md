@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -4308,6 +4308,15 @@ _Generated at 2026-10-12T02:28:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Blocker: Timed out after 120 seconds.
 - Next step: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 - Aggregate result: `experiments/results/lvi_sam_kitti_raw_0061_matrix.json`
+
+## Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 

@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-11T20:38:11+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `456` ready, `1` blocked, `14` skipped problems.
+Current coverage: `467` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -315,7 +315,18 @@ Current coverage: `456` ready, `1` blocked, `14` skipped problems.
 | LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full) | `ready` | `cov_floor_1e_4` | 6.069 | 93.4 | `dogfooding_results/kitti_seq_05_full` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full) | `ready` | `cov_floor_1e_4` | 1.964 | 106.9 | `dogfooding_results/kitti_seq_07_full` |
 | LiTAMIN2 correspondence sweep on KITTI Odometry 08 (full) | `ready` | `cov_floor_1e_4` | 18.327 | 94.2 | `dogfooding_results/kitti_seq_08_full` |
+| LiTAMIN2 KITTI Odom seq 00 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 10.456 | 82.3 | `dogfooding_results/kitti_seq_00_full` |
+| LiTAMIN2 KITTI Odom seq 01 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 85.625 | 67.8 | `dogfooding_results/kitti_seq_01_full` |
+| LiTAMIN2 KITTI Odom seq 02 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 37.095 | 85.9 | `dogfooding_results/kitti_seq_02_full` |
+| LiTAMIN2 KITTI Odom seq 03 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 2.666 | 72.4 | `dogfooding_results/kitti_seq_03_full` |
+| LiTAMIN2 KITTI Odom seq 04 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 2.573 | 62.0 | `dogfooding_results/kitti_seq_04_full` |
+| LiTAMIN2 KITTI Odom seq 05 full: the paper's odometry pipeline | `ready` | `paper_icp` | 6.342 | 80.7 | `dogfooding_results/kitti_seq_05_full` |
+| LiTAMIN2 KITTI Odom seq 06 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 2.697 | 68.9 | `dogfooding_results/kitti_seq_06_full` |
 | LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation | `ready` | `coarse_to_fine_3_2_1_elevation` | 2.086 | 47.5 | `dogfooding_results/kitti_seq_07_full` |
+| LiTAMIN2 KITTI Odom seq 07 full: the paper's odometry pipeline | `ready` | `paper_icp_cov` | 1.434 | 89.1 | `dogfooding_results/kitti_seq_07_full` |
+| LiTAMIN2 KITTI Odom seq 08 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 16.099 | 73.6 | `dogfooding_results/kitti_seq_08_full` |
+| LiTAMIN2 KITTI Odom seq 09 full: the paper's odometry pipeline | `ready` | `paper_icp` | 5.571 | 67.2 | `dogfooding_results/kitti_seq_09_full` |
+| LiTAMIN2 KITTI Odom seq 10 full: the paper's odometry pipeline | `ready` | `paper_icp_first` | 5.615 | 67.7 | `dogfooding_results/kitti_seq_10_full` |
 | LiTAMIN2 paper-comparable on KITTI Odometry 00 (full) | `ready` | `fast_cov_no_gt_seed` | 110.484 | 98.9 | `dogfooding_results/kitti_seq_00_full` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_icp_only_half_threads` | 1.067 | 31.7 | `dogfooding_results/kitti_raw_0009_200` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_cov_half_threads` | 0.511 | 68.6 | `dogfooding_results/kitti_raw_0061_200` |
@@ -497,7 +508,7 @@ Current coverage: `456` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 456 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 467 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

@@ -294,19 +294,30 @@ litamin2,kitti_raw_0061_200,gt-backed,cluster_t1_seeded,cluster T1 + seed,0.5167
 litamin2,kitti_raw_0061_200,gt-backed,fast_cov_half_threads,Fast local-map + covariance,0.510660,67.739260,experiments/results/litamin2_kitti_raw_0061_matrix.json
 litamin2,kitti_raw_0061_full,gt-backed,cluster_t1_seeded,cluster T1 + seed,0.600179,39.773285,experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json
 litamin2,kitti_raw_0061_full,gt-backed,fast_icp_only_half_threads,Fast local-map + ICP-only,0.943964,58.114664,experiments/results/litamin2_kitti_raw_0061_full_matrix.json
+litamin2,kitti_seq_00_full,gt-backed,paper_icp_first,"LiTAMIN2 paper odometry, ICP only, scan-distribution map",15.440285,82.331594,experiments/results/litamin2_kitti_seq_00_full_paper_matrix.json
 litamin2,kitti_seq_00_full,gt-backed,fast_cov_no_gt_seed,Fast local-map + covariance (pure odometry),110.483920,98.948385,experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json
 litamin2,kitti_seq_00_full,gt-backed,fast_icp_only_half_threads,Fast local-map + ICP-only,0.997919,108.859881,experiments/results/litamin2_kitti_seq_00_full_matrix.json
 litamin2,kitti_seq_00_full,gt-backed,tuned_voxel1_iter12,Tuned: voxel 1.0 + iter 12 (no GT seed),13.463967,60.947313,experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json
 litamin2,kitti_seq_00_full,gt-backed,tuned_voxel2_iter12_seeded,voxel=2.0 + iter=12 + GT seed,1.117129,86.826678,experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json
+litamin2,kitti_seq_01_full,gt-backed,paper_icp_first,"LiTAMIN2 paper odometry, ICP only, scan-distribution map",96.992246,67.821074,experiments/results/litamin2_kitti_seq_01_full_paper_matrix.json
+litamin2,kitti_seq_02_full,gt-backed,paper_icp_first,"LiTAMIN2 paper odometry, ICP only, scan-distribution map",37.095090,85.896620,experiments/results/litamin2_kitti_seq_02_full_paper_matrix.json
 litamin2,kitti_seq_02_full,gt-backed,cluster_t1_seeded,cluster T1: voxel=0.5 + iter=12 + seed,0.728304,68.312143,experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json
 litamin2,kitti_seq_02_full,gt-backed,cov_floor_1e_4,Covariance floor: 1e-4,51.894945,91.828586,experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json
+litamin2,kitti_seq_03_full,gt-backed,paper_icp_first,"LiTAMIN2 paper odometry, ICP only, scan-distribution map",2.665585,72.397647,experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json
+litamin2,kitti_seq_04_full,gt-backed,paper_icp_first,"LiTAMIN2 paper odometry, ICP only, scan-distribution map",2.573378,61.968423,experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json
+litamin2,kitti_seq_05_full,gt-backed,paper_icp,"LiTAMIN2 paper odometry, ICP only, aggregated map",6.342037,55.103272,experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json
 litamin2,kitti_seq_05_full,gt-backed,fast_seeded_reference,fast + seed (baseline),0.957385,17.170825,experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json
 litamin2,kitti_seq_05_full,gt-backed,cov_floor_1e_4,Covariance floor: 1e-4,6.565388,93.444935,experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json
+litamin2,kitti_seq_06_full,gt-backed,paper_icp_first,"LiTAMIN2 paper odometry, ICP only, scan-distribution map",3.160779,68.853953,experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json
 litamin2,kitti_seq_07_full,gt-backed,coarse_to_fine_3_2_1_elevation,"coarse_to_fine_3_2_1 (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction",2.086205,47.523689,experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json
+litamin2,kitti_seq_07_full,gt-backed,paper_icp_cov,"LiTAMIN2 paper odometry, ICP+Cov, scan-distribution map",1.433796,58.756226,experiments/results/litamin2_kitti_seq_07_full_paper_matrix.json
 litamin2,kitti_seq_07_full,gt-backed,fast_seeded_reference,fast + seed (baseline),0.835570,94.731232,experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json
 litamin2,kitti_seq_07_full,gt-backed,cov_floor_1e_4,Covariance floor: 1e-4,2.201678,106.884652,experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json
+litamin2,kitti_seq_08_full,gt-backed,paper_icp_first,"LiTAMIN2 paper odometry, ICP only, scan-distribution map",20.824667,73.589124,experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json
 litamin2,kitti_seq_08_full,gt-backed,fast_seeded_reference,fast + seed (baseline),1.130466,104.915246,experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json
 litamin2,kitti_seq_08_full,gt-backed,cov_floor_1e_4,Covariance floor: 1e-4,19.672162,94.182589,experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json
+litamin2,kitti_seq_09_full,gt-backed,paper_icp,"LiTAMIN2 paper odometry, ICP only, aggregated map",5.687723,58.196033,experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json
+litamin2,kitti_seq_10_full,gt-backed,paper_icp_first,"LiTAMIN2 paper odometry, ICP only, scan-distribution map",5.615219,67.742853,experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json
 litamin2,mcd_kth_day_06_108,gt-backed,cluster_t1_seeded,cluster T1 + seed,0.192114,20.058121,experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json
 litamin2,mcd_kth_day_06_108,gt-backed,fast_icp_only_half_threads,Fast local-map + ICP-only,0.401468,91.635910,experiments/results/litamin2_mcd_kth_day_06_matrix.json
 litamin2,mcd_ntu_day_02_108,gt-backed,cluster_t1_seeded,cluster T1 + seed,0.020511,43.404453,experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json

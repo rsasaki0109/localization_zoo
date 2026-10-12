@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-11T20:38:34+00:00
+> Generated: 2026-10-12T00:40:21+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -524,17 +524,28 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-TUHH | fast_icp_only_half_threads | 0.194 | 107.2 |
 | dogfooding_results/kitti_seq_00_full | fast_icp_only_half_threads | 0.998 | 108.9 |
 | dogfooding_results/kitti_seq_00_full | fast_cov_no_gt_seed | 110.484 | 98.9 |
+| dogfooding_results/kitti_seq_00_full | paper_icp_first | 15.440 | 82.3 |
 | dogfooding_results/kitti_seq_00_full | tuned_voxel1_iter12 | 13.464 | 60.9 |
 | dogfooding_results/kitti_seq_00_full | tuned_voxel2_iter12_seeded | 1.117 | 86.8 |
+| dogfooding_results/kitti_seq_01_full | paper_icp_first | 96.992 | 67.8 |
+| dogfooding_results/kitti_seq_02_full | paper_icp_first | 37.095 | 85.9 |
 | dogfooding_results/kitti_seq_02_full | cluster_t1_seeded | 0.728 | 68.3 |
 | dogfooding_results/kitti_seq_02_full | cov_floor_1e_4 | 51.895 | 91.8 |
+| dogfooding_results/kitti_seq_03_full | paper_icp_first | 2.666 | 72.4 |
+| dogfooding_results/kitti_seq_04_full | paper_icp_first | 2.573 | 62.0 |
+| dogfooding_results/kitti_seq_05_full | paper_icp | 6.342 | 55.1 |
 | dogfooding_results/kitti_seq_05_full | fast_seeded_reference | 0.957 | 17.2 |
 | dogfooding_results/kitti_seq_05_full | cov_floor_1e_4 | 6.565 | 93.4 |
+| dogfooding_results/kitti_seq_06_full | paper_icp_first | 3.161 | 68.9 |
 | dogfooding_results/kitti_seq_07_full | coarse_to_fine_3_2_1_elevation | 2.086 | 47.5 |
+| dogfooding_results/kitti_seq_07_full | paper_icp_cov | 1.434 | 58.8 |
 | dogfooding_results/kitti_seq_07_full | fast_seeded_reference | 0.836 | 94.7 |
 | dogfooding_results/kitti_seq_07_full | cov_floor_1e_4 | 2.202 | 106.9 |
+| dogfooding_results/kitti_seq_08_full | paper_icp_first | 20.825 | 73.6 |
 | dogfooding_results/kitti_seq_08_full | fast_seeded_reference | 1.130 | 104.9 |
 | dogfooding_results/kitti_seq_08_full | cov_floor_1e_4 | 19.672 | 94.2 |
+| dogfooding_results/kitti_seq_09_full | paper_icp | 5.688 | 58.2 |
+| dogfooding_results/kitti_seq_10_full | paper_icp_first | 5.615 | 67.7 |
 | dogfooding_results/mulran_parkinglot_120 | cluster_t1_seeded | 0.212 | 30.6 |
 | dogfooding_results/mulran_parkinglot_120 | fast_cov_half_threads | 0.498 | 90.2 |
 | dogfooding_results/mulran_parkinglot_full | cluster_t1_seeded | 0.303 | 34.4 |
@@ -542,7 +553,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/nclt_2012_12_01_5000 | voxel_0_5_t1 | 0.519 | 4.4 |
 | dogfooding_results/nclt_2013_01_10_600 | default_voxel_2_0 | 0.380 | 14.7 |
 
-**Stability**: 12 unique default(s) across 38 windows.
+**Stability**: 15 unique default(s) across 49 windows.
 
 ### LOAM-LIVOX
 
@@ -1137,6 +1148,10 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | fast_icp_only_half_threads | 0.674 | 59.0 | 15 |
 | fast_seeded_reference | 0.725 | 47.8 | 13 |
 | paper_cov_half_threads | 0.888 | 58.5 | 15 |
+| paper_icp | 36.636 | 56.2 | 11 |
+| paper_icp_cov | 19.222 | 45.7 | 11 |
+| paper_icp_cov_aggregate | 41.000 | 39.2 | 11 |
+| paper_icp_first | 18.702 | 74.3 | 11 |
 | paper_icp_only_half_threads | 0.888 | 54.7 | 15 |
 | radius1_distance_gate_1_5m | 17.977 | 41.3 | 4 |
 | radius1_no_distance_gate | 18.373 | 41.9 | 4 |

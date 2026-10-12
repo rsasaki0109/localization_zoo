@@ -51,12 +51,12 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 
 | Group | Method | Sequences | Repo / paper (geometric mean) |
 |---|---|---|---:|
+| Near paper | LiTAMIN2 (paper odometry pipeline, `--litamin2-paper-odometry`; ICP+Cov and ICP rows, no loop closure; one fixed setting gives 1.05x on 00-10, see `papers/litamin2/README.md`) | 00-10 | 1.00x |
 | Near paper | A-LOAM (vs LOAM, secondary-source values) | 00/02/05/07/08 | 1.01x |
 | Near paper | LF-GICP (no author code; gate calibrated on the paper's KITTI 00 trace) | 00/02/05/07/08 | 0.96x |
 | Near paper | KISS-ICP (upstream threshold, kernel, and map gate on corrected scans as upstream; 00-10 average equals the official code's; see `papers/kiss_icp/README.md`) | 00/04 | 1.04x |
 | Near paper | MULLS (MULLS-LO reimplementation, `--mulls-lo`, highway profile on 01, 0.195 deg correction as the official profile; 00-10 average equals the official code's; see `papers/mulls/README.md`) | 00-10 | 1.12x |
 | Near paper | CT-ICP (upstream pipeline, `--ct-icp-upstream-mechanics`, on corrected scans as upstream; 00-10 average equals the official code's; see `papers/ct_icp/README.md`) | 00-10 | 1.15x |
-| Near paper | LiTAMIN2 (ICP+Cov, no loop closure) | 00/02/05/07/08 | 1.22x |
 | Gap remains | L-LO (no author code; parameters chosen on seq 07; horizontal 0.577 % in 2D on 07; the paper's 00/07 values are below every roll-free trajectory built from the ground truth, see `papers/l_lo/README.md`) | 00/02/05/07/08 | 1.58x |
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
 

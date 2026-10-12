@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-11T20:38:12+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-12T00:39:57+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -320,17 +320,28 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | litamin2 | `kitti_raw_0061_full` | gt-backed | `fast_icp_only_half_threads` | 0.944 | 58.1 | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
 | litamin2 | `kitti_seq_00_full` | gt-backed | `fast_icp_only_half_threads` | 0.998 | 108.9 | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |
 | litamin2 | `kitti_seq_00_full` | gt-backed | `fast_cov_no_gt_seed` | 110.484 | 98.9 | `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json` |
+| litamin2 | `kitti_seq_00_full` | gt-backed | `paper_icp_first` | 15.440 | 82.3 | `experiments/results/litamin2_kitti_seq_00_full_paper_matrix.json` |
 | litamin2 | `kitti_seq_00_full` | gt-backed | `tuned_voxel1_iter12` | 13.464 | 60.9 | `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json` |
 | litamin2 | `kitti_seq_00_full` | gt-backed | `tuned_voxel2_iter12_seeded` | 1.117 | 86.8 | `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` |
+| litamin2 | `kitti_seq_01_full` | gt-backed | `paper_icp_first` | 96.992 | 67.8 | `experiments/results/litamin2_kitti_seq_01_full_paper_matrix.json` |
+| litamin2 | `kitti_seq_02_full` | gt-backed | `paper_icp_first` | 37.095 | 85.9 | `experiments/results/litamin2_kitti_seq_02_full_paper_matrix.json` |
 | litamin2 | `kitti_seq_02_full` | gt-backed | `cluster_t1_seeded` | 0.728 | 68.3 | `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json` |
 | litamin2 | `kitti_seq_02_full` | gt-backed | `cov_floor_1e_4` | 51.895 | 91.8 | `experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json` |
+| litamin2 | `kitti_seq_03_full` | gt-backed | `paper_icp_first` | 2.666 | 72.4 | `experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json` |
+| litamin2 | `kitti_seq_04_full` | gt-backed | `paper_icp_first` | 2.573 | 62.0 | `experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json` |
+| litamin2 | `kitti_seq_05_full` | gt-backed | `paper_icp` | 6.342 | 55.1 | `experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json` |
 | litamin2 | `kitti_seq_05_full` | gt-backed | `fast_seeded_reference` | 0.957 | 17.2 | `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` |
 | litamin2 | `kitti_seq_05_full` | gt-backed | `cov_floor_1e_4` | 6.565 | 93.4 | `experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json` |
+| litamin2 | `kitti_seq_06_full` | gt-backed | `paper_icp_first` | 3.161 | 68.9 | `experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json` |
 | litamin2 | `kitti_seq_07_full` | gt-backed | `coarse_to_fine_3_2_1_elevation` | 2.086 | 47.5 | `experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json` |
+| litamin2 | `kitti_seq_07_full` | gt-backed | `paper_icp_cov` | 1.434 | 58.8 | `experiments/results/litamin2_kitti_seq_07_full_paper_matrix.json` |
 | litamin2 | `kitti_seq_07_full` | gt-backed | `fast_seeded_reference` | 0.836 | 94.7 | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
 | litamin2 | `kitti_seq_07_full` | gt-backed | `cov_floor_1e_4` | 2.202 | 106.9 | `experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json` |
+| litamin2 | `kitti_seq_08_full` | gt-backed | `paper_icp_first` | 20.825 | 73.6 | `experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json` |
 | litamin2 | `kitti_seq_08_full` | gt-backed | `fast_seeded_reference` | 1.130 | 104.9 | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
 | litamin2 | `kitti_seq_08_full` | gt-backed | `cov_floor_1e_4` | 19.672 | 94.2 | `experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json` |
+| litamin2 | `kitti_seq_09_full` | gt-backed | `paper_icp` | 5.688 | 58.2 | `experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json` |
+| litamin2 | `kitti_seq_10_full` | gt-backed | `paper_icp_first` | 5.615 | 67.7 | `experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json` |
 | litamin2 | `mcd_kth_day_06_108` | gt-backed | `cluster_t1_seeded` | 0.192 | 20.1 | `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json` |
 | litamin2 | `mcd_kth_day_06_108` | gt-backed | `fast_icp_only_half_threads` | 0.401 | 91.6 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
 | litamin2 | `mcd_ntu_day_02_108` | gt-backed | `cluster_t1_seeded` | 0.021 | 43.4 | `experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json` |

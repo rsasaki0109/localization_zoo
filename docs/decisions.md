@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -3746,9 +3746,9 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 KITTI Odom seq 02 full: the paper's odometry pipeline
 
@@ -3759,9 +3759,9 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq)
 
@@ -3783,9 +3783,9 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 KITTI Odom seq 04 full: the paper's odometry pipeline
 
@@ -3796,9 +3796,9 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 KITTI Odom seq 05 full: the paper's odometry pipeline
 
@@ -3810,9 +3810,9 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_icp | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length)
 
@@ -3835,9 +3835,9 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 KITTI Odom seq 07 full: elevation correction ablation
 
@@ -3884,9 +3884,9 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory)
 
@@ -3902,15 +3902,15 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 ## LiTAMIN2 KITTI Odom seq 09 full: the paper's odometry pipeline
 
 - Current default: `paper_icp`.
-- Reference variants: `paper_icp_cov`, `paper_icp_cov_aggregate`, `paper_icp_first`.
+- Reference variants: `paper_icp_cov`, `paper_icp_first`, `paper_icp_cov_aggregate`.
 - Aggregate result: `experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 KITTI Odom seq 10 full: the paper's odometry pipeline
 
@@ -3921,9 +3921,9 @@ _Generated at 2026-10-12T00:37:04+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_icp_cov | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_cov_aggregate | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| paper_icp_first | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames)
 

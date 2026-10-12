@@ -14868,6 +14868,24 @@ int main(int argc, char** argv) {
       elo_options.sri_search_radius_px = 0;
       continue;
     }
+    if (arg == "--elo-ground-both-sides") {
+      elo_options.ground_requires_both_sides = true;
+      continue;
+    }
+    if (arg == "--elo-normal-full-patch") {
+      elo_options.normal_patch_full_size = true;
+      continue;
+    }
+    if (arg == "--elo-bev-keep-closest") {
+      elo_options.bev_keep_closest = true;
+      continue;
+    }
+    if (arg == "--elo-raw-input") {
+      elo_options.source_voxel_size = 0.0;
+      elo_options.max_source_points = std::numeric_limits<size_t>::max();
+      elo_options.max_alignment_points = 0;
+      continue;
+    }
     if (arg == "--elo-fusion-mode") {
       if (i + 1 >= argc) { std::cerr << "--elo-fusion-mode requires a value" << std::endl; return 1; }
       elo_options.fusion_mode = std::stoi(argv[++i]);

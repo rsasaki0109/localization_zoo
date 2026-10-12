@@ -90,3 +90,38 @@ pcd_dogfooding <seq_pcd_dir> <seq_gt_csv> \
   --methods imls_slam --imls-slam-dense-profile --no-gt-seed \
   --summary-json results.json
 ```
+
+## 論文どおりのオドメトリ (`--imls-slam-paper-odometry`)
+
+上の「正直な所見」の推測どおり、差は手法ではなくハーネス側の運用にあった。論文 Sec. III-VI の
+処理をそのまま追う経路 (`ImlsPaperOdometry`, `include/imls_slam/imls_paper_odometry.h`) を
+別に用意した。
+
+- **入力**: 生スキャン (ボクセル化・点数上限なし) に、論文と同じ **0.22° の仰角補正**
+  (`--input-vertical-angle-correction-deg 0.22`)。
+- **モデル**: 直近 n スキャンの生点をそのまま積んだスライディングウィンドウ (最古のスキャンを
+  落とす)。r = 0.20 m のハッシュ格子でセル内点数の上限なし。従来経路は 0.8 m セルに最初の
+  20 点だけを残し、以後の点を捨てていた。
+- **IMLS**: h = 0.06 m、r = 0.20 m。法線は反復ごとにクエリ点の周囲 r 内のモデル点から PCA で
+  求め、近傍全点に同じ法線を使う (論文 p.4)。
+- **サンプリング**: スキャン点ごとの PCA 法線と平面度 a2D = (σ2 − σ3)/σ1 から、
+  a2D² (x × n)·e (3 軸 × 符号) と a2D² |n·e| の 9 リストを作り、各反復で上から順に
+  「モデルに r 以内の点がある」ものを 100 点ずつ採る (重複も残す、計 900 点)。
+- **最適化**: y = x − I(x) n への点-平面最小二乗を小角近似で 20 回固定。予測は等速。
+- 未実装: 小物体除去 (論文 Table II で 0.58 → 0.55 %)。
+
+### KITTI Odometry (公式 RTE, GT seed なし)
+
+`experiments/imls_slam_kitti_seq_{00,07}_full_paper_comp_matrix.json`:
+
+| variant | seq 00 | seq 07 | FPS |
+|---|---:|---:|---:|
+| 従来 `--imls-slam-dense-profile` | 1.378 % | 0.846 % | 5-6 |
+| 論文どおり, 窓 n = 100 (`paper_odometry_w100`) | **0.523 %** | **0.339 %** | 1.1 |
+| 論文どおり, 窓 n = 10 (`paper_odometry_w10`) | 0.529 % | 0.378 % | 1.7 |
+| 窓 n = 10, 仰角補正なし (ablation) | 1.327 % | 0.706 % | 1.7 |
+| 論文 Table I | 0.50 % | 0.33 % | |
+
+窓 100 は論文の 1.05x / 1.03x (幾何平均 1.04x)。仰角補正を外すと 2 倍以上悪化するので、
+差の大半は「疎なボクセル地図」と「補正なし」の 2 点で説明できる。窓 10 → 100 の差は論文
+Table IV (n = 10: 0.56 %, n = 100: 0.55 %) と同じく小さい。

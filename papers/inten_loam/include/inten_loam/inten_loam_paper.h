@@ -39,6 +39,11 @@ namespace localization_zoo {
 namespace inten_loam {
 
 struct InTenLoamPaperParams {
+  // Motion compensation (Sec. 3.1.1, eq. 1) with the constant-velocity
+  // motion and the point time read from the azimuth (KITTI scans carry no
+  // per-point time): 0 off, +1 / -1 the two spin directions. Points are
+  // moved to the forward-facing (azimuth 0) instant.
+  int deskew = 0;
   // Range image (eq. 2).
   int width = 2048;
   int height = 64;

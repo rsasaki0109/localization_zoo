@@ -4885,6 +4885,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "intensity_weight") pp.intensity_weight = v;
       else if (k == "s2m_iterations") pp.s2m_iterations = static_cast<int>(v);
       else if (k == "ground_threshold") pp.ground_threshold = v;
+      else if (k == "deskew") pp.deskew = static_cast<int>(v);
       else std::cerr << "unknown --inten-loam-paper-set key " << k << std::endl;
     }
     InTenLoamPaper paper(pp);

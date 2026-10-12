@@ -683,7 +683,20 @@ void InTenLoamPaper::insert(const PaperFrame& curr, const Eigen::Matrix4d& T_w,
 InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>& points,
                                              const std::vector<float>& intensity) {
   InTenLoamPaperResult result;
-  const PaperFrame frame = extractFeatures(points, intensity);
+  std::vector<Eigen::Vector3d> deskewed;
+  if (params_.deskew != 0 && frame_ > 1) {
+    // Sensor pose at scan fraction tau from the reference: Exp(tau xi) with
+    // xi the previous relative motion.
+    const Eigen::AngleAxisd aa(Eigen::Matrix3d(last_rel_.block<3, 3>(0, 0)));
+    const Eigen::Vector3d t = last_rel_.block<3, 1>(0, 3);
+    deskewed.reserve(points.size());
+    for (const auto& p : points) {
+      const double az = std::atan2(p.y(), p.x());  // (-pi, pi], 0 forward
+      const double tau = params_.deskew * az / (2.0 * M_PI);
+      deskewed.push_back(Eigen::AngleAxisd(tau * aa.angle(), aa.axis()) * p + tau * t);
+    }
+  }
+  const PaperFrame frame = extractFeatures(deskewed.empty() ? points : deskewed, intensity);
   result.num_ground = frame.ground.size();
   result.num_facade = frame.facade.size();
   result.num_edge = frame.edge.size();

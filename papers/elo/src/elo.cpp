@@ -505,14 +505,14 @@ Eigen::Matrix4d EloPipeline::align(const FrameData& frame,
       Jp.block<3, 3>(0, 3) = Eigen::Matrix3d::Identity();
       const Eigen::Matrix<double, 1, 6> J = corr.normal.transpose() * Jp;
 
-      double weight = params_.fusion_mode == 1
+      double weight = params_.fusion_mode >= 1
                           ? 1.0
                           : (fp.ground ? params_.ground_weight : params_.non_ground_weight);
       if (params_.robust_scale > 1e-9) {
         const double s = residual / params_.robust_scale;
         weight /= (1.0 + s * s);
       }
-      if (params_.fusion_mode == 1) {
+      if (params_.fusion_mode >= 1) {
         A_parts[fp.ground ? 1 : 0] += weight * J.transpose() * J;
         b_parts[fp.ground ? 1 : 0] -= weight * J.transpose() * residual;
       } else {
@@ -546,6 +546,26 @@ Eigen::Matrix4d EloPipeline::align(const FrameData& frame,
         A += (1.0 - w) / ground_count * A_parts[1];
         b += (1.0 - w) / ground_count * b_parts[1];
       }
+      if (result) result->fusion_weight = w;
+    } else if (params_.fusion_mode >= 2) {
+      // Raw sums (w1 balances the point counts, eq. 1-2), other readings of
+      // w2: 2 = Ns_in / (Ns_in + Ng_in), 3 = Ns_in / Ng_in, 4 = rho_s / rho_g.
+      double w2 = 1.0;
+      if (params_.fusion_mode == 2) {
+        const int total = non_ground_count + ground_count;
+        w2 = total > 0 ? static_cast<double>(non_ground_count) / total : 0.0;
+      } else if (params_.fusion_mode == 3) {
+        w2 = ground_count > 0 ? static_cast<double>(non_ground_count) / ground_count : 1.0;
+      } else {
+        const double rho_s =
+            attempted[0] > 0 ? static_cast<double>(non_ground_count) / attempted[0] : 0.0;
+        const double rho_g =
+            attempted[1] > 0 ? static_cast<double>(ground_count) / attempted[1] : 0.0;
+        w2 = rho_g > 1e-9 ? rho_s / rho_g : 1.0;
+      }
+      const double w = std::clamp(params_.fusion_w1 * w2, 0.0, 1.0);
+      A += w * A_parts[0] + (1.0 - w) * A_parts[1];
+      b += w * b_parts[0] + (1.0 - w) * b_parts[1];
       if (result) result->fusion_weight = w;
     }
 

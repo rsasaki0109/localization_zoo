@@ -2518,6 +2518,7 @@ struct DiloDogfoodingOptions {
   int paper_update_iterations = 5;
   int paper_keypoints_per_list = 100;
   bool paper_causal_output = false;
+  bool paper_edges = false;
 };
 
 struct NhcLioDogfoodingOptions {
@@ -8171,6 +8172,7 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   params.window = options.paper_window;
   params.update_iterations = options.paper_update_iterations;
   params.keypoints_per_list = options.paper_keypoints_per_list;
+  params.use_edges = options.paper_edges;
   DiloPaperOdometry odometry(params);
   const Eigen::Matrix4d anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
   std::vector<Eigen::Matrix4d> causal;
@@ -8194,7 +8196,8 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   note << "DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, "
        << "11 planarity-weighted key-point lists x " << params.keypoints_per_list << ", window of "
        << params.window << " frames, " << params.update_iterations
-       << " pairwise-averaging iterations; plane key points only); "
+       << " pairwise-averaging iterations; "
+       << (params.use_edges ? "plane and edge key points" : "plane key points only") << "); "
        << (options.paper_causal_output ? "causal poses" : "poses after leaving the window")
        << "; no GT seed.";
   res.note = note.str();
@@ -14619,6 +14622,10 @@ int main(int argc, char** argv) {
     }
     if (arg == "--dilo-paper-keypoints" && i + 1 < argc) {
       dilo_options.paper_keypoints_per_list = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-edges") {
+      dilo_options.paper_edges = true;
       continue;
     }
     if (arg == "--dilo-paper-causal") {

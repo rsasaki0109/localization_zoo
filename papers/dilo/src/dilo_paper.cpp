@@ -238,7 +238,9 @@ std::shared_ptr<DiloPaperFrame> DiloPaperOdometry::buildFrame(
       frame->has_normal[index(r, c)] = 1;
     }
   }
-  // Planarity a = 1 - |dn/du|^2 - |dn/dv|^2.
+  // Planarity a = 1 - |dn/du|^2 - |dn/dv|^2; I_e = |dn/dq|^2 is the texture
+  // for the edge key points.
+  std::vector<float> texture(n, -1.0f);
   for (int r = 2; r < H - 2; ++r) {
     for (int c = 0; c < W; ++c) {
       if (!frame->has_normal[index(r, c)]) continue;
@@ -255,7 +257,74 @@ std::shared_ptr<DiloPaperFrame> DiloPaperOdometry::buildFrame(
         I += du * du + dv * dv;
       }
       frame->planarity[index(r, c)] = ok ? static_cast<float>(std::clamp(1.0 - I, 0.0, 1.0)) : 0.0f;
+      if (ok) texture[index(r, c)] = static_cast<float>(I);
     }
+  }
+
+  frame->edge_cols.assign(H, {});
+  if (params_.use_edges) {
+    // D = dI_e/du, then the Harris response of D; line edges are its
+    // negative local minima (Sec. 3.5).
+    std::vector<float> D(n, 0.0f);
+    std::vector<unsigned char> d_ok(n, 0);
+    for (int r = 2; r < H - 2; ++r)
+      for (int c = 0; c < W; ++c) {
+        auto tv = [&](int rr, int cc, double* v) {
+          const float x = texture[index(rr, cc)];
+          if (x < 0.0f) return false;
+          *v = x;
+          return true;
+        };
+        double du;
+        if (filter(r, c, true, tv, &du)) {
+          D[index(r, c)] = static_cast<float>(du);
+          d_ok[index(r, c)] = 1;
+        }
+      }
+    auto wrap = [&](int c) { return (c % W + W) % W; };
+    std::vector<float> resp(n, 0.0f);
+    std::vector<unsigned char> r_ok(n, 0);
+    for (int r = 4; r < H - 4; ++r)
+      for (int c = 0; c < W; ++c) {
+        double sxx = 0, syy = 0, sxy = 0;
+        bool ok = true;
+        for (int dr = -1; dr <= 1 && ok; ++dr)
+          for (int dc = -1; dc <= 1; ++dc) {
+            const int rr = r + dr, cc = wrap(c + dc);
+            const int l = index(rr, wrap(cc - 1)), rt = index(rr, wrap(cc + 1));
+            const int up = index(rr - 1, cc), dn = index(rr + 1, cc);
+            if (!d_ok[l] || !d_ok[rt] || !d_ok[up] || !d_ok[dn]) { ok = false; break; }
+            const double gx = 0.5 * (D[rt] - D[l]), gy = 0.5 * (D[dn] - D[up]);
+            sxx += gx * gx;
+            syy += gy * gy;
+            sxy += gx * gy;
+          }
+        if (!ok) continue;
+        resp[index(r, c)] = static_cast<float>(sxx * syy - sxy * sxy - params_.harris_k * (sxx + syy) * (sxx + syy));
+        r_ok[index(r, c)] = 1;
+      }
+    std::vector<std::pair<float, int>> edges;
+    for (int r = 5; r < H - 5; ++r)
+      for (int c = 0; c < W; ++c) {
+        const int i = index(r, c);
+        if (!r_ok[i] || resp[i] >= 0.0f) continue;
+        bool minimum = true;
+        for (int dr = -1; dr <= 1 && minimum; ++dr)
+          for (int dc = -1; dc <= 1; ++dc) {
+            if (!dr && !dc) continue;
+            const int j = index(r + dr, wrap(c + dc));
+            if (r_ok[j] && resp[j] < resp[i]) { minimum = false; break; }
+          }
+        if (minimum) edges.emplace_back(resp[i], i);
+      }
+    const size_t keep = std::min<size_t>(edges.size(), static_cast<size_t>(params_.max_edge_points));
+    std::partial_sort(edges.begin(), edges.begin() + keep, edges.end());
+    edges.resize(keep);
+    for (const auto& e : edges) {
+      frame->edge_points.push_back(frame->point[e.second].cast<double>());
+      frame->edge_cols[e.second / W].push_back(e.second % W);
+    }
+    for (auto& row : frame->edge_cols) std::sort(row.begin(), row.end());
   }
 
   // Plane key points (Sec. 3.6): eleven lists, top K each, duplicates kept.
@@ -330,6 +399,79 @@ int DiloPaperOdometry::accumulate(const DiloPaperFrame& source, const DiloPaperF
   return pairs;
 }
 
+int DiloPaperOdometry::accumulateEdges(const DiloPaperFrame& source, const DiloPaperFrame& reference,
+                                       const Eigen::Matrix4d& T, int kernel,
+                                       Eigen::Matrix<double, 6, 6>* H,
+                                       Eigen::Matrix<double, 6, 1>* g) const {
+  const Eigen::Matrix3d R = T.block<3, 3>(0, 0);
+  const Eigen::Vector3d t = T.block<3, 1>(0, 3);
+  const int W = params_.width;
+  int pairs = 0;
+  for (const auto& p : source.edge_points) {
+    const Eigen::Vector3d x = R * p + t;
+    const double rxy2 = x.x() * x.x() + x.y() * x.y();
+    if (rxy2 < 1e-6) continue;
+    int row, col;
+    if (!project(x, &row, &col)) continue;
+    const auto& cols = reference.edge_cols[row];
+    if (cols.empty()) continue;
+    double u = scale_ * std::atan2(x.y(), x.x()) + W / 2.0;
+    u = std::fmod(std::fmod(u, W) + W, W);
+    // Nearest edge column along u (with wrap-around).
+    double best = 1e9;
+    auto it = std::lower_bound(cols.begin(), cols.end(), static_cast<int>(u));
+    for (auto jt : {it, it == cols.begin() ? cols.end() - 1 : it - 1}) {
+      if (jt == cols.end()) jt = cols.begin();
+      double e = (*jt + 0.5) - u;
+      if (e > W / 2.0) e -= W;
+      if (e < -W / 2.0) e += W;
+      if (std::abs(e) < std::abs(best)) best = e;
+    }
+    const double e = best;
+    if (std::abs(e) > params_.edge_search_px) continue;
+    double w;
+    if (kernel == 0) {
+      w = std::abs(e) <= params_.huber_delta ? 1.0 : params_.huber_delta / std::abs(e);
+    } else {
+      if (std::abs(e) >= params_.tukey_c) continue;
+      const double q = 1.0 - (e / params_.tukey_c) * (e / params_.tukey_c);
+      w = q * q;
+    }
+    // e = u_edge - u(x'), x' = R (p + w x p + v) + t.
+    const Eigen::Vector3d du_dx = scale_ * Eigen::Vector3d(-x.y(), x.x(), 0.0) / rxy2;
+    const Eigen::Vector3d a = R.transpose() * du_dx;
+    Eigen::Matrix<double, 6, 1> J;
+    J.head<3>() = a.cross(p);
+    J.tail<3>() = -a;
+    *H += w * J * J.transpose();
+    *g += w * J * e;
+    ++pairs;
+  }
+  return pairs;
+}
+
+bool DiloPaperOdometry::step(const DiloPaperFrame& source, const std::vector<const DiloPaperFrame*>& refs,
+                             const std::vector<Eigen::Matrix4d>& T, int kernel,
+                             Eigen::Matrix<double, 6, 1>* d) const {
+  Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero(), He = H;
+  Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero(), ge = g;
+  int pairs = 0, edge_pairs = 0;
+  for (size_t j = 0; j < refs.size(); ++j) {
+    pairs += accumulate(source, *refs[j], T[j], kernel, &H, &g);
+    if (params_.use_edges) edge_pairs += accumulateEdges(source, *refs[j], T[j], kernel, &He, &ge);
+  }
+  if (pairs < 6) return false;
+  *d = H.ldlt().solve(-g);
+  if (params_.use_edges && edge_pairs >= 12) {
+    // The edge residual constrains only azimuth-like directions; solve it
+    // with a small damping and average the two steps (Algorithm 1).
+    He += 1e-6 * He.trace() * Eigen::Matrix<double, 6, 6>::Identity();
+    const Eigen::Matrix<double, 6, 1> de = He.ldlt().solve(-ge);
+    if (de.allFinite()) *d = 0.5 * (*d + de);
+  }
+  return d->allFinite();
+}
+
 std::vector<Eigen::Matrix4d> DiloPaperOdometry::windowPoses() const {
   std::vector<Eigen::Matrix4d> out;
   for (const auto& f : window_) out.push_back(f->pose);
@@ -359,15 +501,13 @@ Eigen::Matrix4d DiloPaperOdometry::process(const std::vector<Eigen::Vector3d>& s
 
   // Init: register the new frame against every queued frame (Huber).
   const Eigen::Matrix4d predicted = frame->pose;
+  std::vector<const DiloPaperFrame*> refs;
+  for (const auto& ref : window_) refs.push_back(ref.get());
   for (int it = 0; it < params_.init_iterations; ++it) {
-    Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
-    Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
-    int pairs = 0;
-    for (const auto& ref : window_)
-      pairs += accumulate(*frame, *ref, inversePose(ref->pose) * frame->pose, 0, &H, &g);
-    if (pairs < 6) break;
-    const Eigen::Matrix<double, 6, 1> d = H.ldlt().solve(-g);
-    if (!d.allFinite()) break;
+    std::vector<Eigen::Matrix4d> T;
+    for (const auto* ref : refs) T.push_back(inversePose(ref->pose) * frame->pose);
+    Eigen::Matrix<double, 6, 1> d;
+    if (!step(*frame, refs, T, 0, &d)) break;
     frame->pose = frame->pose * expPose(d);
   }
   {
@@ -393,15 +533,11 @@ Eigen::Matrix4d DiloPaperOdometry::process(const std::vector<Eigen::Vector3d>& s
         for (int b = a + 1; b < M; ++b) {
           // Newer frame b registered into the older frame a.
           Eigen::Matrix4d T = inversePose(window_[a]->pose) * window_[b]->pose;
-          Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
-          Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
-          if (accumulate(*window_[b], *window_[a], T, 1, &H, &g) >= 6) {
-            const Eigen::Matrix<double, 6, 1> d = H.ldlt().solve(-g);
-            // Guard (not in the paper): skip implausibly large pair steps.
-            if (d.allFinite() && d.tail<3>().norm() < params_.max_pair_step_m &&
-                d.head<3>().norm() < params_.max_pair_step_rad)
-              T = T * expPose(d);
-          }
+          Eigen::Matrix<double, 6, 1> d;
+          // Guard (not in the paper): skip implausibly large pair steps.
+          if (step(*window_[b], {window_[a].get()}, {T}, 1, &d) &&
+              d.tail<3>().norm() < params_.max_pair_step_m && d.head<3>().norm() < params_.max_pair_step_rad)
+            T = T * expPose(d);
           rel[a][b] = T;
           rel[b][a] = inversePose(T);
         }

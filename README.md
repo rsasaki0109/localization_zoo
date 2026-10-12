@@ -46,6 +46,7 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 | Estimate orientation from an IMU | [IMU attitude estimation](#imu-attitude-estimation-broad) |
 | Measure IMU noise for a LIO / VIO config | [Allan variance](#imu-noise-allan-variance) |
 | Compare loop-closure descriptors | [Place recognition benchmark](docs/place_recognition_benchmark.md) |
+| Re-run a paper-number row myself | [`reproduce_paper_row.py`](#paper-number-check-official-kitti-rte) (one command: fetch, run, score) |
 | Reproduce or extend a benchmark | [Experiment-driven development](#experiment-driven-development) · [CONTRIBUTING](CONTRIBUTING.md) |
 | Add a new paper | [Adding a new paper](#adding-a-new-paper) |
 
@@ -257,6 +258,16 @@ optimistic bounds.
 
 Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);
 claim wording and audit findings: [`docs/paper_claim.md`](docs/paper_claim.md).
+
+**Re-run any row in one command.** The script looks up the variant the table
+uses, fetches only that KITTI sequence (HTTP range requests, not the 80 GB ZIP),
+runs it with the recorded arguments, and prints the official RTE of your run next
+to the recorded value and the paper's:
+
+```bash
+python3 evaluation/scripts/reproduce_paper_row.py --list
+python3 evaluation/scripts/reproduce_paper_row.py --method litamin2 --sequence 07 --kitti-root data/kitti --fetch
+```
 
 ### Does LiDAR intensity actually help? — I-LOAM ablation
 

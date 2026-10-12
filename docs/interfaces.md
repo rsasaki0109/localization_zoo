@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-12T00:12:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T00:14:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -395,6 +395,7 @@ The runner is responsible for:
 | LiTAMIN2 KITTI Odom seq 07 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_07_full_paper_matrix.json` | `litamin2` | `paper_icp_cov` | `experiments/results/litamin2_kitti_seq_07_full_paper_matrix.json` |
 | LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full | `ready` | `experiments/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` | `litamin2` | `fast_seeded_reference` | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `experiments/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` | `litamin2` | `fast_seeded_reference` | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 KITTI Odom seq 09 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_09_full_paper_matrix.json` | `litamin2` | `paper_icp` | `experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json` |
 | LiTAMIN2 KITTI Odom seq 10 full: the paper's odometry pipeline | `ready` | `experiments/litamin2_kitti_seq_10_full_paper_matrix.json` | `litamin2` | `paper_icp_first` | `experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json` |
 | LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames) | `ready` | `experiments/litamin2_mcd_kth_day_06_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/litamin2_mcd_kth_day_06_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |

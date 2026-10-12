@@ -103,7 +103,21 @@ The plane map voxel, which the paper does not give, was chosen on seq 07
 (0.8 m: 0.803 %, 0.4 m: 0.444 %, 0.2 m: 0.368 %, 0.1 m: 0.358 %); seq 00 is
 held out. That gives 1.08x on 07 and 1.57x on 00 (geometric mean 1.30x).
 Mapping and the correction matter most; the intensity residual is worth
-1-3 %. Free parameters can be changed with `--inten-loam-paper-set key=value`
+1-3 %.
+
+**Where seq 00 loses accuracy.** Per 100-frame segment the translational
+error ranges from 0.2 % to 2.8 %, with no single failure; the worst stretches
+are the start and the faster section around frames 4000-4300 (12-13 m/s,
+about 90 edge features per scan instead of 150-250). The yaw error has a
+consistent sign: summed per frame it reaches -5.95 deg over the sequence
+(-0.0013 deg per frame), independent of the turn direction. The free
+parameters move seq 00 only within +-5 % (base 0.816 %; edge threshold 0.15:
+0.786 %, 2000 ground points: 0.775 %, facade threshold 0.05: 0.819 %,
+0.1 m plane voxels: 0.822 %), so the defaults stay as chosen on 07 and 00
+stays held out. The paper's motion compensation (Sec. 3.1.1) is available as
+`--inten-loam-paper-set deskew=+-1` (point time from the azimuth, constant
+velocity); both spin directions make seq 07 much worse (1.502 / 1.835 %), so
+the KITTI odometry scans are treated as already compensated. Free parameters can be changed with `--inten-loam-paper-set key=value`
 (`map_plane_voxel`, `max_ground`, `huber`, ...).
 
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)

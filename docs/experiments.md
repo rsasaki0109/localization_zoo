@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T01:12:00+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -121,6 +121,7 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `experiments/results/ct_lio_public_readiness_matrix.json` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.488 | 26.0 | `experiments/results/ct_lio_reference_profile_matrix.json` |
+| DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 7.161 | 39.1 | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
 | DLIO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.239 | 12.1 | `experiments/results/dlio_hdl_400_reference_matrix.json` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.3 | `experiments/results/dlio_kitti_raw_0009_matrix.json` |
@@ -139,6 +140,7 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 | DLO throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.070 | 10.7 | `experiments/results/dlo_mcd_kth_day_06_matrix.json` |
 | DLO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.016 | 16.6 | `experiments/results/dlo_mcd_ntu_day_02_matrix.json` |
 | DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.9 | `experiments/results/dlo_mcd_tuhh_night_09_matrix.json` |
+| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `fast_profile` | 2.891 | 4.4 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
 | FAST-LIO2 on the public HDL-400 reference window | `ready` | `fast` | 0.104 | 9.1 | `experiments/results/fast_lio2_hdl_400_reference_matrix.json` |
 | FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.199 | 13.5 | `experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json` |
 | FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.328 | 12.3 | `experiments/results/fast_lio2_kitti_raw_0009_matrix.json` |
@@ -200,10 +202,12 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 | HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 5.057 | 13.9 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
 | HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `dense` | 0.180 | 21.9 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
 | HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `dense` | 1.373 | 14.5 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
+| IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 3.038 | 6.3 | `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `nhc_zupt_kitti_0009_full` | 1067.301 | 2692976.4 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 201.185 | 1988293.4 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 138.654 | 8.9 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
@@ -352,6 +356,7 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0009_matrix.json` |
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json` |
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 0.982 | 0.4 | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.874 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
@@ -416,6 +421,7 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 | Point-LIO on MCD KTH day-06 sequence | `ready` | `fast` | 7.113 | 112.7 | `experiments/results/point_lio_mcd_kth_day_06_matrix.json` |
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `fast` | 0.083 | 77.3 | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `fast` | 1.116 | 88.7 | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
+| Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 2.130 | 0.9 | `experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json` |
 | R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0009_full_matrix.json` |
 | R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0009_matrix.json` |
 | R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0061_full_matrix.json` |
@@ -464,6 +470,7 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 | VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.407 | 83.5 | `experiments/results/vins_fusion_kitti_raw_0009_matrix.json` |
 | VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 97.611 | 236.7 | `experiments/results/vins_fusion_kitti_raw_0061_full_matrix.json` |
 | VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.811 | 255.5 | `experiments/results/vins_fusion_kitti_raw_0061_matrix.json` |
+| VLOM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 2.544 | 2.3 | `experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `dense_recent_map` | 0.268 | 141.1 | `experiments/results/voxel_gicp_hdl_400_reference_matrix.json` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense_recent_map` | 0.614 | 27.5 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense_recent_map` | 0.644 | 23.3 | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
@@ -7399,6 +7406,54 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `dilo_kitti_seq_07_full_paper_comp`
+- **Question**: How close is the DiLO reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `dilo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| DiLO, default parameters | reference | 7.161 | 39.1 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| DiLO, dense profile | reference | 7.650 | 35.6 | 92.3 | 4.30 | 4.50 | Keep as active challenger |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 39.1 FPS.
+3. `default` is the most accurate observed variant at 7.161 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/default/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/default/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image projective data association (no NN search) + point-to-plane GN; constant-velocity prior, no GT seed. lookup_radius=1 lookup_max_dist=1.50 keyframes=304
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --dilo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --dilo-dense-profile`
+- Summary: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image projective data association (no NN search) + point-to-plane GN; constant-velocity prior, no GT seed. lookup_radius=1 lookup_max_dist=1.50 keyframes=303
+
+
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
 
 - **Problem ID**: `dlio_profile_tradeoff_hdl_400_reference`
@@ -8477,6 +8532,54 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
+
+
+## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `elo_kitti_seq_07_full_paper_comp`
+- **Question**: How close is the ELO reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| ELO, CPU fast profile (1024x80 SRI, 0.3 m BEV) | reference | 3.536 | 4.4 | 90.9 | 4.30 | 4.50 | Adopt as current default |
+| ELO, dense profile | reference | 2.891 | 2.4 | 77.8 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 4.4 FPS.
+3. `dense_profile` is the most accurate observed variant at 2.891 m ATE.
+
+### Variant Notes
+
+#### `fast_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --elo-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/fast_profile/summary.json --no-gt-seed --elo-fast-profile`
+- Summary: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/fast_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.026 g=5103 ng=461
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --elo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --elo-dense-profile`
+- Summary: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_07_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.024 g=9648 ng=3095
 
 
 ## FAST-LIO2 on the public HDL-400 reference window
@@ -11761,7 +11864,7 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `skipped` | Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames) | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/run.log` |
+| Default | balanced | `SKIPPED` | Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames) | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/run.log` |
 
 ## HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -12001,6 +12104,42 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `imls_slam_kitti_seq_07_full_paper_comp`
+- **Question**: How close is the IMLS-SLAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `imls_slam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| IMLS-SLAM, dense profile | reference | 3.038 | 6.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 6.3 FPS.
+3. `dense_profile` is the most accurate observed variant at 3.038 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --imls-slam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --imls-slam-dense-profile`
+- Summary: `experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/imls_slam_kitti_seq_07_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMLS-SLAM: scan-to-model matching on an implicit moving least squares surface (point-to-implicit-surface) with observability-based sampling; CV prior, no GT seed. mean|residual|=0.055 samples=807
 
 
 ## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)
@@ -12481,6 +12620,42 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
+
+
+## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_07_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM, dense profile | reference | 138.654 | 8.9 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 8.9 FPS.
+3. `dense_profile` is the most accurate observed variant at 138.654 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --inten-loam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --inten-loam-dense-profile`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=550 mean_intensity_residual=3.432910
 
 
 ## ISC-LOAM on the public HDL-400 reference window
@@ -21357,9 +21532,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/run.log` |
 
 ## LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 
@@ -21379,9 +21554,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/run.log` |
 
 ## LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -21401,9 +21576,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/run.log` |
 
 ## LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -21423,9 +21598,45 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/run.log` |
+
+## Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_07_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM, dense profile (0.25 m input voxel) | reference | 0.982 | 0.4 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.4 FPS.
+3. `dense_profile` is the most accurate observed variant at 0.982 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --mesh-loam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --mesh-loam-dense-profile`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_07_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. mean|residual|=0.016
+
 
 ## MULLS throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -24047,9 +24258,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/run.log` |
 
 ## ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 
@@ -24069,9 +24280,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/run.log` |
 
 ## ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -24091,9 +24302,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/run.log` |
 
 ## ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -24113,9 +24324,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/run.log` |
 
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full)
 
@@ -25089,6 +25300,42 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
 
 
+## Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `quadric_lo_kitti_seq_07_full_paper_comp`
+- **Question**: How close is the Quadric-LO reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 2.130 | 0.9 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.9 FPS.
+3. `dense_profile` is the most accurate observed variant at 2.130 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_07_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_07_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2743/14 plane_fallback_ratio=0.0049
+
+
 ## R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0009_full`
@@ -25107,9 +25354,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/run.log` |
 
 ## R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 
@@ -25129,9 +25376,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/run.log` |
 
 ## R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -25151,9 +25398,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/run.log` |
 
 ## R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -25173,9 +25420,9 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/run.log` |
-| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/run.log` |
-| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/run.log` |
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/run.log` |
 
 ## RKO-LIO gyro-bias feedback gain on the NCLT 2013-01-10 window
 
@@ -27863,6 +28110,42 @@ _Generated at 2026-10-12T00:39:56+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+
+## VLOM KITTI Odom seq 07 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `vlom_kitti_seq_07_full_paper_comp`
+- **Question**: How close is the VLOM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `vlom`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| VLOM (scale-corrected A-LOAM, no visual bootstrap) | reference | 2.544 | 2.3 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 2.3 FPS.
+3. `default` is the most accurate observed variant at 2.544 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods vlom --summary-json experiments/results/runs/vlom_kitti_seq_07_full_paper_comp_matrix/default/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/vlom_kitti_seq_07_full_paper_comp_matrix/default/summary.json`
+- Log: `experiments/results/runs/vlom_kitti_seq_07_full_paper_comp_matrix/default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: VLOM (arXiv:2304.08978): scale-corrected A-LOAM with optional visual bootstrap; eval=intensity-pseudo-image; bootstrap=off scale_correction=on; no GT seed. mean_scale=1.029 bootstrap_frames=0 rgb_frames=0 intensity_dilation_radius=2
 
 
 ## Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window

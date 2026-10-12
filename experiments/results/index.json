@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T00:39:56+00:00",
+  "generated_at": "2026-10-12T01:12:00+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1037,6 +1037,15 @@
       "current_default": "seed_only_fast"
     },
     {
+      "problem_id": "dilo_kitti_seq_07_full_paper_comp",
+      "title": "DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dilo_kitti_seq_07_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "dlio_profile_tradeoff_hdl_400_reference",
       "title": "DLIO throughput and accuracy trade-off on the public HDL-400 reference window",
       "status": "ready",
@@ -1197,6 +1206,15 @@
       "manifest_path": "experiments/dlo_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/dlo_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "elo_kitti_seq_07_full_paper_comp",
+      "title": "ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_07_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json",
+      "current_default": "fast_profile"
     },
     {
       "problem_id": "fast_lio2_hdl_400_reference",
@@ -1748,6 +1766,15 @@
       "current_default": "dense"
     },
     {
+      "problem_id": "imls_slam_kitti_seq_07_full_paper_comp",
+      "title": "IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/imls_slam_kitti_seq_07_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json",
+      "current_default": "dense_profile"
+    },
+    {
       "problem_id": "imu_dead_reckoning_aiding_ablation_kitti_raw_0009_full",
       "title": "IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)",
       "status": "ready",
@@ -1782,6 +1809,15 @@
       "manifest_path": "experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json",
       "aggregate_path": "experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json",
       "current_default": "zupt"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_paper_comp",
+      "title": "InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "current_default": "dense_profile"
     },
     {
       "problem_id": "isc_loam_hdl_400_reference",
@@ -3116,6 +3152,15 @@
       "current_default": null
     },
     {
+      "problem_id": "mesh_loam_kitti_seq_07_full_paper_comp",
+      "title": "Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "current_default": "dense_profile"
+    },
+    {
       "problem_id": "mulls_profile_tradeoff_hdl_400_reference",
       "title": "MULLS throughput and accuracy trade-off on the public HDL-400 reference window",
       "status": "ready",
@@ -3692,6 +3737,15 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "quadric_lo_kitti_seq_07_full_paper_comp",
+      "title": "Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json",
+      "current_default": "dense_profile"
+    },
+    {
       "problem_id": "r2live_profile_tradeoff_kitti_raw_0009_full",
       "title": "R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "skipped",
@@ -4122,6 +4176,15 @@
       "manifest_path": "experiments/vins_fusion_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/vins_fusion_kitti_raw_0061_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "vlom_kitti_seq_07_full_paper_comp",
+      "title": "VLOM KITTI Odom seq 07 full: comparison with the paper's KITTI table",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vlom_kitti_seq_07_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json",
+      "current_default": "default"
     },
     {
       "problem_id": "voxel_gicp_profile_tradeoff_hdl_400_reference",

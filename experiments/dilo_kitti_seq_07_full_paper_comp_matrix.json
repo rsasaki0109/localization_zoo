@@ -40,6 +40,40 @@
         "--no-gt-seed",
         "--dilo-dense-profile"
       ]
+    },
+    {
+      "id": "paper_odometry",
+      "label": "DiLO paper odometry (plane key points, 10-frame window, pairwise averaging)",
+      "design_style": "reference",
+      "intent": "Sec. 3 of the paper without edge key points: 192x2048 sin-elevation range image with vertical fill, Farid-filter normals, eleven planarity-weighted key-point lists, eq. 18 residual, Algorithm 1 with N = 10 and 5 update iterations. Compare with DiLO-plane in Table 1.",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry"
+      ]
+    },
+    {
+      "id": "paper_odometry_elevation",
+      "label": "DiLO paper odometry + 0.22 deg beam correction",
+      "design_style": "reference",
+      "intent": "paper_odometry on scans with the KITTI vertical-angle correction (the paper does not mention it).",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ]
+    },
+    {
+      "id": "paper_odometry_no_window_update",
+      "label": "DiLO paper odometry without the window re-estimation",
+      "design_style": "ablation",
+      "intent": "Only the Huber registration of each new frame to the last 10 frames (Algorithm 1 without the update loop).",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-update-iterations",
+        "0"
+      ]
     }
   ]
 }

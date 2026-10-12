@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-12T11:40:02+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1418,24 +1418,31 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 ## DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
 - Current default: `default`.
-- Reference variants: `dense_profile`.
+- Reference variants: `dense_profile`, `paper_odometry`, `paper_odometry_elevation`, `paper_odometry_no_window_update`.
 - Aggregate result: `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_no_window_update | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `default`.
 - Active challengers: `dense_profile`.
+- Reference variants: `paper_odometry`, `paper_odometry_elevation`, `paper_odometry_no_window_update`.
 - Aggregate result: `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_no_window_update | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -1657,25 +1664,32 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
-- Current default: `fast_profile`.
-- Reference variants: `dense_profile`.
+- Current default: `dense_elevation_paper_normals`.
+- Active challengers: `fast_profile`.
+- Reference variants: `dense_profile`, `dense_elevation`, `paper_profile_elevation`.
 - Aggregate result: `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_elevation_paper_normals | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
-- Current default: `fast_profile`.
-- Reference variants: `dense_profile`.
+- Current default: `dense_elevation_paper_normals`.
+- Reference variants: `fast_profile`, `dense_profile`, `dense_elevation`, `paper_profile_elevation`.
 - Aggregate result: `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_elevation_paper_normals | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## FAST-LIO2 on the public HDL-400 reference window
 
@@ -2400,20 +2414,29 @@ _Generated at 2026-10-12T04:24:23+00:00 by `evaluation/scripts/run_experiment_ma
 ## IMLS-SLAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
 - Current default: `dense_profile`.
+- Reference variants: `paper_odometry_w100`, `paper_odometry_w10`, `paper_odometry_w10_no_correction`.
 - Aggregate result: `experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_w100 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_w10 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_w10_no_correction | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `dense_profile`.
+- Active challengers: `paper_odometry_w100`.
+- Reference variants: `paper_odometry_w10`, `paper_odometry_w10_no_correction`.
 - Aggregate result: `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_w100 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_odometry_w10 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_w10_no_correction | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)
 

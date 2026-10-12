@@ -257,9 +257,9 @@ optimistic bounds.
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
 | Quadric-LO | 00/07 | 0.80x | near paper (vs the paper's scan-to-submap Table II; no author code) |
 | Mesh-LOAM | 00/07 | 1.80x | gap remains (no author code) |
-| ELO | 00/07 | 2.60x | gap remains (no author code; CPU profiles) |
-| IMLS-SLAM | 00/07 | 2.66x | gap remains (no author code; the paper de-skews scans with an external odometry first) |
-| DiLO | 00/07 | 4.12x | gap remains (no author code) |
+| ELO | 00/07 | 1.37x | gap remains (no author code); with the 0.195 deg correction the paper applies and its normal patch size, from 2.60x ([details](papers/elo/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
+| IMLS-SLAM | 00/07 | 1.04x | near paper with the paper's pipeline (`--imls-slam-paper-odometry`: raw scans, 0.22 deg correction, a window of 100 raw scans, h = 0.06 m), from 2.66x ([details](papers/imls_slam/README.md)) |
+| DiLO | 00/07 | 1.31x | paper pipeline without edge key points (`--dilo-paper-odometry`, 0.22 deg correction), from 4.12x; equal to the paper's plane-only ablation (0.97x) ([details](papers/dilo/README.md)) |
 | InTEn-LOAM | 00/07 | fails | does not track on KITTI (50-56 % RTE; see [its README](papers/inten_loam/README.md)) |
 
 Papers checked but not compared: VLOM and PL-LOAM report visual-LiDAR systems that

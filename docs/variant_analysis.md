@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-12T04:24:50+00:00
+> Generated: 2026-10-12T11:40:33+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -264,8 +264,8 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
-| dogfooding_results/kitti_seq_00_full | fast_profile | 22.504 | 4.3 |
-| dogfooding_results/kitti_seq_07_full | fast_profile | 3.536 | 4.4 |
+| dogfooding_results/kitti_seq_00_full | dense_elevation_paper_normals | 12.632 | 3.1 |
+| dogfooding_results/kitti_seq_07_full | dense_elevation_paper_normals | 1.418 | 3.3 |
 
 **Stability**: 1 unique default(s) across 2 windows.
 
@@ -991,6 +991,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 |---|---:|---:|---:|
 | default | 22.951 | 40.6 | 2 |
 | dense_profile | 27.736 | 36.0 | 2 |
+| paper_odometry | 9.177 | 4.3 | 2 |
+| paper_odometry_elevation | 8.351 | 4.3 | 2 |
+| paper_odometry_no_window_update | 37.407 | 5.5 | 2 |
 
 ### DLIO
 
@@ -1012,8 +1015,11 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
+| dense_elevation | 11.790 | 2.2 | 2 |
+| dense_elevation_paper_normals | 7.025 | 3.2 | 2 |
 | dense_profile | 12.424 | 2.4 | 2 |
 | fast_profile | 13.020 | 4.3 | 2 |
+| paper_profile_elevation | 12.628 | 1.6 | 2 |
 
 ### FAST-LIO2
 
@@ -1076,6 +1082,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
 | dense_profile | 10.304 | 5.8 | 2 |
+| paper_odometry_w10 | 4.288 | 1.7 | 2 |
+| paper_odometry_w100 | 3.908 | 1.1 | 2 |
+| paper_odometry_w10_no_correction | 9.483 | 1.7 | 2 |
 
 ### IMU-DEAD-RECKONING
 

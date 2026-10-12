@@ -61,21 +61,21 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
 | Near paper | Quadric-LO (vs the paper's scan-to-submap Table II; no author code) | 00/07 | 0.80x |
 | Gap remains | Mesh-LOAM (no author code) | 00/07 | 1.80x |
-| Gap remains | ELO (no author code; CPU profiles) | 00/07 | 2.60x |
-| Gap remains | IMLS-SLAM (no author code; the paper de-skews scans with an external odometry) | 00/07 | 2.66x |
-| Gap remains | DiLO (no author code) | 00/07 | 4.12x |
+| Gap remains | ELO (no author code; 0.195 deg correction and the paper normal patch; 2.60x before, see `papers/elo/README.md`) | 00/07 | 1.37x |
+| Near paper | IMLS-SLAM (paper pipeline, `--imls-slam-paper-odometry`, 0.22 deg correction; 2.66x before, see `papers/imls_slam/README.md`) | 00/07 | 1.04x |
+| Gap remains | DiLO (paper pipeline without edge key points, `--dilo-paper-odometry`; 0.97x vs the paper's plane-only ablation; 4.12x before, see `papers/dilo/README.md`) | 00/07 | 1.31x |
 | Fails | InTEn-LOAM (does not track on KITTI, 50-56 % RTE) | 00/07 | - |
 
-What may be claimed: A-LOAM, LF-GICP, KISS-ICP, MULLS, CT-ICP, LiTAMIN2, and Quadric-LO (seq 00/07 only) reach paper-level odometry accuracy
+What may be claimed: A-LOAM, LF-GICP, KISS-ICP, MULLS, CT-ICP, LiTAMIN2, Quadric-LO and IMLS-SLAM (seq 00/07 only for the last two) reach paper-level odometry accuracy
 on KITTI (KISS-ICP on seq 00 and 04, and only with the upstream mechanics and the
 KITTI elevation correction; its 00-10 average, 0.564 %, equals the official
 code's on the same pipeline, both 1.13x the paper's 0.50 %; CT-ICP only with
 `--ct-icp-upstream-mechanics` and the correction, whose 00-10 average, 0.587 %,
 equals the official code's 0.585 % on the same scans, 1.10x the paper's per-sequence
 values; MULLS only with `--mulls-lo`, whose 00-10 average, 0.572 %, equals the
-official code's 0.576 %, 1.06x the paper's per-sequence values); L-LO, SuMa, Mesh-LOAM, ELO, IMLS-SLAM, DiLO, and InTEn-LOAM run on the same metric but do **not** reproduce the
+official code's 0.576 %, 1.06x the paper's per-sequence values); L-LO, SuMa, Mesh-LOAM, ELO, DiLO, and InTEn-LOAM run on the same metric but do **not** reproduce the
 paper numbers. What may not be claimed: faithful reproduction for
-L-LO, SuMa, Mesh-LOAM, ELO, IMLS-SLAM, DiLO, or InTEn-LOAM, a KISS-ICP, CT-ICP, or MULLS claim for the repository default, or any ratio as unbiased. The repository value is the
+L-LO, SuMa, Mesh-LOAM, ELO, DiLO, or InTEn-LOAM, a KISS-ICP, CT-ICP, or MULLS claim for the repository default, or any ratio as unbiased. The repository value is the
 best variant of a sweep **selected on the evaluated sequence**, so every ratio
 is an optimistic bound, except the L-LO and SuMa rows on 00/02/05/08, whose variants were chosen on seq 07 and transferred unchanged; SuMa's paper values have one decimal, and A-LOAM is
 compared with LOAM values cited by later papers because LOAM has no

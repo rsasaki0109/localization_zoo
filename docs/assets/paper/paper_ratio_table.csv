@@ -21,36 +21,36 @@ ct_icp,07,0.310,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_
 ct_icp,08,0.810,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.902,1.11,1.938,47,47,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json
 ct_icp,09,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.629,1.28,0.945,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json
 ct_icp,10,0.480,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,0.742,1.55,1.092,2,2,upstream_mechanics_elevation,experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json
-dilo,00,0.640,"Table 1 DiLO, average translation error (%)",kitti_rte,2.687,4.20,2.741,2,2,default,experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json
+dilo,00,0.640,"Table 1 DiLO, average translation error (%)",kitti_rte,0.797,1.24,1.997,4,4,paper_odometry_elevation,experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json
 dilo,01,1.070,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,02,0.670,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,03,0.740,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,04,0.450,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,05,0.460,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,06,0.410,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
-dilo,07,0.420,"Table 1 DiLO, average translation error (%)",kitti_rte,1.694,4.03,1.703,2,2,dense_profile,experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json
+dilo,07,0.420,"Table 1 DiLO, average translation error (%)",kitti_rte,0.579,1.38,1.156,4,4,paper_odometry_elevation,experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json
 dilo,08,0.930,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,09,0.640,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,10,0.850,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
-elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,1.272,2.36,1.339,2,2,dense_profile,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
+elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.656,1.21,1.272,3,3,dense_elevation_paper_normals,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
 elo,01,0.610,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,02,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,03,0.650,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,04,0.320,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,05,0.330,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,06,0.300,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
-elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.893,2.88,0.985,2,2,dense_profile,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
+elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.480,1.55,0.893,3,3,dense_elevation_paper_normals,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
 elo,08,0.790,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,09,0.480,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,10,0.590,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
-imls_slam,00,0.500,"Table I Our SLAM, drift in translation (%)",kitti_rte,1.378,2.76,1.378,1,1,dense_profile,experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json
+imls_slam,00,0.500,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.523,1.05,0.529,3,3,paper_odometry_w100,experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json
 imls_slam,01,0.820,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
 imls_slam,02,0.530,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
 imls_slam,03,0.680,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
 imls_slam,04,0.330,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
 imls_slam,05,0.320,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
 imls_slam,06,0.330,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
-imls_slam,07,0.330,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.846,2.56,0.846,1,1,dense_profile,experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json
+imls_slam,07,0.330,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.339,1.03,0.378,3,3,paper_odometry_w100,experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json
 imls_slam,08,0.800,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
 imls_slam,09,0.550,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,
 imls_slam,10,0.530,"Table I Our SLAM, drift in translation (%)",,,,,0,0,,

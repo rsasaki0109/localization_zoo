@@ -1,0 +1,251 @@
+#include "imls_slam/imls_paper_odometry.h"
+
+#include <Eigen/Dense>
+
+#include <algorithm>
+#include <cmath>
+#include <numeric>
+#include <unordered_set>
+
+namespace localization_zoo {
+namespace imls_slam {
+
+namespace {
+
+Eigen::Matrix3d skew(const Eigen::Vector3d& v) {
+  Eigen::Matrix3d m;
+  m << 0, -v.z(), v.y(), v.z(), 0, -v.x(), -v.y(), v.x(), 0;
+  return m;
+}
+
+Eigen::Matrix3d expSO3(const Eigen::Vector3d& w) {
+  const double theta = w.norm();
+  if (theta < 1e-12) return Eigen::Matrix3d::Identity() + skew(w);
+  const Eigen::Matrix3d K = skew(w / theta);
+  return Eigen::Matrix3d::Identity() + std::sin(theta) * K + (1.0 - std::cos(theta)) * K * K;
+}
+
+}  // namespace
+
+ImlsPaperOdometry::ImlsPaperOdometry(const ImlsPaperParams& params) : params_(params) {}
+
+Eigen::Vector3i ImlsPaperOdometry::key(const Eigen::Vector3d& p, double cell) const {
+  return (p / cell).array().floor().cast<int>();
+}
+
+std::vector<ImlsPaperOdometry::ScanPoint> ImlsPaperOdometry::describe(
+    const std::vector<Eigen::Vector3d>& scan) const {
+  const double cell = params_.scan_normal_radius;
+  Grid grid;
+  std::vector<Eigen::Vector3d> pts;
+  pts.reserve(scan.size());
+  for (const auto& p : scan) {
+    const double range = p.norm();
+    if (range < params_.min_range || range > params_.max_range) continue;
+    pts.push_back(p);
+    grid[key(p, cell)].push_back(p);
+  }
+  const double r2 = cell * cell;
+  std::vector<ScanPoint> out;
+  out.reserve(pts.size());
+  std::vector<Eigen::Vector3d> nb;
+  for (const auto& p : pts) {
+    nb.clear();
+    const Eigen::Vector3i c = key(p, cell);
+    for (int dx = -1; dx <= 1 && static_cast<int>(nb.size()) < params_.scan_normal_max_neighbors; ++dx)
+      for (int dy = -1; dy <= 1 && static_cast<int>(nb.size()) < params_.scan_normal_max_neighbors; ++dy)
+        for (int dz = -1; dz <= 1; ++dz) {
+          auto it = grid.find(c + Eigen::Vector3i(dx, dy, dz));
+          if (it == grid.end()) continue;
+          for (const auto& q : it->second) {
+            if ((q - p).squaredNorm() <= r2) nb.push_back(q);
+            if (static_cast<int>(nb.size()) >= params_.scan_normal_max_neighbors) break;
+          }
+          if (static_cast<int>(nb.size()) >= params_.scan_normal_max_neighbors) break;
+        }
+    if (static_cast<int>(nb.size()) < params_.min_normal_points) continue;
+    Eigen::Vector3d mean = Eigen::Vector3d::Zero();
+    for (const auto& q : nb) mean += q;
+    mean /= static_cast<double>(nb.size());
+    Eigen::Matrix3d cov = Eigen::Matrix3d::Zero();
+    for (const auto& q : nb) cov += (q - mean) * (q - mean).transpose();
+    Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> solver(cov / static_cast<double>(nb.size()));
+    const Eigen::Vector3d ev = solver.eigenvalues().cwiseMax(0.0);  // ascending
+    const double s1 = std::sqrt(ev(2)), s2 = std::sqrt(ev(1)), s3 = std::sqrt(ev(0));
+    if (s1 <= 1e-12) continue;
+    ScanPoint sp;
+    sp.p = p;
+    sp.n = solver.eigenvectors().col(0);
+    sp.a2d = (s2 - s3) / s1;
+    out.push_back(sp);
+  }
+  return out;
+}
+
+std::vector<std::vector<int>> ImlsPaperOdometry::sampleLists(
+    const std::vector<ScanPoint>& points) const {
+  std::vector<std::vector<int>> lists(9);
+  std::vector<std::vector<double>> scores(9, std::vector<double>(points.size()));
+  for (size_t i = 0; i < points.size(); ++i) {
+    const auto& sp = points[i];
+    const double w = sp.a2d * sp.a2d;
+    const Eigen::Vector3d torque = sp.p.cross(sp.n);
+    for (int a = 0; a < 3; ++a) {
+      scores[2 * a][i] = w * torque(a);
+      scores[2 * a + 1][i] = -w * torque(a);
+      scores[6 + a][i] = w * std::abs(sp.n(a));
+    }
+  }
+  for (int l = 0; l < 9; ++l) {
+    lists[l].resize(points.size());
+    std::iota(lists[l].begin(), lists[l].end(), 0);
+    std::sort(lists[l].begin(), lists[l].end(),
+              [&](int a, int b) { return scores[l][a] > scores[l][b]; });
+  }
+  return lists;
+}
+
+bool ImlsPaperOdometry::hasModelPointWithin(const Eigen::Vector3d& x) const {
+  const Eigen::Vector3i c = key(x, params_.r);
+  const double r2 = params_.r * params_.r;
+  for (int dx = -1; dx <= 1; ++dx)
+    for (int dy = -1; dy <= 1; ++dy)
+      for (int dz = -1; dz <= 1; ++dz) {
+        auto it = model_.find(c + Eigen::Vector3i(dx, dy, dz));
+        if (it == model_.end()) continue;
+        for (const auto& e : it->second)
+          if ((e.p - x).squaredNorm() <= r2) return true;
+      }
+  return false;
+}
+
+bool ImlsPaperOdometry::imls(const Eigen::Vector3d& x, Eigen::Vector3d* normal,
+                             double* distance) const {
+  const Eigen::Vector3i c = key(x, params_.r);
+  const double r2 = params_.r * params_.r;
+  const double inv_h2 = 1.0 / (params_.h * params_.h);
+  Eigen::Vector3d sum = Eigen::Vector3d::Zero();
+  Eigen::Matrix3d sum_sq = Eigen::Matrix3d::Zero();
+  Eigen::Vector3d weighted = Eigen::Vector3d::Zero();
+  double weight_sum = 0.0;
+  int n = 0;
+  for (int dx = -1; dx <= 1; ++dx)
+    for (int dy = -1; dy <= 1; ++dy)
+      for (int dz = -1; dz <= 1; ++dz) {
+        auto it = model_.find(c + Eigen::Vector3i(dx, dy, dz));
+        if (it == model_.end()) continue;
+        for (const auto& e : it->second) {
+          const Eigen::Vector3d d = e.p - x;
+          const double d2 = d.squaredNorm();
+          if (d2 > r2) continue;
+          ++n;
+          sum += d;  // relative to x for conditioning
+          sum_sq += d * d.transpose();
+          const double w = std::exp(-d2 * inv_h2);
+          weighted += w * d;
+          weight_sum += w;
+        }
+      }
+  if (n < params_.min_normal_points || weight_sum <= 0.0) return false;
+  const Eigen::Vector3d mean = sum / n;
+  Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> solver(sum_sq / n - mean * mean.transpose());
+  *normal = solver.eigenvectors().col(0);
+  // I(x) = sum w (x - p).n / sum w = -n.(weighted mean of p - x).
+  *distance = -normal->dot(weighted / weight_sum);
+  return true;
+}
+
+void ImlsPaperOdometry::insertScan(const std::vector<Eigen::Vector3d>& scan,
+                                   const Eigen::Matrix4d& pose) {
+  const Eigen::Matrix3d R = pose.block<3, 3>(0, 0);
+  const Eigen::Vector3d t = pose.block<3, 1>(0, 3);
+  const int id = next_scan_id_++;
+  std::unordered_set<Eigen::Vector3i, KeyHash> cells;
+  for (const auto& p : scan) {
+    const double range = p.norm();
+    if (range < params_.min_range || range > params_.max_range) continue;
+    const Eigen::Vector3d w = R * p + t;
+    const Eigen::Vector3i k = key(w, params_.r);
+    model_[k].push_back({id, w});
+    cells.insert(k);
+    ++model_points_;
+  }
+  window_.emplace_back(id, std::vector<Eigen::Vector3i>(cells.begin(), cells.end()));
+  while (static_cast<int>(window_.size()) > params_.window_scans) {
+    const int old = window_.front().first;
+    for (const auto& k : window_.front().second) {
+      auto it = model_.find(k);
+      if (it == model_.end()) continue;
+      auto& v = it->second;
+      const size_t before = v.size();
+      v.erase(std::remove_if(v.begin(), v.end(), [old](const Entry& e) { return e.scan_id == old; }),
+              v.end());
+      model_points_ -= before - v.size();
+      if (v.empty()) model_.erase(it);
+    }
+    window_.pop_front();
+  }
+}
+
+ImlsPaperResult ImlsPaperOdometry::process(const std::vector<Eigen::Vector3d>& scan) {
+  ImlsPaperResult result;
+  if (frame_ == 0) {
+    insertScan(scan, pose_);
+    previous_pose_ = pose_;
+    ++frame_;
+    result.pose = pose_;
+    result.model_points = model_points_;
+    return result;
+  }
+
+  const std::vector<ScanPoint> points = describe(scan);
+  const std::vector<std::vector<int>> lists = sampleLists(points);
+
+  // Constant velocity: tau(k-1) tau(k-2)^-1 tau(k-1).
+  Eigen::Matrix4d T = pose_ * (previous_pose_.inverse() * pose_);
+  for (int iter = 0; iter < params_.iterations; ++iter) {
+    const Eigen::Matrix3d R = T.block<3, 3>(0, 0);
+    const Eigen::Vector3d t = T.block<3, 1>(0, 3);
+    Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
+    Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
+    int samples = 0;
+    for (const auto& list : lists) {
+      int accepted = 0;
+      for (int idx : list) {
+        if (accepted >= params_.samples_per_list) break;
+        const Eigen::Vector3d x = R * points[idx].p + t;
+        if (!hasModelPointWithin(x)) continue;
+        Eigen::Vector3d n;
+        double I;
+        if (!imls(x, &n, &I)) continue;
+        ++accepted;
+        // Residual n.(x' - y) with y = x - I n, linearised about the sensor
+        // position: n.(x + w x (x - t) + v - y) = I + ((x - t) x n).w + n.v.
+        Eigen::Matrix<double, 6, 1> J;
+        J.head<3>() = (x - t).cross(n);
+        J.tail<3>() = n;
+        H += J * J.transpose();
+        g += J * I;
+      }
+      samples += accepted;
+    }
+    result.samples = samples;
+    if (samples < 6) break;
+    const Eigen::Matrix<double, 6, 1> delta = H.ldlt().solve(-g);
+    if (!delta.allFinite()) break;
+    const Eigen::Matrix3d dR = expSO3(delta.head<3>());
+    T.block<3, 3>(0, 0) = dR * R;
+    T.block<3, 1>(0, 3) = t + delta.tail<3>();
+  }
+
+  previous_pose_ = pose_;
+  pose_ = T;
+  insertScan(scan, pose_);
+  ++frame_;
+  result.pose = pose_;
+  result.model_points = model_points_;
+  return result;
+}
+
+}  // namespace imls_slam
+}  // namespace localization_zoo

@@ -62,6 +62,24 @@ struct EloParams {
   int max_alignment_points = 12000;
 
   int model_window_frames = 100;
+
+  // Paper mechanics (Sec. III), off by default so the existing profiles keep
+  // their numbers.
+  // fusion_mode 0: fixed ground / non-ground weights on raw sums.
+  // fusion_mode 1: w E_S + (1 - w) E_G with each term averaged over its
+  //   correspondences and w = w1 * w2, w2 = min(1, inlier ratio of the
+  //   non-ground points / inlier ratio of the ground points) (eqs. 1-2).
+  int fusion_mode = 0;
+  double fusion_w1 = 0.7;
+  // Eq. 13: a pixel in the height band is ground only if the slopes to the
+  // nearest valid pixel above and below are both flat (one side if only one
+  // exists, non-ground if neither does).
+  bool ground_requires_both_sides = false;
+  // Eq. 12 gives the full patch size; true uses half of it on each side.
+  bool normal_patch_full_size = false;
+  // BEV cells keep one vertex, the one closer to the sensor, like the SRI
+  // model (Sec. III-D), instead of a running mean.
+  bool bev_keep_closest = false;
 };
 
 struct EloResult {
@@ -74,6 +92,7 @@ struct EloResult {
   int num_ground_points = 0;
   int num_non_ground_points = 0;
   double mean_abs_residual = 0.0;
+  double fusion_weight = 0.0;  // w of the last iteration (fusion_mode 1)
 };
 
 class EloPipeline {

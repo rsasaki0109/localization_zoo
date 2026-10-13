@@ -52,7 +52,7 @@ A complete "one paper unit" PR includes:
    (not just that ICP converges) — e.g. the kernel/weight behaves as claimed.
 2. **KITTI full seq00 / seq07** evaluation with `--no-gt-seed` (no ground-truth
    seeding), using a uniform `--*-dense-profile`.
-3. A **leaderboard row** in `README.md` and an entry in `docs/methods.json`.
+3. A **results row** in the `README.md` leaderboard or [`docs/benchmark_overview.md`](docs/benchmark_overview.md) and an entry in `docs/methods.json`.
 4. A **module `README.md`** documenting the mechanism, parameters, and the
    measured KITTI results vs the KISS-ICP reference.
 5. Honest notes on where it wins, ties, or loses.

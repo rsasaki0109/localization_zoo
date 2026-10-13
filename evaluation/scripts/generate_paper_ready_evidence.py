@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate paper-ready validation evidence snippets in README.md from JSON summaries."""
+"""Regenerate paper-ready validation evidence snippets in docs/benchmark_overview.md from JSON summaries."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-README_PATH = REPO_ROOT / "README.md"
+TARGET_PATH = REPO_ROOT / "docs" / "benchmark_overview.md"
 BUNDLE_PATH = REPO_ROOT / "docs" / "benchmarks" / "paper_ready_bundle.json"
 
 SNIPPETS = {
@@ -141,7 +141,7 @@ def lio_imu_nclt_block(summary: dict) -> str:
     )
 
 
-def render_block(name: str, summary_path: Path) -> str:
+def _render_block(name: str, summary_path: Path) -> str:
     summary = load_json(summary_path)
     if name == "EVIDENCE:M-GCLO-SEQ08":
         return m_gclo_seq08_block(summary)
@@ -158,6 +158,12 @@ def render_block(name: str, summary_path: Path) -> str:
     raise KeyError(name)
 
 
+def render_block(name: str, path: Path) -> str:
+    # Artifact links are written relative to the repository root; the page
+    # lives in docs/.
+    return _render_block(name, path).replace("](docs/", "](")
+
+
 def replace_snippet(text: str, name: str, block: str) -> str:
     pattern = re.compile(
         rf"(<!-- {re.escape(name)}:START -->)(.*?)(<!-- {re.escape(name)}:END -->)",
@@ -165,7 +171,7 @@ def replace_snippet(text: str, name: str, block: str) -> str:
     )
     match = pattern.search(text)
     if not match:
-        raise SystemExit(f"missing markers for {name} in README.md")
+        raise SystemExit(f"missing markers for {name} in {TARGET_PATH.name}")
     replacement = f"{match.group(1)}\n{block}\n{match.group(3)}"
     return text[: match.start()] + replacement + text[match.end() :]
 
@@ -188,17 +194,17 @@ def extract_snippet(text: str, name: str) -> str:
     )
     match = pattern.search(text)
     if not match:
-        raise SystemExit(f"missing markers for {name} in README.md")
+        raise SystemExit(f"missing markers for {name} in {TARGET_PATH.name}")
     return match.group(1).strip("\n")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--print", action="store_true", help="Print generated snippets only.")
-    parser.add_argument("--check", action="store_true", help="Exit 1 if README snippets are stale.")
+    parser.add_argument("--check", action="store_true", help="Exit 1 if the snippets are stale.")
     args = parser.parse_args()
 
-    current = README_PATH.read_text()
+    current = TARGET_PATH.read_text()
     updated = build_readme(current)
 
     if args.print:
@@ -217,12 +223,12 @@ def main() -> int:
             expected = render_block(name, path)
             actual = extract_snippet(current, name)
             if actual != expected:
-                print(f"README snippet {name} is stale.", file=sys.stderr)
+                print(f"{TARGET_PATH.name} snippet {name} is stale.", file=sys.stderr)
                 return 1
         return 0
 
-    README_PATH.write_text(updated)
-    print(f"updated {README_PATH.relative_to(REPO_ROOT)}")
+    TARGET_PATH.write_text(updated)
+    print(f"updated {TARGET_PATH.relative_to(REPO_ROOT)}")
     return 0
 
 

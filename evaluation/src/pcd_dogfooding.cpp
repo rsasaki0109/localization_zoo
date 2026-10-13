@@ -2699,6 +2699,9 @@ struct EloDogfoodingOptions {
   bool ground_requires_both_sides = false;
   bool normal_patch_full_size = false;
   bool bev_keep_closest = false;
+  bool sri_fuse_same_surface = false;
+  bool ground_constrains_forward = true;
+  double curvature_threshold = -1.0;  // < 0: library default
   double robust_scale = 0.5;
   int sri_search_radius_px = 1;
   bool paper_profile = false;
@@ -8875,6 +8878,9 @@ MethodResult runElo(const std::vector<std::string>& pcd_dirs,
   params.ground_requires_both_sides = options.ground_requires_both_sides;
   params.normal_patch_full_size = options.normal_patch_full_size;
   params.bev_keep_closest = options.bev_keep_closest;
+  params.sri_fuse_same_surface = options.sri_fuse_same_surface;
+  params.ground_constrains_forward = options.ground_constrains_forward;
+  if (options.curvature_threshold >= 0.0) params.curvature_threshold = options.curvature_threshold;
   params.robust_scale = options.robust_scale;
   params.sri_search_radius_px = options.sri_search_radius_px;
   EloPipeline pipeline(params);
@@ -15211,6 +15217,19 @@ int main(int argc, char** argv) {
     }
     if (arg == "--elo-ground-both-sides") {
       elo_options.ground_requires_both_sides = true;
+      continue;
+    }
+    if (arg == "--elo-sri-fuse-same-surface") {
+      elo_options.sri_fuse_same_surface = true;
+      continue;
+    }
+    if (arg == "--elo-ground-no-forward") {
+      elo_options.ground_constrains_forward = false;
+      continue;
+    }
+    if (arg == "--elo-curvature-threshold") {
+      if (i + 1 >= argc) { std::cerr << "--elo-curvature-threshold requires a value" << std::endl; return 1; }
+      elo_options.curvature_threshold = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--elo-normal-full-patch") {

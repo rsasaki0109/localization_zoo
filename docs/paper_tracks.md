@@ -1,6 +1,6 @@
 # Paper Tracks
 
-_Generated at 2026-10-13T05:40:18+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
@@ -147,7 +147,7 @@ Current coverage: `487` ready, `1` blocked, `14` skipped problems.
 | DLO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.101 | 15.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `dogfooding_results/kitti_raw_0009_full` |
 | ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals` | 12.632 | 4.3 | `dogfooding_results/kitti_seq_00_full` |
-| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals` | 1.418 | 4.4 | `dogfooding_results/kitti_seq_07_full` |
+| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals_unbiased` | 1.418 | 4.4 | `dogfooding_results/kitti_seq_07_full` |
 | F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.972 | 8.7 | `dogfooding_results/kitti_seq_07_full` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.883 | 28.0 | `dogfooding_results/kitti_raw_0009_200` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.883 | 24.6 | `dogfooding_results/kitti_raw_0009_200` |

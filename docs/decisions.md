@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-13T05:40:17+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1666,7 +1666,7 @@ _Generated at 2026-10-13T05:40:17+00:00 by `evaluation/scripts/run_experiment_ma
 
 - Current default: `dense_elevation_paper_normals`.
 - Active challengers: `fast_profile`.
-- Reference variants: `dense_profile`, `dense_elevation`, `paper_profile_elevation`.
+- Reference variants: `dense_profile`, `dense_elevation`, `paper_profile_elevation`, `dense_elevation_paper_normals_unbiased`.
 - Aggregate result: `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
@@ -1676,10 +1676,12 @@ _Generated at 2026-10-13T05:40:17+00:00 by `evaluation/scripts/run_experiment_ma
 | dense_elevation_paper_normals | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_elevation_paper_normals_unbiased | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
-- Current default: `dense_elevation_paper_normals`.
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals`.
 - Reference variants: `fast_profile`, `dense_profile`, `dense_elevation`, `paper_profile_elevation`.
 - Aggregate result: `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json`
 
@@ -1687,9 +1689,10 @@ _Generated at 2026-10-13T05:40:17+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| dense_elevation_paper_normals | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## FAST-LIO2 on the public HDL-400 reference window
 

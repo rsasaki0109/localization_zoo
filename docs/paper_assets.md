@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-13T05:40:18+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-13T07:24:31+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -158,7 +158,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | dlo | `mcd_ntu_day_02_108` | gt-backed | `kitti_default` | 0.016 | 10.2 | `experiments/results/dlo_mcd_ntu_day_02_matrix.json` |
 | dlo | `mcd_tuhh_night_09_108` | gt-backed | `fast` | 1.344 | 13.9 | `experiments/results/dlo_mcd_tuhh_night_09_matrix.json` |
 | elo | `kitti_seq_00_full` | gt-backed | `dense_elevation_paper_normals` | 12.632 | 3.1 | `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json` |
-| elo | `kitti_seq_07_full` | gt-backed | `dense_elevation_paper_normals` | 1.418 | 3.3 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
+| elo | `kitti_seq_07_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 1.521 | 3.6 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
 | fast_lio2 | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.114 | 9.1 | `experiments/results/fast_lio2_hdl_400_reference_matrix.json` |
 | fast_lio2 | `kitti_raw_0009_200` | gt-backed | `fast` | 2.328 | 12.3 | `experiments/results/fast_lio2_kitti_raw_0009_matrix.json` |
 | fast_lio2 | `kitti_raw_0009_200` | gt-backed | `fast` | 2.328 | 12.7 | `experiments/results/fast_lio2_kitti_raw_0009_nogt_matrix.json` |

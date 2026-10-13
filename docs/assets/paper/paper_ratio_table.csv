@@ -32,14 +32,14 @@ dilo,07,0.420,"Table 1 DiLO, average translation error (%)",kitti_rte,0.579,1.38
 dilo,08,0.930,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,09,0.640,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
 dilo,10,0.850,"Table 1 DiLO, average translation error (%)",,,,,0,0,,
-elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.656,1.21,1.272,3,3,dense_elevation_paper_normals,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
+elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.586,1.09,0.964,4,4,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
 elo,01,0.610,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,02,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,03,0.650,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,04,0.320,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,05,0.330,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,06,0.300,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
-elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.480,1.55,0.893,3,3,dense_elevation_paper_normals,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
+elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.391,1.26,0.687,4,4,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
 elo,08,0.790,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,09,0.480,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,
 elo,10,0.590,"Table II Frame-to-Model (proposed), t_rel (%)",,,,,0,0,,

@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-13T05:40:46+00:00
+> Generated: 2026-10-13T07:25:01+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -265,9 +265,9 @@ Does the same variant win across all datasets? Instability here is the core evid
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | dogfooding_results/kitti_seq_00_full | dense_elevation_paper_normals | 12.632 | 3.1 |
-| dogfooding_results/kitti_seq_07_full | dense_elevation_paper_normals | 1.418 | 3.3 |
+| dogfooding_results/kitti_seq_07_full | dense_elevation_paper_normals_unbiased | 1.521 | 3.6 |
 
-**Stability**: 1 unique default(s) across 2 windows.
+**Stability**: 2 unique default(s) across 2 windows.
 
 ### FAST-LIO2
 
@@ -1023,6 +1023,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 |---|---:|---:|---:|
 | dense_elevation | 11.790 | 2.2 | 2 |
 | dense_elevation_paper_normals | 7.025 | 3.2 | 2 |
+| dense_elevation_paper_normals_unbiased | 7.883 | 2.8 | 2 |
 | dense_profile | 12.424 | 2.4 | 2 |
 | fast_profile | 13.020 | 4.3 | 2 |
 | paper_profile_elevation | 12.628 | 1.6 | 2 |

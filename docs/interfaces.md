@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-13T05:40:17+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -217,7 +217,7 @@ The runner is responsible for:
 | DLO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/dlo_mcd_ntu_day_02_matrix.json` | `dlo` | `kitti_default` | `experiments/results/dlo_mcd_ntu_day_02_matrix.json` |
 | DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/dlo_mcd_tuhh_night_09_matrix.json` | `dlo` | `fast` | `experiments/results/dlo_mcd_tuhh_night_09_matrix.json` |
 | ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `experiments/elo_kitti_seq_00_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals` | `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json` |
-| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `experiments/elo_kitti_seq_07_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals` | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `experiments/elo_kitti_seq_07_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals_unbiased` | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
 | FAST-LIO2 on the public HDL-400 reference window | `ready` | `experiments/fast_lio2_hdl_400_reference_matrix.json` | `fast_lio2` | `fast` | `experiments/results/fast_lio2_hdl_400_reference_matrix.json` |
 | FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/fast_lio2_kitti_raw_0009_full_matrix.json` | `fast_lio2` | `fast` | `experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json` |
 | FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/fast_lio2_kitti_raw_0009_matrix.json` | `fast_lio2` | `fast` | `experiments/results/fast_lio2_kitti_raw_0009_matrix.json` |

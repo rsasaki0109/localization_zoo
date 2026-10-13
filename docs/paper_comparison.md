@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-13T05:40:46+00:00
+> Generated: 2026-10-13T07:25:01+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -656,8 +656,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (official KITTI t_rel (100-800 m))
 **Hardware**: laptop CPU (paper Sec. V)
 **Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: KITTI Odometry 00/07 with the correction and the paper normal patch — The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07 vs the paper's 0.54 / 0.31 % (1.21x / 1.55x, geometric mean 1.37x; the harness profile was 2.60x). The other paper mechanics as read here (adaptive fusion w = 0.7 w2, two-sided ground test, 0.1 m single-vertex BEV, raw input, plain Gauss-Newton) each make seq 07 worse; all together (--elo-paper-profile) score 1.638 / 1.111 %. See papers/elo/README.md.
-**Numeric comparison**: Same metric, 1.37x on 00/07 — dense_elevation_paper_normals: seq 00 0.656 vs 0.54 (1.21x), seq 07 0.480 vs 0.31 (1.55x). Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Current claim**: KITTI Odometry 00/07 with the correction and the paper normal patch — The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07. Three forward-bias fixes of the projective model (same-surface fusion in the closest-point SRI update, no forward term from the noisy BEV ground normals, curvature threshold 0.03), chosen on 07 windows with 00 held out, bring it to 0.586 / 0.391 % vs the paper's 0.54 / 0.31 % (1.09x / 1.26x, geometric mean 1.17x). See papers/elo/README.md.
+**Numeric comparison**: Same metric, 1.17x on 00/07 — dense_elevation_paper_normals_unbiased: seq 00 0.586 vs 0.54 (1.09x), seq 07 0.391 vs 0.31 (1.26x). Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
 **Main blocker**: The paper fusion weight w2 ("inlier ratio between the non-ground points and ground ones") is ambiguous; the reading implemented here does not help.
 **Next step**: Try other readings of w2 and the ground test; run the remaining KITTI sequences.
 
@@ -682,7 +682,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
 | KITTI | ELO dense profile + 0.195 deg correction + the paper's normal patch size | 12.632 | 0.862 | 0.004886 | 3.11 |
-| KITTI | ELO dense profile + 0.195 deg correction + the paper's normal patch size | 1.418 | 0.615 | 0.003476 | 3.25 |
+| KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 1.521 | 0.437 | 0.003413 | 3.64 |
 
 **Notes**: Paper average 0.50 % (online test 0.68 %). The frame-to-frame variant scores 1.14/0.83/0.91/1.25/0.83/0.75/0.76/0.60/1.34/1.18/2.57 %. No loop closure. Values read from the paper PDF on 2026-10-12.
 

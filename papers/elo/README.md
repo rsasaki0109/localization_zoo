@@ -197,5 +197,11 @@ Two observations from the same windows:
   fusion mode 2 (0.374 / 0.359 %) no longer hurt. They do not clearly help
   either.
 
-Full-sequence runs need harness flags for the three fields. They are not yet
-in `pcd_dogfooding`.
+Full-sequence results are below.
+
+Full sequences with the three fixes (`dense_elevation_paper_normals_unbiased`:
+`--elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold
+0.03` on top of `dense_elevation_paper_normals`), official KITTI RTE: seq 00
+0.656 -> **0.586 %** (paper 0.54 %, held out), seq 07 0.480 -> **0.391 %**
+(paper 0.31 %); 1.09x / 1.26x, geometric mean 1.17x (from 1.37x).
+

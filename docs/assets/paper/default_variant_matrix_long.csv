@@ -70,7 +70,7 @@ dlo,mcd_kth_day_06_108,fast
 dlo,mcd_ntu_day_02_108,kitti_default
 dlo,mcd_tuhh_night_09_108,fast
 elo,kitti_seq_00_full,dense_elevation_paper_normals
-elo,kitti_seq_07_full,dense_elevation_paper_normals
+elo,kitti_seq_07_full,dense_elevation_paper_normals_unbiased
 fast_lio2,hdl_400_open_ct_lio_120,fast
 fast_lio2,kitti_raw_0009_200,fast
 fast_lio2,kitti_raw_0009_full,fast

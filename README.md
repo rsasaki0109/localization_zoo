@@ -112,7 +112,7 @@ audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 | IMLS-SLAM | 00/07 | 1.04x | paper pipeline, from 2.66x ([details](papers/imls_slam/README.md)) |
 | Mesh-LOAM | 00/07 | 1.08x | paper nearest-facet association, from 1.80x ([details](papers/mesh_loam/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
 | ELO | 00/07 | 1.17x | gap remains; forward-bias fixes chosen on 07, 00 held out, from 2.60x ([details](papers/elo/README.md#forward-drift-biases-of-the-projective-model)) |
-| InTEn-LOAM | 00/07 | 1.24x | gap remains: 1.04x on 07 (two free values chosen there), 1.48x on held-out 00 ([details](papers/inten_loam/README.md#paper-pipeline)) |
+| InTEn-LOAM | 00/07 | 1.18x | gap remains: 07 1.04x, 00 1.34x with an S2M plane check; one setting for both 1.20x ([details](papers/inten_loam/README.md#paper-pipeline)) |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains; the paper's 00/07 values are below every roll-free GT trajectory ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
 
 Most gaps closed by the same few checks (elevation correction, no deskew on

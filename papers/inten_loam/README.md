@@ -93,7 +93,8 @@ correction (Sec. 4.2.1), `experiments/inten_loam_kitti_seq_{00,07}_full_paper_co
 | variant | seq 00 | seq 07 | FPS |
 |---|---:|---:|---:|
 | previous pipeline (`--inten-loam-dense-profile`, edge factor fixed) | 47.783 % | 42.158 % | 9 |
-| paper pipeline (`paper_odometry`) | **0.769 %** | **0.352 %** | 2.4 |
+| paper pipeline (`paper_odometry`) | 0.769 % | **0.352 %** | 2.4 |
+| plane check 0.05 m, 0.17 deg correction (`paper_odometry_plane_check`, below) | **0.697 %** | 0.364 % | 1.6-1.7 |
 | without the correction | 1.464 % | 0.905 % | 2.4 |
 | without the intensity residual | 0.772 % | 0.351 % | 2.6 |
 | S2S only (no S2M, map, DOR) | 3.048 % | 1.895 % | 8 |
@@ -104,6 +105,9 @@ seq 00 held out: the plane map voxel (0.8 m: 0.803 %, 0.4 m: 0.444 %, 0.2 m:
 0.368 %, 0.1 m: 0.358 %) and the edge threshold (the paper's Th_E = 0.3 is for
 its 32-beam data; 0.15 with 4 edges per sector: 0.352 % on 07, and 0.816 ->
 0.769 % on 00). That gives 1.04x on 07 and 1.48x on 00 (geometric mean 1.24x).
+With the plane check below, 00 goes to 0.697 % (1.34x) and 07 to 0.364 %
+(1.07x): 1.20x with one setting for both, 1.18x taking the better variant per
+sequence (Table 6).
 Mapping and the correction matter most; the intensity residual is worth
 0-1 %.
 
@@ -133,7 +137,8 @@ over the window's 100-200 m segments, so the numbers are higher than full
 runs and only show direction). Choices were made on 07 (frames 0-399,
 400-799, 700-1099, plus 07 at every second scan, about 1.3 m per scan, as a
 stand-in for the fast part of 00); 00 (0-399, 400-799, 1600-1999, 4000-4399)
-was held out. Full sequences were not rerun.
+was held out. The full sequences were run afterwards (last two lines of the
+table).
 
 | variant | 07 windows | 07 every 2nd scan | 00 windows (held out) | 00 4000-4399 |
 |---|---:|---:|---:|---:|
@@ -144,9 +149,14 @@ was held out. Full sequences were not rerun.
 | KISS-ICP, 0.205 deg (07: official 1.3.0, full 0.375 %; 00: repository run, full 0.544 %) | 0.500 | - | 0.744 | 0.480 |
 | IMLS-SLAM, 0.22 deg (repository run, full 00 0.529 %) | - | - | 0.822 | 0.826 |
 
-Recommended: `--input-vertical-angle-correction-deg 0.17 --input-max-range-m 120
---inten-loam-paper-set s2m_plane_max_dist=0.05` (the key has to be added to
-the `--inten-loam-paper-set` list in `pcd_dogfooding.cpp`).
+| full sequences: current | | | 0.769 (00) | |
+| full sequences: plane check 0.05 m, correction 0.17 deg | | | 0.697 (00) | |
+
+On full 07 the setting gives 0.364 % against 0.352 % for the current one, so
+the gain on the 07 windows (where the values were chosen) does not carry over
+to the full sequence; held-out 00 gains 0.769 -> 0.697 %. The setting is the
+manifest variant `paper_odometry_plane_check`: `--input-vertical-angle-correction-deg 0.17
+--input-max-range-m 120 --inten-loam-paper-set s2m_plane_max_dist=0.05`.
 
 What the windows show, per axis of the frame-to-frame increment (estimate
 minus ground truth):

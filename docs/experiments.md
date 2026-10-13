@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T15:55:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -13050,6 +13050,7 @@ _Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM paper pipeline without the correction | ablation | 21.801 | 2.4 | 49.3 | 3.70 | 4.10 | Keep as reference variant |
 | InTEn-LOAM paper pipeline without the intensity residual | ablation | 16.112 | 2.6 | 63.7 | 2.75 | 3.45 | Adopt as current default |
 | InTEn-LOAM paper pipeline, S2S only | ablation | 42.885 | 7.8 | 60.2 | 2.75 | 3.45 | Keep as active challenger |
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 17.644 | 1.7 | 54.7 | 2.50 | 3.30 | Keep as reference variant |
 
 ### Observations
 
@@ -13114,6 +13115,17 @@ _Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=off dor=on mean pairs s2s=1382 s2m=0 dor points/frame=0
 
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2290 dor points/frame=128
+
 
 ## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -13134,6 +13146,7 @@ _Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM paper pipeline without the correction | ablation | 2.499 | 2.2 | 35.9 | 3.70 | 4.10 | Keep as reference variant |
 | InTEn-LOAM paper pipeline without the intensity residual | ablation | 1.193 | 3.2 | 67.5 | 2.75 | 3.45 | Adopt as current default |
 | InTEn-LOAM paper pipeline, S2S only | ablation | 8.658 | 9.2 | 56.9 | 2.75 | 3.45 | Keep as reference variant |
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 1.461 | 1.6 | 49.3 | 2.50 | 3.30 | Keep as reference variant |
 
 ### Observations
 
@@ -13197,6 +13210,17 @@ _Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=off dor=on mean pairs s2s=1382 s2m=0 dor points/frame=0
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2306 dor points/frame=151
 
 
 ## ISC-LOAM on the public HDL-400 reference window

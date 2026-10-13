@@ -40,11 +40,11 @@ No vertical-angle correction is applied (it is a KITTI calibration issue).
 
 | Method | NCLT RTE [%] | rot [deg/100 m] | ATE [m] | FPS | KITTI 00 / 07 RTE [%] | Reading |
 |---|---:|---:|---:|---:|---|---|
-| KISS-ICP (reference) | **1.75** | 1.22 | **6.2** | 1.7 | 0.535 / - | works |
+| KISS-ICP (reference) | **1.75** | 1.22 | 6.2 | 1.7 | 0.535 / - | works |
+| IMLS-SLAM (h 0.3, r 1.0) | 2.01 | 1.38 | **5.3** | 0.3 | 0.523 / 0.339 | works once the radii fit the sparser scans; 1.15x KISS-ICP |
 | InTEn-LOAM | 2.03 | **1.20** | 49.2 | 1.8 | 0.697 / 0.352 | works, 1.16x KISS-ICP; drifts in position (ATE) |
-| IMLS-SLAM (h 0.15, r 0.5) | 3.35 | 2.55 | 16.1 | 0.8 | 0.523 / 0.339 | works once the radii fit the sparser scans |
-| IMLS-SLAM (h 0.3, r 1.0) | running | | | | | |
-| Mesh-LOAM | running | | | | 0.565 / 0.342 | |
+| IMLS-SLAM (h 0.15, r 0.5) | 3.35 | 2.55 | 16.1 | 0.8 | 0.523 / 0.339 | radii still too small |
+| Mesh-LOAM | 13.2 | 9.15 | 52.3 | 0.3 | 0.565 / 0.342 | degrades at the restart after a stop (scans 700-1000) |
 | DiLO | 8.53 | 6.78 | 54.3 | 1.9 | 0.549 / 0.372 | degrades: slow drift in rotation, no single failure |
 | ELO | 18.1 | 6.61 | 126.6 | 3.3 | 0.586 / 0.391 | degrades: a jump between scans 3000 and 3500 |
 | SuMa | 64.6 | 27.9 | 467.9 | 3.5 | 0.697 / 0.331 | fails when the Segway starts moving after a stop (scan 668) |
@@ -66,6 +66,10 @@ problem.
   roll, pitch and yaw; SuMa estimates the step backwards or sideways for
   about 60 scans and never recovers. The normalised lookup, which helped on
   KITTI 01 and 02, makes it worse.
+- **Mesh-LOAM** tracks the first 750 scans within 1 m (RPE 1.35 % on the
+  first 600), then misses yaw by 2-4 deg per scan at the same restart (scans
+  700-735) and reaches 15 m at scan 1000; the paper's 0.1 m input and map
+  are kept.
 - **ELO** tracks with gradual drift until about scan 3000 (19 m), then jumps
   (123 m at scan 3500).
 - **DiLO** drifts without large single steps, mostly in rotation

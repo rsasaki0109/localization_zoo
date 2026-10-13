@@ -2671,6 +2671,9 @@ struct MeshLoamDogfoodingOptions {
   double normal_search_radius = 1.0;
   double max_range = 80.0;
   bool paper_odometry = false;
+  bool marching_cubes = false;
+  bool dirty_cells = true;
+  double freeze_radius = 0.0;
 };
 
 struct EloDogfoodingOptions {
@@ -8796,6 +8799,9 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
   params.normal_neighbors = options.normal_neighbors;
   params.normal_search_radius = options.normal_search_radius;
   params.max_range = options.max_range;
+  params.marching_cubes = options.marching_cubes;
+  params.mesh_dirty_cells = options.dirty_cells;
+  params.mesh_freeze_radius = options.freeze_radius;
   MeshLoamPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -8830,6 +8836,7 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
       std::string(options.paper_odometry ? "Paper path (0.1 m input, nearest facet). " : "") +
       std::string(options.nearest_facet ? "nearest-facet association; " : "") +
       std::string(options.keep_mesh ? "global mesh kept; " : "") +
+      std::string(options.marching_cubes ? "marching cubes; " : "") +
       "mean|residual|=" + std::string(buf);
   return res;
 }
@@ -15067,6 +15074,19 @@ int main(int argc, char** argv) {
     }
     if (arg == "--mesh-loam-nearest-facet") {
       mesh_loam_options.nearest_facet = true;
+      continue;
+    }
+    if (arg == "--mesh-loam-marching-cubes") {
+      mesh_loam_options.marching_cubes = true;
+      continue;
+    }
+    if (arg == "--mesh-loam-full-block-meshing") {
+      mesh_loam_options.dirty_cells = false;
+      continue;
+    }
+    if (arg == "--mesh-loam-freeze-radius") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-freeze-radius requires a value" << std::endl; return 1; }
+      mesh_loam_options.freeze_radius = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--mesh-loam-keep-mesh") {

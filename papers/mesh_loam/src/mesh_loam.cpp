@@ -449,6 +449,10 @@ void marchCube(const double sdf[8], const Eigen::Vector3d pos[8], Emit&& emit) {
 
 void MeshLoamPipeline::FacetBin::add(const Facet& f) {
   facets.push_back(f);
+  expand(f);
+}
+
+void MeshLoamPipeline::FacetBin::expand(const Facet& f) {
   lo = lo.cwiseMin(f.a).cwiseMin(f.b).cwiseMin(f.c);
   hi = hi.cwiseMax(f.a).cwiseMax(f.b).cwiseMax(f.c);
   const Eigen::Vector3f c = (f.a + f.b + f.c) / 3.0f;
@@ -459,13 +463,10 @@ void MeshLoamPipeline::FacetBin::add(const Facet& f) {
 }
 
 void MeshLoamPipeline::FacetBin::recomputeBounds() {
-  std::vector<Facet> all;
-  all.swap(facets);
-  facets.reserve(all.size());
   lo = Eigen::Vector3f::Constant(1e30f);
   hi = Eigen::Vector3f::Constant(-1e30f);
   max_rad = 0.0f;
-  for (const Facet& f : all) add(f);
+  for (const Facet& f : facets) expand(f);
 }
 
 MeshLoamPipeline::MeshLoamPipeline(const MeshLoamParams& params) : params_(params) {
@@ -559,65 +560,121 @@ std::vector<MeshLoamPipeline::OrientedPoint> MeshLoamPipeline::preprocess(
   }
   if (kept.size() < static_cast<size_t>(params_.normal_neighbors + 1)) return out;
 
-  // Neighbor grid for kNN PCA normals.
+  // Neighbor grid for kNN PCA normals: points sorted by cell into one flat
+  // array (index order within a cell).
   const double cell = params_.normal_search_radius;
-  KeyMap<std::vector<size_t>> grid;
-  grid.reserve(kept.size());
   auto cellOf = [cell](const Eigen::Vector3d& p) {
     return Eigen::Vector3i(static_cast<int>(std::floor(p.x() / cell)),
                            static_cast<int>(std::floor(p.y() / cell)),
                            static_cast<int>(std::floor(p.z() / cell)));
   };
-  for (size_t i = 0; i < kept.size(); ++i) grid[cellOf(kept[i])].push_back(i);
+  KeyMap<uint32_t> cell_id;
+  cell_id.reserve(kept.size());
+  std::vector<Eigen::Vector3i> cells;
+  std::vector<uint32_t> point_cell(kept.size());
+  for (size_t i = 0; i < kept.size(); ++i) {
+    auto [it, inserted] = cell_id.try_emplace(cellOf(kept[i]), static_cast<uint32_t>(cells.size()));
+    if (inserted) cells.push_back(it->first);
+    point_cell[i] = it->second;
+  }
+  std::vector<uint32_t> cell_start(cells.size() + 1, 0);
+  for (const uint32_t c : point_cell) ++cell_start[c + 1];
+  for (size_t c = 0; c < cells.size(); ++c) cell_start[c + 1] += cell_start[c];
+  std::vector<Eigen::Vector3d> flat_p(kept.size());
+  std::vector<uint32_t> flat_i(kept.size());
+  {
+    std::vector<uint32_t> fill(cell_start.begin(), cell_start.end() - 1);
+    for (size_t i = 0; i < kept.size(); ++i) {
+      const uint32_t slot = fill[point_cell[i]]++;
+      flat_p[slot] = kept[i];
+      flat_i[slot] = static_cast<uint32_t>(i);
+    }
+  }
 
+  // Exact k nearest neighbors among the 27 cells around the point's cell
+  // (ties broken by index): cells are visited nearest first and the search
+  // stops once the next cell is farther than the current k-th neighbor.
   const int k = std::max(5, params_.normal_neighbors);
   out.resize(kept.size());
 #pragma omp parallel
   {
     std::vector<std::pair<double, size_t>> nn;
-#pragma omp for schedule(dynamic, 256)
-    for (long li = 0; li < static_cast<long>(kept.size()); ++li) {
-      const size_t i = static_cast<size_t>(li);
-      const Eigen::Vector3d& p = kept[i];
-      const Eigen::Vector3i c = cellOf(p);
-      nn.clear();
+    std::array<std::pair<double, int>, 27> order;
+    std::array<int, 27> neighbor;
+#pragma omp for schedule(dynamic, 16)
+    for (long ci = 0; ci < static_cast<long>(cells.size()); ++ci) {
+      const Eigen::Vector3i& c = cells[static_cast<size_t>(ci)];
+      int m = 0;
       for (int dx = -1; dx <= 1; ++dx) {
         for (int dy = -1; dy <= 1; ++dy) {
           for (int dz = -1; dz <= 1; ++dz) {
-            const auto it = grid.find(Eigen::Vector3i(c.x() + dx, c.y() + dy, c.z() + dz));
-            if (it == grid.end()) continue;
-            for (const size_t j : it->second) {
-              if (j == i) continue;
-              nn.emplace_back((kept[j] - p).squaredNorm(), j);
-            }
+            const auto it = cell_id.find(Eigen::Vector3i(c.x() + dx, c.y() + dy, c.z() + dz));
+            neighbor[m++] = it == cell_id.end() ? -1 : static_cast<int>(it->second);
           }
         }
       }
-      OrientedPoint op;
-      op.p = p;
-      if (static_cast<int>(nn.size()) >= k) {
-        std::partial_sort(nn.begin(), nn.begin() + k, nn.end());
-        Eigen::Vector3d mean = p;
-        for (int j = 0; j < k; ++j) mean += kept[nn[static_cast<size_t>(j)].second];
-        mean /= static_cast<double>(k + 1);
-        Eigen::Matrix3d cov = (p - mean) * (p - mean).transpose();
-        for (int j = 0; j < k; ++j) {
-          const Eigen::Vector3d d = kept[nn[static_cast<size_t>(j)].second] - mean;
-          cov += d * d.transpose();
+      const Eigen::Vector3d lo = c.cast<double>() * cell;
+      for (uint32_t slot = cell_start[ci]; slot < cell_start[ci + 1]; ++slot) {
+        const size_t i = flat_i[slot];
+        const Eigen::Vector3d& p = kept[i];
+        // Squared distance from p to each neighbor cell box.
+        int n_order = 0;
+        for (int q = 0; q < 27; ++q) {
+          if (neighbor[q] < 0) continue;
+          const int d[3] = {q / 9 - 1, (q / 3) % 3 - 1, q % 3 - 1};
+          double d2 = 0.0;
+          for (int ax = 0; ax < 3; ++ax) {
+            const double t = p(ax) - lo(ax);
+            if (d[ax] < 0) d2 += t * t;
+            else if (d[ax] > 0) d2 += (cell - t) * (cell - t);
+          }
+          order[n_order++] = {d2, neighbor[q]};
         }
-        cov /= static_cast<double>(k + 1);
-        Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> es(cov);
-        const Eigen::Vector3d evals = es.eigenvalues();
-        Eigen::Vector3d n = es.eigenvectors().col(0);
-        const double sum = evals.sum();
-        op.curvature = sum > 1e-12 ? evals(0) / sum : 1.0;
-        // Orient toward the sensor (origin in the local frame) so that the SDF
-        // is positive on the observed free-space side.
-        if (n.dot(-p) < 0.0) n = -n;
-        op.n = n;
-        op.valid = true;
+        std::sort(order.begin(), order.begin() + n_order);
+        nn.clear();
+        for (int o = 0; o < n_order; ++o) {
+          if (static_cast<int>(nn.size()) == k && order[o].first > nn.front().first) break;
+          const uint32_t cb = cell_start[order[o].second], ce = cell_start[order[o].second + 1];
+          for (uint32_t m2 = cb; m2 < ce; ++m2) {
+            const size_t j = flat_i[m2];
+            if (j == i) continue;
+            const std::pair<double, size_t> cand((flat_p[m2] - p).squaredNorm(), j);
+            if (static_cast<int>(nn.size()) < k) {
+              nn.push_back(cand);
+              std::push_heap(nn.begin(), nn.end());
+            } else if (cand < nn.front()) {
+              std::pop_heap(nn.begin(), nn.end());
+              nn.back() = cand;
+              std::push_heap(nn.begin(), nn.end());
+            }
+          }
+        }
+        std::sort_heap(nn.begin(), nn.end());
+        OrientedPoint op;
+        op.p = p;
+        if (static_cast<int>(nn.size()) >= k) {
+          Eigen::Vector3d mean = p;
+          for (int j = 0; j < k; ++j) mean += kept[nn[static_cast<size_t>(j)].second];
+          mean /= static_cast<double>(k + 1);
+          Eigen::Matrix3d cov = (p - mean) * (p - mean).transpose();
+          for (int j = 0; j < k; ++j) {
+            const Eigen::Vector3d d = kept[nn[static_cast<size_t>(j)].second] - mean;
+            cov += d * d.transpose();
+          }
+          cov /= static_cast<double>(k + 1);
+          Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> es(cov);
+          const Eigen::Vector3d evals = es.eigenvalues();
+          Eigen::Vector3d n = es.eigenvectors().col(0);
+          const double sum = evals.sum();
+          op.curvature = sum > 1e-12 ? evals(0) / sum : 1.0;
+          // Orient toward the sensor (origin in the local frame) so that the SDF
+          // is positive on the observed free-space side.
+          if (n.dot(-p) < 0.0) n = -n;
+          op.n = n;
+          op.valid = true;
+        }
+        out[i] = op;
       }
-      out[i] = op;
     }
   }
   return out;
@@ -858,17 +915,22 @@ void MeshLoamPipeline::extractMesh() {
   mask_index.reserve(order.size());
   for (size_t i = 0; i < order.size(); ++i) mask_index.emplace(order[i], i);
 
-  // 2. Remove the facets owned by those cells from the bins their cell boxes
-  //    overlap.
+  // 2. Bins that can hold facets of the dirty cells (those overlapping the
+  //    cell boxes; a facet's centroid lies in its cell), listed per block in
+  //    parallel and merged in block order. They are created up front so that
+  //    the update below runs in parallel without touching the hash map.
+  std::vector<std::vector<Eigen::Vector3i>> block_bins(order.size());
+#pragma omp parallel num_threads(threads)
   {
-    KeyMap<char> bin_seen;
-    std::vector<Eigen::Vector3i> bins;
+    std::vector<std::pair<Eigen::Vector3i, Eigen::Vector3i>> ranges;
+    std::vector<char> local;
     const double eps = 1e-6;
-    for (size_t i = 0; i < order.size(); ++i) {
+#pragma omp for schedule(dynamic, 16)
+    for (long oi = 0; oi < static_cast<long>(order.size()); ++oi) {
+      const size_t i = static_cast<size_t>(oi);
       const Eigen::Vector3i base = order[i] * b;
-      // Bins overlapped by the boxes of the dirty cells, deduplicated per block.
       Eigen::Vector3i lo_bin(INT_MAX, INT_MAX, INT_MAX), hi_bin(INT_MIN, INT_MIN, INT_MIN);
-      std::vector<std::pair<Eigen::Vector3i, Eigen::Vector3i>> ranges;
+      ranges.clear();
       for (int li = 0; li < b3; ++li) {
         if (!((masks[i][static_cast<size_t>(li >> 6)] >> (li & 63)) & 1)) continue;
         const Eigen::Vector3i cell(base.x() + li % b, base.y() + (li / b) % b, base.z() + li / (b * b));
@@ -881,7 +943,7 @@ void MeshLoamPipeline::extractMesh() {
         hi_bin = hi_bin.cwiseMax(bhi);
       }
       const Eigen::Vector3i ext = hi_bin - lo_bin + Eigen::Vector3i::Ones();
-      std::vector<char> local(static_cast<size_t>(ext.prod()), 0);
+      local.assign(static_cast<size_t>(ext.prod()), 0);
       for (const auto& rg : ranges) {
         for (int z = rg.first.z(); z <= rg.second.z(); ++z) {
           for (int y = rg.first.y(); y <= rg.second.y(); ++y) {
@@ -891,55 +953,35 @@ void MeshLoamPipeline::extractMesh() {
                                                              ext.y() * (z - lo_bin.z())))];
               if (f) continue;
               f = 1;
-              const Eigen::Vector3i key(x, y, z);
-              if (bin_seen.emplace(key, 1).second) bins.push_back(key);
+              block_bins[i].emplace_back(x, y, z);
             }
           }
         }
       }
     }
-    std::vector<size_t> removed(static_cast<size_t>(threads), 0);
-#pragma omp parallel num_threads(threads)
-    {
-      size_t removed_local = 0;
-#pragma omp for schedule(dynamic, 256)
-      for (long bi = 0; bi < static_cast<long>(bins.size()); ++bi) {
-        const auto it = facet_bins_.find(bins[static_cast<size_t>(bi)]);
-        if (it == facet_bins_.end()) continue;
-        const Eigen::Vector3i base = binBaseVoxel(it->first);
-        Eigen::Vector3i last_block(INT_MIN, INT_MIN, INT_MIN);
-        const std::vector<uint64_t>* last_mask = nullptr;
-        std::vector<Facet>& bin = it->second.facets;
-        const size_t before = bin.size();
-        bin.erase(std::remove_if(bin.begin(), bin.end(),
-                                 [&](const Facet& f) {
-                                   const Eigen::Vector3i cell(base.x() + f.owner[0],
-                                                              base.y() + f.owner[1],
-                                                              base.z() + f.owner[2]);
-                                   const Eigen::Vector3i blk = toBlock(cell);
-                                   if (blk != last_block) {
-                                     last_block = blk;
-                                     const auto mi = mask_index.find(blk);
-                                     last_mask = mi == mask_index.end() ? nullptr : &masks[mi->second];
-                                   }
-                                   if (last_mask == nullptr) return false;
-                                   const Eigen::Vector3i l = cell - blk * b;
-                                   const int li = l.x() + b * (l.y() + b * l.z());
-                                   return (((*last_mask)[static_cast<size_t>(li >> 6)] >> (li & 63)) & 1) != 0;
-                                 }),
-                  bin.end());
-        if (bin.size() != before) it->second.recomputeBounds();
-        removed_local += before - bin.size();
+  }
+  KeyMap<uint32_t> bin_index;
+  std::vector<FacetBin*> bin_ptr;
+  std::vector<Eigen::Vector3i> bin_keys;
+  {
+    size_t total = 0;
+    for (const auto& list : block_bins) total += list.size();
+    bin_index.reserve(total);
+    bin_ptr.reserve(total);
+    bin_keys.reserve(total);
+    for (const auto& list : block_bins) {
+      for (const auto& key : list) {
+        if (!bin_index.emplace(key, static_cast<uint32_t>(bin_ptr.size())).second) continue;
+        bin_ptr.push_back(&facet_bins_[key]);
+        bin_keys.push_back(key);
       }
-      removed[static_cast<size_t>(threadId())] += removed_local;
     }
-    for (const size_t r : removed) num_facets_ -= r;
+    block_bins.clear();
   }
 
-  // 3. March the dirty cells of each block (parallel), then insert the
-  //    facets into their bins in block order (deterministic).
+  // 3. March the dirty cells of each block (parallel).
   struct NewFacet {
-    Eigen::Vector3i bin;
+    uint32_t bin;
     Facet f;
   };
   std::vector<std::vector<NewFacet>> produced(order.size());
@@ -977,15 +1019,17 @@ void MeshLoamPipeline::extractMesh() {
       const Eigen::Vector3i base = key * b;
       std::vector<NewFacet>& out = produced[static_cast<size_t>(oi)];
       Eigen::Vector3i cell;
+      Eigen::Vector3i last_bin(INT_MIN, INT_MIN, INT_MIN);
+      uint32_t last_index = 0;
       auto emit = [&](const Eigen::Vector3d& a, const Eigen::Vector3d& bb, const Eigen::Vector3d& cc,
                       const Eigen::Vector3d& n) {
         // Winding consistent with n (frozen facets recover n from it).
         const bool swap = n.dot((bb - a).cross(cc - a)) < 0.0;
         const Eigen::Vector3d& v1 = swap ? cc : bb;
         const Eigen::Vector3d& v2 = swap ? bb : cc;
+        const Eigen::Vector3i bin = toFacetCell((a + v1 + v2) / 3.0);
+        const Eigen::Vector3d o = binOrigin(bin);
         NewFacet nf;
-        nf.bin = toFacetCell((a + v1 + v2) / 3.0);
-        const Eigen::Vector3d o = binOrigin(nf.bin);
         nf.f.a = (a - o).cast<float>();
         nf.f.b = (v1 - o).cast<float>();
         nf.f.c = (v2 - o).cast<float>();
@@ -995,10 +1039,16 @@ void MeshLoamPipeline::extractMesh() {
         const double len = nn.norm();
         if (len < 1e-12 || nn.dot(n) <= 0.0) return;
         nf.f.n = (nn / len).cast<float>();
-        const Eigen::Vector3i off = cell - binBaseVoxel(nf.bin);
+        const Eigen::Vector3i off = cell - binBaseVoxel(bin);
         nf.f.owner[0] = static_cast<int8_t>(off.x());
         nf.f.owner[1] = static_cast<int8_t>(off.y());
         nf.f.owner[2] = static_cast<int8_t>(off.z());
+        if (bin != last_bin) {
+          // Always listed: the centroid lies in the cell box.
+          last_bin = bin;
+          last_index = bin_index.at(bin);
+        }
+        nf.bin = last_index;
         out.push_back(nf);
       };
       double sdf[8];
@@ -1029,20 +1079,75 @@ void MeshLoamPipeline::extractMesh() {
     }
   }
   timings_.extracted_cells += cells_done;
-  Eigen::Vector3i last_bin(INT_MIN, INT_MIN, INT_MIN);
-  FacetBin* last = nullptr;
+
+  // New facets bucketed per bin, in block order (deterministic).
+  std::vector<uint32_t> bucket_start(bin_ptr.size() + 1, 0);
   for (const auto& list : produced) {
-    for (const NewFacet& nf : list) {
-      if (nf.bin != last_bin) {
-        last_bin = nf.bin;
-        last = &facet_bins_[nf.bin];
-      }
-      last->add(nf.f);
+    for (const NewFacet& nf : list) ++bucket_start[nf.bin + 1];
+  }
+  for (size_t j = 0; j < bin_ptr.size(); ++j) bucket_start[j + 1] += bucket_start[j];
+  std::vector<Facet> bucketed(bucket_start.back());
+  {
+    std::vector<uint32_t> fill(bucket_start.begin(), bucket_start.end() - 1);
+    for (const auto& list : produced) {
+      for (const NewFacet& nf : list) bucketed[fill[nf.bin]++] = nf.f;
     }
-    num_facets_ += list.size();
+    produced.clear();
   }
 
-  // 4. Clear the dirty state.
+  // 4. Per bin (parallel): drop the facets owned by re-extracted cells,
+  //    append the new ones.
+  std::vector<long> delta(static_cast<size_t>(threads), 0);
+#pragma omp parallel num_threads(threads)
+  {
+    long delta_local = 0;
+#pragma omp for schedule(dynamic, 256)
+    for (long bj = 0; bj < static_cast<long>(bin_ptr.size()); ++bj) {
+      const size_t j = static_cast<size_t>(bj);
+      FacetBin& fb = *bin_ptr[j];
+      std::vector<Facet>& bin = fb.facets;
+      const size_t before = bin.size();
+      const uint32_t s0 = bucket_start[j], s1 = bucket_start[j + 1];
+      if (before == 0 && s0 == s1) continue;
+      if (before > 0) {
+        const Eigen::Vector3i base = binBaseVoxel(bin_keys[j]);
+        Eigen::Vector3i last_block(INT_MIN, INT_MIN, INT_MIN);
+        const std::vector<uint64_t>* last_mask = nullptr;
+        bin.erase(std::remove_if(bin.begin(), bin.end(),
+                                 [&](const Facet& f) {
+                                   const Eigen::Vector3i cell(base.x() + f.owner[0],
+                                                              base.y() + f.owner[1],
+                                                              base.z() + f.owner[2]);
+                                   const Eigen::Vector3i blk = toBlock(cell);
+                                   if (blk != last_block) {
+                                     last_block = blk;
+                                     const auto mi = mask_index.find(blk);
+                                     last_mask = mi == mask_index.end() ? nullptr : &masks[mi->second];
+                                   }
+                                   if (last_mask == nullptr) return false;
+                                   const Eigen::Vector3i l = cell - blk * b;
+                                   const int li = l.x() + b * (l.y() + b * l.z());
+                                   return (((*last_mask)[static_cast<size_t>(li >> 6)] >> (li & 63)) & 1) != 0;
+                                 }),
+                  bin.end());
+      }
+      const bool removed_any = bin.size() != before;
+      bin.insert(bin.end(), bucketed.begin() + s0, bucketed.begin() + s1);
+      if (removed_any) {
+        fb.recomputeBounds();
+      } else {
+        for (uint32_t m = s0; m < s1; ++m) fb.expand(bucketed[m]);
+      }
+      delta_local += static_cast<long>(bin.size()) - static_cast<long>(before);
+    }
+    delta[static_cast<size_t>(threadId())] += delta_local;
+  }
+  for (const long d : delta) num_facets_ = static_cast<size_t>(static_cast<long>(num_facets_) + d);
+  for (size_t j = 0; j < bin_ptr.size(); ++j) {
+    if (bin_ptr[j]->facets.empty()) facet_bins_.erase(bin_keys[j]);
+  }
+
+  // 5. Clear the dirty state.
   for (const auto& key : dirty_blocks_) {
     const auto it = blocks_.find(key);
     if (it == blocks_.end()) continue;
@@ -1262,6 +1367,7 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
     return order;
   }();
   const double cos_gate = params_.cos_gate;
+  const float cos_gate_f = static_cast<float>(cos_gate) - 1e-5f;  // float prefilter
   const bool nearest = params_.nearest_facet;
   int used = 0;
   double abs_residual = 0.0;
@@ -1317,6 +1423,7 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
           }
         }
 
+        const Eigen::Vector3f n_ptf = n_pt.cast<float>();
         double best = nearest ? search2 : max_dist;
         const Facet* best_facet = nullptr;
         Eigen::Vector3d best_rel = Eigen::Vector3d::Zero();
@@ -1326,40 +1433,52 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
           const Eigen::Vector3i key(cell.x() + k / 9 - 1, cell.y() + (k / 3) % 3 - 1,
                                     cell.z() + k % 3 - 1);
           const Eigen::Vector3d rel = p - binOrigin(key);
-          double centroid_bound2 = 0.0;
-          if (nearest) {
-            // Every triangle of the bin lies in its vertex AABB.
-            const Eigen::Vector3d gap = (bin->lo.cast<double>() - rel)
-                                            .cwiseMax(rel - bin->hi.cast<double>())
-                                            .cwiseMax(0.0);
-            if (gap.squaredNorm() >= best) continue;
-            const double bd = std::sqrt(best) + bin->max_rad;
-            centroid_bound2 = bd * bd;
+          if (!nearest) {
+            for (const Facet& f : bin->facets) {
+              const Eigen::Vector3d fn = f.n.cast<double>();
+              if (std::abs(fn.dot(n_pt)) < cos_gate) continue;
+              const Eigen::Vector3d d0 = rel - (f.a + f.b + f.c).cast<double>() / 3.0;
+              const double dist = std::abs(fn.dot(d0));
+              if (dist < best) {
+                best = dist;
+                best_facet = &f;
+                best_rel = d0;
+              }
+            }
+            continue;
           }
+          // Every triangle of the bin lies in its vertex AABB.
+          const Eigen::Vector3d gap = (bin->lo.cast<double>() - rel)
+                                          .cwiseMax(rel - bin->hi.cast<double>())
+                                          .cwiseMax(0.0);
+          if (gap.squaredNorm() >= best) continue;
+          // Lower bounds of the point-triangle distance evaluated in float
+          // with a margin above the float rounding (|rel| < 1 m), then the
+          // exact gate and distance in double for the survivors.
+          constexpr float kSlack = 1e-5f;
+          const Eigen::Vector3f relf = rel.cast<float>();
+          float plane_bound = static_cast<float>(std::sqrt(best)) + kSlack;
+          float centroid_bound = plane_bound + bin->max_rad;
+          float plane_bound2 = plane_bound * plane_bound;
+          float centroid_bound2 = centroid_bound * centroid_bound;
           for (const Facet& f : bin->facets) {
+            if (std::abs(f.n.dot(n_ptf)) < cos_gate_f) continue;
+            const Eigen::Vector3f d0f = relf - (f.a + f.b + f.c) * (1.0f / 3.0f);
+            const float plane = f.n.dot(d0f);
+            if (plane * plane > plane_bound2) continue;
+            if (d0f.squaredNorm() > centroid_bound2) continue;
             const Eigen::Vector3d fn = f.n.cast<double>();
             if (std::abs(fn.dot(n_pt)) < cos_gate) continue;
-            const Eigen::Vector3d v0 = (f.a + f.b + f.c).cast<double>() / 3.0;
-            const Eigen::Vector3d d0 = rel - v0;
-            const double plane = fn.dot(d0);
-            double dist;
-            if (nearest) {
-              // Exact lower bounds of the point-triangle distance first.
-              if (plane * plane >= best) continue;
-              if (d0.squaredNorm() > centroid_bound2) continue;
-              dist = pointTriangleDist2(rel, f.a.cast<double>(), f.b.cast<double>(),
-                                        f.c.cast<double>());
-            } else {
-              dist = std::abs(plane);
-            }
+            const double dist = pointTriangleDist2(rel, f.a.cast<double>(), f.b.cast<double>(),
+                                                   f.c.cast<double>());
             if (dist < best) {
               best = dist;
               best_facet = &f;
-              best_rel = d0;
-              if (nearest) {
-                const double bd = std::sqrt(best) + bin->max_rad;
-                centroid_bound2 = bd * bd;
-              }
+              best_rel = rel - (f.a + f.b + f.c).cast<double>() / 3.0;
+              plane_bound = static_cast<float>(std::sqrt(best)) + kSlack;
+              centroid_bound = plane_bound + bin->max_rad;
+              plane_bound2 = plane_bound * plane_bound;
+              centroid_bound2 = centroid_bound * centroid_bound;
             }
           }
         }

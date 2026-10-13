@@ -158,6 +158,7 @@ class MeshLoamPipeline {
     Eigen::Vector3f hi = Eigen::Vector3f::Constant(-1e30f);
     float max_rad = 0.0f;
     void add(const Facet& f);
+    void expand(const Facet& f);  ///< grow the bounds by f (already stored)
     void recomputeBounds();
   };
 

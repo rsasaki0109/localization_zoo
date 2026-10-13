@@ -99,6 +99,11 @@ struct InTenLoamPaperParams {
   // (vegetation, kerbs, corners) whose normals pull yaw and pitch; 0.05 m
   // was chosen on KITTI 07 (see README, "Remaining KITTI gap").
   double s2m_plane_max_dist = 0.2;
+  // ... and spread in two directions: middle / largest PCA eigenvalue at
+  // least this (0: off). Five neighbours along one line (a scan line on a
+  // wall, the end of a wall) pass any distance check while their normal
+  // can turn freely about the line.
+  double s2m_plane_min_spread = 0.0;
   // DOR.
   bool use_dor = true;
   double dor_relative_range = 0.1;  // s_d

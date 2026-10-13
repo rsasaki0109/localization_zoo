@@ -189,3 +189,35 @@ TEST(InTenLoamPaper, ForcedPoseDiagnosticsStayAtTruthOnExactScans) {
     EXPECT_LT(d.tail<3>().norm(), 0.002);
   }
 }
+
+TEST(InTenLoamPaper, PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods) {
+  // On the street above, facade points on the recess faces find five map
+  // neighbours along the end of a wall (a vertical line); every plane through
+  // that line passes the distance check, and the arbitrary normal pulls S2M
+  // backwards from the truth. Requiring a two-dimensional spread removes it.
+  double worst[2] = {0.0, 0.0};
+  for (int variant = 0; variant < 2; ++variant) {
+    InTenLoamPaperParams params;
+    params.s2m_plane_min_spread = variant == 0 ? 0.0 : 0.2;
+    InTenLoamPaper odo(params);
+    std::vector<Eigen::Vector3d> pts;
+    std::vector<float> inten;
+    Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+    Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+    step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    step(0, 3) = 1.0;
+    for (int k = 0; k < 5; ++k) {
+      if (k > 0) truth = truth * step;
+      scanAt(truth, &pts, &inten);
+      InTenLoamPaperDiagnostics diag;
+      diag.forced_pose = &truth;
+      odo.process(pts, inten, &diag);
+      if (k == 0) continue;
+      const double forward = (truth.inverse() * diag.s2m_estimate)(0, 3);
+      worst[variant] = std::max(worst[variant], std::abs(forward));
+    }
+  }
+  // Measured: 3.2 cm without the check, 1.2 cm with it.
+  EXPECT_GT(worst[0], 0.025);
+  EXPECT_LT(worst[1], 0.5 * worst[0]);
+}

@@ -588,7 +588,7 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int cla
         for (int k = 0; k < 5 && planar; ++k)
           planar = std::abs(nrm.dot(tree.pts[static_cast<size_t>(idx[static_cast<size_t>(k)])].p - c)) <
                    params_.s2m_plane_max_dist;
-        if (!planar) continue;
+        if (!planar || val(1) < params_.s2m_plane_min_spread * val(2)) continue;
         sys.add(x, nrm, nrm.dot(x - c), huber, cs(1 + cls));
       }
       counts[1 + cls] = sys.n - before;

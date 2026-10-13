@@ -126,3 +126,66 @@ TEST(InTenLoamPaper, TracksForwardMotionAtFullScale) {
   EXPECT_LT((r.pose.block<3, 1>(0, 3) - truth.block<3, 1>(0, 3)).norm(), 0.25);
   EXPECT_LT(Eigen::AngleAxisd(r.pose.block<3, 3>(0, 0) * truth.block<3, 3>(0, 0).transpose()).angle(), 0.005);
 }
+
+TEST(InTenLoamPaper, StricterPlaneCheckStillTracks) {
+  InTenLoamPaperParams params;
+  params.s2m_plane_max_dist = 0.05;
+  InTenLoamPaper odo(params);
+  std::vector<Eigen::Vector3d> pts;
+  std::vector<float> inten;
+  Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+  step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  step(0, 3) = 1.0;
+  InTenLoamPaperResult r;
+  for (int k = 0; k < 8; ++k) {
+    if (k > 0) truth = truth * step;
+    scanAt(truth, &pts, &inten);
+    r = odo.process(pts, inten);
+    if (k > 0) {
+      EXPECT_GT(r.s2m_class_pairs[1], 100);  // ground planes pass the 5 cm check
+      EXPECT_GT(r.s2m_class_pairs[2], 100);  // facades too
+    }
+  }
+  EXPECT_LT((r.pose.block<3, 1>(0, 3) - truth.block<3, 1>(0, 3)).norm(), 0.25);
+  EXPECT_LT(Eigen::AngleAxisd(r.pose.block<3, 3>(0, 0) * truth.block<3, 3>(0, 0).transpose()).angle(), 0.005);
+}
+
+TEST(InTenLoamPaper, ForcedPoseDiagnosticsStayAtTruthOnExactScans) {
+  InTenLoamPaper odo;
+  std::vector<Eigen::Vector3d> pts;
+  std::vector<float> inten;
+  Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+  step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  step(0, 3) = 1.0;
+  for (int k = 0; k < 5; ++k) {
+    if (k > 0) truth = truth * step;
+    scanAt(truth, &pts, &inten);
+    InTenLoamPaperDiagnostics diag;
+    diag.forced_pose = &truth;
+    const InTenLoamPaperResult r = odo.process(pts, inten, &diag);
+    // The frame is placed at the forced pose.
+    EXPECT_LT((r.pose - truth).norm(), 1e-9);
+    if (k == 0) continue;
+    // Noise-free scans and a map from exact poses: S2M started at the truth
+    // stays near it, and the class normal equations give only a small step.
+    // (On this corridor the facade class pulls up to 3 cm backwards: x is
+    // held by a few recess faces only.)
+    EXPECT_LT((diag.s2m_estimate.block<3, 1>(0, 3) - truth.block<3, 1>(0, 3)).norm(), 0.05);
+    EXPECT_LT(Eigen::AngleAxisd(diag.s2m_estimate.block<3, 3>(0, 0) * truth.block<3, 3>(0, 0).transpose()).angle(),
+              0.002);
+    EXPECT_GT(diag.s2m_n[1], 100);
+    EXPECT_GT(diag.s2m_n[2], 100);
+    EXPECT_GT(diag.s2s_n[1] + diag.s2s_n[2], 100);
+    InTenLoamPaperDiagnostics::Mat6 H = InTenLoamPaperDiagnostics::Mat6::Zero();
+    InTenLoamPaperDiagnostics::Vec6 g = InTenLoamPaperDiagnostics::Vec6::Zero();
+    for (int c = 0; c < 4; ++c) {
+      H += diag.s2m_H[c];
+      g += diag.s2m_g[c];
+    }
+    const InTenLoamPaperDiagnostics::Vec6 d = H.ldlt().solve(-g);
+    EXPECT_LT(d.head<3>().norm(), 0.05);
+    EXPECT_LT(d.tail<3>().norm(), 0.002);
+  }
+}

@@ -94,6 +94,11 @@ struct InTenLoamPaperParams {
   double map_radius = 100.0;
   int temporal_window = 50;         // Th_t [frames]
   double s2m_gate_sq = 1.0;         // squared distance of the 5th neighbour
+  // S2M plane fit: all 5 neighbours within this distance of the PCA
+  // plane. The 0.2 m default admits curved and mixed neighbourhoods
+  // (vegetation, kerbs, corners) whose normals pull yaw and pitch; 0.05 m
+  // was chosen on KITTI 07 (see README, "Remaining KITTI gap").
+  double s2m_plane_max_dist = 0.2;
   // DOR.
   bool use_dor = true;
   double dor_relative_range = 0.1;  // s_d
@@ -122,13 +127,36 @@ struct InTenLoamPaperResult {
   size_t dor_removed = 0;
 };
 
+// Diagnostics (analysis tools, not part of the method). With `forced_pose`
+// set, S2S is solved from the relative motion to that pose and S2M from the
+// pose itself; both results and the normal equations of each feature class
+// at the forced pose (first iteration) are returned, and the frame is then
+// placed at `forced_pose` (map insertion, next prediction) instead of the
+// estimate. Fed with ground truth this gives per-frame bias against a map
+// built from ground-truth poses. Without `forced_pose` nothing is filled.
+struct InTenLoamPaperDiagnostics {
+  using Mat6 = Eigen::Matrix<double, 6, 6>;
+  using Vec6 = Eigen::Matrix<double, 6, 1>;
+  const Eigen::Matrix4d* forced_pose = nullptr;  // world <- sensor
+  // Classes: 0 edge, 1 ground, 2 facade, 3 intensity. Jacobians are with
+  // respect to a left perturbation [t, w] of the S2S relative pose (previous
+  // frame) and of the S2M pose (world); the Gauss-Newton step is -H^-1 g
+  // with H, g summed over the classes.
+  Mat6 s2s_H[4], s2m_H[4];
+  Vec6 s2s_g[4], s2m_g[4];
+  int s2s_n[4] = {0, 0, 0, 0}, s2m_n[4] = {0, 0, 0, 0};
+  Eigen::Matrix4d s2s_estimate = Eigen::Matrix4d::Identity();  // relative, from the forced relative
+  Eigen::Matrix4d s2m_estimate = Eigen::Matrix4d::Identity();  // world <- sensor, from forced_pose
+};
+
 class InTenLoamPaper {
 public:
   explicit InTenLoamPaper(const InTenLoamPaperParams& params = InTenLoamPaperParams());
 
   // points: sensor frame, intensity in [0, 1].
   InTenLoamPaperResult process(const std::vector<Eigen::Vector3d>& points,
-                               const std::vector<float>& intensity);
+                               const std::vector<float>& intensity,
+                               InTenLoamPaperDiagnostics* diag = nullptr);
 
   // Exposed for tests.
   PaperFrame extractFeatures(const std::vector<Eigen::Vector3d>& points,
@@ -161,10 +189,12 @@ public:
 private:
   struct Map;
   struct Index;
+  struct ClassSystems;
 
   // Gauss-Newton on se(3) with re-association; T maps source into target.
-  int solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const;
-  int solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4] = nullptr) const;
+  int solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first = nullptr) const;
+  int solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4] = nullptr,
+               ClassSystems* first = nullptr) const;
   std::vector<char> dynamicMask(const PaperFrame& curr, const Eigen::Matrix4d& T_w) const;
   void insert(const PaperFrame& curr, const Eigen::Matrix4d& T_w, const std::vector<char>& dynamic);
 

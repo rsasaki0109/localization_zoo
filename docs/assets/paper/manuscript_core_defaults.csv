@@ -16,7 +16,7 @@ genz_icp,nclt_2013_01_10_120,gt-backed,default,3.512657,7.568846,experiments/res
 gicp,mcd_ntu_day_02_108,gt-backed,dense_recent_map,0.016816,12.991898,experiments/results/gicp_mcd_ntu_day_02_matrix.json
 hdl_graph_slam,mcd_ntu_day_02_108,gt-backed,dense,0.179861,6.514175,experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json
 imls_slam,kitti_seq_07_full,gt-backed,dense_profile,3.037946,6.253868,experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json
-inten_loam,kitti_seq_07_full,gt-backed,paper_odometry_no_intensity,0.917480,4.662998,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
+inten_loam,kitti_seq_07_full,gt-backed,paper_odometry_no_intensity,1.192842,3.204377,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
 isc_loam,mcd_ntu_day_02_108,gt-backed,fast,0.064940,50.238587,experiments/results/isc_loam_mcd_ntu_day_02_matrix.json
 kiss_icp,mcd_ntu_day_02_108,gt-backed,fast_recent_map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json
 l_lo,kitti_seq_07_full,gt-backed,pitch_band_10_40,1.957085,5.133734,experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json
@@ -26,7 +26,7 @@ lins,mcd_ntu_day_02_108,gt-backed,dense,0.110815,34.902843,experiments/results/l
 lio_sam,mcd_ntu_day_02_108,gt-backed,fast,0.072989,31.720395,experiments/results/lio_sam_mcd_ntu_day_02_matrix.json
 litamin2,mcd_ntu_day_02_108,gt-backed,cluster_t1_seeded,0.020511,43.404453,experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json
 loam_livox,mcd_ntu_day_02_108,gt-backed,fast,0.137012,68.986739,experiments/results/loam_livox_mcd_ntu_day_02_matrix.json
-mesh_loam,kitti_seq_07_full,gt-backed,dense_elevation_nearest_facet,0.651195,0.627553,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_07_full,gt-backed,paper_odometry_elevation_keep_mesh,0.852913,1.494767,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
 mulls,mcd_ntu_day_02_108,gt-backed,kitti_default,0.097083,1.170111,experiments/results/mulls_mcd_ntu_day_02_matrix.json
 ndt,autoware_istanbul_open_108_c,gt-backed,fast_coarse_map,0.005456,1.947388,experiments/results/ndt_istanbul_window_c_matrix.json
 okvis,kitti_raw_0061_200,gt-backed,fast,29.001262,894.663134,experiments/results/okvis_kitti_raw_0061_matrix.json

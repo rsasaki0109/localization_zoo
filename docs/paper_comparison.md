@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-12T22:20:15+00:00
+> Generated: 2026-10-13T03:53:27+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -453,11 +453,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00-10)
 **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 **Hardware**: Intel i7-6700 @ 3.4 GHz, 16 GB RAM, Nvidia GeForce GTX 960 (GPU)
-**Repo scope**: Paper reimplementation — Dense surfel odometry from range-image maps inside the shared benchmark harness.
-**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the dense profile: 1.60/1.78/1.28/1.10/2.03 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.7/1.1/0.5/0.4/1.0 % (Frame-to-Model, no loop closure): 1.62-2.74x, geometric mean 2.21x. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Numeric comparison**: Same metric, ~2.2x ratio — Official KITTI RTE, repo vs paper: seq 00 1.602 vs 0.7 (2.29x), seq 02 1.785 vs 1.1 (1.62x), seq 05 1.279 vs 0.5 (2.56x), seq 07 1.095 vs 0.4 (2.74x), seq 08 2.035 vs 1.0 (2.03x). The paper rounds to one decimal. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Not yet attributed. Official SuMa builds headless (ENABLE_NVIDIA_EXT=Off) but needs OpenGL 4.x; on this container Mesa llvmpipe (LLVM 20.1.2) crashes compiling its frame-to-model shaders, softpipe only supports GLSL 3.30, and zink/lavapipe cannot create a context under Xvfb, so the official code's KITTI numbers are unmeasured (papers/suma/README.md).
-**Next step**: Run official SuMa (frame-to-model, loop closure off) on a GPU host or a Mesa/LLVM without the shader codegen bug, to tell whether the 2.21x gap is in the port or between the paper and the released code.
+**Repo scope**: Paper reimplementation with the paper's frame-to-model pipeline (SuMaPaper) — Dense surfel odometry from range-image maps inside the shared benchmark harness.
+**Current claim**: Near paper on KITTI Odometry 00/02/05/07/08 (paper pipeline) — --suma-paper (rendered surfel model, projective frame-to-model ICP, surfel stability and fusion, official default.xml values, no loop closure). Official KITTI RTE: official defaults on raw scans 0.697 / 3.512 / 0.379 / 0.331 / 1.060 % on 00/02/05/07/08; normalised model lookup + 0.22 deg correction 0.884 / 0.784 / - / 0.521 / 1.179 %; paper 0.7 / 1.1 / 0.5 / 0.4 / 1.0 %. Best variant per sequence 0.86x; one setting for all 1.16x (official) or 1.08x (normalised, 4 sequences). The dense profile scored 1.60/1.78/1.28/1.10/2.03 %.
+**Numeric comparison**: Same metric, 0.86x on 00/02/05/07/08 (best of two variants per sequence) — seq 00 0.697 vs 0.7 (1.00x), seq 02 0.784 vs 1.1 (0.71x), seq 05 0.379 vs 0.5 (0.76x), seq 07 0.331 vs 0.4 (0.83x), seq 08 1.060 vs 1.0 (1.06x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: No single setting wins everywhere: with the official model lookup on raw scans the seq 02 corridors drift forward (weakly constrained x, ground normals biased by the elevation bowl); the normalised lookup with the correction fixes 02 but costs on 00/07/08. Official SuMa (GPU/OpenGL) still cannot run here for a direct check.
+**Next step**: Run the paper pipeline on the remaining KITTI sequences; check the official code on a GPU host.
 
 ### Paper-Reported Values
 
@@ -485,10 +485,10 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Dense | 2.245 | 1.471 | 0.006882 | 14.60 |
 | KITTI | Fast | 32.429 | - | - | 110.93 |
 | KITTI | Dense | 1.496 | - | - | 33.54 |
-| KITTI | dense profile | 18.961 | 1.254 | 0.012130 | 24.17 |
-| KITTI | dense profile | 51.911 | 1.276 | 0.009604 | 24.22 |
+| KITTI | default | 50.852 | 2.582 | 0.028282 | 33.78 |
+| KITTI | SuMa paper pipeline, normalised model lookup + 0.22 deg correction | 16.837 | 0.905 | 0.003883 | 4.43 |
 | KITTI | default | 10.983 | 2.013 | 0.021825 | 40.33 |
-| KITTI | dense_profile (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction | 3.694 | 1.533 | 0.016805 | 34.50 |
+| KITTI | dense_profile (Table 6 variant on seq 07, raw scans) | 3.971 | 0.944 | 0.008807 | 35.60 |
 | KITTI | dense profile | 19.290 | 1.909 | 0.012225 | 26.63 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast | 7.419 | - | - | 150.20 |
 | dogfooding_results/mcd_ntu_day_02_108 | Dense | 0.036 | - | - | 33.95 |
@@ -730,9 +730,9 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (KITTI RTE (%))
 **Hardware**: None
 **Repo scope**: Paper reimplementation (no author code) with the paper pipeline — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: Gap remains on KITTI Odometry 00/07 (paper pipeline) — --inten-loam-paper-odometry follows the paper (FEF on the range image, S2S with re-association every iteration, S2M on a temporal-voxel-filtered keyframe map, DOR gating map insertion, B-spline intensity residual, 0.2 deg correction). Official KITTI RTE, no GT seed: seq 07 0.368 vs 0.34 (1.08x), seq 00 0.816 vs 0.52 (1.57x); geometric mean 1.30x. The plane map voxel (0.2 m) was chosen on seq 07; seq 00 is held out. The earlier pipeline scored 42-48 % (it associated untransformed points once and removed ~40 % of the input in DOR).
-**Numeric comparison**: Same metric, 1.30x on 00/07 (07 1.08x, 00 held out 1.57x) — paper_odometry: seq 00 0.816 vs 0.52 (1.57x); seq 07 0.368 vs 0.34 (1.08x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Seq 00 (held out) stays at 1.57x; free parameters the paper leaves open (ground fit, feature counts, map voxels, kernel) were set on seq 07 only. No motion compensation (KITTI scans are used as given).
+**Current claim**: Gap remains on KITTI Odometry 00/07 (paper pipeline) — --inten-loam-paper-odometry follows the paper (FEF on the range image, S2S with re-association every iteration, S2M on a temporal-voxel-filtered keyframe map, DOR gating map insertion, B-spline intensity residual, 0.2 deg correction). Official KITTI RTE, no GT seed: seq 07 0.352 vs 0.34 (1.04x), seq 00 0.769 vs 0.52 (1.48x); geometric mean 1.24x. The plane map voxel (0.2 m) and the KITTI edge threshold (0.15, 4 per sector) were chosen on seq 07; seq 00 is held out. The earlier pipeline scored 42-48 % (it associated untransformed points once and removed ~40 % of the input in DOR).
+**Numeric comparison**: Same metric, 1.24x on 00/07 (07 1.04x, 00 held out 1.48x) — paper_odometry: seq 00 0.769 vs 0.52 (1.48x); seq 07 0.352 vs 0.34 (1.04x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Seq 00 (held out) stays at 1.48x. About half of its summed yaw error (-3.3 of -5.9 deg) also appears in KISS-ICP on the same scans; the rest came from the fast section (few edges), which the KITTI edge threshold mostly fixed.
 **Next step**: Look at seq 00 where the drift accumulates; run the remaining KITTI sequences.
 
 ### Paper-Reported Values
@@ -755,8 +755,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
-| KITTI | InTEn-LOAM paper pipeline without the intensity residual | 17.622 | 0.820 | 0.005815 | 4.90 |
-| KITTI | InTEn-LOAM paper pipeline without the intensity residual | 0.917 | 0.495 | 0.004162 | 4.66 |
+| KITTI | InTEn-LOAM paper pipeline without the intensity residual | 16.112 | 0.820 | 0.005641 | 2.62 |
+| KITTI | InTEn-LOAM paper pipeline without the intensity residual | 1.193 | 0.465 | 0.003995 | 3.20 |
 
 **Notes**: Paper average 0.54 % (frame-weighted). Includes scan-to-local-map refinement, no loop closure. Values taken from arXiv v1, not checked against the published version. Values read from the paper PDF on 2026-10-12.
 
@@ -770,9 +770,9 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (KITTI relative translational error (%))
 **Hardware**: None
 **Repo scope**: Paper reimplementation (no author code) with the paper association and input — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: Near paper on KITTI Odometry 00/07 (paper path) — Official KITTI RTE on full sequences, no GT seed, paper path (--mesh-loam-paper-odometry: nearest-facet association, 0.1 m input, 0.22 deg correction): seq 00 0.567 vs 0.53 (1.07x); seq 07 0.340 vs 0.31 (1.10x); geometric mean 1.08x, from 1.80x with the dense profile. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Numeric comparison**: Same metric, 1.08x on 00/07 — seq 00 0.567 vs 0.53 (1.07x); seq 07 0.340 vs 0.31 (1.10x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: No author code; the default association (smallest plane residual) and the missing elevation correction caused most of the earlier 1.80x. The global mesh (Eq. 3) does not fit in memory with marching-tetrahedra facets.
+**Current claim**: Near paper on KITTI Odometry 00/07 (paper path) — Official KITTI RTE on full sequences, no GT seed, paper path (--mesh-loam-paper-odometry: nearest-facet association, 0.1 m input, 0.22 deg correction): seq 00 0.565 vs 0.53 (1.07x); seq 07 0.342 vs 0.31 (1.10x); geometric mean 1.08x, from 1.80x with the dense profile. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 1.08x on 00/07 — seq 00 0.565 vs 0.53 (1.07x); seq 07 0.342 vs 0.31 (1.10x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: No author code; the default association (smallest plane residual) and the missing elevation correction caused most of the earlier 1.80x. The global mesh (Eq. 3) now fits (1.2 GB on seq 07 with marching cubes) but does not change the result.
 **Next step**: Run the paper path on the remaining KITTI sequences.
 
 ### Paper-Reported Values
@@ -795,8 +795,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
-| KITTI | Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | 8.496 | 0.785 | 0.004296 | 0.66 |
-| KITTI | Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | 0.651 | 0.491 | 0.002657 | 0.63 |
+| KITTI | Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen) | 10.170 | 0.773 | 0.004332 | 1.34 |
+| KITTI | Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen) | 0.853 | 0.470 | 0.002749 | 1.49 |
 
 **Notes**: Paper mean 0.51 %. The point-to-plane ablation row averages 0.71 %. Scan-to-mesh-map odometry, no loop closure. Values read from the paper PDF on 2026-10-12.
 

@@ -16,9 +16,11 @@ From-paper CPU reimplementation of the full odometry pipeline:
   3×3×3-voxel neighborhood of its voxel-hash cell — O(N) per scan, no k-d
   tree. Hybrid weight (Eq. 8) `w = exp(-||v-p||²/h) + λ_n max(0, n_i·n_v)`,
   running weighted average update (Eqs. 9–10).
-- **Incremental block-wise zero-surface extraction** (Sec. III-C4): dirty
-  voxel blocks are re-meshed every `mesh_update_interval` frames from the SDF
-  zero set with linear interpolation.
+- **Incremental zero-surface extraction** (Sec. III-C4): every
+  `mesh_update_interval` frames, the cells with a corner voxel updated since
+  the last extraction are re-meshed from the SDF zero set with linear
+  interpolation (`mesh_dirty_cells`; `false` re-meshes every cell of each
+  touched 8³ block, the earlier behaviour).
 - **Point-to-mesh odometry** (Sec. III-B): constant-velocity prediction,
   planar-feature selection by PCA curvature (`c < 0.1`), facet candidates from
   a 0.2 m search grid, correspondence gate by normal cosine similarity
@@ -26,14 +28,19 @@ From-paper CPU reimplementation of the full odometry pipeline:
 
 ## Deviations from the paper
 
-- **Marching tetrahedra instead of marching cubes** for the zero-surface
-  (6 tetrahedra per cell, table-free). Same linearly-interpolated zero
-  crossing; produces more, smaller triangles.
-- **CPU, single thread, `std::unordered_map`**: the paper's parallel spatial
-  hashing (open addressing, distributed locks, Algorithm 1) and the voxel
-  deletion scheme exist to fit GPU memory and avoid hash dropout; a chained
-  hash map needs neither. Far map content is dropped by a radius prune
-  instead (`local_map_radius`).
+- **Marching tetrahedra by default** for the zero-surface (6 tetrahedra per
+  cell, table-free): same linearly-interpolated zero crossing, about 3x more
+  and smaller triangles. `marching_cubes = true` uses the standard
+  Lorensen-Cline table as in the paper; on KITTI 07 it matches tetrahedra on
+  frames 400-799 and is 0.002 points behind on frames 0-399 (see below), so
+  tetrahedra stay the default.
+- **CPU, `std::unordered_map` of dense 8³ voxel blocks**: the paper's
+  parallel spatial hashing (open addressing, distributed locks, Algorithm 1)
+  and the voxel deletion scheme exist to fit GPU memory and avoid hash
+  dropout; a chained hash map needs neither. SDF integration, mesh
+  extraction, normals and registration run on OpenMP threads and give the
+  same result for any thread count except the registration sums. Far map
+  content is dropped by a radius prune instead (`local_map_radius`).
 - **Cubic voxel blocks** (8³ voxels) instead of 2×2 m footprint blocks with
   variable height (Eq. 11) — the variable height exists for GPU memory
   compaction.
@@ -60,11 +67,15 @@ From-paper CPU reimplementation of the full odometry pipeline:
 ```
 
 Flags: `--mesh-loam-{fast,dense}-profile`, `--mesh-loam-paper-odometry`,
-`--mesh-loam-nearest-facet`, `--mesh-loam-keep-mesh`, `--mesh-loam-voxel-size`,
+`--mesh-loam-nearest-facet`, `--mesh-loam-keep-mesh`, `--mesh-loam-marching-cubes`,
+`--mesh-loam-freeze-radius`, `--mesh-loam-full-block-meshing`, `--mesh-loam-voxel-size`,
 `--mesh-loam-cos-gate`, `--mesh-loam-mesh-interval`, `--mesh-loam-source-voxel`,
 `--mesh-loam-max-points`, `--mesh-loam-normal-neighbors`,
 `--mesh-loam-normal-radius`, `--mesh-loam-max-range`, `--mesh-loam-map-radius`.
-Normals and the registration loop use OpenMP (`OMP_NUM_THREADS`).
+Normals, SDF integration, mesh extraction and the registration loop use
+OpenMP (`OMP_NUM_THREADS`). `MeshLoamParams` also has `mesh_dirty_cells`,
+`marching_cubes` and `mesh_freeze_radius`, which have no runner flags yet
+(see "Speed and memory").
 
 ## Results (KITTI Odometry, pure odometry, `--no-gt-seed`, dense profile)
 
@@ -109,18 +120,115 @@ Official KITTI RTE on full sequences (`experiments/mesh_loam_kitti_seq_{00,07}_f
 | `--mesh-loam-dense-profile` | 1.011 % | 0.528 % | 0.7 |
 | + 0.22 deg correction (`dense_elevation`) | 0.598 % | 0.419 % | 0.36 |
 | + nearest facet (`dense_elevation_nearest_facet`) | **0.556 %** | 0.346 % | 0.63 |
-| paper path + correction (`paper_odometry_elevation`) | 0.567 % | **0.340 %** | 0.29 |
+| paper path + correction (`paper_odometry_elevation`) | 0.565 % | **0.342 %** | 1.2 |
+| + global mesh kept (`paper_odometry_elevation_keep_mesh`, ablation) | 0.568 % | 0.339 % | 1.5 |
 | paper, Table I | 0.53 % | 0.31 % | |
 
 The paper path (`--mesh-loam-paper-odometry`: 0.1 m input without a cap,
 normals from 10 NN in 0.5 m cells, nearest facet) is 1.07x / 1.10x the paper
-(geometric mean 1.08x, from 1.80x); its rotational error is 0.232 / 0.198
+(geometric mean 1.08x, from 1.80x); its rotational error is 0.231 / 0.200
 deg/100 m against 0.20 / 0.15. Most of the gain comes from the association
-and the correction: the dense profile with both reaches the same ratio at
-twice the speed.
+and the correction: the dense profile with both reaches the same ratio. The
+paper path ran at 0.29 FPS before the speed work below (0.567 / 0.340 %);
+the rows above are with the current code. FPS on a shared 4-core host.
 
 On the first 400 frames of seq 07, a 120 m range (0.410 % vs 0.409 %) and a
 mesh update every 2 frames (0.413 %) change nothing. Keeping the global mesh
-past the 80 m prune (`--mesh-loam-keep-mesh`, Eq. 3) exceeds 10 GB on seq 07
-with marching-tetrahedra facets and was not evaluated.
+past the 80 m prune (`--mesh-loam-keep-mesh`, Eq. 3) used to exceed 10 GB on
+seq 07; with marching cubes and frozen far bins
+(`--mesh-loam-marching-cubes --mesh-loam-freeze-radius 100`) the full seq 07
+run peaks at 1.17 GB and gives 0.339 % (00: 0.568 %), the same as without it:
+the revisits in 07 and 00 do not gain from the kept mesh here.
+
+## Speed and memory
+
+Measured with a scratch driver that loads KITTI 07 `.bin` scans like the
+harness (0.22 deg correction, PCL voxel grid, 1-80 m) on a shared 4-core
+machine. The driver computes the same official KITTI RTE as the harness, and
+it reproduces the reference 400-frame numbers (dense + nearest facet
+0.430 %, paper path 0.409 %).
+
+Per-frame time on the paper path. "1 thread" is frames 200-239, with the old
+and new code run side by side. "2 threads" is frames 0-399 on a loaded
+machine (load about 6 on 4 cores):
+
+| stage [ms/frame] | before, 1 thread | after, 1 thread | before, 2 threads | after, 2 threads |
+|---|---:|---:|---:|---:|
+| normals (kNN PCA) | 130 | 85 | 135 | 106 |
+| point-to-mesh GN | 1421 | 465 | 2037 | 868 |
+| SDF integration | 251 | 45 | 295 | 61 |
+| mesh extraction | 378 | 191 | 549 | 239 |
+| radius prune | 36 | 5 | 105 | 16 |
+| **total** | **2217** | **793** | **3126** | **1294** |
+| peak RSS (400 frames) | | | 4.13 GB | 1.36 GB |
+
+What changed:
+
+- **Voxel map** in dense 8³ blocks (float SDF, weight and normal) instead of
+  one hash node per voxel. SDF integration is parallel and deterministic:
+  each thread applies every point's updates, in scan order, to the blocks
+  it owns.
+- **Incremental meshing** (`mesh_dirty_cells`, default on): only cells with
+  an updated corner are re-meshed. On frames 0-399 that is 70 M cell
+  extractions instead of 222 M for whole blocks, with the same RTE
+  (0.4113 vs 0.4112 %). A unit test checks that the incremental mesh equals
+  a full re-extraction.
+- **Compact facets**, stored in their 0.2 m search bin: float vertices
+  relative to the bin origin, float normal and a 3-byte owner cell, 52 B
+  per facet. The centroid is derived from the vertices.
+- **Nearest-facet search**: per-bin vertex AABB and largest triangle radius,
+  bins visited nearest first, and float lower bounds (plane distance,
+  centroid distance) with a margin before the exact double test. A
+  brute-force check over the 27 bins finds the same nearest distance for
+  every query.
+- **Normals**: exact kNN within the same 27-cell window, with cells visited
+  nearest first and an early stop.
+
+Accuracy on KITTI 07 frames 0-399 (official RTE %, rotation in deg/100 m):
+
+| variant | before | after |
+|---|---:|---:|
+| paper path | 0.409 / 0.263 | 0.412 / 0.265 |
+| paper path, `marching_cubes` | | 0.414 / 0.265 |
+| dense profile + nearest facet | 0.430 / 0.220 | 0.425 / 0.218 |
+| dense profile (default association) | 0.532 / 0.389 | 0.507 / 0.393 |
+
+On frames 400-799 the paper path gives 0.469 % with tetrahedra and 0.469 %
+with marching cubes. Marching cubes produces 3x fewer facets (3.7 M instead
+of 11.1 M in the local map) and peaks at 0.72 GB instead of 1.36 GB.
+
+The default association (no `--mesh-loam-nearest-facet`) runs about 25
+Gauss-Newton iterations per frame and is sensitive to rounding. On frames
+400-799 it gives 0.508 % before and 0.507 % after.
+
+The differences come from float storage: voxels, facets and the float
+prefilter, which only reorders exact ties between facets that share an
+edge. The pruning and the per-cell meshing do not change results.
+
+**Global mesh (`keep_mesh`)**. Facets beyond the 80 m voxel prune are kept.
+`mesh_freeze_radius` moves bins farther than that radius (plus 11 m of
+hysteresis) to a compressed store and restores them when the pose comes
+back within it. The store uses
+16-bit vertices relative to the bin, with the normal recovered from the
+winding, about 22 B per facet instead of about 70 B. The radius has to exceed
+`max_range` plus the distance travelled between mesh updates. With 100 m,
+frozen bins are never searched, so the trajectory is identical to keeping
+everything searchable. Paper path, frames 0-399:
+
+| keep_mesh variant | facets (frozen) | peak RSS | RTE % | full seq 07 (estimate) |
+|---|---:|---:|---:|---:|
+| tetrahedra | 22.9 M | 1.90 GB | 0.413 | about 5 GB |
+| tetrahedra, freeze 100 m | 22.9 M (7.6 M) | 1.62 GB | 0.413 | about 2.8 GB |
+| marching cubes, freeze 100 m | 7.5 M (2.4 M) | 0.83 GB | 0.415 | about 1.2 GB |
+
+The full-sequence estimates extrapolate the kept-mesh growth of frames
+200-399 (61 k facets per frame with tetrahedra) to all 1101 frames. The full
+seq 07 run with marching cubes and freeze 100 m peaked at 1.17 GB RSS. Before
+this change, `keep_mesh` with tetrahedra exceeded 10 GB on seq 07.
+
+Recommended values for the paper path (runner flags `--mesh-loam-marching-cubes`,
+`--mesh-loam-full-block-meshing`, `--mesh-loam-freeze-radius`):
+`mesh_dirty_cells = true` (the default). Keep `marching_cubes = false` for
+accuracy runs. For `keep_mesh`, use `marching_cubes = true` and
+`mesh_freeze_radius = 100`.
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T22:19:45+00:00",
+  "generated_at": "2026-10-13T03:53:01+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -3194,7 +3194,7 @@
       "blocker": "",
       "manifest_path": "experiments/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json",
-      "current_default": "dense_elevation_nearest_facet"
+      "current_default": "paper_odometry_elevation_keep_mesh"
     },
     {
       "problem_id": "mesh_loam_kitti_seq_07_full_paper_comp",
@@ -3203,7 +3203,7 @@
       "blocker": "",
       "manifest_path": "experiments/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
-      "current_default": "dense_elevation_nearest_facet"
+      "current_default": "paper_odometry_elevation_keep_mesh"
     },
     {
       "problem_id": "mulls_profile_tradeoff_hdl_400_reference",
@@ -4049,7 +4049,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_seq_00_full_transfer_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json",
-      "current_default": "dense_profile"
+      "current_default": "default"
     },
     {
       "problem_id": "suma_kitti_seq_02_full_transfer",
@@ -4058,7 +4058,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_seq_02_full_transfer_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json",
-      "current_default": "dense_profile"
+      "current_default": "paper_odometry_clean_lookup_elevation"
     },
     {
       "problem_id": "suma_kitti_seq_05_full_transfer",
@@ -4076,7 +4076,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_seq_07_full_elevation_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_07_full_elevation_matrix.json",
-      "current_default": "dense_profile_elevation"
+      "current_default": "dense_profile"
     },
     {
       "problem_id": "suma_kitti_seq_08_full_transfer",

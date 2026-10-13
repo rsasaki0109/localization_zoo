@@ -44,3 +44,113 @@ OpenGL 4.x が要り、ソフトウェア描画ではどれも動かなかった
 公式コードの KITTI 値は GPU のある環境か、この LLVM の不具合がない Mesa で測る
 必要がある。それまで Table 6 の 2.21x が実装側の差か公式コードと論文の差かは
 切り分けられていない。
+
+## Paper pipeline (`SuMaPaper`, `suma/suma_paper.h`)
+
+`SuMa` above is not the paper's method: it associates with a KD-tree against a
+sliding window of voxelised points, and on KITTI its default `n_scans = 16`
+(never set by the harness) puts the HDL-64 into a 16-row image and drops every
+point below -17 deg (17.6 % of a scan). `SuMaPaper` is a separate, opt-in class
+that follows Behley & Stachniss (RSS 2018, Sec. III-A to III-D, Table I) and the
+official `config/default.xml` on the CPU:
+
+- 900 x 64 vertex map (nearest point, f_up 3 deg, f_down 25 deg, 2-75 m) and
+  forward-difference normal map with horizontal wrap (eqs. 2-3).
+- Model vertex / normal maps rendered at the last pose from the active surfel
+  map (created or updated in the last 100 scans, stability above the
+  threshold): each surfel is rasterised as a disk of its radius with a z-buffer.
+- Frame-to-model ICP with projective association, bilinear model lookup as in
+  the official shader, 2 m / 30 deg gates, Huber k = 0.5, Gauss-Newton on se(3)
+  (<= 10 iterations), warm start with the last increment, and the official
+  frame-to-frame fallback after a track loss (> 0.4 m / 0.1 rad change).
+- Map update: radius eq. 10 (0.05-1 m), compatibility 0.2 m / 45 deg (official;
+  Table I says 30 deg), stability log odds eq. 4 (p_stable 0.6, p_prior 0.5,
+  sigma 1), refinement with gamma = 0.9 when the measurement is more precise
+  (eqs. 11-13), new surfels for unexplained pixels, removal of unstable surfels
+  (l_s < odds(0.4), or l_s < 0 and not updated for 3 scans).
+
+No loop closure (Table II "Frame-to-Model" rows). About 0.2-0.3 s per scan,
+single-threaded. Surfels farther than 90 m (x/y) and inactive surfels are
+dropped (stand-in for the GPU submaps).
+
+KITTI Odom, official RTE (100-800 m segments, here 100-200 m), scratch driver
+over the raw `.bin` scans, no GT seed:
+
+| Window | `SuMa --suma-dense-profile` | `SuMa`, `n_scans = 64` | `SuMaPaper` | paper (full seq.) |
+|---|---:|---:|---:|---:|
+| 07 frames 0-399 | 0.895 % / 0.80 deg | 0.616 % / 0.69 deg | **0.432 % / 0.26 deg** | 0.4 % / 0.3 deg |
+| 07 frames 400-799 | 1.288 % / 1.06 deg | | **0.368 % / 0.28 deg** | |
+| 00 frames 0-399 | 1.227 % / 1.12 deg | | **1.104 % / 0.80 deg** | 0.7 % / 0.3 deg |
+
+(deg = deg / 100 m.) The KITTI vertical-angle correction (0.22 deg) makes both
+classes worse on every window (`SuMaPaper` 07 f0-399: 1.473 %, f400-799:
+1.349 %, 00 f0-399: 1.678 %). It moves almost only the pitch (about -3.5 deg per
+250 m); the official GL_LINEAR model lookup, which blends empty texels into up
+to 25 % of a sample, carries a pitch bias of the opposite sign, and the
+official KITTI reader does not correct the scans. With a clean lookup
+(`normalize_bilinear = true`) the correction does help (07 f0-399: 1.051 % ->
+0.468 %), but stays behind the official combination. Use `SuMaPaper` without
+the correction.
+
+Tests: `test_suma_paper` (synthetic street canyon ray-cast with 64 beams:
+vertex / normal maps, rendering, projective Gauss-Newton, map update, known
+motion over 15 scans).
+
+### Seq 02: forward drift in corridors and the recommended KITTI setting
+
+With the official defaults on raw scans, full seq 02 reaches 3.51 % (paper
+1.1 %): around frames 1850-1960 and 4430-4540 (13 m/s, a road between a wall /
+hedge and vegetation) the estimated step grows from 1.3 m to 2-3.3 m. Measured
+on windows that start 100 scans earlier (scratch driver, official RTE):
+
+- The forward direction is nearly unconstrained there: the translation block
+  of J'WJ has eigenvalues about 40-90 along x against 1500-3700 (y) and
+  3600-7400 (z); only about 80 of 12000 associated pixels have |n_x| > 0.5.
+- The frame-to-model objective itself is biased, not only the warm start:
+  Gauss-Newton started at the ground-truth increment converges to the same
+  too-long step (frame 1910: GT 1.38 m, from GT 2.09 m, estimate 2.58 m).
+  The frame-to-frame fallback gives the right step (about 1.37 m), but the
+  next frame-to-model step runs off again.
+- At the ground-truth increment, 73 % of the forward gradient comes from
+  ground pixels. Their surfel normals tilt towards the sensor by about
+  1.3 deg on average (the KITTI elevation "bowl"), so the many ground pixels
+  carry a small, biased forward term that wins when nothing else constrains x.
+- The official bilinear lookup (empty texels blended in) adds its own bias.
+  Either fix alone is not enough; both together are:
+
+| Variant (seq 02 window) | f1750-1959 | f4330-4559 |
+|---|---:|---:|
+| official defaults, raw scans | 25.4 % | 14.0 % |
+| + 0.22 deg vertical-angle correction | 11.4 % | |
+| `normalize_bilinear = true`, raw scans | 7.6 % | 2.63 % |
+| `normalize_bilinear = true` + 0.22 deg | **2.00 %** | **1.67 %** |
+| `normalize_bilinear = true` + 0.165 deg | 2.20 % | 1.48 % |
+| nearest lookup, raw scans | | 19.1 % |
+| constant-velocity scan deskew (driver), raw scans | 25.5 % | 21.3 % |
+| keep the warm start along weak translation directions (< 2 % of the strongest) | 28.1 % | |
+| active window 10 scans instead of 100 | 57.9 % | 19.9 % |
+
+Regression windows with `normalize_bilinear = true` + 0.22 deg: 07 f0-399
+0.468 % (official raw 0.432 %), 07 f400-799 0.736 % (0.368 %), 00 f0-399
+1.151 % (1.104 %). The defaults stay official; for KITTI runs where seq 02
+matters, use `normalize_bilinear = true` with the 0.22 deg correction.
+
+### Full sequences
+
+Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;
+`experiments/suma_kitti_seq_*_full_*_matrix.json`):
+
+| seq | dense profile | `paper_odometry` (official defaults, raw) | `paper_odometry_clean_lookup_elevation` | paper, Table II |
+|---|---:|---:|---:|---:|
+| 00 | 1.602 % | **0.697 %** | 0.884 % | 0.7 % |
+| 02 | 1.785 % | 3.512 % | **0.784 %** | 1.1 % |
+| 05 | 1.279 % | **0.379 %** | | 0.5 % |
+| 07 | 1.095 % | **0.331 %** | 0.521 % | 0.4 % |
+| 08 | 2.035 % | **1.060 %** | 1.179 % | 1.0 % |
+
+Table 6 takes the better variant per sequence: 1.00x / 0.71x / 0.76x / 0.83x /
+1.06x, geometric mean 0.86x. With one setting for every sequence the official
+defaults give 1.16x (02 fails at 3.2x) and the normalised lookup with the
+correction 1.08x on 00/02/07/08 (05 not run with it). About 4 FPS, single
+thread. The paper's numbers have one decimal.
+

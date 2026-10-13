@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <array>
 #include <cmath>
 #include <vector>
 
@@ -144,4 +146,195 @@ TEST(MeshLoam, KeepMeshSurvivesThePrune) {
   }
   EXPECT_LT(kept.mapSize(), static_cast<size_t>(5000));
   EXPECT_GT(kept.liveFacets(), 2 * pruned.liveFacets());
+}
+
+namespace {
+
+using FacetKey = std::array<float, 9>;
+
+std::vector<FacetKey> facetSet(const MeshLoamPipeline& pipeline) {
+  std::vector<FacetKey> out;
+  pipeline.forEachFacet([&](const Eigen::Vector3d& a, const Eigen::Vector3d& b,
+                            const Eigen::Vector3d& c, const Eigen::Vector3d&) {
+    out.push_back({static_cast<float>(a.x()), static_cast<float>(a.y()), static_cast<float>(a.z()),
+                   static_cast<float>(b.x()), static_cast<float>(b.y()), static_cast<float>(b.z()),
+                   static_cast<float>(c.x()), static_cast<float>(c.y()), static_cast<float>(c.z())});
+  });
+  std::sort(out.begin(), out.end());
+  return out;
+}
+
+/// Fraction of facets whose normal points toward `viewpoint` (the free-space
+/// side of a room scanned from there).
+double fractionFacingViewpoint(const MeshLoamPipeline& pipeline, const Eigen::Vector3d& viewpoint) {
+  size_t good = 0, total = 0, bad_winding = 0;
+  pipeline.forEachFacet([&](const Eigen::Vector3d& a, const Eigen::Vector3d& b,
+                            const Eigen::Vector3d& c, const Eigen::Vector3d& n) {
+    const Eigen::Vector3d centroid = (a + b + c) / 3.0;
+    ++total;
+    if (n.dot(viewpoint - centroid) > 0.0) ++good;
+    // Winding agrees with the stored normal.
+    if (n.dot((b - a).cross(c - a)) <= 0.0) ++bad_winding;
+  });
+  EXPECT_EQ(bad_winding, static_cast<size_t>(0));
+  return total > 0 ? static_cast<double>(good) / total : 0.0;
+}
+
+/// Street-like scene: floor, two walls 4 m apart along x, and pillars every
+/// 3 m, sampled within `range` of the sensor at `origin` (sensor frame).
+std::vector<Eigen::Vector3d> makeStreetScan(const Eigen::Vector3d& origin, double range = 14.0,
+                                            double step = 0.08) {
+  std::vector<Eigen::Vector3d> pts;
+  auto add = [&](const Eigen::Vector3d& w) {
+    if ((w - origin).norm() < range) pts.push_back(w - origin);
+  };
+  const double x0 = origin.x() - range, x1 = origin.x() + range;
+  for (double x = std::floor(x0 / step) * step; x <= x1; x += step) {
+    for (double y = -2.0; y <= 2.0; y += step) add(Eigen::Vector3d(x, y, 0.0));
+    for (double z = 0.0; z <= 2.5; z += step) {
+      add(Eigen::Vector3d(x, -2.0, z));
+      add(Eigen::Vector3d(x, 2.0, z));
+    }
+  }
+  // Pillars (0.4 m squares) on both sides every 3 m.
+  for (double px = std::floor(x0 / 3.0) * 3.0; px <= x1; px += 3.0) {
+    for (const double py : {-1.6, 1.6}) {
+      for (double z = 0.0; z <= 2.5; z += step) {
+        for (double u = -0.2; u <= 0.2; u += step) {
+          add(Eigen::Vector3d(px - 0.2, py + u, z));
+          add(Eigen::Vector3d(px + 0.2, py + u, z));
+          add(Eigen::Vector3d(px + u, py - 0.2, z));
+          add(Eigen::Vector3d(px + u, py + 0.2, z));
+        }
+      }
+    }
+  }
+  return pts;
+}
+
+}  // namespace
+
+TEST(MeshLoam, FacetNormalsPointToFreeSpace) {
+  for (const bool mc : {false, true}) {
+    MeshLoamParams params = testParams();
+    params.marching_cubes = mc;
+    MeshLoamPipeline pipeline(params);
+    const Eigen::Vector3d sensor(0, 0, 1.2);
+    pipeline.registerFrame(makeRoomScan(sensor));
+    ASSERT_GT(pipeline.meshSize(), static_cast<size_t>(500));
+    EXPECT_GT(fractionFacingViewpoint(pipeline, sensor), 0.97) << "marching_cubes=" << mc;
+  }
+}
+
+TEST(MeshLoam, MarchingCubesUsesFewerFacets) {
+  MeshLoamParams params = testParams();
+  MeshLoamPipeline tets(params);
+  params.marching_cubes = true;
+  MeshLoamPipeline cubes(params);
+  const auto scan = makeRoomScan(Eigen::Vector3d(0, 0, 1.2));
+  tets.registerFrame(scan);
+  cubes.registerFrame(scan);
+  EXPECT_GT(cubes.meshSize(), static_cast<size_t>(500));
+  EXPECT_LT(cubes.meshSize() * 3, tets.meshSize() * 2);
+}
+
+TEST(MeshLoam, MarchingCubesTracksTranslationAndYaw) {
+  MeshLoamParams params = testParams();
+  params.marching_cubes = true;
+  params.nearest_facet = true;
+  MeshLoamPipeline pipeline(params);
+  pipeline.registerFrame(makeRoomScan(Eigen::Vector3d(0, 0, 1.2)));
+  const double yaw = 0.02;
+  const Eigen::Vector3d moved(0.1, 0.05, 0.0);
+  const Eigen::Matrix3d R_ws =
+      Eigen::AngleAxisd(yaw, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  auto scan = makeRoomScan(Eigen::Vector3d(0, 0, 1.2) + moved);
+  for (auto& p : scan) p = R_ws.transpose() * p;
+  const auto res = pipeline.registerFrame(scan);
+  EXPECT_TRUE(res.converged);
+  const Eigen::Matrix3d R_est = res.pose.block<3, 3>(0, 0);
+  EXPECT_NEAR(std::atan2(R_est(1, 0), R_est(0, 0)), yaw, 0.005);
+  EXPECT_LT((res.pose.block<3, 1>(0, 3) - moved).norm(), 0.03);
+}
+
+TEST(MeshLoam, IncrementalCellsMatchFullRemesh) {
+  for (const bool mc : {false, true}) {
+    MeshLoamParams params = testParams();
+    params.marching_cubes = mc;
+    params.mesh_update_interval = 2;
+    MeshLoamPipeline pipeline(params);
+    const Eigen::Vector3d base(0, 0, 1.2);
+    for (int i = 0; i < 5; ++i) {
+      pipeline.registerFrame(makeRoomScan(base + Eigen::Vector3d(0.07 * i, 0.03 * i, 0.0)));
+    }
+    pipeline.extractMesh();
+    const auto incremental = facetSet(pipeline);
+    pipeline.remeshAll();
+    const auto full = facetSet(pipeline);
+    ASSERT_GT(full.size(), static_cast<size_t>(500));
+    EXPECT_EQ(incremental.size(), full.size()) << "marching_cubes=" << mc;
+    EXPECT_TRUE(incremental == full) << "marching_cubes=" << mc;
+  }
+}
+
+TEST(MeshLoam, DirtyCellsTouchFewerCellsThanBlocks) {
+  MeshLoamParams params = testParams();
+  MeshLoamPipeline cells(params);
+  params.mesh_dirty_cells = false;
+  MeshLoamPipeline blocks(params);
+  const auto scan = makeRoomScan(Eigen::Vector3d(0, 0, 1.2));
+  for (int i = 0; i < 2; ++i) {
+    cells.registerFrame(scan);
+    blocks.registerFrame(scan);
+  }
+  EXPECT_LT(cells.timings().extracted_cells, blocks.timings().extracted_cells);
+  // Same surface either way (block mode can only miss boundary updates).
+  const double ratio = static_cast<double>(cells.meshSize()) / blocks.meshSize();
+  EXPECT_NEAR(ratio, 1.0, 0.02);
+}
+
+TEST(MeshLoam, FrozenMeshIsKeptAndRestored) {
+  MeshLoamParams params = testParams();
+  params.max_range = 10.0;
+  params.local_map_radius = 11.0;
+  params.keep_mesh = true;
+  params.marching_cubes = true;
+  params.nearest_facet = true;
+  params.mesh_update_interval = 2;
+  MeshLoamParams frozen_params = params;
+  frozen_params.mesh_freeze_radius = 2.0;  // bins beyond ~13 m are frozen
+  MeshLoamPipeline plain(params);
+  MeshLoamPipeline frozen(frozen_params);
+
+  // Drive along the street, turn around and come back.
+  std::vector<double> xs = {0.0};
+  double v = 0.0;
+  for (int i = 0; i < 64; ++i) {
+    if (i < 8) {
+      v += 0.1;  // accelerate to 0.8 m/frame
+    } else if (i >= 26 && i < 42) {
+      v -= 0.1;  // decelerate and reverse to -0.8 m/frame
+    }
+    xs.push_back(xs.back() + v);
+  }
+  ASSERT_GT(*std::max_element(xs.begin(), xs.end()), 20.0);
+  ASSERT_LT(xs.back(), 6.0);
+  size_t max_frozen = 0;
+  for (size_t i = 0; i < xs.size(); ++i) {
+    const Eigen::Vector3d origin(xs[i], 0.0, 1.0);
+    const auto scan = makeStreetScan(origin, params.max_range, 0.15);
+    plain.registerFrame(scan);
+    const auto res = frozen.registerFrame(scan);
+    EXPECT_LT((res.pose.block<3, 1>(0, 3) - Eigen::Vector3d(xs[i], 0.0, 0.0)).norm(), 0.15)
+        << "frame " << i;
+    max_frozen = std::max(max_frozen, frozen.frozenFacets());
+  }
+  EXPECT_GT(max_frozen, static_cast<size_t>(1000));
+  // Coming back thawed the area near the start again.
+  EXPECT_LT(frozen.frozenFacets(), max_frozen);
+  // Same global mesh size up to quantization-collapsed slivers, and the
+  // compressed store is smaller.
+  const double ratio = static_cast<double>(frozen.meshSize()) / plain.meshSize();
+  EXPECT_NEAR(ratio, 1.0, 0.03);
+  EXPECT_LT(frozen.memoryBytes(), plain.memoryBytes());
 }

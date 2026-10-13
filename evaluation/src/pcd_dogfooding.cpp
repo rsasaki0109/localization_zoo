@@ -2528,6 +2528,10 @@ struct DiloDogfoodingOptions {
   int paper_keypoints_per_list = 100;
   bool paper_causal_output = false;
   bool paper_edges = false;
+  int paper_edge_detector = 0;
+  bool paper_edge_subpixel = false;
+  int paper_edge_dofs = 6;
+  double paper_edge_sum_weight = 0.0;  // > 0: summed normal equations
 };
 
 struct NhcLioDogfoodingOptions {
@@ -8259,6 +8263,13 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   params.update_iterations = options.paper_update_iterations;
   params.keypoints_per_list = options.paper_keypoints_per_list;
   params.use_edges = options.paper_edges;
+  params.edge_detector = options.paper_edge_detector;
+  params.edge_subpixel = options.paper_edge_subpixel;
+  params.edge_dofs = options.paper_edge_dofs;
+  if (options.paper_edge_sum_weight > 0.0) {
+    params.edge_sum_normal_equations = true;
+    params.edge_weight = options.paper_edge_sum_weight;
+  }
   DiloPaperOdometry odometry(params);
   const Eigen::Matrix4d anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
   std::vector<Eigen::Matrix4d> causal;
@@ -14797,6 +14808,25 @@ int main(int argc, char** argv) {
     }
     if (arg == "--dilo-paper-edges") {
       dilo_options.paper_edges = true;
+      continue;
+    }
+    if (arg == "--dilo-paper-edge-detector") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-edge-detector requires a value" << std::endl; return 1; }
+      dilo_options.paper_edge_detector = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-edge-subpixel") {
+      dilo_options.paper_edge_subpixel = true;
+      continue;
+    }
+    if (arg == "--dilo-paper-edge-dofs") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-edge-dofs requires a value" << std::endl; return 1; }
+      dilo_options.paper_edge_dofs = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-edge-sum-weight") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-edge-sum-weight requires a value" << std::endl; return 1; }
+      dilo_options.paper_edge_sum_weight = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--dilo-paper-causal") {

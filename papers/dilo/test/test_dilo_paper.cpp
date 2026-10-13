@@ -99,3 +99,112 @@ TEST(DiloPaper, PairwiseStepsRecoverASmallMotion) {
   EXPECT_LT((T.block<3, 1>(0, 3) - truth.block<3, 1>(0, 3)).norm(), 0.05);
   EXPECT_LT(Eigen::AngleAxisd(T.block<3, 3>(0, 0) * truth.block<3, 3>(0, 0).transpose()).angle(), 0.002);
 }
+
+TEST(DiloPaper, EdgeJacobianMatchesFiniteDifferences) {
+  DiloPaperParams params;
+  params.edge_search_px = 50.0;
+  params.edge_row_search = 1;
+  DiloPaperOdometry odo(params);
+  std::mt19937 rng(7);
+  std::uniform_real_distribution<double> uni(-1.0, 1.0);
+  // Increment on the right, T exp(xi), xi = [omega, v].
+  auto perturbed = [](const Eigen::Matrix4d& T, const Eigen::Matrix<double, 6, 1>& xi) {
+    Eigen::Matrix4d inc = Eigen::Matrix4d::Identity();
+    const double th = xi.head<3>().norm();
+    if (th > 0) inc.block<3, 3>(0, 0) = Eigen::AngleAxisd(th, xi.head<3>() / th).toRotationMatrix();
+    inc.block<3, 1>(0, 3) = xi.tail<3>();
+    return Eigen::Matrix4d(T * inc);
+  };
+  int checked = 0;
+  for (int trial = 0; trial < 20; ++trial) {
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    const Eigen::Vector3d axis = Eigen::Vector3d(uni(rng), uni(rng), uni(rng)).normalized();
+    T.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.3 * uni(rng), axis).toRotationMatrix();
+    T.block<3, 1>(0, 3) = Eigen::Vector3d(uni(rng), uni(rng), 0.2 * uni(rng));
+    const Eigen::Vector3d p(15.0 * uni(rng), 15.0 * uni(rng), -1.0 + 0.5 * uni(rng));
+    const Eigen::Vector3d x = T.block<3, 3>(0, 0) * p + T.block<3, 1>(0, 3);
+    int row, col;
+    if (!odo.project(x, &row, &col)) continue;
+    // One reference edge on every row, 2.3 px from the projection.
+    DiloPaperFrame ref;
+    ref.edge_cols.assign(params.height, {});
+    double u_edge = odo.imageU(x) + 2.3;
+    if (u_edge >= params.width) u_edge -= params.width;
+    for (auto& r : ref.edge_cols) r.push_back(u_edge);
+    double e;
+    Eigen::Matrix<double, 6, 1> J;
+    ASSERT_TRUE(odo.edgeResidual(p, ref, T, &e, &J));
+    EXPECT_NEAR(e, 2.3, 1e-6);
+    const double h = 1e-6;
+    for (int k = 0; k < 6; ++k) {
+      Eigen::Matrix<double, 6, 1> d = Eigen::Matrix<double, 6, 1>::Zero();
+      d(k) = h;
+      double ep, em;
+      Eigen::Matrix<double, 6, 1> unused;
+      ASSERT_TRUE(odo.edgeResidual(p, ref, perturbed(T, d), &ep, &unused));
+      ASSERT_TRUE(odo.edgeResidual(p, ref, perturbed(T, -d), &em, &unused));
+      const double numeric = (ep - em) / (2.0 * h);
+      EXPECT_NEAR(J(k), numeric, 1e-4 * std::max(1.0, std::abs(numeric))) << "trial " << trial << " k " << k;
+    }
+    ++checked;
+  }
+  EXPECT_GE(checked, 10);
+}
+
+TEST(DiloPaper, VerticalEdgesRecoverYaw) {
+  // Noise-free street, 4 mrad (1.3 px) of yaw. The first detector (3x3
+  // minima of the Harris response of dI_e/du) recovers only about 10 % of it:
+  // the 2D suppression leaves isolated points, so a source edge rarely finds
+  // its own edge on the same reference row. Minima along u only (1) or the
+  // ridges of I_e (2) keep every row of a vertical edge.
+  for (int detector : {1, 2}) {
+    DiloPaperParams params;
+    params.use_edges = true;
+    params.edge_detector = detector;
+    params.edge_subpixel = true;
+    params.edge_reference_points = 3000;
+    DiloPaperOdometry odo(params);
+    Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+    truth.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.004, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    const auto ref = odo.buildFrame(scanAt(Eigen::Matrix4d::Identity()));
+    const auto src = odo.buildFrame(scanAt(truth));
+    ASSERT_GT(src->edge_points.size(), 50u) << detector;
+    // Yaw only; translation and tilt at the truth.
+    double yaw = 0.0;
+    for (int it = 0; it < 10; ++it) {
+      Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+      T.block<3, 3>(0, 0) = Eigen::AngleAxisd(yaw, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+      Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
+      Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
+      ASSERT_GT(odo.accumulateEdges(*src, *ref, T, 0, &H, &g), 30) << detector;
+      yaw -= g(2) / H(2, 2);
+    }
+    EXPECT_NEAR(yaw, 0.004, detector == 2 ? 0.0005 : 0.001) << detector;
+  }
+}
+
+TEST(DiloPaper, EdgeCombinationsTrackASyntheticDrive) {
+  // Plane only, the edge step averaged on yaw only, and the summed system
+  // restricted to yaw: all follow 4 frames of 0.4 m and 3 mrad per frame.
+  for (int mode = 0; mode < 3; ++mode) {
+    DiloPaperParams params;
+    params.use_edges = mode > 0;
+    params.edge_detector = 2;
+    params.edge_subpixel = true;
+    params.edge_dofs = 1;
+    params.edge_sum_normal_equations = mode == 2;
+    params.edge_weight = 0.003;
+    DiloPaperOdometry odo(params);
+    Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+    step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.003, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    step(0, 3) = 0.4;
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity(), est;
+    for (int k = 0; k < 4; ++k) {
+      est = odo.process(scanAt(pose));
+      if (k < 3) pose = pose * step;
+    }
+    EXPECT_LT((est.block<3, 1>(0, 3) - pose.block<3, 1>(0, 3)).norm(), 0.05) << mode;
+    EXPECT_LT(Eigen::AngleAxisd(est.block<3, 3>(0, 0) * pose.block<3, 3>(0, 0).transpose()).angle(), 0.002)
+        << mode;
+  }
+}

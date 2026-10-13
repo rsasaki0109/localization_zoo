@@ -19,7 +19,7 @@
 //   IRLS step and the window poses are re-estimated by averaging the
 //   relative poses in the log map, with the oldest frame fixed.
 //
-// Edge key points (Sec. 3.5) are not implemented; the paper's plane-only
+// Edge key points (Sec. 3.5) are opt-in (use_edges); the paper's plane-only
 // ablation (DiLO-plane, Table 1) is the matching reference.
 
 #include <Eigen/Core>
@@ -66,6 +66,36 @@ struct DiloPaperParams {
   double harris_k = 0.04;
   double huber_delta = 0.25;
   double tukey_c = 1.0;
+  // Second-pass edge options; the defaults reproduce the first edge
+  // implementation above.
+  // 0: Harris response of dI_e/du, negative local minima over 3x3;
+  // 1: the same response, minima along u only (a vertical edge is kept on
+  //    every row it crosses instead of being thinned to isolated points);
+  // 2: vertical ridges of I_e: local maxima of I_e along u whose curvature
+  //    along u exceeds the curvature along v;
+  // 3: Harris on I_e itself (structure tensor of dI_e/du, dI_e/dv), negative
+  //    response with the gradient mostly along u, minima along u.
+  int edge_detector = 0;
+  // Size of the reference edge set (the strongest edges of the image); 0:
+  // max_edge_points. The source key points are the strongest max_edge_points.
+  int edge_reference_points = 0;
+  // Sub-pixel u of every edge (parabola through the detector score along u);
+  // the source point is rotated about z to that azimuth.
+  bool edge_subpixel = false;
+  // The nearest reference edge is searched on rows within +-k of the
+  // projected row.
+  int edge_row_search = 0;
+  // true: one Gauss-Newton system H = H_x + edge_weight H_e (pixels^2 against
+  // metres^2); false: the paper's average of the plane and edge steps.
+  bool edge_sum_normal_equations = false;
+  double edge_weight = 1.0;
+  // Directions the edge term acts on: 6 all; 3 yaw and horizontal
+  // translation; 1 yaw only (the u residual carries little roll / pitch / z
+  // information, and an edge-only step is free to wander there).
+  int edge_dofs = 6;
+  // Kernel thresholds of the edge residual in pixels; 0: huber_delta / tukey_c.
+  double edge_huber_delta = 0.0;
+  double edge_tukey_c = 0.0;
 };
 
 struct DiloPaperFrame {
@@ -78,9 +108,10 @@ struct DiloPaperFrame {
   // Plane key points (sensor frame) with their normals.
   std::vector<Eigen::Vector3d> key_points;
   std::vector<Eigen::Vector3d> key_normals;
-  // Edge key points (sensor frame) and, per row, the sorted edge columns.
+  // Edge key points (sensor frame) and, per row, the sorted u coordinates of
+  // the reference edges (pixel centre c + 0.5, or the sub-pixel position).
   std::vector<Eigen::Vector3d> edge_points;
-  std::vector<std::vector<int>> edge_cols;
+  std::vector<std::vector<double>> edge_cols;
   Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();  // world <- sensor
 };
 
@@ -104,6 +135,14 @@ public:
   int accumulate(const DiloPaperFrame& source, const DiloPaperFrame& reference,
                  const Eigen::Matrix4d& T, int kernel, Eigen::Matrix<double, 6, 6>* H,
                  Eigen::Matrix<double, 6, 1>* g) const;
+  // Edge residual (eq. 17) of one source point p against the reference edges
+  // for T (reference <- source): e = u_edge - u(T p) in pixels, with the
+  // Jacobian for the increment T exp(xi), xi = [omega, v]. False if no
+  // reference edge lies within edge_search_px on the searched rows.
+  bool edgeResidual(const Eigen::Vector3d& p, const DiloPaperFrame& reference, const Eigen::Matrix4d& T,
+                    double* e, Eigen::Matrix<double, 6, 1>* J) const;
+  // u coordinate (pixels) of a point.
+  double imageU(const Eigen::Vector3d& p) const;
   // Same for the edge residual (pixels along u).
   int accumulateEdges(const DiloPaperFrame& source, const DiloPaperFrame& reference,
                       const Eigen::Matrix4d& T, int kernel, Eigen::Matrix<double, 6, 6>* H,

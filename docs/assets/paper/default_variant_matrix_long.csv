@@ -314,10 +314,16 @@ suma,kitti_raw_0009_full,dense
 suma,kitti_raw_0061_200,dense
 suma,kitti_raw_0061_full,fast
 suma,kitti_seq_00_full,default
+suma,kitti_seq_01_full,paper_odometry_clean_lookup_elevation
 suma,kitti_seq_02_full,paper_odometry_clean_lookup_elevation
+suma,kitti_seq_03_full,paper_odometry
+suma,kitti_seq_04_full,paper_odometry
 suma,kitti_seq_05_full,default
+suma,kitti_seq_06_full,paper_odometry_clean_lookup_elevation
 suma,kitti_seq_07_full,dense_profile
 suma,kitti_seq_08_full,dense_profile
+suma,kitti_seq_09_full,paper_odometry
+suma,kitti_seq_10_full,paper_odometry
 suma,mcd_kth_day_06_108,fast
 suma,mcd_ntu_day_02_108,dense
 suma,mcd_tuhh_night_09_108,default

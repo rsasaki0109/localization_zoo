@@ -58,7 +58,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Near paper | MULLS (MULLS-LO reimplementation, `--mulls-lo`, highway profile on 01, 0.195 deg correction as the official profile; 00-10 average equals the official code's; see `papers/mulls/README.md`) | 00-10 | 1.12x |
 | Near paper | CT-ICP (upstream pipeline, `--ct-icp-upstream-mechanics`, on corrected scans as upstream; 00-10 average equals the official code's; see `papers/ct_icp/README.md`) | 00-10 | 1.15x |
 | Gap remains | L-LO (no author code; parameters chosen on seq 07; horizontal 0.577 % in 2D on 07; the paper's 00/07 values are below every roll-free trajectory built from the ground truth, see `papers/l_lo/README.md`) | 00/02/05/07/08 | 1.58x |
-| Near paper | SuMa (Frame-to-Model; paper pipeline `--suma-paper`, best of two variants per sequence; one setting for all: 1.08-1.16x; see `papers/suma/README.md`) | 00/02/05/07/08 | 0.86x |
+| Near paper | SuMa (Frame-to-Model; paper pipeline `--suma-paper`, best of two variants per sequence; 01 at 2.09x; one setting for all: 1.25x; see `papers/suma/README.md`) | 00-10 | 0.97x |
 | Near paper | Quadric-LO (vs the paper's scan-to-submap Table II; no author code) | 00/07 | 0.80x |
 | Near paper | Mesh-LOAM (no author code; paper path, `--mesh-loam-paper-odometry`: nearest-facet association, 0.1 m input, 0.22 deg correction; 1.80x before, see `papers/mesh_loam/README.md`) | 00/07 | 1.08x |
 | Gap remains | ELO (no author code; 0.195 deg correction and the paper normal patch; 2.60x before, see `papers/elo/README.md`) | 00/07 | 1.37x |

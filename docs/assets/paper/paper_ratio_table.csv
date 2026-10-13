@@ -133,13 +133,13 @@ quadric_lo,08,1.680,"Table II OURS with scan-to-submap mapping, average translat
 quadric_lo,09,0.850,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
 quadric_lo,10,1.760,"Table II OURS with scan-to-submap mapping, average translation error (%)",,,,,0,0,,
 suma,00,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.697,1.00,1.243,4,4,paper_odometry,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
-suma,01,1.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,01,1.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,3.550,2.09,8.672,2,2,paper_odometry_clean_lookup_elevation,experiments/results/suma_kitti_seq_01_full_paper_matrix.json
 suma,02,1.100,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.784,0.71,2.648,4,4,paper_odometry_clean_lookup_elevation,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
-suma,03,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
-suma,04,0.400,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,03,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.651,0.93,0.918,2,2,paper_odometry,experiments/results/suma_kitti_seq_03_full_paper_matrix.json
+suma,04,0.400,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.417,1.04,0.609,2,2,paper_odometry,experiments/results/suma_kitti_seq_04_full_paper_matrix.json
 suma,05,0.500,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.379,0.76,1.279,3,3,paper_odometry,experiments/results/suma_kitti_seq_05_full_transfer_matrix.json
-suma,06,0.400,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,06,0.400,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.286,0.71,0.408,2,2,paper_odometry,experiments/results/suma_kitti_seq_06_full_paper_matrix.json
 suma,07,0.400,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.331,0.83,0.808,4,5,paper_odometry,experiments/results/suma_kitti_seq_07_full_elevation_matrix.json
 suma,08,1.000,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.060,1.06,1.607,4,4,paper_odometry,experiments/results/suma_kitti_seq_08_full_transfer_matrix.json
-suma,09,0.500,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
-suma,10,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,09,0.500,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.510,1.02,0.736,2,2,paper_odometry,experiments/results/suma_kitti_seq_09_full_paper_matrix.json
+suma,10,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,0.698,1.00,0.797,2,2,paper_odometry,experiments/results/suma_kitti_seq_10_full_paper_matrix.json

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T03:53:01+00:00",
+  "generated_at": "2026-10-13T05:40:17+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -4052,6 +4052,15 @@
       "current_default": "default"
     },
     {
+      "problem_id": "suma_kitti_seq_01_full_paper",
+      "title": "SuMa paper pipeline on KITTI Odom seq 01 full (1101 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_01_full_paper_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json",
+      "current_default": "paper_odometry_clean_lookup_elevation"
+    },
+    {
       "problem_id": "suma_kitti_seq_02_full_transfer",
       "title": "SuMa transfer check on KITTI Odom seq 02 full (4661 frames)",
       "status": "ready",
@@ -4061,6 +4070,24 @@
       "current_default": "paper_odometry_clean_lookup_elevation"
     },
     {
+      "problem_id": "suma_kitti_seq_03_full_paper",
+      "title": "SuMa paper pipeline on KITTI Odom seq 03 full (801 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_03_full_paper_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_03_full_paper_matrix.json",
+      "current_default": "paper_odometry"
+    },
+    {
+      "problem_id": "suma_kitti_seq_04_full_paper",
+      "title": "SuMa paper pipeline on KITTI Odom seq 04 full (271 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_04_full_paper_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+      "current_default": "paper_odometry"
+    },
+    {
       "problem_id": "suma_kitti_seq_05_full_transfer",
       "title": "SuMa transfer check on KITTI Odom seq 05 full (2761 frames)",
       "status": "ready",
@@ -4068,6 +4095,15 @@
       "manifest_path": "experiments/suma_kitti_seq_05_full_transfer_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json",
       "current_default": "default"
+    },
+    {
+      "problem_id": "suma_kitti_seq_06_full_paper",
+      "title": "SuMa paper pipeline on KITTI Odom seq 06 full (1101 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_06_full_paper_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_06_full_paper_matrix.json",
+      "current_default": "paper_odometry_clean_lookup_elevation"
     },
     {
       "problem_id": "suma_kitti_seq_07_full_elevation",
@@ -4086,6 +4122,24 @@
       "manifest_path": "experiments/suma_kitti_seq_08_full_transfer_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json",
       "current_default": "dense_profile"
+    },
+    {
+      "problem_id": "suma_kitti_seq_09_full_paper",
+      "title": "SuMa paper pipeline on KITTI Odom seq 09 full (1591 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_09_full_paper_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_09_full_paper_matrix.json",
+      "current_default": "paper_odometry"
+    },
+    {
+      "problem_id": "suma_kitti_seq_10_full_paper",
+      "title": "SuMa paper pipeline on KITTI Odom seq 10 full (1201 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_10_full_paper_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_10_full_paper_matrix.json",
+      "current_default": "paper_odometry"
     },
     {
       "problem_id": "suma_mcd_kth_day_06",

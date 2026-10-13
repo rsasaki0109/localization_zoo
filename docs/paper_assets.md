@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-13T03:53:02+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-13T05:40:18+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -454,10 +454,16 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | suma | `kitti_raw_0061_200` | gt-backed | `dense` | 1.496 | 33.5 | `experiments/results/suma_kitti_raw_0061_matrix.json` |
 | suma | `kitti_raw_0061_full` | gt-backed | `fast` | 32.429 | 110.9 | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
 | suma | `kitti_seq_00_full` | gt-backed | `default` | 50.852 | 33.8 | `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json` |
+| suma | `kitti_seq_01_full` | gt-backed | `paper_odometry_clean_lookup_elevation` | 59.043 | 6.4 | `experiments/results/suma_kitti_seq_01_full_paper_matrix.json` |
 | suma | `kitti_seq_02_full` | gt-backed | `paper_odometry_clean_lookup_elevation` | 16.837 | 4.4 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
+| suma | `kitti_seq_03_full` | gt-backed | `paper_odometry` | 1.449 | 4.7 | `experiments/results/suma_kitti_seq_03_full_paper_matrix.json` |
+| suma | `kitti_seq_04_full` | gt-backed | `paper_odometry` | 0.974 | 5.0 | `experiments/results/suma_kitti_seq_04_full_paper_matrix.json` |
 | suma | `kitti_seq_05_full` | gt-backed | `default` | 10.983 | 40.3 | `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json` |
+| suma | `kitti_seq_06_full` | gt-backed | `paper_odometry_clean_lookup_elevation` | 2.873 | 4.8 | `experiments/results/suma_kitti_seq_06_full_paper_matrix.json` |
 | suma | `kitti_seq_07_full` | gt-backed | `dense_profile` | 3.971 | 35.6 | `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json` |
 | suma | `kitti_seq_08_full` | gt-backed | `dense_profile` | 19.290 | 26.6 | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |
+| suma | `kitti_seq_09_full` | gt-backed | `paper_odometry` | 6.469 | 4.4 | `experiments/results/suma_kitti_seq_09_full_paper_matrix.json` |
+| suma | `kitti_seq_10_full` | gt-backed | `paper_odometry` | 5.253 | 4.6 | `experiments/results/suma_kitti_seq_10_full_paper_matrix.json` |
 | suma | `mcd_kth_day_06_108` | gt-backed | `fast` | 7.419 | 150.2 | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
 | suma | `mcd_ntu_day_02_108` | gt-backed | `dense` | 0.036 | 33.9 | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |
 | suma | `mcd_tuhh_night_09_108` | gt-backed | `default` | 1.414 | 59.1 | `experiments/results/suma_mcd_tuhh_night_09_matrix.json` |

@@ -430,10 +430,16 @@ suma,kitti_raw_0009_full,gt-backed,dense,Dense,4.072790,15.619824,experiments/re
 suma,kitti_raw_0061_200,gt-backed,dense,Dense,1.495999,33.536524,experiments/results/suma_kitti_raw_0061_matrix.json
 suma,kitti_raw_0061_full,gt-backed,fast,Fast,32.428710,110.931140,experiments/results/suma_kitti_raw_0061_full_matrix.json
 suma,kitti_seq_00_full,gt-backed,default,default,50.851985,33.776567,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
+suma,kitti_seq_01_full,gt-backed,paper_odometry_clean_lookup_elevation,"SuMa paper pipeline, normalised model lookup + 0.22 deg correction",59.042981,6.377259,experiments/results/suma_kitti_seq_01_full_paper_matrix.json
 suma,kitti_seq_02_full,gt-backed,paper_odometry_clean_lookup_elevation,"SuMa paper pipeline, normalised model lookup + 0.22 deg correction",16.836660,4.429848,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
+suma,kitti_seq_03_full,gt-backed,paper_odometry,"SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",1.448501,4.702934,experiments/results/suma_kitti_seq_03_full_paper_matrix.json
+suma,kitti_seq_04_full,gt-backed,paper_odometry,"SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",0.974258,5.034063,experiments/results/suma_kitti_seq_04_full_paper_matrix.json
 suma,kitti_seq_05_full,gt-backed,default,default,10.983178,40.331556,experiments/results/suma_kitti_seq_05_full_transfer_matrix.json
+suma,kitti_seq_06_full,gt-backed,paper_odometry_clean_lookup_elevation,"SuMa paper pipeline, normalised model lookup + 0.22 deg correction",2.872549,4.756806,experiments/results/suma_kitti_seq_06_full_paper_matrix.json
 suma,kitti_seq_07_full,gt-backed,dense_profile,"dense_profile (Table 6 variant on seq 07, raw scans)",3.970935,35.600179,experiments/results/suma_kitti_seq_07_full_elevation_matrix.json
 suma,kitti_seq_08_full,gt-backed,dense_profile,dense profile,19.290022,26.626118,experiments/results/suma_kitti_seq_08_full_transfer_matrix.json
+suma,kitti_seq_09_full,gt-backed,paper_odometry,"SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",6.469266,4.436344,experiments/results/suma_kitti_seq_09_full_paper_matrix.json
+suma,kitti_seq_10_full,gt-backed,paper_odometry,"SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",5.252594,4.559601,experiments/results/suma_kitti_seq_10_full_paper_matrix.json
 suma,mcd_kth_day_06_108,gt-backed,fast,Fast,7.418622,150.195655,experiments/results/suma_mcd_kth_day_06_matrix.json
 suma,mcd_ntu_day_02_108,gt-backed,dense,Dense,0.035750,33.946904,experiments/results/suma_mcd_ntu_day_02_matrix.json
 suma,mcd_tuhh_night_09_108,gt-backed,default,Default,1.413916,59.102805,experiments/results/suma_mcd_tuhh_night_09_matrix.json

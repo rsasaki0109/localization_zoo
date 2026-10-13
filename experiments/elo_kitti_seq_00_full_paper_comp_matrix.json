@@ -78,6 +78,23 @@
         "--input-vertical-angle-correction-deg",
         "0.195"
       ]
+    },
+    {
+      "id": "dense_elevation_paper_normals_unbiased",
+      "label": "ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes",
+      "design_style": "reference",
+      "intent": "On top of dense_elevation_paper_normals: same-surface fusion in the closest-point SRI update (repeated minimum ranges made model surfaces creep towards the sensor), no forward (x) term from the noisy BEV ground normals, and a stricter curvature threshold (0.03) against convex-surface bias. Chosen on KITTI 07 windows, 00 held out (see papers/elo/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--elo-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.195",
+        "--elo-normal-full-patch",
+        "--elo-sri-fuse-same-surface",
+        "--elo-ground-no-forward",
+        "--elo-curvature-threshold",
+        "0.03"
+      ]
     }
   ]
 }

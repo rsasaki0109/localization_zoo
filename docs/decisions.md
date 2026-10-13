@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1666,7 +1666,7 @@ _Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_ma
 
 - Current default: `dense_elevation_paper_normals`.
 - Active challengers: `fast_profile`.
-- Reference variants: `dense_profile`, `dense_elevation`, `paper_profile_elevation`.
+- Reference variants: `dense_profile`, `dense_elevation`, `paper_profile_elevation`, `dense_elevation_paper_normals_unbiased`.
 - Aggregate result: `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
@@ -1676,10 +1676,12 @@ _Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_ma
 | dense_elevation_paper_normals | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_elevation_paper_normals_unbiased | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
-- Current default: `dense_elevation_paper_normals`.
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals`.
 - Reference variants: `fast_profile`, `dense_profile`, `dense_elevation`, `paper_profile_elevation`.
 - Aggregate result: `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json`
 
@@ -1687,9 +1689,10 @@ _Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| dense_elevation_paper_normals | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## FAST-LIO2 on the public HDL-400 reference window
 
@@ -5477,6 +5480,17 @@ _Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## SuMa paper pipeline on KITTI Odom seq 01 full (1101 frames)
+
+- Current default: `paper_odometry_clean_lookup_elevation`.
+- Reference variants: `paper_odometry`.
+- Aggregate result: `experiments/results/suma_kitti_seq_01_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_clean_lookup_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## SuMa transfer check on KITTI Odom seq 02 full (4661 frames)
 
 - Current default: `paper_odometry_clean_lookup_elevation`.
@@ -5491,6 +5505,28 @@ _Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_clean_lookup_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## SuMa paper pipeline on KITTI Odom seq 03 full (801 frames)
+
+- Current default: `paper_odometry`.
+- Reference variants: `paper_odometry_clean_lookup_elevation`.
+- Aggregate result: `experiments/results/suma_kitti_seq_03_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa paper pipeline on KITTI Odom seq 04 full (271 frames)
+
+- Current default: `paper_odometry`.
+- Reference variants: `paper_odometry_clean_lookup_elevation`.
+- Aggregate result: `experiments/results/suma_kitti_seq_04_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## SuMa transfer check on KITTI Odom seq 05 full (2761 frames)
 
 - Current default: `default`.
@@ -5502,6 +5538,17 @@ _Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa paper pipeline on KITTI Odom seq 06 full (1101 frames)
+
+- Current default: `paper_odometry_clean_lookup_elevation`.
+- Active challengers: `paper_odometry`.
+- Aggregate result: `experiments/results/suma_kitti_seq_06_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_odometry_clean_lookup_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## SuMa KITTI Odom seq 07 full: elevation correction ablation
 
@@ -5528,6 +5575,28 @@ _Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa paper pipeline on KITTI Odom seq 09 full (1591 frames)
+
+- Current default: `paper_odometry`.
+- Reference variants: `paper_odometry_clean_lookup_elevation`.
+- Aggregate result: `experiments/results/suma_kitti_seq_09_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa paper pipeline on KITTI Odom seq 10 full (1201 frames)
+
+- Current default: `paper_odometry`.
+- Reference variants: `paper_odometry_clean_lookup_elevation`.
+- Aggregate result: `experiments/results/suma_kitti_seq_10_full_paper_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## SuMa on MCD KTH day-06 sequence

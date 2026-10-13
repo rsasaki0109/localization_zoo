@@ -143,14 +143,22 @@ Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;
 | seq | dense profile | `paper_odometry` (official defaults, raw) | `paper_odometry_clean_lookup_elevation` | paper, Table II |
 |---|---:|---:|---:|---:|
 | 00 | 1.602 % | **0.697 %** | 0.884 % | 0.7 % |
+| 01 | | 13.793 % | **3.550 %** | 1.7 % |
 | 02 | 1.785 % | 3.512 % | **0.784 %** | 1.1 % |
+| 03 | | **0.651 %** | 1.186 % | 0.7 % |
+| 04 | | **0.417 %** | 0.802 % | 0.4 % |
 | 05 | 1.279 % | **0.379 %** | | 0.5 % |
+| 06 | | **0.286 %** | 0.530 % | 0.4 % |
 | 07 | 1.095 % | **0.331 %** | 0.521 % | 0.4 % |
 | 08 | 2.035 % | **1.060 %** | 1.179 % | 1.0 % |
+| 09 | | **0.510 %** | 0.962 % | 0.5 % |
+| 10 | | **0.698 %** | 0.897 % | 0.7 % |
 
-Table 6 takes the better variant per sequence: 1.00x / 0.71x / 0.76x / 0.83x /
-1.06x, geometric mean 0.86x. With one setting for every sequence the official
-defaults give 1.16x (02 fails at 3.2x) and the normalised lookup with the
-correction 1.08x on 00/02/07/08 (05 not run with it). About 4 FPS, single
+Table 6 takes the better variant per sequence: geometric mean 0.97x over
+00-10, with seq 01 (highway) at 2.09x the only sequence clearly behind. One
+setting for every sequence does worse: the official defaults give 1.25x
+(01 fails at 8.1x, 02 at 3.2x, every other sequence 0.71-1.06x), the
+normalised lookup with the correction 1.41x (05 not run with it). The two
+failures are the degenerate stretches described above (corridor, highway),
+where the forward direction is weakly constrained. About 4-6 FPS, single
 thread. The paper's numbers have one decimal.
-

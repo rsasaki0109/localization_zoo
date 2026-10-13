@@ -83,6 +83,27 @@ struct EloParams {
   // BEV cells keep one vertex, the one closer to the sensor, like the SRI
   // model (Sec. III-D), instead of a running mean.
   bool bev_keep_closest = false;
+
+  // Translation biases of the projective model (off by default; see
+  // papers/elo/README.md, "Forward drift").
+  // The SRI model update keeps the point closer to the origin on a pixel
+  // collision (Sec. III-D). Repeated every frame on noisy ranges, that
+  // minimum pulls model surfaces towards the sensor (about 1.3 cm on KITTI
+  // 07), and where the surfaces around the car are unbalanced (more behind
+  // than ahead) the pull becomes a forward bias. With this on, two points
+  // within sri_same_surface_tolerance in range are averaged (vertex and
+  // normal, weighted by their counts, capped at sri_max_fuse_count); the
+  // closer point still wins across larger gaps (occlusion).
+  bool sri_fuse_same_surface = false;
+  double sri_same_surface_tolerance = 0.2;
+  int sri_max_fuse_count = 10;
+  // Ground residuals keep their x (forward) Jacobian column by default. The
+  // flat ground carries little real forward information, but its five-point
+  // BEV normals are noisy (rms x component about 0.15 on KITTI 07) and the
+  // nearest model vertex sits up to ground_search_radius_cells away, so the
+  // many ground residuals add a biased forward term. false zeroes that
+  // column.
+  bool ground_constrains_forward = true;
 };
 
 struct EloResult {
@@ -173,7 +194,7 @@ class EloPipeline {
   void initializeModel(const FrameData& frame);
   void updateModel(const FrameData& frame, const Eigen::Matrix4d& model_to_current);
   void insertSri(std::vector<ModelCell>* model, const Eigen::Vector3d& point,
-                 const Eigen::Vector3d& normal, int stamp);
+                 const Eigen::Vector3d& normal, int stamp, int count = 1);
   void insertBev(std::vector<ModelCell>* model, const Eigen::Vector3d& point,
                  int stamp, int count = 1);
 

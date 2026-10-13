@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `481` ready, `1` blocked, `14` skipped problems.
+Current coverage: `487` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -147,7 +147,7 @@ Current coverage: `481` ready, `1` blocked, `14` skipped problems.
 | DLO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.101 | 15.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `dogfooding_results/kitti_raw_0009_full` |
 | ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals` | 12.632 | 4.3 | `dogfooding_results/kitti_seq_00_full` |
-| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals` | 1.418 | 4.4 | `dogfooding_results/kitti_seq_07_full` |
+| ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals_unbiased` | 1.418 | 4.4 | `dogfooding_results/kitti_seq_07_full` |
 | F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.972 | 8.7 | `dogfooding_results/kitti_seq_07_full` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.883 | 28.0 | `dogfooding_results/kitti_raw_0009_200` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.883 | 24.6 | `dogfooding_results/kitti_raw_0009_200` |
@@ -464,6 +464,12 @@ Current coverage: `481` ready, `1` blocked, `14` skipped problems.
 | SuMa on MCD NTU day-02 sequence | `ready` | `dense` | 0.036 | 124.1 | `dogfooding_results/mcd_ntu_day_02_108` |
 | SuMa on MCD TUHH night-09 sequence | `ready` | `default` | 1.317 | 178.1 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | SuMa on the public HDL-400 reference window | `ready` | `default` | 0.183 | 168.4 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| SuMa paper pipeline on KITTI Odom seq 01 full (1101 frames) | `ready` | `paper_odometry_clean_lookup_elevation` | 59.043 | 6.6 | `dogfooding_results/kitti_seq_01_full` |
+| SuMa paper pipeline on KITTI Odom seq 03 full (801 frames) | `ready` | `paper_odometry` | 1.449 | 4.7 | `dogfooding_results/kitti_seq_03_full` |
+| SuMa paper pipeline on KITTI Odom seq 04 full (271 frames) | `ready` | `paper_odometry` | 0.974 | 5.0 | `dogfooding_results/kitti_seq_04_full` |
+| SuMa paper pipeline on KITTI Odom seq 06 full (1101 frames) | `ready` | `paper_odometry_clean_lookup_elevation` | 2.873 | 4.8 | `dogfooding_results/kitti_seq_06_full` |
+| SuMa paper pipeline on KITTI Odom seq 09 full (1591 frames) | `ready` | `paper_odometry` | 6.469 | 4.4 | `dogfooding_results/kitti_seq_09_full` |
+| SuMa paper pipeline on KITTI Odom seq 10 full (1201 frames) | `ready` | `paper_odometry` | 5.253 | 4.6 | `dogfooding_results/kitti_seq_10_full` |
 | SuMa transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `default` | 8.196 | 33.8 | `dogfooding_results/kitti_seq_00_full` |
 | SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `paper_odometry_clean_lookup_elevation` | 16.837 | 38.0 | `dogfooding_results/kitti_seq_02_full` |
 | SuMa transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 3.420 | 40.3 | `dogfooding_results/kitti_seq_05_full` |
@@ -522,7 +528,7 @@ Current coverage: `481` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 481 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 487 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

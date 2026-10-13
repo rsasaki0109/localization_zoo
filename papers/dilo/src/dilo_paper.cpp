@@ -263,66 +263,172 @@ std::shared_ptr<DiloPaperFrame> DiloPaperOdometry::buildFrame(
 
   frame->edge_cols.assign(H, {});
   if (params_.use_edges) {
-    // D = dI_e/du, then the Harris response of D; line edges are its
-    // negative local minima (Sec. 3.5).
-    std::vector<float> D(n, 0.0f);
-    std::vector<unsigned char> d_ok(n, 0);
-    for (int r = 2; r < H - 2; ++r)
-      for (int c = 0; c < W; ++c) {
-        auto tv = [&](int rr, int cc, double* v) {
-          const float x = texture[index(rr, cc)];
-          if (x < 0.0f) return false;
-          *v = x;
-          return true;
-        };
-        double du;
-        if (filter(r, c, true, tv, &du)) {
-          D[index(r, c)] = static_cast<float>(du);
-          d_ok[index(r, c)] = 1;
+    auto wrap = [&](int c) { return (c % W + W) % W; };
+    // score: larger is a stronger edge; candidates are the local extrema.
+    std::vector<float> score(n, 0.0f);
+    std::vector<unsigned char> s_ok(n, 0);
+    std::vector<int> cand;
+    if (params_.edge_detector == 2) {
+      // Vertical ridges of I_e: maxima along u, sharper along u than along v.
+      std::vector<unsigned char> ridge(n, 0);
+      for (int r = 3; r < H - 3; ++r)
+        for (int c = 0; c < W; ++c) {
+          const int i = index(r, c);
+          const float t = texture[i];
+          if (t < 0.0f) continue;
+          const float tl = texture[index(r, wrap(c - 1))], tr = texture[index(r, wrap(c + 1))];
+          const float tu = texture[index(r - 1, c)], td = texture[index(r + 1, c)];
+          if (tl < 0.0f || tr < 0.0f || tu < 0.0f || td < 0.0f) continue;
+          const double iuu = tl + tr - 2.0 * t, ivv = tu + td - 2.0 * t;
+          score[i] = static_cast<float>(-iuu);
+          s_ok[i] = 1;
+          if (t > tl && t >= tr && iuu < 0.0 && -iuu > std::abs(ivv)) ridge[i] = 1;
+        }
+      // Keep ridge pixels continued on the row above or below (within one column).
+      for (int r = 3; r < H - 3; ++r)
+        for (int c = 0; c < W; ++c) {
+          const int i = index(r, c);
+          if (!ridge[i]) continue;
+          bool cont = false;
+          for (int dr : {-1, 1})
+            for (int dc = -1; dc <= 1; ++dc) cont = cont || ridge[index(r + dr, wrap(c + dc))];
+          if (cont) cand.push_back(i);
+        }
+    } else if (params_.edge_detector == 3) {
+      // Standard Harris on I_e with the gradients (dI_e/du, dI_e/dv); line
+      // edges (negative response) whose gradient is mostly along u, minima
+      // along u.
+      std::vector<float> Iu(n, 0.0f), Iv(n, 0.0f);
+      std::vector<unsigned char> g_ok(n, 0);
+      for (int r = 2; r < H - 2; ++r)
+        for (int c = 0; c < W; ++c) {
+          auto tv = [&](int rr, int cc, double* v) {
+            const float x = texture[index(rr, cc)];
+            if (x < 0.0f) return false;
+            *v = x;
+            return true;
+          };
+          double du, dv;
+          if (filter(r, c, true, tv, &du) && filter_rows(r, c, tv, &dv)) {
+            Iu[index(r, c)] = static_cast<float>(du);
+            Iv[index(r, c)] = static_cast<float>(dv);
+            g_ok[index(r, c)] = 1;
+          }
+        }
+      std::vector<unsigned char> vertical(n, 0);
+      for (int r = 3; r < H - 3; ++r)
+        for (int c = 0; c < W; ++c) {
+          double sxx = 0, syy = 0, sxy = 0;
+          bool ok = true;
+          for (int dr = -1; dr <= 1 && ok; ++dr)
+            for (int dc = -1; dc <= 1; ++dc) {
+              const int j = index(r + dr, wrap(c + dc));
+              if (!g_ok[j]) { ok = false; break; }
+              sxx += Iu[j] * Iu[j];
+              syy += Iv[j] * Iv[j];
+              sxy += Iu[j] * Iv[j];
+            }
+          if (!ok) continue;
+          score[index(r, c)] =
+              -static_cast<float>(sxx * syy - sxy * sxy - params_.harris_k * (sxx + syy) * (sxx + syy));
+          s_ok[index(r, c)] = 1;
+          vertical[index(r, c)] = sxx > syy;
+        }
+      for (int r = 3; r < H - 3; ++r)
+        for (int c = 0; c < W; ++c) {
+          const int i = index(r, c);
+          if (!s_ok[i] || !vertical[i] || score[i] <= 0.0f) continue;
+          const int l = index(r, wrap(c - 1)), rt = index(r, wrap(c + 1));
+          if ((s_ok[l] && score[l] > score[i]) || (s_ok[rt] && score[rt] >= score[i])) continue;
+          cand.push_back(i);
+        }
+    } else {
+      // D = dI_e/du, then the Harris response of D; line edges are its
+      // negative local minima (Sec. 3.5).
+      std::vector<float> D(n, 0.0f);
+      std::vector<unsigned char> d_ok(n, 0);
+      for (int r = 2; r < H - 2; ++r)
+        for (int c = 0; c < W; ++c) {
+          auto tv = [&](int rr, int cc, double* v) {
+            const float x = texture[index(rr, cc)];
+            if (x < 0.0f) return false;
+            *v = x;
+            return true;
+          };
+          double du;
+          if (filter(r, c, true, tv, &du)) {
+            D[index(r, c)] = static_cast<float>(du);
+            d_ok[index(r, c)] = 1;
+          }
+        }
+      for (int r = 4; r < H - 4; ++r)
+        for (int c = 0; c < W; ++c) {
+          double sxx = 0, syy = 0, sxy = 0;
+          bool ok = true;
+          for (int dr = -1; dr <= 1 && ok; ++dr)
+            for (int dc = -1; dc <= 1; ++dc) {
+              const int rr = r + dr, cc = wrap(c + dc);
+              const int l = index(rr, wrap(cc - 1)), rt = index(rr, wrap(cc + 1));
+              const int up = index(rr - 1, cc), dn = index(rr + 1, cc);
+              if (!d_ok[l] || !d_ok[rt] || !d_ok[up] || !d_ok[dn]) { ok = false; break; }
+              const double gx = 0.5 * (D[rt] - D[l]), gy = 0.5 * (D[dn] - D[up]);
+              sxx += gx * gx;
+              syy += gy * gy;
+              sxy += gx * gy;
+            }
+          if (!ok) continue;
+          // Score = -Harris response (line edges are negative).
+          score[index(r, c)] =
+              -static_cast<float>(sxx * syy - sxy * sxy - params_.harris_k * (sxx + syy) * (sxx + syy));
+          s_ok[index(r, c)] = 1;
+        }
+      for (int r = 5; r < H - 5; ++r)
+        for (int c = 0; c < W; ++c) {
+          const int i = index(r, c);
+          if (!s_ok[i] || score[i] <= 0.0f) continue;
+          bool extremum = true;
+          for (int dr = (params_.edge_detector == 1 ? 0 : -1); dr <= (params_.edge_detector == 1 ? 0 : 1) && extremum; ++dr)
+            for (int dc = -1; dc <= 1; ++dc) {
+              if (!dr && !dc) continue;
+              const int j = index(r + dr, wrap(c + dc));
+              if (s_ok[j] && score[j] > score[i]) { extremum = false; break; }
+            }
+          if (extremum) cand.push_back(i);
+        }
+    }
+    std::sort(cand.begin(), cand.end(), [&](int a, int b) { return score[a] > score[b]; });
+    // Sub-pixel u of an edge from the parabola through the score along u.
+    auto edgeU = [&](int i) {
+      const int r = i / W, c = i % W;
+      double off = 0.0;
+      if (params_.edge_subpixel) {
+        const int l = index(r, wrap(c - 1)), rt = index(r, wrap(c + 1));
+        if (s_ok[l] && s_ok[rt]) {
+          const double sl = score[l], s0 = score[i], sr = score[rt];
+          const double den = sl - 2.0 * s0 + sr;
+          if (den < 0.0) off = std::clamp(0.5 * (sl - sr) / den, -0.5, 0.5);
         }
       }
-    auto wrap = [&](int c) { return (c % W + W) % W; };
-    std::vector<float> resp(n, 0.0f);
-    std::vector<unsigned char> r_ok(n, 0);
-    for (int r = 4; r < H - 4; ++r)
-      for (int c = 0; c < W; ++c) {
-        double sxx = 0, syy = 0, sxy = 0;
-        bool ok = true;
-        for (int dr = -1; dr <= 1 && ok; ++dr)
-          for (int dc = -1; dc <= 1; ++dc) {
-            const int rr = r + dr, cc = wrap(c + dc);
-            const int l = index(rr, wrap(cc - 1)), rt = index(rr, wrap(cc + 1));
-            const int up = index(rr - 1, cc), dn = index(rr + 1, cc);
-            if (!d_ok[l] || !d_ok[rt] || !d_ok[up] || !d_ok[dn]) { ok = false; break; }
-            const double gx = 0.5 * (D[rt] - D[l]), gy = 0.5 * (D[dn] - D[up]);
-            sxx += gx * gx;
-            syy += gy * gy;
-            sxy += gx * gy;
-          }
-        if (!ok) continue;
-        resp[index(r, c)] = static_cast<float>(sxx * syy - sxy * sxy - params_.harris_k * (sxx + syy) * (sxx + syy));
-        r_ok[index(r, c)] = 1;
+      return c + 0.5 + off;
+    };
+    const size_t n_src = std::min<size_t>(cand.size(), static_cast<size_t>(params_.max_edge_points));
+    const size_t n_ref = std::min<size_t>(
+        cand.size(), static_cast<size_t>(params_.edge_reference_points > 0 ? params_.edge_reference_points
+                                                                            : params_.max_edge_points));
+    for (size_t k = 0; k < std::max(n_src, n_ref); ++k) {
+      const int i = cand[k];
+      const double u = edgeU(i);
+      if (k < n_ref) frame->edge_cols[i / W].push_back(u);
+      if (k < n_src) {
+        Eigen::Vector3d p = frame->point[i].cast<double>();
+        if (params_.edge_subpixel) {
+          double du = u - imageU(p);
+          if (du > W / 2.0) du -= W;
+          if (du < -W / 2.0) du += W;
+          p = Eigen::AngleAxisd(du / scale_, Eigen::Vector3d::UnitZ()) * p;
+        }
+        frame->edge_points.push_back(p);
       }
-    std::vector<std::pair<float, int>> edges;
-    for (int r = 5; r < H - 5; ++r)
-      for (int c = 0; c < W; ++c) {
-        const int i = index(r, c);
-        if (!r_ok[i] || resp[i] >= 0.0f) continue;
-        bool minimum = true;
-        for (int dr = -1; dr <= 1 && minimum; ++dr)
-          for (int dc = -1; dc <= 1; ++dc) {
-            if (!dr && !dc) continue;
-            const int j = index(r + dr, wrap(c + dc));
-            if (r_ok[j] && resp[j] < resp[i]) { minimum = false; break; }
-          }
-        if (minimum) edges.emplace_back(resp[i], i);
-      }
-    const size_t keep = std::min<size_t>(edges.size(), static_cast<size_t>(params_.max_edge_points));
-    std::partial_sort(edges.begin(), edges.begin() + keep, edges.end());
-    edges.resize(keep);
-    for (const auto& e : edges) {
-      frame->edge_points.push_back(frame->point[e.second].cast<double>());
-      frame->edge_cols[e.second / W].push_back(e.second % W);
     }
     for (auto& row : frame->edge_cols) std::sort(row.begin(), row.end());
   }
@@ -399,50 +505,68 @@ int DiloPaperOdometry::accumulate(const DiloPaperFrame& source, const DiloPaperF
   return pairs;
 }
 
+double DiloPaperOdometry::imageU(const Eigen::Vector3d& p) const {
+  const int W = params_.width;
+  const double u = scale_ * std::atan2(p.y(), p.x()) + W / 2.0;
+  return std::fmod(std::fmod(u, W) + W, W);
+}
+
+bool DiloPaperOdometry::edgeResidual(const Eigen::Vector3d& p, const DiloPaperFrame& reference,
+                                     const Eigen::Matrix4d& T, double* e,
+                                     Eigen::Matrix<double, 6, 1>* J) const {
+  const Eigen::Matrix3d R = T.block<3, 3>(0, 0);
+  const Eigen::Vector3d x = R * p + T.block<3, 1>(0, 3);
+  const double rxy2 = x.x() * x.x() + x.y() * x.y();
+  if (rxy2 < 1e-6) return false;
+  int row, col;
+  if (!project(x, &row, &col)) return false;
+  const int W = params_.width;
+  const double u = imageU(x);
+  // Nearest reference edge along u (with wrap-around) on the searched rows.
+  double best = 1e9;
+  for (int rr = std::max(0, row - params_.edge_row_search);
+       rr <= std::min(params_.height - 1, row + params_.edge_row_search); ++rr) {
+    const auto& cols = reference.edge_cols[rr];
+    if (cols.empty()) continue;
+    const auto it = std::lower_bound(cols.begin(), cols.end(), u);
+    for (auto jt : {it, it == cols.begin() ? cols.end() - 1 : it - 1}) {
+      if (jt == cols.end()) jt = cols.begin();
+      double d = *jt - u;
+      if (d > W / 2.0) d -= W;
+      if (d < -W / 2.0) d += W;
+      if (std::abs(d) < std::abs(best)) best = d;
+    }
+  }
+  if (std::abs(best) > params_.edge_search_px) return false;
+  *e = best;
+  // e = u_edge - u(x'), x' = R (exp(omega) p + v) + t; du/dx' = s (-y, x, 0) / (x^2 + y^2)
+  // (the u row of eq. 15), dx'/dxi = R [-[p]x | I] (eq. 13 in the source frame).
+  const Eigen::Vector3d du_dx = scale_ * Eigen::Vector3d(-x.y(), x.x(), 0.0) / rxy2;
+  const Eigen::Vector3d a = R.transpose() * du_dx;
+  J->head<3>() = a.cross(p);
+  J->tail<3>() = -a;
+  return true;
+}
+
 int DiloPaperOdometry::accumulateEdges(const DiloPaperFrame& source, const DiloPaperFrame& reference,
                                        const Eigen::Matrix4d& T, int kernel,
                                        Eigen::Matrix<double, 6, 6>* H,
                                        Eigen::Matrix<double, 6, 1>* g) const {
-  const Eigen::Matrix3d R = T.block<3, 3>(0, 0);
-  const Eigen::Vector3d t = T.block<3, 1>(0, 3);
-  const int W = params_.width;
+  const double delta = params_.edge_huber_delta > 0.0 ? params_.edge_huber_delta : params_.huber_delta;
+  const double c = params_.edge_tukey_c > 0.0 ? params_.edge_tukey_c : params_.tukey_c;
   int pairs = 0;
   for (const auto& p : source.edge_points) {
-    const Eigen::Vector3d x = R * p + t;
-    const double rxy2 = x.x() * x.x() + x.y() * x.y();
-    if (rxy2 < 1e-6) continue;
-    int row, col;
-    if (!project(x, &row, &col)) continue;
-    const auto& cols = reference.edge_cols[row];
-    if (cols.empty()) continue;
-    double u = scale_ * std::atan2(x.y(), x.x()) + W / 2.0;
-    u = std::fmod(std::fmod(u, W) + W, W);
-    // Nearest edge column along u (with wrap-around).
-    double best = 1e9;
-    auto it = std::lower_bound(cols.begin(), cols.end(), static_cast<int>(u));
-    for (auto jt : {it, it == cols.begin() ? cols.end() - 1 : it - 1}) {
-      if (jt == cols.end()) jt = cols.begin();
-      double e = (*jt + 0.5) - u;
-      if (e > W / 2.0) e -= W;
-      if (e < -W / 2.0) e += W;
-      if (std::abs(e) < std::abs(best)) best = e;
-    }
-    const double e = best;
-    if (std::abs(e) > params_.edge_search_px) continue;
+    double e;
+    Eigen::Matrix<double, 6, 1> J;
+    if (!edgeResidual(p, reference, T, &e, &J)) continue;
     double w;
     if (kernel == 0) {
-      w = std::abs(e) <= params_.huber_delta ? 1.0 : params_.huber_delta / std::abs(e);
+      w = std::abs(e) <= delta ? 1.0 : delta / std::abs(e);
     } else {
-      if (std::abs(e) >= params_.tukey_c) continue;
-      const double q = 1.0 - (e / params_.tukey_c) * (e / params_.tukey_c);
+      if (std::abs(e) >= c) continue;
+      const double q = 1.0 - (e / c) * (e / c);
       w = q * q;
     }
-    // e = u_edge - u(x'), x' = R (p + w x p + v) + t.
-    const Eigen::Vector3d du_dx = scale_ * Eigen::Vector3d(-x.y(), x.x(), 0.0) / rxy2;
-    const Eigen::Vector3d a = R.transpose() * du_dx;
-    Eigen::Matrix<double, 6, 1> J;
-    J.head<3>() = a.cross(p);
-    J.tail<3>() = -a;
     *H += w * J * J.transpose();
     *g += w * J * e;
     ++pairs;
@@ -461,8 +585,41 @@ bool DiloPaperOdometry::step(const DiloPaperFrame& source, const std::vector<con
     if (params_.use_edges) edge_pairs += accumulateEdges(source, *refs[j], T[j], kernel, &He, &ge);
   }
   if (pairs < 6) return false;
+  // Directions the edge term may move: xi = [omega_x, omega_y, omega_z, v_x, v_y, v_z].
+  static const std::vector<int> kYaw = {2}, kPlanar = {2, 3, 4}, kAll = {0, 1, 2, 3, 4, 5};
+  const std::vector<int>& dofs = params_.edge_dofs == 1 ? kYaw : params_.edge_dofs == 3 ? kPlanar : kAll;
+  if (params_.use_edges && dofs.size() < 6) {
+    Eigen::Matrix<double, 6, 6> Hr = Eigen::Matrix<double, 6, 6>::Zero();
+    Eigen::Matrix<double, 6, 1> gr = Eigen::Matrix<double, 6, 1>::Zero();
+    for (int a : dofs) {
+      gr(a) = ge(a);
+      for (int b : dofs) Hr(a, b) = He(a, b);
+    }
+    He = Hr;
+    ge = gr;
+  }
+  if (params_.use_edges && params_.edge_sum_normal_equations) {
+    // One system: plane residuals in metres, edge residuals in pixels
+    // weighted by edge_weight.
+    *d = (H + params_.edge_weight * He).ldlt().solve(-(g + params_.edge_weight * ge));
+    return d->allFinite();
+  }
   *d = H.ldlt().solve(-g);
   if (params_.use_edges && edge_pairs >= 12) {
+    if (dofs.size() < 6) {
+      // Edge step on its directions only, averaged there with the plane step.
+      const int m = static_cast<int>(dofs.size());
+      Eigen::MatrixXd Hs(m, m);
+      Eigen::VectorXd gs(m);
+      for (int a = 0; a < m; ++a) {
+        gs(a) = ge(dofs[a]);
+        for (int b = 0; b < m; ++b) Hs(a, b) = He(dofs[a], dofs[b]);
+      }
+      const Eigen::VectorXd ds = Hs.ldlt().solve(-gs);
+      if (ds.allFinite())
+        for (int a = 0; a < m; ++a) (*d)(dofs[a]) = 0.5 * ((*d)(dofs[a]) + ds(a));
+      return d->allFinite();
+    }
     // The edge residual constrains only azimuth-like directions; solve it
     // with a small damping and average the two steps (Algorithm 1).
     He += 1e-6 * He.trace() * Eigen::Matrix<double, 6, 6>::Identity();

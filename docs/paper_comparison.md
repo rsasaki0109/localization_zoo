@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-13T03:53:27+00:00
+> Generated: 2026-10-13T07:25:01+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -454,10 +454,10 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 **Hardware**: Intel i7-6700 @ 3.4 GHz, 16 GB RAM, Nvidia GeForce GTX 960 (GPU)
 **Repo scope**: Paper reimplementation with the paper's frame-to-model pipeline (SuMaPaper) — Dense surfel odometry from range-image maps inside the shared benchmark harness.
-**Current claim**: Near paper on KITTI Odometry 00/02/05/07/08 (paper pipeline) — --suma-paper (rendered surfel model, projective frame-to-model ICP, surfel stability and fusion, official default.xml values, no loop closure). Official KITTI RTE: official defaults on raw scans 0.697 / 3.512 / 0.379 / 0.331 / 1.060 % on 00/02/05/07/08; normalised model lookup + 0.22 deg correction 0.884 / 0.784 / - / 0.521 / 1.179 %; paper 0.7 / 1.1 / 0.5 / 0.4 / 1.0 %. Best variant per sequence 0.86x; one setting for all 1.16x (official) or 1.08x (normalised, 4 sequences). The dense profile scored 1.60/1.78/1.28/1.10/2.03 %.
-**Numeric comparison**: Same metric, 0.86x on 00/02/05/07/08 (best of two variants per sequence) — seq 00 0.697 vs 0.7 (1.00x), seq 02 0.784 vs 1.1 (0.71x), seq 05 0.379 vs 0.5 (0.76x), seq 07 0.331 vs 0.4 (0.83x), seq 08 1.060 vs 1.0 (1.06x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: No single setting wins everywhere: with the official model lookup on raw scans the seq 02 corridors drift forward (weakly constrained x, ground normals biased by the elevation bowl); the normalised lookup with the correction fixes 02 but costs on 00/07/08. Official SuMa (GPU/OpenGL) still cannot run here for a direct check.
-**Next step**: Run the paper pipeline on the remaining KITTI sequences; check the official code on a GPU host.
+**Current claim**: Near paper on KITTI Odometry 00-10 (paper pipeline) — --suma-paper (rendered surfel model, projective frame-to-model ICP, surfel stability and fusion, official default.xml values, no loop closure). Official KITTI RTE 00-10, official defaults on raw scans: 0.697 / 13.793 / 3.512 / 0.651 / 0.417 / 0.379 / 0.286 / 0.331 / 1.060 / 0.510 / 0.698 %; normalised model lookup + 0.22 deg correction: 0.884 / 3.550 / 0.784 / 1.186 / 0.802 / - / 0.530 / 0.521 / 1.179 / 0.962 / 0.897 %; paper 0.7 / 1.7 / 1.1 / 0.7 / 0.4 / 0.5 / 0.4 / 0.4 / 1.0 / 0.5 / 0.7 %. Best variant per sequence 0.97x (01 2.09x); one setting for all 1.25x (official) or 1.41x (normalised).
+**Numeric comparison**: Same metric, 0.97x on 00-10 (best of two variants per sequence) — Best variant per sequence: 00 1.00x, 01 2.09x, 02 0.71x, 03 0.93x, 04 1.04x, 05 0.76x, 06 0.71x, 07 0.83x, 08 1.06x, 09 1.02x, 10 1.00x. See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: No single setting wins everywhere: the official model lookup on raw scans drifts forward on degenerate stretches (02 corridors 3.2x, 01 highway 8.1x); the normalised lookup with the correction fixes 02 and halves 01 (still 2.09x) but costs elsewhere. Official SuMa (GPU/OpenGL) cannot run here for a direct check.
+**Next step**: Look at the seq 01 highway (forward degeneracy); check the official code on a GPU host.
 
 ### Paper-Reported Values
 
@@ -486,10 +486,16 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Fast | 32.429 | - | - | 110.93 |
 | KITTI | Dense | 1.496 | - | - | 33.54 |
 | KITTI | default | 50.852 | 2.582 | 0.028282 | 33.78 |
+| KITTI | SuMa paper pipeline, normalised model lookup + 0.22 deg correction | 59.043 | 3.508 | 0.003011 | 6.38 |
 | KITTI | SuMa paper pipeline, normalised model lookup + 0.22 deg correction | 16.837 | 0.905 | 0.003883 | 4.43 |
+| KITTI | SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP) | 1.449 | 0.910 | 0.005307 | 4.70 |
+| KITTI | SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP) | 0.974 | 0.392 | 0.002635 | 5.03 |
 | KITTI | default | 10.983 | 2.013 | 0.021825 | 40.33 |
+| KITTI | SuMa paper pipeline, normalised model lookup + 0.22 deg correction | 2.873 | 0.470 | 0.004529 | 4.76 |
 | KITTI | dense_profile (Table 6 variant on seq 07, raw scans) | 3.971 | 0.944 | 0.008807 | 35.60 |
 | KITTI | dense profile | 19.290 | 1.909 | 0.012225 | 26.63 |
+| KITTI | SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP) | 6.469 | 0.634 | 0.003811 | 4.44 |
+| KITTI | SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP) | 5.253 | 0.782 | 0.004395 | 4.56 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast | 7.419 | - | - | 150.20 |
 | dogfooding_results/mcd_ntu_day_02_108 | Dense | 0.036 | - | - | 33.95 |
 | dogfooding_results/mcd_tuhh_night_09_108 | Default | 1.414 | - | - | 59.10 |
@@ -650,8 +656,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (official KITTI t_rel (100-800 m))
 **Hardware**: laptop CPU (paper Sec. V)
 **Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: KITTI Odometry 00/07 with the correction and the paper normal patch — The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07 vs the paper's 0.54 / 0.31 % (1.21x / 1.55x, geometric mean 1.37x; the harness profile was 2.60x). The other paper mechanics as read here (adaptive fusion w = 0.7 w2, two-sided ground test, 0.1 m single-vertex BEV, raw input, plain Gauss-Newton) each make seq 07 worse; all together (--elo-paper-profile) score 1.638 / 1.111 %. See papers/elo/README.md.
-**Numeric comparison**: Same metric, 1.37x on 00/07 — dense_elevation_paper_normals: seq 00 0.656 vs 0.54 (1.21x), seq 07 0.480 vs 0.31 (1.55x). Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Current claim**: KITTI Odometry 00/07 with the correction and the paper normal patch — The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07. Three forward-bias fixes of the projective model (same-surface fusion in the closest-point SRI update, no forward term from the noisy BEV ground normals, curvature threshold 0.03), chosen on 07 windows with 00 held out, bring it to 0.586 / 0.391 % vs the paper's 0.54 / 0.31 % (1.09x / 1.26x, geometric mean 1.17x). See papers/elo/README.md.
+**Numeric comparison**: Same metric, 1.17x on 00/07 — dense_elevation_paper_normals_unbiased: seq 00 0.586 vs 0.54 (1.09x), seq 07 0.391 vs 0.31 (1.26x). Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
 **Main blocker**: The paper fusion weight w2 ("inlier ratio between the non-ground points and ground ones") is ambiguous; the reading implemented here does not help.
 **Next step**: Try other readings of w2 and the ground test; run the remaining KITTI sequences.
 
@@ -676,7 +682,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
 | KITTI | ELO dense profile + 0.195 deg correction + the paper's normal patch size | 12.632 | 0.862 | 0.004886 | 3.11 |
-| KITTI | ELO dense profile + 0.195 deg correction + the paper's normal patch size | 1.418 | 0.615 | 0.003476 | 3.25 |
+| KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 1.521 | 0.437 | 0.003413 | 3.64 |
 
 **Notes**: Paper average 0.50 % (online test 0.68 %). The frame-to-frame variant scores 1.14/0.83/0.91/1.25/0.83/0.75/0.76/0.60/1.34/1.18/2.57 %. No loop closure. Values read from the paper PDF on 2026-10-12.
 

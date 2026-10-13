@@ -1,0 +1,117 @@
+{
+  "generated_at": "2026-10-13T05:39:19+00:00",
+  "manifest_path": "experiments/suma_kitti_seq_10_full_paper_matrix.json",
+  "problem": {
+    "id": "suma_kitti_seq_10_full_paper",
+    "title": "SuMa paper pipeline on KITTI Odom seq 10 full (1201 frames)",
+    "question": "How close is the SuMa paper pipeline (frame-to-model on a rendered surfel map) to the paper's Frame-to-Model value on KITTI seq 10?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_odometry",
+      "label": "SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",
+      "design_style": "reference",
+      "intent": "SuMaPaper on raw scans with the official default.xml values: 900 x 64 vertex/normal maps, model view rendered from active stable surfels, projective association with 2 m / 30 deg gates, Huber 0.5, Gauss-Newton with frame-to-frame fallback, surfel radius, stability log-odds and fusion (RSS 2018). No vertical-angle correction (the official KITTI reader applies none; it hurts here). No loop closure.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_10_full_paper_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper",
+      "summary_path": "experiments/results/runs/suma_kitti_seq_10_full_paper_matrix/paper_odometry/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_seq_10_full_paper_matrix/paper_odometry/run.log",
+      "status": "ok",
+      "ate_m": 5.252594,
+      "rpe_trans_pct": 0.782007,
+      "rpe_rot_deg_per_m": 0.004395,
+      "fps": 4.559601,
+      "time_ms": 263400.252801,
+      "frames": 1201,
+      "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0",
+      "benchmark_score": 100.0,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.69788,
+      "kitti_rte_rot_deg_per_100m": 0.30262,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_odometry_clean_lookup_elevation",
+      "label": "SuMa paper pipeline, normalised model lookup + 0.22 deg correction",
+      "design_style": "reference",
+      "intent": "SuMaPaper with the bilinear model lookup normalised over valid texels (the official lookup blends empty texels in, a bias towards the sensor) and the 0.22 deg KITTI vertical-angle correction. Fixes the forward drift in the seq 02 corridors where the official lookup and the elevation bowl of raw scans bias the weakly constrained forward direction (see papers/suma/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "normalize_bilinear=1",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_10_full_paper_matrix/paper_odometry_clean_lookup_elevation/summary.json --no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22",
+      "summary_path": "experiments/results/runs/suma_kitti_seq_10_full_paper_matrix/paper_odometry_clean_lookup_elevation/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_seq_10_full_paper_matrix/paper_odometry_clean_lookup_elevation/run.log",
+      "status": "ok",
+      "ate_m": 6.595717,
+      "rpe_trans_pct": 0.879215,
+      "rpe_rot_deg_per_m": 0.004033,
+      "fps": 4.499624,
+      "time_ms": 266911.187999,
+      "frames": 1201,
+      "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0",
+      "benchmark_score": 89.16,
+      "readability_score": 3.1,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.7,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 0.896946,
+      "kitti_rte_rot_deg_per_100m": 0.286692,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

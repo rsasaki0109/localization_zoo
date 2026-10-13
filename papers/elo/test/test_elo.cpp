@@ -5,6 +5,8 @@
 #include <Eigen/Geometry>
 
 #include <cmath>
+#include <cstdio>
+#include <random>
 #include <vector>
 
 using namespace localization_zoo::elo;
@@ -43,6 +45,17 @@ std::vector<Eigen::Vector3d> scanFromPose(const Eigen::Vector3d& t,
     const Eigen::Vector3d p_s = R.transpose() * (p_w - t);
     const double r = p_s.norm();
     if (r > 0.2 && r < 30.0) scan.push_back(p_s);
+  }
+  return scan;
+}
+
+// The scan from a static pose with Gaussian range noise along each ray.
+std::vector<Eigen::Vector3d> noisyStaticScan(std::mt19937* rng, double sigma) {
+  std::normal_distribution<double> noise(0.0, sigma);
+  auto scan = scanFromPose(Eigen::Vector3d(0.0, 0.0, 1.2));
+  for (auto& p : scan) {
+    const double r = p.norm();
+    p *= (r + noise(*rng)) / r;
   }
   return scan;
 }
@@ -122,6 +135,44 @@ TEST(ELO, RecoversSmallYaw) {
 
 TEST(ELO, TracksTranslationSequence) {
   EloPipeline pipeline(testParams());
+  const Eigen::Vector3d base(0.0, 0.0, 1.2);
+  pipeline.registerFrame(scanFromPose(base));
+  const Eigen::Vector3d step(0.12, 0.0, 0.0);
+  for (int i = 1; i <= 6; ++i) {
+    const auto res = pipeline.registerFrame(scanFromPose(base + i * step));
+    EXPECT_TRUE(res.converged) << "frame " << i;
+  }
+  const Eigen::Vector3d est = pipeline.pose().block<3, 1>(0, 3);
+  EXPECT_LT((est - 6.0 * step).norm(), 0.12);
+}
+
+// Keeping the closer point on every SRI collision (the paper's update) turns
+// range noise into a model that creeps towards the sensor. With only a front
+// wall to fix x, that pulls a static sensor along x; fusing points on the
+// same surface keeps it in place.
+double staticNoisyDriftX(bool fuse_same_surface) {
+  EloParams params = testParams();
+  params.sri_fuse_same_surface = fuse_same_surface;
+  EloPipeline pipeline(params);
+  std::mt19937 rng(7);
+  for (int i = 0; i < 12; ++i) pipeline.registerFrame(noisyStaticScan(&rng, 0.03));
+  return pipeline.pose()(0, 3);
+}
+
+TEST(ELO, SameSurfaceFusionRemovesClosestPointCreep) {
+  const double drift_closest = staticNoisyDriftX(false);
+  const double drift_fused = staticNoisyDriftX(true);
+  std::printf("static noisy drift x: closest %.4f m, fused %.4f m\n",
+              drift_closest, drift_fused);
+  EXPECT_LT(std::abs(drift_fused), 0.5 * std::abs(drift_closest));
+  EXPECT_LT(std::abs(drift_fused), 0.01);
+}
+
+TEST(ELO, BiasOptionsStillTrackTranslationSequence) {
+  EloParams params = testParams();
+  params.sri_fuse_same_surface = true;
+  params.ground_constrains_forward = false;
+  EloPipeline pipeline(params);
   const Eigen::Vector3d base(0.0, 0.0, 1.2);
   pipeline.registerFrame(scanFromPose(base));
   const Eigen::Vector3d step(0.12, 0.0, 0.0);

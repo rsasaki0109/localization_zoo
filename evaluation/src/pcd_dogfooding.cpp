@@ -2528,6 +2528,10 @@ struct DiloDogfoodingOptions {
   int paper_keypoints_per_list = 100;
   bool paper_causal_output = false;
   bool paper_edges = false;
+  int paper_edge_detector = 0;
+  bool paper_edge_subpixel = false;
+  int paper_edge_dofs = 6;
+  double paper_edge_sum_weight = 0.0;  // > 0: summed normal equations
 };
 
 struct NhcLioDogfoodingOptions {
@@ -2695,6 +2699,9 @@ struct EloDogfoodingOptions {
   bool ground_requires_both_sides = false;
   bool normal_patch_full_size = false;
   bool bev_keep_closest = false;
+  bool sri_fuse_same_surface = false;
+  bool ground_constrains_forward = true;
+  double curvature_threshold = -1.0;  // < 0: library default
   double robust_scale = 0.5;
   int sri_search_radius_px = 1;
   bool paper_profile = false;
@@ -8259,6 +8266,13 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   params.update_iterations = options.paper_update_iterations;
   params.keypoints_per_list = options.paper_keypoints_per_list;
   params.use_edges = options.paper_edges;
+  params.edge_detector = options.paper_edge_detector;
+  params.edge_subpixel = options.paper_edge_subpixel;
+  params.edge_dofs = options.paper_edge_dofs;
+  if (options.paper_edge_sum_weight > 0.0) {
+    params.edge_sum_normal_equations = true;
+    params.edge_weight = options.paper_edge_sum_weight;
+  }
   DiloPaperOdometry odometry(params);
   const Eigen::Matrix4d anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
   std::vector<Eigen::Matrix4d> causal;
@@ -8864,6 +8878,9 @@ MethodResult runElo(const std::vector<std::string>& pcd_dirs,
   params.ground_requires_both_sides = options.ground_requires_both_sides;
   params.normal_patch_full_size = options.normal_patch_full_size;
   params.bev_keep_closest = options.bev_keep_closest;
+  params.sri_fuse_same_surface = options.sri_fuse_same_surface;
+  params.ground_constrains_forward = options.ground_constrains_forward;
+  if (options.curvature_threshold >= 0.0) params.curvature_threshold = options.curvature_threshold;
   params.robust_scale = options.robust_scale;
   params.sri_search_radius_px = options.sri_search_radius_px;
   EloPipeline pipeline(params);
@@ -14799,6 +14816,25 @@ int main(int argc, char** argv) {
       dilo_options.paper_edges = true;
       continue;
     }
+    if (arg == "--dilo-paper-edge-detector") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-edge-detector requires a value" << std::endl; return 1; }
+      dilo_options.paper_edge_detector = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-edge-subpixel") {
+      dilo_options.paper_edge_subpixel = true;
+      continue;
+    }
+    if (arg == "--dilo-paper-edge-dofs") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-edge-dofs requires a value" << std::endl; return 1; }
+      dilo_options.paper_edge_dofs = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-edge-sum-weight") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-edge-sum-weight requires a value" << std::endl; return 1; }
+      dilo_options.paper_edge_sum_weight = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--dilo-paper-causal") {
       dilo_options.paper_causal_output = true;
       continue;
@@ -15181,6 +15217,19 @@ int main(int argc, char** argv) {
     }
     if (arg == "--elo-ground-both-sides") {
       elo_options.ground_requires_both_sides = true;
+      continue;
+    }
+    if (arg == "--elo-sri-fuse-same-surface") {
+      elo_options.sri_fuse_same_surface = true;
+      continue;
+    }
+    if (arg == "--elo-ground-no-forward") {
+      elo_options.ground_constrains_forward = false;
+      continue;
+    }
+    if (arg == "--elo-curvature-threshold") {
+      if (i + 1 >= argc) { std::cerr << "--elo-curvature-threshold requires a value" << std::endl; return 1; }
+      elo_options.curvature_threshold = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--elo-normal-full-patch") {

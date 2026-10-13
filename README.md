@@ -49,6 +49,7 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 | Re-run a paper-number row myself | [`reproduce_paper_row.py`](#paper-number-check-official-kitti-rte) (one command: fetch, run, score) |
 | Reproduce or extend a benchmark | [Experiment-driven development](#experiment-driven-development) · [CONTRIBUTING](CONTRIBUTING.md) |
 | Add a new paper | [Adding a new paper](#adding-a-new-paper) |
+| Port a method to KITTI without the usual traps | [KITTI pitfalls](docs/kitti_pitfalls.md) (elevation correction, deskew, ring order, association, map biases, degenerate stretches) |
 
 ---
 

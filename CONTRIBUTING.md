@@ -42,6 +42,10 @@ mkdir -p papers/your_method/{include/your_method,src,test}
 # 5. Run ctest and keep the full suite passing
 ```
 
+Before tuning on KITTI, go through [docs/kitti_pitfalls.md](docs/kitti_pitfalls.md)
+(elevation correction, no deskew, no ring index, association with transformed
+points, map and model biases, degenerate stretches, held-out evaluation).
+
 A complete "one paper unit" PR includes:
 
 1. **≥3 mechanism unit tests** that exercise the *distinctive* idea of the paper

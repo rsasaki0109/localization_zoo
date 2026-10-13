@@ -118,3 +118,84 @@ Full sequences (`experiments/elo_kitti_seq_{00,07}_full_paper_comp_matrix.json`)
 
 The selective variant is 1.21x / 1.55x the paper (geometric mean 1.37x, from
 2.60x before).
+
+### Forward drift: biases of the projective model
+
+The best variant over-estimates distance on seq 07. On 400-scan windows, the
+estimated path is 0.54 % (f0-399) and 0.24 % (f400-799) too long. The windows
+are measured with a scratch driver that runs the dense profile, the 0.195 deg
+correction and the full-size normal patch on KITTI `.bin` scans, and reports
+official RTE. Each per-frame increment error was summed in the sensor frame and
+compared with the official MULLS run on the same scans. Lateral (+y), yaw and,
+on seq 00, pitch drift are the same for both methods to within a few
+centimetres, so they come from the reference poses or the data, not from ELO.
+The forward excess is ELO's own: x +1.38 m against +0.02 m for MULLS on 07
+f0-399, and +0.96 m against +0.06 m on 00 f400-799.
+
+The direction of that pull was found by taking one Gauss-Newton step from the
+ground-truth increment against the model as it stood. Three causes showed up:
+
+- **Closest-point SRI update.** The SRI model keeps the closer point on every
+  pixel collision (Sec. III-D). The minimum is taken again every frame on noisy
+  ranges, so model surfaces creep towards the sensor. At the ground-truth
+  increment, non-ground residuals put the model surface 12-13 mm in front of
+  the current points, both ahead of and behind the car. These pulls do not
+  cancel, so a net forward term remains. A unit test shows the creep: a static
+  sensor with 3 cm range noise moves 0.12 m in 12 scans.
+- **Ground forward term.** Ground normals come from the five closest BEV
+  vertices. They are noisy (rms x component about 0.15). The nearest model
+  vertex is also 0.1 m away horizontally on average, and up to 3 cells
+  (0.6 m). Together these give the many
+  ground residuals a biased forward term: about +1.3 mm per scan once the SRI
+  creep is removed. This is the analogue of SuMa's ground-normal bias. Here,
+  though, the correction angle has no effect on it: with 0.15, 0.195 or
+  0.22 deg the forward drift is the same, and only pitch changes.
+- **Curved surfaces.** With `curvature_threshold = 0.1`, foliage and convex
+  objects enter the non-ground term. Their tangent planes leave current points
+  behind the model: a residual bias of about 5 mm remains after the fusion
+  fix. A threshold of 0.03 lowers it to about 3 mm (the paper gives no
+  value).
+
+The fixes are opt-in `EloParams` fields, with defaults unchanged:
+
+- `sri_fuse_same_surface` (`sri_same_surface_tolerance = 0.2` m,
+  `sri_max_fuse_count = 10`): points within the tolerance in range are
+  averaged. The closer point still wins across larger gaps (occlusion).
+- `ground_constrains_forward = false`: zeroes the x column of the ground
+  Jacobian.
+- `curvature_threshold = 0.03`.
+
+Results on top of `dense_elevation_paper_normals` (official RTE, 400-scan
+windows). The variant was chosen on 07, and 00 is held out:
+
+| variant | 07 f0-399 | 07 f400-799 | 07 f800-1100 | 00 f0-399 | 00 f400-799 |
+|---|---:|---:|---:|---:|---:|
+| `dense_elevation_paper_normals` | 0.622 % | 0.544 % | 0.328 % | 1.254 % | 0.573 % |
+| + same-surface fusion | 0.451 % | 0.484 % | | 1.090 % | |
+| + curvature 0.03 | 0.563 % | 0.383 % | | | |
+| + ground without x | 0.593 % | 0.526 % | | | |
+| + fusion + curvature 0.03 | 0.451 % | 0.415 % | | | |
+| + fusion + ground without x | 0.397 % | 0.463 % | | 1.116 % | |
+| + ground without x + curvature 0.03 | 0.483 % | 0.318 % | | | |
+| **+ all three** | **0.383 %** | **0.345 %** | **0.292 %** | **1.098 %** | **0.573 %** |
+| all three, curvature 0.02 / 0.05 | 0.399 / 0.395 % | 0.325 / 0.384 % | | | |
+| all three, ground without yaw, x, y | 0.378 % (c 0.1) | 0.627 % (c 0.1) | | | |
+| all three, 0.22 deg correction | 0.378 % | 0.407 % | | | |
+| official MULLS, same scans | 0.326 % | 0.411 % | 0.304 % | 1.013 % | 0.627 % |
+
+With all three changes, the summed forward error falls to +0.21 / +0.23 /
++0.07 m on the 07 windows and +0.07 m on 00 f400-799. The remaining
+per-axis errors match MULLS. On 00 f400-799 the RTE does not change: the
+lateral error (+2.1 m for both methods) dominates there, and the old forward
+excess had partly cancelled it.
+
+Two observations from the same windows:
+
+- Dropping all three planar ground directions (yaw, x and y) loses yaw on
+  07 f400-799.
+- With the fixes in place, the 0.1 m single-vertex BEV (0.373 / 0.332 %) and
+  fusion mode 2 (0.374 / 0.359 %) no longer hurt. They do not clearly help
+  either.
+
+Full-sequence runs need harness flags for the three fields. They are not yet
+in `pcd_dogfooding`.

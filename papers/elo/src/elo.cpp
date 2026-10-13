@@ -503,7 +503,8 @@ Eigen::Matrix4d EloPipeline::align(const FrameData& frame,
       Eigen::Matrix<double, 3, 6> Jp;
       Jp.block<3, 3>(0, 0) = -skew(p_model);
       Jp.block<3, 3>(0, 3) = Eigen::Matrix3d::Identity();
-      const Eigen::Matrix<double, 1, 6> J = corr.normal.transpose() * Jp;
+      Eigen::Matrix<double, 1, 6> J = corr.normal.transpose() * Jp;
+      if (fp.ground && !params_.ground_constrains_forward) J(3) = 0.0;
 
       double weight = params_.fusion_mode >= 1
                           ? 1.0
@@ -595,17 +596,36 @@ Eigen::Matrix4d EloPipeline::align(const FrameData& frame,
 
 void EloPipeline::insertSri(std::vector<ModelCell>* model,
                             const Eigen::Vector3d& point,
-                            const Eigen::Vector3d& normal, int stamp) {
+                            const Eigen::Vector3d& normal, int stamp,
+                            int count) {
   int row = 0, col = 0;
   if (!projectSri(point, &row, &col)) return;
   ModelCell& cell = (*model)[static_cast<size_t>(sriIndex(row, col))];
   const double range = point.norm();
+  count = std::max(1, count);
+  if (params_.sri_fuse_same_surface && cell.valid &&
+      std::abs(range - cell.range) <= params_.sri_same_surface_tolerance) {
+    // Same surface: average instead of keeping the minimum range, which
+    // would drift the surface towards the sensor frame after frame.
+    const double wo = static_cast<double>(std::max(1, cell.count));
+    const double wn = static_cast<double>(count);
+    Eigen::Vector3d n_new = normal.normalized();
+    if (n_new.dot(cell.normal) < 0.0) n_new = -n_new;
+    cell.point = (wo * cell.point + wn * point) / (wo + wn);
+    const Eigen::Vector3d n = wo * cell.normal + wn * n_new;
+    if (n.norm() > 1e-9) cell.normal = n.normalized();
+    cell.range = cell.point.norm();
+    cell.stamp = std::max(cell.stamp, stamp);
+    cell.count = std::min(std::max(1, params_.sri_max_fuse_count),
+                          cell.count + count);
+    return;
+  }
   if (!cell.valid || range < cell.range) {
     cell.point = point;
     cell.normal = normal.normalized();
     cell.range = range;
     cell.stamp = stamp;
-    cell.count = 1;
+    cell.count = count;
     cell.valid = true;
     cell.has_normal = true;
   }
@@ -667,7 +687,8 @@ void EloPipeline::updateModel(const FrameData& frame,
   for (const auto& cell : sri_model_) {
     if (!cell.valid || !cell.has_normal) continue;
     if (frame_count_ - cell.stamp > params_.model_window_frames) continue;
-    insertSri(&next_sri, R * cell.point + t, R * cell.normal, cell.stamp);
+    insertSri(&next_sri, R * cell.point + t, R * cell.normal, cell.stamp,
+              cell.count);
   }
   for (const auto& cell : bev_model_) {
     if (!cell.valid) continue;

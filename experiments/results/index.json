@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:54:02+00:00",
+  "generated_at": "2026-10-13T02:37:52+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -4058,7 +4058,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_seq_02_full_transfer_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json",
-      "current_default": "dense_profile"
+      "current_default": "paper_odometry_clean_lookup_elevation"
     },
     {
       "problem_id": "suma_kitti_seq_05_full_transfer",

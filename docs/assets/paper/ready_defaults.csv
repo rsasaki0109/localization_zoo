@@ -430,7 +430,7 @@ suma,kitti_raw_0009_full,gt-backed,dense,Dense,4.072790,15.619824,experiments/re
 suma,kitti_raw_0061_200,gt-backed,dense,Dense,1.495999,33.536524,experiments/results/suma_kitti_raw_0061_matrix.json
 suma,kitti_raw_0061_full,gt-backed,fast,Fast,32.428710,110.931140,experiments/results/suma_kitti_raw_0061_full_matrix.json
 suma,kitti_seq_00_full,gt-backed,default,default,50.851985,33.776567,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
-suma,kitti_seq_02_full,gt-backed,dense_profile,dense profile,51.910872,24.216214,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
+suma,kitti_seq_02_full,gt-backed,paper_odometry_clean_lookup_elevation,"SuMa paper pipeline, normalised model lookup + 0.22 deg correction",16.836660,4.429848,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
 suma,kitti_seq_05_full,gt-backed,default,default,10.983178,40.331556,experiments/results/suma_kitti_seq_05_full_transfer_matrix.json
 suma,kitti_seq_07_full,gt-backed,dense_profile,"dense_profile (Table 6 variant on seq 07, raw scans)",3.970935,35.600179,experiments/results/suma_kitti_seq_07_full_elevation_matrix.json
 suma,kitti_seq_08_full,gt-backed,dense_profile,dense profile,19.290022,26.626118,experiments/results/suma_kitti_seq_08_full_transfer_matrix.json

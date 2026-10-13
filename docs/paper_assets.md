@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-13T01:54:10+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-13T02:37:53+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -454,7 +454,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | suma | `kitti_raw_0061_200` | gt-backed | `dense` | 1.496 | 33.5 | `experiments/results/suma_kitti_raw_0061_matrix.json` |
 | suma | `kitti_raw_0061_full` | gt-backed | `fast` | 32.429 | 110.9 | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
 | suma | `kitti_seq_00_full` | gt-backed | `default` | 50.852 | 33.8 | `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json` |
-| suma | `kitti_seq_02_full` | gt-backed | `dense_profile` | 51.911 | 24.2 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
+| suma | `kitti_seq_02_full` | gt-backed | `paper_odometry_clean_lookup_elevation` | 16.837 | 4.4 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
 | suma | `kitti_seq_05_full` | gt-backed | `default` | 10.983 | 40.3 | `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json` |
 | suma | `kitti_seq_07_full` | gt-backed | `dense_profile` | 3.971 | 35.6 | `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json` |
 | suma | `kitti_seq_08_full` | gt-backed | `dense_profile` | 19.290 | 26.6 | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |

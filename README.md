@@ -122,14 +122,14 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 | Method | Seq 00 | Seq 02 | Seq 05 | Seq 07 | Seq 08 |
 |---|---:|---:|---:|---:|---:|
 |  | _4541 fr_ | _4661 fr_ | _2761 fr_ | _1101 fr_ | _4071 fr_ |
+| SuMa | **0.82%** <sub>(8 m)</sub> | 0.91% <sub>(17 m)</sub> | **0.42%** <sub>(3 m)</sub> | **0.42%** <sub>(1 m)</sub> | **1.30%** <sub>(24 m)</sub> |
 | LF-GICP | 0.82% <sub>(9 m)</sub> | 0.89% <sub>(33 m)</sub> | 0.51% <sub>(6 m)</sub> | 0.54% <sub>(1 m)</sub> | 1.35% <sub>(16 m)</sub> |
 | LeGO-LOAM | 0.84% <sub>(13 m)</sub> | **0.88%** <sub>(42 m)</sub> | 0.56% <sub>(6 m)</sub> | 0.53% <sub>(3 m)</sub> | 1.38% <sub>(18 m)</sub> |
 | A-LOAM | 0.89% <sub>(12 m)</sub> | 0.92% <sub>(50 m)</sub> | 0.53% <sub>(5 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.39% <sub>(18 m)</sub> |
 | KISS-ICP | 0.87% <sub>(14 m)</sub> | 0.92% <sub>(35 m)</sub> | 0.67% <sub>(5 m)</sub> | 0.60% <sub>(1 m)</sub> | 1.33% <sub>(22 m)</sub> |
 | F-LOAM | 0.92% <sub>(10 m)</sub> | 0.94% <sub>(52 m)</sub> | 0.54% <sub>(6 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.40% <sub>(20 m)</sub> |
 | CT-ICP | 0.96% <sub>(12 m)</sub> | 0.97% <sub>(46 m)</sub> | 0.71% <sub>(6 m)</sub> | 0.70% <sub>(2 m)</sub> | 1.34% <sub>(31 m)</sub> |
-| MULLS | 0.98% <sub>(16 m)</sub> | 1.02% <sub>(47 m)</sub> | 0.78% <sub>(7 m)</sub> | 0.73% <sub>(2 m)</sub> | **1.32%** <sub>(30 m)</sub> |
-| SuMa | **0.82%** <sub>(8 m)</sub> | 1.28% <sub>(52 m)</sub> | **0.42%** <sub>(3 m)</sub> | **0.42%** <sub>(1 m)</sub> | 1.91% <sub>(19 m)</sub> |
+| MULLS | 0.98% <sub>(16 m)</sub> | 1.02% <sub>(47 m)</sub> | 0.78% <sub>(7 m)</sub> | 0.73% <sub>(2 m)</sub> | 1.32% <sub>(30 m)</sub> |
 | L-LO | 1.54% <sub>(16 m)</sub> | 3.97% <sub>(142 m)</sub> | 1.59% <sub>(15 m)</sub> | 1.17% <sub>(3 m)</sub> | 2.05% <sub>(36 m)</sub> |
 
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
@@ -254,7 +254,7 @@ optimistic bounds.
 | MULLS | 00-10 | 1.12x | near paper with the MULLS-LO reimplementation (`--mulls-lo`, highway profile on 01) on corrected scans; the 00-10 average equals the official code's ([details](papers/mulls/README.md)) |
 | CT-ICP | 00-10 | 1.15x | near paper with the upstream pipeline (`--ct-icp-upstream-mechanics`) on corrected scans; the 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains (no author code; parameters chosen on seq 07, 00/02/05/08 held out). The horizontal module scores 0.577 % in 2D on 07. The paper's 00 and 07 values are below every roll-free trajectory built from the ground truth ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
-| SuMa | 00/02/05/07/08 | 2.21x | gap remains |
+| SuMa | 00/02/05/07/08 | 0.86x | near paper with the paper's frame-to-model pipeline (`--suma-paper`: rendered surfel model, projective ICP); best variant per sequence, one setting for all gives 1.08-1.16x ([details](papers/suma/README.md#full-sequences)) |
 | Quadric-LO | 00/07 | 0.80x | near paper (vs the paper's scan-to-submap Table II; no author code) |
 | Mesh-LOAM | 00/07 | 1.08x | near paper with the paper's nearest-facet association, 0.1 m input and the 0.22 deg correction (`--mesh-loam-paper-odometry`), from 1.80x; no author code ([details](papers/mesh_loam/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
 | ELO | 00/07 | 1.37x | gap remains (no author code); with the 0.195 deg correction the paper applies and its normal patch size, from 2.60x ([details](papers/elo/README.md#paper-mechanics-and-the-gap-to-the-paper)) |

@@ -58,7 +58,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Near paper | MULLS (MULLS-LO reimplementation, `--mulls-lo`, highway profile on 01, 0.195 deg correction as the official profile; 00-10 average equals the official code's; see `papers/mulls/README.md`) | 00-10 | 1.12x |
 | Near paper | CT-ICP (upstream pipeline, `--ct-icp-upstream-mechanics`, on corrected scans as upstream; 00-10 average equals the official code's; see `papers/ct_icp/README.md`) | 00-10 | 1.15x |
 | Gap remains | L-LO (no author code; parameters chosen on seq 07; horizontal 0.577 % in 2D on 07; the paper's 00/07 values are below every roll-free trajectory built from the ground truth, see `papers/l_lo/README.md`) | 00/02/05/07/08 | 1.58x |
-| Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
+| Near paper | SuMa (Frame-to-Model; paper pipeline `--suma-paper`, best of two variants per sequence; one setting for all: 1.08-1.16x; see `papers/suma/README.md`) | 00/02/05/07/08 | 0.86x |
 | Near paper | Quadric-LO (vs the paper's scan-to-submap Table II; no author code) | 00/07 | 0.80x |
 | Near paper | Mesh-LOAM (no author code; paper path, `--mesh-loam-paper-odometry`: nearest-facet association, 0.1 m input, 0.22 deg correction; 1.80x before, see `papers/mesh_loam/README.md`) | 00/07 | 1.08x |
 | Gap remains | ELO (no author code; 0.195 deg correction and the paper normal patch; 2.60x before, see `papers/elo/README.md`) | 00/07 | 1.37x |
@@ -73,9 +73,9 @@ code's on the same pipeline, both 1.13x the paper's 0.50 %; CT-ICP only with
 `--ct-icp-upstream-mechanics` and the correction, whose 00-10 average, 0.587 %,
 equals the official code's 0.585 % on the same scans, 1.10x the paper's per-sequence
 values; MULLS only with `--mulls-lo`, whose 00-10 average, 0.572 %, equals the
-official code's 0.576 %, 1.06x the paper's per-sequence values); L-LO, SuMa, ELO, DiLO, and InTEn-LOAM run on the same metric but do **not** reproduce the
+official code's 0.576 %, 1.06x the paper's per-sequence values); L-LO, ELO, DiLO, and InTEn-LOAM run on the same metric but do **not** reproduce the
 paper numbers. What may not be claimed: faithful reproduction for
-L-LO, SuMa, ELO, DiLO, or InTEn-LOAM, a KISS-ICP, CT-ICP, or MULLS claim for the repository default, or any ratio as unbiased. The repository value is the
+L-LO, ELO, DiLO, or InTEn-LOAM, a KISS-ICP, CT-ICP, or MULLS claim for the repository default, or any ratio as unbiased. The repository value is the
 best variant of a sweep **selected on the evaluated sequence**, so every ratio
 is an optimistic bound, except the L-LO and SuMa rows on 00/02/05/08, whose variants were chosen on seq 07 and transferred unchanged; SuMa's paper values have one decimal, and A-LOAM is
 compared with LOAM values cited by later papers because LOAM has no

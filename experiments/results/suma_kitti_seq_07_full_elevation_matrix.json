@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:53:27+00:00",
+  "generated_at": "2026-10-13T02:37:25+00:00",
   "manifest_path": "experiments/suma_kitti_seq_07_full_elevation_matrix.json",
   "problem": {
     "id": "suma_kitti_seq_07_full_elevation",
@@ -139,6 +139,48 @@
       "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
       "kitti_rte_trans_pct": 0.331226,
       "kitti_rte_rot_deg_per_100m": 0.249031,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_odometry_clean_lookup_elevation",
+      "label": "SuMa paper pipeline, normalised model lookup + 0.22 deg correction",
+      "design_style": "reference",
+      "intent": "SuMaPaper with the bilinear model lookup normalised over valid texels (the official lookup blends empty texels in, a bias towards the sensor) and the 0.22 deg KITTI vertical-angle correction. Fixes the forward drift in the seq 02 corridors where the official lookup and the elevation bowl of raw scans bias the weakly constrained forward direction (see papers/suma/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "normalize_bilinear=1",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/paper_odometry_clean_lookup_elevation/summary.json --no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22",
+      "summary_path": "experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/paper_odometry_clean_lookup_elevation/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/paper_odometry_clean_lookup_elevation/run.log",
+      "status": "ok",
+      "ate_m": 1.417036,
+      "rpe_trans_pct": 0.587667,
+      "rpe_rot_deg_per_m": 0.003702,
+      "fps": 4.353058,
+      "time_ms": 252925.62898,
+      "frames": 1101,
+      "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0",
+      "benchmark_score": 43.5,
+      "readability_score": 3.1,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.7,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 0.52105,
+      "kitti_rte_rot_deg_per_100m": 0.284176,
       "host": {
         "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
         "logical_cores": 4,

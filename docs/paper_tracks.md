@@ -1,6 +1,6 @@
 # Paper Tracks
 
-_Generated at 2026-10-13T01:54:04+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-13T02:37:53+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
@@ -465,9 +465,9 @@ Current coverage: `481` ready, `1` blocked, `14` skipped problems.
 | SuMa on MCD TUHH night-09 sequence | `ready` | `default` | 1.317 | 178.1 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | SuMa on the public HDL-400 reference window | `ready` | `default` | 0.183 | 168.4 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | SuMa transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `default` | 8.196 | 33.8 | `dogfooding_results/kitti_seq_00_full` |
-| SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `dense_profile` | 51.911 | 38.0 | `dogfooding_results/kitti_seq_02_full` |
+| SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `paper_odometry_clean_lookup_elevation` | 16.837 | 38.0 | `dogfooding_results/kitti_seq_02_full` |
 | SuMa transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 3.420 | 40.3 | `dogfooding_results/kitti_seq_05_full` |
-| SuMa transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `dense_profile` | 19.290 | 39.6 | `dogfooding_results/kitti_seq_08_full` |
+| SuMa transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `dense_profile` | 15.718 | 39.6 | `dogfooding_results/kitti_seq_08_full` |
 | VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 1.674 | 6.2 | `dogfooding_results/kitti_raw_0009_200` |
 | VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 2.252 | 8.4 | `dogfooding_results/kitti_raw_0009_full` |
 | VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.799 | 31.0 | `dogfooding_results/kitti_raw_0061_200` |

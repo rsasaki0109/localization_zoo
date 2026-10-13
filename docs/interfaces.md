@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T02:37:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -531,7 +531,7 @@ The runner is responsible for:
 | SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/suma_kitti_raw_0061_full_matrix.json` | `suma` | `fast` | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
 | SuMa on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/suma_kitti_raw_0061_matrix.json` | `suma` | `dense` | `experiments/results/suma_kitti_raw_0061_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/suma_kitti_seq_00_full_transfer_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json` |
-| SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/suma_kitti_seq_02_full_transfer_matrix.json` | `suma` | `dense_profile` | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
+| SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/suma_kitti_seq_02_full_transfer_matrix.json` | `suma` | `paper_odometry_clean_lookup_elevation` | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/suma_kitti_seq_05_full_transfer_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json` |
 | SuMa KITTI Odom seq 07 full: elevation correction ablation | `ready` | `experiments/suma_kitti_seq_07_full_elevation_matrix.json` | `suma` | `dense_profile` | `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/suma_kitti_seq_08_full_transfer_matrix.json` | `suma` | `dense_profile` | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |

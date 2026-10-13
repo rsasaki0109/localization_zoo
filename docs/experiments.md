@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T02:37:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -456,10 +456,10 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 | SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 15.381 | 110.9 | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
 | SuMa on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `dense` | 1.496 | 111.2 | `experiments/results/suma_kitti_raw_0061_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `default` | 8.196 | 33.8 | `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json` |
-| SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `dense_profile` | 51.911 | 38.0 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
+| SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `paper_odometry_clean_lookup_elevation` | 16.837 | 38.0 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 3.420 | 40.3 | `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json` |
 | SuMa KITTI Odom seq 07 full: elevation correction ablation | `ready` | `dense_profile` | 1.060 | 35.6 | `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json` |
-| SuMa transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `dense_profile` | 19.290 | 39.6 | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |
+| SuMa transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `dense_profile` | 15.718 | 39.6 | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |
 | SuMa on MCD KTH day-06 sequence | `ready` | `fast` | 6.064 | 150.2 | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
 | SuMa on MCD NTU day-02 sequence | `ready` | `dense` | 0.036 | 124.1 | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |
 | SuMa on MCD TUHH night-09 sequence | `ready` | `default` | 1.317 | 178.1 | `experiments/results/suma_mcd_tuhh_night_09_matrix.json` |
@@ -27560,6 +27560,7 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 | default | balanced | 50.852 | 33.8 | 58.1 | 4.65 | 4.75 | Adopt as current default |
 | dense profile | accuracy | 18.961 | 24.2 | 57.4 | 4.30 | 4.50 | Keep as active challenger |
 | SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP) | reference | 8.196 | 4.4 | 56.5 | 4.30 | 4.50 | Keep as active challenger |
+| SuMa paper pipeline, normalised model lookup + 0.22 deg correction | reference | 9.903 | 3.7 | 46.8 | 3.10 | 3.70 | Keep as reference variant |
 
 ### Observations
 
@@ -27602,6 +27603,17 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
+#### `paper_odometry_clean_lookup_elevation`
+
+- Intent: SuMaPaper with the bilinear model lookup normalised over valid texels (the official lookup blends empty texels in, a bias towards the sensor) and the 0.22 deg KITTI vertical-angle correction. Fixes the forward drift in the seq 02 corridors where the official lookup and the elevation bowl of raw scans bias the weakly constrained forward direction (see papers/suma/README.md).
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/paper_odometry_clean_lookup_elevation/summary.json --no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/paper_odometry_clean_lookup_elevation/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/paper_odometry_clean_lookup_elevation/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
 
 ## SuMa transfer check on KITTI Odom seq 02 full (4661 frames)
 
@@ -27617,14 +27629,16 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| default | balanced | 150.183 | 38.0 | 67.3 | 4.65 | 4.75 | Keep as reference variant |
-| dense profile | accuracy | 51.911 | 24.2 | 81.8 | 4.30 | 4.50 | Adopt as current default |
+| default | balanced | 150.183 | 38.0 | 55.6 | 4.65 | 4.75 | Keep as active challenger |
+| dense profile | accuracy | 51.911 | 24.2 | 48.1 | 4.30 | 4.50 | Keep as reference variant |
+| SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP) | reference | 70.308 | 4.2 | 17.5 | 4.30 | 4.50 | Keep as reference variant |
+| SuMa paper pipeline, normalised model lookup + 0.22 deg correction | reference | 16.837 | 4.4 | 55.8 | 3.10 | 3.70 | Adopt as current default |
 
 ### Observations
 
-1. `dense_profile` is the current default for this problem.
+1. `paper_odometry_clean_lookup_elevation` is the current default for this problem.
 2. `default` is the fastest observed variant at 38.0 FPS.
-3. `dense_profile` is the most accurate observed variant at 51.911 m ATE.
+3. `paper_odometry_clean_lookup_elevation` is the most accurate observed variant at 16.837 m ATE.
 
 ### Variant Notes
 
@@ -27649,6 +27663,28 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+#### `paper_odometry`
+
+- Intent: SuMaPaper on raw scans with the official default.xml values: 900 x 64 vertex/normal maps, model view rendered from active stable surfels, projective association with 2 m / 30 deg gates, Huber 0.5, Gauss-Newton with frame-to-frame fallback, surfel radius, stability log-odds and fusion (RSS 2018). No vertical-angle correction (the official KITTI reader applies none; it hurts here). No loop closure.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=97
+
+#### `paper_odometry_clean_lookup_elevation`
+
+- Intent: SuMaPaper with the bilinear model lookup normalised over valid texels (the official lookup blends empty texels in, a bias towards the sensor) and the 0.22 deg KITTI vertical-angle correction. Fixes the forward drift in the seq 02 corridors where the official lookup and the elevation bowl of raw scans bias the weakly constrained forward direction (see papers/suma/README.md).
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/paper_odometry_clean_lookup_elevation/summary.json --no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/paper_odometry_clean_lookup_elevation/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/paper_odometry_clean_lookup_elevation/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
 
 ## SuMa transfer check on KITTI Odom seq 05 full (2761 frames)
@@ -27728,6 +27764,7 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 | dense_profile (Table 6 variant on seq 07, raw scans) | reference | 3.971 | 35.6 | 63.3 | 4.30 | 4.50 | Adopt as current default |
 | dense_profile (Table 6 variant on seq 07, raw scans) + KITTI 0.205 deg elevation correction | ablation | 3.694 | 34.5 | 62.8 | 3.70 | 4.10 | Keep as active challenger |
 | SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP) | reference | 1.060 | 3.7 | 55.3 | 4.30 | 4.50 | Keep as reference variant |
+| SuMa paper pipeline, normalised model lookup + 0.22 deg correction | reference | 1.417 | 4.4 | 43.5 | 3.10 | 3.70 | Keep as reference variant |
 
 ### Observations
 
@@ -27770,6 +27807,17 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
+#### `paper_odometry_clean_lookup_elevation`
+
+- Intent: SuMaPaper with the bilinear model lookup normalised over valid texels (the official lookup blends empty texels in, a bias towards the sensor) and the 0.22 deg KITTI vertical-angle correction. Fixes the forward drift in the seq 02 corridors where the official lookup and the elevation bowl of raw scans bias the weakly constrained forward direction (see papers/suma/README.md).
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/paper_odometry_clean_lookup_elevation/summary.json --no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/paper_odometry_clean_lookup_elevation/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_07_full_elevation_matrix/paper_odometry_clean_lookup_elevation/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
 
 ## SuMa transfer check on KITTI Odom seq 08 full (4071 frames)
 
@@ -27785,14 +27833,16 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| default | balanced | 64.033 | 39.6 | 65.1 | 4.65 | 4.75 | Keep as reference variant |
-| dense profile | accuracy | 19.290 | 26.6 | 83.6 | 4.30 | 4.50 | Adopt as current default |
+| default | balanced | 64.033 | 39.6 | 62.3 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile | accuracy | 19.290 | 26.6 | 74.4 | 4.30 | 4.50 | Adopt as current default |
+| SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP) | reference | 24.050 | 4.0 | 37.7 | 4.30 | 4.50 | Keep as reference variant |
+| SuMa paper pipeline, normalised model lookup + 0.22 deg correction | reference | 15.718 | 4.0 | 55.0 | 3.10 | 3.70 | Keep as reference variant |
 
 ### Observations
 
 1. `dense_profile` is the current default for this problem.
 2. `default` is the fastest observed variant at 39.6 FPS.
-3. `dense_profile` is the most accurate observed variant at 19.290 m ATE.
+3. `paper_odometry_clean_lookup_elevation` is the most accurate observed variant at 15.718 m ATE.
 
 ### Variant Notes
 
@@ -27817,6 +27867,28 @@ _Generated at 2026-10-13T01:54:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+#### `paper_odometry`
+
+- Intent: SuMaPaper on raw scans with the official default.xml values: 900 x 64 vertex/normal maps, model view rendered from active stable surfels, projective association with 2 m / 30 deg gates, Huber 0.5, Gauss-Newton with frame-to-frame fallback, surfel radius, stability log-odds and fusion (RSS 2018). No vertical-angle correction (the official KITTI reader applies none; it hurts here). No loop closure.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_clean_lookup_elevation`
+
+- Intent: SuMaPaper with the bilinear model lookup normalised over valid texels (the official lookup blends empty texels in, a bias towards the sensor) and the 0.22 deg KITTI vertical-angle correction. Fixes the forward drift in the seq 02 corridors where the official lookup and the elevation bowl of raw scans bias the weakly constrained forward direction (see papers/suma/README.md).
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/paper_odometry_clean_lookup_elevation/summary.json --no-gt-seed --suma-paper --suma-paper-set normalize_bilinear=1 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/paper_odometry_clean_lookup_elevation/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/paper_odometry_clean_lookup_elevation/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
 
 ## SuMa on MCD KTH day-06 sequence

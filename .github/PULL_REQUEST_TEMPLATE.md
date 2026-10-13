@@ -18,7 +18,7 @@
 - [ ] Builds clean and `ctest` passes
 - [ ] (New paper) ≥3 mechanism unit tests covering the distinctive idea
 - [ ] (New paper) KITTI full seq00 / seq07 evaluated with `--no-gt-seed`
-- [ ] (New paper) Leaderboard row in `README.md` + entry in `docs/methods.json`
+- [ ] (New paper) Results row in the `README.md` leaderboard or `docs/benchmark_overview.md` + entry in `docs/methods.json`
 - [ ] (New paper) Module `README.md` documenting mechanism, params, and results
 - [ ] Results reported **honestly** (a near-redundant or negative result is fine and welcome)
 

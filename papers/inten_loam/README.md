@@ -93,28 +93,34 @@ correction (Sec. 4.2.1), `experiments/inten_loam_kitti_seq_{00,07}_full_paper_co
 | variant | seq 00 | seq 07 | FPS |
 |---|---:|---:|---:|
 | previous pipeline (`--inten-loam-dense-profile`, edge factor fixed) | 47.783 % | 42.158 % | 9 |
-| paper pipeline (`paper_odometry`) | **0.816 %** | **0.368 %** | 4.1 |
-| without the correction | 1.462 % | 0.855 % | 4.1 |
-| without the intensity residual | 0.830 % | 0.379 % | 4.7 |
-| S2S only (no S2M, map, DOR) | 3.457 % | 2.395 % | 9-11 |
+| paper pipeline (`paper_odometry`) | **0.769 %** | **0.352 %** | 2.4 |
+| without the correction | 1.464 % | 0.905 % | 2.4 |
+| without the intensity residual | 0.772 % | 0.351 % | 2.6 |
+| S2S only (no S2M, map, DOR) | 3.048 % | 1.895 % | 8 |
 | paper, Table 1 | 0.52 % | 0.34 % | |
 
-The plane map voxel, which the paper does not give, was chosen on seq 07
-(0.8 m: 0.803 %, 0.4 m: 0.444 %, 0.2 m: 0.368 %, 0.1 m: 0.358 %); seq 00 is
-held out. That gives 1.08x on 07 and 1.57x on 00 (geometric mean 1.30x).
+Two values the paper does not give for KITTI were chosen on seq 07 only, with
+seq 00 held out: the plane map voxel (0.8 m: 0.803 %, 0.4 m: 0.444 %, 0.2 m:
+0.368 %, 0.1 m: 0.358 %) and the edge threshold (the paper's Th_E = 0.3 is for
+its 32-beam data; 0.15 with 4 edges per sector: 0.352 % on 07, and 0.816 ->
+0.769 % on 00). That gives 1.04x on 07 and 1.48x on 00 (geometric mean 1.24x).
 Mapping and the correction matter most; the intensity residual is worth
-1-3 %.
+0-1 %.
 
 **Where seq 00 loses accuracy.** Per 100-frame segment the translational
 error ranges from 0.2 % to 2.8 %, with no single failure; the worst stretches
 are the start and the faster section around frames 4000-4300 (12-13 m/s,
 about 90 edge features per scan instead of 150-250). The yaw error has a
 consistent sign: summed per frame it reaches -5.95 deg over the sequence
-(-0.0013 deg per frame), independent of the turn direction. The free
-parameters move seq 00 only within +-5 % (base 0.816 %; edge threshold 0.15:
-0.786 %, 2000 ground points: 0.775 %, facade threshold 0.05: 0.819 %,
-0.1 m plane voxels: 0.822 %), so the defaults stay as chosen on 07 and 00
-stays held out. The paper's motion compensation (Sec. 3.1.1) is available as
+(-0.0013 deg per frame), independent of the turn direction. About -3.3 deg of that also shows
+up in KISS-ICP on the same scans (0.544 %), so it comes from the data; the
+part specific to InTEn-LOAM is the fast section, where yaw drifts by +0.5 to
++1.0 deg per 100 frames with too few edges (a 400-frame window there: 1.88 %
+with Th_E 0.3, 1.38 % with 0.08 and 4 per sector; S2M, DOR and intensity do
+not change it). With the 0.15 / 4 edge setting chosen on 07, seq 00 goes
+from 0.816 to 0.769 %. Other free parameters move seq 00 within +-5 % (2000
+ground points: 0.775 %, facade threshold 0.05: 0.819 %, 0.1 m plane voxels:
+0.822 %). The paper's motion compensation (Sec. 3.1.1) is available as
 `--inten-loam-paper-set deskew=+-1` (point time from the azimuth, constant
 velocity); both spin directions make seq 07 much worse (1.502 / 1.835 %), so
 the KITTI odometry scans are treated as already compensated. Free parameters can be changed with `--inten-loam-paper-set key=value`

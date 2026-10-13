@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T13:06:47+00:00",
+  "generated_at": "2026-10-13T01:53:27+00:00",
   "manifest_path": "experiments/suma_kitti_seq_05_full_transfer_matrix.json",
   "problem": {
     "id": "suma_kitti_seq_05_full_transfer",
@@ -52,7 +52,7 @@
       "time_ms": 68457.562113,
       "frames": 2761,
       "note": "Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 93.3,
+      "benchmark_score": 65.57,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
@@ -90,13 +90,13 @@
       "time_ms": 99161.306797,
       "frames": 2761,
       "note": "Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 84.52,
+      "benchmark_score": 52.5,
       "readability_score": 4.3,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.5,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as active challenger",
-      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
       "kitti_rte_trans_pct": 1.279365,
       "kitti_rte_rot_deg_per_100m": 0.676967,
       "host": {
@@ -105,6 +105,44 @@
         "memory_gib": 31.0,
         "os": "Ubuntu 24.04.4 LTS",
         "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_odometry",
+      "label": "SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",
+      "design_style": "reference",
+      "intent": "SuMaPaper on raw scans with the official default.xml values: 900 x 64 vertex/normal maps, model view rendered from active stable surfels, projective association with 2 m / 30 deg gates, Huber 0.5, Gauss-Newton with frame-to-frame fallback, surfel radius, stability log-odds and fusion (RSS 2018). No vertical-angle correction (the official KITTI reader applies none; it hurts here). No loop closure.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper",
+      "summary_path": "experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/paper_odometry/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/paper_odometry/run.log",
+      "status": "ok",
+      "ate_m": 3.420344,
+      "rpe_trans_pct": 0.41595,
+      "rpe_rot_deg_per_m": 0.003211,
+      "fps": 4.285517,
+      "time_ms": 644262.964305,
+      "frames": 2761,
+      "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0",
+      "benchmark_score": 55.31,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 0.379344,
+      "kitti_rte_rot_deg_per_100m": 0.209767,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
         "architecture": "x86_64"
       }
     }

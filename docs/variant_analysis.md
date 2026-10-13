@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-12T22:20:16+00:00
+> Generated: 2026-10-13T01:54:40+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -397,8 +397,8 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
-| dogfooding_results/kitti_seq_00_full | paper_odometry_no_intensity | 17.622 | 4.9 |
-| dogfooding_results/kitti_seq_07_full | paper_odometry_no_intensity | 0.917 | 4.7 |
+| dogfooding_results/kitti_seq_00_full | paper_odometry_no_intensity | 16.112 | 2.6 |
+| dogfooding_results/kitti_seq_07_full | paper_odometry_no_intensity | 1.193 | 3.2 |
 
 **Stability**: 1 unique default(s) across 2 windows.
 
@@ -746,13 +746,13 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-KTH | fast | 7.419 | 150.2 |
 | MCD-NTU | dense | 0.036 | 33.9 |
 | MCD-TUHH | default | 1.414 | 59.1 |
-| dogfooding_results/kitti_seq_00_full | dense_profile | 18.961 | 24.2 |
+| dogfooding_results/kitti_seq_00_full | default | 50.852 | 33.8 |
 | dogfooding_results/kitti_seq_02_full | dense_profile | 51.911 | 24.2 |
 | dogfooding_results/kitti_seq_05_full | default | 10.983 | 40.3 |
-| dogfooding_results/kitti_seq_07_full | dense_profile_elevation | 3.694 | 34.5 |
+| dogfooding_results/kitti_seq_07_full | dense_profile | 3.971 | 35.6 |
 | dogfooding_results/kitti_seq_08_full | dense_profile | 19.290 | 26.6 |
 
-**Stability**: 5 unique default(s) across 13 windows.
+**Stability**: 4 unique default(s) across 13 windows.
 
 ### VGICP-SLAM
 
@@ -1128,10 +1128,10 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
 | dense_profile | 299.762 | 9.2 | 2 |
-| paper_odometry | 9.066 | 4.1 | 2 |
-| paper_odometry_no_correction | 12.005 | 4.1 | 2 |
-| paper_odometry_no_intensity | 9.270 | 4.8 | 2 |
-| paper_odometry_no_mapping | 36.742 | 10.0 | 2 |
+| paper_odometry | 8.706 | 2.2 | 2 |
+| paper_odometry_no_correction | 12.150 | 2.3 | 2 |
+| paper_odometry_no_intensity | 8.652 | 2.9 | 2 |
+| paper_odometry_no_mapping | 25.771 | 8.5 | 2 |
 
 ### ISC-LOAM
 
@@ -1369,6 +1369,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense_profile | 20.729 | 27.7 | 5 |
 | dense_profile_elevation | 3.694 | 34.5 | 1 |
 | fast | 376.693 | 109.8 | 8 |
+| paper_odometry | 4.225 | 4.1 | 3 |
 
 ### VGICP-SLAM
 

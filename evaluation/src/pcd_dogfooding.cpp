@@ -4951,6 +4951,8 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "map_intensity_voxel") pp.map_intensity_voxel = v;
       else if (k == "use_dor") pp.use_dor = v != 0.0;
       else if (k == "use_intensity") pp.use_intensity = v != 0.0;
+      else if (k == "s2m_plane_max_dist") pp.s2m_plane_max_dist = v;
+      else if (k == "s2m_plane_min_spread") pp.s2m_plane_min_spread = v;
       else std::cerr << "unknown --inten-loam-paper-set key " << k << std::endl;
     }
     InTenLoamPaper paper(pp);

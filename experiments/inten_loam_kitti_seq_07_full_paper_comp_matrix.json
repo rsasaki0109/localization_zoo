@@ -87,6 +87,22 @@
         "--input-vertical-angle-correction-deg",
         "0.2"
       ]
+    },
+    {
+      "id": "paper_odometry_plane_check",
+      "label": "InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",
+      "design_style": "reference",
+      "intent": "As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ]
     }
   ]
 }

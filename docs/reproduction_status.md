@@ -1,6 +1,6 @@
 # Reproduction Status
 
-_Generated at 2026-10-13T07:25:01+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
+_Generated at 2026-10-13T11:19:21+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
 
 This page records what the repository can currently claim about reproducing original-paper results.
 The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.
@@ -37,7 +37,7 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 | INTEN-LOAM | `indicative` | Paper reimplementation (no author code) with the paper pipeline | Gap remains on KITTI Odometry 00/07 (paper pipeline) | Same metric, 1.24x on 00/07 (07 1.04x, 00 held out 1.48x) | Seq 00 (held out) stays at 1.48x. About half of its summed yaw error (-3.3 of -5.9 deg) also appears in KISS-ICP on the same scans; the rest came from the fast section (few edges), which the KITTI edge threshold mostly fixed. | Look at seq 00 where the drift accumulates; run the remaining KITTI sequences. |
 | MESH-LOAM | `approximately_reproduced` | Paper reimplementation (no author code) with the paper association and input | Near paper on KITTI Odometry 00/07 (paper path) | Same metric, 1.08x on 00/07 | No author code; the default association (smallest plane residual) and the missing elevation correction caused most of the earlier 1.80x. The global mesh (Eq. 3) now fits (1.2 GB on seq 07 with marching cubes) but does not change the result. | Run the paper path on the remaining KITTI sequences. |
 | QUADRIC-LO | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/07 against the paper's table | Same metric, 0.80x on 00/07 | Only seq 00 and 07 have been run. | Run the paper path on the remaining KITTI sequences. |
-| DILO | `indicative` | Paper reimplementation (no author code) with a paper odometry path (plane key points only) | KITTI Odometry 00/07 with the paper pipeline (no edge key points) | Same metric, 1.31x on 00/07 vs full DiLO (plane key points only; 0.97x vs DiLO-plane) | Edge key points (Sec. 3.5) are not implemented; the remaining gap matches the paper ablation between DiLO-plane and DiLO. | Implement the edge key points and residual (eq. 17); run the remaining KITTI sequences. |
+| DILO | `approximately_reproduced` | Paper reimplementation (no author code) with a paper odometry path (plane key points only) | Near paper on KITTI Odometry 00/07 (plane-only paper pipeline) | Same metric, 0.87x on 00/07 | Below the paper's full DiLO without its edge term; the remaining error is a scene-dependent yaw bias and lateral offsets shared with an independent ICP (ground truth). | Run the remaining KITTI sequences. |
 
 ## LiTAMIN2
 
@@ -265,14 +265,14 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 
 ## DILO
 
-- **Claim level**: `indicative`
+- **Claim level**: `approximately_reproduced`
 - **Paper**: Han et al., DiLO: Direct light detection and ranging odometry based on spherical range images for autonomous driving, ETRI Journal 2021
 - **Method README**: `papers/dilo/README.md`
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
 - **Reported metric**: KITTI RTE translation [%] (KITTI average translation error (%), 100-800 m)
 - **Repo scope**: Paper reimplementation (no author code) with a paper odometry path (plane key points only). From-paper reimplementation in the shared harness; see the method README.
-- **Current claim**: KITTI Odometry 00/07 with the paper pipeline (no edge key points). --dilo-paper-odometry follows Sec. 3 without edge key points: 192x2048 sin-elevation range image with vertical fill, Farid-filter normals, eleven planarity-weighted key-point lists, the eq. 18 residual and Algorithm 1 (10-frame window, pairwise Tukey steps, log-map pose averaging). With the 0.22 deg beam correction it scores official KITTI RTE 0.797 / 0.579 % on 00 / 07: 0.95x / 1.00x the paper's plane-only ablation (DiLO-plane, 0.84 / 0.58 %) and 1.24x / 1.38x its full DiLO (0.64 / 0.42 %, the Table 6 value; geometric mean 1.31x, from 4.12x). Without the correction 1.308 / 0.619 %; without the window re-estimation 4.897 / 1.061 %. Two guards not in the paper (planar prediction, rejecting registrations far from it) were needed on KITTI. See papers/dilo/README.md.
-- **Numeric comparison**: Same metric, 1.31x on 00/07 vs full DiLO (plane key points only; 0.97x vs DiLO-plane). paper_odometry_elevation: seq 00 0.797 vs 0.64 (1.24x), seq 07 0.579 vs 0.42 (1.38x); vs DiLO-plane 0.84 / 0.58. Repo values: experiments/results/dilo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-- **Main blocker**: Edge key points (Sec. 3.5) are not implemented; the remaining gap matches the paper ablation between DiLO-plane and DiLO.
-- **Next step**: Implement the edge key points and residual (eq. 17); run the remaining KITTI sequences.
+- **Current claim**: Near paper on KITTI Odometry 00/07 (plane-only paper pipeline). --dilo-paper-odometry (spherical range image, eq. 11 normals, IMLS-style key-point lists, Algorithm 1 window, plane residuals) with planarity > 0.98, at most one key point per 8 x 8 px cell per list, a slope-aware vertical fill (fill_slope 0.1) and the 0.18 deg correction: official KITTI RTE 0.549 / 0.372 % on 00 / 07 vs the paper's full DiLO 0.64 / 0.42 % (0.86x / 0.89x, geometric mean 0.87x) and plane-only ablation 0.84 / 0.58 %. Edge key points (Sec. 3.5) were implemented and do not help on KITTI. The settings were chosen on 07 windows with some 00 windows in view. See papers/dilo/README.md.
+- **Numeric comparison**: Same metric, 0.87x on 00/07. paper_odometry_spread_keypoints: seq 00 0.549 vs 0.64 (0.86x), seq 07 0.372 vs 0.42 (0.89x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+- **Main blocker**: Below the paper's full DiLO without its edge term; the remaining error is a scene-dependent yaw bias and lateral offsets shared with an independent ICP (ground truth).
+- **Next step**: Run the remaining KITTI sequences.
 - **Notes**: Paper average 0.69 % (frame-weighted). The table is printed rotated; values were rebuilt from word positions and match the stated average. No loop closure. Values read from the paper PDF on 2026-10-12.

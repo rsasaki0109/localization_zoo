@@ -1,0 +1,131 @@
+# KITTI pitfalls for LiDAR odometry ports
+
+Checks that closed most of the gaps between this repository's ports and the
+papers' KITTI numbers. Each item gives the symptom, a quick check, and the fix,
+with the measured effect (official KITTI RTE, full sequences unless a window
+is named). Read this before tuning a port on KITTI.
+
+## 1. Input
+
+**Vertical-angle (elevation) correction.** The HDL-64E's points appear about
+0.2 deg too low. Upstream KISS-ICP and CT-ICP rotate every point up by
+0.205 deg in their loaders, MULLS by 0.195 deg; several papers say so
+(InTEn-LOAM Sec. 4.2.1, ELO Sec. IV-A), most do not.
+- Symptom: pitch and scale drift; rotation error well above the paper.
+- Check: rerun with `--input-vertical-angle-correction-deg 0.205` (0.195-0.22).
+- Effect: KISS-ICP 0.910 -> 0.528 % (00), IMLS-SLAM 1.327 / 0.706 -> 0.523 /
+  0.339 % (00 / 07), InTEn-LOAM 1.464 / 0.905 -> 0.769 / 0.352 %, Mesh-LOAM
+  1.011 -> 0.598 % (00), ELO 0.893 -> 0.706 % (07). Details:
+  [kitti_elevation_correction.md](kitti_elevation_correction.md).
+- Exception: SuMa's official bilinear model lookup carries a bias of the
+  opposite sign; it is best on raw scans unless the lookup is normalised
+  (see 4).
+
+**Motion compensation.** KITTI odometry scans are already motion-compensated.
+- Symptom: a paper describes deskewing (e.g. InTEn-LOAM Sec. 3.1.1), the port
+  adds it, and results get worse.
+- Effect: azimuth-timed constant-velocity deskew, InTEn-LOAM 07 0.368 ->
+  1.502 / 1.835 % (both spin directions); SuMa seq 02 windows 25.5 / 21.3 %.
+- Fix: leave it off for KITTI odometry.
+
+**No ring index.** KITTI `.bin` scans are not ordered by laser ring and carry
+no ring id; the HDL-64E has two laser blocks with different vertical spacing.
+- Symptom: code that assumes 16 or 32 rows, or a ring field, silently drops
+  points or merges rings. The old SuMa class used `n_scans = 16`, which put the
+  HDL-64 into 10 rows and dropped everything below -17 deg (17.6 % of a scan).
+- Fix: derive rows from elevation (64 rows, about -24.9 to +2 deg) and check
+  the fill rate of the range image.
+
+**Downsampling and caps.** Heavy voxelisation plus a point cap can leave a
+fraction of the scan the method was designed for.
+- Example: Mesh-LOAM's dense profile kept about 6.5 % of the raw points
+  (0.25 m voxels, 8000-point cap); the paper uses full scans with a 0.1 m map.
+
+## 2. Registration mechanics
+
+**Association with untransformed points.** Correspondences must be searched
+with the points moved by the current estimate, and redone every iteration.
+- Symptom: the trajectory is too short; scale of the estimated path well below
+  1 at about 1 m per scan.
+- Effect: the earlier InTEn-LOAM associated once with raw points (scale 0.83
+  scan-to-scan, 0.4 with its scan-to-map), 42-48 % RTE; re-association per
+  iteration brought it to 0.4-0.8 %.
+- Check: path-length ratio estimate / ground truth on a 150-frame window.
+
+**Biased correspondence choice.** Picking, among many candidates, the one with
+the smallest residual (instead of the nearest) makes every residual small and
+every step too short.
+- Effect: Mesh-LOAM's "smallest plane residual among all facets in 27 cells"
+  vs the paper's nearest facet: 0.419 -> 0.346 % on 07 (same corrected input).
+
+**Filters that remove registration input.** Dynamic-object removal or temporal
+filters belong to map insertion, not to the scan being registered.
+- Effect: the earlier InTEn-LOAM removed about 40 % of valid pixels before
+  registration, mostly ahead of and behind the car.
+
+## 3. Map and model biases
+
+**Closest-point updates creep towards the sensor.** Keeping the minimum range
+per pixel every frame on noisy ranges moves model surfaces toward the sensor.
+- Effect: ELO's SRI model surfaces sat 12-13 mm in front of the scan; a static
+  sensor drifted 0.12 m in 12 scans in a unit test. Same-surface fusion fixed
+  it (07 window 0.622 -> 0.451 %).
+
+**Ground-normal bias.** On KITTI, ground normals from range images tilt toward
+the sensor (the elevation "bowl"); with many ground pixels and little else to
+constrain the forward direction, they push it.
+- Effect: SuMa seq 02 corridors (forward step 1.3 -> 3.3 m, 3.5 % RTE); ELO's
+  BEV ground term added about +1.3 mm forward per scan.
+- Check: one Gauss-Newton step from the ground-truth increment; split the
+  forward gradient by class (ground / non-ground).
+
+**Lookups that blend empty pixels.** A bilinear lookup over a rendered model
+that mixes in empty texels pulls samples toward the sensor.
+- Effect: SuMa with the lookup normalised over valid texels plus the
+  correction: seq 02 3.51 -> 0.78 %, but 07 0.33 -> 0.52 %.
+
+**Vertical fill of a range image.** Filling vertical gaps with the far range
+along pixel rays puts the far ground under the road (about 10 cm at 20 m)
+once the ground range changes between beams faster than the fill allows.
+- Effect: DiLO's ground behind the car pulled pitch; with a slope-aware fill
+  (and key points spread over the image, below) seq 00 / 07 went 0.797 /
+  0.579 -> 0.549 / 0.372 %, and the best correction angle moved from 0.22 to
+  0.18 deg (0.22 had been cancelling the fill bias).
+
+**Key points that cluster.** Lists ranked by a score pick neighbouring pixels
+(the ground strip just ahead of the car, vegetation for the sideways lists),
+leaving roll weakly constrained; a per-pixel planarity score near 1 everywhere
+filters nothing.
+- Fix: a stricter planarity threshold plus at most one key point per image
+  cell per list (DiLO: roll error per pair 7.2 -> 2.3 mrad, ICP 2.1).
+
+**Map resolution.** Paper values are often for other sensors or not given.
+- Effect: InTEn-LOAM plane map voxel 0.8 -> 0.2 m: 07 0.803 -> 0.368 %.
+
+## 4. Degenerate stretches
+
+Highways and corridors leave the forward direction weakly constrained
+(translation Hessian eigenvalue along x 40-90 against thousands along y, z on
+SuMa's seq 02 failure).
+- Symptom: a sudden, sustained over- or under-estimate of the step at
+  12-14 m/s; KITTI 01 and parts of 02 and of 00 (frames 4000-4300).
+- Fallbacks keyed to sudden changes do not catch a gradual drift.
+- Effect: SuMa 01 13.8 % (official lookup) / 3.6 % (normalised), paper
+  1.7 %; InTEn-LOAM's fast section needed more edge features (the paper's edge
+  threshold is for its 32-beam data).
+
+## 5. Evaluation
+
+- **Some error is the data, not the port.** About -3.3 deg of summed yaw error
+  on seq 00 appears in KISS-ICP as well as in InTEn-LOAM; ELO and MULLS share
+  the lateral error on 07. Compare per-axis increments with a reference
+  method on the same scans before chasing an axis.
+- **Official RTE needs long segments.** 100-800 m segments; a 400-frame window
+  (about 260 m) gives only 100-200 m segments, and 150 frames give none. Use
+  windows for direction, full sequences for claims.
+- **Choose on one sequence, hold out another.** Parameters the paper gives for
+  a different sensor (e.g. InTEn-LOAM's Th_E = 0.3 for 32 beams) or does not
+  give at all must be chosen somewhere; the repository chooses on 07 and
+  reports 00 as held out. Table 6 takes the best variant per sequence, which is
+  an optimistic bound (stated in [paper_claim.md](paper_claim.md)).
+- **Paper numbers have limited precision.** SuMa's table has one decimal.

@@ -455,11 +455,38 @@ std::shared_ptr<DiloPaperFrame> DiloPaperOdometry::buildFrame(
     };
     std::vector<int> order = cand;
     const int k = std::min<int>(K, static_cast<int>(order.size()));
-    std::partial_sort(order.begin(), order.begin() + k, order.end(),
-                      [&](int a, int b) { return score(a) > score(b); });
-    for (int i = 0; i < k; ++i) {
-      frame->key_points.push_back(frame->point[order[i]].cast<double>());
-      frame->key_normals.push_back(frame->normal[order[i]].cast<double>());
+    auto better = [&](int a, int b) { return score(a) > score(b); };
+    if (params_.keypoint_cell_px <= 1) {
+      std::partial_sort(order.begin(), order.begin() + k, order.end(), better);
+      for (int i = 0; i < k; ++i) {
+        frame->key_points.push_back(frame->point[order[i]].cast<double>());
+        frame->key_normals.push_back(frame->normal[order[i]].cast<double>());
+      }
+      continue;
+    }
+    // At most one key point of the list per keypoint_cell_px x
+    // keypoint_cell_px block of the image: the top of a list is otherwise a
+    // few clusters of neighbouring pixels (e.g. the ground list a strip just
+    // ahead of the car, which hardly constrains roll).
+    std::vector<std::pair<double, int>> ranked(order.size());
+    for (size_t j = 0; j < order.size(); ++j) ranked[j] = {-score(order[j]), order[j]};
+    // Sort the head first; the rest only if the head runs out of free cells.
+    const size_t head = std::min(ranked.size(), static_cast<size_t>(32 * k));
+    std::nth_element(ranked.begin(), ranked.begin() + head - (head > 0), ranked.end());
+    std::sort(ranked.begin(), ranked.begin() + head);
+    const int cs = params_.keypoint_cell_px;
+    const int cw = (W + cs - 1) / cs;
+    std::vector<unsigned char> used(static_cast<size_t>((H + cs - 1) / cs) * cw, 0);
+    int taken = 0;
+    for (size_t j = 0; j < ranked.size() && taken < k; ++j) {
+      if (j == head) std::sort(ranked.begin() + head, ranked.end());
+      const int i = ranked[j].second;
+      unsigned char& u = used[static_cast<size_t>((i / W) / cs) * cw + (i % W) / cs];
+      if (u) continue;
+      u = 1;
+      frame->key_points.push_back(frame->point[i].cast<double>());
+      frame->key_normals.push_back(frame->normal[i].cast<double>());
+      ++taken;
     }
   }
   return frame;

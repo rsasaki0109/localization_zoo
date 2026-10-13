@@ -2532,6 +2532,9 @@ struct DiloDogfoodingOptions {
   bool paper_edge_subpixel = false;
   int paper_edge_dofs = 6;
   double paper_edge_sum_weight = 0.0;  // > 0: summed normal equations
+  double paper_min_planarity = -1.0;   // < 0: library default
+  int paper_keypoint_cell = -1;
+  double paper_fill_slope = -1.0;
 };
 
 struct NhcLioDogfoodingOptions {
@@ -8266,6 +8269,9 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   params.update_iterations = options.paper_update_iterations;
   params.keypoints_per_list = options.paper_keypoints_per_list;
   params.use_edges = options.paper_edges;
+  if (options.paper_min_planarity >= 0.0) params.min_planarity = options.paper_min_planarity;
+  if (options.paper_keypoint_cell >= 0) params.keypoint_cell_px = options.paper_keypoint_cell;
+  if (options.paper_fill_slope >= 0.0) params.fill_slope = options.paper_fill_slope;
   params.edge_detector = options.paper_edge_detector;
   params.edge_subpixel = options.paper_edge_subpixel;
   params.edge_dofs = options.paper_edge_dofs;
@@ -14814,6 +14820,21 @@ int main(int argc, char** argv) {
     }
     if (arg == "--dilo-paper-edges") {
       dilo_options.paper_edges = true;
+      continue;
+    }
+    if (arg == "--dilo-paper-min-planarity") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-min-planarity requires a value" << std::endl; return 1; }
+      dilo_options.paper_min_planarity = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-keypoint-cell") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-keypoint-cell requires a value" << std::endl; return 1; }
+      dilo_options.paper_keypoint_cell = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-fill-slope") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-fill-slope requires a value" << std::endl; return 1; }
+      dilo_options.paper_fill_slope = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--dilo-paper-edge-detector") {

@@ -4,6 +4,7 @@
 #include <Eigen/Dense>
 #include <Eigen/Geometry>
 
+#include <algorithm>
 #include <cmath>
 #include <random>
 
@@ -73,6 +74,60 @@ TEST(DiloPaper, GroundAndWallNormalsPointToTheSensor) {
   EXPECT_GT(ground, 1000);
   EXPECT_GT(wall, 100);
   EXPECT_LT(bad, (ground + wall) / 20);
+}
+
+TEST(DiloPaper, SlopeFillPutsTheFarGroundBelowTheGround) {
+  // Between two beams the ground range changes by r^2 / h per radian of
+  // elevation, more than fill_slope = 0.02 of the range per row beyond about
+  // 11 m. The gap is then filled with the far range along the pixel-centre
+  // rays, which pass below the far beam: points under the road. A larger
+  // fill_slope interpolates the ground.
+  auto below = [](double fill_slope) {
+    DiloPaperParams p;
+    p.fill_slope = fill_slope;
+    DiloPaperOdometry odo(p);
+    const auto frame = odo.buildFrame(scanAt(Eigen::Matrix4d::Identity()));
+    int ground = 0, under = 0;
+    for (const auto& q : frame->point) {
+      if (std::abs(q.x()) < 15.0f || std::abs(q.x()) > 35.0f || std::abs(q.y()) > 6.0f || q.z() > -1.5f) continue;
+      ++ground;
+      if (q.z() < -1.75f) ++under;
+    }
+    EXPECT_GT(ground, 1000);
+    return static_cast<double>(under) / ground;
+  };
+  EXPECT_GT(below(0.02), 0.2);
+  EXPECT_LT(below(0.1), 0.01);
+}
+
+TEST(DiloPaper, KeypointCellsSpreadTheLists) {
+  DiloPaperParams p;
+  p.keypoint_cell_px = 8;
+  DiloPaperOdometry odo(p);
+  const auto frame = odo.buildFrame(scanAt(Eigen::Matrix4d::Identity()));
+  ASSERT_EQ(frame->key_points.size(), 11u * p.keypoints_per_list);
+  for (int list = 0; list < 11; ++list) {
+    std::vector<std::pair<int, int>> cells;
+    for (int i = 0; i < p.keypoints_per_list; ++i) {
+      int row, col;
+      ASSERT_TRUE(odo.project(frame->key_points[list * p.keypoints_per_list + i], &row, &col));
+      cells.push_back({row / 8, col / 8});
+    }
+    std::sort(cells.begin(), cells.end());
+    EXPECT_TRUE(std::adjacent_find(cells.begin(), cells.end()) == cells.end()) << "list " << list;
+  }
+  // The ground list (n_z) spreads sideways instead of piling up ahead.
+  auto lateral_spread = [](const DiloPaperFrame& f, int K) {
+    double lo = 1e9, hi = -1e9;
+    for (int i = 10 * K; i < 11 * K; ++i) {
+      lo = std::min(lo, f.key_points[i].y());
+      hi = std::max(hi, f.key_points[i].y());
+    }
+    return hi - lo;
+  };
+  DiloPaperOdometry plain;
+  const auto dense = plain.buildFrame(scanAt(Eigen::Matrix4d::Identity()));
+  EXPECT_GT(lateral_spread(*frame, p.keypoints_per_list), 2.0 * lateral_spread(*dense, p.keypoints_per_list));
 }
 
 TEST(DiloPaper, PairwiseStepsRecoverASmallMotion) {

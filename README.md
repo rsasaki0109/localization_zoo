@@ -49,6 +49,7 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 | Re-run a paper-number row myself | [`reproduce_paper_row.py`](#paper-number-check-official-kitti-rte) (one command: fetch, run, score) |
 | Reproduce or extend a benchmark | [Experiment-driven development](#experiment-driven-development) · [CONTRIBUTING](CONTRIBUTING.md) |
 | Add a new paper | [Adding a new paper](#adding-a-new-paper) |
+| Port a method to KITTI without the usual traps | [KITTI pitfalls](docs/kitti_pitfalls.md) (elevation correction, deskew, ring order, association, map biases, degenerate stretches) |
 
 ---
 
@@ -259,7 +260,7 @@ optimistic bounds.
 | Mesh-LOAM | 00/07 | 1.08x | near paper with the paper's nearest-facet association, 0.1 m input and the 0.22 deg correction (`--mesh-loam-paper-odometry`), from 1.80x; no author code ([details](papers/mesh_loam/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
 | ELO | 00/07 | 1.17x | gap remains (no author code); the 0.195 deg correction, the paper normal patch and three forward-bias fixes of the projective model (chosen on 07 windows, 00 held out), from 2.60x ([details](papers/elo/README.md#forward-drift-biases-of-the-projective-model)) |
 | IMLS-SLAM | 00/07 | 1.04x | near paper with the paper's pipeline (`--imls-slam-paper-odometry`: raw scans, 0.22 deg correction, a window of 100 raw scans, h = 0.06 m), from 2.66x ([details](papers/imls_slam/README.md)) |
-| DiLO | 00/07 | 1.31x | paper pipeline without edge key points (`--dilo-paper-odometry`, 0.22 deg correction), from 4.12x; equal to the paper's plane-only ablation (0.97x) ([details](papers/dilo/README.md)) |
+| DiLO | 00/07 | 0.87x | near paper (below the full paper with edges) with the plane-only paper pipeline (`--dilo-paper-odometry`), spread planar key points and a slope-aware vertical fill, 0.18 deg correction; from 4.12x ([details](papers/dilo/README.md)) |
 | InTEn-LOAM | 00/07 | 1.24x | gap remains: the paper's pipeline (`--inten-loam-paper-odometry`) gives 1.04x on 07, where two free values were chosen, and 1.48x on held-out 00 ([details](papers/inten_loam/README.md#paper-pipeline)) |
 
 Papers checked but not compared: VLOM and PL-LOAM report visual-LiDAR systems that

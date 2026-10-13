@@ -26,7 +26,7 @@ lins,mcd_ntu_day_02_108,gt-backed,dense,0.110815,34.902843,experiments/results/l
 lio_sam,mcd_ntu_day_02_108,gt-backed,fast,0.072989,31.720395,experiments/results/lio_sam_mcd_ntu_day_02_matrix.json
 litamin2,mcd_ntu_day_02_108,gt-backed,cluster_t1_seeded,0.020511,43.404453,experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json
 loam_livox,mcd_ntu_day_02_108,gt-backed,fast,0.137012,68.986739,experiments/results/loam_livox_mcd_ntu_day_02_matrix.json
-mesh_loam,kitti_seq_07_full,gt-backed,dense_elevation_nearest_facet,0.651195,0.627553,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_07_full,gt-backed,paper_odometry_elevation_keep_mesh,0.852913,1.494767,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
 mulls,mcd_ntu_day_02_108,gt-backed,kitti_default,0.097083,1.170111,experiments/results/mulls_mcd_ntu_day_02_matrix.json
 ndt,autoware_istanbul_open_108_c,gt-backed,fast_coarse_map,0.005456,1.947388,experiments/results/ndt_istanbul_window_c_matrix.json
 okvis,kitti_raw_0061_200,gt-backed,fast,29.001262,894.663134,experiments/results/okvis_kitti_raw_0061_matrix.json

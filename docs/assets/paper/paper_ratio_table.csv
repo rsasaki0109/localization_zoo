@@ -99,14 +99,14 @@ litamin2,07,0.480,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel
 litamin2,08,1.010,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.981,0.97,0.983,2,2,paper_icp_first,experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json
 litamin2,09,0.690,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.777,1.13,0.808,2,2,paper_icp_cov,experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json
 litamin2,10,0.800,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.939,1.17,0.962,2,2,paper_icp_first,experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json
-mesh_loam,00,0.530,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.567,1.07,0.789,2,2,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json
+mesh_loam,00,0.530,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.565,1.07,0.788,2,2,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json
 mesh_loam,01,0.640,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
 mesh_loam,02,0.520,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
 mesh_loam,03,0.630,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
 mesh_loam,04,0.410,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
 mesh_loam,05,0.340,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
 mesh_loam,06,0.350,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,07,0.310,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.340,1.10,0.434,2,2,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
+mesh_loam,07,0.310,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.342,1.10,0.435,2,2,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
 mesh_loam,08,0.820,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
 mesh_loam,09,0.470,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
 mesh_loam,10,0.560,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,

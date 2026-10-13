@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-13T02:38:18+00:00
+> Generated: 2026-10-13T03:53:27+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -770,9 +770,9 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (KITTI relative translational error (%))
 **Hardware**: None
 **Repo scope**: Paper reimplementation (no author code) with the paper association and input — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: Near paper on KITTI Odometry 00/07 (paper path) — Official KITTI RTE on full sequences, no GT seed, paper path (--mesh-loam-paper-odometry: nearest-facet association, 0.1 m input, 0.22 deg correction): seq 00 0.567 vs 0.53 (1.07x); seq 07 0.340 vs 0.31 (1.10x); geometric mean 1.08x, from 1.80x with the dense profile. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Numeric comparison**: Same metric, 1.08x on 00/07 — seq 00 0.567 vs 0.53 (1.07x); seq 07 0.340 vs 0.31 (1.10x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: No author code; the default association (smallest plane residual) and the missing elevation correction caused most of the earlier 1.80x. The global mesh (Eq. 3) does not fit in memory with marching-tetrahedra facets.
+**Current claim**: Near paper on KITTI Odometry 00/07 (paper path) — Official KITTI RTE on full sequences, no GT seed, paper path (--mesh-loam-paper-odometry: nearest-facet association, 0.1 m input, 0.22 deg correction): seq 00 0.565 vs 0.53 (1.07x); seq 07 0.342 vs 0.31 (1.10x); geometric mean 1.08x, from 1.80x with the dense profile. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Numeric comparison**: Same metric, 1.08x on 00/07 — seq 00 0.565 vs 0.53 (1.07x); seq 07 0.342 vs 0.31 (1.10x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: No author code; the default association (smallest plane residual) and the missing elevation correction caused most of the earlier 1.80x. The global mesh (Eq. 3) now fits (1.2 GB on seq 07 with marching cubes) but does not change the result.
 **Next step**: Run the paper path on the remaining KITTI sequences.
 
 ### Paper-Reported Values
@@ -795,8 +795,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
-| KITTI | Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | 8.496 | 0.785 | 0.004296 | 0.66 |
-| KITTI | Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | 0.651 | 0.491 | 0.002657 | 0.63 |
+| KITTI | Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen) | 10.170 | 0.773 | 0.004332 | 1.34 |
+| KITTI | Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen) | 0.853 | 0.470 | 0.002749 | 1.49 |
 
 **Notes**: Paper mean 0.51 %. The point-to-plane ablation row averages 0.71 %. Scan-to-mesh-map odometry, no loop closure. Values read from the paper PDF on 2026-10-12.
 

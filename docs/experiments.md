@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-13T02:37:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T03:53:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -360,8 +360,8 @@ _Generated at 2026-10-13T02:37:52+00:00 by `evaluation/scripts/run_experiment_ma
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0009_matrix.json` |
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json` |
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
-| Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_nearest_facet` | 7.509 | 0.7 | `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` |
-| Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_nearest_facet` | 0.651 | 0.6 | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation_keep_mesh` | 7.509 | 1.3 | `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation_keep_mesh` | 0.651 | 1.5 | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.874 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
@@ -22103,15 +22103,16 @@ _Generated at 2026-10-13T02:37:52+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Mesh-LOAM, dense profile (0.25 m input voxel) | reference | 13.474 | 0.4 | 54.8 | 4.30 | 4.50 | Keep as reference variant |
-| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 10.161 | 0.3 | 60.2 | 3.70 | 4.10 | Keep as reference variant |
-| Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | ablation | 8.496 | 0.7 | 94.2 | 3.35 | 3.85 | Adopt as current default |
-| Mesh-LOAM dense profile + 0.22 deg correction | ablation | 7.509 | 0.5 | 86.9 | 3.70 | 4.10 | Keep as active challenger |
+| Mesh-LOAM, dense profile (0.25 m input voxel) | reference | 13.474 | 0.4 | 41.2 | 4.30 | 4.50 | Keep as reference variant |
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 10.180 | 1.1 | 76.6 | 3.70 | 4.10 | Keep as reference variant |
+| Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | ablation | 8.496 | 0.7 | 68.8 | 3.35 | 3.85 | Keep as reference variant |
+| Mesh-LOAM dense profile + 0.22 deg correction | ablation | 7.509 | 0.5 | 68.2 | 3.70 | 4.10 | Keep as reference variant |
+| Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen) | ablation | 10.170 | 1.3 | 86.9 | 2.40 | 3.20 | Adopt as current default |
 
 ### Observations
 
-1. `dense_elevation_nearest_facet` is the current default for this problem.
-2. `dense_elevation_nearest_facet` is the fastest observed variant at 0.7 FPS.
+1. `paper_odometry_elevation_keep_mesh` is the current default for this problem.
+2. `paper_odometry_elevation_keep_mesh` is the fastest observed variant at 1.3 FPS.
 3. `dense_elevation` is the most accurate observed variant at 7.509 m ATE.
 
 ### Variant Notes
@@ -22160,6 +22161,17 @@ _Generated at 2026-10-13T02:37:52+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. mean|residual|=0.016
 
+#### `paper_odometry_elevation_keep_mesh`
+
+- Intent: Facets survive the 80 m voxel prune (the paper keeps a global triangular mesh, Eq. 3), so revisits register to the old surface; marching cubes and the compressed store for bins beyond 100 m keep it in memory.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --mesh-loam-keep-mesh --mesh-loam-marching-cubes --mesh-loam-freeze-radius 100 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation_keep_mesh/summary.json --no-gt-seed --mesh-loam-paper-odometry --mesh-loam-keep-mesh --mesh-loam-marching-cubes --mesh-loam-freeze-radius 100 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation_keep_mesh/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation_keep_mesh/run.log`
+- Readability proxy: 2.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; global mesh kept; marching cubes; mean|residual|=0.026
+
 
 ## Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -22175,15 +22187,16 @@ _Generated at 2026-10-13T02:37:52+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Mesh-LOAM, dense profile (0.25 m input voxel) | reference | 0.982 | 0.4 | 65.1 | 4.30 | 4.50 | Keep as reference variant |
-| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 0.835 | 0.3 | 62.2 | 3.70 | 4.10 | Keep as reference variant |
-| Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | ablation | 0.651 | 0.6 | 100.0 | 3.35 | 3.85 | Adopt as current default |
-| Mesh-LOAM dense profile + 0.22 deg correction | ablation | 0.783 | 0.4 | 70.5 | 3.70 | 4.10 | Keep as reference variant |
+| Mesh-LOAM, dense profile (0.25 m input voxel) | reference | 0.982 | 0.4 | 46.6 | 4.30 | 4.50 | Keep as reference variant |
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 0.858 | 1.2 | 79.0 | 3.70 | 4.10 | Keep as reference variant |
+| Mesh-LOAM dense profile + nearest-facet association + 0.22 deg correction | ablation | 0.651 | 0.6 | 71.0 | 3.35 | 3.85 | Keep as reference variant |
+| Mesh-LOAM dense profile + 0.22 deg correction | ablation | 0.783 | 0.4 | 53.7 | 3.70 | 4.10 | Keep as reference variant |
+| Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen) | ablation | 0.853 | 1.5 | 88.2 | 2.40 | 3.20 | Adopt as current default |
 
 ### Observations
 
-1. `dense_elevation_nearest_facet` is the current default for this problem.
-2. `dense_elevation_nearest_facet` is the fastest observed variant at 0.6 FPS.
+1. `paper_odometry_elevation_keep_mesh` is the current default for this problem.
+2. `paper_odometry_elevation_keep_mesh` is the fastest observed variant at 1.5 FPS.
 3. `dense_elevation_nearest_facet` is the most accurate observed variant at 0.651 m ATE.
 
 ### Variant Notes
@@ -22231,6 +22244,17 @@ _Generated at 2026-10-13T02:37:52+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. mean|residual|=0.016
+
+#### `paper_odometry_elevation_keep_mesh`
+
+- Intent: Facets survive the 80 m voxel prune (the paper keeps a global triangular mesh, Eq. 3), so revisits register to the old surface; marching cubes and the compressed store for bins beyond 100 m keep it in memory.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --mesh-loam-keep-mesh --mesh-loam-marching-cubes --mesh-loam-freeze-radius 100 --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_elevation_keep_mesh/summary.json --no-gt-seed --mesh-loam-paper-odometry --mesh-loam-keep-mesh --mesh-loam-marching-cubes --mesh-loam-freeze-radius 100 --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_elevation_keep_mesh/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_elevation_keep_mesh/run.log`
+- Readability proxy: 2.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; global mesh kept; marching cubes; mean|residual|=0.025
 
 
 ## MULLS throughput and accuracy trade-off on the public HDL-400 reference window

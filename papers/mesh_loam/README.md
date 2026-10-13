@@ -67,7 +67,8 @@ From-paper CPU reimplementation of the full odometry pipeline:
 ```
 
 Flags: `--mesh-loam-{fast,dense}-profile`, `--mesh-loam-paper-odometry`,
-`--mesh-loam-nearest-facet`, `--mesh-loam-keep-mesh`, `--mesh-loam-voxel-size`,
+`--mesh-loam-nearest-facet`, `--mesh-loam-keep-mesh`, `--mesh-loam-marching-cubes`,
+`--mesh-loam-freeze-radius`, `--mesh-loam-full-block-meshing`, `--mesh-loam-voxel-size`,
 `--mesh-loam-cos-gate`, `--mesh-loam-mesh-interval`, `--mesh-loam-source-voxel`,
 `--mesh-loam-max-points`, `--mesh-loam-normal-neighbors`,
 `--mesh-loam-normal-radius`, `--mesh-loam-max-range`, `--mesh-loam-map-radius`.
@@ -119,20 +120,25 @@ Official KITTI RTE on full sequences (`experiments/mesh_loam_kitti_seq_{00,07}_f
 | `--mesh-loam-dense-profile` | 1.011 % | 0.528 % | 0.7 |
 | + 0.22 deg correction (`dense_elevation`) | 0.598 % | 0.419 % | 0.36 |
 | + nearest facet (`dense_elevation_nearest_facet`) | **0.556 %** | 0.346 % | 0.63 |
-| paper path + correction (`paper_odometry_elevation`) | 0.567 % | **0.340 %** | 0.29 |
+| paper path + correction (`paper_odometry_elevation`) | 0.565 % | **0.342 %** | 1.2 |
+| + global mesh kept (`paper_odometry_elevation_keep_mesh`, ablation) | 0.568 % | 0.339 % | 1.5 |
 | paper, Table I | 0.53 % | 0.31 % | |
 
 The paper path (`--mesh-loam-paper-odometry`: 0.1 m input without a cap,
 normals from 10 NN in 0.5 m cells, nearest facet) is 1.07x / 1.10x the paper
-(geometric mean 1.08x, from 1.80x); its rotational error is 0.232 / 0.198
+(geometric mean 1.08x, from 1.80x); its rotational error is 0.231 / 0.200
 deg/100 m against 0.20 / 0.15. Most of the gain comes from the association
-and the correction: the dense profile with both reaches the same ratio at
-twice the speed.
+and the correction: the dense profile with both reaches the same ratio. The
+paper path ran at 0.29 FPS before the speed work below (0.567 / 0.340 %);
+the rows above are with the current code. FPS on a shared 4-core host.
 
 On the first 400 frames of seq 07, a 120 m range (0.410 % vs 0.409 %) and a
 mesh update every 2 frames (0.413 %) change nothing. Keeping the global mesh
 past the 80 m prune (`--mesh-loam-keep-mesh`, Eq. 3) used to exceed 10 GB on
-seq 07. The section below covers its current memory use.
+seq 07; with marching cubes and frozen far bins
+(`--mesh-loam-marching-cubes --mesh-loam-freeze-radius 100`) the full seq 07
+run peaks at 1.17 GB and gives 0.339 % (00: 0.568 %), the same as without it:
+the revisits in 07 and 00 do not gain from the kept mesh here.
 
 ## Speed and memory
 
@@ -216,11 +222,12 @@ everything searchable. Paper path, frames 0-399:
 | marching cubes, freeze 100 m | 7.5 M (2.4 M) | 0.83 GB | 0.415 | about 1.2 GB |
 
 The full-sequence estimates extrapolate the kept-mesh growth of frames
-200-399 (61 k facets per frame with tetrahedra) to all 1101 frames. They are
-estimates, not runs. Before this change, `keep_mesh` with tetrahedra
-exceeded 10 GB on seq 07.
+200-399 (61 k facets per frame with tetrahedra) to all 1101 frames. The full
+seq 07 run with marching cubes and freeze 100 m peaked at 1.17 GB RSS. Before
+this change, `keep_mesh` with tetrahedra exceeded 10 GB on seq 07.
 
-Recommended values for the paper path (runner flags still to be added):
+Recommended values for the paper path (runner flags `--mesh-loam-marching-cubes`,
+`--mesh-loam-full-block-meshing`, `--mesh-loam-freeze-radius`):
 `mesh_dirty_cells = true` (the default). Keep `marching_cubes = false` for
 accuracy runs. For `keep_mesh`, use `marching_cubes = true` and
 `mesh_freeze_radius = 100`.

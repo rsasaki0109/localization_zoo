@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-13T02:38:18+00:00
+> Generated: 2026-10-13T03:53:27+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -610,8 +610,8 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
-| dogfooding_results/kitti_seq_00_full | dense_elevation_nearest_facet | 8.496 | 0.7 |
-| dogfooding_results/kitti_seq_07_full | dense_elevation_nearest_facet | 0.651 | 0.6 |
+| dogfooding_results/kitti_seq_00_full | paper_odometry_elevation_keep_mesh | 10.170 | 1.3 |
+| dogfooding_results/kitti_seq_07_full | paper_odometry_elevation_keep_mesh | 0.853 | 1.5 |
 
 **Stability**: 1 unique default(s) across 2 windows.
 
@@ -1280,7 +1280,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense_elevation | 4.146 | 0.4 | 2 |
 | dense_elevation_nearest_facet | 4.574 | 0.6 | 2 |
 | dense_profile | 7.228 | 0.4 | 2 |
-| paper_odometry_elevation | 5.498 | 0.3 | 2 |
+| paper_odometry_elevation | 5.519 | 1.1 | 2 |
+| paper_odometry_elevation_keep_mesh | 5.511 | 1.4 | 2 |
 
 ### MULLS
 

@@ -12,6 +12,7 @@ within the same dataset, window, initialization policy and runtime profile.
 - [2D laser scan odometry](#2d-laser-scan-odometry)
 - [Hard point cloud localization](#hard-point-cloud-localization)
 - [Promoted LiDAR odometry: v10 re-score](#promoted-lidar-odometry-v10-re-score)
+- [Paper pipelines on another lidar (NCLT)](nclt_paper_paths.md)
 
 ## From-paper reimplementations (no public reference code) — KITTI full
 

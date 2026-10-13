@@ -44,7 +44,7 @@ prove paper fidelity ([reproduction status](docs/reproduction_status.md),
 |---|---|
 | See which methods are accurate on KITTI | [Leaderboard](#leaderboard--odometry-rpe-drift-100-m-lower-is-better) · [paper-number check](#paper-number-check-official-kitti-rte) · [explorer](https://rsasaki0109.github.io/localization_zoo/) |
 | Browse all methods | [Implementations](docs/implementations.md) |
-| See other benchmarks (from-paper ports, 2D laser, hard PCL, ablations) | [Benchmark overview](docs/benchmark_overview.md) · [place recognition](docs/place_recognition_benchmark.md) |
+| See other benchmarks (from-paper ports, 2D laser, hard PCL, ablations) | [Benchmark overview](docs/benchmark_overview.md) · [place recognition](docs/place_recognition_benchmark.md) · [paper paths on NCLT](docs/nclt_paper_paths.md) |
 | Build and run the tests | [Quick start](#quick-start) |
 | Call a method from Python or run it on a ROS 2 bag | [Python bindings](#python-bindings-experimental) · [ROS 2](#ros-2) |
 | Use the IMU tools (motion / health SDK, attitude filters, Allan variance) | [IMU tools](docs/implementations.md#imu-motion--health-sdk) |

@@ -154,3 +154,34 @@ SuMa's seq 02 failure).
   reports 00 as held out. Table 6 takes the best variant per sequence, which is
   an optimistic bound (stated in [paper_claim.md](paper_claim.md)).
 - **Paper numbers have limited precision.** SuMa's table has one decimal.
+
+## 6. Moving a KITTI-tuned port to another lidar
+
+Measured on NCLT 2013-01-10 (HDL-32E on a Segway, 5105 scans, about
+1.1 km); results in [nclt_paper_paths.md](nclt_paper_paths.md).
+
+**Scan frame.** NCLT stores body-frame scans: z points down (the MS25 reads
+accel_z = -9.8 at rest) and the HDL-32E sits 0.957 m above the body origin.
+- Symptom: range-image methods and ground models fail outright (SuMa
+  880 %, DiLO 64 % RTE) while KISS-ICP, which needs no frame, is fine.
+- Check: `evaluation/scripts/check_scan_frame.py --beam-spacing-deg 1.333`
+  finds the height and up axis at which the beam pattern appears; on NCLT the
+  elevations are then -10.7 to +30.7 deg in a gravity-up frame.
+- Fix: `--input-sensor-pose 0 0 -0.957 180 0 0` (scans and ground truth are
+  moved into that frame) and the field of view seen from there (up 31,
+  down 11).
+
+**Beam spacing.** Gaps, fills and radii sized for 64 beams do not bridge 32.
+- DiLO's vertical fill bridged at most 4 image rows; HDL-32E beams are about
+  8 rows apart (600-scan window 72.7 -> 2.8 %).
+- IMLS-SLAM's paper radii (h = 0.06 m, r = 0.20 m) find no model points
+  (47.5 -> 2.7 % with 0.15 / 0.5 m, 1.4 % with 0.3 / 1.0 m).
+
+**Intensity scale.** KITTI stores reflectance in [0, 1], NCLT 0-255;
+thresholds and residual weights written for one dominate with the other
+(InTEn-LOAM 600-scan window 42 -> 15 %). The runner now scales 0-255 input
+for the InTEn-LOAM paper path.
+
+**Unknown keys.** A `--*-paper-set` key the runner does not know only warns;
+check the log before reading a sweep as "no effect".
+

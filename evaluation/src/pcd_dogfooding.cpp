@@ -2535,6 +2535,8 @@ struct DiloDogfoodingOptions {
   double paper_min_planarity = -1.0;   // < 0: library default
   int paper_keypoint_cell = -1;
   double paper_fill_slope = -1.0;
+  double paper_top_elevation_deg = 1e9;  // >= 1e9: library default
+  int paper_height = -1;
 };
 
 struct NhcLioDogfoodingOptions {
@@ -2703,6 +2705,8 @@ struct EloDogfoodingOptions {
   bool normal_patch_full_size = false;
   bool bev_keep_closest = false;
   bool sri_fuse_same_surface = false;
+  double sri_fov_up_deg = 1e9;    // >= 1e9: library default
+  double sri_fov_down_deg = 1e9;
   bool ground_constrains_forward = true;
   double curvature_threshold = -1.0;  // < 0: library default
   double robust_scale = 0.5;
@@ -4904,6 +4908,10 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "s2m_iterations") pp.s2m_iterations = static_cast<int>(v);
       else if (k == "ground_threshold") pp.ground_threshold = v;
       else if (k == "deskew") pp.deskew = static_cast<int>(v);
+      else if (k == "theta_up_deg") pp.theta_up_deg = v;
+      else if (k == "theta_down_deg") pp.theta_down_deg = v;
+      else if (k == "height") pp.height = static_cast<int>(v);
+      else if (k == "ground_start_below") pp.ground_start_below = v;
       else std::cerr << "unknown --inten-loam-paper-set key " << k << std::endl;
     }
     InTenLoamPaper paper(pp);
@@ -8272,6 +8280,8 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   if (options.paper_min_planarity >= 0.0) params.min_planarity = options.paper_min_planarity;
   if (options.paper_keypoint_cell >= 0) params.keypoint_cell_px = options.paper_keypoint_cell;
   if (options.paper_fill_slope >= 0.0) params.fill_slope = options.paper_fill_slope;
+  if (options.paper_top_elevation_deg < 1e9) params.top_elevation_deg = options.paper_top_elevation_deg;
+  if (options.paper_height > 0) params.height = options.paper_height;
   params.edge_detector = options.paper_edge_detector;
   params.edge_subpixel = options.paper_edge_subpixel;
   params.edge_dofs = options.paper_edge_dofs;
@@ -8885,6 +8895,8 @@ MethodResult runElo(const std::vector<std::string>& pcd_dirs,
   params.normal_patch_full_size = options.normal_patch_full_size;
   params.bev_keep_closest = options.bev_keep_closest;
   params.sri_fuse_same_surface = options.sri_fuse_same_surface;
+  if (options.sri_fov_up_deg < 1e9) params.fov_up_deg = options.sri_fov_up_deg;
+  if (options.sri_fov_down_deg < 1e9) params.fov_down_deg = options.sri_fov_down_deg;
   params.ground_constrains_forward = options.ground_constrains_forward;
   if (options.curvature_threshold >= 0.0) params.curvature_threshold = options.curvature_threshold;
   params.robust_scale = options.robust_scale;
@@ -10963,6 +10975,9 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
       else if (k == "map_max_distance") pp.map_max_distance = v;
       else if (k == "map_max_angle_deg") pp.map_max_angle_deg = v;
       else if (k == "max_depth") pp.max_depth = v;
+      else if (k == "fov_up_deg") pp.fov_up_deg = v;
+      else if (k == "fov_down_deg") pp.fov_down_deg = v;
+      else if (k == "height") pp.height = static_cast<int>(v);
       else std::cerr << "unknown --suma-paper-set key " << k << std::endl;
     }
     SuMaPaper paper(pp);
@@ -14822,6 +14837,16 @@ int main(int argc, char** argv) {
       dilo_options.paper_edges = true;
       continue;
     }
+    if (arg == "--dilo-paper-top-elevation") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-top-elevation requires a value" << std::endl; return 1; }
+      dilo_options.paper_top_elevation_deg = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-height") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-height requires a value" << std::endl; return 1; }
+      dilo_options.paper_height = std::stoi(argv[++i]);
+      continue;
+    }
     if (arg == "--dilo-paper-min-planarity") {
       if (i + 1 >= argc) { std::cerr << "--dilo-paper-min-planarity requires a value" << std::endl; return 1; }
       dilo_options.paper_min_planarity = std::stod(argv[++i]);
@@ -15238,6 +15263,23 @@ int main(int argc, char** argv) {
     }
     if (arg == "--elo-ground-both-sides") {
       elo_options.ground_requires_both_sides = true;
+      continue;
+    }
+    if (arg == "--elo-fov") {
+      // up and down elevation limits of the SRI [deg], e.g. 10.67 -30.67 for an HDL-32E
+      if (i + 2 >= argc) { std::cerr << "--elo-fov requires two values" << std::endl; return 1; }
+      elo_options.sri_fov_up_deg = std::stod(argv[++i]);
+      elo_options.sri_fov_down_deg = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--elo-sri-height") {
+      if (i + 1 >= argc) { std::cerr << "--elo-sri-height requires a value" << std::endl; return 1; }
+      elo_options.sri_height = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--elo-sensor-height") {
+      if (i + 1 >= argc) { std::cerr << "--elo-sensor-height requires a value" << std::endl; return 1; }
+      elo_options.sensor_height = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--elo-sri-fuse-same-surface") {

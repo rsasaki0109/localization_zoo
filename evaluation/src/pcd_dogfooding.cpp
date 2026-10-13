@@ -4968,6 +4968,11 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
         pts.push_back(p.point);
         inten.push_back(p.intensity);
       }
+      // The paper's thresholds are for intensity in [0, 1] (KITTI); scans
+      // that store 0-255 (NCLT) are scaled.
+      if (!inten.empty() && *std::max_element(inten.begin(), inten.end()) > 1.0f) {
+        for (auto& value : inten) value /= 255.0f;
+      }
       const auto r = paper.process(pts, inten);
       res.poses.push_back(anchorRelativePose(anchor, r.pose));
       s2s += r.s2s_pairs;

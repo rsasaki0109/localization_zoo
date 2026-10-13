@@ -53,6 +53,20 @@
         "--no-gt-seed",
         "--suma-paper"
       ]
+    },
+    {
+      "id": "paper_odometry_clean_lookup_elevation",
+      "label": "SuMa paper pipeline, normalised model lookup + 0.22 deg correction",
+      "design_style": "reference",
+      "intent": "SuMaPaper with the bilinear model lookup normalised over valid texels (the official lookup blends empty texels in, a bias towards the sensor) and the 0.22 deg KITTI vertical-angle correction. Fixes the forward drift in the seq 02 corridors where the official lookup and the elevation bowl of raw scans bias the weakly constrained forward direction (see papers/suma/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "normalize_bilinear=1",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ]
     }
   ]
 }

@@ -2,6 +2,7 @@ find_package(Ceres REQUIRED)
 
 add_library(suma
   src/suma.cpp
+  src/suma_paper.cpp
 )
 
 target_include_directories(suma PUBLIC
@@ -22,3 +23,7 @@ target_include_directories(suma PUBLIC
 add_executable(test_suma test/test_suma.cpp)
 target_link_libraries(test_suma PRIVATE suma GTest::gtest_main)
 add_test(NAME test_suma COMMAND test_suma)
+
+add_executable(test_suma_paper test/test_suma_paper.cpp)
+target_link_libraries(test_suma_paper PRIVATE suma GTest::gtest_main)
+add_test(NAME test_suma_paper COMMAND test_suma_paper)

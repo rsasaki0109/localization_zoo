@@ -20,6 +20,11 @@ is named). Read this before tuning a port on KITTI.
 - Exception: SuMa's official bilinear model lookup carries a bias of the
   opposite sign; it is best on raw scans unless the lookup is normalised
   (see 4).
+- Re-check per method: when pitch comes mostly from the ground, the angle
+  without pitch drift can differ. InTEn-LOAM: pitch error linear in the
+  angle (0.15 / 0.20 / 0.25 deg: 0.000 / -0.032 / -0.066 mrad per frame on
+  07), zero near 0.16 deg; 0.17 deg chosen on 07 (windows 0.402 -> 0.364 %
+  with the plane check below).
 
 **Motion compensation.** KITTI odometry scans are already motion-compensated.
 - Symptom: a paper describes deskewing (e.g. InTEn-LOAM Sec. 3.1.1), the port
@@ -99,6 +104,23 @@ filters nothing.
 - Fix: a stricter planarity threshold plus at most one key point per image
   cell per list (DiLO: roll error per pair 7.2 -> 2.3 mrad, ICP 2.1).
 
+**Loose plane checks.** A plane fit that only asks all neighbours to lie
+within some distance of the PCA plane passes curved and mixed neighbourhoods
+when the distance is generous; their normals pull yaw.
+- Effect: InTEn-LOAM's S2M check 0.2 -> 0.05 m: 00 frames 4000-4399 window
+  1.39 -> 0.92 %, yaw error +0.053 -> -0.004 mrad per frame (07 windows
+  0.402 -> 0.375 %). Five neighbours along one line pass any distance check
+  with a free normal (a spread check removes that on a synthetic street,
+  neutral on KITTI).
+- Check: one Gauss-Newton step per class from ground-truth poses
+  (`InTenLoamPaperDiagnostics`); the facade class pulled yaw +0.32 mrad.
+
+**Edge silhouettes shorten the path.** Edge points on poles and trunks sit
+ahead of map lines built from earlier viewpoints (InTEn-LOAM: 15 mm on
+average, 23 mm on vertical lines), so scan-to-map pulls back: the estimate
+is 0.2-0.35 % shorter than KISS-ICP. Dropping the forward component of edge
+residuals fixes the scale but costs yaw; open.
+
 **Map resolution.** Paper values are often for other sensors or not given.
 - Effect: InTEn-LOAM plane map voxel 0.8 -> 0.2 m: 07 0.803 -> 0.368 %.
 
@@ -118,7 +140,10 @@ SuMa's seq 02 failure).
 
 - **Some error is the data, not the port.** About -3.3 deg of summed yaw error
   on seq 00 appears in KISS-ICP as well as in InTEn-LOAM; ELO and MULLS share
-  the lateral error on 07. Compare per-axis increments with a reference
+  the lateral error on 07. Every method checked (InTEn-LOAM, KISS-ICP,
+  IMLS-SLAM, consecutive-scan ICP from the ground truth) moves 5-7.5 mrad of
+  each step to the left of the ground truth on 00 and 07, which dominates
+  400-frame window RTE. Compare per-axis increments with a reference
   method on the same scans before chasing an axis.
 - **Official RTE needs long segments.** 100-800 m segments; a 400-frame window
   (about 260 m) gives only 100-200 m segments, and 150 frames give none. Use

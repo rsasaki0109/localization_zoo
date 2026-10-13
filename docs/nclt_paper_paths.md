@@ -93,6 +93,7 @@ run kiss  kiss_icp --kiss-upstream-profile --kiss-model-deviation-threshold
 run inten inten_loam --inten-loam-paper-odometry --input-max-range-m 120 \
   --inten-loam-paper-set theta_up_deg=31 --inten-loam-paper-set theta_down_deg=11 \
   --inten-loam-paper-set height=32 --inten-loam-paper-set ground_start_below=-0.6
+run imls_r1 imls_slam --imls-slam-paper-odometry --imls-slam-paper-r 1.0 --imls-slam-paper-h 0.3
 run imls  imls_slam --imls-slam-paper-odometry --imls-slam-paper-r 0.5 --imls-slam-paper-h 0.15
 run mesh  mesh_loam --mesh-loam-paper-odometry
 run dilo  dilo --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 \

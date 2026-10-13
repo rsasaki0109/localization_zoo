@@ -41,6 +41,16 @@
         "--no-gt-seed",
         "--suma-dense-profile"
       ]
+    },
+    {
+      "id": "paper_odometry",
+      "label": "SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",
+      "design_style": "reference",
+      "intent": "SuMaPaper on raw scans with the official default.xml values: 900 x 64 vertex/normal maps, model view rendered from active stable surfels, projective association with 2 m / 30 deg gates, Huber 0.5, Gauss-Newton with frame-to-frame fallback, surfel radius, stability log-odds and fusion (RSS 2018). No vertical-angle correction (the official KITTI reader applies none; it hurts here). No loop closure.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ]
     }
   ]
 }

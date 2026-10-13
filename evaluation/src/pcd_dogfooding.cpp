@@ -90,6 +90,7 @@
 #include "hdl_graph_slam/hdl_graph_slam.h"
 #include "vgicp_slam/vgicp_slam.h"
 #include "suma/suma.h"
+#include "suma/suma_paper.h"
 #include "balm2/balm2.h"
 #include "isc_loam/isc_loam.h"
 #include "loam_livox/loam_livox.h"
@@ -3226,6 +3227,10 @@ struct SuMaDogfoodingOptions {
   int surfel_stride = 1;
   int max_iterations = 4;
   int max_frames_in_map = 20;
+  int n_scans = 16;
+  // Paper pipeline (SuMaPaper): raw scans, official default.xml values.
+  bool paper = false;
+  std::vector<std::pair<std::string, double>> paper_overrides;
 };
 
 struct Balm2DogfoodingOptions {
@@ -10910,7 +10915,50 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
   using namespace localization_zoo::suma;
   MethodResult res;
   res.name = "SuMa";
+  if (options.paper) {
+    SuMaPaperParams pp;
+    for (const auto& kv : options.paper_overrides) {
+      const std::string& k = kv.first;
+      const double v = kv.second;
+      if (k == "normalize_bilinear") pp.normalize_bilinear = v != 0.0;
+      else if (k == "bilinear_sampling") pp.bilinear_sampling = v != 0.0;
+      else if (k == "fallback_mode") pp.fallback_mode = v != 0.0;
+      else if (k == "use_stability") pp.use_stability = v != 0.0;
+      else if (k == "max_iterations") pp.max_iterations = static_cast<int>(v);
+      else if (k == "active_timestamps") pp.active_timestamps = static_cast<int>(v);
+      else if (k == "width") pp.width = static_cast<int>(v);
+      else if (k == "icp_max_distance") pp.icp_max_distance = v;
+      else if (k == "icp_max_angle_deg") pp.icp_max_angle_deg = v;
+      else if (k == "huber_factor") pp.huber_factor = v;
+      else if (k == "map_max_distance") pp.map_max_distance = v;
+      else if (k == "map_max_angle_deg") pp.map_max_angle_deg = v;
+      else if (k == "max_depth") pp.max_depth = v;
+      else std::cerr << "unknown --suma-paper-set key " << k << std::endl;
+    }
+    SuMaPaper paper(pp);
+    const Eigen::Matrix4d anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+    long fallbacks = 0;
+    auto t_start = Clock::now();
+    for (size_t i = 0; i < pcd_dirs.size(); i++) {
+      const auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
+      if (xyzi.empty()) continue;
+      std::vector<Eigen::Vector3d> pts;
+      pts.reserve(xyzi.size());
+      for (const auto& p : xyzi) pts.push_back(p.point);
+      const auto r = paper.process(pts);
+      fallbacks += r.fallback ? 1 : 0;
+      res.poses.push_back(anchorRelativePose(anchor, r.pose));
+      if (i % 10 == 0) std::cerr << "\r  [SuMa paper] " << i << "/" << pcd_dirs.size();
+    }
+    std::cerr << std::endl;
+    res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t_start).count();
+    res.note = "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel "
+               "stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop "
+               "closure. frame-to-frame fallbacks=" + std::to_string(fallbacks);
+    return res;
+  }
   SuMaParams params;
+  params.n_scans = options.n_scans;
   params.min_range = options.min_range;
   params.max_range = options.max_range;
   params.surfel_resolution = options.surfel_resolution;
@@ -16575,6 +16623,23 @@ int main(int argc, char** argv) {
       suma_options.surfel_stride = 2;
       suma_options.max_iterations = 3;
       suma_options.max_frames_in_map = 12;
+      continue;
+    }
+    if (arg == "--suma-paper") {
+      suma_options.paper = true;
+      continue;
+    }
+    if (arg == "--suma-paper-set") {
+      if (i + 1 >= argc) { std::cerr << "--suma-paper-set requires key=value" << std::endl; return 1; }
+      const std::string kv = argv[++i];
+      const auto eq = kv.find('=');
+      if (eq == std::string::npos) { std::cerr << "--suma-paper-set requires key=value" << std::endl; return 1; }
+      suma_options.paper_overrides.emplace_back(kv.substr(0, eq), std::stod(kv.substr(eq + 1)));
+      continue;
+    }
+    if (arg == "--suma-n-scans") {
+      if (i + 1 >= argc) { std::cerr << "--suma-n-scans requires a value" << std::endl; return 1; }
+      suma_options.n_scans = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--suma-dense-profile") {

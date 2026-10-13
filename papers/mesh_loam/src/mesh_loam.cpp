@@ -1132,6 +1132,17 @@ void MeshLoamPipeline::extractMesh() {
                   bin.end());
       }
       const bool removed_any = bin.size() != before;
+      // Exact capacity (no doubling slack): most bins are rebuilt at every
+      // extraction anyway, and kept-mesh bins stay as they are.
+      const size_t needed = bin.size() + (s1 - s0);
+      if (needed > bin.capacity()) {
+        bin.reserve(needed);
+      } else if (bin.capacity() > needed + needed / 4 + 4) {
+        std::vector<Facet> tight;
+        tight.reserve(needed);
+        tight.assign(bin.begin(), bin.end());
+        bin.swap(tight);
+      }
       bin.insert(bin.end(), bucketed.begin() + s0, bucketed.begin() + s1);
       if (removed_any) {
         fb.recomputeBounds();
@@ -1264,6 +1275,7 @@ void MeshLoamPipeline::thawChunk(const Eigen::Vector3i& chunk) {
   const FrozenChunk& c = it->second;
   for (size_t i = 0; i < c.bins.size(); ++i) {
     FacetBin& bin = facet_bins_[c.bins[i]];
+    bin.facets.reserve(bin.facets.size() + (c.offsets[i + 1] - c.offsets[i]));
     for (uint32_t j = c.offsets[i]; j < c.offsets[i + 1]; ++j) {
       const FrozenFacet& ff = c.facets[j];
       Facet f;

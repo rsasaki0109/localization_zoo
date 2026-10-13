@@ -37,11 +37,13 @@ struct MeshLoamParams {
   /// (their voxels are gone), so their facets stay until the area is
   /// observed again.
   bool keep_mesh = false;
-  /// keep_mesh only: facet bins farther than this from the current pose are
-  /// moved to a compressed store (16-bit vertices, ~4x smaller) and restored
-  /// when the pose comes back within the radius. <= 0 keeps every bin in the
-  /// searchable store. Should exceed max_range plus the distance travelled
-  /// in mesh_update_interval frames.
+  /// keep_mesh only: facet bins farther than this (plus a 11 m hysteresis)
+  /// from the current pose are moved to a compressed store (16-bit
+  /// vertices, 22 B instead of ~70 B per facet) and restored when the pose
+  /// comes back within the radius. <= 0 keeps every bin in the searchable
+  /// store. Must exceed max_range plus the distance travelled in
+  /// mesh_update_interval frames (frozen bins are not searched); 100 m for
+  /// the 80 m KITTI setup.
   double mesh_freeze_radius = 0.0;
 
   // Incremental meshing.

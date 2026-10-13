@@ -455,11 +455,32 @@ std::shared_ptr<DiloPaperFrame> DiloPaperOdometry::buildFrame(
     };
     std::vector<int> order = cand;
     const int k = std::min<int>(K, static_cast<int>(order.size()));
-    std::partial_sort(order.begin(), order.begin() + k, order.end(),
-                      [&](int a, int b) { return score(a) > score(b); });
-    for (int i = 0; i < k; ++i) {
-      frame->key_points.push_back(frame->point[order[i]].cast<double>());
-      frame->key_normals.push_back(frame->normal[order[i]].cast<double>());
+    auto better = [&](int a, int b) { return score(a) > score(b); };
+    if (params_.keypoint_cell_px <= 1) {
+      std::partial_sort(order.begin(), order.begin() + k, order.end(), better);
+      for (int i = 0; i < k; ++i) {
+        frame->key_points.push_back(frame->point[order[i]].cast<double>());
+        frame->key_normals.push_back(frame->normal[order[i]].cast<double>());
+      }
+      continue;
+    }
+    // At most one key point of the list per keypoint_cell_px x
+    // keypoint_cell_px block of the image: the top of a list is otherwise a
+    // few clusters of neighbouring pixels (e.g. the ground list a strip just
+    // ahead of the car, which hardly constrains roll).
+    std::sort(order.begin(), order.end(), better);
+    const int cs = params_.keypoint_cell_px;
+    const int cw = (W + cs - 1) / cs;
+    std::vector<unsigned char> used(static_cast<size_t>((H + cs - 1) / cs) * cw, 0);
+    int taken = 0;
+    for (size_t j = 0; j < order.size() && taken < k; ++j) {
+      const int i = order[j];
+      unsigned char& u = used[static_cast<size_t>((i / W) / cs) * cw + (i % W) / cs];
+      if (u) continue;
+      u = 1;
+      frame->key_points.push_back(frame->point[i].cast<double>());
+      frame->key_normals.push_back(frame->normal[i].cast<double>());
+      ++taken;
     }
   }
   return frame;

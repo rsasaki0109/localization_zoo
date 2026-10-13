@@ -41,7 +41,13 @@ struct DiloPaperParams {
   double fill_slope = 0.02;         // relative range change per row allowed for interpolation
   int max_fill_gap = 4;             // rows
   int keypoints_per_list = 100;
+  // Key-point candidates need planarity a > min_planarity. a = 1 - |dn/dq|^2
+  // is above 0.9 almost everywhere (vegetation, car bodies), so 0 lets the
+  // lists fill up with such points; 0.98 keeps them out.
   double min_planarity = 0.0;
+  // > 1: at most one key point of a list per keypoint_cell_px x
+  // keypoint_cell_px block of the image (not in the paper).
+  int keypoint_cell_px = 0;
   int window = 10;                  // N
   int init_iterations = 5;
   int update_iterations = 5;        // 0: no window refinement

@@ -4942,6 +4942,15 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "theta_down_deg") pp.theta_down_deg = v;
       else if (k == "height") pp.height = static_cast<int>(v);
       else if (k == "ground_start_below") pp.ground_start_below = v;
+      else if (k == "cluster_angle_deg") pp.cluster_angle_deg = v;
+      else if (k == "min_cluster_points") pp.min_cluster_points = static_cast<int>(v);
+      else if (k == "segment_bin") pp.segment_bin = v;
+      else if (k == "ground_max_slope") pp.ground_max_slope = v;
+      else if (k == "width") pp.width = static_cast<int>(v);
+      else if (k == "sectors_per_row") pp.sectors_per_row = static_cast<int>(v);
+      else if (k == "map_intensity_voxel") pp.map_intensity_voxel = v;
+      else if (k == "use_dor") pp.use_dor = v != 0.0;
+      else if (k == "use_intensity") pp.use_intensity = v != 0.0;
       else std::cerr << "unknown --inten-loam-paper-set key " << k << std::endl;
     }
     InTenLoamPaper paper(pp);

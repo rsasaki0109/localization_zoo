@@ -364,6 +364,8 @@ Eigen::Matrix4d SuMaPaper::alignProjective(const VertexNormalMap& data,
   const double cos_max_angle = std::cos(deg2rad(max_angle_deg));
   double last_error = std::numeric_limits<float>::max();
   Normal6 eq;
+  eq.JtJ.setZero();
+  eq.Jtf.setZero();
   int iterations = 0;
   for (int k = 0; k < params_.max_iterations; ++k) {
     accumulate(data, model, T, max_distance, cos_max_angle, &eq);
@@ -384,6 +386,8 @@ Eigen::Matrix4d SuMaPaper::alignProjective(const VertexNormalMap& data,
     stats->inliers = eq.inliers;
     stats->outliers = eq.outliers;
     stats->iterations = iterations;
+    stats->error = eq.error;
+    stats->JtJ = eq.JtJ;
   }
   return T;
 }

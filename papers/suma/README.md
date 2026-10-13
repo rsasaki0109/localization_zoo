@@ -95,3 +95,42 @@ the correction.
 Tests: `test_suma_paper` (synthetic street canyon ray-cast with 64 beams:
 vertex / normal maps, rendering, projective Gauss-Newton, map update, known
 motion over 15 scans).
+
+### Seq 02: forward drift in corridors and the recommended KITTI setting
+
+With the official defaults on raw scans, full seq 02 reaches 3.51 % (paper
+1.1 %): around frames 1850-1960 and 4430-4540 (13 m/s, a road between a wall /
+hedge and vegetation) the estimated step grows from 1.3 m to 2-3.3 m. Measured
+on windows that start 100 scans earlier (scratch driver, official RTE):
+
+- The forward direction is nearly unconstrained there: the translation block
+  of J'WJ has eigenvalues about 40-90 along x against 1500-3700 (y) and
+  3600-7400 (z); only about 80 of 12000 associated pixels have |n_x| > 0.5.
+- The frame-to-model objective itself is biased, not only the warm start:
+  Gauss-Newton started at the ground-truth increment converges to the same
+  too-long step (frame 1910: GT 1.38 m, from GT 2.09 m, estimate 2.58 m).
+  The frame-to-frame fallback gives the right step (about 1.37 m), but the
+  next frame-to-model step runs off again.
+- At the ground-truth increment, 73 % of the forward gradient comes from
+  ground pixels. Their surfel normals tilt towards the sensor by about
+  1.3 deg on average (the KITTI elevation "bowl"), so the many ground pixels
+  carry a small, biased forward term that wins when nothing else constrains x.
+- The official bilinear lookup (empty texels blended in) adds its own bias.
+  Either fix alone is not enough; both together are:
+
+| Variant (seq 02 window) | f1750-1959 | f4330-4559 |
+|---|---:|---:|
+| official defaults, raw scans | 25.4 % | 14.0 % |
+| + 0.22 deg vertical-angle correction | 11.4 % | |
+| `normalize_bilinear = true`, raw scans | 7.6 % | 2.63 % |
+| `normalize_bilinear = true` + 0.22 deg | **2.00 %** | **1.67 %** |
+| `normalize_bilinear = true` + 0.165 deg | 2.20 % | 1.48 % |
+| nearest lookup, raw scans | | 19.1 % |
+| constant-velocity scan deskew (driver), raw scans | 25.5 % | 21.3 % |
+| keep the warm start along weak translation directions (< 2 % of the strongest) | 28.1 % | |
+| active window 10 scans instead of 100 | 57.9 % | 19.9 % |
+
+Regression windows with `normalize_bilinear = true` + 0.22 deg: 07 f0-399
+0.468 % (official raw 0.432 %), 07 f400-799 0.736 % (0.368 %), 00 f0-399
+1.151 % (1.104 %). The defaults stay official; for KITTI runs where seq 02
+matters, use `normalize_bilinear = true` with the 0.22 deg correction.

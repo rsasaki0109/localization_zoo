@@ -71,7 +71,10 @@ struct SuMaPaperParams {
   // The official GL_LINEAR lookup blends invalid (zero) texels into the
   // model vertex and normal when at most 25 % of the weight is invalid,
   // pulling the vertex towards the sensor. true divides by the valid weight
-  // (not in the official code).
+  // (not in the official code). On KITTI use it together with the 0.22 deg
+  // vertical-angle correction: in corridors where the forward direction is
+  // nearly unconstrained (seq 02), the official lookup on raw scans drifts
+  // forward (README, "Seq 02").
   bool normalize_bilinear = false;
   bool initialize_identity = false;  // false: warm start with last increment
 
@@ -152,6 +155,8 @@ public:
     int inliers = 0;
     int outliers = 0;
     int iterations = 0;
+    double error = 0.0;                                       // sum w r^2
+    Eigen::Matrix<double, 6, 6> JtJ = Eigen::Matrix<double, 6, 6>::Zero();  // last iteration
   };
 
   explicit SuMaPaper(const SuMaPaperParams& params = SuMaPaperParams());

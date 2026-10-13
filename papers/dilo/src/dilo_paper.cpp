@@ -468,13 +468,19 @@ std::shared_ptr<DiloPaperFrame> DiloPaperOdometry::buildFrame(
     // keypoint_cell_px block of the image: the top of a list is otherwise a
     // few clusters of neighbouring pixels (e.g. the ground list a strip just
     // ahead of the car, which hardly constrains roll).
-    std::sort(order.begin(), order.end(), better);
+    std::vector<std::pair<double, int>> ranked(order.size());
+    for (size_t j = 0; j < order.size(); ++j) ranked[j] = {-score(order[j]), order[j]};
+    // Sort the head first; the rest only if the head runs out of free cells.
+    const size_t head = std::min(ranked.size(), static_cast<size_t>(32 * k));
+    std::nth_element(ranked.begin(), ranked.begin() + head - (head > 0), ranked.end());
+    std::sort(ranked.begin(), ranked.begin() + head);
     const int cs = params_.keypoint_cell_px;
     const int cw = (W + cs - 1) / cs;
     std::vector<unsigned char> used(static_cast<size_t>((H + cs - 1) / cs) * cw, 0);
     int taken = 0;
-    for (size_t j = 0; j < order.size() && taken < k; ++j) {
-      const int i = order[j];
+    for (size_t j = 0; j < ranked.size() && taken < k; ++j) {
+      if (j == head) std::sort(ranked.begin() + head, ranked.end());
+      const int i = ranked[j].second;
       unsigned char& u = used[static_cast<size_t>((i / W) / cs) * cw + (i % W) / cs];
       if (u) continue;
       u = 1;

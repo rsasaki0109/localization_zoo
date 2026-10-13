@@ -1,6 +1,6 @@
 # Paper Tracks
 
-_Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-13T11:18:52+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
@@ -126,8 +126,8 @@ Current coverage: `487` ready, `1` blocked, `14` skipped problems.
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `dogfooding_results/hdl_400_open_ct_lio_60` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.488 | 26.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
-| DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `default` | 14.169 | 42.1 | `dogfooding_results/kitti_seq_00_full` |
-| DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 2.532 | 39.1 | `dogfooding_results/kitti_seq_07_full` |
+| DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `default` | 11.597 | 42.1 | `dogfooding_results/kitti_seq_00_full` |
+| DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 1.111 | 39.1 | `dogfooding_results/kitti_seq_07_full` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.362 | 7.0 | `dogfooding_results/kitti_raw_0009_200` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.3 | `dogfooding_results/kitti_raw_0009_200` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.798 | 8.5 | `dogfooding_results/kitti_raw_0061_200` |

@@ -215,3 +215,10 @@ GT の相対姿勢から始めて平面の GN を収束させ、GT からのず�
 効果ではなく、遠い地面を道路の下に置いていた分を 0.22° が打ち消していたと読める。
 runner に要るフラグ (未実装): `--dilo-paper-min-planarity 0.98`, `--dilo-paper-keypoint-cell 8`,
 `--dilo-paper-fill-slope 0.1` と `--input-vertical-angle-correction-deg 0.18`。
+
+全区間 (`paper_odometry_spread_keypoints`: `--dilo-paper-odometry --dilo-paper-min-planarity 0.98
+--dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18`、
+公式 RTE): seq 00 0.797 → **0.549 %**、seq 07 0.579 → **0.372 %** (回転 0.256 / 0.224°/100 m)。論文の
+完全版 (エッジあり) 0.64 / 0.42 % に対して 0.86x / 0.89x、平面のみの ablation 0.84 / 0.58 % に対して
+0.65x / 0.64x。補正角 0.18° は 00 の窓の一部も見て選んだので、00 は厳密な held-out ではない。
+

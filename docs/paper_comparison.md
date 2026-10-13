@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-13T07:25:01+00:00
+> Generated: 2026-10-13T11:19:21+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -856,10 +856,10 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (KITTI average translation error (%), 100-800 m)
 **Hardware**: 4 cores, 2.6 GHz (paper)
 **Repo scope**: Paper reimplementation (no author code) with a paper odometry path (plane key points only) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: KITTI Odometry 00/07 with the paper pipeline (no edge key points) — --dilo-paper-odometry follows Sec. 3 without edge key points: 192x2048 sin-elevation range image with vertical fill, Farid-filter normals, eleven planarity-weighted key-point lists, the eq. 18 residual and Algorithm 1 (10-frame window, pairwise Tukey steps, log-map pose averaging). With the 0.22 deg beam correction it scores official KITTI RTE 0.797 / 0.579 % on 00 / 07: 0.95x / 1.00x the paper's plane-only ablation (DiLO-plane, 0.84 / 0.58 %) and 1.24x / 1.38x its full DiLO (0.64 / 0.42 %, the Table 6 value; geometric mean 1.31x, from 4.12x). Without the correction 1.308 / 0.619 %; without the window re-estimation 4.897 / 1.061 %. Two guards not in the paper (planar prediction, rejecting registrations far from it) were needed on KITTI. See papers/dilo/README.md.
-**Numeric comparison**: Same metric, 1.31x on 00/07 vs full DiLO (plane key points only; 0.97x vs DiLO-plane) — paper_odometry_elevation: seq 00 0.797 vs 0.64 (1.24x), seq 07 0.579 vs 0.42 (1.38x); vs DiLO-plane 0.84 / 0.58. Repo values: experiments/results/dilo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Main blocker**: Edge key points (Sec. 3.5) are not implemented; the remaining gap matches the paper ablation between DiLO-plane and DiLO.
-**Next step**: Implement the edge key points and residual (eq. 17); run the remaining KITTI sequences.
+**Current claim**: Near paper on KITTI Odometry 00/07 (plane-only paper pipeline) — --dilo-paper-odometry (spherical range image, eq. 11 normals, IMLS-style key-point lists, Algorithm 1 window, plane residuals) with planarity > 0.98, at most one key point per 8 x 8 px cell per list, a slope-aware vertical fill (fill_slope 0.1) and the 0.18 deg correction: official KITTI RTE 0.549 / 0.372 % on 00 / 07 vs the paper's full DiLO 0.64 / 0.42 % (0.86x / 0.89x, geometric mean 0.87x) and plane-only ablation 0.84 / 0.58 %. Edge key points (Sec. 3.5) were implemented and do not help on KITTI. The settings were chosen on 07 windows with some 00 windows in view. See papers/dilo/README.md.
+**Numeric comparison**: Same metric, 0.87x on 00/07 — paper_odometry_spread_keypoints: seq 00 0.549 vs 0.64 (0.86x), seq 07 0.372 vs 0.42 (0.89x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Below the paper's full DiLO without its edge term; the remaining error is a scene-dependent yaw bias and lateral offsets shared with an independent ICP (ground truth).
+**Next step**: Run the remaining KITTI sequences.
 
 ### Paper-Reported Values
 

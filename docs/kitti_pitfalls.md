@@ -84,6 +84,21 @@ that mixes in empty texels pulls samples toward the sensor.
 - Effect: SuMa with the lookup normalised over valid texels plus the
   correction: seq 02 3.51 -> 0.78 %, but 07 0.33 -> 0.52 %.
 
+**Vertical fill of a range image.** Filling vertical gaps with the far range
+along pixel rays puts the far ground under the road (about 10 cm at 20 m)
+once the ground range changes between beams faster than the fill allows.
+- Effect: DiLO's ground behind the car pulled pitch; with a slope-aware fill
+  (and key points spread over the image, below) seq 00 / 07 went 0.797 /
+  0.579 -> 0.549 / 0.372 %, and the best correction angle moved from 0.22 to
+  0.18 deg (0.22 had been cancelling the fill bias).
+
+**Key points that cluster.** Lists ranked by a score pick neighbouring pixels
+(the ground strip just ahead of the car, vegetation for the sideways lists),
+leaving roll weakly constrained; a per-pixel planarity score near 1 everywhere
+filters nothing.
+- Fix: a stricter planarity threshold plus at most one key point per image
+  cell per list (DiLO: roll error per pair 7.2 -> 2.3 mrad, ICP 2.1).
+
 **Map resolution.** Paper values are often for other sensors or not given.
 - Effect: InTEn-LOAM plane map voxel 0.8 -> 0.2 m: 07 0.803 -> 0.368 %.
 

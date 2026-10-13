@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1418,7 +1418,7 @@ _Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_ma
 ## DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
 - Current default: `default`.
-- Reference variants: `dense_profile`, `paper_odometry`, `paper_odometry_elevation`, `paper_odometry_no_window_update`.
+- Reference variants: `dense_profile`, `paper_odometry`, `paper_odometry_elevation`, `paper_odometry_no_window_update`, `paper_odometry_spread_keypoints`.
 - Aggregate result: `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
@@ -1428,11 +1428,12 @@ _Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_no_window_update | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_spread_keypoints | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `default`.
-- Active challengers: `dense_profile`.
+- Active challengers: `dense_profile`, `paper_odometry_spread_keypoints`.
 - Reference variants: `paper_odometry`, `paper_odometry_elevation`, `paper_odometry_no_window_update`.
 - Aggregate result: `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json`
 
@@ -1443,6 +1444,7 @@ _Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_no_window_update | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_spread_keypoints | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
 

@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -121,8 +121,8 @@ _Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `experiments/results/ct_lio_public_readiness_matrix.json` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.488 | 26.0 | `experiments/results/ct_lio_reference_profile_matrix.json` |
-| DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `default` | 14.169 | 42.1 | `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json` |
-| DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 2.532 | 39.1 | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
+| DiLO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `default` | 11.597 | 42.1 | `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json` |
+| DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 1.111 | 39.1 | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
 | DLIO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.239 | 12.1 | `experiments/results/dlio_hdl_400_reference_matrix.json` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.3 | `experiments/results/dlio_kitti_raw_0009_matrix.json` |
@@ -7433,17 +7433,18 @@ _Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| DiLO, default parameters | reference | 38.742 | 42.1 | 68.3 | 4.65 | 4.75 | Adopt as current default |
-| DiLO, dense profile | reference | 47.821 | 36.4 | 58.1 | 4.30 | 4.50 | Keep as reference variant |
-| DiLO paper odometry (plane key points, 10-frame window, pairwise averaging) | reference | 15.682 | 4.4 | 50.4 | 4.30 | 4.50 | Keep as reference variant |
-| DiLO paper odometry + 0.22 deg beam correction | reference | 14.169 | 4.3 | 55.1 | 3.70 | 4.10 | Keep as reference variant |
-| DiLO paper odometry without the window re-estimation | ablation | 71.652 | 5.6 | 16.6 | 3.70 | 4.10 | Keep as reference variant |
+| DiLO, default parameters | reference | 38.742 | 42.1 | 65.0 | 4.65 | 4.75 | Adopt as current default |
+| DiLO, dense profile | reference | 47.821 | 36.4 | 55.4 | 4.30 | 4.50 | Keep as reference variant |
+| DiLO paper odometry (plane key points, 10-frame window, pairwise averaging) | reference | 15.682 | 4.4 | 42.2 | 4.30 | 4.50 | Keep as reference variant |
+| DiLO paper odometry + 0.22 deg beam correction | reference | 14.169 | 4.3 | 46.1 | 3.70 | 4.10 | Keep as reference variant |
+| DiLO paper odometry without the window re-estimation | ablation | 71.652 | 5.6 | 14.8 | 3.70 | 4.10 | Keep as reference variant |
+| DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction | reference | 11.597 | 4.0 | 54.7 | 1.90 | 2.90 | Keep as reference variant |
 
 ### Observations
 
 1. `default` is the current default for this problem.
 2. `default` is the fastest observed variant at 42.1 FPS.
-3. `paper_odometry_elevation` is the most accurate observed variant at 14.169 m ATE.
+3. `paper_odometry_spread_keypoints` is the most accurate observed variant at 11.597 m ATE.
 
 ### Variant Notes
 
@@ -7502,6 +7503,17 @@ _Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 0 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
 
+#### `paper_odometry_spread_keypoints`
+
+- Intent: Planarity > 0.98 and at most one key point per 8 x 8 px cell per list (the ground list clustered ahead of the car, the side lists on vegetation, so roll was barely constrained), a vertical fill that no longer puts the far ground under the road (fill_slope 0.1), and the 0.18 deg correction that zeroes the pitch bias once the fill is fixed. Chosen on 07 windows, 00 windows held out (see papers/dilo/README.md).
+- CLI args: `--no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_spread_keypoints/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18`
+- Summary: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_spread_keypoints/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_spread_keypoints/run.log`
+- Readability proxy: 1.90 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.90 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
 
 ## DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -7517,17 +7529,18 @@ _Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| DiLO, default parameters | reference | 7.161 | 39.1 | 67.7 | 4.65 | 4.75 | Adopt as current default |
-| DiLO, dense profile | reference | 7.650 | 35.6 | 62.1 | 4.30 | 4.50 | Keep as active challenger |
-| DiLO paper odometry (plane key points, 10-frame window, pairwise averaging) | reference | 2.672 | 4.2 | 52.8 | 4.30 | 4.50 | Keep as reference variant |
-| DiLO paper odometry + 0.22 deg beam correction | reference | 2.532 | 4.2 | 55.3 | 3.70 | 4.10 | Keep as reference variant |
-| DiLO paper odometry without the window re-estimation | ablation | 3.163 | 5.3 | 46.8 | 3.70 | 4.10 | Keep as reference variant |
+| DiLO, default parameters | reference | 7.161 | 39.1 | 57.8 | 4.65 | 4.75 | Adopt as current default |
+| DiLO, dense profile | reference | 7.650 | 35.6 | 52.8 | 4.30 | 4.50 | Keep as active challenger |
+| DiLO paper odometry (plane key points, 10-frame window, pairwise averaging) | reference | 2.672 | 4.2 | 26.2 | 4.30 | 4.50 | Keep as reference variant |
+| DiLO paper odometry + 0.22 deg beam correction | reference | 2.532 | 4.2 | 27.3 | 3.70 | 4.10 | Keep as reference variant |
+| DiLO paper odometry without the window re-estimation | ablation | 3.163 | 5.3 | 24.3 | 3.70 | 4.10 | Keep as reference variant |
+| DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction | reference | 1.111 | 3.9 | 55.0 | 1.90 | 2.90 | Keep as active challenger |
 
 ### Observations
 
 1. `default` is the current default for this problem.
 2. `default` is the fastest observed variant at 39.1 FPS.
-3. `paper_odometry_elevation` is the most accurate observed variant at 2.532 m ATE.
+3. `paper_odometry_spread_keypoints` is the most accurate observed variant at 1.111 m ATE.
 
 ### Variant Notes
 
@@ -7585,6 +7598,17 @@ _Generated at 2026-10-13T07:24:30+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 0 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
+#### `paper_odometry_spread_keypoints`
+
+- Intent: Planarity > 0.98 and at most one key point per 8 x 8 px cell per list (the ground list clustered ahead of the car, the side lists on vegetation, so roll was barely constrained), a vertical fill that no longer puts the far ground under the road (fill_slope 0.1), and the 0.18 deg correction that zeroes the pitch bias once the fill is fixed. Chosen on 07 windows, 00 windows held out (see papers/dilo/README.md).
+- CLI args: `--no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_spread_keypoints/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18`
+- Summary: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_spread_keypoints/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_07_full_paper_comp_matrix/paper_odometry_spread_keypoints/run.log`
+- Readability proxy: 1.90 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.90 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
 
 
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window

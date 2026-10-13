@@ -63,13 +63,16 @@ struct InTenLoamPaperParams {
   int min_cluster_points = 15;
   // Features (eq. 5, Sec. 3.1.3; thresholds from Sec. 4.1.1).
   int curvature_half_window = 5;
-  double edge_threshold = 0.3;      // Th_E on |C|
+  // Th_E on |C|: the paper's 0.3 is for its 32-beam data (Sec. 4.1.1); on
+  // KITTI 0.15 with 4 per sector was chosen on 07 (0.368 -> 0.352 %) and
+  // holds on 00 (0.816 -> 0.769 %), mostly in the fast section.
+  double edge_threshold = 0.15;
   double facade_threshold = 0.1;    // Th_F on |C|
   double reflector_delta = 80.0 / 255.0;  // Th_dI, intensity in [0, 1]
   int intensity_blocks_u = 16;
   int intensity_blocks_v = 4;
   int sectors_per_row = 8;
-  int edges_per_sector = 2;
+  int edges_per_sector = 4;
   int facades_per_sector = 4;
   int max_ground = 1000;
   int max_reflectors = 300;

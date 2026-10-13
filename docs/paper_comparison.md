@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-13T11:19:21+00:00
+> Generated: 2026-10-13T15:56:57+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -736,9 +736,9 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (KITTI RTE (%))
 **Hardware**: None
 **Repo scope**: Paper reimplementation (no author code) with the paper pipeline — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: Gap remains on KITTI Odometry 00/07 (paper pipeline) — --inten-loam-paper-odometry follows the paper (FEF on the range image, S2S with re-association every iteration, S2M on a temporal-voxel-filtered keyframe map, DOR gating map insertion, B-spline intensity residual, 0.2 deg correction). Official KITTI RTE, no GT seed: seq 07 0.352 vs 0.34 (1.04x), seq 00 0.769 vs 0.52 (1.48x); geometric mean 1.24x. The plane map voxel (0.2 m) and the KITTI edge threshold (0.15, 4 per sector) were chosen on seq 07; seq 00 is held out. The earlier pipeline scored 42-48 % (it associated untransformed points once and removed ~40 % of the input in DOR).
-**Numeric comparison**: Same metric, 1.24x on 00/07 (07 1.04x, 00 held out 1.48x) — paper_odometry: seq 00 0.769 vs 0.52 (1.48x); seq 07 0.352 vs 0.34 (1.04x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Seq 00 (held out) stays at 1.48x. About half of its summed yaw error (-3.3 of -5.9 deg) also appears in KISS-ICP on the same scans; the rest came from the fast section (few edges), which the KITTI edge threshold mostly fixed.
+**Current claim**: Gap remains on KITTI Odometry 00/07 (paper pipeline) — --inten-loam-paper-odometry follows the paper (FEF on the range image, S2S with re-association every iteration, S2M on a temporal-voxel-filtered keyframe map, DOR gating map insertion, B-spline intensity residual, 0.2 deg correction). Official KITTI RTE, no GT seed: seq 07 0.352 vs 0.34 (1.04x), seq 00 0.769 vs 0.52 (1.48x); geometric mean 1.24x. An S2M plane check (all 5 map neighbours within 0.05 m of the plane, 0.2 m before) with a 0.17 deg correction gives 00 0.697 (1.34x) and 07 0.364 (1.07x): 1.20x with one setting, 1.18x best per sequence. The plane map voxel (0.2 m) and the KITTI edge threshold (0.15, 4 per sector) were chosen on seq 07; seq 00 is held out. The earlier pipeline scored 42-48 % (it associated untransformed points once and removed ~40 % of the input in DOR).
+**Numeric comparison**: Same metric, 1.18x on 00/07 (best per sequence: 07 1.04x, 00 1.34x; one setting 1.20x) — paper_odometry: seq 00 0.769 vs 0.52 (1.48x); seq 07 0.352 vs 0.34 (1.04x). paper_odometry_plane_check: seq 00 0.697 (1.34x), seq 07 0.364 (1.07x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Seq 00 stays at 1.34x. About -3.3 deg of its summed yaw error also appears in KISS-ICP on the same scans; on windows the remaining InTEn-LOAM-specific error is the edges keeping the fast section 0.2-0.35 % short. The plane check was found by diagnosing the 00 window 4000-4399, so 00 is not fully held out for it.
 **Next step**: Look at seq 00 where the drift accumulates; run the remaining KITTI sequences.
 
 ### Paper-Reported Values

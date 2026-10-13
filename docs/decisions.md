@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-13T15:55:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2516,7 +2516,7 @@ _Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_ma
 
 - Current default: `paper_odometry_no_intensity`.
 - Active challengers: `paper_odometry`, `paper_odometry_no_mapping`.
-- Reference variants: `dense_profile`, `paper_odometry_no_correction`.
+- Reference variants: `dense_profile`, `paper_odometry_no_correction`, `paper_odometry_plane_check`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
@@ -2526,11 +2526,12 @@ _Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_correction | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_no_intensity | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_odometry_no_mapping | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_odometry_plane_check | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_no_intensity`.
-- Reference variants: `dense_profile`, `paper_odometry`, `paper_odometry_no_correction`, `paper_odometry_no_mapping`.
+- Reference variants: `dense_profile`, `paper_odometry`, `paper_odometry_no_correction`, `paper_odometry_no_mapping`, `paper_odometry_plane_check`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
@@ -2540,6 +2541,7 @@ _Generated at 2026-10-13T11:18:51+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_correction | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_no_intensity | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_odometry_no_mapping | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_plane_check | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## ISC-LOAM on the public HDL-400 reference window
 

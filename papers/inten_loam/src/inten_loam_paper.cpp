@@ -60,7 +60,7 @@ struct System {
   Mat6 H = Mat6::Zero();
   Vec6 g = Vec6::Zero();
   int n = 0;
-  void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber) {
+  void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr) {
     Vec6 J;
     J.head<3>() = a;
     J.tail<3>() = x.cross(a);
@@ -68,6 +68,11 @@ struct System {
     H += w * J * J.transpose();
     g += w * J * r;
     ++n;
+    if (also) {
+      also->H += w * J * J.transpose();
+      also->g += w * J * r;
+      ++also->n;
+    }
   }
 };
 
@@ -104,6 +109,10 @@ struct TemporalVoxel {
 };
 
 }  // namespace
+
+struct InTenLoamPaper::ClassSystems {
+  System cls[4];  // edge, ground, facade, intensity
+};
 
 struct InTenLoamPaper::Index {
   Tree ground, facade, edge, all;
@@ -443,7 +452,7 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
 // S2S (Alg. 1)
 // ---------------------------------------------------------------------------
 
-int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const {
+int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first) const {
   const Index& prev = *prev_;
   const double gate = params_.s2s_gate_sq;
   const double huber = params_.huber;
@@ -452,6 +461,7 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const {
   int pairs = 0;
   for (int it = 0; it < params_.s2s_iterations; ++it) {
     System sys;
+    auto cs = [&](int c) { return first && it == 0 ? &first->cls[c] : nullptr; };
     const Eigen::Matrix3d R = T->block<3, 3>(0, 0);
     const Eigen::Vector3d t = T->block<3, 1>(0, 3);
     // Edges (eq. 11): q_j closest, q_m closest on an adjacent scan line.
@@ -472,7 +482,7 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const {
       const Eigen::Vector3d perp = d - v * v.dot(d);
       const double r = perp.norm();
       if (r < 1e-9) continue;
-      sys.add(x, perp / r, r, huber);
+      sys.add(x, perp / r, r, huber, cs(0));
     }
     // Planes (eq. 12): q_j closest, q_n same scan line, q_m adjacent line.
     for (int cls = 0; cls < 2; ++cls) {
@@ -494,7 +504,7 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const {
                                   .cross(qj.p - tree.pts[static_cast<size_t>(same)].p);
         if (nrm.norm() < 1e-6) continue;
         nrm.normalize();
-        sys.add(x, nrm, nrm.dot(x - qj.p), huber);
+        sys.add(x, nrm, nrm.dot(x - qj.p), huber, cs(1 + cls));
       }
     }
     // Reflectors (eq. 7) against the previous scan's intensity field.
@@ -505,7 +515,7 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const {
         Eigen::Vector3d grad;
         if (!prev.intensity.eval(x, &mu, &grad)) continue;
         const double w = params_.intensity_weight;
-        sys.add(x, w * grad, w * (mu - f.intensity), huber);
+        sys.add(x, w * grad, w * (mu - f.intensity), huber, cs(3));
       }
     }
     pairs = sys.n;
@@ -522,7 +532,8 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T) const {
 // S2M (Alg. 2)
 // ---------------------------------------------------------------------------
 
-int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4]) const {
+int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4],
+                             ClassSystems* first) const {
   const Map& map = *map_;
   const double gate = params_.s2m_gate_sq;
   const double huber = params_.huber;
@@ -544,6 +555,7 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int cla
   };
   for (int it = 0; it < params_.s2m_iterations; ++it) {
     System sys;
+    auto cs = [&](int c) { return first && it == 0 ? &first->cls[c] : nullptr; };
     const Eigen::Matrix3d R = T->block<3, 3>(0, 0);
     const Eigen::Vector3d t = T->block<3, 1>(0, 3);
     for (const auto& f : curr.edge) {
@@ -557,7 +569,7 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int cla
       const Eigen::Vector3d perp = d - v * v.dot(d);
       const double r = perp.norm();
       if (r < 1e-9) continue;
-      sys.add(x, perp / r, r, huber);
+      sys.add(x, perp / r, r, huber, cs(0));
     }
     int counts[4];
     counts[0] = sys.n;
@@ -574,9 +586,10 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int cla
         const Eigen::Vector3d nrm = vec.col(0);
         bool planar = true;
         for (int k = 0; k < 5 && planar; ++k)
-          planar = std::abs(nrm.dot(tree.pts[static_cast<size_t>(idx[static_cast<size_t>(k)])].p - c)) < 0.2;
-        if (!planar) continue;
-        sys.add(x, nrm, nrm.dot(x - c), huber);
+          planar = std::abs(nrm.dot(tree.pts[static_cast<size_t>(idx[static_cast<size_t>(k)])].p - c)) <
+                   params_.s2m_plane_max_dist;
+        if (!planar || val(1) < params_.s2m_plane_min_spread * val(2)) continue;
+        sys.add(x, nrm, nrm.dot(x - c), huber, cs(1 + cls));
       }
       counts[1 + cls] = sys.n - before;
     }
@@ -588,7 +601,7 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int cla
         Eigen::Vector3d grad;
         if (!map.local_intensity.eval(x, &mu, &grad)) continue;
         const double w = params_.intensity_weight;
-        sys.add(x, w * grad, w * (mu - f.intensity), huber);
+        sys.add(x, w * grad, w * (mu - f.intensity), huber, cs(3));
       }
     }
     pairs = sys.n;
@@ -681,7 +694,8 @@ void InTenLoamPaper::insert(const PaperFrame& curr, const Eigen::Matrix4d& T_w,
 // ---------------------------------------------------------------------------
 
 InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>& points,
-                                             const std::vector<float>& intensity) {
+                                             const std::vector<float>& intensity,
+                                             InTenLoamPaperDiagnostics* diag) {
   InTenLoamPaperResult result;
   std::vector<Eigen::Vector3d> deskewed;
   if (params_.deskew != 0 && frame_ > 1) {
@@ -742,8 +756,16 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     if (params_.use_intensity) map_->local_intensity.build(map_->local_reflector.pts, params_.intensity_knot);
   };
 
+  const bool forced = diag && diag->forced_pose;
+  if (diag)
+    for (int c = 0; c < 4; ++c) {
+      diag->s2s_H[c].setZero(); diag->s2m_H[c].setZero();
+      diag->s2s_g[c].setZero(); diag->s2m_g[c].setZero();
+      diag->s2s_n[c] = diag->s2m_n[c] = 0;
+    }
   if (frame_ == 0) {
-    insert(frame, Eigen::Matrix4d::Identity(), {});
+    if (forced) pose_ = odom_ = prev_pose_ = *diag->forced_pose;
+    insert(frame, pose_, {});
     prev_ = index(frame);
     ++frame_;
     result.pose = pose_;
@@ -751,8 +773,21 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
   }
 
   Eigen::Matrix4d rel = last_rel_;
-  result.s2s_pairs = solveS2S(frame, &rel);
-  if (result.s2s_pairs < 30) rel = last_rel_;
+  if (forced) {
+    // S2S from the forced relative motion; its normal equations there.
+    rel = prev_pose_.inverse() * *diag->forced_pose;
+    ClassSystems cs;
+    solveS2S(frame, &rel, &cs);
+    diag->s2s_estimate = rel;
+    for (int c = 0; c < 4; ++c) {
+      diag->s2s_H[c] = cs.cls[c].H; diag->s2s_g[c] = cs.cls[c].g; diag->s2s_n[c] = cs.cls[c].n;
+    }
+    rel = prev_pose_.inverse() * *diag->forced_pose;
+    result.s2s_pairs = cs.cls[0].n + cs.cls[1].n + cs.cls[2].n + cs.cls[3].n;
+  } else {
+    result.s2s_pairs = solveS2S(frame, &rel);
+    if (result.s2s_pairs < 30) rel = last_rel_;
+  }
   last_rel_ = rel;
   odom_ = odom_ * rel;
   pose_ = drift_ * odom_;
@@ -760,7 +795,18 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
   if (params_.use_mapping && frame_ % std::max(1, params_.s2m_interval) == 0) {
     buildLocal(pose_.block<3, 1>(0, 3));
     Eigen::Matrix4d T = pose_;
-    result.s2m_pairs = solveS2M(frame, &T, result.s2m_class_pairs);
+    if (forced) {
+      ClassSystems cs;
+      T = *diag->forced_pose;
+      result.s2m_pairs = solveS2M(frame, &T, result.s2m_class_pairs, &cs);
+      diag->s2m_estimate = T;
+      for (int c = 0; c < 4; ++c) {
+        diag->s2m_H[c] = cs.cls[c].H; diag->s2m_g[c] = cs.cls[c].g; diag->s2m_n[c] = cs.cls[c].n;
+      }
+      T = *diag->forced_pose;
+    } else {
+      result.s2m_pairs = solveS2M(frame, &T, result.s2m_class_pairs);
+    }
     if (result.s2m_pairs >= 30) {
       pose_ = T;
       drift_ = pose_ * odom_.inverse();
@@ -781,6 +827,10 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     }
   }
 
+  if (forced) {
+    pose_ = *diag->forced_pose;
+    drift_ = pose_ * odom_.inverse();
+  }
   prev_ = index(frame);
   prev_pose_ = pose_;
   ++frame_;

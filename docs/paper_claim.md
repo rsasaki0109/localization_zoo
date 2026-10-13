@@ -64,7 +64,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Gap remains | ELO (no author code; 0.195 deg correction, the paper normal patch and forward-bias fixes chosen on 07 windows; 2.60x before, see `papers/elo/README.md`) | 00/07 | 1.17x |
 | Near paper | IMLS-SLAM (paper pipeline, `--imls-slam-paper-odometry`, 0.22 deg correction; 2.66x before, see `papers/imls_slam/README.md`) | 00/07 | 1.04x |
 | Near paper | DiLO (plane-only paper pipeline `--dilo-paper-odometry` with spread planar key points, slope-aware vertical fill and the 0.18 deg correction, chosen on 07 windows with some 00 windows in view; edge key points do not help on KITTI; 4.12x before, see `papers/dilo/README.md`) | 00/07 | 0.87x |
-| Gap remains | InTEn-LOAM (no author code; paper pipeline, `--inten-loam-paper-odometry`, 0.2 deg correction; plane map voxel and edge threshold chosen on 07, 00 held out at 1.48x; the earlier pipeline failed at 42-48 %, see `papers/inten_loam/README.md`) | 00/07 | 1.24x |
+| Gap remains | InTEn-LOAM (no author code; paper pipeline, `--inten-loam-paper-odometry`, 0.2 deg correction; plane map voxel and edge threshold chosen on 07; an S2M plane check with a 0.17 deg correction brings 00 from 1.48x to 1.34x (07 1.07x, one setting 1.20x); the earlier pipeline failed at 42-48 %, see `papers/inten_loam/README.md`) | 00/07 | 1.18x |
 
 What may be claimed: A-LOAM, LF-GICP, KISS-ICP, MULLS, CT-ICP, LiTAMIN2, Quadric-LO, IMLS-SLAM and Mesh-LOAM (seq 00/07 only for the last three) reach paper-level odometry accuracy
 on KITTI (KISS-ICP on seq 00 and 04, and only with the upstream mechanics and the

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:52:45+00:00",
+  "generated_at": "2026-10-13T15:55:42+00:00",
   "manifest_path": "experiments/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
   "problem": {
     "id": "inten_loam_kitti_seq_07_full_paper_comp",
@@ -229,6 +229,50 @@
       "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
       "kitti_rte_trans_pct": 1.895024,
       "kitti_rte_rot_deg_per_100m": 1.929762,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_odometry_plane_check",
+      "label": "InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",
+      "design_style": "reference",
+      "intent": "As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_plane_check/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_07_full_paper_comp_matrix/paper_odometry_plane_check/run.log",
+      "status": "ok",
+      "ate_m": 1.461444,
+      "rpe_trans_pct": 0.431591,
+      "rpe_rot_deg_per_m": 0.003388,
+      "fps": 1.55514,
+      "time_ms": 707974.825941,
+      "frames": 1101,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2306 dor points/frame=151",
+      "benchmark_score": 49.29,
+      "readability_score": 2.5,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.3,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 0.364131,
+      "kitti_rte_rot_deg_per_100m": 0.274943,
       "host": {
         "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
         "logical_cores": 4,

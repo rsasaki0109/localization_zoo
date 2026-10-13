@@ -137,6 +137,15 @@
 namespace fs = std::filesystem;
 using Clock = std::chrono::high_resolution_clock;
 
+// Pose of the sensor in the frame the scans and the ground truth are stored
+// in (--input-sensor-pose x y z roll pitch yaw). Scans are moved into the
+// sensor frame and ground-truth poses are composed with it, so methods that
+// assume a sensor-centred, z-up scan (range images, ground models) see one.
+// NCLT stores body-frame (z-down) scans with the HDL-32E 0.957 m above the
+// body origin. Identity keeps every stored result unchanged.
+Eigen::Matrix4d g_input_sensor_pose = Eigen::Matrix4d::Identity();
+bool g_input_sensor_pose_set = false;
+
 struct GTPose {
   double timestamp;
   double x, y, z, roll, pitch, yaw;
@@ -150,6 +159,12 @@ struct GTPose {
     T(0, 3) = x; T(1, 3) = y; T(2, 3) = z;
     return T;
   }
+  // Ground-truth pose of the sensor (--input-sensor-pose).
+  Eigen::Matrix4d sensorMatrix() const {
+    return g_input_sensor_pose_set ? Eigen::Matrix4d(toMatrix() * g_input_sensor_pose)
+                                   : toMatrix();
+  }
+
 };
 
 enum class TimeDomain {
@@ -670,7 +685,21 @@ void assignAzimuthTimes(LoadedScan* scan) {
 }
 
 template <typename PointT>
+void applyInputSensorPose(pcl::PointCloud<PointT>* cloud) {
+  if (!g_input_sensor_pose_set) return;
+  const Eigen::Matrix3d Rt = g_input_sensor_pose.block<3, 3>(0, 0).transpose();
+  const Eigen::Vector3d t = g_input_sensor_pose.block<3, 1>(0, 3);
+  for (auto& point : cloud->points) {
+    const Eigen::Vector3d q = Rt * (Eigen::Vector3d(point.x, point.y, point.z) - t);
+    point.x = static_cast<float>(q.x());
+    point.y = static_cast<float>(q.y());
+    point.z = static_cast<float>(q.z());
+  }
+}
+
+template <typename PointT>
 void applyInputVerticalAngleCorrection(pcl::PointCloud<PointT>* cloud) {
+  applyInputSensorPose(cloud);
   const double angle = g_input_vertical_angle_correction_rad;
   if (angle == 0.0) return;
   const double sin_angle = std::sin(angle);
@@ -1196,13 +1225,13 @@ std::vector<Eigen::Matrix4d> buildAssociatedGTMatrices(
   std::vector<Eigen::Matrix4d> gt;
   if (indices.empty()) return gt;
   const Eigen::Matrix4d T0_inv =
-      gt_poses_raw[indices.front()].toMatrix().inverse();
+      gt_poses_raw[indices.front()].sensorMatrix().inverse();
   gt.reserve(indices.size());
   for (size_t idx : indices) {
     if (idx >= gt_poses_raw.size()) {
       throw std::runtime_error("GT association index out of range");
     }
-    gt.push_back(T0_inv * gt_poses_raw[idx].toMatrix());
+    gt.push_back(T0_inv * gt_poses_raw[idx].sensorMatrix());
   }
   return gt;
 }
@@ -1545,7 +1574,7 @@ std::vector<Eigen::Matrix4d> sampleGTPoseMatrices(
   gt_times.reserve(gt_poses_raw.size());
   for (const auto& gp : gt_poses_raw) gt_times.push_back(gp.timestamp);
 
-  Eigen::Matrix4d T0_inv = gt_poses_raw.front().toMatrix().inverse();
+  Eigen::Matrix4d T0_inv = gt_poses_raw.front().sensorMatrix().inverse();
   gt.reserve(frame_timestamps.size());
   for (double ts : frame_timestamps) {
     auto it = std::lower_bound(gt_times.begin(), gt_times.end(), ts);
@@ -1559,7 +1588,7 @@ std::vector<Eigen::Matrix4d> sampleGTPoseMatrices(
       size_t lo = hi - 1;
       idx = std::abs(gt_times[hi] - ts) < std::abs(gt_times[lo] - ts) ? hi : lo;
     }
-    gt.push_back(T0_inv * gt_poses_raw[idx].toMatrix());
+    gt.push_back(T0_inv * gt_poses_raw[idx].sensorMatrix());
   }
   return gt;
 }
@@ -2535,6 +2564,7 @@ struct DiloDogfoodingOptions {
   double paper_min_planarity = -1.0;   // < 0: library default
   int paper_keypoint_cell = -1;
   double paper_fill_slope = -1.0;
+  int paper_max_fill_gap = -1;  // rows; HDL-32E beams are ~8 rows apart
   double paper_top_elevation_deg = 1e9;  // >= 1e9: library default
   int paper_height = -1;
 };
@@ -4912,6 +4942,17 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "theta_down_deg") pp.theta_down_deg = v;
       else if (k == "height") pp.height = static_cast<int>(v);
       else if (k == "ground_start_below") pp.ground_start_below = v;
+      else if (k == "cluster_angle_deg") pp.cluster_angle_deg = v;
+      else if (k == "min_cluster_points") pp.min_cluster_points = static_cast<int>(v);
+      else if (k == "segment_bin") pp.segment_bin = v;
+      else if (k == "ground_max_slope") pp.ground_max_slope = v;
+      else if (k == "width") pp.width = static_cast<int>(v);
+      else if (k == "sectors_per_row") pp.sectors_per_row = static_cast<int>(v);
+      else if (k == "map_intensity_voxel") pp.map_intensity_voxel = v;
+      else if (k == "use_dor") pp.use_dor = v != 0.0;
+      else if (k == "use_intensity") pp.use_intensity = v != 0.0;
+      else if (k == "s2m_plane_max_dist") pp.s2m_plane_max_dist = v;
+      else if (k == "s2m_plane_min_spread") pp.s2m_plane_min_spread = v;
       else std::cerr << "unknown --inten-loam-paper-set key " << k << std::endl;
     }
     InTenLoamPaper paper(pp);
@@ -4928,6 +4969,11 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       for (const auto& p : xyzi) {
         pts.push_back(p.point);
         inten.push_back(p.intensity);
+      }
+      // The paper's thresholds are for intensity in [0, 1] (KITTI); scans
+      // that store 0-255 (NCLT) are scaled.
+      if (!inten.empty() && *std::max_element(inten.begin(), inten.end()) > 1.0f) {
+        for (auto& value : inten) value /= 255.0f;
       }
       const auto r = paper.process(pts, inten);
       res.poses.push_back(anchorRelativePose(anchor, r.pose));
@@ -8280,6 +8326,7 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   if (options.paper_min_planarity >= 0.0) params.min_planarity = options.paper_min_planarity;
   if (options.paper_keypoint_cell >= 0) params.keypoint_cell_px = options.paper_keypoint_cell;
   if (options.paper_fill_slope >= 0.0) params.fill_slope = options.paper_fill_slope;
+  if (options.paper_max_fill_gap >= 0) params.max_fill_gap = options.paper_max_fill_gap;
   if (options.paper_top_elevation_deg < 1e9) params.top_elevation_deg = options.paper_top_elevation_deg;
   if (options.paper_height > 0) params.height = options.paper_height;
   params.edge_detector = options.paper_edge_detector;
@@ -11725,6 +11772,15 @@ void writeSummaryJson(const std::string& path,
       << ",\n";
   out << "  \"input_azimuth_time\": "
       << (g_input_azimuth_time ? "true" : "false") << ",\n";
+  if (g_input_sensor_pose_set) {
+    out << "  \"input_sensor_pose\": [";
+    for (int r = 0; r < 3; ++r) {
+      for (int c = 0; c < 4; ++c) {
+        out << (r || c ? ", " : "") << g_input_sensor_pose(r, c);
+      }
+    }
+    out << "],\n";
+  }
   out << "  \"total_pcd_frames\": " << total_pcd_frames << ",\n";
   out << "  \"num_frames\": " << num_frames << ",\n";
   out << "  \"raw_gt_pose_count\": " << raw_gt_pose_count << ",\n";
@@ -12202,6 +12258,24 @@ int main(int argc, char** argv) {
     }
     if (arg == "--input-azimuth-time") {
       g_input_azimuth_time = true;
+      continue;
+    }
+    if (arg == "--input-sensor-pose") {
+      if (i + 6 >= argc) {
+        std::cerr << "--input-sensor-pose requires x y z roll pitch yaw "
+                     "(m, deg)" << std::endl;
+        return 1;
+      }
+      GTPose pose{};
+      const double deg = std::acos(-1.0) / 180.0;
+      pose.x = std::stod(argv[++i]);
+      pose.y = std::stod(argv[++i]);
+      pose.z = std::stod(argv[++i]);
+      pose.roll = std::stod(argv[++i]) * deg;
+      pose.pitch = std::stod(argv[++i]) * deg;
+      pose.yaw = std::stod(argv[++i]) * deg;
+      g_input_sensor_pose = pose.toMatrix();
+      g_input_sensor_pose_set = true;
       continue;
     }
     if (arg == "--input-vertical-angle-correction-deg") {
@@ -14860,6 +14934,11 @@ int main(int argc, char** argv) {
     if (arg == "--dilo-paper-fill-slope") {
       if (i + 1 >= argc) { std::cerr << "--dilo-paper-fill-slope requires a value" << std::endl; return 1; }
       dilo_options.paper_fill_slope = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-max-fill-gap") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-max-fill-gap requires a value" << std::endl; return 1; }
+      dilo_options.paper_max_fill_gap = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--dilo-paper-edge-detector") {

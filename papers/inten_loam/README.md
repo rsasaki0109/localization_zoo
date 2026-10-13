@@ -93,7 +93,8 @@ correction (Sec. 4.2.1), `experiments/inten_loam_kitti_seq_{00,07}_full_paper_co
 | variant | seq 00 | seq 07 | FPS |
 |---|---:|---:|---:|
 | previous pipeline (`--inten-loam-dense-profile`, edge factor fixed) | 47.783 % | 42.158 % | 9 |
-| paper pipeline (`paper_odometry`) | **0.769 %** | **0.352 %** | 2.4 |
+| paper pipeline (`paper_odometry`) | 0.769 % | **0.352 %** | 2.4 |
+| plane check 0.05 m, 0.17 deg correction (`paper_odometry_plane_check`, below) | **0.697 %** | 0.364 % | 1.6-1.7 |
 | without the correction | 1.464 % | 0.905 % | 2.4 |
 | without the intensity residual | 0.772 % | 0.351 % | 2.6 |
 | S2S only (no S2M, map, DOR) | 3.048 % | 1.895 % | 8 |
@@ -104,6 +105,9 @@ seq 00 held out: the plane map voxel (0.8 m: 0.803 %, 0.4 m: 0.444 %, 0.2 m:
 0.368 %, 0.1 m: 0.358 %) and the edge threshold (the paper's Th_E = 0.3 is for
 its 32-beam data; 0.15 with 4 edges per sector: 0.352 % on 07, and 0.816 ->
 0.769 % on 00). That gives 1.04x on 07 and 1.48x on 00 (geometric mean 1.24x).
+With the plane check below, 00 goes to 0.697 % (1.34x) and 07 to 0.364 %
+(1.07x): 1.20x with one setting for both, 1.18x taking the better variant per
+sequence (Table 6).
 Mapping and the correction matter most; the intensity residual is worth
 0-1 %.
 
@@ -125,6 +129,105 @@ ground points: 0.775 %, facade threshold 0.05: 0.819 %, 0.1 m plane voxels:
 velocity); both spin directions make seq 07 much worse (1.502 / 1.835 %), so
 the KITTI odometry scans are treated as already compensated. Free parameters can be changed with `--inten-loam-paper-set key=value`
 (`map_plane_voxel`, `max_ground`, `huber`, ...).
+
+### Remaining KITTI gap (400-frame windows)
+
+A scratch driver ran the pipeline on 400-frame windows (official KITTI RTE
+over the window's 100-200 m segments, so the numbers are higher than full
+runs and only show direction). Choices were made on 07 (frames 0-399,
+400-799, 700-1099, plus 07 at every second scan, about 1.3 m per scan, as a
+stand-in for the fast part of 00); 00 (0-399, 400-799, 1600-1999, 4000-4399)
+was held out. The full sequences were run afterwards (last two lines of the
+table).
+
+| variant | 07 windows | 07 every 2nd scan | 00 windows (held out) | 00 4000-4399 |
+|---|---:|---:|---:|---:|
+| current (0.2 deg, plane check 0.2 m) | 0.402 | 0.444 | 0.957 | 1.393 |
+| plane check 0.05 m | 0.375 | - | 0.841 | 0.923 |
+| correction 0.17 deg | 0.364 | 0.346 | 0.951 | 1.413 |
+| plane check 0.05 m, correction 0.17 deg | **0.364** | **0.339** | **0.847** | **1.007** |
+| KISS-ICP, 0.205 deg (07: official 1.3.0, full 0.375 %; 00: repository run, full 0.544 %) | 0.500 | - | 0.744 | 0.480 |
+| IMLS-SLAM, 0.22 deg (repository run, full 00 0.529 %) | - | - | 0.822 | 0.826 |
+
+| full sequences: current | | | 0.769 (00) | |
+| full sequences: plane check 0.05 m, correction 0.17 deg | | | 0.697 (00) | |
+
+On full 07 the setting gives 0.364 % against 0.352 % for the current one, so
+the gain on the 07 windows (where the values were chosen) does not carry over
+to the full sequence; held-out 00 gains 0.769 -> 0.697 %. The setting is the
+manifest variant `paper_odometry_plane_check`: `--input-vertical-angle-correction-deg 0.17
+--input-max-range-m 120 --inten-loam-paper-set s2m_plane_max_dist=0.05`.
+
+What the windows show, per axis of the frame-to-frame increment (estimate
+minus ground truth):
+
+- **Lateral drift is the data.** Every method moves 0.25-0.9 cm per frame to
+  the left of the ground truth (5-7.5 mrad of the step): InTEn-LOAM, KISS-ICP,
+  IMLS-SLAM and point-to-plane ICP between consecutive scans started at the
+  ground truth all show it, on straight road too, so it is an angle between
+  the lidar and the ground-truth frame. It dominates the window RTE of all
+  methods.
+- **Pitch follows the correction angle.** InTEn-LOAM's pitch error on 07 is
+  linear in the angle (0.15 / 0.20 / 0.25 deg: 0.000 / -0.032 /
+  -0.066 mrad per frame; KISS-ICP at 0.205 deg: -0.001 to -0.015), the
+  estimate climbing (100 m segments 15-20 cm too high). Pitch comes from the
+  ground (69 % of the ground features lie within 8 m): against a map placed
+  with ground-truth poses, the ground 20-80 m behind the car sits 14-38 mm
+  above the map at 0.2 deg (3-18 mm at 0.15 deg) and the ground ahead below
+  it, a bowl rising with range that the forward motion turns into pitch.
+  The near ground (lower laser block) prefers a larger angle (lower block
+  at 0.3 deg, upper at 0.2: -0.021). The angle without pitch drift is about 0.16 deg
+  on 07 and on three of the four 00 windows (0-399 starts with the ground
+  truth artefacts); 0.17 deg was chosen on 07 (0.15: 0.367 / 0.379 with the
+  0.05 m check). On those 00 windows the pitch error is -0.035 to
+  -0.065 mrad per frame with the current setting and -0.006 to -0.009 with
+  the recommended one, but the window RTE does not change; whether the full
+  sequence (segments up to 800 m) gains is untested.
+- **The fast section's yaw came from loose plane fits.** On 00 4000-4399
+  InTEn-LOAM turned left by +0.053 mrad per frame (KISS-ICP -0.031, IMLS-SLAM
+  +0.010). Placing every frame at the ground truth (yaw-corrected by 7 mrad)
+  and taking one Gauss-Newton step per feature class there, the facades
+  pulled yaw by +0.32 mrad per frame. The S2M plane check (all 5 neighbours
+  within 0.2 m of the PCA plane) passes curved and mixed neighbourhoods; at
+  0.05 m 40 % of the facade pairs drop out, the facade pull falls to
+  +0.19 mrad, S2M from the ground truth goes from +0.198 to -0.048 mrad, and
+  the running yaw error from +0.053 to -0.004 mrad per frame. 0.05 m was
+  chosen on 07 (0.402 -> 0.375 at 0.2 deg; 0.03 m: 0.376, 0.1 m: 0.367 at
+  0.17 deg). This diagnosis was made on the held-out 00 window (it decided
+  which parameter to look at, not its value).
+- **The estimate is 0.2-0.35 % short.** On 07 the scale is 0.996-0.998 of the
+  ground truth while KISS-ICP and consecutive-scan ICP are 1.0007-1.0018 (the
+  07 ground truth itself is about 0.15 % shorter than the scans). The edges
+  cause it: against a ground-truth map, the scan's edge points lie 15 mm
+  ahead of the map lines (23 mm on vertical lines such as poles and trunks,
+  growing with the residual) and the S2M edge step is -0.4 to -0.8 cm per
+  frame. Removing the forward component of the edge residuals brings the
+  scale to 0.998-0.9997 but makes 07 worse (0.364 -> 0.375) and the 00 fast window
+  worse (1.007 -> 1.235, yaw drift returns), so it is not used. In the fast
+  section the shortfall is now the largest InTEn-specific error (100 m
+  segments 37-42 cm short, KISS-ICP 13 cm).
+- **00 frames 0-399** carry the ground-truth artefacts at the start; no
+  variant changed that window by more than 5 %.
+
+Tried on 07 without gain (scratch code, window mean). Against the current
+setting (0.402): ground residuals without their forward component 0.402; at
+most one facade per 32 x 4 / 16 x 2 pixel cell 0.442 / 0.401; ground
+features within 20 / 40 m only 0.524 / 0.430; edge weight 0.5 0.431; edge
+map from the last 10 frames only 0.409. Against the recommended setting
+(0.364): one edge per 16 x 2 cell 0.366; edge weight 0.7 0.371; edge map
+from the last 2 / 5 frames only 0.377 / 0.382; edge map voxel 0.2 m 0.355
+(2nd scan 0.335); plane map voxel 0.1 m 0.350 at 3 fps; Huber 0.05 0.365;
+S2M gate 0.5 m 0.377; line check 10:1 0.389; 30 S2M iterations 0.352
+(2nd scan 0.344).
+`s2m_plane_min_spread` (planes need a two-dimensional spread of the five
+neighbours, opt-in) removes a backward pull from neighbours along one line
+on the unit-test street (3.2 -> 1.2 cm) but is neutral to slightly worse on 07
+(0.365, 2nd scan 0.359).
+
+`InTenLoamPaperDiagnostics` (pass to `process`) places a frame at a given
+pose and returns the S2S / S2M estimates from it and the normal equations of
+each feature class there; the window analysis above used it with the
+ground truth.
 
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
@@ -213,4 +316,6 @@ reset.
 
 `test_inten_loam_paper`: ground segmentation and feature classes on a
 ray-cast street; the B-spline intensity field on a linear ramp; 1 m per scan
-tracked at full scale.
+tracked at full scale (also with the 5 cm plane check); ground-truth-placed
+frames with their per-class normal equations; the plane spread check
+against neighbours along one line.

@@ -2564,6 +2564,7 @@ struct DiloDogfoodingOptions {
   double paper_min_planarity = -1.0;   // < 0: library default
   int paper_keypoint_cell = -1;
   double paper_fill_slope = -1.0;
+  int paper_max_fill_gap = -1;  // rows; HDL-32E beams are ~8 rows apart
   double paper_top_elevation_deg = 1e9;  // >= 1e9: library default
   int paper_height = -1;
 };
@@ -8309,6 +8310,7 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   if (options.paper_min_planarity >= 0.0) params.min_planarity = options.paper_min_planarity;
   if (options.paper_keypoint_cell >= 0) params.keypoint_cell_px = options.paper_keypoint_cell;
   if (options.paper_fill_slope >= 0.0) params.fill_slope = options.paper_fill_slope;
+  if (options.paper_max_fill_gap >= 0) params.max_fill_gap = options.paper_max_fill_gap;
   if (options.paper_top_elevation_deg < 1e9) params.top_elevation_deg = options.paper_top_elevation_deg;
   if (options.paper_height > 0) params.height = options.paper_height;
   params.edge_detector = options.paper_edge_detector;
@@ -14916,6 +14918,11 @@ int main(int argc, char** argv) {
     if (arg == "--dilo-paper-fill-slope") {
       if (i + 1 >= argc) { std::cerr << "--dilo-paper-fill-slope requires a value" << std::endl; return 1; }
       dilo_options.paper_fill_slope = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-paper-max-fill-gap") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-paper-max-fill-gap requires a value" << std::endl; return 1; }
+      dilo_options.paper_max_fill_gap = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--dilo-paper-edge-detector") {

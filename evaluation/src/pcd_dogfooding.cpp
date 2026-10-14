@@ -668,6 +668,10 @@ double g_input_vertical_angle_correction_rad = 0.0;
 // Shared loader range cap (--input-max-range-m). Upstream KISS-ICP keeps
 // returns up to 100 m; the historical default here is 80 m.
 double g_input_max_range_m = 80.0;
+// Shared loader near-range cut applied to every loaded scan before any other
+// correction (--input-min-range-m, sensor frame). NCLT scans show a person
+// walking about 2.4 m behind the sensor; 0 keeps every stored result.
+double g_input_min_range_m = 0.0;
 // Per-point time from the azimuth for scans without a time field
 // (--input-azimuth-time). KITTI .bin scans store points ring by ring, so the
 // index fallback (j / N) follows the elevation, not the sweep; this uses the
@@ -698,8 +702,22 @@ void applyInputSensorPose(pcl::PointCloud<PointT>* cloud) {
 }
 
 template <typename PointT>
+void applyInputMinRange(pcl::PointCloud<PointT>* cloud) {
+  if (!(g_input_min_range_m > 0.0)) return;
+  const float min_sq = static_cast<float>(g_input_min_range_m * g_input_min_range_m);
+  auto& pts = cloud->points;
+  pts.erase(std::remove_if(pts.begin(), pts.end(), [min_sq](const PointT& p) {
+              return p.x * p.x + p.y * p.y + p.z * p.z < min_sq;
+            }),
+            pts.end());
+  cloud->width = static_cast<std::uint32_t>(pts.size());
+  cloud->height = 1;
+}
+
+template <typename PointT>
 void applyInputVerticalAngleCorrection(pcl::PointCloud<PointT>* cloud) {
   applyInputSensorPose(cloud);
+  applyInputMinRange(cloud);
   const double angle = g_input_vertical_angle_correction_rad;
   if (angle == 0.0) return;
   const double sin_angle = std::sin(angle);
@@ -11772,6 +11790,9 @@ void writeSummaryJson(const std::string& path,
   out << "  \"gt_csv\": \"" << jsonEscape(gt_csv) << "\",\n";
   out << "  \"gt_sha256\": \"" << jsonEscape(gt_sha256) << "\",\n";
   out << "  \"input_max_range_m\": " << g_input_max_range_m << ",\n";
+  if (g_input_min_range_m > 0.0) {
+    out << "  \"input_min_range_m\": " << g_input_min_range_m << ",\n";
+  }
   out << "  \"input_vertical_angle_correction_deg\": "
       << g_input_vertical_angle_correction_rad * (180.0 / std::acos(-1.0))
       << ",\n";
@@ -12259,6 +12280,14 @@ int main(int argc, char** argv) {
         return 1;
       }
       g_input_max_range_m = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--input-min-range-m") {
+      if (i + 1 >= argc) {
+        std::cerr << "--input-min-range-m requires a value" << std::endl;
+        return 1;
+      }
+      g_input_min_range_m = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--input-azimuth-time") {

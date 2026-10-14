@@ -182,6 +182,18 @@ thresholds and residual weights written for one dominate with the other
 (InTEn-LOAM 600-scan window 42 -> 15 %). The runner now scales 0-255 input
 for the InTEn-LOAM paper path.
 
+**Near objects and a rocking platform.** On NCLT a person walks about 2.4 m
+behind the sensor and buildings pass within 3-5 m; range-image methods
+(SuMa, ELO) lose track there while 3D nearest-neighbour methods (KISS-ICP,
+IMLS-SLAM) do not. `--input-min-range-m 5` takes ELO from 18.1 to 3.4 %
+RTE. Constant-velocity prediction misses the rotation by about 2 deg per
+scan on the rocking Segway (0.1-0.2 deg on KITTI), but that is not what
+breaks SuMa.
+
+**Short windows.** A setting that fixes a 550-scan window can fail on the
+full run (Mesh-LOAM 0.2 m map: 2.05 % on the window, 42.7 % in full); the
+window starts from an empty map.
+
 **Unknown keys.** A `--*-paper-set` key the runner does not know only warns;
 check the log before reading a sweep as "no effect".
 

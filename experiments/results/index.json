@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T14:22:41+00:00",
+  "generated_at": "2026-10-14T15:38:21+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1073,6 +1073,15 @@
       "current_default": "paper_odometry_spread_keypoints"
     },
     {
+      "problem_id": "dilo_kitti_seq_05_full_paper_comp",
+      "title": "DiLO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dilo_kitti_seq_05_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json",
+      "current_default": "paper_odometry_degenerate"
+    },
+    {
       "problem_id": "dilo_kitti_seq_06_full_paper_comp",
       "title": "DiLO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline",
       "status": "ready",
@@ -1304,6 +1313,15 @@
       "blocker": "",
       "manifest_path": "experiments/elo_kitti_seq_04_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
+      "problem_id": "elo_kitti_seq_05_full_paper_comp",
+      "title": "ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_05_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json",
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
@@ -1925,6 +1943,15 @@
       "blocker": "",
       "manifest_path": "experiments/imls_slam_kitti_seq_04_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json",
+      "current_default": "paper_odometry_w100_coarse_start"
+    },
+    {
+      "problem_id": "imls_slam_kitti_seq_05_full_paper_comp",
+      "title": "IMLS-SLAM KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/imls_slam_kitti_seq_05_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_05_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_w100_coarse_start"
     },
     {

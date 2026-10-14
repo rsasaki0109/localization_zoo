@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -125,6 +125,7 @@ _Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_ma
 | DiLO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_degenerate` | 45.102 | 4.8 | `experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_degenerate` | 3.037 | 4.0 | `experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_spread_keypoints` | 0.696 | 4.2 | `experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json` |
+| DiLO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_degenerate` | 6.007 | 2.4 | `experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_degenerate` | 4.016 | 1.8 | `experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `default` | 1.111 | 39.1 | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_degenerate` | 5.353 | 2.8 | `experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json` |
@@ -151,6 +152,7 @@ _Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_ma
 | ELO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 17.997 | 1.0 | `experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 5.238 | 2.5 | `experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 0.557 | 1.7 | `experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.802 | 2.4 | `experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.915 | 1.2 | `experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals_unbiased` | 1.418 | 4.4 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.109 | 1.7 | `experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json` |
@@ -220,6 +222,7 @@ _Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_ma
 | IMLS-SLAM KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_w100_coarse_start` | 17.876 | 1.5 | `experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_w100` | 2.086 | 1.1 | `experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_w100_coarse_start` | 0.921 | 1.3 | `experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json` |
+| IMLS-SLAM KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_w100_coarse_start` | 4.176 | 0.9 | `experiments/results/imls_slam_kitti_seq_05_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_w100_coarse_start` | 1.166 | 1.0 | `experiments/results/imls_slam_kitti_seq_06_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 0.693 | 6.3 | `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline | `ready` | `paper_odometry_w100_coarse_start` | 3.050 | 1.0 | `experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json` |
@@ -7457,6 +7460,7 @@ _Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_ma
 | DiLO paper odometry + 0.22 deg beam correction | reference | 14.169 | 4.3 | 46.1 | 3.70 | 4.10 | Keep as reference variant |
 | DiLO paper odometry without the window re-estimation | ablation | 71.652 | 5.6 | 14.8 | 3.70 | 4.10 | Keep as reference variant |
 | DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction | reference | 11.597 | 4.0 | 54.7 | 1.90 | 2.90 | Keep as reference variant |
+| DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | reference | 11.597 | 1.6 | 51.9 | 1.30 | 2.50 | Keep as reference variant |
 
 ### Observations
 
@@ -7531,6 +7535,17 @@ _Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.90 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.90 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
+#### `paper_odometry_degenerate`
+
+- Intent: As paper_odometry_spread_keypoints, plus solution remapping (not in the paper): translation directions whose eigenvalue in the translation block of the normal equations is below 0.03 of the largest keep the prediction. Chosen on KITTI 01 (open highway, 8.7 -> 1.5 %; 0.02-0.05 all work); 00 and 07 are unchanged.
+- CLI args: `--no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18 --dilo-paper-degenerate-ratio 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_degenerate/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18 --dilo-paper-degenerate-ratio 0.03`
+- Summary: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_degenerate/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_00_full_paper_comp_matrix/paper_odometry_degenerate/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image, top 3 deg, vertical fill up to 4 rows, Farid-filter normals, degenerate translation directions below 0.030000 of the largest kept at the prediction (not in the paper), 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
 
 
 ## DiLO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline
@@ -7672,6 +7687,42 @@ _Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_04_full_paper_comp_matrix/paper_odometry_degenerate/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18 --dilo-paper-degenerate-ratio 0.03`
 - Summary: `experiments/results/runs/dilo_kitti_seq_04_full_paper_comp_matrix/paper_odometry_degenerate/summary.json`
 - Log: `experiments/results/runs/dilo_kitti_seq_04_full_paper_comp_matrix/paper_odometry_degenerate/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: DiLO paper odometry (192x2048 sin-elevation range image, top 3 deg, vertical fill up to 4 rows, Farid-filter normals, degenerate translation directions below 0.030000 of the largest kept at the prediction (not in the paper), 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
+
+## DiLO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline
+
+- **Problem ID**: `dilo_kitti_seq_05_full_paper_comp`
+- **Question**: Does the DiLO paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 05?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `dilo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | reference | 6.007 | 2.4 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_degenerate` is the current default for this problem.
+2. `paper_odometry_degenerate` is the fastest observed variant at 2.4 FPS.
+3. `paper_odometry_degenerate` is the most accurate observed variant at 6.007 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_degenerate`
+
+- Intent: As paper_odometry_spread_keypoints, plus solution remapping (not in the paper): translation directions whose eigenvalue in the translation block of the normal equations is below 0.03 of the largest keep the prediction. Chosen on KITTI 01 (open highway, 8.7 -> 1.5 %; 0.02-0.05 all work); 00 and 07 are unchanged.
+- CLI args: `--no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18 --dilo-paper-degenerate-ratio 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_05_full_paper_comp_matrix/paper_odometry_degenerate/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18 --dilo-paper-degenerate-ratio 0.03`
+- Summary: `experiments/results/runs/dilo_kitti_seq_05_full_paper_comp_matrix/paper_odometry_degenerate/summary.json`
+- Log: `experiments/results/runs/dilo_kitti_seq_05_full_paper_comp_matrix/paper_odometry_degenerate/run.log`
 - Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: DiLO paper odometry (192x2048 sin-elevation range image, top 3 deg, vertical fill up to 4 rows, Farid-filter normals, degenerate translation directions below 0.030000 of the largest kept at the prediction (not in the paper), 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
@@ -9211,6 +9262,42 @@ _Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.024 g=12938 ng=3977 w=0.00
+
+
+## ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline
+
+- **Problem ID**: `elo_kitti_seq_05_full_paper_comp`
+- **Question**: Does the ELO paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 05?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | reference | 3.802 | 2.4 | 100.0 | 2.05 | 2.95 | Adopt as current default |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 2.4 FPS.
+3. `dense_elevation_paper_normals_unbiased` is the most accurate observed variant at 3.802 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: On top of dense_elevation_paper_normals: same-surface fusion in the closest-point SRI update (repeated minimum ranges made model surfaces creep towards the sensor), no forward (x) term from the noisy BEV ground normals, and a stricter curvature threshold (0.03) against convex-surface bias. Chosen on KITTI 07 windows, 00 held out (see papers/elo/README.md).
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_05_full_paper_comp_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_05_full_paper_comp_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_05_full_paper_comp_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=10206 ng=4612 w=0.00
 
 
 ## ELO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline
@@ -13164,6 +13251,42 @@ _Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_w100_coarse_start/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 100 --input-vertical-angle-correction-deg 0.22 --imls-slam-paper-coarse-frames 1`
 - Summary: `experiments/results/runs/imls_slam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_w100_coarse_start/summary.json`
 - Log: `experiments/results/runs/imls_slam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_w100_coarse_start/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0; coarse start on the first 1 registrations (r=1.0 h=0.3, not in the paper)
+
+
+## IMLS-SLAM KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline
+
+- **Problem ID**: `imls_slam_kitti_seq_05_full_paper_comp`
+- **Question**: Does the IMLS-SLAM paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 05?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `imls_slam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/imls_slam_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| IMLS-SLAM paper odometry, window 100, coarse start on the first registration | reference | 4.176 | 0.9 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_w100_coarse_start` is the current default for this problem.
+2. `paper_odometry_w100_coarse_start` is the fastest observed variant at 0.9 FPS.
+3. `paper_odometry_w100_coarse_start` is the most accurate observed variant at 4.176 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_w100_coarse_start`
+
+- Intent: As paper_odometry_w100, plus one coarse stage (r = 1.0 m, h = 0.3 m, 10 iterations) before the paper's iterations on the first registration only, where the constant-velocity guess is zero. Not in the paper; it matters only for sequences that start in motion (KITTI 04: 11.9 -> 0.43 %).
+- CLI args: `--no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 100 --input-vertical-angle-correction-deg 0.22 --imls-slam-paper-coarse-frames 1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_w100_coarse_start/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 100 --input-vertical-angle-correction-deg 0.22 --imls-slam-paper-coarse-frames 1`
+- Summary: `experiments/results/runs/imls_slam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_w100_coarse_start/summary.json`
+- Log: `experiments/results/runs/imls_slam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_w100_coarse_start/run.log`
 - Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0; coarse start on the first 1 registrations (r=1.0 h=0.3, not in the paper)

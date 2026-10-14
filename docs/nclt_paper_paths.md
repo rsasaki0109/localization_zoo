@@ -47,8 +47,13 @@ No vertical-angle correction is applied (it is a KITTI calibration issue).
 | Mesh-LOAM | 13.2 | 9.15 | 52.3 | 0.3 | 0.565 / 0.342 | degrades at the restart after a stop (scans 700-1000) |
 | DiLO | 8.53 | 6.78 | 54.3 | 1.9 | 0.549 / 0.372 | degrades: slow drift in rotation, no single failure |
 | ELO | 18.1 | 6.61 | 126.6 | 3.3 | 0.586 / 0.391 | degrades: a jump between scans 3000 and 3500 |
+| ELO, returns within 5 m dropped | 3.36 | 1.54 | 51.6 | 4.1 | | near objects caused the jumps (below) |
 | SuMa | 64.6 | 27.9 | 467.9 | 3.5 | 0.697 / 0.331 | fails when the Segway starts moving after a stop (scan 668) |
 | SuMa, normalised lookup | 1624 | 38.3 | 10174 | 4.9 | | fails |
+| SuMa, returns within 5 m dropped | 392 | 41.2 | 1258 | 5.0 | | fails |
+| Mesh-LOAM, 0.2 m map and input | 42.7 | 27.0 | 228.0 | 0.7 | | worse (2.05 % on scans 550-1100) |
+| DiLO, returns within 5 m dropped | 7.37 | 5.55 | 75.8 | 3.0 | | little change |
+| KISS-ICP, returns within 5 m dropped | 1.76 | 1.13 | 6.5 | 3.4 | | unchanged |
 
 KITTI columns: the repository's best full-sequence values
 ([`paper_ratio_table.csv`](assets/paper/paper_ratio_table.csv)); KISS-ICP 07
@@ -81,6 +86,36 @@ problem.
   coarser plane map, the paper's edge threshold or looser clustering did not
   change this.
 
+## Diagnosis
+
+Done on the full sequence and on scans 550-1100 (the restart after a stop).
+
+- **The platform rocks.** Predicting the next motion with constant velocity
+  misses the rotation by 1.96 deg (median, 95 % 4.2 deg) on NCLT against
+  0.18 deg on KITTI 00 and 0.12 deg on 07; the Segway pitches and yaws by
+  1-3 deg per scan with alternating sign. This is not what breaks SuMa: with
+  the identity as initial guess SuMa still fails on scans 550-1100 (82.7 %
+  against 87.5 %), and its frame-to-frame fallback threshold changes nothing
+  (87.3 %; without the fallback 1280 %). KISS-ICP and IMLS-SLAM, which
+  associate by 3D nearest neighbours, follow the rocking.
+- **Near objects break the range-image methods.** A person walks about
+  2.4 m behind the sensor in about a quarter of the scans, and buildings pass
+  within 3-5 m (scans 696-744: 9000 points of a wall on the left; scan 3248:
+  10 000 of 38 000 points within 5 m, where ELO estimates a 3.47 m step for a
+  0.27 m one). `--input-min-range-m 5` (a runner flag, applied in the sensor
+  frame) takes ELO from 18.1 to 3.4 % and its rotation error from 6.6 to
+  1.5 deg/100 m, leaves KISS-ICP unchanged (1.76 %) and DiLO almost so
+  (7.4 %). SuMa improves on scans 550-1100 (87.5 to 17.9 %, a 3 m cut does
+  not: 97 %) but fails on the full run (392 %).
+- **Windows can mislead.** Mesh-LOAM with a 0.2 m map scores 2.05 % on scans
+  550-1100 (0.1 m: 15.4 %) and 42.7 % on the full run, where it misses steps
+  from scan 80 on; the window starts from an empty map. The 5 m cut makes
+  Mesh-LOAM worse on the window (25.3 %).
+
+No setting found here makes SuMa, DiLO or Mesh-LOAM track NCLT; ELO does
+with the 5 m cut. These are diagnoses on the evaluated data, not tuned
+results.
+
 ## Commands
 
 ```bash
@@ -102,6 +137,7 @@ run elo   elo --elo-dense-profile --elo-normal-full-patch --elo-sri-fuse-same-su
   --elo-curvature-threshold 0.03 --elo-fov 31 -11 --elo-sri-height 32 --elo-sensor-height 0.8
 run suma  suma --suma-paper --suma-paper-set fov_up_deg=31 --suma-paper-set fov_down_deg=11 \
   --suma-paper-set height=32
+# near-range cut: append --input-min-range-m 5 to any run
 ```
 
 Run summaries: [`benchmarks/nclt_paper_paths/`](benchmarks/nclt_paper_paths/).

@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-14T14:23:28+00:00
+> Generated: 2026-10-14T15:38:58+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -685,6 +685,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 17.997 | 0.934 | 0.002267 | 1.00 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 5.238 | 0.747 | 0.005862 | 2.49 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 0.557 | 0.316 | 0.001548 | 1.67 |
+| KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.802 | 0.447 | 0.003400 | 2.42 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.915 | 0.409 | 0.002782 | 1.19 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 1.521 | 0.437 | 0.003413 | 3.64 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.109 | 0.691 | 0.003436 | 1.65 |
@@ -731,6 +732,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 17.876 | 0.855 | 0.001524 | 1.47 |
 | KITTI | IMLS-SLAM paper odometry, window of 100 raw scans, 0.22 deg beam correction | 2.086 | 0.874 | 0.002632 | 1.08 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 0.921 | 0.432 | 0.001478 | 1.32 |
+| KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 4.176 | 0.427 | 0.002220 | 0.89 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 1.166 | 0.502 | 0.001866 | 0.99 |
 | KITTI | IMLS-SLAM, dense profile | 3.038 | 0.700 | 0.007423 | 6.25 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 3.050 | 0.618 | 0.002089 | 0.95 |
@@ -897,6 +899,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 45.102 | 1.017 | 0.004993 | 4.84 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 3.037 | 0.846 | 0.004714 | 3.97 |
 | KITTI | DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction | 0.696 | 0.372 | 0.002520 | 4.22 |
+| KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 6.007 | 0.415 | 0.002889 | 2.36 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 4.029 | 0.440 | 0.002235 | 1.84 |
 | KITTI | DiLO, default parameters | 7.161 | 1.533 | 0.023380 | 39.12 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 5.353 | 0.623 | 0.003245 | 2.79 |

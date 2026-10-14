@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-14T14:23:28+00:00
+> Generated: 2026-10-14T15:38:59+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -229,12 +229,13 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_01_full | paper_odometry_degenerate | 45.102 | 4.8 |
 | dogfooding_results/kitti_seq_03_full | paper_odometry_degenerate | 3.037 | 4.0 |
 | dogfooding_results/kitti_seq_04_full | paper_odometry_spread_keypoints | 0.696 | 4.2 |
+| dogfooding_results/kitti_seq_05_full | paper_odometry_degenerate | 6.007 | 2.4 |
 | dogfooding_results/kitti_seq_06_full | paper_odometry_degenerate | 4.029 | 1.8 |
 | dogfooding_results/kitti_seq_07_full | default | 7.161 | 39.1 |
 | dogfooding_results/kitti_seq_09_full | paper_odometry_degenerate | 5.353 | 2.8 |
 | dogfooding_results/kitti_seq_10_full | paper_odometry_degenerate | 6.515 | 2.7 |
 
-**Stability**: 3 unique default(s) across 8 windows.
+**Stability**: 3 unique default(s) across 9 windows.
 
 ### DLIO
 
@@ -274,12 +275,13 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_01_full | dense_elevation_paper_normals_unbiased | 17.997 | 1.0 |
 | dogfooding_results/kitti_seq_03_full | dense_elevation_paper_normals_unbiased | 5.238 | 2.5 |
 | dogfooding_results/kitti_seq_04_full | dense_elevation_paper_normals_unbiased | 0.557 | 1.7 |
+| dogfooding_results/kitti_seq_05_full | dense_elevation_paper_normals_unbiased | 3.802 | 2.4 |
 | dogfooding_results/kitti_seq_06_full | dense_elevation_paper_normals_unbiased | 3.915 | 1.2 |
 | dogfooding_results/kitti_seq_07_full | dense_elevation_paper_normals_unbiased | 1.521 | 3.6 |
 | dogfooding_results/kitti_seq_09_full | dense_elevation_paper_normals_unbiased | 3.109 | 1.7 |
 | dogfooding_results/kitti_seq_10_full | dense_elevation_paper_normals_unbiased | 1.533 | 2.0 |
 
-**Stability**: 2 unique default(s) across 8 windows.
+**Stability**: 2 unique default(s) across 9 windows.
 
 ### FAST-LIO2
 
@@ -393,12 +395,13 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_01_full | paper_odometry_w100_coarse_start | 17.876 | 1.5 |
 | dogfooding_results/kitti_seq_03_full | paper_odometry_w100 | 2.086 | 1.1 |
 | dogfooding_results/kitti_seq_04_full | paper_odometry_w100_coarse_start | 0.921 | 1.3 |
+| dogfooding_results/kitti_seq_05_full | paper_odometry_w100_coarse_start | 4.176 | 0.9 |
 | dogfooding_results/kitti_seq_06_full | paper_odometry_w100_coarse_start | 1.166 | 1.0 |
 | dogfooding_results/kitti_seq_07_full | dense_profile | 3.038 | 6.3 |
 | dogfooding_results/kitti_seq_09_full | paper_odometry_w100_coarse_start | 3.050 | 1.0 |
 | dogfooding_results/kitti_seq_10_full | paper_odometry_w100_coarse_start | 2.970 | 0.9 |
 
-**Stability**: 3 unique default(s) across 8 windows.
+**Stability**: 3 unique default(s) across 9 windows.
 
 ### IMU-DEAD-RECKONING
 
@@ -1016,7 +1019,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | default | 22.951 | 40.6 | 2 |
 | dense_profile | 27.736 | 36.0 | 2 |
 | paper_odometry | 9.177 | 4.3 | 2 |
-| paper_odometry_degenerate | 9.408 | 3.4 | 7 |
+| paper_odometry_degenerate | 9.274 | 3.1 | 9 |
 | paper_odometry_elevation | 8.351 | 4.3 | 2 |
 | paper_odometry_no_window_update | 37.407 | 5.5 | 2 |
 | paper_odometry_spread_keypoints | 17.921 | 2.9 | 8 |
@@ -1043,7 +1046,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 |---|---:|---:|---:|
 | dense_elevation | 11.790 | 2.2 | 2 |
 | dense_elevation_paper_normals | 7.025 | 3.2 | 2 |
-| dense_elevation_paper_normals_unbiased | 6.014 | 2.0 | 8 |
+| dense_elevation_paper_normals_unbiased | 5.769 | 2.0 | 9 |
 | dense_profile | 12.424 | 2.4 | 2 |
 | fast_profile | 13.020 | 4.3 | 2 |
 | paper_profile_elevation | 12.628 | 1.6 | 2 |
@@ -1111,7 +1114,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense_profile | 10.304 | 5.8 | 2 |
 | paper_odometry_w10 | 4.288 | 1.7 | 2 |
 | paper_odometry_w100 | 27.041 | 1.0 | 6 |
-| paper_odometry_w100_coarse_start | 4.543 | 1.0 | 8 |
+| paper_odometry_w100_coarse_start | 4.502 | 1.0 | 9 |
 | paper_odometry_w10_no_correction | 9.483 | 1.7 | 2 |
 
 ### IMU-DEAD-RECKONING

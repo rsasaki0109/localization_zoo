@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-14T14:22:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -200,6 +200,7 @@ The runner is responsible for:
 | DiLO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline | `ready` | `experiments/dilo_kitti_seq_01_full_paper_comp_matrix.json` | `dilo` | `paper_odometry_degenerate` | `experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline | `ready` | `experiments/dilo_kitti_seq_03_full_paper_comp_matrix.json` | `dilo` | `paper_odometry_degenerate` | `experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline | `ready` | `experiments/dilo_kitti_seq_04_full_paper_comp_matrix.json` | `dilo` | `paper_odometry_spread_keypoints` | `experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json` |
+| DiLO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline | `ready` | `experiments/dilo_kitti_seq_05_full_paper_comp_matrix.json` | `dilo` | `paper_odometry_degenerate` | `experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline | `ready` | `experiments/dilo_kitti_seq_06_full_paper_comp_matrix.json` | `dilo` | `paper_odometry_degenerate` | `experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `experiments/dilo_kitti_seq_07_full_paper_comp_matrix.json` | `dilo` | `default` | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
 | DiLO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline | `ready` | `experiments/dilo_kitti_seq_09_full_paper_comp_matrix.json` | `dilo` | `paper_odometry_degenerate` | `experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json` |
@@ -226,6 +227,7 @@ The runner is responsible for:
 | ELO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline | `ready` | `experiments/elo_kitti_seq_01_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals_unbiased` | `experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline | `ready` | `experiments/elo_kitti_seq_03_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals_unbiased` | `experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline | `ready` | `experiments/elo_kitti_seq_04_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals_unbiased` | `experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline | `ready` | `experiments/elo_kitti_seq_05_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals_unbiased` | `experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline | `ready` | `experiments/elo_kitti_seq_06_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals_unbiased` | `experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `experiments/elo_kitti_seq_07_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals_unbiased` | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
 | ELO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline | `ready` | `experiments/elo_kitti_seq_09_full_paper_comp_matrix.json` | `elo` | `dense_elevation_paper_normals_unbiased` | `experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json` |
@@ -295,6 +297,7 @@ The runner is responsible for:
 | IMLS-SLAM KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline | `ready` | `experiments/imls_slam_kitti_seq_01_full_paper_comp_matrix.json` | `imls_slam` | `paper_odometry_w100_coarse_start` | `experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline | `ready` | `experiments/imls_slam_kitti_seq_03_full_paper_comp_matrix.json` | `imls_slam` | `paper_odometry_w100` | `experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline | `ready` | `experiments/imls_slam_kitti_seq_04_full_paper_comp_matrix.json` | `imls_slam` | `paper_odometry_w100_coarse_start` | `experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json` |
+| IMLS-SLAM KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline | `ready` | `experiments/imls_slam_kitti_seq_05_full_paper_comp_matrix.json` | `imls_slam` | `paper_odometry_w100_coarse_start` | `experiments/results/imls_slam_kitti_seq_05_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline | `ready` | `experiments/imls_slam_kitti_seq_06_full_paper_comp_matrix.json` | `imls_slam` | `paper_odometry_w100_coarse_start` | `experiments/results/imls_slam_kitti_seq_06_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `experiments/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` | `imls_slam` | `dense_profile` | `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` |
 | IMLS-SLAM KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline | `ready` | `experiments/imls_slam_kitti_seq_09_full_paper_comp_matrix.json` | `imls_slam` | `paper_odometry_w100_coarse_start` | `experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json` |

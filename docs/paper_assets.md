@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-14T14:22:44+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-14T15:38:22+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -141,6 +141,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | dilo | `kitti_seq_01_full` | gt-backed | `paper_odometry_degenerate` | 45.102 | 4.8 | `experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json` |
 | dilo | `kitti_seq_03_full` | gt-backed | `paper_odometry_degenerate` | 3.037 | 4.0 | `experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json` |
 | dilo | `kitti_seq_04_full` | gt-backed | `paper_odometry_spread_keypoints` | 0.696 | 4.2 | `experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json` |
+| dilo | `kitti_seq_05_full` | gt-backed | `paper_odometry_degenerate` | 6.007 | 2.4 | `experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json` |
 | dilo | `kitti_seq_06_full` | gt-backed | `paper_odometry_degenerate` | 4.029 | 1.8 | `experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json` |
 | dilo | `kitti_seq_07_full` | gt-backed | `default` | 7.161 | 39.1 | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
 | dilo | `kitti_seq_09_full` | gt-backed | `paper_odometry_degenerate` | 5.353 | 2.8 | `experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json` |
@@ -167,6 +168,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | elo | `kitti_seq_01_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 17.997 | 1.0 | `experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json` |
 | elo | `kitti_seq_03_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 5.238 | 2.5 | `experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json` |
 | elo | `kitti_seq_04_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 0.557 | 1.7 | `experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json` |
+| elo | `kitti_seq_05_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 3.802 | 2.4 | `experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json` |
 | elo | `kitti_seq_06_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 3.915 | 1.2 | `experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json` |
 | elo | `kitti_seq_07_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 1.521 | 3.6 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
 | elo | `kitti_seq_09_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 3.109 | 1.7 | `experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json` |
@@ -235,6 +237,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | imls_slam | `kitti_seq_01_full` | gt-backed | `paper_odometry_w100_coarse_start` | 17.876 | 1.5 | `experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json` |
 | imls_slam | `kitti_seq_03_full` | gt-backed | `paper_odometry_w100` | 2.086 | 1.1 | `experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json` |
 | imls_slam | `kitti_seq_04_full` | gt-backed | `paper_odometry_w100_coarse_start` | 0.921 | 1.3 | `experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json` |
+| imls_slam | `kitti_seq_05_full` | gt-backed | `paper_odometry_w100_coarse_start` | 4.176 | 0.9 | `experiments/results/imls_slam_kitti_seq_05_full_paper_comp_matrix.json` |
 | imls_slam | `kitti_seq_06_full` | gt-backed | `paper_odometry_w100_coarse_start` | 1.166 | 1.0 | `experiments/results/imls_slam_kitti_seq_06_full_paper_comp_matrix.json` |
 | imls_slam | `kitti_seq_07_full` | gt-backed | `dense_profile` | 3.038 | 6.3 | `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` |
 | imls_slam | `kitti_seq_09_full` | gt-backed | `paper_odometry_w100_coarse_start` | 3.050 | 1.0 | `experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json` |

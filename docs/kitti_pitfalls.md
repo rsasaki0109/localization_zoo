@@ -63,6 +63,18 @@ every step too short.
 - Effect: Mesh-LOAM's "smallest plane residual among all facets in 27 cells"
   vs the paper's nearest facet: 0.419 -> 0.346 % on 07 (same corrected input).
 
+**Starting in motion.** Most KITTI sequences start with the car already
+moving (first step 0.6-1.5 m; 07, 09 and 10 start at 0.1-0.3 m) while a
+constant-velocity guess starts at zero. Methods that only accept
+correspondences within a small radius (IMLS-SLAM: r = 0.2 m) can skip the
+very samples that would correct the guess and stay short for tens of scans:
+on 04 (straight road, little across the direction of travel, 1.3 m per scan)
+IMLS-SLAM gives 11.9 % against the paper's 0.33 %. One coarse stage on the
+first registration (r = 1.0 m, h = 0.3 m) gives 0.43 % (06: 0.404 -> 0.360 %;
+00 and 07 unchanged).
+- Check: run every sequence, not only 00 and 07; both of these failures only
+  showed up on sequences the values were not chosen on.
+
 **Filters that remove registration input.** Dynamic-object removal or temporal
 filters belong to map insertion, not to the scan being registered.
 - Effect: the earlier InTEn-LOAM removed about 40 % of valid pixels before
@@ -132,6 +144,10 @@ SuMa's seq 02 failure).
 - Symptom: a sudden, sustained over- or under-estimate of the step at
   12-14 m/s; KITTI 01 and parts of 02 and of 00 (frames 4000-4300).
 - Fallbacks keyed to sudden changes do not catch a gradual drift.
+- Keeping weak directions at the prediction helps: DiLO's plane key points on
+  01 collapse towards zero motion after frame 473 (8.70 %); leaving
+  translation directions whose eigenvalue is below 0.03 of the largest at the
+  prediction (solution remapping) gives 1.52 % and changes nothing on 00/07.
 - Effect: SuMa 01 13.8 % (official lookup) / 3.6 % (normalised), paper
   1.7 %; InTEn-LOAM's fast section needed more edge features (the paper's edge
   threshold is for its 32-beam data).

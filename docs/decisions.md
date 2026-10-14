@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1442,6 +1442,15 @@ _Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_spread_keypoints | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_degenerate | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## DiLO KITTI Odom seq 02 full (4661 frames): held-out check of the paper pipeline
+
+- Current default: `paper_odometry_degenerate`.
+- Aggregate result: `experiments/results/dilo_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_degenerate | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## DiLO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline
 
 - Current default: `paper_odometry_degenerate`.
@@ -1500,6 +1509,15 @@ _Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_window_update | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_spread_keypoints | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_odometry_degenerate | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## DiLO KITTI Odom seq 08 full (4071 frames): held-out check of the paper pipeline
+
+- Current default: `paper_odometry_degenerate`.
+- Aggregate result: `experiments/results/dilo_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_degenerate | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## DiLO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline
 
@@ -1766,6 +1784,15 @@ _Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## ELO KITTI Odom seq 02 full (4661 frames): held-out check of the paper pipeline
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Aggregate result: `experiments/results/elo_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## ELO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline
 
 - Current default: `dense_elevation_paper_normals_unbiased`.
@@ -1816,6 +1843,15 @@ _Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_ma
 | dense_elevation_paper_normals | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ELO KITTI Odom seq 08 full (4071 frames): held-out check of the paper pipeline
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Aggregate result: `experiments/results/elo_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## ELO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline
@@ -2581,6 +2617,15 @@ _Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_w100 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_w100_coarse_start | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## IMLS-SLAM KITTI Odom seq 02 full (4661 frames): held-out check of the paper pipeline
+
+- Current default: `paper_odometry_w100_coarse_start`.
+- Aggregate result: `experiments/results/imls_slam_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_w100_coarse_start | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## IMLS-SLAM KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline
 
 - Current default: `paper_odometry_w100`.
@@ -2637,6 +2682,15 @@ _Generated at 2026-10-14T15:38:21+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_w10 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_w10_no_correction | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_w100_coarse_start | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## IMLS-SLAM KITTI Odom seq 08 full (4071 frames): held-out check of the paper pipeline
+
+- Current default: `paper_odometry_w100_coarse_start`.
+- Aggregate result: `experiments/results/imls_slam_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_w100_coarse_start | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## IMLS-SLAM KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline
 

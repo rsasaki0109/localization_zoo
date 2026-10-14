@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-14T15:38:58+00:00
+> Generated: 2026-10-14T18:28:57+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -656,8 +656,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (official KITTI t_rel (100-800 m))
 **Hardware**: laptop CPU (paper Sec. V)
 **Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: KITTI Odometry 00/07 with the correction and the paper normal patch — The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07. Three forward-bias fixes of the projective model (same-surface fusion in the closest-point SRI update, no forward term from the noisy BEV ground normals, curvature threshold 0.03), chosen on 07 windows with 00 held out, bring it to 0.586 / 0.391 % vs the paper's 0.54 / 0.31 % (1.09x / 1.26x, geometric mean 1.17x). See papers/elo/README.md.
-**Numeric comparison**: Same metric, 1.17x on 00/07 — dense_elevation_paper_normals_unbiased: seq 00 0.586 vs 0.54 (1.09x), seq 07 0.391 vs 0.31 (1.26x). Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Current claim**: KITTI Odometry 00-10 with the correction and the paper normal patch — The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07. Three forward-bias fixes of the projective model (same-surface fusion in the closest-point SRI update, no forward term from the noisy BEV ground normals, curvature threshold 0.03), chosen on 07 windows with 00 held out, bring it to 0.586 / 0.391 % vs the paper's 0.54 / 0.31 % (1.09x / 1.26x, geometric mean 1.17x). See papers/elo/README.md.
+**Numeric comparison**: Same metric, 1.22x on 00-10 (one setting, chosen on 07) — dense_elevation_paper_normals_unbiased on 00-10: 0.84-1.43x, geometric mean 1.22x; 00 0.586 vs 0.54, 07 0.391 vs 0.31. Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
 **Main blocker**: The paper fusion weight w2 ("inlier ratio between the non-ground points and ground ones") is ambiguous; the reading implemented here does not help.
 **Next step**: Try other readings of w2 and the ground test; run the remaining KITTI sequences.
 
@@ -683,11 +683,13 @@ For an explicit statement of implementation scope and what the repo currently cl
 |---|---|---:|---:|---:|---:|
 | KITTI | ELO dense profile + 0.195 deg correction + the paper's normal patch size | 12.632 | 0.862 | 0.004886 | 3.11 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 17.997 | 0.934 | 0.002267 | 1.00 |
+| KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 29.828 | 0.827 | 0.003609 | 2.37 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 5.238 | 0.747 | 0.005862 | 2.49 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 0.557 | 0.316 | 0.001548 | 1.67 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.802 | 0.447 | 0.003400 | 2.42 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.915 | 0.409 | 0.002782 | 1.19 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 1.521 | 0.437 | 0.003413 | 3.64 |
+| KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 23.811 | 1.381 | 0.005285 | 2.33 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.109 | 0.691 | 0.003436 | 1.65 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 1.533 | 0.736 | 0.003874 | 2.00 |
 
@@ -703,9 +705,9 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (KITTI odometry drift (%))
 **Hardware**: None
 **Repo scope**: Paper reimplementation (no author code) with the paper odometry pipeline — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: Near paper on KITTI Odometry 00/07 (paper pipeline) — --imls-slam-paper-odometry follows the paper: raw scans with the 0.22 deg beam correction, the last 100 raw scans as the model, h = 0.06 m / r = 0.20 m with a per-query normal, nine planarity-weighted lists of 100 samples, 20 iterations. Official KITTI RTE 0.523 / 0.339 % on 00 / 07 vs the paper's 0.50 / 0.33 % (1.05x / 1.03x, geometric mean 1.04x). The harness profile scores 1.378 / 0.846 %; without the beam correction the paper pipeline scores 1.327 / 0.706 %. See papers/imls_slam/README.md.
-**Numeric comparison**: Same metric, 1.04x on 00/07 (paper pipeline) — paper_odometry_w100: seq 00 0.523 vs 0.50 (1.05x), seq 07 0.339 vs 0.33 (1.03x); paper_odometry_w10: 0.529 / 0.378 %. Repo values: experiments/results/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Main blocker**: Small-object removal (paper Table II, 0.58 -> 0.55 %) is not implemented; only seq 00/07 have been run.
+**Current claim**: Near paper on KITTI Odometry 00-10 (paper pipeline) — --imls-slam-paper-odometry follows the paper: raw scans with the 0.22 deg beam correction, the last 100 raw scans as the model, h = 0.06 m / r = 0.20 m with a per-query normal, nine planarity-weighted lists of 100 samples, 20 iterations. Official KITTI RTE 0.523 / 0.339 % on 00 / 07 vs the paper's 0.50 / 0.33 % (1.05x / 1.03x, geometric mean 1.04x). The harness profile scores 1.378 / 0.846 %; without the beam correction the paper pipeline scores 1.327 / 0.706 %. See papers/imls_slam/README.md.
+**Numeric comparison**: Same metric, 1.05x on 00-10 (one setting, paper pipeline) — paper_odometry_w100_coarse_start on 00-10: 0.91-1.29x, geometric mean 1.05x; 00 0.523 vs 0.50, 07 0.339 vs 0.33; 04 11.9 % without the coarse first registration (it starts in motion). Repo values: experiments/results/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
+**Main blocker**: Small-object removal (paper Table II, 0.58 -> 0.55 %) is not implemented; the coarse first registration is not in the paper.
 **Next step**: Run the remaining KITTI sequences with paper_odometry_w10 (1.7 FPS) or w100 (1.1 FPS).
 
 ### Paper-Reported Values
@@ -730,11 +732,13 @@ For an explicit statement of implementation scope and what the repo currently cl
 |---|---|---:|---:|---:|---:|
 | KITTI | IMLS-SLAM, dense profile | 17.571 | 1.000 | 0.009952 | 5.31 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 17.876 | 0.855 | 0.001524 | 1.47 |
+| KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 12.780 | 0.803 | 0.002417 | 0.88 |
 | KITTI | IMLS-SLAM paper odometry, window of 100 raw scans, 0.22 deg beam correction | 2.086 | 0.874 | 0.002632 | 1.08 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 0.921 | 0.432 | 0.001478 | 1.32 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 4.176 | 0.427 | 0.002220 | 0.89 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 1.166 | 0.502 | 0.001866 | 0.99 |
 | KITTI | IMLS-SLAM, dense profile | 3.038 | 0.700 | 0.007423 | 6.25 |
+| KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 19.599 | 1.319 | 0.003472 | 0.87 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 3.050 | 0.618 | 0.002089 | 0.95 |
 | KITTI | IMLS-SLAM paper odometry, window 100, coarse start on the first registration | 2.970 | 0.678 | 0.002889 | 0.90 |
 
@@ -870,9 +874,9 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported metric**: KITTI RTE translation [%] (KITTI average translation error (%), 100-800 m)
 **Hardware**: 4 cores, 2.6 GHz (paper)
 **Repo scope**: Paper reimplementation (no author code) with a paper odometry path (plane key points only) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: Near paper on KITTI Odometry 00/07 (plane-only paper pipeline) — --dilo-paper-odometry (spherical range image, eq. 11 normals, IMLS-style key-point lists, Algorithm 1 window, plane residuals) with planarity > 0.98, at most one key point per 8 x 8 px cell per list, a slope-aware vertical fill (fill_slope 0.1) and the 0.18 deg correction: official KITTI RTE 0.549 / 0.372 % on 00 / 07 vs the paper's full DiLO 0.64 / 0.42 % (0.86x / 0.89x, geometric mean 0.87x) and plane-only ablation 0.84 / 0.58 %. Edge key points (Sec. 3.5) were implemented and do not help on KITTI. The settings were chosen on 07 windows with some 00 windows in view. See papers/dilo/README.md.
-**Numeric comparison**: Same metric, 0.87x on 00/07 — paper_odometry_spread_keypoints: seq 00 0.549 vs 0.64 (0.86x), seq 07 0.372 vs 0.42 (0.89x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Below the paper's full DiLO without its edge term; the remaining error is a scene-dependent yaw bias and lateral offsets shared with an independent ICP (ground truth).
+**Current claim**: Near paper on KITTI Odometry 00-10 (plane-only paper pipeline) — --dilo-paper-odometry (spherical range image, eq. 11 normals, IMLS-style key-point lists, Algorithm 1 window, plane residuals) with planarity > 0.98, at most one key point per 8 x 8 px cell per list, a slope-aware vertical fill (fill_slope 0.1) and the 0.18 deg correction: official KITTI RTE 0.549 / 0.372 % on 00 / 07 vs the paper's full DiLO 0.64 / 0.42 % (0.86x / 0.89x, geometric mean 0.87x) and plane-only ablation 0.84 / 0.58 %. Edge key points (Sec. 3.5) were implemented and do not help on KITTI. The settings were chosen on 07 windows with some 00 windows in view. See papers/dilo/README.md.
+**Numeric comparison**: Same metric, 0.96x on 00-10 (one setting; 01 1.42x with a degenerate-direction remap chosen there) — paper_odometry_degenerate on 00-10: 0.75-1.42x, geometric mean 0.96x; 00 0.549 vs 0.64, 07 0.372 vs 0.42 (unchanged by the remap); 01 8.70 % without the remap. See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Below the paper's full DiLO without its edge term. Open highway (01) needs the remap, which is not in the paper and was chosen on 01.
 **Next step**: Run the remaining KITTI sequences.
 
 ### Paper-Reported Values
@@ -897,11 +901,13 @@ For an explicit statement of implementation scope and what the repo currently cl
 |---|---|---:|---:|---:|---:|
 | KITTI | DiLO, default parameters | 38.742 | 1.200 | 0.022193 | 42.11 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 45.102 | 1.017 | 0.004993 | 4.84 |
+| KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 40.767 | 0.788 | 0.004386 | 2.43 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 3.037 | 0.846 | 0.004714 | 3.97 |
 | KITTI | DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction | 0.696 | 0.372 | 0.002520 | 4.22 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 6.007 | 0.415 | 0.002889 | 2.36 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 4.029 | 0.440 | 0.002235 | 1.84 |
 | KITTI | DiLO, default parameters | 7.161 | 1.533 | 0.023380 | 39.12 |
+| KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 24.254 | 1.292 | 0.005352 | 2.76 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 5.353 | 0.623 | 0.003245 | 2.79 |
 | KITTI | DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction | 6.515 | 0.713 | 0.006286 | 2.75 |
 

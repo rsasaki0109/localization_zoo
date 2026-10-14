@@ -108,10 +108,10 @@ audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 | CT-ICP | 00-10 | 1.15x | upstream pipeline; 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
 | SuMa | 00-10 | 0.97x | paper frame-to-model pipeline; 01 (highway) 2.09x; one setting for all 1.25x ([details](papers/suma/README.md#full-sequences)) |
 | Quadric-LO | 00/07 | 0.80x | vs the paper's scan-to-submap table; no author code |
-| DiLO | 00/07 | 0.87x | plane-only paper pipeline, from 4.12x ([details](papers/dilo/README.md)) |
-| IMLS-SLAM | 00/07 | 1.04x | paper pipeline, from 2.66x ([details](papers/imls_slam/README.md)) |
+| DiLO | 00-10 | 0.96x | plane-only paper pipeline, one setting on all 11; 01 (highway) needs a degenerate-direction remap chosen on 01 (8.13x -> 1.42x) ([details](papers/dilo/README.md)) |
+| IMLS-SLAM | 00-10 | 1.05x | paper pipeline, one setting on all 11; a coarse first registration fixes 04, which starts in motion (36x -> 1.29x) ([details](papers/imls_slam/README.md)) |
 | Mesh-LOAM | 00/07 | 1.08x | paper nearest-facet association, from 1.80x ([details](papers/mesh_loam/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
-| ELO | 00/07 | 1.17x | gap remains; forward-bias fixes chosen on 07, 00 held out, from 2.60x ([details](papers/elo/README.md#forward-drift-biases-of-the-projective-model)) |
+| ELO | 00-10 | 1.22x | gap remains; values chosen on 07, the other ten sequences 0.84-1.43x, none fails ([details](papers/elo/README.md#all-kitti-sequences-00-10)) |
 | InTEn-LOAM | 00/07 | 1.18x | gap remains: 07 1.04x, 00 1.34x with an S2M plane check; one setting for both 1.20x ([details](papers/inten_loam/README.md#paper-pipeline)) |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains; the paper's 00/07 values are below every roll-free GT trajectory ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
 

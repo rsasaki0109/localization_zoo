@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "dilo_kitti_seq_03_full_paper_comp",
+    "title": "DiLO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline",
+    "question": "Does the DiLO paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 03?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_03_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_03_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dilo",
+    "primary_method": "DiLO"
+  },
+  "variants": [
+    {
+      "id": "paper_odometry_spread_keypoints",
+      "label": "DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction",
+      "design_style": "reference",
+      "intent": "Planarity > 0.98 and at most one key point per 8 x 8 px cell per list (the ground list clustered ahead of the car, the side lists on vegetation, so roll was barely constrained), a vertical fill that no longer puts the far ground under the road (fill_slope 0.1), and the 0.18 deg correction that zeroes the pitch bias once the fill is fixed. Chosen on 07 windows, 00 windows held out (see papers/dilo/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-min-planarity",
+        "0.98",
+        "--dilo-paper-keypoint-cell",
+        "8",
+        "--dilo-paper-fill-slope",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.18"
+      ]
+    },
+    {
+      "id": "paper_odometry_degenerate",
+      "label": "DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction",
+      "design_style": "reference",
+      "intent": "As paper_odometry_spread_keypoints, plus solution remapping (not in the paper): translation directions whose eigenvalue in the translation block of the normal equations is below 0.03 of the largest keep the prediction. Chosen on KITTI 01 (open highway, 8.7 -> 1.5 %; 0.02-0.05 all work); 00 and 07 are unchanged.",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-min-planarity",
+        "0.98",
+        "--dilo-paper-keypoint-cell",
+        "8",
+        "--dilo-paper-fill-slope",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.18",
+        "--dilo-paper-degenerate-ratio",
+        "0.03"
+      ]
+    }
+  ]
+}

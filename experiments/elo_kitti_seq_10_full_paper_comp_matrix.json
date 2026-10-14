@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "elo_kitti_seq_10_full_paper_comp",
+    "title": "ELO KITTI Odom seq 10 full (1201 frames): held-out check of the paper pipeline",
+    "question": "Does the ELO paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 10?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "elo",
+    "primary_method": "ELO"
+  },
+  "variants": [
+    {
+      "id": "dense_elevation_paper_normals_unbiased",
+      "label": "ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes",
+      "design_style": "reference",
+      "intent": "On top of dense_elevation_paper_normals: same-surface fusion in the closest-point SRI update (repeated minimum ranges made model surfaces creep towards the sensor), no forward (x) term from the noisy BEV ground normals, and a stricter curvature threshold (0.03) against convex-surface bias. Chosen on KITTI 07 windows, 00 held out (see papers/elo/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--elo-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.195",
+        "--elo-normal-full-patch",
+        "--elo-sri-fuse-same-surface",
+        "--elo-ground-no-forward",
+        "--elo-curvature-threshold",
+        "0.03"
+      ]
+    }
+  ]
+}

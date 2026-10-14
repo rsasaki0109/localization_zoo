@@ -71,6 +71,13 @@ struct DiloPaperParams {
   double edge_search_px = 4.0;
   double harris_k = 0.04;
   double huber_delta = 0.25;
+  // Degenerate directions (not in the paper): on open highway (KITTI 01)
+  // plane key points barely constrain the direction of travel and the
+  // estimate collapses towards zero motion. > 0: translation directions whose
+  // eigenvalue of the 3 x 3 translation block of the normal equations is
+  // below degenerate_ratio x the largest are not updated (the step keeps the
+  // prediction there, Zhang et al. ICRA 2016 solution remapping). 0: off.
+  double degenerate_ratio = 0.0;
   double tukey_c = 1.0;
   // Second-pass edge options; the defaults reproduce the first edge
   // implementation above.

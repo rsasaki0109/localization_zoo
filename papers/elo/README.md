@@ -61,6 +61,31 @@ lists ELO at 0.68 % on the odometry test set. This CPU port preserves the
 projective SRI + ground BEV mechanism, but the reduced CPU profile and simplified
 model update do not reproduce the paper-level drift.
 
+## All KITTI sequences (00-10)
+
+The setting chosen on seq 07 windows (`dense_elevation_paper_normals_unbiased`:
+0.195 deg correction, paper normal patch, the three forward-bias fixes) run
+unchanged on every sequence; only 07 was used to choose values.
+`experiments/elo_kitti_seq_NN_full_paper_comp_matrix.json`, official RTE [%]:
+
+| Seq | Paper | `dense_elevation_paper_normals_unbiased` | Ratio |
+|---|---:|---:|---:|
+| 00 | 0.54 | 0.586 | 1.09x |
+| 01 | 0.61 | 0.869 | 1.42x |
+| 02 | 0.54 | 0.770 | 1.43x |
+| 03 | 0.65 | 0.890 | 1.37x |
+| 04 | 0.32 | 0.268 | 0.84x |
+| 05 | 0.33 | 0.399 | 1.21x |
+| 06 | 0.30 | 0.411 | 1.37x |
+| 07 (chosen) | 0.31 | 0.391 | 1.26x |
+| 08 | 0.79 | 1.079 | 1.37x |
+| 09 | 0.48 | 0.678 | 1.41x |
+| 10 | 0.59 | 0.504 | 0.85x |
+
+Geometric mean over 11 sequences: 1.22x.
+
+No sequence fails; the gap is spread over all of them (0.84-1.43x).
+
 ## Paper mechanics and the gap to the paper
 
 A line-by-line comparison with the paper found these differences in the harness

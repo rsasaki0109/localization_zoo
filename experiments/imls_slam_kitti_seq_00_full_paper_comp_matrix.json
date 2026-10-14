@@ -71,6 +71,22 @@
         "--imls-slam-paper-window",
         "10"
       ]
+    },
+    {
+      "id": "paper_odometry_w100_coarse_start",
+      "label": "IMLS-SLAM paper odometry, window 100, coarse start on the first registration",
+      "design_style": "reference",
+      "intent": "As paper_odometry_w100, plus one coarse stage (r = 1.0 m, h = 0.3 m, 10 iterations) before the paper's iterations on the first registration only, where the constant-velocity guess is zero. Not in the paper; it matters only for sequences that start in motion (KITTI 04: 11.9 -> 0.43 %).",
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ]
     }
   ]
 }

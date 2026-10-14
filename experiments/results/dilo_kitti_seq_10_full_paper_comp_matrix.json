@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-10-14T14:02:20+00:00",
+  "manifest_path": "experiments/dilo_kitti_seq_10_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "dilo_kitti_seq_10_full_paper_comp",
+    "title": "DiLO KITTI Odom seq 10 full (1201 frames): held-out check of the paper pipeline",
+    "question": "Does the DiLO paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 10?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dilo",
+    "primary_method": "DiLO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_odometry_spread_keypoints",
+      "label": "DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction",
+      "design_style": "reference",
+      "intent": "Planarity > 0.98 and at most one key point per 8 x 8 px cell per list (the ground list clustered ahead of the car, the side lists on vegetation, so roll was barely constrained), a vertical fill that no longer puts the far ground under the road (fill_slope 0.1), and the 0.18 deg correction that zeroes the pitch bias once the fill is fixed. Chosen on 07 windows, 00 windows held out (see papers/dilo/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-min-planarity",
+        "0.98",
+        "--dilo-paper-keypoint-cell",
+        "8",
+        "--dilo-paper-fill-slope",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.18"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_10_full_paper_comp_matrix/paper_odometry_spread_keypoints/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18",
+      "summary_path": "experiments/results/runs/dilo_kitti_seq_10_full_paper_comp_matrix/paper_odometry_spread_keypoints/summary.json",
+      "log_path": "experiments/results/runs/dilo_kitti_seq_10_full_paper_comp_matrix/paper_odometry_spread_keypoints/run.log",
+      "status": "ok",
+      "ate_m": 6.515277,
+      "rpe_trans_pct": 0.713013,
+      "rpe_rot_deg_per_m": 0.006286,
+      "fps": 1.983277,
+      "time_ms": 605563.448843,
+      "frames": 1201,
+      "note": "DiLO paper odometry (192x2048 sin-elevation range image, top 3 deg, vertical fill up to 4 rows, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.",
+      "benchmark_score": 86.11,
+      "readability_score": 1.9,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.9,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 0.864443,
+      "kitti_rte_rot_deg_per_100m": 0.390596,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_odometry_degenerate",
+      "label": "DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction",
+      "design_style": "reference",
+      "intent": "As paper_odometry_spread_keypoints, plus solution remapping (not in the paper): translation directions whose eigenvalue in the translation block of the normal equations is below 0.03 of the largest keep the prediction. Chosen on KITTI 01 (open highway, 8.7 -> 1.5 %; 0.02-0.05 all work); 00 and 07 are unchanged.",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-min-planarity",
+        "0.98",
+        "--dilo-paper-keypoint-cell",
+        "8",
+        "--dilo-paper-fill-slope",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.18",
+        "--dilo-paper-degenerate-ratio",
+        "0.03"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods dilo --summary-json experiments/results/runs/dilo_kitti_seq_10_full_paper_comp_matrix/paper_odometry_degenerate/summary.json --no-gt-seed --dilo-paper-odometry --dilo-paper-min-planarity 0.98 --dilo-paper-keypoint-cell 8 --dilo-paper-fill-slope 0.1 --input-vertical-angle-correction-deg 0.18 --dilo-paper-degenerate-ratio 0.03",
+      "summary_path": "experiments/results/runs/dilo_kitti_seq_10_full_paper_comp_matrix/paper_odometry_degenerate/summary.json",
+      "log_path": "experiments/results/runs/dilo_kitti_seq_10_full_paper_comp_matrix/paper_odometry_degenerate/run.log",
+      "status": "ok",
+      "ate_m": 6.515277,
+      "rpe_trans_pct": 0.713013,
+      "rpe_rot_deg_per_m": 0.006286,
+      "fps": 2.746527,
+      "time_ms": 437279.565254,
+      "frames": 1201,
+      "note": "DiLO paper odometry (192x2048 sin-elevation range image, top 3 deg, vertical fill up to 4 rows, Farid-filter normals, degenerate translation directions below 0.030000 of the largest kept at the prediction (not in the paper), 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.",
+      "benchmark_score": 100.0,
+      "readability_score": 1.3,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.5,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.864443,
+      "kitti_rte_rot_deg_per_100m": 0.390596,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

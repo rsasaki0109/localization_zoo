@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-10-14T13:25:41+00:00",
+  "manifest_path": "experiments/elo_kitti_seq_10_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "elo_kitti_seq_10_full_paper_comp",
+    "title": "ELO KITTI Odom seq 10 full (1201 frames): held-out check of the paper pipeline",
+    "question": "Does the ELO paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 10?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "elo",
+    "primary_method": "ELO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_elevation_paper_normals_unbiased",
+      "label": "ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes",
+      "design_style": "reference",
+      "intent": "On top of dense_elevation_paper_normals: same-surface fusion in the closest-point SRI update (repeated minimum ranges made model surfaces creep towards the sensor), no forward (x) term from the noisy BEV ground normals, and a stricter curvature threshold (0.03) against convex-surface bias. Chosen on KITTI 07 windows, 00 held out (see papers/elo/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--elo-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.195",
+        "--elo-normal-full-patch",
+        "--elo-sri-fuse-same-surface",
+        "--elo-ground-no-forward",
+        "--elo-curvature-threshold",
+        "0.03"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_10_full_paper_comp_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03",
+      "summary_path": "experiments/results/runs/elo_kitti_seq_10_full_paper_comp_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+      "log_path": "experiments/results/runs/elo_kitti_seq_10_full_paper_comp_matrix/dense_elevation_paper_normals_unbiased/run.log",
+      "status": "ok",
+      "ate_m": 1.532586,
+      "rpe_trans_pct": 0.735712,
+      "rpe_rot_deg_per_m": 0.003874,
+      "fps": 1.998866,
+      "time_ms": 600840.685702,
+      "frames": 1201,
+      "note": "ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.027 g=8094 ng=4548 w=0.00",
+      "benchmark_score": 100.0,
+      "readability_score": 2.05,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.504,
+      "kitti_rte_rot_deg_per_100m": 0.232524,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

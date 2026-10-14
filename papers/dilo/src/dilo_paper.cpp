@@ -632,6 +632,15 @@ bool DiloPaperOdometry::step(const DiloPaperFrame& source, const std::vector<con
     return d->allFinite();
   }
   *d = H.ldlt().solve(-g);
+  if (params_.degenerate_ratio > 0.0 && d->allFinite()) {
+    Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> eig(H.block<3, 3>(3, 3));
+    const Eigen::Vector3d lambda = eig.eigenvalues();  // ascending
+    for (int k = 0; k < 3; ++k) {
+      if (lambda(k) >= params_.degenerate_ratio * lambda(2)) break;
+      const Eigen::Vector3d v = eig.eigenvectors().col(k);
+      d->tail<3>() -= v.dot(d->tail<3>()) * v;
+    }
+  }
   if (params_.use_edges && edge_pairs >= 12) {
     if (dofs.size() < 6) {
       // Edge step on its directions only, averaged there with the plane step.

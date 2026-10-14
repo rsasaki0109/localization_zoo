@@ -4,10 +4,10 @@ balm2,mcd_ntu_day_02_108,gt-backed,fast,0.171767,12.738187,experiments/results/b
 clins,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,dense,1.473223,12.200311,experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json
 ct_icp,mcd_ntu_day_02_108,gt-backed,dense_reference,0.325263,21.876931,experiments/results/ct_icp_mcd_ntu_day_02_recipes_matrix.json
 ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,seed_only_fast,0.479317,19.561344,experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json
-dilo,kitti_seq_07_full,gt-backed,default,7.160638,39.120713,experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json
+dilo,kitti_seq_04_full,gt-backed,paper_odometry_spread_keypoints,0.696066,4.223145,experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json
 dlio,mcd_ntu_day_02_108,gt-backed,kitti_default,0.016238,10.289113,experiments/results/dlio_mcd_ntu_day_02_matrix.json
 dlo,mcd_ntu_day_02_108,gt-backed,kitti_default,0.016238,10.157369,experiments/results/dlo_mcd_ntu_day_02_matrix.json
-elo,kitti_seq_07_full,gt-backed,dense_elevation_paper_normals_unbiased,1.521455,3.638783,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
+elo,kitti_seq_04_full,gt-backed,dense_elevation_paper_normals_unbiased,0.556908,1.673005,experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json
 fast_lio2,mcd_ntu_day_02_108,gt-backed,fast,0.024772,23.695211,experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json
 fast_lio_slam,mcd_ntu_day_02_108,gt-backed,fast,0.027647,20.416410,experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json
 fast_livo2,kitti_raw_0061_200,gt-backed,fast,27.581017,7.172801,experiments/results/fast_livo2_kitti_raw_0061_matrix.json
@@ -15,7 +15,7 @@ floam,mcd_ntu_day_02_108,gt-backed,fast,0.151863,26.990908,experiments/results/f
 genz_icp,nclt_2013_01_10_120,gt-backed,default,3.512657,7.568846,experiments/results/genz_icp_nclt_2013_01_10_matrix.json
 gicp,mcd_ntu_day_02_108,gt-backed,dense_recent_map,0.016816,12.991898,experiments/results/gicp_mcd_ntu_day_02_matrix.json
 hdl_graph_slam,mcd_ntu_day_02_108,gt-backed,dense,0.179861,6.514175,experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json
-imls_slam,kitti_seq_07_full,gt-backed,dense_profile,3.037946,6.253868,experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json
+imls_slam,kitti_seq_04_full,gt-backed,paper_odometry_w100_coarse_start,0.920863,1.322320,experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json
 inten_loam,kitti_seq_07_full,gt-backed,paper_odometry_no_intensity,1.192842,3.204377,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
 isc_loam,mcd_ntu_day_02_108,gt-backed,fast,0.064940,50.238587,experiments/results/isc_loam_mcd_ntu_day_02_matrix.json
 kiss_icp,mcd_ntu_day_02_108,gt-backed,fast_recent_map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json

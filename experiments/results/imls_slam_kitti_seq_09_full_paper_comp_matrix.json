@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-10-14T13:25:59+00:00",
+  "manifest_path": "experiments/imls_slam_kitti_seq_09_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "imls_slam_kitti_seq_09_full_paper_comp",
+    "title": "IMLS-SLAM KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline",
+    "question": "Does the IMLS-SLAM paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 09?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_09_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_09_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "imls_slam",
+    "primary_method": "IMLS-SLAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_09_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_09_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_odometry_w100_coarse_start",
+      "label": "IMLS-SLAM paper odometry, window 100, coarse start on the first registration",
+      "design_style": "reference",
+      "intent": "As paper_odometry_w100, plus one coarse stage (r = 1.0 m, h = 0.3 m, 10 iterations) before the paper's iterations on the first registration only, where the constant-velocity guess is zero. Not in the paper; it matters only for sequences that start in motion (KITTI 04: 11.9 -> 0.43 %).",
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods imls_slam --summary-json experiments/results/runs/imls_slam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_w100_coarse_start/summary.json --no-gt-seed --imls-slam-paper-odometry --imls-slam-paper-window 100 --input-vertical-angle-correction-deg 0.22 --imls-slam-paper-coarse-frames 1",
+      "summary_path": "experiments/results/runs/imls_slam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_w100_coarse_start/summary.json",
+      "log_path": "experiments/results/runs/imls_slam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_w100_coarse_start/run.log",
+      "status": "ok",
+      "ate_m": 3.049671,
+      "rpe_trans_pct": 0.617987,
+      "rpe_rot_deg_per_m": 0.002089,
+      "fps": 0.954947,
+      "time_ms": 1666061.128863,
+      "frames": 1591,
+      "note": "IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0; coarse start on the first 1 registrations (r=1.0 h=0.3, not in the paper)",
+      "benchmark_score": 100.0,
+      "readability_score": 2.5,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.3,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.515134,
+      "kitti_rte_rot_deg_per_100m": 0.129119,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v114",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

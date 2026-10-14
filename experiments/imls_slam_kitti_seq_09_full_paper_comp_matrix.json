@@ -37,20 +37,6 @@
         "--imls-slam-paper-coarse-frames",
         "1"
       ]
-    },
-    {
-      "id": "paper_odometry_w100",
-      "label": "IMLS-SLAM paper odometry, window of 100 raw scans, 0.22 deg beam correction",
-      "design_style": "reference",
-      "intent": "The paper's pipeline and KITTI settings (Sec. V-VI): raw scans with the 0.22 deg vertical-angle correction, the last 100 localized raw scans as the model, h = 0.06 m, r = 0.20 m with a per-query normal, nine planarity-weighted lists of 100 samples walked with the r gate, 20 iterations.",
-      "args": [
-        "--no-gt-seed",
-        "--imls-slam-paper-odometry",
-        "--imls-slam-paper-window",
-        "100",
-        "--input-vertical-angle-correction-deg",
-        "0.22"
-      ]
     }
   ]
 }

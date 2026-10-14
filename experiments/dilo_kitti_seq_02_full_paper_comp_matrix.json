@@ -41,24 +41,6 @@
         "--dilo-paper-degenerate-ratio",
         "0.03"
       ]
-    },
-    {
-      "id": "paper_odometry_spread_keypoints",
-      "label": "DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction",
-      "design_style": "reference",
-      "intent": "Planarity > 0.98 and at most one key point per 8 x 8 px cell per list (the ground list clustered ahead of the car, the side lists on vegetation, so roll was barely constrained), a vertical fill that no longer puts the far ground under the road (fill_slope 0.1), and the 0.18 deg correction that zeroes the pitch bias once the fill is fixed. Chosen on 07 windows, 00 windows held out (see papers/dilo/README.md).",
-      "args": [
-        "--no-gt-seed",
-        "--dilo-paper-odometry",
-        "--dilo-paper-min-planarity",
-        "0.98",
-        "--dilo-paper-keypoint-cell",
-        "8",
-        "--dilo-paper-fill-slope",
-        "0.1",
-        "--input-vertical-angle-correction-deg",
-        "0.18"
-      ]
     }
   ]
 }

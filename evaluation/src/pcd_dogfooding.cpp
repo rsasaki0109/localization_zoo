@@ -8356,7 +8356,9 @@ MethodResult runDiloPaper(const std::vector<std::string>& pcd_dirs,
   }
   for (const auto& p : poses) res.poses.push_back(anchor * p);
   std::ostringstream note;
-  note << "DiLO paper odometry (192x2048 sin-elevation range image with vertical fill, Farid-filter normals, "
+  note << "DiLO paper odometry (" << params.height << "x" << params.width
+       << " sin-elevation range image, top " << params.top_elevation_deg << " deg, vertical fill up to "
+       << params.max_fill_gap << " rows, Farid-filter normals, "
        << "11 planarity-weighted key-point lists x " << params.keypoints_per_list << ", window of "
        << params.window << " frames, " << params.update_iterations
        << " pairwise-averaging iterations; "
@@ -11025,6 +11027,9 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
       else if (k == "fov_up_deg") pp.fov_up_deg = v;
       else if (k == "fov_down_deg") pp.fov_down_deg = v;
       else if (k == "height") pp.height = static_cast<int>(v);
+      else if (k == "initialize_identity") pp.initialize_identity = v != 0.0;
+      else if (k == "fallback_rot_threshold") pp.fallback_rot_threshold = v;
+      else if (k == "fallback_trans_threshold") pp.fallback_trans_threshold = v;
       else std::cerr << "unknown --suma-paper-set key " << k << std::endl;
     }
     SuMaPaper paper(pp);

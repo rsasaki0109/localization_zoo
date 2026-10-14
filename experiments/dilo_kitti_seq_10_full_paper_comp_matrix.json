@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "dilo_kitti_seq_10_full_paper_comp",
+    "title": "DiLO KITTI Odom seq 10 full (1201 frames): held-out check of the paper pipeline",
+    "question": "Does the DiLO paper pipeline, with the values chosen on seq 07 (00 held out), stay near the paper's per-sequence KITTI Odometry error (official RTE) on seq 10?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dilo",
+    "primary_method": "DiLO"
+  },
+  "variants": [
+    {
+      "id": "paper_odometry_spread_keypoints",
+      "label": "DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction",
+      "design_style": "reference",
+      "intent": "Planarity > 0.98 and at most one key point per 8 x 8 px cell per list (the ground list clustered ahead of the car, the side lists on vegetation, so roll was barely constrained), a vertical fill that no longer puts the far ground under the road (fill_slope 0.1), and the 0.18 deg correction that zeroes the pitch bias once the fill is fixed. Chosen on 07 windows, 00 windows held out (see papers/dilo/README.md).",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-min-planarity",
+        "0.98",
+        "--dilo-paper-keypoint-cell",
+        "8",
+        "--dilo-paper-fill-slope",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.18"
+      ]
+    }
+  ]
+}

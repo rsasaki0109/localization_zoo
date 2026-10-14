@@ -92,6 +92,26 @@
         "--input-vertical-angle-correction-deg",
         "0.18"
       ]
+    },
+    {
+      "id": "paper_odometry_degenerate",
+      "label": "DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction",
+      "design_style": "reference",
+      "intent": "As paper_odometry_spread_keypoints, plus solution remapping (not in the paper): translation directions whose eigenvalue in the translation block of the normal equations is below 0.03 of the largest keep the prediction. Chosen on KITTI 01 (open highway, 8.7 -> 1.5 %; 0.02-0.05 all work); 00 and 07 are unchanged.",
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-min-planarity",
+        "0.98",
+        "--dilo-paper-keypoint-cell",
+        "8",
+        "--dilo-paper-fill-slope",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.18",
+        "--dilo-paper-degenerate-ratio",
+        "0.03"
+      ]
     }
   ]
 }

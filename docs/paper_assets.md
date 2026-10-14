@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-13T15:55:49+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-14T14:22:44+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -138,7 +138,13 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | ct_lio | `hdl_400_open_ct_lio_120` | reference-based | `seed_only_fast` | 0.488 | 17.5 | `experiments/results/ct_lio_reference_profile_matrix.json` |
 | ct_lio | `hdl_400_ros1_open_ct_lio_120_time_index` | reference-based | `seed_only_fast` | 0.479 | 19.6 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | dilo | `kitti_seq_00_full` | gt-backed | `default` | 38.742 | 42.1 | `experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json` |
+| dilo | `kitti_seq_01_full` | gt-backed | `paper_odometry_degenerate` | 45.102 | 4.8 | `experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json` |
+| dilo | `kitti_seq_03_full` | gt-backed | `paper_odometry_degenerate` | 3.037 | 4.0 | `experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json` |
+| dilo | `kitti_seq_04_full` | gt-backed | `paper_odometry_spread_keypoints` | 0.696 | 4.2 | `experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json` |
+| dilo | `kitti_seq_06_full` | gt-backed | `paper_odometry_degenerate` | 4.029 | 1.8 | `experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json` |
 | dilo | `kitti_seq_07_full` | gt-backed | `default` | 7.161 | 39.1 | `experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json` |
+| dilo | `kitti_seq_09_full` | gt-backed | `paper_odometry_degenerate` | 5.353 | 2.8 | `experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json` |
+| dilo | `kitti_seq_10_full` | gt-backed | `paper_odometry_degenerate` | 6.515 | 2.7 | `experiments/results/dilo_kitti_seq_10_full_paper_comp_matrix.json` |
 | dlio | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.239 | 12.1 | `experiments/results/dlio_hdl_400_reference_matrix.json` |
 | dlio | `kitti_raw_0009_200` | gt-backed | `fast` | 2.362 | 5.3 | `experiments/results/dlio_kitti_raw_0009_matrix.json` |
 | dlio | `kitti_raw_0009_200` | gt-backed | `fast` | 2.362 | 7.0 | `experiments/results/dlio_kitti_raw_0009_nogt_matrix.json` |
@@ -158,7 +164,13 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | dlo | `mcd_ntu_day_02_108` | gt-backed | `kitti_default` | 0.016 | 10.2 | `experiments/results/dlo_mcd_ntu_day_02_matrix.json` |
 | dlo | `mcd_tuhh_night_09_108` | gt-backed | `fast` | 1.344 | 13.9 | `experiments/results/dlo_mcd_tuhh_night_09_matrix.json` |
 | elo | `kitti_seq_00_full` | gt-backed | `dense_elevation_paper_normals` | 12.632 | 3.1 | `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json` |
+| elo | `kitti_seq_01_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 17.997 | 1.0 | `experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json` |
+| elo | `kitti_seq_03_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 5.238 | 2.5 | `experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json` |
+| elo | `kitti_seq_04_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 0.557 | 1.7 | `experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json` |
+| elo | `kitti_seq_06_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 3.915 | 1.2 | `experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json` |
 | elo | `kitti_seq_07_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 1.521 | 3.6 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
+| elo | `kitti_seq_09_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 3.109 | 1.7 | `experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json` |
+| elo | `kitti_seq_10_full` | gt-backed | `dense_elevation_paper_normals_unbiased` | 1.533 | 2.0 | `experiments/results/elo_kitti_seq_10_full_paper_comp_matrix.json` |
 | fast_lio2 | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.114 | 9.1 | `experiments/results/fast_lio2_hdl_400_reference_matrix.json` |
 | fast_lio2 | `kitti_raw_0009_200` | gt-backed | `fast` | 2.328 | 12.3 | `experiments/results/fast_lio2_kitti_raw_0009_matrix.json` |
 | fast_lio2 | `kitti_raw_0009_200` | gt-backed | `fast` | 2.328 | 12.7 | `experiments/results/fast_lio2_kitti_raw_0009_nogt_matrix.json` |
@@ -220,7 +232,13 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | hdl_graph_slam | `mcd_ntu_day_02_108` | gt-backed | `dense` | 0.180 | 6.5 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
 | hdl_graph_slam | `mcd_tuhh_night_09_108` | gt-backed | `dense` | 1.373 | 4.2 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
 | imls_slam | `kitti_seq_00_full` | gt-backed | `dense_profile` | 17.571 | 5.3 | `experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json` |
+| imls_slam | `kitti_seq_01_full` | gt-backed | `paper_odometry_w100_coarse_start` | 17.876 | 1.5 | `experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json` |
+| imls_slam | `kitti_seq_03_full` | gt-backed | `paper_odometry_w100` | 2.086 | 1.1 | `experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json` |
+| imls_slam | `kitti_seq_04_full` | gt-backed | `paper_odometry_w100_coarse_start` | 0.921 | 1.3 | `experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json` |
+| imls_slam | `kitti_seq_06_full` | gt-backed | `paper_odometry_w100_coarse_start` | 1.166 | 1.0 | `experiments/results/imls_slam_kitti_seq_06_full_paper_comp_matrix.json` |
 | imls_slam | `kitti_seq_07_full` | gt-backed | `dense_profile` | 3.038 | 6.3 | `experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json` |
+| imls_slam | `kitti_seq_09_full` | gt-backed | `paper_odometry_w100_coarse_start` | 3.050 | 1.0 | `experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json` |
+| imls_slam | `kitti_seq_10_full` | gt-backed | `paper_odometry_w100_coarse_start` | 2.970 | 0.9 | `experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json` |
 | inten_loam | `kitti_seq_00_full` | gt-backed | `paper_odometry_no_intensity` | 16.112 | 2.6 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
 | inten_loam | `kitti_seq_07_full` | gt-backed | `paper_odometry_no_intensity` | 1.193 | 3.2 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | isc_loam | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.162 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |

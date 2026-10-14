@@ -1,11 +1,11 @@
 # Paper Caption Snippets
 
-_Generated at 2026-10-13T15:55:49+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-14T14:22:44+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 ## Table Caption
 
 Table X. Current default variants selected from the experiment-driven benchmark contract.
-The table summarizes 483 ready defaults across 449 GT-backed and 34 reference-based problem instances.
+The table summarizes 501 ready defaults across 467 GT-backed and 34 reference-based problem instances.
 
 ## Pareto Figure Caption
 

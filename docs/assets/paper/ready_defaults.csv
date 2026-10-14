@@ -114,7 +114,13 @@ ct_icp,mulran_parkinglot_full,gt-backed,fast_window,Fast window,80.958211,59.749
 ct_lio,hdl_400_open_ct_lio_120,reference-based,seed_only_fast,Seed-only fast,0.488244,17.477206,experiments/results/ct_lio_reference_profile_matrix.json
 ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,seed_only_fast,Seed-only fast,0.479317,19.561344,experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json
 dilo,kitti_seq_00_full,gt-backed,default,"DiLO, default parameters",38.742163,42.110163,experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json
+dilo,kitti_seq_01_full,gt-backed,paper_odometry_degenerate,"DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction",45.101735,4.835264,experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json
+dilo,kitti_seq_03_full,gt-backed,paper_odometry_degenerate,"DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction",3.036656,3.972317,experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json
+dilo,kitti_seq_04_full,gt-backed,paper_odometry_spread_keypoints,DiLO paper pipeline + spread planar key points + slope-aware vertical fill + 0.18 deg correction,0.696066,4.223145,experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json
+dilo,kitti_seq_06_full,gt-backed,paper_odometry_degenerate,"DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction",4.029321,1.838368,experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json
 dilo,kitti_seq_07_full,gt-backed,default,"DiLO, default parameters",7.160638,39.120713,experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json
+dilo,kitti_seq_09_full,gt-backed,paper_odometry_degenerate,"DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction",5.352551,2.790969,experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json
+dilo,kitti_seq_10_full,gt-backed,paper_odometry_degenerate,"DiLO paper pipeline, spread planar key points, degenerate translation directions kept at the prediction",6.515277,2.746527,experiments/results/dilo_kitti_seq_10_full_paper_comp_matrix.json
 dlio,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.239300,12.061980,experiments/results/dlio_hdl_400_reference_matrix.json
 dlio,kitti_raw_0009_200,gt-backed,fast,Fast,2.361788,7.003044,experiments/results/dlio_kitti_raw_0009_nogt_matrix.json
 dlio,kitti_raw_0009_200,gt-backed,fast,Fast,2.361788,5.327275,experiments/results/dlio_kitti_raw_0009_matrix.json
@@ -134,7 +140,13 @@ dlo,mcd_kth_day_06_108,gt-backed,fast,Fast,6.080595,10.720566,experiments/result
 dlo,mcd_ntu_day_02_108,gt-backed,kitti_default,KITTI default,0.016238,10.157369,experiments/results/dlo_mcd_ntu_day_02_matrix.json
 dlo,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.344414,13.920336,experiments/results/dlo_mcd_tuhh_night_09_matrix.json
 elo,kitti_seq_00_full,gt-backed,dense_elevation_paper_normals,ELO dense profile + 0.195 deg correction + the paper's normal patch size,12.632198,3.108108,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
+elo,kitti_seq_01_full,gt-backed,dense_elevation_paper_normals_unbiased,ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes,17.997468,0.995666,experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json
+elo,kitti_seq_03_full,gt-backed,dense_elevation_paper_normals_unbiased,ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes,5.238028,2.489089,experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json
+elo,kitti_seq_04_full,gt-backed,dense_elevation_paper_normals_unbiased,ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes,0.556908,1.673005,experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json
+elo,kitti_seq_06_full,gt-backed,dense_elevation_paper_normals_unbiased,ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes,3.915241,1.194966,experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json
 elo,kitti_seq_07_full,gt-backed,dense_elevation_paper_normals_unbiased,ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes,1.521455,3.638783,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
+elo,kitti_seq_09_full,gt-backed,dense_elevation_paper_normals_unbiased,ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes,3.108678,1.650677,experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json
+elo,kitti_seq_10_full,gt-backed,dense_elevation_paper_normals_unbiased,ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes,1.532586,1.998866,experiments/results/elo_kitti_seq_10_full_paper_comp_matrix.json
 fast_lio2,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.114415,9.128332,experiments/results/fast_lio2_hdl_400_reference_matrix.json
 fast_lio2,kitti_raw_0009_200,gt-backed,fast,Fast,2.328348,12.674145,experiments/results/fast_lio2_kitti_raw_0009_nogt_matrix.json
 fast_lio2,kitti_raw_0009_200,gt-backed,fast,Fast,2.328348,12.286631,experiments/results/fast_lio2_kitti_raw_0009_matrix.json
@@ -196,7 +208,13 @@ hdl_graph_slam,mcd_kth_day_06_108,gt-backed,fast,Fast,9.241273,13.927111,experim
 hdl_graph_slam,mcd_ntu_day_02_108,gt-backed,dense,Dense,0.179861,6.514175,experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json
 hdl_graph_slam,mcd_tuhh_night_09_108,gt-backed,dense,Dense,1.373137,4.163019,experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json
 imls_slam,kitti_seq_00_full,gt-backed,dense_profile,"IMLS-SLAM, dense profile",17.570868,5.311066,experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json
+imls_slam,kitti_seq_01_full,gt-backed,paper_odometry_w100_coarse_start,"IMLS-SLAM paper odometry, window 100, coarse start on the first registration",17.876129,1.470874,experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json
+imls_slam,kitti_seq_03_full,gt-backed,paper_odometry_w100,"IMLS-SLAM paper odometry, window of 100 raw scans, 0.22 deg beam correction",2.085929,1.078554,experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json
+imls_slam,kitti_seq_04_full,gt-backed,paper_odometry_w100_coarse_start,"IMLS-SLAM paper odometry, window 100, coarse start on the first registration",0.920863,1.322320,experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json
+imls_slam,kitti_seq_06_full,gt-backed,paper_odometry_w100_coarse_start,"IMLS-SLAM paper odometry, window 100, coarse start on the first registration",1.166272,0.988945,experiments/results/imls_slam_kitti_seq_06_full_paper_comp_matrix.json
 imls_slam,kitti_seq_07_full,gt-backed,dense_profile,"IMLS-SLAM, dense profile",3.037946,6.253868,experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json
+imls_slam,kitti_seq_09_full,gt-backed,paper_odometry_w100_coarse_start,"IMLS-SLAM paper odometry, window 100, coarse start on the first registration",3.049671,0.954947,experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json
+imls_slam,kitti_seq_10_full,gt-backed,paper_odometry_w100_coarse_start,"IMLS-SLAM paper odometry, window 100, coarse start on the first registration",2.969514,0.902043,experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json
 inten_loam,kitti_seq_00_full,gt-backed,paper_odometry_no_intensity,InTEn-LOAM paper pipeline without the intensity residual,16.111777,2.619206,experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json
 inten_loam,kitti_seq_07_full,gt-backed,paper_odometry_no_intensity,InTEn-LOAM paper pipeline without the intensity residual,1.192842,3.204377,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
 isc_loam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.161975,37.004353,experiments/results/isc_loam_hdl_400_reference_matrix.json

@@ -97,3 +97,39 @@ TEST(ImlsPaperOdometry, TracksMotionInADenseRoom) {
   const Eigen::Matrix3d dR = odometry.pose().block<3, 3>(0, 0) * truth.block<3, 3>(0, 0).transpose();
   EXPECT_LT(Eigen::AngleAxisd(dR).angle(), 0.003);
 }
+
+TEST(ImlsPaperOdometry, CoarseStartRecoversAStartInMotion) {
+  // A corridor along x (floor, side walls, end wall). The second scan is
+  // 0.8 m ahead while the constant-velocity guess is zero; the coarse stage
+  // runs on that first registration only. (On this clean scene the paper's
+  // iterations converge too; on KITTI 04 they do not, see the README.)
+  std::mt19937 rng(7);
+  std::normal_distribution<double> noise(0.0, 0.005);
+  std::vector<Eigen::Vector3d> world;
+  const double step = 0.05;
+  for (double a = -8.0; a <= 8.0; a += step)
+    for (double b = -3.0; b <= 3.0; b += step) world.emplace_back(a, b, -1.7 + noise(rng));
+  for (double a = -8.0; a <= 8.0; a += step)
+    for (double z = -1.7; z <= 2.0; z += step) {
+      world.emplace_back(a, 3.0 + noise(rng), z);
+      world.emplace_back(a, -3.0 + noise(rng), z);
+    }
+  for (double b = -3.0; b <= 3.0; b += step)
+    for (double z = -1.7; z <= 2.0; z += step) world.emplace_back(8.0 + noise(rng), b, z);
+  Eigen::Matrix4d second = Eigen::Matrix4d::Identity();
+  second(0, 3) = 0.8;
+  Eigen::Matrix4d third = second;
+  third(0, 3) = 1.6;
+  ImlsPaperParams params;
+  params.window_scans = 5;
+  params.samples_per_list = 30;
+  params.min_range = 0.0;
+  params.coarse_frames = 1;
+  ImlsPaperOdometry odometry(params);
+  EXPECT_FALSE(odometry.process(seenFrom(world, Eigen::Matrix4d::Identity())).coarse_start);
+  EXPECT_TRUE(odometry.process(seenFrom(world, second)).coarse_start);
+  EXPECT_LT((odometry.pose().block<3, 1>(0, 3) - second.block<3, 1>(0, 3)).norm(), 0.03);
+  // Later registrations have a velocity guess and run the paper's iterations only.
+  EXPECT_FALSE(odometry.process(seenFrom(world, third)).coarse_start);
+  EXPECT_LT((odometry.pose().block<3, 1>(0, 3) - third.block<3, 1>(0, 3)).norm(), 0.03);
+}

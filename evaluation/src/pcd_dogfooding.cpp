@@ -2707,6 +2707,9 @@ struct ImlsSlamDogfoodingOptions {
   double paper_h = 0.06;
   double paper_r = 0.20;
   double paper_scan_normal_radius = 0.5;
+  int paper_coarse_frames = 0;  // registrations with a coarse stage first (not in the paper)
+  double paper_coarse_r = 1.0;
+  double paper_coarse_h = 0.3;
 };
 
 struct MeshLoamDogfoodingOptions {
@@ -8787,6 +8790,9 @@ MethodResult runImlsPaperOdometry(const std::vector<std::string>& pcd_dirs,
   params.h = options.paper_h;
   params.r = options.paper_r;
   params.scan_normal_radius = options.paper_scan_normal_radius;
+  params.coarse_frames = options.paper_coarse_frames;
+  params.coarse_r = options.paper_coarse_r;
+  params.coarse_h = options.paper_coarse_h;
   ImlsPaperOdometry odometry(params);
   const Eigen::Matrix4d world_anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
   double samples = 0.0;
@@ -8811,6 +8817,9 @@ MethodResult runImlsPaperOdometry(const std::vector<std::string>& pcd_dirs,
        << " raw scans, h=" << params.h << " r=" << params.r << ", nine lists x "
        << params.samples_per_list << ", " << params.iterations
        << " iterations); no GT seed. mean samples " << samples / std::max<size_t>(1, registered);
+  if (params.coarse_frames > 0)
+    note << "; coarse start on the first " << params.coarse_frames << " registrations (r=" << params.coarse_r
+         << " h=" << params.coarse_h << ", not in the paper)";
   res.note = note.str();
   return res;
 }
@@ -15626,6 +15635,15 @@ int main(int argc, char** argv) {
     }
     if (arg == "--imls-slam-paper-normal-radius" && i + 1 < argc) {
       imls_slam_options.paper_scan_normal_radius = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-paper-coarse-frames" && i + 1 < argc) {
+      imls_slam_options.paper_coarse_frames = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-paper-coarse-radius" && i + 2 < argc) {
+      imls_slam_options.paper_coarse_r = std::stod(argv[++i]);
+      imls_slam_options.paper_coarse_h = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--imls-slam-no-sampling") {

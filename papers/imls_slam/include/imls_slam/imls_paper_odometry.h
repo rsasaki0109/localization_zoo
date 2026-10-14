@@ -41,12 +41,26 @@ struct ImlsPaperParams {
   int min_normal_points = 5;
   double min_range = 1.0;
   double max_range = 1e9;
+  // Coarse start (not in the paper): a sample is kept only when the model has
+  // a point within r of it, and the lists are walked until s samples are
+  // kept, so from an initial guess more than about r off the samples that
+  // would correct it (facades across the direction of travel) are skipped
+  // and the scan barely moves. A sequence that starts in motion (KITTI 04,
+  // 1.3 m per scan) with the constant-velocity guess at zero then stays
+  // short for tens of scans. The first coarse_frames registrations run
+  // coarse_iterations with coarse_r / coarse_h before the paper's
+  // iterations; coarse_frames = 0 disables it.
+  int coarse_frames = 0;
+  double coarse_r = 1.0;
+  double coarse_h = 0.3;
+  int coarse_iterations = 10;
 };
 
 struct ImlsPaperResult {
   Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();  // world <- sensor
   int samples = 0;                                      // last iteration
   size_t model_points = 0;
+  bool coarse_start = false;                            // coarse stage ran
 };
 
 class ImlsPaperOdometry {
@@ -68,7 +82,11 @@ public:
   std::vector<std::vector<int>> sampleLists(const std::vector<ScanPoint>& points) const;
   // IMLS projection of x onto the model: false if the model has no point
   // within r or too few for a normal.
-  bool imls(const Eigen::Vector3d& x, Eigen::Vector3d* normal, double* distance) const;
+  bool imls(const Eigen::Vector3d& x, Eigen::Vector3d* normal, double* distance) const {
+    return imls(x, params_.r, params_.h, normal, distance);
+  }
+  bool imls(const Eigen::Vector3d& x, double r, double h, Eigen::Vector3d* normal,
+            double* distance) const;
   void insertScan(const std::vector<Eigen::Vector3d>& scan, const Eigen::Matrix4d& pose);
 
 private:
@@ -86,7 +104,11 @@ private:
   using ModelGrid = std::unordered_map<Eigen::Vector3i, std::vector<Entry>, KeyHash>;
 
   Eigen::Vector3i key(const Eigen::Vector3d& p, double cell) const;
-  bool hasModelPointWithin(const Eigen::Vector3d& x) const;
+  bool hasModelPointWithin(const Eigen::Vector3d& x, double r) const;
+  // Gauss-Newton iterations at radius r and bandwidth h; returns the samples
+  // of the last iteration (or of the first when count_only).
+  int iterate(const std::vector<ScanPoint>& points, const std::vector<std::vector<int>>& lists,
+              double r, double h, int iterations, bool count_only, Eigen::Matrix4d* T) const;
 
   ImlsPaperParams params_;
   ModelGrid model_;

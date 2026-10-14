@@ -105,12 +105,14 @@ std::vector<std::vector<int>> ImlsPaperOdometry::sampleLists(
   return lists;
 }
 
-bool ImlsPaperOdometry::hasModelPointWithin(const Eigen::Vector3d& x) const {
+bool ImlsPaperOdometry::hasModelPointWithin(const Eigen::Vector3d& x, double r) const {
+  // The model grid has cells of params_.r; a larger radius visits more cells.
   const Eigen::Vector3i c = key(x, params_.r);
-  const double r2 = params_.r * params_.r;
-  for (int dx = -1; dx <= 1; ++dx)
-    for (int dy = -1; dy <= 1; ++dy)
-      for (int dz = -1; dz <= 1; ++dz) {
+  const double r2 = r * r;
+  const int reach = std::max(1, static_cast<int>(std::ceil(r / params_.r)));
+  for (int dx = -reach; dx <= reach; ++dx)
+    for (int dy = -reach; dy <= reach; ++dy)
+      for (int dz = -reach; dz <= reach; ++dz) {
         auto it = model_.find(c + Eigen::Vector3i(dx, dy, dz));
         if (it == model_.end()) continue;
         for (const auto& e : it->second)
@@ -119,19 +121,20 @@ bool ImlsPaperOdometry::hasModelPointWithin(const Eigen::Vector3d& x) const {
   return false;
 }
 
-bool ImlsPaperOdometry::imls(const Eigen::Vector3d& x, Eigen::Vector3d* normal,
-                             double* distance) const {
+bool ImlsPaperOdometry::imls(const Eigen::Vector3d& x, double r, double h,
+                             Eigen::Vector3d* normal, double* distance) const {
   const Eigen::Vector3i c = key(x, params_.r);
-  const double r2 = params_.r * params_.r;
-  const double inv_h2 = 1.0 / (params_.h * params_.h);
+  const double r2 = r * r;
+  const double inv_h2 = 1.0 / (h * h);
+  const int reach = std::max(1, static_cast<int>(std::ceil(r / params_.r)));
   Eigen::Vector3d sum = Eigen::Vector3d::Zero();
   Eigen::Matrix3d sum_sq = Eigen::Matrix3d::Zero();
   Eigen::Vector3d weighted = Eigen::Vector3d::Zero();
   double weight_sum = 0.0;
   int n = 0;
-  for (int dx = -1; dx <= 1; ++dx)
-    for (int dy = -1; dy <= 1; ++dy)
-      for (int dz = -1; dz <= 1; ++dz) {
+  for (int dx = -reach; dx <= reach; ++dx)
+    for (int dy = -reach; dy <= reach; ++dy)
+      for (int dz = -reach; dz <= reach; ++dz) {
         auto it = model_.find(c + Eigen::Vector3i(dx, dy, dz));
         if (it == model_.end()) continue;
         for (const auto& e : it->second) {
@@ -187,6 +190,46 @@ void ImlsPaperOdometry::insertScan(const std::vector<Eigen::Vector3d>& scan,
   }
 }
 
+int ImlsPaperOdometry::iterate(const std::vector<ScanPoint>& points,
+                               const std::vector<std::vector<int>>& lists, double r, double h,
+                               int iterations, bool count_only, Eigen::Matrix4d* T) const {
+  int samples = 0;
+  for (int iter = 0; iter < iterations; ++iter) {
+    const Eigen::Matrix3d R = T->block<3, 3>(0, 0);
+    const Eigen::Vector3d t = T->block<3, 1>(0, 3);
+    Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
+    Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
+    samples = 0;
+    for (const auto& list : lists) {
+      int accepted = 0;
+      for (int idx : list) {
+        if (accepted >= params_.samples_per_list) break;
+        const Eigen::Vector3d x = R * points[idx].p + t;
+        if (!hasModelPointWithin(x, r)) continue;
+        Eigen::Vector3d n;
+        double I;
+        if (!imls(x, r, h, &n, &I)) continue;
+        ++accepted;
+        // Residual n.(x' - y) with y = x - I n, linearised about the sensor
+        // position: n.(x + w x (x - t) + v - y) = I + ((x - t) x n).w + n.v.
+        Eigen::Matrix<double, 6, 1> J;
+        J.head<3>() = (x - t).cross(n);
+        J.tail<3>() = n;
+        H += J * J.transpose();
+        g += J * I;
+      }
+      samples += accepted;
+    }
+    if (count_only || samples < 6) break;
+    const Eigen::Matrix<double, 6, 1> delta = H.ldlt().solve(-g);
+    if (!delta.allFinite()) break;
+    const Eigen::Matrix3d dR = expSO3(delta.head<3>());
+    T->block<3, 3>(0, 0) = dR * R;
+    T->block<3, 1>(0, 3) = t + delta.tail<3>();
+  }
+  return samples;
+}
+
 ImlsPaperResult ImlsPaperOdometry::process(const std::vector<Eigen::Vector3d>& scan) {
   ImlsPaperResult result;
   if (frame_ == 0) {
@@ -203,40 +246,11 @@ ImlsPaperResult ImlsPaperOdometry::process(const std::vector<Eigen::Vector3d>& s
 
   // Constant velocity: tau(k-1) tau(k-2)^-1 tau(k-1).
   Eigen::Matrix4d T = pose_ * (previous_pose_.inverse() * pose_);
-  for (int iter = 0; iter < params_.iterations; ++iter) {
-    const Eigen::Matrix3d R = T.block<3, 3>(0, 0);
-    const Eigen::Vector3d t = T.block<3, 1>(0, 3);
-    Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
-    Eigen::Matrix<double, 6, 1> g = Eigen::Matrix<double, 6, 1>::Zero();
-    int samples = 0;
-    for (const auto& list : lists) {
-      int accepted = 0;
-      for (int idx : list) {
-        if (accepted >= params_.samples_per_list) break;
-        const Eigen::Vector3d x = R * points[idx].p + t;
-        if (!hasModelPointWithin(x)) continue;
-        Eigen::Vector3d n;
-        double I;
-        if (!imls(x, &n, &I)) continue;
-        ++accepted;
-        // Residual n.(x' - y) with y = x - I n, linearised about the sensor
-        // position: n.(x + w x (x - t) + v - y) = I + ((x - t) x n).w + n.v.
-        Eigen::Matrix<double, 6, 1> J;
-        J.head<3>() = (x - t).cross(n);
-        J.tail<3>() = n;
-        H += J * J.transpose();
-        g += J * I;
-      }
-      samples += accepted;
-    }
-    result.samples = samples;
-    if (samples < 6) break;
-    const Eigen::Matrix<double, 6, 1> delta = H.ldlt().solve(-g);
-    if (!delta.allFinite()) break;
-    const Eigen::Matrix3d dR = expSO3(delta.head<3>());
-    T.block<3, 3>(0, 0) = dR * R;
-    T.block<3, 1>(0, 3) = t + delta.tail<3>();
+  if (frame_ <= params_.coarse_frames && params_.coarse_iterations > 0) {
+    iterate(points, lists, params_.coarse_r, params_.coarse_h, params_.coarse_iterations, false, &T);
+    result.coarse_start = true;
   }
+  result.samples = iterate(points, lists, params_.r, params_.h, params_.iterations, false, &T);
 
   previous_pose_ = pose_;
   pose_ = T;

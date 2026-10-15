@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-14T18:28:16+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-15T22:41:09+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -249,7 +249,16 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | imls_slam | `kitti_seq_09_full` | gt-backed | `paper_odometry_w100_coarse_start` | 3.050 | 1.0 | `experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json` |
 | imls_slam | `kitti_seq_10_full` | gt-backed | `paper_odometry_w100_coarse_start` | 2.970 | 0.9 | `experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json` |
 | inten_loam | `kitti_seq_00_full` | gt-backed | `paper_odometry_no_intensity` | 16.112 | 2.6 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_01_full` | gt-backed | `paper_odometry_plane_check` | 275.593 | 1.7 | `experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_02_full` | gt-backed | `paper_odometry_plane_check` | 122.845 | 1.8 | `experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_03_full` | gt-backed | `paper_odometry_plane_check` | 6.262 | 1.6 | `experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_04_full` | gt-backed | `paper_odometry_plane_check` | 1.540 | 1.7 | `experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_05_full` | gt-backed | `paper_odometry_plane_check` | 9.976 | 1.2 | `experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_06_full` | gt-backed | `paper_odometry_plane_check` | 1.918 | 1.8 | `experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json` |
 | inten_loam | `kitti_seq_07_full` | gt-backed | `paper_odometry_no_intensity` | 1.193 | 3.2 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_08_full` | gt-backed | `paper_odometry_plane_check` | 27.673 | 1.3 | `experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_09_full` | gt-backed | `paper_odometry_plane_check` | 11.000 | 2.1 | `experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json` |
+| inten_loam | `kitti_seq_10_full` | gt-backed | `paper_odometry_plane_check` | 9.670 | 1.8 | `experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json` |
 | isc_loam | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.162 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | isc_loam | `kitti_raw_0009_200` | gt-backed | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
 | isc_loam | `kitti_raw_0009_200` | gt-backed | `fast` | 2.321 | 37.6 | `experiments/results/isc_loam_kitti_raw_0009_nogt_matrix.json` |
@@ -399,7 +408,16 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | loam_livox | `mcd_ntu_day_02_108` | gt-backed | `fast` | 0.137 | 69.0 | `experiments/results/loam_livox_mcd_ntu_day_02_matrix.json` |
 | loam_livox | `mcd_tuhh_night_09_108` | gt-backed | `fast` | 1.192 | 68.8 | `experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json` |
 | mesh_loam | `kitti_seq_00_full` | gt-backed | `paper_odometry_elevation_keep_mesh` | 10.170 | 1.3 | `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_01_full` | gt-backed | `paper_odometry_elevation` | 30.863 | 0.2 | `experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_02_full` | gt-backed | `paper_odometry_elevation` | 22.288 | 0.3 | `experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_03_full` | gt-backed | `paper_odometry_elevation` | 3.993 | 0.3 | `experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_04_full` | gt-backed | `paper_odometry_elevation` | 10.602 | 0.2 | `experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_05_full` | gt-backed | `paper_odometry_elevation` | 5.758 | 0.3 | `experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_06_full` | gt-backed | `paper_odometry_elevation` | 2.019 | 0.4 | `experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json` |
 | mesh_loam | `kitti_seq_07_full` | gt-backed | `paper_odometry_elevation_keep_mesh` | 0.853 | 1.5 | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_08_full` | gt-backed | `paper_odometry_elevation` | 22.402 | 0.4 | `experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_09_full` | gt-backed | `paper_odometry_elevation` | 6.347 | 0.4 | `experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json` |
+| mesh_loam | `kitti_seq_10_full` | gt-backed | `paper_odometry_elevation` | 7.086 | 0.6 | `experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json` |
 | mulls | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.876 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | mulls | `kitti_raw_0009_200` | gt-backed | `fast` | 2.695 | 1.2 | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | mulls | `kitti_raw_0009_full` | gt-backed | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |

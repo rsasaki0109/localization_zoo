@@ -1,6 +1,6 @@
 # Roadmap and handoff
 
-Long-term plan for Localization Zoo as of 2026-10 (main at `6a9cfba`, PR #127).
+Long-term plan and development handoff for Localization Zoo.
 It is written for the next agent or contributor taking over: where things
 stand, how work is done here, what to do next and how to tell it is done.
 
@@ -12,10 +12,12 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ### Paper-number check (official KITTI RTE, 100-800 m segments)
 
-Repo value over paper value, geometric mean over the sequences run, best
-variant per sequence ([Table 6](assets/paper/paper_ratio_table.csv),
-`evaluation/scripts/generate_paper_ratio_table.py`). "One setting" is the
-ratio when one variant runs on every sequence.
+Repo value over paper value, geometric mean over the sequences run
+([Table 6](assets/paper/paper_ratio_table.csv),
+`evaluation/scripts/generate_paper_ratio_table.py`). Mesh-LOAM and
+InTEn-LOAM are restricted to one fixed variant across all sequences;
+other methods select the best allowed variant per sequence. "One setting"
+is the ratio when one variant runs on every sequence.
 
 | Method | Ratio | Sequences run | Paper values not run yet | Notes |
 |---|---:|---|---|---|
@@ -29,9 +31,9 @@ ratio when one variant runs on every sequence.
 | Quadric-LO | 0.80x | 00/07 | 01-06, 08-10 | |
 | DiLO | 0.96x | 00-10 | - | one setting; 01 needs the degenerate-direction remap (chosen on 01) |
 | IMLS-SLAM | 1.05x | 00-10 | - | one setting; coarse first registration fixes 04 |
-| Mesh-LOAM | 1.08x | 00/07 | 01-06, 08-10 | about 1 FPS |
+| Mesh-LOAM | 1.28x | 00-10 | - | one setting; no sequence above 2x |
 | ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x) |
-| InTEn-LOAM | 1.18x | 00/07 | 01-06, 08-10 | one setting 1.20x; about 1.7 FPS |
+| InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x |
 | L-LO | 1.58x | 00/02/05/07/08 | 03, 04, 06, 09, 10 | gap explained (paper values below every roll-free GT trajectory) |
 
 Per-method details and negative results live in each `papers/<method>/README.md`;
@@ -134,19 +136,23 @@ independent. Each item says what "done" means.
 
 ### Phase 1: coverage (finish what the table promises)
 
-1. **Mesh-LOAM and InTEn-LOAM on KITTI 00-10.** Use the best 00/07 variant
+1. **Completed: Mesh-LOAM and InTEn-LOAM on KITTI 00-10.** Used the selected 00/07 variant
    unchanged: Mesh-LOAM `paper_odometry_elevation`
    (`experiments/mesh_loam_kitti_seq_{00,07}_full_paper_comp_matrix.json`),
    InTEn-LOAM `paper_odometry_plane_check`
    (`experiments/inten_loam_kitti_seq_{00,07}_full_paper_comp_matrix.json`).
-   Copy the 00 manifest per sequence, as done for DiLO / ELO / IMLS-SLAM
-   (`experiments/dilo_kitti_seq_NN_full_paper_comp_matrix.json`).
-   - Done: manifests for 01-06 and 08-10, results imported, Table 6, README
-     row, method README per-sequence table, `paper_reported_numbers.json`
-     updated.
-   - Any sequence above 2x gets a diagnosis (where the error grows, steps
-     off by more than 20 %), like DiLO 01 and IMLS-SLAM 04 in their READMEs.
-   - Cost: about 17 500 scans per method at 1-2 FPS.
+   The 00 manifests were copied for 01-06 and 08-10 with only that variant.
+   Existing committed 00/07 results were reused unchanged; the added full
+   sequences used one setting per method, fetching and deleting scans one
+   sequence at a time.
+   - Results imported; Table 6, the README rows, method README sequence
+     tables and `paper_reported_numbers.json` updated. Table 6 pins these
+     methods to the fixed variants rather than selecting among ablations.
+   - Mesh-LOAM: 1.28x geometric mean, no sequence above 2x. InTEn-LOAM:
+     2.19x; 01, 02 and 10 exceed 2x. Their README records drift intervals,
+     block errors and counts of steps off by more than 20 %.
+   - Commands, run provenance, cleanup and checks:
+     [`experiments/results/mesh_inten_kitti_coverage/`](../experiments/results/mesh_inten_kitti_coverage/README.md).
 2. **A-LOAM, LF-GICP: 01, 03, 04, 06, 09, 10; L-LO: 03, 04, 06, 09, 10;
    Quadric-LO (`dense_profile`): 01-06, 08-10.** Same procedure. These are
    faster methods.
@@ -219,8 +225,13 @@ independent. Each item says what "done" means.
 11. **ELO 1.22x.** Spread over all sequences, not a failure. The paper
     fusion weight w2 is ambiguous, and the reading implemented here does not
     help ([papers/elo/README.md](../papers/elo/README.md)).
-12. **InTEn-LOAM 1.18x.** Edges keep fast sections 0.2-0.35 % short; 00 is
-    not fully held out for the plane check.
+12. **InTEn-LOAM 2.19x on 00-10 with one setting.** Large motion deficits
+    appear in 01 frames 217-253 / 420-518 and 02 frames 1878-1943 /
+    4460-4524. Sequence 10 reaches 2.57x without any moving step exceeding
+    20 % length or vector error; its error grows through smaller increments.
+    These saved-pose diagnostics locate the failures; the solver-level cause
+    remains open. The plane check and correction were chosen on 07 windows
+    with 00 influencing the diagnosis, so 00 is not fully held out.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.
@@ -244,7 +255,7 @@ independent. Each item says what "done" means.
 | Map / model biases (closest-point creep, ground normals, blended lookups, vertical fill) | same, section 3 |
 | Degenerate highway stretches; starting in motion | same, sections 2 and 4 |
 | Body-frame scans, beam spacing, intensity 0-255, silently ignored keys, near objects, short windows | same, section 6 |
-| Table 6 takes the best variant per sequence (optimistic bound) | [paper_claim.md](paper_claim.md) |
+| Table 6 selects within each method's allowed pool; multi-variant selection per sequence is optimistic | [paper_claim.md](paper_claim.md) |
 | `pkill -f` / `pgrep -f` with a pattern that matches your own shell kills it | match on the binary name instead |
 
 ## 5. Open questions for the owner

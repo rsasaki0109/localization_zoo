@@ -1,0 +1,108 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 801
+GT poses: 801
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 560.8 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running Mesh-LOAM...
+  source_voxel_size=0.1 voxel_size=0.1 mesh_interval=5 cos_gate=1.0
+
+  [Mesh-LOAM] 0/801 voxels=403424 facets=930807
+  [Mesh-LOAM] 10/801 voxels=987139 facets=2356615
+  [Mesh-LOAM] 20/801 voxels=1310438 facets=3164946
+  [Mesh-LOAM] 30/801 voxels=1726136 facets=4174245
+  [Mesh-LOAM] 40/801 voxels=2114443 facets=5152254
+  [Mesh-LOAM] 50/801 voxels=2534190 facets=6211624
+  [Mesh-LOAM] 60/801 voxels=2928489 facets=7254655
+  [Mesh-LOAM] 70/801 voxels=3200200 facets=7932588
+  [Mesh-LOAM] 80/801 voxels=3414758 facets=8491453
+  [Mesh-LOAM] 90/801 voxels=3593269 facets=8930470
+  [Mesh-LOAM] 100/801 voxels=3767349 facets=9353986
+  [Mesh-LOAM] 110/801 voxels=3972918 facets=9853205
+  [Mesh-LOAM] 120/801 voxels=4222174 facets=10495942
+  [Mesh-LOAM] 130/801 voxels=4438699 facets=11086178
+  [Mesh-LOAM] 140/801 voxels=4538656 facets=11386742
+  [Mesh-LOAM] 150/801 voxels=4545716 facets=11465773
+  [Mesh-LOAM] 160/801 voxels=4392060 facets=11061516
+  [Mesh-LOAM] 170/801 voxels=4240742 facets=10742659
+  [Mesh-LOAM] 180/801 voxels=4155324 facets=10597512
+  [Mesh-LOAM] 190/801 voxels=3953353 facets=10102656
+  [Mesh-LOAM] 200/801 voxels=3841198 facets=9834965
+  [Mesh-LOAM] 210/801 voxels=3741000 facets=9650178
+  [Mesh-LOAM] 220/801 voxels=3594958 facets=9252262
+  [Mesh-LOAM] 230/801 voxels=3684560 facets=9481126
+  [Mesh-LOAM] 240/801 voxels=3678213 facets=9529159
+  [Mesh-LOAM] 250/801 voxels=3619285 facets=9383030
+  [Mesh-LOAM] 260/801 voxels=3646489 facets=9430214
+  [Mesh-LOAM] 270/801 voxels=3630134 facets=9434150
+  [Mesh-LOAM] 280/801 voxels=3536015 facets=9246705
+  [Mesh-LOAM] 290/801 voxels=3512849 facets=9180415
+  [Mesh-LOAM] 300/801 voxels=3396793 facets=8987057
+  [Mesh-LOAM] 310/801 voxels=3162740 facets=8404979
+  [Mesh-LOAM] 320/801 voxels=3067419 facets=8147277
+  [Mesh-LOAM] 330/801 voxels=2935287 facets=7768587
+  [Mesh-LOAM] 340/801 voxels=2848705 facets=7568107
+  [Mesh-LOAM] 350/801 voxels=2740804 facets=7345450
+  [Mesh-LOAM] 360/801 voxels=2690197 facets=7202223
+  [Mesh-LOAM] 370/801 voxels=2708841 facets=7261849
+  [Mesh-LOAM] 380/801 voxels=2798765 facets=7445750
+  [Mesh-LOAM] 390/801 voxels=2882975 facets=7622753
+  [Mesh-LOAM] 400/801 voxels=2955681 facets=7667845
+  [Mesh-LOAM] 410/801 voxels=3079070 facets=7930463
+  [Mesh-LOAM] 420/801 voxels=3163185 facets=8025037
+  [Mesh-LOAM] 430/801 voxels=3270704 facets=8282405
+  [Mesh-LOAM] 440/801 voxels=3248440 facets=8154389
+  [Mesh-LOAM] 450/801 voxels=3241586 facets=8161711
+  [Mesh-LOAM] 460/801 voxels=3332650 facets=8373550
+  [Mesh-LOAM] 470/801 voxels=3263943 facets=8280283
+  [Mesh-LOAM] 480/801 voxels=3081888 facets=7821977
+  [Mesh-LOAM] 490/801 voxels=2910465 facets=7421347
+  [Mesh-LOAM] 500/801 voxels=2812669 facets=7186956
+  [Mesh-LOAM] 510/801 voxels=2866095 facets=7269994
+  [Mesh-LOAM] 520/801 voxels=2954244 facets=7448814
+  [Mesh-LOAM] 530/801 voxels=3058667 facets=7730299
+  [Mesh-LOAM] 540/801 voxels=3134046 facets=7936305
+  [Mesh-LOAM] 550/801 voxels=3206900 facets=8192333
+  [Mesh-LOAM] 560/801 voxels=3278393 facets=8399681
+  [Mesh-LOAM] 570/801 voxels=3359078 facets=8632964
+  [Mesh-LOAM] 580/801 voxels=3357108 facets=8702067
+  [Mesh-LOAM] 590/801 voxels=3374831 facets=8720426
+  [Mesh-LOAM] 600/801 voxels=3443556 facets=8920940
+  [Mesh-LOAM] 610/801 voxels=3626681 facets=9391029
+  [Mesh-LOAM] 620/801 voxels=3654063 facets=9537506
+  [Mesh-LOAM] 630/801 voxels=3727730 facets=9733195
+  [Mesh-LOAM] 640/801 voxels=3686409 facets=9583041
+  [Mesh-LOAM] 650/801 voxels=3466187 facets=8913712
+  [Mesh-LOAM] 660/801 voxels=3341187 facets=8500738
+  [Mesh-LOAM] 670/801 voxels=3284189 facets=8292838
+  [Mesh-LOAM] 680/801 voxels=3137500 facets=7858352
+  [Mesh-LOAM] 690/801 voxels=3066606 facets=7627732
+  [Mesh-LOAM] 700/801 voxels=2926038 facets=7201718
+  [Mesh-LOAM] 710/801 voxels=2777054 facets=6835964
+  [Mesh-LOAM] 720/801 voxels=2682465 facets=6666620
+  [Mesh-LOAM] 730/801 voxels=2580293 facets=6482473
+  [Mesh-LOAM] 740/801 voxels=2557721 facets=6448737
+  [Mesh-LOAM] 750/801 voxels=2592611 facets=6532485
+  [Mesh-LOAM] 760/801 voxels=2634162 facets=6660436
+  [Mesh-LOAM] 770/801 voxels=2651028 facets=6709451
+  [Mesh-LOAM] 780/801 voxels=2698630 facets=6826718
+  [Mesh-LOAM] 790/801 voxels=2737252 facets=6947061
+  [Mesh-LOAM] 800/801 voxels=2781132 facets=7062909
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+Mesh-LOAM               ok          3.993       0.877          801         3078434.2      0.3         
+
+Notes:
+- Mesh-LOAM: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.026
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_03_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_03_full_evaluation_manifest.json)

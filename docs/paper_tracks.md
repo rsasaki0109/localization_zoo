@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-15T22:41:08+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `514` ready, `1` blocked, `14` skipped problems.
+Current coverage: `532` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -243,7 +243,16 @@ Current coverage: `514` ready, `1` blocked, `14` skipped problems.
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `dogfooding_results/nclt_2013_01_10_120` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `/media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full` |
 | InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 16.033 | 9.4 | `dogfooding_results/kitti_seq_00_full` |
+| InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 275.593 | 1.7 | `dogfooding_results/kitti_seq_01_full` |
+| InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 122.845 | 1.8 | `dogfooding_results/kitti_seq_02_full` |
+| InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 6.262 | 1.6 | `dogfooding_results/kitti_seq_03_full` |
+| InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.540 | 1.7 | `dogfooding_results/kitti_seq_04_full` |
+| InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.976 | 1.2 | `dogfooding_results/kitti_seq_05_full` |
+| InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.918 | 1.8 | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 1.193 | 9.2 | `dogfooding_results/kitti_seq_07_full` |
+| InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 27.673 | 1.3 | `dogfooding_results/kitti_seq_08_full` |
+| InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 11.000 | 2.1 | `dogfooding_results/kitti_seq_09_full` |
+| InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.670 | 1.8 | `dogfooding_results/kitti_seq_10_full` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.321 | 37.6 | `dogfooding_results/kitti_raw_0009_200` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `dogfooding_results/kitti_raw_0009_200` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `dogfooding_results/kitti_raw_0009_full` |
@@ -397,7 +406,16 @@ Current coverage: `514` ready, `1` blocked, `14` skipped problems.
 | LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_full` |
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_full` |
 | Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation_keep_mesh` | 7.509 | 1.3 | `dogfooding_results/kitti_seq_00_full` |
+| Mesh-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 30.863 | 0.2 | `dogfooding_results/kitti_seq_01_full` |
+| Mesh-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 22.288 | 0.3 | `dogfooding_results/kitti_seq_02_full` |
+| Mesh-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 3.993 | 0.3 | `dogfooding_results/kitti_seq_03_full` |
+| Mesh-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 10.602 | 0.2 | `dogfooding_results/kitti_seq_04_full` |
+| Mesh-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 5.758 | 0.3 | `dogfooding_results/kitti_seq_05_full` |
+| Mesh-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 2.019 | 0.4 | `dogfooding_results/kitti_seq_06_full` |
 | Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation_keep_mesh` | 0.651 | 1.5 | `dogfooding_results/kitti_seq_07_full` |
+| Mesh-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 22.402 | 0.4 | `dogfooding_results/kitti_seq_08_full` |
+| Mesh-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 6.347 | 0.4 | `dogfooding_results/kitti_seq_09_full` |
+| Mesh-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 7.086 | 0.6 | `dogfooding_results/kitti_seq_10_full` |
 | MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `dogfooding_results/kitti_seq_07_full` |
 | MULLS KITTI Odom seq 00 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_elevation` | 10.786 | 7.6 | `dogfooding_results/kitti_seq_00_full` |
 | MULLS KITTI Odom seq 01 full: MULLS-LO with and without the elevation correction | `ready` | `mulls_lo_highway_elevation` | 3.658 | 11.7 | `dogfooding_results/kitti_seq_01_full` |
@@ -555,7 +573,7 @@ Current coverage: `514` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 514 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 532 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

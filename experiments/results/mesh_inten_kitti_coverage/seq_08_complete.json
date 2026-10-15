@@ -1,0 +1,21 @@
+{
+  "sequence": "08",
+  "results": [
+    {
+      "method": "mesh_loam",
+      "variant": "paper_odometry_elevation",
+      "summary": "/workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_elevation/summary.json",
+      "frames": 4071,
+      "kitti_rte_trans_pct": 0.908971
+    },
+    {
+      "method": "inten_loam",
+      "variant": "paper_odometry_plane_check",
+      "summary": "/workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/summary.json",
+      "frames": 4071,
+      "kitti_rte_trans_pct": 0.937938
+    }
+  ],
+  "scans_deleted": true,
+  "finished_unix": 1792097527.2396238
+}

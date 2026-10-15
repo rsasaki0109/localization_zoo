@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-14T18:28:58+00:00
+> Generated: 2026-10-15T22:41:55+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -425,9 +425,18 @@ Does the same variant win across all datasets? Instability here is the core evid
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | dogfooding_results/kitti_seq_00_full | paper_odometry_no_intensity | 16.112 | 2.6 |
+| dogfooding_results/kitti_seq_01_full | paper_odometry_plane_check | 275.593 | 1.7 |
+| dogfooding_results/kitti_seq_02_full | paper_odometry_plane_check | 122.845 | 1.8 |
+| dogfooding_results/kitti_seq_03_full | paper_odometry_plane_check | 6.262 | 1.6 |
+| dogfooding_results/kitti_seq_04_full | paper_odometry_plane_check | 1.540 | 1.7 |
+| dogfooding_results/kitti_seq_05_full | paper_odometry_plane_check | 9.976 | 1.2 |
+| dogfooding_results/kitti_seq_06_full | paper_odometry_plane_check | 1.918 | 1.8 |
 | dogfooding_results/kitti_seq_07_full | paper_odometry_no_intensity | 1.193 | 3.2 |
+| dogfooding_results/kitti_seq_08_full | paper_odometry_plane_check | 27.673 | 1.3 |
+| dogfooding_results/kitti_seq_09_full | paper_odometry_plane_check | 11.000 | 2.1 |
+| dogfooding_results/kitti_seq_10_full | paper_odometry_plane_check | 9.670 | 1.8 |
 
-**Stability**: 1 unique default(s) across 2 windows.
+**Stability**: 2 unique default(s) across 11 windows.
 
 ### ISC-LOAM
 
@@ -638,9 +647,18 @@ Does the same variant win across all datasets? Instability here is the core evid
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | dogfooding_results/kitti_seq_00_full | paper_odometry_elevation_keep_mesh | 10.170 | 1.3 |
+| dogfooding_results/kitti_seq_01_full | paper_odometry_elevation | 30.863 | 0.2 |
+| dogfooding_results/kitti_seq_02_full | paper_odometry_elevation | 22.288 | 0.3 |
+| dogfooding_results/kitti_seq_03_full | paper_odometry_elevation | 3.993 | 0.3 |
+| dogfooding_results/kitti_seq_04_full | paper_odometry_elevation | 10.602 | 0.2 |
+| dogfooding_results/kitti_seq_05_full | paper_odometry_elevation | 5.758 | 0.3 |
+| dogfooding_results/kitti_seq_06_full | paper_odometry_elevation | 2.019 | 0.4 |
 | dogfooding_results/kitti_seq_07_full | paper_odometry_elevation_keep_mesh | 0.853 | 1.5 |
+| dogfooding_results/kitti_seq_08_full | paper_odometry_elevation | 22.402 | 0.4 |
+| dogfooding_results/kitti_seq_09_full | paper_odometry_elevation | 6.347 | 0.4 |
+| dogfooding_results/kitti_seq_10_full | paper_odometry_elevation | 7.086 | 0.6 |
 
-**Stability**: 1 unique default(s) across 2 windows.
+**Stability**: 2 unique default(s) across 11 windows.
 
 ### MULLS
 
@@ -1169,7 +1187,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | paper_odometry_no_correction | 12.150 | 2.3 | 2 |
 | paper_odometry_no_intensity | 8.652 | 2.9 | 2 |
 | paper_odometry_no_mapping | 25.771 | 8.5 | 2 |
-| paper_odometry_plane_check | 9.553 | 1.6 | 2 |
+| paper_odometry_plane_check | 44.144 | 1.7 | 11 |
 
 ### ISC-LOAM
 
@@ -1318,7 +1336,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense_elevation | 4.146 | 0.4 | 2 |
 | dense_elevation_nearest_facet | 4.574 | 0.6 | 2 |
 | dense_profile | 7.228 | 0.4 | 2 |
-| paper_odometry_elevation | 5.519 | 1.1 | 2 |
+| paper_odometry_elevation | 11.127 | 0.5 | 11 |
 | paper_odometry_elevation_keep_mesh | 5.511 | 1.4 | 2 |
 
 ### MULLS

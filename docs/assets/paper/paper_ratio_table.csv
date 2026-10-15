@@ -54,17 +54,17 @@ imls_slam,07,0.330,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.339,
 imls_slam,08,0.800,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.844,1.05,0.844,1,1,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_08_full_paper_comp_matrix.json
 imls_slam,09,0.550,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.515,0.94,0.515,1,1,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json
 imls_slam,10,0.530,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.571,1.08,0.571,1,1,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json
-inten_loam,00,0.520,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.697,1.34,0.769,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json
-inten_loam,01,0.640,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
-inten_loam,02,0.540,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
-inten_loam,03,0.630,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
-inten_loam,04,0.370,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
-inten_loam,05,0.360,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
-inten_loam,06,0.240,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
-inten_loam,07,0.340,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.352,1.04,0.364,3,3,paper_odometry,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
-inten_loam,08,0.710,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
-inten_loam,09,0.480,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
-inten_loam,10,0.450,"Table 1 InTEn-LOAM, RTE (%)",,,,,0,0,,
+inten_loam,00,0.520,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.697,1.34,0.697,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json
+inten_loam,01,0.640,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,16.614,25.96,16.614,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json
+inten_loam,02,0.540,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,3.221,5.97,3.221,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json
+inten_loam,03,0.630,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.891,1.41,0.891,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json
+inten_loam,04,0.370,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.676,1.83,0.676,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json
+inten_loam,05,0.360,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.497,1.38,0.497,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json
+inten_loam,06,0.240,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.359,1.49,0.359,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json
+inten_loam,07,0.340,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.364,1.07,0.364,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
+inten_loam,08,0.710,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.938,1.32,0.938,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json
+inten_loam,09,0.480,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.661,1.38,0.661,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json
+inten_loam,10,0.450,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,1.156,2.57,1.156,1,1,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json
 kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.535,1.05,0.928,12,12,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json
 kiss_icp,04,0.360,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.373,1.04,0.646,2,2,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json
 l_lo,00,0.910,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,1.479,1.63,1.479,1,1,seq07_tuned,experiments/results/l_lo_kitti_seq_00_full_matrix.json
@@ -99,17 +99,17 @@ litamin2,07,0.480,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel
 litamin2,08,1.010,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.981,0.97,0.983,2,2,paper_icp_first,experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json
 litamin2,09,0.690,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.777,1.13,0.808,2,2,paper_icp_cov,experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json
 litamin2,10,0.800,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.939,1.17,0.962,2,2,paper_icp_first,experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json
-mesh_loam,00,0.530,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.565,1.07,0.788,2,2,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json
-mesh_loam,01,0.640,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,02,0.520,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,03,0.630,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,04,0.410,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,05,0.340,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,06,0.350,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,07,0.310,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.342,1.10,0.435,2,2,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
-mesh_loam,08,0.820,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,09,0.470,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
-mesh_loam,10,0.560,"Table I Ours (point-to-mesh), relative translational error (%)",,,,,0,0,,
+mesh_loam,00,0.530,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.565,1.07,0.565,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json
+mesh_loam,01,0.640,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.857,1.34,0.857,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json
+mesh_loam,02,0.520,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.607,1.17,0.607,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json
+mesh_loam,03,0.630,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.928,1.47,0.928,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json
+mesh_loam,04,0.410,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.820,2.00,0.820,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json
+mesh_loam,05,0.340,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.345,1.01,0.345,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json
+mesh_loam,06,0.350,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.418,1.19,0.418,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json
+mesh_loam,07,0.310,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.342,1.10,0.342,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
+mesh_loam,08,0.820,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.909,1.11,0.909,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json
+mesh_loam,09,0.470,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.631,1.34,0.631,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json
+mesh_loam,10,0.560,"Table I Ours (point-to-mesh), relative translational error (%)",kitti_rte,0.848,1.51,0.848,1,1,paper_odometry_elevation,experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json
 mulls,00,0.510,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.536,1.05,2.527,4,4,mulls_lo_elevation,experiments/results/mulls_kitti_seq_00_full_lo_matrix.json
 mulls,01,0.620,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.674,1.09,3.091,4,4,mulls_lo_highway_elevation,experiments/results/mulls_kitti_seq_01_full_lo_matrix.json
 mulls,02,0.550,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,0.585,1.06,2.881,4,4,mulls_lo_elevation,experiments/results/mulls_kitti_seq_02_full_lo_matrix.json

@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization-env/run_mesh_inten_coverage.py",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "stdout_log": "/workspace/localization-env/mesh-inten-coverage-results/controller_resume_stdout.log",
+  "supervisor_command": [
+    "python3",
+    "/workspace/localization-env/supervise_mesh_inten_command.py",
+    "controller"
+  ],
+  "started_unix": 1792086553.7193255,
+  "exit_code": 0,
+  "pid": 8865,
+  "finished_unix": 1792103759.545714
+}

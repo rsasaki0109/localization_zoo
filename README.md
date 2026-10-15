@@ -92,9 +92,10 @@ values may not reproduce ([drift audit](experiments/results/kitti_drift_audit.js
 ### Paper-number check (official KITTI RTE)
 
 Paper-reported KITTI Odometry error against the repository on the same full
-sequences and the official metric (100–800 m segments). Repo values are the
-best variant of each sweep on the evaluated sequence, so the ratios are
-optimistic bounds; per-sequence values are in
+sequences and the official metric (100–800 m segments). Mesh-LOAM and
+InTEn-LOAM use one fixed variant across all sequences, chosen using 00/07.
+Other rows select the best allowed variant on each evaluated sequence,
+so those ratios are optimistic bounds. Per-sequence values are in
 [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv) and the
 audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 
@@ -110,9 +111,9 @@ audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 | Quadric-LO | 00/07 | 0.80x | vs the paper's scan-to-submap table; no author code |
 | DiLO | 00-10 | 0.96x | plane-only paper pipeline, one setting on all 11; 01 (highway) needs a degenerate-direction remap chosen on 01 (8.13x -> 1.42x) ([details](papers/dilo/README.md)) |
 | IMLS-SLAM | 00-10 | 1.05x | paper pipeline, one setting on all 11; a coarse first registration fixes 04, which starts in motion (36x -> 1.29x) ([details](papers/imls_slam/README.md)) |
-| Mesh-LOAM | 00/07 | 1.08x | paper nearest-facet association, from 1.80x ([details](papers/mesh_loam/README.md#paper-mechanics-and-the-gap-to-the-paper)) |
+| Mesh-LOAM | 00-10 | 1.28x | one fixed setting; no sequence above twice the paper value ([details](papers/mesh_loam/README.md#kitti-00-10-with-one-configuration)) |
 | ELO | 00-10 | 1.22x | gap remains; values chosen on 07, the other ten sequences 0.84-1.43x, none fails ([details](papers/elo/README.md#all-kitti-sequences-00-10)) |
-| InTEn-LOAM | 00/07 | 1.18x | gap remains: 07 1.04x, 00 1.34x with an S2M plane check; one setting for both 1.20x ([details](papers/inten_loam/README.md#paper-pipeline)) |
+| InTEn-LOAM | 00-10 | 2.19x | one fixed setting; gaps on 01 (25.96x), 02 (5.97x), 10 (2.57x), with drift diagnostics ([details](papers/inten_loam/README.md#kitti-00-10-with-one-configuration)) |
 | L-LO | 00/02/05/07/08 | 1.58x | gap remains; the paper's 00/07 values are below every roll-free GT trajectory ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
 
 Most gaps closed by the same few checks (elevation correction, no deskew on

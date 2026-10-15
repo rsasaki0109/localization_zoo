@@ -1,0 +1,56 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+
+=== InTEn-LOAM ===
+  stride=2 cyl=1024x64 intensity_reg=1 tvf=1 dor=1 mapping=1
+
+  [InTEn-LOAM paper] 0/271 g/f/e/r=1000/546/460/300 s2s=0 s2m=0 (e/g/f/i 0/0/0/0)   
+  [InTEn-LOAM paper] 10/271 g/f/e/r=1000/603/442/300 s2s=848 s2m=1500 (e/g/f/i 200/821/362/117)   
+  [InTEn-LOAM paper] 20/271 g/f/e/r=1000/736/490/300 s2s=892 s2m=1610 (e/g/f/i 211/828/419/152)   
+  [InTEn-LOAM paper] 30/271 g/f/e/r=1000/839/399/300 s2s=914 s2m=1614 (e/g/f/i 201/840/409/164)   
+  [InTEn-LOAM paper] 40/271 g/f/e/r=1000/845/403/300 s2s=853 s2m=1597 (e/g/f/i 189/844/392/172)   
+  [InTEn-LOAM paper] 50/271 g/f/e/r=1000/840/327/300 s2s=876 s2m=1669 (e/g/f/i 156/815/505/193)   
+  [InTEn-LOAM paper] 60/271 g/f/e/r=1000/851/235/300 s2s=753 s2m=1748 (e/g/f/i 111/840/594/203)   
+  [InTEn-LOAM paper] 70/271 g/f/e/r=1000/827/246/300 s2s=786 s2m=1790 (e/g/f/i 123/864/604/199)   
+  [InTEn-LOAM paper] 80/271 g/f/e/r=1000/838/386/300 s2s=844 s2m=1737 (e/g/f/i 175/842/540/180)   
+  [InTEn-LOAM paper] 90/271 g/f/e/r=1000/833/379/300 s2s=821 s2m=1773 (e/g/f/i 225/845/515/188)   
+  [InTEn-LOAM paper] 100/271 g/f/e/r=1000/823/256/300 s2s=754 s2m=1720 (e/g/f/i 118/872/538/192)   
+  [InTEn-LOAM paper] 110/271 g/f/e/r=1000/933/162/300 s2s=698 s2m=1748 (e/g/f/i 80/869/603/196)   
+  [InTEn-LOAM paper] 120/271 g/f/e/r=1000/1001/271/300 s2s=904 s2m=1805 (e/g/f/i 125/836/636/208)   
+  [InTEn-LOAM paper] 130/271 g/f/e/r=1000/1045/294/300 s2s=944 s2m=2001 (e/g/f/i 130/876/804/191)   
+  [InTEn-LOAM paper] 140/271 g/f/e/r=1000/1047/359/300 s2s=1002 s2m=1944 (e/g/f/i 187/875/692/190)   
+  [InTEn-LOAM paper] 150/271 g/f/e/r=1000/916/333/300 s2s=927 s2m=1723 (e/g/f/i 168/822/542/191)   
+  [InTEn-LOAM paper] 160/271 g/f/e/r=1000/810/192/300 s2s=724 s2m=1661 (e/g/f/i 80/898/481/202)   
+  [InTEn-LOAM paper] 170/271 g/f/e/r=1000/798/177/300 s2s=674 s2m=1553 (e/g/f/i 75/865/418/195)   
+  [InTEn-LOAM paper] 180/271 g/f/e/r=1000/821/186/300 s2s=716 s2m=1638 (e/g/f/i 97/875/489/177)   
+  [InTEn-LOAM paper] 190/271 g/f/e/r=1000/814/215/300 s2s=720 s2m=1591 (e/g/f/i 84/863/452/192)   
+  [InTEn-LOAM paper] 200/271 g/f/e/r=1000/800/387/300 s2s=822 s2m=1682 (e/g/f/i 221/878/403/180)   
+  [InTEn-LOAM paper] 210/271 g/f/e/r=1000/783/377/300 s2s=822 s2m=1498 (e/g/f/i 150/832/348/168)   
+  [InTEn-LOAM paper] 220/271 g/f/e/r=1000/742/332/300 s2s=771 s2m=1398 (e/g/f/i 185/775/293/145)   
+  [InTEn-LOAM paper] 230/271 g/f/e/r=1000/623/418/300 s2s=813 s2m=1527 (e/g/f/i 264/817/294/152)   
+  [InTEn-LOAM paper] 240/271 g/f/e/r=1000/698/556/300 s2s=948 s2m=1607 (e/g/f/i 361/772/344/130)   
+  [InTEn-LOAM paper] 250/271 g/f/e/r=1000/657/581/300 s2s=899 s2m=1658 (e/g/f/i 390/789/356/123)   
+  [InTEn-LOAM paper] 260/271 g/f/e/r=1000/889/599/300 s2s=1025 s2m=1696 (e/g/f/i 335/797/429/135)   
+  [InTEn-LOAM paper] 270/271 g/f/e/r=1000/806/446/300 s2s=885 s2m=1487 (e/g/f/i 253/767/319/148)   
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+InTEn-LOAM              ok          1.540       0.702          271         158640.7       1.7         
+
+Notes:
+- InTEn-LOAM: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1645 dor points/frame=197
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

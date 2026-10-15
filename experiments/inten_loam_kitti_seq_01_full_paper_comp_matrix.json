@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_01_full_paper_comp",
+    "title": "InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table",
+    "question": "How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_01_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_01_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "paper_odometry_plane_check",
+      "label": "InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",
+      "design_style": "reference",
+      "intent": "As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ]
+    }
+  ]
+}

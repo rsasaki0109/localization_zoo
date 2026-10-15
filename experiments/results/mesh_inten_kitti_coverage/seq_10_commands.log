@@ -1,0 +1,52 @@
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/fetch_kitti_odometry_sequences.py --output-root /workspace/localization-env/kitti-coverage --sequence 10
+Reading remote ZIP directory: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip
+KITTI 10: 1201 frames, 2.25 GiB
+KITTI 10: extracted=1201, reused=0, path=/workspace/localization-env/kitti-coverage/dataset/sequences/10/velodyne
+
+[exit_code] 0
+
+$ env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=2 -e OPENBLAS_NUM_THREADS=1 -w /workspace/localization_zoo localization-zoo-dev /opt/localization-venv/bin/python evaluation/scripts/run_experiment_matrix.py --manifest /workspace/localization_zoo/experiments/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json --output-dir /workspace/localization-env/mesh-inten-coverage-results --docs-dir /workspace/localization-env/mesh-inten-coverage-docs --merge-existing-index
+
+[parallel InTEn command]
+$ env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=2 -e OPENBLAS_NUM_THREADS=1 -w /workspace/localization_zoo localization-zoo-dev /opt/localization-venv/bin/python evaluation/scripts/run_experiment_matrix.py --manifest /workspace/localization_zoo/experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json --binary /workspace/localization-env/launch_inten_isolated.sh --output-dir /workspace/localization-env/parallel-inten-results --docs-dir /workspace/localization-env/parallel-inten-docs --merge-existing-index
+[run] inten_loam_kitti_seq_10_full_paper_comp_matrix:paper_odometry_plane_check
+[done] wrote /workspace/localization-env/parallel-inten-results/index.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-docs/experiments.md
+[done] wrote /workspace/localization-env/parallel-inten-docs/decisions.md
+[done] wrote /workspace/localization-env/parallel-inten-docs/interfaces.md
+
+[parallel InTEn exit_code] 0
+[run] mesh_loam_kitti_seq_10_full_paper_comp_matrix:paper_odometry_elevation
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/index.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-docs/experiments.md
+[done] wrote /workspace/localization-env/mesh-inten-coverage-docs/decisions.md
+[done] wrote /workspace/localization-env/mesh-inten-coverage-docs/interfaces.md
+
+[exit_code] 0
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt --gt /workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/evaluated_gt_kitti.txt --summary /workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/summary.json --method Mesh-LOAM --output /workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/step_diagnostics.json
+
+[exit_code] 0
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt --gt /workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt --summary /workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --method InTEn-LOAM --output /workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json
+
+[exit_code] 0

@@ -1,0 +1,6 @@
+{
+  "all_unchanged_after_regeneration": true,
+  "compared_manifest": "experiments/results/mesh_inten_kitti_coverage/historical_aggregate_sha256.json",
+  "command": "python3 /workspace/localization-env/regenerate_mesh_inten_docs.py",
+  "checked_files": 644
+}

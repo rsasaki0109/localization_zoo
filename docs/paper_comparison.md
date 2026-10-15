@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-14T18:28:57+00:00
+> Generated: 2026-10-15T22:41:56+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -753,11 +753,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00-10)
 **Reported metric**: KITTI RTE translation [%] (KITTI RTE (%))
 **Hardware**: None
-**Repo scope**: Paper reimplementation (no author code) with the paper pipeline — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: Gap remains on KITTI Odometry 00/07 (paper pipeline) — --inten-loam-paper-odometry follows the paper (FEF on the range image, S2S with re-association every iteration, S2M on a temporal-voxel-filtered keyframe map, DOR gating map insertion, B-spline intensity residual, 0.2 deg correction). Official KITTI RTE, no GT seed: seq 07 0.352 vs 0.34 (1.04x), seq 00 0.769 vs 0.52 (1.48x); geometric mean 1.24x. An S2M plane check (all 5 map neighbours within 0.05 m of the plane, 0.2 m before) with a 0.17 deg correction gives 00 0.697 (1.34x) and 07 0.364 (1.07x): 1.20x with one setting, 1.18x best per sequence. The plane map voxel (0.2 m) and the KITTI edge threshold (0.15, 4 per sector) were chosen on seq 07; seq 00 is held out. The earlier pipeline scored 42-48 % (it associated untransformed points once and removed ~40 % of the input in DOR).
-**Numeric comparison**: Same metric, 1.18x on 00/07 (best per sequence: 07 1.04x, 00 1.34x; one setting 1.20x) — paper_odometry: seq 00 0.769 vs 0.52 (1.48x); seq 07 0.352 vs 0.34 (1.04x). paper_odometry_plane_check: seq 00 0.697 (1.34x), seq 07 0.364 (1.07x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Seq 00 stays at 1.34x. About -3.3 deg of its summed yaw error also appears in KISS-ICP on the same scans; on windows the remaining InTEn-LOAM-specific error is the edges keeping the fast section 0.2-0.35 % short. The plane check was found by diagnosing the 00 window 4000-4399, so 00 is not fully held out for it.
-**Next step**: Look at seq 00 where the drift accumulates; run the remaining KITTI sequences.
+**Repo scope**: Paper reimplementation (no author code) with the paper pipeline — From-paper reimplementation in the shared harness, no GT seed. One fixed variant on KITTI Odometry 00-10; existing 00/07 results are reused unchanged, and 01-06 / 08-10 are new evaluation-only full runs. Table 6 is restricted to this variant; historical ablations remain stored.
+**Current claim**: Gap remains on KITTI Odometry 00-10 with one fixed setting — --inten-loam-paper-odometry uses FEF, S2S re-association, S2M on a temporal-voxel-filtered keyframe map, DOR map-insertion gating and a B-spline intensity residual. The fixed paper_odometry_plane_check variant explicitly uses s2m_plane_max_dist=0.05 and a 0.17 deg correction on all 00-10 sequences: geometric mean 2.19x. These KITTI choices were selected on 07 windows, with diagnosis of 00 frames 4000-4399 suggesting the plane check; 00 is not fully held out. The added sequences are evaluation only. Defaults and stored ablations are unchanged.
+**Numeric comparison**: Same metric, 2.19x on 00-10 with one fixed setting — paper_odometry_plane_check, official KITTI RTE [%], repo vs paper: 00 0.697 vs 0.52 (1.34x); 01 16.614 vs 0.64 (25.96x); 02 3.221 vs 0.54 (5.97x); 03 0.891 vs 0.63 (1.41x); 04 0.676 vs 0.37 (1.83x); 05 0.497 vs 0.36 (1.38x); 06 0.359 vs 0.24 (1.49x); 07 0.364 vs 0.34 (1.07x); 08 0.938 vs 0.71 (1.32x); 09 0.661 vs 0.48 (1.38x); 10 1.156 vs 0.45 (2.57x); geometric mean 2.19x. Table 6 pins this variant for every sequence. Sources: experiments/results/inten_loam_kitti_seq_NN_full_paper_comp_matrix.json and experiments/results/mesh_inten_kitti_coverage/summary.json.
+**Main blocker**: 01: 16.614 % vs 0.64 % (25.96x), with motion-length deficits at destination frames 217-253 and 420-518; 136 moving steps differ in length by >20 %. 02: 3.221 % vs 0.54 % (5.97x), with 133 such steps, principally 1878-1943 and 4460-4524. 10: 1.156 % vs 0.45 % (2.57x), but no moving step exceeds 20 % length or vector error; the 600-700 block grows from 6.7 to 9.2 m position error. Saved-pose diagnostics locate drift, without identifying its solver-level cause.
+**Next step**: Trace association and optimization through the measured 01/02 failure intervals and the smaller accumulated errors on 10. Keep this negative fixed-setting baseline; any non-paper correction must be opt-in and validated on all sequences.
 
 ### Paper-Reported Values
 
@@ -780,7 +780,16 @@ For an explicit statement of implementation scope and what the repo currently cl
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
 | KITTI | InTEn-LOAM paper pipeline without the intensity residual | 16.112 | 0.820 | 0.005641 | 2.62 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 275.593 | 13.720 | 0.004111 | 1.65 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 122.845 | 3.607 | 0.010788 | 1.82 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 6.262 | 0.587 | 0.006389 | 1.55 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 1.540 | 0.702 | 0.003353 | 1.71 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 9.976 | 0.414 | 0.003794 | 1.21 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 1.918 | 0.511 | 0.002331 | 1.79 |
 | KITTI | InTEn-LOAM paper pipeline without the intensity residual | 1.193 | 0.465 | 0.003995 | 3.20 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 27.673 | 1.310 | 0.004499 | 1.26 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 11.000 | 0.700 | 0.003665 | 2.11 |
+| KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 9.670 | 0.843 | 0.004653 | 1.83 |
 
 **Notes**: Paper average 0.54 % (frame-weighted). Includes scan-to-local-map refinement, no loop closure. Values taken from arXiv v1, not checked against the published version. Values read from the paper PDF on 2026-10-12.
 
@@ -793,11 +802,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00-10)
 **Reported metric**: KITTI RTE translation [%] (KITTI relative translational error (%))
 **Hardware**: None
-**Repo scope**: Paper reimplementation (no author code) with the paper association and input — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: Near paper on KITTI Odometry 00/07 (paper path) — Official KITTI RTE on full sequences, no GT seed, paper path (--mesh-loam-paper-odometry: nearest-facet association, 0.1 m input, 0.22 deg correction): seq 00 0.565 vs 0.53 (1.07x); seq 07 0.342 vs 0.31 (1.10x); geometric mean 1.08x, from 1.80x with the dense profile. Repo values are the best variant of experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Numeric comparison**: Same metric, 1.08x on 00/07 — seq 00 0.565 vs 0.53 (1.07x); seq 07 0.342 vs 0.31 (1.10x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: No author code; the default association (smallest plane residual) and the missing elevation correction caused most of the earlier 1.80x. The global mesh (Eq. 3) now fits (1.2 GB on seq 07 with marching cubes) but does not change the result.
-**Next step**: Run the paper path on the remaining KITTI sequences.
+**Repo scope**: Paper reimplementation (no author code) with the paper association and input — From-paper reimplementation in the shared harness, no GT seed. One fixed variant on KITTI Odometry 00-10; existing 00/07 results are reused unchanged, and 01-06 / 08-10 are new evaluation-only full runs. Table 6 is restricted to this variant; historical ablations remain stored.
+**Current claim**: Gap remains on KITTI Odometry 00-10 with one fixed setting — --mesh-loam-paper-odometry uses the paper input and nearest-facet association with an explicit 0.22 deg KITTI elevation correction, not specified by the paper. paper_odometry_elevation is unchanged across 00-10: geometric mean 1.28x, rather than the historical 1.08x on 00/07 alone. Both 00/07 influenced development; the added sequences did not influence the setting. No sequence exceeds twice its paper value. The correction remains opt-in and defaults are unchanged.
+**Numeric comparison**: Same metric, 1.28x on 00-10 with one fixed setting — paper_odometry_elevation, official KITTI RTE [%], repo vs paper: 00 0.565 vs 0.53 (1.07x); 01 0.857 vs 0.64 (1.34x); 02 0.607 vs 0.52 (1.17x); 03 0.928 vs 0.63 (1.47x); 04 0.820 vs 0.41 (2.00x); 05 0.345 vs 0.34 (1.01x); 06 0.418 vs 0.35 (1.19x); 07 0.342 vs 0.31 (1.10x); 08 0.909 vs 0.82 (1.11x); 09 0.631 vs 0.47 (1.34x); 10 0.848 vs 0.56 (1.51x); geometric mean 1.28x. Table 6 pins this variant for every sequence. Sources: experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json and experiments/results/mesh_inten_kitti_coverage/summary.json.
+**Main blocker**: No author code. Full coverage shows a distributed gap (1.01-2.00x after rounding). Seq 04 is 0.819834 % vs 0.41 %, strictly below twice the paper value despite rounding to 2.00x. The earlier association and elevation fixes improved 00/07 but do not establish full reproduction.
+**Next step**: Explain the remaining full-sequence gap, particularly 04 and 10; profile speed before attempting more coverage runs. Preserve the fixed-setting baseline and keep any non-paper fixes opt-in.
 
 ### Paper-Reported Values
 
@@ -820,7 +829,16 @@ For an explicit statement of implementation scope and what the repo currently cl
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
 | KITTI | Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen) | 10.170 | 0.773 | 0.004332 | 1.34 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 30.863 | 0.850 | 0.002215 | 0.19 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 22.288 | 0.785 | 0.002906 | 0.33 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 3.993 | 0.877 | 0.004800 | 0.26 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 10.602 | 0.524 | 0.003036 | 0.24 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 5.758 | 0.397 | 0.002625 | 0.34 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 2.019 | 0.505 | 0.002763 | 0.37 |
 | KITTI | Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen) | 0.853 | 0.470 | 0.002749 | 1.49 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 22.402 | 1.332 | 0.004109 | 0.38 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 6.347 | 0.629 | 0.002841 | 0.41 |
+| KITTI | Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | 7.086 | 0.725 | 0.003802 | 0.55 |
 
 **Notes**: Paper mean 0.51 %. The point-to-plane ablation row averages 0.71 %. Scan-to-mesh-map odometry, no loop closure. Values read from the paper PDF on 2026-10-12.
 

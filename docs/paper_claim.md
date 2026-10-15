@@ -25,7 +25,7 @@ The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/read
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **434** ready problems, **1** blocked manifest, and **14** skipped manifests across **35** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
+The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **532** ready problems, **1** blocked manifest, and **14** skipped manifests across **45** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries. The committed index counts and selector count are recorded in `experiments/results/mesh_inten_kitti_coverage/summary.json`.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -44,7 +44,7 @@ CT-LIO GT-backed evaluation is blocked due to missing repository-aligned GT CSV 
 
 ### Sub-Claim 5: Paper-number fidelity is measurable, and it splits the reimplementations into two groups
 
-For eight LiDAR odometry reimplementations, the paper-reported KITTI Odometry
+For the LiDAR odometry reimplementations below, the paper-reported KITTI Odometry
 translational error (read from the paper PDF, with table and row recorded) is
 compared against the repository on the **same full sequences and the same
 official KITTI RTE metric** (100-800 m segments, every 10th frame):
@@ -60,24 +60,22 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Gap remains | L-LO (no author code; parameters chosen on seq 07; horizontal 0.577 % in 2D on 07; the paper's 00/07 values are below every roll-free trajectory built from the ground truth, see `papers/l_lo/README.md`) | 00/02/05/07/08 | 1.58x |
 | Near paper | SuMa (Frame-to-Model; paper pipeline `--suma-paper`, best of two variants per sequence; 01 at 2.09x; one setting for all: 1.25x; see `papers/suma/README.md`) | 00-10 | 0.97x |
 | Near paper | Quadric-LO (vs the paper's scan-to-submap Table II; no author code) | 00/07 | 0.80x |
-| Near paper | Mesh-LOAM (no author code; paper path, `--mesh-loam-paper-odometry`: nearest-facet association, 0.1 m input, 0.22 deg correction; 1.80x before, see `papers/mesh_loam/README.md`) | 00/07 | 1.08x |
+| Gap remains | Mesh-LOAM (no author code; fixed `paper_odometry_elevation`, nearest-facet association, 0.1 m input, explicit 0.22 deg correction; selected using 00/07; no sequence above twice the paper value, see `papers/mesh_loam/README.md`) | 00-10 | 1.28x |
 | Gap remains | ELO (no author code; 0.195 deg correction, the paper normal patch and forward-bias fixes chosen on 07 windows; 2.60x before; the same setting on all 11 sequences, 0.84-1.43x, see `papers/elo/README.md`) | 00-10 | 1.22x |
 | Near paper | IMLS-SLAM (paper pipeline, `--imls-slam-paper-odometry`, 0.22 deg correction; 2.66x before; one setting on all 11 sequences with a coarse first registration, not in the paper, that only matters for 04, which starts in motion: 36x without it, see `papers/imls_slam/README.md`) | 00-10 | 1.05x |
 | Near paper | DiLO (plane-only paper pipeline `--dilo-paper-odometry` with spread planar key points, slope-aware vertical fill and the 0.18 deg correction, chosen on 07 windows with some 00 windows in view; edge key points do not help on KITTI; 4.12x before; one setting on all 11 sequences with a degenerate-direction remap, not in the paper, chosen on 01 where the highway otherwise collapses (8.13x -> 1.42x), see `papers/dilo/README.md`) | 00-10 | 0.96x |
-| Gap remains | InTEn-LOAM (no author code; paper pipeline, `--inten-loam-paper-odometry`, 0.2 deg correction; plane map voxel and edge threshold chosen on 07; an S2M plane check with a 0.17 deg correction brings 00 from 1.48x to 1.34x (07 1.07x, one setting 1.20x); the earlier pipeline failed at 42-48 %, see `papers/inten_loam/README.md`) | 00/07 | 1.18x |
+| Gap remains | InTEn-LOAM (no author code; fixed `paper_odometry_plane_check`, 0.17 deg correction and 0.05 m plane check chosen on 07 windows with 00 influencing diagnosis; 01 25.96x, 02 5.97x, 10 2.57x, with saved-pose drift diagnostics, see `papers/inten_loam/README.md`) | 00-10 | 2.19x |
 
-What may be claimed: A-LOAM, LF-GICP, KISS-ICP, MULLS, CT-ICP, LiTAMIN2, Quadric-LO, IMLS-SLAM, DiLO and Mesh-LOAM (seq 00/07 only for Quadric-LO and Mesh-LOAM) reach paper-level odometry accuracy
+What may be claimed: A-LOAM, LF-GICP, KISS-ICP, MULLS, CT-ICP, LiTAMIN2, Quadric-LO, IMLS-SLAM and DiLO (seq 00/07 only for Quadric-LO) reach paper-level odometry accuracy
 on KITTI (KISS-ICP on seq 00 and 04, and only with the upstream mechanics and the
 KITTI elevation correction; its 00-10 average, 0.564 %, equals the official
 code's on the same pipeline, both 1.13x the paper's 0.50 %; CT-ICP only with
 `--ct-icp-upstream-mechanics` and the correction, whose 00-10 average, 0.587 %,
 equals the official code's 0.585 % on the same scans, 1.10x the paper's per-sequence
 values; MULLS only with `--mulls-lo`, whose 00-10 average, 0.572 %, equals the
-official code's 0.576 %, 1.06x the paper's per-sequence values); L-LO, ELO, and InTEn-LOAM run on the same metric but do **not** reproduce the
+official code's 0.576 %, 1.06x the paper's per-sequence values); L-LO, ELO, Mesh-LOAM and InTEn-LOAM run on the same metric but do **not** reproduce the
 paper numbers. What may not be claimed: faithful reproduction for
-L-LO, ELO, or InTEn-LOAM, a KISS-ICP, CT-ICP, or MULLS claim for the repository default, or any ratio as unbiased. The repository value is the
-best variant of a sweep **selected on the evaluated sequence**, so every ratio
-is an optimistic bound, except the L-LO and SuMa rows on 00/02/05/08, whose variants were chosen on seq 07 and transferred unchanged; SuMa's paper values have one decimal, and A-LOAM is
+L-LO, ELO, Mesh-LOAM or InTEn-LOAM, a KISS-ICP, CT-ICP, or MULLS claim for the repository default, or any ratio as unbiased. Table 6 selects within each method's allowed variant pool; selection among multiple variants on an evaluated sequence is an optimistic bound. Mesh-LOAM and InTEn-LOAM are pinned to one fixed variant on every sequence, including the reused 00/07 results. Their settings were chosen using 00/07, while the added sequences did not influence the settings. Other methods' selection and transfer protocols are documented in their READMEs; SuMa's paper values have one decimal, and A-LOAM is
 compared with LOAM values cited by later papers because LOAM has no
 per-sequence table.
 
@@ -85,6 +83,7 @@ per-sequence table.
 - `docs/assets/paper/paper_ratio_table.csv` / `.tex` — Table 6, per sequence, with sweep size.
 - `evaluation/data/paper_reported_numbers.json` — paper values with `reported_source` (arXiv id, table, row), pinned by `tests/test_paper_ratio_table.py`.
 - `experiments/results/kitti_rte_rescore.json` — official-RTE re-runs and the stored-vs-rerun determinism check.
+- `experiments/results/mesh_inten_kitti_coverage/README.md` — fixed-setting commands, provenance, full-sequence results and drift diagnostics; historical aggregates remain unchanged.
 
 Papers checked for a per-sequence KITTI Odometry table (2026-10-12), beyond the rows above:
 
@@ -120,7 +119,7 @@ unnoticed, which motivates pinning both inputs and code:
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **434** ready + **1** blocked + **14** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **532** ready + **1** blocked + **14** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |

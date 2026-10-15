@@ -225,7 +225,16 @@ imls_slam,kitti_seq_08_full,gt-backed,paper_odometry_w100_coarse_start,"IMLS-SLA
 imls_slam,kitti_seq_09_full,gt-backed,paper_odometry_w100_coarse_start,"IMLS-SLAM paper odometry, window 100, coarse start on the first registration",3.049671,0.954947,experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json
 imls_slam,kitti_seq_10_full,gt-backed,paper_odometry_w100_coarse_start,"IMLS-SLAM paper odometry, window 100, coarse start on the first registration",2.969514,0.902043,experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json
 inten_loam,kitti_seq_00_full,gt-backed,paper_odometry_no_intensity,InTEn-LOAM paper pipeline without the intensity residual,16.111777,2.619206,experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json
+inten_loam,kitti_seq_01_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",275.593270,1.654666,experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json
+inten_loam,kitti_seq_02_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",122.844508,1.822334,experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json
+inten_loam,kitti_seq_03_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",6.262153,1.551610,experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json
+inten_loam,kitti_seq_04_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",1.539561,1.708263,experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json
+inten_loam,kitti_seq_05_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",9.976094,1.214852,experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json
+inten_loam,kitti_seq_06_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",1.917879,1.789111,experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json
 inten_loam,kitti_seq_07_full,gt-backed,paper_odometry_no_intensity,InTEn-LOAM paper pipeline without the intensity residual,1.192842,3.204377,experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json
+inten_loam,kitti_seq_08_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",27.673206,1.263835,experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json
+inten_loam,kitti_seq_09_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",11.000039,2.111344,experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json
+inten_loam,kitti_seq_10_full,gt-backed,paper_odometry_plane_check,"InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",9.669713,1.834569,experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json
 isc_loam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.161975,37.004353,experiments/results/isc_loam_hdl_400_reference_matrix.json
 isc_loam,kitti_raw_0009_200,gt-backed,fast,Fast,2.321429,37.613257,experiments/results/isc_loam_kitti_raw_0009_nogt_matrix.json
 isc_loam,kitti_raw_0009_200,gt-backed,fast,Fast,2.321429,35.591566,experiments/results/isc_loam_kitti_raw_0009_matrix.json
@@ -375,7 +384,16 @@ loam_livox,mcd_kth_day_06_108,gt-backed,fast,Fast,4.095008,66.275199,experiments
 loam_livox,mcd_ntu_day_02_108,gt-backed,fast,Fast,0.137012,68.986739,experiments/results/loam_livox_mcd_ntu_day_02_matrix.json
 loam_livox,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.192143,68.823288,experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json
 mesh_loam,kitti_seq_00_full,gt-backed,paper_odometry_elevation_keep_mesh,"Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen)",10.169502,1.344937,experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_01_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",30.862639,0.194660,experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_02_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",22.288359,0.327106,experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_03_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",3.992708,0.260197,experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_04_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",10.602073,0.238450,experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_05_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",5.757510,0.340462,experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_06_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",2.018974,0.374074,experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json
 mesh_loam,kitti_seq_07_full,gt-backed,paper_odometry_elevation_keep_mesh,"Mesh-LOAM paper path + 0.22 deg correction + global mesh (marching cubes, far bins frozen)",0.852913,1.494767,experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_08_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",22.402218,0.380054,experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_09_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",6.346767,0.406484,experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json
+mesh_loam,kitti_seq_10_full,gt-backed,paper_odometry_elevation,"Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",7.086086,0.553298,experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json
 mulls,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.875584,9.340595,experiments/results/mulls_hdl_400_reference_matrix.json
 mulls,kitti_raw_0009_200,gt-backed,fast,Fast,2.695346,1.204493,experiments/results/mulls_kitti_raw_0009_nogt_matrix.json
 mulls,kitti_raw_0009_full,gt-backed,fast,Fast,4.609734,3.337311,experiments/results/mulls_kitti_raw_0009_full_matrix.json

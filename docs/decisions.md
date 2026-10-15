@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2795,6 +2795,60 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_mapping | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_odometry_plane_check | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_no_intensity`.
@@ -2809,6 +2863,33 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_intensity | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_odometry_no_mapping | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_plane_check | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_plane_check`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## ISC-LOAM on the public HDL-400 reference window
 
@@ -4631,6 +4712,60 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 | dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_elevation_keep_mesh | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## Mesh-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_elevation_keep_mesh`.
@@ -4644,6 +4779,33 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 | dense_elevation_nearest_facet | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_elevation_keep_mesh | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Mesh-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table
+
+- Current default: `paper_odometry_elevation`.
+- Aggregate result: `experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## MULLS throughput and accuracy trade-off on the public HDL-400 reference window
 

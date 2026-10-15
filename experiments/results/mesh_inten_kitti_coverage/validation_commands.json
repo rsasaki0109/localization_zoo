@@ -1,0 +1,25 @@
+[
+  {
+    "command": [
+      "python3",
+      "-c",
+      "import csv\nimport hashlib\nimport json\nfrom pathlib import Path\nimport subprocess\n\nroot=Path('.')\nevidence=root/'experiments/results/mesh_inten_kitti_coverage'\nsummary=json.loads((evidence/'summary.json').read_text())\nwith (root/'docs/assets/paper/paper_ratio_table.csv').open() as f:\n    table=list(csv.DictReader(f))\nsource_commit=summary['input_commit']\ncounts={}\nfor method,info in summary['methods'].items():\n    selected=[row for row in table if row['method']==method]\n    assert len(selected)==11\n    for row in info['rows']:\n        seq=row['sequence']\n        aggregate=json.loads(subprocess.check_output(['git','show',source_commit+':'+row['aggregate']]))\n        variant=next(v for v in aggregate['variants'] if v['id']==info['variant'])\n        assert variant['args']==info['args'] and '--no-gt-seed' in variant['args']\n        with (root/f'experiments/reference_data/kitti_seq_{seq}_full_gt.csv').open() as f:\n            expected=sum(1 for _ in csv.DictReader(f))\n        assert variant['frames']==expected\n        t=next(t for t in selected if t['sequence']==seq)\n        assert t['repo_metric']=='kitti_rte' and t['repo_best_variant']==info['variant']\n        assert t['repo_pool_size']==t['selected_from_n']=='1'\n        assert t['repo_best_rpe_pct']==f\"{row['fixed_rte_pct']:.3f}\"\n        assert t['repo_best_ratio']==f\"{row['fixed_ratio']:.2f}\"\n        if row['above_twice_paper']:\n            assert (root/row['diagnostics_path']).is_file()\n        if seq not in ['00','07']:\n            run=root/'experiments/results/runs'/Path(row['aggregate']).stem/info['variant']\n            s=json.loads((run/'summary.json').read_text())\n            assert s['num_frames']==s['total_pcd_frames']==s['used_gt_pose_count']==expected\n    counts[method]={'full_sequences':len(selected),'frames':[r['frames'] for r in info['rows']],\n                    'above_twice_paper':info['above_twice_paper']}\nold=json.loads(subprocess.check_output(['git','show','d1b7288ff46964bde86ef15ab34b2ae8b4f389da:evaluation/data/paper_reported_numbers.json']))\nnew=json.loads((root/'evaluation/data/paper_reported_numbers.json').read_text())\nfor method in old['methods']:\n    assert old['methods'][method].get('reported_values')==new['methods'][method].get('reported_values')\n    assert old['methods'][method].get('reported_source')==new['methods'][method].get('reported_source')\nhistory=json.loads((evidence/'historical_aggregate_sha256.json').read_text())\nfor path,value in history['sha256'].items():\n    assert hashlib.sha256((root/path).read_bytes()).hexdigest()==value\nfor seq in ['01','02','03','04','05','06','08','09','10']:\n    assert json.loads((evidence/f'seq_{seq}_complete.json').read_text())['scans_deleted']\nfor name in ['controller_resume_exit.json','helper_resume_exit.json']:\n    assert json.loads((evidence/name).read_text())['exit_code']==0\nassert all(r['exit_code']==0 for r in json.loads((evidence/'import_commands.json').read_text()))\nassert all(r['exit_code']==0 for r in json.loads((evidence/'regeneration_commands.json').read_text()))\nprint(json.dumps({'methods':counts,'historical_aggregates_unchanged':len(history['sha256']),\n                  'paper_reference_values_and_sources_unchanged':True},indent=2))\n"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"methods\": {\n    \"mesh_loam\": {\n      \"full_sequences\": 11,\n      \"frames\": [\n        4541,\n        1101,\n        4661,\n        801,\n        271,\n        2761,\n        1101,\n        1101,\n        4071,\n        1591,\n        1201\n      ],\n      \"above_twice_paper\": []\n    },\n    \"inten_loam\": {\n      \"full_sequences\": 11,\n      \"frames\": [\n        4541,\n        1101,\n        4661,\n        801,\n        271,\n        2761,\n        1101,\n        1101,\n        4071,\n        1591,\n        1201\n      ],\n      \"above_twice_paper\": [\n        \"01\",\n        \"02\",\n        \"10\"\n      ]\n    }\n  },\n  \"historical_aggregates_unchanged\": 644,\n  \"paper_reference_values_and_sources_unchanged\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      ".",
+      ":(exclude,glob)**/*.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

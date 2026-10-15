@@ -124,8 +124,9 @@ Official KITTI RTE on full sequences (`experiments/mesh_loam_kitti_seq_{00,07}_f
 | + global mesh kept (`paper_odometry_elevation_keep_mesh`, ablation) | 0.568 % | 0.339 % | 1.5 |
 | paper, Table I | 0.53 % | 0.31 % | |
 
-The paper path (`--mesh-loam-paper-odometry`: 0.1 m input without a cap,
-normals from 10 NN in 0.5 m cells, nearest facet) is 1.07x / 1.10x the paper
+On the historical 00/07 development comparison above, the paper path
+(`--mesh-loam-paper-odometry`: 0.1 m input without a cap, normals from 10 NN
+in 0.5 m cells, nearest facet) is 1.07x / 1.10x the paper
 (geometric mean 1.08x, from 1.80x); its rotational error is 0.231 / 0.200
 deg/100 m against 0.20 / 0.15. Most of the gain comes from the association
 and the correction: the dense profile with both reaches the same ratio. The
@@ -139,6 +140,86 @@ seq 07; with marching cubes and frozen far bins
 (`--mesh-loam-marching-cubes --mesh-loam-freeze-radius 100`) the full seq 07
 run peaks at 1.17 GB and gives 0.339 % (00: 0.568 %), the same as without it:
 the revisits in 07 and 00 do not gain from the kept mesh here.
+
+### KITTI 00-10 with one configuration
+
+The coverage variant is `paper_odometry_elevation`: `--no-gt-seed
+--mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`.
+It is frozen from the prior 00/07 comparisons, including the 07 window
+checks above. Both 00 and 07 are development sequences; 01-06 and 08-10
+are used only for evaluation, with the same arguments on every sequence.
+The correction is a KITTI preprocessing choice; the Mesh-LOAM paper does
+not specify it. This evaluation does not select a new correction or a
+different configuration on the added sequences.
+
+The added manifests are
+`experiments/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json`, each with
+only that variant. The 00/07 comparison manifests also contain historical
+ablations; to rerun just the fixed setting on any sequence, use:
+
+```bash
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_NN_full \
+  experiments/reference_data/kitti_seq_NN_full_gt.csv 0 \
+  --methods mesh_loam --no-gt-seed --mesh-loam-paper-odometry \
+  --input-vertical-angle-correction-deg 0.22 --summary-json mesh_seq_NN.json
+```
+
+See [the roadmap](../../docs/roadmap.md#experiments) for one-sequence-at-a-time
+fetching, result import and regeneration of the derived tables.
+
+<!-- FIXED-KITTI-RESULTS:START -->
+
+Full sequences, official KITTI translational RTE (100-800 m), no GT seed.
+The 00/07 rows retain their existing committed results; the other rows are
+the added coverage runs. Every row below uses the same fixed variant.
+
+| Seq | Paper RTE [%] | Fixed RTE [%] | Repo / paper | FPS |
+|---|---:|---:|---:|---:|
+| 00 (development) | 0.53 | 0.565 | 1.07x | 1.069 |
+| 01 | 0.64 | 0.857 | 1.34x | 0.195 |
+| 02 | 0.52 | 0.607 | 1.17x | 0.327 |
+| 03 | 0.63 | 0.928 | 1.47x | 0.260 |
+| 04 | 0.41 | 0.820 | 2.00x | 0.238 |
+| 05 | 0.34 | 0.345 | 1.01x | 0.340 |
+| 06 | 0.35 | 0.418 | 1.19x | 0.374 |
+| 07 (development) | 0.31 | 0.342 | 1.10x | 1.229 |
+| 08 | 0.82 | 0.909 | 1.11x | 0.380 |
+| 09 | 0.47 | 0.631 | 1.34x | 0.406 |
+| 10 | 0.56 | 0.848 | 1.51x | 0.553 |
+
+Geometric mean over all sequences with paper values: **1.28x**
+with the fixed setting. Table 6 is restricted to this same variant by
+`repo_variants` in `evaluation/data/paper_reported_numbers.json`.
+The historical 00/07 ablations above remain available in their original
+result aggregates.
+
+FPS describes the recorded execution: the new runs use two OpenMP
+threads per method and may overlap on the same sequence. The 00/07 FPS
+comes from the historical runs.
+
+Sources: `experiments/results/mesh_loam_kitti_seq_NN_full_paper_comp_matrix.json`.
+New per-run summaries, host records, logs, estimated poses, evaluated GT
+and step diagnostics are committed under the corresponding
+`experiments/results/runs/` directory. Exact execution commands and the
+isolated-output launcher used for overlapping the two methods are recorded
+in `experiments/results/mesh_inten_kitti_coverage/`.
+
+#### Sequences above twice the paper value
+
+The strict >2x check uses the unrounded RTE. Ratios displayed as
+2.00x can remain at or below that threshold:
+
+- Seq 04: 0.819834 % <= 0.820000 % (twice the paper value).
+
+No sequence exceeds twice its paper value with this fixed setting.
+
+Saved-pose diagnostics are generated with
+`evaluation/scripts/diagnose_kitti_steps.py --estimate <trajectory_kitti.txt>
+--gt <evaluated_gt_kitti.txt> --summary <summary.json> --method "Mesh-LOAM"
+--output <step_diagnostics.json>`; each JSON records the exact command.
+The script checks its full-sequence RTE against the original run summary.
+
+<!-- FIXED-KITTI-RESULTS:END -->
 
 ## Speed and memory
 

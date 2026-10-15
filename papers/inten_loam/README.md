@@ -107,7 +107,7 @@ its 32-beam data; 0.15 with 4 edges per sector: 0.352 % on 07, and 0.816 ->
 0.769 % on 00). That gives 1.04x on 07 and 1.48x on 00 (geometric mean 1.24x).
 With the plane check below, 00 goes to 0.697 % (1.34x) and 07 to 0.364 %
 (1.07x): 1.20x with one setting for both, 1.18x taking the better variant per
-sequence (Table 6).
+sequence in the historical 00/07 comparison.
 Mapping and the correction matter most; the intensity residual is worth
 0-1 %.
 
@@ -130,17 +130,175 @@ velocity); both spin directions make seq 07 much worse (1.502 / 1.835 %), so
 the KITTI odometry scans are treated as already compensated. Free parameters can be changed with `--inten-loam-paper-set key=value`
 (`map_plane_voxel`, `max_ground`, `huber`, ...).
 
+### KITTI 00-10 with one configuration
+
+The coverage variant is `paper_odometry_plane_check` on every sequence:
+`--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120
+--input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set
+s2m_plane_max_dist=0.05`. The plane check and correction values were chosen
+on 07 windows. Diagnosing 00 frames 4000-4399 suggested which plane check
+to investigate, so 00 is not fully held out. The added sequences 01-06 and
+08-10 are evaluation only and do not influence these values.
+
+The stricter plane acceptance and the 0.17-degree correction are KITTI
+choices, not the paper's stated settings. They are enabled explicitly by
+the arguments above; this coverage run does not change the defaults.
+The added manifests are
+`experiments/inten_loam_kitti_seq_NN_full_paper_comp_matrix.json`, each with
+only the fixed variant. The 00/07 comparison manifests also contain
+historical ablations. To run just the fixed setting on any sequence:
+
+```bash
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_NN_full \
+  experiments/reference_data/kitti_seq_NN_full_gt.csv 0 \
+  --methods inten_loam --no-gt-seed --inten-loam-paper-odometry \
+  --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 \
+  --inten-loam-paper-set s2m_plane_max_dist=0.05 --summary-json inten_seq_NN.json
+```
+
+See [the roadmap](../../docs/roadmap.md#experiments) for one-sequence-at-a-time
+fetching, result import and regeneration of the derived tables.
+
+<!-- FIXED-KITTI-RESULTS:START -->
+
+Full sequences, official KITTI translational RTE (100-800 m), no GT seed.
+The 00/07 rows retain their existing committed results; the other rows are
+the added coverage runs. Every row below uses the same fixed variant.
+
+| Seq | Paper RTE [%] | Fixed RTE [%] | Repo / paper | FPS |
+|---|---:|---:|---:|---:|
+| 00 (development) | 0.52 | 0.697 | 1.34x | 1.736 |
+| 01 | 0.64 | 16.614 | 25.96x | 1.655 |
+| 02 | 0.54 | 3.221 | 5.97x | 1.822 |
+| 03 | 0.63 | 0.891 | 1.41x | 1.552 |
+| 04 | 0.37 | 0.676 | 1.83x | 1.708 |
+| 05 | 0.36 | 0.497 | 1.38x | 1.215 |
+| 06 | 0.24 | 0.359 | 1.49x | 1.789 |
+| 07 (development) | 0.34 | 0.364 | 1.07x | 1.555 |
+| 08 | 0.71 | 0.938 | 1.32x | 1.264 |
+| 09 | 0.48 | 0.661 | 1.38x | 2.111 |
+| 10 | 0.45 | 1.156 | 2.57x | 1.835 |
+
+Geometric mean over all sequences with paper values: **2.19x**
+with the fixed setting. Table 6 is restricted to this same variant by
+`repo_variants` in `evaluation/data/paper_reported_numbers.json`.
+The historical 00/07 ablations above remain available in their original
+result aggregates.
+
+FPS describes the recorded execution: the new runs use two OpenMP
+threads per method and may overlap on the same sequence. The 00/07 FPS
+comes from the historical runs.
+
+Sources: `experiments/results/inten_loam_kitti_seq_NN_full_paper_comp_matrix.json`.
+New per-run summaries, host records, logs, estimated poses, evaluated GT
+and step diagnostics are committed under the corresponding
+`experiments/results/runs/` directory. Exact execution commands and the
+isolated-output launcher used for overlapping the two methods are recorded
+in `experiments/results/mesh_inten_kitti_coverage/`.
+
+#### Sequences above twice the paper value
+
+**01: 16.614 % vs 0.64 % (25.96x).**
+The estimated path length is 0.872 of GT.
+For GT steps of at least 0.1 m,
+136 of 1100 steps differ in length by more than 20 %;
+the local translation-vector error exceeds 20 % on 136 steps.
+The longest runs of step length errors have destination-frame indices 217-253, 420-518 (zero-based; inclusive).
+All intervals are retained in the diagnostic JSON.
+
+The largest relative-translation-error blocks locate where drift grows.
+Each block contains up to 100 consecutive steps; these endpoint errors
+are diagnostics, not official KITTI RTE.
+
+Blocks spanning at least 1 m of GT travel are ranked below; the JSON
+also retains blocks with less travel.
+
+| Pose interval | GT distance [m] | Est / GT path | Position error start / end [m] | Block error [%] |
+|---|---:|---:|---:|---:|
+| 400-500 | 263.2 | 0.276 | 81.7 / 312.5 | 88.13 |
+| 200-300 | 268.1 | 0.705 | 2.3 / 80.8 | 29.77 |
+| 500-600 | 256.6 | 0.834 | 312.5 / 360.3 | 18.84 |
+
+Diagnostic source: `experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json`.
+
+**02: 3.221 % vs 0.54 % (5.97x).**
+The estimated path length is 0.965 of GT.
+For GT steps of at least 0.1 m,
+133 of 4660 steps differ in length by more than 20 %;
+the local translation-vector error exceeds 20 % on 139 steps.
+The longest runs of step length errors have destination-frame indices 1787-1787, 1878-1943, 4460-4524 (zero-based; inclusive).
+All intervals are retained in the diagnostic JSON.
+
+The largest relative-translation-error blocks locate where drift grows.
+Each block contains up to 100 consecutive steps; these endpoint errors
+are diagnostics, not official KITTI RTE.
+
+Blocks spanning at least 1 m of GT travel are ranked below; the JSON
+also retains blocks with less travel.
+
+| Pose interval | GT distance [m] | Est / GT path | Position error start / end [m] | Block error [%] |
+|---|---:|---:|---:|---:|
+| 1900-2000 | 115.0 | 0.519 | 58.8 / 119.2 | 50.28 |
+| 4400-4500 | 137.0 | 0.605 | 112.8 / 173.8 | 40.83 |
+| 4500-4600 | 131.9 | 0.765 | 173.8 / 225.4 | 27.20 |
+
+Diagnostic source: `experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json`.
+
+**10: 1.156 % vs 0.45 % (2.57x).**
+The estimated path length is 0.996 of GT.
+For GT steps of at least 0.1 m,
+0 of 1153 steps differ in length by more than 20 %;
+the local translation-vector error exceeds 20 % on 0 steps.
+No step length error exceeds that threshold.
+All intervals are retained in the diagnostic JSON.
+
+The largest relative-translation-error blocks locate where drift grows.
+Each block contains up to 100 consecutive steps; these endpoint errors
+are diagnostics, not official KITTI RTE.
+
+Blocks spanning at least 1 m of GT travel are ranked below; the JSON
+also retains blocks with less travel.
+
+| Pose interval | GT distance [m] | Est / GT path | Position error start / end [m] | Block error [%] |
+|---|---:|---:|---:|---:|
+| 600-700 | 50.7 | 0.990 | 6.7 / 9.2 | 2.03 |
+| 400-500 | 97.1 | 0.990 | 3.3 / 4.6 | 1.42 |
+| 1100-1200 | 17.1 | 0.999 | 12.7 / 12.3 | 1.28 |
+
+Diagnostic source: `experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json`.
+
+
+Saved-pose diagnostics are generated with
+`evaluation/scripts/diagnose_kitti_steps.py --estimate <trajectory_kitti.txt>
+--gt <evaluated_gt_kitti.txt> --summary <summary.json> --method "InTEn-LOAM"
+--output <step_diagnostics.json>`; each JSON records the exact command.
+The script checks its full-sequence RTE against the original run summary.
+
+<!-- FIXED-KITTI-RESULTS:END -->
+
+The 01/02 failures contain bursts of underestimated motion: for example,
+01 frames 400-500 cover only 0.276 of the GT path length while position
+error grows from 81.7 to 312.5 m. Sequence 10 has a different pattern:
+its overall path ratio is 0.996 and no moving step exceeds either 20 %
+threshold, but smaller errors accumulate (6.7 to 9.2 m over frames
+600-700). These measurements locate the drift; they do not establish
+which association or optimization mechanism causes it. No new setting
+was selected to repair these evaluation sequences.
+
 ### Remaining KITTI gap (400-frame windows)
 
-A scratch driver ran the pipeline on 400-frame windows (official KITTI RTE
+This earlier diagnosis concerns the 00/07 development data. A scratch
+driver ran the pipeline on 400-frame windows (official KITTI RTE
 over the window's 100-200 m segments, so the numbers are higher than full
 runs and only show direction). Choices were made on 07 (frames 0-399,
 400-799, 700-1099, plus 07 at every second scan, about 1.3 m per scan, as a
 stand-in for the fast part of 00); 00 (0-399, 400-799, 1600-1999, 4000-4399)
-was held out. The full sequences were run afterwards (last two lines of the
-table).
+was initially treated as held out. Its 4000-4399 diagnosis subsequently
+influenced which plane check was investigated, so it is not fully held out
+for the final choice. The full sequences were run afterwards (last two
+lines of the table).
 
-| variant | 07 windows | 07 every 2nd scan | 00 windows (held out) | 00 4000-4399 |
+| variant | 07 windows | 07 every 2nd scan | 00 windows (selection note above) | 00 4000-4399 |
 |---|---:|---:|---:|---:|
 | current (0.2 deg, plane check 0.2 m) | 0.402 | 0.444 | 0.957 | 1.393 |
 | plane check 0.05 m | 0.375 | - | 0.841 | 0.923 |
@@ -154,7 +312,7 @@ table).
 
 On full 07 the setting gives 0.364 % against 0.352 % for the current one, so
 the gain on the 07 windows (where the values were chosen) does not carry over
-to the full sequence; held-out 00 gains 0.769 -> 0.697 %. The setting is the
+to the full sequence; 00 gains 0.769 -> 0.697 %. The setting is the
 manifest variant `paper_odometry_plane_check`: `--input-vertical-angle-correction-deg 0.17
 --input-max-range-m 120 --inten-loam-paper-set s2m_plane_max_dist=0.05`.
 

@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -238,7 +238,16 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 16.033 | 9.4 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 275.593 | 1.7 | `experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 122.845 | 1.8 | `experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 6.262 | 1.6 | `experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.540 | 1.7 | `experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.976 | 1.2 | `experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.918 | 1.8 | `experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 1.193 | 9.2 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 27.673 | 1.3 | `experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 11.000 | 2.1 | `experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.670 | 1.8 | `experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
@@ -388,7 +397,16 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 | LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json` |
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
 | Mesh-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation_keep_mesh` | 7.509 | 1.3 | `experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 30.863 | 0.2 | `experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 22.288 | 0.3 | `experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 3.993 | 0.3 | `experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 10.602 | 0.2 | `experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 5.758 | 0.3 | `experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 2.019 | 0.4 | `experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json` |
 | Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation_keep_mesh` | 0.651 | 1.5 | `experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 22.402 | 0.4 | `experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 6.347 | 0.4 | `experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json` |
+| Mesh-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_elevation` | 7.086 | 0.6 | `experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.874 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
@@ -14294,6 +14312,222 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2290 dor points/frame=128
 
 
+## InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_01_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 275.593 | 1.7 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 1.7 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 275.593 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=850 s2m=1483 dor points/frame=232
+
+
+## InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_02_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 122.845 | 1.8 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 1.8 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 122.845 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2023 dor points/frame=58
+
+
+## InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_03_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 6.262 | 1.6 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 1.6 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 6.262 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=904 s2m=1854 dor points/frame=32
+
+
+## InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_04_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 1.540 | 1.7 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 1.7 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 1.540 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1645 dor points/frame=197
+
+
+## InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_05_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 9.976 | 1.2 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 1.2 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 9.976 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1434 s2m=2265 dor points/frame=150
+
+
+## InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_06_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 1.918 | 1.8 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 1.8 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 1.918 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1866 dor points/frame=233
+
+
 ## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - **Problem ID**: `inten_loam_kitti_seq_07_full_paper_comp`
@@ -14388,6 +14622,114 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2306 dor points/frame=151
+
+
+## InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_08_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 27.673 | 1.3 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 1.3 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 27.673 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1347 s2m=2160 dor points/frame=150
+
+
+## InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_09_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 11.000 | 2.1 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 2.1 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 11.000 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1113 s2m=1963 dor points/frame=120
+
+
+## InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `inten_loam_kitti_seq_10_full_paper_comp`
+- **Question**: How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | reference | 9.670 | 1.8 | 100.0 | 2.50 | 3.30 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check` is the current default for this problem.
+2. `paper_odometry_plane_check` is the fastest observed variant at 1.8 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 9.670 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2310 dor points/frame=110
 
 
 ## ISC-LOAM on the public HDL-400 reference window
@@ -23418,6 +23760,222 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; global mesh kept; marching cubes; mean|residual|=0.026
 
 
+## Mesh-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_01_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 30.863 | 0.2 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.2 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 30.863 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.030
+
+
+## Mesh-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_02_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 22.288 | 0.3 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.3 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 22.288 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.026
+
+
+## Mesh-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_03_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 3.993 | 0.3 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.3 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 3.993 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.026
+
+
+## Mesh-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_04_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 10.602 | 0.2 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.2 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 10.602 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.028
+
+
+## Mesh-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_05_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 5.758 | 0.3 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.3 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 5.758 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.027
+
+
+## Mesh-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_06_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 2.019 | 0.4 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.4 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 2.019 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.027
+
+
 ## Mesh-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - **Problem ID**: `mesh_loam_kitti_seq_07_full_paper_comp`
@@ -23500,6 +24058,114 @@ _Generated at 2026-10-14T18:28:15+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; global mesh kept; marching cubes; mean|residual|=0.025
+
+
+## Mesh-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_08_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 22.402 | 0.4 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.4 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 22.402 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.029
+
+
+## Mesh-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_09_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 6.347 | 0.4 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.4 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 6.347 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.028
+
+
+## Mesh-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table
+
+- **Problem ID**: `mesh_loam_kitti_seq_10_full_paper_comp`
+- **Question**: How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mesh_loam`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction | reference | 7.086 | 0.6 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_elevation` is the current default for this problem.
+2. `paper_odometry_elevation` is the fastest observed variant at 0.6 FPS.
+3. `paper_odometry_elevation` is the most accurate observed variant at 7.086 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_elevation`
+
+- Intent: Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.
+- CLI args: `--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22`
+- Summary: `experiments/results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/summary.json`
+- Log: `experiments/results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.028
 
 
 ## MULLS throughput and accuracy trade-off on the public HDL-400 reference window

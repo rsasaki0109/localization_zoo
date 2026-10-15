@@ -1,0 +1,36 @@
+{
+  "observed_unix": 1792085133.512047,
+  "error": "exec-server transport pong_timeout; original numeric tool session handles became unknown",
+  "benchmark_restarted": false,
+  "observed_running_host_pids": {
+    "controller": 5817,
+    "parallel_helper": 5828,
+    "mesh_seq06": 8676
+  },
+  "completed_markers_preserved": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05"
+  ],
+  "exit_status_evidence": "Per-command actual return codes remain in seq_NN_commands.log and parallel_execution.json. Original top-level session exit statuses cannot be retrieved using old tool handles.",
+  "coordinator_stopped_after_seq06_benchmark": true,
+  "original_coordinator_exit_status": "unavailable after tool transport loss",
+  "seq06_benchmark_exit_codes": {
+    "mesh_loam": 0,
+    "inten_loam": 0
+  },
+  "seq06_saved_outputs_present": [
+    "summary.json",
+    "trajectory_kitti.txt",
+    "evaluated_gt_kitti.txt",
+    "evaluation_manifest.json"
+  ],
+  "resume_strategy": "Reuse saved sequence06 benchmark outputs; resume diagnostics and then remaining sequences with identical estimator configuration. Coordinator stdout/stderr redirected to persistent files; supervisor writes actual exit receipts.",
+  "coordinator_restarted": true,
+  "seq06_results_reused_without_estimator_rerun": true,
+  "seq06_diagnostics_and_cleanup_completed": true,
+  "resumed_controller_pid": 8865,
+  "resumed_helper_pid": 8897
+}

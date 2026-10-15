@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-10-15T22:37:28+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_10_full_paper_comp",
+    "title": "InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table",
+    "question": "How close is the InTEn-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_odometry_plane_check",
+      "label": "InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction",
+      "design_style": "reference",
+      "intent": "As paper_odometry, but an S2M plane needs all 5 map neighbours within 0.05 m of the fitted plane (0.2 m before) and the correction is 0.17 deg (pitch error per frame is zero near 0.16 deg). Both values were chosen on seq 07 windows; the plane check was found while diagnosing the held-out 00 window 4000-4399, so 00 is not fully held out.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/run.log",
+      "status": "ok",
+      "ate_m": 9.669713,
+      "rpe_trans_pct": 0.843492,
+      "rpe_rot_deg_per_m": 0.004653,
+      "fps": 1.834569,
+      "time_ms": 654649.740445,
+      "frames": 1201,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2310 dor points/frame=110",
+      "benchmark_score": 100.0,
+      "readability_score": 2.5,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.3,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.155652,
+      "kitti_rte_rot_deg_per_100m": 0.386538,
+      "host": {
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.44",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

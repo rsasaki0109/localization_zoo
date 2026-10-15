@@ -1,0 +1,55 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running Mesh-LOAM...
+  source_voxel_size=0.1 voxel_size=0.1 mesh_interval=5 cos_gate=1.0
+
+  [Mesh-LOAM] 0/271 voxels=661147 facets=1378684
+  [Mesh-LOAM] 10/271 voxels=3561275 facets=8960760
+  [Mesh-LOAM] 20/271 voxels=4316553 facets=11130318
+  [Mesh-LOAM] 30/271 voxels=4827448 facets=12544242
+  [Mesh-LOAM] 40/271 voxels=4988487 facets=13232568
+  [Mesh-LOAM] 50/271 voxels=4869177 facets=12972646
+  [Mesh-LOAM] 60/271 voxels=4242664 facets=11251140
+  [Mesh-LOAM] 70/271 voxels=3830537 facets=10108253
+  [Mesh-LOAM] 80/271 voxels=3607516 facets=9374937
+  [Mesh-LOAM] 90/271 voxels=3356456 facets=8701686
+  [Mesh-LOAM] 100/271 voxels=3002099 facets=7660079
+  [Mesh-LOAM] 110/271 voxels=2806870 facets=7086905
+  [Mesh-LOAM] 120/271 voxels=2788374 facets=6983851
+  [Mesh-LOAM] 130/271 voxels=2733893 facets=6895629
+  [Mesh-LOAM] 140/271 voxels=2711074 facets=6885187
+  [Mesh-LOAM] 150/271 voxels=2722445 facets=7053832
+  [Mesh-LOAM] 160/271 voxels=2682647 facets=7065715
+  [Mesh-LOAM] 170/271 voxels=2666919 facets=7136664
+  [Mesh-LOAM] 180/271 voxels=2661905 facets=7149894
+  [Mesh-LOAM] 190/271 voxels=2817864 facets=7619852
+  [Mesh-LOAM] 200/271 voxels=2850251 facets=7686442
+  [Mesh-LOAM] 210/271 voxels=3016478 facets=8208135
+  [Mesh-LOAM] 220/271 voxels=3224821 facets=8771997
+  [Mesh-LOAM] 230/271 voxels=3640043 facets=9713520
+  [Mesh-LOAM] 240/271 voxels=3989251 facets=10635999
+  [Mesh-LOAM] 250/271 voxels=4199576 facets=11144794
+  [Mesh-LOAM] 260/271 voxels=4264899 facets=11149357
+  [Mesh-LOAM] 270/271 voxels=4294879 facets=11111726
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+Mesh-LOAM               ok          10.602      0.524          271         1136504.9      0.2         
+
+Notes:
+- Mesh-LOAM: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.028
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

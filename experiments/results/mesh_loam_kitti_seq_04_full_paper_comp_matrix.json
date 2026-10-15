@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-10-15T22:37:28+00:00",
+  "manifest_path": "experiments/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "mesh_loam_kitti_seq_04_full_paper_comp",
+    "title": "Mesh-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table",
+    "question": "How close is the Mesh-LOAM reimplementation to the paper's per-sequence KITTI Odometry translational error (official RTE)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_04_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_04_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "mesh_loam",
+    "primary_method": "Mesh-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_04_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_04_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_odometry_elevation",
+      "label": "Mesh-LOAM paper path (0.1 m input, nearest facet) + 0.22 deg correction",
+      "design_style": "reference",
+      "intent": "Paper input and association: 0.1 m input (the map voxel size) without a point cap, normals from 10 NN in 0.5 m cells, the gated facet nearest to the point within the 0.2 m search interval (Sec. III-B), and the KITTI vertical-angle correction.",
+      "args": [
+        "--no-gt-seed",
+        "--mesh-loam-paper-odometry",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22",
+      "summary_path": "experiments/results/runs/mesh_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_elevation/summary.json",
+      "log_path": "experiments/results/runs/mesh_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_elevation/run.log",
+      "status": "ok",
+      "ate_m": 10.602073,
+      "rpe_trans_pct": 0.523782,
+      "rpe_rot_deg_per_m": 0.003036,
+      "fps": 0.23845,
+      "time_ms": 1136504.87486,
+      "frames": 271,
+      "note": "Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.028",
+      "benchmark_score": 100.0,
+      "readability_score": 3.7,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.819834,
+      "kitti_rte_rot_deg_per_100m": 0.343832,
+      "host": {
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.44",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

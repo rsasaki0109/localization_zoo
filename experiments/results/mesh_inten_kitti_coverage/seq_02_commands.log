@@ -1,0 +1,74 @@
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/fetch_kitti_odometry_sequences.py --output-root /workspace/localization-env/kitti-coverage --sequence 02
+Reading remote ZIP directory: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip
+KITTI 02: 4661 frames, 8.73 GiB
+Traceback (most recent call last):
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 295, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 272, in main
+    counts = list(
+             ^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 274, in <lambda>
+    lambda chunk: extract_sequence_range(
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 220, in extract_sequence_range
+    checksum = copy_exact_with_crc(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 128, in copy_exact_with_crc
+    raise EOFError(f"Range response ended with {remaining} bytes still expected")
+EOFError: Range response ended with 1678766 bytes still expected
+
+[exit_code] 1
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/fetch_kitti_odometry_sequences.py --output-root /workspace/localization-env/kitti-coverage --sequence 02
+Reading remote ZIP directory: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip
+KITTI 02: 4661 frames, 8.73 GiB
+KITTI 02: extracted=1379, reused=3282, path=/workspace/localization-env/kitti-coverage/dataset/sequences/02/velodyne
+
+[exit_code] 0
+
+$ env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=2 -e OPENBLAS_NUM_THREADS=1 -w /workspace/localization_zoo localization-zoo-dev /opt/localization-venv/bin/python evaluation/scripts/run_experiment_matrix.py --manifest /workspace/localization_zoo/experiments/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json --output-dir /workspace/localization-env/mesh-inten-coverage-results --docs-dir /workspace/localization-env/mesh-inten-coverage-docs --merge-existing-index
+
+[parallel InTEn command]
+$ env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=2 -e OPENBLAS_NUM_THREADS=1 -w /workspace/localization_zoo localization-zoo-dev /opt/localization-venv/bin/python evaluation/scripts/run_experiment_matrix.py --manifest /workspace/localization_zoo/experiments/inten_loam_kitti_seq_02_full_paper_comp_matrix.json --binary /workspace/localization-env/launch_inten_isolated.sh --output-dir /workspace/localization-env/parallel-inten-results --docs-dir /workspace/localization-env/parallel-inten-docs --merge-existing-index
+[run] inten_loam_kitti_seq_02_full_paper_comp_matrix:paper_odometry_plane_check
+[done] wrote /workspace/localization-env/parallel-inten-results/index.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/parallel-inten-docs/experiments.md
+[done] wrote /workspace/localization-env/parallel-inten-docs/decisions.md
+[done] wrote /workspace/localization-env/parallel-inten-docs/interfaces.md
+
+[parallel InTEn exit_code] 0
+[run] mesh_loam_kitti_seq_02_full_paper_comp_matrix:paper_odometry_elevation
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/index.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/mesh-inten-coverage-docs/experiments.md
+[done] wrote /workspace/localization-env/mesh-inten-coverage-docs/decisions.md
+[done] wrote /workspace/localization-env/mesh-inten-coverage-docs/interfaces.md
+
+[exit_code] 0
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt --gt /workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/evaluated_gt_kitti.txt --summary /workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/summary.json --method Mesh-LOAM --output /workspace/localization-env/mesh-inten-coverage-results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/step_diagnostics.json
+
+[exit_code] 0
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt --gt /workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt --summary /workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --method InTEn-LOAM --output /workspace/localization-env/mesh-inten-coverage-results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json
+
+[exit_code] 0

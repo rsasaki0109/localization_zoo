@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "lf_gicp_kitti_seq_10_full_paper_comp",
+    "title": "LF-GICP KITTI Odom seq 10 full: fixed-configuration paper comparison",
+    "question": "How does the frozen paper_default configuration compare with the paper on the complete KITTI sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lf_gicp",
+    "primary_method": "LF-GICP"
+  },
+  "variants": [
+    {
+      "id": "paper_default",
+      "label": "Paper default",
+      "design_style": "balanced",
+      "intent": "Paper Table SI constants with the localizability-field gate and soft Fisher weighting.",
+      "args": []
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "quadric_lo_kitti_seq_04_full_paper_comp",
+    "title": "Quadric-LO KITTI Odom seq 04 full: fixed-configuration paper comparison",
+    "question": "How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_04_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_04_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "quadric_lo",
+    "primary_method": "Quadric-LO"
+  },
+  "variants": [
+    {
+      "id": "dense_profile",
+      "label": "Quadric-LO, dense profile",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed",
+        "--quadric-lo-dense-profile"
+      ]
+    }
+  ]
+}

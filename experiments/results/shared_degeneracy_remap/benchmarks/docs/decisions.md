@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-16T22:42:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_degeneracy_remap/benchmarks/index.json`._
+_Generated at 2026-10-16T23:21:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_degeneracy_remap/benchmarks/index.json`._
 
 ## Rules
 
@@ -22,6 +22,15 @@ _Generated at 2026-10-16T22:42:52+00:00 by `evaluation/scripts/run_experiment_ma
 
 - Current default: `shared_remap_003`.
 - Aggregate result: `experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_01_full_shared_remap_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| shared_remap_003 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa shared translation remap on KITTI 02 full
+
+- Current default: `shared_remap_003`.
+- Aggregate result: `experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_02_full_shared_remap_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|

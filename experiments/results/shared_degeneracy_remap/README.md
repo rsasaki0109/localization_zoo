@@ -57,6 +57,11 @@ CSV and a method-README table without a paper ratio or a speed claim.
 [coverage-guard check receipts](checks/reporting/commands.json) exercise refusal
 of incomplete coverage and explicit partial reporting against the committed
 first sequence; the source files and execution commands are retained.
+The report retains relative endpoint errors and the largest positive pointwise
+position-error increases, each with GT travel distance and frame bounds. This
+keeps low-motion relative errors in context. The
+[partial error-growth report and checked execution](checks/reporting_error_growth/)
+use committed inputs and remain explicitly incomplete.
 
 [`plot_sequence.py`](plot_sequence.py) plots saved full-sequence poses from one
 committed snapshot. The [01 trace](plots/01/trace.png),

@@ -1,0 +1,38 @@
+{
+  "command_description": "Verify committed KITTI input hashes, remove only this task temporary KITTI root, assert root absence.",
+  "root": "/workspace/localization-env/sensor-setup/kitti",
+  "removed_inputs": [
+    {
+      "name": "000000.bin",
+      "sha256": "bf272996d5b6d25cc5589e1089137cb20a98b63bd4823a7fea5631b359f6d68c",
+      "used_in_validation": true
+    },
+    {
+      "name": "000844.bin",
+      "sha256": "8599ce7dda2c26c2dfdaf156cabfc1959cf8a160543c0a83f27d72f94614c326",
+      "used_in_validation": false
+    },
+    {
+      "name": "001930.bin",
+      "sha256": "1012948e699e68eccb868eed0a7336e0c88d8db2ac46bf720031ec4397520c51",
+      "used_in_validation": false
+    },
+    {
+      "name": "000784.bin",
+      "sha256": "f2a26bc8c00ac3191e69392f0c43ddbfd3379e0590c8ebd81825e7894a3c3112",
+      "used_in_validation": false
+    },
+    {
+      "name": "000002.bin",
+      "sha256": "35ff6de88522818c44984113a3cbf9663e36dae8ae5d0f13f3dfb3bd389d15f2",
+      "used_in_validation": true
+    },
+    {
+      "name": "000001.bin",
+      "sha256": "d937cb1bc1ce9ca4e03ccaf69b7537e175c625ecef631b6d668b96aee002faa8",
+      "used_in_validation": true
+    }
+  ],
+  "scans_deleted": true,
+  "finished_unix": 1792160703.2569888
+}

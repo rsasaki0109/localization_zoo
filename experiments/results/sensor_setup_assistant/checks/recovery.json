@@ -1,0 +1,4 @@
+{
+  "cause": "CTest running as UID1000 could not write the pre-existing root-owned build/Testing/Temporary log directory. No C++ tests started.",
+  "action": "Rerun only CTest with the prior container default user; keep the successful configure/build and the failed start receipt. Other checks run as UID1000."
+}

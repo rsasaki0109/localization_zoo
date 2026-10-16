@@ -1,0 +1,12 @@
+[
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization-env/sensor-setup/fetch_kitti_samples.py"
+    ],
+    "exit_code": 0,
+    "executed_script_copy": "experiments/results/sensor_setup_assistant/fetch_kitti_samples.py",
+    "script_sha256": "878b2aa6f0e6f58da432a5004f296e0967bcbc3cfd6ba5039657050a372a01c8",
+    "scope": "Official archive sequence00 frames0/1/2, repository selective downloader called for one archive entry at a time. Earlier preliminary archive-order samples are excluded from the validation command."
+  }
+]

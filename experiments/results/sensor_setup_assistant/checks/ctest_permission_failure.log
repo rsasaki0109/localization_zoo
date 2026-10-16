@@ -1,0 +1,7 @@
+Internal ctest changing into directory: /workspace/localization_zoo/build
+Test project /workspace/localization_zoo/build
+CMake Error: Cannot open file for write: /workspace/localization_zoo/build/Testing/Temporary/LastTest.log.tmp
+CMake Error: : System Error: Permission denied
+Problem opening file: /workspace/localization_zoo/build/Testing/Temporary/LastTest.log
+Cannot create log file: LastTest.log
+Errors while running CTest

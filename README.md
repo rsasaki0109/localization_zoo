@@ -50,6 +50,7 @@ prove paper fidelity ([reproduction status](docs/reproduction_status.md),
 | Use the IMU tools (motion / health SDK, attitude filters, Allan variance) | [IMU tools](docs/implementations.md#imu-motion--health-sdk) |
 | Re-run a paper-number row | [`reproduce_paper_row.py`](#paper-number-check-official-kitti-rte) |
 | Port a method to KITTI without the usual traps | [KITTI pitfalls](docs/kitti_pitfalls.md) |
+| Inspect a new LiDAR's frame, rows, intensity and setup flags | [Sensor setup assistant](docs/sensor_setup_assistant.md) |
 | Add a paper or extend a benchmark | [Adding a new paper](#adding-a-new-paper) · [CONTRIBUTING](CONTRIBUTING.md) |
 
 <!-- LEADERBOARD:START -->

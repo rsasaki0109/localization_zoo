@@ -41,6 +41,21 @@ python3 evaluation/scripts/verify_environment.py
 
 Expects a built `build/evaluation/pcd_dogfooding`, the `experiments/` tree, and common Python deps (`numpy`, `matplotlib`) for trajectory scripts.
 
+## Sensor setup before an experiment
+
+Inspect a few scans before selecting frame and range-image settings:
+
+```bash
+python3 evaluation/scripts/check_scan_frame.py scan_0.bin scan_1.bin scan_2.bin --json-output setup.json
+```
+
+The tool preserves intensity, distinguishes supplied extrinsics from frame
+estimates/assumptions, and prints sensor-geometry flag candidates without
+applying them. It supports ASCII/binary PCD, KITTI XYZI and explicit
+`--format nclt` input. Uneven beam layouts do not require a single spacing.
+See the [guide and validation status](../docs/sensor_setup_assistant.md),
+including the pending NCLT real-data check and inference limits.
+
 ## Layout
 
 | Path | Role |

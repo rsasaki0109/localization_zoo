@@ -1,0 +1,16 @@
+Sensor frame: assumed_identity [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+Rows: 64 (ordered_azimuth_turns)
+FOV: {'observed_deg': [-24.14014472967539, 3.072906394167614], 'candidate_up_deg': 2.0, 'candidate_down_deg': -24.9, 'source': 'hdl64e_nominal'}
+Intensity: {'status': 'observed', 'valid_points': 373751, 'min': 0.0, 'max': 0.9900000095367432, 'range_hint': '0..1'}
+Returns within 5 m: {'radius_m': 5.0, 'fraction': 0.06354765605978312, 'frame': 'sensor', 'note': 'Proximity is a diagnostic; --input-min-range-m 5 is opt-in and is not recommended from this fraction alone.'}
+Ground: {'height_m': 1.7552897361091222, 'surface': {'z_m': -1.7552897361091222, 'point_fraction': 0.29261140013985654, 'azimuth_sectors': 12}, 'note': 'Ground height is geometric evidence; paper ground-start thresholds still need confirmation.'}
+suma: --input-sensor-pose 0 0 0 0 0 0 --suma-paper-set fov_up_deg=2 --suma-paper-set fov_down_deg=24.9 --suma-paper-set height=64
+inten_loam: --input-sensor-pose 0 0 0 0 0 0 --inten-loam-paper-set theta_up_deg=2 --inten-loam-paper-set theta_down_deg=24.9 --inten-loam-paper-set height=64
+elo: --input-sensor-pose 0 0 0 0 0 0 --elo-fov 2 -24.9 --elo-sri-height 64 --elo-sensor-height 1.8
+dilo: --input-sensor-pose 0 0 0 0 0 0 --dilo-paper-top-elevation 2 --dilo-paper-height 192 --dilo-paper-max-fill-gap 4
+Note: No estimator settings are applied automatically. Confirm candidates before use.
+Note: Scans alone do not establish x/y translation, yaw, or general roll/pitch extrinsics.
+Note: A sensor-model match supplies nominal beam count/FOV; it is a candidate, not sensor identification.
+Note: Uneven HDL-64E beams do not establish the origin by one-spacing periodicity. Identity is an explicit assumption; supply extrinsics for body-frame data.
+Note: Method flags are sensor-geometry overrides; add the intended paper/profile flag separately and preserve its tuned parameters.
+Note: The InTEn-LOAM paper runner already scales 0..255 intensity to 0..1; no intensity conversion flag is needed.

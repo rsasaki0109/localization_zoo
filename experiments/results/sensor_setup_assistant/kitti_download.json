@@ -1,0 +1,24 @@
+{
+  "url": "https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip",
+  "source_script": "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+  "frames": [
+    {
+      "path": "/workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000000.bin",
+      "archive_entry": "dataset/sequences/00/velodyne/000000.bin",
+      "bytes": 1994688,
+      "sha256": "bf272996d5b6d25cc5589e1089137cb20a98b63bd4823a7fea5631b359f6d68c"
+    },
+    {
+      "path": "/workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000001.bin",
+      "archive_entry": "dataset/sequences/00/velodyne/000001.bin",
+      "bytes": 1993680,
+      "sha256": "d937cb1bc1ce9ca4e03ccaf69b7537e175c625ecef631b6d668b96aee002faa8"
+    },
+    {
+      "path": "/workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000002.bin",
+      "archive_entry": "dataset/sequences/00/velodyne/000002.bin",
+      "bytes": 1991648,
+      "sha256": "35ff6de88522818c44984113a3cbf9663e36dae8ae5d0f13f3dfb3bd389d15f2"
+    }
+  ]
+}

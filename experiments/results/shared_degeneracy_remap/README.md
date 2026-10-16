@@ -67,6 +67,9 @@ of the existing audit cells to match their committed selected aggregates,
 supplementing the audit CLI's RPE, ATE and frame-count checks.
 [The partial execution receipt](checks/reporting_official_metrics/command.json)
 records this check against the completed sequences.
+Both `table.md` and `diagnostics.md` are rendered from the report rows for use
+in the method README. [The table-generation execution](checks/reporting_tables/command.json)
+and its partial outputs retain the input snapshot, commands and checked exit.
 
 [`plot_sequence.py`](plot_sequence.py) plots saved full-sequence poses from one
 committed snapshot. The [01 trace](plots/01/trace.png),

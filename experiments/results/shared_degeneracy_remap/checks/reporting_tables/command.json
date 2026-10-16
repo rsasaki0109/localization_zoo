@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "experiments/results/shared_degeneracy_remap/summarize_results.py",
+    "--allow-partial",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/checks/reporting_tables/report"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792194300.8033519,
+  "finished_unix": 1792194302.1555982,
+  "expected_exit_code": 0,
+  "actual_exit_code": 0
+}

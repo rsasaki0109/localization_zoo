@@ -67,6 +67,7 @@ def main():
         assert candidate_diag['parameters']==control_diag['parameters']=={
             'block_frames':100,'min_step_m':0.1,'relative_step_threshold':0.2}
         assert candidate_diag['frames']==control_diag['frames']==candidate['frames']
+        assert candidate_diag['moving_step_count']==control_diag['moving_step_count']
         for data,diag in ((candidate,candidate_diag),(control,control_diag)):
             assert abs(data['kitti_rte_trans_pct']-diag['official_metrics_from_saved_poses']['kitti_rte_trans_pct'])<=0.001
         audit=read(folder/'audit/report.json')
@@ -141,6 +142,21 @@ def main():
            '|---|---:|---:|---:|---:|']
     table += [f"| {r['sequence']} | {r['control_rte_pct']:.6f} | {r['candidate_rte_pct']:.6f} | {r['control_ate_m']:.6f} | {r['candidate_ate_m']:.6f} |" for r in rows]
     (args.output_dir/'table.md').write_text('\n'.join(table)+'\n')
+    diagnostics=['| Seq | Remap path / GT | Raw bad length steps | Remap bad length steps | Largest growth pose interval | GT travel [m] | Position-error increase [m] |',
+                 '|---|---:|---:|---:|---|---:|---:|']
+    for row in rows:
+        growing=row['candidate_largest_error_growth_blocks']
+        block=growing[0] if growing else None
+        interval=f"{block['first_pose_frame']}-{block['last_pose_frame']}" if block else '-'
+        distance=f"{block['gt_distance_m']:.3f}" if block else '-'
+        increase=f"{block['position_error_increase_m']:.3f}" if block else '-'
+        moving=row['candidate_moving_steps']
+        diagnostics.append(f"| {row['sequence']} | {row['candidate_path_length_ratio']:.6f} | {row['control_bad_length_steps']}/{moving} | {row['candidate_bad_length_steps']}/{moving} | {interval} | {distance} | {increase} |")
+    diagnostics+=['','Bad length steps use GT motion at least 0.1 m and length error above 20%.',
+      'Pose intervals use zero-based indices and the nonoverlapping blocks from block_frames=100.',
+      'Growth is the positive end-minus-start pointwise position-error change, with no pose refit or rescaling.',
+      'These saved-pose diagnostics are distinct from official KITTI RTE and do not establish a solver-level cause.']
+    (args.output_dir/'diagnostics.md').write_text('\n'.join(diagnostics)+'\n')
     print(json.dumps({'complete':not missing,'completed_sequences':[r['sequence'] for r in rows],
                       'missing_sequences':missing,'worse_sequences':payload['worse_sequences']}))
     return 0

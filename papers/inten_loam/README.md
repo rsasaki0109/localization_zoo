@@ -491,9 +491,6 @@ allocation and OpenMP wrapper. Nonfinite index data use the PCL path. KD-trees
 used only to hold points for rendering
 or spline construction are omitted; their point data are retained. Feature
 counts, gates, S2S/S2M iterations, TVF and DOR settings are unchanged.
-Where the OpenMP runtime supports soft resource pause, idle workers are paused
-before serial clustering/intensity/map work and after each solve. This optional
-runtime optimization keeps the worker count and numerical reduction order.
 
 The initial candidate (`fe607199`) took 18.661 s against 45.685 s for the
 frozen baseline on the first 120 KITTI 07 frames (**2.45x**). The changed
@@ -502,6 +499,15 @@ exactly. This development-window attempt falls short of the speed target; it
 is not a full-sequence claim. Raw evidence and exact commands were committed in
 `8fe732a7` under
 [`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
+
+A later soft-pause scheduling candidate (`fe03ed88`) took 26.305 s against
+35.078 s for its frozen control (**1.33x**); the changed default took 32.961 s.
+Saved poses still matched. It did not improve on the earlier screening result,
+so the soft-pause calls are removed. These single-window timings vary with the
+host; final speed ratios use a fresh full control immediately before each
+accelerated run. The rejected candidate's raw screening was committed in
+`21935329` under
+[`candidates/fe03ed88/`](../../experiments/results/paper_pipeline_speed/candidates/fe03ed88/).
 
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 record the development on KITTI 07. Paired full-sequence timing and accuracy

@@ -1,0 +1,10 @@
+{
+  "kitti_sample_validated": true,
+  "identity_explicitly_assumed": true,
+  "nominal_fov_separate_from_observed": true,
+  "historical_aggregates_unchanged": 688,
+  "paper_reference_data_unchanged": true,
+  "all_latest_checks_succeeded": true,
+  "nclt_real_data_validation": "pending_approved_host_configuration",
+  "estimator_source_and_defaults_unchanged": true
+}

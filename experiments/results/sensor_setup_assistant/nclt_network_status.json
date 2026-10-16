@@ -14,5 +14,10 @@
   ],
   "user_approved_host_addition": true,
   "configuration_applied": false,
-  "nclt_fetch_script_status": "Prepared; not executed because approved host is absent. Bounds3 entries/16MiB compressed prefix."
+  "nclt_fetch_script_status": "Prepared; not executed because approved host is absent. Bounds3 entries/16MiB compressed prefix.",
+  "probe_command": [
+    "python3",
+    "-c",
+    "import urllib.request,urllib.error\nurl='https://s3.us-east-2.amazonaws.com/nclt.perl.engin.umich.edu/velodyne_data/2013-01-10_vel.tar.gz'\ntry:\n with urllib.request.urlopen(urllib.request.Request(url,method='HEAD'),timeout=25) as r: print({'url':url,'status':r.status,'content_length':r.headers.get('Content-Length'),'accept_ranges':r.headers.get('Accept-Ranges')})\nexcept urllib.error.HTTPError as e:print({'url':url,'status':e.code,'body':e.read(1200).decode(errors='replace')})\n"
+  ]
 }

@@ -192,6 +192,14 @@ independent. Each item says what "done" means.
      +2 / -24.9 deg). The HDL-64E's two beam blocks defeat the periodicity
      score; handle unevenly spaced sensors (for example from the elevation
      histogram's extent instead).
+   - Implemented: intensity-preserving readers, row/coverage evidence,
+     explicit frame confidence and per-method sensor flag candidates;
+     [usage and limits](sensor_setup_assistant.md).
+   - Unit tests and KITTI 00 sample validation pass. **NCLT real-data
+     validation is still pending**: the official download host is not yet
+     in the environment's enforced allowlist, despite approval to add it.
+     Synthetic inverted/translated-beam tests do not close that check.
+     [Commands and reports](../experiments/results/sensor_setup_assistant/README.md).
 5. **Speed of the paper pipelines.** Mesh-LOAM (0.3-1.2 FPS), IMLS-SLAM
    (0.3-1.1 FPS) and InTEn-LOAM (1.6-2.4 FPS) are too slow for routine
    full-sequence runs.

@@ -1,0 +1,8 @@
+Internal ctest changing into directory: /workspace/localization_zoo/build
+Test project /workspace/localization_zoo/build
+    Start 123: test_paper_python_bindings
+1/1 Test #123: test_paper_python_bindings .......   Passed    8.66 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   8.68 sec

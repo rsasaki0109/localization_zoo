@@ -1,0 +1,18 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "98c2f56f",
+    "--",
+    "python/src",
+    "python/CMakeLists.txt",
+    "common",
+    "papers/*/src",
+    "papers/*/include",
+    "papers/*/test",
+    "papers/*/CMakeLists.txt"
+  ],
+  "exit_code": 0,
+  "synthetic_generator_sha256": "aa7e5dad2f529c513cdf9dd14cd4037c5bfcb66afc92f58682cb184311249467"
+}

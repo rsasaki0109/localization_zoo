@@ -1,0 +1,9 @@
+{
+  "controller_pid": 29523,
+  "signal": "SIGSTOP",
+  "time_unix": 1792170503.0133548,
+  "reason": "Allow active Python/docs checks to finish before the controller can start short-window timing; active CTest child continues.",
+  "resume_signal": "SIGCONT",
+  "resumed_unix": 1792170565.572168,
+  "python_docs_checks_exit_code": 0
+}

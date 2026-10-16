@@ -1,0 +1,10 @@
+{
+  "mesh_loam": {
+    "control_time_ms": 117876.89074,
+    "default_time_ms": 105839.853842,
+    "accelerated_time_ms": 168128.331809,
+    "short_speedup": 0.701112593408186,
+    "default_pose_max_abs_difference": 0.0,
+    "accelerated_pose_max_abs_difference": 0.0
+  }
+}

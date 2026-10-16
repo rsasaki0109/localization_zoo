@@ -1,0 +1,7 @@
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/fetch_kitti_odometry_sequences.py --output-root /workspace/localization-env/kitti-remaining-coverage --sequence 01
+Reading remote ZIP directory: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip
+KITTI 01: 1101 frames, 1.73 GiB
+KITTI 01: extracted=1101, reused=0, path=/workspace/localization-env/kitti-remaining-coverage/dataset/sequences/01/velodyne
+
+[exit_code] 0

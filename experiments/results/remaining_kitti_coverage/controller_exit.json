@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-u",
+    "/workspace/localization-env/run_remaining_kitti_coverage.py"
+  ],
+  "stdout_log": "/workspace/localization-env/remaining-kitti-coverage-results/controller_stdout.log",
+  "started_unix": 1792105618.164826,
+  "exit_code": 0,
+  "pid": 14304,
+  "finished_unix": 1792156680.56764
+}

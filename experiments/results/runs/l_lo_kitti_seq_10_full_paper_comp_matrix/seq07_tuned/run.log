@@ -1,0 +1,146 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1201
+GT poses: 1201
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 919.4 m
+Running L-LO...
+
+  [L-LO] 0/1201 clusters=51 matches=0
+  [L-LO] 10/1201 clusters=55 matches=37
+  [L-LO] 20/1201 clusters=54 matches=45
+  [L-LO] 30/1201 clusters=48 matches=35
+  [L-LO] 40/1201 clusters=49 matches=31
+  [L-LO] 50/1201 clusters=38 matches=28
+  [L-LO] 60/1201 clusters=35 matches=20
+  [L-LO] 70/1201 clusters=51 matches=37
+  [L-LO] 80/1201 clusters=51 matches=33
+  [L-LO] 90/1201 clusters=52 matches=31
+  [L-LO] 100/1201 clusters=69 matches=46
+  [L-LO] 110/1201 clusters=53 matches=33
+  [L-LO] 120/1201 clusters=29 matches=22
+  [L-LO] 130/1201 clusters=26 matches=19
+  [L-LO] 140/1201 clusters=19 matches=15
+  [L-LO] 150/1201 clusters=24 matches=20
+  [L-LO] 160/1201 clusters=16 matches=10
+  [L-LO] 170/1201 clusters=22 matches=15
+  [L-LO] 180/1201 clusters=17 matches=7
+  [L-LO] 190/1201 clusters=8 matches=6
+  [L-LO] 200/1201 clusters=15 matches=10
+  [L-LO] 210/1201 clusters=17 matches=12
+  [L-LO] 220/1201 clusters=15 matches=9
+  [L-LO] 230/1201 clusters=21 matches=11
+  [L-LO] 240/1201 clusters=27 matches=21
+  [L-LO] 250/1201 clusters=33 matches=21
+  [L-LO] 260/1201 clusters=41 matches=28
+  [L-LO] 270/1201 clusters=45 matches=34
+  [L-LO] 280/1201 clusters=48 matches=34
+  [L-LO] 290/1201 clusters=41 matches=28
+  [L-LO] 300/1201 clusters=52 matches=45
+  [L-LO] 310/1201 clusters=29 matches=23
+  [L-LO] 320/1201 clusters=27 matches=22
+  [L-LO] 330/1201 clusters=26 matches=16
+  [L-LO] 340/1201 clusters=29 matches=22
+  [L-LO] 350/1201 clusters=35 matches=26
+  [L-LO] 360/1201 clusters=42 matches=30
+  [L-LO] 370/1201 clusters=45 matches=35
+  [L-LO] 380/1201 clusters=51 matches=35
+  [L-LO] 390/1201 clusters=42 matches=33
+  [L-LO] 400/1201 clusters=57 matches=45
+  [L-LO] 410/1201 clusters=52 matches=43
+  [L-LO] 420/1201 clusters=41 matches=33
+  [L-LO] 430/1201 clusters=37 matches=28
+  [L-LO] 440/1201 clusters=42 matches=33
+  [L-LO] 450/1201 clusters=35 matches=23
+  [L-LO] 460/1201 clusters=36 matches=27
+  [L-LO] 470/1201 clusters=41 matches=28
+  [L-LO] 480/1201 clusters=33 matches=27
+  [L-LO] 490/1201 clusters=39 matches=25
+  [L-LO] 500/1201 clusters=27 matches=16
+  [L-LO] 510/1201 clusters=21 matches=16
+  [L-LO] 520/1201 clusters=23 matches=15
+  [L-LO] 530/1201 clusters=20 matches=15
+  [L-LO] 540/1201 clusters=24 matches=18
+  [L-LO] 550/1201 clusters=24 matches=17
+  [L-LO] 560/1201 clusters=15 matches=10
+  [L-LO] 570/1201 clusters=25 matches=17
+  [L-LO] 580/1201 clusters=19 matches=13
+  [L-LO] 590/1201 clusters=17 matches=15
+  [L-LO] 600/1201 clusters=18 matches=14
+  [L-LO] 610/1201 clusters=37 matches=25
+  [L-LO] 620/1201 clusters=47 matches=34
+  [L-LO] 630/1201 clusters=51 matches=33
+  [L-LO] 640/1201 clusters=52 matches=46
+  [L-LO] 650/1201 clusters=55 matches=38
+  [L-LO] 660/1201 clusters=51 matches=43
+  [L-LO] 670/1201 clusters=55 matches=43
+  [L-LO] 680/1201 clusters=48 matches=34
+  [L-LO] 690/1201 clusters=39 matches=30
+  [L-LO] 700/1201 clusters=50 matches=32
+  [L-LO] 710/1201 clusters=63 matches=50
+  [L-LO] 720/1201 clusters=71 matches=46
+  [L-LO] 730/1201 clusters=56 matches=44
+  [L-LO] 740/1201 clusters=45 matches=34
+  [L-LO] 750/1201 clusters=34 matches=22
+  [L-LO] 760/1201 clusters=33 matches=26
+  [L-LO] 770/1201 clusters=21 matches=20
+  [L-LO] 780/1201 clusters=22 matches=19
+  [L-LO] 790/1201 clusters=21 matches=15
+  [L-LO] 800/1201 clusters=22 matches=18
+  [L-LO] 810/1201 clusters=24 matches=18
+  [L-LO] 820/1201 clusters=38 matches=25
+  [L-LO] 830/1201 clusters=49 matches=32
+  [L-LO] 840/1201 clusters=53 matches=39
+  [L-LO] 850/1201 clusters=48 matches=35
+  [L-LO] 860/1201 clusters=47 matches=37
+  [L-LO] 870/1201 clusters=50 matches=36
+  [L-LO] 880/1201 clusters=44 matches=31
+  [L-LO] 890/1201 clusters=37 matches=29
+  [L-LO] 900/1201 clusters=40 matches=25
+  [L-LO] 910/1201 clusters=22 matches=14
+  [L-LO] 920/1201 clusters=19 matches=12
+  [L-LO] 930/1201 clusters=24 matches=18
+  [L-LO] 940/1201 clusters=25 matches=20
+  [L-LO] 950/1201 clusters=33 matches=18
+  [L-LO] 960/1201 clusters=25 matches=23
+  [L-LO] 970/1201 clusters=33 matches=23
+  [L-LO] 980/1201 clusters=23 matches=23
+  [L-LO] 990/1201 clusters=31 matches=24
+  [L-LO] 1000/1201 clusters=34 matches=26
+  [L-LO] 1010/1201 clusters=40 matches=33
+  [L-LO] 1020/1201 clusters=33 matches=23
+  [L-LO] 1030/1201 clusters=37 matches=28
+  [L-LO] 1040/1201 clusters=33 matches=23
+  [L-LO] 1050/1201 clusters=35 matches=26
+  [L-LO] 1060/1201 clusters=40 matches=28
+  [L-LO] 1070/1201 clusters=30 matches=25
+  [L-LO] 1080/1201 clusters=27 matches=19
+  [L-LO] 1090/1201 clusters=35 matches=27
+  [L-LO] 1100/1201 clusters=29 matches=22
+  [L-LO] 1110/1201 clusters=26 matches=18
+  [L-LO] 1120/1201 clusters=28 matches=24
+  [L-LO] 1130/1201 clusters=32 matches=26
+  [L-LO] 1140/1201 clusters=35 matches=27
+  [L-LO] 1150/1201 clusters=37 matches=30
+  [L-LO] 1160/1201 clusters=32 matches=29
+  [L-LO] 1170/1201 clusters=36 matches=33
+  [L-LO] 1180/1201 clusters=29 matches=26
+  [L-LO] 1190/1201 clusters=32 matches=25
+  [L-LO] 1200/1201 clusters=32 matches=20
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+L-LO                    ok          8.632       3.430          1201        917832.5       1.3         
+
+Notes:
+- L-LO: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.2883 frames_below_3_matches=0/1200
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_10_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_10_full_evaluation_manifest.json)

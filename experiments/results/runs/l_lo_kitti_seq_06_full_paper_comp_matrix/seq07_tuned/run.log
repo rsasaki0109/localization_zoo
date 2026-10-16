@@ -1,0 +1,136 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 1232.7 m
+Running L-LO...
+
+  [L-LO] 0/1101 clusters=93 matches=0
+  [L-LO] 10/1101 clusters=78 matches=59
+  [L-LO] 20/1101 clusters=81 matches=54
+  [L-LO] 30/1101 clusters=76 matches=58
+  [L-LO] 40/1101 clusters=88 matches=64
+  [L-LO] 50/1101 clusters=82 matches=66
+  [L-LO] 60/1101 clusters=78 matches=49
+  [L-LO] 70/1101 clusters=73 matches=58
+  [L-LO] 80/1101 clusters=80 matches=56
+  [L-LO] 90/1101 clusters=94 matches=75
+  [L-LO] 100/1101 clusters=88 matches=71
+  [L-LO] 110/1101 clusters=70 matches=56
+  [L-LO] 120/1101 clusters=66 matches=49
+  [L-LO] 130/1101 clusters=75 matches=54
+  [L-LO] 140/1101 clusters=78 matches=59
+  [L-LO] 150/1101 clusters=79 matches=65
+  [L-LO] 160/1101 clusters=80 matches=61
+  [L-LO] 170/1101 clusters=83 matches=64
+  [L-LO] 180/1101 clusters=90 matches=65
+  [L-LO] 190/1101 clusters=87 matches=65
+  [L-LO] 200/1101 clusters=82 matches=66
+  [L-LO] 210/1101 clusters=78 matches=60
+  [L-LO] 220/1101 clusters=83 matches=53
+  [L-LO] 230/1101 clusters=57 matches=45
+  [L-LO] 240/1101 clusters=57 matches=39
+  [L-LO] 250/1101 clusters=51 matches=37
+  [L-LO] 260/1101 clusters=55 matches=41
+  [L-LO] 270/1101 clusters=56 matches=43
+  [L-LO] 280/1101 clusters=65 matches=49
+  [L-LO] 290/1101 clusters=67 matches=53
+  [L-LO] 300/1101 clusters=67 matches=52
+  [L-LO] 310/1101 clusters=68 matches=52
+  [L-LO] 320/1101 clusters=63 matches=42
+  [L-LO] 330/1101 clusters=68 matches=44
+  [L-LO] 340/1101 clusters=58 matches=42
+  [L-LO] 350/1101 clusters=60 matches=50
+  [L-LO] 360/1101 clusters=62 matches=51
+  [L-LO] 370/1101 clusters=69 matches=56
+  [L-LO] 380/1101 clusters=79 matches=64
+  [L-LO] 390/1101 clusters=79 matches=58
+  [L-LO] 400/1101 clusters=73 matches=59
+  [L-LO] 410/1101 clusters=58 matches=49
+  [L-LO] 420/1101 clusters=60 matches=45
+  [L-LO] 430/1101 clusters=64 matches=42
+  [L-LO] 440/1101 clusters=59 matches=40
+  [L-LO] 450/1101 clusters=68 matches=48
+  [L-LO] 460/1101 clusters=78 matches=60
+  [L-LO] 470/1101 clusters=84 matches=73
+  [L-LO] 480/1101 clusters=87 matches=69
+  [L-LO] 490/1101 clusters=85 matches=57
+  [L-LO] 500/1101 clusters=91 matches=62
+  [L-LO] 510/1101 clusters=83 matches=61
+  [L-LO] 520/1101 clusters=70 matches=46
+  [L-LO] 530/1101 clusters=63 matches=52
+  [L-LO] 540/1101 clusters=70 matches=61
+  [L-LO] 550/1101 clusters=77 matches=58
+  [L-LO] 560/1101 clusters=83 matches=58
+  [L-LO] 570/1101 clusters=76 matches=59
+  [L-LO] 580/1101 clusters=64 matches=53
+  [L-LO] 590/1101 clusters=65 matches=54
+  [L-LO] 600/1101 clusters=75 matches=61
+  [L-LO] 610/1101 clusters=72 matches=49
+  [L-LO] 620/1101 clusters=69 matches=57
+  [L-LO] 630/1101 clusters=75 matches=53
+  [L-LO] 640/1101 clusters=73 matches=52
+  [L-LO] 650/1101 clusters=68 matches=47
+  [L-LO] 660/1101 clusters=62 matches=50
+  [L-LO] 670/1101 clusters=68 matches=51
+  [L-LO] 680/1101 clusters=70 matches=57
+  [L-LO] 690/1101 clusters=83 matches=54
+  [L-LO] 700/1101 clusters=80 matches=59
+  [L-LO] 710/1101 clusters=78 matches=53
+  [L-LO] 720/1101 clusters=67 matches=51
+  [L-LO] 730/1101 clusters=77 matches=53
+  [L-LO] 740/1101 clusters=67 matches=45
+  [L-LO] 750/1101 clusters=67 matches=50
+  [L-LO] 760/1101 clusters=88 matches=71
+  [L-LO] 770/1101 clusters=71 matches=52
+  [L-LO] 780/1101 clusters=65 matches=53
+  [L-LO] 790/1101 clusters=75 matches=59
+  [L-LO] 800/1101 clusters=71 matches=55
+  [L-LO] 810/1101 clusters=60 matches=55
+  [L-LO] 820/1101 clusters=76 matches=56
+  [L-LO] 830/1101 clusters=74 matches=56
+  [L-LO] 840/1101 clusters=88 matches=61
+  [L-LO] 850/1101 clusters=79 matches=55
+  [L-LO] 860/1101 clusters=77 matches=56
+  [L-LO] 870/1101 clusters=85 matches=65
+  [L-LO] 880/1101 clusters=67 matches=52
+  [L-LO] 890/1101 clusters=76 matches=53
+  [L-LO] 900/1101 clusters=75 matches=52
+  [L-LO] 910/1101 clusters=79 matches=59
+  [L-LO] 920/1101 clusters=97 matches=71
+  [L-LO] 930/1101 clusters=92 matches=77
+  [L-LO] 940/1101 clusters=66 matches=51
+  [L-LO] 950/1101 clusters=61 matches=39
+  [L-LO] 960/1101 clusters=75 matches=53
+  [L-LO] 970/1101 clusters=80 matches=58
+  [L-LO] 980/1101 clusters=82 matches=60
+  [L-LO] 990/1101 clusters=74 matches=53
+  [L-LO] 1000/1101 clusters=94 matches=66
+  [L-LO] 1010/1101 clusters=88 matches=64
+  [L-LO] 1020/1101 clusters=87 matches=64
+  [L-LO] 1030/1101 clusters=73 matches=61
+  [L-LO] 1040/1101 clusters=79 matches=54
+  [L-LO] 1050/1101 clusters=57 matches=42
+  [L-LO] 1060/1101 clusters=52 matches=33
+  [L-LO] 1070/1101 clusters=56 matches=43
+  [L-LO] 1080/1101 clusters=47 matches=35
+  [L-LO] 1090/1101 clusters=66 matches=46
+  [L-LO] 1100/1101 clusters=87 matches=59
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+L-LO                    ok          5.791       1.649          1101        337861.9       3.3         
+
+Notes:
+- L-LO: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=54.5791 frames_below_3_matches=0/1100
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_06_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_06_full_evaluation_manifest.json)

@@ -1,0 +1,55 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running Quadric-LO...
+  source_voxel_size=0.3 voxel_size=0.8 quadric_min_neighbors=14 plane_fallback=1 quadric_weight=1.0
+
+  [Quadric-LO] 0/271 voxels=4491
+  [Quadric-LO] 10/271 voxels=14632
+  [Quadric-LO] 20/271 voxels=19612
+  [Quadric-LO] 30/271 voxels=22353
+  [Quadric-LO] 40/271 voxels=24353
+  [Quadric-LO] 50/271 voxels=24083
+  [Quadric-LO] 60/271 voxels=21816
+  [Quadric-LO] 70/271 voxels=22399
+  [Quadric-LO] 80/271 voxels=21195
+  [Quadric-LO] 90/271 voxels=19591
+  [Quadric-LO] 100/271 voxels=19139
+  [Quadric-LO] 110/271 voxels=17254
+  [Quadric-LO] 120/271 voxels=16441
+  [Quadric-LO] 130/271 voxels=16940
+  [Quadric-LO] 140/271 voxels=16208
+  [Quadric-LO] 150/271 voxels=15592
+  [Quadric-LO] 160/271 voxels=16252
+  [Quadric-LO] 170/271 voxels=15780
+  [Quadric-LO] 180/271 voxels=15507
+  [Quadric-LO] 190/271 voxels=17251
+  [Quadric-LO] 200/271 voxels=16615
+  [Quadric-LO] 210/271 voxels=16781
+  [Quadric-LO] 220/271 voxels=19704
+  [Quadric-LO] 230/271 voxels=21981
+  [Quadric-LO] 240/271 voxels=23818
+  [Quadric-LO] 250/271 voxels=26571
+  [Quadric-LO] 260/271 voxels=26389
+  [Quadric-LO] 270/271 voxels=25221
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+Quadric-LO              ok          1.875       0.516          271         626578.9       0.4         
+
+Notes:
+- Quadric-LO: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3418/57 plane_fallback_ratio=0.0163
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

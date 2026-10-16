@@ -1,0 +1,10 @@
+{
+  "sequence": "09",
+  "method": "lf_gicp",
+  "label": "LF-GICP",
+  "variant": "paper_default",
+  "frames": 1591,
+  "kitti_rte_trans_pct": 0.724575,
+  "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/lf_gicp/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default",
+  "finished_unix": 1792147131.3897111
+}

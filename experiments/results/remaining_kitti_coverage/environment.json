@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "host": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cores": 5,
+    "memory_gib": 17.6,
+    "gpu": "none detected",
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.18.44",
+    "architecture": "x86_64",
+    "tools": {
+      "C++ compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+      "CMake": "cmake version 3.22.1",
+      "Python": "3.10.12"
+    },
+    "libraries": {
+      "Eigen": "3.4.0",
+      "PCL": "1.12.1",
+      "Ceres Solver": "2.0.0+dfsg1-5",
+      "glog": "0.4.0",
+      "GoogleTest": "1.11.0",
+      "OpenCV": "4.5.4"
+    }
+  },
+  "evaluator_git_commit": "5d817b5ada87f61dcbbf3299fd3d055c035f3d62",
+  "binary_sha256": "a75d8c5b42e8b021ba3afbe63708a2bca26b776253d100acdda94c87f179b0e2",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "verified_build_flags": {
+    "CMAKE_BUILD_TYPE": "Release",
+    "CMAKE_CXX_FLAGS": "",
+    "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+    "OpenMP_CXX_FLAGS": "-fopenmp"
+  },
+  "capture_host_command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-w",
+    "/workspace/localization_zoo",
+    "localization-zoo-dev",
+    "/opt/localization-venv/bin/python",
+    "-c",
+    "import sys,json;sys.path.insert(0,'evaluation/scripts');from capture_benchmark_environment import capture_host;print(json.dumps(capture_host()))"
+  ],
+  "capture_host_exit_code": 0,
+  "build_commands": "build_commands.json",
+  "max_parallel_methods": 4,
+  "overlap_policy": "Methods may overlap only within the same sequence; each has an isolated output working directory. FPS includes overlap and is not a controlled comparison with historical hosts."
+}

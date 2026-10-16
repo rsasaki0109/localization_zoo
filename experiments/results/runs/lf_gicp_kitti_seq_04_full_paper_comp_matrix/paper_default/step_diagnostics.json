@@ -1,0 +1,85 @@
+{
+  "frames": 271,
+  "official_metrics_from_saved_poses": {
+    "frames": 271,
+    "reference_frames": 271,
+    "tracking_success_rate": 1.0,
+    "ate_m": 1.719360231673663,
+    "rpe_trans_pct": 0.4927333576849613,
+    "rpe_rot_deg_per_m": 0.005191565916117028,
+    "rpe_segments": 208,
+    "kitti_rte_trans_pct": 0.6288833505588105,
+    "kitti_rte_rot_deg_per_100m": 0.5140291642841058,
+    "kitti_rte_segments": 43,
+    "trajectory_length_m": 393.64527707635335
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 0.9982909888031565,
+  "moving_step_count": 270,
+  "step_length_ratio_median": 0.9986117478542993,
+  "steps_length_off_over_threshold": 0,
+  "steps_vector_off_over_threshold": 0,
+  "bad_length_step_frame_ranges": [],
+  "bad_vector_step_frame_ranges": [],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 137.18298063486523,
+      "path_length_ratio": 0.997856550237194,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9968079711811347,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 0.6522529645126522,
+      "block_relative_translation_error_pct": 0.4754620154851683,
+      "block_relative_rotation_error_deg_per_100m": 0.4387970072708452
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 144.36863004693618,
+      "path_length_ratio": 0.9988559308709014,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9996959504200769,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.6522529645126522,
+      "position_error_end_m": 1.9732576132157564,
+      "block_relative_translation_error_pct": 0.5191667630686851,
+      "block_relative_rotation_error_deg_per_100m": 0.5454698346656723
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 270,
+      "gt_distance_m": 112.09366640246202,
+      "path_length_ratio": 0.9980950603827589,
+      "moving_step_count": 70,
+      "step_length_ratio_median": 0.9988251988893118,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 1.9732576132157564,
+      "position_error_end_m": 3.9481900827513474,
+      "block_relative_translation_error_pct": 0.579886812715557,
+      "block_relative_rotation_error_deg_per_100m": 0.3144062701556741
+    }
+  ],
+  "benchmark_summary": "experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/summary.json",
+  "benchmark_method": "LF-GICP",
+  "schema_version": 1,
+  "command": "python3 evaluation/scripts/diagnose_kitti_steps.py --estimate experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/trajectory_kitti.txt --gt experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/evaluated_gt_kitti.txt --summary experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/summary.json --method LF-GICP --output experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/step_diagnostics.json",
+  "estimate_path": "experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/trajectory_kitti.txt",
+  "gt_path": "experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/evaluated_gt_kitti.txt"
+}

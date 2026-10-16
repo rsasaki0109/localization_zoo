@@ -1,0 +1,6 @@
+{
+  "path": "/workspace/localization-env/remaining-kitti-workdirs/lf_gicp/launch.sh",
+  "content": "#!/bin/sh\nset -eu\ncd /workspace/localization-env/remaining-kitti-workdirs/lf_gicp\nexec /workspace/localization_zoo/build/evaluation/pcd_dogfooding \"$@\"\n",
+  "working_directory": "/workspace/localization-env/remaining-kitti-workdirs/lf_gicp",
+  "binary": "/workspace/localization_zoo/build/evaluation/pcd_dogfooding"
+}

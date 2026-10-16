@@ -1,0 +1,10 @@
+{
+  "sequence": "09",
+  "method": "quadric_lo",
+  "label": "Quadric-LO",
+  "variant": "dense_profile",
+  "frames": 1591,
+  "kitti_rte_trans_pct": 0.9328,
+  "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile",
+  "finished_unix": 1792152389.187872
+}

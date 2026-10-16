@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "/workspace/localization_zoo/dogfooding_results/kitti_seq_03_full",
+  "gt_csv": "/workspace/localization_zoo/experiments/reference_data/kitti_seq_03_full_gt.csv",
+  "gt_sha256": "f1ab14759dad481b763374be07d20337785c34a6b68d21a81a2f886b681080ab",
+  "input_max_range_m": 80,
+  "input_vertical_angle_correction_deg": 0,
+  "input_azimuth_time": false,
+  "total_pcd_frames": 801,
+  "num_frames": 801,
+  "raw_gt_pose_count": 801,
+  "used_gt_pose_count": 801,
+  "trajectory_length_m": 560.845147,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "5d817b5ada87f61dcbbf3299fd3d055c035f3d62",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_03_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_03_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 801,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 800.000000]
+  },
+  "gt": {
+    "source": "/workspace/localization_zoo/experiments/reference_data/kitti_seq_03_full_gt.csv",
+    "sha256": "f1ab14759dad481b763374be07d20337785c34a6b68d21a81a2f886b681080ab",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 801,
+    "raw_timestamp_range": [0.000000, 800.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 801,
+    "associated_gt_index_range": [0, 800],
+    "associated_gt_timestamp_range": [0.000000, 800.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "LF-GICP",
+      "status": "ok",
+      "ate_m": 5.074145,
+      "rpe_trans_pct": 0.644761,
+      "rpe_rot_deg_per_m": 0.005395,
+      "kitti_rte_trans_pct": 0.785354,
+      "kitti_rte_rot_deg_per_100m": 0.523409,
+      "frames": 801,
+      "time_ms": 236624.696189,
+      "fps": 3.385107,
+      "algorithm_time_ms": null,
+      "algorithm_fps": null,
+      "seed_fallback_rate_pct": null,
+      "note": "Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=403/801 median_f0=0.131267 median_lambda0=0.0140053"
+    }
+  ]
+}

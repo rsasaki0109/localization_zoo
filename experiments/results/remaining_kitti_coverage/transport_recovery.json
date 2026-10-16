@@ -1,0 +1,12 @@
+{
+  "observed_unix": 1792123541.3532326,
+  "error": "exec-server transport disconnected; recovery timed out after25s; numeric tool sessions are no longer reliable",
+  "observed_running_pids": {
+    "controller": 14304,
+    "observer": 14416,
+    "postprocess": 14659
+  },
+  "benchmark_restarted": false,
+  "postprocess_restarted": false,
+  "recovery": "Persistent command logs/exit receipts were retained; benchmarks and postprocessor continued. Recreate only the progress observer."
+}

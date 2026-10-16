@@ -1,0 +1,47 @@
+{
+  "sequence": "03",
+  "results": [
+    {
+      "sequence": "03",
+      "method": "aloam",
+      "label": "A-LOAM",
+      "variant": "kitti_default",
+      "frames": 801,
+      "kitti_rte_trans_pct": 0.9641,
+      "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/aloam/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default",
+      "finished_unix": 1792122027.4973478
+    },
+    {
+      "sequence": "03",
+      "method": "l_lo",
+      "label": "L-LO",
+      "variant": "seq07_tuned",
+      "frames": 801,
+      "kitti_rte_trans_pct": 3.065906,
+      "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/l_lo/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned",
+      "finished_unix": 1792121611.529398
+    },
+    {
+      "sequence": "03",
+      "method": "lf_gicp",
+      "label": "LF-GICP",
+      "variant": "paper_default",
+      "frames": 801,
+      "kitti_rte_trans_pct": 0.785354,
+      "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/lf_gicp/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default",
+      "finished_unix": 1792121564.7853785
+    },
+    {
+      "sequence": "03",
+      "method": "quadric_lo",
+      "label": "Quadric-LO",
+      "variant": "dense_profile",
+      "frames": 801,
+      "kitti_rte_trans_pct": 1.236253,
+      "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile",
+      "finished_unix": 1792123343.8566966
+    }
+  ],
+  "scans_deleted": true,
+  "finished_unix": 1792123344.1979237
+}

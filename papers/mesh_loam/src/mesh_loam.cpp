@@ -471,9 +471,13 @@ void MeshLoamPipeline::FacetBin::recomputeBounds() {
 }
 
 void MeshLoamPipeline::FacetBin::buildIndex() {
+  order.clear();
+  nodes.clear();
+  // Small bins are cheaper to scan directly; keep their legacy loop. The
+  // threshold changes only the search data structure, not the candidate set.
+  if (facets.size() < 32) return;
   order.resize(facets.size());
   std::iota(order.begin(), order.end(), 0u);
-  nodes.clear();
   nodes.reserve(facets.size() / 2 + 1);
   if (!facets.empty()) buildNode(0, static_cast<uint32_t>(facets.size()));
 }
@@ -1581,7 +1585,7 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
                                           .cwiseMax(rel - bin->hi.cast<double>())
                                           .cwiseMax(0.0);
           if (gap.squaredNorm() >= best) continue;
-          if (params_.accelerated) {
+          if (params_.accelerated && !bin->nodes.empty()) {
             const Facet* found = bin->nearest(rel, n_pt, cos_gate, &best, &best_rel);
             if (found) best_facet = found;
             continue;

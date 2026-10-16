@@ -7,8 +7,6 @@
 #include <chrono>
 #include <climits>
 #include <cmath>
-#include <numeric>
-#include <limits>
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -469,31 +467,6 @@ void MeshLoamPipeline::FacetBin::recomputeBounds() {
   hi = Eigen::Vector3f::Constant(-1e30f);
   max_rad = 0.0f;
   for (const Facet& f : facets) expand(f);
-}
-
-void MeshLoamPipeline::FacetBin::buildNormalBounds() {
-  normal_radius = std::numeric_limits<float>::infinity();
-  if (facets.empty()) return;
-  normal_ref = facets.front().n;
-  const Eigen::Vector3d ref = normal_ref.cast<double>();
-  double radius = 0.0;
-  for (const Facet& f : facets) {
-    Eigen::Vector3d n = f.n.cast<double>();
-    // Association uses |cos|, so both signs describe the same normal gate.
-    if (n.dot(ref) < 0.0) n = -n;
-    radius = std::max(radius, (n - ref).cwiseAbs().sum());
-  }
-  normal_radius = std::nextafter(static_cast<float>(radius),
-                                  std::numeric_limits<float>::infinity());
-}
-
-double MeshLoamPipeline::FacetBin::normalUpper(const Eigen::Vector3d& normal) const {
-  // Holder's inequality bounds every absolute dot in the bin, including
-  // normals with the opposite sign. Inflate for arithmetic rounding; the
-  // surviving facets still take the unchanged scalar float/double gates.
-  const double slack = 1e-12 * std::max(1.0, normal.cwiseAbs().sum());
-  return std::abs(normal_ref.cast<double>().dot(normal)) +
-         static_cast<double>(normal_radius) * normal.cwiseAbs().maxCoeff() + slack;
 }
 
 MeshLoamPipeline::MeshLoamPipeline(const MeshLoamParams& params) : params_(params) {
@@ -1176,7 +1149,6 @@ void MeshLoamPipeline::extractMesh() {
       } else {
         for (uint32_t m = s0; m < s1; ++m) fb.expand(bucketed[m]);
       }
-      if (params_.accelerated && params_.nearest_facet) fb.buildNormalBounds();
       delta_local += static_cast<long>(bin.size()) - static_cast<long>(before);
     }
     delta[static_cast<size_t>(threadId())] += delta_local;
@@ -1290,10 +1262,7 @@ void MeshLoamPipeline::pruneMap() {
     if (bin.empty()) {
       it = facet_bins_.erase(it);
     } else {
-      if (bin.size() != before) {
-        it->second.recomputeBounds();
-        if (params_.accelerated && params_.nearest_facet) it->second.buildNormalBounds();
-      }
+      if (bin.size() != before) it->second.recomputeBounds();
       ++it;
     }
   }
@@ -1323,7 +1292,6 @@ void MeshLoamPipeline::thawChunk(const Eigen::Vector3i& chunk) {
       ++num_facets_;
     }
     if (bin.facets.empty()) facet_bins_.erase(c.bins[i]);
-    else if (params_.accelerated && params_.nearest_facet) bin.buildNormalBounds();
   }
   frozen_.erase(it);
 }
@@ -1496,7 +1464,6 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
                                           .cwiseMax(rel - bin->hi.cast<double>())
                                           .cwiseMax(0.0);
           if (gap.squaredNorm() >= best) continue;
-          if (params_.accelerated && bin->normalUpper(n_pt) < cos_gate) continue;
           // Lower bounds of the point-triangle distance evaluated in float
           // with a margin above the float rounding (|rel| < 1 m), then the
           // exact gate and distance in double for the survivors.

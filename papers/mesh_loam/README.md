@@ -313,16 +313,20 @@ Recommended values for the paper path (runner flags `--mesh-loam-marching-cubes`
 accuracy runs. For `keep_mesh`, use `marching_cubes = true` and
 `mesh_freeze_radius = 100`.
 
-## Optional execution acceleration
+## Rejected acceleration experiments
 
-`--paper-pipeline-accelerated` enables a conservative normal bound per facet
-bin. This repository execution optimization is **off by default** and is not
-an additional processing step from the paper. A reference normal and an
-outward-rounded bound on the other normals reject bins whose facets cannot
-pass the original absolute-cosine gate. Surviving bins run the unchanged scalar
-facet loop, with the same order, gates and strict tie comparison. Bounds are
-rebuilt after extraction, pruning and thawing; there is no per-facet cache.
-The mesh, input sampling, search radius and registration iterations are unchanged.
+Mesh-LOAM retains its original implementation. `--paper-pipeline-accelerated`
+currently applies to the IMLS-SLAM and InTEn-LOAM paper paths. The Mesh tree,
+packet cache and bin-normal-bound candidates are excluded after the full
+normal-bound measurement was slower than its fresh control. Historical
+benchmark results and the original mesh mechanism tests are preserved.
+
+To reproduce the rejected normal-bound candidate, check out implementation
+`f47555735c94d43d6f8e1554ee7bf50be77ac159`, build its recorded Release target,
+and use the exact opt-in invocation in the linked result receipt. Its changed
+association code was opt-in and default off. The retained Mesh C++ sources
+match the frozen baseline; the experiment results below describe that recorded
+candidate rather than an enabled optimization in the current implementation.
 
 The rejected bounding-volume-tree candidate (`fe607199`) took 168128.332 ms
 against 117876.891 ms for the frozen baseline on the first 120 KITTI 07 frames:
@@ -336,13 +340,13 @@ The later packet-cache candidate (`fe03ed88`) took 76263.959 ms against
 66420.751 ms for the frozen control and 60205.016 ms for the changed default:
 **0.87x**, again with identical saved poses on the first 120 frames. Its raw
 screening was committed in `0560f22e`. The per-facet packet cache is also
-rejected; the normal-bound approach above still needs performance validation.
+rejected; the full-sequence normal-bound measurement is below.
 
 The packet cache also cost memory. In the freeze fixture, candidate `3541f773`
 reported 12498398 estimated bytes with acceleration and freeze, versus 12294436
 with neither. This mixed-cache comparison failed the previous memory assertion;
-the test now enables acceleration on both sides to measure the effect of freeze
-with equal cache settings. The failed full-CTest receipt and memory estimates
+the experiment corrected the test to use equal cache settings. The retained
+implementation uses the original uncached freeze test. The failed full-CTest receipt and memory estimates
 are preserved in `6235f89c` under
 [`candidates/3541f773/`](../../experiments/results/paper_pipeline_speed/candidates/3541f773/).
 
@@ -370,7 +374,7 @@ one method at a time on the same recorded host; the profiler is disabled:
 | Execution | Time [s] | FPS | Official RTE [%] | ATE [m] |
 |---|---:|---:|---:|---:|
 | Paired frozen control | 1165.57 | 0.945 | 0.341905 | 0.855800 |
-| Opt-in acceleration | 1397.59 | 0.788 | 0.341905 | 0.855800 |
+| Rejected normal-bound candidate | 1397.59 | 0.788 | 0.341905 | 0.855800 |
 
 Measured speedup: **0.83x**. Maximum translation difference from the
 paired frozen control: 0.000000000 m.

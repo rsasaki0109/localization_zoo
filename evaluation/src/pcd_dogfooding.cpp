@@ -2716,7 +2716,6 @@ struct ImlsSlamDogfoodingOptions {
 };
 
 struct MeshLoamDogfoodingOptions {
-  bool accelerated = false;
   double source_voxel_size = 0.25;
   size_t max_source_points = 8000;
   double voxel_size = 0.1;
@@ -8900,7 +8899,6 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
   res.name = "Mesh-LOAM";
 
   MeshLoamParams params;
-  params.accelerated = options.accelerated;
   params.voxel_size = options.voxel_size;
   params.imls_h = options.imls_h;
   params.lambda_n = options.lambda_n;
@@ -8955,7 +8953,6 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
       std::string(options.keep_mesh ? "global mesh kept; " : "") +
       std::string(options.marching_cubes ? "marching cubes; " : "") +
       "mean|residual|=" + std::string(buf);
-  if (options.accelerated) res.note += "; repository acceleration enabled (opt-in, not in the paper)";
   return res;
 }
 
@@ -12489,7 +12486,6 @@ int main(int argc, char** argv) {
       continue;
     }
     if (arg == "--paper-pipeline-accelerated") {
-      mesh_loam_options.accelerated = true;
       imls_slam_options.paper_accelerated = true;
       inten_loam_options.paper_accelerated = true;
       continue;

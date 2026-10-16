@@ -5,7 +5,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <limits>
 #include <unordered_map>
 #include <vector>
 
@@ -19,9 +18,6 @@ namespace mesh_loam {
 /// point-to-mesh Gauss-Newton odometry with a normal cosine-similarity
 /// correspondence gate.
 struct MeshLoamParams {
-  // Opt-in repository acceleration: conservative facet-bin normal bounds. Does not
-  // alter the association gates or the scan/map parameters from the paper.
-  bool accelerated = false;
   // Preprocessing.
   double min_range = 1.0;
   double max_range = 80.0;
@@ -125,7 +121,6 @@ class MeshLoamPipeline {
   void remeshAll();
 
  private:
-  friend struct MeshLoamTestAccess;
   struct OrientedPoint {
     Eigen::Vector3d p = Eigen::Vector3d::Zero();
     Eigen::Vector3d n = Eigen::Vector3d::UnitZ();
@@ -164,13 +159,9 @@ class MeshLoamPipeline {
     Eigen::Vector3f lo = Eigen::Vector3f::Constant(1e30f);
     Eigen::Vector3f hi = Eigen::Vector3f::Constant(-1e30f);
     float max_rad = 0.0f;
-    Eigen::Vector3f normal_ref = Eigen::Vector3f::Zero();
-    float normal_radius = std::numeric_limits<float>::infinity();
     void add(const Facet& f);
     void expand(const Facet& f);  ///< grow the bounds by f (already stored)
     void recomputeBounds();
-    void buildNormalBounds();
-    double normalUpper(const Eigen::Vector3d& normal) const;
   };
 
   /// Compressed facet: 16-bit vertices relative to the bin origin; the

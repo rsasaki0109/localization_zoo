@@ -6,64 +6,8 @@
 #include <array>
 #include <cmath>
 #include <vector>
-#ifdef _OPENMP
-#include <omp.h>
-#endif
 
 using namespace localization_zoo::mesh_loam;
-
-namespace localization_zoo {
-namespace mesh_loam {
-struct MeshLoamTestAccess {
-  static void checkNormalBounds() {
-    MeshLoamPipeline::FacetBin bin;
-    bin.buildNormalBounds();
-    EXPECT_TRUE(std::isinf(bin.normalUpper(Eigen::Vector3d::UnitZ())));
-    for (int i = 0; i < 65; ++i) {
-      MeshLoamPipeline::Facet f;
-      const auto R = Eigen::AngleAxisf(.001f * i, Eigen::Vector3f::UnitX()).toRotationMatrix();
-      f.a = Eigen::Vector3f::Zero();
-      f.b = R * Eigen::Vector3f::UnitX();
-      f.c = R * Eigen::Vector3f::UnitY();
-      f.n = f.b.cross(f.c).normalized();
-      if (i % 2) f.n = -f.n;  // |cos| gate must also cover reversed windings
-      f.owner[0] = f.owner[1] = f.owner[2] = 0;
-      bin.add(f);
-    }
-    bin.buildNormalBounds();
-    EXPECT_LT(bin.normalUpper(Eigen::Vector3d::UnitX()), .98);
-    EXPECT_GE(bin.normalUpper(Eigen::Vector3d::UnitZ()), 1.0);
-    // Direct enumeration is an independent oracle for every query direction,
-    // both signs, and nonunit vectors. Include queries at the cosine gate.
-    for (int i = -100; i <= 100; ++i) {
-      for (double scale : {1.0, -1.0, 1e6}) {
-        const Eigen::Vector3d q = scale * Eigen::Vector3d(.01 * i, .007 * i, 1.0).normalized();
-        double actual = 0;
-        for (const auto& f : bin.facets)
-          actual = std::max(actual, std::abs(f.n.cast<double>().dot(q)));
-        EXPECT_GE(bin.normalUpper(q), actual);
-      }
-    }
-    for (double cosine : {std::nextafter(.98, 0.0), .98, std::nextafter(.98, 1.0)}) {
-      const Eigen::Vector3d q(std::sqrt(1.0 - cosine * cosine), 0.0, cosine);
-      EXPECT_GE(bin.normalUpper(q), cosine);
-    }
-    auto copied = bin;
-    // Removing/replacing facets must rebuild the bound, while a copied bin
-    // keeps the normals that were present when it was copied.
-    bin.facets.erase(bin.facets.begin() + 1, bin.facets.end());
-    bin.facets.front().n = Eigen::Vector3f::UnitX();
-    bin.buildNormalBounds();
-    EXPECT_LT(bin.normalUpper(Eigen::Vector3d::UnitZ()), .98);
-    EXPECT_GE(copied.normalUpper(Eigen::Vector3d::UnitZ()), 1.0);
-  }
-};
-}  // namespace mesh_loam
-}  // namespace localization_zoo
-
-TEST(MeshLoam, BinNormalBoundsConservativelyCoverSignedFacetNormals) {
-  MeshLoamTestAccess::checkNormalBounds();
-}
 
 namespace {
 
@@ -349,36 +293,8 @@ TEST(MeshLoam, DirtyCellsTouchFewerCellsThanBlocks) {
   EXPECT_NEAR(ratio, 1.0, 0.02);
 }
 
-TEST(MeshLoam, BoundedAssociationRetainsPosesAcrossMeshUpdatesAndPruning) {
-#ifdef _OPENMP
-  const int original_threads = omp_get_max_threads();
-  omp_set_num_threads(1);  // isolate association from the legacy parallel sums
-#endif
-  for (bool marching_cubes : {false, true}) {
-    MeshLoamParams params = testParams();
-    params.nearest_facet = true;
-    params.marching_cubes = marching_cubes;
-    params.mesh_update_interval = 2;
-    params.local_map_radius = 4.0;
-    MeshLoamPipeline legacy(params);
-    params.accelerated = true;
-    MeshLoamPipeline indexed(params);
-    for (int i = 0; i < 7; ++i) {
-      const auto scan = makeRoomScan(Eigen::Vector3d(.08 * i, .02 * i, 1.2));
-      const auto a = legacy.registerFrame(scan), b = indexed.registerFrame(scan);
-      EXPECT_EQ(a.num_correspondences, b.num_correspondences);
-      EXPECT_EQ(legacy.meshSize(), indexed.meshSize());
-      EXPECT_TRUE((a.pose.array() == b.pose.array()).all()) << "frame=" << i;
-    }
-  }
-#ifdef _OPENMP
-  omp_set_num_threads(original_threads);
-#endif
-}
-
 TEST(MeshLoam, FrozenMeshIsKeptAndRestored) {
   MeshLoamParams params = testParams();
-  params.accelerated = true;  // compare the same cache footprint with/without freeze
   params.max_range = 10.0;
   params.local_map_radius = 11.0;
   params.keep_mesh = true;

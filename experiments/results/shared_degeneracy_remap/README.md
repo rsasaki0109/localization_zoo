@@ -18,6 +18,10 @@ official KITTI downloader for one sequence at a time, audits the shared header's
 native consumers, evaluates the fixed SuMa variant, diagnoses saved trajectories
 and verifies input hashes before deleting only its owned downloaded scans.
 Completed sequence records are committed as they become available.
+The controller uses fresh artifact directories; it is an execution record, not
+a resume command. For a replay, retain the committed evidence and use a new
+output directory with a binary built from the recorded implementation commit.
+Per-cell command receipts specify the full native arguments and input sequence.
 
 Independent runs use `native_wrapper.py` to isolate their output working
 directories. It forwards native arguments unchanged and records the actual

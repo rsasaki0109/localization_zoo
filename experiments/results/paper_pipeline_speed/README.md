@@ -45,6 +45,17 @@ result and is replaced with cached packet filters. IMLS cell-topology caching is
 being evaluated next. The target remains open until full-sequence acceleration
 and accuracy have been measured.
 
+The first packet-cache build (`3541f773`) completed, but full CTest exited 8:
+the freeze-memory assertion compared a cached frozen pipeline with an uncached
+unfrozen one. The analytic gates, copied-cache behavior and exact-trajectory
+tests passed. The failed test and commands were committed in `6235f89c`;
+no speed runs were started for this candidate. The next source, `fe03ed88`,
+compares equal cache settings in that test, refines packet rejection and probes
+OpenMP's optional soft-pause API for InTEn's serial stages. Its build, tests and
+paired window measurements are pending. The initial candidate's additional
+CPU profiles are committed in `d8fed75a`; runtime samples are CPU attribution,
+not stage wall-time percentages.
+
 Acceleration code is opt-in and default off. Historical benchmark aggregates
 and paper reference metadata are not changed by this experiment. CLI changes
 only parse the option and forward method parameters; neither `common/` nor the

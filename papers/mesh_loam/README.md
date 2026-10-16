@@ -331,6 +331,14 @@ the cache above; its performance still needs validation. The raw runs and exact
 commands were committed in `8479040a` under
 [`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
 
+The cache also costs memory. In the freeze fixture, candidate `3541f773`
+reported 12498398 estimated bytes with acceleration and freeze, versus 12294436
+with neither. This mixed-cache comparison failed the previous memory assertion;
+the test now enables acceleration on both sides to measure the effect of freeze
+with equal cache settings. The failed full-CTest receipt and memory estimates
+are preserved in `6235f89c` under
+[`candidates/3541f773/`](../../experiments/results/paper_pipeline_speed/candidates/3541f773/).
+
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 record the development on KITTI 07. Paired full-sequence timing and accuracy
 verification are in progress; this option has no published speed claim yet.

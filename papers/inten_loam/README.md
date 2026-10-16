@@ -492,6 +492,14 @@ used only to hold points for rendering
 or spline construction are omitted; their point data are retained. Feature
 counts, gates, S2S/S2M iterations, TVF and DOR settings are unchanged.
 
+The initial candidate (`fe607199`) took 18.661 s against 45.685 s for the
+frozen baseline on the first 120 KITTI 07 frames (**2.45x**). The changed
+binary's default path took 34.105 s. Both saved trajectories match the control
+exactly. This development-window attempt falls short of the speed target; it
+is not a full-sequence claim. Raw evidence and exact commands were committed in
+`8fe732a7` under
+[`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
+
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 record the development on KITTI 07. Paired full-sequence timing and accuracy
 verification are in progress; this option has no published speed claim yet.

@@ -162,6 +162,18 @@ queries within an iteration, and parallelizes normals, list sorting and queries
 with OpenMP. Duplicate samples and the original list/point accumulation order
 are retained; scan/window sizes and registration parameters are unchanged.
 
+The initial candidate (`fe607199`) took 79.561 s against 160.513 s for the
+frozen baseline on the first 120 KITTI 07 frames (**2.02x**). The changed
+binary's default path took 194.906 s. Both saved trajectories match the control
+exactly. This development-window attempt falls short of the speed target; it
+is not a full-sequence claim. Raw evidence and exact commands were committed in
+`8fe732a7` under
+[`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
+Model-cell topology is now cached per list across iterations of an immutable
+model, including absent cells and the original traversal order. Caches are
+recreated for each coarse/fine registration call; they never retain projected
+values across iterations or model changes.
+
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 record the development on KITTI 07. Paired full-sequence timing and accuracy
 verification are in progress; this option has no published speed claim yet.

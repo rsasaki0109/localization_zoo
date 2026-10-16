@@ -1,0 +1,83 @@
+{
+  "methods": {
+    "aloam": {
+      "full_sequences": 11,
+      "frames": [
+        4541,
+        1101,
+        4661,
+        801,
+        271,
+        2761,
+        1101,
+        1101,
+        4071,
+        1591,
+        1201
+      ],
+      "above_twice_paper": []
+    },
+    "lf_gicp": {
+      "full_sequences": 11,
+      "frames": [
+        4541,
+        1101,
+        4661,
+        801,
+        271,
+        2761,
+        1101,
+        1101,
+        4071,
+        1591,
+        1201
+      ],
+      "above_twice_paper": [
+        "10"
+      ]
+    },
+    "l_lo": {
+      "full_sequences": 10,
+      "frames": [
+        4541,
+        4661,
+        801,
+        271,
+        2761,
+        1101,
+        1101,
+        4071,
+        1591,
+        1201
+      ],
+      "above_twice_paper": [
+        "09",
+        "10"
+      ]
+    },
+    "quadric_lo": {
+      "full_sequences": 11,
+      "frames": [
+        4541,
+        1101,
+        4661,
+        801,
+        271,
+        2761,
+        1101,
+        1101,
+        4071,
+        1591,
+        1201
+      ],
+      "above_twice_paper": []
+    }
+  },
+  "historical_aggregates_unchanged": 662,
+  "paper_reference_values_and_sources_unchanged": true
+}
+{
+  "new_full_runs": 26,
+  "fixed_configurations_and_provenance_checked": true,
+  "overview_means_match_committed_evidence": true
+}

@@ -25,7 +25,7 @@ The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/read
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **532** ready problems, **1** blocked manifest, and **14** skipped manifests across **45** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries. The committed index counts and selector count are recorded in `experiments/results/mesh_inten_kitti_coverage/summary.json`.
+The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **558** ready problems, **1** blocked manifest, and **14** skipped manifests across **45** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries. The committed index counts, selector count and elected-default ranges are recorded in `experiments/results/remaining_kitti_coverage/summary.json`.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -42,7 +42,7 @@ CT-LIO GT-backed evaluation is blocked due to missing repository-aligned GT CSV 
 - `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json` — public ROS1 synthetic-time CLINS evidence.
 - `docs/assets/paper/manuscript_core_defaults.csv` — CT-LIO row marked `reference-based`.
 
-### Sub-Claim 5: Paper-number fidelity is measurable, and it splits the reimplementations into two groups
+### Sub-Claim 5: Full-sequence coverage measures paper-number fidelity and exposes transfer failures
 
 For the LiDAR odometry reimplementations below, the paper-reported KITTI Odometry
 translational error (read from the paper PDF, with table and row recorded) is
@@ -51,39 +51,59 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 
 | Group | Method | Sequences | Repo / paper (geometric mean) |
 |---|---|---|---:|
-| Near paper | LiTAMIN2 (paper odometry pipeline, `--litamin2-paper-odometry`; ICP+Cov and ICP rows, no loop closure; one fixed setting gives 1.05x on 00-10, see `papers/litamin2/README.md`) | 00-10 | 1.00x |
-| Near paper | A-LOAM (vs LOAM, secondary-source values) | 00/02/05/07/08 | 1.01x |
-| Near paper | LF-GICP (no author code; gate calibrated on the paper's KITTI 00 trace) | 00/02/05/07/08 | 0.96x |
+| Near paper | LiTAMIN2 (paper odometry pipeline, `--litamin2-paper-odometry`; ICP+Cov and ICP rows, no loop closure; one fixed setting gives 1.05x on 00-10, see `papers/litamin2/README.md`) | 00-10 | 1.01x |
+| Near paper | A-LOAM (vs secondary-source LOAM values; fixed `kitti_default` selected on 07; no sequence above 2x, see `papers/aloam/README.md`) | 00-10 | 1.07x |
+| Gap remains | LF-GICP (no author code; fixed `paper_default`, calibrated on 00 after earlier 02/08 observations exposed overgating; above 2x: 10 (6.71x), see `papers/lf_gicp/README.md`) | 00-10 | 1.12x |
 | Near paper | KISS-ICP (upstream threshold, kernel, and map gate on corrected scans as upstream; 00-10 average equals the official code's; see `papers/kiss_icp/README.md`) | 00/04 | 1.04x |
 | Near paper | MULLS (MULLS-LO reimplementation, `--mulls-lo`, highway profile on 01, 0.195 deg correction as the official profile; 00-10 average equals the official code's; see `papers/mulls/README.md`) | 00-10 | 1.12x |
 | Near paper | CT-ICP (upstream pipeline, `--ct-icp-upstream-mechanics`, on corrected scans as upstream; 00-10 average equals the official code's; see `papers/ct_icp/README.md`) | 00-10 | 1.15x |
-| Gap remains | L-LO (no author code; parameters chosen on seq 07; horizontal 0.577 % in 2D on 07; the paper's 00/07 values are below every roll-free trajectory built from the ground truth, see `papers/l_lo/README.md`) | 00/02/05/07/08 | 1.58x |
+| Gap remains | L-LO (no author code; fixed `seq07_tuned` selected on 07; 01 is NA; tested GT-derived roll-free baselines exceed the 00/07 paper values without proving a global bound; above 2x: 09 (2.18x), 10 (2.16x), see `papers/l_lo/README.md`) | 00/02-10 | 1.57x |
 | Near paper | SuMa (Frame-to-Model; paper pipeline `--suma-paper`, best of two variants per sequence; 01 at 2.09x; one setting for all: 1.25x; see `papers/suma/README.md`) | 00-10 | 0.97x |
-| Near paper | Quadric-LO (vs the paper's scan-to-submap Table II; no author code) | 00/07 | 0.80x |
+| Near paper | Quadric-LO (no author code; fixed `dense_profile` selected using 00/07; scan-to-submap Table II; earlier 02 evidence exists; no sequence above 2x, see `papers/quadric_lo/README.md`) | 00-10 | 0.85x |
 | Gap remains | Mesh-LOAM (no author code; fixed `paper_odometry_elevation`, nearest-facet association, 0.1 m input, explicit 0.22 deg correction; selected using 00/07; no sequence above twice the paper value, see `papers/mesh_loam/README.md`) | 00-10 | 1.28x |
 | Gap remains | ELO (no author code; 0.195 deg correction, the paper normal patch and forward-bias fixes chosen on 07 windows; 2.60x before; the same setting on all 11 sequences, 0.84-1.43x, see `papers/elo/README.md`) | 00-10 | 1.22x |
 | Near paper | IMLS-SLAM (paper pipeline, `--imls-slam-paper-odometry`, 0.22 deg correction; 2.66x before; one setting on all 11 sequences with a coarse first registration, not in the paper, that only matters for 04, which starts in motion: 36x without it, see `papers/imls_slam/README.md`) | 00-10 | 1.05x |
 | Near paper | DiLO (plane-only paper pipeline `--dilo-paper-odometry` with spread planar key points, slope-aware vertical fill and the 0.18 deg correction, chosen on 07 windows with some 00 windows in view; edge key points do not help on KITTI; 4.12x before; one setting on all 11 sequences with a degenerate-direction remap, not in the paper, chosen on 01 where the highway otherwise collapses (8.13x -> 1.42x), see `papers/dilo/README.md`) | 00-10 | 0.96x |
 | Gap remains | InTEn-LOAM (no author code; fixed `paper_odometry_plane_check`, 0.17 deg correction and 0.05 m plane check chosen on 07 windows with 00 influencing diagnosis; 01 25.96x, 02 5.97x, 10 2.57x, with saved-pose drift diagnostics, see `papers/inten_loam/README.md`) | 00-10 | 2.19x |
 
-What may be claimed: A-LOAM, LF-GICP, KISS-ICP, MULLS, CT-ICP, LiTAMIN2, Quadric-LO, IMLS-SLAM and DiLO (seq 00/07 only for Quadric-LO) reach paper-level odometry accuracy
-on KITTI (KISS-ICP on seq 00 and 04, and only with the upstream mechanics and the
-KITTI elevation correction; its 00-10 average, 0.564 %, equals the official
-code's on the same pipeline, both 1.13x the paper's 0.50 %; CT-ICP only with
-`--ct-icp-upstream-mechanics` and the correction, whose 00-10 average, 0.587 %,
-equals the official code's 0.585 % on the same scans, 1.10x the paper's per-sequence
-values; MULLS only with `--mulls-lo`, whose 00-10 average, 0.572 %, equals the
-official code's 0.576 %, 1.06x the paper's per-sequence values); L-LO, ELO, Mesh-LOAM and InTEn-LOAM run on the same metric but do **not** reproduce the
-paper numbers. What may not be claimed: faithful reproduction for
-L-LO, ELO, Mesh-LOAM or InTEn-LOAM, a KISS-ICP, CT-ICP, or MULLS claim for the repository default, or any ratio as unbiased. Table 6 selects within each method's allowed variant pool; selection among multiple variants on an evaluated sequence is an optimistic bound. Mesh-LOAM and InTEn-LOAM are pinned to one fixed variant on every sequence, including the reused 00/07 results. Their settings were chosen using 00/07, while the added sequences did not influence the settings. Other methods' selection and transfer protocols are documented in their READMEs; SuMa's paper values have one decimal, and A-LOAM is
-compared with LOAM values cited by later papers because LOAM has no
-per-sequence table.
+What may be claimed: the fixed A-LOAM, LF-GICP and Quadric-LO comparisons
+now cover KITTI 00-10, and L-LO covers every sequence with a paper value
+(00/02-10). Their full means and any >2x sequence failures are reported above
+and in their method READMEs. A small geometric-mean ratio alone does not
+establish agreement on every sequence or faithful reproduction of the method.
+A-LOAM uses secondary-source LOAM references rather than an A-LOAM author
+table. L-LO's tested GT-derived roll-free baselines do not prove a global
+lower bound or make the paper values impossible.
+
+KISS-ICP reaches paper-level accuracy on 00 and 04 only with the upstream
+mechanics and KITTI elevation correction; its 00-10 average, 0.564 %, equals
+the official code's on the same pipeline, both 1.13x the paper's 0.50 %.
+CT-ICP with `--ct-icp-upstream-mechanics` and the correction averages 0.587 %,
+against the official code's 0.585 %, or 1.10x the paper's per-sequence values.
+MULLS with `--mulls-lo` averages 0.572 %, against the official code's 0.576 %,
+or 1.06x the paper's per-sequence values. LiTAMIN2, IMLS-SLAM and DiLO also
+reach near-paper means with the protocols and deviations documented above.
+LF-GICP fails to reproduce sequence 10 despite its near-paper mean.
+L-LO, ELO, Mesh-LOAM and InTEn-LOAM do not reproduce the paper numbers.
+
+What may not be claimed: faithful reproduction for those methods with a
+remaining gap, a KISS-ICP, CT-ICP or MULLS claim for the repository default,
+or any ratio as unbiased. Table 6 selects within each method's allowed pool;
+selection among variants on a scored sequence is optimistic. A-LOAM,
+LF-GICP, L-LO, Quadric-LO, Mesh-LOAM and InTEn-LOAM now pin one fixed variant
+on every sequence with a paper value, including reused matching results.
+The added runs did not select parameters. Their READMEs record development
+sequences and earlier observations that influenced selection; in particular,
+LF-GICP's calibration followed observations on 02/08, and Quadric-LO already
+had separate 02 evidence. Other selection protocols remain in the respective
+READMEs. SuMa's paper values have one decimal.
 
 **Evidence:**
 - `docs/assets/paper/paper_ratio_table.csv` / `.tex` — Table 6, per sequence, with sweep size.
 - `evaluation/data/paper_reported_numbers.json` — paper values with `reported_source` (arXiv id, table, row), pinned by `tests/test_paper_ratio_table.py`.
 - `experiments/results/kitti_rte_rescore.json` — official-RTE re-runs and the stored-vs-rerun determinism check.
 - `experiments/results/mesh_inten_kitti_coverage/README.md` — fixed-setting commands, provenance, full-sequence results and drift diagnostics; historical aggregates remain unchanged.
+- `experiments/results/remaining_kitti_coverage/README.md` — the four additional fixed-setting protocols, full coverage, negative diagnostics, commands and historical-aggregate checks.
 
 Papers checked for a per-sequence KITTI Odometry table (2026-10-12), beyond the rows above:
 
@@ -119,7 +139,7 @@ unnoticed, which motivates pinning both inputs and code:
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **532** ready + **1** blocked + **14** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **558** ready + **1** blocked + **14** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |

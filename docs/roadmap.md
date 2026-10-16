@@ -14,27 +14,28 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 Repo value over paper value, geometric mean over the sequences run
 ([Table 6](assets/paper/paper_ratio_table.csv),
-`evaluation/scripts/generate_paper_ratio_table.py`). Mesh-LOAM and
-InTEn-LOAM are restricted to one fixed variant across all sequences;
-other methods select the best allowed variant per sequence. "One setting"
-is the ratio when one variant runs on every sequence.
+`evaluation/scripts/generate_paper_ratio_table.py`). A-LOAM, LF-GICP,
+L-LO, Quadric-LO, Mesh-LOAM and InTEn-LOAM are restricted to one fixed
+variant across every sequence with a paper value. Other methods may select
+among allowed variants per sequence. "One setting" is the ratio when one
+variant runs on every sequence.
 
 | Method | Ratio | Sequences run | Paper values not run yet | Notes |
 |---|---:|---|---|---|
 | LiTAMIN2 | 1.01x | 00-10 | - | one setting 1.05x |
-| A-LOAM | 1.01x | 00/02/05/07/08 | 01, 03, 04, 06, 09, 10 | vs LOAM values cited by later papers |
-| LF-GICP | 0.96x | 00/02/05/07/08 | 01, 03, 04, 06, 09, 10 | no author code |
+| A-LOAM | 1.07x | 00-10 | - | one setting selected on 07; vs secondary-source LOAM values; no sequence above 2x |
+| LF-GICP | 1.12x | 00-10 | - | one setting; calibrated on 00 after earlier 02/08 observations; above 2x: 10 (6.71x) |
 | KISS-ICP | 1.04x | 00/04 | - | 00-10 average equals the official code's |
 | MULLS | 1.12x | 00-10 | - | 00-10 average equals the official code's |
 | CT-ICP | 1.15x | 00-10 | - | 00-10 average equals the official code's |
 | SuMa | 0.97x | 00-10 | - | 01 (highway) 2.09x; one setting 1.25x |
-| Quadric-LO | 0.80x | 00/07 | 01-06, 08-10 | |
+| Quadric-LO | 0.85x | 00-10 | - | one setting selected using 00/07; scan-to-submap reference; no sequence above 2x |
 | DiLO | 0.96x | 00-10 | - | one setting; 01 needs the degenerate-direction remap (chosen on 01) |
 | IMLS-SLAM | 1.05x | 00-10 | - | one setting; coarse first registration fixes 04 |
 | Mesh-LOAM | 1.28x | 00-10 | - | one setting; no sequence above 2x |
 | ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x) |
 | InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x |
-| L-LO | 1.58x | 00/02/05/07/08 | 03, 04, 06, 09, 10 | gap explained (paper values below every roll-free GT trajectory) |
+| L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x) |
 
 Per-method details and negative results live in each `papers/<method>/README.md`;
 the claim wording is in [paper_claim.md](paper_claim.md).
@@ -153,9 +154,18 @@ independent. Each item says what "done" means.
      block errors and counts of steps off by more than 20 %.
    - Commands, run provenance, cleanup and checks:
      [`experiments/results/mesh_inten_kitti_coverage/`](../experiments/results/mesh_inten_kitti_coverage/README.md).
-2. **A-LOAM, LF-GICP: 01, 03, 04, 06, 09, 10; L-LO: 03, 04, 06, 09, 10;
-   Quadric-LO (`dense_profile`): 01-06, 08-10.** Same procedure. These are
-   faster methods.
+2. **Completed: A-LOAM, LF-GICP, L-LO and Quadric-LO fixed-setting coverage.**
+   A-LOAM `kitti_default`, LF-GICP `paper_default`, L-LO `seq07_tuned` and
+   Quadric-LO `dense_profile` each use their existing arguments unchanged.
+   Matching committed full-sequence results are reused; the missing
+   sequences are added with one sequence of scans on disk at a time.
+   L-LO excludes 01, which is NA in the paper; the other methods cover 00-10.
+   - Table 6 pins these variants; README rows, method sequence tables,
+     negative-result diagnostics and paper metadata are updated.
+   - Selection provenance includes the earlier 02/08 observations that
+     influenced LF-GICP calibration and the earlier Quadric-LO 02 evidence.
+   - Commands, raw evidence, cleanup and checks:
+     [`experiments/results/remaining_kitti_coverage/`](../experiments/results/remaining_kitti_coverage/README.md).
 3. **Keep the leaderboard reproducible.** No README cell is currently marked
    † (not re-run since per-run provenance was added). After changes to
    shared code (`common/`, the runner's loaders), run
@@ -238,6 +248,10 @@ independent. Each item says what "done" means.
 
 ### Backlog
 
+- Full-coverage failures still need a solver-level explanation: LF-GICP 10
+  (6.71x), L-LO 09/10 (2.18x / 2.16x). Saved-pose drift intervals and block
+  errors are in their method READMEs; these diagnostics locate failures
+  without establishing their cause.
 - New paper ports: follow [CONTRIBUTING.md](../CONTRIBUTING.md) (KITTI 00/07
   full, `--no-gt-seed`, at least 3 mechanism tests, README with negative
   results); run all paper sequences before claiming a ratio.

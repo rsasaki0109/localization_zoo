@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-15T22:41:55+00:00
+> Generated: 2026-10-16T13:19:41+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -88,12 +88,18 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | dense | 0.035 | 3.0 |
 | MCD-TUHH | fast | 1.374 | 6.5 |
 | dogfooding_results/kitti_seq_00_full | fast | 19.121 | 3.0 |
+| dogfooding_results/kitti_seq_01_full | kitti_default | 172.741 | 1.1 |
 | dogfooding_results/kitti_seq_02_full | fast | 70.870 | 3.2 |
+| dogfooding_results/kitti_seq_03_full | kitti_default | 3.155 | 1.1 |
+| dogfooding_results/kitti_seq_04_full | kitti_default | 4.164 | 0.8 |
 | dogfooding_results/kitti_seq_05_full | fast | 7.796 | 3.0 |
+| dogfooding_results/kitti_seq_06_full | kitti_default | 2.587 | 1.0 |
 | dogfooding_results/kitti_seq_07_full | fast | 4.030 | 1.7 |
 | dogfooding_results/kitti_seq_08_full | fast | 26.170 | 2.9 |
+| dogfooding_results/kitti_seq_09_full | kitti_default | 8.242 | 0.8 |
+| dogfooding_results/kitti_seq_10_full | kitti_default | 5.619 | 0.8 |
 
-**Stability**: 2 unique default(s) across 13 windows.
+**Stability**: 3 unique default(s) across 19 windows.
 
 ### BALM2
 
@@ -496,7 +502,10 @@ Does the same variant win across all datasets? Instability here is the core evid
 |---|---|---:|---:|
 | dogfooding_results/kitti_seq_00_full | seq07_tuned | 15.664 | 4.4 |
 | dogfooding_results/kitti_seq_02_full | default | 58.272 | 3.2 |
+| dogfooding_results/kitti_seq_03_full | seq07_tuned | 24.086 | 2.8 |
+| dogfooding_results/kitti_seq_04_full | seq07_tuned | 5.259 | 0.9 |
 | dogfooding_results/kitti_seq_05_full | default | 8.785 | 5.3 |
+| dogfooding_results/kitti_seq_06_full | seq07_tuned | 5.791 | 3.3 |
 | dogfooding_results/kitti_seq_07_full | cluster_cell_0p15 | 2.890 | 17.9 |
 | dogfooding_results/kitti_seq_07_full | sor_std_2 | 1.998 | 6.8 |
 | dogfooding_results/kitti_seq_07_full | cell_0p35_gtol_0p15_range_80_min15 | 2.561 | 7.7 |
@@ -505,8 +514,10 @@ Does the same variant win across all datasets? Instability here is the core evid
 | dogfooding_results/kitti_seq_07_full | voxel_0p4 | 3.178 | 22.9 |
 | dogfooding_results/kitti_seq_07_full | rounds_600_tol_1e5 | 2.045 | 5.9 |
 | dogfooding_results/kitti_seq_08_full | default | 32.662 | 3.7 |
+| dogfooding_results/kitti_seq_09_full | seq07_tuned | 36.396 | 1.2 |
+| dogfooding_results/kitti_seq_10_full | seq07_tuned | 8.632 | 1.3 |
 
-**Stability**: 8 unique default(s) across 11 windows.
+**Stability**: 8 unique default(s) across 16 windows.
 
 ### LEGO-LOAM
 
@@ -533,13 +544,19 @@ Does the same variant win across all datasets? Instability here is the core evid
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | dogfooding_results/kitti_seq_00_full | no_mitigation | 7.848 | 3.8 |
+| dogfooding_results/kitti_seq_01_full | paper_default | 94.094 | 2.0 |
 | dogfooding_results/kitti_seq_02_full | no_mitigation | 27.186 | 3.6 |
+| dogfooding_results/kitti_seq_03_full | paper_default | 5.074 | 3.4 |
+| dogfooding_results/kitti_seq_04_full | paper_default | 1.719 | 2.3 |
 | dogfooding_results/kitti_seq_05_full | no_mitigation | 5.556 | 5.4 |
+| dogfooding_results/kitti_seq_06_full | paper_default | 2.133 | 2.3 |
 | dogfooding_results/kitti_seq_07_full | paper_default | 0.646 | 8.8 |
 | dogfooding_results/kitti_seq_07_full | paper_default | 0.646 | 4.1 |
 | dogfooding_results/kitti_seq_08_full | no_mitigation | 16.280 | 2.9 |
+| dogfooding_results/kitti_seq_09_full | paper_default | 7.784 | 1.6 |
+| dogfooding_results/kitti_seq_10_full | paper_default | 50.982 | 2.0 |
 
-**Stability**: 2 unique default(s) across 6 windows.
+**Stability**: 2 unique default(s) across 12 windows.
 
 ### LINS
 
@@ -745,9 +762,18 @@ Does the same variant win across all datasets? Instability here is the core evid
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | dogfooding_results/kitti_seq_00_full | dense_profile | 14.736 | 0.8 |
+| dogfooding_results/kitti_seq_01_full | dense_profile | 98.016 | 0.3 |
+| dogfooding_results/kitti_seq_02_full | dense_profile | 30.983 | 0.4 |
+| dogfooding_results/kitti_seq_03_full | dense_profile | 4.680 | 0.4 |
+| dogfooding_results/kitti_seq_04_full | dense_profile | 1.875 | 0.4 |
+| dogfooding_results/kitti_seq_05_full | dense_profile | 3.083 | 0.6 |
+| dogfooding_results/kitti_seq_06_full | dense_profile | 2.425 | 0.4 |
 | dogfooding_results/kitti_seq_07_full | dense_profile | 2.130 | 0.9 |
+| dogfooding_results/kitti_seq_08_full | dense_profile | 23.845 | 0.3 |
+| dogfooding_results/kitti_seq_09_full | dense_profile | 10.301 | 0.3 |
+| dogfooding_results/kitti_seq_10_full | dense_profile | 13.264 | 0.3 |
 
-**Stability**: 1 unique default(s) across 2 windows.
+**Stability**: 1 unique default(s) across 11 windows.
 
 ### RKO-LIO
 
@@ -886,7 +912,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 |---|---:|---:|---:|
 | dense | 3.007 | 3.2 | 8 |
 | fast | 11.499 | 5.2 | 13 |
-| kitti_default | 8.998 | 2.1 | 12 |
+| kitti_default | 16.916 | 1.7 | 18 |
 
 ### BALM2
 
@@ -1249,7 +1275,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | pitch_band_3_15 | 2.346 | 5.2 | 1 |
 | pitch_band_5_40 | 1.989 | 5.1 | 1 |
 | rounds_600_tol_1e5 | 2.045 | 5.9 | 1 |
-| seq07_tuned | 42.442 | 4.2 | 5 |
+| seq07_tuned | 29.237 | 3.0 | 10 |
 | shape_0p2 | 2.189 | 5.9 | 1 |
 | shape_0p8 | 3.239 | 5.1 | 1 |
 | sor_std_2 | 1.998 | 6.8 | 1 |
@@ -1271,7 +1297,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
 | no_mitigation | 11.568 | 4.0 | 5 |
-| paper_default | 10.938 | 4.3 | 6 |
+| paper_default | 18.951 | 3.3 | 12 |
 | paper_default_elevation | 1.859 | 8.3 | 1 |
 
 ### LINS
@@ -1385,7 +1411,7 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| dense_profile | 8.433 | 0.8 | 2 |
+| dense_profile | 18.667 | 0.5 | 11 |
 
 ### RKO-LIO
 

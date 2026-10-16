@@ -1,0 +1,5 @@
+{
+  "scan_root": "/workspace/localization-env/kitti-remaining-coverage",
+  "remaining_raw_scans": 0,
+  "scans_deleted": true
+}

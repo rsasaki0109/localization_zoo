@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-15T22:41:56+00:00
+> Generated: 2026-10-16T13:19:46+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -511,11 +511,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00-10)
 **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 **Hardware**: Not stated in the citing papers
-**Repo scope**: Paper reimplementation — Curvature features with a three-stage odometry-to-map LOAM pipeline (A-LOAM structure).
-**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE: 0.86/1.01/0.54/0.68/0.98 % on KITTI Odometry 00/02/05/07/08 versus LOAM's 0.78/0.92/0.57/0.63/1.12 % (secondary citation): 0.87-1.10x, geometric mean 1.01x. Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Numeric comparison**: Same metric, secondary-source paper values — Official KITTI RTE, repo vs LOAM: seq 00 0.855 vs 0.78 (1.10x), seq 02 1.012 vs 0.92 (1.10x), seq 05 0.535 vs 0.57 (0.94x), seq 07 0.681 vs 0.63 (1.08x), seq 08 0.975 vs 1.12 (0.87x). Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers.
-**Next step**: Compare against the official A-LOAM implementation on the same full sequences.
+**Repo scope**: Paper reimplementation — A-LOAM port in the shared harness, no per-frame GT seed. Fixed kitti_default on every sequence with a paper value. Previously committed matching results are reused unchanged; added sequences do not select parameters. kitti_default was the accuracy candidate in the existing sequence 07 profile comparison (lowest stored 100 m RPE and official RTE there). Its arguments are frozen; the added sequences do not select a profile.
+**Current claim**: Full KITTI Odometry coverage with one fixed setting — Full-sequence official KITTI RTE on 00-10, variant kitti_default, geometric mean 1.07x. kitti_default was the accuracy candidate in the existing sequence 07 profile comparison (lowest stored 100 m RPE and official RTE there). Its arguments are frozen; the added sequences do not select a profile. No sequence exceeds twice its paper value with the fixed setting. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.
+**Numeric comparison**: Same metric, 1.07x on 00-10 with one fixed setting — kitti_default, official KITTI RTE [%], repo vs paper: 00 0.855 vs 0.780 (1.10x); 01 2.189 vs 1.430 (1.53x); 02 1.029 vs 0.920 (1.12x); 03 0.964 vs 0.860 (1.12x); 04 0.880 vs 0.710 (1.24x); 05 0.535 vs 0.570 (0.94x); 06 0.602 vs 0.650 (0.93x); 07 0.681 vs 0.630 (1.08x); 08 0.975 vs 1.120 (0.87x); 09 0.673 vs 0.770 (0.87x); 10 0.873 vs 0.790 (1.11x); geometric mean 1.07x. Sources and exact commands: experiments/results/remaining_kitti_coverage/. Table 6 is restricted to this fixed variant.
+**Main blocker**: No sequence exceeds twice its paper value with the fixed setting. The reference is LOAM values cited by later papers, not an A-LOAM per-sequence author table; the repo implements A-LOAM rather than original LOAM.
+**Next step**: Evaluate the fixed configuration on independent sensor conditions while preserving the full-KITTI baseline and the documented paper/implementation differences.
 
 ### Paper-Reported Values
 
@@ -544,10 +544,16 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Fast | 3.654 | - | - | 6.01 |
 | KITTI | Fast | 0.527 | - | - | 6.00 |
 | KITTI | Fast | 19.121 | 0.893 | 0.007859 | 3.05 |
+| KITTI | KITTI default | 172.741 | 0.984 | 0.005507 | 1.10 |
 | KITTI | Fast | 70.870 | 0.961 | 0.006722 | 3.18 |
+| KITTI | KITTI default | 3.155 | 0.818 | 0.005256 | 1.15 |
+| KITTI | KITTI default | 4.164 | 0.650 | 0.005396 | 0.81 |
 | KITTI | Fast | 7.796 | 0.577 | 0.005857 | 3.02 |
+| KITTI | KITTI default | 2.587 | 0.612 | 0.004341 | 0.95 |
 | KITTI | Fast | 4.030 | 0.691 | 0.006795 | 1.75 |
 | KITTI | Fast | 26.170 | 1.436 | 0.006181 | 2.89 |
+| KITTI | KITTI default | 8.242 | 0.650 | 0.004430 | 0.76 |
+| KITTI | KITTI default | 5.619 | 0.729 | 0.006344 | 0.83 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast | 6.100 | - | - | 6.66 |
 | dogfooding_results/mcd_ntu_day_02_108 | Dense | 0.035 | - | - | 2.96 |
 | dogfooding_results/mcd_tuhh_night_09_108 | Fast | 1.374 | - | - | 6.47 |
@@ -563,11 +569,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00-10)
 **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 **Hardware**: Not stated
-**Repo scope**: Paper reimplementation (no author code) — GICP scan-to-map backend with the voxel-normal localizability field, median/hysteresis gate, and soft Fisher-information weighting, following the paper's Table SI constants.
-**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the paper-default configuration: 0.66/1.08/0.51/0.41/1.01 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.692/1.084/0.577/0.496/0.878 % (Table I): 0.83-1.14x, geometric mean 0.96x. The gate fires on 0-19 % of frames (paper: <= 8 % on open roads). Repo values are the paper_default variant only (the vanilla-backend ablation is excluded); see docs/assets/paper/paper_ratio_table.csv (Table 6) and papers/lf_gicp/README.md for the planarity/lambda0 calibration note.
-**Numeric comparison**: Same metric, ~0.96x ratio (single configuration) — Official KITTI RTE, repo vs paper: seq 00 0.664 vs 0.692 (0.96x), seq 02 1.075 vs 1.084 (0.99x), seq 05 0.512 vs 0.577 (0.89x), seq 07 0.411 vs 0.496 (0.83x), seq 08 1.005 vs 0.878 (1.14x). Disabling the gate gives 0.734/1.074/0.512/0.483/0.918 %: the gate helps on 00/07, is neutral on 02/05, and hurts on 08, where it fires on 19 % of frames. Repo values are the paper_default variant only (the vanilla-backend ablation is excluded); see docs/assets/paper/paper_ratio_table.csv (Table 6) and papers/lf_gicp/README.md for the planarity/lambda0 calibration note.
-**Main blocker**: The lambda0 scale differs from the paper (planarity definition is ambiguous) and GEODE tunnels for gate calibration are not available.
-**Next step**: Obtain GEODE tunnel data to check the gate on genuine absence and recalibrate tau2 with the paper's rule.
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness, no per-frame GT seed. Fixed paper_default on every sequence with a paper value. Previously committed matching results are reused unchanged; added sequences do not select parameters. field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting.
+**Current claim**: Full KITTI Odometry coverage with one fixed setting — Full-sequence official KITTI RTE on 00-10, variant paper_default, geometric mean 1.12x. field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting. Seq 10: 5.616 % vs 0.837 % (6.71x), 26 moving steps with length error >20 % and 34 with local vector error >20 %. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.
+**Numeric comparison**: Same metric, 1.12x on 00-10 with one fixed setting — paper_default, official KITTI RTE [%], repo vs paper: 00 0.664 vs 0.692 (0.96x); 01 1.816 vs 1.822 (1.00x); 02 1.075 vs 1.084 (0.99x); 03 0.785 vs 1.207 (0.65x); 04 0.629 vs 0.814 (0.77x); 05 0.512 vs 0.577 (0.89x); 06 0.543 vs 0.546 (0.99x); 07 0.411 vs 0.496 (0.83x); 08 1.005 vs 0.878 (1.14x); 09 0.725 vs 0.566 (1.28x); 10 5.616 vs 0.837 (6.71x); geometric mean 1.12x. Sources and exact commands: experiments/results/remaining_kitti_coverage/. Table 6 is restricted to this fixed variant.
+**Main blocker**: Seq 10: 5.616 % vs 0.837 % (6.71x), 26 moving steps with length error >20 % and 34 with local vector error >20 %. The field regularization was calibrated on KITTI 00 after earlier 02/08 observations. Genuine absence scenes in GEODE remain unavailable, so full KITTI coverage does not validate that paper claim.
+**Next step**: Trace association and optimization through the measured failure intervals; keep this negative fixed-setting baseline and any non-paper fix opt-in.
 
 ### Paper-Reported Values
 
@@ -590,11 +596,17 @@ For an explicit statement of implementation scope and what the repo currently cl
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
 | KITTI | Vanilla VGICP backend | 7.848 | 0.831 | 0.006775 | 3.75 |
+| KITTI | Paper default | 94.094 | 0.920 | 0.004873 | 2.00 |
 | KITTI | Vanilla VGICP backend | 27.186 | 0.884 | 0.005697 | 3.58 |
+| KITTI | Paper default | 5.074 | 0.645 | 0.005395 | 3.39 |
+| KITTI | Paper default | 1.719 | 0.493 | 0.005192 | 2.32 |
 | KITTI | Vanilla VGICP backend | 5.556 | 0.512 | 0.004895 | 5.39 |
+| KITTI | Paper default | 2.133 | 0.572 | 0.003767 | 2.27 |
 | KITTI | paper_default (Table 6 variant on seq 07, raw scans) | 0.646 | 0.540 | 0.003946 | 8.77 |
 | KITTI | Paper default | 0.646 | 0.540 | 0.003946 | 4.12 |
 | KITTI | Vanilla VGICP backend | 16.280 | 1.309 | 0.005269 | 2.93 |
+| KITTI | Paper default | 7.784 | 0.682 | 0.006319 | 1.63 |
+| KITTI | Paper default | 50.982 | 2.455 | 0.018687 | 2.03 |
 
 **Notes**: Paper average 0.865 % over 00-10; same raw-scan protocol as this repository's KITTI data.
 
@@ -607,11 +619,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00, 02-10; 01 reported as NA)
 **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 **Hardware**: Intel Xeon Gold 6128, 64 GB RAM, Nvidia Quadro P5000
-**Repo scope**: Paper reimplementation (no author code) — Frame-to-frame landmark odometry with convex-hull similarity and overlap maximisation; the paper gives no numeric parameters.
-**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE: 1.48/4.48/1.47/1.00/1.66 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.91/2.35/0.82/0.69/1.37 % (Table I, t_rel): 1.21-1.91x, geometric mean 1.58x. Seq 07 is the best 100 m RPE of the seq 07 sweeps (l_lo_kitti_seq_07_*_sweep_matrix.json, 30 settings); 00/02/05/08 use that choice unchanged, so those rows are held out. The untuned default gives 1.62x, so parameter choice moves the ratio by only ~3 %; see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Numeric comparison**: Same metric, ~1.6x ratio (parameters chosen on seq 07) — Official KITTI RTE, repo vs paper: seq 00 1.479 vs 0.91 (1.63x), seq 02 4.478 vs 2.35 (1.91x), seq 05 1.473 vs 0.82 (1.80x), seq 07 1.004 vs 0.69 (1.46x), seq 08 1.661 vs 1.37 (1.21x). At least three landmark matches on every frame except 6 of 4660 on seq 02. Seq 07 is the best 100 m RPE of the seq 07 sweeps (l_lo_kitti_seq_07_*_sweep_matrix.json, 30 settings); 00/02/05/08 use that choice unchanged, so those rows are held out. The untuned default gives 1.62x, so parameter choice moves the ratio by only ~3 %; see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: The paper specifies no thresholds and its pitch estimate is not physically consistent as written; a seq 07 parameter sweep closes only ~3 % of the gap, so the remaining difference is likely in the method details. See papers/l_lo/README.md.
-**Next step**: Ask the authors for code, or compare per-frame landmark matches against a reference implementation.
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness, no per-frame GT seed. Fixed seq07_tuned on every sequence with a paper value. Previously committed matching results are reused unchanged; added sequences do not select parameters. cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded.
+**Current claim**: Full KITTI Odometry coverage with one fixed setting — Full-sequence official KITTI RTE on 00/02-10 (01 is NA in the paper), variant seq07_tuned, geometric mean 1.57x. cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded. Seq 09: 4.122 % vs 1.890 % (2.18x), 4 moving steps with length error >20 % and 9 with local vector error >20 %. Seq 10: 4.105 % vs 1.900 % (2.16x), 7 moving steps with length error >20 % and 17 with local vector error >20 %. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.
+**Numeric comparison**: Same metric, 1.57x on 00/02-10 (01 is NA in the paper) with one fixed setting — seq07_tuned, official KITTI RTE [%], repo vs paper: 00 1.479 vs 0.910 (1.63x); 02 4.478 vs 2.350 (1.91x); 03 3.066 vs 2.920 (1.05x); 04 2.135 vs 2.280 (0.94x); 05 1.473 vs 0.820 (1.80x); 06 1.315 vs 0.660 (1.99x); 07 1.004 vs 0.690 (1.46x); 08 1.661 vs 1.370 (1.21x); 09 4.122 vs 1.890 (2.18x); 10 4.105 vs 1.900 (2.16x); geometric mean 1.57x. Sources and exact commands: experiments/results/remaining_kitti_coverage/. Table 6 is restricted to this fixed variant.
+**Main blocker**: Seq 09: 4.122 % vs 1.890 % (2.18x), 4 moving steps with length error >20 % and 9 with local vector error >20 %. Seq 10: 4.105 % vs 1.900 % (2.16x), 7 moving steps with length error >20 % and 17 with local vector error >20 %. The paper leaves numeric parameters unspecified and the tested GT-derived roll-free baselines stay above the 00/07 paper values. Those tested trajectories are not a proof of a lower bound over all possible estimates. Existing vertical-pose experiments remain negative.
+**Next step**: Trace association and optimization through the measured failure intervals; keep this negative fixed-setting baseline and any non-paper fix opt-in.
 
 ### Paper-Reported Values
 
@@ -634,7 +646,10 @@ For an explicit statement of implementation scope and what the repo currently cl
 |---|---|---:|---:|---:|---:|
 | KITTI | Seq 07 tuned | 15.664 | 1.539 | 0.020500 | 4.37 |
 | KITTI | Default | 58.272 | 4.283 | 0.037143 | 3.18 |
+| KITTI | Seq 07 tuned | 24.086 | 1.826 | 0.023715 | 2.82 |
+| KITTI | Seq 07 tuned | 5.259 | 1.819 | 0.011828 | 0.88 |
 | KITTI | Default | 8.785 | 1.719 | 0.015879 | 5.30 |
+| KITTI | Seq 07 tuned | 5.791 | 1.649 | 0.012480 | 3.26 |
 | KITTI | cluster cell 0p15 | 2.890 | 1.319 | 0.017045 | 17.90 |
 | KITTI | sor std 2 | 1.998 | 1.376 | 0.015596 | 6.79 |
 | KITTI | cell 0p35 gtol 0p15 range 80 min15 | 2.561 | 1.222 | 0.015045 | 7.72 |
@@ -643,6 +658,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | voxel 0p4 | 3.178 | 1.399 | 0.015898 | 22.94 |
 | KITTI | rounds 600 tol 1e5 | 2.045 | 1.335 | 0.015446 | 5.87 |
 | KITTI | Default | 32.662 | 2.193 | 0.018837 | 3.75 |
+| KITTI | Seq 07 tuned | 36.396 | 2.483 | 0.038126 | 1.16 |
+| KITTI | Seq 07 tuned | 8.632 | 3.430 | 0.037561 | 1.31 |
 
 **Notes**: Paper average 1.59 % over the reported sequences.
 
@@ -851,11 +868,11 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported dataset**: KITTI Odometry (sequences 00-10)
 **Reported metric**: KITTI RTE translation [%] (KITTI average translation error (%))
 **Hardware**: None
-**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
-**Current claim**: KITTI Odometry 00/07 against the paper's table — Official KITTI RTE on full sequences, no GT seed: seq 00 0.966 vs 0.92 (1.05x); seq 07 0.662 vs 1.09 (0.61x); geometric mean 0.80x. Repo values are the best variant of experiments/results/quadric_lo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Numeric comparison**: Same metric, 0.80x on 00/07 — seq 00 0.966 vs 0.92 (1.05x); seq 07 0.662 vs 1.09 (0.61x). See docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Only seq 00 and 07 have been run.
-**Next step**: Run the paper path on the remaining KITTI sequences.
+**Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness, no per-frame GT seed. Fixed dense_profile on every sequence with a paper value. Previously committed matching results are reused unchanged; added sequences do not select parameters. The existing dense profile is frozen from the 00/07 paper comparisons; both are treated as development data. No correction or parameter is selected on the added sequences.
+**Current claim**: Full KITTI Odometry coverage with one fixed setting — Full-sequence official KITTI RTE on 00-10, variant dense_profile, geometric mean 0.85x. The existing dense profile is frozen from the 00/07 paper comparisons; both are treated as development data. No correction or parameter is selected on the added sequences. No sequence exceeds twice its paper value with the fixed setting. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.
+**Numeric comparison**: Same metric, 0.85x on 00-10 with one fixed setting — dense_profile, official KITTI RTE [%], repo vs paper: 00 0.966 vs 0.920 (1.05x); 01 2.060 vs 2.610 (0.79x); 02 1.176 vs 1.160 (1.01x); 03 1.236 vs 1.450 (0.85x); 04 0.680 vs 0.870 (0.78x); 05 0.588 vs 0.760 (0.77x); 06 0.560 vs 0.550 (1.02x); 07 0.662 vs 1.090 (0.61x); 08 1.128 vs 1.680 (0.67x); 09 0.933 vs 0.850 (1.10x); 10 1.556 vs 1.760 (0.88x); geometric mean 0.85x. Sources and exact commands: experiments/results/remaining_kitti_coverage/. Table 6 is restricted to this fixed variant.
+**Main blocker**: No sequence exceeds twice its paper value with the fixed setting. No author code. The local-map implementation is compared with the scan-to-submap table; separate earlier 02 fallback-validation evidence exists and 02 is not claimed as previously unseen.
+**Next step**: Evaluate the fixed configuration on independent sensor conditions while preserving the full-KITTI baseline and the documented paper/implementation differences.
 
 ### Paper-Reported Values
 
@@ -878,7 +895,16 @@ For an explicit statement of implementation scope and what the repo currently cl
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
 | KITTI | Quadric-LO, dense profile | 14.736 | 0.867 | 0.007640 | 0.81 |
+| KITTI | Quadric-LO, dense profile | 98.016 | 1.103 | 0.004921 | 0.32 |
+| KITTI | Quadric-LO, dense profile | 30.983 | 0.933 | 0.006145 | 0.39 |
+| KITTI | Quadric-LO, dense profile | 4.680 | 0.908 | 0.006539 | 0.40 |
+| KITTI | Quadric-LO, dense profile | 1.875 | 0.516 | 0.004466 | 0.43 |
+| KITTI | Quadric-LO, dense profile | 3.083 | 0.601 | 0.005693 | 0.56 |
+| KITTI | Quadric-LO, dense profile | 2.425 | 0.587 | 0.003939 | 0.41 |
 | KITTI | Quadric-LO, dense profile | 2.130 | 0.598 | 0.006249 | 0.88 |
+| KITTI | Quadric-LO, dense profile | 23.845 | 1.330 | 0.007331 | 0.29 |
+| KITTI | Quadric-LO, dense profile | 10.301 | 0.720 | 0.006676 | 0.26 |
+| KITTI | Quadric-LO, dense profile | 13.264 | 0.830 | 0.008151 | 0.29 |
 
 **Notes**: Table II (scan-to-scan plus scan-to-submap correction, average 1.25 %) is compared because the repository implementation matches against a local map. Table I (scan-to-scan only) gives 2.64/5.05/3.31/1.34/1.66/1.97/1.30/2.56/2.57/3.32/2.21 %. No loop closure. Values read from the paper PDF on 2026-10-12.
 

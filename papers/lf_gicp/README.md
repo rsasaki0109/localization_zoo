@@ -27,3 +27,100 @@ A GICP scan-to-map odometry (paper Sec. III-A) with the paper's degeneracy handl
 ## Results
 
 See `experiments/results/lf_gicp_kitti_seq_*_full_matrix.json` and the Table 6 rows in `docs/assets/paper/paper_ratio_table.csv`.
+
+<!-- FIXED-KITTI-RESULTS:START -->
+
+## Full KITTI comparison with one configuration
+
+Fixed variant: `paper_default`.
+
+field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting.
+
+This pipeline never uses per-frame GT seeding; GT is used only for the initial rigid evaluation anchor. Keep the original variant arguments verbatim, including an explicit --no-gt-seed where present.
+
+
+
+No new estimator behavior or default change is introduced by this coverage run.
+
+Exact fixed-setting CLI (substitute the sequence for NN):
+
+```bash
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_NN_full experiments/reference_data/kitti_seq_NN_full_gt.csv 0 --methods lf_gicp --summary-json lf_gicp_seq_NN.json
+```
+
+Full sequences, official KITTI translational RTE (100-800 m), no GT seed.
+Existing committed results are reused on 00, 02, 05, 07, 08.
+The other rows are added full-sequence runs. Every row uses the same variant.
+
+
+| Seq | Paper RTE [%] | Fixed RTE [%] | Repo / paper | FPS |
+|---|---:|---:|---:|---:|
+| 00 (reused) | 0.692 | 0.664 | 0.96x | 3.566 |
+| 01 | 1.822 | 1.816 | 1.00x | 1.997 |
+| 02 (reused) | 1.084 | 1.075 | 0.99x | 3.271 |
+| 03 | 1.207 | 0.785 | 0.65x | 3.385 |
+| 04 | 0.814 | 0.629 | 0.77x | 2.316 |
+| 05 (reused) | 0.577 | 0.512 | 0.89x | 3.549 |
+| 06 | 0.546 | 0.543 | 0.99x | 2.267 |
+| 07 (reused) | 0.496 | 0.411 | 0.83x | 4.125 |
+| 08 (reused) | 0.878 | 1.005 | 1.14x | 2.574 |
+| 09 | 0.566 | 0.725 | 1.28x | 1.632 |
+| 10 | 0.837 | 5.616 | 6.71x | 2.030 |
+
+Geometric mean over all sequences with paper values: **1.12x**
+with the fixed setting. Table 6 is restricted to this same variant by
+`repo_variants` in `evaluation/data/paper_reported_numbers.json`.
+Historical ablations remain available in their original
+result aggregates.
+
+FPS describes the recorded execution: the new runs use one OpenMP
+thread per method and may overlap on the same sequence. Reused FPS
+comes from historical runs on their recorded hosts.
+
+Source aggregates and all unrounded rows are recorded in
+`experiments/results/remaining_kitti_coverage/summary.json`.
+New per-run summaries, host records, logs, estimated poses, evaluated GT
+and step diagnostics are committed under the corresponding
+`experiments/results/runs/` directory. Exact execution commands and the
+isolated-output launcher used for overlapping methods are recorded
+in `experiments/results/remaining_kitti_coverage/`.
+
+### Sequences above twice the paper value
+
+**10: 5.616 % vs 0.837 % (6.71x).**
+The estimated path length is 1.010 of GT.
+For GT steps of at least 0.1 m,
+26 of 1153 steps differ in length by more than 20 %;
+the local translation-vector error exceeds 20 % on 34 steps.
+The longest runs of step length errors have destination-frame indices 1-8, 209-211, 383-386 (zero-based; inclusive).
+All intervals are retained in the diagnostic JSON.
+
+The largest relative-translation-error blocks locate where drift grows.
+Each block contains up to 100 consecutive steps; these endpoint errors
+are diagnostics, not official KITTI RTE.
+
+Blocks spanning at least 1 m of GT travel are ranked below; the JSON
+also retains blocks with less travel.
+
+| Pose interval | GT distance [m] | Est / GT path | Position error start / end [m] | Block error [%] |
+|---|---:|---:|---:|---:|
+| 300-400 | 81.2 | 1.069 | 5.4 / 15.0 | 8.59 |
+| 200-300 | 70.4 | 1.048 | 1.5 / 5.4 | 6.42 |
+| 400-500 | 97.1 | 0.999 | 15.0 / 29.9 | 1.68 |
+
+Diagnostic source: `experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/step_diagnostics.json`.
+
+The total path lengths remain close to GT, so total travel distance
+alone does not capture these failures. The local block errors and
+absolute position-error endpoints measure different effects and need
+not grow together. These saved-pose observations locate disagreements;
+their association or solver causes remain open.
+
+
+Saved-pose diagnostics are generated with
+`evaluation/scripts/diagnose_kitti_steps.py --estimate <trajectory_kitti.txt>
+--gt <evaluated_gt_kitti.txt> --summary <summary.json> --method "LF-GICP"
+--output <step_diagnostics.json>`; each JSON records the exact command.
+The script checks its full-sequence RTE against the original run summary.
+
+<!-- FIXED-KITTI-RESULTS:END -->

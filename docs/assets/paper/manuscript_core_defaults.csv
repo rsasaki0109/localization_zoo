@@ -31,7 +31,7 @@ mulls,mcd_ntu_day_02_108,gt-backed,kitti_default,0.097083,1.170111,experiments/r
 ndt,autoware_istanbul_open_108_c,gt-backed,fast_coarse_map,0.005456,1.947388,experiments/results/ndt_istanbul_window_c_matrix.json
 okvis,kitti_raw_0061_200,gt-backed,fast,29.001262,894.663134,experiments/results/okvis_kitti_raw_0061_matrix.json
 point_lio,mcd_ntu_day_02_108,gt-backed,fast,0.082766,77.298267,experiments/results/point_lio_mcd_ntu_day_02_matrix.json
-quadric_lo,kitti_seq_07_full,gt-backed,dense_profile,2.129764,0.884944,experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_04_full,gt-backed,dense_profile,1.874842,0.432507,experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json
 rko_lio,nclt_2013_01_10_120,gt-backed,no_bias_feedback,0.140740,6.926127,experiments/results/rko_lio_nclt_2013_01_10_matrix.json
 small_gicp,mcd_ntu_day_02_108,gt-backed,dense_recent_map,0.030740,56.784655,experiments/results/small_gicp_mcd_ntu_day_02_matrix.json
 suma,mcd_ntu_day_02_108,gt-backed,dense,0.035750,33.946904,experiments/results/suma_mcd_ntu_day_02_matrix.json

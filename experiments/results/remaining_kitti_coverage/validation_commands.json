@@ -1,0 +1,79 @@
+[
+  {
+    "label": "coverage",
+    "command": [
+      "python3",
+      "-c",
+      "import csv\nimport hashlib\nimport json\nfrom pathlib import Path\nimport subprocess\n\nroot=Path('.')\nevidence=root/'experiments/results/remaining_kitti_coverage'\nsummary=json.loads((evidence/'summary.json').read_text())\nwith (root/'docs/assets/paper/paper_ratio_table.csv').open() as f:\n    table=list(csv.DictReader(f))\nsource_commit=summary['input_commit']\ncounts={}\nfor method,info in summary['methods'].items():\n    selected=[row for row in table if row['method']==method]\n    assert len(selected)==len(info['rows'])\n    for row in info['rows']:\n        seq=row['sequence']\n        aggregate=json.loads(subprocess.check_output(['git','show',source_commit+':'+row['aggregate']]))\n        variant=next(v for v in aggregate['variants'] if v['id']==info['variant'])\n        assert variant['args']==info['args']\n        assert 'no gt seed' in variant['note'].lower()\n        with (root/f'experiments/reference_data/kitti_seq_{seq}_full_gt.csv').open() as f:\n            expected=sum(1 for _ in csv.DictReader(f))\n        assert variant['frames']==expected\n        t=next(t for t in selected if t['sequence']==seq)\n        assert t['repo_metric']=='kitti_rte' and t['repo_best_variant']==info['variant']\n        assert int(t['repo_pool_size'])>=1 and int(t['selected_from_n'])>=1\n        selected_aggregate=json.loads(subprocess.check_output(['git','show',source_commit+':'+t['repo_best_aggregate']]))\n        selected_variant=next(v for v in selected_aggregate['variants'] if v['id']==info['variant'])\n        assert selected_variant['args']==info['args']\n        assert t['repo_best_rpe_pct']==f\"{row['fixed_rte_pct']:.3f}\"\n        assert t['repo_best_ratio']==f\"{row['fixed_ratio']:.2f}\"\n        if row['above_twice_paper']:\n            assert (root/row['diagnostics_path']).is_file()\n        if seq not in info['reused_sequences']:\n            run=root/'experiments/results/runs'/Path(row['aggregate']).stem/info['variant']\n            s=json.loads((run/'summary.json').read_text())\n            assert s['num_frames']==s['total_pcd_frames']==s['used_gt_pose_count']==expected\n    counts[method]={'full_sequences':len(selected),'frames':[r['frames'] for r in info['rows']],\n                    'above_twice_paper':info['above_twice_paper']}\nold=json.loads(subprocess.check_output(['git','show','5d817b5ada87f61dcbbf3299fd3d055c035f3d62:evaluation/data/paper_reported_numbers.json']))\nnew=json.loads((root/'evaluation/data/paper_reported_numbers.json').read_text())\nfor method in old['methods']:\n    assert old['methods'][method].get('reported_values')==new['methods'][method].get('reported_values')\n    assert old['methods'][method].get('reported_source')==new['methods'][method].get('reported_source')\nhistory=json.loads((evidence/'historical_aggregate_sha256.json').read_text())\nfor path,value in history['sha256'].items():\n    assert hashlib.sha256((root/path).read_bytes()).hexdigest()==value\nfor seq in ['01','02','03','04','05','06','08','09','10']:\n    assert json.loads((evidence/f'seq_{seq}_complete.json').read_text())['scans_deleted']\nfor name in ['controller_exit.json']:\n    assert json.loads((evidence/name).read_text())['exit_code']==0\nassert all(r['exit_code']==0 for r in json.loads((evidence/'import_commands.json').read_text()))\nassert all(r['exit_code']==0 for r in json.loads((evidence/'regeneration_commands.json').read_text()))\nprint(json.dumps({'methods':counts,'historical_aggregates_unchanged':len(history['sha256']),\n                  'paper_reference_values_and_sources_unchanged':True},indent=2))\n\n# Additional checks for the frozen source, manifests and handwritten overview rows.\nplan=json.loads((root/'experiments/kitti_remaining_fixed_coverage_plan.json').read_text())\nenvironment=json.loads((evidence/'environment.json').read_text())\nassert environment['evaluator_git_commit']=='5d817b5ada87f61dcbbf3299fd3d055c035f3d62'\nnew_runs=0\nfor config in plan['methods']:\n    name=config['method']; info=summary['methods'][name]\n    original=json.loads((root/config['source_manifest']).read_text())\n    frozen=next(v for v in original['variants'] if v['id']==config['variant'])\n    assert frozen['args']==info['args']==config['args']\n    for seq in config['new_sequences']:\n        stem=f'{name}_kitti_seq_{seq}_full_paper_comp_matrix'\n        manifest=json.loads((root/'experiments'/f'{stem}.json').read_text())\n        assert manifest['variants']==[frozen]\n        run=root/'experiments/results/runs'/stem/config['variant']\n        recorded=json.loads((run/'summary.json').read_text())\n        assert recorded['evaluator_git_commit']==environment['evaluator_git_commit']\n        assert recorded['gt_sha256']==hashlib.sha256((root/manifest['problem']['dataset']['gt_csv']).read_bytes()).hexdigest()\n        assert len((run/'trajectory_kitti.txt').read_text().splitlines())==recorded['num_frames']\n        assert len((run/'evaluated_gt_kitti.txt').read_text().splitlines())==recorded['num_frames']\n        commands=json.loads((evidence/f'seq_{seq}_{name}_commands.json').read_text())\n        assert all(c['exit_code']==0 for c in commands)\n        new_runs+=1\n    for doc in ['README.md','docs/roadmap.md','docs/paper_claim.md']:\n        text=(root/doc).read_text()\n        if doc=='README.md':text=text[text.index('### Paper-number check'):]\n        line=next(line for line in text.splitlines() if line.startswith('|') and (f'| {info[\"label\"]} |' in line or f'| {info[\"label\"]} (' in line))\n        assert f'{info[\"fixed_geometric_mean_ratio\"]:.2f}x' in line,(doc,name)\n    readme=(root/'papers'/name/'README.md').read_text()\n    assert readme.count('<!-- FIXED-KITTI-RESULTS:START -->')==1\n    for row in info['rows']:\n        if row['above_twice_paper']:\n            assert f\"{row['fixed_ratio']:.2f}x\" in readme\n            assert row['diagnostics_path'] in readme\nassert new_runs==26\nassert len(summary['methods']['l_lo']['rows'])==10\nassert 'Completed: A-LOAM, LF-GICP, L-LO and Quadric-LO' in (root/'docs/roadmap.md').read_text()\nfor name in ['postbuild_checks.json','final_checks.json']:\n    assert all(c['exit_code']==0 for c in json.loads((evidence/'checks'/name).read_text())['checks'])\nprint(json.dumps({'new_full_runs':new_runs,'fixed_configurations_and_provenance_checked':True,'overview_means_match_committed_evidence':True},indent=2))\n"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "stdout": "experiments/results/remaining_kitti_coverage/validation_coverage.log",
+    "stderr": "experiments/results/remaining_kitti_coverage/validation_coverage_stderr.log",
+    "started_unix": 1792157006.0324242,
+    "finished_unix": 1792157007.916766
+  },
+  {
+    "label": "raw-scan-cleanup",
+    "command": [
+      "python3",
+      "-c",
+      "from pathlib import Path\nimport json\nroot=Path('/workspace/localization-env/kitti-remaining-coverage')\nremaining=[str(p) for suffix in ['*.bin','*.pcd'] for p in root.rglob(suffix)]\nassert not remaining, remaining\nprint(json.dumps({'scan_root':str(root),'remaining_raw_scans':len(remaining),'scans_deleted':True},indent=2))\n"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "stdout": "experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup.log",
+    "stderr": "experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup_stderr.log",
+    "started_unix": 1792157007.9173203,
+    "finished_unix": 1792157008.1225119
+  },
+  {
+    "label": "source-document-whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      ".",
+      ":(exclude,glob)**/*.log"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "stdout": "experiments/results/remaining_kitti_coverage/validation_source-document-whitespace.log",
+    "stderr": "experiments/results/remaining_kitti_coverage/validation_source-document-whitespace_stderr.log",
+    "started_unix": 1792157008.1227949,
+    "finished_unix": 1792157008.738616
+  },
+  {
+    "label": "staged-source-document-whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(exclude,glob)**/*.log"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "stdout": "experiments/results/remaining_kitti_coverage/validation_staged-whitespace.log",
+    "stderr": "experiments/results/remaining_kitti_coverage/validation_staged-whitespace_stderr.log",
+    "started_unix": 1792157082.9338639,
+    "finished_unix": 1792157083.097756
+  },
+  {
+    "label": "all-overview-unrounded-ratios",
+    "command": [
+      "python3",
+      "-c",
+      "import collections\nimport csv\nimport json\nimport math\nfrom pathlib import Path\nimport subprocess\n\nroot=Path('.')\nevidence=root/'experiments/results/remaining_kitti_coverage'\nsummary=json.loads((evidence/'summary.json').read_text())\ncommit=summary['input_commit']\npaper=json.loads(subprocess.check_output(['git','show',commit+':evaluation/data/paper_reported_numbers.json']))['methods']\nlabels={'aloam':'A-LOAM','ct_icp':'CT-ICP','dilo':'DiLO','elo':'ELO','imls_slam':'IMLS-SLAM','inten_loam':'InTEn-LOAM','kiss_icp':'KISS-ICP','l_lo':'L-LO','lf_gicp':'LF-GICP','litamin2':'LiTAMIN2','mesh_loam':'Mesh-LOAM','mulls':'MULLS','quadric_lo':'Quadric-LO','suma':'SuMa'}\ngroups=collections.defaultdict(list)\nwith (root/'docs/assets/paper/paper_ratio_table.csv').open() as f:\n    for row in csv.DictReader(f):\n        aggregate=json.loads(subprocess.check_output(['git','show',commit+':'+row['repo_best_aggregate']]))\n        value=next(v for v in aggregate['variants'] if v['id']==row['repo_best_variant'])['kitti_rte_trans_pct']\n        reference=paper[row['method']]['reported_values']['kitti_'+row['sequence']]\n        groups[row['method']].append({'sequence':row['sequence'],'aggregate':row['repo_best_aggregate'],'variant':row['repo_best_variant'],'repo_rte_pct':value,'paper_rte_pct':reference,'ratio':value/reference})\nreport={'input_commit':commit,'rounding':'Geometric mean of unrounded committed RTE ratios, then round once for display.','methods':{}}\nfor name,rows in groups.items():\n    mean=math.exp(sum(math.log(r['ratio']) for r in rows)/len(rows))\n    for file in ['README.md','docs/roadmap.md','docs/paper_claim.md']:\n        text=(root/file).read_text()\n        if file=='README.md':text=text[text.index('### Paper-number check'):]\n        label=labels[name]\n        line=next(v for v in text.splitlines() if v.startswith('|') and ('| '+label+' |' in v or '| '+label+' (' in v))\n        assert f'{mean:.2f}x' in line,(name,file,mean,line)\n    report['methods'][name]={'geometric_mean_ratio':mean,'display_ratio':f'{mean:.2f}x','rows':rows}\nprint(json.dumps(report,indent=2))\n"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "stdout": "experiments/results/remaining_kitti_coverage/overview_ratio_audit.json",
+    "stderr": "experiments/results/remaining_kitti_coverage/overview_ratio_audit_stderr.log",
+    "started_unix": 1792157185.5432365,
+    "finished_unix": 1792157187.137209
+  }
+]

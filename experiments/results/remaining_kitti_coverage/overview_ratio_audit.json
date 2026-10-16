@@ -1,0 +1,1242 @@
+{
+  "input_commit": "960992dea5a491d92144e04a598635ee58b33f91",
+  "rounding": "Geometric mean of unrounded committed RTE ratios, then round once for display.",
+  "methods": {
+    "aloam": {
+      "geometric_mean_ratio": 1.067863551932757,
+      "display_ratio": "1.07x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.854802,
+          "paper_rte_pct": 0.78,
+          "ratio": 1.0958999999999999
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 2.188822,
+          "paper_rte_pct": 1.43,
+          "ratio": 1.5306447552447553
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 1.028848,
+          "paper_rte_pct": 0.92,
+          "ratio": 1.1183130434782609
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.9641,
+          "paper_rte_pct": 0.86,
+          "ratio": 1.121046511627907
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.880316,
+          "paper_rte_pct": 0.71,
+          "ratio": 1.2398816901408451
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.535037,
+          "paper_rte_pct": 0.57,
+          "ratio": 0.938661403508772
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.602165,
+          "paper_rte_pct": 0.65,
+          "ratio": 0.9264076923076922
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.680647,
+          "paper_rte_pct": 0.63,
+          "ratio": 1.0803920634920634
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.97473,
+          "paper_rte_pct": 1.12,
+          "ratio": 0.8702946428571428
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.672966,
+          "paper_rte_pct": 0.77,
+          "ratio": 0.8739818181818181
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "kitti_default",
+          "repo_rte_pct": 0.873025,
+          "paper_rte_pct": 0.79,
+          "ratio": 1.1050949367088607
+        }
+      ]
+    },
+    "ct_icp": {
+      "geometric_mean_ratio": 1.151935087022109,
+      "display_ratio": "1.15x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.525112,
+          "paper_rte_pct": 0.49,
+          "ratio": 1.0716571428571429
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.715529,
+          "paper_rte_pct": 0.76,
+          "ratio": 0.9414855263157894
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.549227,
+          "paper_rte_pct": 0.52,
+          "ratio": 1.0562057692307691
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.586226,
+          "paper_rte_pct": 0.72,
+          "ratio": 0.8142027777777778
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.717385,
+          "paper_rte_pct": 0.39,
+          "ratio": 1.839448717948718
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.314701,
+          "paper_rte_pct": 0.25,
+          "ratio": 1.258804
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.283804,
+          "paper_rte_pct": 0.27,
+          "ratio": 1.0511259259259258
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.315128,
+          "paper_rte_pct": 0.31,
+          "ratio": 1.016541935483871
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.901556,
+          "paper_rte_pct": 0.81,
+          "ratio": 1.113032098765432
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.628776,
+          "paper_rte_pct": 0.49,
+          "ratio": 1.2832163265306122
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.741934,
+          "paper_rte_pct": 0.48,
+          "ratio": 1.5456958333333333
+        }
+      ]
+    },
+    "dilo": {
+      "geometric_mean_ratio": 0.9568138133371009,
+      "display_ratio": "0.96x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_spread_keypoints",
+          "repo_rte_pct": 0.548844,
+          "paper_rte_pct": 0.64,
+          "ratio": 0.85756875
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_degenerate",
+          "repo_rte_pct": 1.517535,
+          "paper_rte_pct": 1.07,
+          "ratio": 1.4182570093457945
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/dilo_kitti_seq_02_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_degenerate",
+          "repo_rte_pct": 0.733826,
+          "paper_rte_pct": 0.67,
+          "ratio": 1.0952626865671642
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_spread_keypoints",
+          "repo_rte_pct": 0.725247,
+          "paper_rte_pct": 0.74,
+          "ratio": 0.9800635135135135
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_spread_keypoints",
+          "repo_rte_pct": 0.332304,
+          "paper_rte_pct": 0.45,
+          "ratio": 0.7384533333333333
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_degenerate",
+          "repo_rte_pct": 0.409315,
+          "paper_rte_pct": 0.46,
+          "ratio": 0.8898152173913043
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_spread_keypoints",
+          "repo_rte_pct": 0.374198,
+          "paper_rte_pct": 0.41,
+          "ratio": 0.9126780487804877
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_spread_keypoints",
+          "repo_rte_pct": 0.37213,
+          "paper_rte_pct": 0.42,
+          "ratio": 0.8860238095238095
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/dilo_kitti_seq_08_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_degenerate",
+          "repo_rte_pct": 0.967112,
+          "paper_rte_pct": 0.93,
+          "ratio": 1.039905376344086
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_spread_keypoints",
+          "repo_rte_pct": 0.53677,
+          "paper_rte_pct": 0.64,
+          "ratio": 0.8387031249999999
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/dilo_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_spread_keypoints",
+          "repo_rte_pct": 0.864443,
+          "paper_rte_pct": 0.85,
+          "ratio": 1.0169917647058824
+        }
+      ]
+    },
+    "elo": {
+      "geometric_mean_ratio": 1.2175667374522077,
+      "display_ratio": "1.22x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.586301,
+          "paper_rte_pct": 0.54,
+          "ratio": 1.0857425925925925
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.868787,
+          "paper_rte_pct": 0.61,
+          "ratio": 1.4242409836065573
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/elo_kitti_seq_02_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.769738,
+          "paper_rte_pct": 0.54,
+          "ratio": 1.4254407407407408
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.890225,
+          "paper_rte_pct": 0.65,
+          "ratio": 1.369576923076923
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.268482,
+          "paper_rte_pct": 0.32,
+          "ratio": 0.83900625
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.399096,
+          "paper_rte_pct": 0.33,
+          "ratio": 1.2093818181818181
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.411249,
+          "paper_rte_pct": 0.3,
+          "ratio": 1.37083
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.390734,
+          "paper_rte_pct": 0.31,
+          "ratio": 1.2604322580645162
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/elo_kitti_seq_08_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 1.07861,
+          "paper_rte_pct": 0.79,
+          "ratio": 1.3653291139240507
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.677904,
+          "paper_rte_pct": 0.48,
+          "ratio": 1.4122999999999999
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/elo_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "dense_elevation_paper_normals_unbiased",
+          "repo_rte_pct": 0.504,
+          "paper_rte_pct": 0.59,
+          "ratio": 0.8542372881355933
+        }
+      ]
+    },
+    "imls_slam": {
+      "geometric_mean_ratio": 1.0483485679048707,
+      "display_ratio": "1.05x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.522847,
+          "paper_rte_pct": 0.5,
+          "ratio": 1.045694
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.842393,
+          "paper_rte_pct": 0.82,
+          "ratio": 1.0273085365853658
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_02_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.521957,
+          "paper_rte_pct": 0.53,
+          "ratio": 0.9848245283018867
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.770289,
+          "paper_rte_pct": 0.68,
+          "ratio": 1.1327779411764705
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.425331,
+          "paper_rte_pct": 0.33,
+          "ratio": 1.2888818181818182
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_05_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.291733,
+          "paper_rte_pct": 0.32,
+          "ratio": 0.911665625
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.359749,
+          "paper_rte_pct": 0.33,
+          "ratio": 1.0901484848484848
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100",
+          "repo_rte_pct": 0.339406,
+          "paper_rte_pct": 0.33,
+          "ratio": 1.0285030303030303
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_08_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.843984,
+          "paper_rte_pct": 0.8,
+          "ratio": 1.0549799999999998
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.515134,
+          "paper_rte_pct": 0.55,
+          "ratio": 0.9366072727272726
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_w100_coarse_start",
+          "repo_rte_pct": 0.571068,
+          "paper_rte_pct": 0.53,
+          "ratio": 1.0774867924528302
+        }
+      ]
+    },
+    "inten_loam": {
+      "geometric_mean_ratio": 2.189334130353078,
+      "display_ratio": "2.19x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 0.69672,
+          "paper_rte_pct": 0.52,
+          "ratio": 1.339846153846154
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 16.613803,
+          "paper_rte_pct": 0.64,
+          "ratio": 25.9590671875
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 3.22123,
+          "paper_rte_pct": 0.54,
+          "ratio": 5.96524074074074
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 0.890601,
+          "paper_rte_pct": 0.63,
+          "ratio": 1.4136523809523809
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 0.676097,
+          "paper_rte_pct": 0.37,
+          "ratio": 1.8272891891891891
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 0.497289,
+          "paper_rte_pct": 0.36,
+          "ratio": 1.3813583333333332
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 0.358642,
+          "paper_rte_pct": 0.24,
+          "ratio": 1.4943416666666667
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 0.364131,
+          "paper_rte_pct": 0.34,
+          "ratio": 1.0709735294117646
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 0.937938,
+          "paper_rte_pct": 0.71,
+          "ratio": 1.3210394366197185
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 0.661434,
+          "paper_rte_pct": 0.48,
+          "ratio": 1.3779875
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_plane_check",
+          "repo_rte_pct": 1.155652,
+          "paper_rte_pct": 0.45,
+          "ratio": 2.5681155555555555
+        }
+      ]
+    },
+    "kiss_icp": {
+      "geometric_mean_ratio": 1.043100020740089,
+      "display_ratio": "1.04x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.535182,
+          "paper_rte_pct": 0.51,
+          "ratio": 1.0493764705882354
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json",
+          "variant": "upstream_mechanics_elevation",
+          "repo_rte_pct": 0.37327,
+          "paper_rte_pct": 0.36,
+          "ratio": 1.0368611111111112
+        }
+      ]
+    },
+    "l_lo": {
+      "geometric_mean_ratio": 1.569311790260122,
+      "display_ratio": "1.57x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/l_lo_kitti_seq_00_full_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 1.479169,
+          "paper_rte_pct": 0.91,
+          "ratio": 1.6254604395604395
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/l_lo_kitti_seq_02_full_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 4.477621,
+          "paper_rte_pct": 2.35,
+          "ratio": 1.9053706382978723
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 3.065906,
+          "paper_rte_pct": 2.92,
+          "ratio": 1.0499678082191781
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 2.13528,
+          "paper_rte_pct": 2.28,
+          "ratio": 0.9365263157894737
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/l_lo_kitti_seq_05_full_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 1.472505,
+          "paper_rte_pct": 0.82,
+          "ratio": 1.7957378048780488
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 1.314531,
+          "paper_rte_pct": 0.66,
+          "ratio": 1.991713636363636
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/l_lo_kitti_seq_07_full_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 1.004322,
+          "paper_rte_pct": 0.69,
+          "ratio": 1.4555391304347827
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/l_lo_kitti_seq_08_full_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 1.661196,
+          "paper_rte_pct": 1.37,
+          "ratio": 1.212551824817518
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 4.122145,
+          "paper_rte_pct": 1.89,
+          "ratio": 2.1810291005291007
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "seq07_tuned",
+          "repo_rte_pct": 4.105241,
+          "paper_rte_pct": 1.9,
+          "ratio": 2.160653157894737
+        }
+      ]
+    },
+    "lf_gicp": {
+      "geometric_mean_ratio": 1.118600562163813,
+      "display_ratio": "1.12x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_00_full_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 0.663949,
+          "paper_rte_pct": 0.692,
+          "ratio": 0.95946387283237
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 1.816415,
+          "paper_rte_pct": 1.822,
+          "ratio": 0.9969346871569703
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_02_full_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 1.07538,
+          "paper_rte_pct": 1.084,
+          "ratio": 0.9920479704797047
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 0.785354,
+          "paper_rte_pct": 1.207,
+          "ratio": 0.6506661143330571
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 0.628883,
+          "paper_rte_pct": 0.814,
+          "ratio": 0.7725835380835381
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_05_full_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 0.511904,
+          "paper_rte_pct": 0.577,
+          "ratio": 0.8871819757365685
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 0.54277,
+          "paper_rte_pct": 0.546,
+          "ratio": 0.994084249084249
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 0.411405,
+          "paper_rte_pct": 0.496,
+          "ratio": 0.829445564516129
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_08_full_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 1.004991,
+          "paper_rte_pct": 0.878,
+          "ratio": 1.144636674259681
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 0.724575,
+          "paper_rte_pct": 0.566,
+          "ratio": 1.2801678445229683
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "paper_default",
+          "repo_rte_pct": 5.616436,
+          "paper_rte_pct": 0.837,
+          "ratio": 6.710198327359619
+        }
+      ]
+    },
+    "litamin2": {
+      "geometric_mean_ratio": 1.0054743609502221,
+      "display_ratio": "1.01x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/litamin2_kitti_seq_00_full_paper_matrix.json",
+          "variant": "paper_icp_first",
+          "repo_rte_pct": 0.947949,
+          "paper_rte_pct": 0.78,
+          "ratio": 1.2153192307692309
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/litamin2_kitti_seq_01_full_paper_matrix.json",
+          "variant": "paper_icp_first",
+          "repo_rte_pct": 1.808671,
+          "paper_rte_pct": 2.1,
+          "ratio": 0.8612719047619047
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/litamin2_kitti_seq_02_full_paper_matrix.json",
+          "variant": "paper_icp_first",
+          "repo_rte_pct": 1.135053,
+          "paper_rte_pct": 0.95,
+          "ratio": 1.1947926315789474
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json",
+          "variant": "paper_icp_cov",
+          "repo_rte_pct": 0.756353,
+          "paper_rte_pct": 0.96,
+          "ratio": 0.7878677083333334
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json",
+          "variant": "paper_icp_cov",
+          "repo_rte_pct": 0.902331,
+          "paper_rte_pct": 1.05,
+          "ratio": 0.8593628571428571
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json",
+          "variant": "paper_icp_first",
+          "repo_rte_pct": 0.601064,
+          "paper_rte_pct": 0.55,
+          "ratio": 1.0928436363636365
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json",
+          "variant": "paper_icp_first",
+          "repo_rte_pct": 0.494172,
+          "paper_rte_pct": 0.55,
+          "ratio": 0.8984945454545454
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/litamin2_kitti_seq_07_full_paper_matrix.json",
+          "variant": "paper_icp_cov",
+          "repo_rte_pct": 0.477032,
+          "paper_rte_pct": 0.48,
+          "ratio": 0.9938166666666667
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json",
+          "variant": "paper_icp_first",
+          "repo_rte_pct": 0.98149,
+          "paper_rte_pct": 1.01,
+          "ratio": 0.9717722772277227
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json",
+          "variant": "paper_icp_cov",
+          "repo_rte_pct": 0.777416,
+          "paper_rte_pct": 0.69,
+          "ratio": 1.1266898550724638
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json",
+          "variant": "paper_icp_first",
+          "repo_rte_pct": 0.939008,
+          "paper_rte_pct": 0.8,
+          "ratio": 1.17376
+        }
+      ]
+    },
+    "mesh_loam": {
+      "geometric_mean_ratio": 1.2772364894751864,
+      "display_ratio": "1.28x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.565259,
+          "paper_rte_pct": 0.53,
+          "ratio": 1.0665264150943394
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.857211,
+          "paper_rte_pct": 0.64,
+          "ratio": 1.3393921874999999
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.606666,
+          "paper_rte_pct": 0.52,
+          "ratio": 1.1666653846153847
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.927673,
+          "paper_rte_pct": 0.63,
+          "ratio": 1.4724968253968254
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.819834,
+          "paper_rte_pct": 0.41,
+          "ratio": 1.9995951219512196
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.344718,
+          "paper_rte_pct": 0.34,
+          "ratio": 1.0138764705882353
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.418078,
+          "paper_rte_pct": 0.35,
+          "ratio": 1.1945085714285715
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.341813,
+          "paper_rte_pct": 0.31,
+          "ratio": 1.1026225806451613
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.908971,
+          "paper_rte_pct": 0.82,
+          "ratio": 1.108501219512195
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.630539,
+          "paper_rte_pct": 0.47,
+          "ratio": 1.341572340425532
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "paper_odometry_elevation",
+          "repo_rte_pct": 0.848006,
+          "paper_rte_pct": 0.56,
+          "ratio": 1.5142964285714284
+        }
+      ]
+    },
+    "mulls": {
+      "geometric_mean_ratio": 1.116672110264889,
+      "display_ratio": "1.12x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/mulls_kitti_seq_00_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.536137,
+          "paper_rte_pct": 0.51,
+          "ratio": 1.051249019607843
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/mulls_kitti_seq_01_full_lo_matrix.json",
+          "variant": "mulls_lo_highway_elevation",
+          "repo_rte_pct": 0.673561,
+          "paper_rte_pct": 0.62,
+          "ratio": 1.0863887096774194
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/mulls_kitti_seq_02_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.585456,
+          "paper_rte_pct": 0.55,
+          "ratio": 1.0644654545454544
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/mulls_kitti_seq_03_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.609476,
+          "paper_rte_pct": 0.61,
+          "ratio": 0.9991409836065575
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/mulls_kitti_seq_04_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.491663,
+          "paper_rte_pct": 0.35,
+          "ratio": 1.4047514285714287
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/mulls_kitti_seq_05_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.314805,
+          "paper_rte_pct": 0.28,
+          "ratio": 1.1243035714285714
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/mulls_kitti_seq_06_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.297329,
+          "paper_rte_pct": 0.24,
+          "ratio": 1.2388708333333334
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/mulls_kitti_seq_07_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.319402,
+          "paper_rte_pct": 0.29,
+          "ratio": 1.1013862068965519
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/mulls_kitti_seq_08_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.811989,
+          "paper_rte_pct": 0.8,
+          "ratio": 1.01498625
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/mulls_kitti_seq_09_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.548233,
+          "paper_rte_pct": 0.49,
+          "ratio": 1.118842857142857
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/mulls_kitti_seq_10_full_lo_matrix.json",
+          "variant": "mulls_lo_elevation",
+          "repo_rte_pct": 0.690852,
+          "paper_rte_pct": 0.61,
+          "ratio": 1.132544262295082
+        }
+      ]
+    },
+    "quadric_lo": {
+      "geometric_mean_ratio": 0.8531538569375723,
+      "display_ratio": "0.85x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 0.965644,
+          "paper_rte_pct": 0.92,
+          "ratio": 1.0496130434782607
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 2.059582,
+          "paper_rte_pct": 2.61,
+          "ratio": 0.789111877394636
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 1.175892,
+          "paper_rte_pct": 1.16,
+          "ratio": 1.0137
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 1.236253,
+          "paper_rte_pct": 1.45,
+          "ratio": 0.852588275862069
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 0.679896,
+          "paper_rte_pct": 0.87,
+          "ratio": 0.7814896551724138
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 0.587992,
+          "paper_rte_pct": 0.76,
+          "ratio": 0.7736736842105263
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 0.559674,
+          "paper_rte_pct": 0.55,
+          "ratio": 1.0175890909090908
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 0.662005,
+          "paper_rte_pct": 1.09,
+          "ratio": 0.6073440366972476
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 1.128039,
+          "paper_rte_pct": 1.68,
+          "ratio": 0.6714517857142858
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 0.9328,
+          "paper_rte_pct": 0.85,
+          "ratio": 1.0974117647058823
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+          "variant": "dense_profile",
+          "repo_rte_pct": 1.556411,
+          "paper_rte_pct": 1.76,
+          "ratio": 0.8843244318181818
+        }
+      ]
+    },
+    "suma": {
+      "geometric_mean_ratio": 0.9674899713412201,
+      "display_ratio": "0.97x",
+      "rows": [
+        {
+          "sequence": "00",
+          "aggregate": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 0.697236,
+          "paper_rte_pct": 0.7,
+          "ratio": 0.9960514285714286
+        },
+        {
+          "sequence": "01",
+          "aggregate": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json",
+          "variant": "paper_odometry_clean_lookup_elevation",
+          "repo_rte_pct": 3.550459,
+          "paper_rte_pct": 1.7,
+          "ratio": 2.088505294117647
+        },
+        {
+          "sequence": "02",
+          "aggregate": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json",
+          "variant": "paper_odometry_clean_lookup_elevation",
+          "repo_rte_pct": 0.783563,
+          "paper_rte_pct": 1.1,
+          "ratio": 0.7123299999999999
+        },
+        {
+          "sequence": "03",
+          "aggregate": "experiments/results/suma_kitti_seq_03_full_paper_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 0.65109,
+          "paper_rte_pct": 0.7,
+          "ratio": 0.9301285714285714
+        },
+        {
+          "sequence": "04",
+          "aggregate": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 0.416845,
+          "paper_rte_pct": 0.4,
+          "ratio": 1.0421125
+        },
+        {
+          "sequence": "05",
+          "aggregate": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 0.379344,
+          "paper_rte_pct": 0.5,
+          "ratio": 0.758688
+        },
+        {
+          "sequence": "06",
+          "aggregate": "experiments/results/suma_kitti_seq_06_full_paper_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 0.285691,
+          "paper_rte_pct": 0.4,
+          "ratio": 0.7142274999999999
+        },
+        {
+          "sequence": "07",
+          "aggregate": "experiments/results/suma_kitti_seq_07_full_elevation_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 0.331226,
+          "paper_rte_pct": 0.4,
+          "ratio": 0.828065
+        },
+        {
+          "sequence": "08",
+          "aggregate": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 1.060143,
+          "paper_rte_pct": 1.0,
+          "ratio": 1.060143
+        },
+        {
+          "sequence": "09",
+          "aggregate": "experiments/results/suma_kitti_seq_09_full_paper_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 0.510286,
+          "paper_rte_pct": 0.5,
+          "ratio": 1.020572
+        },
+        {
+          "sequence": "10",
+          "aggregate": "experiments/results/suma_kitti_seq_10_full_paper_matrix.json",
+          "variant": "paper_odometry",
+          "repo_rte_pct": 0.69788,
+          "paper_rte_pct": 0.7,
+          "ratio": 0.9969714285714285
+        }
+      ]
+    }
+  }
+}

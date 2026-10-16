@@ -31,7 +31,35 @@ directly, with no CLI sensor profile or ground-truth initialization.
 DiLO's native default returns identity poses throughout this fixture. Its Python
 interface returns the same poses and window state. This fixture provides an API
 parity check; motion recovery uses the separate mechanism and KITTI evaluations.
-No parameter was selected or retuned using these scans.
+No parameter was selected or retuned using these scans. A separate moving-room
+fixture uses the same native DiLO defaults and the sensor beam layout from its
+existing mechanism test. It produces non-identity poses and a maximum Python/C++
+pose-element difference of 0.0, with equal native diagnostics.
+[Committed moving-fixture report](local/cb6a2fb0_python_moving/paper_python_fixture.json),
+commands and source guard were recorded in `9175ef7c`. The additional ROS case
+checks these moving outputs too, using the same native configuration.
+
+
+## ROS/native verification
+
+Reliable-input execution at `1398455265a4bcaf3b7683ff77664d998f1754c3`
+completed every real-fixture case. Its [report](ci/13984552_ros_reliable/report.json),
+[command log](ci/13984552_ros_reliable/job.log) and
+[receipt](ci/13984552_ros_reliable/receipt.json) were committed in `ef6115c5`
+before the following observations. Both messages preserve the expected frame
+names and scan timestamps. The reconstructed matrices include quaternion-to-matrix
+rounding; the comparison tolerance is specified by the test.
+
+| Native paper path | Scans | Maximum odometry/C++ matrix difference | Maximum TF/C++ matrix difference |
+|---|---:|---:|---:|
+| SuMa | 3 | 1.11e-15 | 1.11e-15 |
+| IMLS-SLAM | 3 | 4.44e-16 | 4.44e-16 |
+| DiLO | 3 | 0 | 0 |
+| LiTAMIN2 | 3 | 4.44e-16 | 4.44e-16 |
+
+These are interface parity measurements on one short fixture. DiLO's real-fixture
+reference is identity as described above. The additional moving-room case guards
+against returning a constant pose, with the same native defaults.
 
 ## ROS validation protocol and retained failure
 
@@ -49,11 +77,16 @@ DiLO and LiTAMIN2 completed. That attempt used best-effort input and waited only
 for the point-cloud input connection. A missing output could reflect input
 delivery or an output publisher not yet matched to the observer.
 
-The revised protocol explicitly selects reliable input and waits for input,
-odometry and TF endpoints before replay. The new delivery option stays opt-in;
-normal sensor subscribers retain best-effort QoS. Scans, native registration
-parameters and comparison tolerances are unchanged. The complete revised ROS
-verification is pending; partial results above do not close the check.
+The reliable-input execution above completes every real-fixture case. The new
+delivery option stays opt-in; normal sensor subscribers retain best-effort QoS.
+Scans, native registration parameters and comparison tolerances are unchanged.
+The final test also waits for input, odometry and TF endpoints before replay.
+The intervening observer implementation at `021534d5` used a subscription API
+absent from ROS 2 Humble and failed before any method comparison; its
+[failed job and receipt](ci/021534d5_ros_humble_api_failed/) are retained. The
+observer now uses Humble's supported node graph API. The final CI check covers
+that observer and the additional moving-room case; the numerical table records
+only the already committed execution identified above.
 
 ## Reproduction and scope
 

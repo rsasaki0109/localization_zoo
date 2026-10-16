@@ -55,6 +55,32 @@ the retained harness prints these effective settings accurately. This is a
 reporting correction, not a registration-parameter change. The original logs
 are preserved.
 
+## Retained-code verification and final checks
+
+The release verification was committed in `1c9adeee58f2b3b29ddaa1e611bc7382b8e160ff` before this account.
+Its [commands](release_verification/1b51db69/commands.json),
+[binary/library identities](release_verification/1b51db69/binary.json) and
+[saved-pose comparisons](release_verification/1b51db69/trajectory_checks.json)
+identify retained source `1b51db694a137379151366b889087f1186bb08b5` separately from the measured candidate.
+The complete Release build and CTest pass with their actual exit codes.
+Source checks confirm that Mesh matches the frozen baseline, and the retained
+IMLS/InTEn implementation and test files match the measured candidate. Their
+compiled static-library hashes are unchanged across the release rebuild.
+
+The retained binary also replays the first development window for IMLS and
+InTEn with the option off and on, and for Mesh with the global flag ignored.
+All saved trajectories match their recorded references. These are verification
+runs; their execution times are excluded from the speed ratios. Unit tests
+also compare internal poses, feature order, queries and normal equations across
+worker counts; serialization equality alone is not the only accuracy check.
+
+Input cleanup and final Python/document checks retain commands and exit codes
+in `cleanup_kitti07.json` and `checks/release_final_validation/`. Cleanup verifies
+all scan hashes before deleting the raw sequence. The preservation check covers
+historical aggregates, the paper reference data, Table 6 and published
+leaderboards. Neither the speed experiment nor the retained opt-in flag
+replaces historical paper-number results.
+
 ## Profiles and development history
 
 The rejected normal-bound candidate's [final Mesh CPU profile](runs/f4755573_profile_accelerated_mesh_loam/cpu_profile.txt)

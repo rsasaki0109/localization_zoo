@@ -1,0 +1,14 @@
+{
+  "source_commit": "1b51db694a137379151366b889087f1186bb08b5",
+  "binary_sha256": "503649c4a9cb8bbb1a7f7abcf5a58e1844116a6cf4b546610fb9999555f33f03",
+  "retained_library_sha256_before": {
+    "imls_slam": "5804ae28699bc47e1b01c34866401c3a3963b20c018161add3f2ff505f6eeea3",
+    "inten_loam": "d0c48a57c4410646e5d78da3a31a3e45c0f378533f1836eee6b05a489f8d3440"
+  },
+  "retained_library_sha256_after": {
+    "imls_slam": "5804ae28699bc47e1b01c34866401c3a3963b20c018161add3f2ff505f6eeea3",
+    "inten_loam": "d0c48a57c4410646e5d78da3a31a3e45c0f378533f1836eee6b05a489f8d3440"
+  },
+  "mesh_cpp_matches_baseline": true,
+  "retained_cpp_matches_measured_candidate": true
+}

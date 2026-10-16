@@ -8820,11 +8820,11 @@ MethodResult runImlsPaperOdometry(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   std::ostringstream note;
-  note << std::fixed << std::setprecision(1)
+  note << std::fixed << std::setprecision(2)
        << "IMLS-SLAM paper odometry (raw scans, window of " << params.window_scans
        << " raw scans, h=" << params.h << " r=" << params.r << ", nine lists x "
        << params.samples_per_list << ", " << params.iterations
-       << " iterations); no GT seed. mean samples " << samples / std::max<size_t>(1, registered);
+       << " iterations); no GT seed. mean samples " << std::setprecision(1) << samples / std::max<size_t>(1, registered);
   if (params.coarse_frames > 0)
     note << "; coarse start on the first " << params.coarse_frames << " registrations (r=" << params.coarse_r
          << " h=" << params.coarse_h << ", not in the paper)";

@@ -69,15 +69,32 @@ class FeatureTree {
     d2->resize(count);
     if (!count) return 0;
     const std::array<float, 3> query{{static_cast<float>(x.x()), static_cast<float>(x.y()), static_cast<float>(x.z())}};
-    flann::KNNSimpleResultSet<float> result(count);
-    native_->findNeighbors(result, query.data(), flann::SearchParams(-1, 0.0f, true));
-    std::vector<size_t> indices(count);
-    result.copy(indices.data(), d2->data(), count, true);
-    std::copy(indices.begin(), indices.end(), idx->begin());
+    // Production queries use k=5 or 10. Reuse only result-set storage, never
+    // neighbours or distances: clear() has the same semantics as FLANN's batch
+    // query loop. Each worker owns its scratch, including across tree rebuilds.
+    thread_local std::array<std::unique_ptr<Scratch>, 11> small;
+    std::unique_ptr<Scratch> large;
+    Scratch* scratch;
+    if (count <= 10) {
+      if (!small[count]) small[count] = std::make_unique<Scratch>(count);
+      scratch = small[count].get();
+    } else {
+      large = std::make_unique<Scratch>(count);
+      scratch = large.get();
+    }
+    scratch->result.clear();
+    native_->findNeighbors(scratch->result, query.data(), flann::SearchParams(-1, 0.0f, true));
+    scratch->result.copy(scratch->indices.data(), d2->data(), count, true);
+    std::copy(scratch->indices.begin(), scratch->indices.end(), idx->begin());
     return count;
   }
 
  private:
+  struct Scratch {
+    explicit Scratch(int count) : result(count), indices(count) {}
+    flann::KNNSimpleResultSet<float> result;
+    std::vector<size_t> indices;
+  };
   using NativeIndex = flann::KDTreeSingleIndex<flann::L2_Simple<float>>;
   pcl::KdTreeFLANN<pcl::PointXYZ> kd_;
   bool ok_ = false;

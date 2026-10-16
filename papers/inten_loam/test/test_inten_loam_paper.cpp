@@ -88,6 +88,23 @@ TEST(InTenLoamPaper, AcceleratedQueriesKeepNormalEquationsCountsAndPoses) {
       std::vector<Eigen::Vector3d> points;
       std::vector<float> intensity;
       scanAt(pose, &points, &intensity);
+      const auto fa = legacy.extractFeatures(points, intensity);
+      const auto fb = accelerated.extractFeatures(points, intensity);
+      for (const auto& pair : {std::make_pair(&fa.all, &fb.all),
+                               std::make_pair(&fa.ground, &fb.ground),
+                               std::make_pair(&fa.facade, &fb.facade),
+                               std::make_pair(&fa.edge, &fb.edge),
+                               std::make_pair(&fa.reflector, &fb.reflector)}) {
+        ASSERT_EQ(pair.first->size(), pair.second->size());
+        for (size_t j = 0; j < pair.first->size(); ++j) {
+          const auto& x = (*pair.first)[j];
+          const auto& y = (*pair.second)[j];
+          EXPECT_TRUE((x.p.array() == y.p.array()).all());
+          EXPECT_EQ(x.intensity, y.intensity);
+          EXPECT_EQ(x.row, y.row);
+          EXPECT_EQ(x.cluster, y.cluster);
+        }
+      }
       const auto a = legacy.process(points, intensity), b = accelerated.process(points, intensity);
       EXPECT_TRUE((a.pose.array() == b.pose.array()).all()) << "threads=" << threads << " frame=" << k;
       EXPECT_EQ(a.s2s_pairs, b.s2s_pairs);

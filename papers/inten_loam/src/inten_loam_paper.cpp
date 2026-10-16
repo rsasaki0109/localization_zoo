@@ -230,6 +230,7 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
     for (const auto& q : pts) e += std::pow(*a * q.first + *b - q.second, 2);
     *rmse = std::sqrt(e / n);
   };
+#pragma omp parallel for if(params_.accelerated) schedule(static)
   for (int s = 0; s < S; ++s) {
     std::vector<std::pair<double, double>> cur;
     auto close = [&]() {
@@ -268,6 +269,7 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
 
   // Labels: 1 ground, >= 2 cluster id, 0 masked / invalid.
   std::vector<int> label(static_cast<size_t>(W) * H, -1);
+#pragma omp parallel for if(params_.accelerated) schedule(static)
   for (int v = 0; v < H; ++v)
     for (int u = 0; u < W; ++u) {
       const size_t k = at(u, v);
@@ -287,6 +289,11 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
   // Angle-based clustering of the non-ground pixels.
   const double alpha_u = 2.0 * M_PI / W, alpha_v = theta / H;
   const double beta_min = params_.cluster_angle_deg * M_PI / 180.0;
+  double sin_alpha[2]{}, cos_alpha[2]{};
+  if (params_.accelerated) {
+    sin_alpha[0] = std::sin(alpha_u); sin_alpha[1] = std::sin(alpha_v);
+    cos_alpha[0] = std::cos(alpha_u); cos_alpha[1] = std::cos(alpha_v);
+  }
   int next = 2;
   std::vector<int> stack, members;
   for (int v = 0; v < H; ++v)
@@ -311,7 +318,9 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
           const double d1 = std::max(D[static_cast<size_t>(k)], D[nk]);
           const double d2 = std::min(D[static_cast<size_t>(k)], D[nk]);
           const double a = n < 2 ? alpha_u : alpha_v;
-          if (std::atan2(d2 * std::sin(a), d1 - d2 * std::cos(a)) > beta_min) {
+          const double sa = params_.accelerated ? sin_alpha[n < 2 ? 0 : 1] : std::sin(a);
+          const double ca = params_.accelerated ? cos_alpha[n < 2 ? 0 : 1] : std::cos(a);
+          if (std::atan2(d2 * sa, d1 - d2 * ca) > beta_min) {
             label[nk] = id;
             stack.push_back(static_cast<int>(nk));
           }
@@ -324,6 +333,7 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
   // Curvature along the row; points behind an occluder are unreliable.
   const int hw = params_.curvature_half_window;
   std::vector<float> C(static_cast<size_t>(W) * H, std::numeric_limits<float>::quiet_NaN());
+#pragma omp parallel for if(params_.accelerated) schedule(static)
   for (int v = 0; v < H; ++v)
     for (int u = 0; u < W; ++u) {
       const size_t k = at(u, v);

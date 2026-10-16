@@ -482,7 +482,8 @@ against neighbours along one line.
 
 `--paper-pipeline-accelerated` enables repository implementation optimizations
 for `--inten-loam-paper-odometry`. It is not a processing step from the paper and
-is **off by default**. Independent tree builds and residual queries use OpenMP;
+is **off by default**. Independent ground fits, image-row stages, tree builds
+and residual queries use OpenMP; constant beam-angle trigonometry is reused.
 residuals are reduced in the original feature order, including the Huber weights
 and diagnostic class systems. KD-trees used only to hold points for rendering
 or spline construction are omitted; their point data are retained. Feature

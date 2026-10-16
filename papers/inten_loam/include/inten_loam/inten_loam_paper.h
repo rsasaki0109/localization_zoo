@@ -39,8 +39,8 @@ namespace localization_zoo {
 namespace inten_loam {
 
 struct InTenLoamPaperParams {
-  // Opt-in repository acceleration: independent queries/tree builds in
-  // parallel, with residuals accumulated in the original feature order.
+  // Opt-in repository acceleration: independent feature stages, queries and
+  // tree builds in parallel; residuals retain the original feature order.
   bool accelerated = false;
   // Motion compensation (Sec. 3.1.1, eq. 1) with the constant-velocity
   // motion and the point time read from the azimuth (KITTI scans carry no

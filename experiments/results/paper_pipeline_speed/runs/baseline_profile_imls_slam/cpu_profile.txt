@@ -1,0 +1,75 @@
+Using local file /workspace/localization-env/paper-speed/baseline_pcd_dogfooding.
+Argument "MSWin32" isn't numeric in numeric eq (==) at /usr/bin/google-pprof line 5047.
+Argument "linux" isn't numeric in numeric eq (==) at /usr/bin/google-pprof line 5047.
+Using local file /workspace/localization-env/paper-speed/runs/baseline_profile_imls_slam/cpu.prof.
+Total: 8908 samples
+    2941  33.0%  33.0%     3388  38.0% localization_zoo::imls_slam::ImlsPaperOdometry::imls
+    2124  23.8%  56.9%     2719  30.5% localization_zoo::imls_slam::ImlsPaperOdometry::describe
+    1117  12.5%  69.4%     1117  12.5% std::__introsort_loop
+     559   6.3%  75.7%      559   6.3% Eigen::internal::computeFromTridiagonal_impl [clone .constprop.0]
+     378   4.2%  79.9%      378   4.2% localization_zoo::imls_slam::ImlsPaperOdometry::hasModelPointWithin
+     323   3.6%  83.5%     1678  18.8% localization_zoo::imls_slam::ImlsPaperOdometry::sampleLists
+     252   2.8%  86.4%      551   6.2% localization_zoo::imls_slam::ImlsPaperOdometry::insertScan
+     237   2.7%  89.0%      237   2.7% __nss_database_lookup@GLIBC_2.2.5
+     203   2.3%  91.3%      203   2.3% f64xsubf128@@GLIBC_2.28
+     146   1.6%  93.0%      162   1.8% std::__detail::_Map_base::operator[]@243d50
+      99   1.1%  94.1%      158   1.8% __default_morecore@GLIBC_2.2.5
+      94   1.1%  95.1%      323   3.6% exp@@GLIBC_2.29
+      54   0.6%  95.7%       54   0.6% timer_settime@GLIBC_2.2.5
+      51   0.6%  96.3%     3820  42.9% localization_zoo::imls_slam::ImlsPaperOdometry::iterate
+      41   0.5%  96.8%       41   0.5% _init
+      35   0.4%  97.1%      101   1.1% free@@GLIBC_2.2.5
+      29   0.3%  97.5%       30   0.3% std::_Hashtable::_M_rehash@243f40
+      28   0.3%  97.8%       91   1.0% loadKittiBin
+      28   0.3%  98.1%       28   0.3% read@@GLIBC_2.2.5
+      28   0.3%  98.4%       39   0.4% std::__detail::_Map_base::operator[]@243a20
+      26   0.3%  98.7%       26   0.3% GLIBC_2.15
+      24   0.3%  99.0%       54   0.6% std::vector::_M_realloc_insert@243720
+      12   0.1%  99.1%      123   1.4% loadPCD
+      10   0.1%  99.2%       10   0.1% std::_Hashtable::_M_rehash@243c10
+      10   0.1%  99.3%       13   0.1% void applyInputVerticalAngleCorrection
+       9   0.1%  99.4%       40   0.4% std::basic_filebuf::xsgetn@@GLIBCXX_3.4
+       8   0.1%  99.5%      100   1.1% malloc@@GLIBC_2.2.5
+       6   0.1%  99.6%       29   0.3% std::vector::_M_realloc_insert@f3950
+       5   0.1%  99.7%        5   0.1% brk@@GLIBC_2.2.5
+       5   0.1%  99.7%        5   0.1% fstatat@@GLIBC_2.33
+       5   0.1%  99.8%        5   0.1% std::_Hashtable::_M_rehash@2438e0
+       5   0.1%  99.8%       46   0.5% std::istream::read@@GLIBCXX_3.4
+       2   0.0%  99.8%        2   0.0% Eigen::internal::ldlt_inplace::unblocked
+       2   0.0%  99.9%        2   0.0% hypotf@@GLIBC_2.35
+       2   0.0%  99.9%        2   0.0% std::vector::emplace_back [clone .isra.0]
+       1   0.0%  99.9%        1   0.0% operator delete@@CXXABI_1.3.9
+       1   0.0%  99.9%        1   0.0% operator delete@@GLIBCXX_3.4
+       1   0.0%  99.9%     8906 100.0% runImlsPaperOdometry
+       1   0.0%  99.9%        1   0.0% sha256RotateRight
+       1   0.0%  99.9%        1   0.0% sincos@@GLIBC_2.2.5
+       1   0.0% 100.0%        1   0.0% std::__detail::_Prime_rehash_policy::_M_need_rehash@@GLIBCXX_3.4.18
+       1   0.0% 100.0%        1   0.0% std::__once_callable@@GLIBCXX_3.4.11
+       1   0.0% 100.0%        1   0.0% std::filesystem::__cxx11::path::_M_split_cmpts@@GLIBCXX_3.4.26
+       1   0.0% 100.0%        1   0.0% std::istream::sentry::sentry@@GLIBCXX_3.4
+       1   0.0% 100.0%        1   0.0% std::locale::_Impl::_Impl@@GLIBCXX_3.4
+       0   0.0% 100.0%     8908 100.0% __libc_init_first@@GLIBC_2.2.5
+       0   0.0% 100.0%     8908 100.0% __libc_start_main@GLIBC_2.2.5
+       0   0.0% 100.0%        5   0.1% __sbrk@@GLIBC_2.2.5
+       0   0.0% 100.0%     8908 100.0% _start
+       0   0.0% 100.0%        1   0.0% listPCDDirs
+       0   0.0% 100.0%     8771  98.5% localization_zoo::imls_slam::ImlsPaperOdometry::process
+       0   0.0% 100.0%     8908 100.0% main
+       0   0.0% 100.0%       97   1.1% operator new@@GLIBCXX_3.4
+       0   0.0% 100.0%        1   0.0% parseNonNegativeIntegerBasename
+       0   0.0% 100.0%        5   0.1% resolvePointCloudPath
+       0   0.0% 100.0%     8906 100.0% runImlsSlam
+       0   0.0% 100.0%        1   0.0% sha256File
+       0   0.0% 100.0%       28   0.3% std::__basic_file::xsgetn@@GLIBCXX_3.4
+       0   0.0% 100.0%        1   0.0% std::__unguarded_linear_insert
+       0   0.0% 100.0%       12   0.1% std::basic_filebuf::_M_allocate_internal_buffer@@GLIBCXX_3.4
+       0   0.0% 100.0%       12   0.1% std::basic_filebuf::open@@GLIBCXX_3.4
+       0   0.0% 100.0%       28   0.3% std::basic_filebuf::underflow@@GLIBCXX_3.4
+       0   0.0% 100.0%       13   0.1% std::basic_ifstream::basic_ifstream@@GLIBCXX_3.4
+       0   0.0% 100.0%       31   0.3% std::basic_streambuf::xsgetn@@GLIBCXX_3.4
+       0   0.0% 100.0%        5   0.1% std::filesystem::status@@GLIBCXX_3.4.26@17e190
+       0   0.0% 100.0%        5   0.1% std::filesystem::status@@GLIBCXX_3.4.26@17e810
+       0   0.0% 100.0%        1   0.0% std::locale::locale@@GLIBCXX_3.4
+       0   0.0% 100.0%      105   1.2% std::vector::_M_default_append
+       0   0.0% 100.0%        1   0.0% std::vector::_M_realloc_insert@f8580
+       0   0.0% 100.0%        3   0.0% std::vector::reserve

@@ -1,0 +1,115 @@
+Using local file /workspace/localization-env/paper-speed/baseline_pcd_dogfooding.
+Argument "MSWin32" isn't numeric in numeric eq (==) at /usr/bin/google-pprof line 5047.
+Argument "linux" isn't numeric in numeric eq (==) at /usr/bin/google-pprof line 5047.
+Using local file /workspace/localization-env/paper-speed/runs/baseline_profile_mesh_loam/cpu.prof.
+Total: 15143 samples
+    7301  48.2%  48.2%     7301  48.2% localization_zoo::mesh_loam::MeshLoamPipeline::solveIcp [clone ._omp_fn.0]
+    2018  13.3%  61.5%     2018  13.3% omp_get_num_procs@@OMP_1.0
+    1179   7.8%  69.3%     1424   9.4% localization_zoo::mesh_loam::MeshLoamPipeline::preprocess [clone ._omp_fn.0]
+     608   4.0%  73.3%      702   4.6% localization_zoo::mesh_loam::MeshLoamPipeline::integrateScan [clone ._omp_fn.0]
+     595   3.9%  77.3%      674   4.5% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh::{lambda#1}::operator
+     564   3.7%  81.0%     1245   8.2% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh [clone ._omp_fn.2]
+     342   2.3%  83.3%      342   2.3% __nss_database_lookup@GLIBC_2.2.5
+     312   2.1%  85.3%     1590  10.5% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh
+     278   1.8%  87.1%      438   2.9% __default_morecore@GLIBC_2.2.5
+     261   1.7%  88.9%      435   2.9% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh [clone ._omp_fn.3]
+     216   1.4%  90.3%      239   1.6% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh [clone ._omp_fn.0]
+     196   1.3%  91.6%      196   1.3% std::__adjust_heap [clone .isra.0]
+     147   1.0%  92.6%      148   1.0% timer_settime@GLIBC_2.2.5
+     135   0.9%  93.5%      157   1.0% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh [clone ._omp_fn.1]
+     126   0.8%  94.3%      176   1.2% std::__detail::_Map_base::operator[]
+      88   0.6%  94.9%       94   0.6% localization_zoo::mesh_loam::MeshLoamPipeline::pruneMap
+      87   0.6%  95.4%      352   2.3% malloc@@GLIBC_2.2.5
+      81   0.5%  96.0%      317   2.1% localization_zoo::mesh_loam::MeshLoamPipeline::integrateScan
+      73   0.5%  96.5%       73   0.5% localization_zoo::mesh_loam::MeshLoamPipeline::FacetBin::expand
+      60   0.4%  96.9%       60   0.4% f64xsubf128@@GLIBC_2.28
+      37   0.2%  97.1%       94   0.6% loadKittiBin
+      36   0.2%  97.3%       36   0.2% boost::sort::pdqsort_detail::pdqsort_loop [clone .isra.0]
+      35   0.2%  97.6%      126   0.8% pcl::VoxelGrid::applyFilter
+      32   0.2%  97.8%     4431  29.3% localization_zoo::mesh_loam::MeshLoamPipeline::registerFrame
+      30   0.2%  98.0%       30   0.2% read@@GLIBC_2.2.5
+      29   0.2%  98.2%     1917  12.7% localization_zoo::mesh_loam::MeshLoamPipeline::solveIcp
+      21   0.1%  98.3%      481   3.2% localization_zoo::mesh_loam::MeshLoamPipeline::preprocess
+      20   0.1%  98.4%       73   0.5% boost::sort::spreadsort::detail::spreadsort_rec
+      20   0.1%  98.6%       83   0.5% exp@@GLIBC_2.29
+      20   0.1%  98.7%       20   0.1% std::_Hashtable::find
+      17   0.1%  98.8%      279   1.8% loadPCD
+      15   0.1%  98.9%       15   0.1% _init
+      15   0.1%  99.0%      207   1.4% free@@GLIBC_2.2.5
+      15   0.1%  99.1%       23   0.2% std::_Hashtable::_M_erase
+      12   0.1%  99.2%       12   0.1% __lll_lock_wake_private@@GLIBC_PRIVATE
+      12   0.1%  99.3%       20   0.1% std::vector::_M_default_append@25b9e0
+      10   0.1%  99.3%       11   0.1% std::_Hashtable::_M_rehash@25cfe0
+       8   0.1%  99.4%        8   0.1% fstatat@@GLIBC_2.33
+       8   0.1%  99.4%        8   0.1% std::__introsort_loop [clone .isra.0]
+       8   0.1%  99.5%       15   0.1% std::vector::emplace_back [clone .isra.0]
+       7   0.0%  99.5%        7   0.0% __munmap@@GLIBC_PRIVATE
+       5   0.0%  99.6%        5   0.0% brk@@GLIBC_2.2.5
+       5   0.0%  99.6%        5   0.0% std::vector::_M_default_append@25b7c0
+       4   0.0%  99.6%       38   0.3% std::basic_streambuf::xsgetn@@GLIBCXX_3.4
+       3   0.0%  99.7%        3   0.0% GLIBC_2.15
+       3   0.0%  99.7%        3   0.0% GOMP_barrier@@GOMP_1.0
+       3   0.0%  99.7%        3   0.0% GOMP_loop_nonmonotonic_dynamic_next@@GOMP_4.5
+       3   0.0%  99.7%        3   0.0% __lll_lock_wait_private@@GLIBC_PRIVATE
+       3   0.0%  99.7%        3   0.0% __mprotect@@GLIBC_PRIVATE
+       3   0.0%  99.8%        3   0.0% hypotf@@GLIBC_2.35
+       3   0.0%  99.8%        3   0.0% std::__detail::_Prime_rehash_policy::_M_need_rehash@@GLIBCXX_3.4.18
+       3   0.0%  99.8%       41   0.3% std::basic_filebuf::xsgetn@@GLIBCXX_3.4
+       3   0.0%  99.8%        3   0.0% std::vector::_M_default_append@fb660
+       2   0.0%  99.8%        2   0.0% __open@@GLIBC_2.2.5
+       2   0.0%  99.8%        2   0.0% operator delete@@GLIBCXX_3.4
+       2   0.0%  99.9%      346   2.3% operator new@@GLIBCXX_3.4
+       2   0.0%  99.9%        3   0.0% std::_Hashtable::_M_insert_unique_node
+       2   0.0%  99.9%        2   0.0% std::__once_callable@@GLIBCXX_3.4.11
+       2   0.0%  99.9%       45   0.3% std::istream::read@@GLIBCXX_3.4
+       2   0.0%  99.9%        2   0.0% std::istream::sentry::sentry@@GLIBCXX_3.4
+       2   0.0%  99.9%       72   0.5% std::vector::reserve@25b2d0
+       2   0.0%  99.9%        5   0.0% void applyInputVerticalAngleCorrection
+       1   0.0%  99.9%        1   0.0% Eigen::internal::ldlt_inplace::unblocked
+       1   0.0%  99.9%        1   0.0% __mmap@@GLIBC_PRIVATE
+       1   0.0% 100.0%        6   0.0% __sbrk@@GLIBC_2.2.5
+       1   0.0% 100.0%        1   0.0% limitPoints
+       1   0.0% 100.0%    10495  69.3% omp_fulfill_event@@OMP_5.0.1
+       1   0.0% 100.0%        1   0.0% omp_get_device_num@@OMP_5.0.2
+       1   0.0% 100.0%        1   0.0% operator delete@@CXXABI_1.3.9
+       1   0.0% 100.0%     4730  31.2% runMeshLoam
+       1   0.0% 100.0%        1   0.0% std::codecvt::do_always_noconv@@GLIBCXX_3.4
+       1   0.0% 100.0%        1   0.0% std::vector::_M_realloc_insert@164fa0
+       0   0.0% 100.0%     3011  19.9% GOMP_parallel@@GOMP_4.0
+       0   0.0% 100.0%        2   0.0% _IO_file_fopen@@GLIBC_2.2.5
+       0   0.0% 100.0%        2   0.0% _IO_file_open@@GLIBC_2.2.5
+       0   0.0% 100.0%    10411  68.8% __clone@@GLIBC_2.2.5
+       0   0.0% 100.0%     4732  31.2% __libc_init_first@@GLIBC_2.2.5
+       0   0.0% 100.0%     4732  31.2% __libc_start_main@GLIBC_2.2.5
+       0   0.0% 100.0%     4732  31.2% _start
+       0   0.0% 100.0%       73   0.5% boost::sort::spreadsort::detail::integer_sort [clone .isra.0]
+       0   0.0% 100.0%        3   0.0% fopen@@GLIBC_2.2.5
+       0   0.0% 100.0%        1   0.0% listPCDDirs
+       0   0.0% 100.0%     4732  31.2% main
+       0   0.0% 100.0%        9   0.1% pcl::Filter::filter
+       0   0.0% 100.0%    10411  68.8% pthread_condattr_setpshared@GLIBC_2.2.5
+       0   0.0% 100.0%        8   0.1% resolvePointCloudPath
+       0   0.0% 100.0%        1   0.0% std::_Hashtable::_M_rehash@25cb30
+       0   0.0% 100.0%        1   0.0% std::_Hashtable::_M_rehash@25cea0
+       0   0.0% 100.0%        2   0.0% std::_Hashtable::erase@25c710
+       0   0.0% 100.0%        3   0.0% std::_Hashtable::erase@25c800
+       0   0.0% 100.0%        2   0.0% std::_Hashtable::~_Hashtable
+       0   0.0% 100.0%        3   0.0% std::__basic_file::open@@GLIBCXX_3.4
+       0   0.0% 100.0%       30   0.2% std::__basic_file::xsgetn@@GLIBCXX_3.4
+       0   0.0% 100.0%        1   0.0% std::__unguarded_linear_insert
+       0   0.0% 100.0%        7   0.0% std::basic_filebuf::_M_allocate_internal_buffer@@GLIBCXX_3.4
+       0   0.0% 100.0%       10   0.1% std::basic_filebuf::open@@GLIBCXX_3.4
+       0   0.0% 100.0%       31   0.2% std::basic_filebuf::underflow@@GLIBCXX_3.4
+       0   0.0% 100.0%        9   0.1% std::basic_ifstream::basic_ifstream@@GLIBCXX_3.4
+       0   0.0% 100.0%        1   0.0% std::filesystem::__cxx11::path::_M_split_cmpts@@GLIBCXX_3.4.26
+       0   0.0% 100.0%        8   0.1% std::filesystem::status@@GLIBCXX_3.4.26@17e190
+       0   0.0% 100.0%        8   0.1% std::filesystem::status@@GLIBCXX_3.4.26@17e810
+       0   0.0% 100.0%       17   0.1% std::vector::_M_default_append@106e30
+       0   0.0% 100.0%        9   0.1% std::vector::_M_default_append@fa8e0
+       0   0.0% 100.0%        4   0.0% std::vector::_M_realloc_insert@25bcb0
+       0   0.0% 100.0%        1   0.0% std::vector::_M_realloc_insert@25c2c0
+       0   0.0% 100.0%        9   0.1% std::vector::reserve@1064f0
+       0   0.0% 100.0%        6   0.0% std::vector::reserve@1065d0
+       0   0.0% 100.0%        2   0.0% std::vector::reserve@f33d0
+       0   0.0% 100.0%        5   0.0% std::vector::reserve@f34c0
+       0   0.0% 100.0%        1   0.0% writeSummaryJson

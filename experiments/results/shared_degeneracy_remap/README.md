@@ -61,3 +61,10 @@ committed snapshot. The [01 trace](plots/01/trace.png),
 error in the saved evaluation frame. They do not fit or rescale either path;
 the position-error trace is distinct from the official segment-based RTE.
 [Command and checked exit](plots/01/command.json) accompany the figure.
+
+`verify_preservation.py --output <receipt.json>` compares historical top-level
+aggregate hashes and the published README, HTML, Table 6 and paper-reference
+bytes with the recorded base. It also checks native source identity and the
+same arguments and input-path pattern in every new manifest. The
+[interim receipt](checks/preservation_interim.json) passes; this is independent
+of benchmark completion and will be repeated after the final doc regeneration.

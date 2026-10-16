@@ -1,0 +1,136 @@
+[
+  {
+    "label": "baseline",
+    "command": [
+      "/workspace/localization_zoo/build/evaluation/pcd_dogfooding",
+      "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke",
+      "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke_gt.csv",
+      "--methods",
+      "kiss_icp",
+      "--no-gt-seed",
+      "--summary-json",
+      "/workspace/localization-env/kitti-audit/real_fixture/baseline_summary.json"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "source_commit": "d76c4f3a4295f6b088d9be74d83be3c1d464707c",
+    "started_unix": 1792187260.0549564,
+    "finished_unix": 1792187260.3171294,
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "same",
+    "command": [
+      "/opt/localization-venv/bin/python",
+      "/workspace/localization-env/kitti-audit/real_fixture/same/evaluation/scripts/audit_kitti_drift.py",
+      "--binary",
+      "/workspace/localization_zoo/build/evaluation/pcd_dogfooding",
+      "--data-root",
+      "/workspace/localization-env/kitti-audit/real_fixture/same",
+      "--sequence",
+      "00",
+      "--work-dir",
+      "/workspace/localization-env/kitti-audit/real_fixture/same_replay",
+      "--output",
+      "/workspace/localization-env/kitti-audit/real_fixture/same_report.json"
+    ],
+    "cwd": "/workspace/localization-env/kitti-audit/real_fixture/same",
+    "source_commit": "d76c4f3a4295f6b088d9be74d83be3c1d464707c",
+    "started_unix": 1792187260.3525488,
+    "finished_unix": 1792187260.8261118,
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "ate_drift",
+    "command": [
+      "/opt/localization-venv/bin/python",
+      "/workspace/localization-env/kitti-audit/real_fixture/ate_drift/evaluation/scripts/audit_kitti_drift.py",
+      "--binary",
+      "/workspace/localization_zoo/build/evaluation/pcd_dogfooding",
+      "--data-root",
+      "/workspace/localization-env/kitti-audit/real_fixture/ate_drift",
+      "--sequence",
+      "00",
+      "--work-dir",
+      "/workspace/localization-env/kitti-audit/real_fixture/ate_drift_replay",
+      "--output",
+      "/workspace/localization-env/kitti-audit/real_fixture/ate_drift_report.json"
+    ],
+    "cwd": "/workspace/localization-env/kitti-audit/real_fixture/ate_drift",
+    "source_commit": "d76c4f3a4295f6b088d9be74d83be3c1d464707c",
+    "started_unix": 1792187260.8352716,
+    "finished_unix": 1792187261.5822213,
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "label": "frame_drift",
+    "command": [
+      "/opt/localization-venv/bin/python",
+      "/workspace/localization-env/kitti-audit/real_fixture/frame_drift/evaluation/scripts/audit_kitti_drift.py",
+      "--binary",
+      "/workspace/localization_zoo/build/evaluation/pcd_dogfooding",
+      "--data-root",
+      "/workspace/localization-env/kitti-audit/real_fixture/frame_drift",
+      "--sequence",
+      "00",
+      "--work-dir",
+      "/workspace/localization-env/kitti-audit/real_fixture/frame_drift_replay",
+      "--output",
+      "/workspace/localization-env/kitti-audit/real_fixture/frame_drift_report.json"
+    ],
+    "cwd": "/workspace/localization-env/kitti-audit/real_fixture/frame_drift",
+    "source_commit": "d76c4f3a4295f6b088d9be74d83be3c1d464707c",
+    "started_unix": 1792187261.5885925,
+    "finished_unix": 1792187261.985656,
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "label": "rpe_drift",
+    "command": [
+      "/opt/localization-venv/bin/python",
+      "/workspace/localization-env/kitti-audit/real_fixture/rpe_drift/evaluation/scripts/audit_kitti_drift.py",
+      "--binary",
+      "/workspace/localization_zoo/build/evaluation/pcd_dogfooding",
+      "--data-root",
+      "/workspace/localization-env/kitti-audit/real_fixture/rpe_drift",
+      "--sequence",
+      "00",
+      "--work-dir",
+      "/workspace/localization-env/kitti-audit/real_fixture/rpe_drift_replay",
+      "--output",
+      "/workspace/localization-env/kitti-audit/real_fixture/rpe_drift_report.json"
+    ],
+    "cwd": "/workspace/localization-env/kitti-audit/real_fixture/rpe_drift",
+    "source_commit": "d76c4f3a4295f6b088d9be74d83be3c1d464707c",
+    "started_unix": 1792187261.9938664,
+    "finished_unix": 1792187262.3493888,
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "label": "missing_input",
+    "command": [
+      "/opt/localization-venv/bin/python",
+      "/workspace/localization-env/kitti-audit/real_fixture/missing_input/evaluation/scripts/audit_kitti_drift.py",
+      "--binary",
+      "/workspace/localization_zoo/build/evaluation/pcd_dogfooding",
+      "--data-root",
+      "/workspace/localization-env/kitti-audit/real_fixture/missing_input",
+      "--sequence",
+      "00",
+      "--work-dir",
+      "/workspace/localization-env/kitti-audit/real_fixture/missing_input_replay",
+      "--output",
+      "/workspace/localization-env/kitti-audit/real_fixture/missing_input_report.json"
+    ],
+    "cwd": "/workspace/localization-env/kitti-audit/real_fixture/missing_input",
+    "source_commit": "d76c4f3a4295f6b088d9be74d83be3c1d464707c",
+    "started_unix": 1792187262.3551688,
+    "finished_unix": 1792187262.6764927,
+    "exit_code": 2,
+    "expected_exit_code": 2
+  }
+]

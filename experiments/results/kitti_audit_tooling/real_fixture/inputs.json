@@ -1,0 +1,15 @@
+{
+  "scope": "isolated three-frame MCD fixture; not KITTI accuracy or a full audit",
+  "source_commit": "d76c4f3a4295f6b088d9be74d83be3c1d464707c",
+  "binary": "/workspace/localization_zoo/build/evaluation/pcd_dogfooding",
+  "binary_sha256": "a75d8c5b42e8b021ba3afbe63708a2bca26b776253d100acdda94c87f179b0e2",
+  "fixture_sha256": {
+    "evaluation/fixtures/mcd_kth_smoke/00000000/cloud.pcd": "cc61530bc780bc47ca01a926e488a55b58caeab8ad683c0bbcc416972c569df9",
+    "evaluation/fixtures/mcd_kth_smoke/00000001/cloud.pcd": "cc8d302c63f04900d13685ad1e17aa9e0cbd6f89702cb4c45aea76d9557de99b",
+    "evaluation/fixtures/mcd_kth_smoke/00000002/cloud.pcd": "91e90a6f487b0877b80dc30275582ed02e326eec506682000a0663fd7ed640e3",
+    "evaluation/fixtures/mcd_kth_smoke/frame_timestamps.csv": "46e35bcd38a41f27c1db136d4d77e550645921bcd4750210a2bb7fa8e9e9094c",
+    "evaluation/fixtures/mcd_kth_smoke/landmarks.csv": "a5946390efae0aeaf4a13f56fd987e4bf46ef6f60f31787977182835c778651d",
+    "evaluation/fixtures/mcd_kth_smoke/visual_observations.csv": "039bee62738d8547e06a289bff8fe291cc49949a64d9bd3fe97008d11e33d780"
+  },
+  "gt_sha256": "c3e35ffa624471c7299fbe99bb905387ea5b9f3f4f86114a41aead3638efd528"
+}

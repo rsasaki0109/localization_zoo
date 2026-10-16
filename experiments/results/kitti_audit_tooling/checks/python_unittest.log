@@ -1,0 +1,328 @@
+test_each_drift_metric_causes_exit_one (test_audit_kitti_drift.AuditKittiDriftCliTests) ... ok
+test_empty_or_unknown_selection_fails_without_replay (test_audit_kitti_drift.AuditKittiDriftCliTests) ... ok
+test_failed_or_invalid_replay_does_not_discard_other_cells (test_audit_kitti_drift.AuditKittiDriftCliTests) ... ok
+test_filtered_run_requires_explicit_output_and_fresh_work_directory (test_audit_kitti_drift.AuditKittiDriftCliTests) ... ok
+test_list_can_repeat_sequences_without_creating_outputs (test_audit_kitti_drift.AuditKittiDriftCliTests) ... ok
+test_missing_inputs_and_missing_binary_are_recorded (test_audit_kitti_drift.AuditKittiDriftCliTests) ... ok
+test_sequence_filter_preserves_command_log_and_other_audit (test_audit_kitti_drift.AuditKittiDriftCliTests) ... ok
+test_cells_pick_lowest_stored_rpe_per_method_and_sequence (test_audit_kitti_drift.AuditKittiDriftTests) ... ok
+test_incomplete_method_sequence_selection_is_rejected (test_audit_kitti_drift.AuditKittiDriftTests) ... ok
+test_invalid_reference_metrics_cannot_match (test_audit_kitti_drift.AuditKittiDriftTests) ... ok
+test_leaderboard_does_not_verify_ate_or_frame_drift_with_identical_rpe (test_audit_kitti_drift.AuditKittiDriftTests) ... ok
+test_boreas_binary_to_timestamped_pcd (test_boreas_window_tools.BoreasWindowToolsTests) ... ok
+test_boreas_rotation_round_trip_to_standard_rpy (test_boreas_window_tools.BoreasWindowToolsTests) ... ok
+test_gt_alignment_requires_exact_selected_timestamps (test_boreas_window_tools.BoreasWindowToolsTests) ... ok
+test_selection_hash_is_order_sensitive_and_repeatable (test_boreas_window_tools.BoreasWindowToolsTests) ... ok
+test_grid_variant_expands_to_one_run_per_value (test_broad_benchmark.BroadBenchmarkTests) ... ok
+test_report_selects_tagp_compares_reference_and_check_detects_drift (test_broad_benchmark.BroadBenchmarkTests) ... ok
+test_collects_flat_host_records_only (test_capture_benchmark_environment.CaptureBenchmarkEnvironmentTests) ... ok
+test_markdown_marks_missing_values_and_provenance (test_capture_benchmark_environment.CaptureBenchmarkEnvironmentTests) ... ok
+test_summarize_run_hosts_counts_only_recorded_variants (test_capture_benchmark_environment.CaptureBenchmarkEnvironmentTests) ... ok
+test_future_change_does_not_change_output_prefix (test_causal_local_increment_midpoint_fusion.CausalLocalIncrementMidpointFusionTests) ... ok
+test_local_increment_midpoint_is_integrated_by_published_rotation (test_causal_local_increment_midpoint_fusion.CausalLocalIncrementMidpointFusionTests) ... ok
+test_pose_count_mismatch_is_rejected (test_causal_local_increment_midpoint_fusion.CausalLocalIncrementMidpointFusionTests) ... ok
+test_rotation_is_copied_from_rotation_source (test_causal_local_increment_midpoint_fusion.CausalLocalIncrementMidpointFusionTests) ... ok
+test_future_reference_change_does_not_change_output_prefix (test_causal_midpoint_translation_fusion.CausalMidpointTranslationFusionTests) ... ok
+test_pose_count_mismatch_is_rejected (test_causal_midpoint_translation_fusion.CausalMidpointTranslationFusionTests) ... ok
+test_rotation_is_copied_from_frozen_rotation_source (test_causal_midpoint_translation_fusion.CausalMidpointTranslationFusionTests) ... ok
+test_translation_is_exact_arithmetic_midpoint (test_causal_midpoint_translation_fusion.CausalMidpointTranslationFusionTests) ... ok
+test_bias_rate_policy_has_no_correction_jump (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_bias_rate_policy_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_correction_transfer_is_frame_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_delayed_median_rejects_third_axis_outlier (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_delayed_median_rotation_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_distance_weighted_rotation_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_distance_weighted_se3_bias_changes_future_without_jump (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_distance_weighted_tilt_robust_yaw_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_distance_weighting_suppresses_short_interval_outlier (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_first_correction_is_latched_and_future_changes_are_ignored (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_first_correction_latch_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_first_loop_scale_changes_future_increment_without_jump (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_first_translation_latch_is_applied_once (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_future_change_does_not_change_output_prefix (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_hampel_vector_persistent_yaw_keeps_yaw_sign (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_hampel_vector_rotation_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_hampel_vector_rotation_replaces_outlying_component (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_interval_bias_rate_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_interval_bias_rate_uses_correction_since_previous_update (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_interval_consensus_amplifies_agreeing_rotation_axes (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_interval_consensus_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_left_correction_is_transferred_without_frontend_offset (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_local_increment_policy_avoids_world_origin_lever_arm (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_local_increment_policy_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_matching_inputs_are_unchanged (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_median_vector_rotation_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_median_vector_rotation_rejects_axis_outlier (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_pair_distance_direction_downweights_short_reversal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_pose_count_mismatch_is_rejected (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_robust_consistent_direction_rejects_reversal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_robust_interval_rotation_clips_short_interval_outlier (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_robust_interval_rotation_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_robust_motion_yaw_output_combines_causal_components (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_robust_persistent_yaw_keeps_yaw_sign (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_robust_yaw_direction_ignores_roll_drift (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_rotation_bias_can_be_disabled (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_rotation_correction_is_limited_by_past_rotation (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_translation_bias_can_be_disabled (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_translation_correction_is_limited_by_past_motion (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_updated_bias_rate_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_updated_bias_rate_never_jumps_to_graph_pose (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_yaw_consensus_doubles_same_sign_interval_rate (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_yaw_consensus_is_causal (test_causal_pose_graph_correction_smoothing.CausalPoseGraphCorrectionSmoothingTests) ... ok
+test_matching_and_tolerated_noise_pass (test_check_fixture_golden.CheckFixtureGoldenTests) ... fixture golden: /tmp/tmpd_6ocinb/golden.json does not exist; actual values written to /tmp/tmpd_6ocinb/out/actual.json
+ok
+test_real_change_missing_and_new_methods_fail (test_check_fixture_golden.CheckFixtureGoldenTests) ... fixture golden: /tmp/tmpdq24h8t0/golden.json does not exist; actual values written to /tmp/tmpdq24h8t0/out/actual.json
+fixture drift: kiss_icp/KISS-ICP.ate_m: 0.036234 != golden 0.035614
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmpgbqx6jc1/golden.json with /tmp/tmpgbqx6jc1/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+fixture golden: no summaries found
+fixture drift: other/X: not in golden file (new method? update the golden file)
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmpcleg_ziq/golden.json with /tmp/tmpcleg_ziq/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+ok
+test_status_and_nan_handling (test_check_fixture_golden.CheckFixtureGoldenTests) ... fixture golden: /tmp/tmptna6oonv/golden.json does not exist; actual values written to /tmp/tmptna6oonv/out/actual.json
+fixture drift: m/M.status: 'ok' != golden 'invalid_metric'
+fixture drift: m/M.ate_m: 0.1 != golden nan
+fixture golden: 2 difference(s). If intentional, replace /tmp/tmp47t3xif8/golden.json with /tmp/tmp47t3xif8/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+ok
+test_ascii_pcd_count_fields_and_reordered_columns (test_check_scan_frame.ScanFormatTest) ... ok
+test_binary_pcd_organized_rows_and_integer_intensity (test_check_scan_frame.ScanFormatTest) ... ok
+test_cli_records_inputs_and_provided_pose_without_applying_overrides (test_check_scan_frame.ScanFormatTest) ... ok
+test_kitti_xyzi_and_explicit_nclt_layout_preserve_intensity_and_rings (test_check_scan_frame.ScanFormatTest) ... ok
+test_truncated_records_and_compressed_pcd_fail_clearly (test_check_scan_frame.ScanFormatTest) ... ok
+test_invalid_parameters_and_insufficient_points_rejected (test_check_scan_frame.SensorGeometryTest) ... ok
+test_inverted_translated_uniform_scans_recover_axial_frame (test_check_scan_frame.SensorGeometryTest) ... ok
+test_known_extrinsics_transform_all_axes_and_near_range_in_sensor_frame (test_check_scan_frame.SensorGeometryTest) ... ok
+test_missing_ground_does_not_resolve_up_axis_from_periodicity_alone (test_check_scan_frame.SensorGeometryTest) ... ok
+test_nonfinite_xyz_filtered_and_missing_intensity_is_not_zero_intensity (test_check_scan_frame.SensorGeometryTest) ... ok
+test_shuffled_scan_does_not_claim_ordered_rings_or_a_sensor_model (test_check_scan_frame.SensorGeometryTest) ... ok
+test_uneven_beams_use_ring_major_order_and_do_not_require_periodicity (test_check_scan_frame.SensorGeometryTest) ... ok
+test_wrap_jitter_does_not_add_a_laser (test_check_scan_frame.SensorGeometryTest) ... ok
+test_one_default_per_ready_problem_and_clins_flagged_gt_seeded (test_ct_appendix_table.CtAppendixTableTests) ... ok
+test_sections_keep_native_synthetic_and_blocked_evidence_apart (test_ct_appendix_table.CtAppendixTableTests) ... ok
+test_tex_renders_section_headers_and_blocked_row (test_ct_appendix_table.CtAppendixTableTests) ... ok
+test_identical_trajectory_has_no_drift (test_diagnose_kitti_steps.DiagnoseKittiStepsTest) ... ok
+test_known_short_steps_and_error_growth_are_localized (test_diagnose_kitti_steps.DiagnoseKittiStepsTest) ... ok
+test_stops_are_excluded_and_incomplete_trajectories_rejected (test_diagnose_kitti_steps.DiagnoseKittiStepsTest) ... ok
+test_wrong_direction_is_distinct_from_wrong_step_length (test_diagnose_kitti_steps.DiagnoseKittiStepsTest) ... ok
+test_future_reference_change_does_not_change_output_prefix (test_direction_consistent_rotation_fusion.DirectionConsistentRotationFusionTests) ... ok
+test_matching_direction_signal_accepts_rotation_correction (test_direction_consistent_rotation_fusion.DirectionConsistentRotationFusionTests) ... ok
+test_opposite_direction_signal_rejects_rotation_correction (test_direction_consistent_rotation_fusion.DirectionConsistentRotationFusionTests) ... ok
+test_pose_count_mismatch_is_rejected (test_direction_consistent_rotation_fusion.DirectionConsistentRotationFusionTests) ... ok
+test_reference_translation_is_not_copied_to_output (test_direction_consistent_rotation_fusion.DirectionConsistentRotationFusionTests) ... ok
+test_signed_direction_error (test_direction_consistent_rotation_fusion.DirectionConsistentRotationFusionTests) ... ok
+test_scores_wrong_top1_as_false_positive (test_evaluate_place_recognition.EndToEndTests) ... ok
+test_confident_false_positive_zeroes_recall_at_full_precision (test_evaluate_place_recognition.PrCurveTests) ... ok
+test_missed_revisits_bound_recall (test_evaluate_place_recognition.PrCurveTests) ... ok
+test_perfect_ranking (test_evaluate_place_recognition.PrCurveTests) ... ok
+test_ties_are_cut_together (test_evaluate_place_recognition.PrCurveTests) ... ok
+test_respects_exclusion_window (test_evaluate_place_recognition.RevisitMaskTests) ... ok
+test_generate_demo_report_from_minimal_outputs (test_experiment_scripts.DemoReportScriptTests) ... ok
+test_external_dataset_requires_expected_frame_count (test_experiment_scripts.LidarSotaDataTests) ... ok
+test_docs_method_catalog_covers_paper_directories (test_experiment_scripts.MethodCatalogTests) ... ok
+test_prepare_kitti_odometry_inputs_exports_window_and_full (test_experiment_scripts.PrepareKittiOdometryInputsTests) ... ok
+test_prepare_mulran_inputs_exports_window_and_full (test_experiment_scripts.PrepareMulranInputsTests) ... ok
+test_prepare_newer_college_inputs_exports_window_and_full (test_experiment_scripts.PrepareNewerCollegeInputsTests) ... ok
+test_ct_icp_fallback_bakeoff_selects_eligible_peer (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_ct_icp_guarded_composite_uses_selected_fallback (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_ct_icp_guarded_trajectory_uses_velocity_prior (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_global_verifier_accepts_supported_filtered_retrieval (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_global_verifier_aggregate_blocks_score_traps (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_global_verifier_holds_low_retrieval_support (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_global_verifier_rejects_unfiltered_score_trap (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_ndt_audit_policy_records_normalize_rows (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_ndt_failure_audit_distinguishes_detectable_rejects (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_ndt_failure_audit_flags_silent_bad_accepts (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_ndt_failure_audit_parses_scan_context_note (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_ndt_publish_guard_blocks_wrong_pose_acceptance (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_ndt_publish_guard_keeps_oracle_rows_lab_only (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_ndt_publish_guard_marks_score_trap (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_ndt_trace_artifact_exposes_frame_contract (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_publish_policy_replay_holds_last_safe_pose (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_publish_policy_replay_suppresses_current_trace (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_trace_sequence_verifier_blocks_current_trace_publish (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_trace_sequence_verifier_requires_stable_run (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_fixed_map_trace_sequence_verifier_splits_recovery_jumps (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_gather_repo_defaults_preserves_optional_rpe_metrics (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_generate_leaderboard_preserves_from_paper_section (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_generate_leaderboard_skips_ablation_and_paper_input_variants (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_generate_lidar_degeneracy_action_plan_writes_outputs (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_generate_reproduction_status_render_contains_scope_and_next_step (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_indexed_manifest_args_reads_index_order (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degeneracy_action_plan_classifies_reason_templates (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degeneracy_action_plan_groups_fixed_map_ndt_reasons (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degeneracy_action_plan_prioritizes_failures (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degeneracy_check_runner_can_include_fixed_map_ndt_audit (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degeneracy_check_runner_policy_gate_fails_bad_reports (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degeneracy_check_runner_policy_gate_passes_clean_reports (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degeneracy_check_runner_smoke (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degeneracy_ct_icp_diagnostic_watch_is_not_product_failure (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degradation_health_keeps_low_motion_regularizer_disabled_by_default (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degradation_health_uses_geometry_correspondence_default (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_lidar_degradation_health_uses_matcher_correspondence_default (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_refresh_study_docs_adds_reuse_flags_by_default (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_refresh_study_docs_limits_default_refresh_to_indexed_manifests (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_refresh_study_docs_omits_reuse_flags_for_rerun (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_resolve_path_expands_external_dataset_root (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_resolve_path_rejects_unresolved_environment_variable (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_reuse_aggregates_rebuilds_docs_without_local_data (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_variant_result_from_summary_reads_optional_rpe_metrics (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_variant_timeout_marks_problem_skipped_and_records_timeout (test_experiment_scripts.RunExperimentMatrixScriptTests) ... ok
+test_manifest_paths_raises_for_missing_manifest (test_experiment_scripts.RunMultimodalStudyScriptTests) ... ok
+test_run_multimodal_study_lists_manifests_without_running (test_experiment_scripts.RunMultimodalStudyScriptTests) ... ok
+test_run_multimodal_study_runs_prepare_and_runner_with_overrides (test_experiment_scripts.RunMultimodalStudyScriptTests) ... ok
+test_demo_defaults_to_quick_profile (test_experiment_scripts.ShowcaseContractTests) ... ok
+test_showcase_validator_passes_static_contract (test_experiment_scripts.ShowcaseContractTests) ... ok
+test_generator_reproduces_committed_mcd_multimodal_fixture (test_experiment_scripts.SyntheticVisualObservationGeneratorTests) ... ok
+test_kitti_rte_is_unavailable_below_100_m (test_external_odometry_evaluator.ExternalOdometryEvaluatorTests) ... ok
+test_kitti_rte_matches_devkit_segment_rule (test_external_odometry_evaluator.ExternalOdometryEvaluatorTests) ... ok
+test_perfect_relative_trajectory_ignores_first_world_pose (test_external_odometry_evaluator.ExternalOdometryEvaluatorTests) ... ok
+test_tum_loader_uses_xyzw_quaternion_order (test_external_odometry_evaluator.ExternalOdometryEvaluatorTests) ... ok
+test_undo_conjugation_restores_sensor_poses (test_external_odometry_evaluator.ExternalOdometryEvaluatorTests) ... ok
+test_extracts_xyzi_with_row_padding (test_extract_rosbag_lidar_bins.ExtractRosbagLidarBinsTests) ... ok
+test_uses_reflectivity_and_drops_nonfinite_xyz (test_extract_rosbag_lidar_bins.ExtractRosbagLidarBinsTests) ... ok
+test_collects_every_variant_including_failed_runs (test_full_variant_table.FullVariantTableTests) ... /workspace/localization_zoo/tests/test_full_variant_table.py:41: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpu4g34uv2/out.csv' mode='r' encoding='UTF-8'>
+  parsed = list(csv.DictReader((root / "out.csv").open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_committed_csv_covers_every_ready_default (test_full_variant_table.FullVariantTableTests) ... /workspace/localization_zoo/tests/test_full_variant_table.py:57: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization_zoo/docs/assets/paper/full_variant_results.csv' mode='r' encoding='UTF-8'>
+  rows = list(csv.DictReader((repo / "docs/assets/paper/full_variant_results.csv").open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_identity_rotation_has_identity_quaternion (test_kitti_lidar_poses_to_body_tum.LidarToBodyPoseTests) ... ok
+test_inverts_nonidentity_body_to_lidar_transform (test_kitti_lidar_poses_to_body_tum.LidarToBodyPoseTests) ... ok
+test_removes_rotated_body_to_lidar_translation (test_kitti_lidar_poses_to_body_tum.LidarToBodyPoseTests) ... ok
+test_frame_count_source_writes_matching_strict_timestamps (test_lidar_sota_tools.IdentityReferenceTests) ... ok
+test_partition_infos_is_contiguous_and_complete (test_lidar_sota_tools.KittiSelectiveFetchTests) ... ok
+test_range_extractor_writes_only_selected_frames_and_timestamps (test_lidar_sota_tools.KittiSelectiveFetchTests) ... ok
+test_select_sequence_infos_filters_and_orders (test_lidar_sota_tools.KittiSelectiveFetchTests) ... ok
+test_count_frames_supports_flat_pcd_directory (test_lidar_sota_tools.LidarSotaVerifierTests) ... ok
+test_count_frames_supports_native_kitti_bin (test_lidar_sota_tools.LidarSotaVerifierTests) ... ok
+test_count_frames_supports_nested_pcd_alias (test_lidar_sota_tools.LidarSotaVerifierTests) ... ok
+test_all_development_ate_rows_improve_and_rpe_guard_holds (test_lidar_v10_manifest.LidarV10ManifestTests) ... ok
+test_boreas_external_transfer_is_gt_isolated_and_not_overclaimed (test_lidar_v10_manifest.LidarV10ManifestTests) ... ok
+test_boreas_tool_hashes_match_the_frozen_manifest (test_lidar_v10_manifest.LidarV10ManifestTests) ... ok
+test_fresh_gates_pass_without_post_result_tuning (test_lidar_v10_manifest.LidarV10ManifestTests) ... ok
+test_same_input_v10_wins_ate_and_translational_rpe (test_lidar_v10_manifest.LidarV10ManifestTests) ... ok
+test_v10_is_promoted_suite_candidate (test_lidar_v10_manifest.LidarV10ManifestTests) ... ok
+test_readme_headline_matches_audit (test_lidar_v14_manifest.LidarV14ManifestTests) ... ok
+test_v14_is_promoted_suite_candidate (test_lidar_v14_manifest.LidarV14ManifestTests) ... ok
+test_falls_back_when_loop_support_is_insufficient (test_loop_support_odometry_selector.LoopSupportOdometrySelectorTests) ... ok
+test_rejects_manifest_without_explicit_gt_free_provenance (test_loop_support_odometry_selector.LoopSupportOdometrySelectorTests) ... ok
+test_selects_graph_candidate_with_two_gt_free_clusters (test_loop_support_odometry_selector.LoopSupportOdometrySelectorTests) ... ok
+test_child_command_never_contains_reference_path (test_mad_icp_baseline_runner.MadIcpBaselineRunnerTests) ... ok
+test_mulran_uses_official_sensor_extrinsic (test_mad_icp_baseline_runner.MadIcpBaselineRunnerTests) ... ok
+test_parse_odometry_time_ms (test_mad_icp_baseline_runner.MadIcpBaselineRunnerTests) ... ok
+test_accepts_dataset_tree_without_gt (test_mola_baseline_runner.MolaBaselineRunnerTests) ... ok
+test_child_command_never_contains_reference_path (test_mola_baseline_runner.MolaBaselineRunnerTests) ... ok
+test_partial_run_limits_tracking_denominator (test_mola_baseline_runner.MolaBaselineRunnerTests) ... ok
+test_rejects_gt_in_mola_dataset_tree (test_mola_baseline_runner.MolaBaselineRunnerTests) ... ok
+test_identity_base_pose_applies_official_lidar_extrinsic (test_mulran_pose_io.MulRanPoseIoTests) ... ok
+test_relative_lidar_motion_is_extrinsic_conjugated (test_mulran_pose_io.MulRanPoseIoTests) ... ok
+test_exact_trajectory_has_zero_segment_rpe (test_ntu_viral_position_gt.NtuViralPositionGtTests) ... ok
+test_interpolates_only_bracketed_gt (test_ntu_viral_position_gt.NtuViralPositionGtTests) ... ok
+test_loads_tum_position_columns (test_ntu_viral_position_gt.NtuViralPositionGtTests) ... ok
+test_rigid_alignment_recovers_rotation_without_scale (test_ntu_viral_position_gt.NtuViralPositionGtTests) ... ok
+test_scale_error_is_reported_as_percent (test_ntu_viral_position_gt.NtuViralPositionGtTests) ... ok
+test_accepts_dataset_tree_without_gt (test_official_kiss_baseline_runner.OfficialKissBaselineRunnerTests) ... ok
+test_child_command_never_contains_reference_path (test_official_kiss_baseline_runner.OfficialKissBaselineRunnerTests) ... ok
+test_elevation_correction_opt_out_is_forwarded (test_official_kiss_baseline_runner.OfficialKissBaselineRunnerTests) ... ok
+test_rejects_gt_in_dataset_tree (test_official_kiss_baseline_runner.OfficialKissBaselineRunnerTests) ... ok
+test_thread_cap_is_forwarded_to_isolated_child (test_official_kiss_baseline_runner.OfficialKissBaselineRunnerTests) ... ok
+test_collect_scans_prefers_sorted_kitti_bins (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_command_surface_has_no_ground_truth_argument (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_constant_timestamps_disable_deskew (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_fixed_policy_preserves_existing_cap (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_loads_kitti_pointxyzi_binary_without_timestamps (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_normalizes_timestamp_span (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_timestamp_adaptive_policy_selects_eight_for_small_scan (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_timestamp_adaptive_policy_selects_eight_with_timestamps (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_timestamp_adaptive_policy_selects_four_without_timestamps (test_official_kiss_pcd_odometry.OfficialKissPcdOdometryTests) ... ok
+test_front_keeps_only_non_dominated_points (test_paper_pareto.PaperParetoTests) ... ok
+test_loader_drops_seeded_nan_and_other_datasets (test_paper_pareto.PaperParetoTests) ... ok
+test_best_excludes_gt_seeded_and_non_full_sequences (test_paper_ratio_table.PaperRatioTableTests) ... ok
+test_every_kitti_paper_value_cites_its_source (test_paper_ratio_table.PaperRatioTableTests) ... ok
+test_kitti_rte_replaces_100m_rpe_when_recorded (test_paper_ratio_table.PaperRatioTableTests) ... ok
+test_repo_variants_restrict_the_pool (test_paper_ratio_table.PaperRatioTableTests) ... ok
+test_verified_paper_values_are_pinned (test_paper_ratio_table.PaperRatioTableTests) ... ok
+test_rejects_integer_timeline_with_missing_frame_id (test_pcd_dogfooding_eval_guards.PcdDogfoodingEvalGuardsTest) ... ok
+test_rejects_malformed_kitti_gt_line (test_pcd_dogfooding_eval_guards.PcdDogfoodingEvalGuardsTest) ... ok
+test_rejects_mutable_dogfooding_gt_artifact_by_default (test_pcd_dogfooding_eval_guards.PcdDogfoodingEvalGuardsTest) ... ok
+test_sorts_numeric_pcd_directory_names_by_frame_id (test_pcd_dogfooding_eval_guards.PcdDogfoodingEvalGuardsTest) ... ok
+test_summary_json_records_evaluation_provenance (test_pcd_dogfooding_eval_guards.PcdDogfoodingEvalGuardsTest) ... ok
+test_rejects_invalid_limits (test_plan_gt_free_reference_runtime.GtFreeReferenceRuntimePlannerTests) ... ok
+test_rejects_invalid_point_counts (test_plan_gt_free_reference_runtime.GtFreeReferenceRuntimePlannerTests) ... ok
+test_runs_reference_at_frozen_point_limit (test_plan_gt_free_reference_runtime.GtFreeReferenceRuntimePlannerTests) ... ok
+test_skips_reference_above_frozen_point_limit (test_plan_gt_free_reference_runtime.GtFreeReferenceRuntimePlannerTests) ... ok
+test_preserves_xyzi_values_and_source_order (test_prepare_boreas_xyzi_bin.PrepareBoreasXyziBinTests) ... ok
+test_in_page_links_point_at_headings (test_readme_anchors.ReadmeAnchorTests) ... ok
+test_slug_matches_github_examples (test_readme_anchors.ReadmeAnchorTests) ... ok
+test_hash_check_accepts_exact_file (test_reproduce_lidar_v10.ReproduceLidarV10Tests) ... ok
+test_hash_check_rejects_missing_file (test_reproduce_lidar_v10.ReproduceLidarV10Tests) ... ok
+test_metric_comparison_is_strict_but_tolerates_serialization_noise (test_reproduce_lidar_v10.ReproduceLidarV10Tests) ... ok
+test_metric_comparison_rejects_material_change (test_reproduce_lidar_v10.ReproduceLidarV10Tests) ... ok
+test_dry_run_builds_the_recorded_command (test_reproduce_paper_row.ReproducePaperRowTests) ... ok
+test_list_shows_only_rows_with_a_repo_run (test_reproduce_paper_row.ReproducePaperRowTests) ... ok
+test_missing_scans_without_fetch_stops (test_reproduce_paper_row.ReproducePaperRowTests) ... ok
+test_unknown_row_stops (test_reproduce_paper_row.ReproducePaperRowTests) ... ok
+test_rescore_row_replays_variant_and_reports_determinism (test_rescore_kitti_rte.RescoreKittiRteTests) ... ok
+test_causal_failover_on_primary_hold (test_rotation_consensus_fusion.RotationConsensusFusionTests) ... ok
+test_deadband_allows_large_orientation_disagreement (test_rotation_consensus_fusion.RotationConsensusFusionTests) ... ok
+test_deadband_holds_small_orientation_disagreement (test_rotation_consensus_fusion.RotationConsensusFusionTests) ... ok
+test_identical_trajectories_are_unchanged (test_rotation_consensus_fusion.RotationConsensusFusionTests) ... ok
+test_reference_translation_is_not_copied (test_rotation_consensus_fusion.RotationConsensusFusionTests) ... ok
+test_rejects_invalid_gain (test_rotation_consensus_fusion.RotationConsensusFusionTests) ... ok
+test_rejects_length_mismatch (test_rotation_consensus_fusion.RotationConsensusFusionTests) ... ok
+test_rotation_update_is_causal_and_gain_scaled (test_rotation_consensus_fusion.RotationConsensusFusionTests) ... ok
+test_fresh_run_records_host_and_reuse_reads_it_back (test_run_host_provenance.RunHostProvenanceTests) ... ok
+test_reused_run_without_record_omits_host_field (test_run_host_provenance.RunHostProvenanceTests) ... ok
+test_measures_translation_and_rotation_correction_envelope (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_overwhelming_loop_support_can_select_accumulated_correction (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_rejects_mismatched_pose_counts (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_rotation_correction_agreement_detects_same_hemisphere (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_runtime_policy_accepts_gt_free_reference_run (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_runtime_policy_manifest_must_forbid_ground_truth (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_runtime_rejection_uses_existing_raw_fallback_behavior (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_runtime_skip_forbids_reference_derived_inputs (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_uses_frozen_fallback_when_correction_is_rejected (test_select_gt_free_pose_graph.PoseGraphSelectorTests) ... ok
+test_all_gates_pass_for_strict_win (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_completed_cube_rerun_records_required_metrics (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_cube_requires_both_accuracy_metrics_on_every_row (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_dynamic_radius_candidate_is_gt_isolated_and_not_promoted (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_external_ssd_ext4_staging_is_byte_identical (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_fast_livo2_rejects_any_row_over_three_percent_regression (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_frozen_v10_failure_is_recorded_before_new_candidate_work (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_memory_is_mandatory_even_without_a_promotion_threshold (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_protocol_was_frozen_before_candidate_search_started (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_v11_failure_consumes_kitti00_before_v12_development (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_v11_is_frozen_before_unconsumed_kitti00_validation (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_v13_is_frozen_but_requires_a_new_untouched_external_row (test_sota_head_to_head.SotaHeadToHeadTests) ... ok
+test_ingest_replaces_the_same_sequence_and_mode (test_summarize_kitti_elevation_correction.ElevationCorrectionSummaryTests) ... ok
+test_kitti_average_pools_segments_and_needs_all_sequences (test_summarize_kitti_elevation_correction.ElevationCorrectionSummaryTests) ... ok
+test_pairs_each_variant_with_its_corrected_twin (test_summarize_kitti_elevation_correction.ElevationCorrectionSummaryTests) ... ok
+test_reference_receives_exactly_two_of_three_rotation_votes (test_three_vote_rotation_fallback.ThreeVoteRotationFallbackTests) ... ok
+test_adds_rotated_body_to_lidar_translation (test_tum_body_to_kitti_lidar.BodyToLidarPoseTests) ... ok
+test_applies_nonidentity_body_to_lidar_rotation (test_tum_body_to_kitti_lidar.BodyToLidarPoseTests) ... ok
+test_boundary_pose_is_held (test_tum_body_to_kitti_lidar.BodyToLidarPoseTests) ... ok
+test_slerp_halfway_about_z (test_tum_body_to_kitti_lidar.BodyToLidarPoseTests) ... ok
+test_fixed_slope_fit_recovers_ideal_lines (test_tumvi_allan.TumviAllanTests) ... ok
+test_report_applies_tum_protocol_and_check_detects_drift (test_tumvi_allan.TumviAllanTests) ... ok
+
+----------------------------------------------------------------------
+Ran 290 tests in 13.255s
+
+OK
+[report] /tmp/tmpiq1phm0u/out.json /tmp/tmpiq1phm0u/out.md
+drift: fixed6.inclination_rmse_deg: expected 2.1, got 2.0
+[check] 2 variants, 1 drift(s)
+[check] 1 variants, 0 drift(s)
+fixture golden: 1 method results match /tmp/tmpdupj27x_/golden.json
+fixture golden: 1 method results match /tmp/tmp0k70ok81/golden.json
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+Wrote 3 identity poses to /tmp/tmpzj_e8cqr/identity.csv; metrics against this file are invalid by construction.
+recorded official KISS-ICP seq 07 correction=False: RTE 0.900 %
+recorded official KISS-ICP seq 07 correction=False: RTE 0.800 %
+[report] /tmp/tmp_m_qmgpg/r.json /tmp/tmp_m_qmgpg/r.md /tmp/tmp_m_qmgpg/imu.yaml
+[check] 4 parameters, 0 drift(s)
+drift: gyro_white_noise_density: expected 1.0, got 8.001002583826693e-05
+[check] 1 parameters, 1 drift(s)

@@ -1,0 +1,50 @@
+[
+  {
+    "label": "audit_regressions",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_audit_kitti_drift.py",
+      "-v"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "started_unix": 1792187070.6023774,
+    "finished_unix": 1792187075.572491,
+    "exit_code": 0
+  },
+  {
+    "label": "rescore_regression",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_rescore_kitti_rte.py",
+      "-v"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "started_unix": 1792187075.5735798,
+    "finished_unix": 1792187075.975378,
+    "exit_code": 0
+  },
+  {
+    "label": "whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "started_unix": 1792187075.9759238,
+    "finished_unix": 1792187076.0110183,
+    "exit_code": 0
+  }
+]

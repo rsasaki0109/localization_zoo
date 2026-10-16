@@ -1,0 +1,2 @@
+[audit] KISS-ICP 00 fixture_reference: ok
+[done] 0 drifted, 0 failed of 1 cells; exit 0; wrote /workspace/localization-env/kitti-audit/real_fixture/same_report.json

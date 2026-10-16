@@ -1,0 +1,23 @@
+{
+  "stable_interface": {
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke_gt.csv",
+    "extra_args": [
+      "--no-gt-seed"
+    ]
+  },
+  "variants": [
+    {
+      "frames": 3,
+      "ate_m": 0.035614,
+      "rpe_trans_pct": 167.033987,
+      "id": "fixture_reference",
+      "status": "ok",
+      "args": []
+    }
+  ]
+}

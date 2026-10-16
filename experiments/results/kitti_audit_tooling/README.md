@@ -15,5 +15,35 @@ controlled replay executable. They exercise selection, command reconstruction,
 completed drift, failed processes, invalid summaries, missing inputs and stale
 work directories. Artificial metrics are test inputs, not method measurements.
 
+## Native fixture replay
+
+[Committed native results](real_fixture/comparison.json) exercise the actual
+Release `pcd_dogfooding` executable with KISS-ICP and `--no-gt-seed` on the
+committed three-frame MCD fixture. A fresh native run supplies the reference;
+the negative cases deliberately alter only that isolated reference or omit the
+input link. No method parameter is tuned.
+
+| Audit case | Expected exit | Observed exit | Result |
+|---|---:|---:|---|
+| Unchanged reference | 0 | 0 | matches |
+| Reference ATE increased by 1 m | 1 | 1 | ATE drift |
+| Reference frame count increased by 1 | 1 | 1 | frame-count drift |
+| Reference RPE increased by 1 percentage point | 1 | 1 | RPE drift |
+| Missing input directory | 2 | 2 | preflight error; no replay process |
+
+[Commands and process exits](real_fixture/commands.json),
+[input/binary hashes](real_fixture/inputs.json), baseline summary, per-case
+reference snapshots, reports and replay logs are retained. The isolated input
+directories have KITTI-shaped names only to exercise the existing selector;
+they contain the MCD fixture. These are not KITTI measurements. Null official
+RTE in the short fixture means there are no valid official-length segments.
+
+The [validation driver](validate_real_fixture.py) is the exact executed script.
+It uses the recorded `/workspace` paths and requires a fresh
+`/workspace/localization-env/kitti-audit/real_fixture` scratch directory. The
+launch command and environment choices are in [the launcher receipt](real_fixture/launcher.json).
+The replay paths in the raw reports name that original scratch directory; their
+imported summary/log files are the corresponding `*_replay/` directories here.
+
 [User procedure and exit-code contract](../../../docs/kitti_drift_audit.md).
 The historical full audit and published result aggregates are preserved.

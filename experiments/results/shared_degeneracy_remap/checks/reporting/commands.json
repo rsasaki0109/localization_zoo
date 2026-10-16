@@ -1,0 +1,31 @@
+[
+  {
+    "label": "requires_complete",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "experiments/results/shared_degeneracy_remap/summarize_results.py",
+      "--output-dir",
+      "/workspace/localization-env/shared-remap/report_validation/should_not_exist"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "started_unix": 1792191427.627417,
+    "finished_unix": 1792191428.5739589,
+    "exit_code": 2,
+    "expected_exit_code": 2
+  },
+  {
+    "label": "explicit_partial",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "experiments/results/shared_degeneracy_remap/summarize_results.py",
+      "--allow-partial",
+      "--output-dir",
+      "/workspace/localization-env/shared-remap/report_validation/partial"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "started_unix": 1792191428.5754719,
+    "finished_unix": 1792191428.993498,
+    "exit_code": 0,
+    "expected_exit_code": 0
+  }
+]

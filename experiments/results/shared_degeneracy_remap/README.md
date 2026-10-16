@@ -43,3 +43,13 @@ Python regressions passing, along with source identity, showcase, leaderboard,
 paper-ready and whitespace checks. Actual commands and process exits are kept
 with the logs. Generated evidence is collapsed in GitHub diffs; the handwritten
 controller, wrapper, protocol and native implementation remain reviewable.
+
+`summarize_results.py --output-dir <new-directory>` requires committed coverage
+of all requested sequences. It reads one immutable Git snapshot and verifies
+native binary hashes, complete argument lists, thread settings, frame counts,
+diagnostic definitions, audit status and owned-input cleanup. It writes JSON,
+CSV and a method-README table without a paper ratio or a speed claim.
+`--allow-partial` produces an explicitly incomplete interim report. The
+[coverage-guard check receipts](checks/reporting/commands.json) exercise refusal
+of incomplete coverage and explicit partial reporting against the committed
+first sequence; the source files and execution commands are retained.

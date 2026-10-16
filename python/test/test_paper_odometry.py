@@ -14,6 +14,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'python'))
 from example_paper_odometry import METHODS, load_scans, process
+from synthetic_paper_scan import moving_room_scans
 
 
 class PaperBindings(unittest.TestCase):
@@ -68,6 +69,31 @@ class PaperBindings(unittest.TestCase):
                     owned = odometry.pose
                     owned[0, 3] += 100
                     self.assertNotEqual(owned[0, 3], odometry.pose[0, 3])
+
+    def test_dilo_moving_output_matches_native_with_the_same_defaults(self):
+        scans = moving_room_scans()
+        with tempfile.TemporaryDirectory() as directory:
+            paths = []
+            for i, (_, scan) in enumerate(scans):
+                path = Path(directory) / f'{i}.f64'
+                scan.astype('<f8').tofile(path)
+                paths.append(str(path))
+            completed = subprocess.run([str(ARGS.reference), 'dilo_paper', *paths],
+                                       check=True, capture_output=True, text=True)
+            reference = np.loadtxt(io.StringIO(completed.stdout), delimiter=',')
+            odometry = lz.DiloPaperOdometry()
+            actual = np.array([[*pose.reshape(-1), state, support]
+                               for _, scan in scans
+                               for pose, state, support in [process(odometry, 'dilo_paper', scan)]])
+            self.assertGreater(np.linalg.norm(reference[-1, :16].reshape(4, 4) - np.eye(4)), 1e-6)
+            np.testing.assert_allclose(actual, reference, rtol=0, atol=1e-12)
+            self.reports['dilo_synthetic'] = {
+                'frames': len(scans), 'nonidentity_native_output': True,
+                'max_abs_pose_delta': float(np.max(np.abs(actual[:, :16] - reference[:, :16]))),
+                'diagnostics_equal': bool(np.array_equal(actual[:, 16:], reference[:, 16:])),
+                'python_poses': actual[:, :16].tolist(),
+                'native_poses': reference[:, :16].tolist(),
+            }
 
     def test_invalid_arrays_do_not_advance_stream(self):
         for method, name in METHODS.items():

@@ -107,6 +107,7 @@ python3 python/example_paper_odometry.py suma_paper
 python3 python/example_paper_odometry.py imls_slam_paper
 python3 python/example_paper_odometry.py dilo_paper
 python3 python/example_paper_odometry.py litamin2_paper
+cmake --build build --target paper_odometry_reference
 ctest --test-dir build -R test_paper_python_bindings --output-on-failure
 ```
 

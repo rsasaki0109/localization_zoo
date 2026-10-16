@@ -21,7 +21,9 @@ from tf2_msgs.msg import TFMessage
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'python'))
+sys.path.insert(0, str(ROOT / 'python/test'))
 from example_paper_odometry import METHODS, load_scans
+from synthetic_paper_scan import moving_room_scans
 
 
 def cloud(points, stamp, frame, *, double=False, big_endian=False):
@@ -71,23 +73,27 @@ class PaperNodes(unittest.TestCase):
         self.assertTrue(predicate(), 'timed out waiting for ROS discovery/output')
 
     def test_native_parity_frames_stamps_and_tf(self):
-        scans = load_scans(ROOT / 'evaluation/fixtures/mcd_kth_smoke')
+        real_scans = load_scans(ROOT / 'evaluation/fixtures/mcd_kth_smoke')
+        cases = [(method, method, real_scans) for method in METHODS]
+        cases.append(('dilo_synthetic', 'dilo_paper', moving_room_scans()))
         with tempfile.TemporaryDirectory() as directory:
-            paths = []
-            for i, (_, scan) in enumerate(scans):
-                path = Path(directory) / f'{i}.f64'
-                scan.astype('<f8').tofile(path)
-                paths.append(str(path))
-            for method in METHODS:
-                with self.subTest(method=method):
+            for case, method, scans in cases:
+                paths = []
+                for i, (_, scan) in enumerate(scans):
+                    path = Path(directory) / f'{case}_{i}.f64'
+                    scan.astype('<f8').tofile(path)
+                    paths.append(str(path))
+                with self.subTest(method=method, fixture=case):
                     expected = subprocess.run([str(ARGS.reference), method, *paths],
                                               check=True, capture_output=True, text=True)
                     reference = np.loadtxt(io.StringIO(expected.stdout), delimiter=',', ndmin=2)
-                    namespace = f'/paper_fixture/{method}'
-                    sensor = f'{method}_lidar'
+                    if case == 'dilo_synthetic':
+                        self.assertGreater(np.linalg.norm(reference[-1, :16].reshape(4, 4) - np.eye(4)), 1e-6)
+                    namespace = f'/paper_fixture/{case}'
+                    sensor = f'{case}_lidar'
                     received, transforms = {}, {}
                     odom_poses, tf_poses = [], []
-                    observer = Node(f'{method}_fixture_observer')
+                    observer = Node(f'{case}_fixture_observer')
                     publisher = observer.create_publisher(PointCloud2, namespace + '/points', 10)
                     def on_odom(msg):
                         received[msg.header.stamp.sec] = msg
@@ -102,7 +108,7 @@ class PaperNodes(unittest.TestCase):
                                '-r', f'__ns:={namespace}', '-r', f'points_raw:={namespace}/points',
                                '-r', f'odom:={namespace}/odom', '-p', 'map_frame_id:=fixture_world',
                                '-p', 'input_reliability:=reliable']
-                    log_path = Path(directory) / f'{method}.log'
+                    log_path = Path(directory) / f'{case}.log'
                     with log_path.open('w') as log:
                         child = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT)
                     try:
@@ -152,7 +158,7 @@ class PaperNodes(unittest.TestCase):
                                 publisher.publish(cloud(points[:4], 1000, 'different_frame'))
                                 publisher.publish(copy.deepcopy(msg))
                         self.assertEqual(set(received), {100 + i for i in range(len(scans))})
-                        self.reports[method] = {
+                        self.reports[case] = {
                             'frames': len(scans),
                             'max_abs_odom_delta': float(np.max(np.abs(np.asarray(odom_poses).reshape(-1, 16) - reference[:, :16]))),
                             'max_abs_tf_delta': float(np.max(np.abs(np.asarray(tf_poses).reshape(-1, 16) - reference[:, :16]))),

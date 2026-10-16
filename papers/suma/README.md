@@ -170,6 +170,15 @@ without separating the solver's normal bias from prediction effects. This
 transferred value is not recommended as a general SuMa KITTI setting. The other
 sequences are still running with the same configuration; no parameter is
 reselected from this result. Existing settings stay unchanged.
+
+The full 02 candidate is also negative: official RTE **21.423956%**, ATE
+**565.520007 m** ([committed run](../../experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary.json)).
+[Early saved-pose diagnostics](../../experiments/results/shared_degeneracy_remap/checks/early_02_candidate/diagnostics.json)
+record 2040 of 4660 moving steps with length error above 20%, including the
+continuous destination-frame interval 1–912. Its full path-length ratio to GT
+is 0.741858. The fresh raw control is still running; the paired 02 comparison
+is not complete. These records locate another startup failure without
+establishing its solver-level cause. The fixed arguments remain unchanged.
 <!-- SHARED_REMAP_RESULTS:END -->
 
 Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;

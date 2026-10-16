@@ -42,6 +42,13 @@ printed-metric differences and identical saved-pose bytes for both existing
 audit variants. [Input cleanup](sequences/01/cleanup.json) verifies hashes before
 the downloaded sequence is removed.
 
+The [full 02 candidate](benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary.json)
+has official RTE 21.423956% and ATE 565.520007 m. Its
+[early committed diagnostics](checks/early_02_candidate/diagnostics.json) locate
+length errors above 20% from destination frames 1–912 and count 2040 such steps
+over the full sequence. The raw control is still running, so the paired 02
+comparison is not yet complete. No parameter is reselected from this result.
+
 [Release receipts](checks/commands.json) record all 123 CTest entries and all 290
 Python regressions passing, along with source identity, showcase, leaderboard,
 paper-ready and whitespace checks. Actual commands and process exits are kept

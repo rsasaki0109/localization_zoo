@@ -1,0 +1,6 @@
+{
+  "reused_runs": [
+    "fe607199_control_short_mesh_loam"
+  ],
+  "reason": "Previous driver stdout broke after the exec-server transport disconnected; saved CLI exit0 and source/binary/command hashes verified before reuse."
+}

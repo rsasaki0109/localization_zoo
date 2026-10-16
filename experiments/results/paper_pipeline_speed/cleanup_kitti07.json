@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-speed/verify_and_cleanup_kitti07.py"
+  ],
+  "source_commit": "4defda23019d374740ab02f75589311f2d612728",
+  "input_files_checked": 1101,
+  "input_sha256_match": true,
+  "deleted_root": "/workspace/localization-env/paper-speed/kitti",
+  "deleted_symlink": "/workspace/localization_zoo/dogfooding_results/paper_speed_kitti07",
+  "raw_root_exists_after": false,
+  "symlink_exists_after": false,
+  "started_unix": 1792180148.3675256,
+  "finished_unix": 1792180148.6911287,
+  "exit_code": 0
+}

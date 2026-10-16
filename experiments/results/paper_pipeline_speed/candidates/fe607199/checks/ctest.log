@@ -1,0 +1,250 @@
+Internal ctest changing into directory: /workspace/localization_zoo/build
+Test project /workspace/localization_zoo/build
+        Start   1: common_math
+  1/122 Test   #1: common_math .........................   Passed    0.01 sec
+        Start   2: common_io
+  2/122 Test   #2: common_io ...........................   Passed    0.10 sec
+        Start   3: felzenszwalb_edt
+  3/122 Test   #3: felzenszwalb_edt ....................   Passed    0.01 sec
+        Start   4: test_litamin2
+  4/122 Test   #4: test_litamin2 .......................   Passed    0.12 sec
+        Start   5: test_litamin2_odometry
+  5/122 Test   #5: test_litamin2_odometry ..............   Passed    2.27 sec
+        Start   6: test_aloam
+  6/122 Test   #6: test_aloam ..........................   Passed    0.29 sec
+        Start   7: test_floam
+  7/122 Test   #7: test_floam ..........................   Passed    0.33 sec
+        Start   8: test_isc_loam
+  8/122 Test   #8: test_isc_loam .......................   Passed    0.47 sec
+        Start   9: test_ct_icp
+  9/122 Test   #9: test_ct_icp .........................   Passed    0.51 sec
+        Start  10: test_relead
+ 10/122 Test  #10: test_relead .........................   Passed    0.28 sec
+        Start  11: test_xicp
+ 11/122 Test  #11: test_xicp ...........................   Passed    0.03 sec
+        Start  12: test_ct_icp_relead
+ 12/122 Test  #12: test_ct_icp_relead ..................   Passed    1.39 sec
+        Start  13: test_imu_preintegration
+ 13/122 Test  #13: test_imu_preintegration .............   Passed    0.01 sec
+        Start  14: test_kiss_icp
+ 14/122 Test  #14: test_kiss_icp .......................   Passed    0.76 sec
+        Start  15: test_genz_icp
+ 15/122 Test  #15: test_genz_icp .......................   Passed    0.10 sec
+        Start  16: test_lf_gicp
+ 16/122 Test  #16: test_lf_gicp ........................   Passed    0.47 sec
+        Start  17: test_l_lo
+ 17/122 Test  #17: test_l_lo ...........................   Passed    3.31 sec
+        Start  18: test_adaptive_icp
+ 18/122 Test  #18: test_adaptive_icp ...................   Passed    4.48 sec
+        Start  19: test_d2lio
+ 19/122 Test  #19: test_d2lio ..........................   Passed    6.50 sec
+        Start  20: test_ct_voxelmap
+ 20/122 Test  #20: test_ct_voxelmap ....................   Passed    0.26 sec
+        Start  21: test_r_voxelmap
+ 21/122 Test  #21: test_r_voxelmap .....................   Passed    0.26 sec
+        Start  22: test_degen_sense
+ 22/122 Test  #22: test_degen_sense ....................   Passed    7.05 sec
+        Start  23: test_vibration_lio
+ 23/122 Test  #23: test_vibration_lio ..................   Passed    0.28 sec
+        Start  24: test_id_lio
+ 24/122 Test  #24: test_id_lio .........................   Passed    0.15 sec
+        Start  25: test_rf_lio
+ 25/122 Test  #25: test_rf_lio .........................   Passed    0.19 sec
+        Start  26: test_bievr_lio
+ 26/122 Test  #26: test_bievr_lio ......................   Passed    0.09 sec
+        Start  27: test_ua_lio
+ 27/122 Test  #27: test_ua_lio .........................   Passed    0.12 sec
+        Start  28: test_dtd
+ 28/122 Test  #28: test_dtd ............................   Passed    0.02 sec
+        Start  29: test_damm_loam
+ 29/122 Test  #29: test_damm_loam ......................   Passed    0.14 sec
+        Start  30: test_lodestar
+ 30/122 Test  #30: test_lodestar .......................   Passed    0.51 sec
+        Start  31: test_terrain_rbf_lio
+ 31/122 Test  #31: test_terrain_rbf_lio ................   Passed    0.11 sec
+        Start  32: test_lidar_iba
+ 32/122 Test  #32: test_lidar_iba ......................   Passed    0.34 sec
+        Start  33: test_dali_slam
+ 33/122 Test  #33: test_dali_slam ......................   Passed    0.68 sec
+        Start  34: test_intensity_flow
+ 34/122 Test  #34: test_intensity_flow .................   Passed    0.22 sec
+        Start  35: test_svn_icp
+ 35/122 Test  #35: test_svn_icp ........................   Passed    0.47 sec
+        Start  36: test_pcr_dat
+ 36/122 Test  #36: test_pcr_dat ........................   Passed    0.14 sec
+        Start  37: test_small_mighty
+ 37/122 Test  #37: test_small_mighty ...................   Passed    0.17 sec
+        Start  38: test_m_gclo
+ 38/122 Test  #38: test_m_gclo .........................   Passed    0.14 sec
+        Start  39: test_quadric_lo
+ 39/122 Test  #39: test_quadric_lo .....................   Passed    0.36 sec
+        Start  40: test_dilo
+ 40/122 Test  #40: test_dilo ...........................   Passed    0.23 sec
+        Start  41: test_dilo_paper
+ 41/122 Test  #41: test_dilo_paper .....................   Passed   18.75 sec
+        Start  42: test_nhc_lio
+ 42/122 Test  #42: test_nhc_lio ........................   Passed    0.74 sec
+        Start  43: test_student_t_lo
+ 43/122 Test  #43: test_student_t_lo ...................   Passed    0.80 sec
+        Start  44: test_spectral_lo
+ 44/122 Test  #44: test_spectral_lo ....................   Passed    0.09 sec
+        Start  45: test_gmm_lo
+ 45/122 Test  #45: test_gmm_lo .........................   Passed    0.56 sec
+        Start  46: test_gnc_lo
+ 46/122 Test  #46: test_gnc_lo .........................   Passed    0.83 sec
+        Start  47: test_mcc_lo
+ 47/122 Test  #47: test_mcc_lo .........................   Passed    0.61 sec
+        Start  48: test_imls_slam
+ 48/122 Test  #48: test_imls_slam ......................   Passed    0.19 sec
+        Start  49: test_imls_paper_odometry
+ 49/122 Test  #49: test_imls_paper_odometry ............   Passed   72.73 sec
+        Start  50: test_mesh_loam
+ 50/122 Test  #50: test_mesh_loam ......................   Passed   36.36 sec
+        Start  51: test_elo
+ 51/122 Test  #51: test_elo ............................   Passed    7.96 sec
+        Start  52: test_tc_lvgf
+ 52/122 Test  #52: test_tc_lvgf ........................   Passed    0.17 sec
+        Start  53: test_opl_lvio
+ 53/122 Test  #53: test_opl_lvio .......................   Passed    0.27 sec
+        Start  54: test_v_loam15
+ 54/122 Test  #54: test_v_loam15 .......................   Passed    0.25 sec
+        Start  55: test_tc_vlo
+ 55/122 Test  #55: test_tc_vlo .........................   Passed    0.30 sec
+        Start  56: test_ad_vlo
+ 56/122 Test  #56: test_ad_vlo .........................   Passed    0.22 sec
+        Start  57: test_tc_mvlo
+ 57/122 Test  #57: test_tc_mvlo ........................   Passed    0.33 sec
+        Start  58: test_tricp_lo
+ 58/122 Test  #58: test_tricp_lo .......................   Passed    0.18 sec
+        Start  59: test_kc_lo
+ 59/122 Test  #59: test_kc_lo ..........................   Passed    0.84 sec
+        Start  60: test_i_loam
+ 60/122 Test  #60: test_i_loam .........................   Passed    1.84 sec
+        Start  61: test_pl_loam
+ 61/122 Test  #61: test_pl_loam ........................   Passed    0.39 sec
+        Start  62: test_inten_loam
+ 62/122 Test  #62: test_inten_loam .....................   Passed    0.03 sec
+        Start  63: test_inten_loam_paper
+ 63/122 Test  #63: test_inten_loam_paper ...............   Passed   10.68 sec
+        Start  64: test_mcgicp
+ 64/122 Test  #64: test_mcgicp .........................   Passed    0.15 sec
+        Start  65: test_icpsc
+ 65/122 Test  #65: test_icpsc ..........................   Passed    0.32 sec
+        Start  66: test_vlom
+ 66/122 Test  #66: test_vlom ...........................   Passed    0.18 sec
+        Start  67: test_odonet
+ 67/122 Test  #67: test_odonet .........................   Passed    0.01 sec
+        Start  68: test_nhc_net
+ 68/122 Test  #68: test_nhc_net ........................   Passed    0.01 sec
+        Start  69: test_nn_zupt
+ 69/122 Test  #69: test_nn_zupt ........................   Passed    0.01 sec
+        Start  70: test_imu_dead_reckoning
+ 70/122 Test  #70: test_imu_dead_reckoning .............   Passed    0.03 sec
+        Start  71: test_attitude_estimation
+ 71/122 Test  #71: test_attitude_estimation ............   Passed    0.03 sec
+        Start  72: test_imu_motion_health
+ 72/122 Test  #72: test_imu_motion_health ..............   Passed    0.02 sec
+        Start  73: test_posture_confirmation
+ 73/122 Test  #73: test_posture_confirmation ...........   Passed    0.04 sec
+        Start  74: test_imu_motion_health_cli
+ 74/122 Test  #74: test_imu_motion_health_cli ..........   Passed    0.15 sec
+        Start  75: test_imu_motion_health_evaluation
+ 75/122 Test  #75: test_imu_motion_health_evaluation ...   Passed    0.17 sec
+        Start  76: test_imu_motion_health_ros_wiring
+ 76/122 Test  #76: test_imu_motion_health_ros_wiring ...   Passed    0.08 sec
+        Start  77: test_imu_calibration_validation
+ 77/122 Test  #77: test_imu_calibration_validation .....   Passed    0.70 sec
+        Start  78: test_imu_public_datasets
+ 78/122 Test  #78: test_imu_public_datasets ............   Passed    0.24 sec
+        Start  79: test_allan_variance
+ 79/122 Test  #79: test_allan_variance .................   Passed    0.39 sec
+        Start  80: test_cube_lio
+ 80/122 Test  #80: test_cube_lio .......................   Passed    0.09 sec
+        Start  81: test_rko_lio
+ 81/122 Test  #81: test_rko_lio ........................   Passed    0.12 sec
+        Start  82: test_fr_lio
+ 82/122 Test  #82: test_fr_lio .........................   Passed    0.05 sec
+        Start  83: test_pg_lio
+ 83/122 Test  #83: test_pg_lio .........................   Passed    0.56 sec
+        Start  84: test_rf2o
+ 84/122 Test  #84: test_rf2o ...........................   Passed    0.03 sec
+        Start  85: test_pl_icp
+ 85/122 Test  #85: test_pl_icp .........................   Passed    0.05 sec
+        Start  86: test_csm
+ 86/122 Test  #86: test_csm ............................   Passed    1.48 sec
+        Start  87: test_kinematic_icp
+ 87/122 Test  #87: test_kinematic_icp ..................   Passed    0.08 sec
+        Start  88: test_psm
+ 88/122 Test  #88: test_psm ............................   Passed    3.73 sec
+        Start  89: test_ndt_2d
+ 89/122 Test  #89: test_ndt_2d .........................   Passed    0.24 sec
+        Start  90: test_idc
+ 90/122 Test  #90: test_idc ............................   Passed    0.80 sec
+        Start  91: test_mb_icp
+ 91/122 Test  #91: test_mb_icp .........................   Passed    0.17 sec
+        Start  92: test_karto_matcher
+ 92/122 Test  #92: test_karto_matcher ..................   Passed    1.31 sec
+        Start  93: test_ndt
+ 93/122 Test  #93: test_ndt ............................   Passed    0.29 sec
+        Start  94: test_gicp
+ 94/122 Test  #94: test_gicp ...........................   Passed    0.17 sec
+        Start  95: test_voxel_gicp
+ 95/122 Test  #95: test_voxel_gicp .....................   Passed    0.02 sec
+        Start  96: test_small_gicp
+ 96/122 Test  #96: test_small_gicp .....................   Passed    0.09 sec
+        Start  97: test_vgicp_slam
+ 97/122 Test  #97: test_vgicp_slam .....................   Passed    0.13 sec
+        Start  98: test_loam_livox
+ 98/122 Test  #98: test_loam_livox .....................   Passed    0.12 sec
+        Start  99: test_lego_loam
+ 99/122 Test  #99: test_lego_loam ......................   Passed    0.47 sec
+        Start 100: test_mulls
+100/122 Test #100: test_mulls ..........................   Passed    0.83 sec
+        Start 101: test_mulls_lo
+101/122 Test #101: test_mulls_lo .......................   Passed    2.73 sec
+        Start 102: test_balm2
+102/122 Test #102: test_balm2 ..........................   Passed    1.70 sec
+        Start 103: test_suma
+103/122 Test #103: test_suma ...........................   Passed    0.32 sec
+        Start 104: test_suma_paper
+104/122 Test #104: test_suma_paper .....................   Passed    3.93 sec
+        Start 105: test_dlo
+105/122 Test #105: test_dlo ............................   Passed    1.44 sec
+        Start 106: test_hdl_graph_slam
+106/122 Test #106: test_hdl_graph_slam .................   Passed    0.20 sec
+        Start 107: test_dlio
+107/122 Test #107: test_dlio ...........................   Passed    1.38 sec
+        Start 108: test_lins
+108/122 Test #108: test_lins ...........................   Passed    0.06 sec
+        Start 109: test_point_lio
+109/122 Test #109: test_point_lio ......................   Passed    0.42 sec
+        Start 110: test_clins
+110/122 Test #110: test_clins ..........................   Passed    1.33 sec
+        Start 111: test_vilens
+111/122 Test #111: test_vilens .........................   Passed    0.13 sec
+        Start 112: test_ct_lio
+112/122 Test #112: test_ct_lio .........................   Passed    1.22 sec
+        Start 113: test_scan_context
+113/122 Test #113: test_scan_context ...................   Passed    0.02 sec
+        Start 114: test_lio_sam
+114/122 Test #114: test_lio_sam ........................   Passed    0.56 sec
+        Start 115: test_lvi_sam
+115/122 Test #115: test_lvi_sam ........................   Passed    0.39 sec
+        Start 116: test_vins_fusion
+116/122 Test #116: test_vins_fusion ....................   Passed    0.04 sec
+        Start 117: test_okvis
+117/122 Test #117: test_okvis ..........................   Passed    0.04 sec
+        Start 118: test_orb_slam3
+118/122 Test #118: test_orb_slam3 ......................   Passed    0.11 sec
+        Start 119: test_fast_lio2
+119/122 Test #119: test_fast_lio2 ......................   Passed    0.15 sec
+        Start 120: test_fast_livo2
+120/122 Test #120: test_fast_livo2 .....................   Passed    0.05 sec
+        Start 121: test_r2live
+121/122 Test #121: test_r2live .........................   Passed    0.08 sec
+        Start 122: test_fast_lio_slam
+122/122 Test #122: test_fast_lio_slam ..................   Passed    0.30 sec
+
+100% tests passed, 0 tests failed out of 122
+
+Total Test time (real) = 218.62 sec

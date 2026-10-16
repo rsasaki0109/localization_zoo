@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "/workspace/localization-env/paper-speed/kitti/dataset/sequences/07/velodyne",
+  "gt_csv": "/workspace/localization-env/paper-speed/baseline_worktree/experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "gt_sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+  "input_max_range_m": 120,
+  "input_vertical_angle_correction_deg": 0.17,
+  "input_azimuth_time": false,
+  "total_pcd_frames": 1101,
+  "num_frames": 120,
+  "raw_gt_pose_count": 1101,
+  "used_gt_pose_count": 120,
+  "trajectory_length_m": 68.933735,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "134ead2f21a4611ec328a45aa543b31428d6b92c",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/velodyne_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/velodyne_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 120,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 119.000000]
+  },
+  "gt": {
+    "source": "/workspace/localization-env/paper-speed/baseline_worktree/experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 1101,
+    "raw_timestamp_range": [0.000000, 1100.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 120,
+    "associated_gt_index_range": [0, 119],
+    "associated_gt_timestamp_range": [0.000000, 119.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 34.466868,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 0.218802,
+      "rpe_trans_pct": 0.705709,
+      "rpe_rot_deg_per_m": 0.005070,
+      "kitti_rte_trans_pct": null,
+      "kitti_rte_rot_deg_per_100m": null,
+      "frames": 120,
+      "time_ms": 35077.830429,
+      "fps": 3.420964,
+      "algorithm_time_ms": null,
+      "algorithm_fps": null,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1533 s2m=2412 dor points/frame=122"
+    }
+  ]
+}

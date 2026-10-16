@@ -1,0 +1,26 @@
+{
+  "mesh_loam": {
+    "control_time_ms": 95672.739907,
+    "default_time_ms": 92271.448306,
+    "accelerated_time_ms": 111466.438843,
+    "short_speedup": 0.8583098276042948,
+    "default_pose_max_abs_difference": 0.0,
+    "accelerated_pose_max_abs_difference": 0.0
+  },
+  "imls_slam": {
+    "control_time_ms": 118767.955408,
+    "default_time_ms": 173867.780846,
+    "accelerated_time_ms": 78126.904565,
+    "short_speedup": 1.5201927693063464,
+    "default_pose_max_abs_difference": 0.0,
+    "accelerated_pose_max_abs_difference": 0.0
+  },
+  "inten_loam": {
+    "control_time_ms": 74308.188716,
+    "default_time_ms": 32637.111007,
+    "accelerated_time_ms": 15464.36859,
+    "short_speedup": 4.805122710541912,
+    "default_pose_max_abs_difference": 0.0,
+    "accelerated_pose_max_abs_difference": 0.0
+  }
+}

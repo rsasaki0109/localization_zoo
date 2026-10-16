@@ -1,0 +1,18 @@
+{
+  "prepare.py": {
+    "original_path": "/workspace/localization-env/paper-speed/prepare.py",
+    "sha256": "0ebe6b2596d0675dd6db45735a44ef94fb9a7e94ff682380138e7ed9293b4649"
+  },
+  "run_baseline.py": {
+    "original_path": "/workspace/localization-env/paper-speed/run_baseline.py",
+    "sha256": "b3523ea9eb705ffbe9ea53ee8b14fdbc745b84e77126c4236a4afc16c0cc2bdb"
+  },
+  "capture_environment.py": {
+    "original_path": "/workspace/localization-env/paper-speed/capture_environment.py",
+    "sha256": "98986c68b312e1e6cc36889df22568c4b7e53fd498fe947ed26a6d73504ff59e"
+  },
+  "import_profiles.py": {
+    "original_path": "/workspace/localization-env/paper-speed/import_profiles.py",
+    "sha256": "f3d2011fa73d6cdc37a30f6374d0c6c90a5be4b4c9eaed42cc842293b2ef2db7"
+  }
+}

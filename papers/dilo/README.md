@@ -123,6 +123,12 @@ key point の選び方、Algorithm 1 のウィンドウ最適化) をほぼ持�
 ならない。ほかのシーケンスでは結果がほとんど変わらない (00 / 07 は同一)。
 `experiments/dilo_kitti_seq_NN_full_paper_comp_matrix.json`、公式 RTE [%]:
 
+この任意処理の実装は `common/degeneracy.h` に移し、SuMa と共有した。
+比率・更新順序・既定オフの設定は維持している。射影するのは局所的な並進更新で、
+回転や合成後の絶対位置を固定する処理ではない。
+[全シーケンスの影響範囲監査](../../experiments/results/shared_degeneracy_remap/README.md)
+を別途記録する。以下の既存結果は更新しない。
+
 | Seq | Paper | `paper_odometry_spread_keypoints` | `paper_odometry_degenerate` | Ratio |
 |---|---:|---:|---:|---:|
 | 00 | 0.64 | 0.549 | 0.549 | 0.86x |

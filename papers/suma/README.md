@@ -137,6 +137,19 @@ matters, use `normalize_bilinear = true` with the 0.22 deg correction.
 
 ### Full sequences
 
+The shared local translation remap is separately available through
+`--suma-paper-set degenerate_ratio=0.03` (C++ `SuMaPaperParams::degenerate_ratio`).
+It is **not in the SuMa paper**, is disabled by default, and projects only the
+local solver's translation update. Rotation and SE(3) composition can still
+change the accumulated translation. SuMa's translation-first vector ordering is
+handled explicitly; DiLO uses rotation first. The existing official defaults and
+published results retain their original interpretation.
+
+The experimental ratio is transferred from the existing DiLO choice on KITTI
+01 without a SuMa sweep. Sequence 01 motivates the experiment and is not held
+out. [Full fixed-setting execution and audit protocol](../../experiments/results/shared_degeneracy_remap/README.md)
+are recorded separately; a new paper reproduction claim is not made here.
+
 Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;
 `experiments/suma_kitti_seq_*_full_*_matrix.json`):
 

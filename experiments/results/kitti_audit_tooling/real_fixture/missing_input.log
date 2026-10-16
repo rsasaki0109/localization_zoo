@@ -1,0 +1,2 @@
+[audit] KISS-ICP 00 fixture_reference: error (ValueError: missing scan directory: /workspace/localization-env/kitti-audit/real_fixture/missing_input/dogfooding_results/kitti_seq_00_full)
+[done] 0 drifted, 1 failed of 1 cells; exit 2; wrote /workspace/localization-env/kitti-audit/real_fixture/missing_input_report.json

@@ -1,0 +1,2 @@
+[audit] KISS-ICP 00 fixture_reference: drift
+[done] 1 drifted, 0 failed of 1 cells; exit 1; wrote /workspace/localization-env/kitti-audit/real_fixture/ate_drift_report.json

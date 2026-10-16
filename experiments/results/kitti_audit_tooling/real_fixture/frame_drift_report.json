@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-16T21:47:41+00:00",
+  "purpose": "Selected stored full-sequence KITTI cells re-run with the current code",
+  "concurrent_jobs": 1,
+  "scope": {
+    "methods": [],
+    "sequences": [
+      "00"
+    ],
+    "selected_cell_count": 1,
+    "filtered": true
+  },
+  "metric_absolute_tolerance": 1e-06,
+  "binary_sha256": "a75d8c5b42e8b021ba3afbe63708a2bca26b776253d100acdda94c87f179b0e2",
+  "exit_code": 1,
+  "host": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cores": 5,
+    "memory_gib": 17.6,
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.18.44",
+    "architecture": "x86_64"
+  },
+  "rows": [
+    {
+      "method": "KISS-ICP",
+      "sequence": "00",
+      "aggregate_path": "experiments/results/fixture_reference_matrix.json",
+      "variant_id": "fixture_reference",
+      "summary_path": "/workspace/localization-env/kitti-audit/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "log_path": "/workspace/localization-env/kitti-audit/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "command": [
+        "/workspace/localization_zoo/build/evaluation/pcd_dogfooding",
+        "/workspace/localization-env/kitti-audit/real_fixture/frame_drift/dogfooding_results/kitti_seq_00_full",
+        "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke_gt.csv",
+        "--methods",
+        "kiss_icp",
+        "--summary-json",
+        "/workspace/localization-env/kitti-audit/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.json",
+        "--no-gt-seed"
+      ],
+      "cwd": "/workspace/localization-env/kitti-audit/real_fixture/frame_drift",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "drift",
+      "drifted": true,
+      "args": [],
+      "kitti_rte_trans_pct": null,
+      "kitti_rte_rot_deg_per_100m": null,
+      "fps": 19.36009,
+      "stored_rpe_trans_pct": 167.033987,
+      "rerun_rpe_trans_pct": 167.033987,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 0.035614,
+      "rerun_ate_m": 0.035614,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 4,
+      "frames": 3,
+      "drift_metrics": [
+        "frames"
+      ]
+    }
+  ]
+}

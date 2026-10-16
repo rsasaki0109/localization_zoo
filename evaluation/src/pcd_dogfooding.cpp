@@ -17919,11 +17919,21 @@ int main(int argc, char** argv) {
 
   if (isMethodEnabled(selected_methods, "imls_slam")) {
     std::cout << "Running IMLS-SLAM..." << std::endl;
-    std::cout << "  source_voxel_size=" << imls_slam_options.source_voxel_size
-              << " voxel_size=" << imls_slam_options.voxel_size
-              << " imls_h=" << imls_slam_options.imls_h
-              << " sampling=" << imls_slam_options.use_observability_sampling
-              << std::endl;
+    if (imls_slam_options.paper_odometry) {
+      std::ostringstream info;
+      info << "  paper odometry: raw scans, window=" << imls_slam_options.paper_window_scans
+           << " h=" << imls_slam_options.paper_h << " r=" << imls_slam_options.paper_r
+           << " samples/list=" << imls_slam_options.paper_samples_per_list
+           << " iterations=" << imls_slam_options.paper_iterations
+           << " coarse_frames=" << imls_slam_options.paper_coarse_frames;
+      std::cout << info.str() << std::endl;
+    } else {
+      std::cout << "  source_voxel_size=" << imls_slam_options.source_voxel_size
+                << " voxel_size=" << imls_slam_options.voxel_size
+                << " imls_h=" << imls_slam_options.imls_h
+                << " sampling=" << imls_slam_options.use_observability_sampling
+                << std::endl;
+    }
     results.push_back(runImlsSlam(pcd_dirs, gt, imls_slam_options));
   }
 

@@ -15,16 +15,16 @@ using namespace localization_zoo::mesh_loam;
 namespace localization_zoo {
 namespace mesh_loam {
 struct MeshLoamTestAccess {
-  static void checkFacetIndex() {
+  static void checkFacetFilters() {
     MeshLoamPipeline::FacetBin bin;
     double best = 1.0;
     Eigen::Vector3d relative;
-    bin.buildIndex();
+    bin.buildFilters();
     EXPECT_EQ(bin.nearest(Eigen::Vector3d::Zero(), Eigen::Vector3d::UnitZ(), .98,
                           &best, &relative), nullptr);
     // Two complete unit squares at z=0 and z=1/4, triangulated into a dense
     // bin. The distance to their union is available analytically, independent
-    // of the index and triangle-distance implementation.
+    // of the cache and triangle-distance implementation.
     for (int plane = 0; plane < 2; ++plane)
       for (int x = 0; x < 4; ++x)
         for (int y = 0; y < 4; ++y)
@@ -44,7 +44,7 @@ struct MeshLoamTestAccess {
     auto duplicate = bin.facets.front();
     duplicate.owner[0] = 99;
     bin.add(duplicate);
-    bin.buildIndex();
+    bin.buildFilters();
     for (int x = -2; x <= 10; ++x)
       for (int y = -2; y <= 10; ++y)
         for (double z : {-.125, .0625, .125, .375}) {
@@ -60,28 +60,41 @@ struct MeshLoamTestAccess {
     const auto* tie = bin.nearest(Eigen::Vector3d(.125, .0625, .0625),
                                    Eigen::Vector3d::UnitZ(), .98, &best, &relative);
     ASSERT_NE(tie, nullptr);
-    EXPECT_EQ(tie->owner[0], 0);  // first facet, even if another leaf is visited first
+    EXPECT_EQ(tie->owner[0], 0);  // first facet in stored order
     best = 1.0;
     EXPECT_EQ(bin.nearest(Eigen::Vector3d(.125, .0625, 1.25), Eigen::Vector3d::UnitZ(),
                           .98, &best, &relative), nullptr);  // strict initial distance gate
     best = 4.0;
     EXPECT_EQ(bin.nearest(Eigen::Vector3d(.125, .0625, .0625), Eigen::Vector3d::UnitX(),
                           .98, &best, &relative), nullptr);
+    // Broad packet gates must not decide the double-precision cosine gate.
+    for (double cosine : {std::nextafter(.98, 0.0), .98, std::nextafter(.98, 1.0)}) {
+      const Eigen::Vector3d n(std::sqrt(1.0 - cosine * cosine), 0.0, cosine);
+      best = 4.0;
+      const auto* hit = bin.nearest(Eigen::Vector3d(.125, .0625, .0625), n,
+                                    .98, &best, &relative);
+      EXPECT_EQ(hit != nullptr, cosine >= .98);
+    }
+    auto copied = bin;  // independent rebuild must not mutate a shared cache
     bin.facets.erase(std::remove_if(bin.facets.begin(), bin.facets.end(),
                                      [](const auto& f) { return f.a.z() == 0.0f; }), bin.facets.end());
     bin.recomputeBounds();
-    bin.buildIndex();
+    bin.buildFilters();
     best = 4.0;
     ASSERT_NE(bin.nearest(Eigen::Vector3d(.125, .0625, -.0625), Eigen::Vector3d::UnitZ(),
                           .98, &best, &relative), nullptr);
     EXPECT_DOUBLE_EQ(best, .3125 * .3125);
+    best = 4.0;
+    ASSERT_NE(copied.nearest(Eigen::Vector3d(.125, .0625, -.0625),
+                            Eigen::Vector3d::UnitZ(), .98, &best, &relative), nullptr);
+    EXPECT_DOUBLE_EQ(best, .0625 * .0625);
   }
 };
 }  // namespace mesh_loam
 }  // namespace localization_zoo
 
-TEST(MeshLoam, FacetIndexMatchesAnalyticDistancesAndRetainsTiesAndGates) {
-  MeshLoamTestAccess::checkFacetIndex();
+TEST(MeshLoam, FacetFiltersMatchAnalyticDistancesAndRetainsTiesAndGates) {
+  MeshLoamTestAccess::checkFacetFilters();
 }
 
 namespace {
@@ -368,7 +381,7 @@ TEST(MeshLoam, DirtyCellsTouchFewerCellsThanBlocks) {
   EXPECT_NEAR(ratio, 1.0, 0.02);
 }
 
-TEST(MeshLoam, IndexedAssociationRetainsPosesAcrossMeshUpdatesAndPruning) {
+TEST(MeshLoam, CachedAssociationRetainsPosesAcrossMeshUpdatesAndPruning) {
 #ifdef _OPENMP
   const int original_threads = omp_get_max_threads();
   omp_set_num_threads(1);  // isolate association from the legacy parallel sums
@@ -404,7 +417,7 @@ TEST(MeshLoam, FrozenMeshIsKeptAndRestored) {
   params.nearest_facet = true;
   params.mesh_update_interval = 2;
   MeshLoamParams frozen_params = params;
-  frozen_params.accelerated = true;  // also cover rebuilding indices after thaw
+  frozen_params.accelerated = true;  // also cover rebuilding caches after thaw
   frozen_params.mesh_freeze_radius = 2.0;  // bins beyond ~13 m are frozen
   MeshLoamPipeline plain(params);
   MeshLoamPipeline frozen(frozen_params);

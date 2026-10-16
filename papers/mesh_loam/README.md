@@ -315,12 +315,21 @@ accuracy runs. For `keep_mesh`, use `marching_cubes = true` and
 
 ## Optional execution acceleration
 
-`--paper-pipeline-accelerated` enables a repository spatial index for nearest-
-facet association. It is not an additional processing step from the paper and
-is **off by default**. A per-bin bounding-volume tree prunes triangle candidates
-while retaining the original distance/normal gates and facet-index tie rule.
-Indices are rebuilt after extraction, pruning and thawing; the mesh itself,
-input sampling, search radius and registration iterations are unchanged.
+`--paper-pipeline-accelerated` enables cached, packetized prefilters for nearest-
+facet association. This repository execution optimization is **off by default**
+and is not an additional processing step from the paper. It retains facet order,
+the original scalar distance/normal gates, and the strict tie comparison. Caches
+are rebuilt after extraction, pruning and thawing; the mesh itself, input
+sampling, search radius and registration iterations are unchanged.
+
+The rejected bounding-volume-tree candidate (`fe607199`) took 168128.332 ms
+against 117876.891 ms for the frozen baseline on the first 120 KITTI 07 frames:
+**0.70x**, slower despite identical saved poses. The changed binary's default
+path took 105839.854 ms and also retained the poses. These are development-window
+measurements, not a full-sequence speed claim. The spatial tree is replaced by
+the cache above; its performance still needs validation. The raw runs and exact
+commands were committed in `8479040a` under
+[`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
 
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 record the development on KITTI 07. Paired full-sequence timing and accuracy

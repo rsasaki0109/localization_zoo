@@ -160,7 +160,14 @@ std::vector<std::vector<int>> ImlsPaperOdometry::sampleLists(
   return lists;
 }
 
-bool ImlsPaperOdometry::hasModelPointWithin(const Eigen::Vector3d& x, double r) const {
+bool ImlsPaperOdometry::hasModelPointWithin(const Eigen::Vector3d& x, double r,
+                                           const ModelCells* cells) const {
+  if (cells) {
+    for (const auto* bin : *cells)
+      for (const auto& e : *bin)
+        if ((e.p - x).squaredNorm() <= r * r) return true;
+    return false;
+  }
   // The model grid has cells of params_.r; a larger radius visits more cells.
   const Eigen::Vector3i c = key(x, params_.r);
   const double r2 = r * r;
@@ -178,6 +185,12 @@ bool ImlsPaperOdometry::hasModelPointWithin(const Eigen::Vector3d& x, double r) 
 
 bool ImlsPaperOdometry::imls(const Eigen::Vector3d& x, double r, double h,
                              Eigen::Vector3d* normal, double* distance) const {
+  return project(x, r, h, normal, distance, nullptr);
+}
+
+bool ImlsPaperOdometry::project(const Eigen::Vector3d& x, double r, double h,
+                               Eigen::Vector3d* normal, double* distance,
+                               const ModelCells* cells) const {
   const Eigen::Vector3i c = key(x, params_.r);
   const double r2 = r * r;
   const double inv_h2 = 1.0 / (h * h);
@@ -187,23 +200,29 @@ bool ImlsPaperOdometry::imls(const Eigen::Vector3d& x, double r, double h,
   Eigen::Vector3d weighted = Eigen::Vector3d::Zero();
   double weight_sum = 0.0;
   int n = 0;
-  for (int dx = -reach; dx <= reach; ++dx)
-    for (int dy = -reach; dy <= reach; ++dy)
-      for (int dz = -reach; dz <= reach; ++dz) {
-        auto it = model_.find(c + Eigen::Vector3i(dx, dy, dz));
-        if (it == model_.end()) continue;
-        for (const auto& e : it->second) {
-          const Eigen::Vector3d d = e.p - x;
-          const double d2 = d.squaredNorm();
-          if (d2 > r2) continue;
-          ++n;
-          sum += d;  // relative to x for conditioning
-          sum_sq += d * d.transpose();
-          const double w = std::exp(-d2 * inv_h2);
-          weighted += w * d;
-          weight_sum += w;
+  auto accumulate = [&](const std::vector<Entry>& bin) {
+    for (const auto& e : bin) {
+      const Eigen::Vector3d d = e.p - x;
+      const double d2 = d.squaredNorm();
+      if (d2 > r2) continue;
+      ++n;
+      sum += d;  // relative to x for conditioning
+      sum_sq += d * d.transpose();
+      const double w = std::exp(-d2 * inv_h2);
+      weighted += w * d;
+      weight_sum += w;
+    }
+  };
+  if (cells) {
+    for (const auto* bin : *cells) accumulate(*bin);
+  } else {
+    for (int dx = -reach; dx <= reach; ++dx)
+      for (int dy = -reach; dy <= reach; ++dy)
+        for (int dz = -reach; dz <= reach; ++dz) {
+          auto it = model_.find(c + Eigen::Vector3i(dx, dy, dz));
+          if (it != model_.end()) accumulate(it->second);
         }
-      }
+  }
   if (n < params_.min_normal_points || weight_sum <= 0.0) return false;
   const Eigen::Vector3d mean = sum / n;
   Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> solver(sum_sq / n - mean * mean.transpose());
@@ -255,6 +274,12 @@ int ImlsPaperOdometry::iterate(const std::vector<ScanPoint>& points,
     double distance = 0.0;
   };
   std::vector<Projection> cache(params_.accelerated ? points.size() : 0);
+  // Each list owns a cache across iterations. The model is immutable for
+  // this call; a new coarse/fine call or a new frame starts with empty caches.
+  // Missing cells are cached too, and populated cells retain dx/dy/dz order.
+  using CellCache = std::unordered_map<Eigen::Vector3i, ModelCells, KeyHash>;
+  std::vector<CellCache> neighborhoods(params_.accelerated ? lists.size() : 0);
+  const int reach = std::max(1, static_cast<int>(std::ceil(r / params_.r)));
   int samples = 0;
   for (int iter = 0; iter < iterations; ++iter) {
     const Eigen::Matrix3d R = T->block<3, 3>(0, 0);
@@ -277,8 +302,18 @@ int ImlsPaperOdometry::iterate(const std::vector<ScanPoint>& points,
           unsigned char empty = 0;
           if (entry.state.compare_exchange_strong(empty, 1, std::memory_order_acquire)) {
             entry.x = R * points[idx].p + t;
-            entry.valid = hasModelPointWithin(entry.x, r) &&
-                          imls(entry.x, r, h, &entry.n, &entry.distance);
+            const Eigen::Vector3i c = key(entry.x, params_.r);
+            auto [cell, inserted] = neighborhoods[l].try_emplace(c);
+            if (inserted) {
+              for (int dx = -reach; dx <= reach; ++dx)
+                for (int dy = -reach; dy <= reach; ++dy)
+                  for (int dz = -reach; dz <= reach; ++dz) {
+                    const auto it = model_.find(c + Eigen::Vector3i(dx, dy, dz));
+                    if (it != model_.end()) cell->second.push_back(&it->second);
+                  }
+            }
+            entry.valid = hasModelPointWithin(entry.x, r, &cell->second) &&
+                          project(entry.x, r, h, &entry.n, &entry.distance, &cell->second);
             entry.state.store(2, std::memory_order_release);
           } else {
             while (entry.state.load(std::memory_order_acquire) != 2) std::this_thread::yield();

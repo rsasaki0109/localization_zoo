@@ -5,6 +5,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <unordered_map>
 #include <vector>
 
@@ -18,7 +19,7 @@ namespace mesh_loam {
 /// point-to-mesh Gauss-Newton odometry with a normal cosine-similarity
 /// correspondence gate.
 struct MeshLoamParams {
-  // Opt-in repository acceleration: an exact facet spatial index. Does not
+  // Opt-in repository acceleration: cached, packetized facet filters. Does not
   // alter the association gates or the scan/map parameters from the paper.
   bool accelerated = false;
   // Preprocessing.
@@ -159,22 +160,21 @@ class MeshLoamPipeline {
   /// nearest-facet search: the AABB of their vertices and the largest
   /// centroid-to-vertex distance (bin-relative).
   struct FacetBin {
-    struct Node {
-      Eigen::Vector3f lo, hi;
-      uint32_t first = 0, count = 0;
-      int left = -1, right = -1;
+    struct Filters {
+      size_t stride = 0;
+      // Six padded arrays: normal xyz, then the float vertex sum xyz. Keep
+      // the sum undivided: the final residual divides it in double.
+      std::vector<float> values;
     };
     std::vector<Facet> facets;
     Eigen::Vector3f lo = Eigen::Vector3f::Constant(1e30f);
     Eigen::Vector3f hi = Eigen::Vector3f::Constant(-1e30f);
     float max_rad = 0.0f;
-    std::vector<uint32_t> order;
-    std::vector<Node> nodes;
+    std::shared_ptr<Filters> filters;
     void add(const Facet& f);
     void expand(const Facet& f);  ///< grow the bounds by f (already stored)
     void recomputeBounds();
-    void buildIndex();
-    int buildNode(uint32_t first, uint32_t count);
+    void buildFilters();
     const Facet* nearest(const Eigen::Vector3d& relative, const Eigen::Vector3d& normal,
                          double cos_gate, double* best, Eigen::Vector3d* best_relative) const;
   };

@@ -106,9 +106,13 @@ private:
     Eigen::Vector3d p;
   };
   using ModelGrid = std::unordered_map<Eigen::Vector3i, std::vector<Entry>, KeyHash>;
+  using ModelCells = std::vector<const std::vector<Entry>*>;
 
   Eigen::Vector3i key(const Eigen::Vector3d& p, double cell) const;
-  bool hasModelPointWithin(const Eigen::Vector3d& x, double r) const;
+  bool hasModelPointWithin(const Eigen::Vector3d& x, double r,
+                           const ModelCells* cells = nullptr) const;
+  bool project(const Eigen::Vector3d& x, double r, double h, Eigen::Vector3d* normal,
+               double* distance, const ModelCells* cells) const;
   // Gauss-Newton iterations at radius r and bandwidth h; returns the samples
   // of the last iteration (or of the first when count_only).
   int iterate(const std::vector<ScanPoint>& points, const std::vector<std::vector<int>>& lists,

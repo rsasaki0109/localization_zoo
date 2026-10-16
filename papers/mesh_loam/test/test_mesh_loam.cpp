@@ -410,6 +410,7 @@ TEST(MeshLoam, CachedAssociationRetainsPosesAcrossMeshUpdatesAndPruning) {
 
 TEST(MeshLoam, FrozenMeshIsKeptAndRestored) {
   MeshLoamParams params = testParams();
+  params.accelerated = true;  // compare the same cache footprint with/without freeze
   params.max_range = 10.0;
   params.local_map_radius = 11.0;
   params.keep_mesh = true;
@@ -417,7 +418,6 @@ TEST(MeshLoam, FrozenMeshIsKeptAndRestored) {
   params.nearest_facet = true;
   params.mesh_update_interval = 2;
   MeshLoamParams frozen_params = params;
-  frozen_params.accelerated = true;  // also cover rebuilding caches after thaw
   frozen_params.mesh_freeze_radius = 2.0;  // bins beyond ~13 m are frozen
   MeshLoamPipeline plain(params);
   MeshLoamPipeline frozen(frozen_params);

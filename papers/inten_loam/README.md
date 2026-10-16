@@ -491,6 +491,9 @@ allocation and OpenMP wrapper. Nonfinite index data use the PCL path. KD-trees
 used only to hold points for rendering
 or spline construction are omitted; their point data are retained. Feature
 counts, gates, S2S/S2M iterations, TVF and DOR settings are unchanged.
+Where the OpenMP runtime supports soft resource pause, idle workers are paused
+before serial clustering/intensity/map work and after each solve. This optional
+runtime optimization keeps the worker count and numerical reduction order.
 
 The initial candidate (`fe607199`) took 18.661 s against 45.685 s for the
 frozen baseline on the first 120 KITTI 07 frames (**2.45x**). The changed

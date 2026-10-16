@@ -7,6 +7,9 @@
 #include <cmath>
 #include <limits>
 #include <numeric>
+#ifdef LZ_HAS_OMP_PAUSE_RESOURCE_ALL
+#include <omp.h>
+#endif
 
 namespace localization_zoo {
 namespace inten_loam {
@@ -17,6 +20,22 @@ using Vec6 = Eigen::Matrix<double, 6, 1>;
 using Mat6 = Eigen::Matrix<double, 6, 6>;
 
 using Tree = detail::FeatureTree;
+
+// A quota-limited CPU should run the serial feature/map stages rather than
+// keep idle workers spinning. Soft pause is optional in the runtime; it does
+// not change the team size, query order or numerical reductions.
+void pauseWorkers(bool accelerated) {
+#ifdef LZ_HAS_OMP_PAUSE_RESOURCE_ALL
+  if (accelerated && !omp_in_parallel()) omp_pause_resource_all(omp_pause_soft);
+#else
+  (void)accelerated;
+#endif
+}
+
+struct WorkerPause {
+  bool enabled;
+  ~WorkerPause() { pauseWorkers(enabled); }
+};
 
 Eigen::Matrix4d expSe3(const Vec6& d) {
   Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
@@ -258,6 +277,8 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
       if (best && std::abs(best->a * rho + best->b - p.z()) < params_.ground_threshold) label[k] = 1;
     }
 
+  pauseWorkers(params_.accelerated);
+
   // Angle-based clustering of the non-ground pixels.
   const double alpha_u = 2.0 * M_PI / W, alpha_v = theta / H;
   const double beta_min = params_.cluster_angle_deg * M_PI / 180.0;
@@ -323,6 +344,8 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
       }
       if (n >= hw && !occluded) C[k] = static_cast<float>(sum / (n * D[k]));
     }
+
+  pauseWorkers(params_.accelerated);
 
   // Intensity block thresholds (median per block).
   std::vector<float> block_median(static_cast<size_t>(params_.intensity_blocks_u * params_.intensity_blocks_v), 1.0f);
@@ -475,6 +498,7 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
 // ---------------------------------------------------------------------------
 
 int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first) const {
+  const WorkerPause pause{params_.accelerated};
   const Index& prev = *prev_;
   const double gate = params_.s2s_gate_sq;
   const double huber = params_.huber;
@@ -562,6 +586,7 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
 
 int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4],
                              ClassSystems* first) const {
+  const WorkerPause pause{params_.accelerated};
   const Map& map = *map_;
   const double gate = params_.s2m_gate_sq;
   const double huber = params_.huber;
@@ -776,6 +801,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
         if (params_.use_intensity) ix->intensity.build(f.all, params_.intensity_knot);
       }
     }
+    pauseWorkers(params_.accelerated);
     return ix;
   };
   // Local map around `center` from the voxel grids (TVF output).
@@ -806,6 +832,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
       // query. Retain exactly the original voxel-iteration order and values.
       fill(*grids[c], trees[c], !params_.accelerated || c != 3);
     }
+    pauseWorkers(params_.accelerated);
     if (params_.use_intensity) map_->local_intensity.build(map_->local_reflector.pts, params_.intensity_knot);
   };
 

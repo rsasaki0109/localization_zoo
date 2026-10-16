@@ -382,7 +382,8 @@ Pose differences use the saved KITTI matrices (nine significant digits).
 Official RTE agrees to the third decimal.
 
 **Negative result:** this attempt does not meet the roadmap speed target.
-The option remains off by default; the roadmap item is still open.
+The Mesh candidate is excluded; the original implementation is retained.
+The roadmap item is still open.
 
 KITTI 07 guided implementation and is not held out. This comparison uses a
 frozen-source full control run immediately before acceleration on the same host

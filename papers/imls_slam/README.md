@@ -190,5 +190,26 @@ speed target. The primary full comparison uses fresh immediately preceding
 controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
 
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
-record the development on KITTI 07. Paired full-sequence timing and accuracy
-verification are in progress; this option has no published speed claim yet.
+and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573_imls_slam.json).
+
+Full KITTI 07, identical selected registration arguments, four OpenMP workers,
+one method at a time on the same recorded host; the profiler is disabled:
+
+| Execution | Time [s] | FPS | Official RTE [%] | ATE [m] |
+|---|---:|---:|---:|---:|
+| Paired frozen control | 1626.28 | 0.677 | 0.339406 | 0.693085 |
+| Opt-in acceleration | 808.42 | 1.362 | 0.339406 | 0.693085 |
+
+Measured speedup: **2.01x**. Maximum translation difference from the
+paired frozen control: 0.000000000 m.
+Pose differences use the saved KITTI matrices (nine significant digits).
+Official RTE agrees to the third decimal.
+
+**Negative result:** this attempt does not meet the roadmap speed target.
+The option remains off by default.
+The roadmap item is still open.
+
+KITTI 07 guided implementation and is not held out. This comparison uses a
+frozen-source full control run immediately before acceleration on the same host
+and thread count. Historical
+Table 6 results retain their original evidence and are not replaced.

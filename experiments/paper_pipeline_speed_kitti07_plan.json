@@ -1,0 +1,63 @@
+{
+  "base_commit": "134ead2f21a4611ec328a45aa543b31428d6b92c",
+  "goal": "roadmap item5: profile first, target3x faster with full KITTI07 officialRTE unchanged to thirddecimal or allchangesexplained",
+  "sequences": [
+    "07"
+  ],
+  "development_sequence": "07; short profiles guide code-only optimizations, full07 is validation but not heldout",
+  "method_configs": {
+    "mesh_loam": {
+      "source_manifest": "experiments/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "source_variant": "paper_odometry_elevation",
+      "args": [
+        "--no-gt-seed",
+        "--mesh-loam-paper-odometry",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ]
+    },
+    "imls_slam": {
+      "source_manifest": "experiments/imls_slam_kitti_seq_07_full_paper_comp_matrix.json",
+      "source_variant": "paper_odometry_w100_coarse_start",
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ]
+    },
+    "inten_loam": {
+      "source_manifest": "experiments/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "source_variant": "paper_odometry_plane_check",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ]
+    }
+  },
+  "comparison_threads": 4,
+  "cpu_quota_cores": 4,
+  "omp_dynamic": false,
+  "openblas_threads": 1,
+  "baseline_and_after_run_isolation": "one method at a time; no concurrent benchmarks/builds during timing",
+  "profile_window_frames": 120,
+  "accuracy_window_frames": 1101,
+  "speed_metric": "full-sequence harness time_ms includes scan loading and preprocessing, profiler disabled for timings; retain external walltime",
+  "raw_data_commit": false,
+  "nclt": "Stillblocked; userapprovedhost absentfromenforcedspec75. Independenttask doesnotcomplete sensorassistant realNCLTcheck.",
+  "schema_version": 1,
+  "dataset": {
+    "pcd_dir": "dogfooding_results/paper_speed_kitti07",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+  }
+}

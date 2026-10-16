@@ -1,0 +1,8 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-bindings/run_final_checks.py"
+  ],
+  "pid": 47179,
+  "started_unix": 1792185037.811162
+}

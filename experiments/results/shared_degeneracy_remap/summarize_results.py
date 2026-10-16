@@ -36,7 +36,7 @@ def main():
 
     protocol=read(E/'protocol.json')
     native=read(E/'candidate.json')
-    rows=[];audit_rows=[]
+    rows=[];audit_rows=[];audit_official_checks=[]
     for seq in EXPECTED:
         folder=E/'sequences'/seq
         comparison=read(folder/'comparison.json',optional=True)
@@ -72,6 +72,18 @@ def main():
         audit=read(folder/'audit/report.json')
         assert len(audit['rows'])==2 and {x['method'] for x in audit['rows']}=={'SuMa','DiLO'}
         assert all(x['sequence']==seq and x['audit_status'] in ('ok','drift') for x in audit['rows'])
+        for row in audit['rows']:
+            aggregate=read(REPO/row['aggregate_path'])
+            stored=next(v for v in aggregate['variants'] if v['id']==row['variant_id'])
+            assert stored['args']==row['args']
+            keys=('kitti_rte_trans_pct','kitti_rte_rot_deg_per_100m')
+            assert all(math.isfinite(row[k]) and math.isfinite(stored[k]) for k in keys)
+            deltas={k:abs(row[k]-stored[k]) for k in keys}
+            assert max(deltas.values())<=1e-9, f'official RTE drift: {seq} {row["method"]}: {deltas}'
+            audit_official_checks.append({'sequence':seq,'method':row['method'],
+                'aggregate_path':row['aggregate_path'],'variant_id':row['variant_id'],
+                'stored':{k:stored[k] for k in keys},'rerun':{k:row[k] for k in keys},
+                'absolute_delta':deltas})
         if seq=='01' or any(x['drifted'] for x in audit['rows']):
             frozen=read(folder/'frozen_comparison.json')
             assert all(all(value<=1e-9 for value in x['metric_abs_delta'].values()) for x in frozen)
@@ -117,7 +129,8 @@ def main():
           'largest_error_growth_blocks':'Largest positive end-minus-start pointwise position-error increases, including stationary blocks; no alignment fit or rescaling.',
           'scope':'Blocks retain GT travel distance and frame bounds. Both rankings are diagnostic only, not official KITTI RTE.'},
       'rows':rows,'worse_sequences':[r['sequence'] for r in rows if r['rte_difference_pp']>1e-6],
-      'audit_rows':audit_rows,'committed_input_sha256':sources}
+      'audit_rows':audit_rows,'audit_official_metric_checks':audit_official_checks,
+      'committed_input_sha256':sources}
     args.output_dir.mkdir(parents=True,exist_ok=True)
     (args.output_dir/'summary.json').write_text(json.dumps(payload,indent=2,allow_nan=False)+'\n')
     fields=['sequence','frames','control_rte_pct','candidate_rte_pct','rte_difference_pp','control_ate_m',

@@ -80,6 +80,13 @@ def main():
                 and isinstance(b['block_relative_translation_error_pct'],(int,float))
                 and math.isfinite(b['block_relative_translation_error_pct'])]
         worst=sorted(blocks,key=lambda x:x['block_relative_translation_error_pct'],reverse=True)[:3]
+        def error_growth(diag):
+            growing=[]
+            for block in diag['blocks']:
+                increase=block['position_error_end_m']-block['position_error_start_m']
+                if math.isfinite(increase) and increase>0:
+                    growing.append({**block,'position_error_increase_m':increase})
+            return sorted(growing,key=lambda x:x['position_error_increase_m'],reverse=True)[:3]
         rows.append({'sequence':seq,'frames':candidate['frames'],
           'control_rte_pct':control['kitti_rte_trans_pct'],'candidate_rte_pct':candidate['kitti_rte_trans_pct'],
           'rte_difference_pp':candidate['kitti_rte_trans_pct']-control['kitti_rte_trans_pct'],
@@ -88,8 +95,13 @@ def main():
           'candidate_path_length_ratio':candidate_diag['path_length_ratio'],
           'control_bad_length_steps':control_diag['steps_length_off_over_threshold'],
           'candidate_bad_length_steps':candidate_diag['steps_length_off_over_threshold'],
+          'control_bad_vector_steps':control_diag['steps_vector_off_over_threshold'],
+          'candidate_bad_vector_steps':candidate_diag['steps_vector_off_over_threshold'],
           'candidate_moving_steps':candidate_diag['moving_step_count'],
+          'control_bad_length_ranges':control_diag['bad_length_step_frame_ranges'],
           'candidate_bad_length_ranges':candidate_diag['bad_length_step_frame_ranges'],
+          'control_largest_error_growth_blocks':error_growth(control_diag),
+          'candidate_largest_error_growth_blocks':error_growth(candidate_diag),
           'candidate_worst_blocks':worst,'comparison_path':str((folder/'comparison.json').relative_to(REPO))})
     missing=sorted(set(EXPECTED)-{r['sequence'] for r in rows})
     if not rows or (missing and not args.allow_partial):
@@ -100,7 +112,10 @@ def main():
       'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
       'implementation_commit':native['source_commit'],'fixed_arguments':protocol['suma_fixed_arguments'],
       'complete':not missing,'missing_sequences':missing,'scope':'Non-paper fixed-setting transfer, no paper ratio or speed claim',
-      'diagnostic_block_selection':'Largest relative endpoint translation errors among finite blocks with moving steps; diagnostic only, not official KITTI RTE.',
+      'diagnostic_block_selection':{
+          'candidate_worst_blocks':'Largest finite relative endpoint translation errors among blocks with moving steps.',
+          'largest_error_growth_blocks':'Largest positive end-minus-start pointwise position-error increases, including stationary blocks; no alignment fit or rescaling.',
+          'scope':'Blocks retain GT travel distance and frame bounds. Both rankings are diagnostic only, not official KITTI RTE.'},
       'rows':rows,'worse_sequences':[r['sequence'] for r in rows if r['rte_difference_pp']>1e-6],
       'audit_rows':audit_rows,'committed_input_sha256':sources}
     args.output_dir.mkdir(parents=True,exist_ok=True)

@@ -81,6 +81,14 @@ historical aggregates, the paper reference data, Table 6 and published
 leaderboards. Neither the speed experiment nor the retained opt-in flag
 replaces historical paper-number results.
 
+The final Python/document checks pass, and the preservation report confirms
+that these historical artifacts are unchanged. The first final-check attempt
+stopped before document generation because its background process could not
+access the Docker socket. Its failure is retained in
+`checks/release_final_validation_failed_socket/`; the same validation script
+passed when launched with Docker access. No numerical result or test criterion
+was changed to recover from that execution restriction.
+
 ## Profiles and development history
 
 The rejected normal-bound candidate's [final Mesh CPU profile](runs/f4755573_profile_accelerated_mesh_loam/cpu_profile.txt)

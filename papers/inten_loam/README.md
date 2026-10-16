@@ -484,8 +484,11 @@ against neighbours along one line.
 for `--inten-loam-paper-odometry`. It is not a processing step from the paper and
 is **off by default**. Independent ground fits, image-row stages, tree builds
 and residual queries use OpenMP; constant beam-angle trigonometry is reused.
-residuals are reduced in the original feature order, including the Huber weights
-and diagnostic class systems. KD-trees used only to hold points for rendering
+Residuals are reduced in the original feature order, including the Huber weights
+and diagnostic class systems. Small-k queries use the same float FLANN single-
+tree index and exact search/result-set parameters as PCL, bypassing its per-query
+allocation and OpenMP wrapper. Nonfinite index data use the PCL path. KD-trees
+used only to hold points for rendering
 or spline construction are omitted; their point data are retained. Feature
 counts, gates, S2S/S2M iterations, TVF and DOR settings are unchanged.
 

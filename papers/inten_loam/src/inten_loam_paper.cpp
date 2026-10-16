@@ -1,9 +1,7 @@
 #include "inten_loam/inten_loam_paper.h"
 
 #include <Eigen/Dense>
-#include <pcl/kdtree/kdtree_flann.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "inten_loam/detail/feature_tree.h"
 
 #include <algorithm>
 #include <cmath>
@@ -18,33 +16,7 @@ namespace {
 using Vec6 = Eigen::Matrix<double, 6, 1>;
 using Mat6 = Eigen::Matrix<double, 6, 6>;
 
-struct Tree {
-  std::vector<PaperFeature> pts;
-  pcl::KdTreeFLANN<pcl::PointXYZ> kd;
-  bool ok = false;
-
-  void build() {
-    ok = false;
-    if (pts.empty()) return;
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    cloud->reserve(pts.size());
-    for (const auto& f : pts)
-      cloud->push_back(pcl::PointXYZ(static_cast<float>(f.p.x()), static_cast<float>(f.p.y()),
-                                     static_cast<float>(f.p.z())));
-    kd.setInputCloud(cloud);
-    ok = true;
-  }
-  int knn(const Eigen::Vector3d& x, int k, std::vector<int>* idx, std::vector<float>* d2) const {
-    if (!ok) return 0;
-    const pcl::PointXYZ q(static_cast<float>(x.x()), static_cast<float>(x.y()), static_cast<float>(x.z()));
-    return kd.nearestKSearch(q, std::min<int>(k, static_cast<int>(pts.size())), *idx, *d2);
-  }
-  int radius(const Eigen::Vector3d& x, double r, std::vector<int>* idx, std::vector<float>* d2) const {
-    if (!ok) return 0;
-    const pcl::PointXYZ q(static_cast<float>(x.x()), static_cast<float>(x.y()), static_cast<float>(x.z()));
-    return kd.radiusSearch(q, r, *idx, *d2);
-  }
-};
+using Tree = detail::FeatureTree;
 
 Eigen::Matrix4d expSe3(const Vec6& d) {
   Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
@@ -793,11 +765,11 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
 #pragma omp parallel sections if(params_.accelerated)
     {
 #pragma omp section
-      { ix->ground.build(); }
+      { ix->ground.build(params_.accelerated); }
 #pragma omp section
-      { ix->facade.build(); }
+      { ix->facade.build(params_.accelerated); }
 #pragma omp section
-      { ix->edge.build(); }
+      { ix->edge.build(params_.accelerated); }
 #pragma omp section
       {
         if (!params_.accelerated) ix->all.build();
@@ -824,7 +796,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
         f.intensity = n > 0 ? static_cast<float>(s / n) : v.intensity.back().second;
         tree->pts.push_back(f);
       }
-      if (build_tree) tree->build();
+      if (build_tree) tree->build(params_.accelerated);
     };
     const Map::Grid* grids[] = {&map_->edge, &map_->ground, &map_->facade, &map_->reflector};
     Tree* trees[] = {&map_->local_edge, &map_->local_ground, &map_->local_facade, &map_->local_reflector};

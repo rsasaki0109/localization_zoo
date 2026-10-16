@@ -1,9 +1,13 @@
 #include "inten_loam/inten_loam_paper.h"
+#include "inten_loam/detail/feature_tree.h"
 
 #include <gtest/gtest.h>
 #include <Eigen/Geometry>
 
 #include <cmath>
+#include <limits>
+#include <random>
+#include <utility>
 #ifdef _OPENMP
 #include <omp.h>
 #endif
@@ -67,6 +71,49 @@ void scanAt(const Eigen::Matrix4d& pose, std::vector<Eigen::Vector3d>* pts, std:
 }
 
 }  // namespace
+
+TEST(InTenLoamPaper, NativeSmallKQueriesMatchPclIncludingTiesAndRebuilds) {
+  detail::FeatureTree legacy, native;
+  std::mt19937 rng(43);
+  std::uniform_real_distribution<double> uniform(-3.0, 3.0);
+  for (int size : {0, 1, 3, 31, 512}) {
+    legacy.pts.clear();
+    for (int i = 0; i < size; ++i) {
+      PaperFeature f;
+      f.p = i < 20 ? Eigen::Vector3d(i % 2, (i / 2) % 2, (i / 4) % 2)
+                   : Eigen::Vector3d(uniform(rng), uniform(rng), uniform(rng));
+      legacy.pts.push_back(f);  // repeated lattice points exercise exact ties
+    }
+    native.pts = legacy.pts;
+    legacy.build();
+    native.build(true);
+    for (int query = 0; query < 80; ++query) {
+      const Eigen::Vector3d x = query < 10 ? Eigen::Vector3d(.5, .5, .5)
+                                         : Eigen::Vector3d(uniform(rng), uniform(rng), uniform(rng));
+      for (int k : {0, 1, 5, 10}) {
+        std::vector<int> a, b;
+        std::vector<float> da, db;
+        EXPECT_EQ(legacy.knn(x, k, &a, &da), native.knn(x, k, &b, &db));
+        EXPECT_EQ(a, b) << "size=" << size << " k=" << k;
+        EXPECT_EQ(da, db);
+      }
+    }
+  }
+  // PCL filters nonfinite coordinates and maps indices back to the original
+  // cloud. The native option deliberately falls back to PCL for this case.
+  PaperFeature invalid;
+  invalid.p.x() = std::numeric_limits<double>::quiet_NaN();
+  legacy.pts.insert(legacy.pts.begin(), invalid);
+  native.pts = legacy.pts;
+  legacy.build();
+  native.build(true);
+  std::vector<int> a, b;
+  std::vector<float> da, db;
+  EXPECT_EQ(legacy.knn(Eigen::Vector3d::Zero(), 5, &a, &da),
+            native.knn(Eigen::Vector3d::Zero(), 5, &b, &db));
+  EXPECT_EQ(a, b);
+  EXPECT_EQ(da, db);
+}
 
 TEST(InTenLoamPaper, AcceleratedQueriesKeepNormalEquationsCountsAndPoses) {
 #ifdef _OPENMP

@@ -1,0 +1,11 @@
+{
+  "historical_aggregate_count": 688,
+  "changed_aggregates": [],
+  "unchanged_published_evidence": {
+    "evaluation/data/paper_reported_numbers.json": true,
+    "docs/assets/paper/paper_ratio_table.csv": true,
+    "README.md": true,
+    "docs/index.html": true,
+    "experiments/results/kitti_drift_audit.json": true
+  }
+}

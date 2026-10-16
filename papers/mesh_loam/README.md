@@ -366,7 +366,7 @@ speed target. The primary full comparison uses fresh immediately preceding
 controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
 
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
-and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573_mesh_loam.json).
+and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573.json).
 
 Full KITTI 07, identical selected registration arguments, four OpenMP workers,
 one method at a time on the same recorded host; the profiler is disabled:
@@ -389,3 +389,10 @@ KITTI 07 guided implementation and is not held out. This comparison uses a
 frozen-source full control run immediately before acceleration on the same host
 and thread count. Historical
 Table 6 results retain their original evidence and are not replaced.
+
+The rejected candidate's [final CPU profile](../../experiments/results/paper_pipeline_speed/runs/f4755573_profile_accelerated_mesh_loam/cpu_profile.txt)
+was recorded after all unprofiled full measurements and committed in `82da76c0`.
+The outlined facet-association body accounts for 47.5% of sampled CPU
+on the first development window. This locates remaining association work; it
+is early-sequence CPU attribution, not a full-sequence stage wall-time fraction.
+Profiled time is excluded from the speed comparison.

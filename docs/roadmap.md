@@ -207,6 +207,20 @@ independent. Each item says what "done" means.
      per-sample work.
    - Done: at least 3x faster, with official RTE on 07 unchanged to the
      third decimal (or every change explained).
+   <!-- PAPER-PIPELINE-SPEED:START -->
+   - Full KITTI 07 experiment: Mesh-LOAM 0.83x, IMLS-SLAM 2.01x, InTEn-LOAM 1.70x.
+     Official RTE agrees to the third decimal; saved matrices match at their
+     recorded precision. **The 3x speed target is not complete.**
+   - Mesh's slower candidate is excluded; its original implementation is
+     retained. IMLS-SLAM and InTEn-LOAM acceleration remains opt-in and default
+     off. Their selected registration arguments are unchanged; 07 is
+     development data. Negative tree, packet-cache and scheduling trials
+     remain in the method READMEs.
+   - Primary ratios use fresh frozen-source full controls immediately before
+     each candidate run, with the profiler disabled and fixed thread counts.
+     [Commands, profiles, comparisons and limits](../experiments/results/paper_pipeline_speed/README.md).
+   <!-- PAPER-PIPELINE-SPEED:END -->
+
 6. **Shared robustness components.** Move the opt-in fixes into `common/`
    so other methods can use them:
    - degenerate-direction remap (DiLO);

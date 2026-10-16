@@ -1,5 +1,68 @@
 # Paper pipeline speed experiment
 
+The full KITTI 07 comparison retains optional IMLS-SLAM and InTEn-LOAM
+optimizations. Mesh-LOAM's candidate was slower and is excluded from the
+implementation. **The roadmap's speed target remains open.**
+
+## Full paired comparison
+
+[Committed comparison](comparisons/f4755573.json), measured implementation
+`f47555735c94d43d6f8e1554ee7bf50be77ac159`; raw paired executions were committed
+in `efec7cac` before deriving the comparison in `f8abcb1b`.
+Each method runs the complete sequence with its selected registration arguments,
+four OpenMP workers, one OpenBLAS worker and the profiler disabled. A fresh
+frozen-source control immediately precedes each candidate run. Times are the
+harness `time_ms`, including scan loading and preprocessing.
+
+| Method | Fresh control [s] | Candidate [s] | Speedup | Control RTE [%] | Candidate RTE [%] | Disposition |
+|---|---:|---:|---:|---:|---:|---|
+| Mesh-LOAM | 1165.571 | 1397.595 | 0.83x | 0.341905 | 0.341905 | Rejected; original code retained |
+| IMLS-SLAM | 1626.277 | 808.420 | 2.01x | 0.339406 | 0.339406 | Retained, opt-in/default off |
+| InTEn-LOAM | 636.653 | 373.479 | 1.70x | 0.364131 | 0.364131 | Retained, opt-in/default off |
+
+None of these attempts reaches the speed target. Official RTE is unchanged to
+the third decimal for every method; all saved KITTI matrices match at their
+recorded precision (nine significant digits). This does not measure differences
+below that serialization precision. These are single pairs on a shared host,
+not confidence intervals; the repeated development windows below show timing
+variation. The earlier full baselines are preserved separately and do not define
+the primary speed ratios.
+
+## Retained code and fixed settings
+
+The measured candidate above includes the rejected Mesh implementation. The
+retained source is `1b51db694a137379151366b889087f1186bb08b5`: Mesh source,
+header and original mechanism tests are restored to the frozen baseline, and
+`--paper-pipeline-accelerated` applies only to the IMLS-SLAM and InTEn-LOAM paper
+paths. The option is off by default and describes repository implementation
+optimizations, not a processing step specified by either paper. Their kernels
+and mechanism tests are unchanged from the measured candidate. The harness
+also fixes IMLS's reporting of effective paper-path settings.
+
+The selected argument lists are copied unchanged from the existing fixed
+variants in [the frozen plan](../../paper_pipeline_speed_kitti07_plan.json)
+and `protocol.json`. Mesh's correction was selected using KITTI 00/07;
+IMLS's coarse first registration was selected after the KITTI 04 failure;
+InTEn's plane check/correction was selected on 07 windows with 00 influencing
+the diagnosis. No registration setting was retuned for this speed experiment.
+Implementation development and profiling use KITTI 07, so this full run is
+not held out. Historical cross-sequence results continue to use their original
+default implementations and evidence.
+
+Old IMLS receipts round the actual bandwidth to `h=0.1` and print unused dense
+startup defaults. The configured paper bandwidth is `0.06` and radius `0.20`;
+the retained harness prints these effective settings accurately. This is a
+reporting correction, not a registration-parameter change. The original logs
+are preserved.
+
+## Profiles and development history
+
+The rejected normal-bound candidate's [final Mesh CPU profile](runs/f4755573_profile_accelerated_mesh_loam/cpu_profile.txt)
+was captured only after the unprofiled full measurements and committed in
+`82da76c0`. Its sampled CPU remains concentrated in facet association; the
+method README records the attribution and limits. This profile describes the
+rejected candidate, not the retained Mesh implementation.
+
 The frozen baseline is source `134ead2f21a4611ec328a45aa543b31428d6b92c`.
 Its binary SHA-256, input hashes, build command and environment are recorded here.
 The three completed CPU profiles were committed in `97cf50af` before describing
@@ -41,9 +104,8 @@ CTest and short-window screening. The raw screening was committed in
 All saved poses match the control exactly in this window. Timing varies even
 between the two default paths; these single window runs guide development and
 do not establish a full-sequence speedup. The Mesh tree candidate is a negative
-result and is replaced with cached packet filters. IMLS cell-topology caching is
-being evaluated next. The target remains open until full-sequence acceleration
-and accuracy have been measured.
+result; subsequent packet and normal-bound candidates are recorded below.
+The full paired comparison above determines the target status.
 
 The first packet-cache build (`3541f773`) completed, but full CTest exited 8:
 the freeze-memory assertion compared a cached frozen pipeline with an uncached
@@ -66,8 +128,11 @@ is not a stage wall-time percentage.
 Source `67867d0b` replaces Mesh's per-facet packet cache with a reference normal
 and a conservative bound per bin. It keeps the original scalar facet loop for
 survivors. Its build and full CTest pass; receipts were committed in `0d4f37ad`.
-Final source `f4755573` also removes InTEn soft-pause scheduling. Final build has passed; its full CTest, screening and paired full-sequence
-validation are in progress.
+Measured source `f4755573` removes InTEn soft-pause scheduling. Its build,
+full CTest, default/accelerated screening and paired full-sequence validation
+all have successful command receipts under `candidates/f4755573/`.
+The normal-bound Mesh candidate is excluded from the retained implementation
+after its full-sequence slowdown.
 
 Identical frozen Mesh controls took 117.877 s in the first screening and
 66.421 s in the later screening. To account for execution-time variation, the
@@ -79,7 +144,7 @@ controls do not define the primary full speed ratio.
 
 Acceleration code is opt-in and default off. Historical benchmark aggregates
 and paper reference metadata are not changed by this experiment. CLI changes
-only parse the option and forward method parameters; neither `common/` nor the
+parse/forward the option and report effective settings; neither `common/` nor the
 runner loaders change, so the shared-code leaderboard drift audit is outside
 this change's scope. CI's existing fixture drift check still applies.
 

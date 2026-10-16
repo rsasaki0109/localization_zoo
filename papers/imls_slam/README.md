@@ -190,7 +190,7 @@ speed target. The primary full comparison uses fresh immediately preceding
 controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
 
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
-and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573_imls_slam.json).
+and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573.json).
 
 Full KITTI 07, identical selected registration arguments, four OpenMP workers,
 one method at a time on the same recorded host; the profiler is disabled:

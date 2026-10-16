@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "l_lo_kitti_seq_09_full_paper_comp",
+    "title": "L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison",
+    "question": "How does the frozen seq07_tuned configuration compare with the paper on the complete KITTI sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_09_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_09_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "variants": [
+    {
+      "id": "seq07_tuned",
+      "label": "Seq 07 tuned",
+      "design_style": "balanced",
+      "intent": "Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.25",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-16T13:18:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -91,6 +91,15 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## A-LOAM KITTI Odom seq 01 full: fixed-configuration paper comparison
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
 
 - Current default: `fast`.
@@ -102,6 +111,24 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## A-LOAM KITTI Odom seq 03 full: fixed-configuration paper comparison
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## A-LOAM KITTI Odom seq 04 full: fixed-configuration paper comparison
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
 
 - Current default: `fast`.
@@ -112,6 +139,15 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## A-LOAM KITTI Odom seq 06 full: fixed-configuration paper comparison
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames)
 
@@ -135,6 +171,24 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## A-LOAM KITTI Odom seq 09 full: fixed-configuration paper comparison
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## A-LOAM KITTI Odom seq 10 full: fixed-configuration paper comparison
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
@@ -3416,6 +3470,24 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | seq07_tuned | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## L-LO KITTI Odom seq 03 full: fixed-configuration paper comparison
+
+- Current default: `seq07_tuned`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO KITTI Odom seq 04 full: fixed-configuration paper comparison
+
+- Current default: `seq07_tuned`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## L-LO on KITTI Odom seq 05 full (2761 frames)
 
 - Current default: `default`.
@@ -3426,6 +3498,15 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | seq07_tuned | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## L-LO KITTI Odom seq 06 full: fixed-configuration paper comparison
+
+- Current default: `seq07_tuned`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## L-LO on KITTI Odom seq 07 full: landmark extraction, finer clustering cells
 
@@ -3536,6 +3617,24 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | seq07_tuned | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison
+
+- Current default: `seq07_tuned`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison
+
+- Current default: `seq07_tuned`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -3705,6 +3804,15 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LF-GICP KITTI Odom seq 01 full: fixed-configuration paper comparison
+
+- Current default: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LF-GICP on KITTI Odom seq 02 full (4661 frames)
 
 - Current default: `no_mitigation`.
@@ -3716,6 +3824,24 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LF-GICP KITTI Odom seq 03 full: fixed-configuration paper comparison
+
+- Current default: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 04 full: fixed-configuration paper comparison
+
+- Current default: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LF-GICP on KITTI Odom seq 05 full (2761 frames)
 
 - Current default: `no_mitigation`.
@@ -3726,6 +3852,15 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 06 full: fixed-configuration paper comparison
+
+- Current default: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LF-GICP KITTI Odom seq 07 full: elevation correction ablation
 
@@ -3759,6 +3894,24 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 09 full: fixed-configuration paper comparison
+
+- Current default: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 10 full: fixed-configuration paper comparison
+
+- Current default: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LINS on the public HDL-400 reference window
 
@@ -5570,10 +5723,91 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## Quadric-LO KITTI Odom seq 01 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 02 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 03 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 04 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 05 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 06 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - Current default: `dense_profile`.
 - Aggregate result: `experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 08 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 09 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Quadric-LO KITTI Odom seq 10 full: fixed-configuration paper comparison
+
+- Current default: `dense_profile`.
+- Aggregate result: `experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|

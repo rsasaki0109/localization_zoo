@@ -1,0 +1,572 @@
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[exit_code] 0
+[complete] All fixed results imported; historical aggregates unchanged.
+[codex/kitti-remaining-paper-coverage 960992de] Record remaining fixed KITTI paper-coverage execution evidence
+ 362 files changed, 93095 insertions(+), 1 deletion(-)
+ create mode 100644 experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/aloam_launcher.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/build_0.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/build_1.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/build_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/checks/postbuild_checks.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/checks/postbuild_ctest.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/checks/postbuild_leaderboard-check.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/checks/postbuild_paper-ready-check.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/checks/postbuild_python-unittest.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/checks/postbuild_validate-showcase.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/controller_exit.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/controller_stdout.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/environment.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/historical_aggregate_import_check.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/historical_aggregate_sha256.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/import_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/import_stdout.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/l_lo_launcher.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/lf_gicp_launcher.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/quadric_lo_launcher.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_aloam_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_aloam_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_02_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_aloam_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_aloam_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_l_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_l_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_aloam_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_aloam_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_l_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_l_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_05_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_aloam_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_aloam_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_l_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_l_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_08_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_aloam_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_aloam_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_l_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_l_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_aloam_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_aloam_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_l_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_l_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.log
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_complete.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_status.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/stage.json
+ create mode 100644 experiments/results/remaining_kitti_coverage/transport_recovery.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/host.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/run.log
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/summary.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/host.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/run.log
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/summary.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/host.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/run.log
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/summary.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/host.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/run.log
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/summary.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/host.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/run.log
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/summary.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/host.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/run.log
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/summary.json
+ create mode 100644 experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/host.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/run.log
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/step_diagnostics.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/summary.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/host.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/run.log
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/step_diagnostics.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/summary.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/host.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/run.log
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/step_diagnostics.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/summary.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/host.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/run.log
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/step_diagnostics.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/summary.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/host.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/run.log
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/step_diagnostics.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/summary.json
+ create mode 100644 experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/host.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/run.log
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/summary.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/host.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/run.log
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/summary.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/host.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/run.log
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/summary.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/host.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/run.log
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/summary.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/host.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/run.log
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/summary.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/host.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/run.log
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/step_diagnostics.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/summary.json
+ create mode 100644 experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/evaluation_manifest.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/host.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/run.log
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/summary.json
+ create mode 100644 experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt
+{
+  "aloam": {
+    "label": "A-LOAM",
+    "variant": "kitti_default",
+    "args": [
+      "--aloam-kitti-profile"
+    ],
+    "selection_note": "kitti_default was the accuracy candidate in the existing sequence 07 profile comparison (lowest stored 100 m RPE and official RTE there). Its arguments are frozen; the added sequences do not select a profile.",
+    "reused_sequences": [
+      "00",
+      "02",
+      "05",
+      "07",
+      "08"
+    ],
+    "fixed_geometric_mean_ratio": 1.067863551932757,
+    "table6_best_geometric_mean_ratio": 1.067863551932757,
+    "table6_selects_fixed_variant_everywhere": true,
+    "above_twice_paper": []
+  },
+  "lf_gicp": {
+    "label": "LF-GICP",
+    "variant": "paper_default",
+    "args": [],
+    "selection_note": "field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting.",
+    "reused_sequences": [
+      "00",
+      "02",
+      "05",
+      "07",
+      "08"
+    ],
+    "fixed_geometric_mean_ratio": 1.118600562163813,
+    "table6_best_geometric_mean_ratio": 1.118600562163813,
+    "table6_selects_fixed_variant_everywhere": true,
+    "above_twice_paper": [
+      "10"
+    ]
+  },
+  "l_lo": {
+    "label": "L-LO",
+    "variant": "seq07_tuned",
+    "args": [
+      "--l-lo-set",
+      "cluster_cell=0.25",
+      "--l-lo-set",
+      "ground_tolerance=0.15",
+      "--l-lo-set",
+      "max_range=80"
+    ],
+    "selection_note": "cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded.",
+    "reused_sequences": [
+      "00",
+      "02",
+      "05",
+      "07",
+      "08"
+    ],
+    "fixed_geometric_mean_ratio": 1.569311790260122,
+    "table6_best_geometric_mean_ratio": 1.569311790260122,
+    "table6_selects_fixed_variant_everywhere": true,
+    "above_twice_paper": [
+      "09",
+      "10"
+    ]
+  },
+  "quadric_lo": {
+    "label": "Quadric-LO",
+    "variant": "dense_profile",
+    "args": [
+      "--no-gt-seed",
+      "--quadric-lo-dense-profile"
+    ],
+    "selection_note": "The existing dense profile is frozen from the 00/07 paper comparisons; both are treated as development data. No correction or parameter is selected on the added sequences.",
+    "reused_sequences": [
+      "00",
+      "07"
+    ],
+    "fixed_geometric_mean_ratio": 0.8531538569375723,
+    "table6_best_geometric_mean_ratio": 0.8531538569375723,
+    "table6_selects_fixed_variant_everywhere": true,
+    "above_twice_paper": []
+  }
+}
+[run] env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=1 -e OPENBLAS_NUM_THREADS=1 -e PYTHONDONTWRITEBYTECODE=1 -w /workspace/localization_zoo localization-zoo-dev bash -lc 'source /opt/localization-venv/bin/activate && python3 evaluation/scripts/refresh_study_docs.py'
+[exit_code] 0
+[run] env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=1 -e OPENBLAS_NUM_THREADS=1 -e PYTHONDONTWRITEBYTECODE=1 -w /workspace/localization_zoo localization-zoo-dev bash -lc 'source /opt/localization-venv/bin/activate && python3 evaluation/scripts/generate_full_variant_table.py'
+[exit_code] 0
+[run] env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=1 -e OPENBLAS_NUM_THREADS=1 -e PYTHONDONTWRITEBYTECODE=1 -w /workspace/localization_zoo localization-zoo-dev bash -lc 'source /opt/localization-venv/bin/activate && python3 evaluation/scripts/generate_paper_ratio_table.py'
+[exit_code] 0
+[run] env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=1 -e OPENBLAS_NUM_THREADS=1 -e PYTHONDONTWRITEBYTECODE=1 -w /workspace/localization_zoo localization-zoo-dev bash -lc 'source /opt/localization-venv/bin/activate && python3 evaluation/scripts/generate_reproduction_status.py'
+[exit_code] 0
+[run] env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=1 -e OPENBLAS_NUM_THREADS=1 -e PYTHONDONTWRITEBYTECODE=1 -w /workspace/localization_zoo localization-zoo-dev bash -lc 'source /opt/localization-venv/bin/activate && python3 evaluation/scripts/generate_paper_comparison.py'
+[exit_code] 0
+[complete] Documentation regenerated; historical aggregates unchanged.
+[check] /opt/localization-venv/bin/python -m unittest discover -s tests
+[exit_code] 0
+[check] /opt/localization-venv/bin/python evaluation/scripts/validate_showcase.py
+[exit_code] 0
+[check] /opt/localization-venv/bin/python evaluation/scripts/generate_leaderboard.py --check
+[exit_code] 0
+[check] /opt/localization-venv/bin/python evaluation/scripts/generate_paper_ready_evidence.py --check
+[exit_code] 0
+{
+  "methods": {
+    "aloam": {
+      "full_sequences": 11,
+      "frames": [
+        4541,
+        1101,
+        4661,
+        801,
+        271,
+        2761,
+        1101,
+        1101,
+        4071,
+        1591,
+        1201
+      ],
+      "above_twice_paper": []
+    },
+    "lf_gicp": {
+      "full_sequences": 11,
+      "frames": [
+        4541,
+        1101,
+        4661,
+        801,
+        271,
+        2761,
+        1101,
+        1101,
+        4071,
+        1591,
+        1201
+      ],
+      "above_twice_paper": [
+        "10"
+      ]
+    },
+    "l_lo": {
+      "full_sequences": 10,
+      "frames": [
+        4541,
+        4661,
+        801,
+        271,
+        2761,
+        1101,
+        1101,
+        4071,
+        1591,
+        1201
+      ],
+      "above_twice_paper": [
+        "09",
+        "10"
+      ]
+    },
+    "quadric_lo": {
+      "full_sequences": 11,
+      "frames": [
+        4541,
+        1101,
+        4661,
+        801,
+        271,
+        2761,
+        1101,
+        1101,
+        4071,
+        1591,
+        1201
+      ],
+      "above_twice_paper": []
+    }
+  },
+  "historical_aggregates_unchanged": 662,
+  "paper_reference_values_and_sources_unchanged": true
+}

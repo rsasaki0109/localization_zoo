@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "paper_data": "evaluation/data/paper_reported_numbers.json",
+  "sequence_order": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "max_parallel_methods": 4,
+  "methods": [
+    {
+      "method": "aloam",
+      "label": "A-LOAM",
+      "variant": "kitti_default",
+      "source_manifest": "experiments/aloam_kitti_seq_00_full_transfer_matrix.json",
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "new_sequences": [
+        "01",
+        "03",
+        "04",
+        "06",
+        "09",
+        "10"
+      ],
+      "existing_aggregates": {
+        "00": "experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json",
+        "02": "experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json",
+        "05": "experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json",
+        "07": "experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json",
+        "08": "experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json"
+      },
+      "selection_note": "kitti_default was the accuracy candidate in the existing sequence 07 profile comparison (lowest stored 100 m RPE and official RTE there). Its arguments are frozen; the added sequences do not select a profile.",
+      "no_gt_seed_policy": "These four pipelines never use per-frame GT seeding; GT is used only for the initial rigid evaluation anchor. Keep the original variant arguments verbatim, including an explicit --no-gt-seed where present."
+    },
+    {
+      "method": "lf_gicp",
+      "label": "LF-GICP",
+      "variant": "paper_default",
+      "source_manifest": "experiments/lf_gicp_kitti_seq_00_full_matrix.json",
+      "args": [],
+      "new_sequences": [
+        "01",
+        "03",
+        "04",
+        "06",
+        "09",
+        "10"
+      ],
+      "existing_aggregates": {
+        "00": "experiments/results/lf_gicp_kitti_seq_00_full_matrix.json",
+        "02": "experiments/results/lf_gicp_kitti_seq_02_full_matrix.json",
+        "05": "experiments/results/lf_gicp_kitti_seq_05_full_matrix.json",
+        "07": "experiments/results/lf_gicp_kitti_seq_07_full_matrix.json",
+        "08": "experiments/results/lf_gicp_kitti_seq_08_full_matrix.json"
+      },
+      "selection_note": "field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting.",
+      "no_gt_seed_policy": "These four pipelines never use per-frame GT seeding; GT is used only for the initial rigid evaluation anchor. Keep the original variant arguments verbatim, including an explicit --no-gt-seed where present."
+    },
+    {
+      "method": "l_lo",
+      "label": "L-LO",
+      "variant": "seq07_tuned",
+      "source_manifest": "experiments/l_lo_kitti_seq_00_full_matrix.json",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.25",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80"
+      ],
+      "new_sequences": [
+        "03",
+        "04",
+        "06",
+        "09",
+        "10"
+      ],
+      "existing_aggregates": {
+        "00": "experiments/results/l_lo_kitti_seq_00_full_matrix.json",
+        "02": "experiments/results/l_lo_kitti_seq_02_full_matrix.json",
+        "05": "experiments/results/l_lo_kitti_seq_05_full_matrix.json",
+        "07": "experiments/results/l_lo_kitti_seq_07_full_matrix.json",
+        "08": "experiments/results/l_lo_kitti_seq_08_full_matrix.json"
+      },
+      "selection_note": "cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded.",
+      "no_gt_seed_policy": "These four pipelines never use per-frame GT seeding; GT is used only for the initial rigid evaluation anchor. Keep the original variant arguments verbatim, including an explicit --no-gt-seed where present."
+    },
+    {
+      "method": "quadric_lo",
+      "label": "Quadric-LO",
+      "variant": "dense_profile",
+      "source_manifest": "experiments/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json",
+      "args": [
+        "--no-gt-seed",
+        "--quadric-lo-dense-profile"
+      ],
+      "new_sequences": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10"
+      ],
+      "existing_aggregates": {
+        "00": "experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json",
+        "07": "experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json"
+      },
+      "selection_note": "The existing dense profile is frozen from the 00/07 paper comparisons; both are treated as development data. No correction or parameter is selected on the added sequences.",
+      "no_gt_seed_policy": "These four pipelines never use per-frame GT seeding; GT is used only for the initial rigid evaluation anchor. Keep the original variant arguments verbatim, including an explicit --no-gt-seed where present."
+    }
+  ]
+}

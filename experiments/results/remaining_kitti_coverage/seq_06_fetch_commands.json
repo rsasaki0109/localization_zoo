@@ -1,0 +1,16 @@
+[
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+      "--output-root",
+      "/workspace/localization-env/kitti-remaining-coverage",
+      "--sequence",
+      "06"
+    ],
+    "started_unix": 1792129031.3012116,
+    "exit_code": 0,
+    "log": "/workspace/localization-env/remaining-kitti-coverage-results/seq_06_fetch_commands.log",
+    "finished_unix": 1792129154.7535262
+  }
+]

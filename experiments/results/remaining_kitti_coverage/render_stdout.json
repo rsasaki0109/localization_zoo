@@ -1,0 +1,84 @@
+{
+  "aloam": {
+    "label": "A-LOAM",
+    "variant": "kitti_default",
+    "args": [
+      "--aloam-kitti-profile"
+    ],
+    "selection_note": "kitti_default was the accuracy candidate in the existing sequence 07 profile comparison (lowest stored 100 m RPE and official RTE there). Its arguments are frozen; the added sequences do not select a profile.",
+    "reused_sequences": [
+      "00",
+      "02",
+      "05",
+      "07",
+      "08"
+    ],
+    "fixed_geometric_mean_ratio": 1.067863551932757,
+    "table6_best_geometric_mean_ratio": 1.067863551932757,
+    "table6_selects_fixed_variant_everywhere": true,
+    "above_twice_paper": []
+  },
+  "lf_gicp": {
+    "label": "LF-GICP",
+    "variant": "paper_default",
+    "args": [],
+    "selection_note": "field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting.",
+    "reused_sequences": [
+      "00",
+      "02",
+      "05",
+      "07",
+      "08"
+    ],
+    "fixed_geometric_mean_ratio": 1.118600562163813,
+    "table6_best_geometric_mean_ratio": 1.118600562163813,
+    "table6_selects_fixed_variant_everywhere": true,
+    "above_twice_paper": [
+      "10"
+    ]
+  },
+  "l_lo": {
+    "label": "L-LO",
+    "variant": "seq07_tuned",
+    "args": [
+      "--l-lo-set",
+      "cluster_cell=0.25",
+      "--l-lo-set",
+      "ground_tolerance=0.15",
+      "--l-lo-set",
+      "max_range=80"
+    ],
+    "selection_note": "cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded.",
+    "reused_sequences": [
+      "00",
+      "02",
+      "05",
+      "07",
+      "08"
+    ],
+    "fixed_geometric_mean_ratio": 1.569311790260122,
+    "table6_best_geometric_mean_ratio": 1.569311790260122,
+    "table6_selects_fixed_variant_everywhere": true,
+    "above_twice_paper": [
+      "09",
+      "10"
+    ]
+  },
+  "quadric_lo": {
+    "label": "Quadric-LO",
+    "variant": "dense_profile",
+    "args": [
+      "--no-gt-seed",
+      "--quadric-lo-dense-profile"
+    ],
+    "selection_note": "The existing dense profile is frozen from the 00/07 paper comparisons; both are treated as development data. No correction or parameter is selected on the added sequences.",
+    "reused_sequences": [
+      "00",
+      "07"
+    ],
+    "fixed_geometric_mean_ratio": 0.8531538569375723,
+    "table6_best_geometric_mean_ratio": 0.8531538569375723,
+    "table6_selects_fixed_variant_everywhere": true,
+    "above_twice_paper": []
+  }
+}

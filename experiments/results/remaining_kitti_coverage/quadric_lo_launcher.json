@@ -1,0 +1,6 @@
+{
+  "path": "/workspace/localization-env/remaining-kitti-workdirs/quadric_lo/launch.sh",
+  "content": "#!/bin/sh\nset -eu\ncd /workspace/localization-env/remaining-kitti-workdirs/quadric_lo\nexec /workspace/localization_zoo/build/evaluation/pcd_dogfooding \"$@\"\n",
+  "working_directory": "/workspace/localization-env/remaining-kitti-workdirs/quadric_lo",
+  "binary": "/workspace/localization_zoo/build/evaluation/pcd_dogfooding"
+}

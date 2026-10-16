@@ -1,0 +1,41 @@
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 -u /workspace/localization-env/run_remaining_kitti_coverage.py
+[saved] LF-GICP seq 01
+[saved] A-LOAM seq 01
+[saved] Quadric-LO seq 01
+[sequence complete, scans deleted] 01
+[saved] Quadric-LO seq 02
+[sequence complete, scans deleted] 02
+[retry download] 03; verified files retained
+[saved] LF-GICP seq 03
+[saved] L-LO seq 03
+[saved] A-LOAM seq 03
+[saved] Quadric-LO seq 03
+[sequence complete, scans deleted] 03
+[saved] LF-GICP seq 04
+[saved] L-LO seq 04
+[saved] A-LOAM seq 04
+[saved] Quadric-LO seq 04
+[sequence complete, scans deleted] 04
+[saved] Quadric-LO seq 05
+[sequence complete, scans deleted] 05
+[saved] L-LO seq 06
+[saved] LF-GICP seq 06
+[saved] A-LOAM seq 06
+[saved] Quadric-LO seq 06
+[sequence complete, scans deleted] 06
+[retry download] 08; verified files retained
+[saved] Quadric-LO seq 08
+[sequence complete, scans deleted] 08
+[saved] LF-GICP seq 09
+[saved] L-LO seq 09
+[saved] A-LOAM seq 09
+[saved] Quadric-LO seq 09
+[sequence complete, scans deleted] 09
+[retry download] 10; verified files retained
+[saved] LF-GICP seq 10
+[saved] L-LO seq 10
+[saved] A-LOAM seq 10
+[saved] Quadric-LO seq 10
+[sequence complete, scans deleted] 10
+[complete] All planned coverage runs saved and raw scans deleted.

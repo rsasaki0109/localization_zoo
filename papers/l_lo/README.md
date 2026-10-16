@@ -18,7 +18,7 @@ Frame-to-frame landmark odometry following Sec. III of the paper:
 
 ## Reproduction notes and deviations
 
-The paper gives **no numeric parameters** (clustering threshold, ground-segmentation thresholds, outlier-removal K, the step coefficients C, termination threshold). All values in `LLOParams` are this repository's choices and were not tuned on KITTI.
+The paper gives **no numeric parameters** (clustering threshold, ground-segmentation thresholds, outlier-removal K, the step coefficients C, termination threshold). Default values in `LLOParams` are this repository's choices. The `seq07_tuned` overrides below were selected on KITTI 07 and are distinguished from those defaults.
 
 Interpretations where the text is ambiguous or not physically consistent:
 
@@ -46,11 +46,11 @@ The paper gives no numeric parameters, so every value above is a conventional ch
 | 07 (chosen on) | 0.998 % | 1.004 % | 0.69 % | 1.46x |
 | 08 (held out) | 1.778 % | 1.661 % | 1.37 % | 1.21x |
 
-(Official KITTI RTE.) The tuned setting lowers the 100 m RPE on every held-out sequence, by 6-8 %, but on the official metric it helps 00/02/08 and hurts 05; the geometric-mean ratio moves only from 1.62x to 1.58x. Absolute trajectory error is not consistently better either (seq 02: 58 m to 142 m; seq 00: 19 m to 16 m). Parameter choice therefore explains little of the gap to the paper; the remaining difference is more likely in method details the paper leaves open (see the deviations above) and in the vertical part of the pose (next section). Table 6 uses `seq07_tuned` (`repo_variants` in `evaluation/data/paper_reported_numbers.json`).
+(Historical comparison on the five sequences above, official KITTI RTE.) The tuned setting lowers the 100 m RPE on every held-out sequence, by 6-8 %, but on the official metric it helps 00/02/08 and hurts 05; the geometric-mean ratio moves only from 1.62x to 1.58x. Absolute trajectory error is not consistently better either (seq 02: 58 m to 142 m; seq 00: 19 m to 16 m). Parameter choice therefore explains little of the gap to the paper; the remaining difference is more likely in method details the paper leaves open (see the deviations above) and in the vertical part of the pose (next section). Table 6 now uses `seq07_tuned` over every sequence with a paper value; the full-coverage mean is in the fixed-configuration section below (`repo_variants` in `evaluation/data/paper_reported_numbers.json`).
 
 ## Vertical pose and the gap to the paper
 
-The horizontal module is not where the gap is. On seq 07, the `seq07_tuned` trajectory scores **0.577 %** when both it and the ground truth are reduced to (x, y, yaw). The full 6-DoF score is 1.004 %, and the paper reports 0.69 %. The excess is in the vertical part. The default `pitch_mode=0` never models height: each step's z is zero. Its pitch is the sensor's tilt against the local ground, measured against frame 0. Road grade is not part of either.
+On seq 07, much of the measured gap appears in the vertical part of the pose: the `seq07_tuned` trajectory scores **0.577 %** when both it and the ground truth are reduced to (x, y, yaw). The full 6-DoF score is 1.004 %, and the paper reports 0.69 %. This comparison does not diagnose the cause on other sequences. The default `pitch_mode=0` never models height: each step's z is zero. Its pitch is the sensor's tilt against the local ground, measured against frame 0. Road grade is not part of either.
 
 **Same-patch vertical estimate (opt-in, `pitch_mode=1`).** The ground patch around the new sensor position (`patch_half_length` x `patch_half_width`) is fitted as a plane in both frames. The change of the plane normal gives the relative pitch. The change of the plane offset gives the height change in frame k-1. `pitch_mode=2` keeps the mode-0 pitch and uses only the height change. A prototype took the horizontal motion from ground truth and used the same plane fit (seq 07, 1100 frames):
 
@@ -73,7 +73,7 @@ The full C++ pipeline on seq 07 (official RTE, `seq07_tuned` settings):
 
 None of them beats the default, so the defaults are unchanged.
 
-**What a roll-free model can score at all.** The paper assumes a null roll angle. The trajectories below are built from the ground truth with roll removed and scored against the full ground truth (official RTE):
+**Tested GT-derived roll-free baselines.** The paper assumes a null roll angle. The trajectories below are built from the ground truth with roll removed and scored against the full ground truth (official RTE):
 
 | Seq | x, y, yaw only (z = 0, no pitch) | per-step pitch + z, roll = 0 | GT positions, attitude without roll | paper |
 |---|---:|---:|---:|---:|
@@ -83,11 +83,129 @@ None of them beats the default, so the defaults are unchanged.
 | 07 | 0.759 % | 1.083 % | 0.909 % | 0.69 % |
 | 08 | 1.098 % | 1.233 % | 1.419 % | 1.37 % |
 
-On 00 and 07 the paper's numbers are below every roll-free trajectory built from the ground truth. So, under the official metric, these two numbers cannot come from the paper's stated motion model with any horizontal and vertical estimates. On 07, the per-step estimate from the prototype (correction 0.4°, horizontal from ground truth) scores 0.979 %, between the planar 0.759 % and the ground-truth pitch and z at 1.083 %.
+On 00 and 07 the paper's numbers are below all three tested GT-derived roll-free baselines above. These finite comparisons show a discrepancy worth investigating; they do not establish a lower bound over all possible roll-free estimates or prove the paper values impossible under its motion model. On 07, the per-step estimate from the prototype (correction 0.4°, horizontal from ground truth) scores 0.979 %, between the planar 0.759 % and the ground-truth pitch and z at 1.083 %.
 
-The 1.46x gap on 07 therefore has three parts:
+The 1.46x gap on 07 is supported by these observations:
 
 - the horizontal module, which is at 0.577 % in 2D;
 - the vertical part, which no frame-to-frame ground-plane estimate here improves;
-- a paper value that is out of reach for a roll-free pose.
+- the tested GT-derived roll-free baselines also exceed the paper value; this does not prove every possible roll-free estimate must do so.
 
+<!-- FIXED-KITTI-RESULTS:START -->
+
+## Full KITTI comparison with one configuration
+
+Fixed variant: `seq07_tuned`.
+
+cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded.
+
+This pipeline never uses per-frame GT seeding; GT is used only for the initial rigid evaluation anchor. Keep the original variant arguments verbatim, including an explicit --no-gt-seed where present.
+
+
+
+No new estimator behavior or default change is introduced by this coverage run.
+
+Exact fixed-setting CLI (substitute the sequence for NN):
+
+```bash
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_NN_full experiments/reference_data/kitti_seq_NN_full_gt.csv 0 --methods l_lo --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --summary-json l_lo_seq_NN.json
+```
+
+Full sequences, official KITTI translational RTE (100-800 m), no GT seed.
+Existing committed results are reused on 00, 02, 05, 07, 08.
+The other rows are added full-sequence runs. Every row uses the same variant.
+Sequence 01 is NA in the paper and is excluded from the comparison and mean.
+
+| Seq | Paper RTE [%] | Fixed RTE [%] | Repo / paper | FPS |
+|---|---:|---:|---:|---:|
+| 00 (reused) | 0.910 | 1.479 | 1.63x | 4.374 |
+| 02 (reused) | 2.350 | 4.478 | 1.91x | 3.578 |
+| 03 | 2.920 | 3.066 | 1.05x | 2.824 |
+| 04 | 2.280 | 2.135 | 0.94x | 0.877 |
+| 05 (reused) | 0.820 | 1.473 | 1.80x | 4.382 |
+| 06 | 0.660 | 1.315 | 1.99x | 3.259 |
+| 07 (reused) | 0.690 | 1.004 | 1.46x | 4.450 |
+| 08 (reused) | 1.370 | 1.661 | 1.21x | 3.999 |
+| 09 | 1.890 | 4.122 | 2.18x | 1.162 |
+| 10 | 1.900 | 4.105 | 2.16x | 1.309 |
+
+Geometric mean over all sequences with paper values: **1.57x**
+with the fixed setting. Table 6 is restricted to this same variant by
+`repo_variants` in `evaluation/data/paper_reported_numbers.json`.
+Historical ablations remain available in their original
+result aggregates.
+
+FPS describes the recorded execution: the new runs use one OpenMP
+thread per method and may overlap on the same sequence. Reused FPS
+comes from historical runs on their recorded hosts.
+
+Source aggregates and all unrounded rows are recorded in
+`experiments/results/remaining_kitti_coverage/summary.json`.
+New per-run summaries, host records, logs, estimated poses, evaluated GT
+and step diagnostics are committed under the corresponding
+`experiments/results/runs/` directory. Exact execution commands and the
+isolated-output launcher used for overlapping methods are recorded
+in `experiments/results/remaining_kitti_coverage/`.
+
+### Sequences above twice the paper value
+
+**09: 4.122 % vs 1.890 % (2.18x).**
+The estimated path length is 0.999 of GT.
+For GT steps of at least 0.1 m,
+4 of 1590 steps differ in length by more than 20 %;
+the local translation-vector error exceeds 20 % on 9 steps.
+The longest runs of step length errors have destination-frame indices 6-6, 96-96, 118-118 (zero-based; inclusive).
+All intervals are retained in the diagnostic JSON.
+
+The largest relative-translation-error blocks locate where drift grows.
+Each block contains up to 100 consecutive steps; these endpoint errors
+are diagnostics, not official KITTI RTE.
+
+Blocks spanning at least 1 m of GT travel are ranked below; the JSON
+also retains blocks with less travel.
+
+| Pose interval | GT distance [m] | Est / GT path | Position error start / end [m] | Block error [%] |
+|---|---:|---:|---:|---:|
+| 1500-1590 | 61.5 | 1.007 | 27.1 / 27.1 | 7.03 |
+| 0-100 | 80.4 | 1.011 | 0.0 / 4.7 | 5.81 |
+| 500-600 | 104.5 | 1.005 | 38.0 / 44.2 | 5.27 |
+
+Diagnostic source: `experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/step_diagnostics.json`.
+
+**10: 4.105 % vs 1.900 % (2.16x).**
+The estimated path length is 1.000 of GT.
+For GT steps of at least 0.1 m,
+7 of 1153 steps differ in length by more than 20 %;
+the local translation-vector error exceeds 20 % on 17 steps.
+The longest runs of step length errors have destination-frame indices 3-4, 10-10, 51-51 (zero-based; inclusive).
+All intervals are retained in the diagnostic JSON.
+
+The largest relative-translation-error blocks locate where drift grows.
+Each block contains up to 100 consecutive steps; these endpoint errors
+are diagnostics, not official KITTI RTE.
+
+Blocks spanning at least 1 m of GT travel are ranked below; the JSON
+also retains blocks with less travel.
+
+| Pose interval | GT distance [m] | Est / GT path | Position error start / end [m] | Block error [%] |
+|---|---:|---:|---:|---:|
+| 700-800 | 127.2 | 0.999 | 7.2 / 8.9 | 6.61 |
+| 600-700 | 50.7 | 0.999 | 6.8 / 7.2 | 6.12 |
+| 1100-1200 | 17.1 | 1.025 | 13.0 / 14.2 | 4.40 |
+
+Diagnostic source: `experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/step_diagnostics.json`.
+
+The total path lengths remain close to GT, so total travel distance
+alone does not capture these failures. The local block errors and
+absolute position-error endpoints measure different effects and need
+not grow together. These saved-pose observations locate disagreements;
+their association or solver causes remain open.
+
+
+Saved-pose diagnostics are generated with
+`evaluation/scripts/diagnose_kitti_steps.py --estimate <trajectory_kitti.txt>
+--gt <evaluated_gt_kitti.txt> --summary <summary.json> --method "L-LO"
+--output <step_diagnostics.json>`; each JSON records the exact command.
+The script checks its full-sequence RTE against the original run summary.
+
+<!-- FIXED-KITTI-RESULTS:END -->

@@ -1,0 +1,85 @@
+{
+  "frames": 271,
+  "official_metrics_from_saved_poses": {
+    "frames": 271,
+    "reference_frames": 271,
+    "tracking_success_rate": 1.0,
+    "ate_m": 1.8748420326345805,
+    "rpe_trans_pct": 0.5158822945207533,
+    "rpe_rot_deg_per_m": 0.004465688922684978,
+    "rpe_segments": 208,
+    "kitti_rte_trans_pct": 0.679895927008892,
+    "kitti_rte_rot_deg_per_100m": 0.4445201737146323,
+    "kitti_rte_segments": 43,
+    "trajectory_length_m": 393.64527707635335
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 1.0003061578477757,
+  "moving_step_count": 270,
+  "step_length_ratio_median": 1.0015037116121919,
+  "steps_length_off_over_threshold": 0,
+  "steps_vector_off_over_threshold": 0,
+  "bad_length_step_frame_ranges": [],
+  "bad_vector_step_frame_ranges": [],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 137.18298063486523,
+      "path_length_ratio": 0.9996713383450072,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9991122795067617,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 0.31512189884876374,
+      "block_relative_translation_error_pct": 0.22970917919536857,
+      "block_relative_rotation_error_deg_per_100m": 0.44733868095179746
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 144.36863004693618,
+      "path_length_ratio": 1.0011102876541087,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0034369135144248,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.31512189884876374,
+      "position_error_end_m": 2.195803587527783,
+      "block_relative_translation_error_pct": 0.7492551550408556,
+      "block_relative_rotation_error_deg_per_100m": 0.48749582722423124
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 270,
+      "gt_distance_m": 112.09366640246202,
+      "path_length_ratio": 1.0000474038262852,
+      "moving_step_count": 70,
+      "step_length_ratio_median": 1.0015039520346418,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 2.195803587527783,
+      "position_error_end_m": 4.411094737556298,
+      "block_relative_translation_error_pct": 0.46314378549929724,
+      "block_relative_rotation_error_deg_per_100m": 0.2703927087978498
+    }
+  ],
+  "benchmark_summary": "experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/summary.json",
+  "benchmark_method": "Quadric-LO",
+  "schema_version": 1,
+  "command": "python3 evaluation/scripts/diagnose_kitti_steps.py --estimate experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt --gt experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt --summary experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/summary.json --method Quadric-LO --output experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/step_diagnostics.json",
+  "estimate_path": "experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+  "gt_path": "experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt"
+}

@@ -1,0 +1,15 @@
+
+$ env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=1 -e OPENBLAS_NUM_THREADS=1 -e PYTHONDONTWRITEBYTECODE=1 -w /workspace/localization_zoo localization-zoo-dev /opt/localization-venv/bin/python evaluation/scripts/run_experiment_matrix.py --manifest /workspace/localization_zoo/experiments/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json --binary /workspace/localization-env/remaining-kitti-workdirs/quadric_lo/launch.sh --output-dir /workspace/localization-env/remaining-kitti-coverage-results/quadric_lo --docs-dir /workspace/localization-env/remaining-kitti-docs/quadric_lo --merge-existing-index
+[run] quadric_lo_kitti_seq_02_full_paper_comp_matrix:dense_profile
+[done] wrote /workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/index.json
+[done] wrote /workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/remaining-kitti-docs/quadric_lo/experiments.md
+[done] wrote /workspace/localization-env/remaining-kitti-docs/quadric_lo/decisions.md
+[done] wrote /workspace/localization-env/remaining-kitti-docs/quadric_lo/interfaces.md
+
+[exit_code] 0
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt --gt /workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/evaluated_gt_kitti.txt --summary /workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/summary.json --method Quadric-LO --output /workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/step_diagnostics.json
+
+[exit_code] 0

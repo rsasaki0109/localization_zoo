@@ -1,0 +1,30 @@
+[
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+      "--output-root",
+      "/workspace/localization-env/kitti-remaining-coverage",
+      "--sequence",
+      "10"
+    ],
+    "started_unix": 1792152390.2447739,
+    "exit_code": 1,
+    "log": "/workspace/localization-env/remaining-kitti-coverage-results/seq_10_fetch_commands.log",
+    "finished_unix": 1792152455.920841
+  },
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+      "--output-root",
+      "/workspace/localization-env/kitti-remaining-coverage",
+      "--sequence",
+      "10"
+    ],
+    "started_unix": 1792152455.9300063,
+    "exit_code": 0,
+    "log": "/workspace/localization-env/remaining-kitti-coverage-results/seq_10_fetch_commands.log",
+    "finished_unix": 1792152474.4773962
+  }
+]

@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-10-16T13:18:28+00:00",
+  "manifest_path": "experiments/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "quadric_lo_kitti_seq_06_full_paper_comp",
+    "title": "Quadric-LO KITTI Odom seq 06 full: fixed-configuration paper comparison",
+    "question": "How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "quadric_lo",
+    "primary_method": "Quadric-LO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_profile",
+      "label": "Quadric-LO, dense profile",
+      "design_style": "reference",
+      "intent": "Profile used for the repository's KITTI full-sequence runs (see the method README).",
+      "args": [
+        "--no-gt-seed",
+        "--quadric-lo-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile",
+      "summary_path": "experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 2.424711,
+      "rpe_trans_pct": 0.587329,
+      "rpe_rot_deg_per_m": 0.003939,
+      "fps": 0.405496,
+      "time_ms": 2715190.804795,
+      "frames": 1101,
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3805/40 plane_fallback_ratio=0.0104",
+      "benchmark_score": 100.0,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.559674,
+      "kitti_rte_rot_deg_per_100m": 0.265976,
+      "host": {
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.44",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

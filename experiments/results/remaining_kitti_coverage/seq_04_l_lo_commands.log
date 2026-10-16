@@ -1,0 +1,15 @@
+
+$ env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH docker --host=unix:///var/run/docker.sock exec --user 1000:1000 -e OMP_NUM_THREADS=1 -e OPENBLAS_NUM_THREADS=1 -e PYTHONDONTWRITEBYTECODE=1 -w /workspace/localization_zoo localization-zoo-dev /opt/localization-venv/bin/python evaluation/scripts/run_experiment_matrix.py --manifest /workspace/localization_zoo/experiments/l_lo_kitti_seq_04_full_paper_comp_matrix.json --binary /workspace/localization-env/remaining-kitti-workdirs/l_lo/launch.sh --output-dir /workspace/localization-env/remaining-kitti-coverage-results/l_lo --docs-dir /workspace/localization-env/remaining-kitti-docs/l_lo --merge-existing-index
+[run] l_lo_kitti_seq_04_full_paper_comp_matrix:seq07_tuned
+[done] wrote /workspace/localization-env/remaining-kitti-coverage-results/l_lo/index.json
+[done] wrote /workspace/localization-env/remaining-kitti-coverage-results/l_lo/l_lo_kitti_seq_03_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/remaining-kitti-coverage-results/l_lo/l_lo_kitti_seq_04_full_paper_comp_matrix.json
+[done] wrote /workspace/localization-env/remaining-kitti-docs/l_lo/experiments.md
+[done] wrote /workspace/localization-env/remaining-kitti-docs/l_lo/decisions.md
+[done] wrote /workspace/localization-env/remaining-kitti-docs/l_lo/interfaces.md
+
+[exit_code] 0
+
+$ /workspace/localization-env/host-venv/bin/python evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization-env/remaining-kitti-coverage-results/l_lo/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt --gt /workspace/localization-env/remaining-kitti-coverage-results/l_lo/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt --summary /workspace/localization-env/remaining-kitti-coverage-results/l_lo/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/summary.json --method L-LO --output /workspace/localization-env/remaining-kitti-coverage-results/l_lo/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/step_diagnostics.json
+
+[exit_code] 0

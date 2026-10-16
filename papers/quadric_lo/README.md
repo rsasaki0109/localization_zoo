@@ -98,8 +98,77 @@ python3 evaluation/scripts/run_quadric_lo_kitti_seq02_validation.py
 
 Paired summary: [`quadric_lo_kitti_seq02_validation_summary.json`](../../docs/benchmarks/kitti_seq02_public/quadric_lo_kitti_seq02_validation_summary.json).
 Fallback-on uses **2863 quadric / 19 plane** correspondences/frame (>99% quadric).
-Unlike the near-neutral seq00/07 highway ablation, disabling plane fallback on
+Unlike the near-neutral seq00/07 ablation, disabling plane fallback on
 seq02 worsens RPE by about **55%** and ATE by about **84%**, showing the rare
 plane fallback carries more weight on this vegetation-rich suburban sequence.
 Dedicated orchard or non-urban multi-beam benchmarks remain open before T0
 promotion.
+
+<!-- FIXED-KITTI-RESULTS:START -->
+
+## Full KITTI comparison with one configuration
+
+Fixed variant: `dense_profile`.
+
+The existing dense profile is frozen from the 00/07 paper comparisons; both are treated as development data. No correction or parameter is selected on the added sequences.
+
+This pipeline never uses per-frame GT seeding; GT is used only for the initial rigid evaluation anchor. Keep the original variant arguments verbatim, including an explicit --no-gt-seed where present.
+
+Sequence 02 also has earlier fallback-validation evidence in this README; it is not claimed as previously unseen. The reference is the paper scan-to-submap table.
+
+No new estimator behavior or default change is introduced by this coverage run.
+
+Exact fixed-setting CLI (substitute the sequence for NN):
+
+```bash
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_NN_full experiments/reference_data/kitti_seq_NN_full_gt.csv 0 --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json quadric_lo_seq_NN.json
+```
+
+Full sequences, official KITTI translational RTE (100-800 m), no GT seed.
+Existing committed results are reused on 00, 07.
+The other rows are added full-sequence runs. Every row uses the same variant.
+
+
+| Seq | Paper RTE [%] | Fixed RTE [%] | Repo / paper | FPS |
+|---|---:|---:|---:|---:|
+| 00 (reused) | 0.920 | 0.966 | 1.05x | 0.807 |
+| 01 | 2.610 | 2.060 | 0.79x | 0.316 |
+| 02 | 1.160 | 1.176 | 1.01x | 0.390 |
+| 03 | 1.450 | 1.236 | 0.85x | 0.397 |
+| 04 | 0.870 | 0.680 | 0.78x | 0.433 |
+| 05 | 0.760 | 0.588 | 0.77x | 0.558 |
+| 06 | 0.550 | 0.560 | 1.02x | 0.405 |
+| 07 (reused) | 1.090 | 0.662 | 0.61x | 0.885 |
+| 08 | 1.680 | 1.128 | 0.67x | 0.289 |
+| 09 | 0.850 | 0.933 | 1.10x | 0.255 |
+| 10 | 1.760 | 1.556 | 0.88x | 0.286 |
+
+Geometric mean over all sequences with paper values: **0.85x**
+with the fixed setting. Table 6 is restricted to this same variant by
+`repo_variants` in `evaluation/data/paper_reported_numbers.json`.
+Historical ablations remain available in their original
+result aggregates.
+
+FPS describes the recorded execution: the new runs use one OpenMP
+thread per method and may overlap on the same sequence. Reused FPS
+comes from historical runs on their recorded hosts.
+
+Source aggregates and all unrounded rows are recorded in
+`experiments/results/remaining_kitti_coverage/summary.json`.
+New per-run summaries, host records, logs, estimated poses, evaluated GT
+and step diagnostics are committed under the corresponding
+`experiments/results/runs/` directory. Exact execution commands and the
+isolated-output launcher used for overlapping methods are recorded
+in `experiments/results/remaining_kitti_coverage/`.
+
+### Sequences above twice the paper value
+
+No sequence exceeds twice its paper value with this fixed setting.
+
+Saved-pose diagnostics are generated with
+`evaluation/scripts/diagnose_kitti_steps.py --estimate <trajectory_kitti.txt>
+--gt <evaluated_gt_kitti.txt> --summary <summary.json> --method "Quadric-LO"
+--output <step_diagnostics.json>`; each JSON records the exact command.
+The script checks its full-sequence RTE against the original run summary.
+
+<!-- FIXED-KITTI-RESULTS:END -->

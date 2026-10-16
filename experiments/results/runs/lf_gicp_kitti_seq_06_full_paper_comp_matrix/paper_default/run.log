@@ -1,0 +1,137 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 1232.7 m
+Running LF-GICP...
+  mitigation=on beta=2.0
+
+  [LF-GICP] 0/1101 voxels=5590 degenerate=0
+  [LF-GICP] 10/1101 voxels=10345 degenerate=3
+  [LF-GICP] 20/1101 voxels=12379 degenerate=3
+  [LF-GICP] 30/1101 voxels=14161 degenerate=3
+  [LF-GICP] 40/1101 voxels=16424 degenerate=3
+  [LF-GICP] 50/1101 voxels=18373 degenerate=3
+  [LF-GICP] 60/1101 voxels=20286 degenerate=3
+  [LF-GICP] 70/1101 voxels=23080 degenerate=3
+  [LF-GICP] 80/1101 voxels=25889 degenerate=3
+  [LF-GICP] 90/1101 voxels=28539 degenerate=3
+  [LF-GICP] 100/1101 voxels=30716 degenerate=3
+  [LF-GICP] 110/1101 voxels=32950 degenerate=3
+  [LF-GICP] 120/1101 voxels=35071 degenerate=3
+  [LF-GICP] 130/1101 voxels=37097 degenerate=3
+  [LF-GICP] 140/1101 voxels=39248 degenerate=3
+  [LF-GICP] 150/1101 voxels=41620 degenerate=3
+  [LF-GICP] 160/1101 voxels=43762 degenerate=3
+  [LF-GICP] 170/1101 voxels=46013 degenerate=3
+  [LF-GICP] 180/1101 voxels=48116 degenerate=3
+  [LF-GICP] 190/1101 voxels=49842 degenerate=3
+  [LF-GICP] 200/1101 voxels=51071 degenerate=3
+  [LF-GICP] 210/1101 voxels=52243 degenerate=3
+  [LF-GICP] 220/1101 voxels=53229 degenerate=3
+  [LF-GICP] 230/1101 voxels=54433 degenerate=3
+  [LF-GICP] 240/1101 voxels=55512 degenerate=3
+  [LF-GICP] 250/1101 voxels=56465 degenerate=3
+  [LF-GICP] 260/1101 voxels=57336 degenerate=3
+  [LF-GICP] 270/1101 voxels=58455 degenerate=3
+  [LF-GICP] 280/1101 voxels=60108 degenerate=3
+  [LF-GICP] 290/1101 voxels=61068 degenerate=3
+  [LF-GICP] 300/1101 voxels=62051 degenerate=3
+  [LF-GICP] 310/1101 voxels=63335 degenerate=3
+  [LF-GICP] 320/1101 voxels=64091 degenerate=3
+  [LF-GICP] 330/1101 voxels=64760 degenerate=3
+  [LF-GICP] 340/1101 voxels=65332 degenerate=3
+  [LF-GICP] 350/1101 voxels=65822 degenerate=3
+  [LF-GICP] 360/1101 voxels=66292 degenerate=3
+  [LF-GICP] 370/1101 voxels=66784 degenerate=3
+  [LF-GICP] 380/1101 voxels=67291 degenerate=3
+  [LF-GICP] 390/1101 voxels=67997 degenerate=3
+  [LF-GICP] 400/1101 voxels=68813 degenerate=3
+  [LF-GICP] 410/1101 voxels=69529 degenerate=3
+  [LF-GICP] 420/1101 voxels=70192 degenerate=3
+  [LF-GICP] 430/1101 voxels=70689 degenerate=3
+  [LF-GICP] 440/1101 voxels=71084 degenerate=3
+  [LF-GICP] 450/1101 voxels=71499 degenerate=3
+  [LF-GICP] 460/1101 voxels=72133 degenerate=3
+  [LF-GICP] 470/1101 voxels=72634 degenerate=3
+  [LF-GICP] 480/1101 voxels=73087 degenerate=3
+  [LF-GICP] 490/1101 voxels=73769 degenerate=3
+  [LF-GICP] 500/1101 voxels=74142 degenerate=3
+  [LF-GICP] 510/1101 voxels=72263 degenerate=3
+  [LF-GICP] 520/1101 voxels=70662 degenerate=3
+  [LF-GICP] 530/1101 voxels=69560 degenerate=3
+  [LF-GICP] 540/1101 voxels=69857 degenerate=3
+  [LF-GICP] 550/1101 voxels=70676 degenerate=3
+  [LF-GICP] 560/1101 voxels=73203 degenerate=3
+  [LF-GICP] 570/1101 voxels=75384 degenerate=3
+  [LF-GICP] 580/1101 voxels=77180 degenerate=3
+  [LF-GICP] 590/1101 voxels=78725 degenerate=3
+  [LF-GICP] 600/1101 voxels=80471 degenerate=3
+  [LF-GICP] 610/1101 voxels=81925 degenerate=3
+  [LF-GICP] 620/1101 voxels=83415 degenerate=3
+  [LF-GICP] 630/1101 voxels=84594 degenerate=3
+  [LF-GICP] 640/1101 voxels=85856 degenerate=3
+  [LF-GICP] 650/1101 voxels=87378 degenerate=3
+  [LF-GICP] 660/1101 voxels=88572 degenerate=3
+  [LF-GICP] 670/1101 voxels=89762 degenerate=3
+  [LF-GICP] 680/1101 voxels=90800 degenerate=3
+  [LF-GICP] 690/1101 voxels=91975 degenerate=3
+  [LF-GICP] 700/1101 voxels=92792 degenerate=3
+  [LF-GICP] 710/1101 voxels=94032 degenerate=3
+  [LF-GICP] 720/1101 voxels=94736 degenerate=3
+  [LF-GICP] 730/1101 voxels=94803 degenerate=3
+  [LF-GICP] 740/1101 voxels=94746 degenerate=3
+  [LF-GICP] 750/1101 voxels=94853 degenerate=3
+  [LF-GICP] 760/1101 voxels=95194 degenerate=3
+  [LF-GICP] 770/1101 voxels=95561 degenerate=3
+  [LF-GICP] 780/1101 voxels=95680 degenerate=3
+  [LF-GICP] 790/1101 voxels=95814 degenerate=3
+  [LF-GICP] 800/1101 voxels=95641 degenerate=3
+  [LF-GICP] 810/1101 voxels=94669 degenerate=3
+  [LF-GICP] 820/1101 voxels=93534 degenerate=3
+  [LF-GICP] 830/1101 voxels=92294 degenerate=3
+  [LF-GICP] 840/1101 voxels=91524 degenerate=3
+  [LF-GICP] 850/1101 voxels=90660 degenerate=3
+  [LF-GICP] 860/1101 voxels=89555 degenerate=3
+  [LF-GICP] 870/1101 voxels=88653 degenerate=3
+  [LF-GICP] 880/1101 voxels=87394 degenerate=3
+  [LF-GICP] 890/1101 voxels=85144 degenerate=3
+  [LF-GICP] 900/1101 voxels=82885 degenerate=3
+  [LF-GICP] 910/1101 voxels=80476 degenerate=3
+  [LF-GICP] 920/1101 voxels=78231 degenerate=3
+  [LF-GICP] 930/1101 voxels=76808 degenerate=3
+  [LF-GICP] 940/1101 voxels=76227 degenerate=3
+  [LF-GICP] 950/1101 voxels=76599 degenerate=3
+  [LF-GICP] 960/1101 voxels=77549 degenerate=3
+  [LF-GICP] 970/1101 voxels=79170 degenerate=3
+  [LF-GICP] 980/1101 voxels=80932 degenerate=3
+  [LF-GICP] 990/1101 voxels=82245 degenerate=3
+  [LF-GICP] 1000/1101 voxels=83722 degenerate=3
+  [LF-GICP] 1010/1101 voxels=85025 degenerate=3
+  [LF-GICP] 1020/1101 voxels=85956 degenerate=3
+  [LF-GICP] 1030/1101 voxels=86863 degenerate=3
+  [LF-GICP] 1040/1101 voxels=87480 degenerate=3
+  [LF-GICP] 1050/1101 voxels=88299 degenerate=3
+  [LF-GICP] 1060/1101 voxels=88548 degenerate=3
+  [LF-GICP] 1070/1101 voxels=88729 degenerate=3
+  [LF-GICP] 1080/1101 voxels=89095 degenerate=3
+  [LF-GICP] 1090/1101 voxels=90315 degenerate=3
+  [LF-GICP] 1100/1101 voxels=91355 degenerate=3
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+LF-GICP                 ok          2.133       0.572          1101        485565.3       2.3         
+
+Notes:
+- LF-GICP: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=3/1101 median_f0=0.152823 median_lambda0=0.0175851
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_06_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_06_full_evaluation_manifest.json)

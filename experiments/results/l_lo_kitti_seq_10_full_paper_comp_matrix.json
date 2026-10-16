@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-10-16T13:18:28+00:00",
+  "manifest_path": "experiments/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "l_lo_kitti_seq_10_full_paper_comp",
+    "title": "L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison",
+    "question": "How does the frozen seq07_tuned configuration compare with the paper on the complete KITTI sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "seq07_tuned",
+      "label": "Seq 07 tuned",
+      "design_style": "balanced",
+      "intent": "Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.25",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80",
+      "summary_path": "experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/summary.json",
+      "log_path": "experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/run.log",
+      "status": "ok",
+      "ate_m": 8.631909,
+      "rpe_trans_pct": 3.429686,
+      "rpe_rot_deg_per_m": 0.037561,
+      "fps": 1.308518,
+      "time_ms": 917832.51729,
+      "frames": 1201,
+      "note": "Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.2883 frames_below_3_matches=0/1200",
+      "benchmark_score": 100.0,
+      "readability_score": 3.2,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.8,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 4.105241,
+      "kitti_rte_rot_deg_per_100m": 1.904362,
+      "host": {
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.44",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

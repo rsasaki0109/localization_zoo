@@ -1,0 +1,11 @@
+[
+  {
+    "command": [
+      "python3",
+      "experiments/results/remaining_kitti_coverage/generate_fixed_coverage_readmes.py"
+    ],
+    "exit_code": 0,
+    "stdout": "experiments/results/remaining_kitti_coverage/render_stdout.json",
+    "input_commit": "960992dea5a491d92144e04a598635ee58b33f91"
+  }
+]

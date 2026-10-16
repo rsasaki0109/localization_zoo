@@ -1,0 +1,10 @@
+{
+  "sequence": "10",
+  "method": "l_lo",
+  "label": "L-LO",
+  "variant": "seq07_tuned",
+  "frames": 1201,
+  "kitti_rte_trans_pct": 4.105241,
+  "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/l_lo/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned",
+  "finished_unix": 1792153394.614188
+}

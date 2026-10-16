@@ -6,10 +6,16 @@ aloam,kitti_raw_0009_full,gt-backed,fast,Fast,6.104840,5.779396,experiments/resu
 aloam,kitti_raw_0061_200,gt-backed,fast,Fast,0.526859,6.002368,experiments/results/aloam_kitti_raw_0061_matrix.json
 aloam,kitti_raw_0061_full,gt-backed,fast,Fast,3.653679,6.006798,experiments/results/aloam_kitti_raw_0061_full_matrix.json
 aloam,kitti_seq_00_full,gt-backed,fast,Fast,19.120561,3.048415,experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json
+aloam,kitti_seq_01_full,gt-backed,kitti_default,KITTI default,172.740708,1.099865,experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json
 aloam,kitti_seq_02_full,gt-backed,fast,Fast,70.869561,3.183522,experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json
+aloam,kitti_seq_03_full,gt-backed,kitti_default,KITTI default,3.154766,1.145082,experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json
+aloam,kitti_seq_04_full,gt-backed,kitti_default,KITTI default,4.164467,0.814360,experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json
 aloam,kitti_seq_05_full,gt-backed,fast,Fast,7.795592,3.023642,experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json
+aloam,kitti_seq_06_full,gt-backed,kitti_default,KITTI default,2.586972,0.953574,experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json
 aloam,kitti_seq_07_full,gt-backed,fast,Fast,4.030193,1.745914,experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json
 aloam,kitti_seq_08_full,gt-backed,fast,Fast,26.169683,2.891723,experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json
+aloam,kitti_seq_09_full,gt-backed,kitti_default,KITTI default,8.242177,0.764821,experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json
+aloam,kitti_seq_10_full,gt-backed,kitti_default,KITTI default,5.619081,0.830696,experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json
 aloam,mcd_kth_day_06_108,gt-backed,fast,Fast,6.100331,6.663472,experiments/results/aloam_mcd_kth_day_06_matrix.json
 aloam,mcd_ntu_day_02_108,gt-backed,dense,Dense,0.034946,2.958860,experiments/results/aloam_mcd_ntu_day_02_matrix.json
 aloam,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.373994,6.473793,experiments/results/aloam_mcd_tuhh_night_09_matrix.json
@@ -277,7 +283,10 @@ kiss_icp,mulran_parkinglot_120,gt-backed,fast_recent_map,Fast recent map,15.6408
 kiss_icp,mulran_parkinglot_full,gt-backed,fast_recent_map,Fast recent map,74.336896,26.851105,experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json
 l_lo,kitti_seq_00_full,gt-backed,seq07_tuned,Seq 07 tuned,15.664466,4.374296,experiments/results/l_lo_kitti_seq_00_full_matrix.json
 l_lo,kitti_seq_02_full,gt-backed,default,Default,58.272008,3.180085,experiments/results/l_lo_kitti_seq_02_full_matrix.json
+l_lo,kitti_seq_03_full,gt-backed,seq07_tuned,Seq 07 tuned,24.085826,2.823659,experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json
+l_lo,kitti_seq_04_full,gt-backed,seq07_tuned,Seq 07 tuned,5.258562,0.876976,experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json
 l_lo,kitti_seq_05_full,gt-backed,default,Default,8.784530,5.297614,experiments/results/l_lo_kitti_seq_05_full_matrix.json
+l_lo,kitti_seq_06_full,gt-backed,seq07_tuned,Seq 07 tuned,5.790600,3.258728,experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json
 l_lo,kitti_seq_07_full,gt-backed,default,Default,2.045184,5.100472,experiments/results/l_lo_kitti_seq_07_full_matrix.json
 l_lo,kitti_seq_07_full,gt-backed,cell_0p35_gtol_0p15_range_80_min15,cell 0p35 gtol 0p15 range 80 min15,2.561389,7.720798,experiments/results/l_lo_kitti_seq_07_combo_sweep_matrix.json
 l_lo,kitti_seq_07_full,gt-backed,sor_std_2,sor std 2,1.997559,6.785316,experiments/results/l_lo_kitti_seq_07_cluster_sweep_matrix.json
@@ -286,6 +295,8 @@ l_lo,kitti_seq_07_full,gt-backed,voxel_0p4,voxel 0p4,3.178477,22.942715,experime
 l_lo,kitti_seq_07_full,gt-backed,rounds_600_tol_1e5,rounds 600 tol 1e5,2.045184,5.869758,experiments/results/l_lo_kitti_seq_07_registration_sweep_matrix.json
 l_lo,kitti_seq_07_full,gt-backed,pitch_band_10_40,pitch band 10 40,1.957085,5.133734,experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json
 l_lo,kitti_seq_08_full,gt-backed,default,Default,32.661959,3.748625,experiments/results/l_lo_kitti_seq_08_full_matrix.json
+l_lo,kitti_seq_09_full,gt-backed,seq07_tuned,Seq 07 tuned,36.395648,1.161962,experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json
+l_lo,kitti_seq_10_full,gt-backed,seq07_tuned,Seq 07 tuned,8.631909,1.308518,experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json
 lego_loam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.225549,21.813787,experiments/results/lego_loam_hdl_400_reference_matrix.json
 lego_loam,kitti_raw_0009_200,gt-backed,fast,Fast,3.216463,9.939628,experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json
 lego_loam,kitti_raw_0009_200,gt-backed,fast,Fast,3.216463,8.914729,experiments/results/lego_loam_kitti_raw_0009_matrix.json
@@ -301,11 +312,17 @@ lego_loam,mcd_kth_day_06_108,gt-backed,fast,Fast,6.098881,9.923787,experiments/r
 lego_loam,mcd_ntu_day_02_108,gt-backed,fast,Fast,0.078650,8.362960,experiments/results/lego_loam_mcd_ntu_day_02_matrix.json
 lego_loam,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.401108,10.053788,experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json
 lf_gicp,kitti_seq_00_full,gt-backed,no_mitigation,Vanilla VGICP backend,7.848136,3.754108,experiments/results/lf_gicp_kitti_seq_00_full_matrix.json
+lf_gicp,kitti_seq_01_full,gt-backed,paper_default,Paper default,94.093942,1.996714,experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json
 lf_gicp,kitti_seq_02_full,gt-backed,no_mitigation,Vanilla VGICP backend,27.185742,3.580422,experiments/results/lf_gicp_kitti_seq_02_full_matrix.json
+lf_gicp,kitti_seq_03_full,gt-backed,paper_default,Paper default,5.074145,3.385107,experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json
+lf_gicp,kitti_seq_04_full,gt-backed,paper_default,Paper default,1.719360,2.316361,experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json
 lf_gicp,kitti_seq_05_full,gt-backed,no_mitigation,Vanilla VGICP backend,5.555945,5.392308,experiments/results/lf_gicp_kitti_seq_05_full_matrix.json
+lf_gicp,kitti_seq_06_full,gt-backed,paper_default,Paper default,2.132569,2.267460,experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json
 lf_gicp,kitti_seq_07_full,gt-backed,paper_default,"paper_default (Table 6 variant on seq 07, raw scans)",0.646241,8.765675,experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json
 lf_gicp,kitti_seq_07_full,gt-backed,paper_default,Paper default,0.646241,4.124560,experiments/results/lf_gicp_kitti_seq_07_full_matrix.json
 lf_gicp,kitti_seq_08_full,gt-backed,no_mitigation,Vanilla VGICP backend,16.280087,2.931235,experiments/results/lf_gicp_kitti_seq_08_full_matrix.json
+lf_gicp,kitti_seq_09_full,gt-backed,paper_default,Paper default,7.784214,1.631624,experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json
+lf_gicp,kitti_seq_10_full,gt-backed,paper_default,Paper default,50.981598,2.029845,experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json
 lins,hdl_400_open_ct_lio_120,reference-based,fast,Fast,29.745231,71.863775,experiments/results/lins_hdl_400_reference_matrix.json
 lins,kitti_raw_0009_200,gt-backed,fast,Fast,120.032189,104.959144,experiments/results/lins_kitti_raw_0009_nogt_matrix.json
 lins,kitti_raw_0009_200,gt-backed,fast,Fast,120.032189,120.725712,experiments/results/lins_kitti_raw_0009_matrix.json
@@ -450,7 +467,16 @@ point_lio,mcd_kth_day_06_108,gt-backed,fast,Fast,7.325300,112.691159,experiments
 point_lio,mcd_ntu_day_02_108,gt-backed,fast,Fast,0.082766,77.298267,experiments/results/point_lio_mcd_ntu_day_02_matrix.json
 point_lio,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.158008,88.670076,experiments/results/point_lio_mcd_tuhh_night_09_matrix.json
 quadric_lo,kitti_seq_00_full,gt-backed,dense_profile,"Quadric-LO, dense profile",14.736361,0.807361,experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_01_full,gt-backed,dense_profile,"Quadric-LO, dense profile",98.015538,0.315582,experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_02_full,gt-backed,dense_profile,"Quadric-LO, dense profile",30.983461,0.390326,experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_03_full,gt-backed,dense_profile,"Quadric-LO, dense profile",4.679616,0.397379,experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_04_full,gt-backed,dense_profile,"Quadric-LO, dense profile",1.874842,0.432507,experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_05_full,gt-backed,dense_profile,"Quadric-LO, dense profile",3.082675,0.557575,experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_06_full,gt-backed,dense_profile,"Quadric-LO, dense profile",2.424711,0.405496,experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json
 quadric_lo,kitti_seq_07_full,gt-backed,dense_profile,"Quadric-LO, dense profile",2.129764,0.884944,experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_08_full,gt-backed,dense_profile,"Quadric-LO, dense profile",23.844768,0.289313,experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_09_full,gt-backed,dense_profile,"Quadric-LO, dense profile",10.301027,0.255248,experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json
+quadric_lo,kitti_seq_10_full,gt-backed,dense_profile,"Quadric-LO, dense profile",13.263535,0.285747,experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json
 rko_lio,nclt_2013_01_10_120,gt-backed,no_bias_feedback,Raw gyro prior (gain 0),0.140740,6.926127,experiments/results/rko_lio_nclt_2013_01_10_matrix.json
 small_gicp,hdl_400_open_ct_lio_120,reference-based,fast_recent_map,Fast recent map,0.250871,110.327862,experiments/results/small_gicp_hdl_400_reference_matrix.json
 small_gicp,kitti_raw_0009_200,gt-backed,balanced_local_map,Balanced local map,2.274801,18.720843,experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json

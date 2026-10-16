@@ -92,29 +92,30 @@ values may not reproduce ([drift audit](experiments/results/kitti_drift_audit.js
 ### Paper-number check (official KITTI RTE)
 
 Paper-reported KITTI Odometry error against the repository on the same full
-sequences and the official metric (100–800 m segments). Mesh-LOAM and
-InTEn-LOAM use one fixed variant across all sequences, chosen using 00/07.
-Other rows select the best allowed variant on each evaluated sequence,
-so those ratios are optimistic bounds. Per-sequence values are in
+sequences and the official metric (100–800 m segments). A-LOAM, LF-GICP,
+L-LO, Quadric-LO, Mesh-LOAM and InTEn-LOAM each pin one variant across all
+sequences with paper values; selection sequences are documented in their
+READMEs. Other rows may select among variants on each evaluated sequence,
+which makes those ratios optimistic bounds. Per-sequence values are in
 [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv) and the
 audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 
 | Method | Sequences | Repo / paper | Note |
 |---|---|---:|---|
-| LiTAMIN2 | 00-10 | 1.00x | paper pipeline; one fixed setting on all 11: 1.05x ([details](papers/litamin2/README.md)) |
-| A-LOAM | 00/02/05/07/08 | 1.01x | vs LOAM values cited by later papers |
-| LF-GICP | 00/02/05/07/08 | 0.96x | no author code |
+| LiTAMIN2 | 00-10 | 1.01x | paper pipeline; one fixed setting on all 11: 1.05x ([details](papers/litamin2/README.md)) |
+| A-LOAM | 00-10 | 1.07x | one setting selected on 07; vs secondary-source LOAM values ([details](papers/aloam/README.md#full-kitti-comparison-with-one-configuration)) |
+| LF-GICP | 00-10 | 1.12x | one setting; calibrated on 00 after earlier 02/08 observations; above 2x: 10 (6.71x) ([details](papers/lf_gicp/README.md#full-kitti-comparison-with-one-configuration)) |
 | KISS-ICP | 00/04 | 1.04x | upstream elevation correction; 00-10 average equals the official code's ([details](papers/kiss_icp/README.md#deviations-from-upstream-kiss-icp-130)) |
 | MULLS | 00-10 | 1.12x | MULLS-LO; 00-10 average equals the official code's ([details](papers/mulls/README.md)) |
 | CT-ICP | 00-10 | 1.15x | upstream pipeline; 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
 | SuMa | 00-10 | 0.97x | paper frame-to-model pipeline; 01 (highway) 2.09x; one setting for all 1.25x ([details](papers/suma/README.md#full-sequences)) |
-| Quadric-LO | 00/07 | 0.80x | vs the paper's scan-to-submap table; no author code |
+| Quadric-LO | 00-10 | 0.85x | one setting selected using 00/07; scan-to-submap reference ([details](papers/quadric_lo/README.md#full-kitti-comparison-with-one-configuration)) |
 | DiLO | 00-10 | 0.96x | plane-only paper pipeline, one setting on all 11; 01 (highway) needs a degenerate-direction remap chosen on 01 (8.13x -> 1.42x) ([details](papers/dilo/README.md)) |
 | IMLS-SLAM | 00-10 | 1.05x | paper pipeline, one setting on all 11; a coarse first registration fixes 04, which starts in motion (36x -> 1.29x) ([details](papers/imls_slam/README.md)) |
 | Mesh-LOAM | 00-10 | 1.28x | one fixed setting; no sequence above twice the paper value ([details](papers/mesh_loam/README.md#kitti-00-10-with-one-configuration)) |
 | ELO | 00-10 | 1.22x | gap remains; values chosen on 07, the other ten sequences 0.84-1.43x, none fails ([details](papers/elo/README.md#all-kitti-sequences-00-10)) |
 | InTEn-LOAM | 00-10 | 2.19x | one fixed setting; gaps on 01 (25.96x), 02 (5.97x), 10 (2.57x), with drift diagnostics ([details](papers/inten_loam/README.md#kitti-00-10-with-one-configuration)) |
-| L-LO | 00/02/05/07/08 | 1.58x | gap remains; the paper's 00/07 values are below every roll-free GT trajectory ([why](papers/l_lo/README.md#vertical-pose-and-the-gap-to-the-paper)) |
+| L-LO | 00/02-10 | 1.57x | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x) ([details](papers/l_lo/README.md#full-kitti-comparison-with-one-configuration)) |
 
 Most gaps closed by the same few checks (elevation correction, no deskew on
 KITTI, association with moved points, map biases): see

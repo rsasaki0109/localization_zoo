@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-16T13:18:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -13,10 +13,16 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 3.654 | 6.0 | `experiments/results/aloam_kitti_raw_0061_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.459 | 6.0 | `experiments/results/aloam_kitti_raw_0061_matrix.json` |
 | A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `fast` | 12.044 | 3.0 | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
+| A-LOAM KITTI Odom seq 01 full: fixed-configuration paper comparison | `ready` | `kitti_default` | 172.741 | 1.1 | `experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json` |
 | A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast` | 50.114 | 3.2 | `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json` |
+| A-LOAM KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `kitti_default` | 3.155 | 1.1 | `experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json` |
+| A-LOAM KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `kitti_default` | 4.164 | 0.8 | `experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json` |
 | A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast` | 4.840 | 3.0 | `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json` |
+| A-LOAM KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `kitti_default` | 2.587 | 1.0 | `experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json` |
 | A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames) | `ready` | `fast` | 2.544 | 1.7 | `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json` |
 | A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast` | 18.110 | 2.9 | `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json` |
+| A-LOAM KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `kitti_default` | 8.242 | 0.8 | `experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json` |
+| A-LOAM KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `kitti_default` | 5.619 | 0.8 | `experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.077 | 6.7 | `experiments/results/aloam_mcd_kth_day_06_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense` | 0.035 | 5.8 | `experiments/results/aloam_mcd_ntu_day_02_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.336 | 6.5 | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
@@ -290,7 +296,10 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `experiments/results/kiss_icp_profile_matrix.json` |
 | L-LO on KITTI Odom seq 00 full (4541 frames) | `ready` | `seq07_tuned` | 15.664 | 4.4 | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
 | L-LO on KITTI Odom seq 02 full (4661 frames) | `ready` | `default` | 58.272 | 3.6 | `experiments/results/l_lo_kitti_seq_02_full_matrix.json` |
+| L-LO KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 24.086 | 2.8 | `experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json` |
+| L-LO KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 5.259 | 0.9 | `experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json` |
 | L-LO on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 8.785 | 5.3 | `experiments/results/l_lo_kitti_seq_05_full_matrix.json` |
+| L-LO KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 5.791 | 3.3 | `experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: landmark extraction, finer clustering cells | `ready` | `cluster_cell_0p15` | 1.686 | 17.9 | `experiments/results/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: landmark extraction sweep | `ready` | `sor_std_2` | 1.998 | 6.8 | `experiments/results/l_lo_kitti_seq_07_cluster_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: combinations of the best round-1 settings | `ready` | `cell_0p35_gtol_0p15_range_80_min15` | 2.561 | 7.9 | `experiments/results/l_lo_kitti_seq_07_combo_sweep_matrix.json` |
@@ -299,6 +308,8 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | L-LO on KITTI Odom seq 07 full: pre-processing sweep | `ready` | `voxel_0p4` | 2.013 | 22.9 | `experiments/results/l_lo_kitti_seq_07_preproc_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: registration sweep | `ready` | `rounds_600_tol_1e5` | 2.045 | 5.9 | `experiments/results/l_lo_kitti_seq_07_registration_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 08 full (4071 frames) | `ready` | `default` | 32.662 | 4.0 | `experiments/results/l_lo_kitti_seq_08_full_matrix.json` |
+| L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 36.396 | 1.2 | `experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json` |
+| L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 8.632 | 1.3 | `experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.147 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.865 | 8.9 | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |
@@ -314,11 +325,17 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.036 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.344 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
 | LF-GICP on KITTI Odom seq 00 full (4541 frames) | `ready` | `no_mitigation` | 7.848 | 3.8 | `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json` |
+| LF-GICP KITTI Odom seq 01 full: fixed-configuration paper comparison | `ready` | `paper_default` | 94.094 | 2.0 | `experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json` |
 | LF-GICP on KITTI Odom seq 02 full (4661 frames) | `ready` | `no_mitigation` | 27.186 | 3.6 | `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json` |
+| LF-GICP KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `paper_default` | 5.074 | 3.4 | `experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json` |
+| LF-GICP KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `paper_default` | 1.719 | 2.3 | `experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json` |
 | LF-GICP on KITTI Odom seq 05 full (2761 frames) | `ready` | `no_mitigation` | 5.556 | 5.4 | `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json` |
+| LF-GICP KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `paper_default` | 2.133 | 2.3 | `experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json` |
 | LF-GICP KITTI Odom seq 07 full: elevation correction ablation | `ready` | `paper_default` | 0.646 | 8.8 | `experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json` |
 | LF-GICP on KITTI Odom seq 07 full (1101 frames) | `ready` | `paper_default` | 0.646 | 4.3 | `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json` |
 | LF-GICP on KITTI Odom seq 08 full (4071 frames) | `ready` | `no_mitigation` | 16.280 | 2.9 | `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json` |
+| LF-GICP KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `paper_default` | 7.784 | 1.6 | `experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json` |
+| LF-GICP KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `paper_default` | 50.982 | 2.0 | `experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json` |
 | LINS on the public HDL-400 reference window | `ready` | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.380 | 123.3 | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
 | LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.861 | 120.7 | `experiments/results/lins_kitti_raw_0009_matrix.json` |
@@ -472,7 +489,16 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `fast` | 0.083 | 77.3 | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `fast` | 1.116 | 88.7 | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
 | Quadric-LO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 14.736 | 0.8 | `experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 01 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 98.016 | 0.3 | `experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 02 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 30.983 | 0.4 | `experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 4.680 | 0.4 | `experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 1.875 | 0.4 | `experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 05 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 3.083 | 0.6 | `experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 2.425 | 0.4 | `experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json` |
 | Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_profile` | 2.130 | 0.9 | `experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 08 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 23.845 | 0.3 | `experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 10.301 | 0.3 | `experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json` |
+| Quadric-LO KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `dense_profile` | 13.264 | 0.3 | `experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json` |
 | R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0009_full_matrix.json` |
 | R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0009_matrix.json` |
 | R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0061_full_matrix.json` |
@@ -962,6 +988,42 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
 
 
+## A-LOAM KITTI Odom seq 01 full: fixed-configuration paper comparison
+
+- **Problem ID**: `aloam_kitti_seq_01_full_paper_comp`
+- **Question**: How does the frozen kitti_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 172.741 | 1.1 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 1.1 FPS.
+3. `kitti_default` is the most accurate observed variant at 172.741 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
 ## A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
 
 - **Problem ID**: `aloam_kitti_seq_02_full_transfer`
@@ -1010,6 +1072,78 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
 
 
+## A-LOAM KITTI Odom seq 03 full: fixed-configuration paper comparison
+
+- **Problem ID**: `aloam_kitti_seq_03_full_paper_comp`
+- **Question**: How does the frozen kitti_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 3.155 | 1.1 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 1.1 FPS.
+3. `kitti_default` is the most accurate observed variant at 3.155 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM KITTI Odom seq 04 full: fixed-configuration paper comparison
+
+- **Problem ID**: `aloam_kitti_seq_04_full_paper_comp`
+- **Question**: How does the frozen kitti_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 4.164 | 0.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 0.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 4.164 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
 ## A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
 
 - **Problem ID**: `aloam_kitti_seq_05_full_transfer`
@@ -1055,6 +1189,42 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM KITTI Odom seq 06 full: fixed-configuration paper comparison
+
+- **Problem ID**: `aloam_kitti_seq_06_full_paper_comp`
+- **Question**: How does the frozen kitti_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 2.587 | 1.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 1.0 FPS.
+3. `kitti_default` is the most accurate observed variant at 2.587 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
 
 
@@ -1163,6 +1333,78 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM KITTI Odom seq 09 full: fixed-configuration paper comparison
+
+- **Problem ID**: `aloam_kitti_seq_09_full_paper_comp`
+- **Question**: How does the frozen kitti_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 8.242 | 0.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 0.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 8.242 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM KITTI Odom seq 10 full: fixed-configuration paper comparison
+
+- **Problem ID**: `aloam_kitti_seq_10_full_paper_comp`
+- **Question**: How does the frozen kitti_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 5.619 | 0.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 0.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 5.619 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
 
 
@@ -17408,6 +17650,78 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.5805 frames_below_3_matches=6/4660
 
 
+## L-LO KITTI Odom seq 03 full: fixed-configuration paper comparison
+
+- **Problem ID**: `l_lo_kitti_seq_03_full_paper_comp`
+- **Question**: How does the frozen seq07_tuned configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned | balanced | 24.086 | 2.8 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 2.8 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 24.086 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=32.6987 frames_below_3_matches=0/800
+
+
+## L-LO KITTI Odom seq 04 full: fixed-configuration paper comparison
+
+- **Problem ID**: `l_lo_kitti_seq_04_full_paper_comp`
+- **Question**: How does the frozen seq07_tuned configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned | balanced | 5.259 | 0.9 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 0.9 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 5.259 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.6222 frames_below_3_matches=0/270
+
+
 ## L-LO on KITTI Odom seq 05 full (2761 frames)
 
 - **Problem ID**: `l_lo_kitti_seq_05_full`
@@ -17454,6 +17768,42 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=39.913 frames_below_3_matches=0/2760
+
+
+## L-LO KITTI Odom seq 06 full: fixed-configuration paper comparison
+
+- **Problem ID**: `l_lo_kitti_seq_06_full_paper_comp`
+- **Question**: How does the frozen seq07_tuned configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned | balanced | 5.791 | 3.3 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 3.3 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 5.791 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=54.5791 frames_below_3_matches=0/1100
 
 
 ## L-LO on KITTI Odom seq 07 full: landmark extraction, finer clustering cells
@@ -18054,6 +18404,78 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=43.3509 frames_below_3_matches=0/4070
+
+
+## L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison
+
+- **Problem ID**: `l_lo_kitti_seq_09_full_paper_comp`
+- **Question**: How does the frozen seq07_tuned configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned | balanced | 36.396 | 1.2 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 1.2 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 36.396 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=35.8289 frames_below_3_matches=0/1590
+
+
+## L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison
+
+- **Problem ID**: `l_lo_kitti_seq_10_full_paper_comp`
+- **Question**: How does the frozen seq07_tuned configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned | balanced | 8.632 | 1.3 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 1.3 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 8.632 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Best 100 m RPE on seq 07 across the l_lo_kitti_seq_07_*_sweep manifests (cluster_cell 0.25, ground_tolerance 0.15, max_range 80); applied unchanged, this sequence was not used for choosing.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.2883 frames_below_3_matches=0/1200
 
 
 ## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
@@ -18848,6 +19270,42 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 degenerate_frames=0/4541 median_f0=0.200255 median_lambda0=0.00317741
 
 
+## LF-GICP KITTI Odom seq 01 full: fixed-configuration paper comparison
+
+- **Problem ID**: `lf_gicp_kitti_seq_01_full_paper_comp`
+- **Question**: How does the frozen paper_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 94.094 | 2.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `paper_default` is the current default for this problem.
+2. `paper_default` is the fastest observed variant at 2.0 FPS.
+3. `paper_default` is the most accurate observed variant at 94.094 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=1100/1101 median_f0=0.104511 median_lambda0=0.0110137
+
+
 ## LF-GICP on KITTI Odom seq 02 full (4661 frames)
 
 - **Problem ID**: `lf_gicp_kitti_seq_02_full`
@@ -18896,6 +19354,78 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 degenerate_frames=0/4661 median_f0=0.150836 median_lambda0=0.00247678
 
 
+## LF-GICP KITTI Odom seq 03 full: fixed-configuration paper comparison
+
+- **Problem ID**: `lf_gicp_kitti_seq_03_full_paper_comp`
+- **Question**: How does the frozen paper_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 5.074 | 3.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `paper_default` is the current default for this problem.
+2. `paper_default` is the fastest observed variant at 3.4 FPS.
+3. `paper_default` is the most accurate observed variant at 5.074 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=403/801 median_f0=0.131267 median_lambda0=0.0140053
+
+
+## LF-GICP KITTI Odom seq 04 full: fixed-configuration paper comparison
+
+- **Problem ID**: `lf_gicp_kitti_seq_04_full_paper_comp`
+- **Question**: How does the frozen paper_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 1.719 | 2.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `paper_default` is the current default for this problem.
+2. `paper_default` is the fastest observed variant at 2.3 FPS.
+3. `paper_default` is the most accurate observed variant at 1.719 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=268/271 median_f0=0.129914 median_lambda0=0.0131464
+
+
 ## LF-GICP on KITTI Odom seq 05 full (2761 frames)
 
 - **Problem ID**: `lf_gicp_kitti_seq_05_full`
@@ -18942,6 +19472,42 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 field_beta=0.25 degenerate_frames=0/2761 median_f0=0.180932 median_lambda0=0.0199661
+
+
+## LF-GICP KITTI Odom seq 06 full: fixed-configuration paper comparison
+
+- **Problem ID**: `lf_gicp_kitti_seq_06_full_paper_comp`
+- **Question**: How does the frozen paper_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 2.133 | 2.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `paper_default` is the current default for this problem.
+2. `paper_default` is the fastest observed variant at 2.3 FPS.
+3. `paper_default` is the most accurate observed variant at 2.133 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=3/1101 median_f0=0.152823 median_lambda0=0.0175851
 
 
 ## LF-GICP KITTI Odom seq 07 full: elevation correction ablation
@@ -19086,6 +19652,78 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 degenerate_frames=0/4071 median_f0=0.155066 median_lambda0=0.00238087
+
+
+## LF-GICP KITTI Odom seq 09 full: fixed-configuration paper comparison
+
+- **Problem ID**: `lf_gicp_kitti_seq_09_full_paper_comp`
+- **Question**: How does the frozen paper_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 7.784 | 1.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `paper_default` is the current default for this problem.
+2. `paper_default` is the fastest observed variant at 1.6 FPS.
+3. `paper_default` is the most accurate observed variant at 7.784 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=631/1591 median_f0=0.148221 median_lambda0=0.0161843
+
+
+## LF-GICP KITTI Odom seq 10 full: fixed-configuration paper comparison
+
+- **Problem ID**: `lf_gicp_kitti_seq_10_full_paper_comp`
+- **Question**: How does the frozen paper_default configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 50.982 | 2.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `paper_default` is the current default for this problem.
+2. `paper_default` is the fastest observed variant at 2.0 FPS.
+3. `paper_default` is the most accurate observed variant at 50.982 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=429/1201 median_f0=0.150839 median_lambda0=0.0164201
 
 
 ## LINS on the public HDL-400 reference window
@@ -27866,6 +28504,222 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2763/16 plane_fallback_ratio=0.0059
 
 
+## Quadric-LO KITTI Odom seq 01 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_01_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 98.016 | 0.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.3 FPS.
+3. `dense_profile` is the most accurate observed variant at 98.016 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3602/78 plane_fallback_ratio=0.0211
+
+
+## Quadric-LO KITTI Odom seq 02 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_02_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 30.983 | 0.4 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.4 FPS.
+3. `dense_profile` is the most accurate observed variant at 30.983 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2863/19 plane_fallback_ratio=0.0066
+
+
+## Quadric-LO KITTI Odom seq 03 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_03_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 4.680 | 0.4 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.4 FPS.
+3. `dense_profile` is the most accurate observed variant at 4.680 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3519/25 plane_fallback_ratio=0.0071
+
+
+## Quadric-LO KITTI Odom seq 04 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_04_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 1.875 | 0.4 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.4 FPS.
+3. `dense_profile` is the most accurate observed variant at 1.875 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3418/57 plane_fallback_ratio=0.0163
+
+
+## Quadric-LO KITTI Odom seq 05 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_05_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 3.083 | 0.6 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.6 FPS.
+3. `dense_profile` is the most accurate observed variant at 3.083 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2952/18 plane_fallback_ratio=0.0061
+
+
+## Quadric-LO KITTI Odom seq 06 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_06_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 2.425 | 0.4 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.4 FPS.
+3. `dense_profile` is the most accurate observed variant at 2.425 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3805/40 plane_fallback_ratio=0.0104
+
+
 ## Quadric-LO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
 - **Problem ID**: `quadric_lo_kitti_seq_07_full_paper_comp`
@@ -27900,6 +28754,114 @@ _Generated at 2026-10-15T22:41:07+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2743/14 plane_fallback_ratio=0.0049
+
+
+## Quadric-LO KITTI Odom seq 08 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_08_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 23.845 | 0.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.3 FPS.
+3. `dense_profile` is the most accurate observed variant at 23.845 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3127/25 plane_fallback_ratio=0.0078
+
+
+## Quadric-LO KITTI Odom seq 09 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_09_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 10.301 | 0.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.3 FPS.
+3. `dense_profile` is the most accurate observed variant at 10.301 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3128/27 plane_fallback_ratio=0.0087
+
+
+## Quadric-LO KITTI Odom seq 10 full: fixed-configuration paper comparison
+
+- **Problem ID**: `quadric_lo_kitti_seq_10_full_paper_comp`
+- **Question**: How does the frozen dense_profile configuration compare with the paper on the complete KITTI sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `quadric_lo`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Quadric-LO, dense profile | reference | 13.264 | 0.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 0.3 FPS.
+3. `dense_profile` is the most accurate observed variant at 13.264 m ATE.
+
+### Variant Notes
+
+#### `dense_profile`
+
+- Intent: Profile used for the repository's KITTI full-sequence runs (see the method README).
+- CLI args: `--no-gt-seed --quadric-lo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile`
+- Summary: `experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2568/17 plane_fallback_ratio=0.0064
 
 
 ## R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)

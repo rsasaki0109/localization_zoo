@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-10-16T13:18:28+00:00",
+  "manifest_path": "experiments/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "lf_gicp_kitti_seq_10_full_paper_comp",
+    "title": "LF-GICP KITTI Odom seq 10 full: fixed-configuration paper comparison",
+    "question": "How does the frozen paper_default configuration compare with the paper on the complete KITTI sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lf_gicp",
+    "primary_method": "LF-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_default",
+      "label": "Paper default",
+      "design_style": "balanced",
+      "intent": "Paper Table SI constants with the localizability-field gate and soft Fisher weighting.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/summary.json",
+      "summary_path": "experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/summary.json",
+      "log_path": "experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/run.log",
+      "status": "ok",
+      "ate_m": 50.981598,
+      "rpe_trans_pct": 2.45454,
+      "rpe_rot_deg_per_m": 0.018687,
+      "fps": 2.029845,
+      "time_ms": 591670.792661,
+      "frames": 1201,
+      "note": "Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=429/1201 median_f0=0.150839 median_lambda0=0.0164201",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 5.616436,
+      "kitti_rte_rot_deg_per_100m": 1.638993,
+      "host": {
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.44",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

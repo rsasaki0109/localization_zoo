@@ -1,0 +1,17 @@
+{
+  "sequence": "05",
+  "results": [
+    {
+      "sequence": "05",
+      "method": "quadric_lo",
+      "label": "Quadric-LO",
+      "variant": "dense_profile",
+      "frames": 2761,
+      "kitti_rte_trans_pct": 0.587992,
+      "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/quadric_lo/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile",
+      "finished_unix": 1792129030.073391
+    }
+  ],
+  "scans_deleted": true,
+  "finished_unix": 1792129031.2976964
+}

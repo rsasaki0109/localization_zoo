@@ -1,0 +1,10 @@
+{
+  "sequence": "06",
+  "method": "aloam",
+  "label": "A-LOAM",
+  "variant": "kitti_default",
+  "frames": 1101,
+  "kitti_rte_trans_pct": 0.602165,
+  "source_directory": "/workspace/localization-env/remaining-kitti-coverage-results/aloam/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default",
+  "finished_unix": 1792130311.5976367
+}

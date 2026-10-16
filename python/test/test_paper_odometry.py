@@ -82,9 +82,11 @@ class PaperBindings(unittest.TestCase):
                                        check=True, capture_output=True, text=True)
             reference = np.loadtxt(io.StringIO(completed.stdout), delimiter=',')
             odometry = lz.DiloPaperOdometry()
-            actual = np.array([[*pose.reshape(-1), state, support]
-                               for _, scan in scans
-                               for pose, state, support in [process(odometry, 'dilo_paper', scan)]])
+            rows = []
+            for _, scan in scans:
+                pose, state, support = process(odometry, 'dilo_paper', scan)
+                rows.append([*pose.reshape(-1), state, support])
+            actual = np.asarray(rows)
             self.assertGreater(np.linalg.norm(reference[-1, :16].reshape(4, 4) - np.eye(4)), 1e-6)
             np.testing.assert_allclose(actual, reference, rtol=0, atol=1e-12)
             self.reports['dilo_synthetic'] = {

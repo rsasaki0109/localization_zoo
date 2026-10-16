@@ -62,6 +62,11 @@ position-error increases, each with GT travel distance and frame bounds. This
 keeps low-motion relative errors in context. The
 [partial error-growth report and checked execution](checks/reporting_error_growth/)
 use committed inputs and remain explicitly incomplete.
+The report additionally requires both official translation and rotation RTE
+of the existing audit cells to match their committed selected aggregates,
+supplementing the audit CLI's RPE, ATE and frame-count checks.
+[The partial execution receipt](checks/reporting_official_metrics/command.json)
+records this check against the completed sequences.
 
 [`plot_sequence.py`](plot_sequence.py) plots saved full-sequence poses from one
 committed snapshot. The [01 trace](plots/01/trace.png),

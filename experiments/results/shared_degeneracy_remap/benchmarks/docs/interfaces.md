@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-16T22:25:31+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_degeneracy_remap/benchmarks/index.json`._
+_Generated at 2026-10-16T22:42:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_degeneracy_remap/benchmarks/index.json`._
 
 ## Stable Core
 
@@ -8,7 +8,7 @@ _Generated at 2026-10-16T22:25:31+00:00 by `evaluation/scripts/run_experiment_ma
 
 `<stable_binary> <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path> [dataset flags...] [variant flags...]`
 
-Current active binaries: `experiments/results/shared_degeneracy_remap/native_wrapper.py`
+Current active binaries: `build/evaluation/pcd_dogfooding`, `experiments/results/shared_degeneracy_remap/native_wrapper.py`
 
 ### Summary JSON Contract
 
@@ -81,4 +81,5 @@ The runner is responsible for:
 
 | Problem | Status | Manifest | Selector | Current Default | Aggregate |
 |---------|--------|----------|----------|-----------------|-----------|
+| SuMa shared translation remap on KITTI 00 full | `ready` | `experiments/suma_kitti_seq_00_full_shared_remap_matrix.json` | `suma` | `shared_remap_003` | `experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_00_full_shared_remap_matrix.json` |
 | SuMa shared translation remap on KITTI 01 full | `ready` | `experiments/suma_kitti_seq_01_full_shared_remap_matrix.json` | `suma` | `shared_remap_003` | `experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_01_full_shared_remap_matrix.json` |

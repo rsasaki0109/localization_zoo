@@ -1,5 +1,9 @@
 # DiLO
 
+Paper-path interfaces: [Python API and examples](../../python/README.md#stateful-paper-pipelines),
+[ROS 2 nodes](../../ros2/localization_zoo_ros/README.md#paper-odometry-nodes).
+[Native fixture checks](../../experiments/results/paper_pipeline_bindings/README.md).
+
 From-paper reimplementation of **DiLO: Direct light detection and ranging
 odometry based on spherical range images for autonomous driving**
 (Han et al., ETRI Journal, 2021, doi:10.4218/etrij.2021-0088).

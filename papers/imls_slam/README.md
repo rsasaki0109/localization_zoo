@@ -1,5 +1,9 @@
 # IMLS-SLAM
 
+Paper-path interfaces: [Python API and examples](../../python/README.md#stateful-paper-pipelines),
+[ROS 2 nodes](../../ros2/localization_zoo_ros/README.md#paper-odometry-nodes).
+[Native fixture checks](../../experiments/results/paper_pipeline_bindings/README.md).
+
 暗黙的移動最小二乗 (Implicit Moving Least Squares, IMLS) 曲面への scan-to-model
 マッチングによる LiDAR オドメトリ。**IMLS-SLAM: scan-to-model matching based on
 3D data** (J.-E. Deschaud, ICRA 2018, arXiv:1802.08633) の from-paper 再構成。

@@ -176,7 +176,8 @@ workflows (KITTI preparation, matrices, smoke checks) are in
 
 ### Python bindings (experimental)
 
-pybind11 bindings for KISS-ICP, NDT, GICP and LiTAMIN2
+pybind11 bindings for KISS-ICP, NDT, GICP, LiTAMIN2, and the stateful
+SuMa, IMLS-SLAM, DiLO and LiTAMIN2 paper paths
 ([API](python/README.md)):
 
 ```bash

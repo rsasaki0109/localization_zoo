@@ -45,5 +45,19 @@ launch command and environment choices are in [the launcher receipt](real_fixtur
 The replay paths in the raw reports name that original scratch directory; their
 imported summary/log files are the corresponding `*_replay/` directories here.
 
+## Release and regression checks
+
+[Committed check receipts](checks/commands.json) record a successful Release
+configure/build, all 122 CTest entries, all 290 Python regressions, showcase,
+leaderboard, paper-ready, syntax and whitespace checks. Every process exit was
+checked directly. The implementation source files remain identical to the
+protocol's pinned commit.
+
+[Preservation checks](checks/preservation.json) confirm that all 688 historical
+matrix aggregates, `paper_reported_numbers.json`, Table 6 CSV, the root README,
+`docs/index.html` and the historical full drift audit are unchanged. No new KITTI
+scans were fetched for this tooling change. Shared robustness extraction and its
+full-sequence evaluation remain separate work; this PR does not close them.
+
 [User procedure and exit-code contract](../../../docs/kitti_drift_audit.md).
 The historical full audit and published result aggregates are preserved.

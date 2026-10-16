@@ -160,6 +160,9 @@ are recorded separately; a new paper reproduction claim is not made here.
 
 [Committed full run and commands](../../experiments/results/shared_degeneracy_remap/sequences/01/comparison.json),
 [saved-pose diagnostics](../../experiments/results/shared_degeneracy_remap/sequences/01/candidate_drift.json).
+The [saved-pose trace](../../experiments/results/shared_degeneracy_remap/plots/01/trace.png)
+plots successive displacement and pointwise position error without refitting
+or rescaling the paths; the plotted position error is separate from official RTE.
 The candidate's path-length ratio to GT is 0.031934; all 1100 moving steps
 (GT step at least 0.1 m, destination frames 1–1100) have a length error above
 20%. The failure is present from startup. These saved poses locate the failure

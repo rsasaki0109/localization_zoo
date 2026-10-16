@@ -53,3 +53,11 @@ CSV and a method-README table without a paper ratio or a speed claim.
 [coverage-guard check receipts](checks/reporting/commands.json) exercise refusal
 of incomplete coverage and explicit partial reporting against the committed
 first sequence; the source files and execution commands are retained.
+
+[`plot_sequence.py`](plot_sequence.py) plots saved full-sequence poses from one
+committed snapshot. The [01 trace](plots/01/trace.png),
+[SVG](plots/01/trace.svg), [numeric trace](plots/01/trace.csv) and
+[provenance](plots/01/provenance.json) show successive displacement and position
+error in the saved evaluation frame. They do not fit or rescale either path;
+the position-error trace is distinct from the official segment-based RTE.
+[Command and checked exit](plots/01/command.json) accompany the figure.

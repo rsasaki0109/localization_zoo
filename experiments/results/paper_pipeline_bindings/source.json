@@ -1,0 +1,7 @@
+{
+  "source_commit": "98c2f56f16397f73c7fe93bc566ac0c3538747db",
+  "base_commit": "134ead2f21a4611ec328a45aa543b31428d6b92c",
+  "branch": "codex/paper-pipeline-bindings",
+  "scope": "Native paper interfaces only; PR132 speed branch remains unmerged and independent",
+  "nclt": "Enforced policy observed97 still omits approved s3.us-east-2.amazonaws.com"
+}

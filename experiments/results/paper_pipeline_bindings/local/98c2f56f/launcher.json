@@ -1,0 +1,8 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-bindings/run_local_cpp.py"
+  ],
+  "pid": 45229,
+  "started_unix": 1792183440.3927162
+}

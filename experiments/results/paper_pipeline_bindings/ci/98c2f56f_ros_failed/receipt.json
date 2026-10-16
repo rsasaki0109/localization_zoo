@@ -1,0 +1,31 @@
+{
+  "source_commit": "98c2f56f16397f73c7fe93bc566ac0c3538747db",
+  "workflow_run_id": 38964422588,
+  "job_id": 117187227407,
+  "job_conclusion": "failure",
+  "runtime_test_exit_code": 1,
+  "log_tool": {
+    "name": "github_fetch_workflow_job_logs",
+    "arguments": {
+      "repo_full_name": "rsasaki0109/localization_zoo",
+      "job_id": 117187227407
+    }
+  },
+  "incomplete_methods": {
+    "suma_paper": {
+      "expected_scan_outputs": 3,
+      "observed_scan_outputs": 0,
+      "missing_stamp": 100
+    },
+    "imls_slam_paper": {
+      "expected_scan_outputs": 3,
+      "observed_scan_outputs": 2,
+      "missing_stamp": 102
+    }
+  },
+  "complete_methods": [
+    "dilo_paper",
+    "litamin2_paper"
+  ],
+  "next": "Evaluate explicitly selected reliable input QoS without altering scans, core defaults, or parity assertions."
+}

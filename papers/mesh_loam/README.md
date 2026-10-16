@@ -346,6 +346,21 @@ with equal cache settings. The failed full-CTest receipt and memory estimates
 are preserved in `6235f89c` under
 [`candidates/3541f773/`](../../experiments/results/paper_pipeline_speed/candidates/3541f773/).
 
+Repeated development windows (first 120 KITTI 07 frames, four workers,
+profiler disabled; every source and exact command is in the linked evidence):
+
+| Source | Frozen control [s] | Changed default [s] | Opt-in [s] | Control / opt-in |
+|---|---:|---:|---:|---:|
+| `fe607199` | 117.877 | 105.840 | 168.128 | 0.70x |
+| `fe03ed88` | 66.421 | 60.205 | 76.264 | 0.87x |
+| `67867d0b` | 95.673 | 92.271 | 111.466 | 0.86x |
+
+All saved poses agree with the frozen control at the saved precision (nine
+significant digits). Execution time varies substantially, including between
+unchanged method implementations. These windows do not establish the full
+speed target. The primary full comparison uses fresh immediately preceding
+controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
+
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 record the development on KITTI 07. Paired full-sequence timing and accuracy
 verification are in progress; this option has no published speed claim yet.

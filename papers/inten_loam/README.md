@@ -502,12 +502,28 @@ is not a full-sequence claim. Raw evidence and exact commands were committed in
 
 A later soft-pause scheduling candidate (`fe03ed88`) took 26.305 s against
 35.078 s for its frozen control (**1.33x**); the changed default took 32.961 s.
-Saved poses still matched. It did not improve on the earlier screening result,
-so the soft-pause calls are removed. These single-window timings vary with the
+Saved poses still matched. The repeat at `67867d0b` used the same InTEn implementation and produced a
+larger ratio with a much slower control, as the table below shows. Scheduling
+benefit remains uncertain; the final candidate excludes soft-pause calls. These single-window timings vary with the
 host; final speed ratios use a fresh full control immediately before each
 accelerated run. The rejected candidate's raw screening was committed in
 `21935329` under
 [`candidates/fe03ed88/`](../../experiments/results/paper_pipeline_speed/candidates/fe03ed88/).
+
+Repeated development windows (first 120 KITTI 07 frames, four workers,
+profiler disabled; every source and exact command is in the linked evidence):
+
+| Source | Frozen control [s] | Changed default [s] | Opt-in [s] | Control / opt-in |
+|---|---:|---:|---:|---:|
+| `fe607199` | 45.685 | 34.105 | 18.661 | 2.45x |
+| `fe03ed88` | 35.078 | 32.961 | 26.305 | 1.33x |
+| `67867d0b` | 74.308 | 32.637 | 15.464 | 4.81x |
+
+All saved poses agree with the frozen control at the saved precision (nine
+significant digits). Execution time varies substantially, including between
+unchanged method implementations. These windows do not establish the full
+speed target. The primary full comparison uses fresh immediately preceding
+controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
 
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 record the development on KITTI 07. Paired full-sequence timing and accuracy

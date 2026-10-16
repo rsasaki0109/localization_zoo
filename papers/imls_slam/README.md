@@ -174,6 +174,21 @@ model, including absent cells and the original traversal order. Caches are
 recreated for each coarse/fine registration call; they never retain projected
 values across iterations or model changes.
 
+Repeated development windows (first 120 KITTI 07 frames, four workers,
+profiler disabled; every source and exact command is in the linked evidence):
+
+| Source | Frozen control [s] | Changed default [s] | Opt-in [s] | Control / opt-in |
+|---|---:|---:|---:|---:|
+| `fe607199` | 160.513 | 194.906 | 79.561 | 2.02x |
+| `fe03ed88` | 115.240 | 157.179 | 46.903 | 2.46x |
+| `67867d0b` | 118.768 | 173.868 | 78.127 | 1.52x |
+
+All saved poses agree with the frozen control at the saved precision (nine
+significant digits). Execution time varies substantially, including between
+unchanged method implementations. These windows do not establish the full
+speed target. The primary full comparison uses fresh immediately preceding
+controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
+
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 record the development on KITTI 07. Paired full-sequence timing and accuracy
 verification are in progress; this option has no published speed claim yet.

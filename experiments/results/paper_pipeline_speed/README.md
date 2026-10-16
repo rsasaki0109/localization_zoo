@@ -56,15 +56,18 @@ The revised packet candidate (`fe03ed88`) also proved slower: 76.264 s against
 66.421 s for its frozen control (**0.87x**), with identical saved poses. Its
 IMLS cell cache gave **2.46x** in the same development window. InTEn soft-pause
 scheduling gave **1.33x**, below the earlier candidate's **2.45x** screening
-result; soft-pause calls are rejected. The complete raw runs were committed in
+result. The unchanged InTEn implementation in `67867d0b` later gave **4.81x**
+with a much slower control (`f3c6b9f3`). Scheduling benefit is uncertain; the
+final candidate excludes soft-pause calls. All windows remain in the method
+READMEs rather than selecting the most favorable one. The complete raw runs were committed in
 `21935329`. Sampling profiles are in `97cf50af` and `d8fed75a`; CPU attribution
 is not a stage wall-time percentage.
 
 Source `67867d0b` replaces Mesh's per-facet packet cache with a reference normal
 and a conservative bound per bin. It keeps the original scalar facet loop for
 survivors. Its build and full CTest pass; receipts were committed in `0d4f37ad`.
-Final source `f4755573` also removes InTEn soft-pause scheduling. Final build,
-screening and paired full-sequence validation are pending.
+Final source `f4755573` also removes InTEn soft-pause scheduling. Final build has passed; its full CTest, screening and paired full-sequence
+validation are in progress.
 
 Identical frozen Mesh controls took 117.877 s in the first screening and
 66.421 s in the later screening. To account for execution-time variation, the

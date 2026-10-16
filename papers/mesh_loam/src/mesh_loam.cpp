@@ -471,89 +471,29 @@ void MeshLoamPipeline::FacetBin::recomputeBounds() {
   for (const Facet& f : facets) expand(f);
 }
 
-void MeshLoamPipeline::FacetBin::buildFilters() {
-  // A copied pipeline may share this read-only cache. Detach before rebuilding.
-  if (!filters || !filters.unique()) filters = std::make_shared<Filters>();
-  filters->stride = (facets.size() + 3) / 4 * 4;
-  filters->values.resize(6 * filters->stride);
-  for (size_t i = 0; i < facets.size(); ++i) {
-    const Facet& f = facets[i];
-    const Eigen::Vector3f sum = f.a + f.b + f.c;
-    for (int axis = 0; axis < 3; ++axis) {
-      filters->values[axis * filters->stride + i] = f.n(axis);
-      filters->values[(axis + 3) * filters->stride + i] = sum(axis);
-    }
+void MeshLoamPipeline::FacetBin::buildNormalBounds() {
+  normal_radius = std::numeric_limits<float>::infinity();
+  if (facets.empty()) return;
+  normal_ref = facets.front().n;
+  const Eigen::Vector3d ref = normal_ref.cast<double>();
+  double radius = 0.0;
+  for (const Facet& f : facets) {
+    Eigen::Vector3d n = f.n.cast<double>();
+    // Association uses |cos|, so both signs describe the same normal gate.
+    if (n.dot(ref) < 0.0) n = -n;
+    radius = std::max(radius, (n - ref).cwiseAbs().sum());
   }
+  normal_radius = std::nextafter(static_cast<float>(radius),
+                                  std::numeric_limits<float>::infinity());
 }
 
-const MeshLoamPipeline::Facet* MeshLoamPipeline::FacetBin::nearest(
-    const Eigen::Vector3d& relative, const Eigen::Vector3d& normal,
-    double cos_gate, double* best, Eigen::Vector3d* best_relative) const {
-  if (!filters || facets.empty()) return nullptr;
-  const Eigen::Vector3f normal_f = normal.cast<float>();
-  const Eigen::Vector3f relative_f = relative.cast<float>();
-  const float cos_gate_f = static_cast<float>(cos_gate) - 1e-5f;
-  float bound = static_cast<float>(std::sqrt(*best)) + 1e-5f;
-  float bound2 = bound * bound;
-  float centroid_bound = bound + max_rad;
-  float centroid_bound2 = centroid_bound * centroid_bound;
-  const float* v = filters->values.data();
-  const size_t stride = filters->stride;
-  // Scale the additional broad-filter slack for non-KITTI search-bin sizes.
-  // The scalar tests below, with their original fixed slack, remain decisive.
-  const float scale = std::max(1.0f, relative_f.cwiseAbs().maxCoeff() +
-      lo.cwiseAbs().cwiseMax(hi.cwiseAbs()).maxCoeff() + max_rad);
-  const float extra_slack = 1e-5f + 32.0f * std::numeric_limits<float>::epsilon() * scale;
-  const Facet* found = nullptr;
-  for (size_t first = 0; first < facets.size(); first += 4) {
-    using Packet = Eigen::Array4f;
-    const Eigen::Map<const Packet> nx(v + first), ny(v + stride + first),
-        nz(v + 2 * stride + first);
-    const Eigen::Array<bool, 4, 1> normal_match =
-        (nx * normal_f.x() + ny * normal_f.y() + nz * normal_f.z()).abs() >=
-        static_cast<float>(cos_gate) - 2e-5f;
-    // Nearby facets usually share an orientation. Avoid loading centroids or
-    // computing distance bounds when every lane fails the cheap normal gate.
-    if (!normal_match.any()) continue;
-    const Eigen::Map<const Packet> sx(v + 3 * stride + first),
-        sy(v + 4 * stride + first), sz(v + 5 * stride + first);
-    const Packet dx = relative_f.x() - sx * (1.0f / 3.0f);
-    const Packet dy = relative_f.y() - sy * (1.0f / 3.0f);
-    const Packet dz = relative_f.z() - sz * (1.0f / 3.0f);
-    const Packet plane = nx * dx + ny * dy + nz * dz;
-    // Recheck survivors with the original arithmetic and the latest bound;
-    // packet rounding never decides an association or changes the tie order.
-    const float broad = bound + extra_slack;
-    const float broad_centroid = broad + max_rad;
-    const Eigen::Array<bool, 4, 1> possible = normal_match &&
-        (plane.square() <= broad * broad) &&
-        (dx.square() + dy.square() + dz.square() <= broad_centroid * broad_centroid);
-    for (size_t lane = 0; lane < 4 && first + lane < facets.size(); ++lane) {
-      if (!possible(static_cast<int>(lane))) continue;
-      const size_t i = first + lane;
-      const Facet& f = facets[i];
-      if (std::abs(f.n.dot(normal_f)) < cos_gate_f) continue;
-      const Eigen::Vector3f sum(v[3 * stride + i], v[4 * stride + i], v[5 * stride + i]);
-      const Eigen::Vector3f d0f = relative_f - sum * (1.0f / 3.0f);
-      const float scalar_plane = f.n.dot(d0f);
-      if (scalar_plane * scalar_plane > bound2 || d0f.squaredNorm() > centroid_bound2) continue;
-      const Eigen::Vector3d fn = f.n.cast<double>();
-      if (std::abs(fn.dot(normal)) < cos_gate) continue;
-      const double distance = pointTriangleDist2(relative, f.a.cast<double>(), f.b.cast<double>(),
-                                                f.c.cast<double>());
-      // Original facet order and strict comparison retain the legacy tie rule.
-      if (distance < *best) {
-        *best = distance;
-        found = &f;
-        *best_relative = relative - sum.cast<double>() / 3.0;
-        bound = static_cast<float>(std::sqrt(*best)) + 1e-5f;
-        bound2 = bound * bound;
-        centroid_bound = bound + max_rad;
-        centroid_bound2 = centroid_bound * centroid_bound;
-      }
-    }
-  }
-  return found;
+double MeshLoamPipeline::FacetBin::normalUpper(const Eigen::Vector3d& normal) const {
+  // Holder's inequality bounds every absolute dot in the bin, including
+  // normals with the opposite sign. Inflate for arithmetic rounding; the
+  // surviving facets still take the unchanged scalar float/double gates.
+  const double slack = 1e-12 * std::max(1.0, normal.cwiseAbs().sum());
+  return std::abs(normal_ref.cast<double>().dot(normal)) +
+         static_cast<double>(normal_radius) * normal.cwiseAbs().maxCoeff() + slack;
 }
 
 MeshLoamPipeline::MeshLoamPipeline(const MeshLoamParams& params) : params_(params) {
@@ -626,8 +566,6 @@ size_t MeshLoamPipeline::memoryBytes() const {
   bytes += facet_bins_.bucket_count() * sizeof(void*);
   for (const auto& entry : facet_bins_) {
     bytes += kNode + sizeof(FacetBin) + entry.second.facets.capacity() * sizeof(Facet);
-    bytes += (entry.second.filters ? sizeof(FacetBin::Filters) +
-                 entry.second.filters->values.capacity() * sizeof(float) : 0);
   }
   for (const auto& entry : frozen_) {
     const FrozenChunk& c = entry.second;
@@ -1238,7 +1176,7 @@ void MeshLoamPipeline::extractMesh() {
       } else {
         for (uint32_t m = s0; m < s1; ++m) fb.expand(bucketed[m]);
       }
-      if (params_.accelerated && params_.nearest_facet) fb.buildFilters();
+      if (params_.accelerated && params_.nearest_facet) fb.buildNormalBounds();
       delta_local += static_cast<long>(bin.size()) - static_cast<long>(before);
     }
     delta[static_cast<size_t>(threadId())] += delta_local;
@@ -1354,7 +1292,7 @@ void MeshLoamPipeline::pruneMap() {
     } else {
       if (bin.size() != before) {
         it->second.recomputeBounds();
-        if (params_.accelerated && params_.nearest_facet) it->second.buildFilters();
+        if (params_.accelerated && params_.nearest_facet) it->second.buildNormalBounds();
       }
       ++it;
     }
@@ -1385,7 +1323,7 @@ void MeshLoamPipeline::thawChunk(const Eigen::Vector3i& chunk) {
       ++num_facets_;
     }
     if (bin.facets.empty()) facet_bins_.erase(c.bins[i]);
-    else if (params_.accelerated && params_.nearest_facet) bin.buildFilters();
+    else if (params_.accelerated && params_.nearest_facet) bin.buildNormalBounds();
   }
   frozen_.erase(it);
 }
@@ -1558,11 +1496,7 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
                                           .cwiseMax(rel - bin->hi.cast<double>())
                                           .cwiseMax(0.0);
           if (gap.squaredNorm() >= best) continue;
-          if (params_.accelerated && bin->filters) {
-            const Facet* found = bin->nearest(rel, n_pt, cos_gate, &best, &best_rel);
-            if (found) best_facet = found;
-            continue;
-          }
+          if (params_.accelerated && bin->normalUpper(n_pt) < cos_gate) continue;
           // Lower bounds of the point-triangle distance evaluated in float
           // with a margin above the float rounding (|rel| < 1 m), then the
           // exact gate and distance in double for the survivors.

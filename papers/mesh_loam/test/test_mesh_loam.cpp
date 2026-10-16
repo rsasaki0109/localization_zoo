@@ -15,86 +15,54 @@ using namespace localization_zoo::mesh_loam;
 namespace localization_zoo {
 namespace mesh_loam {
 struct MeshLoamTestAccess {
-  static void checkFacetFilters() {
+  static void checkNormalBounds() {
     MeshLoamPipeline::FacetBin bin;
-    double best = 1.0;
-    Eigen::Vector3d relative;
-    bin.buildFilters();
-    EXPECT_EQ(bin.nearest(Eigen::Vector3d::Zero(), Eigen::Vector3d::UnitZ(), .98,
-                          &best, &relative), nullptr);
-    // Two complete unit squares at z=0 and z=1/4, triangulated into a dense
-    // bin. The distance to their union is available analytically, independent
-    // of the cache and triangle-distance implementation.
-    for (int plane = 0; plane < 2; ++plane)
-      for (int x = 0; x < 4; ++x)
-        for (int y = 0; y < 4; ++y)
-          for (int triangle = 0; triangle < 2; ++triangle) {
-            MeshLoamPipeline::Facet f;
-            const float x0 = .25f * x, y0 = .25f * y, z = .25f * plane;
-            f.a = Eigen::Vector3f(x0, y0, z);
-            f.b = triangle == 0 ? Eigen::Vector3f(x0 + .25f, y0, z)
-                                : Eigen::Vector3f(x0 + .25f, y0 + .25f, z);
-            f.c = triangle == 0 ? Eigen::Vector3f(x0 + .25f, y0 + .25f, z)
-                                : Eigen::Vector3f(x0, y0 + .25f, z);
-            f.n = Eigen::Vector3f::UnitZ();
-            f.owner[0] = static_cast<int8_t>(bin.facets.size());
-            f.owner[1] = f.owner[2] = 0;
-            bin.add(f);
-          }
-    auto duplicate = bin.facets.front();
-    duplicate.owner[0] = 99;
-    bin.add(duplicate);
-    bin.buildFilters();
-    for (int x = -2; x <= 10; ++x)
-      for (int y = -2; y <= 10; ++y)
-        for (double z : {-.125, .0625, .125, .375}) {
-          const Eigen::Vector3d p(.125 * x, .125 * y, z);
-          const double dx = std::max({0.0, -p.x(), p.x() - 1.0});
-          const double dy = std::max({0.0, -p.y(), p.y() - 1.0});
-          const double dz = std::min(std::abs(z), std::abs(z - .25));
-          best = 4.0;
-          ASSERT_NE(bin.nearest(p, Eigen::Vector3d::UnitZ(), .98, &best, &relative), nullptr);
-          EXPECT_NEAR(best, dx * dx + dy * dy + dz * dz, 1e-12);
-        }
-    best = 4.0;
-    const auto* tie = bin.nearest(Eigen::Vector3d(.125, .0625, .0625),
-                                   Eigen::Vector3d::UnitZ(), .98, &best, &relative);
-    ASSERT_NE(tie, nullptr);
-    EXPECT_EQ(tie->owner[0], 0);  // first facet in stored order
-    best = 1.0;
-    EXPECT_EQ(bin.nearest(Eigen::Vector3d(.125, .0625, 1.25), Eigen::Vector3d::UnitZ(),
-                          .98, &best, &relative), nullptr);  // strict initial distance gate
-    best = 4.0;
-    EXPECT_EQ(bin.nearest(Eigen::Vector3d(.125, .0625, .0625), Eigen::Vector3d::UnitX(),
-                          .98, &best, &relative), nullptr);
-    // Broad packet gates must not decide the double-precision cosine gate.
-    for (double cosine : {std::nextafter(.98, 0.0), .98, std::nextafter(.98, 1.0)}) {
-      const Eigen::Vector3d n(std::sqrt(1.0 - cosine * cosine), 0.0, cosine);
-      best = 4.0;
-      const auto* hit = bin.nearest(Eigen::Vector3d(.125, .0625, .0625), n,
-                                    .98, &best, &relative);
-      EXPECT_EQ(hit != nullptr, cosine >= .98);
+    bin.buildNormalBounds();
+    EXPECT_TRUE(std::isinf(bin.normalUpper(Eigen::Vector3d::UnitZ())));
+    for (int i = 0; i < 65; ++i) {
+      MeshLoamPipeline::Facet f;
+      const auto R = Eigen::AngleAxisf(.001f * i, Eigen::Vector3f::UnitX()).toRotationMatrix();
+      f.a = Eigen::Vector3f::Zero();
+      f.b = R * Eigen::Vector3f::UnitX();
+      f.c = R * Eigen::Vector3f::UnitY();
+      f.n = f.b.cross(f.c).normalized();
+      if (i % 2) f.n = -f.n;  // |cos| gate must also cover reversed windings
+      f.owner[0] = f.owner[1] = f.owner[2] = 0;
+      bin.add(f);
     }
-    auto copied = bin;  // independent rebuild must not mutate a shared cache
-    bin.facets.erase(std::remove_if(bin.facets.begin(), bin.facets.end(),
-                                     [](const auto& f) { return f.a.z() == 0.0f; }), bin.facets.end());
-    bin.recomputeBounds();
-    bin.buildFilters();
-    best = 4.0;
-    ASSERT_NE(bin.nearest(Eigen::Vector3d(.125, .0625, -.0625), Eigen::Vector3d::UnitZ(),
-                          .98, &best, &relative), nullptr);
-    EXPECT_DOUBLE_EQ(best, .3125 * .3125);
-    best = 4.0;
-    ASSERT_NE(copied.nearest(Eigen::Vector3d(.125, .0625, -.0625),
-                            Eigen::Vector3d::UnitZ(), .98, &best, &relative), nullptr);
-    EXPECT_DOUBLE_EQ(best, .0625 * .0625);
+    bin.buildNormalBounds();
+    EXPECT_LT(bin.normalUpper(Eigen::Vector3d::UnitX()), .98);
+    EXPECT_GE(bin.normalUpper(Eigen::Vector3d::UnitZ()), 1.0);
+    // Direct enumeration is an independent oracle for every query direction,
+    // both signs, and nonunit vectors. Include queries at the cosine gate.
+    for (int i = -100; i <= 100; ++i) {
+      for (double scale : {1.0, -1.0, 1e6}) {
+        const Eigen::Vector3d q = scale * Eigen::Vector3d(.01 * i, .007 * i, 1.0).normalized();
+        double actual = 0;
+        for (const auto& f : bin.facets)
+          actual = std::max(actual, std::abs(f.n.cast<double>().dot(q)));
+        EXPECT_GE(bin.normalUpper(q), actual);
+      }
+    }
+    for (double cosine : {std::nextafter(.98, 0.0), .98, std::nextafter(.98, 1.0)}) {
+      const Eigen::Vector3d q(std::sqrt(1.0 - cosine * cosine), 0.0, cosine);
+      EXPECT_GE(bin.normalUpper(q), cosine);
+    }
+    auto copied = bin;
+    // Removing/replacing facets must rebuild the bound, while a copied bin
+    // keeps the normals that were present when it was copied.
+    bin.facets.erase(bin.facets.begin() + 1, bin.facets.end());
+    bin.facets.front().n = Eigen::Vector3f::UnitX();
+    bin.buildNormalBounds();
+    EXPECT_LT(bin.normalUpper(Eigen::Vector3d::UnitZ()), .98);
+    EXPECT_GE(copied.normalUpper(Eigen::Vector3d::UnitZ()), 1.0);
   }
 };
 }  // namespace mesh_loam
 }  // namespace localization_zoo
 
-TEST(MeshLoam, FacetFiltersMatchAnalyticDistancesAndRetainsTiesAndGates) {
-  MeshLoamTestAccess::checkFacetFilters();
+TEST(MeshLoam, BinNormalBoundsConservativelyCoverSignedFacetNormals) {
+  MeshLoamTestAccess::checkNormalBounds();
 }
 
 namespace {
@@ -381,7 +349,7 @@ TEST(MeshLoam, DirtyCellsTouchFewerCellsThanBlocks) {
   EXPECT_NEAR(ratio, 1.0, 0.02);
 }
 
-TEST(MeshLoam, CachedAssociationRetainsPosesAcrossMeshUpdatesAndPruning) {
+TEST(MeshLoam, BoundedAssociationRetainsPosesAcrossMeshUpdatesAndPruning) {
 #ifdef _OPENMP
   const int original_threads = omp_get_max_threads();
   omp_set_num_threads(1);  // isolate association from the legacy parallel sums

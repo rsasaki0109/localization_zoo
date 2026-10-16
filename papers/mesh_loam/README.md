@@ -315,23 +315,30 @@ accuracy runs. For `keep_mesh`, use `marching_cubes = true` and
 
 ## Optional execution acceleration
 
-`--paper-pipeline-accelerated` enables cached, packetized prefilters for nearest-
-facet association. This repository execution optimization is **off by default**
-and is not an additional processing step from the paper. It retains facet order,
-the original scalar distance/normal gates, and the strict tie comparison. Caches
-are rebuilt after extraction, pruning and thawing; the mesh itself, input
-sampling, search radius and registration iterations are unchanged.
+`--paper-pipeline-accelerated` enables a conservative normal bound per facet
+bin. This repository execution optimization is **off by default** and is not
+an additional processing step from the paper. A reference normal and an
+outward-rounded bound on the other normals reject bins whose facets cannot
+pass the original absolute-cosine gate. Surviving bins run the unchanged scalar
+facet loop, with the same order, gates and strict tie comparison. Bounds are
+rebuilt after extraction, pruning and thawing; there is no per-facet cache.
+The mesh, input sampling, search radius and registration iterations are unchanged.
 
 The rejected bounding-volume-tree candidate (`fe607199`) took 168128.332 ms
 against 117876.891 ms for the frozen baseline on the first 120 KITTI 07 frames:
 **0.70x**, slower despite identical saved poses. The changed binary's default
 path took 105839.854 ms and also retained the poses. These are development-window
-measurements, not a full-sequence speed claim. The spatial tree is replaced by
-the cache above; its performance still needs validation. The raw runs and exact
+measurements, not a full-sequence speed claim. The spatial tree was rejected. The raw runs and exact
 commands were committed in `8479040a` under
 [`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
 
-The cache also costs memory. In the freeze fixture, candidate `3541f773`
+The later packet-cache candidate (`fe03ed88`) took 76263.959 ms against
+66420.751 ms for the frozen control and 60205.016 ms for the changed default:
+**0.87x**, again with identical saved poses on the first 120 frames. Its raw
+screening was committed in `0560f22e`. The per-facet packet cache is also
+rejected; the normal-bound approach above still needs performance validation.
+
+The packet cache also cost memory. In the freeze fixture, candidate `3541f773`
 reported 12498398 estimated bytes with acceleration and freeze, versus 12294436
 with neither. This mixed-cache comparison failed the previous memory assertion;
 the test now enables acceleration on both sides to measure the effect of freeze

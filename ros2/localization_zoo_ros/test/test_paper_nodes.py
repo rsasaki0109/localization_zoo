@@ -99,12 +99,16 @@ class PaperNodes(unittest.TestCase):
                     observer.create_subscription(TFMessage, '/tf', on_tf, 10)
                     command = [str(ARGS.node_dir / f'{method}_node'), '--ros-args',
                                '-r', f'__ns:={namespace}', '-r', f'points_raw:={namespace}/points',
-                               '-r', f'odom:={namespace}/odom', '-p', 'map_frame_id:=fixture_world']
+                               '-r', f'odom:={namespace}/odom', '-p', 'map_frame_id:=fixture_world',
+                               '-p', 'input_reliability:=reliable']
                     log_path = Path(directory) / f'{method}.log'
                     with log_path.open('w') as log:
                         child = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT)
                     try:
-                        self.spin_until(observer, lambda: publisher.get_subscription_count() > 0)
+                        def discovered():
+                            self.assertIsNone(child.poll(), log_path.read_text())
+                            return publisher.get_subscription_count() > 0
+                        self.spin_until(observer, discovered)
                         # Invalid headers must not advance either time or the core stream.
                         publisher.publish(cloud(scans[0][1][:4], 0, sensor))
                         publisher.publish(cloud(scans[0][1][:4], -1, sensor))

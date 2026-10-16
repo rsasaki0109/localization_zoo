@@ -21,6 +21,11 @@ class PaperOdometryNode : public rclcpp::Node {
     map_frame_ = declare_parameter("map_frame_id", std::string("map"));
     if (map_frame_.empty()) throw std::invalid_argument("map_frame_id must not be empty");
     const bool publish_tf = declare_parameter("publish_tf", true);
+    const auto reliability = declare_parameter("input_reliability", std::string("best_effort"));
+    auto input_qos = rclcpp::SensorDataQoS();
+    if (reliability == "reliable") input_qos.reliable();
+    else if (reliability != "best_effort")
+      throw std::invalid_argument("input_reliability must be best_effort or reliable");
     if (method == "suma_paper") {
       suma::SuMaPaperParams p;
       p.width = declare_parameter("width", p.width);
@@ -163,7 +168,7 @@ class PaperOdometryNode : public rclcpp::Node {
     if (publish_tf) tf_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
     odometry_ = create_publisher<nav_msgs::msg::Odometry>("odom", 10);
     points_ = create_subscription<sensor_msgs::msg::PointCloud2>(
-        "points_raw", rclcpp::SensorDataQoS(),
+        "points_raw", input_qos,
         [this](sensor_msgs::msg::PointCloud2::ConstSharedPtr msg) { onScan(msg); });
   }
 

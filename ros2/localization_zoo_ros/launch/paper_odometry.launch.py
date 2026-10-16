@@ -14,6 +14,7 @@ def launch_node(context):
     parameters = [params_file] if params_file else []
     parameters.append({
         'map_frame_id': LaunchConfiguration('map_frame_id'),
+        'input_reliability': LaunchConfiguration('input_reliability'),
         'publish_tf': ParameterValue(LaunchConfiguration('publish_tf'), value_type=bool),
         'use_sim_time': ParameterValue(LaunchConfiguration('use_sim_time'), value_type=bool),
     })
@@ -29,6 +30,8 @@ def generate_launch_description():
         DeclareLaunchArgument('points_topic', default_value='points_raw'),
         DeclareLaunchArgument('odom_topic', default_value='odom'),
         DeclareLaunchArgument('map_frame_id', default_value='map'),
+        DeclareLaunchArgument('input_reliability', default_value='best_effort',
+                             choices=('best_effort', 'reliable')),
         DeclareLaunchArgument('publish_tf', default_value='true'),
         DeclareLaunchArgument('use_sim_time', default_value='false'),
         DeclareLaunchArgument('params_file', default_value=''),

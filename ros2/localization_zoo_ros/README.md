@@ -48,8 +48,14 @@ ros2 run localization_zoo_ros imls_slam_paper_node --ros-args \
 
 For LiTAMIN2, `map_mode` accepts `aggregate`, `first` or `latest`. The launch
 also accepts `points_topic`, `odom_topic`, `map_frame_id`, `publish_tf`,
-`use_sim_time` and an optional `params_file`. It preserves native defaults,
+`use_sim_time`, `input_reliability` and an optional `params_file`. It preserves native defaults,
 rather than silently selecting a KITTI benchmark profile.
+
+Input reliability defaults to `best_effort`, matching sensor-data subscribers.
+For a reliable publisher or paced offline replay, select
+`input_reliability:=reliable` to request retransmission of large point clouds.
+The publisher must offer compatible reliable QoS. The fixture test selects this
+mode explicitly; it changes delivery guarantees, not odometry parameters.
 
 CI runs the real nodes on the committed point-cloud fixture and checks their
 odometry/TF against the native C++ pipelines, including frame names, timestamps

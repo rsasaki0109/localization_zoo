@@ -59,5 +59,12 @@ matrix aggregates, `paper_reported_numbers.json`, Table 6 CSV, the root README,
 scans were fetched for this tooling change. Shared robustness extraction and its
 full-sequence evaluation remain separate work; this PR does not close them.
 
+[Final regeneration receipts](final_checks/commands.json) cover
+`refresh_study_docs.py`, `generate_full_variant_table.py` and
+`generate_paper_ratio_table.py`, followed by showcase, leaderboard and paper-ready
+checks. Regeneration updates inventory timestamps; the
+[final preservation report](final_checks/preservation.json) confirms that the
+historical aggregates and published numerical tables remain unchanged.
+
 [User procedure and exit-code contract](../../../docs/kitti_drift_audit.md).
 The historical full audit and published result aggregates are preserved.

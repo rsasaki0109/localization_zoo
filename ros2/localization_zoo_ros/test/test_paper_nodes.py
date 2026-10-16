@@ -101,9 +101,9 @@ class PaperNodes(unittest.TestCase):
                         for transform in msg.transforms:
                             if transform.child_frame_id == sensor:
                                 transforms[transform.header.stamp.sec] = transform
-                    odom_subscription = observer.create_subscription(
+                    observer.create_subscription(
                         Odometry, namespace + '/odom', on_odom, 10)
-                    tf_subscription = observer.create_subscription(TFMessage, '/tf', on_tf, 10)
+                    observer.create_subscription(TFMessage, '/tf', on_tf, 10)
                     command = [str(ARGS.node_dir / f'{method}_node'), '--ros-args',
                                '-r', f'__ns:={namespace}', '-r', f'points_raw:={namespace}/points',
                                '-r', f'odom:={namespace}/odom', '-p', 'map_frame_id:=fixture_world',
@@ -115,8 +115,9 @@ class PaperNodes(unittest.TestCase):
                         def discovered():
                             self.assertIsNone(child.poll(), log_path.read_text())
                             return (publisher.get_subscription_count() > 0 and
-                                    odom_subscription.get_publisher_count() > 0 and
-                                    tf_subscription.get_publisher_count() > 0)
+                                    observer.count_publishers(namespace + '/odom') > 0 and
+                                    any(info.node_namespace == namespace for info in
+                                        observer.get_publishers_info_by_topic('/tf')))
                         self.spin_until(observer, discovered)
                         # Invalid headers must not advance either time or the core stream.
                         publisher.publish(cloud(scans[0][1][:4], 0, sensor))

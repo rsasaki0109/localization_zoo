@@ -105,5 +105,10 @@ not added to this results directory.
 Core algorithm sources, common code, runner loaders and stored benchmark
 aggregates are unchanged. The new binding targets link existing cores; this work
 does not change published paper numbers or enable robustness/sensor corrections.
+The [final local checks](checks/final/commands.json) pass, including document
+regeneration, Python regressions and showcase/leaderboard contracts. The
+[preservation report](checks/final/preservation.json) confirms that historical
+aggregates, paper reference values and published tables are unchanged; the root
+README only adds the authorized binding description.
 The NCLT real-data sensor-assistant check remains pending separately because its
 approved download host is still absent from the enforced environment allowlist.

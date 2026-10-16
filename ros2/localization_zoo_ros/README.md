@@ -37,7 +37,8 @@ wrapper-side pose accumulation. Pace offline playback when comparing complete
 sequences. DiLO publishes each new causal pose; earlier published odometry is
 not replaced when its internal window is refined.
 
-All native scalar parameters are declared with the C++ defaults. Non-paper
+All native scalar parameters are declared with the C++ defaults. Set them when
+launching; restart the node to apply new settings and begin a new sequence. Non-paper
 opt-ins such as `coarse_frames`, `degenerate_ratio` and `normalize_bilinear`
 are not enabled by the wrapper. Override them explicitly with ROS parameters:
 

@@ -313,3 +313,15 @@ Recommended values for the paper path (runner flags `--mesh-loam-marching-cubes`
 accuracy runs. For `keep_mesh`, use `marching_cubes = true` and
 `mesh_freeze_radius = 100`.
 
+## Optional execution acceleration
+
+`--paper-pipeline-accelerated` enables a repository spatial index for nearest-
+facet association. It is not an additional processing step from the paper and
+is **off by default**. A per-bin bounding-volume tree prunes triangle candidates
+while retaining the original distance/normal gates and facet-index tie rule.
+Indices are rebuilt after extraction, pruning and thawing; the mesh itself,
+input sampling, search radius and registration iterations are unchanged.
+
+[Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
+record the development on KITTI 07. Paired full-sequence timing and accuracy
+verification are in progress; this option has no published speed claim yet.

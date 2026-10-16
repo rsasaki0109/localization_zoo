@@ -6,8 +6,83 @@
 #include <array>
 #include <cmath>
 #include <vector>
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 using namespace localization_zoo::mesh_loam;
+
+namespace localization_zoo {
+namespace mesh_loam {
+struct MeshLoamTestAccess {
+  static void checkFacetIndex() {
+    MeshLoamPipeline::FacetBin bin;
+    double best = 1.0;
+    Eigen::Vector3d relative;
+    bin.buildIndex();
+    EXPECT_EQ(bin.nearest(Eigen::Vector3d::Zero(), Eigen::Vector3d::UnitZ(), .98,
+                          &best, &relative), nullptr);
+    // Two complete unit squares at z=0 and z=1/4, triangulated into a dense
+    // bin. The distance to their union is available analytically, independent
+    // of the index and triangle-distance implementation.
+    for (int plane = 0; plane < 2; ++plane)
+      for (int x = 0; x < 4; ++x)
+        for (int y = 0; y < 4; ++y)
+          for (int triangle = 0; triangle < 2; ++triangle) {
+            MeshLoamPipeline::Facet f;
+            const float x0 = .25f * x, y0 = .25f * y, z = .25f * plane;
+            f.a = Eigen::Vector3f(x0, y0, z);
+            f.b = triangle == 0 ? Eigen::Vector3f(x0 + .25f, y0, z)
+                                : Eigen::Vector3f(x0 + .25f, y0 + .25f, z);
+            f.c = triangle == 0 ? Eigen::Vector3f(x0 + .25f, y0 + .25f, z)
+                                : Eigen::Vector3f(x0, y0 + .25f, z);
+            f.n = Eigen::Vector3f::UnitZ();
+            f.owner[0] = static_cast<int8_t>(bin.facets.size());
+            f.owner[1] = f.owner[2] = 0;
+            bin.add(f);
+          }
+    auto duplicate = bin.facets.front();
+    duplicate.owner[0] = 99;
+    bin.add(duplicate);
+    bin.buildIndex();
+    for (int x = -2; x <= 10; ++x)
+      for (int y = -2; y <= 10; ++y)
+        for (double z : {-.125, .0625, .125, .375}) {
+          const Eigen::Vector3d p(.125 * x, .125 * y, z);
+          const double dx = std::max({0.0, -p.x(), p.x() - 1.0});
+          const double dy = std::max({0.0, -p.y(), p.y() - 1.0});
+          const double dz = std::min(std::abs(z), std::abs(z - .25));
+          best = 4.0;
+          ASSERT_NE(bin.nearest(p, Eigen::Vector3d::UnitZ(), .98, &best, &relative), nullptr);
+          EXPECT_NEAR(best, dx * dx + dy * dy + dz * dz, 1e-12);
+        }
+    best = 4.0;
+    const auto* tie = bin.nearest(Eigen::Vector3d(.125, .0625, .0625),
+                                   Eigen::Vector3d::UnitZ(), .98, &best, &relative);
+    ASSERT_NE(tie, nullptr);
+    EXPECT_EQ(tie->owner[0], 0);  // first facet, even if another leaf is visited first
+    best = 1.0;
+    EXPECT_EQ(bin.nearest(Eigen::Vector3d(.125, .0625, 1.25), Eigen::Vector3d::UnitZ(),
+                          .98, &best, &relative), nullptr);  // strict initial distance gate
+    best = 4.0;
+    EXPECT_EQ(bin.nearest(Eigen::Vector3d(.125, .0625, .0625), Eigen::Vector3d::UnitX(),
+                          .98, &best, &relative), nullptr);
+    bin.facets.erase(std::remove_if(bin.facets.begin(), bin.facets.end(),
+                                     [](const auto& f) { return f.a.z() == 0.0f; }), bin.facets.end());
+    bin.recomputeBounds();
+    bin.buildIndex();
+    best = 4.0;
+    ASSERT_NE(bin.nearest(Eigen::Vector3d(.125, .0625, -.0625), Eigen::Vector3d::UnitZ(),
+                          .98, &best, &relative), nullptr);
+    EXPECT_DOUBLE_EQ(best, .3125 * .3125);
+  }
+};
+}  // namespace mesh_loam
+}  // namespace localization_zoo
+
+TEST(MeshLoam, FacetIndexMatchesAnalyticDistancesAndRetainsTiesAndGates) {
+  MeshLoamTestAccess::checkFacetIndex();
+}
 
 namespace {
 
@@ -293,6 +368,33 @@ TEST(MeshLoam, DirtyCellsTouchFewerCellsThanBlocks) {
   EXPECT_NEAR(ratio, 1.0, 0.02);
 }
 
+TEST(MeshLoam, IndexedAssociationRetainsPosesAcrossMeshUpdatesAndPruning) {
+#ifdef _OPENMP
+  const int original_threads = omp_get_max_threads();
+  omp_set_num_threads(1);  // isolate association from the legacy parallel sums
+#endif
+  for (bool marching_cubes : {false, true}) {
+    MeshLoamParams params = testParams();
+    params.nearest_facet = true;
+    params.marching_cubes = marching_cubes;
+    params.mesh_update_interval = 2;
+    params.local_map_radius = 4.0;
+    MeshLoamPipeline legacy(params);
+    params.accelerated = true;
+    MeshLoamPipeline indexed(params);
+    for (int i = 0; i < 7; ++i) {
+      const auto scan = makeRoomScan(Eigen::Vector3d(.08 * i, .02 * i, 1.2));
+      const auto a = legacy.registerFrame(scan), b = indexed.registerFrame(scan);
+      EXPECT_EQ(a.num_correspondences, b.num_correspondences);
+      EXPECT_EQ(legacy.meshSize(), indexed.meshSize());
+      EXPECT_TRUE((a.pose.array() == b.pose.array()).all()) << "frame=" << i;
+    }
+  }
+#ifdef _OPENMP
+  omp_set_num_threads(original_threads);
+#endif
+}
+
 TEST(MeshLoam, FrozenMeshIsKeptAndRestored) {
   MeshLoamParams params = testParams();
   params.max_range = 10.0;
@@ -302,6 +404,7 @@ TEST(MeshLoam, FrozenMeshIsKeptAndRestored) {
   params.nearest_facet = true;
   params.mesh_update_interval = 2;
   MeshLoamParams frozen_params = params;
+  frozen_params.accelerated = true;  // also cover rebuilding indices after thaw
   frozen_params.mesh_freeze_radius = 2.0;  // bins beyond ~13 m are frozen
   MeshLoamPipeline plain(params);
   MeshLoamPipeline frozen(frozen_params);

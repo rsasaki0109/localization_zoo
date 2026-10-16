@@ -7,6 +7,7 @@
 #include <chrono>
 #include <climits>
 #include <cmath>
+#include <numeric>
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -469,6 +470,115 @@ void MeshLoamPipeline::FacetBin::recomputeBounds() {
   for (const Facet& f : facets) expand(f);
 }
 
+void MeshLoamPipeline::FacetBin::buildIndex() {
+  order.resize(facets.size());
+  std::iota(order.begin(), order.end(), 0u);
+  nodes.clear();
+  nodes.reserve(facets.size() / 2 + 1);
+  if (!facets.empty()) buildNode(0, static_cast<uint32_t>(facets.size()));
+}
+
+int MeshLoamPipeline::FacetBin::buildNode(uint32_t first, uint32_t count) {
+  const int node = static_cast<int>(nodes.size());
+  nodes.emplace_back();
+  Node bounds;
+  bounds.first = first;
+  bounds.count = count;
+  bounds.lo = Eigen::Vector3f::Constant(1e30f);
+  bounds.hi = Eigen::Vector3f::Constant(-1e30f);
+  for (uint32_t i = first; i < first + count; ++i) {
+    const Facet& f = facets[order[i]];
+    bounds.lo = bounds.lo.cwiseMin(f.a).cwiseMin(f.b).cwiseMin(f.c);
+    bounds.hi = bounds.hi.cwiseMax(f.a).cwiseMax(f.b).cwiseMax(f.c);
+  }
+  nodes[node] = bounds;
+  if (count > 8) {
+    Eigen::Index axis;
+    (bounds.hi - bounds.lo).maxCoeff(&axis);
+    const uint32_t half = count / 2;
+    std::nth_element(order.begin() + first, order.begin() + first + half,
+                     order.begin() + first + count, [&](uint32_t a, uint32_t b) {
+                       const Facet& fa = facets[a];
+                       const Facet& fb = facets[b];
+                       const float ca = (fa.a(axis) + fa.b(axis)) + fa.c(axis);
+                       const float cb = (fb.a(axis) + fb.b(axis)) + fb.c(axis);
+                       return ca < cb || (ca == cb && a < b);
+                     });
+    const int left = buildNode(first, half);
+    const int right = buildNode(first + half, count - half);
+    nodes[node].left = left;
+    nodes[node].right = right;
+  }
+  return node;
+}
+
+const MeshLoamPipeline::Facet* MeshLoamPipeline::FacetBin::nearest(
+    const Eigen::Vector3d& relative, const Eigen::Vector3d& normal,
+    double cos_gate, double* best, Eigen::Vector3d* best_relative) const {
+  if (nodes.empty()) return nullptr;
+  auto lower_bound = [&](int node) {
+    const Node& b = nodes[node];
+    const Eigen::Vector3d gap = (b.lo.cast<double>() - relative)
+                                    .cwiseMax(relative - b.hi.cast<double>()).cwiseMax(0.0);
+    return gap.squaredNorm();
+  };
+  // Balanced uint32_t ranges have depth at most 32. Visit near boxes first,
+  // retaining the original facet index as the tie-breaker within this bin.
+  std::array<std::pair<int, double>, 64> stack;
+  int size = 1;
+  stack[0] = {0, lower_bound(0)};
+  int best_index = -1;
+  const Eigen::Vector3f normal_f = normal.cast<float>();
+  const Eigen::Vector3f relative_f = relative.cast<float>();
+  const float cos_gate_f = static_cast<float>(cos_gate) - 1e-5f;
+  float bound = static_cast<float>(std::sqrt(*best)) + 1e-5f;
+  float bound2 = bound * bound;
+  float centroid_bound = bound + max_rad;
+  float centroid_bound2 = centroid_bound * centroid_bound;
+  while (size) {
+    const auto item = stack[--size];
+    // A small conservative margin covers rounding of the double AABB bound.
+    if (item.second > *best + 1e-12) continue;
+    const Node& node = nodes[item.first];
+    if (node.left >= 0) {
+      const double left = lower_bound(node.left), right = lower_bound(node.right);
+      if (left <= right) {
+        stack[size++] = {node.right, right};
+        stack[size++] = {node.left, left};
+      } else {
+        stack[size++] = {node.left, left};
+        stack[size++] = {node.right, right};
+      }
+      continue;
+    }
+    for (uint32_t i = node.first; i < node.first + node.count; ++i) {
+      const uint32_t index = order[i];
+      const Facet& f = facets[index];
+      if (std::abs(f.n.dot(normal_f)) < cos_gate_f) continue;
+      const Eigen::Vector3f d0f = relative_f - (f.a + f.b + f.c) * (1.0f / 3.0f);
+      const float plane = f.n.dot(d0f);
+      if (plane * plane > bound2 || d0f.squaredNorm() > centroid_bound2) continue;
+      const Eigen::Vector3d fn = f.n.cast<double>();
+      if (std::abs(fn.dot(normal)) < cos_gate) continue;
+      const double distance = pointTriangleDist2(relative, f.a.cast<double>(), f.b.cast<double>(),
+                                                f.c.cast<double>());
+      if (distance < *best || (best_index >= 0 && distance == *best &&
+                              index < static_cast<uint32_t>(best_index))) {
+        *best = distance;
+        best_index = static_cast<int>(index);
+        bound = static_cast<float>(std::sqrt(*best)) + 1e-5f;
+        bound2 = bound * bound;
+        centroid_bound = bound + max_rad;
+        centroid_bound2 = centroid_bound * centroid_bound;
+      }
+    }
+  }
+  if (best_index < 0) return nullptr;
+  const Facet& f = facets[best_index];
+  *best_relative = relative - (f.a + f.b + f.c).cast<double>() / 3.0;
+  return &f;
+}
+
 MeshLoamPipeline::MeshLoamPipeline(const MeshLoamParams& params) : params_(params) {
   params_.block_size = std::max(1, params_.block_size);
   params_.mesh_update_interval = std::max(1, params_.mesh_update_interval);
@@ -539,6 +649,8 @@ size_t MeshLoamPipeline::memoryBytes() const {
   bytes += facet_bins_.bucket_count() * sizeof(void*);
   for (const auto& entry : facet_bins_) {
     bytes += kNode + sizeof(FacetBin) + entry.second.facets.capacity() * sizeof(Facet);
+    bytes += entry.second.order.capacity() * sizeof(uint32_t) +
+             entry.second.nodes.capacity() * sizeof(FacetBin::Node);
   }
   for (const auto& entry : frozen_) {
     const FrozenChunk& c = entry.second;
@@ -1149,6 +1261,7 @@ void MeshLoamPipeline::extractMesh() {
       } else {
         for (uint32_t m = s0; m < s1; ++m) fb.expand(bucketed[m]);
       }
+      if (params_.accelerated && params_.nearest_facet) fb.buildIndex();
       delta_local += static_cast<long>(bin.size()) - static_cast<long>(before);
     }
     delta[static_cast<size_t>(threadId())] += delta_local;
@@ -1262,7 +1375,10 @@ void MeshLoamPipeline::pruneMap() {
     if (bin.empty()) {
       it = facet_bins_.erase(it);
     } else {
-      if (bin.size() != before) it->second.recomputeBounds();
+      if (bin.size() != before) {
+        it->second.recomputeBounds();
+        if (params_.accelerated && params_.nearest_facet) it->second.buildIndex();
+      }
       ++it;
     }
   }
@@ -1292,6 +1408,7 @@ void MeshLoamPipeline::thawChunk(const Eigen::Vector3i& chunk) {
       ++num_facets_;
     }
     if (bin.facets.empty()) facet_bins_.erase(c.bins[i]);
+    else if (params_.accelerated && params_.nearest_facet) bin.buildIndex();
   }
   frozen_.erase(it);
 }
@@ -1464,6 +1581,11 @@ bool MeshLoamPipeline::solveIcp(const std::vector<OrientedPoint>& features_world
                                           .cwiseMax(rel - bin->hi.cast<double>())
                                           .cwiseMax(0.0);
           if (gap.squaredNorm() >= best) continue;
+          if (params_.accelerated) {
+            const Facet* found = bin->nearest(rel, n_pt, cos_gate, &best, &best_rel);
+            if (found) best_facet = found;
+            continue;
+          }
           // Lower bounds of the point-triangle distance evaluated in float
           // with a margin above the float rounding (|rel| < 1 m), then the
           // exact gate and distance in double for the survivors.

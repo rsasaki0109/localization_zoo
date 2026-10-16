@@ -31,6 +31,10 @@ namespace localization_zoo {
 namespace imls_slam {
 
 struct ImlsPaperParams {
+  // Repository implementation acceleration, not an additional paper step:
+  // parallel independent work and memoize repeated projections per iteration.
+  // Opt-in; the sampling and normal-equation accumulation order are retained.
+  bool accelerated = false;
   double h = 0.06;
   double r = 0.20;
   int samples_per_list = 100;

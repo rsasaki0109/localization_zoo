@@ -152,3 +152,16 @@ Table IV (n = 10: 0.56 %, n = 100: 0.55 %) と同じく小さい。
 | 10 | 0.53 | - | 0.571 | 1.08x |
 
 Geometric mean over 11 sequences: 1.05x.
+
+## Optional execution acceleration
+
+`--paper-pipeline-accelerated` enables repository implementation optimizations
+for `--imls-slam-paper-odometry`. It is not a processing step from the paper and
+is **off by default**. It reuses cell-neighbour topology and repeated model
+queries within an iteration, and parallelizes normals, list sorting and queries
+with OpenMP. Duplicate samples and the original list/point accumulation order
+are retained; scan/window sizes and registration parameters are unchanged.
+
+[Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
+record the development on KITTI 07. Paired full-sequence timing and accuracy
+verification are in progress; this option has no published speed claim yet.

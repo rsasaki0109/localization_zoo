@@ -18,6 +18,9 @@ namespace mesh_loam {
 /// point-to-mesh Gauss-Newton odometry with a normal cosine-similarity
 /// correspondence gate.
 struct MeshLoamParams {
+  // Opt-in repository acceleration: an exact facet spatial index. Does not
+  // alter the association gates or the scan/map parameters from the paper.
+  bool accelerated = false;
   // Preprocessing.
   double min_range = 1.0;
   double max_range = 80.0;
@@ -121,6 +124,7 @@ class MeshLoamPipeline {
   void remeshAll();
 
  private:
+  friend struct MeshLoamTestAccess;
   struct OrientedPoint {
     Eigen::Vector3d p = Eigen::Vector3d::Zero();
     Eigen::Vector3d n = Eigen::Vector3d::UnitZ();
@@ -155,13 +159,24 @@ class MeshLoamPipeline {
   /// nearest-facet search: the AABB of their vertices and the largest
   /// centroid-to-vertex distance (bin-relative).
   struct FacetBin {
+    struct Node {
+      Eigen::Vector3f lo, hi;
+      uint32_t first = 0, count = 0;
+      int left = -1, right = -1;
+    };
     std::vector<Facet> facets;
     Eigen::Vector3f lo = Eigen::Vector3f::Constant(1e30f);
     Eigen::Vector3f hi = Eigen::Vector3f::Constant(-1e30f);
     float max_rad = 0.0f;
+    std::vector<uint32_t> order;
+    std::vector<Node> nodes;
     void add(const Facet& f);
     void expand(const Facet& f);  ///< grow the bounds by f (already stored)
     void recomputeBounds();
+    void buildIndex();
+    int buildNode(uint32_t first, uint32_t count);
+    const Facet* nearest(const Eigen::Vector3d& relative, const Eigen::Vector3d& normal,
+                         double cos_gate, double* best, Eigen::Vector3d* best_relative) const;
   };
 
   /// Compressed facet: 16-bit vertices relative to the bin origin; the

@@ -1950,6 +1950,7 @@ struct PlLoamDogfoodingOptions {
 };
 
 struct InTenLoamDogfoodingOptions {
+  bool paper_accelerated = false;
   size_t input_stride = 2;
   int cyl_width = 1024;
   int cyl_height = 64;
@@ -2685,6 +2686,7 @@ struct MccLoDogfoodingOptions {
 };
 
 struct ImlsSlamDogfoodingOptions {
+  bool paper_accelerated = false;
   double source_voxel_size = 0.5;
   size_t max_source_points = 4500;
   double voxel_size = 1.0;
@@ -2714,6 +2716,7 @@ struct ImlsSlamDogfoodingOptions {
 };
 
 struct MeshLoamDogfoodingOptions {
+  bool accelerated = false;
   double source_voxel_size = 0.25;
   size_t max_source_points = 8000;
   double voxel_size = 0.1;
@@ -4937,6 +4940,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
   res.name = "InTEn-LOAM";
   if (options.paper_odometry) {
     InTenLoamPaperParams pp;
+    pp.accelerated = options.paper_accelerated;
     pp.use_intensity = options.paper_intensity;
     pp.use_mapping = options.paper_mapping;
     pp.use_dor = options.paper_dor;
@@ -5017,6 +5021,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
                " mapping=" + (options.paper_mapping ? "on" : "off") + " dor=" + (options.paper_dor ? "on" : "off") +
                " mean pairs s2s=" + std::to_string(s2s / d) + " s2m=" + std::to_string(s2m / d) +
                " dor points/frame=" + std::to_string(dor / d);
+    if (options.paper_accelerated) res.note += "; repository acceleration enabled (opt-in, not in the paper)";
     return res;
   }
 
@@ -8787,6 +8792,7 @@ MethodResult runImlsPaperOdometry(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "IMLS-SLAM";
   ImlsPaperParams params;
+  params.accelerated = options.paper_accelerated;
   params.window_scans = options.paper_window_scans;
   params.samples_per_list = options.paper_samples_per_list;
   params.iterations = options.paper_iterations;
@@ -8823,6 +8829,7 @@ MethodResult runImlsPaperOdometry(const std::vector<std::string>& pcd_dirs,
   if (params.coarse_frames > 0)
     note << "; coarse start on the first " << params.coarse_frames << " registrations (r=" << params.coarse_r
          << " h=" << params.coarse_h << ", not in the paper)";
+  if (params.accelerated) note << "; repository acceleration enabled (opt-in, not in the paper)";
   res.note = note.str();
   return res;
 }
@@ -8893,6 +8900,7 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
   res.name = "Mesh-LOAM";
 
   MeshLoamParams params;
+  params.accelerated = options.accelerated;
   params.voxel_size = options.voxel_size;
   params.imls_h = options.imls_h;
   params.lambda_n = options.lambda_n;
@@ -8947,6 +8955,7 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
       std::string(options.keep_mesh ? "global mesh kept; " : "") +
       std::string(options.marching_cubes ? "marching cubes; " : "") +
       "mean|residual|=" + std::string(buf);
+  if (options.accelerated) res.note += "; repository acceleration enabled (opt-in, not in the paper)";
   return res;
 }
 
@@ -11997,6 +12006,7 @@ int main(int argc, char** argv) {
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
+              << " [--paper-pipeline-accelerated]"
               << " [--association-mode strict|legacy-auto]"
               << " [--association-max-dt seconds]"
               << " [--allow-legacy-gt-artifact]"
@@ -12476,6 +12486,12 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-lio-estimate-bias") {
       ct_lio_estimate_bias = true;
+      continue;
+    }
+    if (arg == "--paper-pipeline-accelerated") {
+      mesh_loam_options.accelerated = true;
+      imls_slam_options.paper_accelerated = true;
+      inten_loam_options.paper_accelerated = true;
       continue;
     }
     if (arg == "--summary-json") {

@@ -59,5 +59,11 @@
   "dataset": {
     "pcd_dir": "dogfooding_results/paper_speed_kitti07",
     "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
-  }
+  },
+  "accelerated_cli": [
+    "--paper-pipeline-accelerated"
+  ],
+  "registration_parameters": "Baseline selected args are retained; the opt-in flag enables implementation-only acceleration. No accuracy-based parameter tuning.",
+  "screening": "After baseline full runs complete, compare baseline/current-default/accelerated on the same first120frames before the final full1101frames. Preserve every failed or slower attempt.",
+  "claim_status": "Profiling committed; accelerator validation and paired full-sequence speed remain pending."
 }

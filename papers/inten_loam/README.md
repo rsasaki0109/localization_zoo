@@ -477,3 +477,17 @@ ray-cast street; the B-spline intensity field on a linear ramp; 1 m per scan
 tracked at full scale (also with the 5 cm plane check); ground-truth-placed
 frames with their per-class normal equations; the plane spread check
 against neighbours along one line.
+
+## Optional execution acceleration
+
+`--paper-pipeline-accelerated` enables repository implementation optimizations
+for `--inten-loam-paper-odometry`. It is not a processing step from the paper and
+is **off by default**. Independent tree builds and residual queries use OpenMP;
+residuals are reduced in the original feature order, including the Huber weights
+and diagnostic class systems. KD-trees used only to hold points for rendering
+or spline construction are omitted; their point data are retained. Feature
+counts, gates, S2S/S2M iterations, TVF and DOR settings are unchanged.
+
+[Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
+record the development on KITTI 07. Paired full-sequence timing and accuracy
+verification are in progress; this option has no published speed claim yet.

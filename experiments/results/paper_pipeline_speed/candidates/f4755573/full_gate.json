@@ -1,0 +1,32 @@
+{
+  "screening_raw_commit": "a6eac2a281f95430c13c676e1de49f8800349331",
+  "saved_poses_match": true,
+  "screening": {
+    "mesh_loam": {
+      "control_time_ms": 95672.739907,
+      "default_time_ms": 93791.753876,
+      "accelerated_time_ms": 83989.928864,
+      "short_speedup": 1.1390977608984203,
+      "default_pose_max_abs_difference": 0.0,
+      "accelerated_pose_max_abs_difference": 0.0
+    },
+    "imls_slam": {
+      "control_time_ms": 118767.955408,
+      "default_time_ms": 154097.604769,
+      "accelerated_time_ms": 63547.997042,
+      "short_speedup": 1.8689488408187616,
+      "default_pose_max_abs_difference": 0.0,
+      "accelerated_pose_max_abs_difference": 0.0
+    },
+    "inten_loam": {
+      "control_time_ms": 74308.188716,
+      "default_time_ms": 33285.556354,
+      "accelerated_time_ms": 25192.190421,
+      "short_speedup": 2.949651756127459,
+      "default_pose_max_abs_difference": 0.0,
+      "accelerated_pose_max_abs_difference": 0.0
+    }
+  },
+  "proceed_full": true,
+  "reason": "Full sequence establishes speed and accuracy, including negative results; windows only guide development. Primary reference is a fresh full frozen-source control immediately before each method."
+}

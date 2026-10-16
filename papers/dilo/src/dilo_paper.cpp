@@ -1,4 +1,5 @@
 #include "dilo/dilo_paper.h"
+#include "common/degeneracy.h"
 
 #include <Eigen/Dense>
 
@@ -633,13 +634,7 @@ bool DiloPaperOdometry::step(const DiloPaperFrame& source, const std::vector<con
   }
   *d = H.ldlt().solve(-g);
   if (params_.degenerate_ratio > 0.0 && d->allFinite()) {
-    Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> eig(H.block<3, 3>(3, 3));
-    const Eigen::Vector3d lambda = eig.eigenvalues();  // ascending
-    for (int k = 0; k < 3; ++k) {
-      if (lambda(k) >= params_.degenerate_ratio * lambda(2)) break;
-      const Eigen::Vector3d v = eig.eigenvectors().col(k);
-      d->tail<3>() -= v.dot(d->tail<3>()) * v;
-    }
+    math::remapDegenerateTranslation(H.block<3, 3>(3, 3), params_.degenerate_ratio, d->tail<3>());
   }
   if (params_.use_edges && edge_pairs >= 12) {
     if (dofs.size() < 6) {

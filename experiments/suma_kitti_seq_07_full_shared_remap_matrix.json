@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "suma_kitti_seq_07_full_shared_remap",
+    "title": "SuMa shared translation remap on KITTI 07 full",
+    "question": "Does the existing DiLO 0.03 translation remap transfer to SuMa without tuning?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "variants": [
+    {
+      "id": "shared_remap_003",
+      "label": "SuMa raw paper path + shared local translation remap 0.03",
+      "design_style": "ablation",
+      "intent": "Non-paper opt-in, default off. Fixed ratio transferred from the existing DiLO01 choice, without SuMa tuning;01 is a development case. Other parameters stay official/raw. Experimental evidence only, excluded from published leaderboard and paper-ratio promotion.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "degenerate_ratio=0.03"
+      ]
+    }
+  ]
+}

@@ -28,3 +28,12 @@ add_test(NAME common_io COMMAND test_common_io)
 add_executable(test_felzenszwalb_edt test/test_felzenszwalb_edt.cpp)
 target_link_libraries(test_felzenszwalb_edt PRIVATE localization_common GTest::gtest_main)
 add_test(NAME felzenszwalb_edt COMMAND test_felzenszwalb_edt)
+
+# Eigen-only helper: consumers do not acquire the common PCL/I/O dependency.
+add_library(localization_degeneracy INTERFACE)
+target_include_directories(localization_degeneracy INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(localization_degeneracy INTERFACE Eigen3::Eigen)
+
+add_executable(test_common_degeneracy test/test_degeneracy.cpp)
+target_link_libraries(test_common_degeneracy PRIVATE localization_degeneracy GTest::gtest_main)
+add_test(NAME common_degeneracy COMMAND test_common_degeneracy)

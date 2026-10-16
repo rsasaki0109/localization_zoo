@@ -11058,6 +11058,7 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
       else if (k == "fov_down_deg") pp.fov_down_deg = v;
       else if (k == "height") pp.height = static_cast<int>(v);
       else if (k == "initialize_identity") pp.initialize_identity = v != 0.0;
+      else if (k == "degenerate_ratio") pp.degenerate_ratio = v;
       else if (k == "fallback_rot_threshold") pp.fallback_rot_threshold = v;
       else if (k == "fallback_trans_threshold") pp.fallback_trans_threshold = v;
       else std::cerr << "unknown --suma-paper-set key " << k << std::endl;
@@ -11082,6 +11083,9 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
     res.note = "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel "
                "stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop "
                "closure. frame-to-frame fallbacks=" + std::to_string(fallbacks);
+    if (pp.degenerate_ratio > 0.0)
+      res.note += "; opt-in local translation remap ratio=" + std::to_string(pp.degenerate_ratio) +
+                  " (not in the paper)";
     return res;
   }
   SuMaParams params;

@@ -1,0 +1,16 @@
+{
+  "source_commit": "37416fd536766bdf9a3ce514da212ec5a4252431",
+  "script_sha256": "8ae8477ddb871100f7ddee335a5e2cb674649fb5ff9b9395ad791e186a85c42c",
+  "kitti_frames": [
+    "000000",
+    "000001",
+    "000002"
+  ],
+  "configuration": "Default assistant arguments, auto input format/model, no supplied extrinsics. Identity is reported as assumed; nominal FOV comes from model candidate, row count independently from ordered winding.",
+  "development": "KITTI00 first3 frames and synthetic HDL64/HDL32 geometry; the existing NCLT mount/reference settings informed the synthetic examples. No held-out accuracy or reproduction claim.",
+  "estimator_defaults_changed": false,
+  "existing_aggregates_unchanged": 688,
+  "nclt_status": "waiting_for_approved_host_configuration_to_be_applied",
+  "nclt_requested_host": "s3.us-east-2.amazonaws.com",
+  "nclt_user_approval": "User explicitly approved adding this host; actual enforced configuration still lacks it."
+}

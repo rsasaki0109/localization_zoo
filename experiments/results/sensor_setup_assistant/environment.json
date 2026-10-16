@@ -1,0 +1,32 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "localization-zoo-dev",
+    "/opt/localization-venv/bin/python",
+    "-c",
+    "import json,platform,sys,numpy;print(json.dumps({'python':sys.version,'numpy':numpy.__version__,'platform':platform.platform()},indent=2))"
+  ],
+  "exit_code": 0,
+  "started_unix": 1792160393.7981875,
+  "finished_unix": 1792160394.596337,
+  "source_commit": "37416fd536766bdf9a3ce514da212ec5a4252431",
+  "environment": {
+    "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+    "numpy": "1.26.4",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.35"
+  },
+  "stderr": ""
+}

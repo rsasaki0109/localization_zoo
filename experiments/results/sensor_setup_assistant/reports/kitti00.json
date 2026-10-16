@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "point_count": 373751,
+  "invalid_points_removed": 0,
+  "sensor_model_candidate": "hdl64e",
+  "sensor_frame": {
+    "status": "assumed_identity",
+    "pose": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "height_candidates": []
+  },
+  "intensity": {
+    "status": "observed",
+    "valid_points": 373751,
+    "min": 0.0,
+    "max": 0.9900000095367432,
+    "range_hint": "0..1"
+  },
+  "beam_spacing_deg": null,
+  "observed_rows": 64,
+  "rows_source": "ordered_azimuth_turns",
+  "rows": 64,
+  "fov": {
+    "observed_percentile_deg": [
+      -24.14014472967539,
+      3.072906394167614
+    ],
+    "nominal_down_deg": -24.9,
+    "nominal_up_deg": 2.0,
+    "source": "hdl64e_nominal",
+    "observed_histogram_peaks_deg": [
+      -24.14999999999949,
+      -23.149999999999476,
+      -21.549999999999454,
+      -21.049999999999446,
+      -20.449999999999438,
+      -19.84999999999943,
+      -16.949999999999388,
+      -16.34999999999938,
+      -15.349999999999365,
+      -14.849999999999358,
+      -14.449999999999353,
+      -13.849999999999344,
+      -13.349999999999337,
+      -12.749999999999329,
+      -12.349999999999323,
+      -11.849999999999316,
+      -11.44999999999931,
+      -10.949999999999303,
+      -9.849999999999287,
+      -9.449999999999282,
+      -8.949999999999275,
+      -8.449999999999267
+    ]
+  },
+  "near_range": {
+    "radius_m": 5.0,
+    "fraction": 0.06354765605978312,
+    "frame": "sensor",
+    "note": "Proximity is a diagnostic; --input-min-range-m 5 is opt-in and is not recommended from this fraction alone."
+  },
+  "ground": {
+    "height_m": 1.7552897361091222,
+    "surface": {
+      "z_m": -1.7552897361091222,
+      "point_fraction": 0.29261140013985654,
+      "azimuth_sectors": 12
+    },
+    "note": "Ground height is geometric evidence; paper ground-start thresholds still need confirmation."
+  },
+  "method_flags": {
+    "suma": [
+      "--input-sensor-pose",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "--suma-paper-set",
+      "fov_up_deg=2",
+      "--suma-paper-set",
+      "fov_down_deg=24.9",
+      "--suma-paper-set",
+      "height=64"
+    ],
+    "inten_loam": [
+      "--input-sensor-pose",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "--inten-loam-paper-set",
+      "theta_up_deg=2",
+      "--inten-loam-paper-set",
+      "theta_down_deg=24.9",
+      "--inten-loam-paper-set",
+      "height=64"
+    ],
+    "elo": [
+      "--input-sensor-pose",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "--elo-fov",
+      "2",
+      "-24.9",
+      "--elo-sri-height",
+      "64",
+      "--elo-sensor-height",
+      "1.8"
+    ],
+    "dilo": [
+      "--input-sensor-pose",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "--dilo-paper-top-elevation",
+      "2",
+      "--dilo-paper-height",
+      "192",
+      "--dilo-paper-max-fill-gap",
+      "4"
+    ]
+  },
+  "notes": [
+    "No estimator settings are applied automatically. Confirm candidates before use.",
+    "Scans alone do not establish x/y translation, yaw, or general roll/pitch extrinsics.",
+    "A sensor-model match supplies nominal beam count/FOV; it is a candidate, not sensor identification.",
+    "Uneven HDL-64E beams do not establish the origin by one-spacing periodicity. Identity is an explicit assumption; supply extrinsics for body-frame data.",
+    "Method flags are sensor-geometry overrides; add the intended paper/profile flag separately and preserve its tuned parameters.",
+    "The InTEn-LOAM paper runner already scales 0..255 intensity to 0..1; no intensity conversion flag is needed."
+  ],
+  "inputs": [
+    {
+      "path": "/workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000000.bin",
+      "sha256": "bf272996d5b6d25cc5589e1089137cb20a98b63bd4823a7fea5631b359f6d68c"
+    },
+    {
+      "path": "/workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000001.bin",
+      "sha256": "d937cb1bc1ce9ca4e03ccaf69b7537e175c625ecef631b6d668b96aee002faa8"
+    },
+    {
+      "path": "/workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000002.bin",
+      "sha256": "35ff6de88522818c44984113a3cbf9663e36dae8ae5d0f13f3dfb3bd389d15f2"
+    }
+  ],
+  "command": "python3 /workspace/localization_zoo/evaluation/scripts/check_scan_frame.py /workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000000.bin /workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000001.bin /workspace/localization-env/sensor-setup/kitti/dataset/sequences/00/velodyne/000002.bin --json-output /workspace/localization-env/sensor-setup/validation/kitti00.json",
+  "evaluator_git_commit": "37416fd536766bdf9a3ce514da212ec5a4252431"
+}

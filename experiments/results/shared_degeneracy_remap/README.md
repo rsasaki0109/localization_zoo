@@ -28,3 +28,18 @@ host variation make these runs unsuitable for speed claims.
 Full-sequence execution is in progress. Sequence results, preservation checks,
 negative findings and completion status will be summarized after the full fixed
 configuration and affected-method audit finish.
+
+The [committed full 01 comparison](sequences/01/comparison.json) is negative for
+SuMa: official RTE rises from 13.792690% to 95.257580% with the transferred
+setting. Its [saved-pose diagnostics](sequences/01/candidate_drift.json) show
+short steps from startup; the other sequences continue with the same setting.
+The [frozen baseline comparison](sequences/01/frozen_comparison.json) has zero
+printed-metric differences and identical saved-pose bytes for both existing
+audit variants. [Input cleanup](sequences/01/cleanup.json) verifies hashes before
+the downloaded sequence is removed.
+
+[Release receipts](checks/commands.json) record all 123 CTest entries and all 290
+Python regressions passing, along with source identity, showcase, leaderboard,
+paper-ready and whitespace checks. Actual commands and process exits are kept
+with the logs. Generated evidence is collapsed in GitHub diffs; the handwritten
+controller, wrapper, protocol and native implementation remain reviewable.

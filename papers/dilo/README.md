@@ -129,6 +129,11 @@ key point の選び方、Algorithm 1 のウィンドウ最適化) をほぼ持�
 [全シーケンスの影響範囲監査](../../experiments/results/shared_degeneracy_remap/README.md)
 を別途記録する。以下の既存結果は更新しない。
 
+共通化前後の full 01 では、既存 `paper_odometry_degenerate` の RPE・ATE・
+フレーム数の差は 0、保存軌跡もバイト単位で一致した
+([基準バイナリとの比較](../../experiments/results/shared_degeneracy_remap/sequences/01/frozen_comparison.json))。
+残りの全シーケンス監査は継続中である。
+
 | Seq | Paper | `paper_odometry_spread_keypoints` | `paper_odometry_degenerate` | Ratio |
 |---|---:|---:|---:|---:|
 | 00 | 0.64 | 0.549 | 0.549 | 0.86x |

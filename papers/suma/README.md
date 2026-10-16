@@ -150,6 +150,25 @@ The experimental ratio is transferred from the existing DiLO choice on KITTI
 out. [Full fixed-setting execution and audit protocol](../../experiments/results/shared_degeneracy_remap/README.md)
 are recorded separately; a new paper reproduction claim is not made here.
 
+<!-- SHARED_REMAP_RESULTS:START -->
+**Interim negative result, full KITTI 01.** The transferred setting is worse:
+
+| Fixed configuration | Official RTE [%] | ATE [m] | Moving steps with length error >20% |
+|---|---:|---:|---:|
+| Official raw defaults, remap off | 13.792690 | 175.826760 | 134 |
+| Raw defaults + shared remap `0.03` | 95.257580 | 1398.495188 | 1100 |
+
+[Committed full run and commands](../../experiments/results/shared_degeneracy_remap/sequences/01/comparison.json),
+[saved-pose diagnostics](../../experiments/results/shared_degeneracy_remap/sequences/01/candidate_drift.json).
+The candidate's path-length ratio to GT is 0.031934; all 1100 moving steps
+(GT step at least 0.1 m, destination frames 1–1100) have a length error above
+20%. The failure is present from startup. These saved poses locate the failure
+without separating the solver's normal bias from prediction effects. This
+transferred value is not recommended as a general SuMa KITTI setting. The other
+sequences are still running with the same configuration; no parameter is
+reselected from this result. Existing settings stay unchanged.
+<!-- SHARED_REMAP_RESULTS:END -->
+
 Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;
 `experiments/suma_kitti_seq_*_full_*_matrix.json`):
 

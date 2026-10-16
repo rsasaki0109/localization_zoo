@@ -1,0 +1,8 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-speed/import_compare_selected_final.py"
+  ],
+  "pid": 35532,
+  "started_unix": 1792171914.5945005
+}

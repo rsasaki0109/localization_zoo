@@ -1,5 +1,9 @@
 # LiTAMIN2: Ultra Light LiDAR-based SLAM using Geometric Approximation applied with KL-Divergence
 
+Paper-path interfaces: [Python API and examples](../../python/README.md#stateful-paper-pipelines),
+[ROS 2 nodes](../../ros2/localization_zoo_ros/README.md#paper-odometry-nodes).
+[Native fixture checks](../../experiments/results/paper_pipeline_bindings/README.md).
+
 ## 論文情報
 
 - **著者**: Masashi Yokozuka, Kenji Koide, Shuji Oishi, Atsuhiko Banno (産総研 AIST)

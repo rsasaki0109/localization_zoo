@@ -1,5 +1,79 @@
 # localization_zoo ROS 2 wrappers
 
+## Paper odometry nodes
+
+The paper paths have separate stateful nodes. Existing dense/scan-to-target
+nodes keep their behavior.
+
+| Executable | Native pipeline |
+|---|---|
+| `suma_paper_node` | `suma::SuMaPaper` frame-to-model odometry, without loop closure |
+| `imls_slam_paper_node` | `imls_slam::ImlsPaperOdometry` |
+| `dilo_paper_node` | `dilo::DiloPaperOdometry` |
+| `litamin2_paper_node` | `litamin2::LiTAMIN2Odometry`, separate from `litamin2_node` registration |
+
+After `colcon build --packages-select localization_zoo_ros`, source
+`install/setup.bash` and choose a method:
+
+```bash
+ros2 launch localization_zoo_ros paper_odometry.launch.py method:=suma
+ros2 launch localization_zoo_ros paper_odometry.launch.py method:=imls_slam
+ros2 launch localization_zoo_ros paper_odometry.launch.py method:=dilo
+ros2 launch localization_zoo_ros paper_odometry.launch.py method:=litamin2
+```
+
+Each subscribes to `points_raw` (`sensor_msgs/PointCloud2`, sensor-data QoS)
+and publishes `odom` (`nav_msgs/Odometry`) and optional TF. Input XYZ fields
+must already be in the intended stored scan frame; intensity is not required.
+The first accepted scan defines the world origin. Output poses are
+`map_frame_id <- input header.frame_id`, with the input acquisition timestamp.
+The node rejects empty frame names, changes of sensor frame, nonpositive or
+non-increasing timestamps, and scans without finite points before advancing
+the odometry. No TF extrinsic conversion, deskew or elevation correction is
+applied. Transform/preprocess upstream when reproducing a harness variant.
+
+Callbacks process scans sequentially, without ground-truth initialization or
+wrapper-side pose accumulation. Pace offline playback when comparing complete
+sequences. DiLO publishes each new causal pose; earlier published odometry is
+not replaced when its internal window is refined.
+
+All native scalar parameters are declared with the C++ defaults. Set them when
+launching; restart the node to apply new settings and begin a new sequence. Non-paper
+opt-ins such as `coarse_frames`, `degenerate_ratio` and `normalize_bilinear`
+are not enabled by the wrapper. Override them explicitly with ROS parameters:
+
+```bash
+ros2 run localization_zoo_ros imls_slam_paper_node --ros-args \
+  -r points_raw:=/lidar/points -p coarse_frames:=1 -p publish_tf:=false
+```
+
+For LiTAMIN2, `map_mode` accepts `aggregate`, `first` or `latest`. The launch
+also accepts `points_topic`, `odom_topic`, `map_frame_id`, `publish_tf`,
+`use_sim_time`, `input_reliability` and an optional `params_file`. It preserves native defaults,
+rather than silently selecting a KITTI benchmark profile.
+
+Input reliability defaults to `best_effort`, matching sensor-data subscribers.
+For a reliable publisher or paced offline replay, select
+`input_reliability:=reliable` to request retransmission of large point clouds.
+The publisher must offer compatible reliable QoS. The fixture test selects this
+mode explicitly; it changes delivery guarantees, not odometry parameters.
+
+CI runs the real nodes on the committed point-cloud fixture and checks their
+odometry/TF against the native C++ pipelines, including frame names, timestamps
+and rejection of duplicate/invalid headers. Run it after building with tests:
+
+```bash
+ROS_LOCALHOST_ONLY=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
+python3 localization_zoo_ros/test/test_paper_nodes.py \
+  --node-dir install/localization_zoo_ros/lib/localization_zoo_ros \
+  --reference build/localization_zoo_ros/paper_odometry_reference
+```
+
+Run from the `ros2/` workspace after sourcing its installed environment.
+[Python examples](../../python/README.md#stateful-paper-pipelines) expose the
+same native paper paths. Numerical interface-check results and commands are
+recorded separately from the historical paper benchmarks.
+
 ## IMU Motion & Health
 
 `imu_motion_health_node` is a LiDAR-free ROS 2 wrapper around the reusable

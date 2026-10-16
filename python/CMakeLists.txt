@@ -13,6 +13,20 @@ endif()
 
 # NO_EXTRAS: skip pybind11's LTO/strip extras — unnecessary for a thin wrapper
 # and it keeps link times short.
-pybind11_add_module(localization_zoo_py NO_EXTRAS src/localization_zoo_py.cpp)
+pybind11_add_module(localization_zoo_py NO_EXTRAS
+  src/localization_zoo_py.cpp src/paper_odometry_py.cpp)
 set_target_properties(localization_zoo_py PROPERTIES OUTPUT_NAME localization_zoo)
-target_link_libraries(localization_zoo_py PRIVATE kiss_icp litamin2 ndt gicp)
+target_link_libraries(localization_zoo_py PRIVATE kiss_icp litamin2 ndt gicp
+  suma imls_slam dilo)
+set_target_properties(suma imls_slam dilo PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+add_executable(paper_odometry_reference test/paper_odometry_reference.cpp)
+target_link_libraries(paper_odometry_reference PRIVATE suma imls_slam dilo litamin2)
+add_test(NAME test_paper_python_bindings
+  COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_paper_odometry.py
+    --module-dir $<TARGET_FILE_DIR:localization_zoo_py>
+    --reference $<TARGET_FILE:paper_odometry_reference>
+    --report ${CMAKE_CURRENT_BINARY_DIR}/paper_python_fixture.json)
+set_tests_properties(test_paper_python_bindings PROPERTIES
+  ENVIRONMENT "OMP_NUM_THREADS=1;OPENBLAS_NUM_THREADS=1")

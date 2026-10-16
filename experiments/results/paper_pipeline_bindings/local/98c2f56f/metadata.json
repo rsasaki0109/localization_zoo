@@ -1,0 +1,12 @@
+{
+  "implementation_commit": "98c2f56f16397f73c7fe93bc566ac0c3538747db",
+  "module_sha256": {
+    "localization_zoo.cpython-310-x86_64-linux-gnu.so": "72ea0349c0ff78ee74174eef271860d2c7d7095bdc1c35a9fa7d6b216189aa0f"
+  },
+  "input_sha256": {
+    "evaluation/fixtures/mcd_kth_smoke/00000000/cloud.pcd": "cc61530bc780bc47ca01a926e488a55b58caeab8ad683c0bbcc416972c569df9",
+    "evaluation/fixtures/mcd_kth_smoke/00000001/cloud.pcd": "cc8d302c63f04900d13685ad1e17aa9e0cbd6f89702cb4c45aea76d9557de99b",
+    "evaluation/fixtures/mcd_kth_smoke/00000002/cloud.pcd": "91e90a6f487b0877b80dc30275582ed02e326eec506682000a0663fd7ed640e3"
+  },
+  "native_reference_sha256": "705562dff1115f58c111a35168a3cc5e303022f448aa4c93f0f5331d85745a00"
+}

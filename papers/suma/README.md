@@ -153,7 +153,7 @@ Historical SuMa results, including the 02 diagnostics, were already known;
 no new held-out claim is made.
 
 <!-- SHARED_REMAP_RESULTS:START -->
-**Interim fixed-setting snapshot, full KITTI 00–02.** Full 00–10 evaluation
+**Interim fixed-setting snapshot, full KITTI 00–04.** Full 00–10 evaluation
 continues with the same arguments; no setting is reselected.
 
 | Seq | Raw RTE [%] | Remap RTE [%] | Raw ATE [m] | Remap ATE [m] |
@@ -161,8 +161,10 @@ continues with the same arguments; no setting is reselected.
 | 00 | 0.697236 | 0.686458 | 8.196443 | 7.945686 |
 | 01 | 13.792690 | 95.257580 | 175.826760 | 1398.495188 |
 | 02 | 3.511588 | 21.423956 | 70.307811 | 565.520007 |
+| 03 | 0.651090 | 7.124333 | 1.448501 | 11.877929 |
+| 04 | 0.416845 | 99.229120 | 0.974258 | 218.135538 |
 
-[Committed report, input snapshot and exact execution](../../experiments/results/shared_degeneracy_remap/checks/reporting_00_02/),
+[Committed report, input snapshot and exact execution](../../experiments/results/shared_degeneracy_remap/checks/reporting_00_04/),
 [per-sequence raw runs and cleanup](../../experiments/results/shared_degeneracy_remap/sequences/).
 This is a non-paper transfer experiment; no cohort paper ratio is claimed.
 
@@ -171,19 +173,26 @@ This is a non-paper transfer experiment; no cohort paper ratio is claimed.
 | 00 | 0.996997 | 13/4514 | 13/4514 | 4200-4300 | 131.234 | 7.225 |
 | 01 | 0.031934 | 134/1100 | 1100/1100 | 600-700 | 269.598 | 268.474 |
 | 02 | 0.741858 | 168/4660 | 2040/4660 | 700-800 | 127.784 | 108.485 |
+| 03 | 1.017108 | 1/785 | 218/785 | 500-600 | 76.797 | 14.231 |
+| 04 | 0.025261 | 0/270 | 270/270 | 100-200 | 144.369 | 142.520 |
 
 Bad length steps use GT motion at least 0.1 m and length error above 20%.
 Pose intervals use zero-based indices and the nonoverlapping blocks from block_frames=100.
 Growth is the positive end-minus-start pointwise position-error change, with no pose refit or rescaling.
 These saved-pose diagnostics are distinct from official KITTI RTE and do not establish a solver-level cause.
 
-The transfer fails from startup in 01 and 02. In 01 all 1100 moving steps
+The transfer fails from startup in 01, 02 and 04. In 01 all 1100 moving steps
 (destination frames 1–1100) have length error above 20%. In 02 the first
-continuous affected interval is 1–912, and 2040 of 4660 moving steps are
-affected over the full run. Complete interval lists and block measurements
-remain in the committed report. This transferred value is not recommended
-as a general SuMa KITTI setting. Existing settings and published results stay
-unchanged.
+continuous affected interval is 1–912, with 2040 of 4660 moving steps affected
+overall. In 04 all 270 moving steps are affected (frames 1–270), and the
+path-length ratio to GT is 0.025261.
+
+Sequence 03 fails later: affected intervals include 355–385, 556–624 and
+718–784; its largest saved-frame position-error increase occurs in the
+500–600 block. Complete intervals and block measurements remain in the
+committed report. These saved poses do not establish a solver-level cause.
+The transferred value is not recommended as a general SuMa KITTI setting.
+Existing settings and published results stay unchanged.
 
 [01 trace](../../experiments/results/shared_degeneracy_remap/plots/01/trace.png)
 and [02 trace](../../experiments/results/shared_degeneracy_remap/plots/02/trace.png)

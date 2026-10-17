@@ -42,8 +42,8 @@ native executable, argv, working directory, binary hash and exit code. Direct
 versus wrapped fixture records are under `wrapper_validation/`. Concurrency and
 host variation make these runs unsuitable for speed claims.
 
-Full-sequence execution is in progress. The [committed intermediate snapshot](checks/reporting_00_02/report/summary.json)
-contains paired full 00–02 runs and their affected-method audits. It remains
+Full-sequence execution is in progress. The [committed intermediate snapshot](checks/reporting_00_04/report/summary.json)
+contains paired full 00–04 runs and their affected-method audits. It remains
 explicitly incomplete and contains no cohort paper ratio or speed claim.
 
 SuMa 01 is negative: official RTE rises from 13.792690% to 95.257580%.
@@ -51,7 +51,7 @@ SuMa 01 is negative: official RTE rises from 13.792690% to 95.257580%.
 [The full 02 comparison](sequences/02/comparison.json) is also negative:
 RTE rises from 3.511588% to 21.423956%, ATE from 70.307811 m to 565.520007 m.
 Length errors above 20% affect destination frames 1–912 continuously at startup
-and 2040 moving steps overall. The same fixed configuration continues.
+and 2040 moving steps overall. The fixed transfer also worsens 03 and 04; the current report and method README retain their full accuracy and diagnostic rows. The same fixed configuration continues.
 
 Existing audit cells match RPE, ATE and frame counts; the intermediate report
 also verifies official translation and rotation RTE against committed selected

@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-17T09:10:19+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_coarse_start/benchmarks/index.json`._
+_Generated at 2026-10-17T10:09:42+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_coarse_start/benchmarks/index.json`._
 
 ## Stable Core
 
@@ -87,3 +87,4 @@ The runner is responsible for:
 | SuMa shared initial coarse registration on KITTI 03 full | `ready` | `experiments/suma_kitti_seq_03_full_shared_coarse_start_matrix.json` | `suma` | `shared_coarse_start_1x5x10` | `experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_03_full_shared_coarse_start_matrix.json` |
 | SuMa shared initial coarse registration on KITTI 04 full | `ready` | `experiments/suma_kitti_seq_04_full_shared_coarse_start_matrix.json` | `suma` | `shared_coarse_start_1x5x10` | `experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_04_full_shared_coarse_start_matrix.json` |
 | SuMa shared initial coarse registration on KITTI 05 full | `ready` | `experiments/suma_kitti_seq_05_full_shared_coarse_start_matrix.json` | `suma` | `shared_coarse_start_1x5x10` | `experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_05_full_shared_coarse_start_matrix.json` |
+| SuMa shared initial coarse registration on KITTI 06 full | `ready` | `experiments/suma_kitti_seq_06_full_shared_coarse_start_matrix.json` | `suma` | `shared_coarse_start_1x5x10` | `experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_06_full_shared_coarse_start_matrix.json` |

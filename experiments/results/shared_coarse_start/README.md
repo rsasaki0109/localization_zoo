@@ -50,10 +50,11 @@ The [01 plot](plots/01/trace.png), SVG, numeric CSV and input provenance beside 
 show remaining later drift without fitting or rescaling either saved trajectory.
 [Plot command and actual exit](plots/01/command.json) are retained.
 
-[Completed full SuMa 00 pair](early/00/pair.json) adds raw/coarse native receipts
-and saved poses; its raw accuracy/frame metrics match the previous study exactly.
-The IMLS-SLAM 00 audit and input cleanup remain pending, so this does not increase
-the completed all-method cohort or replace the default full-report guard.
+[Completed 00/01/04 snapshot](checks/reporting_00_01_04/report/summary.json) verifies
+six existing selected cells with zero accuracy/frame changes, raw-control and
+scan/GT identity against the prior study, and hash-verified owned-input cleanup.
+It remains explicitly incomplete for the full cohort and does not replace the
+default all-sequence report guard.
 
 00 acquisition stopped on truncated HTTP Range responses before any native 00
 artifacts. [Failures](attempts/fetch_00_failure.json),

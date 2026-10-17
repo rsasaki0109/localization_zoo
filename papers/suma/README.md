@@ -157,7 +157,7 @@ The following remap experiment is separate; remapping is off in the coarse study
 <!-- SHARED_COARSE_RESULTS:START -->
 Full fixed-setting KITTI 00–10 execution and the IMLS-SLAM/SuMa preservation
 audit are in progress in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136).
-Completed full SuMa pairs so far (the full-cohort audit remains in progress):
+Completed full pairs so far (the full-cohort report remains incomplete):
 
 | Seq | Raw RTE [%] | Coarse RTE [%] | Raw ATE [m] | Coarse ATE [m] |
 |---|---:|---:|---:|---:|
@@ -165,23 +165,16 @@ Completed full SuMa pairs so far (the full-cohort audit remains in progress):
 | 01 | 13.792690 | 10.686955 | 175.826760 | 150.500523 |
 | 04 | 0.416845 | 0.389970 | 0.974258 | 0.929463 |
 
-[Completed full 00 SuMa pair](../../experiments/results/shared_coarse_start/early/00/pair.json)
-retains both native receipts and saved poses. Its raw control matches all prior
-accuracy/frame metrics; the IMLS-SLAM 00 audit and input cleanup are still pending.
-
-[Full 04 candidate and native command](../../experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/),
-[04 raw control and native command](../../experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json).
-[Fresh full 01 raw control](../../experiments/results/shared_coarse_start/sequences/01/raw_control/)
-and its native receipt complete the 01 SuMa pair. Its raw metrics match the prior
-committed raw control. The IMLS-SLAM 01 audit and hash-verified input cleanup are complete.
-
-[Committed full 01/04 pairs, diagnostics and preservation checks](../../experiments/results/shared_coarse_start/checks/reporting_01_04/)
-verify all four existing selected cells with zero changes in RPE, ATE, frames
-and official translation/rotation RTE. Both methods'
-printed metrics and saved-pose bytes match the frozen pre-change full 04 runs.
-Other sequences remain incomplete; no transfer recommendation or cohort ratio is
-made from these partial-cohort pairs, and no setting is reselected. The full table and any negative
-intervals will be added from committed full-sequence evidence.
+[Committed 00/01/04 pairs, diagnostics and preservation checks](../../experiments/results/shared_coarse_start/checks/reporting_00_01_04/)
+verify all six existing selected cells with zero changes in RPE, ATE, frames
+and official translation/rotation RTE. Each raw control also matches the prior
+study's accuracy/frame metrics; official scan bytes and GT identity match.
+All three sequences' owned inputs were hash-verified and removed.
+Both methods' printed metrics and saved-pose bytes match the frozen pre-change
+full 04 runs ([comparison](../../experiments/results/shared_coarse_start/sequences/04/frozen_comparison.json)).
+The other sequences remain incomplete. No transfer recommendation or cohort ratio
+is made from this subset, and no setting is reselected. The full table and every
+negative interval will be retained from committed full-sequence evidence.
 
 The [committed full 01 candidate and checked diagnosis](../../experiments/results/shared_coarse_start/checks/early_01_candidate/)
 retain substantial later drift: 113 of 1100 moving steps have length errors

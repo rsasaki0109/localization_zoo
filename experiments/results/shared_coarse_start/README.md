@@ -49,3 +49,11 @@ owned-input cleanup are verified. It does not replace full 00–10 coverage.
 The [01 plot](plots/01/trace.png), SVG, numeric CSV and input provenance beside it
 show remaining later drift without fitting or rescaling either saved trajectory.
 [Plot command and actual exit](plots/01/command.json) are retained.
+
+00 acquisition stopped on truncated HTTP Range responses before any native 00
+artifacts. [Failures](attempts/fetch_00_failure.json),
+[read-only continuation check](checks/resume_00_guard/command.json) and
+[continuation command](attempts/resume_00_launch.json) are retained. The official
+downloader reused its CRC-checked complete files; the same frozen native binaries
+and fixed method arguments continued after the successful fetch. This transport
+recovery is separate from method accuracy or native execution failures.

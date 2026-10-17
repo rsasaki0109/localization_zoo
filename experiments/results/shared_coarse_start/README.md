@@ -69,3 +69,6 @@ responses. [Failure receipts](attempts/fetch_02_failure.json),
 [read-only guard](checks/resume_02_guard/command.json) and
 [continuation receipt](attempts/resume_02_launch.json) retain the checked
 continuation with the same frozen source/binaries and fixed native arguments.
+The continuation succeeded; all official scan bytes and GT match the prior
+committed study ([input manifest](sequences/02/inputs.json)). Native evaluation
+continues with the fixed protocol.

@@ -63,3 +63,9 @@ artifacts. [Failures](attempts/fetch_00_failure.json),
 downloader reused its CRC-checked complete files; the same frozen native binaries
 and fixed method arguments continued after the successful fetch. This transport
 recovery is separate from method accuracy or native execution failures.
+
+02 acquisition likewise stopped before native artifacts on truncated HTTP Range
+responses. [Failure receipts](attempts/fetch_02_failure.json),
+[read-only guard](checks/resume_02_guard/command.json) and
+[continuation receipt](attempts/resume_02_launch.json) retain the checked
+continuation with the same frozen source/binaries and fixed native arguments.

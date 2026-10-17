@@ -61,19 +61,13 @@ a fresh raw control matching prior accuracy/frame metrics, and remaining later
 drift. Both existing 02 cells match all checked metrics; hash-verified input cleanup
 is complete ([records](sequences/02/)). The full cohort remains incomplete.
 
-00 acquisition stopped on truncated HTTP Range responses before any native 00
-artifacts. [Failures](attempts/fetch_00_failure.json),
-[read-only continuation check](checks/resume_00_guard/command.json) and
-[continuation command](attempts/resume_00_launch.json) are retained. The official
-downloader reused its CRC-checked complete files; the same frozen native binaries
-and fixed method arguments continued after the successful fetch. This transport
-recovery is separate from method accuracy or native execution failures.
-
-02 acquisition likewise stopped before native artifacts on truncated HTTP Range
-responses. [Failure receipts](attempts/fetch_02_failure.json),
-[read-only guard](checks/resume_02_guard/command.json) and
-[continuation receipt](attempts/resume_02_launch.json) retain the checked
-continuation with the same frozen source/binaries and fixed native arguments.
-The continuation succeeded; all official scan bytes and GT match the prior
-committed study ([input manifest](sequences/02/inputs.json)). Native evaluation
-continues with the fixed protocol.
+<!-- FETCH_RECOVERY:START -->
+Official acquisition encountered truncated HTTP Range responses before native
+artifacts. [Failure and launch receipts](attempts/) retain each attempt.
+[Read-only continuation guards](checks/) first validated preceding committed
+comparisons/cleanup, absence of native artifacts and frozen source/binary identity.
+Failure and guard evidence was committed before each continuation launch.
+Only the official downloader's CRC-checked complete files were reused, with
+native settings unchanged. These transport failures are distinct from method
+accuracy or native execution failures.
+<!-- FETCH_RECOVERY:END -->

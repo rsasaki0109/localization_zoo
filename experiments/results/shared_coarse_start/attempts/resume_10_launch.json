@@ -1,0 +1,15 @@
+{
+  "pid": 78289,
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+    "--resume-from",
+    "10"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792245301.0021086,
+  "controller_checkout_commit": "0c4a6df28145c46dd263d896a7fd860c2d2a908e",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "reason": "Continue official 10 fetch after bounded Range EOF failures; previous committed checkpoints and absence of native artifacts validated read-only.",
+  "scope": "Same frozen native binaries and fixed method arguments. Reuse official CRC-checked complete files only; no native partial resume."
+}

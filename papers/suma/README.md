@@ -157,15 +157,19 @@ The following remap experiment is separate; remapping is off in the coarse study
 <!-- SHARED_COARSE_RESULTS:START -->
 Full fixed-setting KITTI 00–10 execution and the IMLS-SLAM/SuMa preservation
 audit are in progress in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136).
-Completed SuMa runs so far (the fresh 01 raw control is still running):
+Completed full SuMa pairs so far (the full-cohort audit remains in progress):
 
 | Seq | Raw RTE [%] | Coarse RTE [%] | Raw ATE [m] | Coarse ATE [m] |
 |---|---:|---:|---:|---:|
-| 01 | pending | 10.686955 | pending | 150.500523 |
+| 01 | 13.792690 | 10.686955 | 175.826760 | 150.500523 |
 | 04 | 0.416845 | 0.389970 | 0.974258 | 0.929463 |
 
 [Full candidate and native command](../../experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/),
 [raw control and native command](../../experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json).
+[Fresh full 01 raw control](../../experiments/results/shared_coarse_start/sequences/01/raw_control/)
+and its native receipt complete the 01 SuMa pair. Its raw metrics match the prior
+committed raw control. The IMLS-SLAM 01 audit and input cleanup are still pending.
+
 [Committed full 04 pair, diagnostics and preservation checks](../../experiments/results/shared_coarse_start/checks/reporting_04/)
 also verify the full IMLS-SLAM/SuMa audit and owned-input cleanup. Both methods'
 printed metrics and saved-pose bytes match the frozen pre-change full 04 runs.

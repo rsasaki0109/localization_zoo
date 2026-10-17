@@ -56,6 +56,10 @@ scan/GT identity against the prior study, and hash-verified owned-input cleanup.
 It remains explicitly incomplete for the full cohort and does not replace the
 default all-sequence report guard.
 
+[Full 02 pair and saved-pose diagnosis](early/02/) retain both native exits,
+a fresh raw control matching prior accuracy/frame metrics, and remaining later
+drift. IMLS-SLAM 02 audit/cleanup remain pending; this does not complete the cohort.
+
 00 acquisition stopped on truncated HTTP Range responses before any native 00
 artifacts. [Failures](attempts/fetch_00_failure.json),
 [read-only continuation check](checks/resume_00_guard/command.json) and

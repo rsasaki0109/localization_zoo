@@ -163,7 +163,12 @@ Completed full pairs so far (the full-cohort report remains incomplete):
 |---|---:|---:|---:|---:|
 | 00 | 0.697236 | 0.676793 | 8.196443 | 7.918658 |
 | 01 | 13.792690 | 10.686955 | 175.826760 | 150.500523 |
+| 02 | 3.511588 | 2.562817 | 70.307811 | 57.616595 |
 | 04 | 0.416845 | 0.389970 | 0.974258 | 0.929463 |
+
+[Full 02 SuMa pair](../../experiments/results/shared_coarse_start/early/02/pair.json)
+has both checked native exits and a fresh raw control matching the prior study.
+The IMLS-SLAM 02 audit and input cleanup remain pending.
 
 [Committed 00/01/04 pairs, diagnostics and preservation checks](../../experiments/results/shared_coarse_start/checks/reporting_00_01_04/)
 verify all six existing selected cells with zero changes in RPE, ATE, frames
@@ -190,6 +195,14 @@ they do not establish a solver-level cause or a cohort claim.
 [provenance](../../experiments/results/shared_coarse_start/plots/01/provenance.json)
 use committed saved poses without fitting or rescaling. The position-error
 trace and successive displacement are distinct from official segment-based RTE.
+02 also retains later drift despite its lower paired RTE: 144/4660
+moving steps have length error above 20%; its longest groups are destination
+frames 4483–4518, 1920–1953, 1869–1888. The largest positive position-error growth block
+is 2300–2400: GT travel 127.089 m, position-error increase
+22.928 m. [Committed diagnosis and exact command](../../experiments/results/shared_coarse_start/early/02/)
+retain all intervals. These measurements locate error growth without establishing
+a solver-level cause; the cohort remains incomplete.
+
 <!-- SHARED_COARSE_RESULTS:END -->
 
 The shared local translation remap is separately available through

@@ -1,0 +1,3 @@
+[audit] SuMa 10 paper_odometry: ok
+[audit] DiLO 10 paper_odometry_spread_keypoints: ok
+[done] 0 drifted, 0 failed of 2 cells; exit 0; wrote /workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/10/audit/report.json

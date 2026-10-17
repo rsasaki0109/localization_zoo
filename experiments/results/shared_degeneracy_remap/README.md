@@ -34,7 +34,7 @@ limited to a fetch-stage checkpoint and refuses existing native artifacts.
 [Guard checks](checks/resume_guard/commands.json) exercise permitted fetch-stage
 continuation and refusal to overwrite a completed native checkpoint. The
 [03 continuation command](attempts/resume_03_launch.json) preserves the native
-implementation and fixed arguments. This is not a general native-run resume. The same fetch-only continuation was later needed for 06; its [failed status](attempts/fetch_06_failure.json), [checkpoint check](checks/resume_06_guard/command.json) and [continuation command](attempts/resume_06_launch.json) are retained.
+implementation and fixed arguments. This is not a general native-run resume. The 08 acquisition also required fetch-only continuation; its [failure](attempts/fetch_08_failure.json), [checkpoint check](checks/resume_08_guard/command.json) and [continuation](attempts/resume_08_launch.json) are retained. The same fetch-only continuation was later needed for 06; its [failed status](attempts/fetch_06_failure.json), [checkpoint check](checks/resume_06_guard/command.json) and [continuation command](attempts/resume_06_launch.json) are retained.
 
 Independent runs use `native_wrapper.py` to isolate their output working
 directories. It forwards native arguments unchanged and records the actual

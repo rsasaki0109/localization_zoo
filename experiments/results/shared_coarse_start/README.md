@@ -18,3 +18,7 @@ promoted to the published leaderboard, Table 6 or paper-reference metadata.
 Near-range sharing and NCLT remain separate work. The NCLT host remains absent
 from the enforced policy despite earlier approval; this work does not retry
 that approval request or substitute synthetic scans for real validation.
+
+Single-variant matrix aggregates retain the runner's automatic adoption label.
+That label ranks only the experimental variant; the separately measured raw
+control determines any transfer recommendation, and defaults stay off.

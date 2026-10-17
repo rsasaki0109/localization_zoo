@@ -1,7 +1,7 @@
 {
   "base_commit": "14cfe450b55cb495190140e1f1fcb2c4119c43c7",
   "base_branch": "codex/shared-degeneracy-remap",
-  "implementation_commit": null,
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
   "scope": "Roadmap6 second component only: initial coarse/fine scheduling shared by IMLS-SLAM and opt-in SuMa; per-method residuals/correspondences/stopping stay local. Not a shared numerical aligner. No degeneracy remap combination. Near-range and NCLT remain open.",
   "suma_fixed_arguments": [
     "--no-gt-seed",

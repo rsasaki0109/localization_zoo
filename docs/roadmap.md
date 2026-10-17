@@ -221,13 +221,16 @@ independent. Each item says what "done" means.
      ELO and DiLO on NCLT.
    - Done: one implementation each with tests, used by at least two methods,
      defaults unchanged.
-   - In progress in [PR #135](https://github.com/rsasaki0109/localization_zoo/pull/135):
-     the DiLO translation remap is now an Eigen-only helper used by DiLO and
-     opt-in SuMa, with mechanism and integration tests. The fixed transfer from
-     the existing DiLO choice is being evaluated across KITTI 00-10 alongside
-     an affected-method preservation audit. The completed SuMa 01 and 02 runs
-     are negative; no setting is reselected from them. The full experiment remains
-     incomplete. [Protocol, committed results and commands](../experiments/results/shared_degeneracy_remap/README.md).
+   - First component implemented and evaluated in [PR #135](https://github.com/rsasaki0109/localization_zoo/pull/135):
+     the DiLO translation remap is an Eigen-only helper used by DiLO and
+     opt-in SuMa, with mechanism and integration tests. The fixed value 0.03,
+     transferred from the existing DiLO 01 selection without SuMa tuning, was
+     run on full KITTI 00-10. SuMa 01 worsens from official RTE 13.792690% to
+     95.257580%; this transfer is rejected as a general setting and defaults
+     stay off. The method README retains every sequence and its negative
+     diagnostics. All 22 affected existing DiLO/SuMa cells match RPE, ATE,
+     frame count and official translation/rotation RTE.
+     [Protocol, committed results and commands](../experiments/results/shared_degeneracy_remap/README.md).
      Coarse registration, near-range sharing and NCLT evaluation remain open.
 7. **Bindings.** The Python bindings cover KISS-ICP, NDT, GICP and LiTAMIN2
    (`python/`). Add the paper pipelines that are near paper (SuMa,

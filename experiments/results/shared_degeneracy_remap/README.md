@@ -1,112 +1,93 @@
 # Shared local translation degeneracy remap
 
-This experiment evaluates the first shared-robustness component in roadmap item
-6: the existing DiLO opt-in remap, extracted into
-[`common/degeneracy.h`](../../../common/include/common/degeneracy.h) and reused
-by SuMa. Coarse initial registration, near-range filtering and NCLT evaluation
-remain separate work. Both native defaults stay off.
+The first component of roadmap item 6 is implemented and evaluated: the existing
+DiLO opt-in remap is an Eigen-only helper in
+[`common/degeneracy.h`](../../../common/include/common/degeneracy.h), also used by
+opt-in SuMa. Both defaults stay off. Coarse initial registration, near-range
+sharing and NCLT evaluation remain open.
 
-[Protocol](protocol.json) records the fixed configuration, selection provenance,
-affected-method audit scope, input lifecycle and publication boundary.
-[Candidate](candidate.json) and [baseline](baseline.json) identify the frozen
-native binaries. The native implementation is pinned independently of subsequent
-evidence commits. New evidence stays in this directory and does not promote a
-variant into the published leaderboard, Table 6 or paper reference metadata.
-Nested aggregates retain the runner's automatic `Adopt as current default` label
-for the sole variant in each experimental manifest. The recommendation here uses
-the separately measured raw control and rejects this transfer as a general SuMa
-setting. The native defaults remain off; the automatic label and raw records are
-retained verbatim.
+Full KITTI 00–10 is complete with one fixed SuMa configuration:
+`--no-gt-seed --suma-paper --suma-paper-set degenerate_ratio=0.03`.
+The value comes unchanged from DiLO's existing 01 calibration, without a SuMa
+sweep. Sequence 01 is development evidence; historical SuMa results and 02
+diagnostics were already known. No new held-out claim is made.
+The paired measurements reject this transfer as a general SuMa setting.
+For example, 01 official RTE rises from 13.792690% to 95.257580% and ATE from
+175.826760 m to 1398.495188 m. No parameter is reselected.
 
-`run_all.py` records the exact commands and checked process exits. It uses the
-official KITTI downloader for one sequence at a time, audits the shared header's
-native consumers, evaluates the fixed SuMa variant, diagnoses saved trajectories
-and verifies input hashes before deleting only its owned downloaded scans.
-Completed sequence records are committed as they become available.
-The controller uses fresh artifact directories. For an independent replay,
-retain the committed evidence and use a new output directory with a binary
-built from the recorded implementation commit. Per-cell command receipts
-specify the full native arguments and input sequence.
+[Full accuracy table](report/table.md), [diagnostic table](report/diagnostics.md),
+[numeric CSV](report/comparison.csv) and [report with immutable input hashes](report/summary.json)
+retain all sequences. [SuMa's README](../../../papers/suma/README.md) records
+negative results and failure intervals. Saved-pose diagnostics locate startup
+and later failures without establishing a solver-level cause.
+[01](plots/01/trace.png) and [02](plots/02/trace.png) traces retain SVG, numeric CSV,
+input provenance and checked commands beside the figures; no path fitting or
+rescaling is applied. Pointwise position error is distinct from official RTE.
 
-The initial 03 fetch stopped on a truncated HTTP Range response, before any
-native 03 run. [The failed fetch](sequences/03/fetch_attempts/01/fetch.log) and
-[exit/state receipt](attempts/initial_run_failure.json) are retained. The
-controller now retains failed fetch receipts and retries transport failures a
-bounded number of times, using the official downloader's CRC-checked atomic
-files. `--resume-from NN --check-resume-only` validates committed earlier
-comparisons and cleanup without writing state; actual `--resume-from NN` is
-limited to a fetch-stage checkpoint and refuses existing native artifacts.
-[Guard checks](checks/resume_guard/commands.json) exercise permitted fetch-stage
-continuation and refusal to overwrite a completed native checkpoint. The
-[03 continuation command](attempts/resume_03_launch.json) preserves the native
-implementation and fixed arguments. This is not a general native-run resume. The 08 acquisition also required fetch-only continuation; its [failure](attempts/fetch_08_failure.json), [checkpoint check](checks/resume_08_guard/command.json) and [continuation](attempts/resume_08_launch.json) are retained. The same fetch-only continuation was later needed for 06; its [failed status](attempts/fetch_06_failure.json), [checkpoint check](checks/resume_06_guard/command.json) and [continuation command](attempts/resume_06_launch.json) are retained.
+[Protocol](protocol.json), [candidate](candidate.json) and [baseline](baseline.json)
+pin scope, settings, selection provenance and frozen binary hashes. The native
+implementation stays at `52aef810ac4f9fe3600188f08ebb943d001bc0fe`; later commits
+add evidence and documentation. All 22 existing selected DiLO/SuMa full-sequence
+cells match RPE, ATE, frame count and official translation/rotation RTE, as
+checked by the full report. The [frozen pre-change full 01 comparison](sequences/01/frozen_comparison.json)
+also has identical saved-pose bytes for both methods. The audit covers the
+helper's two native consumers; existing common loaders and other cores are
+unchanged. This is not a new whole-zoo audit.
 
-Independent runs use `native_wrapper.py` to isolate their output working
-directories. It forwards native arguments unchanged and records the actual
-native executable, argv, working directory, binary hash and exit code. Direct
-versus wrapped fixture records are under `wrapper_validation/`. Concurrency and
-host variation make these runs unsuitable for speed claims.
+New measurements stay in this nested evidence directory and are not promoted
+into published leaderboard/Table 6 selection or paper-reference metadata.
+Nested aggregates retain the runner's automatic `Adopt as current default`
+label for the sole variant in each experimental manifest. That within-manifest
+ranking is retained verbatim; the separately measured raw control determines
+the rejection here. No paper-ratio or speed claim is made.
 
-Full-sequence execution is in progress. The [committed intermediate snapshot](checks/reporting_00_08/report/summary.json)
-contains paired full 00–08 runs and their affected-method audits. It remains
-explicitly incomplete and contains no cohort paper ratio or speed claim.
+`run_all.py` records exact commands and actual process exits. It uses
+`evaluation/scripts/fetch_kitti_odometry_sequences.py` one sequence at a time,
+checks full indices/GT frame counts and scan hashes, evaluates and audits, then
+rechecks hashes before removing only its owned scans and alias. Every sequence
+has input, comparison, command, diagnostic and cleanup records under
+[`sequences/`](sequences/). [Final controller completion](attempts/final_completion.json)
+records successful completion. Concurrent independent jobs have one
+OpenMP/OpenBLAS worker each and are unsuitable for speed comparisons.
 
-SuMa 01 is negative: official RTE rises from 13.792690% to 95.257580%.
-[Its diagnostics](sequences/01/candidate_drift.json) show startup failure.
-[The full 02 comparison](sequences/02/comparison.json) is also negative:
-RTE rises from 3.511588% to 21.423956%, ATE from 70.307811 m to 565.520007 m.
-Length errors above 20% affect destination frames 1–912 continuously at startup
-and 2040 moving steps overall. The fixed transfer also worsens 03–06; the current report and method README retain their full accuracy and diagnostic rows. The same fixed configuration continues.
+`native_wrapper.py` forwards arguments unchanged, isolates each output cwd and
+records executable SHA, argv, environment and exit. Direct/wrapped fixture parity
+is retained under [`wrapper_validation/`](wrapper_validation/). Replays should
+use fresh artifact directories and a binary built from the pinned source;
+per-cell command receipts specify full arguments. The controller has fixed
+workspace paths and refuses pre-existing native artifacts, so replay its cell
+commands into an isolated copy rather than overwrite the committed records.
 
-Existing audit cells match RPE, ATE and frame counts; the intermediate report
-also verifies official translation and rotation RTE against committed selected
-aggregates. The [frozen full 01 comparison](sequences/01/frozen_comparison.json)
-has identical saved-pose bytes and zero printed-metric deltas for both methods.
-Per-sequence cleanup records verify input hashes before removing owned scans.
+Truncated HTTP Range responses required fetch-only continuation on 03, 06 and
+08. [Failure and launch receipts](attempts/) and per-sequence `fetch_attempts/`
+retain every failed command/log/exit. The official downloader's CRC-checked
+atomic files were reused. `--resume-from NN --check-resume-only` validates
+committed earlier comparisons/cleanup without state writes; actual continuation
+is limited to fetch-stage checkpoints and refuses native artifacts.
+[Initial guard checks](checks/resume_guard/commands.json),
+[06](checks/resume_06_guard/command.json) and [08](checks/resume_08_guard/command.json)
+retain the actual checks. Native binaries and method settings stayed fixed.
 
-[Release receipts](checks/commands.json) record all 123 CTest entries and all 290
-Python regressions passing, along with source identity, showcase, leaderboard,
-paper-ready and whitespace checks. Actual commands and process exits are kept
-with the logs. Generated evidence is collapsed in GitHub diffs; the handwritten
-controller, wrapper, protocol and native implementation remain reviewable.
+The full report was generated from committed inputs, before writing the numeric
+documentation, with:
 
-`summarize_results.py --output-dir <new-directory>` requires committed coverage
-of all requested sequences. It reads one immutable Git snapshot and verifies
-native binary hashes, complete argument lists, thread settings, frame counts,
-diagnostic definitions, audit status and owned-input cleanup. It writes JSON,
-CSV and a method-README table without a paper ratio or a speed claim.
-`--allow-partial` produces an explicitly incomplete interim report. The
-[coverage-guard check receipts](checks/reporting/commands.json) exercise refusal
-of incomplete coverage and explicit partial reporting against the committed
-first sequence; the source files and execution commands are retained.
-The report retains relative endpoint errors and the largest positive pointwise
-position-error increases, each with GT travel distance and frame bounds. This
-keeps low-motion relative errors in context. The
-[partial error-growth report and checked execution](checks/reporting_error_growth/)
-use committed inputs and remain explicitly incomplete.
-The report additionally requires both official translation and rotation RTE
-of the existing audit cells to match their committed selected aggregates,
-supplementing the audit CLI's RPE, ATE and frame-count checks.
-[The partial execution receipt](checks/reporting_official_metrics/command.json)
-records this check against the completed sequences.
-Both `table.md` and `diagnostics.md` are rendered from the report rows for use
-in the method README. [The table-generation execution](checks/reporting_tables/command.json)
-and its partial outputs retain the input snapshot, commands and checked exit.
+```bash
+python experiments/results/shared_degeneracy_remap/summarize_results.py \
+  --output-dir experiments/results/shared_degeneracy_remap/report
+```
 
-[`plot_sequence.py`](plot_sequence.py) plots saved full-sequence poses from one
-committed snapshot. The [01 trace](plots/01/trace.png),
-[SVG](plots/01/trace.svg), [numeric trace](plots/01/trace.csv) and
-[provenance](plots/01/provenance.json) show successive displacement and position
-error in the saved evaluation frame. They do not fit or rescale either path;
-the position-error trace is distinct from the official segment-based RTE.
-[Command and checked exit](plots/01/command.json) accompany the figure.
-The [02 trace](plots/02/trace.png), [SVG](plots/02/trace.svg),
-[numeric trace](plots/02/trace.csv), [provenance](plots/02/provenance.json)
-and [checked command](plots/02/command.json) use its committed paired full run.
+[Report command and checked exit](report/command.json) records the exact Python
+path and cwd. The default requires committed full 00–10 coverage and validates
+binary hashes, complete argv, threads, frame counts, GT CSV identity, diagnostic
+definitions, official RTE agreement, old selected metrics and owned-input cleanup.
+`--allow-partial` was used only for explicitly incomplete historical snapshots
+under `checks/reporting*`; those are not the completed report.
 
-`verify_preservation.py --output <receipt.json>` compares historical top-level
-aggregate hashes and the published README, HTML, Table 6 and paper-reference
-bytes with the recorded base. It also checks native source identity and the
-same arguments and input-path pattern in every new manifest. The
-[interim receipt](checks/preservation_interim.json) passes; this is independent
-of benchmark completion and will be repeated after the final doc regeneration.
+[Release receipts](checks/commands.json) record all 123 CTest entries and 290
+Python regressions passing. [Final regeneration and checks](checks/final/commands.json)
+record the mandated three doc generators and subsequent preservation, Python,
+showcase, leaderboard, paper-ready and whitespace checks with actual exits.
+[Final preservation](checks/final/preservation.json) checks every historical
+aggregate hash, published README/HTML/Table 6/paper metadata bytes, fixed
+manifests and native source identity. Generated evidence is collapsed in GitHub
+diffs; handwritten orchestration, protocol and implementation remain visible.

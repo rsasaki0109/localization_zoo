@@ -4,3 +4,4 @@ experiments/results/shared_degeneracy_remap/checks/** linguist-generated=true
 experiments/results/shared_degeneracy_remap/wrapper_validation/** linguist-generated=true
 experiments/results/shared_degeneracy_remap/plots/** linguist-generated=true
 experiments/results/shared_degeneracy_remap/historical_aggregate_sha256.json linguist-generated=true
+experiments/results/shared_degeneracy_remap/report/** linguist-generated=true

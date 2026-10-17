@@ -198,6 +198,14 @@ Existing settings and published results stay unchanged.
 and [02 trace](../../experiments/results/shared_degeneracy_remap/plots/02/trace.png)
 show successive displacement and pointwise position error in the saved frame,
 without fitting or rescaling either path.
+Full 05 also worsens: official RTE 0.379344% to 3.671756%, ATE 3.420344 m
+to 52.905898 m ([paired run](../../experiments/results/shared_degeneracy_remap/sequences/05/comparison.json)).
+Its [saved-pose diagnostics](../../experiments/results/shared_degeneracy_remap/sequences/05/candidate_drift.json)
+record 201 of 2683 moving steps with length error above 20%, including
+101–160 and 2136–2268. Over pose frames 100–200 the saved-frame position
+error grows from 0.768797 m to 42.210786 m. The full-cohort run continues
+without a parameter change.
+
 <!-- SHARED_REMAP_RESULTS:END -->
 
 Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;

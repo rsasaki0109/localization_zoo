@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-17T00:37:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_degeneracy_remap/benchmarks/index.json`._
+_Generated at 2026-10-17T00:46:36+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_degeneracy_remap/benchmarks/index.json`._
 
 ## Stable Core
 
@@ -86,3 +86,4 @@ The runner is responsible for:
 | SuMa shared translation remap on KITTI 02 full | `ready` | `experiments/suma_kitti_seq_02_full_shared_remap_matrix.json` | `suma` | `shared_remap_003` | `experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_02_full_shared_remap_matrix.json` |
 | SuMa shared translation remap on KITTI 03 full | `ready` | `experiments/suma_kitti_seq_03_full_shared_remap_matrix.json` | `suma` | `shared_remap_003` | `experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_03_full_shared_remap_matrix.json` |
 | SuMa shared translation remap on KITTI 04 full | `ready` | `experiments/suma_kitti_seq_04_full_shared_remap_matrix.json` | `suma` | `shared_remap_003` | `experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_04_full_shared_remap_matrix.json` |
+| SuMa shared translation remap on KITTI 05 full | `ready` | `experiments/suma_kitti_seq_05_full_shared_remap_matrix.json` | `suma` | `shared_remap_003` | `experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_05_full_shared_remap_matrix.json` |

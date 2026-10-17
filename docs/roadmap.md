@@ -232,6 +232,14 @@ independent. Each item says what "done" means.
      frame count and official translation/rotation RTE.
      [Protocol, committed results and commands](../experiments/results/shared_degeneracy_remap/README.md).
      Coarse registration, near-range sharing and NCLT evaluation remain open.
+   - Coarse registration is now being shared as an initial coarse/fine stage
+     policy used by IMLS-SLAM and opt-in SuMa. Per-method correspondences,
+     residuals and numerical stopping remain local. The transfer fixes the
+     registration/iteration budget and distance scale from the existing IMLS
+     04 choice before full KITTI 00-10 evaluation; defaults stay off.
+     [Protocol and execution](../experiments/results/shared_coarse_start/README.md).
+     This work remains incomplete until the full runs and preservation checks
+     are committed. Near-range sharing and NCLT evaluation remain open.
 7. **Bindings.** The Python bindings cover KISS-ICP, NDT, GICP and LiTAMIN2
    (`python/`). Add the paper pipelines that are near paper (SuMa,
    IMLS-SLAM, DiLO, LiTAMIN2 paper path) and ROS 2 nodes for them.

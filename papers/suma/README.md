@@ -137,6 +137,23 @@ matters, use `normalize_bilinear = true` with the 0.22 deg correction.
 
 ### Full sequences
 
+The shared initial coarse/fine stage policy is separately available through
+`--suma-paper-set coarse_frames=1 --suma-paper-set coarse_distance_scale=5
+--suma-paper-set coarse_iterations=10`. It is **not in the SuMa paper** and is
+disabled by default (`coarse_frames=0`). On the requested initial registrations,
+SuMa runs projective ICP with the distance gate multiplied by the scale, then
+starts ordinary ICP from that pose. Its residuals, normal gate and stopping
+rules remain SuMa's; the official fallback still starts from the original guess.
+Only stage ordering and registration counting are shared with IMLS-SLAM.
+
+The first-registration budget and iteration count come from the existing
+IMLS-SLAM 04 choice; the scale comes from its coarse/fine radius ratio.
+This is a transfer of the startup pattern, not of the IMLS residual/kernel.
+[Fixed protocol and execution](../../experiments/results/shared_coarse_start/README.md)
+will retain full KITTI 00–10 results and compatibility checks. No SuMa sweep
+or new held-out claim is made, since historical full-sequence results are known.
+The following remap experiment is separate; remapping is off in the coarse study.
+
 The shared local translation remap is separately available through
 `--suma-paper-set degenerate_ratio=0.03` (C++ `SuMaPaperParams::degenerate_ratio`).
 It is **not in the SuMa paper**, is disabled by default, and projects only the

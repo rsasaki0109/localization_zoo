@@ -1,0 +1,54 @@
+{
+  "base_commit": "14cfe450b55cb495190140e1f1fcb2c4119c43c7",
+  "base_branch": "codex/shared-degeneracy-remap",
+  "implementation_commit": null,
+  "scope": "Roadmap6 second component only: initial coarse/fine scheduling shared by IMLS-SLAM and opt-in SuMa; per-method residuals/correspondences/stopping stay local. Not a shared numerical aligner. No degeneracy remap combination. Near-range and NCLT remain open.",
+  "suma_fixed_arguments": [
+    "--no-gt-seed",
+    "--suma-paper",
+    "--suma-paper-set",
+    "coarse_frames=1",
+    "--suma-paper-set",
+    "coarse_distance_scale=5",
+    "--suma-paper-set",
+    "coarse_iterations=10"
+  ],
+  "selection": "One registration and ten coarse iterations come from existing IMLS-SLAM04 calibration; the distance multiplier5 comes from coarse_r1.0 / paper_r0.20, also the existing bandwidth ratio. SuMa has gate2m so the new coarse gate is10m; SuMa retains its Huber factor, normal gate and projective associations, not IMLS residuals/bandwidth. No SuMa tuning/sweep. Historical SuMa00-10 and previous remap negatives already known; no held-out claim.",
+  "sequences": [
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "order": [
+    "04",
+    "01",
+    "00",
+    "02",
+    "03",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "audit_methods": [
+    "IMLS-SLAM",
+    "SuMa"
+  ],
+  "audit_scope": "Stored best-RPE full-sequence cells for the two consumers of the new startup helper,22 cells. Existing common loaders and other paper cores unchanged; fixture/CTest coverage for those. Not a new whole-zoo audit.",
+  "controls": "Fresh SuMa raw defaults reused from audit when arguments match; separate fresh raw control01/02. Frozen prechange full04 for both methods, and frozen replay of any later drifted audit cell.",
+  "suma_behavior": "Coarse frame-to-model ICP starts from the usual initial guess; fine starts from coarse output. Shared schedule counts registrations starting1 after map-initialization scan0. Official fallback still uses original T0 and unchanged gates; fine stats retain their previous meaning; coarse stats/count are separate. Defaults coarse_frames0, remap0.",
+  "timing_scope": "Concurrent independent processes with OMP_NUM_THREADS=1 and OPENBLAS_NUM_THREADS=1; no speed claim.",
+  "publication": "Nested experimental evidence only. Historical aggregate hashes and README/HTML/Table6/paper metadata bytes must remain unchanged. Automatic single-variant adoption labels are not a paired-control recommendation.",
+  "data_policy": "Official fetch_kitti_odometry_sequences.py one sequence at a time; indices/fullframecount/GT CSV and allscan hashes retained and verified before deleting owned scans/alias.",
+  "nclt_policy": "At planning: managed spec122 observed122 currenttrue restricted/enforced; official s3.us-east-2.amazonaws.com absent despite prior approval. No repeated permission request or bypass."
+}

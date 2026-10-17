@@ -134,6 +134,12 @@ Table IV (n = 10: 0.56 %, n = 100: 0.55 %) と同じく小さい。
 (進行方向を横切る面) が飛ばされ、推定はおよそ 60 スキャン短いままになる。最初の 1 回の
 位置合わせだけ粗い段 (r = 1.0 m, h = 0.3 m, 10 反復) を先に入れると (論文にはない、
 `--imls-slam-paper-coarse-frames 1`) 04 は 0.425 % になる (1 / 3 / 10 フレームで同じ)。
+この初期段の実行順序・登録回数の制御は `common/initial_registration.h` に移し、
+SuMa と共有した。IMLS の半径・帯域幅・反復数・対応付けと更新順序は維持し、
+SuMa は自身のソルバーを使う。粗い段は論文にはなく、既定オフのままである。
+通常設定は 07、粗い初期段の導入は 04 の失敗を見て決めたので、04 は取り置き評価ではない。
+[共通化の監査と SuMa 転用実験](../../experiments/results/shared_coarse_start/README.md)
+は別に記録し、以下の既存結果は更新しない。
 00 / 07 は変わらない。`experiments/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json`、
 公式 RTE [%]:
 

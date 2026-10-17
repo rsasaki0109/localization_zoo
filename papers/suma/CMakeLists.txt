@@ -8,7 +8,7 @@ add_library(suma
 target_include_directories(suma PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_link_libraries(suma PRIVATE localization_degeneracy)
+target_link_libraries(suma PRIVATE localization_degeneracy localization_initial_registration)
 
 target_link_libraries(suma PUBLIC
   aloam

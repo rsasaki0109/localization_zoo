@@ -1,0 +1,137 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 2453.3 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running SuMa...
+
+  [SuMa paper] 0/1101
+  [SuMa paper] 10/1101
+  [SuMa paper] 20/1101
+  [SuMa paper] 30/1101
+  [SuMa paper] 40/1101
+  [SuMa paper] 50/1101
+  [SuMa paper] 60/1101
+  [SuMa paper] 70/1101
+  [SuMa paper] 80/1101
+  [SuMa paper] 90/1101
+  [SuMa paper] 100/1101
+  [SuMa paper] 110/1101
+  [SuMa paper] 120/1101
+  [SuMa paper] 130/1101
+  [SuMa paper] 140/1101
+  [SuMa paper] 150/1101
+  [SuMa paper] 160/1101
+  [SuMa paper] 170/1101
+  [SuMa paper] 180/1101
+  [SuMa paper] 190/1101
+  [SuMa paper] 200/1101
+  [SuMa paper] 210/1101
+  [SuMa paper] 220/1101
+  [SuMa paper] 230/1101
+  [SuMa paper] 240/1101
+  [SuMa paper] 250/1101
+  [SuMa paper] 260/1101
+  [SuMa paper] 270/1101
+  [SuMa paper] 280/1101
+  [SuMa paper] 290/1101
+  [SuMa paper] 300/1101
+  [SuMa paper] 310/1101
+  [SuMa paper] 320/1101
+  [SuMa paper] 330/1101
+  [SuMa paper] 340/1101
+  [SuMa paper] 350/1101
+  [SuMa paper] 360/1101
+  [SuMa paper] 370/1101
+  [SuMa paper] 380/1101
+  [SuMa paper] 390/1101
+  [SuMa paper] 400/1101
+  [SuMa paper] 410/1101
+  [SuMa paper] 420/1101
+  [SuMa paper] 430/1101
+  [SuMa paper] 440/1101
+  [SuMa paper] 450/1101
+  [SuMa paper] 460/1101
+  [SuMa paper] 470/1101
+  [SuMa paper] 480/1101
+  [SuMa paper] 490/1101
+  [SuMa paper] 500/1101
+  [SuMa paper] 510/1101
+  [SuMa paper] 520/1101
+  [SuMa paper] 530/1101
+  [SuMa paper] 540/1101
+  [SuMa paper] 550/1101
+  [SuMa paper] 560/1101
+  [SuMa paper] 570/1101
+  [SuMa paper] 580/1101
+  [SuMa paper] 590/1101
+  [SuMa paper] 600/1101
+  [SuMa paper] 610/1101
+  [SuMa paper] 620/1101
+  [SuMa paper] 630/1101
+  [SuMa paper] 640/1101
+  [SuMa paper] 650/1101
+  [SuMa paper] 660/1101
+  [SuMa paper] 670/1101
+  [SuMa paper] 680/1101
+  [SuMa paper] 690/1101
+  [SuMa paper] 700/1101
+  [SuMa paper] 710/1101
+  [SuMa paper] 720/1101
+  [SuMa paper] 730/1101
+  [SuMa paper] 740/1101
+  [SuMa paper] 750/1101
+  [SuMa paper] 760/1101
+  [SuMa paper] 770/1101
+  [SuMa paper] 780/1101
+  [SuMa paper] 790/1101
+  [SuMa paper] 800/1101
+  [SuMa paper] 810/1101
+  [SuMa paper] 820/1101
+  [SuMa paper] 830/1101
+  [SuMa paper] 840/1101
+  [SuMa paper] 850/1101
+  [SuMa paper] 860/1101
+  [SuMa paper] 870/1101
+  [SuMa paper] 880/1101
+  [SuMa paper] 890/1101
+  [SuMa paper] 900/1101
+  [SuMa paper] 910/1101
+  [SuMa paper] 920/1101
+  [SuMa paper] 930/1101
+  [SuMa paper] 940/1101
+  [SuMa paper] 950/1101
+  [SuMa paper] 960/1101
+  [SuMa paper] 970/1101
+  [SuMa paper] 980/1101
+  [SuMa paper] 990/1101
+  [SuMa paper] 1000/1101
+  [SuMa paper] 1010/1101
+  [SuMa paper] 1020/1101
+  [SuMa paper] 1030/1101
+  [SuMa paper] 1040/1101
+  [SuMa paper] 1050/1101
+  [SuMa paper] 1060/1101
+  [SuMa paper] 1070/1101
+  [SuMa paper] 1080/1101
+  [SuMa paper] 1090/1101
+  [SuMa paper] 1100/1101
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+SuMa                    ok          150.501     11.468         1101        549191.6       2.0         
+
+Notes:
+- SuMa: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=92; opt-in initial coarse registrations=1 frames=1 distance_scale=5.000000 max_iterations=10 (not in the paper)
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_01_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_01_full_evaluation_manifest.json)

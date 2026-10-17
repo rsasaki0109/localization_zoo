@@ -1,0 +1,12 @@
+{
+  "label": "review",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/checkpoint04/review_driver.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792255466.6482995,
+  "finished_unix": 1792255467.6681435,
+  "exit_code": 0
+}

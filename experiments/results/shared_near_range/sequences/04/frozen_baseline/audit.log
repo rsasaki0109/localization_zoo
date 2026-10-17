@@ -1,0 +1,5 @@
+[audit] CT-ICP 04 upstream_mechanics_elevation: drift
+[audit] DiLO 04 paper_odometry_spread_keypoints: ok
+[audit] ELO 04 dense_elevation_paper_normals_unbiased: ok
+[audit] Mesh-LOAM 04 paper_odometry_elevation: drift
+[done] 2 drifted, 0 failed of 4 cells; exit 1; wrote /workspace/localization_zoo/experiments/results/shared_near_range/sequences/04/frozen_baseline/report.json

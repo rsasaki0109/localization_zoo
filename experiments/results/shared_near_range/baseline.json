@@ -1,0 +1,7 @@
+{
+  "source_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "binary": "/workspace/localization-env/shared-near-range/baseline_pcd_dogfooding",
+  "sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+  "native_tree_equivalent_base": "e13aab37258ce73c216302c1cc5b61a5d5385ed3",
+  "copied_from": "/workspace/localization-env/shared-coarse-start/candidate_pcd_dogfooding"
+}

@@ -1,0 +1,19 @@
+{
+  "tool": "cloud_environment.environment_status",
+  "arguments": {},
+  "spec_revision": "138",
+  "observed_spec_revision": "138",
+  "observations_current": true,
+  "network_policy": {
+    "mode": "restricted",
+    "state": "enforced",
+    "allowed_hosts": [
+      "cvlibs.net",
+      "s3.eu-central-1.amazonaws.com",
+      "www.cvlibs.net"
+    ]
+  },
+  "required_official_host": "s3.us-east-2.amazonaws.com",
+  "official_host_allowed": false,
+  "scope": "Read-only policy observation; prior approval has not been reflected. No request or bypass."
+}

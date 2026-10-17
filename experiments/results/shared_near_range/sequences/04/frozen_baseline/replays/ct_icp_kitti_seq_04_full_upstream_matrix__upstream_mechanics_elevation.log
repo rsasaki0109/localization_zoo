@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+Running CT-ICP...
+  source_voxel_size=0.6 max_source_points=700 voxel_resolution=1.2 max_iterations=10 ceres_max_iterations=6 max_frames_in_map=20 multi_scale=on normal_cholesky=on regularizer_n_cap=0 auto_regularizer_cap=off
+  [CT-ICP upstream] 0/271  [CT-ICP upstream] 10/271  [CT-ICP upstream] 20/271  [CT-ICP upstream] 30/271  [CT-ICP upstream] 40/271  [CT-ICP upstream] 50/271  [CT-ICP upstream] 60/271  [CT-ICP upstream] 70/271  [CT-ICP upstream] 80/271  [CT-ICP upstream] 90/271  [CT-ICP upstream] 100/271  [CT-ICP upstream] 110/271  [CT-ICP upstream] 120/271  [CT-ICP upstream] 130/271  [CT-ICP upstream] 140/271  [CT-ICP upstream] 150/271  [CT-ICP upstream] 160/271  [CT-ICP upstream] 170/271  [CT-ICP upstream] 180/271  [CT-ICP upstream] 190/271  [CT-ICP upstream] 200/271  [CT-ICP upstream] 210/271  [CT-ICP upstream] 220/271  [CT-ICP upstream] 230/271  [CT-ICP upstream] 240/271  [CT-ICP upstream] 250/271  [CT-ICP upstream] 260/271  [CT-ICP upstream] 270/271
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+CT-ICP                  ok          2.192       0.733          271         105463.1       2.6         
+
+Notes:
+- CT-ICP: Upstream mechanics (jedeschaud/ct_icp driving_config); anchor matches the first GT pose. 0 frames would have stopped upstream; 0 map insertions skipped.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

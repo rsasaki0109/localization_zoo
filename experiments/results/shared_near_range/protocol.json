@@ -1,0 +1,41 @@
+{
+  "base_commit": "e13aab37258ce73c216302c1cc5b61a5d5385ed3",
+  "base_branch": "codex/shared-coarse-start",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "scope": "Roadmap6 third component: extract the existing runner near-range cut into common without changing behavior. ELO and DiLO use it through their shared loader; no method-core parameter or second filter is introduced.",
+  "order": [
+    "04",
+    "00",
+    "01",
+    "02",
+    "03",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "audit_scope": "All 177 selected stored best-RPE full KITTI cells across the zoo; original flags per stored cell, not fixed-setting accuracy evaluation or new parameter selection.",
+  "selection": "Default zero remains off. Enabled parity uses the historical NCLT5m cut, selected on that full sequence and restart window; no new sweep or held-out claim. Regression fixtures and KITTI replays do not validate NCLT accuracy.",
+  "enabled_parity": {
+    "methods": [
+      "DiLO",
+      "ELO",
+      "InTEn-LOAM"
+    ],
+    "dataset": "committed MCD three-frame fixture",
+    "cases": [
+      "disabled",
+      "explicit_zero",
+      "five_m",
+      "sensor_frame_five_m",
+      "corrected_five_m"
+    ]
+  },
+  "data_policy": "Official fetch_kitti_odometry_sequences.py one sequence at a time; exact official scan/GT hashes checked against previous study and before owned-data deletion.",
+  "controls": "Frozen pre-change binary; compare all fixture saved poses and accuracy/frame fields. On full04 replay frozen ELO/DiLO too; frozen replay for any later drifted cell determines whether drift predates extraction.",
+  "timing_scope": "Independent processes, one OMP/BLAS thread each; no speed claim.",
+  "nclt_policy": "Managed spec136 current/enforced, s3.us-east-2.amazonaws.com still absent despite earlier approval; no re-request or bypass. NCLT real-data validation remains open.",
+  "publication": "Do not change historical aggregate hashes, prior shared studies, README/HTML/Table6/paper JSON. Keep audit evidence nested."
+}

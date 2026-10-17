@@ -101,6 +101,7 @@
 #include "clins/clins.h"
 
 #define PCL_NO_PRECOMPILE
+#include "common/range_filter.h"
 #include <pcl/io/pcd_io.h>
 #include <random>
 #include <unordered_set>
@@ -702,22 +703,9 @@ void applyInputSensorPose(pcl::PointCloud<PointT>* cloud) {
 }
 
 template <typename PointT>
-void applyInputMinRange(pcl::PointCloud<PointT>* cloud) {
-  if (!(g_input_min_range_m > 0.0)) return;
-  const float min_sq = static_cast<float>(g_input_min_range_m * g_input_min_range_m);
-  auto& pts = cloud->points;
-  pts.erase(std::remove_if(pts.begin(), pts.end(), [min_sq](const PointT& p) {
-              return p.x * p.x + p.y * p.y + p.z * p.z < min_sq;
-            }),
-            pts.end());
-  cloud->width = static_cast<std::uint32_t>(pts.size());
-  cloud->height = 1;
-}
-
-template <typename PointT>
 void applyInputVerticalAngleCorrection(pcl::PointCloud<PointT>* cloud) {
   applyInputSensorPose(cloud);
-  applyInputMinRange(cloud);
+  localization_zoo::preprocessing::filterMinRange(*cloud, g_input_min_range_m);
   const double angle = g_input_vertical_angle_correction_rad;
   if (angle == 0.0) return;
   const double sin_angle = std::sin(angle);

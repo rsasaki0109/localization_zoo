@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running ELO...
+  source_voxel_size=0.1 max_source_points=80000 sri=2048x80 bev_res=0.2 ground_weight=5.0
+  [ELO] 0/271 sri=4793 bev=14943  [ELO] 10/271 sri=16227 bev=45645  [ELO] 20/271 sri=16149 bev=50034  [ELO] 30/271 sri=17055 bev=51810  [ELO] 40/271 sri=17294 bev=44601  [ELO] 50/271 sri=21609 bev=35523  [ELO] 60/271 sri=24291 bev=32744  [ELO] 70/271 sri=24323 bev=27100  [ELO] 80/271 sri=25591 bev=26949  [ELO] 90/271 sri=22834 bev=27550  [ELO] 100/271 sri=21772 bev=27724  [ELO] 110/271 sri=21864 bev=25595  [ELO] 120/271 sri=24561 bev=25566  [ELO] 130/271 sri=22903 bev=26546  [ELO] 140/271 sri=25309 bev=29655  [ELO] 150/271 sri=21539 bev=27198  [ELO] 160/271 sri=21746 bev=29700  [ELO] 170/271 sri=20921 bev=29374  [ELO] 180/271 sri=21273 bev=27718  [ELO] 190/271 sri=18612 bev=26544  [ELO] 200/271 sri=14493 bev=27288  [ELO] 210/271 sri=14107 bev=31062  [ELO] 220/271 sri=14727 bev=38608  [ELO] 230/271 sri=14488 bev=42020  [ELO] 240/271 sri=15273 bev=51704  [ELO] 250/271 sri=18450 bev=55815  [ELO] 260/271 sri=20793 bev=48575  [ELO] 270/271 sri=18414 bev=36365
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+ELO                     ok          0.557       0.316          271         370290.1       0.7         
+
+Notes:
+- ELO: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.024 g=12938 ng=3977 w=0.00
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

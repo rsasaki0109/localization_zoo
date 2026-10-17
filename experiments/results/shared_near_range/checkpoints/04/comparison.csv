@@ -1,0 +1,15 @@
+method,sequence,variant_id,audit_status,stored_rpe_trans_pct,rerun_rpe_trans_pct,stored_ate_m,rerun_ate_m,frames
+A-LOAM,04,kitti_default,ok,0.649586,0.649586,4.164467,4.164467,271
+CT-ICP,04,upstream_mechanics_elevation,drift,0.713006,0.733247,2.184636,2.191953,271
+DiLO,04,paper_odometry_spread_keypoints,ok,0.371962,0.371962,0.696066,0.696066,271
+ELO,04,dense_elevation_paper_normals_unbiased,ok,0.316075,0.316075,0.556908,0.556908,271
+IMLS-SLAM,04,paper_odometry_w100_coarse_start,ok,0.431994,0.431994,0.920863,0.920863,271
+InTEn-LOAM,04,paper_odometry_plane_check,ok,0.702437,0.702437,1.539561,1.539561,271
+KISS-ICP,04,upstream_mechanics_elevation,ok,0.411036,0.411036,0.661203,0.661203,271
+L-LO,04,seq07_tuned,ok,1.81947,1.81947,5.258562,5.258562,271
+LF-GICP,04,paper_default,ok,0.492733,0.492733,1.71936,1.71936,271
+LiTAMIN2,04,paper_icp_cov,ok,0.770132,0.770132,2.613416,2.613416,271
+MULLS,04,mulls_lo_elevation,ok,0.500552,0.500552,1.029749,1.029749,271
+Mesh-LOAM,04,paper_odometry_elevation,drift,0.523782,0.520627,10.602073,10.252902,271
+Quadric-LO,04,dense_profile,ok,0.515882,0.515882,1.874842,1.874842,271
+SuMa,04,paper_odometry,ok,0.392312,0.392312,0.974258,0.974258,271

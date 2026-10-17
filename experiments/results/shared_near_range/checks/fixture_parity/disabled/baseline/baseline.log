@@ -1,0 +1,38 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 3
+GT poses: 3
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: timestamp
+Frame gap [s]: min=0.101 median=0.102 mean=0.102 max=0.102
+Trajectory length: 0.0 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running DiLO...
+  source_voxel_size=0.0 sri=64x1024 lookup_radius=1 lookup_max_dist=1.5 keyframe_translation=2.0
+  [DiLO paper] 0/3
+Running ELO...
+  source_voxel_size=0.1 max_source_points=80000 sri=2048x80 bev_res=0.2 ground_weight=5.0
+  [ELO] 0/3 sri=3666 bev=5303
+
+=== InTEn-LOAM ===
+  stride=2 cyl=1024x64 intensity_reg=1 tvf=1 dor=1 mapping=1
+  [InTEn-LOAM paper] 0/3 g/f/e/r=1000/0/0/300 s2s=0 s2m=0 (e/g/f/i 0/0/0/0)   
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+DiLO                    ok          0.021       99.808         3           578.8          5.2         
+ELO                     ok          0.016       69.347         3           2675.7         1.1         
+InTEn-LOAM              ok          0.046       209.542        3           403.2          7.4         
+
+Notes:
+- DiLO: DiLO paper odometry (192x2048 sin-elevation range image, top 3 deg, vertical fill up to 4 rows, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+- ELO: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.014 g=5173 ng=1934 w=0.00
+- InTEn-LOAM: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=420 s2m=530 dor points/frame=0
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/mcd_kth_smoke_evaluated_gt.txt, manifest: dogfooding_results/mcd_kth_smoke_evaluation_manifest.json)

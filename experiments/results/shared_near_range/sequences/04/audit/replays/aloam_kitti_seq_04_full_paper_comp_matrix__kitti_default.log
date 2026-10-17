@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+Running A-LOAM...
+  n_scans=64 scan_period=0.1 curvature_threshold=0.1 less_flat_leaf_size=0.2 odom_iters=2 map_iters=2
+  [A-LOAM] 0/271  [A-LOAM] 10/271  [A-LOAM] 20/271  [A-LOAM] 30/271  [A-LOAM] 40/271  [A-LOAM] 50/271  [A-LOAM] 60/271  [A-LOAM] 70/271  [A-LOAM] 80/271  [A-LOAM] 90/271  [A-LOAM] 100/271  [A-LOAM] 110/271  [A-LOAM] 120/271  [A-LOAM] 130/271  [A-LOAM] 140/271  [A-LOAM] 150/271  [A-LOAM] 160/271  [A-LOAM] 170/271  [A-LOAM] 180/271  [A-LOAM] 190/271  [A-LOAM] 200/271  [A-LOAM] 210/271  [A-LOAM] 220/271  [A-LOAM] 230/271  [A-LOAM] 240/271  [A-LOAM] 250/271  [A-LOAM] 260/271  [A-LOAM] 270/271
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+A-LOAM                  ok          4.164       0.650          271         331101.2       0.8         
+
+Notes:
+- A-LOAM: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

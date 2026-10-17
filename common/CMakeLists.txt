@@ -45,3 +45,7 @@ target_include_directories(localization_initial_registration INTERFACE ${CMAKE_C
 add_executable(test_initial_registration test/test_initial_registration.cpp)
 target_link_libraries(test_initial_registration PRIVATE localization_initial_registration GTest::gtest_main)
 add_test(NAME initial_registration COMMAND test_initial_registration)
+
+add_executable(test_range_filter test/test_range_filter.cpp)
+target_link_libraries(test_range_filter PRIVATE localization_common GTest::gtest_main)
+add_test(NAME range_filter COMMAND test_range_filter)

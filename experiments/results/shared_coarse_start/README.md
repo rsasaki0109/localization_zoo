@@ -49,7 +49,7 @@ checked metrics, prior raw-control accuracy/frame metrics and scan/GT identity
 match, and owned-input cleanup is verified. 03 retains an ATE tradeoff; the
 method README keeps that negative with the remaining later drift on 01/02.
 [01 plot, numeric trace, provenance and command](plots/01/) use committed poses
-without fitting or rescaling. 05–10 remain incomplete.
+without fitting or rescaling. The complete all-sequence report remains pending.
 <!-- COARSE_PROGRESS:END -->
 
 <!-- FETCH_RECOVERY:START -->

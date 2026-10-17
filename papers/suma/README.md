@@ -174,8 +174,8 @@ metrics, and official scan bytes and GT identity match. Owned inputs were
 hash-verified and removed for all five sequences. Both methods' metrics and
 saved-pose bytes match frozen pre-change full 04
 ([comparison](../../experiments/results/shared_coarse_start/sequences/04/frozen_comparison.json)).
-05–10 remain incomplete. No transfer recommendation or cohort ratio is made
-from this subset, and no setting is reselected.
+The complete all-sequence report remains pending. No transfer recommendation or
+cohort ratio is made from this subset, and no setting is reselected.
 
 03 shows an ATE tradeoff: 1.448501 → 1.476722 m despite its lower RTE.
 There are 2/785 bad length steps at destination frames 756–757.
@@ -183,6 +183,13 @@ Its largest pointwise error-growth block is 600–700: GT travel
 83.563 m and position-error increase 2.070 m.
 [Saved-pose diagnostics](../../experiments/results/shared_coarse_start/sequences/03/candidate_drift.json)
 locate growth without establishing a solver-level cause.
+
+05 has slightly higher official RTE, 0.379344% → 0.380265%, while ATE changes
+3.420344 → 3.242128 m. This negative RTE pair is retained. There are
+0/2683 moving steps above the local length-error threshold; the largest
+pointwise error-growth block is 2600–2700 (GT 102.422 m, increase
+3.497 m). [Full result, diagnosis, audit and cleanup](../../experiments/results/shared_coarse_start/sequences/05/)
+retain all checked exits. These block diagnostics do not establish a solver-level cause.
 
 The [committed full 01 candidate and checked diagnosis](../../experiments/results/shared_coarse_start/checks/early_01_candidate/)
 retain substantial later drift: 113 of 1100 moving steps have length errors

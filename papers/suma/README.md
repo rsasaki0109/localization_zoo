@@ -200,6 +200,15 @@ increase 3.467 m).
 retain the checked native exits. These diagnostics locate growth without
 establishing a solver-level cause; no setting is reselected.
 
+<!-- COARSE_NEGATIVE_07 -->
+07 has a negative paired tradeoff: official RTE 0.331226% → 0.330252%, ATE
+1.059569 → 1.098068 m. There are 0/1009 bad length steps.
+The largest pointwise error-growth block is 500–600 (GT 93.673 m,
+increase 0.507 m).
+[Full paired result, diagnostics, audit and cleanup](../../experiments/results/shared_coarse_start/sequences/07/)
+retain the checked native exits. These diagnostics locate growth without
+establishing a solver-level cause; no setting is reselected.
+
 The [committed full 01 candidate and checked diagnosis](../../experiments/results/shared_coarse_start/checks/early_01_candidate/)
 retain substantial later drift: 113 of 1100 moving steps have length errors
 above 20%, at destination frames 480–488, 490–517, 786, 809 and 823–896.

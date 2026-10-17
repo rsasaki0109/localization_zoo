@@ -169,6 +169,9 @@ continues with the same arguments; no setting is reselected.
 [Committed report, input snapshot and exact execution](../../experiments/results/shared_degeneracy_remap/checks/reporting_00_06/),
 [per-sequence raw runs and cleanup](../../experiments/results/shared_degeneracy_remap/sequences/).
 This is a non-paper transfer experiment; no cohort paper ratio is claimed.
+The matrix runner assigns `Adopt as current default` within each single-variant
+manifest. That label ranks the sole experimental variant; the paired raw-control
+results below determine the transfer recommendation. Native defaults stay off.
 
 | Seq | Remap path / GT | Raw bad length steps | Remap bad length steps | Largest growth pose interval | GT travel [m] | Position-error increase [m] |
 |---|---:|---:|---:|---|---:|---:|

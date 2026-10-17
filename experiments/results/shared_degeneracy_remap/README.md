@@ -12,6 +12,11 @@ affected-method audit scope, input lifecycle and publication boundary.
 native binaries. The native implementation is pinned independently of subsequent
 evidence commits. New evidence stays in this directory and does not promote a
 variant into the published leaderboard, Table 6 or paper reference metadata.
+Nested aggregates retain the runner's automatic `Adopt as current default` label
+for the sole variant in each experimental manifest. The recommendation here uses
+the separately measured raw control and rejects this transfer as a general SuMa
+setting. The native defaults remain off; the automatic label and raw records are
+retained verbatim.
 
 `run_all.py` records the exact commands and checked process exits. It uses the
 official KITTI downloader for one sequence at a time, audits the shared header's

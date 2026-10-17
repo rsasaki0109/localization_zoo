@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+Running MULLS...
+  n_scans=64 mulls_map_iters=2 mulls_ceres_iters=4 max_frames_in_map=30 point_w=0.3
+  [MULLS-LO] 0/271  [MULLS-LO] 10/271  [MULLS-LO] 20/271  [MULLS-LO] 30/271  [MULLS-LO] 40/271  [MULLS-LO] 50/271  [MULLS-LO] 60/271  [MULLS-LO] 70/271  [MULLS-LO] 80/271  [MULLS-LO] 90/271  [MULLS-LO] 100/271  [MULLS-LO] 110/271  [MULLS-LO] 120/271  [MULLS-LO] 130/271  [MULLS-LO] 140/271  [MULLS-LO] 150/271  [MULLS-LO] 160/271  [MULLS-LO] 170/271  [MULLS-LO] 180/271  [MULLS-LO] 190/271  [MULLS-LO] 200/271  [MULLS-LO] 210/271  [MULLS-LO] 220/271  [MULLS-LO] 230/271  [MULLS-LO] 240/271  [MULLS-LO] 250/271  [MULLS-LO] 260/271  [MULLS-LO] 270/271
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+MULLS                   ok          1.030       0.501          271         68132.7        4.0         
+
+Notes:
+- MULLS: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

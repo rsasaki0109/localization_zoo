@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-near-range/baseline_pcd_dogfooding",
+    "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_04_full",
+    "/workspace/localization_zoo/experiments/reference_data/kitti_seq_04_full_gt.csv",
+    "--methods",
+    "elo",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/04/frozen_baseline/replays/elo_kitti_seq_04_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased.json",
+    "--no-gt-seed",
+    "--elo-dense-profile",
+    "--input-vertical-angle-correction-deg",
+    "0.195",
+    "--elo-normal-full-patch",
+    "--elo-sri-fuse-same-surface",
+    "--elo-ground-no-forward",
+    "--elo-curvature-threshold",
+    "0.03"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/04/frozen_baseline/replays/elo_kitti_seq_04_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native",
+  "binary_sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+  "started_unix": 1792253257.71345,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792253643.134693
+}

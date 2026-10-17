@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-17T11:13:16+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_coarse_start/benchmarks/index.json`._
+_Generated at 2026-10-17T13:11:08+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/shared_coarse_start/benchmarks/index.json`._
 
 ## Rules
 
@@ -85,6 +85,15 @@ _Generated at 2026-10-17T11:13:16+00:00 by `evaluation/scripts/run_experiment_ma
 
 - Current default: `shared_coarse_start_1x5x10`.
 - Aggregate result: `experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_08_full_shared_coarse_start_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| shared_coarse_start_1x5x10 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa shared initial coarse registration on KITTI 09 full
+
+- Current default: `shared_coarse_start_1x5x10`.
+- Aggregate result: `experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_09_full_shared_coarse_start_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|

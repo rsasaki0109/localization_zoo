@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1591
+GT poses: 1591
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 1705.0 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running IMLS-SLAM...
+  source_voxel_size=0.5 voxel_size=1.0 imls_h=0.5 sampling=1
+  [IMLS paper] 0/1591 model=126997  [IMLS paper] 20/1591 model=2661922  [IMLS paper] 40/1591 model=5197422  [IMLS paper] 60/1591 model=7725280  [IMLS paper] 80/1591 model=10255929  [IMLS paper] 100/1591 model=12664291  [IMLS paper] 120/1591 model=12666769  [IMLS paper] 140/1591 model=12675410  [IMLS paper] 160/1591 model=12687968  [IMLS paper] 180/1591 model=12651264  [IMLS paper] 200/1591 model=12542482  [IMLS paper] 220/1591 model=12423586  [IMLS paper] 240/1591 model=12324657  [IMLS paper] 260/1591 model=12242670  [IMLS paper] 280/1591 model=12209662  [IMLS paper] 300/1591 model=12219030  [IMLS paper] 320/1591 model=12256801  [IMLS paper] 340/1591 model=12293966  [IMLS paper] 360/1591 model=12336574  [IMLS paper] 380/1591 model=12368194  [IMLS paper] 400/1591 model=12441749  [IMLS paper] 420/1591 model=12473969  [IMLS paper] 440/1591 model=12477683  [IMLS paper] 460/1591 model=12455237  [IMLS paper] 480/1591 model=12375674  [IMLS paper] 500/1591 model=12401147  [IMLS paper] 520/1591 model=12352272  [IMLS paper] 540/1591 model=12346716  [IMLS paper] 560/1591 model=12232269  [IMLS paper] 580/1591 model=12144183  [IMLS paper] 600/1591 model=12052048  [IMLS paper] 620/1591 model=12046638  [IMLS paper] 640/1591 model=12051009  [IMLS paper] 660/1591 model=12185348  [IMLS paper] 680/1591 model=12281009  [IMLS paper] 700/1591 model=12303876  [IMLS paper] 720/1591 model=12331286  [IMLS paper] 740/1591 model=12375416  [IMLS paper] 760/1591 model=12403574  [IMLS paper] 780/1591 model=12345250  [IMLS paper] 800/1591 model=12353728  [IMLS paper] 820/1591 model=12375989  [IMLS paper] 840/1591 model=12370251  [IMLS paper] 860/1591 model=12337357  [IMLS paper] 880/1591 model=12462974  [IMLS paper] 900/1591 model=12416679  [IMLS paper] 920/1591 model=12279269  [IMLS paper] 940/1591 model=12286001  [IMLS paper] 960/1591 model=12313074  [IMLS paper] 980/1591 model=12369356  [IMLS paper] 1000/1591 model=12466431  [IMLS paper] 1020/1591 model=12637746  [IMLS paper] 1040/1591 model=12594191  [IMLS paper] 1060/1591 model=12568712  [IMLS paper] 1080/1591 model=12524283  [IMLS paper] 1100/1591 model=12514309  [IMLS paper] 1120/1591 model=12531415  [IMLS paper] 1140/1591 model=12569346  [IMLS paper] 1160/1591 model=12593953  [IMLS paper] 1180/1591 model=12575737  [IMLS paper] 1200/1591 model=12379409  [IMLS paper] 1220/1591 model=12347299  [IMLS paper] 1240/1591 model=12337423  [IMLS paper] 1260/1591 model=12340386  [IMLS paper] 1280/1591 model=12371802  [IMLS paper] 1300/1591 model=12535656  [IMLS paper] 1320/1591 model=12543220  [IMLS paper] 1340/1591 model=12557613  [IMLS paper] 1360/1591 model=12541891  [IMLS paper] 1380/1591 model=12508132  [IMLS paper] 1400/1591 model=12493389  [IMLS paper] 1420/1591 model=12503783  [IMLS paper] 1440/1591 model=12472461  [IMLS paper] 1460/1591 model=12459803  [IMLS paper] 1480/1591 model=12516964  [IMLS paper] 1500/1591 model=12586730  [IMLS paper] 1520/1591 model=12593441  [IMLS paper] 1540/1591 model=12619000  [IMLS paper] 1560/1591 model=12658937  [IMLS paper] 1580/1591 model=12662483
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+IMLS-SLAM               ok          3.050       0.618          1591        2438364.3      0.7         
+
+Notes:
+- IMLS-SLAM: IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0; coarse start on the first 1 registrations (r=1.0 h=0.3, not in the paper)
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_09_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_09_full_evaluation_manifest.json)

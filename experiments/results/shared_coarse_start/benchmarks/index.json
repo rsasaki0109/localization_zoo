@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T11:13:16+00:00",
+  "generated_at": "2026-10-17T13:11:08+00:00",
   "problems": [
     {
       "problem_id": "suma_kitti_seq_00_full_shared_coarse_start",
@@ -80,6 +80,15 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_seq_08_full_shared_coarse_start_matrix.json",
       "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_08_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_09_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 09 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_09_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_09_full_shared_coarse_start_matrix.json",
       "current_default": "shared_coarse_start_1x5x10"
     }
   ]

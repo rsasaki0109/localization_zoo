@@ -149,36 +149,46 @@ The experimental ratio is transferred from the existing DiLO choice on KITTI
 01 without a SuMa sweep. Sequence 01 motivates the experiment and is not held
 out. [Full fixed-setting execution and audit protocol](../../experiments/results/shared_degeneracy_remap/README.md)
 are recorded separately; a new paper reproduction claim is not made here.
+Historical SuMa results, including the 02 diagnostics, were already known;
+no new held-out claim is made.
 
 <!-- SHARED_REMAP_RESULTS:START -->
-**Interim negative result, full KITTI 01.** The transferred setting is worse:
+**Interim fixed-setting snapshot, full KITTI 00–02.** Full 00–10 evaluation
+continues with the same arguments; no setting is reselected.
 
-| Fixed configuration | Official RTE [%] | ATE [m] | Moving steps with length error >20% |
-|---|---:|---:|---:|
-| Official raw defaults, remap off | 13.792690 | 175.826760 | 134 |
-| Raw defaults + shared remap `0.03` | 95.257580 | 1398.495188 | 1100 |
+| Seq | Raw RTE [%] | Remap RTE [%] | Raw ATE [m] | Remap ATE [m] |
+|---|---:|---:|---:|---:|
+| 00 | 0.697236 | 0.686458 | 8.196443 | 7.945686 |
+| 01 | 13.792690 | 95.257580 | 175.826760 | 1398.495188 |
+| 02 | 3.511588 | 21.423956 | 70.307811 | 565.520007 |
 
-[Committed full run and commands](../../experiments/results/shared_degeneracy_remap/sequences/01/comparison.json),
-[saved-pose diagnostics](../../experiments/results/shared_degeneracy_remap/sequences/01/candidate_drift.json).
-The [saved-pose trace](../../experiments/results/shared_degeneracy_remap/plots/01/trace.png)
-plots successive displacement and pointwise position error without refitting
-or rescaling the paths; the plotted position error is separate from official RTE.
-The candidate's path-length ratio to GT is 0.031934; all 1100 moving steps
-(GT step at least 0.1 m, destination frames 1–1100) have a length error above
-20%. The failure is present from startup. These saved poses locate the failure
-without separating the solver's normal bias from prediction effects. This
-transferred value is not recommended as a general SuMa KITTI setting. The other
-sequences are still running with the same configuration; no parameter is
-reselected from this result. Existing settings stay unchanged.
+[Committed report, input snapshot and exact execution](../../experiments/results/shared_degeneracy_remap/checks/reporting_00_02/),
+[per-sequence raw runs and cleanup](../../experiments/results/shared_degeneracy_remap/sequences/).
+This is a non-paper transfer experiment; no cohort paper ratio is claimed.
 
-The full 02 candidate is also negative: official RTE **21.423956%**, ATE
-**565.520007 m** ([committed run](../../experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary.json)).
-[Early saved-pose diagnostics](../../experiments/results/shared_degeneracy_remap/checks/early_02_candidate/diagnostics.json)
-record 2040 of 4660 moving steps with length error above 20%, including the
-continuous destination-frame interval 1–912. Its full path-length ratio to GT
-is 0.741858. The fresh raw control is still running; the paired 02 comparison
-is not complete. These records locate another startup failure without
-establishing its solver-level cause. The fixed arguments remain unchanged.
+| Seq | Remap path / GT | Raw bad length steps | Remap bad length steps | Largest growth pose interval | GT travel [m] | Position-error increase [m] |
+|---|---:|---:|---:|---|---:|---:|
+| 00 | 0.996997 | 13/4514 | 13/4514 | 4200-4300 | 131.234 | 7.225 |
+| 01 | 0.031934 | 134/1100 | 1100/1100 | 600-700 | 269.598 | 268.474 |
+| 02 | 0.741858 | 168/4660 | 2040/4660 | 700-800 | 127.784 | 108.485 |
+
+Bad length steps use GT motion at least 0.1 m and length error above 20%.
+Pose intervals use zero-based indices and the nonoverlapping blocks from block_frames=100.
+Growth is the positive end-minus-start pointwise position-error change, with no pose refit or rescaling.
+These saved-pose diagnostics are distinct from official KITTI RTE and do not establish a solver-level cause.
+
+The transfer fails from startup in 01 and 02. In 01 all 1100 moving steps
+(destination frames 1–1100) have length error above 20%. In 02 the first
+continuous affected interval is 1–912, and 2040 of 4660 moving steps are
+affected over the full run. Complete interval lists and block measurements
+remain in the committed report. This transferred value is not recommended
+as a general SuMa KITTI setting. Existing settings and published results stay
+unchanged.
+
+[01 trace](../../experiments/results/shared_degeneracy_remap/plots/01/trace.png)
+and [02 trace](../../experiments/results/shared_degeneracy_remap/plots/02/trace.png)
+show successive displacement and pointwise position error in the saved frame,
+without fitting or rescaling either path.
 <!-- SHARED_REMAP_RESULTS:END -->
 
 Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;

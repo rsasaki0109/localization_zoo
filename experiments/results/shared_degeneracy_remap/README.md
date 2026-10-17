@@ -29,25 +29,22 @@ native executable, argv, working directory, binary hash and exit code. Direct
 versus wrapped fixture records are under `wrapper_validation/`. Concurrency and
 host variation make these runs unsuitable for speed claims.
 
-Full-sequence execution is in progress. Sequence results, preservation checks,
-negative findings and completion status will be summarized after the full fixed
-configuration and affected-method audit finish.
+Full-sequence execution is in progress. The [committed intermediate snapshot](checks/reporting_00_02/report/summary.json)
+contains paired full 00–02 runs and their affected-method audits. It remains
+explicitly incomplete and contains no cohort paper ratio or speed claim.
 
-The [committed full 01 comparison](sequences/01/comparison.json) is negative for
-SuMa: official RTE rises from 13.792690% to 95.257580% with the transferred
-setting. Its [saved-pose diagnostics](sequences/01/candidate_drift.json) show
-short steps from startup; the other sequences continue with the same setting.
-The [frozen baseline comparison](sequences/01/frozen_comparison.json) has zero
-printed-metric differences and identical saved-pose bytes for both existing
-audit variants. [Input cleanup](sequences/01/cleanup.json) verifies hashes before
-the downloaded sequence is removed.
+SuMa 01 is negative: official RTE rises from 13.792690% to 95.257580%.
+[Its diagnostics](sequences/01/candidate_drift.json) show startup failure.
+[The full 02 comparison](sequences/02/comparison.json) is also negative:
+RTE rises from 3.511588% to 21.423956%, ATE from 70.307811 m to 565.520007 m.
+Length errors above 20% affect destination frames 1–912 continuously at startup
+and 2040 moving steps overall. The same fixed configuration continues.
 
-The [full 02 candidate](benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary.json)
-has official RTE 21.423956% and ATE 565.520007 m. Its
-[early committed diagnostics](checks/early_02_candidate/diagnostics.json) locate
-length errors above 20% from destination frames 1–912 and count 2040 such steps
-over the full sequence. The raw control is still running, so the paired 02
-comparison is not yet complete. No parameter is reselected from this result.
+Existing audit cells match RPE, ATE and frame counts; the intermediate report
+also verifies official translation and rotation RTE against committed selected
+aggregates. The [frozen full 01 comparison](sequences/01/frozen_comparison.json)
+has identical saved-pose bytes and zero printed-metric deltas for both methods.
+Per-sequence cleanup records verify input hashes before removing owned scans.
 
 [Release receipts](checks/commands.json) record all 123 CTest entries and all 290
 Python regressions passing, along with source identity, showcase, leaderboard,
@@ -85,6 +82,9 @@ committed snapshot. The [01 trace](plots/01/trace.png),
 error in the saved evaluation frame. They do not fit or rescale either path;
 the position-error trace is distinct from the official segment-based RTE.
 [Command and checked exit](plots/01/command.json) accompany the figure.
+The [02 trace](plots/02/trace.png), [SVG](plots/02/trace.svg),
+[numeric trace](plots/02/trace.csv), [provenance](plots/02/provenance.json)
+and [checked command](plots/02/command.json) use its committed paired full run.
 
 `verify_preservation.py --output <receipt.json>` compares historical top-level
 aggregate hashes and the published README, HTML, Table 6 and paper-reference

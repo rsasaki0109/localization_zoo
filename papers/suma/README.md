@@ -154,6 +154,13 @@ will retain full KITTI 00–10 results and compatibility checks. No SuMa sweep
 or new held-out claim is made, since historical full-sequence results are known.
 The following remap experiment is separate; remapping is off in the coarse study.
 
+<!-- SHARED_COARSE_RESULTS:START -->
+Full fixed-setting KITTI 00–10 execution and the IMLS-SLAM/SuMa preservation
+audit are in progress in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136).
+A complete result table and any negative intervals will be added from committed
+full-sequence evidence; no transfer recommendation is made from partial coverage.
+<!-- SHARED_COARSE_RESULTS:END -->
+
 The shared local translation remap is separately available through
 `--suma-paper-set degenerate_ratio=0.03` (C++ `SuMaPaperParams::degenerate_ratio`).
 It is **not in the SuMa paper**, is disabled by default, and projects only the

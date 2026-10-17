@@ -232,8 +232,9 @@ independent. Each item says what "done" means.
      frame count and official translation/rotation RTE.
      [Protocol, committed results and commands](../experiments/results/shared_degeneracy_remap/README.md).
      Coarse registration, near-range sharing and NCLT evaluation remain open.
-   - Coarse registration is now being shared as an initial coarse/fine stage
-     policy used by IMLS-SLAM and opt-in SuMa. Per-method correspondences,
+   - In progress in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136):
+     coarse registration is shared as an initial coarse/fine stage policy
+     used by IMLS-SLAM and opt-in SuMa. Per-method correspondences,
      residuals and numerical stopping remain local. The transfer fixes the
      registration/iteration budget and distance scale from the existing IMLS
      04 choice before full KITTI 00-10 evaluation; defaults stay off.

@@ -1,0 +1,43 @@
+{
+  "failed_status": {
+    "exit_code": 1,
+    "error": "fetch failed after bounded retries; all failed receipts retained",
+    "sequence": "02"
+  },
+  "failed_active_state": {
+    "source_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+    "status": "failed",
+    "sequence": "02",
+    "runners": {},
+    "completed": [
+      "04",
+      "01",
+      "00"
+    ],
+    "resume_from": "00",
+    "checkpoint_revision": "cab5b8d0fbc940477c775cbbd1e34c0b0cb64444",
+    "last_commit": "d3493c948e48f5bf22700e8d9c5b5260213eed5c",
+    "error": "fetch failed after bounded retries; all failed receipts retained"
+  },
+  "launcher": {
+    "pid": 69018,
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+      "--resume-from",
+      "00"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "started_unix": 1792212336.858304,
+    "controller_checkout_commit": "7e96e429a0055d8498b06ae68c0ed90621452dd4",
+    "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+    "reason": "Continue official 00 fetch after bounded Range EOF failures; committed04/01 comparisons/cleanup and absence of00nativeartifacts validated read-only.",
+    "scope": "Same frozen native binaries and fixed arguments. Reuse only official CRC-checked completed .bin files; no native partial resume."
+  },
+  "recorded_at_unix": 1792220352.7237403,
+  "controller_confirmed_not_running": true,
+  "controller_process_status": "Zs",
+  "retained_complete_bins": 4612,
+  "retained_complete_bin_bytes": 9270693280,
+  "scope": "Official Range EOF errors before any native02 artifacts. Frozen native source/binaries/settings unchanged; no method result failure."
+}

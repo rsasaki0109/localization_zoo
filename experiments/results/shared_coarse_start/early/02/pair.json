@@ -1,0 +1,57 @@
+{
+  "sequence": "02",
+  "source_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "candidate_summary": "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary.json",
+  "control_summary": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/02/raw_control/summary.json",
+  "candidate": {
+    "name": "SuMa",
+    "status": "ok",
+    "ate_m": 57.616595,
+    "rpe_trans_pct": 2.849439,
+    "rpe_rot_deg_per_m": 0.010208,
+    "kitti_rte_trans_pct": 2.562817,
+    "kitti_rte_rot_deg_per_100m": 0.851078,
+    "frames": 4661,
+    "time_ms": 1919769.045572,
+    "fps": 2.427896,
+    "algorithm_time_ms": null,
+    "algorithm_fps": null,
+    "seed_fallback_rate_pct": null,
+    "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=71; opt-in initial coarse registrations=1 frames=1 distance_scale=5.000000 max_iterations=10 (not in the paper)"
+  },
+  "control": {
+    "name": "SuMa",
+    "status": "ok",
+    "ate_m": 70.307811,
+    "rpe_trans_pct": 4.043563,
+    "rpe_rot_deg_per_m": 0.010715,
+    "kitti_rte_trans_pct": 3.511588,
+    "kitti_rte_rot_deg_per_100m": 0.866398,
+    "frames": 4661,
+    "time_ms": 1853822.001958,
+    "fps": 2.514265,
+    "algorithm_time_ms": null,
+    "algorithm_fps": null,
+    "seed_fallback_rate_pct": null,
+    "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=97"
+  },
+  "fixed_arguments": [
+    "--no-gt-seed",
+    "--suma-paper",
+    "--suma-paper-set",
+    "coarse_frames=1",
+    "--suma-paper-set",
+    "coarse_distance_scale=5",
+    "--suma-paper-set",
+    "coarse_iterations=10"
+  ],
+  "prior_raw_control_abs_metric_delta": {
+    "frames": 0,
+    "ate_m": 0.0,
+    "rpe_trans_pct": 0.0,
+    "rpe_rot_deg_per_m": 0.0,
+    "kitti_rte_trans_pct": 0.0,
+    "kitti_rte_rot_deg_per_100m": 0.0
+  },
+  "scope": "Completed full SuMa pair; existing-cell IMLS audit and input cleanup remain pending. Default all11 report still required."
+}

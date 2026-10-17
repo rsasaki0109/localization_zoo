@@ -137,6 +137,108 @@ matters, use `normalize_bilinear = true` with the 0.22 deg correction.
 
 ### Full sequences
 
+The shared initial coarse/fine stage policy is separately available through
+`--suma-paper-set coarse_frames=1 --suma-paper-set coarse_distance_scale=5
+--suma-paper-set coarse_iterations=10`. It is **not in the SuMa paper** and is
+disabled by default (`coarse_frames=0`). On the requested initial registrations,
+SuMa runs projective ICP with the distance gate multiplied by the scale, then
+starts ordinary ICP from that pose. Its residuals, normal gate and stopping
+rules remain SuMa's; the official fallback still starts from the original guess.
+Only stage ordering and registration counting are shared with IMLS-SLAM.
+
+The first-registration budget and iteration count come from the existing
+IMLS-SLAM 04 choice; the scale comes from its coarse/fine radius ratio.
+This is a transfer of the startup pattern, not of the IMLS residual/kernel.
+[Fixed protocol and execution](../../experiments/results/shared_coarse_start/README.md)
+record full KITTI 00–10 results and compatibility checks. No SuMa sweep
+or new held-out claim is made, since historical full-sequence results are known.
+The following remap experiment is separate; remapping is off in the coarse study.
+
+<!-- SHARED_COARSE_RESULTS:START -->
+**Completed fixed-setting experiment, full KITTI 00–10.** All candidates use
+`--no-gt-seed --suma-paper --suma-paper-set coarse_frames=1
+--suma-paper-set coarse_distance_scale=5 --suma-paper-set coarse_iterations=10`
+unchanged, with translation remapping off. All native notes report one coarse
+registration; the iteration budget is a cap and numerical stopping can occur earlier.
+
+| Seq | Raw RTE [%] | Coarse RTE [%] | Raw ATE [m] | Coarse ATE [m] |
+|---|---:|---:|---:|---:|
+| 00 | 0.697236 | 0.676793 | 8.196443 | 7.918658 |
+| 01 | 13.792690 | 10.686955 | 175.826760 | 150.500523 |
+| 02 | 3.511588 | 2.562817 | 70.307811 | 57.616595 |
+| 03 | 0.651090 | 0.646312 | 1.448501 | 1.476722 |
+| 04 | 0.416845 | 0.389970 | 0.974258 | 0.929463 |
+| 05 | 0.379344 | 0.380265 | 3.420344 | 3.242128 |
+| 06 | 0.285691 | 0.280482 | 2.961054 | 2.970025 |
+| 07 | 0.331226 | 0.330252 | 1.059569 | 1.098068 |
+| 08 | 1.060143 | 1.043560 | 24.049840 | 23.007073 |
+| 09 | 0.510286 | 0.521616 | 6.469266 | 6.326409 |
+| 10 | 0.697880 | 0.714919 | 5.252594 | 5.982472 |
+
+[Full committed report and input snapshot](../../experiments/results/shared_coarse_start/report/summary.json),
+[exact report command and checked exit](../../experiments/results/shared_coarse_start/report/command.json),
+[raw commands, trajectories and cleanup](../../experiments/results/shared_coarse_start/sequences/).
+The control is freshly measured raw SuMa with one fixed setting across the cohort.
+RTE is higher on 05, 09, 10; ATE is higher on 03, 06, 07, 10.
+The full table retains these tradeoffs without reselection.
+No setting is reselected, no paper ratio or speed claim is made, and defaults stay off.
+
+| Seq | Coarse path / GT | Raw bad length steps | Coarse bad length steps | Largest growth pose interval | GT travel [m] | Position-error increase [m] |
+|---|---:|---:|---:|---|---:|---:|
+| 00 | 0.996986 | 13/4514 | 13/4514 | 4200-4300 | 131.234 | 7.492 |
+| 01 | 1.102829 | 134/1100 | 113/1100 | 800-900 | 193.123 | 160.248 |
+| 02 | 1.024914 | 168/4660 | 144/4660 | 2300-2400 | 127.089 | 22.928 |
+| 03 | 1.002720 | 1/785 | 2/785 | 600-700 | 83.563 | 2.070 |
+| 04 | 1.001324 | 0/270 | 0/270 | 200-270 | 112.094 | 1.479 |
+| 05 | 0.998717 | 0/2683 | 0/2683 | 2600-2700 | 102.422 | 3.497 |
+| 06 | 1.001468 | 0/1100 | 0/1100 | 900-1000 | 127.875 | 3.467 |
+| 07 | 0.997835 | 0/1009 | 0/1009 | 500-600 | 93.673 | 0.507 |
+| 08 | 0.997403 | 23/4040 | 18/4040 | 0-100 | 50.648 | 17.318 |
+| 09 | 0.999478 | 0/1590 | 0/1590 | 1300-1400 | 144.465 | 4.944 |
+| 10 | 0.997566 | 0/1153 | 1/1153 | 700-800 | 127.161 | 2.691 |
+
+Bad length steps use GT motion at least 0.1 m and length error above 20%.
+Pose intervals use zero-based indices and the nonoverlapping blocks from block_frames=100.
+Growth is the positive end-minus-start pointwise position-error change, with no pose refit or rescaling.
+These saved-pose diagnostics are distinct from official KITTI RTE and do not establish a solver-level cause.
+
+| Seq with bad length steps | Longest coarse bad-length intervals (destination frames) |
+|---|---|
+| 00 | 1967–1970, 1927–1928, 2966–2967 |
+| 01 | 823–896, 490–517, 480–488 |
+| 02 | 4483–4518, 1920–1953, 1869–1888 |
+| 03 | 756–757 |
+| 08 | 30–44, 27–28, 46 |
+| 10 | 65 |
+
+Sequence 01 has ATE 150.500523 m and 113/1100 bad length steps. Its largest
+position-error growth block is 800–900: GT travel 193.123 m, position-error
+increase 160.248 m.
+
+[01 trace](../../experiments/results/shared_coarse_start/plots/01/trace.png), [numeric trace](../../experiments/results/shared_coarse_start/plots/01/trace.csv)
+and [provenance](../../experiments/results/shared_coarse_start/plots/01/provenance.json) show successive displacement
+and pointwise position error from committed poses without fitting or rescaling.
+These curves are distinct from the official segment-based RTE.
+
+Intervals above select up to three longest contiguous groups for every sequence
+with bad length steps, including sequences whose RTE improves.
+Complete ranges and the largest positive pointwise error-growth blocks
+remain in the report. RTE can worsen without a moving step crossing this local
+threshold. Saved-pose diagnostics locate where errors grow; they do not establish
+a solver-level cause. Historical SuMa results were already known, so this is not
+a new held-out evaluation.
+
+All 22 existing selected IMLS-SLAM/SuMa full-sequence audit cells match RPE, ATE,
+frame count and official translation/rotation RTE, with zero maximum deltas.
+The frozen pre-change full 04 comparison also has identical saved-pose bytes
+for both methods.
+The audit covers the startup helper's two native consumers, not the whole zoo.
+The raw controls also match the prior committed raw SuMa controls on every sequence,
+and official scan bytes/GT identity match that study. The separate translation-remap
+experiment and published results remain unchanged.
+
+<!-- SHARED_COARSE_RESULTS:END -->
+
 The shared local translation remap is separately available through
 `--suma-paper-set degenerate_ratio=0.03` (C++ `SuMaPaperParams::degenerate_ratio`).
 It is **not in the SuMa paper**, is disabled by default, and projects only the

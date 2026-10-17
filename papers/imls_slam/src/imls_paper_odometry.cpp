@@ -1,4 +1,5 @@
 #include "imls_slam/imls_paper_odometry.h"
+#include "common/initial_registration.h"
 
 #include <Eigen/Dense>
 
@@ -246,11 +247,11 @@ ImlsPaperResult ImlsPaperOdometry::process(const std::vector<Eigen::Vector3d>& s
 
   // Constant velocity: tau(k-1) tau(k-2)^-1 tau(k-1).
   Eigen::Matrix4d T = pose_ * (previous_pose_.inverse() * pose_);
-  if (frame_ <= params_.coarse_frames && params_.coarse_iterations > 0) {
-    iterate(points, lists, params_.coarse_r, params_.coarse_h, params_.coarse_iterations, false, &T);
-    result.coarse_start = true;
-  }
-  result.samples = iterate(points, lists, params_.r, params_.h, params_.iterations, false, &T);
+  result.samples = registration::initialCoarseThenFine(
+      frame_, params_.coarse_frames, params_.coarse_iterations,
+      [&](int iterations) { iterate(points, lists, params_.coarse_r, params_.coarse_h, iterations, false, &T); },
+      [&]() { return iterate(points, lists, params_.r, params_.h, params_.iterations, false, &T); },
+      &result.coarse_start);
 
   previous_pose_ = pose_;
   pose_ = T;

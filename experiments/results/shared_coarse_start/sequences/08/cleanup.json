@@ -1,0 +1,8 @@
+{
+  "sequence": "08",
+  "owned_input_dir": "/workspace/localization-env/shared-coarse-start/kitti/dataset/sequences/08/velodyne",
+  "removed_files": 4072,
+  "removed_bytes": 7985311498,
+  "hashes_verified_before_removal": true,
+  "input_dir_exists_after": false
+}

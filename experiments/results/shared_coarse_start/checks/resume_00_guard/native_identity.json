@@ -1,0 +1,19 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "40278ee01ede562a490e4d09d256e435a1b562d6",
+    "--",
+    "common",
+    "evaluation/src",
+    "papers/*/src",
+    "papers/*/include",
+    "papers/*/test",
+    "papers/*/CMakeLists.txt",
+    "CMakeLists.txt",
+    "ros2/localization_zoo_ros/CMakeLists.txt"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "actual_exit_code": 0
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+    "--resume-from",
+    "10",
+    "--check-resume-only"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792245300.0482407,
+  "finished_unix": 1792245300.6665075,
+  "actual_exit_code": 0,
+  "active_state_unchanged": true
+}

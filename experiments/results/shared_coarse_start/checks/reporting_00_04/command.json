@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_coarse_start/summarize_results.py",
+    "--allow-partial",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/checks/reporting_00_04/report"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792228058.4347808,
+  "finished_unix": 1792228059.3036418,
+  "actual_exit_code": 0
+}

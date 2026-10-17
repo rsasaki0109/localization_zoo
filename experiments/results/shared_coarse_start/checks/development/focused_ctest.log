@@ -1,0 +1,12 @@
+Internal ctest changing into directory: /workspace/localization_zoo/build
+Test project /workspace/localization_zoo/build
+    Start   5: initial_registration
+1/3 Test   #5: initial_registration .............   Passed    0.01 sec
+    Start  51: test_imls_paper_odometry
+2/3 Test  #51: test_imls_paper_odometry .........   Passed    8.48 sec
+    Start 106: test_suma_paper
+3/3 Test #106: test_suma_paper ..................   Passed    6.58 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =  15.10 sec

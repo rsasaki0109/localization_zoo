@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-10-17T13:55:30+00:00",
+  "problems": [
+    {
+      "problem_id": "suma_kitti_seq_00_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 00 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_00_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_00_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_01_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 01 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_01_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_01_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_02_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 02 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_02_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_02_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_03_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 03 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_03_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_03_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_04_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 04 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_04_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_04_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_05_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 05 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_05_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_05_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_06_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 06 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_06_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_06_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_07_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 07 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_07_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_07_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_08_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 08 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_08_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_08_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_09_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 09 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_09_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_09_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    },
+    {
+      "problem_id": "suma_kitti_seq_10_full_shared_coarse_start",
+      "title": "SuMa shared initial coarse registration on KITTI 10 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_10_full_shared_coarse_start_matrix.json",
+      "aggregate_path": "experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_10_full_shared_coarse_start_matrix.json",
+      "current_default": "shared_coarse_start_1x5x10"
+    }
+  ]
+}

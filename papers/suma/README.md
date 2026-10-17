@@ -213,6 +213,13 @@ Full 07 has a small RTE change: 0.331226% to 0.331961%, with ATE
 The candidate has one moving step with length error above 20% (destination
 frame 320), out of 1009 moving steps. The same fixed setting continues.
 
+Full 08 worsens from official RTE 1.060143% to 16.334855%, ATE 24.049840 m
+to 289.339278 m ([paired run](../../experiments/results/shared_degeneracy_remap/sequences/08/comparison.json)).
+The candidate has 832 of 4040 moving steps above 20% length error, including
+864–1034, 1916–1983 and 3365–3475
+([diagnostics](../../experiments/results/shared_degeneracy_remap/sequences/08/candidate_drift.json)).
+The same fixed setting continues through the remaining sequences.
+
 <!-- SHARED_REMAP_RESULTS:END -->
 
 Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;

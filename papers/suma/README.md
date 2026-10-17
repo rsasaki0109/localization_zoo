@@ -157,8 +157,18 @@ The following remap experiment is separate; remapping is off in the coarse study
 <!-- SHARED_COARSE_RESULTS:START -->
 Full fixed-setting KITTI 00–10 execution and the IMLS-SLAM/SuMa preservation
 audit are in progress in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136).
-A complete result table and any negative intervals will be added from committed
-full-sequence evidence; no transfer recommendation is made from partial coverage.
+The committed full 04 SuMa pair is:
+
+| Seq | Raw RTE [%] | Coarse RTE [%] | Raw ATE [m] | Coarse ATE [m] |
+|---|---:|---:|---:|---:|
+| 04 | 0.416845 | 0.389970 | 0.974258 | 0.929463 |
+
+[Full candidate and native command](../../experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/),
+[raw control and native command](../../experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json).
+These completed SuMa records precede the IMLS-SLAM/frozen-binary audit and input
+cleanup. Coverage is incomplete; no transfer recommendation or cohort ratio is
+made from this pair, and no setting is reselected. The full table and any
+negative intervals will be added from committed full-sequence evidence.
 <!-- SHARED_COARSE_RESULTS:END -->
 
 The shared local translation remap is separately available through

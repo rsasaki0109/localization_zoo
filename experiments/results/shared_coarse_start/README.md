@@ -41,3 +41,11 @@ and controller command. `run_all.py` uses fresh artifact directories; fetch-only
 continuation validates committed previous sequences and refuses existing native
 artifacts. It is not a general native-run resume. Exact per-cell native argv,
 thread settings, binary hashes and process exits are retained by `native_wrapper.py`.
+
+[Completed 01/04 snapshot](checks/reporting_01_04/report/summary.json) is explicitly
+partial: four existing audit cells match all checked accuracy/frame metrics,
+raw controls match the prior committed raw study, and scan/GT identity and
+owned-input cleanup are verified. It does not replace full 00–10 coverage.
+The [01 plot](plots/01/trace.png), SVG, numeric CSV and input provenance beside it
+show remaining later drift without fitting or rescaling either saved trajectory.
+[Plot command and actual exit](plots/01/command.json) are retained.

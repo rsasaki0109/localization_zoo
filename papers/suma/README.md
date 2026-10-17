@@ -164,14 +164,15 @@ Completed full SuMa pairs so far (the full-cohort audit remains in progress):
 | 01 | 13.792690 | 10.686955 | 175.826760 | 150.500523 |
 | 04 | 0.416845 | 0.389970 | 0.974258 | 0.929463 |
 
-[Full candidate and native command](../../experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/),
-[raw control and native command](../../experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json).
+[Full 04 candidate and native command](../../experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/),
+[04 raw control and native command](../../experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json).
 [Fresh full 01 raw control](../../experiments/results/shared_coarse_start/sequences/01/raw_control/)
 and its native receipt complete the 01 SuMa pair. Its raw metrics match the prior
-committed raw control. The IMLS-SLAM 01 audit and input cleanup are still pending.
+committed raw control. The IMLS-SLAM 01 audit and hash-verified input cleanup are complete.
 
-[Committed full 04 pair, diagnostics and preservation checks](../../experiments/results/shared_coarse_start/checks/reporting_04/)
-also verify the full IMLS-SLAM/SuMa audit and owned-input cleanup. Both methods'
+[Committed full 01/04 pairs, diagnostics and preservation checks](../../experiments/results/shared_coarse_start/checks/reporting_01_04/)
+verify all four existing selected cells with zero changes in RPE, ATE, frames
+and official translation/rotation RTE. Both methods'
 printed metrics and saved-pose bytes match the frozen pre-change full 04 runs.
 Other sequences remain incomplete; no transfer recommendation or cohort ratio is
 made from this pair, and no setting is reselected. The full table and any negative
@@ -184,6 +185,13 @@ Over pose frames 800–900, GT travels 193.123 m while saved-frame position erro
 increases from 146.816 m to 307.064 m (+160.248 m). Overall path length is
 1.102829 of GT. These saved-pose measurements locate the remaining failure;
 they do not establish a solver-level cause or a cohort claim.
+
+[Full 01 trace](../../experiments/results/shared_coarse_start/plots/01/trace.png),
+[SVG](../../experiments/results/shared_coarse_start/plots/01/trace.svg),
+[numeric trace](../../experiments/results/shared_coarse_start/plots/01/trace.csv) and
+[provenance](../../experiments/results/shared_coarse_start/plots/01/provenance.json)
+use committed saved poses without fitting or rescaling. The position-error
+trace and successive displacement are distinct from official segment-based RTE.
 <!-- SHARED_COARSE_RESULTS:END -->
 
 The shared local translation remap is separately available through

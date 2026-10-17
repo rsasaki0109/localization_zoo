@@ -157,10 +157,11 @@ The following remap experiment is separate; remapping is off in the coarse study
 <!-- SHARED_COARSE_RESULTS:START -->
 Full fixed-setting KITTI 00–10 execution and the IMLS-SLAM/SuMa preservation
 audit are in progress in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136).
-The committed full 04 SuMa pair is:
+Completed SuMa runs so far (the fresh 01 raw control is still running):
 
 | Seq | Raw RTE [%] | Coarse RTE [%] | Raw ATE [m] | Coarse ATE [m] |
 |---|---:|---:|---:|---:|
+| 01 | pending | 10.686955 | pending | 150.500523 |
 | 04 | 0.416845 | 0.389970 | 0.974258 | 0.929463 |
 
 [Full candidate and native command](../../experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/),
@@ -171,6 +172,14 @@ printed metrics and saved-pose bytes match the frozen pre-change full 04 runs.
 Other sequences remain incomplete; no transfer recommendation or cohort ratio is
 made from this pair, and no setting is reselected. The full table and any negative
 intervals will be added from committed full-sequence evidence.
+
+The [committed full 01 candidate and checked diagnosis](../../experiments/results/shared_coarse_start/checks/early_01_candidate/)
+retain substantial later drift: 113 of 1100 moving steps have length errors
+above 20%, at destination frames 480–488, 490–517, 786, 809 and 823–896.
+Over pose frames 800–900, GT travels 193.123 m while saved-frame position error
+increases from 146.816 m to 307.064 m (+160.248 m). Overall path length is
+1.102829 of GT. These saved-pose measurements locate the remaining failure;
+they do not establish a solver-level cause or a cohort claim.
 <!-- SHARED_COARSE_RESULTS:END -->
 
 The shared local translation remap is separately available through

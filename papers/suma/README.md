@@ -203,6 +203,11 @@ SuMa KITTI setting. Existing settings and published results stay unchanged.
 and [02 trace](../../experiments/results/shared_degeneracy_remap/plots/02/trace.png)
 show successive displacement and pointwise position error in the saved frame,
 without fitting or rescaling either path.
+Full 07 has a small RTE change: 0.331226% to 0.331961%, with ATE
+1.059569 m to 1.196831 m ([paired run](../../experiments/results/shared_degeneracy_remap/sequences/07/comparison.json)).
+The candidate has one moving step with length error above 20% (destination
+frame 320), out of 1009 moving steps. The same fixed setting continues.
+
 <!-- SHARED_REMAP_RESULTS:END -->
 
 Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;

@@ -36,7 +36,7 @@ def main():
 
     protocol=read(E/'protocol.json')
     native=read(E/'candidate.json')
-    rows=[];audit_rows=[];audit_official_checks=[]
+    rows=[];audit_rows=[];audit_official_checks=[];raw_preservation=[]
     for seq in EXPECTED:
         folder=E/'sequences'/seq
         comparison=read(folder/'comparison.json',optional=True)
@@ -50,8 +50,20 @@ def main():
         gt_bytes=subprocess.check_output(['git','show',revision+':'+gt_relative],cwd=REPO)
         sources[gt_relative]=hashlib.sha256(gt_bytes).hexdigest()
         assert inputs['gt_csv_sha256']==sources[gt_relative], f'GT CSV changed: {seq}'
+        previous_folder=REPO/'experiments/results/shared_degeneracy_remap/sequences'/seq
+        previous_inputs=read(previous_folder/'inputs.json')
+        assert previous_inputs['scan_frames']==inputs['scan_frames'] and previous_inputs['gt_csv_sha256']==inputs['gt_csv_sha256']
+        bins=lambda value:{name:meta for name,meta in value['files'].items() if name.endswith('.bin')}
+        assert bins(previous_inputs)==bins(inputs), f'official scan bytes differ from prior study: {seq}'
+        previous=read(previous_folder/'comparison.json')['control']
+        assert previous['status']=='ok'
         control,candidate=comparison['control'],comparison['candidate']
         assert control['frames']==candidate['frames']==inputs['scan_frames']==inputs['gt_frames']
+        raw_keys=('frames','ate_m','rpe_trans_pct','rpe_rot_deg_per_m','kitti_rte_trans_pct','kitti_rte_rot_deg_per_100m')
+        raw_deltas={key:abs(control[key]-previous[key]) for key in raw_keys}
+        assert max(raw_deltas.values())<=1e-9, f'raw default control changed: {seq}: {raw_deltas}'
+        raw_preservation.append({'sequence':seq,'reference_comparison':str((previous_folder/'comparison.json').relative_to(REPO)),
+            'official_scan_bin_hashes_match':True,'absolute_metric_delta':raw_deltas})
         for data in (control,candidate):
             assert data['status']=='ok'
             for key in ('ate_m','rpe_trans_pct','kitti_rte_trans_pct','kitti_rte_rot_deg_per_100m'):
@@ -136,6 +148,8 @@ def main():
           'scope':'Blocks retain GT travel distance and frame bounds. Both rankings are diagnostic only, not official KITTI RTE.'},
       'rows':rows,'worse_sequences':[r['sequence'] for r in rows if r['rte_difference_pp']>1e-6],
       'audit_rows':audit_rows,'audit_official_metric_checks':audit_official_checks,
+      'raw_control_preservation_checks':raw_preservation,
+      'input_identity_reference':'Official scan .bin SHA256/bytes and GT CSV must match the prior committed full shared-remap study; per-fetch metadata is excluded.',
       'audit_preservation_summary':{
           'cells':len(audit_rows),'drifted_cells':sum(bool(x['drifted']) for x in audit_rows),
           'max_abs_rpe_trans_delta_pct':max(x['rerun_rpe_abs_delta'] for x in audit_rows),

@@ -46,6 +46,10 @@ def main():
         assert comparison['source_commit']==native['source_commit']==protocol['implementation_commit']
         assert comparison['sequence']==seq and comparison['candidate_arguments']==protocol['suma_fixed_arguments']
         inputs=read(folder/'inputs.json')
+        gt_relative=f'experiments/reference_data/kitti_seq_{seq}_full_gt.csv'
+        gt_bytes=subprocess.check_output(['git','show',revision+':'+gt_relative],cwd=REPO)
+        sources[gt_relative]=hashlib.sha256(gt_bytes).hexdigest()
+        assert inputs['gt_csv_sha256']==sources[gt_relative], f'GT CSV changed: {seq}'
         control,candidate=comparison['control'],comparison['candidate']
         assert control['frames']==candidate['frames']==inputs['scan_frames']==inputs['gt_frames']
         for data in (control,candidate):

@@ -153,7 +153,7 @@ Historical SuMa results, including the 02 diagnostics, were already known;
 no new held-out claim is made.
 
 <!-- SHARED_REMAP_RESULTS:START -->
-**Interim fixed-setting snapshot, full KITTI 00–07.** Full 00–10 evaluation
+**Interim fixed-setting snapshot, full KITTI 00–08.** Full 00–10 evaluation
 continues with the same arguments; no setting is reselected.
 
 | Seq | Raw RTE [%] | Remap RTE [%] | Raw ATE [m] | Remap ATE [m] |
@@ -166,8 +166,9 @@ continues with the same arguments; no setting is reselected.
 | 05 | 0.379344 | 3.671756 | 3.420344 | 52.905898 |
 | 06 | 0.285691 | 16.302826 | 2.961054 | 263.406501 |
 | 07 | 0.331226 | 0.331961 | 1.059569 | 1.196831 |
+| 08 | 1.060143 | 16.334855 | 24.049840 | 289.339278 |
 
-[Committed report, input snapshot and exact execution](../../experiments/results/shared_degeneracy_remap/checks/reporting_00_07/),
+[Committed report, input snapshot and exact execution](../../experiments/results/shared_degeneracy_remap/checks/reporting_00_08/),
 [per-sequence raw runs and cleanup](../../experiments/results/shared_degeneracy_remap/sequences/).
 This is a non-paper transfer experiment; no cohort paper ratio is claimed.
 The matrix runner assigns `Adopt as current default` within each single-variant
@@ -184,6 +185,7 @@ results below determine the transfer recommendation. Native defaults stay off.
 | 05 | 0.991562 | 0/2683 | 201/2683 | 100-200 | 60.598 | 41.442 |
 | 06 | 0.756785 | 0/1100 | 391/1100 | 0-100 | 119.098 | 118.865 |
 | 07 | 0.997956 | 0/1009 | 1/1009 | 500-600 | 93.673 | 0.592 |
+| 08 | 1.046515 | 23/4040 | 832/4040 | 3900-4000 | 80.379 | 96.026 |
 
 Bad length steps use GT motion at least 0.1 m and length error above 20%.
 Pose intervals use zero-based indices and the nonoverlapping blocks from block_frames=100.

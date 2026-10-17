@@ -132,8 +132,8 @@ key point の選び方、Algorithm 1 のウィンドウ最適化) をほぼ持�
 共通化前後の full 01 では、既存 `paper_odometry_degenerate` の RPE・ATE・
 フレーム数の差は 0、保存軌跡もバイト単位で一致した
 ([基準バイナリとの比較](../../experiments/results/shared_degeneracy_remap/sequences/01/frozen_comparison.json))。
-完了済み 00–07 の既存採用セルも、RPE・ATE・フレーム数・公式並進／回転 RTE の差が 0 である
-([監査集計](../../experiments/results/shared_degeneracy_remap/checks/reporting_00_07/report/summary.json))。
+完了済み 00–08 の既存採用セルも、RPE・ATE・フレーム数・公式並進／回転 RTE の差が 0 である
+([監査集計](../../experiments/results/shared_degeneracy_remap/checks/reporting_00_08/report/summary.json))。
 全シーケンス監査は継続中である。
 
 | Seq | Paper | `paper_odometry_spread_keypoints` | `paper_odometry_degenerate` | Ratio |

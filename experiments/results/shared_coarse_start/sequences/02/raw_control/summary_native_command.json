@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-coarse-start/candidate_pcd_dogfooding",
+    "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_02_full",
+    "/workspace/localization_zoo/experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "--methods",
+    "suma",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/02/raw_control/summary.json",
+    "--no-gt-seed",
+    "--suma-paper"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/02/raw_control/summary_native",
+  "binary_sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+  "started_unix": 1792222358.0440881,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792224212.3782415
+}

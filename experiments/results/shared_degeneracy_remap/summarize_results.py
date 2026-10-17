@@ -131,6 +131,13 @@ def main():
           'scope':'Blocks retain GT travel distance and frame bounds. Both rankings are diagnostic only, not official KITTI RTE.'},
       'rows':rows,'worse_sequences':[r['sequence'] for r in rows if r['rte_difference_pp']>1e-6],
       'audit_rows':audit_rows,'audit_official_metric_checks':audit_official_checks,
+      'audit_preservation_summary':{
+          'cells':len(audit_rows),'drifted_cells':sum(bool(x['drifted']) for x in audit_rows),
+          'max_abs_rpe_trans_delta_pct':max(x['rerun_rpe_abs_delta'] for x in audit_rows),
+          'max_abs_ate_delta_m':max(x['rerun_ate_abs_delta'] for x in audit_rows),
+          'max_abs_frame_delta':max(abs(x['frames']-x['stored_frames']) for x in audit_rows),
+          'max_abs_official_translation_rte_delta_pct':max(x['absolute_delta']['kitti_rte_trans_pct'] for x in audit_official_checks),
+          'max_abs_official_rotation_rte_delta_deg_per_100m':max(x['absolute_delta']['kitti_rte_rot_deg_per_100m'] for x in audit_official_checks)},
       'committed_input_sha256':sources}
     args.output_dir.mkdir(parents=True,exist_ok=True)
     (args.output_dir/'summary.json').write_text(json.dumps(payload,indent=2,allow_nan=False)+'\n')

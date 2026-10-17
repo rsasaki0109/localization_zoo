@@ -147,6 +147,8 @@ SuMa は自身のソルバーを使う。粗い段は論文にはなく、既定
 ([固定バイナリとの比較](../../experiments/results/shared_coarse_start/sequences/04/frozen_comparison.json))。
 [00/01/04 の集計](../../experiments/results/shared_coarse_start/checks/reporting_00_01_04/report/summary.json)
 では既存採用セル 6 件の RPE・ATE・フレーム数・公式並進／回転 RTE の差がすべて 0 だった。
+[02 の両セル](../../experiments/results/shared_coarse_start/sequences/02/audit/report.json)
+も同じ指標の差は 0 で、入力照合・削除まで完了した。
 全 22 件の監査は継続中である。
 <!-- SHARED_COARSE_AUDIT:END -->
 00 / 07 は変わらない。`experiments/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json`、

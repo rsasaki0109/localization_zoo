@@ -58,7 +58,8 @@ default all-sequence report guard.
 
 [Full 02 pair and saved-pose diagnosis](early/02/) retain both native exits,
 a fresh raw control matching prior accuracy/frame metrics, and remaining later
-drift. IMLS-SLAM 02 audit/cleanup remain pending; this does not complete the cohort.
+drift. Both existing 02 cells match all checked metrics; hash-verified input cleanup
+is complete ([records](sequences/02/)). The full cohort remains incomplete.
 
 00 acquisition stopped on truncated HTTP Range responses before any native 00
 artifacts. [Failures](attempts/fetch_00_failure.json),

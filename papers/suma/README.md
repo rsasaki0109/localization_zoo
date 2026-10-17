@@ -168,7 +168,9 @@ Completed full pairs so far (the full-cohort report remains incomplete):
 
 [Full 02 SuMa pair](../../experiments/results/shared_coarse_start/early/02/pair.json)
 has both checked native exits and a fresh raw control matching the prior study.
-The IMLS-SLAM 02 audit and input cleanup remain pending.
+Both existing 02 audit cells now match all checked accuracy/frame metrics;
+[full comparison and hash-verified cleanup](../../experiments/results/shared_coarse_start/sequences/02/)
+are complete.
 
 [Committed 00/01/04 pairs, diagnostics and preservation checks](../../experiments/results/shared_coarse_start/checks/reporting_00_01_04/)
 verify all six existing selected cells with zero changes in RPE, ATE, frames

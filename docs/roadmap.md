@@ -245,6 +245,17 @@ independent. Each item says what "done" means.
      RPE, ATE, frame count and official translation/rotation RTE.
      [Protocol, completed results and commands](../experiments/results/shared_coarse_start/README.md).
      Near-range sharing and NCLT evaluation remain open.
+   - Third component implemented: the runner's opt-in sensor-frame near-range
+     cut now lives in `common/range_filter.h`, used by ELO and DiLO through
+     their shared loader and by intensity-preserving loaders. Float arithmetic,
+     strict boundary, processing order and zero/off default remain unchanged;
+     standalone method libraries do not apply it automatically.
+     Whole-zoo KITTI replay is pending. The historical NCLT cutoff is retained
+     without reselection. DiLO's historical cut/uncut profiles also differ in
+     range-image geometry, so their RTE difference cannot isolate the cut's
+     effect; its ATE worsens from 54.344593 to 75.832748 m. Real NCLT validation
+     remains blocked by the enforced official-host allowlist.
+     [Protocol, scope and execution records](../experiments/results/shared_near_range/README.md).
 7. **Bindings.** The Python bindings cover KISS-ICP, NDT, GICP and LiTAMIN2
    (`python/`). Add the paper pipelines that are near paper (SuMa,
    IMLS-SLAM, DiLO, LiTAMIN2 paper path) and ROS 2 nodes for them.

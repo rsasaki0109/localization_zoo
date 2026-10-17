@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/run_all.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "pid": 82018,
+  "started_unix": 1792251293.40056,
+  "launcher_exit_code": 0,
+  "scope": "Detached launch only; completion and actual controller exit are recorded separately. No success claim.",
+  "log": "/workspace/localization-env/shared-near-range/controller.log"
+}

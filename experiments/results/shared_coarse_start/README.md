@@ -42,24 +42,15 @@ continuation validates committed previous sequences and refuses existing native
 artifacts. It is not a general native-run resume. Exact per-cell native argv,
 thread settings, binary hashes and process exits are retained by `native_wrapper.py`.
 
-[Completed 01/04 snapshot](checks/reporting_01_04/report/summary.json) is explicitly
-partial: four existing audit cells match all checked accuracy/frame metrics,
-raw controls match the prior committed raw study, and scan/GT identity and
-owned-input cleanup are verified. It does not replace full 00–10 coverage.
-The [01 plot](plots/01/trace.png), SVG, numeric CSV and input provenance beside it
-show remaining later drift without fitting or rescaling either saved trajectory.
-[Plot command and actual exit](plots/01/command.json) are retained.
-
-[Completed 00/01/04 snapshot](checks/reporting_00_01_04/report/summary.json) verifies
-six existing selected cells with zero accuracy/frame changes, raw-control and
-scan/GT identity against the prior study, and hash-verified owned-input cleanup.
-It remains explicitly incomplete for the full cohort and does not replace the
-default all-sequence report guard.
-
-[Full 02 pair and saved-pose diagnosis](early/02/) retain both native exits,
-a fresh raw control matching prior accuracy/frame metrics, and remaining later
-drift. Both existing 02 cells match all checked metrics; hash-verified input cleanup
-is complete ([records](sequences/02/)). The full cohort remains incomplete.
+<!-- COARSE_PROGRESS:START -->
+[Completed full 00–04 snapshot](checks/reporting_00_04/report/summary.json) is
+explicitly incomplete for 00–10. Ten existing selected audit cells match all
+checked metrics, prior raw-control accuracy/frame metrics and scan/GT identity
+match, and owned-input cleanup is verified. 03 retains an ATE tradeoff; the
+method README keeps that negative with the remaining later drift on 01/02.
+[01 plot, numeric trace, provenance and command](plots/01/) use committed poses
+without fitting or rescaling. 05–10 remain incomplete.
+<!-- COARSE_PROGRESS:END -->
 
 <!-- FETCH_RECOVERY:START -->
 Official acquisition encountered truncated HTTP Range responses before native

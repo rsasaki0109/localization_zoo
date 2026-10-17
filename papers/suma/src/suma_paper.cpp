@@ -1,4 +1,5 @@
 #include "suma/suma_paper.h"
+#include "common/degeneracy.h"
 
 #include <Eigen/Cholesky>
 
@@ -370,8 +371,10 @@ Eigen::Matrix4d SuMaPaper::alignProjective(const VertexNormalMap& data,
   for (int k = 0; k < params_.max_iterations; ++k) {
     accumulate(data, model, T, max_distance, cos_max_angle, &eq);
     if (eq.inliers < 6) break;
-    const Eigen::Matrix<double, 6, 1> dx = eq.JtJ.ldlt().solve(-eq.Jtf);
+    Eigen::Matrix<double, 6, 1> dx = eq.JtJ.ldlt().solve(-eq.Jtf);
     if (!dx.allFinite()) break;
+    if (params_.degenerate_ratio > 0.0)
+      math::remapDegenerateTranslation(eq.JtJ.topLeftCorner<3, 3>(), params_.degenerate_ratio, dx.head<3>());
     bool converged = false;
     if (dx.lpNorm<Eigen::Infinity>() < params_.stop_delta) converged = true;
     if (std::abs(eq.Jtf.maxCoeff()) < params_.stop_epsilon) converged = true;

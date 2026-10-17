@@ -1,0 +1,27 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/SuMa.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary.json",
+    "--method",
+    "SuMa",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/checks/early_02_candidate/diagnostics.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "input_commit": "a3faeeb8eb6b79bb7fd5bdf1010a77235657dd98",
+  "committed_input_sha256": {
+    "experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary.json": "293bf1633b13b74186d3a2a9bbe1a63b90d395719d5f3cf5527953726994da37",
+    "experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/SuMa.txt": "92f9f79491d56ebafcb370fba3a4737f3bceb1d0fdc81fa6464837f8b0c1e993",
+    "experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_02_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3"
+  },
+  "implementation_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+  "started_unix": 1792195032.6711333,
+  "finished_unix": 1792195034.3972704,
+  "exit_code": 0
+}

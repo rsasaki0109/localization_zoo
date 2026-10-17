@@ -1,0 +1,8 @@
+{
+  "sequence": "01",
+  "owned_input_dir": "/workspace/localization-env/shared-remap/kitti/dataset/sequences/01/velodyne",
+  "removed_files": 1102,
+  "removed_bytes": 1861700550,
+  "hashes_verified_before_removal": true,
+  "input_dir_exists_after": false
+}

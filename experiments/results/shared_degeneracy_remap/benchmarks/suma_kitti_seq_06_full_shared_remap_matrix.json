@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-10-17T01:16:09+00:00",
+  "manifest_path": "experiments/suma_kitti_seq_06_full_shared_remap_matrix.json",
+  "problem": {
+    "id": "suma_kitti_seq_06_full_shared_remap",
+    "title": "SuMa shared translation remap on KITTI 06 full",
+    "question": "Does the existing DiLO 0.03 translation remap transfer to SuMa without tuning?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "dataset": {
+    "pcd_dir": "/workspace/localization-env/shared-remap/data/dogfooding_results/kitti_seq_06_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "shared_remap_003",
+      "label": "SuMa raw paper path + shared local translation remap 0.03",
+      "design_style": "ablation",
+      "intent": "Non-paper opt-in, default off. Fixed ratio transferred from the existing DiLO01 choice, without SuMa tuning;01 is a development case. Other parameters stay official/raw. Experimental evidence only, excluded from published leaderboard and paper-ratio promotion.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "degenerate_ratio=0.03"
+      ],
+      "command": "experiments/results/shared_degeneracy_remap/native_wrapper.py /workspace/localization-env/shared-remap/data/dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods suma --summary-json experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_06_full_shared_remap_matrix/shared_remap_003/summary.json --no-gt-seed --suma-paper --suma-paper-set degenerate_ratio=0.03",
+      "summary_path": "experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_06_full_shared_remap_matrix/shared_remap_003/summary.json",
+      "log_path": "experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_06_full_shared_remap_matrix/shared_remap_003/run.log",
+      "status": "ok",
+      "ate_m": 263.406501,
+      "rpe_trans_pct": 25.543416,
+      "rpe_rot_deg_per_m": 0.010644,
+      "fps": 3.251052,
+      "time_ms": 338659.634457,
+      "frames": 1101,
+      "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in local translation remap ratio=0.030000 (not in the paper)",
+      "benchmark_score": 100.0,
+      "readability_score": 3.7,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 16.302826,
+      "kitti_rte_rot_deg_per_100m": 0.522939,
+      "host": {
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.44",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

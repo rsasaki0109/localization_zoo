@@ -137,6 +137,99 @@ matters, use `normalize_bilinear = true` with the 0.22 deg correction.
 
 ### Full sequences
 
+The shared local translation remap is separately available through
+`--suma-paper-set degenerate_ratio=0.03` (C++ `SuMaPaperParams::degenerate_ratio`).
+It is **not in the SuMa paper**, is disabled by default, and projects only the
+local solver's translation update. Rotation and SE(3) composition can still
+change the accumulated translation. SuMa's translation-first vector ordering is
+handled explicitly; DiLO uses rotation first. The existing official defaults and
+published results retain their original interpretation.
+
+The experimental ratio is transferred from the existing DiLO choice on KITTI
+01 without a SuMa sweep. Sequence 01 motivates the experiment and is not held
+out. [Full fixed-setting execution and audit protocol](../../experiments/results/shared_degeneracy_remap/README.md)
+are recorded separately; a new paper reproduction claim is not made here.
+Historical SuMa results, including the 02 diagnostics, were already known;
+no new held-out claim is made.
+
+<!-- SHARED_REMAP_RESULTS:START -->
+**Completed fixed-setting experiment, full KITTI 00–10.** All sequences use
+`--no-gt-seed --suma-paper --suma-paper-set degenerate_ratio=0.03` unchanged.
+The paired results reject this transfer as a general SuMa KITTI setting;
+no parameter is reselected.
+
+| Seq | Raw RTE [%] | Remap RTE [%] | Raw ATE [m] | Remap ATE [m] |
+|---|---:|---:|---:|---:|
+| 00 | 0.697236 | 0.686458 | 8.196443 | 7.945686 |
+| 01 | 13.792690 | 95.257580 | 175.826760 | 1398.495188 |
+| 02 | 3.511588 | 21.423956 | 70.307811 | 565.520007 |
+| 03 | 0.651090 | 7.124333 | 1.448501 | 11.877929 |
+| 04 | 0.416845 | 99.229120 | 0.974258 | 218.135538 |
+| 05 | 0.379344 | 3.671756 | 3.420344 | 52.905898 |
+| 06 | 0.285691 | 16.302826 | 2.961054 | 263.406501 |
+| 07 | 0.331226 | 0.331961 | 1.059569 | 1.196831 |
+| 08 | 1.060143 | 16.334855 | 24.049840 | 289.339278 |
+| 09 | 0.510286 | 20.387333 | 6.469266 | 390.892138 |
+| 10 | 0.697880 | 12.100277 | 5.252594 | 219.326465 |
+
+[Committed full report and input snapshot](../../experiments/results/shared_degeneracy_remap/report/summary.json),
+[report command and checked exit](../../experiments/results/shared_degeneracy_remap/report/command.json),
+[per-sequence raw runs and cleanup](../../experiments/results/shared_degeneracy_remap/sequences/).
+This is a non-paper transfer experiment; no cohort paper ratio is claimed.
+The matrix runner assigns `Adopt as current default` within each single-variant
+manifest. That label ranks the sole experimental variant; the paired raw-control
+results determine the transfer recommendation. Native defaults stay off.
+
+| Seq | Remap path / GT | Raw bad length steps | Remap bad length steps | Largest growth pose interval | GT travel [m] | Position-error increase [m] |
+|---|---:|---:|---:|---|---:|---:|
+| 00 | 0.996997 | 13/4514 | 13/4514 | 4200-4300 | 131.234 | 7.225 |
+| 01 | 0.031934 | 134/1100 | 1100/1100 | 600-700 | 269.598 | 268.474 |
+| 02 | 0.741858 | 168/4660 | 2040/4660 | 700-800 | 127.784 | 108.485 |
+| 03 | 1.017108 | 1/785 | 218/785 | 500-600 | 76.797 | 14.231 |
+| 04 | 0.025261 | 0/270 | 270/270 | 100-200 | 144.369 | 142.520 |
+| 05 | 0.991562 | 0/2683 | 201/2683 | 100-200 | 60.598 | 41.442 |
+| 06 | 0.756785 | 0/1100 | 391/1100 | 0-100 | 119.098 | 118.865 |
+| 07 | 0.997956 | 0/1009 | 1/1009 | 500-600 | 93.673 | 0.592 |
+| 08 | 1.046515 | 23/4040 | 832/4040 | 3900-4000 | 80.379 | 96.026 |
+| 09 | 0.911843 | 0/1590 | 678/1590 | 800-900 | 118.555 | 96.520 |
+| 10 | 0.881457 | 0/1153 | 147/1153 | 700-800 | 127.161 | 73.188 |
+
+Bad length steps use GT motion at least 0.1 m and length error above 20%.
+Pose intervals use zero-based indices and the nonoverlapping blocks from block_frames=100.
+Growth is the positive end-minus-start pointwise position-error change, with no pose refit or rescaling.
+These saved-pose diagnostics are distinct from official KITTI RTE and do not establish a solver-level cause.
+
+The transfer fails from startup in 01, 02, 04 and 06. In 01 all 1100 moving
+steps are affected (destination frames 1–1100). In 02 the first continuous
+interval is 1–912, with 2040 of 4660 moving steps affected overall. In 04 all
+270 moving steps are affected (1–270); path length is 0.025261 of GT. In 06
+the first interval is 1–290, followed by 297–323 and 346–419.
+
+Sequence 03 fails later, including 355–385, 556–624 and 718–784. In 05,
+length errors affect 101–160 and 2136–2268; over frames 100–200 the saved-frame
+position error grows from 0.768797 m to 42.210786 m. In 08 the intervals include
+864–1034, 1916–1983 and 3365–3475. Full 07 has only a small RTE change, with
+one affected moving step (destination frame 320).
+
+Sequence 09 has 678 of 1590 moving steps above the length-error threshold;
+destination-frame intervals: 52–190, 207–637, 640, 1484–1590. Sequence 10
+has 147 of 1153 moving steps above the threshold (1–147), a startup failure.
+Complete intervals and the largest positive pointwise error-growth blocks are
+retained in the report. These saved poses locate failures without establishing
+a solver-level cause. Existing settings and published results stay unchanged.
+
+[01 trace](../../experiments/results/shared_degeneracy_remap/plots/01/trace.png) and [02 trace](../../experiments/results/shared_degeneracy_remap/plots/02/trace.png)
+show successive displacement and pointwise position error in the saved frame,
+without fitting or rescaling either path.
+
+The affected-method audit covers full 00–10 for DiLO and SuMa: all 22 existing
+selected cells have zero changes in RPE, ATE, frame count and official
+translation/rotation RTE. The frozen pre-change full 01 comparison additionally
+has identical saved-pose bytes for both methods. This audits the two native
+consumers of the new helper; it does not claim a new whole-zoo audit.
+
+<!-- SHARED_REMAP_RESULTS:END -->
+
 Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;
 `experiments/suma_kitti_seq_*_full_*_matrix.json`):
 

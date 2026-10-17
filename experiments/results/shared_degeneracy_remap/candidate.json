@@ -1,0 +1,6 @@
+{
+  "source_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+  "binary": "/workspace/localization-env/shared-remap/candidate_pcd_dogfooding",
+  "sha256": "373c3213abf556cd0eade81818269df3c9c3a05133599baabe205344d245a819",
+  "wrapper_sha256": "9446ac53b21ca1bc634b67e815713e33b283041634182b0125265638ea316af4"
+}

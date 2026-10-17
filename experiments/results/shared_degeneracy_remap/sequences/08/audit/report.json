@@ -1,0 +1,130 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-17T02:20:46+00:00",
+  "purpose": "Selected stored full-sequence KITTI cells re-run with the current code",
+  "concurrent_jobs": 2,
+  "scope": {
+    "methods": [
+      "DiLO",
+      "SuMa"
+    ],
+    "sequences": [
+      "08"
+    ],
+    "selected_cell_count": 2,
+    "filtered": true
+  },
+  "metric_absolute_tolerance": 1e-06,
+  "binary_sha256": "9446ac53b21ca1bc634b67e815713e33b283041634182b0125265638ea316af4",
+  "exit_code": 0,
+  "host": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cores": 5,
+    "memory_gib": 17.6,
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.18.44",
+    "architecture": "x86_64"
+  },
+  "rows": [
+    {
+      "method": "DiLO",
+      "sequence": "08",
+      "aggregate_path": "experiments/results/dilo_kitti_seq_08_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_degenerate",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/08/audit/replays/dilo_kitti_seq_08_full_paper_comp_matrix__paper_odometry_degenerate.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/08/audit/replays/dilo_kitti_seq_08_full_paper_comp_matrix__paper_odometry_degenerate.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/native_wrapper.py",
+        "/workspace/localization-env/shared-remap/data/dogfooding_results/kitti_seq_08_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_08_full_gt.csv",
+        "--methods",
+        "dilo",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/08/audit/replays/dilo_kitti_seq_08_full_paper_comp_matrix__paper_odometry_degenerate.json",
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-min-planarity",
+        "0.98",
+        "--dilo-paper-keypoint-cell",
+        "8",
+        "--dilo-paper-fill-slope",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.18",
+        "--dilo-paper-degenerate-ratio",
+        "0.03"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--dilo-paper-odometry",
+        "--dilo-paper-min-planarity",
+        "0.98",
+        "--dilo-paper-keypoint-cell",
+        "8",
+        "--dilo-paper-fill-slope",
+        "0.1",
+        "--input-vertical-angle-correction-deg",
+        "0.18",
+        "--dilo-paper-degenerate-ratio",
+        "0.03"
+      ],
+      "kitti_rte_trans_pct": 0.967112,
+      "kitti_rte_rot_deg_per_100m": 0.339986,
+      "fps": 1.956137,
+      "stored_rpe_trans_pct": 1.291856,
+      "rerun_rpe_trans_pct": 1.291856,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 24.254446,
+      "rerun_ate_m": 24.254446,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 4071,
+      "frames": 4071,
+      "drift_metrics": []
+    },
+    {
+      "method": "SuMa",
+      "sequence": "08",
+      "aggregate_path": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json",
+      "variant_id": "paper_odometry",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/08/audit/replays/suma_kitti_seq_08_full_transfer_matrix__paper_odometry.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/08/audit/replays/suma_kitti_seq_08_full_transfer_matrix__paper_odometry.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/native_wrapper.py",
+        "/workspace/localization-env/shared-remap/data/dogfooding_results/kitti_seq_08_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_08_full_gt.csv",
+        "--methods",
+        "suma",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/08/audit/replays/suma_kitti_seq_08_full_transfer_matrix__paper_odometry.json",
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "kitti_rte_trans_pct": 1.060143,
+      "kitti_rte_rot_deg_per_100m": 0.362706,
+      "fps": 2.097074,
+      "stored_rpe_trans_pct": 1.295921,
+      "rerun_rpe_trans_pct": 1.295921,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 24.04984,
+      "rerun_ate_m": 24.04984,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 4071,
+      "frames": 4071,
+      "drift_metrics": []
+    }
+  ]
+}

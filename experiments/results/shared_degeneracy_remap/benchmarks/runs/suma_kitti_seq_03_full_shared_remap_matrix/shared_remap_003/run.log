@@ -1,0 +1,107 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 801
+GT poses: 801
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 560.8 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running SuMa...
+
+  [SuMa paper] 0/801
+  [SuMa paper] 10/801
+  [SuMa paper] 20/801
+  [SuMa paper] 30/801
+  [SuMa paper] 40/801
+  [SuMa paper] 50/801
+  [SuMa paper] 60/801
+  [SuMa paper] 70/801
+  [SuMa paper] 80/801
+  [SuMa paper] 90/801
+  [SuMa paper] 100/801
+  [SuMa paper] 110/801
+  [SuMa paper] 120/801
+  [SuMa paper] 130/801
+  [SuMa paper] 140/801
+  [SuMa paper] 150/801
+  [SuMa paper] 160/801
+  [SuMa paper] 170/801
+  [SuMa paper] 180/801
+  [SuMa paper] 190/801
+  [SuMa paper] 200/801
+  [SuMa paper] 210/801
+  [SuMa paper] 220/801
+  [SuMa paper] 230/801
+  [SuMa paper] 240/801
+  [SuMa paper] 250/801
+  [SuMa paper] 260/801
+  [SuMa paper] 270/801
+  [SuMa paper] 280/801
+  [SuMa paper] 290/801
+  [SuMa paper] 300/801
+  [SuMa paper] 310/801
+  [SuMa paper] 320/801
+  [SuMa paper] 330/801
+  [SuMa paper] 340/801
+  [SuMa paper] 350/801
+  [SuMa paper] 360/801
+  [SuMa paper] 370/801
+  [SuMa paper] 380/801
+  [SuMa paper] 390/801
+  [SuMa paper] 400/801
+  [SuMa paper] 410/801
+  [SuMa paper] 420/801
+  [SuMa paper] 430/801
+  [SuMa paper] 440/801
+  [SuMa paper] 450/801
+  [SuMa paper] 460/801
+  [SuMa paper] 470/801
+  [SuMa paper] 480/801
+  [SuMa paper] 490/801
+  [SuMa paper] 500/801
+  [SuMa paper] 510/801
+  [SuMa paper] 520/801
+  [SuMa paper] 530/801
+  [SuMa paper] 540/801
+  [SuMa paper] 550/801
+  [SuMa paper] 560/801
+  [SuMa paper] 570/801
+  [SuMa paper] 580/801
+  [SuMa paper] 590/801
+  [SuMa paper] 600/801
+  [SuMa paper] 610/801
+  [SuMa paper] 620/801
+  [SuMa paper] 630/801
+  [SuMa paper] 640/801
+  [SuMa paper] 650/801
+  [SuMa paper] 660/801
+  [SuMa paper] 670/801
+  [SuMa paper] 680/801
+  [SuMa paper] 690/801
+  [SuMa paper] 700/801
+  [SuMa paper] 710/801
+  [SuMa paper] 720/801
+  [SuMa paper] 730/801
+  [SuMa paper] 740/801
+  [SuMa paper] 750/801
+  [SuMa paper] 760/801
+  [SuMa paper] 770/801
+  [SuMa paper] 780/801
+  [SuMa paper] 790/801
+  [SuMa paper] 800/801
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+SuMa                    ok          11.878      9.937          801         272024.0       2.9         
+
+Notes:
+- SuMa: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=3; opt-in local translation remap ratio=0.030000 (not in the paper)
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_03_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_03_full_evaluation_manifest.json)

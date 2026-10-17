@@ -20,6 +20,9 @@ find_package(Ceres REQUIRED)
 
 # コアライブラリのソース (ROS非依存部分)
 set(ZOO_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+# Shared Eigen-only headers are also used by paper cores compiled directly in
+# this package, without the repository's standalone per-method CMake targets.
+include_directories(${ZOO_ROOT}/common/include)
 
 # IMU Motion & Health is kept as a separate ROS-independent target.  Do not
 # add the standalone papers/imu_motion_health CMakeLists here: that file also

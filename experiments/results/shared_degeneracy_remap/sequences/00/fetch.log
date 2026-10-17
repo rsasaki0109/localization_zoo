@@ -1,0 +1,3 @@
+Reading remote ZIP directory: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip
+KITTI 00: 4541 frames, 8.22 GiB
+KITTI 00: extracted=4541, reused=0, path=/workspace/localization-env/shared-remap/kitti/dataset/sequences/00/velodyne

@@ -18,10 +18,23 @@ official KITTI downloader for one sequence at a time, audits the shared header's
 native consumers, evaluates the fixed SuMa variant, diagnoses saved trajectories
 and verifies input hashes before deleting only its owned downloaded scans.
 Completed sequence records are committed as they become available.
-The controller uses fresh artifact directories; it is an execution record, not
-a resume command. For a replay, retain the committed evidence and use a new
-output directory with a binary built from the recorded implementation commit.
-Per-cell command receipts specify the full native arguments and input sequence.
+The controller uses fresh artifact directories. For an independent replay,
+retain the committed evidence and use a new output directory with a binary
+built from the recorded implementation commit. Per-cell command receipts
+specify the full native arguments and input sequence.
+
+The initial 03 fetch stopped on a truncated HTTP Range response, before any
+native 03 run. [The failed fetch](sequences/03/fetch_attempts/01/fetch.log) and
+[exit/state receipt](attempts/initial_run_failure.json) are retained. The
+controller now retains failed fetch receipts and retries transport failures a
+bounded number of times, using the official downloader's CRC-checked atomic
+files. `--resume-from NN --check-resume-only` validates committed earlier
+comparisons and cleanup without writing state; actual `--resume-from NN` is
+limited to a fetch-stage checkpoint and refuses existing native artifacts.
+[Guard checks](checks/resume_guard/commands.json) exercise permitted fetch-stage
+continuation and refusal to overwrite a completed native checkpoint. The
+[03 continuation command](attempts/resume_03_launch.json) preserves the native
+implementation and fixed arguments. This is not a general native-run resume.
 
 Independent runs use `native_wrapper.py` to isolate their output working
 directories. It forwards native arguments unchanged and records the actual

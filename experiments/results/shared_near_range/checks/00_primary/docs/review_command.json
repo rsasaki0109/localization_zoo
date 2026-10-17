@@ -1,0 +1,12 @@
+{
+  "label": "review",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/00_primary/docs/review.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792280434.5490875,
+  "finished_unix": 1792280435.0189168,
+  "exit_code": 0
+}

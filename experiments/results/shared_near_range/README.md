@@ -73,6 +73,43 @@ caught CRLF in the derived CSV and then its captured error log. CSV writers now
 emit LF; exact failed logs and their nonzero exits are retained as gzip archives,
 and the corrected staged check exits 0. Native results are unchanged.
 
+## Completed 00 runs; frozen comparison and cleanup pending
+
+The full 00 candidate audit has finished all 20 selected cells. Fifteen match
+the historical RPE, ATE and frame count; the following five differ. All native
+processes exit 0 and complete 4541 frames, but the historical audit exits **1**.
+
+| Method | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---:|---:|---:|---:|
+| A-LOAM | 0.891327 | 0.914174 | 12.043760 | 9.520570 |
+| F-LOAM | 0.921410 | 0.990961 | 9.833596 | 8.556112 |
+| LeGO-LOAM | 0.838536 | 0.842687 | 12.833331 | 12.378148 |
+| Mesh-LOAM | 0.773243 | 0.774034 | 10.180105 | 10.099834 |
+| VLOM | 0.875872 | 0.914174 | 9.391448 | 9.520570 |
+
+RPE worsens for all five; ATE improves for the first four and worsens for
+VLOM. These values and limits are recorded in each method README. The frozen
+pre-extraction replays for these five methods are **still running**. Their
+comparison, the cause of the historical differences and the extraction's
+effect on these cells are not yet established. No setting is changed or
+historical result replaced.
+
+Completed candidate results, exact commands/logs, executable hashes and input
+provenance were committed at `485fa00601644731827dae601eb3b43c7543efeb`:
+[`sequences/00/audit/`](sequences/00/audit/),
+[`inputs.json`](sequences/00/inputs.json),
+[`fetch_attempts/`](sequences/00/fetch_attempts/) and
+[`checks/00_primary/verification.json`](checks/00_primary/verification.json).
+The official scans remain available for the running frozen comparisons. No 01
+inputs are fetched before 00 comparisons and verified cleanup complete.
+The completed, cleaned sequence checkpoint count therefore remains 14 cells
+(04); these 20 completed candidate runs are reported separately.
+
+Native stdout contains padded tables. Git whitespace attributes are scoped to
+native replay/fixture logs so their exact bytes are retained; code, CSV and
+other evidence retain ordinary whitespace checks. Initial failing branch checks
+and exact gzip-compressed outputs are retained under `checks/00_primary/`.
+
 ## Historical NCLT evidence and limits
 
 The cutoff is transferred unchanged from the existing NCLT full-sequence and

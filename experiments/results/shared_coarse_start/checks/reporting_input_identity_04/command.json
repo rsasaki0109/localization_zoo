@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/summarize_results.py",
+    "--allow-partial",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/checks/reporting_input_identity_04/report"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792210277.0633183,
+  "finished_unix": 1792210278.3037105,
+  "expected_exit_code": 0,
+  "actual_exit_code": 0
+}

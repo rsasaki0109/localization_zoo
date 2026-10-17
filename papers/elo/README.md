@@ -253,6 +253,8 @@ the original summaries lack evaluator-commit/argv provenance. These historical
 numbers have not been rerun for the extraction.
 
 The [shared-filter protocol and execution records](../../experiments/results/shared_near_range/README.md)
-distinguish regression checks from NCLT evaluation. Full KITTI replay is pending;
+distinguish regression checks from NCLT evaluation. Full KITTI replay is running;
+full 04 matches the stored ELO metrics and the frozen pre-extraction saved poses.
+The remaining sequences are pending;
 real NCLT validation remains blocked by the enforced official-host allowlist.
 <!-- /SHARED_NEAR_RANGE -->

@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/checkpoint04/archive_whitespace_logs.py"
+  ],
+  "archives": [
+    {
+      "original_path": "staged_whitespace_initial.log",
+      "archive": "staged_whitespace_initial.log.gz",
+      "raw_sha256": "f167674e009977a75faff64a5886df19dba2875084157ab93419d503f55b0367",
+      "gzip_sha256": "1321e9bfa7b9d867961315f43d05fdda94b02fbe6f4546d1dd0909d05a1e4b25",
+      "raw_bytes": 2600,
+      "exit_code": 2
+    },
+    {
+      "original_path": "staged_whitespace_final.log",
+      "archive": "staged_whitespace_final.log.gz",
+      "raw_sha256": "7582f3f1095b025a1be7556d6f0bcd391f5c7d123f1ba6b7b718ec2aac00f8c2",
+      "gzip_sha256": "11fbccf3b9cebaa239fcf848d63809e27480c0931a27d5baeefb8fb6bac7b451",
+      "raw_bytes": 2920,
+      "exit_code": 2
+    }
+  ],
+  "reason": "Preserve exact CR-containing failure logs without introducing new Git whitespace errors.",
+  "exit_code": 0
+}

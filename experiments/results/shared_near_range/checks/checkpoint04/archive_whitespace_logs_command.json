@@ -1,0 +1,12 @@
+{
+  "label": "archive_whitespace_logs",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/checkpoint04/archive_whitespace_logs.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792255550.6118531,
+  "finished_unix": 1792255550.6827044,
+  "exit_code": 0
+}

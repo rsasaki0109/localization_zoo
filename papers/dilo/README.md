@@ -287,5 +287,7 @@ RTE の差を近距離点除去だけに帰属できず、後者の ATE は悪�
 [`nclt_paper_paths.md`](../../docs/nclt_paper_paths.md)。元の summary には evaluator commit と
 argv がなく、不足する来歴は補完していない。今回の抽出による再測定値ではない。
 [共通化の手順・実行記録](../../experiments/results/shared_near_range/README.md) に回帰確認を分けて残す。
-KITTI 全区間の再実行は未完了。NCLT の実データ検証は公式ホストの許可リスト未反映で未完了。
+KITTI 全区間の再実行は進行中。完了済み 04 は保存済み DiLO 指標と一致し、抽出前の凍結バイナリとも
+保存姿勢がバイト単位で一致する。残る系列と NCLT の実データ検証は未完了。
+NCLT は公式ホストの許可リストが未反映。
 <!-- /SHARED_NEAR_RANGE -->

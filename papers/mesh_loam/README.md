@@ -313,3 +313,27 @@ Recommended values for the paper path (runner flags `--mesh-loam-marching-cubes`
 accuracy runs. For `keep_mesh`, use `marching_cubes = true` and
 `mesh_freeze_radius = 100`.
 
+
+<!-- SHARED_NEAR_RANGE_AUDIT -->
+## Shared-loader replay: historical KITTI 04 difference
+
+The full 04 stored-cell replay after the optional near-range filter extraction
+uses the original `paper_odometry_elevation` arguments, with the cut off.
+Its 100 m RPE is **0.520627%**, ATE **10.252902 m**, versus stored **0.523782%**
+and **10.602073 m**, with all 271 frames complete. This improves the metrics
+but remains a reproduction difference: the historical audit exits 1.
+
+The frozen pre-extraction executable reproduces the same values. RPE, ATE,
+frame count and official translation/rotation RTE differ by zero between
+old and extracted implementations, and saved poses are byte-identical.
+The difference therefore predates extraction; the reason the original
+historical run differs remains unresolved. It is not credited as a filter
+improvement or used to replace the fixed-setting paper result.
+
+[Commands, actual exits, summaries and logs](../../experiments/results/shared_near_range/sequences/04/audit/),
+[frozen replay](../../experiments/results/shared_near_range/sequences/04/frozen_baseline/)
+and [comparison](../../experiments/results/shared_near_range/sequences/04/frozen_comparison.json)
+were committed at `7458c24d16096cc305889ed0864a5ef8bfb6bdf4`.
+The [whole-zoo audit](../../experiments/results/shared_near_range/README.md)
+is incomplete. Historical aggregates and the default-off cutoff are unchanged.
+<!-- /SHARED_NEAR_RANGE_AUDIT -->

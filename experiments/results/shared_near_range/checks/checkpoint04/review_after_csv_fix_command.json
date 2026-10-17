@@ -1,0 +1,12 @@
+{
+  "label": "review_after_csv_fix",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/checkpoint04/review_after_csv_fix.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792255571.565443,
+  "finished_unix": 1792255571.8806965,
+  "exit_code": 0
+}

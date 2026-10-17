@@ -49,7 +49,7 @@ columns = ['method', 'sequence', 'variant_id', 'audit_status', 'stored_rpe_trans
            'rerun_rpe_trans_pct', 'rerun_rpe_abs_delta', 'stored_ate_m', 'rerun_ate_m',
            'rerun_ate_abs_delta', 'frames', 'kitti_rte_trans_pct', 'kitti_rte_rot_deg_per_100m']
 stream = io.StringIO()
-writer = csv.DictWriter(stream, fieldnames=columns, extrasaction='ignore')
+writer = csv.DictWriter(stream, fieldnames=columns, extrasaction='ignore', lineterminator='\n')
 writer.writeheader()
 writer.writerows(rows)
 (args.output_dir / 'comparison.csv').write_text(stream.getvalue())

@@ -36,6 +36,43 @@ Python regressions exit 0. The 15 fixture method/case comparisons have identical
 accuracy/frame fields and byte-identical saved poses. Actual native commands,
 hashes, logs, exits and the complete comparison are committed under `checks/`.
 
+## Completed KITTI checkpoint: 04
+
+All 14 selected cells completed on full 04. Twelve match the stored RPE, ATE
+and frame count. The audit exits **1**, because the following two historical
+cells differ; this is not reported as a passing historical audit.
+
+| Method | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---:|---:|---:|---:|
+| CT-ICP | 0.713006 | 0.733247 | 2.184636 | 2.191953 |
+| Mesh-LOAM | 0.523782 | 0.520627 | 10.602073 | 10.252902 |
+
+The frozen pre-extraction executable reproduces both differences exactly; its
+audit also exits 1. For these two methods plus ELO and DiLO, extraction changes
+RPE, ATE, frames and official translation/rotation RTE by zero, and saved poses
+are byte-identical. This establishes that the differences predate extraction;
+it does not identify why the original historical runs differ. The CT-ICP
+reproduction is worse; the Mesh-LOAM reproduction improves but still differs.
+Both method READMEs retain the values. Stored aggregates are unchanged.
+
+Evidence committed at `7458c24d16096cc305889ed0864a5ef8bfb6bdf4`:
+[`sequences/04/audit/`](sequences/04/audit/),
+[`frozen_baseline/`](sequences/04/frozen_baseline/),
+[`frozen_comparison.json`](sequences/04/frozen_comparison.json),
+[`inputs.json`](sequences/04/inputs.json) and
+[`cleanup.json`](sequences/04/cleanup.json). Inputs match the previous official
+scan/GT hashes and were verified and removed before fetching 00. The remaining
+cells are pending; this checkpoint does not establish whole-zoo completion.
+
+[`checkpoints/04/`](checkpoints/04/) is generated only from committed,
+cleaned sequence checkpoints; live 00 outputs are excluded. The checkpoint's
+verification exit 0 does not replace the retained native audit exit 1.
+[`checks/checkpoint04/`](checks/checkpoint04/) retains the required document
+generators, Python/doc checks and preservation review. Staged whitespace checks
+caught CRLF in the derived CSV and then its captured error log. CSV writers now
+emit LF; exact failed logs and their nonzero exits are retained as gzip archives,
+and the corrected staged check exits 0. Native results are unchanged.
+
 ## Historical NCLT evidence and limits
 
 The cutoff is transferred unchanged from the existing NCLT full-sequence and

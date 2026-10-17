@@ -1,0 +1,22 @@
+{
+  "label": "candidate_drift",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_08_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/SuMa.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_08_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/kitti_seq_08_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_08_full_shared_remap_matrix/shared_remap_003/summary.json",
+    "--method",
+    "SuMa",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/08/candidate_drift.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+  "started_unix": 1792203646.493214,
+  "finished_unix": 1792203649.4710364,
+  "exit_code": 0
+}

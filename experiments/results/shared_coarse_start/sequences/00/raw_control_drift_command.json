@@ -1,0 +1,22 @@
+{
+  "label": "raw_control_drift",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/suma_kitti_seq_00_full_transfer_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/suma_kitti_seq_00_full_transfer_matrix__paper_odometry_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/suma_kitti_seq_00_full_transfer_matrix__paper_odometry.json",
+    "--method",
+    "SuMa",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/raw_control_drift.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "started_unix": 1792219571.9568665,
+  "finished_unix": 1792219573.4990458,
+  "exit_code": 0
+}

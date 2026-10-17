@@ -165,10 +165,12 @@ The committed full 04 SuMa pair is:
 
 [Full candidate and native command](../../experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/),
 [raw control and native command](../../experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json).
-These completed SuMa records precede the IMLS-SLAM/frozen-binary audit and input
-cleanup. Coverage is incomplete; no transfer recommendation or cohort ratio is
-made from this pair, and no setting is reselected. The full table and any
-negative intervals will be added from committed full-sequence evidence.
+[Committed full 04 pair, diagnostics and preservation checks](../../experiments/results/shared_coarse_start/checks/reporting_04/)
+also verify the full IMLS-SLAM/SuMa audit and owned-input cleanup. Both methods'
+printed metrics and saved-pose bytes match the frozen pre-change full 04 runs.
+Other sequences remain incomplete; no transfer recommendation or cohort ratio is
+made from this pair, and no setting is reselected. The full table and any negative
+intervals will be added from committed full-sequence evidence.
 <!-- SHARED_COARSE_RESULTS:END -->
 
 The shared local translation remap is separately available through

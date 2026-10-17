@@ -140,6 +140,12 @@ SuMa は自身のソルバーを使う。粗い段は論文にはなく、既定
 通常設定は 07、粗い初期段の導入は 04 の失敗を見て決めたので、04 は取り置き評価ではない。
 [共通化の監査と SuMa 転用実験](../../experiments/results/shared_coarse_start/README.md)
 は別に記録し、以下の既存結果は更新しない。
+
+共通化前後の full 04 では、既存 `paper_odometry_w100_coarse_start` の RPE・ATE・
+フレーム数の差は 0、保存軌跡もバイト単位で一致した
+([固定バイナリとの比較](../../experiments/results/shared_coarse_start/sequences/04/frozen_comparison.json))。
+[04 の集計](../../experiments/results/shared_coarse_start/checks/reporting_04/report/summary.json)
+は既存公式並進／回転 RTE の一致も確認する。他シーケンスの監査は継続中である。
 00 / 07 は変わらない。`experiments/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json`、
 公式 RTE [%]:
 

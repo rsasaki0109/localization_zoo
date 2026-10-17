@@ -161,8 +161,13 @@ Completed full SuMa pairs so far (the full-cohort audit remains in progress):
 
 | Seq | Raw RTE [%] | Coarse RTE [%] | Raw ATE [m] | Coarse ATE [m] |
 |---|---:|---:|---:|---:|
+| 00 | 0.697236 | 0.676793 | 8.196443 | 7.918658 |
 | 01 | 13.792690 | 10.686955 | 175.826760 | 150.500523 |
 | 04 | 0.416845 | 0.389970 | 0.974258 | 0.929463 |
+
+[Completed full 00 SuMa pair](../../experiments/results/shared_coarse_start/early/00/pair.json)
+retains both native receipts and saved poses. Its raw control matches all prior
+accuracy/frame metrics; the IMLS-SLAM 00 audit and input cleanup are still pending.
 
 [Full 04 candidate and native command](../../experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/),
 [04 raw control and native command](../../experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json).
@@ -175,7 +180,7 @@ verify all four existing selected cells with zero changes in RPE, ATE, frames
 and official translation/rotation RTE. Both methods'
 printed metrics and saved-pose bytes match the frozen pre-change full 04 runs.
 Other sequences remain incomplete; no transfer recommendation or cohort ratio is
-made from this pair, and no setting is reselected. The full table and any negative
+made from these partial-cohort pairs, and no setting is reselected. The full table and any negative
 intervals will be added from committed full-sequence evidence.
 
 The [committed full 01 candidate and checked diagnosis](../../experiments/results/shared_coarse_start/checks/early_01_candidate/)

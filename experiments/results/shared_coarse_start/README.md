@@ -12,8 +12,11 @@ SuMa keeps its own Huber residual and projective associations. No SuMa sweep
 or new held-out claim is made: its prior full KITTI results were already known.
 The previous SuMa translation-remap experiment is not combined with this one.
 
-Full KITTI 00–10 evaluation and affected-method compatibility checks will be
-recorded here, with commands and actual exits. Experimental results are not
+Full KITTI 00–10 evaluation and the affected-method compatibility checks are
+complete. [Accuracy](report/table.md), [diagnostics](report/diagnostics.md),
+[CSV](report/comparison.csv) and the [immutable input snapshot](report/summary.json)
+retain every sequence. RTE is higher on 05, 09, 10; ATE is higher on 03, 06, 07, 10.
+The full table retains these tradeoffs without reselection. Commands and actual exits are retained. Experimental results are not
 promoted to the published leaderboard, Table 6 or paper-reference metadata.
 Near-range sharing and NCLT remain separate work. The NCLT host remains absent
 from the enforced policy despite earlier approval; this work does not retry
@@ -42,16 +45,6 @@ continuation validates committed previous sequences and refuses existing native
 artifacts. It is not a general native-run resume. Exact per-cell native argv,
 thread settings, binary hashes and process exits are retained by `native_wrapper.py`.
 
-<!-- COARSE_PROGRESS:START -->
-[Completed full 00–04 snapshot](checks/reporting_00_04/report/summary.json) is
-explicitly incomplete for 00–10. Ten existing selected audit cells match all
-checked metrics, prior raw-control accuracy/frame metrics and scan/GT identity
-match, and owned-input cleanup is verified. 03 retains an ATE tradeoff; the
-method README keeps that negative with the remaining later drift on 01/02.
-[01 plot, numeric trace, provenance and command](plots/01/) use committed poses
-without fitting or rescaling. The complete all-sequence report remains pending.
-<!-- COARSE_PROGRESS:END -->
-
 <!-- FETCH_RECOVERY:START -->
 Official acquisition encountered truncated HTTP Range responses before native
 artifacts. [Failure and launch receipts](attempts/) retain each attempt.
@@ -62,3 +55,33 @@ Only the official downloader's CRC-checked complete files were reused, with
 native settings unchanged. These transport failures are distinct from method
 accuracy or native execution failures.
 <!-- FETCH_RECOVERY:END -->
+
+The full report was generated with the default all-sequence guard from committed
+inputs before updating numeric documentation:
+
+```bash
+python experiments/results/shared_coarse_start/summarize_results.py --output-dir experiments/results/shared_coarse_start/report
+```
+
+[Exact command and checked exit](report/command.json) retain the Python path and
+cwd. [Final controller completion](attempts/final_completion.json) records full
+coverage and input cleanup. The report verifies complete native argv, executable
+hashes, thread counts, full frames, GT CSV identity, saved-pose RTE agreement and
+old official translation/rotation RTE. Official scan .bin hashes/bytes and GT CSV
+match the prior study; all fresh raw controls match its accuracy/frame metrics.
+Explicit historical partial reports do not replace the complete report.
+
+All 22 selected existing IMLS-SLAM/SuMa cells have zero changes in RPE, ATE,
+frame count and official translation/rotation RTE. The frozen pre-change full 04 comparison also has identical saved-pose bytes
+for both methods.
+[Archived documentation writer](checks/final/documentation_driver.py) records the
+one-time derivation from the committed report; the final text includes formatting
+review. [Final regeneration and checks](checks/final/commands.json) retain the required
+three doc generators and actual exits. [Preservation](checks/final/preservation.json)
+checks all historical aggregates, published README/HTML/Table 6/paper metadata,
+fixed manifest settings, native source and the previous remap experiment.
+[01 figure](plots/01/trace.png), [numeric trace](plots/01/trace.csv) and
+[provenance](plots/01/provenance.json) preserve the remaining later drift, with
+no path fitting or rescaling. Concurrent independent runs do not support speed
+comparisons. Near-range sharing and NCLT remain open; this completes only the
+second roadmap component.

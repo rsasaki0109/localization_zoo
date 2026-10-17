@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/checks/final/review_driver.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792248034.5716283,
+  "finished_unix": 1792248035.4310567,
+  "actual_exit_code": 0
+}

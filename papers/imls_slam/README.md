@@ -142,12 +142,12 @@ SuMa は自身のソルバーを使う。粗い段は論文にはなく、既定
 は別に記録し、以下の既存結果は更新しない。
 
 <!-- SHARED_COARSE_AUDIT:START -->
-[00–04 の集計](../../experiments/results/shared_coarse_start/checks/reporting_00_04/report/summary.json)
-では IMLS-SLAM・SuMa の既存採用セル計 10 件の RPE・ATE・フレーム数・
-公式並進／回転 RTE の差がすべて 0 だった。入力照合・削除も完了した。
-共通化前後の full 04 では保存軌跡も両手法でバイト単位に一致した
+00–10 の既存採用セルを IMLS-SLAM・SuMa 各 11 件、計 22 件照合し、RPE・ATE・
+フレーム数・公式並進／回転 RTE の差はすべて 0 だった
+([全監査集計](../../experiments/results/shared_coarse_start/report/summary.json))。
+共通化前の固定バイナリとの full 04 比較も記録した
 ([比較](../../experiments/results/shared_coarse_start/sequences/04/frozen_comparison.json))。
-全 22 件の監査は継続中である。
+監査対象は初期段ヘルパーを使うこの 2 手法であり、全手法の再実行ではない。
 <!-- SHARED_COARSE_AUDIT:END -->
 00 / 07 は変わらない。`experiments/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json`、
 公式 RTE [%]:

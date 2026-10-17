@@ -231,16 +231,20 @@ independent. Each item says what "done" means.
      diagnostics. All 22 affected existing DiLO/SuMa cells match RPE, ATE,
      frame count and official translation/rotation RTE.
      [Protocol, committed results and commands](../experiments/results/shared_degeneracy_remap/README.md).
-     Coarse registration, near-range sharing and NCLT evaluation remain open.
-   - In progress in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136):
-     coarse registration is shared as an initial coarse/fine stage policy
-     used by IMLS-SLAM and opt-in SuMa. Per-method correspondences,
-     residuals and numerical stopping remain local. The transfer fixes the
-     registration/iteration budget and distance scale from the existing IMLS
-     04 choice before full KITTI 00-10 evaluation; defaults stay off.
-     [Protocol and execution](../experiments/results/shared_coarse_start/README.md).
-     This work remains incomplete until the full runs and preservation checks
-     are committed. Near-range sharing and NCLT evaluation remain open.
+     Near-range sharing and NCLT evaluation remain open.
+   - Second component implemented and evaluated in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136):
+     IMLS-SLAM and opt-in SuMa share the initial coarse/fine stage policy.
+     Per-method correspondences, residuals and numerical stopping remain local;
+     this is not a shared numerical aligner. The fixed budget and distance scale
+     derive from the existing IMLS 04 choice without a SuMa sweep. Full KITTI
+     00-10 paired results and saved-pose diagnostics are committed, including
+     every negative pair. SuMa 01 RTE changes from 13.792690%
+     to 10.686955%, but ATE remains 150.500523 m
+     and later drift remains. No setting is reselected and defaults stay off.
+     All 22 affected existing cells match
+     RPE, ATE, frame count and official translation/rotation RTE.
+     [Protocol, completed results and commands](../experiments/results/shared_coarse_start/README.md).
+     Near-range sharing and NCLT evaluation remain open.
 7. **Bindings.** The Python bindings cover KISS-ICP, NDT, GICP and LiTAMIN2
    (`python/`). Add the paper pipelines that are near paper (SuMa,
    IMLS-SLAM, DiLO, LiTAMIN2 paper path) and ROS 2 nodes for them.

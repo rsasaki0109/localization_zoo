@@ -30,6 +30,7 @@ target_include_directories(synthetic_benchmark PRIVATE
 
 add_executable(pcd_dogfooding src/pcd_dogfooding.cpp)
 target_link_libraries(pcd_dogfooding PRIVATE
+  localization_common
   litamin2
   gicp
   small_gicp

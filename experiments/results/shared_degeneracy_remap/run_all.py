@@ -5,7 +5,7 @@ repository. Each sequence is committed after verification and owned-data cleanup
 """
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
-import csv,hashlib,json,os,shutil,subprocess,sys,threading,time,traceback
+import argparse,csv,hashlib,json,os,shutil,subprocess,sys,threading,time,traceback
 
 E=Path(__file__).resolve().parent
 REPO=E.parents[2]
@@ -14,6 +14,12 @@ PY='/workspace/localization-env/host-venv/bin/python'
 CONTAINER_PY='/opt/localization-venv/bin/python'
 WRAPPER=E/'native_wrapper.py'
 SOURCE=json.loads((E/'candidate.json').read_text())['source_commit']
+ORDER=['01','00']+[f'{i:02d}' for i in range(2,11)]
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--resume-from',choices=ORDER[1:],help='Resume after a fetch-stage failure; native artifacts in that sequence are refused.')
+parser.add_argument('--check-resume-only',action='store_true',help='Validate committed checkpoints without writing state or starting processes.')
+options=parser.parse_args()
+if options.check_resume_only and not options.resume_from:parser.error('--check-resume-only requires --resume-from')
 lock=threading.Lock()
 state={'source_commit':SOURCE,'status':'starting','sequence':None,'runners':{},'completed':[]}
 
@@ -117,19 +123,70 @@ def diagnostics(summary,output):
     run(output.stem,[PY,'evaluation/scripts/diagnose_kitti_steps.py','--estimate',str(source/'SuMa.txt'),
         '--gt',str(gt),'--summary',str(summary),'--method','SuMa','--output',str(output)],output.parent)
 
+def committed_checkpoints(resume_from):
+    revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip()
+    def committed(path):
+        return json.loads(subprocess.check_output(['git','show',revision+':'+path.relative_to(REPO).as_posix()],cwd=REPO))
+    completed=ORDER[:ORDER.index(resume_from)]
+    protocol=committed(E/'protocol.json')
+    for seq in completed:
+        folder=E/'sequences'/seq
+        comparison=committed(folder/'comparison.json');cleanup=committed(folder/'cleanup.json');inputs=committed(folder/'inputs.json')
+        assert comparison['source_commit']==SOURCE==protocol['implementation_commit']
+        assert comparison['candidate_arguments']==protocol['suma_fixed_arguments']
+        assert comparison['control']['frames']==comparison['candidate']['frames']==inputs['gt_frames']==inputs['scan_frames']
+        assert cleanup['hashes_verified_before_removal'] and not cleanup['input_dir_exists_after']
+        assert Path(cleanup['owned_input_dir'])==R/'kitti/dataset/sequences'/seq/'velodyne'
+        assert not Path(cleanup['owned_input_dir']).exists()
+        alias=R/'data/dogfooding_results'/f'kitti_seq_{seq}_full'
+        assert not alias.exists() and not alias.is_symlink()
+    folder=E/'sequences'/resume_from
+    if any((folder/name).exists() for name in ('inputs.json','audit','raw_control','comparison.json')):
+        raise RuntimeError('Refusing fetch-stage resume with native artifacts or completed inputs')
+    if (E/'benchmarks/runs'/f'suma_kitti_seq_{resume_from}_full_shared_remap_matrix').exists():
+        raise RuntimeError('Refusing resume with an existing candidate run')
+    return completed,revision
+
+def archive_failed_fetch(folder):
+    receipt=folder/'fetch_command.json'
+    if not receipt.exists() or json.loads(receipt.read_text())['exit_code']==0:return
+    attempts=folder/'fetch_attempts';attempts.mkdir(exist_ok=True)
+    number=max((int(p.name) for p in attempts.iterdir() if p.is_dir() and p.name.isdigit()),default=0)+1
+    destination=attempts/f'{number:02d}';destination.mkdir()
+    for name in ('fetch.log','fetch_command.json'):shutil.move(str(folder/name),str(destination/name))
+
+def fetch(seq,folder):
+    archive_failed_fetch(folder)
+    command=[PY,'evaluation/scripts/fetch_kitti_odometry_sequences.py','--output-root',str(R/'kitti'),
+             '--sequence',seq,'--workers','4']
+    for attempt in range(3):
+        if run('fetch',command,folder,allowed=(0,1))==0:return
+        archive_failed_fetch(folder)
+    raise RuntimeError('fetch failed after bounded retries; all failed receipts retained')
+
+if options.resume_from:
+    completed,checkpoint_revision=committed_checkpoints(options.resume_from)
+    if options.check_resume_only:
+        print(json.dumps({'checkpoint_revision':checkpoint_revision,'completed':completed,'resume_from':options.resume_from,'native_artifacts_absent':True}))
+        raise SystemExit(0)
+    state['completed']=completed
+    state['resume_from']=options.resume_from
+    state['checkpoint_revision']=checkpoint_revision
+elif any((E/'sequences'/seq).exists() for seq in ORDER):
+    raise RuntimeError('Fresh execution requires empty sequence artifact directories')
+
 try:
     assert digest(R/'candidate_pcd_dogfooding')==json.loads((E/'candidate.json').read_text())['sha256']
     assert digest(R/'baseline_pcd_dogfooding')==json.loads((E/'baseline.json').read_text())['sha256']
-    for seq in ['01','00']+[f'{i:02d}' for i in range(2,11)]:
+    for seq in ORDER[len(state['completed']):]:
         update(status='running',sequence=seq)
-        folder=E/'sequences'/seq;folder.mkdir(parents=True)
+        folder=E/'sequences'/seq;folder.mkdir(parents=True,exist_ok=options.resume_from==seq)
         if seq=='01':
             receipt=json.loads((R/'fetch_01.json').read_text());assert receipt['exit_code']==0
             shutil.copyfile(R/'fetch_01.json',folder/'fetch_command.json')
             shutil.copyfile(R/'fetch_01.log',folder/'fetch.log')
         else:
-            run('fetch',[PY,'evaluation/scripts/fetch_kitti_odometry_sequences.py','--output-root',str(R/'kitti'),
-                         '--sequence',seq,'--workers','4'],folder)
+            fetch(seq,folder)
         raw=R/'kitti/dataset/sequences'/seq/'velodyne'
         assert raw.is_dir() and not raw.is_symlink()
         link=R/'data/dogfooding_results'/f'kitti_seq_{seq}_full'

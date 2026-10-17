@@ -191,6 +191,15 @@ pointwise error-growth block is 2600–2700 (GT 102.422 m, increase
 3.497 m). [Full result, diagnosis, audit and cleanup](../../experiments/results/shared_coarse_start/sequences/05/)
 retain all checked exits. These block diagnostics do not establish a solver-level cause.
 
+<!-- COARSE_NEGATIVE_06 -->
+06 has a negative paired tradeoff: official RTE 0.285691% → 0.280482%, ATE
+2.961054 → 2.970025 m. There are 0/1100 bad length steps.
+The largest pointwise error-growth block is 900–1000 (GT 127.875 m,
+increase 3.467 m).
+[Full paired result, diagnostics, audit and cleanup](../../experiments/results/shared_coarse_start/sequences/06/)
+retain the checked native exits. These diagnostics locate growth without
+establishing a solver-level cause; no setting is reselected.
+
 The [committed full 01 candidate and checked diagnosis](../../experiments/results/shared_coarse_start/checks/early_01_candidate/)
 retain substantial later drift: 113 of 1100 moving steps have length errors
 above 20%, at destination frames 480–488, 490–517, 786, 809 and 823–896.

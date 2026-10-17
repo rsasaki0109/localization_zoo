@@ -1,0 +1,3 @@
+[audit] SuMa 02 paper_odometry_clean_lookup_elevation: ok
+[audit] IMLS-SLAM 02 paper_odometry_w100_coarse_start: ok
+[done] 0 drifted, 0 failed of 2 cells; exit 0; wrote /workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/02/audit/report.json

@@ -1,0 +1,15 @@
+{
+  "pid": 71540,
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+    "--resume-from",
+    "02"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792220380.981646,
+  "controller_checkout_commit": "b70c36ecfe58449ecfacd25ea76d0e2ba844f03d",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "reason": "Continue official02fetch after bounded RangeEOF failures; allcommitted04/01/00 comparison/cleanup checkpoints and absence of02nativeartifacts checked read-only.",
+  "scope": "Same frozen native binaries and fixed arguments. Reuse only official CRC-checked complete files; no native partial resume."
+}

@@ -17,7 +17,7 @@ It does not sanitize non-finite points; consumers retain that policy.
 ## Scope and status
 
 Implementation and the regression protocol are committed. Full KITTI replay
-is pending; no full audit completion or new NCLT result is claimed here.
+is running; no full audit completion or new NCLT result is claimed here.
 [`selection.json`](selection.json) freezes all stored full-sequence best-RPE
 cells across the zoo; the selection command and its actual exit are retained.
 These are replays of historical arguments, which can differ by cell. They do
@@ -30,6 +30,11 @@ MCD fixture: disabled/explicit-zero, the historical NCLT cutoff, sensor-frame
 conversion and elevation correction. This is a regression fixture, not NCLT
 validation. Common mechanism tests cover the spherical boundary, float
 threshold, retained intensity/order, default-off metadata and empty inputs.
+
+Preflight: Release configure/build and all 125 CTest entries exit 0; all 290
+Python regressions exit 0. The 15 fixture method/case comparisons have identical
+accuracy/frame fields and byte-identical saved poses. Actual native commands,
+hashes, logs, exits and the complete comparison are committed under `checks/`.
 
 ## Historical NCLT evidence and limits
 

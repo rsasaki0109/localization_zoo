@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/run_all.py", line 168, in <module>
+    completed,checkpoint_revision=committed_checkpoints(options.resume_from)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/run_all.py", line 145, in committed_checkpoints
+    raise RuntimeError('Refusing fetch-stage resume with native artifacts or completed inputs')
+RuntimeError: Refusing fetch-stage resume with native artifacts or completed inputs

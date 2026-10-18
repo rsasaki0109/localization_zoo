@@ -1,0 +1,12 @@
+{
+  "label": "docs_driver",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/00_vlom_control/docs/driver.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792286636.2040129,
+  "finished_unix": 1792286690.1754978,
+  "exit_code": 0
+}

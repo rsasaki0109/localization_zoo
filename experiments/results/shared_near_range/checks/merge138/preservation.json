@@ -1,0 +1,38 @@
+{
+  "base": "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+  "historical_aggregate_count": 688,
+  "changed_aggregates": [],
+  "published_files_identical": {
+    "README.md": true,
+    "docs/index.html": true,
+    "docs/assets/paper/paper_ratio_table.csv": true,
+    "evaluation/data/paper_reported_numbers.json": true
+  },
+  "method_blocks": [
+    {
+      "method": "aloam",
+      "all_old_shared_range_blocks_preserved": true
+    },
+    {
+      "method": "ct_icp",
+      "all_old_shared_range_blocks_preserved": true
+    },
+    {
+      "method": "floam",
+      "all_old_shared_range_blocks_preserved": true
+    },
+    {
+      "method": "lego_loam",
+      "all_old_shared_range_blocks_preserved": true
+    },
+    {
+      "method": "mesh_loam",
+      "all_old_shared_range_blocks_preserved": true
+    },
+    {
+      "method": "vlom",
+      "all_old_shared_range_blocks_preserved": true
+    }
+  ],
+  "main_mesh_compatibility_section_preserved": true
+}

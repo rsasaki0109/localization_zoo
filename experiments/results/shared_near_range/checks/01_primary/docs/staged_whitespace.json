@@ -1,0 +1,13 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check",
+    "e13aab37258ce73c216302c1cc5b61a5d5385ed3"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": ""
+}

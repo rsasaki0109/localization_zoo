@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/diagnose00/normalize_svg.py"
+  ],
+  "original_sha256": "b75adbcf845c2ee2a1907a128505559e6d80483fe0feaa3bc34d5a5c60001e67",
+  "normalized_sha256": "db077fe3b63ff9291eb403ff0b8d2ac2c09ffe9a5626f56c98ad1e7c8fb1df80",
+  "original_archive": "/workspace/localization_zoo/experiments/results/shared_near_range/checks/diagnose00/original_trace.svg.gz",
+  "non_whitespace_tokens_identical": true,
+  "both_xml_documents_parse": true,
+  "exit_code": 0
+}

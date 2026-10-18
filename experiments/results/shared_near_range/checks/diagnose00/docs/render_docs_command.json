@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-near-range/render_diagnosis_docs.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "actual_exit_code": 0,
+  "archived_script": "/workspace/localization_zoo/experiments/results/shared_near_range/checks/diagnose00/docs/render_docs.py",
+  "script_sha256": "770cfe6aafcb23561c66021226c8ba1e08b5e11a5da3bbfa13a24badd58437bd",
+  "numeric_source_commit": "61c1f26e1019aa3f0b05b100404c8bb117448b41",
+  "receipt_recorded_after_execution": true
+}

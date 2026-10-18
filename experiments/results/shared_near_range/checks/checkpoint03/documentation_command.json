@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-near-range/checkpoint03_resume/document.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "exit_code": 0,
+  "stdout": "Documented committed cleaned03 checkpoint, saved02 paths and recovery scope.\n",
+  "receipt_source": "Actual Codex exec_command response before this check driver; no execution timing was captured."
+}

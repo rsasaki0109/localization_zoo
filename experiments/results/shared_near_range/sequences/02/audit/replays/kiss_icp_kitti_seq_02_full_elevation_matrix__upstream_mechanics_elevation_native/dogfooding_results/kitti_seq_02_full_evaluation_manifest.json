@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_02_full",
+  "gt_csv": "/workspace/localization_zoo/experiments/reference_data/kitti_seq_02_full_gt.csv",
+  "gt_sha256": "cff6c0266c14016bb512f2e6d8fcdda4796bc1d4c9c97ba0f4cff32805106683",
+  "input_max_range_m": 80,
+  "input_vertical_angle_correction_deg": 0.205,
+  "input_azimuth_time": false,
+  "total_pcd_frames": 4661,
+  "num_frames": 4661,
+  "raw_gt_pose_count": 4661,
+  "used_gt_pose_count": 4661,
+  "trajectory_length_m": 5067.016162,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "6ca512f11c5dc1385c8c394d596f500d0c844f2d",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_02_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_02_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 4661,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 4660.000000]
+  },
+  "gt": {
+    "source": "/workspace/localization_zoo/experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "sha256": "cff6c0266c14016bb512f2e6d8fcdda4796bc1d4c9c97ba0f4cff32805106683",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 4661,
+    "raw_timestamp_range": [0.000000, 4660.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 4661,
+    "associated_gt_index_range": [0, 4660],
+    "associated_gt_timestamp_range": [0.000000, 4660.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 18.506994,
+      "rpe_trans_pct": 0.789008,
+      "rpe_rot_deg_per_m": 0.002933,
+      "kitti_rte_trans_pct": 0.545813,
+      "kitti_rte_rot_deg_per_100m": 0.162339,
+      "frames": 4661,
+      "time_ms": 526332.822286,
+      "fps": 8.855613,
+      "algorithm_time_ms": 421738.162973,
+      "algorithm_fps": 11.051881,
+      "seed_fallback_rate_pct": null,
+      "note": "Adaptive sigma min/mean/max=0.351073/0.41645/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=8.85561; algorithm_fps=11.0519."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 2453.3 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+
+Running LiTAMIN2...
+  voxel_resolution=2.0 max_iterations=6 max_source_points=2500 refresh_interval=3 map_max_points=45000 map_radius=45.0 local_map_policy=refresh keyframe_translation=1.0 keyframe_rotation=0.1 max_seed_translation_delta=2.0 max_seed_rotation_delta=0.2 max_motion_translation_delta=-1.0 max_motion_rotation_delta=-1.0 min_cov_eigenvalue=0.0 correspondence_search_radius=0 max_correspondence_distance=0.0 use_cov_cost=off covariance_gradient=off covariance_gradient_weight=1.0 line_search=off line_search_min_step=0.1 scan_to_scan=off coarse_to_fine_levels=0 coarse_to_fine_iteration_levels=0 num_threads=2
+  [LiTAMIN2 paper] 0/1101  [LiTAMIN2 paper] 100/1101  [LiTAMIN2 paper] 200/1101  [LiTAMIN2 paper] 300/1101  [LiTAMIN2 paper] 400/1101  [LiTAMIN2 paper] 500/1101  [LiTAMIN2 paper] 600/1101  [LiTAMIN2 paper] 700/1101  [LiTAMIN2 paper] 800/1101  [LiTAMIN2 paper] 900/1101  [LiTAMIN2 paper] 1000/1101  [LiTAMIN2 paper] 1100/1101
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+LiTAMIN2-ICP            ok          96.992      0.930          1101        27928.1        39.4        
+
+Notes:
+- LiTAMIN2-ICP: LiTAMIN2 paper odometry (raw scans, 3.0 m distributions, map first, nearest-distribution pairing, ICP); no GT seed. mean distributions/scan 873.0, mean iterations 10.9
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_01_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_01_full_evaluation_manifest.json)

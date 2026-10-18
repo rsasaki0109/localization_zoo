@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "original_execution_protocol": "experiments/results/shared_near_range/protocol.json",
+  "native_source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "interruption_checkpoint": "eebaf3d7559a9e8ed98e59e93814f66838f6b5f6",
+  "sequence": "05",
+  "reason": "Managed environment restart removed original controller/finalizer/native processes during05. No terminal process exit is available.",
+  "sealed_sha256": {
+    "finish_when_complete.py": "b85c467064d82799bc8d7e7addbcafb81d62cc538730f3d78b7a8fb375c22dfc",
+    "finish_docs.py": "de1bb0d3a597928593bdc5f1efa2317c924560996e8f06ddfbb6e9255f1c7184",
+    "support.py": "bc04bce97bf2df5cc8912137e0d371efe0e065c5b40f860f1d40ac8e68a7b761",
+    "report.py": "38031996ecaea8df33af9f5167452f2d575767a953b742900329fd35457123d1",
+    "verify_preservation.py": "770f3d24c671d15cdcc60825fdd0d31f7b0d3fe9bcd369eaa7ac08da6d370b3b",
+    "run_all.py": "777ee163bdc72c8571456b21d0906a2beb64076fcc13f272f9d0a72a17211d7e",
+    "protocol.json": "1f00d46f4c0c24ee63cef21bd6fdaefe23a0d714abf92e13f8dc6b1c0294808b",
+    "selection.json": "80f595fe0d6a93ffba4c085977b63f2d139ec711ba94ba87c597a81b3e56033e",
+    "baseline.json": "7d9344421e2ea56776a8fff4fb49dadaf308d2635bd643a1c1ae333c99428fd2",
+    "candidate.json": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a",
+    "native_wrapper.py": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3"
+  },
+  "restart_policy": "Preserve the entire interrupted audit and its input manifest without inventing exits. Verify the still-owned official05 scans/GT. Run every selected05 cell again from fresh native state with the original frozen arguments, executable and one OMP/BLAS thread per process. The interrupted attempt contributes no completed cells.",
+  "controls_and_cleanup": "Use the unchanged sealed audit/compare helper definitions; run frozen controls for every historical drift. Rehash all owned scans before deletion and commit the full05 result/cleanup before continuing.",
+  "continuation": "Resume the sealed controller at06 only after all prior checkpoints are committed and cleaned and06 has no evidence. This is an explicit environment-interruption recovery addendum, not the original fetch-failure-only restart.",
+  "publication": "Raw recovered results precede numerical prose. Previous committed02/03 and other checkpoints, native algorithms, frozen binaries, sealed files, settings and historical aggregate/paper values remain unchanged. No full current-main acceleration/trace validation is claimed."
+}

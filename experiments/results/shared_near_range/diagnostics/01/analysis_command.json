@@ -1,0 +1,14 @@
+{
+  "label": "diagnose_saved01",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnose_saved01.py",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792299551.0010805,
+  "finished_unix": 1792299558.312046,
+  "exit_code": 0
+}

@@ -1,0 +1,6 @@
+{
+  "actual_exit_code": 2,
+  "original_output_sha256": "6c9dbcce6d0ec14c4c690f08e69b67f6ebcd083e05e29f5f79ca0bc1c78fb684",
+  "archive": "/workspace/localization_zoo/experiments/results/shared_near_range/checks/diagnose00/svg_whitespace_initial.log.gz",
+  "scope": "Formatting failure only; numerical diagnosis processes exited0."
+}

@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "checked_checkout_commit": "afeef0c161de5daa5443b534364b670e9808270e",
+  "phase": "container_recovery",
+  "scope": "Diagnosis source/gates only; no completed02 dataset coverage claim."
+}

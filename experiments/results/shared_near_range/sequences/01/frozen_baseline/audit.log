@@ -1,0 +1,3 @@
+[audit] CT-ICP 01 upstream_mechanics_elevation: drift
+[audit] Mesh-LOAM 01 paper_odometry_elevation: drift
+[done] 2 drifted, 0 failed of 2 cells; exit 1; wrote /workspace/localization_zoo/experiments/results/shared_near_range/sequences/01/frozen_baseline/report.json

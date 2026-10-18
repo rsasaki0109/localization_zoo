@@ -1,0 +1,15 @@
+{
+  "label": "staged_branch_whitespace",
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check",
+    "e13aab37258ce73c216302c1cc5b61a5d5385ed3"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792286731.7638478,
+  "finished_unix": 1792286732.0227697,
+  "exit_code": 0
+}

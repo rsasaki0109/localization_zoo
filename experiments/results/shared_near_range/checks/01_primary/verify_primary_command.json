@@ -1,0 +1,12 @@
+{
+  "label": "verify_primary",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/01_primary/verify_primary.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792299414.5888193,
+  "finished_unix": 1792299414.8362892,
+  "exit_code": 0
+}

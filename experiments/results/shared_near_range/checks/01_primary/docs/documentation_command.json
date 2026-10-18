@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-near-range/document_primary01.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "exit_code": 0,
+  "source_snapshot_sha256": "398e97fa4b92082335447a89e41669d1dae9d904396b74f84be4d746107a971d",
+  "source_snapshot": "documentation_driver.py",
+  "input_commits": [
+    "9555f01fda68a0294fc7dd5a828a85fac207f68f",
+    "1426a851c9f021cbffae239e814b6379a5788b25"
+  ],
+  "scope": "Render numeric prose from already committed evidence."
+}

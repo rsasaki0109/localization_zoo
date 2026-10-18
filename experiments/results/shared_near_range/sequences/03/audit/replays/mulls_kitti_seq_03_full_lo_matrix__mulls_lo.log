@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 801
+GT poses: 801
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 560.8 m
+Running MULLS...
+  n_scans=64 mulls_map_iters=2 mulls_ceres_iters=4 max_frames_in_map=30 point_w=0.3
+  [MULLS-LO] 0/801  [MULLS-LO] 10/801  [MULLS-LO] 20/801  [MULLS-LO] 30/801  [MULLS-LO] 40/801  [MULLS-LO] 50/801  [MULLS-LO] 60/801  [MULLS-LO] 70/801  [MULLS-LO] 80/801  [MULLS-LO] 90/801  [MULLS-LO] 100/801  [MULLS-LO] 110/801  [MULLS-LO] 120/801  [MULLS-LO] 130/801  [MULLS-LO] 140/801  [MULLS-LO] 150/801  [MULLS-LO] 160/801  [MULLS-LO] 170/801  [MULLS-LO] 180/801  [MULLS-LO] 190/801  [MULLS-LO] 200/801  [MULLS-LO] 210/801  [MULLS-LO] 220/801  [MULLS-LO] 230/801  [MULLS-LO] 240/801  [MULLS-LO] 250/801  [MULLS-LO] 260/801  [MULLS-LO] 270/801  [MULLS-LO] 280/801  [MULLS-LO] 290/801  [MULLS-LO] 300/801  [MULLS-LO] 310/801  [MULLS-LO] 320/801  [MULLS-LO] 330/801  [MULLS-LO] 340/801  [MULLS-LO] 350/801  [MULLS-LO] 360/801  [MULLS-LO] 370/801  [MULLS-LO] 380/801  [MULLS-LO] 390/801  [MULLS-LO] 400/801  [MULLS-LO] 410/801  [MULLS-LO] 420/801  [MULLS-LO] 430/801  [MULLS-LO] 440/801  [MULLS-LO] 450/801  [MULLS-LO] 460/801  [MULLS-LO] 470/801  [MULLS-LO] 480/801  [MULLS-LO] 490/801  [MULLS-LO] 500/801  [MULLS-LO] 510/801  [MULLS-LO] 520/801  [MULLS-LO] 530/801  [MULLS-LO] 540/801  [MULLS-LO] 550/801  [MULLS-LO] 560/801  [MULLS-LO] 570/801  [MULLS-LO] 580/801  [MULLS-LO] 590/801  [MULLS-LO] 600/801  [MULLS-LO] 610/801  [MULLS-LO] 620/801  [MULLS-LO] 630/801  [MULLS-LO] 640/801  [MULLS-LO] 650/801  [MULLS-LO] 660/801  [MULLS-LO] 670/801  [MULLS-LO] 680/801  [MULLS-LO] 690/801  [MULLS-LO] 700/801  [MULLS-LO] 710/801  [MULLS-LO] 720/801  [MULLS-LO] 730/801  [MULLS-LO] 740/801  [MULLS-LO] 750/801  [MULLS-LO] 760/801  [MULLS-LO] 770/801  [MULLS-LO] 780/801  [MULLS-LO] 790/801  [MULLS-LO] 800/801
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+MULLS                   ok          7.518       0.702          801         188418.7       4.3         
+
+Notes:
+- MULLS: MULLS-LO (KITTI urban profile); anchor matches the first GT pose. 0 registrations stopped early (too few pairs or an implausible step).
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_03_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_03_full_evaluation_manifest.json)

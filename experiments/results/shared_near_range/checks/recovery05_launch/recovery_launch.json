@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/recover_interrupted05.py",
+    "--execute"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "pid": 2309,
+  "source_commit": "d8278c749cfd1840ef7bc0efa20ae4de9df21c94",
+  "started_unix": 1792360761.8112884,
+  "exit_code": null,
+  "status": "started_pending_full05_replay_and_later_sequences",
+  "log": "/workspace/localization-env/shared-near-range/checkpoint03_resume/recovery_controller.log",
+  "environment_overrides": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

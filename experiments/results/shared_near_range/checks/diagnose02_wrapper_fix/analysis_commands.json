@@ -1,0 +1,22 @@
+[
+  {
+    "label": "diagnose02",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "experiments/results/shared_near_range/diagnose_saved02.py",
+      "--output-dir",
+      "/workspace/localization-env/shared-near-range/checkpoint03_resume/diagnostics02"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/checkpoint03_resume/mplconfig"
+    },
+    "started_unix": 1792360458.4136636,
+    "finished_unix": 1792360462.647842,
+    "exit_code": 2,
+    "input_head": "eebaf3d7559a9e8ed98e59e93814f66838f6b5f6"
+  }
+]

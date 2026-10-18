@@ -1,0 +1,196 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/branch_whitespace.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/branch_whitespace.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/branch_whitespace_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/branch_whitespace_command.json",
+      "source_sha256": "53b42c456c1e8468e031d3f1942567b365448bfa2a476782b1c69e92e2e35bef",
+      "stored_sha256": "53b42c456c1e8468e031d3f1942567b365448bfa2a476782b1c69e92e2e35bef"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/closed_native_evidence_unchanged.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/closed_native_evidence_unchanged.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/closed_native_evidence_unchanged_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/closed_native_evidence_unchanged_command.json",
+      "source_sha256": "2fd28e817cf550212663f77dbcfd4da434e7ff849c3bc8348d4b21565baa6e5e",
+      "stored_sha256": "2fd28e817cf550212663f77dbcfd4da434e7ff849c3bc8348d4b21565baa6e5e"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/diagnostic_preservation.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/diagnostic_preservation.json",
+      "source_sha256": "ce281bc9052804a9aa10bada07132c255cca3b3b3cbbe427b3cdc3022c3269ea",
+      "stored_sha256": "ce281bc9052804a9aa10bada07132c255cca3b3b3cbbe427b3cdc3022c3269ea"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/documentation_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/documentation_command.json",
+      "source_sha256": "3c55505c089b1cb438f0c090fdce606427951b5df168f66956ea2977327d8240",
+      "stored_sha256": "3c55505c089b1cb438f0c090fdce606427951b5df168f66956ea2977327d8240"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/documentation_driver.py",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/documentation_driver.py",
+      "source_sha256": "9848364539de46daef9b8a9047c4492329530cd814378888674e7795a0a150ab",
+      "stored_sha256": "9848364539de46daef9b8a9047c4492329530cd814378888674e7795a0a150ab"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/driver.py",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/driver.py",
+      "source_sha256": "31635c4c413aa6501a06181dc094c4a9adb455bda8f124e89136965493995001",
+      "stored_sha256": "31635c4c413aa6501a06181dc094c4a9adb455bda8f124e89136965493995001"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/exit.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/exit.json",
+      "source_sha256": "8c010fd2ec35c8523379b9dabb795f14e077749b8b830110f2da679995542743",
+      "stored_sha256": "8c010fd2ec35c8523379b9dabb795f14e077749b8b830110f2da679995542743"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/full_native_source_identity.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/full_native_source_identity.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/full_native_source_identity_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/full_native_source_identity_command.json",
+      "source_sha256": "be268f9f5404feb38a168f95696b8034531544e17b890e43f3880a354cf6eacc",
+      "stored_sha256": "be268f9f5404feb38a168f95696b8034531544e17b890e43f3880a354cf6eacc"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/generate_full_variant_table.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/generate_full_variant_table.log.gz",
+      "source_sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc",
+      "stored_sha256": "c1eaaa90d87b4d1b5ac36b77258f3db36209d0fec798d0bb521b91e6d01b08b5"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/generate_full_variant_table_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/generate_full_variant_table_command.json",
+      "source_sha256": "e85a1cea4d4c3f24fa4ef95332b953f3cf92e57deee05536945149fbe49106a1",
+      "stored_sha256": "e85a1cea4d4c3f24fa4ef95332b953f3cf92e57deee05536945149fbe49106a1"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/generate_paper_ratio_table.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/generate_paper_ratio_table.log.gz",
+      "source_sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+      "stored_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/generate_paper_ratio_table_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/generate_paper_ratio_table_command.json",
+      "source_sha256": "f7256c8b2143288139a1d8abe2517955e58712ef8f2fbce70350d0d649947edf",
+      "stored_sha256": "f7256c8b2143288139a1d8abe2517955e58712ef8f2fbce70350d0d649947edf"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/leaderboard.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/leaderboard.log.gz",
+      "source_sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+      "stored_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/leaderboard_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/leaderboard_command.json",
+      "source_sha256": "24bde551ffb0cff2065f6b648a7c3099ce8e814a7ef45a23a1d2c0630d587db3",
+      "stored_sha256": "24bde551ffb0cff2065f6b648a7c3099ce8e814a7ef45a23a1d2c0630d587db3"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/live_recovery_source_unchanged.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/live_recovery_source_unchanged.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/live_recovery_source_unchanged_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/live_recovery_source_unchanged_command.json",
+      "source_sha256": "c337567488357a87a511e865ddd2b06655144db964a15f18b0379fb76e2acfcc",
+      "stored_sha256": "c337567488357a87a511e865ddd2b06655144db964a15f18b0379fb76e2acfcc"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/paper_ready.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/paper_ready.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/paper_ready_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/paper_ready_command.json",
+      "source_sha256": "d11455ba38c0d964183827d9649156b32ca1dfc9f71a9c7219af273abd51851e",
+      "stored_sha256": "d11455ba38c0d964183827d9649156b32ca1dfc9f71a9c7219af273abd51851e"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/preservation.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/preservation.json",
+      "source_sha256": "57aec6da53655ba3d8d0c34eea0c7ab11b28dbb61be6055471b22ceebefb6912",
+      "stored_sha256": "57aec6da53655ba3d8d0c34eea0c7ab11b28dbb61be6055471b22ceebefb6912"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/preservation.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/preservation.log.gz",
+      "source_sha256": "2a2981c4a4333b87dd19f7fc77c06341f89d7c42f8b1dfcefcf46a13ced7fb90",
+      "stored_sha256": "f10c563af0b8a1853c8b2ad97fd9874504a739cd2e557524aa390b78792de998"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/preservation_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/preservation_command.json",
+      "source_sha256": "cc3143b913d06456834db06a2f39ea82c90a11ea1e4883a509d34d005daeba6a",
+      "stored_sha256": "cc3143b913d06456834db06a2f39ea82c90a11ea1e4883a509d34d005daeba6a"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/python.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/python.log.gz",
+      "source_sha256": "ef0cacbf605ea2d204460e7e541feb4f35cc6a722a25bc89cf12b6548fdf27fe",
+      "stored_sha256": "628ab19bd2f574cce67993a965895efb2942ac9c196a293f8ac0a2828046bfd0"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/python_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/python_command.json",
+      "source_sha256": "93c0143a8f3e5d819df910a18b155ef8853e66e104bc930794cc6ea565840196",
+      "stored_sha256": "93c0143a8f3e5d819df910a18b155ef8853e66e104bc930794cc6ea565840196"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/raw_diagnostics_checkpoint_unchanged.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/raw_diagnostics_checkpoint_unchanged.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/raw_diagnostics_checkpoint_unchanged_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/raw_diagnostics_checkpoint_unchanged_command.json",
+      "source_sha256": "3a21e8071e24cd553621b2dac7f981d3f32438092ce6f68d3885a3354135c2e8",
+      "stored_sha256": "3a21e8071e24cd553621b2dac7f981d3f32438092ce6f68d3885a3354135c2e8"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/refresh_study_docs.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/refresh_study_docs.log.gz",
+      "source_sha256": "bad8a97c9a751765a075735a5a5eb925a46a30e5ffba6609a2c83c55ad183422",
+      "stored_sha256": "743829a63ecbc611d02a921e098661013eb4e1cfdd236c78bb10c94bfd6fca50"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/refresh_study_docs_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/refresh_study_docs_command.json",
+      "source_sha256": "794c6f35fe30b75dc68f070caa85c3819c1a27c111b67c04bebf56a510e4a8a7",
+      "stored_sha256": "794c6f35fe30b75dc68f070caa85c3819c1a27c111b67c04bebf56a510e4a8a7"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/showcase.log",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/showcase.log.gz",
+      "source_sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+      "stored_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/docs_checks/showcase_command.json",
+      "path": "experiments/results/shared_near_range/checks/checkpoint03/showcase_command.json",
+      "source_sha256": "5a29aa48c51b3b5c23aa8760720771442acfb2041311bd09ea6edf67b964999f",
+      "stored_sha256": "5a29aa48c51b3b5c23aa8760720771442acfb2041311bd09ea6edf67b964999f"
+    }
+  ]
+}

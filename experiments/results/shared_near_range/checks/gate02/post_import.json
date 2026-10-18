@@ -1,0 +1,131 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/commands.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/generation_host_attempt/commands.json",
+      "source_sha256": "4c7bf785f288e178a3046b5ad658487d735a3865a0cfbe7f5aef2a116323e827",
+      "destination_sha256": "4c7bf785f288e178a3046b5ad658487d735a3865a0cfbe7f5aef2a116323e827",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/exit.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/generation_host_attempt/exit.json",
+      "source_sha256": "4170760b48b1a78ebc2063e0f47cd6d28eeefa8f58daaa44d3d3a14abb2533f5",
+      "destination_sha256": "4170760b48b1a78ebc2063e0f47cd6d28eeefa8f58daaa44d3d3a14abb2533f5",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/generate_full_variant_table.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/generation_host_attempt/generate_full_variant_table.log.gz",
+      "source_sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc",
+      "destination_sha256": "c1eaaa90d87b4d1b5ac36b77258f3db36209d0fec798d0bb521b91e6d01b08b5",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/generate_paper_ratio_table.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/generation_host_attempt/generate_paper_ratio_table.log.gz",
+      "source_sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+      "destination_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/python_unittest.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/generation_host_attempt/python_unittest.log.gz",
+      "source_sha256": "ad558b13ae6ad9e48f571df0a3778d4890e61b83a1f8f0e65728651cd8b58966",
+      "destination_sha256": "473248fa4ee2cc7c4ac881d63ca84180d6af578e13a4cb3a2dc30b48a2c5531c",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/refresh_study_docs.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/generation_host_attempt/refresh_study_docs.log.gz",
+      "source_sha256": "d997cd6141e45d75f56ba30a5faac5be249f0f056f787d289605000f992e4a97",
+      "destination_sha256": "e1f67866b03e0ae25aa05059f267b0fd94f3940c115ee61b17bb66006ee417cf",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/branch_whitespace.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/branch_whitespace.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/commands.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/commands.json",
+      "source_sha256": "2d6155c1960d83ecaf4f38ec7ba4bbbf5d7835c54fe76a166a2d78c9dbfbd04c",
+      "destination_sha256": "2d6155c1960d83ecaf4f38ec7ba4bbbf5d7835c54fe76a166a2d78c9dbfbd04c",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/exit.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/exit.json",
+      "source_sha256": "869d2a13414f6a67a29503c444bc43024c0c8b77413f5ac4acffbde1902790c7",
+      "destination_sha256": "869d2a13414f6a67a29503c444bc43024c0c8b77413f5ac4acffbde1902790c7",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/frozen_integrity.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/frozen_integrity.json",
+      "source_sha256": "1a8de229803f313da853282fa085600c4c854f6eadeadef3d4913a31e4dcb0cb",
+      "destination_sha256": "1a8de229803f313da853282fa085600c4c854f6eadeadef3d4913a31e4dcb0cb",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/generate_leaderboard.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/generate_leaderboard.log.gz",
+      "source_sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+      "destination_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/generate_paper_ready_evidence.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/generate_paper_ready_evidence.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/preservation.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/preservation.json",
+      "source_sha256": "57aec6da53655ba3d8d0c34eea0c7ab11b28dbb61be6055471b22ceebefb6912",
+      "destination_sha256": "57aec6da53655ba3d8d0c34eea0c7ab11b28dbb61be6055471b22ceebefb6912",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/prior_diagnostic_evidence_unchanged.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/prior_diagnostic_evidence_unchanged.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/published_preservation.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/published_preservation.log.gz",
+      "source_sha256": "2a2981c4a4333b87dd19f7fc77c06341f89d7c42f8b1dfcefcf46a13ced7fb90",
+      "destination_sha256": "f10c563af0b8a1853c8b2ad97fd9874504a739cd2e557524aa390b78792de998",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/python_unittest_container.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/python_unittest_container.log.gz",
+      "source_sha256": "825c2e1bfc2c0185d9d2c7455ddab0eb5723a452833c87ebc373bfec1929ebf9",
+      "destination_sha256": "e3a7a67f49ba7e15af0ad9c7cb0a0e4a7a63ba88adc651108c55f3ef35337cc3",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/recursive_native_identity.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/recursive_native_identity.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_container_validation/validate_showcase.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/post_import/validate_showcase.log.gz",
+      "source_sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+      "destination_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466",
+      "lossless": true
+    }
+  ],
+  "scope": "Required generators succeeded in the initial attempt; full host test run failed for missing libceres.so.2. Container retry and remaining docs/preservation checks succeeded. No native rebuild or KITTI02 result import."
+}

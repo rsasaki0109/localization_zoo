@@ -1,0 +1,17 @@
+{
+  "label": "primary_evidence_unchanged",
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "9555f01fda68a0294fc7dd5a828a85fac207f68f",
+    "--",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/01/audit",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/01/inputs.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792299817.1991732,
+  "finished_unix": 1792299817.2142391,
+  "exit_code": 0
+}

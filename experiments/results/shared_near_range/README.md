@@ -14,10 +14,24 @@ arithmetic, boundary inclusion, retained order/fields and cloud metadata follow
 the old implementation. This is non-paper preprocessing and stays opt-in.
 It does not sanitize non-finite points; consumers retain that policy.
 
+The [current KITTI 00 saved-pose diagnostics](diagnostics/00/README.md) locate
+error growth in the five replay paths that differ from stored metrics.
+Referenced historical per-run summaries are missing at the inspected revision,
+so these diagnostics do not identify the cause of the historical differences.
+
+The [KITTI 01 saved-path diagnosis](diagnostics/01/README.md) compares the
+available historical/current Mesh-LOAM paths and locates current CT-ICP error
+growth. Its runtime and missing-path limits are explicit; it does not identify
+the cause of historical metric differences.
+
+The [KITTI02 saved-path diagnosis](diagnostics/02/README.md) now includes all
+historical differences on that sequence and the available Mesh paired paths.
+
 ## Scope and status
 
-Implementation and the regression protocol are committed. Full KITTI replay
-is running; no full audit completion or new NCLT result is claimed here.
+Implementation and the regression protocol were merged in
+[PR #137](https://github.com/rsasaki0109/localization_zoo/pull/137). Full KITTI
+replay is running; no full audit completion or new NCLT result is claimed here.
 [`selection.json`](selection.json) freezes all stored full-sequence best-RPE
 cells across the zoo; the selection command and its actual exit are retained.
 These are replays of historical arguments, which can differ by cell. They do
@@ -64,16 +78,18 @@ Evidence committed at `7458c24d16096cc305889ed0864a5ef8bfb6bdf4`:
 scan/GT hashes and were verified and removed before fetching 00. The remaining
 cells are pending; this checkpoint does not establish whole-zoo completion.
 
-[`checkpoints/04/`](checkpoints/04/) is generated only from committed,
-cleaned sequence checkpoints; live 00 outputs are excluded. The checkpoint's
-verification exit 0 does not replace the retained native audit exit 1.
+[`checkpoints/04/`](checkpoints/04/) records the earlier 04-only checkpoint.
+[`checkpoints/00/`](checkpoints/00/) records the earlier cleaned 04/00 checkpoint.
+The earlier [`checkpoints/01/`](checkpoints/01/) adds the committed, cleaned 01
+sequence. Its verification exit 0 does not replace the retained historical
+audit exits 1.
 [`checks/checkpoint04/`](checks/checkpoint04/) retains the required document
 generators, Python/doc checks and preservation review. Staged whitespace checks
 caught CRLF in the derived CSV and then its captured error log. CSV writers now
 emit LF; exact failed logs and their nonzero exits are retained as gzip archives,
 and the corrected staged check exits 0. Native results are unchanged.
 
-## Completed 00 runs; frozen comparison and cleanup pending
+## Completed KITTI checkpoint: 00
 
 The full 00 candidate audit has finished all 20 selected cells. Fifteen match
 the historical RPE, ATE and frame count; the following five differ. All native
@@ -97,9 +113,24 @@ unresolved. [Closed control evidence](checks/00_closed_controls/summary.json),
 including commands, native exits and artifact hashes, was committed at
 `7d55897901c17b0c64567115a6f59db06cf585b0`.
 
-Mesh-LOAM and VLOM's frozen replays are **still running**; the extraction's
-effect on those two cells is not yet established. The parent frozen audit has
-no terminal exit yet. No setting is changed or historical result replaced.
+VLOM's frozen replay also finishes with native exit 0. Its RPE, ATE, frames
+and official translation/rotation RTE have zero old-vs-extracted differences,
+with byte-identical saved poses. Thus both its RPE and ATE worsening predate
+extraction; their original cause remains unresolved. The
+[VLOM control and verification](checks/00_vlom_control/summary.json) were
+committed at `1f7b554f9dfe5878067dc42ae18ed45c51a58e35`.
+
+Mesh-LOAM's frozen replay now also completes with native exit 0. Its RPE,
+ATE, frames and official translation/rotation RTE have zero recorded differences
+from the extracted implementation, with byte-identical saved poses. Therefore
+all five historical 00 differences predate extraction; their original causes
+remain unresolved. The parent frozen historical audit exits **1**, retaining
+the same differences rather than reporting a clean historical pass.
+The complete [frozen comparison](sequences/00/frozen_comparison.json),
+[commands and exits](sequences/00/frozen_baseline/) and
+[verified input cleanup](sequences/00/cleanup.json) were committed at
+`10cf31616365b41878ec9311f0b705e798716c51`. No setting is changed or historical
+result replaced.
 Summary `evaluator_git_commit` records the working-tree HEAD at write time;
 native provenance comes from the frozen executable SHA256/source pins, not
 that metadata field.
@@ -110,10 +141,64 @@ provenance were committed at `485fa00601644731827dae601eb3b43c7543efeb`:
 [`inputs.json`](sequences/00/inputs.json),
 [`fetch_attempts/`](sequences/00/fetch_attempts/) and
 [`checks/00_primary/verification.json`](checks/00_primary/verification.json).
-The official scans remain available for the running frozen comparisons. No 01
-inputs are fetched before 00 comparisons and verified cleanup complete.
-The completed, cleaned sequence checkpoint count therefore remains 14 cells
-(04); these 20 completed candidate runs are reported separately.
+All 00 scan hashes were verified before deleting the owned scans and alias.
+Subsequent sequences are excluded until their own comparison and cleanup
+checkpoints are committed. The earlier [00 checkpoint summary](checkpoints/00/summary.json)
+and [comparison CSV](checkpoints/00/comparison.csv), committed at `57fb04d3`,
+contain **34 of 177 cells** across 04 and 00:
+27 historical matches and 7 differences. All 9 frozen controls have zero
+recorded metric differences and byte-identical saved poses. Both historical
+sequence audits exit 1; checkpoint verification exits 0. Whole-zoo coverage is
+still incomplete. The required generators, Python/doc contracts, preservation
+and whitespace checks are retained under [checks/checkpoint00/](checks/checkpoint00/),
+with actual process exits and losslessly compressed logs.
+
+## Completed KITTI checkpoint: 01
+
+All 13 selected candidate cells finish, with native exits 0 and
+1101 evaluated frames each. 11 match stored RPE, ATE and frame count;
+the following 2 differ, so the historical audit exits **1**.
+
+| Method | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---:|---:|---:|---:|
+| CT-ICP | 0.826792 | 0.830115 | 58.190972 | 57.923334 |
+| Mesh-LOAM | 0.849506 | 0.850998 | 30.862639 | 30.940997 |
+
+RPE worsens for both. CT-ICP ATE improves; Mesh-LOAM ATE worsens. The original
+arguments are replayed without selecting a setting. The completed candidate
+results, commands, native hashes, input hashes and verification were committed
+at `9555f01fda68a0294fc7dd5a828a85fac207f68f`:
+[candidate evidence](sequences/01/audit/), [inputs](sequences/01/inputs.json),
+[verification](checks/01_primary/verification.json).
+
+Both frozen pre-extraction controls now complete with native exits 0. RPE,
+ATE, frames and official translation/rotation RTE have zero recorded differences
+from the extracted implementation, with byte-identical saved poses. The frozen
+historical audit also exits 1. Both historical differences therefore predate
+extraction; their original causes remain unresolved.
+The [full comparison](sequences/01/frozen_comparison.json),
+[commands and exits](sequences/01/frozen_baseline/) and
+[hash-verified input cleanup](sequences/01/cleanup.json) were committed at
+`6188b71d8e48933a4dffce54afdde7a01382f4b0`. The owned scans and alias are removed.
+
+The [current checkpoint](checkpoints/01/summary.json) and
+[comparison CSV](checkpoints/01/comparison.csv), committed at `d63dd3dfe5d25f9444442c3809b13ea3e9c05238`,
+cover **47/177 cells** across 04, 00 and 01:
+38 historical matches and 9 differences. All 11 frozen controls have
+zero recorded metric differences and byte-identical saved poses. All three
+historical audits retain exit 1; checkpoint verification exits 0. Remaining
+sequences are excluded until their own comparisons and cleanup are committed.
+Stored aggregates, Table 6, paper metadata and defaults are unchanged; whole-zoo
+coverage remains incomplete. Required checks are retained under
+[checks/checkpoint01/](checks/checkpoint01/).
+
+[Committed saved-path diagnostics](diagnostics/01/README.md) pair Mesh-LOAM's
+historical/current paths against byte-identical evaluated GT, and locate current
+CT-ICP error growth. The Mesh source/header match its recorded original source,
+but its original/current OpenMP settings differ; this is not a controlled
+thread-count experiment or a cause attribution. CT-ICP's referenced legacy
+summary/path is unavailable in the inspected checkout. Diagnostic evidence was
+committed at `1426a851c9f021cbffae239e814b6379a5788b25` before numeric prose.
 
 Native stdout contains padded tables. Git whitespace attributes are scoped to
 native replay/fixture logs so their exact bytes are retained; code, CSV and
@@ -174,6 +259,29 @@ downloader. A fetch-only continuation never changes the source or arguments.
 Tests and checks are judged by actual process exits, not log tails. Concurrent
 replays use one OMP/BLAS thread per process; no speed comparison is made.
 
+## KITTI 02 saved-path diagnosis preparation
+
+The sequence-specific [source](diagnose_saved02.py) and
+[protocol](diagnostics/02_protocol.json) prepare the next offline diagnosis.
+The script requires committed, unchanged candidate and frozen reports, native
+command receipts, matching saved paths and verified input cleanup before creating
+diagnostic files. Owned scans and their alias must already be absent. Missing or
+modified required inputs stop the command; the script never invokes an estimator
+or reads scans.
+
+```bash
+python3 experiments/results/shared_near_range/diagnose_saved02.py \
+  --output-dir /absolute/path/to/fresh-diagnostics
+```
+
+It includes every historical difference named by the protocol, inherits the
+previous diagnostic parameters, and retains all blocks and frames. Historical
+pairing requires committed trajectories with the same evaluated GT. Runtime and
+missing-path limits remain explicit. The regression fixtures exercise publication
+gates and saved-path pairing on synthetic data; they do not add dataset coverage.
+The actual diagnosis awaits the committed frozen comparison and cleanup. Commit
+its raw outputs before adding numerical prose or updating the cleaned checkpoint.
+
 ## One-shot completion of the existing run
 
 `finish_when_complete.py --wait --push --attempt 01` waits for this controller's
@@ -190,11 +298,77 @@ The required generators, Python/doc checks, preservation and full-branch
 whitespace checks must then pass before the final documentation is committed
 and pushed. It does not merge, mark the PR ready, or claim new NCLT validation.
 
-Outputs go to `completion/01/`; the prepared `PR_BODY.md` and pushed-head CI need
-the connected GitHub tool's final review/update. The ordinary GitHub CLI API
+Outputs go to `completion/01/`; later evidence needs a new follow-up PR against
+`main`, because implementation PR #137 is already merged. The prepared
+`PR_BODY.md` contains an old PR137 readiness reference that must be adapted for
+the follow-up; pushed-head CI also needs the connected GitHub tool's final
+review/update. The ordinary GitHub CLI API
 probe was refused; its actual exit is retained, and no alternate access path is
 attempted by the worker. [Guard and renderer validation](checks/finalizer_preflight/)
 uses committed partial 04/00 evidence: partial reports and the still-running
 controller are rejected before public documentation changes. Rendering previews
 retain the real 04 numeric differences and historical NCLT confound; they are
 validation artifacts, not full-study completion.
+
+## Current cleaned checkpoint: 02 and 03 added
+
+The [checkpoint](checkpoints/03/summary.json) and [comparison CSV](checkpoints/03/comparison.csv),
+committed at `8f5841e3946995cedfa9c0e2fc484dbd2c02373e`, cover **79/177 cells**
+across 04, 00, 01, 02 and 03: **64** historical matches and
+**15** differences. All **17** frozen controls have zero
+recorded metric differences and byte-identical saved poses. All five historical
+audits retain exit **1**; checkpoint verification exits **0**. Coverage is incomplete.
+
+New historical differences, retained in each method README:
+
+| Method | Seq | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| A-LOAM | 02 | 0.923231 | 0.926292 | 50.114358 | 50.789841 |
+| CT-ICP | 02 | 0.810338 | 0.813023 | 20.606805 | 19.687922 |
+| F-LOAM | 02 | 0.937750 | 0.945974 | 52.068212 | 53.822119 |
+| LeGO-LOAM | 02 | 0.883497 | 0.883304 | 41.755869 | 42.208784 |
+| Mesh-LOAM | 02 | 0.785133 | 0.785817 | 22.288359 | 22.328196 |
+| Mesh-LOAM | 03 | 0.877028 | 0.877431 | 3.992708 | 3.995116 |
+
+Candidate/frozen reports and native receipts are committed. Scan hashes were
+verified before deleting owned inputs and aliases. The sequence commits are
+`a821eaee` (02) and `eebaf3d7` (03). These differences predate extraction;
+their original causes remain unresolved. This replays historical per-cell
+arguments rather than defining a new single-setting accuracy study.
+[Saved02 diagnostics](diagnostics/02/README.md) locate current error growth and
+the available Mesh path gap, with missing-path/runtime limits and no cause attribution.
+
+## Environment interruption and remaining-sequence recovery
+
+The managed environment restarted during05; its original controller, native
+processes and completion worker were absent afterward. The interrupted audit is
+preserved under `sequences/05/interrupted_20261018/`. Unknown exits are null,
+and that attempt contributes no completed cells.
+
+The [recovery protocol](recovery05_protocol.json) and [source](recover_interrupted05.py)
+verify frozen source/binary/sealed pins and owned official05 scan/GT hashes, then
+rerun every selected05 cell from fresh native state. Original audit/comparison
+helpers, arguments, one-thread settings and cleanup policy are retained.
+After a complete05 commit, the sealed controller continues at the next unstarted
+sequence. This is an explicit environment-interruption addendum to the original
+fetch-failure-only restart procedure.
+
+[Launch receipts](checks/recovery05_launch/) identify the recovery and replacement
+completion worker. Unfinished work is excluded from the checkpoint. Historical
+aggregates, paper numbers, Table 6 and defaults are preserved. This replay retains
+its original frozen implementation; current-main acceleration/passive tracing
+and real NCLT validation keep their previously documented scope.
+
+## Checkpoint integration while the frozen replay continues
+
+The committed checkpoint and diagnostics can be integrated using a separate
+worktree while the original replay retains its frozen checkout and executables.
+The running controller and completion worker keep their original files and
+scan ownership. Later completed sequences are follow-up evidence. Recorded
+numerical results retain their original source pins; integrating their documents
+does not re-run them on the current native implementations.
+
+[Isolated integration checks and exact commands](checks/merge138/) retain the
+native-main identity, historical result/publication preservation and independent
+primary-checkout source/binary/sealed-file guards. Full native/Python and ROS
+validation runs in CI for the integrated PR head.

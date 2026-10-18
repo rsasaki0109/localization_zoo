@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_trace_validation/verify_preservation.py",
+    "--output",
+    "/workspace/localization-env/inten-trace-validator/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-validator/worktree",
+  "exit_code": 0
+}

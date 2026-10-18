@@ -13,7 +13,10 @@ PY = '/opt/localization-venv/bin/python'
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--phase', choices=('native', 'docs'), required=True)
 parser.add_argument('--output-dir', type=Path, required=True)
+parser.add_argument('--base-commit', default=BASE,
+                    help='Native/published-evidence baseline (original study by default).')
 args = parser.parse_args()
+BASE = args.base_commit
 out = args.output_dir.resolve()
 out.mkdir(parents=True, exist_ok=False)
 head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip()
@@ -24,8 +27,9 @@ docker = ['env', '-u', 'DOCKER_HOST', '-u', 'DOCKER_CONTEXT', '-u', 'DOCKER_TLS'
           '-e', 'PYTHONDONTWRITEBYTECODE=1', '-e', 'MPLCONFIGDIR=/tmp/bindings-refresh',
           '-w', str(REPO), 'localization-zoo-dev']
 commands = [('native_core_identity', ['git', 'diff', '--exit-code', BASE, '--',
-            'common', 'papers/*/src', 'papers/*/include', 'papers/*/test',
-            'papers/*/CMakeLists.txt', 'evaluation/src', 'evaluation/scripts'])]
+            'common', ':(glob)papers/*/src/**', ':(glob)papers/*/include/**',
+            ':(glob)papers/*/test/**', ':(glob)papers/*/CMakeLists.txt',
+            'evaluation/src', 'evaluation/scripts'])]
 if args.phase == 'native':
     targets = ['localization_zoo_py', 'paper_odometry_reference', 'test_suma_paper',
                'test_imls_paper_odometry', 'test_dilo_paper', 'test_litamin2_odometry',

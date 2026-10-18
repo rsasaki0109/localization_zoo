@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-coarse-start/candidate_pcd_dogfooding",
+    "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_08_full",
+    "/workspace/localization_zoo/experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "--methods",
+    "imls_slam",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/08/audit/replays/imls_slam_kitti_seq_08_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+    "--no-gt-seed",
+    "--imls-slam-paper-odometry",
+    "--imls-slam-paper-window",
+    "100",
+    "--input-vertical-angle-correction-deg",
+    "0.22",
+    "--imls-slam-paper-coarse-frames",
+    "1"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/08/audit/replays/imls_slam_kitti_seq_08_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native",
+  "binary_sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+  "started_unix": 1792235597.0999966,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792242424.948488
+}

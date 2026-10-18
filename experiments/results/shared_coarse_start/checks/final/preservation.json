@@ -1,0 +1,75 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "experiments/results/shared_coarse_start/verify_preservation.py",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/checks/final/preservation.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "checked_checkout_commit": "4102c9e6b75c80e50c4fdb9d2a30ba01de239987",
+  "generated_at": "2026-10-17T14:36:56.796697+00:00",
+  "script_sha256": "43fce783046a6571743afce30dea6e4bcba54c40b96a0d1efbff7adb73ddcd1e",
+  "base_commit": "14cfe450b55cb495190140e1f1fcb2c4119c43c7",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "published_files": {
+    "README.md": {
+      "base_sha256": "e4856f5f9868afda8964907ef442d05c8b3c791533c16385bf630e01b25d0a15",
+      "current_sha256": "e4856f5f9868afda8964907ef442d05c8b3c791533c16385bf630e01b25d0a15"
+    },
+    "docs/index.html": {
+      "base_sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+      "current_sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab"
+    },
+    "docs/assets/paper/paper_ratio_table.csv": {
+      "base_sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+      "current_sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509"
+    },
+    "evaluation/data/paper_reported_numbers.json": {
+      "base_sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+      "current_sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e"
+    }
+  },
+  "manifests": {
+    "experiments/suma_kitti_seq_00_full_shared_coarse_start_matrix.json": "e0bbaaab8980ec3e3ea4d0ae22a0ae33614c000c747446c1f80d4d86f9d75259",
+    "experiments/suma_kitti_seq_01_full_shared_coarse_start_matrix.json": "1b53b1855cbc21b51258510a3748a817d76d99a78e86c044f08dcd1e6851078a",
+    "experiments/suma_kitti_seq_02_full_shared_coarse_start_matrix.json": "3b4d8e8328821c9d42f870e6a82160d371504e397295b7d748894ae91bd31adb",
+    "experiments/suma_kitti_seq_03_full_shared_coarse_start_matrix.json": "7955c84f98b0ec4a91f2a6f9e5d16393015f1cea3dcc93d90b201b52c00fc8d2",
+    "experiments/suma_kitti_seq_04_full_shared_coarse_start_matrix.json": "3edafb0fb15b4ca2c9b598d824ccf7351ba520bb77a5206dfbcbc4ffaba25b45",
+    "experiments/suma_kitti_seq_05_full_shared_coarse_start_matrix.json": "f27adc988d54568792d03865fc837d18c9126f1fe69fa7a96aa41bf028ce4c6c",
+    "experiments/suma_kitti_seq_06_full_shared_coarse_start_matrix.json": "5a08a939433b83a709546057803f2557b71368fecbd017ec76fc9e5a519dace5",
+    "experiments/suma_kitti_seq_07_full_shared_coarse_start_matrix.json": "7ab54f82520abfc968955ba0722d4b1c5a592207d8fee14aa9bb45768135f45a",
+    "experiments/suma_kitti_seq_08_full_shared_coarse_start_matrix.json": "86ef89e363db3a8b48245eacf42e7624a592ff6c2f8d767b5eab084927e91cc6",
+    "experiments/suma_kitti_seq_09_full_shared_coarse_start_matrix.json": "4693a08c33c60aa776cb75723ecd62de5fe8f8d9d3c78f5a6ecf19d493a055d4",
+    "experiments/suma_kitti_seq_10_full_shared_coarse_start_matrix.json": "2e4a75f05cb2c1c4001c83d0661b7193e1604a4a081d95b8f709ee7eeb45ab2f"
+  },
+  "native_identity_command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "40278ee01ede562a490e4d09d256e435a1b562d6",
+    "--",
+    "common",
+    "evaluation/src",
+    "papers/*/src",
+    "papers/*/include",
+    "papers/*/test",
+    "papers/*/CMakeLists.txt",
+    "CMakeLists.txt",
+    "ros2/localization_zoo_ros/CMakeLists.txt"
+  ],
+  "native_identity_exit_code": 0,
+  "prior_study_identity_command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "14cfe450b55cb495190140e1f1fcb2c4119c43c7",
+    "--",
+    "experiments/results/shared_degeneracy_remap"
+  ],
+  "prior_study_identity_exit_code": 0,
+  "failures": [],
+  "exit_code": 0,
+  "scope": "Publication bytes, aggregate hashes, manifest settings and native source identity; not a benchmark-completion claim."
+}

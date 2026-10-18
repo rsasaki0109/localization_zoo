@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-17T09:06:10+00:00",
+  "purpose": "Selected stored full-sequence KITTI cells re-run with the current code",
+  "concurrent_jobs": 2,
+  "scope": {
+    "methods": [
+      "IMLS-SLAM",
+      "SuMa"
+    ],
+    "sequences": [
+      "03"
+    ],
+    "selected_cell_count": 2,
+    "filtered": true
+  },
+  "metric_absolute_tolerance": 1e-06,
+  "binary_sha256": "23ea48658713250703c1a1937abeb8866149e2093ce508976eea98c22c3dc467",
+  "exit_code": 0,
+  "host": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cores": 5,
+    "memory_gib": 17.6,
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.18.44",
+    "architecture": "x86_64"
+  },
+  "rows": [
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "03",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_w100_coarse_start",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/03/audit/replays/imls_slam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/03/audit/replays/imls_slam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_w100_coarse_start.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_03_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_03_full_gt.csv",
+        "--methods",
+        "imls_slam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/03/audit/replays/imls_slam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "kitti_rte_trans_pct": 0.770289,
+      "kitti_rte_rot_deg_per_100m": 0.225013,
+      "fps": 0.828893,
+      "stored_rpe_trans_pct": 0.873288,
+      "rerun_rpe_trans_pct": 0.873288,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 2.536262,
+      "rerun_ate_m": 2.536262,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 801,
+      "frames": 801,
+      "drift_metrics": []
+    },
+    {
+      "method": "SuMa",
+      "sequence": "03",
+      "aggregate_path": "experiments/results/suma_kitti_seq_03_full_paper_matrix.json",
+      "variant_id": "paper_odometry",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/03/audit/replays/suma_kitti_seq_03_full_paper_matrix__paper_odometry.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/03/audit/replays/suma_kitti_seq_03_full_paper_matrix__paper_odometry.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_03_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_03_full_gt.csv",
+        "--methods",
+        "suma",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/03/audit/replays/suma_kitti_seq_03_full_paper_matrix__paper_odometry.json",
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "kitti_rte_trans_pct": 0.65109,
+      "kitti_rte_rot_deg_per_100m": 0.474573,
+      "fps": 2.516203,
+      "stored_rpe_trans_pct": 0.910284,
+      "rerun_rpe_trans_pct": 0.910284,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 1.448501,
+      "rerun_ate_m": 1.448501,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 801,
+      "frames": 801,
+      "drift_metrics": []
+    }
+  ]
+}

@@ -5,3 +5,10 @@ experiments/results/shared_degeneracy_remap/wrapper_validation/** linguist-gener
 experiments/results/shared_degeneracy_remap/plots/** linguist-generated=true
 experiments/results/shared_degeneracy_remap/historical_aggregate_sha256.json linguist-generated=true
 experiments/results/shared_degeneracy_remap/report/** linguist-generated=true
+experiments/results/shared_coarse_start/benchmarks/** linguist-generated=true
+experiments/results/shared_coarse_start/sequences/** linguist-generated=true
+experiments/results/shared_coarse_start/checks/** linguist-generated=true
+experiments/results/shared_coarse_start/report/** linguist-generated=true
+experiments/results/shared_coarse_start/wrapper_validation/** linguist-generated=true
+experiments/results/shared_coarse_start/historical_aggregate_sha256.json linguist-generated=true
+experiments/results/shared_coarse_start/plots/** linguist-generated=true

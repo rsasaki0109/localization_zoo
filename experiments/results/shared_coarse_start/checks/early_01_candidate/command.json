@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/SuMa.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/kitti_seq_01_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary.json",
+    "--method",
+    "SuMa",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/checks/early_01_candidate/candidate_drift.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "checked_input_commit": "d2a244e0f074e98452624ddb5b7f51b85e20e056",
+  "input_sha256": {
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary.json": "266d2eef5a780413f5c6fd13adeea40ae211a58717ff7c5139226ee59b654723",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/SuMa.txt": "9bdb8f0fd2f7ce9ce4c40576dfc1751d72c76f1a3b7a545280873ffdb7011aa1",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/kitti_seq_01_full_evaluated_gt.txt": "bb6cbdca61b7b0a1b32af9cbb3caf8b490942b1587b150ee1bad1e050e8bd157"
+  },
+  "script_sha256": "31c33e09a25890a9206fea331835f22e6bee7aa86327663b4c6a009dd091825a",
+  "started_unix": 1792210777.4375591,
+  "finished_unix": 1792210778.5241823,
+  "actual_exit_code": 0,
+  "scope": "Completed full candidate01 only; fresh raw control/audit/cleanup still pending, not a cohort report."
+}

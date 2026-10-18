@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/opt/localization-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/plot_sequence.py",
+    "--sequence",
+    "01",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/plots/01"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "input_commit": "a02173655f0ecf79c3d69c01483fecc5c5791e31",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "input_sha256": {
+    "experiments/results/shared_coarse_start/sequences/01/comparison.json": "9f92d5e345b5930359197ce980219275f13aa1248d8fffa74219748d44a0a8c9",
+    "experiments/results/shared_coarse_start/sequences/01/raw_control/summary_native/dogfooding_results/kitti_seq_01_full_evaluated_gt.txt": "bb6cbdca61b7b0a1b32af9cbb3caf8b490942b1587b150ee1bad1e050e8bd157",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/kitti_seq_01_full_evaluated_gt.txt": "bb6cbdca61b7b0a1b32af9cbb3caf8b490942b1587b150ee1bad1e050e8bd157",
+    "experiments/results/shared_coarse_start/sequences/01/raw_control/summary_native/dogfooding_results/SuMa.txt": "865d60df4ec0b50505fc7f75b9ed8ae00db5618091dc5e0016583b300c2d64bc",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/SuMa.txt": "9bdb8f0fd2f7ce9ce4c40576dfc1751d72c76f1a3b7a545280873ffdb7011aa1"
+  },
+  "script_sha256": "9e03c4f05503f17a59358006309451fe6f02b9a39a63b3217907194405414db4",
+  "definitions": {
+    "step": "Euclidean difference of successive saved position vectors; destination frame index.",
+    "position_error": "Euclidean difference from evaluated GT in the saved coordinate frame; no fit or rescaling.",
+    "rte": "Official KITTI RTE copied from the committed full-sequence comparison."
+  }
+}

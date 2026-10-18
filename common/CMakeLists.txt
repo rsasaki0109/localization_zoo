@@ -37,3 +37,11 @@ target_link_libraries(localization_degeneracy INTERFACE Eigen3::Eigen)
 add_executable(test_common_degeneracy test/test_degeneracy.cpp)
 target_link_libraries(test_common_degeneracy PRIVATE localization_degeneracy GTest::gtest_main)
 add_test(NAME common_degeneracy COMMAND test_common_degeneracy)
+
+# Startup-stage policy has no Eigen, PCL or common I/O dependency.
+add_library(localization_initial_registration INTERFACE)
+target_include_directories(localization_initial_registration INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+add_executable(test_initial_registration test/test_initial_registration.cpp)
+target_link_libraries(test_initial_registration PRIVATE localization_initial_registration GTest::gtest_main)
+add_test(NAME initial_registration COMMAND test_initial_registration)

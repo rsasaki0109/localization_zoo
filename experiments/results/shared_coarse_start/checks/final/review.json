@@ -1,0 +1,48 @@
+{
+  "input_commit": "4102c9e6b75c80e50c4fdb9d2a30ba01de239987",
+  "old_suma_remap_block_bytes_equal": true,
+  "derived_changes_are_timestamps_only": [
+    "docs/decisions.md",
+    "docs/experiments.md",
+    "docs/interfaces.md",
+    "docs/paper_assets.md",
+    "docs/paper_captions.md",
+    "docs/paper_comparison.md",
+    "docs/paper_roadmap.md",
+    "docs/paper_tracks.md",
+    "docs/reproduction_status.md",
+    "docs/variant_analysis.md",
+    "experiments/results/index.json"
+  ],
+  "all_owned_scan_directories_and_aliases_absent": true,
+  "full_report_complete": true,
+  "audit_cells": 22,
+  "commands": [
+    {
+      "label": "preservation_review",
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/verify_preservation.py",
+        "--output",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/checks/final/preservation_review.json"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "started_unix": 1792248034.97146,
+      "finished_unix": 1792248035.2954311,
+      "actual_exit_code": 0
+    },
+    {
+      "label": "whitespace_review",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "started_unix": 1792248035.2954364,
+      "finished_unix": 1792248035.4164176,
+      "actual_exit_code": 0
+    }
+  ],
+  "scope": "Final documentation formatting and preservation review; native source unchanged."
+}

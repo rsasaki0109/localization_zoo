@@ -256,6 +256,29 @@ downloader. A fetch-only continuation never changes the source or arguments.
 Tests and checks are judged by actual process exits, not log tails. Concurrent
 replays use one OMP/BLAS thread per process; no speed comparison is made.
 
+## KITTI 02 saved-path diagnosis preparation
+
+The sequence-specific [source](diagnose_saved02.py) and
+[protocol](diagnostics/02_protocol.json) prepare the next offline diagnosis.
+The script requires committed, unchanged candidate and frozen reports, native
+command receipts, matching saved paths and verified input cleanup before creating
+diagnostic files. Owned scans and their alias must already be absent. Missing or
+modified required inputs stop the command; the script never invokes an estimator
+or reads scans.
+
+```bash
+python3 experiments/results/shared_near_range/diagnose_saved02.py \
+  --output-dir /absolute/path/to/fresh-diagnostics
+```
+
+It includes every historical difference named by the protocol, inherits the
+previous diagnostic parameters, and retains all blocks and frames. Historical
+pairing requires committed trajectories with the same evaluated GT. Runtime and
+missing-path limits remain explicit. The regression fixtures exercise publication
+gates and saved-path pairing on synthetic data; they do not add dataset coverage.
+The actual diagnosis awaits the committed frozen comparison and cleanup. Commit
+its raw outputs before adding numerical prose or updating the cleaned checkpoint.
+
 ## One-shot completion of the existing run
 
 `finish_when_complete.py --wait --push --attempt 01` waits for this controller's

@@ -1,0 +1,189 @@
+"""Exercise publication gates with a committed synthetic saved-path study.
+
+No estimator, scanner data or running study output is used by these fixtures.
+"""
+import contextlib
+import importlib.util
+import io
+import json
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+import types
+import unittest
+from unittest.mock import patch
+
+
+ROOT = Path(__file__).resolve().parents[1]
+STUDY = ROOT / 'experiments/results/shared_near_range'
+
+
+def write_json(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value) + '\n')
+
+
+def native_output(summary):
+    return summary.parent / (summary.stem + '_native') / 'dogfooding_results'
+
+
+class Saved02PublicationGateTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.repo = Path(self.temporary.name)
+        self.study = self.repo / 'experiments/results/shared_near_range'
+        self.script = self.study / 'diagnose_saved02.py'
+        self.script.parent.mkdir(parents=True)
+        self.script.write_bytes((STUDY / self.script.name).read_bytes())
+        (self.study / 'support.py').write_text('# This fixture installs an isolated support namespace.\n')
+        write_json(self.study / 'protocol.json', {'implementation_commit': 'synthetic-frozen-source'})
+        protocol = json.loads((STUDY / 'diagnostics/02_protocol.json').read_text())
+        write_json(self.study / 'diagnostics/02_protocol.json', protocol)
+        for name in ('diagnose_kitti_steps.py', 'evaluate_external_kitti_odometry.py'):
+            target = self.repo / 'evaluation/scripts' / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes((ROOT / 'evaluation/scripts' / name).read_bytes())
+        support = types.SimpleNamespace(E=self.study, REPO=self.repo,
+                                        R=self.repo / 'runtime', SOURCE='synthetic-frozen-source',
+                                        native_output=native_output, write=write_json)
+        specification = importlib.util.spec_from_file_location('_saved02_fixture', self.script)
+        self.module = importlib.util.module_from_spec(specification)
+        previous_support = sys.modules.get('support')
+        sys.modules['support'] = support
+        try:
+            specification.loader.exec_module(self.module)
+        finally:
+            if previous_support is None:
+                sys.modules.pop('support', None)
+            else:
+                sys.modules['support'] = previous_support
+        self.addCleanup(lambda: sys.path.remove(str(self.repo / 'evaluation/scripts')))
+        self.paths = {}
+        rows, frozen_rows, checks = [], [], []
+        # A straight, moving path long enough for official KITTI segments.
+        poses = ''.join('1 0 0 %d 0 1 0 0 0 0 1 0\n' % (frame * 5) for frame in range(201))
+        metrics = {key: 0.0 for key in ('ate_m', 'rpe_trans_pct', 'kitti_rte_trans_pct',
+                                       'kitti_rte_rot_deg_per_100m')}
+        for method, (stem, pose_name) in self.module.METHODS.items():
+            summaries = []
+            for mode, digest in (('audit', 'candidate'), ('frozen_baseline', 'baseline')):
+                summary = self.study / 'sequences/02' / mode / 'replays' / (stem + '.json')
+                write_json(summary, {'methods': [dict(name=method, **metrics)]})
+                write_json(summary.with_name(stem + '_native_command.json'),
+                           dict(exit_code=0, binary_sha256=digest, finished_unix=1,
+                                environment={'OMP_NUM_THREADS': '1', 'OPENBLAS_NUM_THREADS': '1'}))
+                output = native_output(summary)
+                output.mkdir(parents=True)
+                for name in (pose_name, 'gt.txt', 'kitti_seq_02_full_evaluated_gt.txt'):
+                    (output / name).write_text(poses)
+                summaries.append(summary)
+            self.paths[method] = summaries[0]
+            aggregate = Path('experiments/results') / (stem + '_matrix.json')
+            write_json(self.repo / aggregate,
+                       {'variants': [{'id': 'fixed', 'args': [],
+                                      'summary_path': 'missing_history/' + stem + '/summary.json'}]})
+            rows.append(dict(method=method, audit_status='drift', process_exit_code=0,
+                             summary_path=str(summaries[0]), frames=201,
+                             aggregate_path=str(aggregate), variant_id='fixed', args=[]))
+            frozen_rows.append(dict(method=method, process_exit_code=0, summary_path=str(summaries[1])))
+            checks.append(dict(method=method, sequence='02', metric_abs_delta=metrics,
+                               saved_pose_bytes_equal={pose_name: True, 'gt.txt': True}))
+        for name in ('candidate', 'baseline'):
+            write_json(self.study / (name + '.json'), {'sha256': name, 'source_commit': 'synthetic-frozen-source'})
+        for mode, digest, report_rows in (('audit', 'candidate', rows),
+                                          ('frozen_baseline', 'baseline', frozen_rows)):
+            write_json(self.study / 'sequences/02' / mode / 'report.json',
+                       dict(exit_code=1, binary_sha256=digest, rows=report_rows))
+            write_json(self.study / 'sequences/02' / mode / 'audit_command.json', {'exit_code': 1})
+        write_json(self.study / 'sequences/02/frozen_comparison.json', dict(exit_code=0, checks=checks))
+        write_json(self.study / 'sequences/02/cleanup.json',
+                   dict(sequence='02', hashes_verified_before_removal=True,
+                        input_dir_exists_after=False, owned_input_dir=str(self.repo / 'removed_scans')))
+        self.git('init', '-q')
+        self.commit()
+        self.output = self.repo / 'diagnostic_output'
+
+    def git(self, *arguments):
+        return subprocess.run(['git', '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid',
+                               *arguments], cwd=self.repo, check=True, capture_output=True, text=True)
+
+    def commit(self):
+        self.git('add', '.')
+        self.git('commit', '-qm', 'Synthetic committed saved-path fixture')
+
+    def invoke(self):
+        with patch.object(sys, 'argv', [str(self.script), '--output-dir', str(self.output)]), \
+                contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            self.module.main()
+
+    def test_complete_committed_paths_produce_zero_error_and_keep_all_methods(self):
+        self.invoke()
+        result = json.loads((self.output / 'summary.json').read_text())
+        self.assertEqual(result['exit_code'], 0)
+        self.assertEqual({row['method'] for row in result['rows']}, set(self.module.METHODS))
+        self.assertTrue(all(result['completion_gate'].values()))
+        for row in result['rows']:
+            self.assertTrue(all(value == 0 for value in row['current_saved_pose_metric_abs_delta'].values()))
+            self.assertEqual(row['largest_current_error_growth_block']['position_error_end_m'], 0)
+
+    def test_uncommitted_cleanup_is_rejected_without_creating_output(self):
+        relative = 'experiments/results/shared_near_range/sequences/02/cleanup.json'
+        self.git('rm', '--cached', relative)
+        self.git('commit', '-qm', 'Leave cleanup uncommitted')
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke()
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_available_historical_path_has_known_gap_without_alignment(self):
+        method = 'A-LOAM'
+        current = native_output(self.paths[method])
+        historical = self.repo / 'missing_history/aloam'
+        historical.mkdir(parents=True)
+        (historical / 'evaluated_gt_kitti.txt').write_bytes((current / 'gt.txt').read_bytes())
+        path = historical / 'trajectory_kitti.txt'
+        path.write_text(''.join('1 0 0 %.1f 0 1 0 0 0 0 1 0\n' % (frame * 4.5)
+                               for frame in range(201)))
+        metrics = self.module.diagnose(self.module.load_kitti_poses(path),
+                                      self.module.load_kitti_poses(current / 'gt.txt'))
+        expected = metrics['official_metrics_from_saved_poses']
+        write_json(historical / 'summary.json', {'methods': [dict(name=method, **expected)]})
+        report_path = self.study / 'sequences/02/audit/report.json'
+        report = json.loads(report_path.read_text())
+        row = next(row for row in report['rows'] if row['method'] == method)
+        row.update(stored_rpe_trans_pct=expected['rpe_trans_pct'], stored_ate_m=expected['ate_m'])
+        write_json(report_path, report)
+        self.commit()
+        self.invoke()
+        result = json.loads((self.output / 'summary.json').read_text())
+        paired = next(row for row in result['rows'] if row['method'] == method)
+        self.assertTrue(paired['paired_historical_comparison_available'])
+        self.assertTrue(paired['same_evaluated_gt_bytes'])
+        self.assertEqual(paired['final_path_gap_m'], 100)
+        self.assertEqual(paired['max_path_gap_frame'], 200)
+        self.assertTrue((self.output / 'aloam/paired_trace.png').is_file())
+
+    def test_modified_last_method_pose_is_rejected_before_any_output(self):
+        path = native_output(self.paths['Mesh-LOAM']) / 'Mesh_LOAM.txt'
+        path.write_text(path.read_text().replace('1 0 0 5 ', '1 0 0 6 ', 1))
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke()
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_failed_frozen_comparison_is_rejected_without_creating_output(self):
+        path = self.study / 'sequences/02/frozen_comparison.json'
+        report = json.loads(path.read_text())
+        report['exit_code'] = 2
+        write_json(path, report)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke()
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+
+if __name__ == '__main__':
+    unittest.main()

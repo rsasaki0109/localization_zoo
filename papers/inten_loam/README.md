@@ -635,3 +635,17 @@ the earlier diagnosis. These short checks provide no new speed or long-segment
 accuracy result; the full failure cause remains open.
 [Exact commands, hashes, traces and limits](../../experiments/results/inten_trace_export/integration/README.md).
 <!-- /INTEN_TRACE_EXPORT_ACCELERATION -->
+
+<!-- INTEN_PASSIVE_TRACE_ACCELERATION -->
+## Passive trace and acceleration integration
+
+The source conflict with optional acceleration is resolved while retaining the
+original residual-addition order. All 125 CTest entries pass, and the InTEn entry
+also passes with four workers; every passive lifecycle case runs in both
+execution modes (`7aa83cff`). All 8 short real-fixture native calls exit 0,
+with zero available metric differences and byte-identical saved poses against
+each mode's prior executable (`fb9318f3`). These are compatibility checks;
+long-segment RTE is unavailable, no speed is remeasured, and the full failure
+cause remains open. Defaults and historical numbers are unchanged.
+[Commands, settings provenance, evidence and limits](../../experiments/results/inten_passive_trace/integration/README.md).
+<!-- /INTEN_PASSIVE_TRACE_ACCELERATION -->

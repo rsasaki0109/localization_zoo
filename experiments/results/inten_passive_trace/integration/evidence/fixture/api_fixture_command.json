@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-passive-trace/worktree/experiments/results/inten_passive_trace/integration/validate_fixture.py",
+    "--output-dir",
+    "/workspace/localization-env/paper-trace-integration/api_fixture"
+  ],
+  "cwd": "/workspace/localization-env/inten-passive-trace/worktree",
+  "exit_code": 0,
+  "started_unix": 1792319344.836473,
+  "finished_unix": 1792319358.2924106
+}

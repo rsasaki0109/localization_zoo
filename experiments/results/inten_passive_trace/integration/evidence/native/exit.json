@@ -1,0 +1,1 @@
+{"exit_code": 0, "source_commit": "eb5f0c47cc517f3e8d12d1bd36761f92e546faa0", "scope": "Incremental full Release rebuild after the real API/speed merge, all CTests, and four-worker passive trace lifecycle coverage. No timing claim."}

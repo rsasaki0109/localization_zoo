@@ -1,0 +1,115 @@
+[
+  {
+    "command": [
+      "git",
+      "checkout",
+      "--theirs",
+      "--",
+      "docs/decisions.md",
+      "docs/experiments.md",
+      "docs/interfaces.md",
+      "docs/paper_assets.md",
+      "docs/paper_captions.md",
+      "docs/paper_comparison.md",
+      "docs/paper_roadmap.md",
+      "docs/paper_tracks.md",
+      "docs/reproduction_status.md",
+      "docs/variant_analysis.md",
+      "experiments/results/index.json"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792334317.1670127,
+    "finished_unix": 1792334317.2898133,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "add",
+      "--",
+      "docs/decisions.md",
+      "docs/experiments.md",
+      "docs/interfaces.md",
+      "docs/paper_assets.md",
+      "docs/paper_captions.md",
+      "docs/paper_comparison.md",
+      "docs/paper_roadmap.md",
+      "docs/paper_tracks.md",
+      "docs/reproduction_status.md",
+      "docs/variant_analysis.md",
+      "experiments/results/index.json"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792334317.2915874,
+    "finished_unix": 1792334317.3655732,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/scripts",
+      "evaluation/CMakeLists.txt",
+      "CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792334317.366706,
+    "finished_unix": 1792334317.4171984,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "8d2d0ac36ba0411270aeba60a3056ea78a89f9f9",
+      "--",
+      "python",
+      "ros2",
+      ".github/workflows/ci.yml"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792334317.4177334,
+    "finished_unix": 1792334317.4422054,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--cached"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792334317.4432194,
+    "finished_unix": 1792334317.5221,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "commit",
+      "-m",
+      "Merge correspondence-support diagnosis main into paper pipeline bindings"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792334317.52296,
+    "finished_unix": 1792334317.6949675,
+    "exit_code": 0,
+    "output": "[codex/paper-pipeline-bindings a3a5cbfd] Merge correspondence-support diagnosis main into paper pipeline bindings\n"
+  }
+]

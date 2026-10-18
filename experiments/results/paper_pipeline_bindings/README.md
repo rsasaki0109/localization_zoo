@@ -244,3 +244,20 @@ and the same explicit base to reproduce these checks in a fresh output directory
 [preservation](checks/merged_stack/post_import/preservation.json) cover the
 imported ROS evidence and this report. Full native/Python and ROS builds also
 run in CI for the final PR head.
+
+## Integration after the correspondence-support diagnosis
+
+Main `fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e` includes the historical
+InTEn-LOAM support diagnosis and its pinned-source reproduction fix. This merge
+reconciles the generated documents and index with that main revision, then
+regenerates the derived files. The binding examples, Python and ROS wrappers,
+native algorithms and stored benchmark inputs retain their checked contents.
+Earlier fixture tables remain attributed to the source revisions recorded above.
+
+[Integration commands and conflict resolution](checks/post139_refresh/resolution_commands.json),
+[regression and document checks](checks/post139_refresh/docs/commands.json),
+[preservation](checks/post139_refresh/docs/preservation.json) and
+[frozen-replay integrity](checks/post139_refresh/identity.json) retain the actual
+commands, exits and source/hash comparisons. The full unit-test transcript records
+the native evaluation-guard skips in this separate worktree; the final CI builds
+the evaluator and runs the complete native/Python and ROS checks.

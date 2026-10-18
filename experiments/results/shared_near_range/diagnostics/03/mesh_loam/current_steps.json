@@ -1,0 +1,158 @@
+{
+  "frames": 801,
+  "official_metrics_from_saved_poses": {
+    "frames": 801,
+    "reference_frames": 801,
+    "tracking_success_rate": 1.0,
+    "ate_m": 3.995116467367725,
+    "rpe_trans_pct": 0.8774313564869183,
+    "rpe_rot_deg_per_m": 0.004784866969293695,
+    "rpe_segments": 613,
+    "kitti_rte_trans_pct": 0.9283296237620402,
+    "kitti_rte_rot_deg_per_100m": 0.4560676465127088,
+    "kitti_rte_segments": 184,
+    "trajectory_length_m": 560.8451476108784
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 1.0032245026903734,
+  "moving_step_count": 785,
+  "step_length_ratio_median": 1.0042991550023095,
+  "steps_length_off_over_threshold": 0,
+  "steps_vector_off_over_threshold": 3,
+  "bad_length_step_frame_ranges": [],
+  "bad_vector_step_frame_ranges": [
+    [
+      756,
+      757
+    ],
+    [
+      784,
+      784
+    ]
+  ],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 59.23374694787432,
+      "path_length_ratio": 1.0006511241047533,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0042274983530062,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 0.17570561243881858,
+      "block_relative_translation_error_pct": 0.2966309265711463,
+      "block_relative_rotation_error_deg_per_100m": 0.16321416223379934
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 69.94638869597325,
+      "path_length_ratio": 1.003774056475656,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0041698580227179,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.17570561243881858,
+      "position_error_end_m": 0.497350287160043,
+      "block_relative_translation_error_pct": 0.5069951690045417,
+      "block_relative_rotation_error_deg_per_100m": 0.5806735484468177
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 300,
+      "gt_distance_m": 72.27941020775991,
+      "path_length_ratio": 0.9964558428637009,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9955162614376807,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.497350287160043,
+      "position_error_end_m": 0.8772886812445663,
+      "block_relative_translation_error_pct": 0.7574447381110155,
+      "block_relative_rotation_error_deg_per_100m": 0.7218201436506708
+    },
+    {
+      "first_pose_frame": 300,
+      "last_pose_frame": 400,
+      "gt_distance_m": 83.98054891404223,
+      "path_length_ratio": 1.0021464517027854,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.004114257063898,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.8772886812445663,
+      "position_error_end_m": 1.8506388583126032,
+      "block_relative_translation_error_pct": 1.2047811861766275,
+      "block_relative_rotation_error_deg_per_100m": 0.4292875244236392
+    },
+    {
+      "first_pose_frame": 400,
+      "last_pose_frame": 500,
+      "gt_distance_m": 86.92929984320321,
+      "path_length_ratio": 1.0065783300451743,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.006315509900897,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 1.8506388583126032,
+      "position_error_end_m": 3.206369547789962,
+      "block_relative_translation_error_pct": 0.9467729843557836,
+      "block_relative_rotation_error_deg_per_100m": 0.7604342889566621
+    },
+    {
+      "first_pose_frame": 500,
+      "last_pose_frame": 600,
+      "gt_distance_m": 76.79727869592848,
+      "path_length_ratio": 1.0025735723390654,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0037097708192972,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 3.206369547789962,
+      "position_error_end_m": 4.7820730718613556,
+      "block_relative_translation_error_pct": 1.1000158498876877,
+      "block_relative_rotation_error_deg_per_100m": 0.45302815439015964
+    },
+    {
+      "first_pose_frame": 600,
+      "last_pose_frame": 700,
+      "gt_distance_m": 83.56267700424372,
+      "path_length_ratio": 1.0066637838480987,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0058925815015383,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 4.7820730718613556,
+      "position_error_end_m": 7.415219026011651,
+      "block_relative_translation_error_pct": 0.8372420520204116,
+      "block_relative_rotation_error_deg_per_100m": 0.6158100881388493
+    },
+    {
+      "first_pose_frame": 700,
+      "last_pose_frame": 800,
+      "gt_distance_m": 28.115797299240004,
+      "path_length_ratio": 1.0090863276537618,
+      "moving_step_count": 85,
+      "step_length_ratio_median": 1.0096602031554454,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 3,
+      "position_error_start_m": 7.415219026011651,
+      "position_error_end_m": 8.405500256949994,
+      "block_relative_translation_error_pct": 1.5848055431755672,
+      "block_relative_rotation_error_deg_per_100m": 0.6081105671703761
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics03/analysis/mesh_loam/current_steps.json",
+      "destination": "experiments/results/shared_near_range/diagnostics/03/mesh_loam/current_steps.json",
+      "sha256": "5885755d76c5d83dc869f8bf48232f4ffe1fcbdd62c567b5b7400e85f531b69f"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics03/analysis/mesh_loam/historical_steps.json",
+      "destination": "experiments/results/shared_near_range/diagnostics/03/mesh_loam/historical_steps.json",
+      "sha256": "d8dc270712eb72196cecac6cbf82cd3a08d29d96fdf44fc880795efd42a4ac0d"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics03/analysis/mesh_loam/paired_trace.png",
+      "destination": "experiments/results/shared_near_range/diagnostics/03/mesh_loam/paired_trace.png",
+      "sha256": "67deff80cdb602d68bad6d19d0fe478b0b990753b23a1c40a7e32f68ddd904c5"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics03/analysis/mesh_loam/trace.csv",
+      "destination": "experiments/results/shared_near_range/diagnostics/03/mesh_loam/trace.csv",
+      "sha256": "77f7b29fb27faf7016ff9f122341643597af64da1abdaa1cb01188e43b7f1377"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics03/analysis/summary.json",
+      "destination": "experiments/results/shared_near_range/diagnostics/03/summary.json",
+      "sha256": "959da4e775cb1f3ecdc0f55a09d6531a20d9011a4129cf935c408e5c580d57a7"
+    }
+  ],
+  "analysis_log": {
+    "source_sha256": "a1be9f84f4cd7935dc91dbd8653abefa381e973c94b00d9e76e4010be3ce3d73",
+    "gzip_sha256": "7a1089a2422832b33ca0d48725121b3d3ad65189641074be71fad96442e9d94a",
+    "gzip_original_verified": true
+  }
+}

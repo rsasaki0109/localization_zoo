@@ -10,7 +10,8 @@ NATIVE=['common','evaluation/src','evaluation/test','evaluation/CMakeLists.txt',
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',required=True,type=Path)
-    a=parser.parse_args();base=P['base_commit'];failures=[]
+    parser.add_argument('--base-commit',help='Explicit integration baseline; defaults to the original study base.')
+    a=parser.parse_args();base=a.base_commit or P['base_commit'];failures=[]
     expected=json.loads((REPO/'experiments/results/shared_near_range/historical_aggregate_sha256.json').read_text())
     actual={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (REPO/'experiments/results').glob('*_matrix.json')}
     if actual!=expected:failures.append('Published aggregate inventory differs')

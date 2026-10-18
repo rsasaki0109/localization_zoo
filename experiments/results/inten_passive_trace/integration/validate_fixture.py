@@ -56,7 +56,8 @@ def main():
                 with (folder / 'native.log').open('w') as log:
                     result = subprocess.run(command, cwd=W, stdout=log, stderr=subprocess.STDOUT)
                 receipt = dict(command=command, native_argv=argv, cwd=str(W), native_cwd=str(folder),
-                    binary=binaries[name], source_commit=P['native_source_commit'],
+                    binary=binaries[name], source_commit=(P['reference_source_commit']
+                        if name == 'reference' else P['native_source_commit']),
                     exit_code=result.returncode, started_unix=start, finished_unix=time.time())
                 (folder / 'command.json').write_text(json.dumps(receipt, indent=2) + '\n')
                 exits.append(result.returncode)

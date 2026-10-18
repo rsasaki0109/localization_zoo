@@ -90,12 +90,15 @@ class InTenTraceValidationTests(unittest.TestCase):
             self.check(records)
 
     def test_support_shapes_and_flag_corruption(self):
-        for field in ['counts', 'matrix', 'flag', 'huge_integer']:
+        for field in ['counts', 'matrix', 'flag', 'unattempted_then_continue', 'huge_integer']:
             records = copy.deepcopy(self.records)
             it = records[1 + 1]['s2s']['iterations'][0]
             if field == 'counts': it['class_pairs'][0] += 1
             elif field == 'matrix': it['H'].pop()
             elif field == 'flag': it['step_attempted'] = False
+            elif field == 'unattempted_then_continue':
+                self.assertGreater(len(records[2]['s2s']['iterations']), 1)
+                it['step_attempted'] = it['step_finite'] = it['update_applied'] = False
             else: it['H'][0] = 10 ** 500
             with self.subTest(field=field), self.assertRaises(TraceError):
                 self.check(records)

@@ -105,6 +105,8 @@ def validate_trace(trace_path, summary_path, receipt_path):
             finite = boolean(it['step_finite'], label + '.step_finite')
             applied = boolean(it['update_applied'], label + '.update_applied')
             require(not finite or attempted, label + ' finite step was not attempted')
+            if not attempted:
+                require(index == len(iterations) - 1 and stop == 'insufficient_pairs', label + ' unattempted step did not terminate')
             require(not applied or (attempted and finite), label + ' applied step is not finite/attempted')
             if finite:
                 require(all(type(v) in (int, float) and math.isfinite(v) for v in it['delta']), label + ' finite flag has nonfinite delta')

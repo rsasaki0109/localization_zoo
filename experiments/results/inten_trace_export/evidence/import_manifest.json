@@ -1,0 +1,347 @@
+{
+  "focused_build/commands.json": {
+    "original_sha256": "610926337e85038e6884f7e8c000e1c3316cbce343141fe15ce0609e2b78a8ad",
+    "stored_sha256": "610926337e85038e6884f7e8c000e1c3316cbce343141fe15ce0609e2b78a8ad",
+    "lossless": true
+  },
+  "focused_build/compile.log.gz": {
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless": true
+  },
+  "focused_build/initial_preflight.py": {
+    "original_sha256": "206821e640f2b6e6634c39aa9a59e65374fdf31ddc95298773fad5372efc65e1",
+    "stored_sha256": "206821e640f2b6e6634c39aa9a59e65374fdf31ddc95298773fad5372efc65e1",
+    "lossless": true
+  },
+  "focused_build/initial_preflight_failure.json": {
+    "original_sha256": "e5566f2c009fb5c4f2b6fa5b369732dc7414cf7029937f5aa66d0927bf9fd076",
+    "stored_sha256": "e5566f2c009fb5c4f2b6fa5b369732dc7414cf7029937f5aa66d0927bf9fd076",
+    "lossless": true
+  },
+  "focused_build/link.log.gz": {
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless": true
+  },
+  "focused_build/pinned_link_inputs.json": {
+    "original_sha256": "4cbf770e748c4c96b64066bc01073c79358a74afe5d2f774e2bd7324bb1e108a",
+    "stored_sha256": "4cbf770e748c4c96b64066bc01073c79358a74afe5d2f774e2bd7324bb1e108a",
+    "lossless": true
+  },
+  "focused_build/summary.json": {
+    "original_sha256": "556799c20739aa6ed6dd1447f4b96b5f4fdad5a71351e913bdb9a0de40008f94",
+    "stored_sha256": "556799c20739aa6ed6dd1447f4b96b5f4fdad5a71351e913bdb9a0de40008f94",
+    "lossless": true
+  },
+  "fixture/negative/existing/run/command.json": {
+    "original_sha256": "ff22d75c3f3dc992329c47422fd45a409d1d062178be094f6e1fa6aa3c7fdcb2",
+    "stored_sha256": "ff22d75c3f3dc992329c47422fd45a409d1d062178be094f6e1fa6aa3c7fdcb2",
+    "lossless": true
+  },
+  "fixture/negative/existing/run/native.log.gz": {
+    "original_sha256": "82f8eb06501dda238631ade528773c58d02da5940698c2f8181afd30b1bcde1a",
+    "stored_sha256": "e448f35f72e7e66682104718d96554a44ddb8832537f41042aae6663bbe12bd5",
+    "lossless": true
+  },
+  "fixture/negative/existing/trace.jsonl": {
+    "original_sha256": "8e9a8ad91ca9e5c7dbed832a9fb1eb898ec150d4093ce107d2f2c1a9bbff42c3",
+    "stored_sha256": "8e9a8ad91ca9e5c7dbed832a9fb1eb898ec150d4093ce107d2f2c1a9bbff42c3",
+    "lossless": true
+  },
+  "fixture/negative/missing_paper/command.json": {
+    "original_sha256": "7dfff5160cd8b0e673a094efeb29d88f787dd47ad85f6adbdca36405c1ed9494",
+    "stored_sha256": "7dfff5160cd8b0e673a094efeb29d88f787dd47ad85f6adbdca36405c1ed9494",
+    "lossless": true
+  },
+  "fixture/negative/missing_paper/native.log.gz": {
+    "original_sha256": "4395d216876787de6c3316cd26c72343d5656699f274344ab9eabbae694c33b8",
+    "stored_sha256": "df01ec3e2ddfb687e392f067735fc9cf14f3f1525ce1faf9299eac4586c68bd6",
+    "lossless": true
+  },
+  "fixture/negative/missing_parent/command.json": {
+    "original_sha256": "aa29a15bc896180c928d344653cbb7faefae1133d7414016d9c4090f6bcaaca3",
+    "stored_sha256": "aa29a15bc896180c928d344653cbb7faefae1133d7414016d9c4090f6bcaaca3",
+    "lossless": true
+  },
+  "fixture/negative/missing_parent/native.log.gz": {
+    "original_sha256": "76a05dfdbe0951c86b89691fe14bd4b3b1488e9b3c36d76ea6cdb1f4b2ccc9d3",
+    "stored_sha256": "6cb0fd2833ade8c2412d1a620bf2317a3ea0ec7ab0d5e00409234becfe19c009",
+    "lossless": true
+  },
+  "fixture/negative/missing_path/command.json": {
+    "original_sha256": "26ef965c00c7ca4afd330fcd87d42a13b669f18b655b020b6c4b0dbf4a7fe5e8",
+    "stored_sha256": "26ef965c00c7ca4afd330fcd87d42a13b669f18b655b020b6c4b0dbf4a7fe5e8",
+    "lossless": true
+  },
+  "fixture/negative/missing_path/native.log.gz": {
+    "original_sha256": "3cac63541e2e9472869f7d6ce50c4f899c65055ef48711a6aeb04f4696aded82",
+    "stored_sha256": "a7d0057978b8c97a1d6a3c4b2fa6b10d5857acf5a464b59c4e98c0c55c21b50e",
+    "lossless": true
+  },
+  "fixture/negative/summary_collision/command.json": {
+    "original_sha256": "8251b6c91dbed204b693678988af19f7b7ef8aa86b045c9ced67099e29b5dcd1",
+    "stored_sha256": "8251b6c91dbed204b693678988af19f7b7ef8aa86b045c9ced67099e29b5dcd1",
+    "lossless": true
+  },
+  "fixture/negative/summary_collision/native.log.gz": {
+    "original_sha256": "bbb3d5704df7dffd2720514d67c2c55cef2eb7ad80f1cdad318bac5d1c322117",
+    "stored_sha256": "6e6e662dbcde042fbcbdc330779ca53ba3a822cf8953086feaa83bb86bcccf19",
+    "lossless": true
+  },
+  "fixture/negative/wrong_extension/command.json": {
+    "original_sha256": "f2374d6f12bbf63efe2c42d64dd66fb97eeafc4ec9d3410bb2df4cd111e22751",
+    "stored_sha256": "f2374d6f12bbf63efe2c42d64dd66fb97eeafc4ec9d3410bb2df4cd111e22751",
+    "lossless": true
+  },
+  "fixture/negative/wrong_extension/native.log.gz": {
+    "original_sha256": "bbb3d5704df7dffd2720514d67c2c55cef2eb7ad80f1cdad318bac5d1c322117",
+    "stored_sha256": "6e6e662dbcde042fbcbdc330779ca53ba3a822cf8953086feaa83bb86bcccf19",
+    "lossless": true
+  },
+  "fixture/negative/wrong_method/command.json": {
+    "original_sha256": "ac8ee4e52534b47bc32e854e84c35cf8f8783a90bc7f8a830939e92c62ade7a2",
+    "stored_sha256": "ac8ee4e52534b47bc32e854e84c35cf8f8783a90bc7f8a830939e92c62ade7a2",
+    "lossless": true
+  },
+  "fixture/negative/wrong_method/native.log.gz": {
+    "original_sha256": "4395d216876787de6c3316cd26c72343d5656699f274344ab9eabbae694c33b8",
+    "stored_sha256": "df01ec3e2ddfb687e392f067735fc9cf14f3f1525ce1faf9299eac4586c68bd6",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_off/command.json": {
+    "original_sha256": "4835d685a730529fb8ffb2c3f549c06a5eb52e6fc8da1000ea8c6ff23ca7303a",
+    "stored_sha256": "4835d685a730529fb8ffb2c3f549c06a5eb52e6fc8da1000ea8c6ff23ca7303a",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_off/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+    "stored_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_off/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+    "original_sha256": "79d46f19976bcf7ba8a0f4096ac3643b5d5b1ee39f00d893e84af0bd4336df30",
+    "stored_sha256": "79d46f19976bcf7ba8a0f4096ac3643b5d5b1ee39f00d893e84af0bd4336df30",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_off/native.log.gz": {
+    "original_sha256": "6cdd725c1654c961e08abb283e13e0c4e0d1537c5a790bd9f69e9f6a99d594a5",
+    "stored_sha256": "a8030c003c02f3232354ec3860933dde5ff554e1afc02a4bfe736554de6cbff1",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_off/summary.json": {
+    "original_sha256": "79d46f19976bcf7ba8a0f4096ac3643b5d5b1ee39f00d893e84af0bd4336df30",
+    "stored_sha256": "79d46f19976bcf7ba8a0f4096ac3643b5d5b1ee39f00d893e84af0bd4336df30",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_on/command.json": {
+    "original_sha256": "dc45eaa6127911e907573fe19a3bf53b003203f61f482b17dc329753e1f6e7f6",
+    "stored_sha256": "dc45eaa6127911e907573fe19a3bf53b003203f61f482b17dc329753e1f6e7f6",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_on/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+    "stored_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_on/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+    "original_sha256": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+    "stored_sha256": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_on/native.log.gz": {
+    "original_sha256": "92bb34c4ad915235c975d75eaf2c19e077645debb308248cbc59ae3f3d66c520",
+    "stored_sha256": "3eaf0a45ddfe650395b4359378ec17331e4aa1cb533780c331441834e6c3c98b",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_on/summary.json": {
+    "original_sha256": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+    "stored_sha256": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+    "lossless": true
+  },
+  "fixture/paper_default/candidate_on/trace.jsonl": {
+    "original_sha256": "215b910da4024ef7df3b0a3d2ff984404e370dbdb18f074c3bb3644c39bdb0ce",
+    "stored_sha256": "215b910da4024ef7df3b0a3d2ff984404e370dbdb18f074c3bb3644c39bdb0ce",
+    "lossless": true
+  },
+  "fixture/paper_default/reference/command.json": {
+    "original_sha256": "c6b36419945921aa7cad1a5e68d9b27a779f43d95c9508c5dfe4e7febc9ee9e8",
+    "stored_sha256": "c6b36419945921aa7cad1a5e68d9b27a779f43d95c9508c5dfe4e7febc9ee9e8",
+    "lossless": true
+  },
+  "fixture/paper_default/reference/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+    "stored_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+    "lossless": true
+  },
+  "fixture/paper_default/reference/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_default/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_default/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+    "original_sha256": "1a3aebdc16c6fb0d16852294a6a8eee5b6e7f68ade2ac727f2992382b1d80539",
+    "stored_sha256": "1a3aebdc16c6fb0d16852294a6a8eee5b6e7f68ade2ac727f2992382b1d80539",
+    "lossless": true
+  },
+  "fixture/paper_default/reference/native.log.gz": {
+    "original_sha256": "c994c7e2cf6555550fc3879df8c71fc1801c93fb015cb375224c5bfc3ef42584",
+    "stored_sha256": "fd75f612195775a4c1879c4d108d0567a7a21f1987d85c5f363bd46a080a30b7",
+    "lossless": true
+  },
+  "fixture/paper_default/reference/summary.json": {
+    "original_sha256": "1a3aebdc16c6fb0d16852294a6a8eee5b6e7f68ade2ac727f2992382b1d80539",
+    "stored_sha256": "1a3aebdc16c6fb0d16852294a6a8eee5b6e7f68ade2ac727f2992382b1d80539",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_off/command.json": {
+    "original_sha256": "a320c598be02fd71f96ae272baf909ae2398e456528a2e4952a7a01e02dcf4f8",
+    "stored_sha256": "a320c598be02fd71f96ae272baf909ae2398e456528a2e4952a7a01e02dcf4f8",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_off/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+    "stored_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_off/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+    "original_sha256": "691aae49b96bb57596563e9be8d892da8784c434a768a38224242baba99db0ff",
+    "stored_sha256": "691aae49b96bb57596563e9be8d892da8784c434a768a38224242baba99db0ff",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_off/native.log.gz": {
+    "original_sha256": "c9bcbf3425594264e965c04160d7f7d6357de267092ba9cc5bbf6a9b052c2b2d",
+    "stored_sha256": "fa66f8532fad0a79b1c5aa4e58cb0470353dd5a07d59745ed7e99a5b347f2b14",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_off/summary.json": {
+    "original_sha256": "691aae49b96bb57596563e9be8d892da8784c434a768a38224242baba99db0ff",
+    "stored_sha256": "691aae49b96bb57596563e9be8d892da8784c434a768a38224242baba99db0ff",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_on/command.json": {
+    "original_sha256": "3ed2f8fab8f1bc589cbed7283b984035728f6eb547e88d3a8fc31f68bf28d90c",
+    "stored_sha256": "3ed2f8fab8f1bc589cbed7283b984035728f6eb547e88d3a8fc31f68bf28d90c",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_on/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+    "stored_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_on/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+    "original_sha256": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+    "stored_sha256": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_on/native.log.gz": {
+    "original_sha256": "4b13aca9a79ceef253a50c1547935c2a20a612a465ed45743ca137567031e33a",
+    "stored_sha256": "9652750b8e3b4e4743315f9d5377adad056d4ae849a7b390ba9a23f6d2d74072",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_on/summary.json": {
+    "original_sha256": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+    "stored_sha256": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/candidate_on/trace.jsonl": {
+    "original_sha256": "6e6737f7386ba2c0ffc423c50ea70988ec2170f88bf85b7488a8f6de91651bab",
+    "stored_sha256": "6e6737f7386ba2c0ffc423c50ea70988ec2170f88bf85b7488a8f6de91651bab",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/reference/command.json": {
+    "original_sha256": "3bd1e401fe9ccce9d3e5c70e4962072c203773b6b634928bc303dc5f9d90ef12",
+    "stored_sha256": "3bd1e401fe9ccce9d3e5c70e4962072c203773b6b634928bc303dc5f9d90ef12",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/reference/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+    "stored_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/reference/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+    "original_sha256": "dc97ab8b4f1a6bbbf2410c91c9d5806a7d2d4859055ef69fa98b2bbf77c2d7d0",
+    "stored_sha256": "dc97ab8b4f1a6bbbf2410c91c9d5806a7d2d4859055ef69fa98b2bbf77c2d7d0",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/reference/native.log.gz": {
+    "original_sha256": "3d4721a667a4ed5eb3f215a1136faa7c8105adf325b1fa584b6a4783ad7a076f",
+    "stored_sha256": "fec5b8c894bed22b8232208084c92dd9e08e53bc97b913185d30760cb3c71ef0",
+    "lossless": true
+  },
+  "fixture/paper_odometry_plane_check/reference/summary.json": {
+    "original_sha256": "dc97ab8b4f1a6bbbf2410c91c9d5806a7d2d4859055ef69fa98b2bbf77c2d7d0",
+    "stored_sha256": "dc97ab8b4f1a6bbbf2410c91c9d5806a7d2d4859055ef69fa98b2bbf77c2d7d0",
+    "lossless": true
+  },
+  "fixture/summary.json": {
+    "original_sha256": "b680b0ff562b4660f67b2d645b5c7410fec1f37027bf352337153da62c821869",
+    "stored_sha256": "b680b0ff562b4660f67b2d645b5c7410fec1f37027bf352337153da62c821869",
+    "lossless": true
+  },
+  "fixture_command/command.json": {
+    "original_sha256": "4cd0e984633fb8e40a2592b581ed9e378c0aded84973d9dee15ee990283354c8",
+    "stored_sha256": "4cd0e984633fb8e40a2592b581ed9e378c0aded84973d9dee15ee990283354c8",
+    "lossless": true
+  },
+  "fixture_command/validation.log.gz": {
+    "original_sha256": "e32877846ad0915c67d5e65de9738cb14ab945ce06c13d930fc6fd7be6a8bfae",
+    "stored_sha256": "789f901998bbe3d50f0fd0ea391ca4afb28759e5278b88af97d64820899048dc",
+    "lossless": true
+  }
+}

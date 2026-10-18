@@ -1,0 +1,20 @@
+{
+  "runs": {
+    "mesh_loam": {
+      "control": "67867d0b_control_short_mesh_loam",
+      "default": "f4755573_default_short_mesh_loam",
+      "accelerated": "f4755573_accelerated_short_mesh_loam"
+    },
+    "imls_slam": {
+      "control": "67867d0b_control_short_imls_slam",
+      "default": "f4755573_default_short_imls_slam",
+      "accelerated": "f4755573_accelerated_short_imls_slam"
+    },
+    "inten_loam": {
+      "control": "67867d0b_control_short_inten_loam",
+      "default": "f4755573_default_short_inten_loam",
+      "accelerated": "f4755573_accelerated_short_inten_loam"
+    }
+  },
+  "control_reuse_reason": "Unchanged frozen binary, input hashes and settings. Controls reused only for development screening; primary full timing reruns each frozen control immediately before acceleration."
+}

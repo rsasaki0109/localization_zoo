@@ -1,0 +1,6 @@
+{
+  "pid": 32192,
+  "signal": "SIGTERM",
+  "time_unix": 1792171146.8664675,
+  "reason": "Stopped only the waiting gate, before any full run. Repeated identical short controls show host timing variance; primary full speed comparisons must use a fresh frozen-source full control immediately before each accelerated run. Preserve the earlier full baselines as separate evidence."
+}

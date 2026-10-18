@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_trace_validation/validate_corpus.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-trace-validator/final_corpus"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-validator/worktree",
+  "exit_code": 0,
+  "started_unix": 1792314264.7953157,
+  "finished_unix": 1792314265.819526
+}

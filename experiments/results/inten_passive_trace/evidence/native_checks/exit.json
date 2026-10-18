@@ -1,0 +1,1 @@
+{"exit_code": 0, "source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71", "initial_ctest_exit_code": 8, "initial_attempt": "/workspace/localization-env/inten-passive-trace/native_checks", "adjustment": "Only TEST_TMPDIR points to a fresh user-owned directory. No code, test, threshold or binary changed."}

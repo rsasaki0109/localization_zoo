@@ -1,0 +1,40 @@
+{
+  "base_commit": "7505a2914328d53ac9b319d5f8042189b378d457",
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "publication": {
+    "README.md": {
+      "identical": true,
+      "base_sha256": "e4856f5f9868afda8964907ef442d05c8b3c791533c16385bf630e01b25d0a15",
+      "current_sha256": "e4856f5f9868afda8964907ef442d05c8b3c791533c16385bf630e01b25d0a15"
+    },
+    "docs/index.html": {
+      "identical": true,
+      "base_sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+      "current_sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab"
+    },
+    "docs/assets/paper/paper_ratio_table.csv": {
+      "identical": true,
+      "base_sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+      "current_sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509"
+    },
+    "evaluation/data/paper_reported_numbers.json": {
+      "identical": true,
+      "base_sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+      "current_sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e"
+    }
+  },
+  "prior_results_identity_exit_code": 0,
+  "changed_native_paths": [
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h",
+    "papers/inten_loam/src/inten_loam_paper.cpp",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp"
+  ],
+  "allowed_native_paths": [
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h",
+    "papers/inten_loam/src/inten_loam_paper.cpp",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp"
+  ],
+  "failures": [],
+  "exit_code": 0
+}

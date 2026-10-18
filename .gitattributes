@@ -24,3 +24,7 @@ experiments/results/shared_near_range/checks/fixture_parity/**/candidate.log -wh
 experiments/results/paper_pipeline_bindings/ci/98c2f56f_ros_failed/job.log -whitespace
 experiments/results/paper_pipeline_bindings/ci/13984552_ros_reliable/job.log -whitespace
 experiments/results/paper_pipeline_bindings/ci/021534d5_ros_humble_api_failed/job.log -whitespace
+# Preserve historical native/profiler stdout verbatim, including table padding.
+experiments/results/paper_pipeline_speed/runs/*/run.log -whitespace
+experiments/results/paper_pipeline_speed/release_verification/1b51db69/*/run.log -whitespace
+experiments/results/paper_pipeline_speed/install_profiler.log -whitespace

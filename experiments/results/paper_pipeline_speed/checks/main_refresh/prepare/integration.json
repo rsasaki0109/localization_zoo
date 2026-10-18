@@ -1,0 +1,10 @@
+{
+  "source_commit": "82678117fd7491b15f5c0c91f215c60c3e147d11",
+  "base_main": "7505a2914328d53ac9b319d5f8042189b378d457",
+  "retained_old_head": "90909876abdd1146ad3da7f203f30d64436291db",
+  "merge_resolution": "Generated documents start from main and are regenerated. Mesh README retains both historical acceleration negatives and shared-loader drift notes. IMLS CMake links both localization_initial_registration and OpenMP. Native code auto-merges; the IMLS code change relative to the prior speed branch uses the already-merged initialCoarseThenFine policy.",
+  "scope": "No new optimization, registration setting, full-sequence speed measurement or claim. All historical speed numbers stay attached to their measured f4755573/control134ead2f revisions; fixture replays only verify compatibility against frozen current-main source0b079dbb.",
+  "whitespace": "Initial full-branch check exit2 retained. Historical raw native run logs and profiler install log retain exact original bytes through narrowly scoped log attributes. All new raw logs will be losslessly gzip compressed.",
+  "native_driver": "experiments/results/paper_pipeline_speed/helpers/revalidate_main.py",
+  "docs_driver": "experiments/results/paper_pipeline_speed/helpers/revalidate_main_docs.py"
+}

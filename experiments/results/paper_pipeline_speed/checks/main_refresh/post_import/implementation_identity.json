@@ -1,0 +1,19 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "82678117",
+    "--",
+    "common",
+    "papers/*/src",
+    "papers/*/include",
+    "papers/*/test",
+    "papers/*/CMakeLists.txt",
+    "evaluation/src",
+    "evaluation/CMakeLists.txt",
+    "CMakeLists.txt"
+  ],
+  "cwd": "/workspace/localization-env/paper-speed/main_refresh_worktree",
+  "exit_code": 0
+}

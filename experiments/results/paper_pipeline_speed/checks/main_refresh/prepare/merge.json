@@ -1,0 +1,11 @@
+{
+  "command": [
+    "git",
+    "merge",
+    "--no-commit",
+    "--no-ff",
+    "origin/main"
+  ],
+  "cwd": "/workspace/localization-env/paper-speed/main_refresh_worktree",
+  "exit_code": 1
+}

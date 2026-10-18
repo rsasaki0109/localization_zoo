@@ -1,0 +1,16 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "7505a2914328d53ac9b319d5f8042189b378d457",
+    "--",
+    "experiments/results/shared_degeneracy_remap",
+    "experiments/results/shared_coarse_start",
+    "experiments/results/shared_near_range",
+    "experiments/results/suma_kitti_seq_*_shared_*_matrix.json"
+  ],
+  "cwd": "/workspace/localization-env/paper-speed/main_refresh_worktree",
+  "exit_code": 0,
+  "all_previous_shared_study_evidence_unchanged": true
+}

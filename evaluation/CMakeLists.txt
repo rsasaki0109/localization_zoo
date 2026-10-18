@@ -221,3 +221,7 @@ add_custom_target(
   COMMAND ${CMAKE_SOURCE_DIR}/evaluation/scripts/run_local_evaluation_suite.sh
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   COMMENT "Run ctest + synthetic_benchmark + smoke_ci_fixture (see evaluation/README.md)")
+
+add_executable(test_inten_trace_jsonl test/test_inten_trace_jsonl.cpp)
+target_link_libraries(test_inten_trace_jsonl PRIVATE inten_loam GTest::gtest_main)
+add_test(NAME test_inten_trace_jsonl COMMAND test_inten_trace_jsonl)

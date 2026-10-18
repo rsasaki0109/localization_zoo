@@ -1,0 +1,25 @@
+{
+  "comparison_commit": "f8abcb1b4ece66a35aa44a2345f4ab904641d332",
+  "comparison": "experiments/results/paper_pipeline_speed/comparisons/f4755573.json",
+  "commands": [
+    {
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization-env/paper-speed/compare_full.py",
+        "--tag",
+        "f4755573",
+        "--render"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization-env/paper-speed/document_final_results.py"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "profile_source_commit": "82da76c0",
+  "profile_note": "Sampled CPU attribution from committed text; not a timed speed reference."
+}

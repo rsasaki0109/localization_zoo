@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "native_exit_code": 1,
+  "stage": "strict_gt_association_before_estimator",
+  "reason": "Synthetic input builder omitted the committed frame_timestamps.csv; copy it unchanged for the corrected run. Do not loosen association or change estimator settings."
+}

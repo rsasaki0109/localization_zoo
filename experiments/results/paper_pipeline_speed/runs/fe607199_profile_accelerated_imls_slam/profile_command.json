@@ -1,0 +1,26 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "--user",
+    "1000:1000",
+    "localization-zoo-dev",
+    "google-pprof",
+    "--text",
+    "/workspace/localization-env/paper-speed/fe607199_pcd_dogfooding",
+    "/workspace/localization-env/paper-speed/runs/fe607199_profile_accelerated_imls_slam/cpu.prof"
+  ],
+  "exit_code": 0
+}

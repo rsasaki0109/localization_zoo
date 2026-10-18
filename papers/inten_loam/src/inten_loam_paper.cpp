@@ -1,14 +1,13 @@
 #include "inten_loam/inten_loam_paper.h"
 
 #include <Eigen/Dense>
-#include <pcl/kdtree/kdtree_flann.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include "inten_loam/detail/feature_tree.h"
 
 #include <algorithm>
 #include <cmath>
 #include <limits>
 #include <numeric>
+#include <stdexcept>
 
 namespace localization_zoo {
 namespace inten_loam {
@@ -18,33 +17,7 @@ namespace {
 using Vec6 = Eigen::Matrix<double, 6, 1>;
 using Mat6 = Eigen::Matrix<double, 6, 6>;
 
-struct Tree {
-  std::vector<PaperFeature> pts;
-  pcl::KdTreeFLANN<pcl::PointXYZ> kd;
-  bool ok = false;
-
-  void build() {
-    ok = false;
-    if (pts.empty()) return;
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    cloud->reserve(pts.size());
-    for (const auto& f : pts)
-      cloud->push_back(pcl::PointXYZ(static_cast<float>(f.p.x()), static_cast<float>(f.p.y()),
-                                     static_cast<float>(f.p.z())));
-    kd.setInputCloud(cloud);
-    ok = true;
-  }
-  int knn(const Eigen::Vector3d& x, int k, std::vector<int>* idx, std::vector<float>* d2) const {
-    if (!ok) return 0;
-    const pcl::PointXYZ q(static_cast<float>(x.x()), static_cast<float>(x.y()), static_cast<float>(x.z()));
-    return kd.nearestKSearch(q, std::min<int>(k, static_cast<int>(pts.size())), *idx, *d2);
-  }
-  int radius(const Eigen::Vector3d& x, double r, std::vector<int>* idx, std::vector<float>* d2) const {
-    if (!ok) return 0;
-    const pcl::PointXYZ q(static_cast<float>(x.x()), static_cast<float>(x.y()), static_cast<float>(x.z()));
-    return kd.radiusSearch(q, r, *idx, *d2);
-  }
-};
+using Tree = detail::FeatureTree;
 
 Eigen::Matrix4d expSe3(const Vec6& d) {
   Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
@@ -60,6 +33,8 @@ struct System {
   Mat6 H = Mat6::Zero();
   Vec6 g = Vec6::Zero();
   int n = 0;
+  bool track_residual = false;
+  double weighted_squared_residual = 0.0;
   void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr) {
     Vec6 J;
     J.head<3>() = a;
@@ -68,6 +43,7 @@ struct System {
     H += w * J * J.transpose();
     g += w * J * r;
     ++n;
+    if (track_residual) weighted_squared_residual += w * r * r;
     if (also) {
       also->H += w * J * J.transpose();
       also->g += w * J * r;
@@ -75,6 +51,68 @@ struct System {
     }
   }
 };
+
+void observeSystem(PaperSolverTrace* trace, const System& sys,
+                   const Eigen::Matrix4d& T, const int counts[4]) {
+  if (!trace) return;
+  trace->iterations.emplace_back();
+  auto& iteration = trace->iterations.back();
+  iteration.linearization_pose = T;
+  iteration.H = sys.H;
+  iteration.g = sys.g;
+  iteration.pairs = sys.n;
+  iteration.weighted_squared_residual = sys.weighted_squared_residual;
+  for (int c = 0; c < 4; ++c) iteration.class_pairs[c] = counts[c];
+}
+
+void observeStep(PaperSolverTrace* trace, const Vec6& delta) {
+  if (!trace) return;
+  auto& iteration = trace->iterations.back();
+  iteration.delta = delta;
+  iteration.step_attempted = true;
+  iteration.step_finite = delta.allFinite();
+  iteration.update_applied = iteration.step_finite;
+}
+
+// Querying immutable trees/fields is independent for every feature. Buffer the
+// results before the serial reduction so Huber weighting, class diagnostics and
+// every H/g addition keep the legacy order, irrespective of the worker count.
+template <typename Query>
+void accumulateFeatures(const std::vector<PaperFeature>& features,
+                        const Eigen::Matrix3d& R, const Eigen::Vector3d& t,
+                        const Query& query, double huber, bool accelerated,
+                        System* system, System* also,
+                        std::vector<int>* indices, std::vector<float>* distances) {
+  if (!accelerated) {
+    for (const auto& f : features) {
+      const Eigen::Vector3d x = R * f.p + t;
+      Eigen::Vector3d gradient;
+      double residual;
+      if (query(f, x, &gradient, &residual, indices, distances))
+        system->add(x, gradient, residual, huber, also);
+    }
+    return;
+  }
+  struct Residual {
+    Eigen::Vector3d x, gradient;
+    double value = 0.0;
+    bool valid = false;
+  };
+  std::vector<Residual> values(features.size());
+#pragma omp parallel
+  {
+    std::vector<int> idx;
+    std::vector<float> d2;
+#pragma omp for schedule(static)
+    for (long i = 0; i < static_cast<long>(features.size()); ++i) {
+      Residual& value = values[i];
+      value.x = R * features[i].p + t;
+      value.valid = query(features[i], value.x, &value.gradient, &value.value, &idx, &d2);
+    }
+  }
+  for (const auto& value : values)
+    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also);
+}
 
 void bspline(double t, double B[4], double dB[4]) {
   const double t2 = t * t, t3 = t2 * t, u = 1.0 - t;
@@ -190,6 +228,7 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
     for (const auto& q : pts) e += std::pow(*a * q.first + *b - q.second, 2);
     *rmse = std::sqrt(e / n);
   };
+#pragma omp parallel for if(params_.accelerated) schedule(static)
   for (int s = 0; s < S; ++s) {
     std::vector<std::pair<double, double>> cur;
     auto close = [&]() {
@@ -228,6 +267,7 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
 
   // Labels: 1 ground, >= 2 cluster id, 0 masked / invalid.
   std::vector<int> label(static_cast<size_t>(W) * H, -1);
+#pragma omp parallel for if(params_.accelerated) schedule(static)
   for (int v = 0; v < H; ++v)
     for (int u = 0; u < W; ++u) {
       const size_t k = at(u, v);
@@ -244,9 +284,15 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
       if (best && std::abs(best->a * rho + best->b - p.z()) < params_.ground_threshold) label[k] = 1;
     }
 
+
   // Angle-based clustering of the non-ground pixels.
   const double alpha_u = 2.0 * M_PI / W, alpha_v = theta / H;
   const double beta_min = params_.cluster_angle_deg * M_PI / 180.0;
+  double sin_alpha[2]{}, cos_alpha[2]{};
+  if (params_.accelerated) {
+    sin_alpha[0] = std::sin(alpha_u); sin_alpha[1] = std::sin(alpha_v);
+    cos_alpha[0] = std::cos(alpha_u); cos_alpha[1] = std::cos(alpha_v);
+  }
   int next = 2;
   std::vector<int> stack, members;
   for (int v = 0; v < H; ++v)
@@ -271,7 +317,9 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
           const double d1 = std::max(D[static_cast<size_t>(k)], D[nk]);
           const double d2 = std::min(D[static_cast<size_t>(k)], D[nk]);
           const double a = n < 2 ? alpha_u : alpha_v;
-          if (std::atan2(d2 * std::sin(a), d1 - d2 * std::cos(a)) > beta_min) {
+          const double sa = params_.accelerated ? sin_alpha[n < 2 ? 0 : 1] : std::sin(a);
+          const double ca = params_.accelerated ? cos_alpha[n < 2 ? 0 : 1] : std::cos(a);
+          if (std::atan2(d2 * sa, d1 - d2 * ca) > beta_min) {
             label[nk] = id;
             stack.push_back(static_cast<int>(nk));
           }
@@ -284,6 +332,7 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
   // Curvature along the row; points behind an occluder are unreliable.
   const int hw = params_.curvature_half_window;
   std::vector<float> C(static_cast<size_t>(W) * H, std::numeric_limits<float>::quiet_NaN());
+#pragma omp parallel for if(params_.accelerated) schedule(static)
   for (int v = 0; v < H; ++v)
     for (int u = 0; u < W; ++u) {
       const size_t k = at(u, v);
@@ -301,6 +350,7 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
       }
       if (n >= hw && !occluded) C[k] = static_cast<float>(sum / (n * D[k]));
     }
+
 
   // Intensity block thresholds (median per block).
   std::vector<float> block_median(static_cast<size_t>(params_.intensity_blocks_u * params_.intensity_blocks_v), 1.0f);
@@ -452,167 +502,218 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
 // S2S (Alg. 1)
 // ---------------------------------------------------------------------------
 
-int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first) const {
+int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first,
+                             PaperSolverTrace* trace) const {
   const Index& prev = *prev_;
   const double gate = params_.s2s_gate_sq;
   const double huber = params_.huber;
   std::vector<int> idx;
   std::vector<float> d2;
   int pairs = 0;
+  if (trace) trace->stop = params_.s2s_iterations > 0 ? PaperSolverStop::IterationLimit : PaperSolverStop::NoIterations;
   for (int it = 0; it < params_.s2s_iterations; ++it) {
     System sys;
+    sys.track_residual = trace != nullptr;
     auto cs = [&](int c) { return first && it == 0 ? &first->cls[c] : nullptr; };
     const Eigen::Matrix3d R = T->block<3, 3>(0, 0);
     const Eigen::Vector3d t = T->block<3, 1>(0, 3);
-    // Edges (eq. 11): q_j closest, q_m closest on an adjacent scan line.
-    for (const auto& f : curr.edge) {
-      const Eigen::Vector3d x = R * f.p + t;
-      const int n = prev.edge.knn(x, 10, &idx, &d2);
-      if (n < 2 || d2[0] > gate) continue;
-      const PaperFeature& qj = prev.edge.pts[static_cast<size_t>(idx[0])];
+    auto edge = [&](const PaperFeature&, const Eigen::Vector3d& x, Eigen::Vector3d* a,
+                    double* residual, std::vector<int>* indices, std::vector<float>* distances) {
+      const int n = prev.edge.knn(x, 10, indices, distances);
+      const auto& ids = *indices;
+      const auto& ds = *distances;
+      if (n < 2 || ds[0] > gate) return false;
+      const PaperFeature& qj = prev.edge.pts[static_cast<size_t>(ids[0])];
       int m = -1;
-      for (int k = 1; k < n && d2[static_cast<size_t>(k)] <= gate; ++k) {
-        const int dr = std::abs(prev.edge.pts[static_cast<size_t>(idx[static_cast<size_t>(k)])].row - qj.row);
-        if (dr >= 1 && dr <= 2) { m = idx[static_cast<size_t>(k)]; break; }
+      for (int k = 1; k < n && ds[static_cast<size_t>(k)] <= gate; ++k) {
+        const int dr = std::abs(prev.edge.pts[static_cast<size_t>(ids[static_cast<size_t>(k)])].row - qj.row);
+        if (dr >= 1 && dr <= 2) { m = ids[static_cast<size_t>(k)]; break; }
       }
-      if (m < 0) continue;
+      if (m < 0) return false;
       const Eigen::Vector3d dir = qj.p - prev.edge.pts[static_cast<size_t>(m)].p;
-      if (dir.norm() < 1e-3) continue;
+      if (dir.norm() < 1e-3) return false;
       const Eigen::Vector3d v = dir.normalized(), d = x - qj.p;
       const Eigen::Vector3d perp = d - v * v.dot(d);
       const double r = perp.norm();
-      if (r < 1e-9) continue;
-      sys.add(x, perp / r, r, huber, cs(0));
-    }
+      if (r < 1e-9) return false;
+      *a = perp / r;
+      *residual = r;
+      return true;
+    };
+    accumulateFeatures(curr.edge, R, t, edge, huber, params_.accelerated, &sys, cs(0), &idx, &d2);
+    int counts[4];
+    counts[0] = sys.n;
     // Planes (eq. 12): q_j closest, q_n same scan line, q_m adjacent line.
     for (int cls = 0; cls < 2; ++cls) {
+      const int before = sys.n;
       const auto& src = cls == 0 ? curr.ground : curr.facade;
       const Tree& tree = cls == 0 ? prev.ground : prev.facade;
-      for (const auto& f : src) {
-        const Eigen::Vector3d x = R * f.p + t;
-        const int n = tree.knn(x, 10, &idx, &d2);
-        if (n < 3 || d2[0] > gate) continue;
-        const PaperFeature& qj = tree.pts[static_cast<size_t>(idx[0])];
+      auto plane = [&](const PaperFeature&, const Eigen::Vector3d& x, Eigen::Vector3d* a,
+                       double* residual, std::vector<int>* indices, std::vector<float>* distances) {
+        const int n = tree.knn(x, 10, indices, distances);
+        const auto& ids = *indices;
+        const auto& ds = *distances;
+        if (n < 3 || ds[0] > gate) return false;
+        const PaperFeature& qj = tree.pts[static_cast<size_t>(ids[0])];
         int same = -1, adj = -1;
-        for (int k = 1; k < n && d2[static_cast<size_t>(k)] <= gate; ++k) {
-          const int dr = std::abs(tree.pts[static_cast<size_t>(idx[static_cast<size_t>(k)])].row - qj.row);
-          if (dr == 0 && same < 0) same = idx[static_cast<size_t>(k)];
-          if (dr >= 1 && dr <= 2 && adj < 0) adj = idx[static_cast<size_t>(k)];
+        for (int k = 1; k < n && ds[static_cast<size_t>(k)] <= gate; ++k) {
+          const int dr = std::abs(tree.pts[static_cast<size_t>(ids[static_cast<size_t>(k)])].row - qj.row);
+          if (dr == 0 && same < 0) same = ids[static_cast<size_t>(k)];
+          if (dr >= 1 && dr <= 2 && adj < 0) adj = ids[static_cast<size_t>(k)];
         }
-        if (same < 0 || adj < 0) continue;
+        if (same < 0 || adj < 0) return false;
         Eigen::Vector3d nrm = (qj.p - tree.pts[static_cast<size_t>(adj)].p)
-                                  .cross(qj.p - tree.pts[static_cast<size_t>(same)].p);
-        if (nrm.norm() < 1e-6) continue;
+                    .cross(qj.p - tree.pts[static_cast<size_t>(same)].p);
+        if (nrm.norm() < 1e-6) return false;
         nrm.normalize();
-        sys.add(x, nrm, nrm.dot(x - qj.p), huber, cs(1 + cls));
-      }
+        *a = nrm;
+        *residual = nrm.dot(x - qj.p);
+        return true;
+      };
+      accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2);
+      counts[1 + cls] = sys.n - before;
     }
-    // Reflectors (eq. 7) against the previous scan's intensity field.
+    // Reflectors (eq. 7) against the previous scan intensity field.
+    const int before_intensity = sys.n;
     if (params_.use_intensity) {
-      for (const auto& f : curr.reflector) {
-        const Eigen::Vector3d x = R * f.p + t;
+      auto intensity = [&](const PaperFeature& f, const Eigen::Vector3d& x, Eigen::Vector3d* a,
+                           double* residual, std::vector<int>*, std::vector<float>*) {
         double mu;
         Eigen::Vector3d grad;
-        if (!prev.intensity.eval(x, &mu, &grad)) continue;
+        if (!prev.intensity.eval(x, &mu, &grad)) return false;
         const double w = params_.intensity_weight;
-        sys.add(x, w * grad, w * (mu - f.intensity), huber, cs(3));
-      }
+        *a = w * grad;
+        *residual = w * (mu - f.intensity);
+        return true;
+      };
+      accumulateFeatures(curr.reflector, R, t, intensity, huber, params_.accelerated, &sys, cs(3), &idx, &d2);
     }
     pairs = sys.n;
-    if (sys.n < 30) return sys.n;
+    counts[3] = sys.n - before_intensity;
+    observeSystem(trace, sys, *T, counts);
+    if (sys.n < 30) {
+      if (trace) trace->stop = PaperSolverStop::InsufficientPairs;
+      return sys.n;
+    }
     const Vec6 delta = (sys.H + 1e-6 * Mat6::Identity()).ldlt().solve(-sys.g);
-    if (!delta.allFinite()) return 0;
+    observeStep(trace, delta);
+    if (!delta.allFinite()) {
+      if (trace) trace->stop = PaperSolverStop::NonFiniteStep;
+      return 0;
+    }
     *T = expSe3(delta) * *T;
-    if (delta.norm() < params_.convergence) break;
+    if (delta.norm() < params_.convergence) {
+      if (trace) trace->stop = PaperSolverStop::Converged;
+      break;
+    }
   }
   return pairs;
 }
 
-// ---------------------------------------------------------------------------
-// S2M (Alg. 2)
-// ---------------------------------------------------------------------------
-
 int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4],
-                             ClassSystems* first) const {
+                             ClassSystems* first, PaperSolverTrace* trace) const {
   const Map& map = *map_;
   const double gate = params_.s2m_gate_sq;
   const double huber = params_.huber;
   std::vector<int> idx;
   std::vector<float> d2;
   int pairs = 0;
-  auto pca = [&](const Tree& tree, Eigen::Vector3d* c, Eigen::Matrix3d* vec, Eigen::Vector3d* val) {
+  auto pca = [&](const Tree& tree, const std::vector<int>& ids, Eigen::Vector3d* c,
+                 Eigen::Matrix3d* vec, Eigen::Vector3d* val) {
     *c = Eigen::Vector3d::Zero();
-    for (int k = 0; k < 5; ++k) *c += tree.pts[static_cast<size_t>(idx[static_cast<size_t>(k)])].p;
+    for (int k = 0; k < 5; ++k) *c += tree.pts[static_cast<size_t>(ids[static_cast<size_t>(k)])].p;
     *c /= 5.0;
     Eigen::Matrix3d cov = Eigen::Matrix3d::Zero();
     for (int k = 0; k < 5; ++k) {
-      const Eigen::Vector3d d = tree.pts[static_cast<size_t>(idx[static_cast<size_t>(k)])].p - *c;
+      const Eigen::Vector3d d = tree.pts[static_cast<size_t>(ids[static_cast<size_t>(k)])].p - *c;
       cov += d * d.transpose();
     }
     Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> es(cov / 5.0);
     *vec = es.eigenvectors();
     *val = es.eigenvalues();
   };
+  if (trace) trace->stop = params_.s2m_iterations > 0 ? PaperSolverStop::IterationLimit : PaperSolverStop::NoIterations;
   for (int it = 0; it < params_.s2m_iterations; ++it) {
     System sys;
+    sys.track_residual = trace != nullptr;
     auto cs = [&](int c) { return first && it == 0 ? &first->cls[c] : nullptr; };
     const Eigen::Matrix3d R = T->block<3, 3>(0, 0);
     const Eigen::Vector3d t = T->block<3, 1>(0, 3);
-    for (const auto& f : curr.edge) {
-      const Eigen::Vector3d x = R * f.p + t;
-      if (map.local_edge.knn(x, 5, &idx, &d2) < 5 || d2[4] > gate) continue;
+    auto edge = [&](const PaperFeature&, const Eigen::Vector3d& x, Eigen::Vector3d* a,
+                    double* residual, std::vector<int>* indices, std::vector<float>* distances) {
+      if (map.local_edge.knn(x, 5, indices, distances) < 5 || (*distances)[4] > gate) return false;
       Eigen::Vector3d c, val;
       Eigen::Matrix3d vec;
-      pca(map.local_edge, &c, &vec, &val);
-      if (val(2) < 3.0 * val(1)) continue;
+      pca(map.local_edge, *indices, &c, &vec, &val);
+      if (val(2) < 3.0 * val(1)) return false;
       const Eigen::Vector3d v = vec.col(2), d = x - c;
       const Eigen::Vector3d perp = d - v * v.dot(d);
       const double r = perp.norm();
-      if (r < 1e-9) continue;
-      sys.add(x, perp / r, r, huber, cs(0));
-    }
+      if (r < 1e-9) return false;
+      *a = perp / r;
+      *residual = r;
+      return true;
+    };
+    accumulateFeatures(curr.edge, R, t, edge, huber, params_.accelerated, &sys, cs(0), &idx, &d2);
     int counts[4];
     counts[0] = sys.n;
     for (int cls = 0; cls < 2; ++cls) {
       const auto& src = cls == 0 ? curr.ground : curr.facade;
       const Tree& tree = cls == 0 ? map.local_ground : map.local_facade;
       const int before = sys.n;
-      for (const auto& f : src) {
-        const Eigen::Vector3d x = R * f.p + t;
-        if (tree.knn(x, 5, &idx, &d2) < 5 || d2[4] > gate) continue;
+      auto plane = [&](const PaperFeature&, const Eigen::Vector3d& x, Eigen::Vector3d* a,
+                       double* residual, std::vector<int>* indices, std::vector<float>* distances) {
+        if (tree.knn(x, 5, indices, distances) < 5 || (*distances)[4] > gate) return false;
         Eigen::Vector3d c, val;
         Eigen::Matrix3d vec;
-        pca(tree, &c, &vec, &val);
+        pca(tree, *indices, &c, &vec, &val);
         const Eigen::Vector3d nrm = vec.col(0);
         bool planar = true;
         for (int k = 0; k < 5 && planar; ++k)
-          planar = std::abs(nrm.dot(tree.pts[static_cast<size_t>(idx[static_cast<size_t>(k)])].p - c)) <
+          planar = std::abs(nrm.dot(tree.pts[static_cast<size_t>((*indices)[static_cast<size_t>(k)])].p - c)) <
                    params_.s2m_plane_max_dist;
-        if (!planar || val(1) < params_.s2m_plane_min_spread * val(2)) continue;
-        sys.add(x, nrm, nrm.dot(x - c), huber, cs(1 + cls));
-      }
+        if (!planar || val(1) < params_.s2m_plane_min_spread * val(2)) return false;
+        *a = nrm;
+        *residual = nrm.dot(x - c);
+        return true;
+      };
+      accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2);
       counts[1 + cls] = sys.n - before;
     }
     const int before_intensity = sys.n;
     if (params_.use_intensity) {
-      for (const auto& f : curr.reflector) {
-        const Eigen::Vector3d x = R * f.p + t;
+      auto intensity = [&](const PaperFeature& f, const Eigen::Vector3d& x, Eigen::Vector3d* a,
+                           double* residual, std::vector<int>*, std::vector<float>*) {
         double mu;
         Eigen::Vector3d grad;
-        if (!map.local_intensity.eval(x, &mu, &grad)) continue;
+        if (!map.local_intensity.eval(x, &mu, &grad)) return false;
         const double w = params_.intensity_weight;
-        sys.add(x, w * grad, w * (mu - f.intensity), huber, cs(3));
-      }
+        *a = w * grad;
+        *residual = w * (mu - f.intensity);
+        return true;
+      };
+      accumulateFeatures(curr.reflector, R, t, intensity, huber, params_.accelerated, &sys, cs(3), &idx, &d2);
     }
     pairs = sys.n;
     counts[3] = sys.n - before_intensity;
     if (class_pairs)
       for (int k = 0; k < 4; ++k) class_pairs[k] = counts[k];
-    if (sys.n < 30) return sys.n;
+    observeSystem(trace, sys, *T, counts);
+    if (sys.n < 30) {
+      if (trace) trace->stop = PaperSolverStop::InsufficientPairs;
+      return sys.n;
+    }
     const Vec6 delta = (sys.H + 1e-6 * Mat6::Identity()).ldlt().solve(-sys.g);
-    if (!delta.allFinite()) return 0;
+    observeStep(trace, delta);
+    if (!delta.allFinite()) {
+      if (trace) trace->stop = PaperSolverStop::NonFiniteStep;
+      return 0;
+    }
     *T = expSe3(delta) * *T;
-    if (delta.norm() < params_.convergence) break;
+    if (delta.norm() < params_.convergence) {
+      if (trace) trace->stop = PaperSolverStop::Converged;
+      break;
+    }
   }
   return pairs;
 }
@@ -695,7 +796,14 @@ void InTenLoamPaper::insert(const PaperFrame& curr, const Eigen::Matrix4d& T_w,
 
 InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>& points,
                                              const std::vector<float>& intensity,
-                                             InTenLoamPaperDiagnostics* diag) {
+                                             InTenLoamPaperDiagnostics* diag,
+                                             InTenLoamPaperTrace* trace) {
+  if (trace && diag && diag->forced_pose)
+    throw std::invalid_argument("Passive InTEn trace cannot be combined with forced_pose");
+  if (trace) {
+    *trace = InTenLoamPaperTrace{};
+    trace->frame_index = frame_;
+  }
   InTenLoamPaperResult result;
   std::vector<Eigen::Vector3d> deskewed;
   if (params_.deskew != 0 && frame_ > 1) {
@@ -722,17 +830,28 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     ix->facade.pts = f.facade;
     ix->edge.pts = f.edge;
     ix->all.pts = f.all;
-    ix->ground.build();
-    ix->facade.build();
-    ix->edge.build();
-    ix->all.build();
-    if (params_.use_intensity) ix->intensity.build(f.all, params_.intensity_knot);
-    return ix;
+    // all.pts is rendered by DOR, never searched. The legacy path also
+    // builds its tree; the opt-in path avoids that unused index entirely.
+#pragma omp parallel sections if(params_.accelerated)
+    {
+#pragma omp section
+      { ix->ground.build(params_.accelerated); }
+#pragma omp section
+      { ix->facade.build(params_.accelerated); }
+#pragma omp section
+      { ix->edge.build(params_.accelerated); }
+#pragma omp section
+      {
+        if (!params_.accelerated) ix->all.build();
+        if (params_.use_intensity) ix->intensity.build(f.all, params_.intensity_knot);
+      }
+    }
+      return ix;
   };
   // Local map around `center` from the voxel grids (TVF output).
   auto buildLocal = [&](const Eigen::Vector3d& center) {
     const double r2 = params_.map_radius * params_.map_radius;
-    auto fill = [&](const Map::Grid& grid, Tree* tree) {
+    auto fill = [&](const Map::Grid& grid, Tree* tree, bool build_tree) {
       tree->pts.clear();
       for (const auto& kv : grid) {
         const TemporalVoxel& v = kv.second;
@@ -747,13 +866,17 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
         f.intensity = n > 0 ? static_cast<float>(s / n) : v.intensity.back().second;
         tree->pts.push_back(f);
       }
-      tree->build();
+      if (build_tree) tree->build(params_.accelerated);
     };
-    fill(map_->edge, &map_->local_edge);
-    fill(map_->ground, &map_->local_ground);
-    fill(map_->facade, &map_->local_facade);
-    fill(map_->reflector, &map_->local_reflector);
-    if (params_.use_intensity) map_->local_intensity.build(map_->local_reflector.pts, params_.intensity_knot);
+    const Map::Grid* grids[] = {&map_->edge, &map_->ground, &map_->facade, &map_->reflector};
+    Tree* trees[] = {&map_->local_edge, &map_->local_ground, &map_->local_facade, &map_->local_reflector};
+#pragma omp parallel for if(params_.accelerated) schedule(static)
+    for (int c = 0; c < 4; ++c) {
+      // Reflector positions feed the spline grid, never a nearest-neighbour
+      // query. Retain exactly the original voxel-iteration order and values.
+      fill(*grids[c], trees[c], !params_.accelerated || c != 3);
+    }
+      if (params_.use_intensity) map_->local_intensity.build(map_->local_reflector.pts, params_.intensity_knot);
   };
 
   const bool forced = diag && diag->forced_pose;
@@ -769,6 +892,10 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     prev_ = index(frame);
     ++frame_;
     result.pose = pose_;
+    if (trace) {
+      trace->initialization = true;
+      trace->pose = pose_;
+    }
     return result;
   }
 
@@ -785,12 +912,25 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     rel = prev_pose_.inverse() * *diag->forced_pose;
     result.s2s_pairs = cs.cls[0].n + cs.cls[1].n + cs.cls[2].n + cs.cls[3].n;
   } else {
-    result.s2s_pairs = solveS2S(frame, &rel);
+    if (trace) {
+      trace->s2s.called = true;
+      trace->s2s.input = rel;
+    }
+    result.s2s_pairs = solveS2S(frame, &rel, nullptr, trace ? &trace->s2s : nullptr);
+    if (trace) {
+      trace->s2s.output = rel;
+      trace->s2s.returned_pairs = result.s2s_pairs;
+      trace->s2s_fallback = result.s2s_pairs < 30;
+    }
     if (result.s2s_pairs < 30) rel = last_rel_;
   }
   last_rel_ = rel;
   odom_ = odom_ * rel;
   pose_ = drift_ * odom_;
+  if (trace) {
+    trace->accepted_relative = rel;
+    trace->s2m_prediction = pose_;
+  }
 
   if (params_.use_mapping && frame_ % std::max(1, params_.s2m_interval) == 0) {
     buildLocal(pose_.block<3, 1>(0, 3));
@@ -805,7 +945,16 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
       }
       T = *diag->forced_pose;
     } else {
-      result.s2m_pairs = solveS2M(frame, &T, result.s2m_class_pairs);
+      if (trace) {
+        trace->s2m.called = true;
+        trace->s2m.input = T;
+      }
+      result.s2m_pairs = solveS2M(frame, &T, result.s2m_class_pairs, nullptr, trace ? &trace->s2m : nullptr);
+      if (trace) {
+        trace->s2m.output = T;
+        trace->s2m.returned_pairs = result.s2m_pairs;
+        trace->s2m_accepted = result.s2m_pairs >= 30;
+      }
     }
     if (result.s2m_pairs >= 30) {
       pose_ = T;
@@ -835,6 +984,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
   prev_pose_ = pose_;
   ++frame_;
   result.pose = pose_;
+  if (trace) trace->pose = pose_;
   return result;
 }
 

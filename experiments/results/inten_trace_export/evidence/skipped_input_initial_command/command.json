@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_trace_export/validate_skipped_input.py",
+    "--candidate-binary",
+    "/workspace/localization-env/inten-trace-export/focused_build/pcd_dogfooding",
+    "--output-dir",
+    "/workspace/localization-env/inten-trace-export/skipped_input_run"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-export/worktree",
+  "exit_code": 1,
+  "started_unix": 1792306436.2931964,
+  "finished_unix": 1792306437.3245676
+}

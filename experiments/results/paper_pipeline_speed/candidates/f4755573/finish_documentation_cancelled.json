@@ -1,0 +1,6 @@
+{
+  "pid": 39662,
+  "signal": "SIGTERM",
+  "time_unix": 1792176390.5566185,
+  "reason": "Stopped only the waiting documentation/cleanup monitor. Full Mesh acceleration is slower; remove that candidate from the shipped flag and retain raw inputs for final release verification. The six measured f4755573 runs and final CPU profiling continue unchanged."
+}

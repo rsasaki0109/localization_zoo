@@ -1,0 +1,32 @@
+{
+  "mesh_loam_accelerated": {
+    "reference": "experiments/results/paper_pipeline_speed/runs/67867d0b_control_short_mesh_loam/poses.txt",
+    "saved_poses_equal": true,
+    "saved_pose_significant_digits": 9,
+    "verification_only": true
+  },
+  "imls_slam_default": {
+    "reference": "experiments/results/paper_pipeline_speed/runs/f4755573_default_short_imls_slam/poses.txt",
+    "saved_poses_equal": true,
+    "saved_pose_significant_digits": 9,
+    "verification_only": true
+  },
+  "imls_slam_accelerated": {
+    "reference": "experiments/results/paper_pipeline_speed/runs/f4755573_accelerated_short_imls_slam/poses.txt",
+    "saved_poses_equal": true,
+    "saved_pose_significant_digits": 9,
+    "verification_only": true
+  },
+  "inten_loam_default": {
+    "reference": "experiments/results/paper_pipeline_speed/runs/f4755573_default_short_inten_loam/poses.txt",
+    "saved_poses_equal": true,
+    "saved_pose_significant_digits": 9,
+    "verification_only": true
+  },
+  "inten_loam_accelerated": {
+    "reference": "experiments/results/paper_pipeline_speed/runs/f4755573_accelerated_short_inten_loam/poses.txt",
+    "saved_poses_equal": true,
+    "saved_pose_significant_digits": 9,
+    "verification_only": true
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-speed/build_screen_final.py"
+  ],
+  "pid": 35529,
+  "started_unix": 1792171914.5907595
+}

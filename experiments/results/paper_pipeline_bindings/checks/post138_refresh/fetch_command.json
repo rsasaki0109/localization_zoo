@@ -1,0 +1,10 @@
+{
+  "command": [
+    "git",
+    "fetch",
+    "origin",
+    "main"
+  ],
+  "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+  "exit_code": 0
+}

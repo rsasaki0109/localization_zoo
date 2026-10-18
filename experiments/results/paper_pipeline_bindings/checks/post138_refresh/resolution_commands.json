@@ -1,0 +1,167 @@
+[
+  {
+    "command": [
+      "git",
+      "checkout",
+      "--theirs",
+      "--",
+      "docs/decisions.md",
+      "docs/experiments.md",
+      "docs/interfaces.md",
+      "docs/paper_assets.md",
+      "docs/paper_captions.md",
+      "docs/paper_comparison.md",
+      "docs/paper_roadmap.md",
+      "docs/paper_tracks.md",
+      "docs/reproduction_status.md",
+      "docs/variant_analysis.md",
+      "experiments/results/index.json"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364556.429109,
+    "finished_unix": 1792364556.8780346,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "add",
+      "--",
+      "docs/decisions.md",
+      "docs/experiments.md",
+      "docs/interfaces.md",
+      "docs/paper_assets.md",
+      "docs/paper_captions.md",
+      "docs/paper_comparison.md",
+      "docs/paper_roadmap.md",
+      "docs/paper_tracks.md",
+      "docs/reproduction_status.md",
+      "docs/variant_analysis.md",
+      "experiments/results/index.json"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364556.8794365,
+    "finished_unix": 1792364556.9684582,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/scripts",
+      "evaluation/CMakeLists.txt",
+      "CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364556.9694297,
+    "finished_unix": 1792364557.001563,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "427cc0d53fb88169e85c639169bed9302409b06c",
+      "--",
+      "python",
+      "ros2",
+      ".github/workflows/ci.yml"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364557.0023289,
+    "finished_unix": 1792364557.032559,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f",
+      "--",
+      "experiments/results/shared_near_range",
+      "experiments/results/inten_support_diagnostics",
+      "tests/test_inten_support_diagnostics.py",
+      "tests/test_shared_near_range*",
+      "papers/aloam/README.md",
+      "papers/ct_icp/README.md",
+      "papers/floam/README.md",
+      "papers/lego_loam/README.md",
+      "papers/mesh_loam/README.md",
+      "papers/vlom/README.md",
+      "papers/inten_loam/README.md"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364557.033029,
+    "finished_unix": 1792364557.068289,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "427cc0d53fb88169e85c639169bed9302409b06c",
+      "--",
+      "experiments/results/paper_pipeline_bindings"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364557.0685894,
+    "finished_unix": 1792364557.0941882,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--cached"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364557.2678368,
+    "finished_unix": 1792364557.589996,
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": [
+      "git",
+      "commit",
+      "-m",
+      "Merge cleaned replay checkpoint main into paper pipeline bindings"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364557.5935922,
+    "finished_unix": 1792364557.7108393,
+    "exit_code": 0,
+    "output": "[codex/paper-pipeline-bindings 9f207266] Merge cleaned replay checkpoint main into paper pipeline bindings\n"
+  },
+  {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792364557.7116103,
+    "finished_unix": 1792364557.7147987,
+    "exit_code": 0,
+    "output": "9f207266a8e7be5197dd7c545c7fc98fdd3fbc41\n"
+  }
+]

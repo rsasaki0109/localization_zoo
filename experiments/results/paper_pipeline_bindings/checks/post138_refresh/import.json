@@ -1,0 +1,163 @@
+[
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/fetch_command.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/fetch_command.json",
+    "source_sha256": "4fa87bb3089170f46db673d72ff2198da9b502781fea0dd5eb6e4ddfcf64ba63",
+    "destination_sha256": "4fa87bb3089170f46db673d72ff2198da9b502781fea0dd5eb6e4ddfcf64ba63",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/fetch.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/fetch.log.gz",
+    "source_sha256": "d60cade5ac70c34d3eea874fd526c3ff396f56405b235ae3b2856b83a3d3db10",
+    "destination_sha256": "57567c03a1ab153ec1c3734caa217405abbfd0c14cd1abd4c4fc4978614f55f3",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/source_before.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/source_before.json",
+    "source_sha256": "3fee3e48077cb13575d8c8550e9360a2c781d7d9eeaa9b0baa0f246733495bc0",
+    "destination_sha256": "3fee3e48077cb13575d8c8550e9360a2c781d7d9eeaa9b0baa0f246733495bc0",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/merge_command.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/merge_command.json",
+    "source_sha256": "7df4bd0eb8376214b65b5dd446f6ffb6b493761b3d887dc2bf6a517ed733f1e0",
+    "destination_sha256": "7df4bd0eb8376214b65b5dd446f6ffb6b493761b3d887dc2bf6a517ed733f1e0",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/merge.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/merge.log.gz",
+    "source_sha256": "cbe34f7a8a4de07ca5f1ea832f00dd1f4d14a774254ef6dc63ef6586da9d90bc",
+    "destination_sha256": "d931e207669224b61aecc72a862a2ab4d64abae4c99c400f477f1ea1f2305e16",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/conflicts.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/conflicts.json",
+    "source_sha256": "76c7143e061b46c6fdc265a24d8ff8c4c2e9e73c20e7f87095889a16dbc0ae80",
+    "destination_sha256": "76c7143e061b46c6fdc265a24d8ff8c4c2e9e73c20e7f87095889a16dbc0ae80",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/resolution_commands.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/resolution_commands.json",
+    "source_sha256": "c481815a8bca05d86a69ff34a0856214761d894bd30a95c5301f1d15d76bcee4",
+    "destination_sha256": "c481815a8bca05d86a69ff34a0856214761d894bd30a95c5301f1d15d76bcee4",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/source.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/source.json",
+    "source_sha256": "6669c8f4267dc161dd24e17a23bd5b8e8aae4ab358b93152425935bcaa04b558",
+    "destination_sha256": "6669c8f4267dc161dd24e17a23bd5b8e8aae4ab358b93152425935bcaa04b558",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/identity.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/identity.json",
+    "source_sha256": "e5166ded2a4707d2d1af9a46d271b6c25691d7cb57505b1e5a6d45cf1651621c",
+    "destination_sha256": "e5166ded2a4707d2d1af9a46d271b6c25691d7cb57505b1e5a6d45cf1651621c",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/validation_command.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/validation_command.json",
+    "source_sha256": "505671ae7310e48d285b8f8c43bc0e203c50ca2023275931bc4c1bb857458e0e",
+    "destination_sha256": "505671ae7310e48d285b8f8c43bc0e203c50ca2023275931bc4c1bb857458e0e",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/validation.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/validation.log.gz",
+    "source_sha256": "668d8d5d8f9b8897294295aa3050e004c0eb6817a6ab0af59aebc13c944bf8fc",
+    "destination_sha256": "f5db97d8839f5b22cdf9a4c056a4929c5bc883ad0c9d89b536c2873cbbe7e0ae",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/commands.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/commands.json",
+    "source_sha256": "71da17e91d36eed2bcf908fced02748eec0900e088252f5246f3a0435e4b5834",
+    "destination_sha256": "71da17e91d36eed2bcf908fced02748eec0900e088252f5246f3a0435e4b5834",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/exit.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/exit.json",
+    "source_sha256": "6677172da01186c9ae75fc3408e420dc4104f5c82e9bfa6a47a50d6938a028be",
+    "destination_sha256": "6677172da01186c9ae75fc3408e420dc4104f5c82e9bfa6a47a50d6938a028be",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/generate_full_variant_table.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/generate_full_variant_table.log.gz",
+    "source_sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc",
+    "destination_sha256": "c1eaaa90d87b4d1b5ac36b77258f3db36209d0fec798d0bb521b91e6d01b08b5",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/generate_leaderboard.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/generate_leaderboard.log.gz",
+    "source_sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+    "destination_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/generate_paper_ratio_table.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/generate_paper_ratio_table.log.gz",
+    "source_sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+    "destination_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/generate_paper_ready_evidence.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/generate_paper_ready_evidence.log.gz",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/native_core_identity.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/native_core_identity.log.gz",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/preservation.json",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/preservation.json",
+    "source_sha256": "2dd89789cb6001b4a9783d45cd4e9984348061596e1f9baecf1c3429b0f00e92",
+    "destination_sha256": "2dd89789cb6001b4a9783d45cd4e9984348061596e1f9baecf1c3429b0f00e92",
+    "gzip_original_verified": null
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/python_unittest.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/python_unittest.log.gz",
+    "source_sha256": "62d29b7e8707adcfcba0896f71b783932cf675ab5cb389f023b418ade1156ce8",
+    "destination_sha256": "06680962b1af6a0c280f3ea08b59adac5c4ca9bed7b60511cccf176e23af8bf9",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/refresh_study_docs.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/refresh_study_docs.log.gz",
+    "source_sha256": "0c755cdfca379b4e496f301b49acb75ad1f05873e014731acd44adf024dc0d72",
+    "destination_sha256": "8644cdf72ae47e978a0aab0f9bd8d2b423dc6e31b384fb0408cb750a05b3b7ef",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/validate_showcase.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/validate_showcase.log.gz",
+    "source_sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+    "destination_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/paper-bindings/post138_refresh/docs/whitespace.log",
+    "destination": "experiments/results/paper_pipeline_bindings/checks/post138_refresh/docs/whitespace.log.gz",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "gzip_original_verified": true
+  }
+]

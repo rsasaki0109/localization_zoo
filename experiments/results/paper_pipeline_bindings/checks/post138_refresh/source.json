@@ -1,0 +1,6 @@
+{
+  "main": "17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f",
+  "previous_bindings_head": "427cc0d53fb88169e85c639169bed9302409b06c",
+  "integration_source": "9f207266a8e7be5197dd7c545c7fc98fdd3fbc41",
+  "conflict_resolution": "Generated document/index conflicts take main here; required generators run in subsequent validation. Roadmap auto-merge retains both current replay and binding entries."
+}

@@ -1,0 +1,8 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-speed/gate_full_v3.py"
+  ],
+  "pid": 32192,
+  "started_unix": 1792171024.5122752
+}

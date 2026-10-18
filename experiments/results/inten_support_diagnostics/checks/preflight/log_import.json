@@ -1,0 +1,23 @@
+[
+  {
+    "source": "/workspace/localization-env/inten-support/parser_tests_preflight.log",
+    "archived": "experiments/results/inten_support_diagnostics/checks/preflight/parser_tests_preflight.log.gz",
+    "original_sha256": "fe008aab760eb03ccac7578e2b84665b1b50b0d7f855b17a0c7a8d039435b658",
+    "gzip_sha256": "eaeea4c4972ff6d29267b0ffada8e9a7867fd65643625fbe10e506dc30832a6e",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-support/whitespace_preflight.log",
+    "archived": "experiments/results/inten_support_diagnostics/checks/preflight/whitespace_preflight.log.gz",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-support/analysis.log",
+    "archived": "experiments/results/inten_support_diagnostics/checks/preflight/analysis.log.gz",
+    "original_sha256": "6eeaea63ed8e03fa4f9143edbe9159e9f8233b62b4fd7548c57d83d566450ed5",
+    "gzip_sha256": "2fd05c3b0993c6084977339e82aac1f4c63d2f44cc4589b8fc6d503d005aa8ed",
+    "lossless_verified": true
+  }
+]

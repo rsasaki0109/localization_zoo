@@ -1,0 +1,157 @@
+{
+  "skipped_input_initial/reference/command.json": {
+    "original_sha256": "ff6d5b0b4582f4be46f7c3642dbe9192740253daf99c69dde3ea796626c5a16b",
+    "stored_sha256": "ff6d5b0b4582f4be46f7c3642dbe9192740253daf99c69dde3ea796626c5a16b",
+    "lossless": true
+  },
+  "skipped_input_initial/reference/native.log.gz": {
+    "original_sha256": "7eb7a82123f8b4f6d2fa7a35cce751db3177c621c14c78e2cd97d96aae47fd06",
+    "stored_sha256": "1291c559e343b59e93125f2805ecff4f2ea4f97c565dd998e28c21e0758458e7",
+    "lossless": true
+  },
+  "skipped_input_initial_command/command.json": {
+    "original_sha256": "cc7e476c70fe6b2bc2b8569d04580ecb8e9df01b6f4e2eed59e4c4c935b53966",
+    "stored_sha256": "cc7e476c70fe6b2bc2b8569d04580ecb8e9df01b6f4e2eed59e4c4c935b53966",
+    "lossless": true
+  },
+  "skipped_input_initial_command/failure.json": {
+    "original_sha256": "ec5df4a5a3ddfef5ac8dfcfc88b094f1b38c088f8b4af90a4f0adfc32a29600d",
+    "stored_sha256": "ec5df4a5a3ddfef5ac8dfcfc88b094f1b38c088f8b4af90a4f0adfc32a29600d",
+    "lossless": true
+  },
+  "skipped_input_initial_command/validate_as_executed.py": {
+    "original_sha256": "c167bd70f4afc5248d2d86909687f412cec6f89458cdd25cb69834a2bc7e156a",
+    "stored_sha256": "c167bd70f4afc5248d2d86909687f412cec6f89458cdd25cb69834a2bc7e156a",
+    "lossless": true
+  },
+  "skipped_input_initial_command/validation.log.gz": {
+    "original_sha256": "56f8cd75480626906a244c50826cf91982a554a422157b86d9d56f84189cbd51",
+    "stored_sha256": "12150c59bebb833e7a9de5d6dfeaad4abcc1306adb1384c523ec6c488f8be48b",
+    "lossless": true
+  },
+  "skipped_input/candidate_off/command.json": {
+    "original_sha256": "52efdf0b63bb06f36df1a7bb403124708eac8869d4e9641ace43895a8b160b56",
+    "stored_sha256": "52efdf0b63bb06f36df1a7bb403124708eac8869d4e9641ace43895a8b160b56",
+    "lossless": true
+  },
+  "skipped_input/candidate_off/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "81575258098947355257b212873c6b4fca53ff6ac45acf650f1605024c547987",
+    "stored_sha256": "81575258098947355257b212873c6b4fca53ff6ac45acf650f1605024c547987",
+    "lossless": true
+  },
+  "skipped_input/candidate_off/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "skipped_input/candidate_off/dogfooding_results/input_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "skipped_input/candidate_off/dogfooding_results/input_evaluation_manifest.json": {
+    "original_sha256": "f126eb287fd5c9abcba5ff1d238b98f06816e81383ce8cc9df16494b457e17be",
+    "stored_sha256": "f126eb287fd5c9abcba5ff1d238b98f06816e81383ce8cc9df16494b457e17be",
+    "lossless": true
+  },
+  "skipped_input/candidate_off/native.log.gz": {
+    "original_sha256": "d32e2a67acb06f996ad374b6a43a49d95a9a9466ae9f6ef5ceb888c5017ee832",
+    "stored_sha256": "f72da3aa14c70d6e65ef888a4f15271a49bf9e6485a023c1c4c5860e841e4222",
+    "lossless": true
+  },
+  "skipped_input/candidate_off/summary.json": {
+    "original_sha256": "f126eb287fd5c9abcba5ff1d238b98f06816e81383ce8cc9df16494b457e17be",
+    "stored_sha256": "f126eb287fd5c9abcba5ff1d238b98f06816e81383ce8cc9df16494b457e17be",
+    "lossless": true
+  },
+  "skipped_input/candidate_on/command.json": {
+    "original_sha256": "11c69619c5b0f24ade19033cd5abdb3d541db1539c12f822b784fbd9d97e07d8",
+    "stored_sha256": "11c69619c5b0f24ade19033cd5abdb3d541db1539c12f822b784fbd9d97e07d8",
+    "lossless": true
+  },
+  "skipped_input/candidate_on/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "81575258098947355257b212873c6b4fca53ff6ac45acf650f1605024c547987",
+    "stored_sha256": "81575258098947355257b212873c6b4fca53ff6ac45acf650f1605024c547987",
+    "lossless": true
+  },
+  "skipped_input/candidate_on/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "skipped_input/candidate_on/dogfooding_results/input_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "skipped_input/candidate_on/dogfooding_results/input_evaluation_manifest.json": {
+    "original_sha256": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+    "stored_sha256": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+    "lossless": true
+  },
+  "skipped_input/candidate_on/native.log.gz": {
+    "original_sha256": "4a759b8d2e1c30569f7c51f5bfa6296472736f0f56976409381bf75ab55cdbac",
+    "stored_sha256": "9c36454dc752ab3640affcfc0def1b8249202f1f0bacb8cc949388cf2ef34366",
+    "lossless": true
+  },
+  "skipped_input/candidate_on/summary.json": {
+    "original_sha256": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+    "stored_sha256": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+    "lossless": true
+  },
+  "skipped_input/candidate_on/trace.jsonl": {
+    "original_sha256": "a2d18b826bba502c63791bbf4118263a076caee50c066893a8fb51e973aac6ff",
+    "stored_sha256": "a2d18b826bba502c63791bbf4118263a076caee50c066893a8fb51e973aac6ff",
+    "lossless": true
+  },
+  "skipped_input/reference/command.json": {
+    "original_sha256": "deb4a5899be76b4993eef74cc82475d800ce620696ac0cecf1cdac70f0d43592",
+    "stored_sha256": "deb4a5899be76b4993eef74cc82475d800ce620696ac0cecf1cdac70f0d43592",
+    "lossless": true
+  },
+  "skipped_input/reference/dogfooding_results/InTEn_LOAM.txt": {
+    "original_sha256": "81575258098947355257b212873c6b4fca53ff6ac45acf650f1605024c547987",
+    "stored_sha256": "81575258098947355257b212873c6b4fca53ff6ac45acf650f1605024c547987",
+    "lossless": true
+  },
+  "skipped_input/reference/dogfooding_results/gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "skipped_input/reference/dogfooding_results/input_evaluated_gt.txt": {
+    "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+    "lossless": true
+  },
+  "skipped_input/reference/dogfooding_results/input_evaluation_manifest.json": {
+    "original_sha256": "8976c72d726b9399c829c645c9451fa3e52fe3248e9a0771fac87150d70fcd9a",
+    "stored_sha256": "8976c72d726b9399c829c645c9451fa3e52fe3248e9a0771fac87150d70fcd9a",
+    "lossless": true
+  },
+  "skipped_input/reference/native.log.gz": {
+    "original_sha256": "17a32aba33d2d114f55ebbc45cb3ebac2252e396cc6ef6333e6e4be5459f2f1f",
+    "stored_sha256": "038266a3e4b0b211cbb835a6695fed63ae3745b9334a7112c7f704d09c67241c",
+    "lossless": true
+  },
+  "skipped_input/reference/summary.json": {
+    "original_sha256": "8976c72d726b9399c829c645c9451fa3e52fe3248e9a0771fac87150d70fcd9a",
+    "stored_sha256": "8976c72d726b9399c829c645c9451fa3e52fe3248e9a0771fac87150d70fcd9a",
+    "lossless": true
+  },
+  "skipped_input/summary.json": {
+    "original_sha256": "f6a065dbe7b703c8125c4f42746dfead2a6eead264d1edbf77439134f7c808ed",
+    "stored_sha256": "f6a065dbe7b703c8125c4f42746dfead2a6eead264d1edbf77439134f7c808ed",
+    "lossless": true
+  },
+  "skipped_input_command/command.json": {
+    "original_sha256": "5c3753a781598632c4b65dcf8b7a97c91755576c10ab55fad4ac78787483e83c",
+    "stored_sha256": "5c3753a781598632c4b65dcf8b7a97c91755576c10ab55fad4ac78787483e83c",
+    "lossless": true
+  },
+  "skipped_input_command/validation.log.gz": {
+    "original_sha256": "95b7527d71f98f7921e3181a65330ef45900d3f9a671f110561247a63e12d1b5",
+    "stored_sha256": "164e5f3035de1ba1df030130eca165bf518db147d547118f027e66af3ac906e6",
+    "lossless": true
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "base_speed": "90909876abdd1146ad3da7f203f30d64436291db",
+  "source_commit": "82678117fd7491b15f5c0c91f215c60c3e147d11",
+  "imls_expected_rewrite_matches": true,
+  "imls_path": "papers/imls_slam/src/imls_paper_odometry.cpp",
+  "imls_old_sha256": "235578382c74e4d3d4173f5ba83ef1dcdd5b0b2627adad3e0cf6897e62ef3106",
+  "imls_new_sha256": "412f1b65fd11a0faebda2406bed9d3b973aa5cbb7c8817a85b61d14eda7cfd85",
+  "imls_removed_block": "  if (frame_ <= params_.coarse_frames && params_.coarse_iterations > 0) {\n    iterate(points, lists, params_.coarse_r, params_.coarse_h, params_.coarse_iterations, false, &T);\n    result.coarse_start = true;\n  }\n  result.samples = iterate(points, lists, params_.r, params_.h, params_.iterations, false, &T);",
+  "imls_replacement_block": "  result.samples = registration::initialCoarseThenFine(\n      frame_, params_.coarse_frames, params_.coarse_iterations,\n      [&](int iterations) { iterate(points, lists, params_.coarse_r, params_.coarse_h, iterations, false, &T); },\n      [&]() { return iterate(points, lists, params_.r, params_.h, params_.iterations, false, &T); },\n      &result.coarse_start);",
+  "imls_added_include": "common/initial_registration.h",
+  "other_checks": [
+    {
+      "label": "inten_unchanged_vs_old_speed",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "90909876",
+        "--",
+        "papers/inten_loam/src",
+        "papers/inten_loam/include",
+        "papers/inten_loam/test",
+        "papers/inten_loam/CMakeLists.txt"
+      ],
+      "cwd": "/workspace/localization-env/paper-speed/main_refresh_worktree",
+      "exit_code": 0
+    },
+    {
+      "label": "mesh_native_unchanged_vs_main",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "7505a291",
+        "--",
+        "papers/mesh_loam/src",
+        "papers/mesh_loam/include",
+        "papers/mesh_loam/test",
+        "papers/mesh_loam/CMakeLists.txt"
+      ],
+      "cwd": "/workspace/localization-env/paper-speed/main_refresh_worktree",
+      "exit_code": 0
+    },
+    {
+      "label": "common_unchanged_vs_main",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "7505a291",
+        "--",
+        "common"
+      ],
+      "cwd": "/workspace/localization-env/paper-speed/main_refresh_worktree",
+      "exit_code": 0
+    }
+  ],
+  "scope": "Source merge review only; fixture and CTest checks establish the separately recorded behavior. No binary identity or speed equivalence claim."
+}

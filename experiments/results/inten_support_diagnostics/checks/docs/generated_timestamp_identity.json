@@ -1,0 +1,57 @@
+{
+  "docs/decisions.md": {
+    "base_sha256": "e82de239237820c2a443d14970b4135e9e0295c1e03ba23ecdf841cba6b369f9",
+    "current_sha256": "19245e6a602676670bb69471a1bd20f07b067c8486708ad1cc8c8913e9d4effa",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/experiments.md": {
+    "base_sha256": "f7fdd7a5bf2ec59cca6e9d0ff5c46a8bcc1e781145e2c98b013e6aa361ed0c15",
+    "current_sha256": "37a425789d6a987b5e9dbd00cea59192cc3821ac05379329ea4cbff269648161",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/interfaces.md": {
+    "base_sha256": "0c96695b97ade3ea772fe403310646c39fb2c3fd69a433d1253bb7d99853fdb1",
+    "current_sha256": "d7055cf3a05a04a71870b2c1b59ed1729e1337f0727da4aa895051cf7e8c6b82",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/paper_assets.md": {
+    "base_sha256": "622b0f38baa722f8b4061950150b398e8123387be8dd31fc3ab62411fdbd5dba",
+    "current_sha256": "17850cbd92012f9ee8869ea9bd05340292117d4b573b9a726cdf064f8254b2d9",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/paper_captions.md": {
+    "base_sha256": "ca8e72430644ae0e74d46bd1add3aa30fb2efff00a17ff09e88b2780f260443a",
+    "current_sha256": "86eddce4c451d81cc1dc6d896b9fb465333e0c24b00bb1866c93f52041990634",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/paper_comparison.md": {
+    "base_sha256": "83643c70c2353fcc02743b53edb40b95985f2ae14c7b70728d42845d589459e1",
+    "current_sha256": "900eb6144de519fa86914ec524eeceaf55bc143093afff056c4fc1a40bda0554",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/paper_roadmap.md": {
+    "base_sha256": "b7e513ec3482885ba2ea56f4d71e04679903243a649835b319a2b635b1265a6f",
+    "current_sha256": "48660bd183673a42ffa3dfdf377c4ac7f9c5f7de9a7491e333d5151242dd78c9",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/paper_tracks.md": {
+    "base_sha256": "0c2dc2ec58a79f65ba9a44c1c9de797aef82f8ae7e68549dcdcfaa44a8b3f109",
+    "current_sha256": "2ac9ca4a3bae9b19a2a9880f515e777fe374c5f822c97b6473cb0f8460470844",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/reproduction_status.md": {
+    "base_sha256": "8a41761f2969232bca92e800e2651f4174816de6727f6e339a5cc320557a9e27",
+    "current_sha256": "c17700c64c224e1723e9e8d3d0f5a86600267b801fee05151c8b7412a087954a",
+    "identical_after_generation_time_normalization": true
+  },
+  "docs/variant_analysis.md": {
+    "base_sha256": "245f8d630bc9b6033075e1929ccf2a517d23915fa039e3583deace39780637bd",
+    "current_sha256": "b79d54fd7cb36a4bd3ec80f169096f2f7d810b751e2a4d439c2fc3fcac8a498d",
+    "identical_after_generation_time_normalization": true
+  },
+  "experiments/results/index.json": {
+    "base_sha256": "6bf118b4722115410d114b3bee219fe7e5d8d0594a7299a1ff5ee89a27302e8b",
+    "current_sha256": "bc4db261a6b32a59fa2ae6099ea094617006723261eceb00a308acffee362e80",
+    "identical_after_generation_time_normalization": true
+  }
+}

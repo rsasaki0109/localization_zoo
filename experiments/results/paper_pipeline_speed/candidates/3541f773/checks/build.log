@@ -1,0 +1,11 @@
+[1/11] Building CXX object papers/imls_slam/CMakeFiles/test_imls_paper_odometry.dir/test/test_imls_paper_odometry.cpp.o
+[2/11] Building CXX object papers/imls_slam/CMakeFiles/imls_slam.dir/src/imls_paper_odometry.cpp.o
+[3/11] Linking CXX static library papers/imls_slam/libimls_slam.a
+[4/11] Linking CXX executable papers/imls_slam/test_imls_slam
+[5/11] Linking CXX executable papers/imls_slam/test_imls_paper_odometry
+[6/11] Building CXX object papers/mesh_loam/CMakeFiles/test_mesh_loam.dir/test/test_mesh_loam.cpp.o
+[7/11] Building CXX object papers/mesh_loam/CMakeFiles/mesh_loam.dir/src/mesh_loam.cpp.o
+[8/11] Linking CXX static library papers/mesh_loam/libmesh_loam.a
+[9/11] Linking CXX executable papers/mesh_loam/test_mesh_loam
+[10/11] Building CXX object evaluation/CMakeFiles/pcd_dogfooding.dir/src/pcd_dogfooding.cpp.o
+[11/11] Linking CXX executable evaluation/pcd_dogfooding

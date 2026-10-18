@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "input_commit": "7505a2914328d53ac9b319d5f8042189b378d457",
+  "variant": "paper_odometry_plane_check",
+  "sequences": ["01", "02", "03", "04", "05", "06", "08", "09", "10"],
+  "focus_sequences": ["01", "02", "10"],
+  "selection": "The nine new fixed-setting executions from mesh_inten_kitti_coverage; focus sequences already exceeded twice their paper values. Historical 00/07 executions are outside this log analysis.",
+  "diagnostic_parameters": {"block_frames": 100, "min_step_m": 0.1, "relative_step_threshold": 0.2},
+  "expected_log_stride": 10,
+  "support_cutoff": 30,
+  "hypotheses": ["S2S replaces the solved relative motion with the previous relative motion when the returned pair count is below 30.", "S2M does not accept its correction when the returned pair count is below 30."],
+  "scope": "Offline join of committed native progress records and saved-pose step errors. No scan access, native replay, parameter selection, method change or new accuracy result. Ground truth labels saved steps only; no oracle initialization.",
+  "limits": "Progress is logged every ten frames. A sampled high-error step can exclude a low-count branch at that frame only. Unlogged frames, earlier fallback, correspondence quality, conditioning and convergence remain unresolved. Large pair counts do not establish observability."
+}

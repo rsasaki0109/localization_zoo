@@ -1,0 +1,15 @@
+{
+  "scope": "Clarify exploratory scope only; same committed analysis and unchanged numeric method/roadmap prose. Required checks remain in commands.json; final-head CI covers this prose clarification.",
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "7505a2914328d53ac9b319d5f8042189b378d457"
+  ],
+  "exit_code": 0,
+  "changed_paths": [
+    "experiments/results/inten_support_diagnostics/README.md",
+    "experiments/results/inten_support_diagnostics/render_docs.py"
+  ],
+  "analysis_summary_sha256": "9c5ac4720cb633868c7ec4b02bc50b2a602940a51fb0a90485401756e26802bb"
+}

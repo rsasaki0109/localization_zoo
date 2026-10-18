@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_support_diagnostics/analyze.py",
+    "--output-dir",
+    "experiments/results/inten_support_diagnostics/analysis"
+  ],
+  "cwd": "/workspace/localization-env/inten-support/worktree",
+  "source_commit": "469b1b3c87a7048426d9ff1d4083536996982bfd",
+  "started_unix": 1792296224.196893,
+  "finished_unix": 1792296231.0303028,
+  "exit_code": 0
+}

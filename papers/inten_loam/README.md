@@ -387,6 +387,37 @@ pose and returns the S2S / S2M estimates from it and the normal equations of
 each feature class there; the window analysis above used it with the
 ground truth.
 
+<!-- INTEN_SUPPORT_DIAGNOSTICS -->
+#### Pair support at the failure steps
+
+An offline join of the committed native progress logs and saved poses covers
+the fixed-setting runs 01-06 and 08-10. In 01, 14
+of the 136 bad-length steps have progress records; their
+minimum returned S2S / S2M pair counts are
+**694 / 1381**.
+In 02, 14 of 133 have
+records, with minima **927 / 1413**.
+None of these sampled bad steps has a count below 30. At those frames the
+code keeps the returned S2S transform without low-count replacement and the
+S2M pose passes its count-based acceptance test. The low-count branches do
+not explain those individual steps; this does not establish solver convergence.
+
+This is a negative check of the low-count hypothesis, not a cause or fix for
+the paper gap. There are still 122 unlogged bad steps
+in 01 and 119 in 02. Their branch decisions and the
+effect of earlier fallback remain unknown. High pair counts also do not
+establish geometric conditioning or correct associations. The solver-level
+cause remains open; settings and stored results are unchanged.
+
+[Protocol, all sequence counts, CSVs, commands and limits](../../experiments/results/inten_support_diagnostics/README.md)
+derive from evidence committed at `283bc86fa939062d80b36057ccca2ce42a891f9c`. No native replay or new
+accuracy measurement is performed.
+For continuous solver observations, use the opt-in
+[passive trace workflow](../../docs/inten_loam_passive_trace.md). Its availability
+does not fill the unlogged frames in this historical analysis; full failure
+tracing and cause attribution remain pending.
+<!-- /INTEN_SUPPORT_DIAGNOSTICS -->
+
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):
@@ -477,3 +508,202 @@ ray-cast street; the B-spline intensity field on a linear ramp; 1 m per scan
 tracked at full scale (also with the 5 cm plane check); ground-truth-placed
 frames with their per-class normal equations; the plane spread check
 against neighbours along one line.
+
+<!-- INTEN_PASSIVE_TRACE -->
+## Optional passive solver trace
+
+The C++ `InTenLoamPaper::process` API accepts an optional fourth argument,
+`InTenLoamPaperTrace*`. It observes the normal S2S/S2M path, accepted poses,
+fallback decisions, iteration normal equations, weighted residual sums and
+stop reasons. This repository analysis tool is outside the paper and off by
+default. Combining it with `forced_pose` throws before estimator state changes;
+the older forced-pose diagnostic remains an intervention.
+
+All 125 CTest entries pass, including moving trace-on/off
+pose and retained-map parity. The default and unchanged 07-selected plane-check
+settings also match the pinned old executable on the committed short MCD
+fixture: all 4 native calls exit 0, available accuracy/frame
+differences are zero and saved poses are byte-identical. Short-fixture KITTI
+segment RTE remains unavailable. Evidence was committed at `ad6010cf1c1cecb5c7012f37d92558126132a83e` before
+this prose. These checks preserve behavior; the full KITTI solver-level cause
+remains open.
+
+The initial whole-suite run exits 8 because an
+unrelated existing test tries to overwrite a root-owned shared temporary file.
+Its failure is retained; the same tests and binaries pass after selecting a
+fresh user-owned `TEST_TMPDIR`. The study documents both attempts.
+
+[API semantics](../../docs/inten_loam_passive_trace.md) and
+[protocol, complete evidence, commands and limits](../../experiments/results/inten_passive_trace/README.md)
+describe the scope. Published results and estimator defaults are unchanged.
+<!-- /INTEN_PASSIVE_TRACE -->
+
+<!-- INTEN_TRACE_EXPORT -->
+## Optional runner trace export
+
+The paper runner accepts `--inten-loam-paper-trace-jsonl NEW.jsonl` with
+`--methods inten_loam --inten-loam-paper-odometry`. It streams the passive
+observations and explicit skipped-input records, with a final traversal
+record. This repository diagnostic is outside the paper and default off.
+It changes no estimator setting, decision or map input.
+
+[Usage, coordinates and incomplete/nonfinite record handling](../../docs/inten_loam_passive_trace.md#streaming-export-from-the-evaluation-runner)
+and the [separate validation record](../../experiments/results/inten_trace_export/README.md)
+describe its scope. On the committed short MCD fixture, all 6 native comparisons exit 0:
+reference, new trace-off and trace-on have zero available metric differences
+and byte-identical poses with both the default and unchanged 07-selected
+plane-check setting. Segment RTE is unavailable. A separate empty-middle-input
+lifecycle check also has identical poses across all 3 calls; its GT timing
+makes accuracy fields unsuitable for interpretation. The initial lifecycle
+attempt exits 1 because its builder omitted timestamps; the corrected builder
+copies the committed timestamps without relaxing association. Evidence was
+committed at `4f235364` / `086d70d0` before these results.
+
+Full failure-sequence tracing and the solver-level cause remain open;
+this export capability is not an accuracy result.
+The separate fresh Release full build and all 126 CTest entries also
+exit 0. [Native evidence](../../experiments/results/inten_trace_export/evidence/full_native/summary.json)
+was committed at `c679dde4837dc097b697f18654c6cc51da0ffa0f` before this statement. The postprocessor's
+initial exit 120, closed-stdout reproduction and regular-file recovery exit 0
+are retained separately; the successful native tests were not rerun.
+<!-- /INTEN_TRACE_EXPORT -->
+
+<!-- INTEN_TRACE_VALIDATION -->
+## Offline trace validation
+
+The manually invoked `evaluation/scripts/check_inten_trace.py` streams a
+saved passive trace with its native summary and command/exit receipt.
+It checks completion, input/call indices, stage/iteration structure and run
+consistency before publishing counters. This analysis tool is outside the
+paper and leaves native code/settings unchanged.
+
+All 9 unit/CLI tests pass with exit 0. All 3 committed normal/lifecycle traces
+validate with exit 0; all 7 explicit synthetic corruptions return exit 1
+and create no report. Evidence was committed at `e27ff091` before these
+numbers. [Results, negative cases and exact commands](../../experiments/results/inten_trace_validation/README.md)
+retain the scope: accuracy, GT indexing, conditioning and solver cause
+require separate evidence. The full failure diagnosis remains open.
+<!-- /INTEN_TRACE_VALIDATION -->
+## Optional execution acceleration
+
+`--paper-pipeline-accelerated` enables repository implementation optimizations
+for `--inten-loam-paper-odometry`. It is not a processing step from the paper and
+is **off by default**. Independent ground fits, image-row stages, tree builds
+and residual queries use OpenMP; constant beam-angle trigonometry is reused.
+Residuals are reduced in the original feature order, including the Huber weights
+and diagnostic class systems. Small-k queries use the same float FLANN single-
+tree index and exact search/result-set parameters as PCL, bypassing its per-query
+allocation and OpenMP wrapper. Nonfinite index data use the PCL path. KD-trees
+used only to hold points for rendering
+or spline construction are omitted; their point data are retained. Feature
+counts, gates, S2S/S2M iterations, TVF and DOR settings are unchanged.
+
+The initial candidate (`fe607199`) took 18.661 s against 45.685 s for the
+frozen baseline on the first 120 KITTI 07 frames (**2.45x**). The changed
+binary's default path took 34.105 s. Both saved trajectories match the control
+exactly. This development-window attempt falls short of the speed target; it
+is not a full-sequence claim. Raw evidence and exact commands were committed in
+`8fe732a7` under
+[`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
+
+A later soft-pause scheduling candidate (`fe03ed88`) took 26.305 s against
+35.078 s for its frozen control (**1.33x**); the changed default took 32.961 s.
+Saved poses still matched. The repeat at `67867d0b` used the same InTEn implementation and produced a
+larger ratio with a much slower control, as the table below shows. Scheduling
+benefit remains uncertain; the final candidate excludes soft-pause calls. These single-window timings vary with the
+host; final speed ratios use a fresh full control immediately before each
+accelerated run. The rejected candidate's raw screening was committed in
+`21935329` under
+[`candidates/fe03ed88/`](../../experiments/results/paper_pipeline_speed/candidates/fe03ed88/).
+
+Repeated development windows (first 120 KITTI 07 frames, four workers,
+profiler disabled; every source and exact command is in the linked evidence):
+
+| Source | Frozen control [s] | Changed default [s] | Opt-in [s] | Control / opt-in |
+|---|---:|---:|---:|---:|
+| `fe607199` | 45.685 | 34.105 | 18.661 | 2.45x |
+| `fe03ed88` | 35.078 | 32.961 | 26.305 | 1.33x |
+| `67867d0b` | 74.308 | 32.637 | 15.464 | 4.81x |
+
+All saved poses agree with the frozen control at the saved precision (nine
+significant digits). Execution time varies substantially, including between
+unchanged method implementations. These windows do not establish the full
+speed target. The primary full comparison uses fresh immediately preceding
+controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
+
+[Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
+and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573.json).
+
+Full KITTI 07 at measured candidate `f4755573` and control `134ead2f`,
+identical selected registration arguments, four OpenMP workers, one method at a
+time on the same recorded host; the profiler is disabled. These times belong
+to those revisions and are not remeasured by the later shared-component integration:
+
+| Execution | Time [s] | FPS | Official RTE [%] | ATE [m] |
+|---|---:|---:|---:|---:|
+| Paired frozen control | 636.65 | 1.729 | 0.364131 | 1.461444 |
+| Opt-in acceleration | 373.48 | 2.948 | 0.364131 | 1.461444 |
+
+Measured speedup: **1.70x**. Maximum translation difference from the
+paired frozen control: 0.000000000 m.
+Pose differences use the saved KITTI matrices (nine significant digits).
+Official RTE agrees to the third decimal.
+
+**Negative result:** this attempt does not meet the roadmap speed target.
+The option remains off by default.
+The roadmap item is still open.
+
+KITTI 07 guided implementation and is not held out. This comparison uses a
+frozen-source full control run immediately before acceleration on the same host
+and thread count. Historical
+Table 6 results retain their original evidence and are not replaced.
+
+## Acceleration integration with shared components
+
+The current-main compatibility evidence, committed in `7619f198`, compares
+frozen main, merged default and merged global-flag modes on the same 3 real
+MCD scans with the historical fixed arguments. Both merged modes have zero
+recorded accuracy/frame differences from main and byte-identical saved poses.
+The acceleration kernels are unchanged; the option stays off by default.
+These short executions check compatibility; they do not establish long-segment
+KITTI RTE or remeasure full-sequence throughput. The speed figures above remain
+tied to their recorded sources. [Commands, binary/input hashes, comparison and
+limits](../../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).
+
+<!-- INTEN_TRACE_EXPORT_ACCELERATION -->
+## Passive export with optional acceleration
+
+The integrated runner records `params.accelerated` in its trace header. All 12
+real-fixture calls exit 0, with zero available metric differences and identical
+saved poses within each default/accelerated registration profile (`2e6d7689`).
+All 7 expected negative CLI exits are retained. The full incremental Release
+build, all 126 CTest entries and four-worker InTEn/serializer checks also exit 0
+(`79cd80a3`). Settings are reused unchanged from KITTI07, with KITTI00 influencing
+the earlier diagnosis. These short checks provide no new speed or long-segment
+accuracy result; the full failure cause remains open.
+[Exact commands, hashes, traces and limits](../../experiments/results/inten_trace_export/integration/README.md).
+<!-- /INTEN_TRACE_EXPORT_ACCELERATION -->
+
+<!-- INTEN_PASSIVE_TRACE_ACCELERATION -->
+## Passive trace and acceleration integration
+
+The source conflict with optional acceleration is resolved while retaining the
+original residual-addition order. All 125 CTest entries pass, and the InTEn entry
+also passes with four workers; every passive lifecycle case runs in both
+execution modes (`7aa83cff`). All 8 short real-fixture native calls exit 0,
+with zero available metric differences and byte-identical saved poses against
+each mode's prior executable (`fb9318f3`). These are compatibility checks;
+long-segment RTE is unavailable, no speed is remeasured, and the full failure
+cause remains open. Defaults and historical numbers are unchanged.
+[Commands, settings provenance, evidence and limits](../../experiments/results/inten_passive_trace/integration/README.md).
+<!-- /INTEN_PASSIVE_TRACE_ACCELERATION -->
+
+<!-- INTEN_TRACE_VALIDATION_ACCELERATION -->
+## Offline validation of accelerated exports
+
+The unchanged reader accepts all 4 committed default/accelerated export tuples
+with exit 0, preserving their input bytes (`b1ef79df`). The original legacy
+corpus and synthetic corruptions remain separate. No estimator or raw scan is
+opened by these checks. [Commands, hashes and limits](../../experiments/results/inten_trace_validation/integration/README.md)
+cover consistency only; full-sequence accuracy and solver cause remain open.
+<!-- /INTEN_TRACE_VALIDATION_ACCELERATION -->

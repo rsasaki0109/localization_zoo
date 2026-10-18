@@ -1,0 +1,28 @@
+{
+  "label": "install_profiler",
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "localization-zoo-dev",
+    "sh",
+    "-c",
+    "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y google-perftools libgoogle-perftools-dev"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792163666.7737753,
+  "finished_unix": 1792163704.8603218,
+  "exit_code": 100,
+  "log": "install_profiler.log"
+}

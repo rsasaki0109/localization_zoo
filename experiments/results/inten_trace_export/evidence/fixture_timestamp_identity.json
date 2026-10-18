@@ -1,0 +1,7 @@
+{
+  "path": "evaluation/fixtures/mcd_kth_smoke/frame_timestamps.csv",
+  "executed_head": "91c5913917a3f3540a60783ef9b2207cdb4fc16d",
+  "sha256": "46e35bcd38a41f27c1db136d4d77e550645921bcd4750210a2bb7fa8e9e9094c",
+  "identical_to_executed_commit": true,
+  "scope": "Supplemental timestamp inventory for the closed real fixture. No native call rerun; original receipt is retained unchanged."
+}

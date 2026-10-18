@@ -358,3 +358,12 @@ completion worker. Unfinished work is excluded from the checkpoint. Historical
 aggregates, paper numbers, Table 6 and defaults are preserved. This replay retains
 its original frozen implementation; current-main acceleration/passive tracing
 and real NCLT validation keep their previously documented scope.
+
+## Checkpoint integration while the frozen replay continues
+
+The committed checkpoint and diagnostics can be integrated using a separate
+worktree while the original replay retains its frozen checkout and executables.
+The running controller and completion worker keep their original files and
+scan ownership. Later completed sequences are follow-up evidence. Recorded
+numerical results retain their original source pins; integrating their documents
+does not re-run them on the current native implementations.

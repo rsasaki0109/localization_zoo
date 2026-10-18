@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/paper-speed/release_final_validation.py", line 14, in <module>
+    if result.returncode:raise SystemExit(result.returncode)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SystemExit: 1

@@ -212,6 +212,25 @@ independent. Each item says what "done" means.
      per-sample work.
    - Done: at least 3x faster, with official RTE on 07 unchanged to the
      third decimal (or every change explained).
+   <!-- PAPER-PIPELINE-SPEED:START -->
+   - Full KITTI 07 experiment: Mesh-LOAM 0.83x, IMLS-SLAM 2.01x, InTEn-LOAM 1.70x.
+     Official RTE agrees to the third decimal; saved matrices match at their
+     recorded precision. **The 3x speed target is not complete.**
+   - Mesh's slower candidate is excluded; its original implementation is
+     retained. IMLS-SLAM and InTEn-LOAM acceleration remains opt-in and default
+     off. Their selected registration arguments are unchanged; 07 is
+     development data. Negative tree, packet-cache and scheduling trials
+     remain in the method READMEs.
+   - Primary ratios use fresh frozen-source full controls immediately before
+     each candidate run, with the profiler disabled and fixed thread counts.
+     [Commands, profiles, comparisons and limits](../experiments/results/paper_pipeline_speed/README.md).
+   - The subsequent shared-component integration preserves the fixed arguments
+     and passes frozen-main/default/flag real-fixture comparisons. These are
+     compatibility checks; the timing ratios above remain attached to the
+     original measured source and have not been remeasured on the merged source.
+     [Integration evidence and limits](../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).
+   <!-- PAPER-PIPELINE-SPEED:END -->
+
 6. **Shared robustness components.** Move the opt-in fixes into `common/`
    so other methods can use them:
    - degenerate-direction remap (DiLO);
@@ -329,8 +348,26 @@ independent. Each item says what "done" means.
     4460-4524. Sequence 10 reaches 2.57x without any moving step exceeding
     20 % length or vector error; its error grows through smaller increments.
     These saved-pose diagnostics locate the failures; the solver-level cause
-    remains open. The plane check and correction were chosen on 07 windows
+    remains open. An [offline log/pose join](../experiments/results/inten_support_diagnostics/README.md)
+    finds 14 logged bad-length steps each in 01 and 02; all have S2S/S2M
+    counts above the low-count cutoff. That excludes low-count fallback at
+    those frames only: 122 / 119 other bad steps are unlogged, and high counts
+    do not establish conditioning or correct associations. No setting is changed.
+    The plane check and correction were chosen on 07 windows
     with 00 influencing the diagnosis, so 00 is not fully held out.
+    An opt-in [passive C++ solver trace](inten_loam_passive_trace.md) now records
+    the normal S2S/S2M stages, fallback and acceptance decisions, normal
+    equations and residuals without a forced pose. Moving synthetic parity
+    and short-fixture compatibility checks preserve the existing behavior;
+    full failure-sequence tracing and the solver-level cause remain open.
+    [Validation evidence and commands](../experiments/results/inten_passive_trace/README.md).
+    The default-off evaluation CLI can also stream the observation records;
+    [export protocol and validation status](../experiments/results/inten_trace_export/README.md)
+    record short-fixture trace-on/off pose parity and explicit skipped-input
+    handling separately from full failure-sequence diagnosis.
+    An [offline streaming checker](../experiments/results/inten_trace_validation/README.md)
+    validates completion, stage structure and native run receipts before
+    analysis; it adds no estimator gate or failure-cause finding.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

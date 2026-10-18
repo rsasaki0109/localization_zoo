@@ -1,0 +1,5 @@
+{
+  "exit_code": 1,
+  "stage": "preflight_before_compilation",
+  "reason": "Host has no container system library /usr/lib/libOpenNI.so; hash link inputs inside the same build container instead. No binary or estimator change."
+}

@@ -1,0 +1,113 @@
+Using local file /workspace/localization-env/paper-speed/f4755573_pcd_dogfooding.
+Argument "MSWin32" isn't numeric in numeric eq (==) at /usr/bin/google-pprof line 5047.
+Argument "linux" isn't numeric in numeric eq (==) at /usr/bin/google-pprof line 5047.
+Using local file /workspace/localization-env/paper-speed/runs/f4755573_profile_accelerated_mesh_loam/cpu.prof.
+Total: 14025 samples
+    6666  47.5%  47.5%     6728  48.0% localization_zoo::mesh_loam::MeshLoamPipeline::solveIcp [clone ._omp_fn.0]
+    1688  12.0%  59.6%     1688  12.0% omp_get_num_procs@@OMP_1.0
+    1092   7.8%  67.4%     1323   9.4% localization_zoo::mesh_loam::MeshLoamPipeline::preprocess [clone ._omp_fn.0]
+     584   4.2%  71.5%      696   5.0% localization_zoo::mesh_loam::MeshLoamPipeline::integrateScan [clone ._omp_fn.0]
+     505   3.6%  75.1%      542   3.9% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh::{lambda#1}::operator
+     485   3.5%  78.6%     1032   7.4% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh [clone ._omp_fn.2]
+     465   3.3%  81.9%      465   3.3% __nss_database_lookup@GLIBC_2.2.5
+     322   2.3%  84.2%     1592  11.4% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh
+     231   1.6%  85.8%      376   2.7% __default_morecore@GLIBC_2.2.5
+     219   1.6%  87.4%      415   3.0% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh [clone ._omp_fn.3]
+     206   1.5%  88.9%      206   1.5% std::__adjust_heap [clone .isra.0]
+     197   1.4%  90.3%      207   1.5% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh [clone ._omp_fn.0]
+     132   0.9%  91.2%      132   0.9% timer_settime@GLIBC_2.2.5
+     117   0.8%  92.0%      128   0.9% localization_zoo::mesh_loam::MeshLoamPipeline::extractMesh [clone ._omp_fn.1]
+     114   0.8%  92.9%      170   1.2% std::__detail::_Map_base::operator[]
+     102   0.7%  93.6%      315   2.2% malloc@@GLIBC_2.2.5
+      85   0.6%  94.2%       85   0.6% read@@GLIBC_2.2.5
+      81   0.6%  94.8%      312   2.2% localization_zoo::mesh_loam::MeshLoamPipeline::integrateScan
+      79   0.6%  95.3%       79   0.6% localization_zoo::mesh_loam::MeshLoamPipeline::pruneMap
+      69   0.5%  95.8%       69   0.5% localization_zoo::mesh_loam::MeshLoamPipeline::FacetBin::expand
+      62   0.4%  96.3%       62   0.4% f64xsubf128@@GLIBC_2.28
+      62   0.4%  96.7%       62   0.4% localization_zoo::mesh_loam::MeshLoamPipeline::FacetBin::normalUpper
+      41   0.3%  97.0%       41   0.3% boost::sort::pdqsort_detail::pdqsort_loop [clone .isra.0]
+      37   0.3%  97.3%      145   1.0% loadKittiBin
+      31   0.2%  97.5%     4083  29.1% localization_zoo::mesh_loam::MeshLoamPipeline::registerFrame
+      27   0.2%  97.7%      396   2.8% localization_zoo::mesh_loam::MeshLoamPipeline::preprocess
+      26   0.2%  97.9%      120   0.9% pcl::VoxelGrid::applyFilter
+      25   0.2%  98.0%     1670  11.9% localization_zoo::mesh_loam::MeshLoamPipeline::solveIcp
+      24   0.2%  98.2%       96   0.7% exp@@GLIBC_2.29
+      24   0.2%  98.4%       24   0.2% std::_Hashtable::find
+      22   0.2%  98.5%       76   0.5% boost::sort::spreadsort::detail::spreadsort_rec
+      20   0.1%  98.7%      199   1.4% free@@GLIBC_2.2.5
+      18   0.1%  98.8%      321   2.3% loadPCD
+      17   0.1%  98.9%       17   0.1% _init
+      16   0.1%  99.0%       32   0.2% std::_Hashtable::_M_erase
+      14   0.1%  99.1%       15   0.1% localization_zoo::mesh_loam::MeshLoamPipeline::FacetBin::buildNormalBounds
+      13   0.1%  99.2%       13   0.1% __lll_lock_wake_private@@GLIBC_PRIVATE
+      13   0.1%  99.3%       13   0.1% std::__introsort_loop [clone .isra.0]
+      10   0.1%  99.4%       10   0.1% GLIBC_2.15
+       9   0.1%  99.5%       10   0.1% std::_Hashtable::_M_rehash@2626a0
+       7   0.0%  99.5%        9   0.1% void applyInputVerticalAngleCorrection
+       6   0.0%  99.6%        6   0.0% brk@@GLIBC_2.2.5
+       6   0.0%  99.6%        6   0.0% std::vector::_M_default_append@260e80
+       4   0.0%  99.6%        4   0.0% operator delete@@CXXABI_1.3.9
+       4   0.0%  99.7%       96   0.7% std::istream::read@@GLIBCXX_3.4
+       4   0.0%  99.7%        7   0.0% std::vector::_M_default_append@fd940
+       4   0.0%  99.7%        4   0.0% std::vector::emplace_back
+       3   0.0%  99.7%        3   0.0% __mprotect@@GLIBC_PRIVATE
+       3   0.0%  99.8%        3   0.0% __munmap@@GLIBC_PRIVATE
+       3   0.0%  99.8%        3   0.0% std::__once_callable@@GLIBCXX_3.4.11
+       3   0.0%  99.8%       91   0.6% std::basic_filebuf::xsgetn@@GLIBCXX_3.4
+       3   0.0%  99.8%        5   0.0% std::vector::_M_default_append@2610a0
+       2   0.0%  99.8%        2   0.0% __lll_lock_wait_private@@GLIBC_PRIVATE
+       2   0.0%  99.9%        2   0.0% fstatat@@GLIBC_2.33
+       2   0.0%  99.9%        2   0.0% hypotf@@GLIBC_2.35
+       2   0.0%  99.9%      305   2.2% operator new@@GLIBCXX_3.4
+       2   0.0%  99.9%        3   0.0% std::_Hashtable::_M_insert_unique_node
+       1   0.0%  99.9%        1   0.0% Eigen::internal::ldlt_inplace::unblocked
+       1   0.0%  99.9%        1   0.0% GOMP_loop_nonmonotonic_dynamic_next@@GOMP_4.5
+       1   0.0%  99.9%        1   0.0% __madvise@@GLIBC_PRIVATE
+       1   0.0%  99.9%        1   0.0% __open_nocancel@@GLIBC_PRIVATE
+       1   0.0%  99.9%        1   0.0% limitPoints
+       1   0.0%  99.9%        1   0.0% nextafterf@@GLIBC_2.2.5
+       1   0.0%  99.9%     9650  68.8% omp_fulfill_event@@OMP_5.0.1
+       1   0.0% 100.0%        1   0.0% omp_get_device_num@@OMP_5.0.2
+       1   0.0% 100.0%        1   0.0% operator delete@@GLIBCXX_3.4
+       1   0.0% 100.0%       12   0.1% pcl::Filter::filter
+       1   0.0% 100.0%       88   0.6% std::basic_streambuf::xsgetn@@GLIBCXX_3.4
+       1   0.0% 100.0%        1   0.0% std::filesystem::__cxx11::path::compare@@GLIBCXX_3.4.26
+       1   0.0% 100.0%        3   0.0% std::filesystem::status@@GLIBCXX_3.4.26@17e810
+       1   0.0% 100.0%        1   0.0% std::istream::sentry::sentry@@GLIBCXX_3.4
+       1   0.0% 100.0%        1   0.0% std::vector::_M_realloc_insert@167280
+       0   0.0% 100.0%     2560  18.3% GOMP_parallel@@GOMP_4.0
+       0   0.0% 100.0%     9601  68.5% __clone@@GLIBC_2.2.5
+       0   0.0% 100.0%     4424  31.5% __libc_init_first@@GLIBC_2.2.5
+       0   0.0% 100.0%     4424  31.5% __libc_start_main@GLIBC_2.2.5
+       0   0.0% 100.0%        6   0.0% __sbrk@@GLIBC_2.2.5
+       0   0.0% 100.0%     4424  31.5% _start
+       0   0.0% 100.0%       76   0.5% boost::sort::spreadsort::detail::integer_sort [clone .isra.0]
+       0   0.0% 100.0%        2   0.0% fopen@@GLIBC_2.2.5
+       0   0.0% 100.0%        1   0.0% listPCDDirs
+       0   0.0% 100.0%     4424  31.5% main
+       0   0.0% 100.0%        1   0.0% parseNonNegativeIntegerBasename
+       0   0.0% 100.0%     9601  68.5% pthread_condattr_setpshared@GLIBC_2.2.5
+       0   0.0% 100.0%        3   0.0% resolvePointCloudPath
+       0   0.0% 100.0%     4422  31.5% runMeshLoam
+       0   0.0% 100.0%        1   0.0% sha256File
+       0   0.0% 100.0%        1   0.0% std::_Hashtable::_M_rehash@262560
+       0   0.0% 100.0%        2   0.0% std::_Hashtable::~_Hashtable
+       0   0.0% 100.0%        2   0.0% std::__basic_file::open@@GLIBCXX_3.4
+       0   0.0% 100.0%       85   0.6% std::__basic_file::xsgetn@@GLIBCXX_3.4
+       0   0.0% 100.0%        1   0.0% std::__unguarded_linear_insert
+       0   0.0% 100.0%        7   0.0% std::basic_filebuf::_M_allocate_internal_buffer@@GLIBCXX_3.4
+       0   0.0% 100.0%        9   0.1% std::basic_filebuf::open@@GLIBCXX_3.4
+       0   0.0% 100.0%       85   0.6% std::basic_filebuf::underflow@@GLIBCXX_3.4
+       0   0.0% 100.0%        9   0.1% std::basic_ifstream::basic_ifstream@@GLIBCXX_3.4
+       0   0.0% 100.0%        2   0.0% std::filesystem::status@@GLIBCXX_3.4.26@17e190
+       0   0.0% 100.0%       12   0.1% std::vector::_M_default_append@109110
+       0   0.0% 100.0%       11   0.1% std::vector::_M_default_append@fcbc0
+       0   0.0% 100.0%        1   0.0% std::vector::_M_realloc_insert@261980
+       0   0.0% 100.0%        1   0.0% std::vector::_M_realloc_insert@fbdf0
+       0   0.0% 100.0%        8   0.1% std::vector::emplace_back [clone .isra.0]
+       0   0.0% 100.0%        5   0.0% std::vector::reserve@1087d0
+       0   0.0% 100.0%        1   0.0% std::vector::reserve@1088b0
+       0   0.0% 100.0%       76   0.5% std::vector::reserve@260990
+       0   0.0% 100.0%        3   0.0% std::vector::reserve@260ac0
+       0   0.0% 100.0%        3   0.0% std::vector::reserve@f56b0
+       0   0.0% 100.0%        6   0.0% std::vector::reserve@f57a0

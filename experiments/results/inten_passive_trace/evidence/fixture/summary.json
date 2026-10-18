@@ -1,0 +1,98 @@
+{
+  "exit_code": 0,
+  "source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+  "recorded_head": "8a639544a4256941ebe8ec8d9ce86437786165e2",
+  "binaries": {
+    "reference": {
+      "path": "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding",
+      "sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d"
+    },
+    "candidate": {
+      "path": "/workspace/localization-env/inten-passive-trace/worktree/build/evaluation/pcd_dogfooding",
+      "sha256": "e34c6294bdd41c5d1efe64b576283511cbe6d12dfb138ae62a5bf84d110b8459"
+    }
+  },
+  "input_sha256": {
+    "evaluation/fixtures/mcd_kth_smoke/00000001/cloud.pcd": "cc8d302c63f04900d13685ad1e17aa9e0cbd6f89702cb4c45aea76d9557de99b",
+    "evaluation/fixtures/mcd_kth_smoke/00000002/cloud.pcd": "91e90a6f487b0877b80dc30275582ed02e326eec506682000a0663fd7ed640e3",
+    "evaluation/fixtures/mcd_kth_smoke/00000000/cloud.pcd": "cc61530bc780bc47ca01a926e488a55b58caeab8ad683c0bbcc416972c569df9",
+    "evaluation/fixtures/mcd_kth_smoke_gt.csv": "c3e35ffa624471c7299fbe99bb905387ea5b9f3f4f86114a41aead3638efd528"
+  },
+  "native_exits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "comparisons": [
+    {
+      "variant": "paper_default",
+      "flags": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry"
+      ],
+      "metric_abs_delta": {
+        "ate_m": 0.0,
+        "rpe_trans_pct": 0.0,
+        "rpe_rot_deg_per_m": 0.0,
+        "frames": 0
+      },
+      "unavailable_metrics": [
+        "kitti_rte_trans_pct",
+        "kitti_rte_rot_deg_per_100m"
+      ],
+      "poses": {
+        "InTEn_LOAM.txt": {
+          "identical": true,
+          "sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+        },
+        "gt.txt": {
+          "identical": true,
+          "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+        },
+        "mcd_kth_smoke_evaluated_gt.txt": {
+          "identical": true,
+          "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+        }
+      }
+    },
+    {
+      "variant": "paper_odometry_plane_check",
+      "flags": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ],
+      "metric_abs_delta": {
+        "ate_m": 0.0,
+        "rpe_trans_pct": 0.0,
+        "rpe_rot_deg_per_m": 0.0,
+        "frames": 0
+      },
+      "unavailable_metrics": [
+        "kitti_rte_trans_pct",
+        "kitti_rte_rot_deg_per_100m"
+      ],
+      "poses": {
+        "InTEn_LOAM.txt": {
+          "identical": true,
+          "sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+        },
+        "gt.txt": {
+          "identical": true,
+          "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+        },
+        "mcd_kth_smoke_evaluated_gt.txt": {
+          "identical": true,
+          "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+        }
+      }
+    }
+  ],
+  "scope": "Compare all available accuracy fields, status, frame count, method and evaluated GT pose bytes against the pinned reference binary. This checks tracing-disabled compatibility; tracing-on parity is checked by multiframe synthetic tests."
+}

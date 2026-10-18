@@ -1,0 +1,7 @@
+{
+  "exit_code": 0,
+  "native_source_commit": "f8ee0b08bb160e6c0be91a240190862278c7ba51",
+  "binary": "/workspace/localization-env/inten-trace-export/focused_build/pcd_dogfooding",
+  "binary_sha256": "6bbeb9e336068ec963076ba53d6091398e7a07b5479c7f48a812ea150b62c864",
+  "scope": "Changed runner only; pinned unchanged PR140 static/system libraries. Separate fresh full CMake build remains in progress."
+}

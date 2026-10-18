@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "base_commit": "7505a2914328d53ac9b319d5f8042189b378d457",
+  "native_source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+  "scope": "Observation API verification, not a KITTI accuracy study or solver-cause finding. All estimator parameters and stored results stay unchanged.",
+  "trace": {
+    "opt_in": "Fourth process argument InTenLoamPaperTrace pointer; nullptr is the default.",
+    "forced_pose_combination": "Rejected before estimator changes.",
+    "observations": "Actual S2S input/output/fallback/accepted relative, S2M prediction/input/output/acceptance, each existing iteration's H, g, update, residual sum, support counts and stop reason.",
+    "residual_definition": "Sum of Huber IRLS weight times squared residual before the update; not the Huber objective or an accuracy score.",
+    "conditioning": "Unregularized H is recorded for downstream analysis; no new condition threshold changes the solver."
+  },
+  "native_unit_checks": "Full Release build and ctest. New synthetic tests cover trace-on/off multiframe moving pose/map/prediction parity; empty-feature fallback/rejection; reset/skipped stages; zero iteration budget; convergence versus iteration limit; rejection of forced pose before state change. Existing forced-pose tests stay active.",
+  "fixture": {
+    "data": "evaluation/fixtures/mcd_kth_smoke",
+    "gt": "evaluation/fixtures/mcd_kth_smoke_gt.csv",
+    "reference_binary": "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding",
+    "reference_binary_source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+    "reference_binary_sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+    "reference_source_identity": "Native tree is identical to base_commit before the trace-only changes.",
+    "variants": ["paper_default", "paper_odometry_plane_check"],
+    "selection": "Default parameters and the existing KITTI 07 selected plane-check manifest, transferred unchanged to this short compatibility fixture; no fixture tuning or speed claim.",
+    "comparison": "Compare all available accuracy fields, status, frame count, method and evaluated GT pose bytes against the pinned reference binary. This checks tracing-disabled compatibility; tracing-on parity is checked by multiframe synthetic tests.",
+    "threads": {"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1"},
+    "raw_scan_fetch": false
+  },
+  "limits": "No original full-sequence scan is read or fetched. No KITTI failure is claimed explained. No CLI export or Python/ROS binding is added in this API change. Nonfinite-step reporting exists, but tests do not inject invalid normal equations into the private solvers."
+}

@@ -1,0 +1,90 @@
+[
+  {
+    "name": "native_source",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "67cb05b24a7566c6cf00415784f36cb03593ea71",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization-env/inten-passive-trace/worktree",
+    "exit_code": 0,
+    "checked_head": "52fd94ea32a68f218552ae1fe9bf9dc2b41ec390",
+    "compiled_source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+    "started_unix": 1792303110.6967022,
+    "finished_unix": 1792303110.7194269
+  },
+  {
+    "name": "reference_source",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "7505a2914328d53ac9b319d5f8042189b378d457",
+      "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization-env/inten-passive-trace/worktree",
+    "exit_code": 0,
+    "checked_head": "52fd94ea32a68f218552ae1fe9bf9dc2b41ec390",
+    "compiled_source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+    "started_unix": 1792303110.720215,
+    "finished_unix": 1792303110.741334
+  },
+  {
+    "name": "main_frozen_source",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "exit_code": 0,
+    "checked_head": "52fd94ea32a68f218552ae1fe9bf9dc2b41ec390",
+    "compiled_source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+    "started_unix": 1792303110.741729,
+    "finished_unix": 1792303110.8435125
+  },
+  {
+    "name": "preservation",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization-env/inten-passive-trace/worktree/experiments/results/inten_passive_trace/verify_preservation.py",
+      "--output",
+      "/workspace/localization-env/inten-passive-trace/final_source_checks/preservation.json"
+    ],
+    "cwd": "/workspace/localization-env/inten-passive-trace/worktree",
+    "exit_code": 0,
+    "checked_head": "52fd94ea32a68f218552ae1fe9bf9dc2b41ec390",
+    "compiled_source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+    "started_unix": 1792303110.8453295,
+    "finished_unix": 1792303111.0461226
+  }
+]

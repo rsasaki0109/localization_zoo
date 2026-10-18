@@ -321,6 +321,12 @@ independent. Each item says what "done" means.
     These saved-pose diagnostics locate the failures; the solver-level cause
     remains open. The plane check and correction were chosen on 07 windows
     with 00 influencing the diagnosis, so 00 is not fully held out.
+    An opt-in [passive C++ solver trace](inten_loam_passive_trace.md) now records
+    the normal S2S/S2M stages, fallback and acceptance decisions, normal
+    equations and residuals without a forced pose. Moving synthetic parity
+    and short-fixture compatibility checks preserve the existing behavior;
+    full failure-sequence tracing and the solver-level cause remain open.
+    [Validation evidence and commands](../experiments/results/inten_passive_trace/README.md).
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

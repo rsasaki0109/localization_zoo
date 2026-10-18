@@ -1,0 +1,21 @@
+{
+  "scope": "Integrate PR132 opt-in acceleration and PR140 passive trace. Compatibility only; no new setting, accuracy or speed claim.",
+  "api_previous_head": "45721068c788392e5070145de346707451d2543c",
+  "integration_base": "5beada3cbae215ceee54450da3085cb90bcffbb5",
+  "native_source_commit": "eb5f0c47cc517f3e8d12d1bd36761f92e546faa0",
+  "reference_binary": "/workspace/localization-env/paper-speed/main_refresh_worktree/build/evaluation/pcd_dogfooding",
+  "reference_sha256": "657b2271c9ccdadef9ebe6dba1d86fbc02ec2a1ed50f1cf2514e8b2e506051f7",
+  "reference_source_commit": "82678117fd7491b15f5c0c91f215c60c3e147d11",
+  "fixture_data": "evaluation/fixtures/mcd_kth_smoke",
+  "fixture_gt": "evaluation/fixtures/mcd_kth_smoke_gt.csv",
+  "registration_profiles": [
+    "paper_default",
+    "paper_odometry_plane_check"
+  ],
+  "execution_modes": [
+    "default",
+    "accelerated"
+  ],
+  "selection_provenance": "Plane-check registration arguments are reused unchanged from the KITTI07 manifest. KITTI00 influenced the original diagnosis. The integration performs no selection and does not access the frozen177 raw scans.",
+  "tests": "Run every existing passive lifecycle case in default/accelerated modes; all CTests with one worker and the InTEn entry with four workers. Compare the prior speed binary with integrated trace-off on the committed fixture in each registration/execution profile. Real trace-on export is checked separately in the CLI follow-up."
+}

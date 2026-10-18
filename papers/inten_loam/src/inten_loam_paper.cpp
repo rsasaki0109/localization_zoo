@@ -7,6 +7,7 @@
 #include <cmath>
 #include <limits>
 #include <numeric>
+#include <stdexcept>
 
 namespace localization_zoo {
 namespace inten_loam {
@@ -32,6 +33,8 @@ struct System {
   Mat6 H = Mat6::Zero();
   Vec6 g = Vec6::Zero();
   int n = 0;
+  bool track_residual = false;
+  double weighted_squared_residual = 0.0;
   void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr) {
     Vec6 J;
     J.head<3>() = a;
@@ -40,6 +43,7 @@ struct System {
     H += w * J * J.transpose();
     g += w * J * r;
     ++n;
+    if (track_residual) weighted_squared_residual += w * r * r;
     if (also) {
       also->H += w * J * J.transpose();
       also->g += w * J * r;
@@ -47,6 +51,28 @@ struct System {
     }
   }
 };
+
+void observeSystem(PaperSolverTrace* trace, const System& sys,
+                   const Eigen::Matrix4d& T, const int counts[4]) {
+  if (!trace) return;
+  trace->iterations.emplace_back();
+  auto& iteration = trace->iterations.back();
+  iteration.linearization_pose = T;
+  iteration.H = sys.H;
+  iteration.g = sys.g;
+  iteration.pairs = sys.n;
+  iteration.weighted_squared_residual = sys.weighted_squared_residual;
+  for (int c = 0; c < 4; ++c) iteration.class_pairs[c] = counts[c];
+}
+
+void observeStep(PaperSolverTrace* trace, const Vec6& delta) {
+  if (!trace) return;
+  auto& iteration = trace->iterations.back();
+  iteration.delta = delta;
+  iteration.step_attempted = true;
+  iteration.step_finite = delta.allFinite();
+  iteration.update_applied = iteration.step_finite;
+}
 
 // Querying immutable trees/fields is independent for every feature. Buffer the
 // results before the serial reduction so Huber weighting, class diagnostics and
@@ -476,15 +502,18 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
 // S2S (Alg. 1)
 // ---------------------------------------------------------------------------
 
-int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first) const {
+int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first,
+                             PaperSolverTrace* trace) const {
   const Index& prev = *prev_;
   const double gate = params_.s2s_gate_sq;
   const double huber = params_.huber;
   std::vector<int> idx;
   std::vector<float> d2;
   int pairs = 0;
+  if (trace) trace->stop = params_.s2s_iterations > 0 ? PaperSolverStop::IterationLimit : PaperSolverStop::NoIterations;
   for (int it = 0; it < params_.s2s_iterations; ++it) {
     System sys;
+    sys.track_residual = trace != nullptr;
     auto cs = [&](int c) { return first && it == 0 ? &first->cls[c] : nullptr; };
     const Eigen::Matrix3d R = T->block<3, 3>(0, 0);
     const Eigen::Vector3d t = T->block<3, 1>(0, 3);
@@ -512,7 +541,11 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
       return true;
     };
     accumulateFeatures(curr.edge, R, t, edge, huber, params_.accelerated, &sys, cs(0), &idx, &d2);
+    int counts[4];
+    counts[0] = sys.n;
+    // Planes (eq. 12): q_j closest, q_n same scan line, q_m adjacent line.
     for (int cls = 0; cls < 2; ++cls) {
+      const int before = sys.n;
       const auto& src = cls == 0 ? curr.ground : curr.facade;
       const Tree& tree = cls == 0 ? prev.ground : prev.facade;
       auto plane = [&](const PaperFeature&, const Eigen::Vector3d& x, Eigen::Vector3d* a,
@@ -538,7 +571,10 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
         return true;
       };
       accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2);
+      counts[1 + cls] = sys.n - before;
     }
+    // Reflectors (eq. 7) against the previous scan intensity field.
+    const int before_intensity = sys.n;
     if (params_.use_intensity) {
       auto intensity = [&](const PaperFeature& f, const Eigen::Vector3d& x, Eigen::Vector3d* a,
                            double* residual, std::vector<int>*, std::vector<float>*) {
@@ -553,17 +589,29 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
       accumulateFeatures(curr.reflector, R, t, intensity, huber, params_.accelerated, &sys, cs(3), &idx, &d2);
     }
     pairs = sys.n;
-    if (sys.n < 30) return sys.n;
+    counts[3] = sys.n - before_intensity;
+    observeSystem(trace, sys, *T, counts);
+    if (sys.n < 30) {
+      if (trace) trace->stop = PaperSolverStop::InsufficientPairs;
+      return sys.n;
+    }
     const Vec6 delta = (sys.H + 1e-6 * Mat6::Identity()).ldlt().solve(-sys.g);
-    if (!delta.allFinite()) return 0;
+    observeStep(trace, delta);
+    if (!delta.allFinite()) {
+      if (trace) trace->stop = PaperSolverStop::NonFiniteStep;
+      return 0;
+    }
     *T = expSe3(delta) * *T;
-    if (delta.norm() < params_.convergence) break;
+    if (delta.norm() < params_.convergence) {
+      if (trace) trace->stop = PaperSolverStop::Converged;
+      break;
+    }
   }
   return pairs;
 }
 
 int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4],
-                             ClassSystems* first) const {
+                             ClassSystems* first, PaperSolverTrace* trace) const {
   const Map& map = *map_;
   const double gate = params_.s2m_gate_sq;
   const double huber = params_.huber;
@@ -584,8 +632,10 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int cla
     *vec = es.eigenvectors();
     *val = es.eigenvalues();
   };
+  if (trace) trace->stop = params_.s2m_iterations > 0 ? PaperSolverStop::IterationLimit : PaperSolverStop::NoIterations;
   for (int it = 0; it < params_.s2m_iterations; ++it) {
     System sys;
+    sys.track_residual = trace != nullptr;
     auto cs = [&](int c) { return first && it == 0 ? &first->cls[c] : nullptr; };
     const Eigen::Matrix3d R = T->block<3, 3>(0, 0);
     const Eigen::Vector3d t = T->block<3, 1>(0, 3);
@@ -648,11 +698,22 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int cla
     counts[3] = sys.n - before_intensity;
     if (class_pairs)
       for (int k = 0; k < 4; ++k) class_pairs[k] = counts[k];
-    if (sys.n < 30) return sys.n;
+    observeSystem(trace, sys, *T, counts);
+    if (sys.n < 30) {
+      if (trace) trace->stop = PaperSolverStop::InsufficientPairs;
+      return sys.n;
+    }
     const Vec6 delta = (sys.H + 1e-6 * Mat6::Identity()).ldlt().solve(-sys.g);
-    if (!delta.allFinite()) return 0;
+    observeStep(trace, delta);
+    if (!delta.allFinite()) {
+      if (trace) trace->stop = PaperSolverStop::NonFiniteStep;
+      return 0;
+    }
     *T = expSe3(delta) * *T;
-    if (delta.norm() < params_.convergence) break;
+    if (delta.norm() < params_.convergence) {
+      if (trace) trace->stop = PaperSolverStop::Converged;
+      break;
+    }
   }
   return pairs;
 }
@@ -735,7 +796,14 @@ void InTenLoamPaper::insert(const PaperFrame& curr, const Eigen::Matrix4d& T_w,
 
 InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>& points,
                                              const std::vector<float>& intensity,
-                                             InTenLoamPaperDiagnostics* diag) {
+                                             InTenLoamPaperDiagnostics* diag,
+                                             InTenLoamPaperTrace* trace) {
+  if (trace && diag && diag->forced_pose)
+    throw std::invalid_argument("Passive InTEn trace cannot be combined with forced_pose");
+  if (trace) {
+    *trace = InTenLoamPaperTrace{};
+    trace->frame_index = frame_;
+  }
   InTenLoamPaperResult result;
   std::vector<Eigen::Vector3d> deskewed;
   if (params_.deskew != 0 && frame_ > 1) {
@@ -824,6 +892,10 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     prev_ = index(frame);
     ++frame_;
     result.pose = pose_;
+    if (trace) {
+      trace->initialization = true;
+      trace->pose = pose_;
+    }
     return result;
   }
 
@@ -840,12 +912,25 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     rel = prev_pose_.inverse() * *diag->forced_pose;
     result.s2s_pairs = cs.cls[0].n + cs.cls[1].n + cs.cls[2].n + cs.cls[3].n;
   } else {
-    result.s2s_pairs = solveS2S(frame, &rel);
+    if (trace) {
+      trace->s2s.called = true;
+      trace->s2s.input = rel;
+    }
+    result.s2s_pairs = solveS2S(frame, &rel, nullptr, trace ? &trace->s2s : nullptr);
+    if (trace) {
+      trace->s2s.output = rel;
+      trace->s2s.returned_pairs = result.s2s_pairs;
+      trace->s2s_fallback = result.s2s_pairs < 30;
+    }
     if (result.s2s_pairs < 30) rel = last_rel_;
   }
   last_rel_ = rel;
   odom_ = odom_ * rel;
   pose_ = drift_ * odom_;
+  if (trace) {
+    trace->accepted_relative = rel;
+    trace->s2m_prediction = pose_;
+  }
 
   if (params_.use_mapping && frame_ % std::max(1, params_.s2m_interval) == 0) {
     buildLocal(pose_.block<3, 1>(0, 3));
@@ -860,7 +945,16 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
       }
       T = *diag->forced_pose;
     } else {
-      result.s2m_pairs = solveS2M(frame, &T, result.s2m_class_pairs);
+      if (trace) {
+        trace->s2m.called = true;
+        trace->s2m.input = T;
+      }
+      result.s2m_pairs = solveS2M(frame, &T, result.s2m_class_pairs, nullptr, trace ? &trace->s2m : nullptr);
+      if (trace) {
+        trace->s2m.output = T;
+        trace->s2m.returned_pairs = result.s2m_pairs;
+        trace->s2m_accepted = result.s2m_pairs >= 30;
+      }
     }
     if (result.s2m_pairs >= 30) {
       pose_ = T;
@@ -890,6 +984,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
   prev_pose_ = pose_;
   ++frame_;
   result.pose = pose_;
+  if (trace) trace->pose = pose_;
   return result;
 }
 

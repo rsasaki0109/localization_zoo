@@ -88,3 +88,9 @@ determine success.
 This C++ API change adds no command-line exporter or Python/ROS binding.
 Further diagnosis needs continuous full-sequence traces using the unchanged
 selected settings and a separate controlled interpretation of their records.
+
+## Integration with optional acceleration
+
+The later [integration record](integration/README.md) preserves the original
+study above and adds compatibility evidence for the combined speed/API source.
+Both registration and execution profiles are identified explicitly.

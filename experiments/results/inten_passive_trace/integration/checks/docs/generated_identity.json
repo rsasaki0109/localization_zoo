@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "path": "docs/decisions.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/experiments.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/interfaces.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/paper_assets.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/paper_captions.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/paper_comparison.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/paper_roadmap.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/paper_tracks.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/reproduction_status.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "docs/variant_analysis.md",
+      "identical_except_generation_timestamp": true
+    },
+    {
+      "path": "experiments/results/index.json",
+      "identical_except_generation_timestamp": true
+    }
+  ],
+  "exit_code": 0
+}

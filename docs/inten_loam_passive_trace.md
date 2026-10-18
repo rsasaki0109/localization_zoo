@@ -89,3 +89,17 @@ short-fixture compatibility do not establish that cause or replace a full
 sequence replay.
 
 [Committed validation results and exact commands](../experiments/results/inten_passive_trace/README.md) retain the native tests, compatibility comparison and their scope.
+
+## Compatibility with optional acceleration
+
+The API also supports `InTenLoamPaperParams::accelerated = true` from the optional
+speed implementation. Observation happens after residual queries and their
+ordered serial reduction; it adds no parallel write to H/g or the trace buffer.
+Both options keep their default off/null settings. Rebuild compiled clients
+after integrating these API/parameter changes.
+
+All 125 CTest entries and a four-worker InTEn check pass; all 8 real-fixture
+compatibility calls exit 0, with identical saved poses within each execution
+mode. Evidence was committed at `7aa83cff` / `fb9318f3` before this statement.
+[Protocol, exact commands and limits](../experiments/results/inten_passive_trace/integration/README.md)
+separate these checks from the pending full-sequence failure diagnosis.

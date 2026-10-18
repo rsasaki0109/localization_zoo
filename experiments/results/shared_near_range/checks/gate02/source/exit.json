@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "checked_checkout_commit": "12cd5c7d8ab2d95c53398e49035d37c6e4f65f2a",
+  "phase": "source",
+  "scope": "Diagnosis source/gates only; no completed02 dataset coverage claim."
+}

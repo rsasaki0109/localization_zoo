@@ -1,0 +1,6 @@
+{
+  "exit_code": 2,
+  "expected_rejection": true,
+  "output_exists": false,
+  "scope": "Command checks committed evidence only; no live scan is read."
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check",
+    "origin/main"
+  ],
+  "cwd": "/workspace/localization-env/paper-speed/main_refresh_worktree",
+  "exit_code": 2
+}

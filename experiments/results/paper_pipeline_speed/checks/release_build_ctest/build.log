@@ -1,0 +1,6 @@
+[1/6] Building CXX object papers/mesh_loam/CMakeFiles/test_mesh_loam.dir/test/test_mesh_loam.cpp.o
+[2/6] Building CXX object papers/mesh_loam/CMakeFiles/mesh_loam.dir/src/mesh_loam.cpp.o
+[3/6] Linking CXX static library papers/mesh_loam/libmesh_loam.a
+[4/6] Linking CXX executable papers/mesh_loam/test_mesh_loam
+[5/6] Building CXX object evaluation/CMakeFiles/pcd_dogfooding.dir/src/pcd_dogfooding.cpp.o
+[6/6] Linking CXX executable evaluation/pcd_dogfooding

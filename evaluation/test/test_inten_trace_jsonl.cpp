@@ -34,9 +34,14 @@ TEST(InTenTraceJsonl, RecordsEffectiveSettingsAndSkippedInput) {
   InTenLoamPaperParams p;
   p.s2m_plane_max_dist = 0.05;
   p.use_mapping = false;
+  p.accelerated = true;
   const auto line = trace::header(p, {"runner", "space and \"quote\""}, 3, 5, 80, 0.2,
                                   Eigen::Matrix4d::Identity(), Eigen::Matrix4d::Identity());
   EXPECT_NE(line.find("\"use_mapping\":false"), std::string::npos);
+  EXPECT_NE(line.find("\"accelerated\":true"), std::string::npos);
+  const auto defaults = trace::header(InTenLoamPaperParams{}, {}, 0, 0, 0, 0,
+                                      Eigen::Matrix4d::Identity(), Eigen::Matrix4d::Identity());
+  EXPECT_NE(defaults.find("\"accelerated\":false"), std::string::npos);
   EXPECT_NE(line.find("\"min_range_m\":5"), std::string::npos);
   EXPECT_NE(line.find("space and \\\"quote\\\""), std::string::npos);
   EXPECT_NE(trace::skipped(2, "empty/cloud.pcd").find("\"reason\":\"empty_cloud\""), std::string::npos);

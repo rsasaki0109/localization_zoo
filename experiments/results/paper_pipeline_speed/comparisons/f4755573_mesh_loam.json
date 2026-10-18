@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "baseline_source_commit": "134ead2f21a4611ec328a45aa543b31428d6b92c",
+  "accelerated_source_commit": "f47555735c94d43d6f8e1554ee7bf50be77ac159",
+  "threads": 4,
+  "development_sequence": "KITTI07, including the first120 profiling/screening frames; full07 is not heldout",
+  "saved_pose_significant_digits": 9,
+  "profiler_used_for_speed_comparison": false,
+  "primary_speed_reference": "Frozen-source full control immediately before each accelerated method; earlier baseline retained separately due host timing variation",
+  "historical_aggregates_unchanged": 688,
+  "paper_reference_data_unchanged": true,
+  "methods": {
+    "mesh_loam": {
+      "earlier_baseline_time_ms": 1417882.832772,
+      "earlier_baseline_to_paired_time_ratio": 1.216470145803423,
+      "paired_control_saved_poses_match_earlier_baseline": true,
+      "variant": "paper_odometry_elevation",
+      "args": [
+        "--no-gt-seed",
+        "--mesh-loam-paper-odometry",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "frames": 1101,
+      "baseline": {
+        "name": "Mesh-LOAM",
+        "status": "ok",
+        "ate_m": 0.8558,
+        "rpe_trans_pct": 0.470846,
+        "rpe_rot_deg_per_m": 0.002766,
+        "kitti_rte_trans_pct": 0.341905,
+        "kitti_rte_rot_deg_per_100m": 0.199754,
+        "frames": 1101,
+        "time_ms": 1165571.417978,
+        "fps": 0.944601,
+        "algorithm_time_ms": null,
+        "algorithm_fps": null,
+        "seed_fallback_rate_pct": null,
+        "note": "Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.025"
+      },
+      "accelerated": {
+        "name": "Mesh-LOAM",
+        "status": "ok",
+        "ate_m": 0.8558,
+        "rpe_trans_pct": 0.470846,
+        "rpe_rot_deg_per_m": 0.002766,
+        "kitti_rte_trans_pct": 0.341905,
+        "kitti_rte_rot_deg_per_100m": 0.199754,
+        "frames": 1101,
+        "time_ms": 1397594.537678,
+        "fps": 0.787782,
+        "algorithm_time_ms": null,
+        "algorithm_fps": null,
+        "seed_fallback_rate_pct": null,
+        "note": "Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.025; repository acceleration enabled (opt-in, not in the paper)"
+      },
+      "speedup": 0.8339839535395657,
+      "speed_goal_3x": false,
+      "rte_equal_to_three_decimals": true,
+      "rte_delta_percentage_points": 0.0,
+      "pose_matrix_max_abs_delta": 0.0,
+      "max_translation_delta_m": 0.0,
+      "final_translation_delta_m": 0.0,
+      "historical_committed_rte_pct": 0.341813,
+      "receipts": [
+        "experiments/results/paper_pipeline_speed/runs/f4755573_control_full_mesh_loam/command.json",
+        "experiments/results/paper_pipeline_speed/runs/f4755573_accelerated_full_mesh_loam/command.json"
+      ]
+    }
+  },
+  "complete_method_set": false,
+  "all_speed_goals_reached": false,
+  "all_rte_equal_to_three_decimals": true
+}

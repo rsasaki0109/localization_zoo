@@ -1,0 +1,139 @@
+{
+  "commit": "9112e6a5b62466e2a509e015607438decb873c00",
+  "binary": "/workspace/localization-env/shared-remap/baseline_pcd_dogfooding",
+  "sha256": "a75d8c5b42e8b021ba3afbe63708a2bca26b776253d100acdda94c87f179b0e2",
+  "selected_cells": [
+    {
+      "method": "DiLO",
+      "sequence": "00",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "01",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "02",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "03",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "04",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "05",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "06",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "07",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "08",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "09",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "10",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "00",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "01",
+      "repo_best_variant": "paper_odometry_clean_lookup_elevation",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "02",
+      "repo_best_variant": "paper_odometry_clean_lookup_elevation",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "03",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_03_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "04",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "05",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "06",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_06_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "07",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_07_full_elevation_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "08",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "09",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_09_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "10",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_10_full_paper_matrix.json"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "gh",
+    "api",
+    "repos/rsasaki0109/localization_zoo/pulls/137",
+    "--jq",
+    "{number,draft,head_sha:.head.sha,base:.base.ref}"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "exit_code": 1,
+  "stderr": "Get \"https://api.github.com/repos/rsasaki0109/localization_zoo/pulls/137\": Forbidden",
+  "scope": "Actual read-only CLI probe failed; no credentials or policy were changed. The completion worker prepares a PR body file; the connected GitHub tool handles metadata and exact-head CI review."
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/checkpoint04/normalize_csv.py"
+  ],
+  "input_sha256": "8ec61c322856779bb97da79f9533791a435c649edefc9714c5d2efa3293e3eff",
+  "output_sha256": "136309c550255037f27c320d6d355db5975ecbe1d0460e14e4342909c8ef7820",
+  "rows_and_fields_unchanged": true,
+  "reason": "Staged whitespace check rejected default CSV CRLF; native replay data and JSON unchanged.",
+  "exit_code": 0
+}

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python3",
+    "evaluation/scripts/audit_kitti_drift.py",
+    "--list"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "exit_code": 0
+}

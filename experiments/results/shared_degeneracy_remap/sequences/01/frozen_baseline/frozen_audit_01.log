@@ -1,0 +1,3 @@
+[audit] DiLO 01 paper_odometry_degenerate: ok
+[audit] SuMa 01 paper_odometry_clean_lookup_elevation: ok
+[done] 0 drifted, 0 failed of 2 cells; exit 0; wrote /workspace/localization-env/shared-remap/frozen_audit_01.json

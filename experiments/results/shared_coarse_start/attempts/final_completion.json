@@ -1,0 +1,106 @@
+{
+  "exit_code": 0,
+  "completed": [
+    "04",
+    "01",
+    "00",
+    "02",
+    "03",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "controller_launch_receipts": {
+    "initial_launch.json": {
+      "pid": 66143,
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "started_unix": 1792209178.7059226,
+      "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+      "controller_checkout_commit": "cb3c90b80d8ddfbff6a0070b2020b8e4b2ee01f2",
+      "scope": "Fixed coarse-stage settings on full00-10, affectedIMLS/SuMaaudit22. One sequence of scans at a time. Defaults unchanged; no speed or paper-ratio claim."
+    },
+    "resume_00_launch.json": {
+      "pid": 69018,
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+        "--resume-from",
+        "00"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "started_unix": 1792212336.858304,
+      "controller_checkout_commit": "7e96e429a0055d8498b06ae68c0ed90621452dd4",
+      "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+      "reason": "Continue official 00 fetch after bounded Range EOF failures; committed04/01 comparisons/cleanup and absence of00nativeartifacts validated read-only.",
+      "scope": "Same frozen native binaries and fixed arguments. Reuse only official CRC-checked completed .bin files; no native partial resume."
+    },
+    "resume_02_launch.json": {
+      "pid": 71540,
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+        "--resume-from",
+        "02"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "started_unix": 1792220380.981646,
+      "controller_checkout_commit": "b70c36ecfe58449ecfacd25ea76d0e2ba844f03d",
+      "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+      "reason": "Continue official02fetch after bounded RangeEOF failures; allcommitted04/01/00 comparison/cleanup checkpoints and absence of02nativeartifacts checked read-only.",
+      "scope": "Same frozen native binaries and fixed arguments. Reuse only official CRC-checked complete files; no native partial resume."
+    },
+    "resume_03_launch.json": {
+      "pid": 73566,
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+        "--resume-from",
+        "03"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "started_unix": 1792226989.638582,
+      "controller_checkout_commit": "d1571872a52ccad97102597f27fcf5a85671f642",
+      "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+      "reason": "Continue official 03 fetch after bounded Range EOF failures; previous committed checkpoints and absence of native artifacts validated read-only.",
+      "scope": "Same frozen native binaries and fixed method arguments. Reuse official CRC-checked complete files only; no native partial resume."
+    },
+    "resume_08_launch.json": {
+      "pid": 76221,
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+        "--resume-from",
+        "08"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "started_unix": 1792235550.6019022,
+      "controller_checkout_commit": "a9e3dcdd0163a0b5fa94fece177213cd1826d817",
+      "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+      "reason": "Continue official 08 fetch after bounded Range EOF failures; previous committed checkpoints and absence of native artifacts validated read-only.",
+      "scope": "Same frozen native binaries and fixed method arguments. Reuse official CRC-checked complete files only; no native partial resume."
+    },
+    "resume_10_launch.json": {
+      "pid": 78289,
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+        "--resume-from",
+        "10"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "started_unix": 1792245301.0021086,
+      "controller_checkout_commit": "0c4a6df28145c46dd263d896a7fd860c2d2a908e",
+      "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+      "reason": "Continue official 10 fetch after bounded Range EOF failures; previous committed checkpoints and absence of native artifacts validated read-only.",
+      "scope": "Same frozen native binaries and fixed method arguments. Reuse official CRC-checked complete files only; no native partial resume."
+    }
+  },
+  "recorded_at_unix": 1792247741.818203
+}

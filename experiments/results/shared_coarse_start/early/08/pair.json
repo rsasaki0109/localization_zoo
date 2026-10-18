@@ -1,0 +1,57 @@
+{
+  "sequence": "08",
+  "source_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "control_summary": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/08/audit/replays/suma_kitti_seq_08_full_transfer_matrix__paper_odometry.json",
+  "candidate_summary": "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_08_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary.json",
+  "control": {
+    "name": "SuMa",
+    "status": "ok",
+    "ate_m": 24.04984,
+    "rpe_trans_pct": 1.295921,
+    "rpe_rot_deg_per_m": 0.005426,
+    "kitti_rte_trans_pct": 1.060143,
+    "kitti_rte_rot_deg_per_100m": 0.362706,
+    "frames": 4071,
+    "time_ms": 1987763.714269,
+    "fps": 2.04803,
+    "algorithm_time_ms": null,
+    "algorithm_fps": null,
+    "seed_fallback_rate_pct": null,
+    "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0"
+  },
+  "candidate": {
+    "name": "SuMa",
+    "status": "ok",
+    "ate_m": 23.007073,
+    "rpe_trans_pct": 1.295711,
+    "rpe_rot_deg_per_m": 0.00534,
+    "kitti_rte_trans_pct": 1.04356,
+    "kitti_rte_rot_deg_per_100m": 0.351406,
+    "frames": 4071,
+    "time_ms": 2025996.047017,
+    "fps": 2.009382,
+    "algorithm_time_ms": null,
+    "algorithm_fps": null,
+    "seed_fallback_rate_pct": null,
+    "note": "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in initial coarse registrations=1 frames=1 distance_scale=5.000000 max_iterations=10 (not in the paper)"
+  },
+  "fixed_arguments": [
+    "--no-gt-seed",
+    "--suma-paper",
+    "--suma-paper-set",
+    "coarse_frames=1",
+    "--suma-paper-set",
+    "coarse_distance_scale=5",
+    "--suma-paper-set",
+    "coarse_iterations=10"
+  ],
+  "prior_raw_control_abs_metric_delta": {
+    "frames": 0,
+    "ate_m": 0.0,
+    "rpe_trans_pct": 0.0,
+    "rpe_rot_deg_per_m": 0.0,
+    "kitti_rte_trans_pct": 0.0,
+    "kitti_rte_rot_deg_per_100m": 0.0
+  },
+  "scope": "Completed full SuMa pair; IMLS audit and input cleanup remain pending. Full all11 report still required."
+}

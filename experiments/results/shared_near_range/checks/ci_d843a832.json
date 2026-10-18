@@ -1,0 +1,24 @@
+{
+  "tool": "github_fetch_workflow_run_jobs",
+  "arguments": {
+    "repo_full_name": "rsasaki0109/localization_zoo",
+    "run_id": 39050877812
+  },
+  "head_sha": "d843a8325ff7140460cde1daf62b0997b644d07e",
+  "url": "https://github.com/rsasaki0109/localization_zoo/actions/runs/39050877812",
+  "jobs": [
+    {
+      "id": 117449025155,
+      "name": "build-and-test",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117449025365,
+      "name": "ros2-colcon-build",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "scope": "CI success at this exact previously pushed head; not full KITTI audit completion or later-head validation."
+}

@@ -1,0 +1,14 @@
+{
+  "implementation_commit": "22994ba9eb34bccd40f71b8a720c98e3e49243b1",
+  "base_commit": "134ead2f21a4611ec328a45aa543b31428d6b92c",
+  "scope": "Audit tooling and exit-code control flow; no full KITTI audit or new method accuracy claim",
+  "native_code_and_loader_changes": false,
+  "fixed_setting_changes": false,
+  "targeted_source_hashes": {
+    "evaluation/scripts/audit_kitti_drift.py": "fca567309b35c15f57a8416791cab659fe8133a3f8a138f0a1ca72fe22fb8248",
+    "evaluation/scripts/rescore_kitti_rte.py": "2f4f752039d040663a2dc1cf576e825e3b6ca2fde8fc8020af71c0d36feca0be",
+    "evaluation/scripts/generate_leaderboard.py": "c183776e65c5c9ae53274a9d0bcce9d8d5fa1ed6071ac2d39be6c2c9f5503895",
+    "tests/test_audit_kitti_drift.py": "ff82ce39a41163ba5c8461609f8832e5700ac3ddfce01dcd8678ac898b2de310"
+  },
+  "targeted_record_note": "Targeted checks ran in the uncommitted worktree immediately before the implementation commit. Listed source hashes equal that commit. Actual commands, logs and exit codes are preserved."
+}

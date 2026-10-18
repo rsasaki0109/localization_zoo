@@ -104,8 +104,11 @@ Done on the full sequence and on scans 550-1100 (the restart after a stop).
   10 000 of 38 000 points within 5 m, where ELO estimates a 3.47 m step for a
   0.27 m one). `--input-min-range-m 5` (a runner flag, applied in the sensor
   frame) takes ELO from 18.1 to 3.4 % and its rotation error from 6.6 to
-  1.5 deg/100 m, leaves KISS-ICP unchanged (1.76 %) and DiLO almost so
-  (7.4 %). SuMa improves on scans 550-1100 (87.5 to 17.9 %, a 3 m cut does
+  1.5 deg/100 m and leaves KISS-ICP unchanged (1.76 %). DiLO's cut-profile
+  summary is 7.4 %, but its recorded height/top-elevation/fill-gap profile
+  also differs from the uncut summary; this is not a controlled cut-only
+  pair. Its ATE worsens from 54.344593 to 75.832748 m. SuMa improves on scans
+  550-1100 (87.5 to 17.9 %, a 3 m cut does
   not: 97 %) but fails on the full run (392 %).
 - **Windows can mislead.** Mesh-LOAM with a 0.2 m map scores 2.05 % on scans
   550-1100 (0.1 m: 15.4 %) and 42.7 % on the full run, where it misses steps

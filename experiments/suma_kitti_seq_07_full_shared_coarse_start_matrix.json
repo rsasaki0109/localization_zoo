@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "suma_kitti_seq_07_full_shared_coarse_start",
+    "title": "SuMa shared initial coarse registration on KITTI 07 full",
+    "question": "Does a fixed initial coarse-to-fine stage derived from the existing IMLS-SLAM choice transfer to SuMa without tuning?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "variants": [
+    {
+      "id": "shared_coarse_start_1x5x10",
+      "label": "SuMa raw paper path + initial coarse registration (1 frame, 5x distance, 10 iterations)",
+      "design_style": "ablation",
+      "intent": "Non-paper opt-in, default off. One initial registration and ten coarse iterations derive from existing IMLS04 calibration; 5x distance multiplier derives from its r=1.0/0.2. Different per-method residuals and stopping rules remain local. No SuMa sweep; historical full KITTI results already known. Experimental evidence only; no published leaderboard/Table6/paper ratio promotion.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "coarse_frames=1",
+        "--suma-paper-set",
+        "coarse_distance_scale=5",
+        "--suma-paper-set",
+        "coarse_iterations=10"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running SuMa...
+  [SuMa paper] 0/271  [SuMa paper] 10/271  [SuMa paper] 20/271  [SuMa paper] 30/271  [SuMa paper] 40/271  [SuMa paper] 50/271  [SuMa paper] 60/271  [SuMa paper] 70/271  [SuMa paper] 80/271  [SuMa paper] 90/271  [SuMa paper] 100/271  [SuMa paper] 110/271  [SuMa paper] 120/271  [SuMa paper] 130/271  [SuMa paper] 140/271  [SuMa paper] 150/271  [SuMa paper] 160/271  [SuMa paper] 170/271  [SuMa paper] 180/271  [SuMa paper] 190/271  [SuMa paper] 200/271  [SuMa paper] 210/271  [SuMa paper] 220/271  [SuMa paper] 230/271  [SuMa paper] 240/271  [SuMa paper] 250/271  [SuMa paper] 260/271  [SuMa paper] 270/271
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+SuMa                    ok          0.974       0.392          271         148369.7       1.8         
+
+Notes:
+- SuMa: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

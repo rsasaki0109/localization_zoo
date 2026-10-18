@@ -101,6 +101,7 @@
 #include "clins/clins.h"
 
 #define PCL_NO_PRECOMPILE
+#include "common/range_filter.h"
 #include <pcl/io/pcd_io.h>
 #include <random>
 #include <unordered_set>
@@ -702,22 +703,9 @@ void applyInputSensorPose(pcl::PointCloud<PointT>* cloud) {
 }
 
 template <typename PointT>
-void applyInputMinRange(pcl::PointCloud<PointT>* cloud) {
-  if (!(g_input_min_range_m > 0.0)) return;
-  const float min_sq = static_cast<float>(g_input_min_range_m * g_input_min_range_m);
-  auto& pts = cloud->points;
-  pts.erase(std::remove_if(pts.begin(), pts.end(), [min_sq](const PointT& p) {
-              return p.x * p.x + p.y * p.y + p.z * p.z < min_sq;
-            }),
-            pts.end());
-  cloud->width = static_cast<std::uint32_t>(pts.size());
-  cloud->height = 1;
-}
-
-template <typename PointT>
 void applyInputVerticalAngleCorrection(pcl::PointCloud<PointT>* cloud) {
   applyInputSensorPose(cloud);
-  applyInputMinRange(cloud);
+  localization_zoo::preprocessing::filterMinRange(*cloud, g_input_min_range_m);
   const double angle = g_input_vertical_angle_correction_rad;
   if (angle == 0.0) return;
   const double sin_angle = std::sin(angle);
@@ -11064,6 +11052,10 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
       else if (k == "fov_down_deg") pp.fov_down_deg = v;
       else if (k == "height") pp.height = static_cast<int>(v);
       else if (k == "initialize_identity") pp.initialize_identity = v != 0.0;
+      else if (k == "degenerate_ratio") pp.degenerate_ratio = v;
+      else if (k == "coarse_frames") pp.coarse_frames = static_cast<int>(v);
+      else if (k == "coarse_iterations") pp.coarse_iterations = static_cast<int>(v);
+      else if (k == "coarse_distance_scale") pp.coarse_distance_scale = v;
       else if (k == "fallback_rot_threshold") pp.fallback_rot_threshold = v;
       else if (k == "fallback_trans_threshold") pp.fallback_trans_threshold = v;
       else std::cerr << "unknown --suma-paper-set key " << k << std::endl;
@@ -11071,6 +11063,7 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
     SuMaPaper paper(pp);
     const Eigen::Matrix4d anchor = gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
     long fallbacks = 0;
+    long coarse_starts = 0;
     auto t_start = Clock::now();
     for (size_t i = 0; i < pcd_dirs.size(); i++) {
       const auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
@@ -11080,6 +11073,7 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
       for (const auto& p : xyzi) pts.push_back(p.point);
       const auto r = paper.process(pts);
       fallbacks += r.fallback ? 1 : 0;
+      coarse_starts += r.coarse_start ? 1 : 0;
       res.poses.push_back(anchorRelativePose(anchor, r.pose));
       if (i % 10 == 0) std::cerr << "\r  [SuMa paper] " << i << "/" << pcd_dirs.size();
     }
@@ -11088,6 +11082,14 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
     res.note = "SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel "
                "stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop "
                "closure. frame-to-frame fallbacks=" + std::to_string(fallbacks);
+    if (pp.degenerate_ratio > 0.0)
+      res.note += "; opt-in local translation remap ratio=" + std::to_string(pp.degenerate_ratio) +
+                  " (not in the paper)";
+    if (pp.coarse_frames > 0 && pp.coarse_iterations > 0)
+      res.note += "; opt-in initial coarse registrations=" + std::to_string(coarse_starts) +
+                  " frames=" + std::to_string(pp.coarse_frames) +
+                  " distance_scale=" + std::to_string(pp.coarse_distance_scale) +
+                  " max_iterations=" + std::to_string(pp.coarse_iterations) + " (not in the paper)";
     return res;
   }
   SuMaParams params;

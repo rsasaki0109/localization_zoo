@@ -1,0 +1,245 @@
+{
+  "frames": 801,
+  "official_metrics_from_saved_poses": {
+    "frames": 801,
+    "reference_frames": 801,
+    "tracking_success_rate": 1.0,
+    "ate_m": 11.877928864359959,
+    "rpe_trans_pct": 9.936512629632556,
+    "rpe_rot_deg_per_m": 0.07106311869294744,
+    "rpe_segments": 613,
+    "kitti_rte_trans_pct": 7.124333214850441,
+    "kitti_rte_rot_deg_per_100m": 5.924827420623325,
+    "kitti_rte_segments": 184,
+    "trajectory_length_m": 560.8451476108784
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 1.0171081791768628,
+  "moving_step_count": 785,
+  "step_length_ratio_median": 1.0018613896033488,
+  "steps_length_off_over_threshold": 218,
+  "steps_vector_off_over_threshold": 260,
+  "bad_length_step_frame_ranges": [
+    [
+      355,
+      385
+    ],
+    [
+      395,
+      395
+    ],
+    [
+      503,
+      520
+    ],
+    [
+      527,
+      530
+    ],
+    [
+      534,
+      534
+    ],
+    [
+      536,
+      537
+    ],
+    [
+      541,
+      541
+    ],
+    [
+      544,
+      548
+    ],
+    [
+      552,
+      552
+    ],
+    [
+      554,
+      554
+    ],
+    [
+      556,
+      624
+    ],
+    [
+      687,
+      702
+    ],
+    [
+      718,
+      784
+    ],
+    [
+      786,
+      786
+    ]
+  ],
+  "bad_vector_step_frame_ranges": [
+    [
+      355,
+      395
+    ],
+    [
+      397,
+      397
+    ],
+    [
+      503,
+      521
+    ],
+    [
+      527,
+      640
+    ],
+    [
+      642,
+      642
+    ],
+    [
+      687,
+      702
+    ],
+    [
+      718,
+      784
+    ],
+    [
+      786,
+      786
+    ]
+  ],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 59.23374694787432,
+      "path_length_ratio": 1.000889230575864,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0034836295891885,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 0.16894625238996788,
+      "block_relative_translation_error_pct": 0.28521959372989186,
+      "block_relative_rotation_error_deg_per_100m": 0.11094597138782236
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 69.94638869597325,
+      "path_length_ratio": 1.0025539142649877,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0012944327461846,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.16894625238996788,
+      "position_error_end_m": 0.5792563716379858,
+      "block_relative_translation_error_pct": 0.5329807581283771,
+      "block_relative_rotation_error_deg_per_100m": 0.46014783349029076
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 300,
+      "gt_distance_m": 72.27941020775991,
+      "path_length_ratio": 0.9944624789730925,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9936766044090544,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.5792563716379858,
+      "position_error_end_m": 0.5071831890868237,
+      "block_relative_translation_error_pct": 0.8713897699665321,
+      "block_relative_rotation_error_deg_per_100m": 0.47700646285402887
+    },
+    {
+      "first_pose_frame": 300,
+      "last_pose_frame": 400,
+      "gt_distance_m": 83.98054891404223,
+      "path_length_ratio": 1.1202230035825824,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0745517947494945,
+      "steps_length_off_over_threshold": 32,
+      "steps_vector_off_over_threshold": 42,
+      "position_error_start_m": 0.5071831890868237,
+      "position_error_end_m": 10.503851995941908,
+      "block_relative_translation_error_pct": 12.511404210684956,
+      "block_relative_rotation_error_deg_per_100m": 3.7364127607006177
+    },
+    {
+      "first_pose_frame": 400,
+      "last_pose_frame": 500,
+      "gt_distance_m": 86.92929984320321,
+      "path_length_ratio": 1.0069897127126384,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0038813678557883,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 10.503851995941908,
+      "position_error_end_m": 8.96179591738097,
+      "block_relative_translation_error_pct": 0.8373550917803684,
+      "block_relative_rotation_error_deg_per_100m": 1.0357337212048319
+    },
+    {
+      "first_pose_frame": 500,
+      "last_pose_frame": 600,
+      "gt_distance_m": 76.79727869592848,
+      "path_length_ratio": 0.8596085723998819,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.7700404464940858,
+      "steps_length_off_over_threshold": 78,
+      "steps_vector_off_over_threshold": 93,
+      "position_error_start_m": 8.96179591738097,
+      "position_error_end_m": 23.192623178503062,
+      "block_relative_translation_error_pct": 36.132220352364506,
+      "block_relative_rotation_error_deg_per_100m": 18.631097528085128
+    },
+    {
+      "first_pose_frame": 600,
+      "last_pose_frame": 700,
+      "gt_distance_m": 83.56267700424372,
+      "path_length_ratio": 0.8862256100342611,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.8310816783873877,
+      "steps_length_off_over_threshold": 38,
+      "steps_vector_off_over_threshold": 55,
+      "position_error_start_m": 23.192623178503062,
+      "position_error_end_m": 17.97674630371265,
+      "block_relative_translation_error_pct": 14.997530776309533,
+      "block_relative_rotation_error_deg_per_100m": 18.736714526604807
+    },
+    {
+      "first_pose_frame": 700,
+      "last_pose_frame": 800,
+      "gt_distance_m": 28.115797299240004,
+      "path_length_ratio": 1.6881877050004772,
+      "moving_step_count": 85,
+      "step_length_ratio_median": 1.6641781167008094,
+      "steps_length_off_over_threshold": 70,
+      "steps_vector_off_over_threshold": 70,
+      "position_error_start_m": 17.97674630371265,
+      "position_error_end_m": 19.999642621614804,
+      "block_relative_translation_error_pct": 69.55477348016342,
+      "block_relative_rotation_error_deg_per_100m": 97.17225446157435
+    }
+  ],
+  "benchmark_summary": "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_03_full_shared_remap_matrix/shared_remap_003/summary.json",
+  "benchmark_method": "SuMa",
+  "schema_version": 1,
+  "command": "python3 evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_03_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/SuMa.txt --gt /workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_03_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/kitti_seq_03_full_evaluated_gt.txt --summary /workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_03_full_shared_remap_matrix/shared_remap_003/summary.json --method SuMa --output /workspace/localization_zoo/experiments/results/shared_degeneracy_remap/sequences/03/candidate_drift.json",
+  "estimate_path": "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_03_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/SuMa.txt",
+  "gt_path": "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_03_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/kitti_seq_03_full_evaluated_gt.txt"
+}

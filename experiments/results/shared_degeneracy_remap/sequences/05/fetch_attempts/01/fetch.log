@@ -1,0 +1,32 @@
+Reading remote ZIP directory: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip
+KITTI 05: 2761 frames, 5.14 GiB
+Traceback (most recent call last):
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 295, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 272, in main
+    counts = list(
+             ^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 274, in <lambda>
+    lambda chunk: extract_sequence_range(
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 220, in extract_sequence_range
+    checksum = copy_exact_with_crc(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 128, in copy_exact_with_crc
+    raise EOFError(f"Range response ended with {remaining} bytes still expected")
+EOFError: Range response ended with 1474080 bytes still expected

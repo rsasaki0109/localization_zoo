@@ -1,0 +1,34 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding",
+    "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke",
+    "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke_gt.csv",
+    "3",
+    "--methods",
+    "dilo,elo,inten_loam",
+    "--no-gt-seed",
+    "--dilo-paper-odometry",
+    "--elo-dense-profile",
+    "--inten-loam-paper-odometry",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/fixture_parity/sensor_frame_five_m/candidate/summary.json",
+    "--input-sensor-pose",
+    "1",
+    "2",
+    "-0.957",
+    "180",
+    "0",
+    "0",
+    "--input-min-range-m",
+    "5"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_near_range/checks/fixture_parity/sensor_frame_five_m/candidate/summary_native",
+  "binary_sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+  "started_unix": 1792251209.5824575,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792251212.5151243
+}

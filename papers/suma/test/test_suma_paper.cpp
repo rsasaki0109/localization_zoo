@@ -209,6 +209,95 @@ TEST(SuMaPaperTest, ProjectiveAssociationRecoversPerturbation) {
   EXPECT_LT(rotationErrorDeg(est, truth), 0.1);
 }
 
+TEST(SuMaPaperTest, InitialCoarseStageFeedsFineThenExpiresAndResets) {
+  SuMaPaperParams params;
+  params.icp_max_distance = 0.2;
+  params.max_iterations = 3;
+  params.normalize_bilinear = true;
+  params.fallback_mode = false;
+  params.coarse_frames = 1;
+  SuMaPaper paper(params);
+  const auto origin = simulateScan(Eigen::Matrix4d::Identity());
+  const auto second = simulateScan(makePose(0.8, 0, 0, 0, 0, 0));
+  EXPECT_FALSE(paper.process(origin).coarse_start);
+  const auto data = paper.computeVertexNormalMap(second);
+  const auto model = paper.renderModel(paper.pose(), paper.renderConfidenceThreshold());
+  auto coarse_params = params;
+  coarse_params.max_iterations = params.coarse_iterations;
+  SuMaPaper coarse_solver(coarse_params);
+  SuMaPaper::IcpStats coarse_stats;
+  const auto coarse = coarse_solver.alignProjective(data, model, Eigen::Matrix4d::Identity(),
+      params.icp_max_distance * params.coarse_distance_scale, params.icp_max_angle_deg, &coarse_stats);
+  ASSERT_GT(coarse_stats.iterations, 0);
+  const auto expected = paper.alignProjective(data, model, coarse,
+      params.icp_max_distance, params.icp_max_angle_deg);
+  const auto result = paper.process(second);
+  EXPECT_TRUE(result.coarse_start);
+  EXPECT_EQ(result.coarse_iterations, coarse_stats.iterations);
+  EXPECT_TRUE(result.increment.isApprox(expected, 1e-14));
+  EXPECT_GT((result.increment.block<3, 1>(0, 3).norm()), 0.5);
+
+  const auto third = simulateScan(makePose(1.6, 0, 0, 0, 0, 0));
+  const auto next_model = paper.renderModel(paper.pose(), paper.renderConfidenceThreshold());
+  const auto ordinary = paper.alignProjective(paper.computeVertexNormalMap(third), next_model,
+      result.increment, params.icp_max_distance, params.icp_max_angle_deg);
+  const auto later = paper.process(third);
+  EXPECT_FALSE(later.coarse_start);
+  EXPECT_EQ(later.coarse_iterations, 0);
+  EXPECT_TRUE(later.increment.isApprox(ordinary, 1e-14));
+  paper.clear();
+  EXPECT_FALSE(paper.process(origin).coarse_start);
+  EXPECT_TRUE(paper.process(second).coarse_start);
+}
+
+TEST(SuMaPaperTest, DisabledCoarseSettingsPreserveTheOrdinaryPathExactly) {
+  SuMaPaperParams params;
+  EXPECT_EQ(params.coarse_frames, 0);
+  SuMaPaper reference(params);
+  params.coarse_distance_scale = 100.0;
+  params.coarse_iterations = 99;
+  SuMaPaper disabled(params);
+  params.coarse_frames = 1;
+  params.coarse_iterations = 0;
+  SuMaPaper zero_budget(params);
+  for (int k = 0; k < 3; ++k) {
+    const auto scan = simulateScan(makePose(0.3 * k, 0, 0, 0, 0, 0));
+    const auto expected = reference.process(scan);
+    const auto a = disabled.process(scan);
+    const auto b = zero_budget.process(scan);
+    EXPECT_FALSE(a.coarse_start);
+    EXPECT_FALSE(b.coarse_start);
+    EXPECT_EQ(a.pose, expected.pose);
+    EXPECT_EQ(b.pose, expected.pose);
+  }
+}
+
+TEST(SuMaPaperTest, OptInRemapProjectsTranslationRatherThanRotation) {
+  SuMaPaperParams params;
+  params.max_iterations = 1;
+  SuMaPaper reference(params);
+  reference.process(simulateScan(Eigen::Matrix4d::Identity()));
+  const auto model = reference.renderModel(Eigen::Matrix4d::Identity(), reference.renderConfidenceThreshold());
+  const auto data = reference.computeVertexNormalMap(simulateScan(makePose(0.3, 0.1, 0.02, 0, 0, 0.01)));
+  SuMaPaper::IcpStats stats;
+  const auto control = reference.alignProjective(data, model, Eigen::Matrix4d::Identity(), 2, 30, &stats);
+  ASSERT_GT(stats.inliers, 1000);
+  ASSERT_GT((control.block<3, 1>(0, 3).norm()), 0.05);
+  // An intentionally all-direction threshold isolates the vector ordering:
+  // SuMa uses [translation, rotation], unlike DiLO's [rotation, translation].
+  params.degenerate_ratio = 2.0;
+  SuMaPaper remapped(params);
+  const auto result = remapped.alignProjective(data, model, Eigen::Matrix4d::Identity(), 2, 30);
+  EXPECT_TRUE(result.allFinite());
+  EXPECT_LT((result.block<3, 1>(0, 3).norm()), 1e-12);
+  EXPECT_GT(rotationErrorDeg(result, Eigen::Matrix4d::Identity()), 0.01);
+  EXPECT_TRUE((result.topLeftCorner<3, 3>().isApprox(control.topLeftCorner<3, 3>(), 1e-14)));
+  params.degenerate_ratio = 0.0;
+  SuMaPaper disabled(params);
+  const auto unchanged = disabled.alignProjective(data, model, Eigen::Matrix4d::Identity(), 2, 30);
+  EXPECT_EQ(unchanged, control);
+}
+
 TEST(SuMaPaperTest, MapUpdateIntegratesRepeatedObservations) {
   SuMaPaper suma;
   const auto scan = simulateScan(Eigen::Matrix4d::Identity());

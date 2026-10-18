@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1591
+GT poses: 1591
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 1705.0 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running SuMa...
+  [SuMa paper] 0/1591  [SuMa paper] 10/1591  [SuMa paper] 20/1591  [SuMa paper] 30/1591  [SuMa paper] 40/1591  [SuMa paper] 50/1591  [SuMa paper] 60/1591  [SuMa paper] 70/1591  [SuMa paper] 80/1591  [SuMa paper] 90/1591  [SuMa paper] 100/1591  [SuMa paper] 110/1591  [SuMa paper] 120/1591  [SuMa paper] 130/1591  [SuMa paper] 140/1591  [SuMa paper] 150/1591  [SuMa paper] 160/1591  [SuMa paper] 170/1591  [SuMa paper] 180/1591  [SuMa paper] 190/1591  [SuMa paper] 200/1591  [SuMa paper] 210/1591  [SuMa paper] 220/1591  [SuMa paper] 230/1591  [SuMa paper] 240/1591  [SuMa paper] 250/1591  [SuMa paper] 260/1591  [SuMa paper] 270/1591  [SuMa paper] 280/1591  [SuMa paper] 290/1591  [SuMa paper] 300/1591  [SuMa paper] 310/1591  [SuMa paper] 320/1591  [SuMa paper] 330/1591  [SuMa paper] 340/1591  [SuMa paper] 350/1591  [SuMa paper] 360/1591  [SuMa paper] 370/1591  [SuMa paper] 380/1591  [SuMa paper] 390/1591  [SuMa paper] 400/1591  [SuMa paper] 410/1591  [SuMa paper] 420/1591  [SuMa paper] 430/1591  [SuMa paper] 440/1591  [SuMa paper] 450/1591  [SuMa paper] 460/1591  [SuMa paper] 470/1591  [SuMa paper] 480/1591  [SuMa paper] 490/1591  [SuMa paper] 500/1591  [SuMa paper] 510/1591  [SuMa paper] 520/1591  [SuMa paper] 530/1591  [SuMa paper] 540/1591  [SuMa paper] 550/1591  [SuMa paper] 560/1591  [SuMa paper] 570/1591  [SuMa paper] 580/1591  [SuMa paper] 590/1591  [SuMa paper] 600/1591  [SuMa paper] 610/1591  [SuMa paper] 620/1591  [SuMa paper] 630/1591  [SuMa paper] 640/1591  [SuMa paper] 650/1591  [SuMa paper] 660/1591  [SuMa paper] 670/1591  [SuMa paper] 680/1591  [SuMa paper] 690/1591  [SuMa paper] 700/1591  [SuMa paper] 710/1591  [SuMa paper] 720/1591  [SuMa paper] 730/1591  [SuMa paper] 740/1591  [SuMa paper] 750/1591  [SuMa paper] 760/1591  [SuMa paper] 770/1591  [SuMa paper] 780/1591  [SuMa paper] 790/1591  [SuMa paper] 800/1591  [SuMa paper] 810/1591  [SuMa paper] 820/1591  [SuMa paper] 830/1591  [SuMa paper] 840/1591  [SuMa paper] 850/1591  [SuMa paper] 860/1591  [SuMa paper] 870/1591  [SuMa paper] 880/1591  [SuMa paper] 890/1591  [SuMa paper] 900/1591  [SuMa paper] 910/1591  [SuMa paper] 920/1591  [SuMa paper] 930/1591  [SuMa paper] 940/1591  [SuMa paper] 950/1591  [SuMa paper] 960/1591  [SuMa paper] 970/1591  [SuMa paper] 980/1591  [SuMa paper] 990/1591  [SuMa paper] 1000/1591  [SuMa paper] 1010/1591  [SuMa paper] 1020/1591  [SuMa paper] 1030/1591  [SuMa paper] 1040/1591  [SuMa paper] 1050/1591  [SuMa paper] 1060/1591  [SuMa paper] 1070/1591  [SuMa paper] 1080/1591  [SuMa paper] 1090/1591  [SuMa paper] 1100/1591  [SuMa paper] 1110/1591  [SuMa paper] 1120/1591  [SuMa paper] 1130/1591  [SuMa paper] 1140/1591  [SuMa paper] 1150/1591  [SuMa paper] 1160/1591  [SuMa paper] 1170/1591  [SuMa paper] 1180/1591  [SuMa paper] 1190/1591  [SuMa paper] 1200/1591  [SuMa paper] 1210/1591  [SuMa paper] 1220/1591  [SuMa paper] 1230/1591  [SuMa paper] 1240/1591  [SuMa paper] 1250/1591  [SuMa paper] 1260/1591  [SuMa paper] 1270/1591  [SuMa paper] 1280/1591  [SuMa paper] 1290/1591  [SuMa paper] 1300/1591  [SuMa paper] 1310/1591  [SuMa paper] 1320/1591  [SuMa paper] 1330/1591  [SuMa paper] 1340/1591  [SuMa paper] 1350/1591  [SuMa paper] 1360/1591  [SuMa paper] 1370/1591  [SuMa paper] 1380/1591  [SuMa paper] 1390/1591  [SuMa paper] 1400/1591  [SuMa paper] 1410/1591  [SuMa paper] 1420/1591  [SuMa paper] 1430/1591  [SuMa paper] 1440/1591  [SuMa paper] 1450/1591  [SuMa paper] 1460/1591  [SuMa paper] 1470/1591  [SuMa paper] 1480/1591  [SuMa paper] 1490/1591  [SuMa paper] 1500/1591  [SuMa paper] 1510/1591  [SuMa paper] 1520/1591  [SuMa paper] 1530/1591  [SuMa paper] 1540/1591  [SuMa paper] 1550/1591  [SuMa paper] 1560/1591  [SuMa paper] 1570/1591  [SuMa paper] 1580/1591  [SuMa paper] 1590/1591
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+SuMa                    ok          6.469       0.634          1591        893764.7       1.8         
+
+Notes:
+- SuMa: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=1
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_09_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_09_full_evaluation_manifest.json)

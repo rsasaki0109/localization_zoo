@@ -1,6 +1,7 @@
 add_library(imls_slam src/imls_slam.cpp src/imls_paper_odometry.cpp)
 target_include_directories(imls_slam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(imls_slam PUBLIC Eigen3::Eigen)
+target_link_libraries(imls_slam PRIVATE localization_initial_registration)
 find_package(OpenMP QUIET)
 if(OpenMP_CXX_FOUND)
   target_link_libraries(imls_slam PUBLIC OpenMP::OpenMP_CXX)

@@ -1,0 +1,6 @@
+[run] suma_kitti_seq_04_full_shared_coarse_start_matrix:shared_coarse_start_1x5x10
+[done] wrote experiments/results/shared_coarse_start/benchmarks/index.json
+[done] wrote experiments/results/shared_coarse_start/benchmarks/suma_kitti_seq_04_full_shared_coarse_start_matrix.json
+[done] wrote experiments/results/shared_coarse_start/benchmarks/docs/experiments.md
+[done] wrote experiments/results/shared_coarse_start/benchmarks/docs/decisions.md
+[done] wrote experiments/results/shared_coarse_start/benchmarks/docs/interfaces.md

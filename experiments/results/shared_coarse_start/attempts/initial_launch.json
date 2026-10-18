@@ -1,0 +1,12 @@
+{
+  "pid": 66143,
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792209178.7059226,
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "controller_checkout_commit": "cb3c90b80d8ddfbff6a0070b2020b8e4b2ee01f2",
+  "scope": "Fixed coarse-stage settings on full00-10, affectedIMLS/SuMaaudit22. One sequence of scans at a time. Defaults unchanged; no speed or paper-ratio claim."
+}

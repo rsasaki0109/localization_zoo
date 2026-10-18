@@ -77,6 +77,18 @@ struct SuMaPaperParams {
   // forward (README, "Seq 02").
   bool normalize_bilinear = false;
   bool initialize_identity = false;  // false: warm start with last increment
+  // Non-paper opt-in: project local translation updates out of weak normal-
+  // equation directions, using common/degeneracy.h. 0 disables the remap.
+  // This does not freeze the accumulated pose along those directions.
+  double degenerate_ratio = 0.0;
+  // Non-paper opt-in: coarse frame-to-model stage before the ordinary solve
+  // on the first coarse_frames registrations. The shared startup policy
+  // leaves method-specific residuals, normal gates and fallback unchanged.
+  // 0 frames disables it. Budgets and the gate multiplier are transferred
+  // from the existing IMLS-SLAM startup choice, not tuned on SuMa.
+  int coarse_frames = 0;
+  int coarse_iterations = 10;
+  double coarse_distance_scale = 5.0;
 
   // Frame-to-frame fallback after a track loss (official).
   bool fallback_mode = true;
@@ -121,6 +133,8 @@ struct SuMaPaperResult {
   int outliers = 0;
   int iterations = 0;
   bool fallback = false;     // frame-to-frame fallback used
+  bool coarse_start = false;
+  int coarse_iterations = 0;  // iterations actually run in the coarse stage
   size_t num_surfels = 0;
   int new_surfels = 0;
   int updated_surfels = 0;
@@ -205,6 +219,11 @@ private:
   void accumulate(const VertexNormalMap& data, const VertexNormalMap& model,
                   const Eigen::Matrix4d& pose, double max_distance,
                   double cos_max_angle, Normal6* out) const;
+  Eigen::Matrix4d alignProjectiveStage(const VertexNormalMap& data,
+                                      const VertexNormalMap& model,
+                                      const Eigen::Matrix4d& initial,
+                                      double max_distance, double max_angle_deg,
+                                      int max_iterations, IcpStats* stats) const;
   double pixelSize() const;
   double logOdds(double p) const;
 

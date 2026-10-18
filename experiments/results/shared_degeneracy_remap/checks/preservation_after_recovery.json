@@ -1,0 +1,65 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "experiments/results/shared_degeneracy_remap/verify_preservation.py",
+    "--output",
+    "experiments/results/shared_degeneracy_remap/checks/preservation_after_recovery.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "checked_checkout_commit": "1ec3d02fca30ad752a3da2dee5cfa4d50de48175",
+  "generated_at": "2026-10-17T00:34:37.224218+00:00",
+  "script_sha256": "d92646a03413afe2b798224bb8c2d367e699136c8712e1b7e46d8c0f0a466c8a",
+  "base_commit": "9112e6a5b62466e2a509e015607438decb873c00",
+  "implementation_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "published_files": {
+    "README.md": {
+      "base_sha256": "e4856f5f9868afda8964907ef442d05c8b3c791533c16385bf630e01b25d0a15",
+      "current_sha256": "e4856f5f9868afda8964907ef442d05c8b3c791533c16385bf630e01b25d0a15"
+    },
+    "docs/index.html": {
+      "base_sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+      "current_sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab"
+    },
+    "docs/assets/paper/paper_ratio_table.csv": {
+      "base_sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+      "current_sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509"
+    },
+    "evaluation/data/paper_reported_numbers.json": {
+      "base_sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+      "current_sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e"
+    }
+  },
+  "manifests": {
+    "experiments/suma_kitti_seq_00_full_shared_remap_matrix.json": "f8ffa86bd88639256b76bbdd2306cbf1d0f06dfa1d5215a05ac65b3e230229c1",
+    "experiments/suma_kitti_seq_01_full_shared_remap_matrix.json": "75fcecc396866f2c8eee03dc626ae3b35f3e96a32702b7bb20b2dd298817a8bc",
+    "experiments/suma_kitti_seq_02_full_shared_remap_matrix.json": "febef5be662412f6ffcd5f92d98efa631cbfac4cbfd27b722939bb328952ca3f",
+    "experiments/suma_kitti_seq_03_full_shared_remap_matrix.json": "6f26bc4c8dc64621058efde32fb943be61ed603d03e20b461d4ada8929115738",
+    "experiments/suma_kitti_seq_04_full_shared_remap_matrix.json": "1552b0eda18d816a7eb8514305cf148c849ba525ffedc125d1fdc1336552fc4c",
+    "experiments/suma_kitti_seq_05_full_shared_remap_matrix.json": "57dd94513b6a491eebae681b227168e2032327f3017e883aca6594e885682e99",
+    "experiments/suma_kitti_seq_06_full_shared_remap_matrix.json": "b0da323379b5562d2d4a148d9ee48dc48f68337ab9a5882ca9f51cfe5287686a",
+    "experiments/suma_kitti_seq_07_full_shared_remap_matrix.json": "b855dcf1169b270821f6f95aae3f021c61d9d464e2810c7ec94ba83b5ff37103",
+    "experiments/suma_kitti_seq_08_full_shared_remap_matrix.json": "9784d21c9772fa207102ef52de8f2798a861c4511c8ca2923b968e9b190406cd",
+    "experiments/suma_kitti_seq_09_full_shared_remap_matrix.json": "45ab19192801d6014b966ac0035d58e79c1e9c55101ebc6cf1e8407943deb33b",
+    "experiments/suma_kitti_seq_10_full_shared_remap_matrix.json": "b743a56e0feb4ab55224babf7047a814a65a67d15e609311f2525d847052c08e"
+  },
+  "native_identity_command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+    "--",
+    "common",
+    "evaluation/src",
+    "papers/*/src",
+    "papers/*/include",
+    "papers/*/test",
+    "papers/*/CMakeLists.txt",
+    "ros2/localization_zoo_ros/CMakeLists.txt"
+  ],
+  "native_identity_exit_code": 0,
+  "failures": [],
+  "exit_code": 0,
+  "scope": "Publication bytes, aggregate hashes, manifest settings and native source identity; not a benchmark-completion claim."
+}

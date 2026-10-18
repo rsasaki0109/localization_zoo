@@ -1,0 +1,26 @@
+experiments/results/shared_degeneracy_remap/benchmarks/** linguist-generated=true
+experiments/results/shared_degeneracy_remap/sequences/** linguist-generated=true
+experiments/results/shared_degeneracy_remap/checks/** linguist-generated=true
+experiments/results/shared_degeneracy_remap/wrapper_validation/** linguist-generated=true
+experiments/results/shared_degeneracy_remap/plots/** linguist-generated=true
+experiments/results/shared_degeneracy_remap/historical_aggregate_sha256.json linguist-generated=true
+experiments/results/shared_degeneracy_remap/report/** linguist-generated=true
+experiments/results/shared_coarse_start/benchmarks/** linguist-generated=true
+experiments/results/shared_coarse_start/sequences/** linguist-generated=true
+experiments/results/shared_coarse_start/checks/** linguist-generated=true
+experiments/results/shared_coarse_start/report/** linguist-generated=true
+experiments/results/shared_coarse_start/wrapper_validation/** linguist-generated=true
+experiments/results/shared_coarse_start/historical_aggregate_sha256.json linguist-generated=true
+experiments/results/shared_coarse_start/plots/** linguist-generated=true
+experiments/results/shared_near_range/sequences/** linguist-generated=true
+experiments/results/shared_near_range/checkpoints/** linguist-generated=true
+experiments/results/shared_near_range/selection.json linguist-generated=true
+experiments/results/shared_near_range/historical_aggregate_sha256.json linguist-generated=true
+# Preserve native stdout's table padding verbatim in the replay evidence.
+experiments/results/shared_near_range/sequences/**/replays/*.log -whitespace
+experiments/results/shared_near_range/checks/fixture_parity/**/baseline.log -whitespace
+experiments/results/shared_near_range/checks/fixture_parity/**/candidate.log -whitespace
+# Preserve historical native/profiler stdout verbatim, including table padding.
+experiments/results/paper_pipeline_speed/runs/*/run.log -whitespace
+experiments/results/paper_pipeline_speed/release_verification/1b51db69/*/run.log -whitespace
+experiments/results/paper_pipeline_speed/install_profiler.log -whitespace

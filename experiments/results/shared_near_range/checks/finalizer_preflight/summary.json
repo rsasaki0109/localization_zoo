@@ -1,0 +1,51 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "experiments/results/shared_near_range/checks/finalizer_preflight/driver.py"
+  ],
+  "source_script_commit": "4006bd2dccf729329a8085e476fd4592d4b1c2e4",
+  "public_document_sha256_before_and_after": {
+    "/workspace/localization_zoo/papers/aloam/README.md": "7d6349952cbcd3b842acea84d583e0c2b0c08e791892c9386c9f8692fe710960",
+    "/workspace/localization_zoo/papers/ct_icp/README.md": "2da2db7f20797bb76b35aba4e8df014cd48d462547fb5330967968e5779f218d",
+    "/workspace/localization_zoo/papers/dilo/README.md": "0b557f6fe4284eda24f98dfcd1a5a4321e21d396fe08e01b8d906bf0622ebaf5",
+    "/workspace/localization_zoo/papers/elo/README.md": "c0f5938c96a38e014b38b9d499b4168af24a69617ba81d83f1d1c0ae2133e20f",
+    "/workspace/localization_zoo/papers/floam/README.md": "bcacff890c20bec33c050d86497c5c98d08d9898013e282235d19125c8ad67c9",
+    "/workspace/localization_zoo/papers/imls_slam/README.md": "c6cfe2e4d9007e3f039e62497a07b8ffbc2cfbb308a8c8517ddf4187f3dadb91",
+    "/workspace/localization_zoo/papers/inten_loam/README.md": "a37c26c53f11acfd384e78e8d981611d818bdc8efa9ce4d79752ca49ef616ed0",
+    "/workspace/localization_zoo/papers/kiss_icp/README.md": "2e1994b162b0ef424a4f4f915224e9d819d5d04900af66aa896f7f317c3daf66",
+    "/workspace/localization_zoo/papers/l_lo/README.md": "4abc4b1c780ca966dd21bd345548ef6e5e3a34048c8132a046b02189809d6e19",
+    "/workspace/localization_zoo/papers/lf_gicp/README.md": "d2b3a871f3253ced51bf1848aecf5c6f0c0661d192cbf8e57a3995749294c7d3",
+    "/workspace/localization_zoo/papers/lego_loam/README.md": "8854ca4ef972e82e51521fb5e1c1b72686175b3b05df0726d994e24f172b5035",
+    "/workspace/localization_zoo/papers/litamin2/README.md": "36d635bd0da89576d12117159e86f6bbd7abfbe1a833ff29198f52023866a9fd",
+    "/workspace/localization_zoo/papers/mulls/README.md": "e168bec9483ec9b20d949405572f2bf51d9afc273b8d9b7a7de46592f270bbc0",
+    "/workspace/localization_zoo/papers/mesh_loam/README.md": "e3ac6a58d4c46d9804984b48a2214992a598ea30221873ff3a9c3f2fe9e8ff91",
+    "/workspace/localization_zoo/papers/ndt/README.md": "fd04c3908db577530a601ff54127f869de0311eb02bbecc0a838ec3c8e862ea7",
+    "/workspace/localization_zoo/papers/quadric_lo/README.md": "6c6acf6d93c71a3c5d6a94decbb37256eb568aeb06ef6819655242515be786d1",
+    "/workspace/localization_zoo/papers/small_gicp/README.md": "64fe773fe82ab518d736610bae3120acd06357b472ae1db52a026db8c301bfd0",
+    "/workspace/localization_zoo/papers/suma/README.md": "5aa9bcf7e675a2f13812adc6283fb3c9c709c91dfb9ed1c541829abfcaf08529",
+    "/workspace/localization_zoo/papers/vlom/README.md": "336ddb5811f1b0f5546731bdfb3d2332359f5f765a6f7b2a1d38ac9e9aed3f7c",
+    "/workspace/localization_zoo/papers/voxel_gicp/README.md": "05d227eaba47353ddf3d89db546aeccf39f9361850b689e6cdb7d623b30ee1a7",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/README.md": "e1ea945394d98d333e562e1c4d9160c2397b1522d3a78fe88321830b6ca4735d",
+    "/workspace/localization_zoo/docs/roadmap.md": "f5c6380f1936ff711f801cb2eb4965b5ebd1bfc83a12d0945215d93a6abd9d4b"
+  },
+  "partial_reports_and_live_controller_rejected": true,
+  "public_documents_unchanged": true,
+  "completion_output_absent": true,
+  "preview_only_actual04_outcomes": [
+    {
+      "method": "CT-ICP",
+      "file": "/workspace/localization-env/shared-near-range/completion_render_preview/CT_ICP.md",
+      "sha256": "96384c1933f82acb43e92b4b2b2a0c6f32d85fb243de32ff0505a786d4eb8824",
+      "source_checkpoint": "checkpoints/04/summary.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "file": "/workspace/localization-env/shared-near-range/completion_render_preview/Mesh_LOAM.md",
+      "sha256": "208a007e7f9d7852924e57ddbccc2e8f0280a4b75343fa6cd3ad1e1195d502fe",
+      "source_checkpoint": "checkpoints/04/summary.json"
+    }
+  ],
+  "historical_nclt_confound_and_negative_retained": true,
+  "exit_code": 0,
+  "scope": "Completion-worker guard and renderer validation from real committed partial evidence; not full KITTI or NCLT validation."
+}

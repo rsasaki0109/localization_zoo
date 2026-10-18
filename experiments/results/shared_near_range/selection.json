@@ -1,0 +1,1072 @@
+{
+  "scope": {
+    "methods": [],
+    "sequences": [],
+    "selected_cell_count": 177,
+    "filtered": false
+  },
+  "rows": [
+    {
+      "method": "A-LOAM",
+      "sequence": "00",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "01",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "02",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "03",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "04",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "05",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "06",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "07",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "08",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "09",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "A-LOAM",
+      "sequence": "10",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "00",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "01",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "02",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "03",
+      "repo_best_variant": "upstream_mechanics",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "04",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "05",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "06",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "07",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "08",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "09",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json"
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "10",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "00",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "01",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "02",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "03",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "04",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "05",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "06",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "07",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "08",
+      "repo_best_variant": "paper_odometry_degenerate",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "09",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "DiLO",
+      "sequence": "10",
+      "repo_best_variant": "paper_odometry_spread_keypoints",
+      "repo_best_aggregate": "experiments/results/dilo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "00",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "01",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "02",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "03",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "04",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "05",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "06",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "07",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "08",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "09",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "ELO",
+      "sequence": "10",
+      "repo_best_variant": "dense_elevation_paper_normals_unbiased",
+      "repo_best_aggregate": "experiments/results/elo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "F-LOAM",
+      "sequence": "00",
+      "repo_best_variant": "dense",
+      "repo_best_aggregate": "experiments/results/floam_kitti_seq_00_full_transfer_matrix.json"
+    },
+    {
+      "method": "F-LOAM",
+      "sequence": "02",
+      "repo_best_variant": "dense",
+      "repo_best_aggregate": "experiments/results/floam_kitti_seq_02_full_transfer_matrix.json"
+    },
+    {
+      "method": "F-LOAM",
+      "sequence": "05",
+      "repo_best_variant": "dense",
+      "repo_best_aggregate": "experiments/results/floam_kitti_seq_05_full_transfer_matrix.json"
+    },
+    {
+      "method": "F-LOAM",
+      "sequence": "07",
+      "repo_best_variant": "dense",
+      "repo_best_aggregate": "experiments/results/floam_kitti_seq_07_full_sweep_matrix.json"
+    },
+    {
+      "method": "F-LOAM",
+      "sequence": "08",
+      "repo_best_variant": "dense",
+      "repo_best_aggregate": "experiments/results/floam_kitti_seq_08_full_transfer_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "00",
+      "repo_best_variant": "paper_odometry_w100",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "01",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "02",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "03",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "04",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "05",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "06",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "07",
+      "repo_best_variant": "paper_odometry_w100",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "08",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "09",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "10",
+      "repo_best_variant": "paper_odometry_w100_coarse_start",
+      "repo_best_aggregate": "experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "00",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "01",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "02",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "03",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "04",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "05",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "06",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "07",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "08",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "09",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "sequence": "10",
+      "repo_best_variant": "paper_odometry_plane_check",
+      "repo_best_aggregate": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "00",
+      "repo_best_variant": "upstream_threshold_gm_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "01",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_01_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "02",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_02_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "03",
+      "repo_best_variant": "upstream_mechanics",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_03_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "04",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "05",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_05_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "06",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_06_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "07",
+      "repo_best_variant": "upstream_threshold_gm_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "08",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_08_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "09",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_09_full_elevation_matrix.json"
+    },
+    {
+      "method": "KISS-ICP",
+      "sequence": "10",
+      "repo_best_variant": "upstream_mechanics_elevation",
+      "repo_best_aggregate": "experiments/results/kiss_icp_kitti_seq_10_full_elevation_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "00",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_00_full_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "02",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_02_full_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "03",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "04",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "05",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_05_full_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "06",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "07",
+      "repo_best_variant": "cell_0p25_gtol_0p15_range_80",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "08",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_08_full_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "09",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "L-LO",
+      "sequence": "10",
+      "repo_best_variant": "seq07_tuned",
+      "repo_best_aggregate": "experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "00",
+      "repo_best_variant": "paper_default",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_00_full_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "01",
+      "repo_best_variant": "paper_default",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "02",
+      "repo_best_variant": "no_mitigation",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_02_full_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "03",
+      "repo_best_variant": "paper_default",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "04",
+      "repo_best_variant": "paper_default",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "05",
+      "repo_best_variant": "paper_default",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_05_full_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "06",
+      "repo_best_variant": "paper_default",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "07",
+      "repo_best_variant": "no_mitigation",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_07_full_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "08",
+      "repo_best_variant": "no_mitigation",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_08_full_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "09",
+      "repo_best_variant": "paper_default",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "LF-GICP",
+      "sequence": "10",
+      "repo_best_variant": "paper_default",
+      "repo_best_aggregate": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "LeGO-LOAM",
+      "sequence": "00",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json"
+    },
+    {
+      "method": "LeGO-LOAM",
+      "sequence": "02",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json"
+    },
+    {
+      "method": "LeGO-LOAM",
+      "sequence": "05",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json"
+    },
+    {
+      "method": "LeGO-LOAM",
+      "sequence": "07",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json"
+    },
+    {
+      "method": "LeGO-LOAM",
+      "sequence": "08",
+      "repo_best_variant": "kitti_default",
+      "repo_best_aggregate": "experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "00",
+      "repo_best_variant": "paper_icp_first",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_00_full_paper_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "01",
+      "repo_best_variant": "paper_icp_first",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_01_full_paper_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "02",
+      "repo_best_variant": "paper_icp_cov",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_02_full_paper_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "03",
+      "repo_best_variant": "paper_icp_cov_aggregate",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "04",
+      "repo_best_variant": "paper_icp_cov",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "05",
+      "repo_best_variant": "paper_icp_cov",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "06",
+      "repo_best_variant": "paper_icp_first",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "07",
+      "repo_best_variant": "coarse_to_fine_3_2_1_elevation",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_07_full_elevation_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "08",
+      "repo_best_variant": "cluster_t1_seeded",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "09",
+      "repo_best_variant": "paper_icp_first",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json"
+    },
+    {
+      "method": "LiTAMIN2",
+      "sequence": "10",
+      "repo_best_variant": "paper_icp_cov_aggregate",
+      "repo_best_aggregate": "experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "00",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_00_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "01",
+      "repo_best_variant": "mulls_lo_highway_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_01_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "02",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_02_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "03",
+      "repo_best_variant": "mulls_lo",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_03_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "04",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_04_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "05",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_05_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "06",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_06_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "07",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_07_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "08",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_08_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "09",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_09_full_lo_matrix.json"
+    },
+    {
+      "method": "MULLS",
+      "sequence": "10",
+      "repo_best_variant": "mulls_lo_elevation",
+      "repo_best_aggregate": "experiments/results/mulls_kitti_seq_10_full_lo_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "00",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "01",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "02",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "03",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "04",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "05",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "06",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "07",
+      "repo_best_variant": "paper_odometry_elevation_keep_mesh",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "08",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "09",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "10",
+      "repo_best_variant": "paper_odometry_elevation",
+      "repo_best_aggregate": "experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "NDT",
+      "sequence": "00",
+      "repo_best_variant": "t1_transfer_r03_i12",
+      "repo_best_aggregate": "experiments/results/ndt_kitti_seq_00_full_sweep_matrix.json"
+    },
+    {
+      "method": "NDT",
+      "sequence": "07",
+      "repo_best_variant": "t1_transfer_r05_i12",
+      "repo_best_aggregate": "experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "00",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "01",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "02",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "03",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "04",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "05",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "06",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "07",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "08",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "09",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Quadric-LO",
+      "sequence": "10",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Small-GICP",
+      "sequence": "00",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/small_gicp_kitti_seq_00_full_sweep_matrix.json"
+    },
+    {
+      "method": "Small-GICP",
+      "sequence": "02",
+      "repo_best_variant": "t1_transfer_v05_i12",
+      "repo_best_aggregate": "experiments/results/small_gicp_kitti_seq_02_full_sweep_matrix.json"
+    },
+    {
+      "method": "Small-GICP",
+      "sequence": "05",
+      "repo_best_variant": "balanced_reference",
+      "repo_best_aggregate": "experiments/results/small_gicp_kitti_seq_05_full_sweep_matrix.json"
+    },
+    {
+      "method": "Small-GICP",
+      "sequence": "07",
+      "repo_best_variant": "t1_transfer_v03_i12",
+      "repo_best_aggregate": "experiments/results/small_gicp_kitti_seq_07_full_sweep_matrix.json"
+    },
+    {
+      "method": "Small-GICP",
+      "sequence": "08",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/small_gicp_kitti_seq_08_full_sweep_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "00",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "01",
+      "repo_best_variant": "paper_odometry_clean_lookup_elevation",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "02",
+      "repo_best_variant": "paper_odometry_clean_lookup_elevation",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "03",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_03_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "04",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "05",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "06",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_06_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "07",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_07_full_elevation_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "08",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "09",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_09_full_paper_matrix.json"
+    },
+    {
+      "method": "SuMa",
+      "sequence": "10",
+      "repo_best_variant": "paper_odometry",
+      "repo_best_aggregate": "experiments/results/suma_kitti_seq_10_full_paper_matrix.json"
+    },
+    {
+      "method": "VLOM",
+      "sequence": "00",
+      "repo_best_variant": "default",
+      "repo_best_aggregate": "experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "VLOM",
+      "sequence": "07",
+      "repo_best_variant": "default",
+      "repo_best_aggregate": "experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json"
+    },
+    {
+      "method": "Voxel-GICP",
+      "sequence": "00",
+      "repo_best_variant": "dense_seeded_reference",
+      "repo_best_aggregate": "experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json"
+    },
+    {
+      "method": "Voxel-GICP",
+      "sequence": "02",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json"
+    },
+    {
+      "method": "Voxel-GICP",
+      "sequence": "05",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json"
+    },
+    {
+      "method": "Voxel-GICP",
+      "sequence": "07",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json"
+    },
+    {
+      "method": "Voxel-GICP",
+      "sequence": "08",
+      "repo_best_variant": "dense_profile",
+      "repo_best_aggregate": "experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json"
+    }
+  ]
+}

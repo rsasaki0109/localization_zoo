@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/opt/localization-venv/bin/python",
+    "experiments/results/shared_degeneracy_remap/plot_sequence.py",
+    "--sequence",
+    "01",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/plots/01"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "input_commit": "ad01fb93c7af585127d798e94de8425975a24b29",
+  "implementation_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+  "input_sha256": {
+    "experiments/results/shared_degeneracy_remap/sequences/01/comparison.json": "afdab6ec8884fa32b192853851655ff0977abbe18b8777b88099131cbc865ffe",
+    "experiments/results/shared_degeneracy_remap/sequences/01/raw_control/summary_native/dogfooding_results/kitti_seq_01_full_evaluated_gt.txt": "bb6cbdca61b7b0a1b32af9cbb3caf8b490942b1587b150ee1bad1e050e8bd157",
+    "experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_01_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/kitti_seq_01_full_evaluated_gt.txt": "bb6cbdca61b7b0a1b32af9cbb3caf8b490942b1587b150ee1bad1e050e8bd157",
+    "experiments/results/shared_degeneracy_remap/sequences/01/raw_control/summary_native/dogfooding_results/SuMa.txt": "865d60df4ec0b50505fc7f75b9ed8ae00db5618091dc5e0016583b300c2d64bc",
+    "experiments/results/shared_degeneracy_remap/benchmarks/runs/suma_kitti_seq_01_full_shared_remap_matrix/shared_remap_003/summary_native/dogfooding_results/SuMa.txt": "630e5a5ddd0c9cd7acf6b0c7c30bf08524375c07c9c91eee98501b362d955bfd"
+  },
+  "script_sha256": "dae2468c8a4c39a3c60a7819a310cb10b568c6ea29090904337e64560e092118",
+  "definitions": {
+    "step": "Euclidean difference of successive saved position vectors; destination frame index.",
+    "position_error": "Euclidean difference from evaluated GT in the saved coordinate frame; no fit or rescaling.",
+    "rte": "Official KITTI RTE copied from the committed full-sequence comparison."
+  }
+}

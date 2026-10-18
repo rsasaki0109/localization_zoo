@@ -1,0 +1,8 @@
+{
+  "private_state_sha256_before_and_after": {
+    "active.json": "c71e93a874bd27a2040d86e9b2a30d3ff3de9cb1992409b434e426e627b3b24b",
+    "run_exit.json": "e7e048f15d6caddaf94b48bc228217577c53af6a65d3d8fcec5f6a1b0279b6ae"
+  },
+  "state_files_unchanged": true,
+  "controller_source_sha256": "da8edbf841ffa3b911ed2b63c2fda4468fea00ad4948ec05773a456976eae4e0"
+}

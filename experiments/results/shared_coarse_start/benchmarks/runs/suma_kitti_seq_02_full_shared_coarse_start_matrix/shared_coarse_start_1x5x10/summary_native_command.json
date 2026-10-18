@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-coarse-start/candidate_pcd_dogfooding",
+    "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_02_full",
+    "/workspace/localization_zoo/experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "--methods",
+    "suma",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary.json",
+    "--no-gt-seed",
+    "--suma-paper",
+    "--suma-paper-set",
+    "coarse_frames=1",
+    "--suma-paper-set",
+    "coarse_distance_scale=5",
+    "--suma-paper-set",
+    "coarse_iterations=10"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native",
+  "binary_sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+  "started_unix": 1792220437.0748599,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792222357.3947215
+}

@@ -1,0 +1,3 @@
+[audit] SuMa 07 paper_odometry: ok
+[audit] IMLS-SLAM 07 paper_odometry_w100: ok
+[done] 0 drifted, 0 failed of 2 cells; exit 0; wrote /workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/07/audit/report.json

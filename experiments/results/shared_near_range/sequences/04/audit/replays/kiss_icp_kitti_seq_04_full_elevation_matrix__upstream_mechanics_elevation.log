@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+Running KISS-ICP...
+  source_voxel_size=0.0 max_source_points=18446744073709551615 voxel_size=1.0 max_iterations=500 local_map_radius=100.0 update_full_voxels=off model_deviation_threshold=on model_deviation_correspondence_multiplier=3.0 mulran_deskew=off motion_guard=off max_step_translation_m=2.0 max_step_rotation_deg=20.0
+  [KISS-ICP] 0/271 voxels=7041  [KISS-ICP] 10/271 voxels=14618  [KISS-ICP] 20/271 voxels=18622  [KISS-ICP] 30/271 voxels=20938  [KISS-ICP] 40/271 voxels=22773  [KISS-ICP] 50/271 voxels=23405  [KISS-ICP] 60/271 voxels=22857  [KISS-ICP] 70/271 voxels=21888  [KISS-ICP] 80/271 voxels=21289  [KISS-ICP] 90/271 voxels=20354  [KISS-ICP] 100/271 voxels=19149  [KISS-ICP] 110/271 voxels=17407  [KISS-ICP] 120/271 voxels=16314  [KISS-ICP] 130/271 voxels=15650  [KISS-ICP] 140/271 voxels=15459  [KISS-ICP] 150/271 voxels=15261  [KISS-ICP] 160/271 voxels=14719  [KISS-ICP] 170/271 voxels=14002  [KISS-ICP] 180/271 voxels=14064  [KISS-ICP] 190/271 voxels=14560  [KISS-ICP] 200/271 voxels=15480  [KISS-ICP] 210/271 voxels=15623  [KISS-ICP] 220/271 voxels=17304  [KISS-ICP] 230/271 voxels=19601  [KISS-ICP] 240/271 voxels=22675  [KISS-ICP] 250/271 voxels=24675  [KISS-ICP] 260/271 voxels=25665  [KISS-ICP] 270/271 voxels=25771
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+KISS-ICP                ok          0.661       0.411          271         55078.2        4.9         
+
+Notes:
+- KISS-ICP: Adaptive sigma min/mean/max=0.294872/0.40015/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=4.92028; algorithm_fps=5.59234.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

@@ -1,0 +1,8 @@
+{
+  "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+  "logical_cores": 5,
+  "memory_gib": 17.6,
+  "os": "Ubuntu 22.04.5 LTS",
+  "kernel": "6.18.44",
+  "architecture": "x86_64"
+}

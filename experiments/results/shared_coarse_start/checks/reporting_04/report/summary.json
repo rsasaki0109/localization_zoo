@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/summarize_results.py",
+    "--allow-partial",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/checks/reporting_04/report"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "generated_at": "2026-10-17T04:06:54.534551+00:00",
+  "input_commit": "45ae52fc4249cd16de6b6ff7952a207c8808d98b",
+  "script_sha256": "867619a0f29fe52cacb44f86a809a9a4ee26d72d167c2a1f6ca1c46873572f38",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "fixed_arguments": [
+    "--no-gt-seed",
+    "--suma-paper",
+    "--suma-paper-set",
+    "coarse_frames=1",
+    "--suma-paper-set",
+    "coarse_distance_scale=5",
+    "--suma-paper-set",
+    "coarse_iterations=10"
+  ],
+  "complete": false,
+  "missing_sequences": [
+    "00",
+    "01",
+    "02",
+    "03",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "scope": "Non-paper fixed-setting transfer, no paper ratio or speed claim",
+  "diagnostic_block_selection": {
+    "candidate_worst_blocks": "Largest finite relative endpoint translation errors among blocks with moving steps.",
+    "largest_error_growth_blocks": "Largest positive end-minus-start pointwise position-error increases, including stationary blocks; no alignment fit or rescaling.",
+    "scope": "Blocks retain GT travel distance and frame bounds. Both rankings are diagnostic only, not official KITTI RTE."
+  },
+  "rows": [
+    {
+      "sequence": "04",
+      "frames": 271,
+      "control_rte_pct": 0.416845,
+      "candidate_rte_pct": 0.38997,
+      "rte_difference_pp": -0.026875000000000038,
+      "control_ate_m": 0.974258,
+      "candidate_ate_m": 0.929463,
+      "control_path_length_ratio": 1.0016942287169197,
+      "candidate_path_length_ratio": 1.0013242311171566,
+      "control_bad_length_steps": 0,
+      "candidate_bad_length_steps": 0,
+      "control_bad_vector_steps": 0,
+      "candidate_bad_vector_steps": 0,
+      "candidate_moving_steps": 270,
+      "control_bad_length_ranges": [],
+      "candidate_bad_length_ranges": [],
+      "control_largest_error_growth_blocks": [
+        {
+          "first_pose_frame": 200,
+          "last_pose_frame": 270,
+          "gt_distance_m": 112.09366640246202,
+          "path_length_ratio": 1.001557046663121,
+          "moving_step_count": 70,
+          "step_length_ratio_median": 0.9991389866254254,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.9796592304157445,
+          "position_error_end_m": 2.457208677874566,
+          "block_relative_translation_error_pct": 0.20228315219348575,
+          "block_relative_rotation_error_deg_per_100m": 0.34904538569950694,
+          "position_error_increase_m": 1.4775494474588213
+        },
+        {
+          "first_pose_frame": 100,
+          "last_pose_frame": 200,
+          "gt_distance_m": 144.36863004693618,
+          "path_length_ratio": 1.004255521195798,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.004785864076499,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.21382879226237897,
+          "position_error_end_m": 0.9796592304157445,
+          "block_relative_translation_error_pct": 0.4306858097349844,
+          "block_relative_rotation_error_deg_per_100m": 0.28453474937406253,
+          "position_error_increase_m": 0.7658304381533656
+        },
+        {
+          "first_pose_frame": 0,
+          "last_pose_frame": 100,
+          "gt_distance_m": 137.18298063486523,
+          "path_length_ratio": 0.9991108685558403,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 0.9978555412040614,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.0,
+          "position_error_end_m": 0.21382879226237897,
+          "block_relative_translation_error_pct": 0.15587122489866725,
+          "block_relative_rotation_error_deg_per_100m": 0.27053788187146377,
+          "position_error_increase_m": 0.21382879226237897
+        }
+      ],
+      "candidate_largest_error_growth_blocks": [
+        {
+          "first_pose_frame": 200,
+          "last_pose_frame": 270,
+          "gt_distance_m": 112.09366640246202,
+          "path_length_ratio": 1.00105800135142,
+          "moving_step_count": 70,
+          "step_length_ratio_median": 0.9980876948595927,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.8916557981523271,
+          "position_error_end_m": 2.370631628985743,
+          "block_relative_translation_error_pct": 0.17336038480771007,
+          "block_relative_rotation_error_deg_per_100m": 0.278986830311401,
+          "position_error_increase_m": 1.478975830833416
+        },
+        {
+          "first_pose_frame": 100,
+          "last_pose_frame": 200,
+          "gt_distance_m": 144.36863004693618,
+          "path_length_ratio": 1.0037293750603131,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.0035292251588883,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.2357545545472344,
+          "position_error_end_m": 0.8916557981523271,
+          "block_relative_translation_error_pct": 0.37511744314241297,
+          "block_relative_rotation_error_deg_per_100m": 0.2823999418015552,
+          "position_error_increase_m": 0.6559012436050927
+        },
+        {
+          "first_pose_frame": 0,
+          "last_pose_frame": 100,
+          "gt_distance_m": 137.18298063486523,
+          "path_length_ratio": 0.99901064480985,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 0.9974626095001593,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.0,
+          "position_error_end_m": 0.2357545545472344,
+          "block_relative_translation_error_pct": 0.17185408381183787,
+          "block_relative_rotation_error_deg_per_100m": 0.2786516050980223,
+          "position_error_increase_m": 0.2357545545472344
+        }
+      ],
+      "candidate_worst_blocks": [
+        {
+          "first_pose_frame": 100,
+          "last_pose_frame": 200,
+          "gt_distance_m": 144.36863004693618,
+          "path_length_ratio": 1.0037293750603131,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.0035292251588883,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.2357545545472344,
+          "position_error_end_m": 0.8916557981523271,
+          "block_relative_translation_error_pct": 0.37511744314241297,
+          "block_relative_rotation_error_deg_per_100m": 0.2823999418015552
+        },
+        {
+          "first_pose_frame": 200,
+          "last_pose_frame": 270,
+          "gt_distance_m": 112.09366640246202,
+          "path_length_ratio": 1.00105800135142,
+          "moving_step_count": 70,
+          "step_length_ratio_median": 0.9980876948595927,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.8916557981523271,
+          "position_error_end_m": 2.370631628985743,
+          "block_relative_translation_error_pct": 0.17336038480771007,
+          "block_relative_rotation_error_deg_per_100m": 0.278986830311401
+        },
+        {
+          "first_pose_frame": 0,
+          "last_pose_frame": 100,
+          "gt_distance_m": 137.18298063486523,
+          "path_length_ratio": 0.99901064480985,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 0.9974626095001593,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.0,
+          "position_error_end_m": 0.2357545545472344,
+          "block_relative_translation_error_pct": 0.17185408381183787,
+          "block_relative_rotation_error_deg_per_100m": 0.2786516050980223
+        }
+      ],
+      "comparison_path": "experiments/results/shared_coarse_start/sequences/04/comparison.json"
+    }
+  ],
+  "worse_sequences": [],
+  "audit_rows": [
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "04",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_w100_coarse_start",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/imls_slam_kitti_seq_04_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/imls_slam_kitti_seq_04_full_paper_comp_matrix__paper_odometry_w100_coarse_start.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_04_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_04_full_gt.csv",
+        "--methods",
+        "imls_slam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/imls_slam_kitti_seq_04_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "kitti_rte_trans_pct": 0.425331,
+      "kitti_rte_rot_deg_per_100m": 0.121744,
+      "fps": 0.709921,
+      "stored_rpe_trans_pct": 0.431994,
+      "rerun_rpe_trans_pct": 0.431994,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 0.920863,
+      "rerun_ate_m": 0.920863,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 271,
+      "frames": 271,
+      "drift_metrics": []
+    },
+    {
+      "method": "SuMa",
+      "sequence": "04",
+      "aggregate_path": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+      "variant_id": "paper_odometry",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_04_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_04_full_gt.csv",
+        "--methods",
+        "suma",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json",
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "kitti_rte_trans_pct": 0.416845,
+      "kitti_rte_rot_deg_per_100m": 0.26054,
+      "fps": 1.826518,
+      "stored_rpe_trans_pct": 0.392312,
+      "rerun_rpe_trans_pct": 0.392312,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 0.974258,
+      "rerun_ate_m": 0.974258,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 271,
+      "frames": 271,
+      "drift_metrics": []
+    }
+  ],
+  "audit_official_metric_checks": [
+    {
+      "sequence": "04",
+      "method": "IMLS-SLAM",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_w100_coarse_start",
+      "stored": {
+        "kitti_rte_trans_pct": 0.425331,
+        "kitti_rte_rot_deg_per_100m": 0.121744
+      },
+      "rerun": {
+        "kitti_rte_trans_pct": 0.425331,
+        "kitti_rte_rot_deg_per_100m": 0.121744
+      },
+      "absolute_delta": {
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      }
+    },
+    {
+      "sequence": "04",
+      "method": "SuMa",
+      "aggregate_path": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+      "variant_id": "paper_odometry",
+      "stored": {
+        "kitti_rte_trans_pct": 0.416845,
+        "kitti_rte_rot_deg_per_100m": 0.26054
+      },
+      "rerun": {
+        "kitti_rte_trans_pct": 0.416845,
+        "kitti_rte_rot_deg_per_100m": 0.26054
+      },
+      "absolute_delta": {
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      }
+    }
+  ],
+  "audit_preservation_summary": {
+    "cells": 2,
+    "drifted_cells": 0,
+    "max_abs_rpe_trans_delta_pct": 0.0,
+    "max_abs_ate_delta_m": 0.0,
+    "max_abs_frame_delta": 0,
+    "max_abs_official_translation_rte_delta_pct": 0.0,
+    "max_abs_official_rotation_rte_delta_deg_per_100m": 0.0
+  },
+  "committed_input_sha256": {
+    "experiments/results/shared_coarse_start/protocol.json": "c12034635cae8b1075f9e802be29cce3ec8724f2fe5828b193a07e482fa0499d",
+    "experiments/results/shared_coarse_start/candidate.json": "52025c08cc3bc2da17342a4316d4adeafe526c08884178a4b75a87d7b8370398",
+    "experiments/results/shared_coarse_start/sequences/04/comparison.json": "58b4917381b3bb7e9cad67584e51df9a6046ab8537fc51418418303e21efb304",
+    "experiments/results/shared_coarse_start/sequences/04/cleanup.json": "a008d659b0ec17042a349a47f7a38441430684059f6f5a9309f8d45103936d6b",
+    "experiments/results/shared_coarse_start/sequences/04/inputs.json": "1fb71a4a2ba130334b05ee5654ef86bbcc624ca3c5db3ebde433249889bcc261",
+    "experiments/reference_data/kitti_seq_04_full_gt.csv": "850488c37a8bc4f4c216fcfa2fcc1e0f17ba6103680acc3985fcedc09ccfa360",
+    "experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry_native_command.json": "8d5302cfba4c3c3ac33a24ac0c80ddf4e280ef8669104aef78e5fb013d7d6cc0",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native_command.json": "015ef06251270fd8cc21361354a1b9e2bfd5e7c657ca0bba92e1ba89c1f8e0d2",
+    "experiments/results/shared_coarse_start/sequences/04/candidate_drift.json": "ee668f25421058f1007097db53f136207e3bd647605ef5a5439f42af7d3c6a82",
+    "experiments/results/shared_coarse_start/sequences/04/raw_control_drift.json": "31dde573b159c38bd11029f4d4ca31ee000c0f1bec4a7d816e6158b280664e36",
+    "experiments/results/shared_coarse_start/sequences/04/audit/report.json": "3eff2ae83d6b689ffad77c3d6b7a1d285b8c4aa12734b50323f3dd0bdaf78f58",
+    "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json": "b9f0ab8818558583d55ec4066a09f3f7478a84222b98fcd6c30b26815ada2f0f",
+    "experiments/results/suma_kitti_seq_04_full_paper_matrix.json": "a75d05ad2e629e094fb57f5efc37d6c6244a44b2d169f686bb60f930c3495424",
+    "experiments/results/shared_coarse_start/sequences/04/frozen_comparison.json": "0639e73c7db5a736e6ecac69f7f47dea74b3e6e55df0a374eb8715a28bda803f"
+  }
+}

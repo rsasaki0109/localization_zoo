@@ -1,0 +1,11 @@
+[run] suma_kitti_seq_05_full_shared_remap_matrix:shared_remap_003
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/index.json
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_00_full_shared_remap_matrix.json
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_01_full_shared_remap_matrix.json
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_02_full_shared_remap_matrix.json
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_03_full_shared_remap_matrix.json
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_04_full_shared_remap_matrix.json
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/suma_kitti_seq_05_full_shared_remap_matrix.json
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/docs/experiments.md
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/docs/decisions.md
+[done] wrote experiments/results/shared_degeneracy_remap/benchmarks/docs/interfaces.md

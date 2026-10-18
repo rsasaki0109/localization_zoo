@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running IMLS-SLAM...
+  source_voxel_size=0.5 voxel_size=1.0 imls_h=0.5 sampling=1
+  [IMLS paper] 0/271 model=124216  [IMLS paper] 20/271 model=2586510  [IMLS paper] 40/271 model=5062138  [IMLS paper] 60/271 model=7573831  [IMLS paper] 80/271 model=10097548  [IMLS paper] 100/271 model=12505939  [IMLS paper] 120/271 model=12583568  [IMLS paper] 140/271 model=12636404  [IMLS paper] 160/271 model=12664037  [IMLS paper] 180/271 model=12679791  [IMLS paper] 200/271 model=12676988  [IMLS paper] 220/271 model=12645263  [IMLS paper] 240/271 model=12631628  [IMLS paper] 260/271 model=12594010
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+IMLS-SLAM               ok          0.921       0.432          271         458733.4       0.6         
+
+Notes:
+- IMLS-SLAM: IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0; coarse start on the first 1 registrations (r=1.0 h=0.3, not in the paper)
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

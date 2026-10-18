@@ -110,9 +110,45 @@ threshold despite its paper gap; this threshold does not describe all drift.
 Many correspondences can still be ambiguous, poorly distributed or associated
 incorrectly. These progress logs contain neither per-iteration residuals nor
 Jacobian conditioning, so they do not establish observability, convergence or
-the solver-level cause. A later diagnostic should record those quantities and
-the motion before/after S2S and S2M at each step, with the same fixed settings.
-Ground truth here labels saved steps only; it never initializes an estimator.
+the solver-level cause. Ground truth here labels saved steps only; it never
+initializes an estimator.
+
+The merged [passive trace API and streaming workflow](../../../docs/inten_loam_passive_trace.md)
+now provide stage motions, fallback/acceptance decisions, normal equations and
+iteration residuals for continuous observation. Tracing stays opt-in and default
+off. The legacy forced-pose diagnostics change placement and prediction and
+cannot serve as passive observation. The streaming checker validates record/run
+consistency; it does not establish solver quality or a failure cause. Conditioning
+analysis also requires an explicit convention for mixed translation/rotation units.
+
+Continuous failure-sequence collection remains pending. Use the unchanged
+selected registration setting after the ongoing frozen replay releases native
+and input ownership; do not borrow its live scans. Existing progress records
+still leave earlier fallback and unlogged frames unobserved. Short-fixture
+trace compatibility is separate from this full failure diagnosis.
+
+## Reproduction after main integration
+
+Source `3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe` follows integration of main
+`a597e4c95614e733fc20977321fe4d6aea0fba46`. The analyzer reads native source/header
+blobs from the recorded evaluator commit and the protocol's pinned input commit,
+and requires those historical blobs to match. Current native files can evolve
+without changing the interpretation of recorded progress. Stored logs, poses,
+manifests and analysis inputs retain their committed-byte checks.
+
+The pre-fix command exits 1 because the current native source differs from the
+historical execution; [its receipt and log](checks/main_refresh/before_fix/command.json)
+are retained. Raw fix evidence was committed at `70bac660` before this prose.
+The [reproduction commands](checks/main_refresh/analysis/commands.json) succeed;
+[numerical identity](checks/main_refresh/analysis/numerical_identity.json) records
+byte-identical CSVs and unchanged protocol, selected arguments, sequence counts,
+step intervals and metric comparisons. The original analysis above remains
+attached to its original evidence commit. Re-analysis adds explicit historical
+source provenance without a new estimator execution or accuracy measurement.
+
+The [new metadata and outputs](checks/main_refresh/analysis/analysis/summary.json)
+record the actual analysis/source/input pins. Core algorithms and evaluation
+sources match integrated main; original numerical artifacts remain unchanged.
 '''
 (STUDY / 'README.md').write_text(readme)
 
@@ -142,6 +178,10 @@ cause remains open; settings and stored results are unchanged.
 [Protocol, all sequence counts, CSVs, commands and limits](../../experiments/results/inten_support_diagnostics/README.md)
 derive from evidence committed at `{evidence}`. No native replay or new
 accuracy measurement is performed.
+For continuous solver observations, use the opt-in
+[passive trace workflow](../../docs/inten_loam_passive_trace.md). Its availability
+does not fill the unlogged frames in this historical analysis; full failure
+tracing and cause attribution remain pending.
 <!-- /INTEN_SUPPORT_DIAGNOSTICS -->'''
 p = REPO / 'papers/inten_loam/README.md'
 text = p.read_text()

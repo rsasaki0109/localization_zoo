@@ -412,6 +412,10 @@ cause remains open; settings and stored results are unchanged.
 [Protocol, all sequence counts, CSVs, commands and limits](../../experiments/results/inten_support_diagnostics/README.md)
 derive from evidence committed at `283bc86fa939062d80b36057ccca2ce42a891f9c`. No native replay or new
 accuracy measurement is performed.
+For continuous solver observations, use the opt-in
+[passive trace workflow](../../docs/inten_loam_passive_trace.md). Its availability
+does not fill the unlogged frames in this historical analysis; full failure
+tracing and cause attribution remain pending.
 <!-- /INTEN_SUPPORT_DIAGNOSTICS -->
 
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)

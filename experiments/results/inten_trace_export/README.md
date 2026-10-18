@@ -137,3 +137,9 @@ regular-file capture exits 0 and produces an identical success report.
 Original stderr is unavailable, so the original pipe state is not proven.
 [Failure and recovery evidence](evidence/full_native/recovery/summary.json)
 retain this distinction; the recovery captures subprocess output to files.
+
+## Integration with optional acceleration
+
+The [later integration record](integration/README.md) preserves all original
+evidence above and checks the combined API/speed/export source. The full
+effective parameter header includes the execution mode.

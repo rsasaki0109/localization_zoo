@@ -638,3 +638,31 @@ These short executions check compatibility; they do not establish long-segment
 KITTI RTE or remeasure full-sequence throughput. The speed figures above remain
 tied to their recorded sources. [Commands, binary/input hashes, comparison and
 limits](../../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).
+
+<!-- INTEN_TRACE_EXPORT_ACCELERATION -->
+## Passive export with optional acceleration
+
+The integrated runner records `params.accelerated` in its trace header. All 12
+real-fixture calls exit 0, with zero available metric differences and identical
+saved poses within each default/accelerated registration profile (`2e6d7689`).
+All 7 expected negative CLI exits are retained. The full incremental Release
+build, all 126 CTest entries and four-worker InTEn/serializer checks also exit 0
+(`79cd80a3`). Settings are reused unchanged from KITTI07, with KITTI00 influencing
+the earlier diagnosis. These short checks provide no new speed or long-segment
+accuracy result; the full failure cause remains open.
+[Exact commands, hashes, traces and limits](../../experiments/results/inten_trace_export/integration/README.md).
+<!-- /INTEN_TRACE_EXPORT_ACCELERATION -->
+
+<!-- INTEN_PASSIVE_TRACE_ACCELERATION -->
+## Passive trace and acceleration integration
+
+The source conflict with optional acceleration is resolved while retaining the
+original residual-addition order. All 125 CTest entries pass, and the InTEn entry
+also passes with four workers; every passive lifecycle case runs in both
+execution modes (`7aa83cff`). All 8 short real-fixture native calls exit 0,
+with zero available metric differences and byte-identical saved poses against
+each mode's prior executable (`fb9318f3`). These are compatibility checks;
+long-segment RTE is unavailable, no speed is remeasured, and the full failure
+cause remains open. Defaults and historical numbers are unchanged.
+[Commands, settings provenance, evidence and limits](../../experiments/results/inten_passive_trace/integration/README.md).
+<!-- /INTEN_PASSIVE_TRACE_ACCELERATION -->

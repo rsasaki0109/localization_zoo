@@ -1,0 +1,15 @@
+{
+  "command": [
+    "git",
+    "merge-tree",
+    "--write-tree",
+    "--name-only",
+    "5beada3cbae215ceee54450da3085cb90bcffbb5",
+    "45721068c788392e5070145de346707451d2543c"
+  ],
+  "exit_code": 1,
+  "stdout": "be5e63005ba75344fea0aca30ca8b2612d7e653e\ndocs/decisions.md\ndocs/experiments.md\ndocs/interfaces.md\ndocs/paper_assets.md\ndocs/paper_captions.md\ndocs/paper_comparison.md\ndocs/paper_roadmap.md\ndocs/paper_tracks.md\ndocs/reproduction_status.md\ndocs/variant_analysis.md\nexperiments/results/index.json\npapers/inten_loam/README.md\npapers/inten_loam/src/inten_loam_paper.cpp\npapers/inten_loam/test/test_inten_loam_paper.cpp\n\nAuto-merging docs/decisions.md\nCONFLICT (content): Merge conflict in docs/decisions.md\nAuto-merging docs/experiments.md\nCONFLICT (content): Merge conflict in docs/experiments.md\nAuto-merging docs/interfaces.md\nCONFLICT (content): Merge conflict in docs/interfaces.md\nAuto-merging docs/paper_assets.md\nCONFLICT (content): Merge conflict in docs/paper_assets.md\nAuto-merging docs/paper_captions.md\nCONFLICT (content): Merge conflict in docs/paper_captions.md\nAuto-merging docs/paper_comparison.md\nCONFLICT (content): Merge conflict in docs/paper_comparison.md\nAuto-merging docs/paper_roadmap.md\nCONFLICT (content): Merge conflict in docs/paper_roadmap.md\nAuto-merging docs/paper_tracks.md\nCONFLICT (content): Merge conflict in docs/paper_tracks.md\nAuto-merging docs/reproduction_status.md\nCONFLICT (content): Merge conflict in docs/reproduction_status.md\nAuto-merging docs/roadmap.md\nAuto-merging docs/variant_analysis.md\nCONFLICT (content): Merge conflict in docs/variant_analysis.md\nAuto-merging experiments/results/index.json\nCONFLICT (content): Merge conflict in experiments/results/index.json\nAuto-merging papers/inten_loam/README.md\nCONFLICT (content): Merge conflict in papers/inten_loam/README.md\nAuto-merging papers/inten_loam/include/inten_loam/inten_loam_paper.h\nAuto-merging papers/inten_loam/src/inten_loam_paper.cpp\nCONFLICT (content): Merge conflict in papers/inten_loam/src/inten_loam_paper.cpp\nAuto-merging papers/inten_loam/test/test_inten_loam_paper.cpp\nCONFLICT (content): Merge conflict in papers/inten_loam/test/test_inten_loam_paper.cpp\n",
+  "stderr": "",
+  "scope": "Merge preflight only; no branch/index/worktree/native changes.",
+  "checked_unix": 1792318788.4183922
+}

@@ -15,7 +15,10 @@ ALLOWED=['evaluation/CMakeLists.txt','evaluation/src/pcd_dogfooding.cpp',
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,required=True)
-    a=parser.parse_args(); failures=[]; base=P['base_commit']
+    parser.add_argument('--base-commit', help='Explicit integration baseline; defaults to the original study base.')
+    parser.add_argument('--native-source-commit', help='Explicit integration source; defaults to the original source.')
+    a=parser.parse_args(); failures=[]; base=a.base_commit or P['base_commit']
+    source_commit=a.native_source_commit or P['native_source_commit']
     expected=json.loads((REPO/'experiments/results/shared_near_range/historical_aggregate_sha256.json').read_text())
     actual={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest()
             for p in (REPO/'experiments/results').glob('*_matrix.json')}
@@ -32,9 +35,9 @@ def main():
     if prior.returncode: failures.append('Prior study evidence changed')
     changed=subprocess.check_output(['git','diff','--name-only',base,'--',*NATIVE],cwd=REPO,text=True).splitlines()
     if sorted(changed)!=sorted(ALLOWED):failures.append('Native changes outside allowed runner/header/test/CMake files')
-    source=subprocess.run(['git','diff','--exit-code',P['native_source_commit'],'--',*NATIVE],cwd=REPO,capture_output=True)
+    source=subprocess.run(['git','diff','--exit-code',source_commit,'--',*NATIVE],cwd=REPO,capture_output=True)
     if source.returncode: failures.append('Pinned candidate native source changed')
-    report=dict(exit_code=int(bool(failures)),base_commit=base,native_source_commit=P['native_source_commit'],
+    report=dict(exit_code=int(bool(failures)),base_commit=base,native_source_commit=source_commit,
                 aggregate_count=len(expected),aggregate_hashes_match=actual==expected,publication=publication,
                 prior_evidence_exit_code=prior.returncode,native_source_identity_exit_code=source.returncode,
                 changed_native_files=changed,allowed_native_files=ALLOWED,failures=failures)

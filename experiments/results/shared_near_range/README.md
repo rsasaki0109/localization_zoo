@@ -89,10 +89,20 @@ processes exit 0 and complete 4541 frames, but the historical audit exits **1**.
 
 RPE worsens for all five; ATE improves for the first four and worsens for
 VLOM. These values and limits are recorded in each method README. The frozen
-pre-extraction replays for these five methods are **still running**. Their
-comparison, the cause of the historical differences and the extraction's
-effect on these cells are not yet established. No setting is changed or
-historical result replaced.
+pre-extraction replays for A-LOAM, F-LOAM and LeGO-LOAM now finish with native
+exits 0. All three have zero old-vs-extracted differences in RPE, ATE, frames
+and official translation/rotation RTE, with byte-identical saved poses. Their
+historical differences predate the extraction; their original causes remain
+unresolved. [Closed control evidence](checks/00_closed_controls/summary.json),
+including commands, native exits and artifact hashes, was committed at
+`7d55897901c17b0c64567115a6f59db06cf585b0`.
+
+Mesh-LOAM and VLOM's frozen replays are **still running**; the extraction's
+effect on those two cells is not yet established. The parent frozen audit has
+no terminal exit yet. No setting is changed or historical result replaced.
+Summary `evaluator_git_commit` records the working-tree HEAD at write time;
+native provenance comes from the frozen executable SHA256/source pins, not
+that metadata field.
 
 Completed candidate results, exact commands/logs, executable hashes and input
 provenance were committed at `485fa00601644731827dae601eb3b43c7543efeb`:

@@ -1,0 +1,153 @@
+[
+  {
+    "label": "refresh_study_docs",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "source_commit": "32f54015e76ba9c6bda6bf4672bcb47a3ae54268",
+    "working_changes": "README integration report and previously imported raw evidence; regenerate after import.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/bindings-post138",
+      "XDG_CACHE_HOME": "/tmp/bindings-post138-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792364694.9286141,
+    "finished_unix": 1792364756.0422952,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_full_variant_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "source_commit": "32f54015e76ba9c6bda6bf4672bcb47a3ae54268",
+    "working_changes": "README integration report and previously imported raw evidence; regenerate after import.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/bindings-post138",
+      "XDG_CACHE_HOME": "/tmp/bindings-post138-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792364756.0450099,
+    "finished_unix": 1792364756.2169352,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_paper_ratio_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "source_commit": "32f54015e76ba9c6bda6bf4672bcb47a3ae54268",
+    "working_changes": "README integration report and previously imported raw evidence; regenerate after import.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/bindings-post138",
+      "XDG_CACHE_HOME": "/tmp/bindings-post138-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792364756.2174866,
+    "finished_unix": 1792364756.3423955,
+    "exit_code": 0
+  },
+  {
+    "label": "validate_showcase",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "source_commit": "32f54015e76ba9c6bda6bf4672bcb47a3ae54268",
+    "working_changes": "README integration report and previously imported raw evidence; regenerate after import.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/bindings-post138",
+      "XDG_CACHE_HOME": "/tmp/bindings-post138-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792364756.3436463,
+    "finished_unix": 1792364756.424435,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_leaderboard",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "source_commit": "32f54015e76ba9c6bda6bf4672bcb47a3ae54268",
+    "working_changes": "README integration report and previously imported raw evidence; regenerate after import.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/bindings-post138",
+      "XDG_CACHE_HOME": "/tmp/bindings-post138-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792364756.4250484,
+    "finished_unix": 1792364756.5298247,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_paper_ready_evidence",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "source_commit": "32f54015e76ba9c6bda6bf4672bcb47a3ae54268",
+    "working_changes": "README integration report and previously imported raw evidence; regenerate after import.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/bindings-post138",
+      "XDG_CACHE_HOME": "/tmp/bindings-post138-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792364756.5307462,
+    "finished_unix": 1792364756.5795202,
+    "exit_code": 0
+  },
+  {
+    "label": "whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "source_commit": "32f54015e76ba9c6bda6bf4672bcb47a3ae54268",
+    "working_changes": "README integration report and previously imported raw evidence; regenerate after import.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/bindings-post138",
+      "XDG_CACHE_HOME": "/tmp/bindings-post138-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792364756.5807946,
+    "finished_unix": 1792364756.9816027,
+    "exit_code": 0
+  }
+]

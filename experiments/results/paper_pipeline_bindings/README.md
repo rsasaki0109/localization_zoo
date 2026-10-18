@@ -261,3 +261,36 @@ Earlier fixture tables remain attributed to the source revisions recorded above.
 commands, exits and source/hash comparisons. The full unit-test transcript records
 the native evaluation-guard skips in this separate worktree; the final CI builds
 the evaluator and runs the complete native/Python and ROS checks.
+
+
+## Integration after the cleaned replay checkpoint
+
+Main `17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f` incorporates the cleaned,
+partial shared-range replay checkpoint and its saved-path diagnoses. Integration
+source `9f207266a8e7be5197dd7c545c7fc98fdd3fbc41` retains that entire study,
+its method README diagnostics and recovery protocol. The binding wrappers and
+CI wiring match `427cc0d53fb88169e85c639169bed9302409b06c`; native algorithms,
+common code and evaluation sources match the integrated main. The separate,
+ongoing replay keeps its original frozen source, executable pins, sealed scripts
+and scan ownership. No accuracy or speed table is reattributed to this merge.
+
+Raw validation evidence was committed at `32f54015e76ba9c6bda6bf4672bcb47a3ae54268`
+before this report. The [commands and actual exits](checks/post138_refresh/docs/commands.json)
+record all required generators, 313 Python tests, publication contracts and
+whitespace returning 0. The Python transcript retains 5 native evaluation-guard
+skips because this separate worktree has no evaluator build; final-head CI builds
+the evaluator and runs the complete native/Python and ROS checks. The
+[preservation report](checks/post138_refresh/docs/preservation.json) confirms all
+688 historical aggregate hashes, paper-number JSON, Table 6 and published
+leaderboards are unchanged; the root README only adds the binding description.
+[Conflict resolution](checks/post138_refresh/resolution_commands.json),
+[primary source/binary integrity](checks/post138_refresh/identity.json) and
+[lossless log imports](checks/post138_refresh/import.json) retain their commands
+and source provenance. Earlier fixture measurements and failures remain attached
+to their recorded execution sources.
+
+```bash
+python3 experiments/results/paper_pipeline_bindings/refresh_main_checks.py \
+  --phase docs --base-commit 17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f \
+  --output-dir /absolute/path/to/fresh-doc-checks
+```

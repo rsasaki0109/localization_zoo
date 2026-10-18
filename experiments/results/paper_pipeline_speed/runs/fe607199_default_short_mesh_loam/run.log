@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 120
+GT poses: 120
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 68.9 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running Mesh-LOAM...
+  source_voxel_size=0.1 voxel_size=0.1 mesh_interval=5 cos_gate=1.0
+  [Mesh-LOAM] 0/120 voxels=368585 facets=818222  [Mesh-LOAM] 10/120 voxels=691938 facets=1637499  [Mesh-LOAM] 20/120 voxels=910964 facets=2150860  [Mesh-LOAM] 30/120 voxels=1086527 facets=2572842  [Mesh-LOAM] 40/120 voxels=1265187 facets=3001331  [Mesh-LOAM] 50/120 voxels=1376643 facets=3282178  [Mesh-LOAM] 60/120 voxels=1506959 facets=3581224  [Mesh-LOAM] 70/120 voxels=1680227 facets=3957826  [Mesh-LOAM] 80/120 voxels=1932235 facets=4626781  [Mesh-LOAM] 90/120 voxels=2055690 facets=4960339  [Mesh-LOAM] 100/120 voxels=2210795 facets=5316630  [Mesh-LOAM] 110/120 voxels=2419304 facets=5821138
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+Mesh-LOAM               ok          0.154       0.556          120         105839.9       1.1         
+
+Notes:
+- Mesh-LOAM: Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. Paper path (0.1 m input, nearest facet). nearest-facet association; mean|residual|=0.025
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/velodyne_evaluated_gt.txt, manifest: dogfooding_results/velodyne_evaluation_manifest.json)

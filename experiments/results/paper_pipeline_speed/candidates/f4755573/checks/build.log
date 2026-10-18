@@ -1,0 +1,6 @@
+[1/6] Building CXX object papers/inten_loam/CMakeFiles/inten_loam.dir/src/inten_loam.cpp.o
+[2/6] Building CXX object papers/inten_loam/CMakeFiles/inten_loam.dir/src/inten_loam_paper.cpp.o
+[3/6] Linking CXX static library papers/inten_loam/libinten_loam.a
+[4/6] Linking CXX executable papers/inten_loam/test_inten_loam_paper
+[5/6] Linking CXX executable papers/inten_loam/test_inten_loam
+[6/6] Linking CXX executable evaluation/pcd_dogfooding

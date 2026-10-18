@@ -1,0 +1,31 @@
+Ign:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+Ign:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Ign:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+Ign:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Ign:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+Ign:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+Err:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+  Could not connect to 172.31.10.109:8080 (172.31.10.109), connection timed out
+Err:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+  Could not connect to 172.31.10.109:8080 (172.31.10.109), connection timed out
+Err:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+  Unable to connect to 172.31.10.109:8080:
+Err:3 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+  Unable to connect to 172.31.10.109:8080:
+Reading package lists...
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/jammy/InRelease  Could not connect to 172.31.10.109:8080 (172.31.10.109), connection timed out
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/jammy-updates/InRelease  Unable to connect to 172.31.10.109:8080:
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/jammy-backports/InRelease  Unable to connect to 172.31.10.109:8080:
+W: Failed to fetch http://security.ubuntu.com/ubuntu/dists/jammy-security/InRelease  Could not connect to 172.31.10.109:8080 (172.31.10.109), connection timed out
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package google-perftools
+E: Unable to locate package libgoogle-perftools-dev

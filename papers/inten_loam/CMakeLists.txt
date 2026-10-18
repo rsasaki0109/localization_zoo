@@ -1,4 +1,5 @@
 find_package(Ceres REQUIRED)
+find_package(OpenMP QUIET)
 
 add_library(inten_loam
   src/inten_loam.cpp
@@ -17,6 +18,9 @@ target_link_libraries(inten_loam PUBLIC
   ${PCL_LIBRARIES}
   ${CERES_LIBRARIES}
 )
+if(OpenMP_CXX_FOUND)
+  target_link_libraries(inten_loam PUBLIC OpenMP::OpenMP_CXX)
+endif()
 
 add_executable(test_inten_loam test/test_inten_loam.cpp)
 target_link_libraries(test_inten_loam PRIVATE inten_loam GTest::gtest_main)

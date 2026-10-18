@@ -1,0 +1,118 @@
+-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+** WARNING ** io features related to pcap will be disabled
+** WARNING ** io features related to png will be disabled
+-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+-- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)
+-- looking for PCL_COMMON
+-- looking for PCL_OCTREE
+-- looking for PCL_IO
+-- looking for PCL_KDTREE
+-- looking for PCL_SEARCH
+-- looking for PCL_SAMPLE_CONSENSUS
+-- looking for PCL_FILTERS
+-- looking for PCL_2D
+-- looking for PCL_FEATURES
+-- looking for PCL_REGISTRATION
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Looking for omp_pause_resource_all
+-- Looking for omp_pause_resource_all - found
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3
+-- Found required Ceres dependency: glog
+-- Found required Ceres dependency: gflags
+-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/localization_zoo/build

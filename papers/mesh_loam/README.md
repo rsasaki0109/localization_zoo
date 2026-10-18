@@ -313,6 +313,91 @@ Recommended values for the paper path (runner flags `--mesh-loam-marching-cubes`
 accuracy runs. For `keep_mesh`, use `marching_cubes = true` and
 `mesh_freeze_radius = 100`.
 
+## Rejected acceleration experiments
+
+Mesh-LOAM retains its original implementation. `--paper-pipeline-accelerated`
+currently applies to the IMLS-SLAM and InTEn-LOAM paper paths. The Mesh tree,
+packet cache and bin-normal-bound candidates are excluded after the full
+normal-bound measurement was slower than its fresh control. Historical
+benchmark results and the original mesh mechanism tests are preserved.
+
+To reproduce the rejected normal-bound candidate, check out implementation
+`f47555735c94d43d6f8e1554ee7bf50be77ac159`, build its recorded Release target,
+and use the exact opt-in invocation in the linked result receipt. Its changed
+association code was opt-in and default off. The retained Mesh C++ sources
+match the frozen baseline; the experiment results below describe that recorded
+candidate rather than an enabled optimization in the current implementation.
+
+The rejected bounding-volume-tree candidate (`fe607199`) took 168128.332 ms
+against 117876.891 ms for the frozen baseline on the first 120 KITTI 07 frames:
+**0.70x**, slower despite identical saved poses. The changed binary's default
+path took 105839.854 ms and also retained the poses. These are development-window
+measurements, not a full-sequence speed claim. The spatial tree was rejected. The raw runs and exact
+commands were committed in `8479040a` under
+[`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
+
+The later packet-cache candidate (`fe03ed88`) took 76263.959 ms against
+66420.751 ms for the frozen control and 60205.016 ms for the changed default:
+**0.87x**, again with identical saved poses on the first 120 frames. Its raw
+screening was committed in `0560f22e`. The per-facet packet cache is also
+rejected; the full-sequence normal-bound measurement is below.
+
+The packet cache also cost memory. In the freeze fixture, candidate `3541f773`
+reported 12498398 estimated bytes with acceleration and freeze, versus 12294436
+with neither. This mixed-cache comparison failed the previous memory assertion;
+the experiment corrected the test to use equal cache settings. The retained
+implementation uses the original uncached freeze test. The failed full-CTest receipt and memory estimates
+are preserved in `6235f89c` under
+[`candidates/3541f773/`](../../experiments/results/paper_pipeline_speed/candidates/3541f773/).
+
+Repeated development windows (first 120 KITTI 07 frames, four workers,
+profiler disabled; every source and exact command is in the linked evidence):
+
+| Source | Frozen control [s] | Changed default [s] | Opt-in [s] | Control / opt-in |
+|---|---:|---:|---:|---:|
+| `fe607199` | 117.877 | 105.840 | 168.128 | 0.70x |
+| `fe03ed88` | 66.421 | 60.205 | 76.264 | 0.87x |
+| `67867d0b` | 95.673 | 92.271 | 111.466 | 0.86x |
+
+All saved poses agree with the frozen control at the saved precision (nine
+significant digits). Execution time varies substantially, including between
+unchanged method implementations. These windows do not establish the full
+speed target. The primary full comparison uses fresh immediately preceding
+controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
+
+[Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
+and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573.json).
+
+Full KITTI 07 at measured candidate `f4755573` and control `134ead2f`,
+identical selected registration arguments, four OpenMP workers, one method at a
+time on the same recorded host; the profiler is disabled. These times belong
+to those revisions and are not remeasured by the later shared-component integration:
+
+| Execution | Time [s] | FPS | Official RTE [%] | ATE [m] |
+|---|---:|---:|---:|---:|
+| Paired frozen control | 1165.57 | 0.945 | 0.341905 | 0.855800 |
+| Rejected normal-bound candidate | 1397.59 | 0.788 | 0.341905 | 0.855800 |
+
+Measured speedup: **0.83x**. Maximum translation difference from the
+paired frozen control: 0.000000000 m.
+Pose differences use the saved KITTI matrices (nine significant digits).
+Official RTE agrees to the third decimal.
+
+**Negative result:** this attempt does not meet the roadmap speed target.
+The Mesh candidate is excluded; the original implementation is retained.
+The roadmap item is still open.
+
+KITTI 07 guided implementation and is not held out. This comparison uses a
+frozen-source full control run immediately before acceleration on the same host
+and thread count. Historical
+Table 6 results retain their original evidence and are not replaced.
+
+The rejected candidate's [final CPU profile](../../experiments/results/paper_pipeline_speed/runs/f4755573_profile_accelerated_mesh_loam/cpu_profile.txt)
+was recorded after all unprofiled full measurements and committed in `82da76c0`.
+The outlined facet-association body accounts for 47.5% of sampled CPU
+on the first development window. This locates remaining association work; it
+is early-sequence CPU attribution, not a full-sequence stage wall-time fraction.
+Profiled time is excluded from the speed comparison.
 
 <!-- SHARED_NEAR_RANGE_AUDIT -->
 ## Shared-loader replay: historical KITTI 04 difference
@@ -359,3 +444,15 @@ were committed at `485fa00601644731827dae601eb3b43c7543efeb`.
 distinguish these completed runs from a cleaned sequence checkpoint: 00 input
 cleanup and the whole-zoo audit are incomplete. Defaults remain off.
 <!-- /SHARED_NEAR_RANGE_00_PRIMARY -->
+
+## Acceleration integration with shared components
+
+The current-main compatibility evidence, committed in `7619f198`, compares
+frozen main, merged default and merged global-flag modes on the same 3 real
+MCD scans with the historical fixed arguments. Both merged modes have zero
+recorded accuracy/frame differences from main and byte-identical saved poses.
+The global flag is ignored by Mesh; its rejected acceleration remains excluded.
+These short executions check compatibility; they do not establish long-segment
+KITTI RTE or remeasure full-sequence throughput. The speed figures above remain
+tied to their recorded sources. [Commands, binary/input hashes, comparison and
+limits](../../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).

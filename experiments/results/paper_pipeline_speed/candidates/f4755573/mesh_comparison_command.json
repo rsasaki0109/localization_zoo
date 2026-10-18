@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-speed/compare_full.py",
+    "--tag",
+    "f4755573",
+    "--method",
+    "mesh_loam"
+  ],
+  "helper_sha256": "99168a93d6d6655fd031b63bb5b7ab4993ab8516861a67afe40c92372af61e71",
+  "archived_helper": "experiments/results/paper_pipeline_speed/helpers/compare_full_99168a93d6d6.py",
+  "exit_code": 0,
+  "raw_control_commit": "2c46869da0f9ec72c6eb70eeac1380830c9eeda9",
+  "raw_accelerated_commit": "232d3b31"
+}

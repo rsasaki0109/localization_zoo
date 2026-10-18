@@ -337,6 +337,8 @@ their original causes remain unresolved. This replays historical per-cell
 arguments rather than defining a new single-setting accuracy study.
 [Saved02 diagnostics](diagnostics/02/README.md) locate current error growth and
 the available Mesh path gap, with missing-path/runtime limits and no cause attribution.
+[Saved03 Mesh diagnostics](diagnostics/03/README.md) add the paired historical gap,
+all inherited fixed blocks and explicit runtime limits from committed paths.
 
 ## Environment interruption and remaining-sequence recovery
 

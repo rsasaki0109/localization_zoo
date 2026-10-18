@@ -296,6 +296,9 @@ independent. Each item says what "done" means.
      with explicit missing-path/runtime limits. Full03 adds a Mesh historical
      difference reproduced by its frozen control; method READMEs retain all
      numerical pairs. Inputs were hash-verified before deletion.
+     [Saved03 Mesh diagnosis](../experiments/results/shared_near_range/diagnostics/03/README.md)
+     retains the paired historical path gap and inherited block breakdown;
+     runtime differs, so the original cause remains open.
      The environment restarted during05. Interrupted outputs are preserved and
      excluded from coverage; a source-pinned recovery reruns all selected05
      cells with the same frozen executables/settings before continuing.

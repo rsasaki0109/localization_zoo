@@ -1,0 +1,147 @@
+{
+  "base": "560283342bf8fa49aa1db5079efd9d1ff658a233",
+  "identity_commands": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "560283342bf8fa49aa1db5079efd9d1ff658a233",
+        "--",
+        "common",
+        "evaluation",
+        "python",
+        "ros2",
+        ".github/workflows/ci.yml",
+        "CMakeLists.txt",
+        ":(glob)papers/*/src/**",
+        ":(glob)papers/*/include/**",
+        ":(glob)papers/*/test/**",
+        ":(glob)papers/*/CMakeLists.txt",
+        "experiments/results/shared_near_range/sequences",
+        "experiments/results/shared_near_range/checkpoints",
+        "experiments/results/shared_near_range/diagnostics/00",
+        "experiments/results/shared_near_range/diagnostics/01",
+        "experiments/results/shared_near_range/diagnostics/02",
+        "experiments/results/shared_near_range/diagnostics/02_protocol.json"
+      ],
+      "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "historical_aggregate_count": 688,
+  "changed_aggregates": [],
+  "published_files_identical": {
+    "README.md": true,
+    "docs/index.html": true,
+    "docs/assets/paper/paper_ratio_table.csv": true,
+    "evaluation/data/paper_reported_numbers.json": true
+  },
+  "mesh_readme_outside03_block_preserved": true,
+  "sealed_completion_renderer_preserves_updated03_block": true,
+  "analysis_input_hashes_still_match": {
+    "experiments/results/shared_near_range/diagnose_saved02.py": true,
+    "experiments/results/shared_near_range/support.py": true,
+    "experiments/results/shared_near_range/protocol.json": true,
+    "experiments/results/shared_near_range/diagnostics/03_protocol.json": true,
+    "experiments/results/shared_near_range/sequences/03/audit/report.json": true,
+    "experiments/results/shared_near_range/sequences/03/audit/audit_command.json": true,
+    "experiments/results/shared_near_range/candidate.json": true,
+    "experiments/results/shared_near_range/native_wrapper.py": true,
+    "experiments/results/shared_near_range/baseline.json": true,
+    "experiments/results/shared_near_range/sequences/03/frozen_baseline/report.json": true,
+    "experiments/results/shared_near_range/sequences/03/frozen_baseline/audit_command.json": true,
+    "experiments/results/shared_near_range/sequences/03/frozen_comparison.json": true,
+    "experiments/results/shared_near_range/sequences/03/cleanup.json": true,
+    "evaluation/scripts/diagnose_kitti_steps.py": true,
+    "evaluation/scripts/evaluate_external_kitti_odometry.py": true,
+    "experiments/results/shared_near_range/sequences/03/audit/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation.json": true,
+    "experiments/results/shared_near_range/sequences/03/audit/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation_native_command.json": true,
+    "experiments/results/shared_near_range/sequences/03/frozen_baseline/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation.json": true,
+    "experiments/results/shared_near_range/sequences/03/frozen_baseline/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation_native_command.json": true,
+    "experiments/results/shared_near_range/sequences/03/audit/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt": true,
+    "experiments/results/shared_near_range/sequences/03/frozen_baseline/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt": true,
+    "experiments/results/shared_near_range/sequences/03/audit/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/gt.txt": true,
+    "experiments/results/shared_near_range/sequences/03/frozen_baseline/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/gt.txt": true,
+    "experiments/results/shared_near_range/sequences/03/audit/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/kitti_seq_03_full_evaluated_gt.txt": true,
+    "experiments/results/shared_near_range/sequences/03/frozen_baseline/replays/mesh_loam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/kitti_seq_03_full_evaluated_gt.txt": true,
+    "experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json": true,
+    "experiments/results/runs/mesh_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_elevation/summary.json": true,
+    "experiments/results/runs/mesh_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt": true,
+    "experiments/results/runs/mesh_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_elevation/evaluated_gt_kitti.txt": true,
+    "experiments/results/mesh_inten_kitti_coverage/environment.json": true,
+    "experiments/results/mesh_inten_kitti_coverage/seq_03_commands.log": true,
+    "papers/mesh_loam/src/mesh_loam.cpp": true,
+    "papers/mesh_loam/include/mesh_loam/mesh_loam.h": true
+  },
+  "exit_code": 0,
+  "mesh_historical_frozen_main_core_identity": [
+    {
+      "path": "papers/mesh_loam/src/mesh_loam.cpp",
+      "commands": [
+        {
+          "command": [
+            "git",
+            "show",
+            "d1b7288ff46964bde86ef15ab34b2ae8b4f389da:papers/mesh_loam/src/mesh_loam.cpp"
+          ],
+          "exit_code": 0,
+          "sha256": "5552ddaa80f0f7df8a5f5ebb916bbfdc0c573c6413df38607473f70852968db8"
+        },
+        {
+          "command": [
+            "git",
+            "show",
+            "0b079dbbcb7c6f58c1d8367ade881c15f003e525:papers/mesh_loam/src/mesh_loam.cpp"
+          ],
+          "exit_code": 0,
+          "sha256": "5552ddaa80f0f7df8a5f5ebb916bbfdc0c573c6413df38607473f70852968db8"
+        },
+        {
+          "command": [
+            "git",
+            "show",
+            "560283342bf8fa49aa1db5079efd9d1ff658a233:papers/mesh_loam/src/mesh_loam.cpp"
+          ],
+          "exit_code": 0,
+          "sha256": "5552ddaa80f0f7df8a5f5ebb916bbfdc0c573c6413df38607473f70852968db8"
+        }
+      ],
+      "historical_frozen_and_main_bytes_equal": true
+    },
+    {
+      "path": "papers/mesh_loam/include/mesh_loam/mesh_loam.h",
+      "commands": [
+        {
+          "command": [
+            "git",
+            "show",
+            "d1b7288ff46964bde86ef15ab34b2ae8b4f389da:papers/mesh_loam/include/mesh_loam/mesh_loam.h"
+          ],
+          "exit_code": 0,
+          "sha256": "f7d9112478cfbcf9b63ad5818293db70caa9384b7d4f8ca7535a4fda57969604"
+        },
+        {
+          "command": [
+            "git",
+            "show",
+            "0b079dbbcb7c6f58c1d8367ade881c15f003e525:papers/mesh_loam/include/mesh_loam/mesh_loam.h"
+          ],
+          "exit_code": 0,
+          "sha256": "f7d9112478cfbcf9b63ad5818293db70caa9384b7d4f8ca7535a4fda57969604"
+        },
+        {
+          "command": [
+            "git",
+            "show",
+            "560283342bf8fa49aa1db5079efd9d1ff658a233:papers/mesh_loam/include/mesh_loam/mesh_loam.h"
+          ],
+          "exit_code": 0,
+          "sha256": "f7d9112478cfbcf9b63ad5818293db70caa9384b7d4f8ca7535a4fda57969604"
+        }
+      ],
+      "historical_frozen_and_main_bytes_equal": true
+    }
+  ]
+}

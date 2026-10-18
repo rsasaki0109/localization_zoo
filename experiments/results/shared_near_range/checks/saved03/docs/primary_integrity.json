@@ -1,0 +1,62 @@
+{
+  "primary_head": "c3698e6700199b352d846f70a6580ad007ea35cc",
+  "files_match": {
+    "finish_when_complete.py": true,
+    "finish_docs.py": true,
+    "support.py": true,
+    "report.py": true,
+    "verify_preservation.py": true,
+    "run_all.py": true,
+    "protocol.json": true,
+    "selection.json": true,
+    "baseline.json": true,
+    "candidate.json": true,
+    "native_wrapper.py": true,
+    "recover_interrupted05.py": true,
+    "recovery05_protocol.json": true
+  },
+  "binaries_match": {
+    "baseline_pcd_dogfooding": true,
+    "candidate_pcd_dogfooding": true
+  },
+  "native_guard": {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "exit_code": 0,
+    "output": ""
+  },
+  "active": {
+    "source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+    "status": "auditing",
+    "sequence": "05",
+    "completed": [
+      "04",
+      "00",
+      "01",
+      "02",
+      "03"
+    ],
+    "methods": [],
+    "last_commit": "eebaf3d7559a9e8ed98e59e93814f66838f6b5f6",
+    "recovery": "full05_restart_after_environment_recreation"
+  },
+  "process_exists": {
+    "2309": true,
+    "2310": true
+  },
+  "scope": "Read-only guards. No active scan reads, estimator invocations or primary checkout/source/build/config/controller changes."
+}

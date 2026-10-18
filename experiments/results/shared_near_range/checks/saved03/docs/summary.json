@@ -1,0 +1,17 @@
+{
+  "checked_checkout_commit": "bfad039e961ead539c590b07f918169bf1450afc",
+  "python_tests": 318,
+  "python_skipped": 5,
+  "skip_reason": "No evaluator executable is built in the separate diagnostic worktree; final-head CI builds it and runs the native evaluation guards.",
+  "command_exit_codes": {
+    "refresh_study_docs": 0,
+    "generate_full_variant_table": 0,
+    "generate_paper_ratio_table": 0,
+    "python_unittest": 0,
+    "validate_showcase": 0,
+    "generate_leaderboard": 0,
+    "generate_paper_ready_evidence": 0,
+    "branch_whitespace": 0
+  },
+  "scope": "Offline03 diagnostics and documentation only; no native algorithms, registration arguments, stored results, publication tables or active primary ownership changed."
+}

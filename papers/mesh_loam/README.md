@@ -556,6 +556,19 @@ poses; this difference also predates extraction. Its cause remains unresolved.
 Owned-scan hashes were verified before scan/alias removal. Settings and disabled
 defaults are unchanged. [Audit/control/cleanup and actual commands](../../experiments/results/shared_near_range/sequences/03/)
 were committed at `eebaf3d7` before this prose.
+
+[Saved03 trajectory diagnosis](../../experiments/results/shared_near_range/diagnostics/03/README.md),
+with raw evidence committed at `bfad039e961ead539c590b07f918169bf1450afc` before this prose, locates
+the historical/replay path gap. Its maximum is **0.024541 m** at frame
+**782**, ending at **0.022879 m**. The largest fixed
+**100**-step gap increase is frames **600-700**:
+**0.013161 to 0.019651 m**.
+Current GT position error in that block grows from
+**4.782073 to 7.415219 m**; these are distinct quantities.
+Evaluated GT bytes and the recorded Mesh core match. Original/current OpenMP
+counts **2 / 1** (OpenBLAS **1**) remain a runtime confound, without cause
+attribution. Diagnostic parameters transfer unchanged from 02/01; native settings,
+historical audit exit **1** and published results remain unchanged.
 <!-- /SHARED_NEAR_RANGE_03_DIAGNOSTICS -->
 
 ## Acceleration integration with shared components

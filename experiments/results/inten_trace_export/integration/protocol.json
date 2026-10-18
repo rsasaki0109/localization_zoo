@@ -1,0 +1,21 @@
+{
+  "base_commit": "eb5f0c47cc517f3e8d12d1bd36761f92e546faa0",
+  "native_source_commit": "1dd35f5cd4a052c275321ba52e99c399dc4aea62",
+  "api_prior_source": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+  "cli_previous_head": "194133b787e3b805fbb645105e950dd00fedb8fe",
+  "scope": "Real-fixture compatibility within each default/accelerated execution mode. Trace settings capture includes the effective accelerated boolean. No speed, full-KITTI accuracy or solver-cause claim. Existing177 source, binaries, scripts and owned raw inputs are untouched.",
+  "validation": {
+    "reference_binary": "/workspace/localization-env/inten-passive-trace/worktree/build/evaluation/pcd_dogfooding",
+    "reference_binary_sha256": "d8b467c89d0c9ecafae5644e68b1100043550faaaf00480a5e8b30407c5855d2",
+    "reference_native_source_commit": "eb5f0c47cc517f3e8d12d1bd36761f92e546faa0",
+    "fixture": "evaluation/fixtures/mcd_kth_smoke",
+    "gt": "evaluation/fixtures/mcd_kth_smoke_gt.csv",
+    "variants": [
+      "paper_default__default",
+      "paper_default__accelerated",
+      "paper_odometry_plane_check__default",
+      "paper_odometry_plane_check__accelerated"
+    ]
+  },
+  "selection_provenance": "Reuse default and KITTI07-selected plane check unchanged; KITTI00 influenced earlier diagnosis. No setting selected on this fixture. Each execution mode compares its own trace-off/reference and trace-on results; fast/slow equality is not assumed."
+}

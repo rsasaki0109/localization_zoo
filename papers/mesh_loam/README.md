@@ -374,3 +374,47 @@ The largest increase in pointwise position error among those blocks is poses 380
 
 The referenced historical per-run summary is absent at the inspected revision and was not found in this checkout's reachable history. Without its historical saved path, this does not locate the cause of the historical metric difference. [Plot, full trace, commands and limits](../../experiments/results/shared_near_range/diagnostics/00/README.md) use the committed current poses, with diagnostic evidence committed at `61c1f26e1019aa3f0b05b100404c8bb117448b41`. Native source remains `0b079dbbcb7c6f58c1d8367ade881c15f003e525`.
 <!-- /SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader replay: KITTI 01 comparison in progress
+
+The full stored `paper_odometry_elevation` replay completes all 1101 frames with
+native exit 0. Historical 100 m RPE is **0.849506%**, versus
+**0.850998%** in this replay; ATE is **30.862639 m**
+versus **30.940997 m**. RPE worsens; ATE
+worsens. The historical audit exits **1**, preserving the difference.
+
+The complete frozen pre-extraction comparison and verified input cleanup are
+pending. Whether this cell changes because of extraction is not established
+by the candidate result. Its historical cause remains unresolved. No setting
+is reselected, and the near-range cut remains off.
+
+[Commands, exits, hashes and candidate results](../../experiments/results/shared_near_range/sequences/01/audit/)
+were committed at `9555f01fda68a0294fc7dd5a828a85fac207f68f`. The
+[study and cleaned checkpoint scope](../../experiments/results/shared_near_range/README.md)
+keep this candidate-only evidence separate from completed sequence checkpoints.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->
+
+<!-- SHARED_NEAR_RANGE_01_DIAGNOSTICS -->
+### Saved KITTI 01 path diagnosis
+
+The current path's largest position-error increase in the existing fixed
+blocks is frames **700-800**:
+**33.154975 to 42.799191 m**
+against evaluated GT. This locates current error growth, not the historical
+metric difference.
+
+The historical/current saved paths use byte-identical evaluated GT. Their
+position gap reaches **0.906842 m** at frame
+**947** and ends at **0.770865 m**.
+Its largest fixed-block increase is frames **600-700**,
+from **0.378576 to 0.569314 m**.
+The recorded original and current OpenMP thread settings are **2 and 1**;
+the method source/header match, but no controlled thread-count experiment
+is performed. These observations do not establish the cause of the difference.
+
+The [diagnostic table, plot, CSVs, source pins and exact command](../../experiments/results/shared_near_range/diagnostics/01/README.md)
+come from committed evidence `1426a851c9f021cbffae239e814b6379a5788b25`. First-pose normalization
+is used without fitted alignment or rescaling. No estimator is rerun and no
+published accuracy result is replaced.
+<!-- /SHARED_NEAR_RANGE_01_DIAGNOSTICS -->

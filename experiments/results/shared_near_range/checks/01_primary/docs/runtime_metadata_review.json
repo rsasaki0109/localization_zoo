@@ -1,0 +1,13 @@
+{
+  "diagnostic_evidence_commit": "1426a851c9f021cbffae239e814b6379a5788b25",
+  "historical": {
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "current": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "controlled_runtime_comparison": false,
+  "exit_code": 0
+}

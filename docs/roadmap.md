@@ -271,6 +271,14 @@ independent. Each item says what "done" means.
      27 historical matches and 7 differences, all reproduced by frozen controls.
      Both historical audits retain exit 1; checkpoint verification exits 0.
      [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/00/summary.json).
+     Full 01 candidate replay also finishes all 13 cells: 11 match;
+     CT-ICP and Mesh-LOAM differ, retaining audit exit 1. Their numeric pairs
+     are in the method READMEs. Full frozen comparison and input cleanup are
+     pending, so the cleaned checkpoint count remains 34/177.
+     [Candidate evidence](../experiments/results/shared_near_range/sequences/01/audit/)
+     and [saved-path diagnosis](../experiments/results/shared_near_range/diagnostics/01/README.md)
+     retain Mesh's paired path gap and CT's current error-growth block, with
+     explicit runtime/missing-path limits and no cause attribution.
      The historical NCLT cutoff is retained
      without reselection. DiLO's historical cut/uncut profiles also differ in
      range-image geometry, so their RTE difference cannot isolate the cut's

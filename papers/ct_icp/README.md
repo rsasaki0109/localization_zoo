@@ -154,3 +154,42 @@ were committed at `7458c24d16096cc305889ed0864a5ef8bfb6bdf4`.
 The [whole-zoo audit](../../experiments/results/shared_near_range/README.md)
 is incomplete; the opt-in cut remains off by default.
 <!-- /SHARED_NEAR_RANGE_AUDIT -->
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader replay: KITTI 01 comparison in progress
+
+The full stored `upstream_mechanics_elevation` replay completes all 1101 frames with
+native exit 0. Historical 100 m RPE is **0.826792%**, versus
+**0.830115%** in this replay; ATE is **58.190972 m**
+versus **57.923334 m**. RPE worsens; ATE
+improves. The historical audit exits **1**, preserving the difference.
+
+The complete frozen pre-extraction comparison and verified input cleanup are
+pending. Whether this cell changes because of extraction is not established
+by the candidate result. Its historical cause remains unresolved. No setting
+is reselected, and the near-range cut remains off.
+
+[Commands, exits, hashes and candidate results](../../experiments/results/shared_near_range/sequences/01/audit/)
+were committed at `9555f01fda68a0294fc7dd5a828a85fac207f68f`. The
+[study and cleaned checkpoint scope](../../experiments/results/shared_near_range/README.md)
+keep this candidate-only evidence separate from completed sequence checkpoints.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->
+
+<!-- SHARED_NEAR_RANGE_01_DIAGNOSTICS -->
+### Saved KITTI 01 path diagnosis
+
+The current path's largest position-error increase in the existing fixed
+blocks is frames **700-800**:
+**61.594297 to 81.754537 m**
+against evaluated GT. This locates current error growth, not the historical
+metric difference.
+
+The referenced historical per-run summary is absent in the inspected tree
+and was not found in the reachable history of this checkout. There is no
+paired historical path here, so this cannot locate where that path differs.
+
+The [diagnostic table, plot, CSVs, source pins and exact command](../../experiments/results/shared_near_range/diagnostics/01/README.md)
+come from committed evidence `1426a851c9f021cbffae239e814b6379a5788b25`. First-pose normalization
+is used without fitted alignment or rescaling. No estimator is rerun and no
+published accuracy result is replaced.
+<!-- /SHARED_NEAR_RANGE_01_DIAGNOSTICS -->

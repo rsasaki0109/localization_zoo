@@ -19,6 +19,11 @@ error growth in the five replay paths that differ from stored metrics.
 Referenced historical per-run summaries are missing at the inspected revision,
 so these diagnostics do not identify the cause of the historical differences.
 
+The [KITTI 01 saved-path diagnosis](diagnostics/01/README.md) compares the
+available historical/current Mesh-LOAM paths and locates current CT-ICP error
+growth. Its runtime and missing-path limits are explicit; it does not identify
+the cause of historical metric differences.
+
 ## Scope and status
 
 Implementation and the regression protocol were merged in
@@ -143,6 +148,39 @@ sequence audits exit 1; checkpoint verification exits 0. Whole-zoo coverage is
 still incomplete. The required generators, Python/doc contracts, preservation
 and whitespace checks are retained under [checks/checkpoint00/](checks/checkpoint00/),
 with actual process exits and losslessly compressed logs.
+
+## Completed candidate runs: 01; full frozen comparison and cleanup pending
+
+All 13 selected candidate cells finish, with native exits 0 and
+1101 evaluated frames each. 11 match stored RPE, ATE and frame count;
+the following 2 differ, so the historical audit exits **1**.
+
+| Method | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---:|---:|---:|---:|
+| CT-ICP | 0.826792 | 0.830115 | 58.190972 | 57.923334 |
+| Mesh-LOAM | 0.849506 | 0.850998 | 30.862639 | 30.940997 |
+
+RPE worsens for both. CT-ICP ATE improves; Mesh-LOAM ATE worsens. The original
+arguments are replayed without selecting a setting. The completed candidate
+results, commands, native hashes, input hashes and verification were committed
+at `9555f01fda68a0294fc7dd5a828a85fac207f68f`:
+[candidate evidence](sequences/01/audit/), [inputs](sequences/01/inputs.json),
+[verification](checks/01_primary/verification.json).
+
+The controller is comparing both historical differences with the frozen
+pre-extraction executable. The complete comparison and owned-input cleanup
+remain pending, so these candidate runs are **not** added to the cleaned
+checkpoint count. The cleaned 04/00 checkpoint remains **34/177** cells.
+Attribution of either 01 difference to extraction remains unestablished here.
+Stored aggregates, Table 6, paper metadata and defaults are unchanged.
+
+[Committed saved-path diagnostics](diagnostics/01/README.md) pair Mesh-LOAM's
+historical/current paths against byte-identical evaluated GT, and locate current
+CT-ICP error growth. The Mesh source/header match its recorded original source,
+but its original/current OpenMP settings differ; this is not a controlled
+thread-count experiment or a cause attribution. CT-ICP's referenced legacy
+summary/path is unavailable in the inspected checkout. Diagnostic evidence was
+committed at `1426a851c9f021cbffae239e814b6379a5788b25` before numeric prose.
 
 Native stdout contains padded tables. Git whitespace attributes are scoped to
 native replay/fixture logs so their exact bytes are retained; code, CSV and

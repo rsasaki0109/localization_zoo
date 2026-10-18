@@ -2,8 +2,10 @@
 
 #include <gtest/gtest.h>
 #include <Eigen/Geometry>
+#include <Eigen/Cholesky>
 
 #include <cmath>
+#include <stdexcept>
 
 using namespace localization_zoo::inten_loam;
 
@@ -220,4 +222,153 @@ TEST(InTenLoamPaper, PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods)
   // Measured: 3.2 cm without the check, 1.2 cm with it.
   EXPECT_GT(worst[0], 0.025);
   EXPECT_LT(worst[1], 0.5 * worst[0]);
+}
+
+TEST(InTenLoamPaper, PassiveTracePreservesMovingPosesAndFutureMapState) {
+  InTenLoamPaper plain, observed;
+  std::vector<Eigen::Vector3d> pts;
+  std::vector<float> inten;
+  Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+  step(0, 3) = 1.0;
+  step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  InTenLoamPaperTrace trace;
+  for (int k = 0; k < 6; ++k) {
+    if (k) truth = truth * step;
+    scanAt(truth, &pts, &inten);
+    const auto a = plain.process(pts, inten);
+    // Stop observing before the last frames, checking retained map/prediction.
+    const auto b = observed.process(pts, inten, nullptr, k < 4 ? &trace : nullptr);
+    EXPECT_EQ((a.pose - b.pose).norm(), 0.0);
+    EXPECT_EQ(a.s2s_pairs, b.s2s_pairs);
+    EXPECT_EQ(a.s2m_pairs, b.s2m_pairs);
+    EXPECT_EQ(a.dor_removed, b.dor_removed);
+    for (int c = 0; c < 4; ++c) EXPECT_EQ(a.s2m_class_pairs[c], b.s2m_class_pairs[c]);
+    if (k >= 4) continue;
+    EXPECT_EQ(trace.frame_index, k);
+    EXPECT_EQ((trace.pose - b.pose).norm(), 0.0);
+    if (!k) {
+      EXPECT_TRUE(trace.initialization);
+      EXPECT_FALSE(trace.s2s.called);
+      EXPECT_FALSE(trace.s2m.called);
+      continue;
+    }
+    EXPECT_FALSE(trace.initialization);
+    EXPECT_TRUE(trace.s2s.called);
+    EXPECT_TRUE(trace.s2m.called);
+    EXPECT_FALSE(trace.s2s_fallback);
+    EXPECT_TRUE(trace.s2m_accepted);
+    EXPECT_EQ(trace.s2s.returned_pairs, b.s2s_pairs);
+    EXPECT_EQ(trace.s2m.returned_pairs, b.s2m_pairs);
+    EXPECT_EQ((trace.accepted_relative - trace.s2s.output).norm(), 0.0);
+    EXPECT_EQ((trace.s2m.input - trace.s2m_prediction).norm(), 0.0);
+    EXPECT_EQ((trace.pose - trace.s2m.output).norm(), 0.0);
+    for (const auto* solver : {&trace.s2s, &trace.s2m}) {
+      ASSERT_FALSE(solver->iterations.empty());
+      EXPECT_EQ((solver->input - solver->iterations.front().linearization_pose).norm(), 0.0);
+      for (const auto& it : solver->iterations) {
+        EXPECT_EQ(it.pairs, it.class_pairs[0] + it.class_pairs[1] + it.class_pairs[2] + it.class_pairs[3]);
+        EXPECT_GE(it.weighted_squared_residual, 0.0);
+        EXPECT_TRUE(it.step_attempted);
+        EXPECT_TRUE(it.step_finite);
+        EXPECT_TRUE(it.update_applied);
+        const PaperIterationTrace::Vec6 recomputed =
+            (it.H + 1e-6 * PaperIterationTrace::Mat6::Identity()).ldlt().solve(-it.g);
+        EXPECT_LT((recomputed - it.delta).norm(), 1e-12);
+      }
+    }
+  }
+}
+
+TEST(InTenLoamPaper, PassiveTraceShowsFallbackAndMappingRejectionWithoutStaleIterations) {
+  InTenLoamPaper plain, observed;
+  std::vector<Eigen::Vector3d> pts;
+  std::vector<float> inten;
+  InTenLoamPaperTrace trace;
+  Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+  for (int k = 0; k < 3; ++k) {
+    truth(0, 3) = k;
+    scanAt(truth, &pts, &inten);
+    plain.process(pts, inten);
+    observed.process(pts, inten, nullptr, &trace);
+  }
+  ASSERT_GT((trace.s2s.input.block<3, 1>(0, 3).norm()), 0.1);
+  const auto a = plain.process({}, {});
+  const auto b = observed.process({}, {}, nullptr, &trace);
+  EXPECT_EQ((a.pose - b.pose).norm(), 0.0);
+  EXPECT_TRUE(trace.s2s_fallback);
+  EXPECT_FALSE(trace.s2m_accepted);
+  EXPECT_EQ((trace.accepted_relative - trace.s2s.input).norm(), 0.0);
+  EXPECT_EQ((trace.pose - trace.s2m_prediction).norm(), 0.0);
+  for (const auto* solver : {&trace.s2s, &trace.s2m}) {
+    EXPECT_EQ(solver->stop, PaperSolverStop::InsufficientPairs);
+    EXPECT_EQ(solver->returned_pairs, 0);
+    ASSERT_EQ(solver->iterations.size(), 1u);
+    EXPECT_EQ(solver->iterations[0].pairs, 0);
+    EXPECT_FALSE(solver->iterations[0].step_attempted);
+    EXPECT_FALSE(solver->iterations[0].update_applied);
+    EXPECT_EQ((solver->output - solver->input).norm(), 0.0);
+  }
+}
+
+TEST(InTenLoamPaper, PassiveTraceDistinguishesSkippedMappingAndZeroIterationBudget) {
+  for (bool mapping : {false, true}) {
+    InTenLoamPaperParams params;
+    params.use_mapping = mapping;
+    params.s2m_interval = 2;
+    params.s2s_iterations = 0;
+    params.s2m_iterations = 0;
+    InTenLoamPaper odo(params);
+    InTenLoamPaperTrace trace;
+    for (int k = 0; k < 4; ++k) {
+      odo.process({}, {}, nullptr, &trace);
+      EXPECT_EQ(trace.frame_index, k);
+      if (!k) continue;
+      EXPECT_EQ(trace.s2s.stop, PaperSolverStop::NoIterations);
+      EXPECT_TRUE(trace.s2s.iterations.empty());
+      EXPECT_TRUE(trace.s2s_fallback);
+      EXPECT_EQ(trace.s2m.called, mapping && k % 2 == 0);
+      EXPECT_EQ(trace.s2m.stop, trace.s2m.called ? PaperSolverStop::NoIterations : PaperSolverStop::NotRun);
+      EXPECT_TRUE(trace.s2m.iterations.empty());
+      EXPECT_FALSE(trace.s2m_accepted);
+    }
+  }
+}
+
+TEST(InTenLoamPaper, PassiveTraceReportsIterationBudgetAndConvergenceSeparately) {
+  std::vector<Eigen::Vector3d> pts;
+  std::vector<float> inten;
+  for (bool converge : {false, true}) {
+    InTenLoamPaperParams params;
+    params.s2s_iterations = params.s2m_iterations = 1;
+    params.convergence = converge ? 1e6 : 0.0;
+    InTenLoamPaper odo(params);
+    scanAt(Eigen::Matrix4d::Identity(), &pts, &inten);
+    odo.process(pts, inten);
+    Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+    truth(0, 3) = 1.0;
+    scanAt(truth, &pts, &inten);
+    InTenLoamPaperTrace trace;
+    odo.process(pts, inten, nullptr, &trace);
+    for (const auto* solver : {&trace.s2s, &trace.s2m}) {
+      ASSERT_EQ(solver->iterations.size(), 1u);
+      EXPECT_TRUE(solver->iterations[0].update_applied);
+      EXPECT_EQ(solver->stop, converge ? PaperSolverStop::Converged : PaperSolverStop::IterationLimit);
+    }
+  }
+}
+
+TEST(InTenLoamPaper, PassiveTraceRejectsForcedPoseBeforeChangingEstimatorState) {
+  InTenLoamPaper plain, observed;
+  Eigen::Matrix4d intervention = Eigen::Matrix4d::Identity();
+  intervention(0, 3) = 100.0;
+  InTenLoamPaperDiagnostics diag;
+  diag.forced_pose = &intervention;
+  InTenLoamPaperTrace trace;
+  EXPECT_THROW(observed.process({}, {}, &diag, &trace), std::invalid_argument);
+  const auto a = plain.process({}, {});
+  const auto b = observed.process({}, {}, nullptr, &trace);
+  EXPECT_TRUE(trace.initialization);
+  EXPECT_EQ(trace.frame_index, 0);
+  EXPECT_EQ((a.pose - b.pose).norm(), 0.0);
 }

@@ -1,6 +1,6 @@
 # Paper Roadmap
 
-_Generated at 2026-10-18T14:38:56+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-18T22:19:34+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 ## Chosen Direction
 

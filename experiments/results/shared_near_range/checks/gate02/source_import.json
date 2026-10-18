@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/branch_whitespace.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/branch_whitespace.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/commands.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/commands.json",
+      "source_sha256": "e8ddcb194076eb3ab18bf91d6cd545dc57cb2f927182c6446a0bf53c04286326",
+      "destination_sha256": "e8ddcb194076eb3ab18bf91d6cd545dc57cb2f927182c6446a0bf53c04286326",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/diagnostic_regressions.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/diagnostic_regressions.log.gz",
+      "source_sha256": "6f3fe1e05a7ae67aa54c6649b8e40008fa8ddba2e23ab4a171727f9f4c18167f",
+      "destination_sha256": "8c19dfc1a7c289b363875dd57ede022fb4ab325d962a01fc57873d57e9fb2d8e",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/exit.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/exit.json",
+      "source_sha256": "8009f93d744da141cd6a75eae257cb9a36b8ff9c36160e59fd1347dc778a59aa",
+      "destination_sha256": "8009f93d744da141cd6a75eae257cb9a36b8ff9c36160e59fd1347dc778a59aa",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/frozen_integrity.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/frozen_integrity.json",
+      "source_sha256": "c509ef2639cc37099d43a8f1cda371491df65b2abeed061523dbb5c24991173f",
+      "destination_sha256": "c509ef2639cc37099d43a8f1cda371491df65b2abeed061523dbb5c24991173f",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/live_gate.json",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/live_gate.json",
+      "source_sha256": "59f62ff1cc078782165f4108d8e4cc4f1e677d9718aa0a90d72799e662775093",
+      "destination_sha256": "59f62ff1cc078782165f4108d8e4cc4f1e677d9718aa0a90d72799e662775093",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/optimized_diagnostic_regressions.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/optimized_diagnostic_regressions.log.gz",
+      "source_sha256": "1f31e9b218a163e8b3ee0fc0486bfabf7a29865cf06adca7bafd51a71ef0104b",
+      "destination_sha256": "20ce7c21314de04ac3dd65cf6eddd3d21aaeed400fe3181b9139f34f0088ed01",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/recursive_native_identity.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/recursive_native_identity.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/gate02_source_validation/uncommitted_live_candidate_rejected.log",
+      "destination": "experiments/results/shared_near_range/checks/gate02/source/uncommitted_live_candidate_rejected.log.gz",
+      "source_sha256": "788d49c1f010c34558b69ea3cb8094df73b3be5caee70eec29b39f01359f3400",
+      "destination_sha256": "d8243c56a31cd5c6ecc5befab60763e9db80c9cbacc4cfe9e64ac035176f5c5b",
+      "lossless": true
+    }
+  ],
+  "scope": "Validation of the committed diagnosis source, synthetic fixtures and rejection of uncommitted live inputs. No KITTI02 numerical result imported."
+}

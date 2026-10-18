@@ -424,7 +424,7 @@ is incomplete. Historical aggregates and the default-off cutoff are unchanged.
 <!-- /SHARED_NEAR_RANGE_AUDIT -->
 
 <!-- SHARED_NEAR_RANGE_00_PRIMARY -->
-## Shared-loader replay: KITTI 00 comparison in progress
+## Shared-loader replay: KITTI 00 frozen comparison complete
 
 The full 00 replay of the stored `paper_odometry_elevation` arguments completes all
 4541 frames, with the optional near-range cut still off. The historical
@@ -433,17 +433,130 @@ The full 00 replay of the stored `paper_odometry_elevation` arguments completes 
 to **10.099834 m**. RPE worsens. ATE improves, so these outcomes are retained separately.
 The native process exits 0, but the historical audit exits **1**.
 
-The frozen pre-extraction comparison is still running. The cause of this
-historical difference and whether extraction affects this cell remain
-**unresolved** until that comparison completes. No setting is reselected;
-the stored aggregate and published paper comparison are preserved.
+The frozen pre-extraction replay also completes with native exit 0. RPE,
+ATE, frame count and official translation/rotation RTE have **zero** recorded
+differences from the extracted implementation, with byte-identical saved poses.
+This historical difference therefore predates extraction; its original cause
+remains unresolved. The frozen historical audit also exits 1. No setting is
+reselected, and the stored aggregate and published paper comparison are preserved.
 
 [Completed candidate commands, actual exits, logs and summaries](../../experiments/results/shared_near_range/sequences/00/audit/)
 were committed at `485fa00601644731827dae601eb3b43c7543efeb`.
-[Protocol and current scope](../../experiments/results/shared_near_range/README.md)
-distinguish these completed runs from a cleaned sequence checkpoint: 00 input
-cleanup and the whole-zoo audit are incomplete. Defaults remain off.
+The full [frozen comparison](../../experiments/results/shared_near_range/sequences/00/frozen_comparison.json)
+and [verified input cleanup](../../experiments/results/shared_near_range/sequences/00/cleanup.json)
+were committed at `10cf31616365b41878ec9311f0b705e798716c51`.
+The [committed checkpoint](../../experiments/results/shared_near_range/checkpoints/00/summary.json)
+now covers cleaned 04 and 00; the whole-zoo audit remains incomplete.
+Defaults remain off.
 <!-- /SHARED_NEAR_RANGE_00_PRIMARY -->
+
+<!-- SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
+## KITTI 00 current-replay error growth
+
+The committed current replay has 14/4514 moving steps with length error above 20%, and 43/4514 with local translation-vector error above 20%. The existing diagnostic uses the same 100-frame blocks and GT step threshold of 0.1 m for every method.
+
+The largest increase in pointwise position error among those blocks is poses 3800–3900: GT travels 105.799422 m, while error rises from 13.138734 m to 18.361150 m (increase 5.222416 m). These frame blocks diagnose the current trajectory; they are **not official KITTI RTE**. The tool uses first-pose normalization without fitting or rescaling.
+
+The referenced historical per-run summary is absent at the inspected revision and was not found in this checkout's reachable history. Without its historical saved path, this does not locate the cause of the historical metric difference. [Plot, full trace, commands and limits](../../experiments/results/shared_near_range/diagnostics/00/README.md) use the committed current poses, with diagnostic evidence committed at `61c1f26e1019aa3f0b05b100404c8bb117448b41`. Native source remains `0b079dbbcb7c6f58c1d8367ade881c15f003e525`.
+<!-- /SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader replay: KITTI 01 frozen comparison complete
+
+The full stored `paper_odometry_elevation` replay completes all 1101 frames with
+native exit 0. Historical 100 m RPE is **0.849506%**, versus
+**0.850998%** in this replay; ATE is **30.862639 m**
+versus **30.940997 m**. RPE worsens; ATE
+worsens. The historical audit exits **1**, preserving the difference.
+
+The frozen pre-extraction replay also completes with native exit 0. RPE,
+ATE, frames and official translation/rotation RTE have zero recorded differences
+from the extracted implementation, with byte-identical saved poses. This
+historical difference predates extraction; its original cause remains unresolved.
+The frozen historical audit also exits 1. No setting is reselected, and the
+near-range cut remains off.
+
+[Commands, exits, hashes and candidate results](../../experiments/results/shared_near_range/sequences/01/audit/)
+were committed at `9555f01fda68a0294fc7dd5a828a85fac207f68f`. The
+[study and cleaned checkpoint scope](../../experiments/results/shared_near_range/README.md)
+now include the full [frozen comparison](../../experiments/results/shared_near_range/sequences/01/frozen_comparison.json)
+and [verified input cleanup](../../experiments/results/shared_near_range/sequences/01/cleanup.json),
+committed at `6188b71d8e48933a4dffce54afdde7a01382f4b0`. The cleaned
+[04/00/01 checkpoint](../../experiments/results/shared_near_range/checkpoints/01/summary.json)
+remains partial whole-zoo coverage.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->
+
+<!-- SHARED_NEAR_RANGE_01_DIAGNOSTICS -->
+### Saved KITTI 01 path diagnosis
+
+The current path's largest position-error increase in the existing fixed
+blocks is frames **700-800**:
+**33.154975 to 42.799191 m**
+against evaluated GT. This locates current error growth, not the historical
+metric difference.
+
+The historical/current saved paths use byte-identical evaluated GT. Their
+position gap reaches **0.906842 m** at frame
+**947** and ends at **0.770865 m**.
+Its largest fixed-block increase is frames **600-700**,
+from **0.378576 to 0.569314 m**.
+The recorded original and current OpenMP thread settings are **2 and 1**;
+the method source/header match, but no controlled thread-count experiment
+is performed. These observations do not establish the cause of the difference.
+
+The [diagnostic table, plot, CSVs, source pins and exact command](../../experiments/results/shared_near_range/diagnostics/01/README.md)
+come from committed evidence `1426a851c9f021cbffae239e814b6379a5788b25`. First-pose normalization
+is used without fitted alignment or rescaling. No estimator is rerun and no
+published accuracy result is replaced.
+<!-- /SHARED_NEAR_RANGE_01_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+## Shared-loader replay: committed KITTI02 difference and saved-path diagnosis
+
+| Method | Seq | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| Mesh-LOAM | 02 | 0.785133 | 0.785817 | 22.288359 | 22.328196 |
+
+The selected `paper_odometry_elevation` arguments are unchanged throughout this full
+sequence. The historical audit retains exit **1**; native executions exit **0**.
+Frozen pre-extraction controls have zero recorded metric differences and
+byte-identical poses. This historical difference predates extraction; its
+original cause remains unresolved. Input hashes were verified before owned
+scan/alias removal. The near-range cut stays disabled.
+
+The largest current position-error increase among the inherited fixed blocks
+is frames **4400-4500**:
+**22.548455 to 33.673883 m**.
+
+Historical/current GT bytes match. The path gap reaches **0.252810 m**
+at frame **2649**, ending at **0.092806 m**. Its largest block
+increase is **1900-2000**:
+**0.116048 to 0.143659 m**.
+Identical method sources and differing OpenMP settings (**2 / 1**) do not isolate
+runtime as the cause.
+
+The [protocol, all steps/CSVs and plot](../../experiments/results/shared_near_range/diagnostics/02/README.md)
+come from committed evidence `8f5841e3946995cedfa9c0e2fc484dbd2c02373e`. First-pose normalization uses no fitted
+alignment or rescaling. These observations locate errors without assigning a
+cause or replacing published accuracy. The
+[cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
+retains all historical differences and audit exits.
+<!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_03_DIAGNOSTICS -->
+## Shared-loader replay: committed KITTI03 historical difference
+
+| Method | Seq | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| Mesh-LOAM | 03 | 0.877028 | 0.877431 | 3.992708 | 3.995116 |
+
+RPE and ATE worsen, retaining historical audit exit **1**. The frozen control
+has native exit **0**, zero recorded metric differences and byte-identical
+poses; this difference also predates extraction. Its cause remains unresolved.
+Owned-scan hashes were verified before scan/alias removal. Settings and disabled
+defaults are unchanged. [Audit/control/cleanup and actual commands](../../experiments/results/shared_near_range/sequences/03/)
+were committed at `eebaf3d7` before this prose.
+<!-- /SHARED_NEAR_RANGE_03_DIAGNOSTICS -->
 
 ## Acceleration integration with shared components
 

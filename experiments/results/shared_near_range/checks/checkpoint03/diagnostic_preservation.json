@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "method": "aloam",
+      "prior_diagnostics_unchanged": true,
+      "new_diagnostics_survive_completion_renderer": true
+    },
+    {
+      "method": "ct_icp",
+      "prior_diagnostics_unchanged": true,
+      "new_diagnostics_survive_completion_renderer": true
+    },
+    {
+      "method": "floam",
+      "prior_diagnostics_unchanged": true,
+      "new_diagnostics_survive_completion_renderer": true
+    },
+    {
+      "method": "lego_loam",
+      "prior_diagnostics_unchanged": true,
+      "new_diagnostics_survive_completion_renderer": true
+    },
+    {
+      "method": "mesh_loam",
+      "prior_diagnostics_unchanged": true,
+      "new_diagnostics_survive_completion_renderer": true
+    }
+  ],
+  "sealed_sha256_matches": {
+    "finish_when_complete.py": true,
+    "finish_docs.py": true,
+    "support.py": true,
+    "report.py": true,
+    "verify_preservation.py": true,
+    "run_all.py": true,
+    "protocol.json": true,
+    "selection.json": true,
+    "baseline.json": true,
+    "candidate.json": true,
+    "native_wrapper.py": true
+  },
+  "exit_code": 0
+}

@@ -154,3 +154,77 @@ were committed at `7458c24d16096cc305889ed0864a5ef8bfb6bdf4`.
 The [whole-zoo audit](../../experiments/results/shared_near_range/README.md)
 is incomplete; the opt-in cut remains off by default.
 <!-- /SHARED_NEAR_RANGE_AUDIT -->
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader replay: KITTI 01 frozen comparison complete
+
+The full stored `upstream_mechanics_elevation` replay completes all 1101 frames with
+native exit 0. Historical 100 m RPE is **0.826792%**, versus
+**0.830115%** in this replay; ATE is **58.190972 m**
+versus **57.923334 m**. RPE worsens; ATE
+improves. The historical audit exits **1**, preserving the difference.
+
+The frozen pre-extraction replay also completes with native exit 0. RPE,
+ATE, frames and official translation/rotation RTE have zero recorded differences
+from the extracted implementation, with byte-identical saved poses. This
+historical difference predates extraction; its original cause remains unresolved.
+The frozen historical audit also exits 1. No setting is reselected, and the
+near-range cut remains off.
+
+[Commands, exits, hashes and candidate results](../../experiments/results/shared_near_range/sequences/01/audit/)
+were committed at `9555f01fda68a0294fc7dd5a828a85fac207f68f`. The
+[study and cleaned checkpoint scope](../../experiments/results/shared_near_range/README.md)
+now include the full [frozen comparison](../../experiments/results/shared_near_range/sequences/01/frozen_comparison.json)
+and [verified input cleanup](../../experiments/results/shared_near_range/sequences/01/cleanup.json),
+committed at `6188b71d8e48933a4dffce54afdde7a01382f4b0`. The cleaned
+[04/00/01 checkpoint](../../experiments/results/shared_near_range/checkpoints/01/summary.json)
+remains partial whole-zoo coverage.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->
+
+<!-- SHARED_NEAR_RANGE_01_DIAGNOSTICS -->
+### Saved KITTI 01 path diagnosis
+
+The current path's largest position-error increase in the existing fixed
+blocks is frames **700-800**:
+**61.594297 to 81.754537 m**
+against evaluated GT. This locates current error growth, not the historical
+metric difference.
+
+The referenced historical per-run summary is absent in the inspected tree
+and was not found in the reachable history of this checkout. There is no
+paired historical path here, so this cannot locate where that path differs.
+
+The [diagnostic table, plot, CSVs, source pins and exact command](../../experiments/results/shared_near_range/diagnostics/01/README.md)
+come from committed evidence `1426a851c9f021cbffae239e814b6379a5788b25`. First-pose normalization
+is used without fitted alignment or rescaling. No estimator is rerun and no
+published accuracy result is replaced.
+<!-- /SHARED_NEAR_RANGE_01_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+## Shared-loader replay: committed KITTI02 difference and saved-path diagnosis
+
+| Method | Seq | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| CT-ICP | 02 | 0.810338 | 0.813023 | 20.606805 | 19.687922 |
+
+The selected `upstream_mechanics_elevation` arguments are unchanged throughout this full
+sequence. The historical audit retains exit **1**; native executions exit **0**.
+Frozen pre-extraction controls have zero recorded metric differences and
+byte-identical poses. This historical difference predates extraction; its
+original cause remains unresolved. Input hashes were verified before owned
+scan/alias removal. The near-range cut stays disabled.
+
+The largest current position-error increase among the inherited fixed blocks
+is frames **4400-4500**:
+**19.888348 to 30.148291 m**.
+
+The referenced historical per-run path is unavailable in the inspected tree/history.
+Current error growth cannot locate a gap from that unavailable trajectory.
+
+The [protocol, all steps/CSVs and plot](../../experiments/results/shared_near_range/diagnostics/02/README.md)
+come from committed evidence `8f5841e3946995cedfa9c0e2fc484dbd2c02373e`. First-pose normalization uses no fitted
+alignment or rescaling. These observations locate errors without assigning a
+cause or replacing published accuracy. The
+[cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
+retains all historical differences and audit exits.
+<!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->

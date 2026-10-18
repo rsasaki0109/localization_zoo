@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "finish_when_complete.py": true,
+    "finish_docs.py": true,
+    "support.py": true,
+    "report.py": true,
+    "verify_preservation.py": true,
+    "run_all.py": true,
+    "protocol.json": true,
+    "selection.json": true,
+    "baseline.json": true,
+    "candidate.json": true,
+    "native_wrapper.py": true,
+    "candidate_binary": true,
+    "baseline_binary": true
+  },
+  "exit_code": 0,
+  "checked_unix": 1792329489.851212
+}

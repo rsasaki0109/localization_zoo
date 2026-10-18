@@ -1,0 +1,26 @@
+{
+  "authorization": "User: \u30de\u30fc\u30b8\uff01 immediately after PR138 checkpoint03 update",
+  "frozen_primary_head": "c3698e6700199b352d846f70a6580ad007ea35cc",
+  "expected_main": "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+  "worktree": "/workspace/localization-env/shared-near-range/merge138/worktree",
+  "branch": "codex/shared-range-checkpoint-merge138",
+  "records": [
+    {
+      "command": [
+        "git",
+        "worktree",
+        "add",
+        "-b",
+        "codex/shared-range-checkpoint-merge138",
+        "/workspace/localization-env/shared-near-range/merge138/worktree",
+        "c3698e6700199b352d846f70a6580ad007ea35cc"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "exit_code": 0,
+      "started_unix": 1792361850.8947482,
+      "finished_unix": 1792361856.9701858,
+      "stdout": "HEAD is now at c3698e67 Document cleaned KITTI02/03 checkpoint, saved-path negatives and verified interruption recovery\n",
+      "stderr": "Preparing worktree (new branch 'codex/shared-range-checkpoint-merge138')\nUpdating files:  27% (3343/11955)\nUpdating files:  28% (3348/11955)\nUpdating files:  29% (3467/11955)\nUpdating files:  30% (3587/11955)\nUpdating files:  31% (3707/11955)\nUpdating files:  32% (3826/11955)\nUpdating files:  33% (3946/11955)\nUpdating files:  34% (4065/11955)\nUpdating files:  35% (4185/11955)\nUpdating files:  36% (4304/11955)\nUpdating files:  37% (4424/11955)\nUpdating files:  38% (4543/11955)\nUpdating files:  39% (4663/11955)\nUpdating files:  40% (4782/11955)\nUpdating files:  41% (4902/11955)\nUpdating files:  41% (4948/11955)\nUpdating files:  42% (5022/11955)\nUpdating files:  43% (5141/11955)\nUpdating files:  44% (5261/11955)\nUpdating files:  45% (5380/11955)\nUpdating files:  46% (5500/11955)\nUpdating files:  47% (5619/11955)\nUpdating files:  48% (5739/11955)\nUpdating files:  49% (5858/11955)\nUpdating files:  50% (5978/11955)\nUpdating files:  51% (6098/11955)\nUpdating files:  52% (6217/11955)\nUpdating files:  53% (6337/11955)\nUpdating files:  54% (6456/11955)\nUpdating files:  55% (6576/11955)\nUpdating files:  56% (6695/11955)\nUpdating files:  57% (6815/11955)\nUpdating files:  58% (6934/11955)\nUpdating files:  59% (7054/11955)\nUpdating files:  60% (7173/11955)\nUpdating files:  61% (7293/11955)\nUpdating files:  62% (7413/11955)\nUpdating files:  63% (7532/11955)\nUpdating files:  64% (7652/11955)\nUpdating files:  65% (7771/11955)\nUpdating files:  66% (7891/11955)\nUpdating files:  67% (8010/11955)\nUpdating files:  68% (8130/11955)\nUpdating files:  68% (8191/11955)\nUpdating files:  69% (8249/11955)\nUpdating files:  70% (8369/11955)\nUpdating files:  71% (8489/11955)\nUpdating files:  72% (8608/11955)\nUpdating files:  73% (8728/11955)\nUpdating files:  74% (8847/11955)\nUpdating files:  75% (8967/11955)\nUpdating files:  76% (9086/11955)\nUpdating files:  77% (9206/11955)\nUpdating files:  78% (9325/11955)\nUpdating files:  79% (9445/11955)\nUpdating files:  80% (9564/11955)\nUpdating files:  81% (9684/11955)\nUpdating files:  82% (9804/11955)\nUpdating files:  83% (9923/11955)\nUpdating files:  84% (10043/11955)\nUpdating files:  85% (10162/11955)\nUpdating files:  85% (10275/11955)\nUpdating files:  86% (10282/11955)\nUpdating files:  87% (10401/11955)\nUpdating files:  88% (10521/11955)\nUpdating files:  89% (10640/11955)\nUpdating files:  89% (10663/11955)\nUpdating files:  90% (10760/11955)\nUpdating files:  91% (10880/11955)\nUpdating files:  92% (10999/11955)\nUpdating files:  93% (11119/11955)\nUpdating files:  94% (11238/11955)\nUpdating files:  95% (11358/11955)\nUpdating files:  96% (11477/11955)\nUpdating files:  97% (11597/11955)\nUpdating files:  98% (11716/11955)\nUpdating files:  99% (11836/11955)\nUpdating files: 100% (11955/11955)\nUpdating files: 100% (11955/11955), done.\n"
+    }
+  ]
+}

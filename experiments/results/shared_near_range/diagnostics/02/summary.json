@@ -1,0 +1,743 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_near_range/diagnose_saved02.py",
+    "--output-dir",
+    "/workspace/localization-env/shared-near-range/checkpoint03_resume/diagnostics02_fixed"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "input_commit": "869dd694a64fdd92ee42ccf3870f8e1c295701f5",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "protocol": {
+    "schema_version": 1,
+    "sequence": "02",
+    "status": "awaiting_committed_frozen_comparison_and_cleanup",
+    "inherited_protocol": "experiments/results/shared_near_range/diagnostics/01_protocol.json",
+    "inherited_protocol_commit": "1426a851c9f021cbffae239e814b6379a5788b25",
+    "methods": [
+      "A-LOAM",
+      "CT-ICP",
+      "F-LOAM",
+      "LeGO-LOAM",
+      "Mesh-LOAM"
+    ],
+    "diagnostic_parameters": {
+      "block_frames": 100,
+      "min_step_m": 0.1,
+      "relative_step_threshold": 0.2
+    },
+    "selection": "Every historical difference in the closed candidate02 audit; require the committed audit to confirm this exact set. No registration setting is selected or estimator rerun.",
+    "publication_gate": "Candidate/frozen reports and actual command receipts, matching frozen comparison and input cleanup must be committed and unchanged. Owned scans and alias must be absent before any diagnostic output is created.",
+    "position_error": "First-pose-normalized estimated position versus the same evaluated GT; no fitted alignment or rescaling.",
+    "paired_gap": "Euclidean position difference between first-pose-normalized historical and current estimates. Rank inherited fixed blocks by gap at end minus gap at start; retain every block and every frame.",
+    "limits": "Pair only available committed historical trajectories with byte-identical evaluated GT. Exact-path and reachable-history probes describe this checkout, not global absence. Error-growth blocks cannot establish historical/runtime causality or an extraction effect. Record Mesh historical/current runtime and core identity; differing thread counts are a confound, not a cause. Commit raw diagnostic results before numerical prose; the historical audit's drift exit remains a negative result. These results use the original frozen implementation, not a whole-zoo validation of newly merged acceleration or passive tracing."
+  },
+  "input_sha256": {
+    "experiments/results/shared_near_range/diagnose_saved02.py": "73057b13195caa0303dd20ae6bbd0f7e205cb088a9ce17a0a98541d5aa724a23",
+    "experiments/results/shared_near_range/support.py": "bc04bce97bf2df5cc8912137e0d371efe0e065c5b40f860f1d40ac8e68a7b761",
+    "experiments/results/shared_near_range/protocol.json": "1f00d46f4c0c24ee63cef21bd6fdaefe23a0d714abf92e13f8dc6b1c0294808b",
+    "experiments/results/shared_near_range/diagnostics/02_protocol.json": "58da708458aa4fd7d60580fd4efa539d2cf931c50740974bc7e365fe4278eb11",
+    "experiments/results/shared_near_range/sequences/02/audit/report.json": "cdb9d0408f8f1f6980cfccf271f5d5b777453108e5fc2083ebfee30bb30d5196",
+    "experiments/results/shared_near_range/sequences/02/audit/audit_command.json": "e6f2aba7d12cf4832a433765037aa8a8f8f6836ffc44ba41faf82af643cd7217",
+    "experiments/results/shared_near_range/candidate.json": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a",
+    "experiments/results/shared_near_range/native_wrapper.py": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3",
+    "experiments/results/shared_near_range/baseline.json": "7d9344421e2ea56776a8fff4fb49dadaf308d2635bd643a1c1ae333c99428fd2",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/report.json": "57b0d8a1c42c341067aa680d2745fdcf5e1c180f0d0070f492b3c2da3383d016",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/audit_command.json": "80f989f12ea254d0c1b5ea5c7ec3b6237b7ff1561990f0cc8254e61c4a224cd3",
+    "experiments/results/shared_near_range/sequences/02/frozen_comparison.json": "dd8d9b07d3eba526bfdffce8166dc979d12a42587b6614252d3ed20fb99acd0f",
+    "experiments/results/shared_near_range/sequences/02/cleanup.json": "8b923b87d45f260fdd2ecd624db6b7740c27105571d05600e9bcae4b07f6e6c6",
+    "evaluation/scripts/diagnose_kitti_steps.py": "31c33e09a25890a9206fea331835f22e6bee7aa86327663b4c6a009dd091825a",
+    "evaluation/scripts/evaluate_external_kitti_odometry.py": "dd7e8c4b332ead68cf5c87dfd67d7eed12851d8256db4ff9f3b6999a7f0170e4",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default.json": "dd060e01f3b9f7043fd1bed923f5140a9d050310a0daf71556e3b66cc2221da7",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native_command.json": "26f8f04edac00141c084986aa70346cc7413036c747ba161ce6bf43469a7a1e7",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default.json": "7ccb5455ed605fd3106b4da64a2dda439149361beeda72ce319456386473d28c",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native_command.json": "d27d15835a97d64fdd13555a8042273295e8e591ab268af6a52979bde8562df7",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt": "6a5eba5ba1c39f3f583147d7dd43776f083effa227229aa59d5558143c8e76de",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt": "6a5eba5ba1c39f3f583147d7dd43776f083effa227229aa59d5558143c8e76de",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json": "21208fa108cd2eb21c682254b12f6ee703734d8a1e65a62cff6c314901baec21",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation.json": "e50d879a292416300c5b3f3df8403a51e4cf86240cbe9fc510c44108629cd58b",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native_command.json": "d06885dddf8b0c737ac2881e1dc9b65bd35255cb48e73fd0443959958e526382",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation.json": "1ff0ac05709fc638dd18d0317bbd50adde533068495cb944581b33c3cc7b05e8",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native_command.json": "eac0cb47797bc0349454258aa9fecf57b9805052a605846a88e3db3176503b8b",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt": "64cddb501316568b9b96ec20a6170fe654657030a800ba88818366a92ae5c429",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt": "64cddb501316568b9b96ec20a6170fe654657030a800ba88818366a92ae5c429",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json": "7e5b8052e00c97d7f00cec019b04128e08de5e532fc97be5a1c3961f22c397c9",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/floam_kitti_seq_02_full_transfer_matrix__dense.json": "bbca52c669ebce0d8346c974ee45552bb9a5f87ccaf3427a7002aa606a2df126",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/floam_kitti_seq_02_full_transfer_matrix__dense_native_command.json": "cdfcb75fc2991c422ec9c68bc9091f3b98d24d24cb48eb1fb4de555670d1c9a2",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/floam_kitti_seq_02_full_transfer_matrix__dense.json": "06504f1101a303bbbdbd27eb59ae7f1322edba9d9ea8af5b25a35bbfce1adcdd",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/floam_kitti_seq_02_full_transfer_matrix__dense_native_command.json": "ea47b8d5bea92b96afdbc06e842244a5d8f27d4e868065288f977560221578fa",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/floam_kitti_seq_02_full_transfer_matrix__dense_native/dogfooding_results/F_LOAM.txt": "4cc53a34e314b8363a802d67d23dd06607449310f34518ddd8d764c9a6380e22",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/floam_kitti_seq_02_full_transfer_matrix__dense_native/dogfooding_results/F_LOAM.txt": "4cc53a34e314b8363a802d67d23dd06607449310f34518ddd8d764c9a6380e22",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/floam_kitti_seq_02_full_transfer_matrix__dense_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/floam_kitti_seq_02_full_transfer_matrix__dense_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/floam_kitti_seq_02_full_transfer_matrix__dense_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/floam_kitti_seq_02_full_transfer_matrix__dense_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/floam_kitti_seq_02_full_transfer_matrix.json": "5cc1eaad829a404bef466530c54da4abf53b734372a124cfd2f9c6a41f0677ac",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default.json": "f1099207b804e3cb48f662c5577d1bc1b1a101ceb202756e83acfd3b4fceaadb",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default_native_command.json": "d19172f257556030ad4587636e488f89fdffc7e7d1a0356c157777ab12f2e46f",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default.json": "cf7afc8ff65fa7122980f38b5dbdfbbfc3b90c353454a376f5bc73a53e6be368",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default_native_command.json": "84bd92b7e03ce6062e6229b701089bc4ef5eb3827cb9ebe2a551aa5f6998e892",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/LeGO_LOAM.txt": "b56142f8ba93e029b8ad63f3ac4eb48039fa072460938354f47903c857c598fa",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/LeGO_LOAM.txt": "b56142f8ba93e029b8ad63f3ac4eb48039fa072460938354f47903c857c598fa",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/lego_loam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json": "2cba257452f6c394f58dc0cd26ff18399188ace0251bd009132c36d2abde4b2a",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation.json": "e03ebb08df421e947d5768e9f791c299995f450f2fa8ffcd5ab68966caee4bdd",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation_native_command.json": "86c9732095dd881c75c8fb94d24ee01bb84ab464f7cc500f63c374824b9f3c6d",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation.json": "43842f817efb641ab7ac9324b03ebd840deff4c958c7c68ac1c6c2a062f55931",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation_native_command.json": "c93722630bec3436e61e0b160cc8b36e6c0e0159153628ac8e1ad2740fbc99ef",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt": "ee182ed7dc3bc0fba5c8293eec30955150ebd6895d5662632d1bfeea54da4243",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt": "ee182ed7dc3bc0fba5c8293eec30955150ebd6895d5662632d1bfeea54da4243",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/audit/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_near_range/sequences/02/frozen_baseline/replays/mesh_loam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json": "338385322b28145717a0f0072fa0b1b56b898d31e3eead0b6ad9b6b832eaf478",
+    "experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/summary.json": "d780a6ea5f992fbe1da4601393c92d07eb3648c9480bd2bc23df6967ff0748ea",
+    "experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt": "939585ad1ebe010c559fe8db29392ff853372b6ebcf87005de549e836d1ea7c0",
+    "experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/evaluated_gt_kitti.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/mesh_inten_kitti_coverage/environment.json": "c847af574261c526da89609aea92e6145190ff8a0a7ff4e8d976148f2408678b",
+    "experiments/results/mesh_inten_kitti_coverage/seq_02_commands.log": "3f3a38a2d5fa0d471cf7ec8a460cc46cf890cc65b82422faf2c5a81bd0b43cf5",
+    "papers/mesh_loam/src/mesh_loam.cpp": "5552ddaa80f0f7df8a5f5ebb916bbfdc0c573c6413df38607473f70852968db8",
+    "papers/mesh_loam/include/mesh_loam/mesh_loam.h": "f7d9112478cfbcf9b63ad5818293db70caa9384b7d4f8ca7535a4fda57969604"
+  },
+  "candidate_binary_sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+  "audit_wrapper_sha256": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3",
+  "rows": [
+    {
+      "method": "A-LOAM",
+      "current_saved_pose_metric_abs_delta": {
+        "ate_m": 3.213449986105843e-07,
+        "rpe_trans_pct": 1.894183621065082e-07,
+        "kitti_rte_trans_pct": 3.5917214846747925e-07,
+        "kitti_rte_rot_deg_per_100m": 3.6460720287401216e-07
+      },
+      "metric_check_abs_tolerance": 0.001,
+      "largest_current_error_growth_block": {
+        "first_pose_frame": 0,
+        "last_pose_frame": 100,
+        "gt_distance_m": 113.98358882714439,
+        "path_length_ratio": 0.8362355326492191,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 1.0011946343798332,
+        "steps_length_off_over_threshold": 18,
+        "steps_vector_off_over_threshold": 18,
+        "position_error_start_m": 0.0,
+        "position_error_end_m": 19.558007232825414,
+        "block_relative_translation_error_pct": 17.158616805344458,
+        "block_relative_rotation_error_deg_per_100m": 1.1448773947565023
+      },
+      "legacy_summary_path": "experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "869dd694a64fdd92ee42ccf3870f8e1c295701f5:experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json' does not exist in '869dd694a64fdd92ee42ccf3870f8e1c295701f5'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "-1",
+          "--format=%H",
+          "--",
+          "experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_comparison_available": false
+    },
+    {
+      "method": "CT-ICP",
+      "current_saved_pose_metric_abs_delta": {
+        "ate_m": 3.9251488459512984e-07,
+        "rpe_trans_pct": 4.2199950323063007e-07,
+        "kitti_rte_trans_pct": 3.7950413700471586e-07,
+        "kitti_rte_rot_deg_per_100m": 2.4589315425482816e-07
+      },
+      "metric_check_abs_tolerance": 0.001,
+      "largest_current_error_growth_block": {
+        "first_pose_frame": 4400,
+        "last_pose_frame": 4500,
+        "gt_distance_m": 137.00787963650234,
+        "path_length_ratio": 0.9967402206801433,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 0.9959262153877695,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 19.888348098596147,
+        "position_error_end_m": 30.148291288487243,
+        "block_relative_translation_error_pct": 0.8460070776626262,
+        "block_relative_rotation_error_deg_per_100m": 0.30845059256864865
+      },
+      "legacy_summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics_elevation/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "869dd694a64fdd92ee42ccf3870f8e1c295701f5:experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics_elevation/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics_elevation/summary.json' does not exist in '869dd694a64fdd92ee42ccf3870f8e1c295701f5'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "-1",
+          "--format=%H",
+          "--",
+          "experiments/results/runs/ct_icp_kitti_seq_02_full_upstream_matrix/upstream_mechanics_elevation/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_comparison_available": false
+    },
+    {
+      "method": "F-LOAM",
+      "current_saved_pose_metric_abs_delta": {
+        "ate_m": 4.0107627086172215e-07,
+        "rpe_trans_pct": 4.1369900016796635e-07,
+        "kitti_rte_trans_pct": 1.0282914852943748e-07,
+        "kitti_rte_rot_deg_per_100m": 9.092756136919178e-08
+      },
+      "metric_check_abs_tolerance": 0.001,
+      "largest_current_error_growth_block": {
+        "first_pose_frame": 3000,
+        "last_pose_frame": 3100,
+        "gt_distance_m": 118.39267069061475,
+        "path_length_ratio": 1.004015283754931,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 1.0043493738337697,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 36.432333395746504,
+        "position_error_end_m": 53.88366373525966,
+        "block_relative_translation_error_pct": 0.708388432803846,
+        "block_relative_rotation_error_deg_per_100m": 0.6472444850556014
+      },
+      "legacy_summary_path": "experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "869dd694a64fdd92ee42ccf3870f8e1c295701f5:experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json' does not exist in '869dd694a64fdd92ee42ccf3870f8e1c295701f5'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "-1",
+          "--format=%H",
+          "--",
+          "experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_comparison_available": false
+    },
+    {
+      "method": "LeGO-LOAM",
+      "current_saved_pose_metric_abs_delta": {
+        "ate_m": 9.318338101138579e-08,
+        "rpe_trans_pct": 1.44233460952492e-07,
+        "kitti_rte_trans_pct": 3.729846884681365e-07,
+        "kitti_rte_rot_deg_per_100m": 3.377397594372944e-07
+      },
+      "metric_check_abs_tolerance": 0.001,
+      "largest_current_error_growth_block": {
+        "first_pose_frame": 4400,
+        "last_pose_frame": 4500,
+        "gt_distance_m": 137.00787963650234,
+        "path_length_ratio": 0.9955363329622943,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 0.995263377735581,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 40.38499337837709,
+        "position_error_end_m": 60.22750528744471,
+        "block_relative_translation_error_pct": 1.0877049800804768,
+        "block_relative_rotation_error_deg_per_100m": 1.581272382481195
+      },
+      "legacy_summary_path": "experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "869dd694a64fdd92ee42ccf3870f8e1c295701f5:experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json' does not exist in '869dd694a64fdd92ee42ccf3870f8e1c295701f5'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "-1",
+          "--format=%H",
+          "--",
+          "experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_comparison_available": false
+    },
+    {
+      "method": "Mesh-LOAM",
+      "current_saved_pose_metric_abs_delta": {
+        "ate_m": 2.596764083762082e-07,
+        "rpe_trans_pct": 4.333797837263731e-07,
+        "kitti_rte_trans_pct": 1.865468997053199e-07,
+        "kitti_rte_rot_deg_per_100m": 3.607053858101228e-07
+      },
+      "metric_check_abs_tolerance": 0.001,
+      "largest_current_error_growth_block": {
+        "first_pose_frame": 4400,
+        "last_pose_frame": 4500,
+        "gt_distance_m": 137.00787963650234,
+        "path_length_ratio": 1.002316203152763,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 1.00183670890949,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 22.54845533690148,
+        "position_error_end_m": 33.67388301441995,
+        "block_relative_translation_error_pct": 0.8398753725253733,
+        "block_relative_rotation_error_deg_per_100m": 0.18053781024330437
+      },
+      "legacy_summary_path": "experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/summary.json",
+      "legacy_summary_exists": true,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "869dd694a64fdd92ee42ccf3870f8e1c295701f5:experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/summary.json"
+        ],
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "-1",
+          "--format=%H",
+          "--",
+          "experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/summary.json"
+        ],
+        "latest_reachable_commit": "bd5fb3c5efc5941cb6895222c18666fab0c59c3e"
+      },
+      "paired_historical_comparison_available": true,
+      "historical_saved_pose_metric_abs_delta": {
+        "ate_m": 3.8907932875531515e-07,
+        "rpe_trans_pct": 4.196309292270328e-07,
+        "kitti_rte_trans_pct": 4.103504469554764e-08,
+        "kitti_rte_rot_deg_per_100m": 2.554443920832483e-07
+      },
+      "same_evaluated_gt_bytes": true,
+      "current_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      },
+      "first_different_saved_pose_row": 1,
+      "final_path_gap_m": 0.09280584159392448,
+      "max_path_gap_m": 0.2528100794735865,
+      "max_path_gap_frame": 2649,
+      "paired_blocks": [
+        {
+          "first_pose_frame": 0,
+          "last_pose_frame": 100,
+          "gap_start_m": 0.0,
+          "gap_end_m": 0.0009424753683741622,
+          "gap_growth_m": 0.0009424753683741622
+        },
+        {
+          "first_pose_frame": 100,
+          "last_pose_frame": 200,
+          "gap_start_m": 0.0009424753683741622,
+          "gap_end_m": 0.007825190434004982,
+          "gap_growth_m": 0.0068827150656308195
+        },
+        {
+          "first_pose_frame": 200,
+          "last_pose_frame": 300,
+          "gap_start_m": 0.007825190434004982,
+          "gap_end_m": 0.01869799827788876,
+          "gap_growth_m": 0.010872807843883779
+        },
+        {
+          "first_pose_frame": 300,
+          "last_pose_frame": 400,
+          "gap_start_m": 0.01869799827788876,
+          "gap_end_m": 0.02306702959745395,
+          "gap_growth_m": 0.004369031319565189
+        },
+        {
+          "first_pose_frame": 400,
+          "last_pose_frame": 500,
+          "gap_start_m": 0.02306702959745395,
+          "gap_end_m": 0.03110978381474211,
+          "gap_growth_m": 0.008042754217288159
+        },
+        {
+          "first_pose_frame": 500,
+          "last_pose_frame": 600,
+          "gap_start_m": 0.03110978381474211,
+          "gap_end_m": 0.040781754501374064,
+          "gap_growth_m": 0.009671970686631955
+        },
+        {
+          "first_pose_frame": 600,
+          "last_pose_frame": 700,
+          "gap_start_m": 0.040781754501374064,
+          "gap_end_m": 0.047626620471016026,
+          "gap_growth_m": 0.0068448659696419625
+        },
+        {
+          "first_pose_frame": 700,
+          "last_pose_frame": 800,
+          "gap_start_m": 0.047626620471016026,
+          "gap_end_m": 0.06351788497148124,
+          "gap_growth_m": 0.015891264500465213
+        },
+        {
+          "first_pose_frame": 800,
+          "last_pose_frame": 900,
+          "gap_start_m": 0.06351788497148124,
+          "gap_end_m": 0.08542739210372557,
+          "gap_growth_m": 0.021909507132244335
+        },
+        {
+          "first_pose_frame": 900,
+          "last_pose_frame": 1000,
+          "gap_start_m": 0.08542739210372557,
+          "gap_end_m": 0.09169751066004313,
+          "gap_growth_m": 0.006270118556317553
+        },
+        {
+          "first_pose_frame": 1000,
+          "last_pose_frame": 1100,
+          "gap_start_m": 0.09169751066004313,
+          "gap_end_m": 0.09642827170641594,
+          "gap_growth_m": 0.004730761046372808
+        },
+        {
+          "first_pose_frame": 1100,
+          "last_pose_frame": 1200,
+          "gap_start_m": 0.09642827170641594,
+          "gap_end_m": 0.09603939928675269,
+          "gap_growth_m": -0.00038887241966324704
+        },
+        {
+          "first_pose_frame": 1200,
+          "last_pose_frame": 1300,
+          "gap_start_m": 0.09603939928675269,
+          "gap_end_m": 0.09616715253667087,
+          "gap_growth_m": 0.00012775324991817771
+        },
+        {
+          "first_pose_frame": 1300,
+          "last_pose_frame": 1400,
+          "gap_start_m": 0.09616715253667087,
+          "gap_end_m": 0.10633597398345583,
+          "gap_growth_m": 0.010168821446784965
+        },
+        {
+          "first_pose_frame": 1400,
+          "last_pose_frame": 1500,
+          "gap_start_m": 0.10633597398345583,
+          "gap_end_m": 0.11512348885387735,
+          "gap_growth_m": 0.008787514870421523
+        },
+        {
+          "first_pose_frame": 1500,
+          "last_pose_frame": 1600,
+          "gap_start_m": 0.11512348885387735,
+          "gap_end_m": 0.11959183717126731,
+          "gap_growth_m": 0.0044683483173899585
+        },
+        {
+          "first_pose_frame": 1600,
+          "last_pose_frame": 1700,
+          "gap_start_m": 0.11959183717126731,
+          "gap_end_m": 0.11313915548720578,
+          "gap_growth_m": -0.006452681684061531
+        },
+        {
+          "first_pose_frame": 1700,
+          "last_pose_frame": 1800,
+          "gap_start_m": 0.11313915548720578,
+          "gap_end_m": 0.09902333151212106,
+          "gap_growth_m": -0.01411582397508472
+        },
+        {
+          "first_pose_frame": 1800,
+          "last_pose_frame": 1900,
+          "gap_start_m": 0.09902333151212106,
+          "gap_end_m": 0.11604841811248065,
+          "gap_growth_m": 0.01702508660035959
+        },
+        {
+          "first_pose_frame": 1900,
+          "last_pose_frame": 2000,
+          "gap_start_m": 0.11604841811248065,
+          "gap_end_m": 0.14365936640734583,
+          "gap_growth_m": 0.027610948294865184
+        },
+        {
+          "first_pose_frame": 2000,
+          "last_pose_frame": 2100,
+          "gap_start_m": 0.14365936640734583,
+          "gap_end_m": 0.15880320235612463,
+          "gap_growth_m": 0.0151438359487788
+        },
+        {
+          "first_pose_frame": 2100,
+          "last_pose_frame": 2200,
+          "gap_start_m": 0.15880320235612463,
+          "gap_end_m": 0.1774805249992269,
+          "gap_growth_m": 0.018677322643102262
+        },
+        {
+          "first_pose_frame": 2200,
+          "last_pose_frame": 2300,
+          "gap_start_m": 0.1774805249992269,
+          "gap_end_m": 0.19707102011815586,
+          "gap_growth_m": 0.019590495118928963
+        },
+        {
+          "first_pose_frame": 2300,
+          "last_pose_frame": 2400,
+          "gap_start_m": 0.19707102011815586,
+          "gap_end_m": 0.21336028222997003,
+          "gap_growth_m": 0.016289262111814168
+        },
+        {
+          "first_pose_frame": 2400,
+          "last_pose_frame": 2500,
+          "gap_start_m": 0.21336028222997003,
+          "gap_end_m": 0.22508116385775553,
+          "gap_growth_m": 0.011720881627785507
+        },
+        {
+          "first_pose_frame": 2500,
+          "last_pose_frame": 2600,
+          "gap_start_m": 0.22508116385775553,
+          "gap_end_m": 0.24197493868269052,
+          "gap_growth_m": 0.01689377482493498
+        },
+        {
+          "first_pose_frame": 2600,
+          "last_pose_frame": 2700,
+          "gap_start_m": 0.24197493868269052,
+          "gap_end_m": 0.24647464547259265,
+          "gap_growth_m": 0.004499706789902136
+        },
+        {
+          "first_pose_frame": 2700,
+          "last_pose_frame": 2800,
+          "gap_start_m": 0.24647464547259265,
+          "gap_end_m": 0.22650457530409807,
+          "gap_growth_m": -0.019970070168494586
+        },
+        {
+          "first_pose_frame": 2800,
+          "last_pose_frame": 2900,
+          "gap_start_m": 0.22650457530409807,
+          "gap_end_m": 0.1878517241219815,
+          "gap_growth_m": -0.03865285118211656
+        },
+        {
+          "first_pose_frame": 2900,
+          "last_pose_frame": 3000,
+          "gap_start_m": 0.1878517241219815,
+          "gap_end_m": 0.15649818478324343,
+          "gap_growth_m": -0.03135353933873808
+        },
+        {
+          "first_pose_frame": 3000,
+          "last_pose_frame": 3100,
+          "gap_start_m": 0.15649818478324343,
+          "gap_end_m": 0.13144767092364684,
+          "gap_growth_m": -0.025050513859596585
+        },
+        {
+          "first_pose_frame": 3100,
+          "last_pose_frame": 3200,
+          "gap_start_m": 0.13144767092364684,
+          "gap_end_m": 0.10890267130740734,
+          "gap_growth_m": -0.0225449996162395
+        },
+        {
+          "first_pose_frame": 3200,
+          "last_pose_frame": 3300,
+          "gap_start_m": 0.10890267130740734,
+          "gap_end_m": 0.10126917338088037,
+          "gap_growth_m": -0.007633497926526969
+        },
+        {
+          "first_pose_frame": 3300,
+          "last_pose_frame": 3400,
+          "gap_start_m": 0.10126917338088037,
+          "gap_end_m": 0.10798109408392692,
+          "gap_growth_m": 0.006711920703046548
+        },
+        {
+          "first_pose_frame": 3400,
+          "last_pose_frame": 3500,
+          "gap_start_m": 0.10798109408392692,
+          "gap_end_m": 0.11052584417785612,
+          "gap_growth_m": 0.002544750093929196
+        },
+        {
+          "first_pose_frame": 3500,
+          "last_pose_frame": 3600,
+          "gap_start_m": 0.11052584417785612,
+          "gap_end_m": 0.11634658630851344,
+          "gap_growth_m": 0.005820742130657322
+        },
+        {
+          "first_pose_frame": 3600,
+          "last_pose_frame": 3700,
+          "gap_start_m": 0.11634658630851344,
+          "gap_end_m": 0.13030426587436242,
+          "gap_growth_m": 0.01395767956584898
+        },
+        {
+          "first_pose_frame": 3700,
+          "last_pose_frame": 3800,
+          "gap_start_m": 0.13030426587436242,
+          "gap_end_m": 0.14398733034179062,
+          "gap_growth_m": 0.013683064467428202
+        },
+        {
+          "first_pose_frame": 3800,
+          "last_pose_frame": 3900,
+          "gap_start_m": 0.14398733034179062,
+          "gap_end_m": 0.16296164017082673,
+          "gap_growth_m": 0.018974309829036112
+        },
+        {
+          "first_pose_frame": 3900,
+          "last_pose_frame": 4000,
+          "gap_start_m": 0.16296164017082673,
+          "gap_end_m": 0.18832169615847158,
+          "gap_growth_m": 0.025360055987644847
+        },
+        {
+          "first_pose_frame": 4000,
+          "last_pose_frame": 4100,
+          "gap_start_m": 0.18832169615847158,
+          "gap_end_m": 0.20826512182312187,
+          "gap_growth_m": 0.019943425664650294
+        },
+        {
+          "first_pose_frame": 4100,
+          "last_pose_frame": 4200,
+          "gap_start_m": 0.20826512182312187,
+          "gap_end_m": 0.2080947467531025,
+          "gap_growth_m": -0.00017037507001937957
+        },
+        {
+          "first_pose_frame": 4200,
+          "last_pose_frame": 4300,
+          "gap_start_m": 0.2080947467531025,
+          "gap_end_m": 0.1611474733753001,
+          "gap_growth_m": -0.046947273377802384
+        },
+        {
+          "first_pose_frame": 4300,
+          "last_pose_frame": 4400,
+          "gap_start_m": 0.1611474733753001,
+          "gap_end_m": 0.11872045809798501,
+          "gap_growth_m": -0.0424270152773151
+        },
+        {
+          "first_pose_frame": 4400,
+          "last_pose_frame": 4500,
+          "gap_start_m": 0.11872045809798501,
+          "gap_end_m": 0.09743959138375922,
+          "gap_growth_m": -0.021280866714225785
+        },
+        {
+          "first_pose_frame": 4500,
+          "last_pose_frame": 4600,
+          "gap_start_m": 0.09743959138375922,
+          "gap_end_m": 0.08817491517007778,
+          "gap_growth_m": -0.009264676213681447
+        },
+        {
+          "first_pose_frame": 4600,
+          "last_pose_frame": 4660,
+          "gap_start_m": 0.08817491517007778,
+          "gap_end_m": 0.09280584159392448,
+          "gap_growth_m": 0.004630926423846701
+        }
+      ],
+      "largest_path_gap_growth_block": {
+        "first_pose_frame": 1900,
+        "last_pose_frame": 2000,
+        "gap_start_m": 0.11604841811248065,
+        "gap_end_m": 0.14365936640734583,
+        "gap_growth_m": 0.027610948294865184
+      },
+      "historical_core_identity": {
+        "papers/mesh_loam/src/mesh_loam.cpp": {
+          "recorded_source_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+          "current_source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+          "sha256": "5552ddaa80f0f7df8a5f5ebb916bbfdc0c573c6413df38607473f70852968db8",
+          "identical": true
+        },
+        "papers/mesh_loam/include/mesh_loam/mesh_loam.h": {
+          "recorded_source_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+          "current_source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+          "sha256": "f7d9112478cfbcf9b63ad5818293db70caa9384b7d4f8ca7535a4fda57969604",
+          "identical": true
+        }
+      },
+      "historical_binary_sha256": "a75d8c5b42e8b021ba3afbe63708a2bca26b776253d100acdda94c87f179b0e2",
+      "historical_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OPENBLAS_NUM_THREADS": "1"
+      }
+    }
+  ],
+  "completion_gate": {
+    "committed_candidate": true,
+    "committed_frozen_comparison": true,
+    "committed_cleanup": true,
+    "owned_scans_and_alias_absent": true
+  },
+  "exit_code": 0,
+  "scope": "Offline saved-path diagnosis after committed matching frozen controls and cleanup. Blocks locate error growth, not its cause. No estimator/scan read, setting selection, new accuracy claim or current-main whole-zoo validation."
+}

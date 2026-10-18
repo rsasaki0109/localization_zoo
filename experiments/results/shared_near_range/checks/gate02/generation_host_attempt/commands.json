@@ -1,0 +1,86 @@
+[
+  {
+    "label": "refresh_study_docs",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/mplconfig",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "afeef0c161de5daa5443b534364b670e9808270e",
+    "started_unix": 1792329522.2364938,
+    "finished_unix": 1792329602.147645,
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "generate_full_variant_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/mplconfig",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "afeef0c161de5daa5443b534364b670e9808270e",
+    "started_unix": 1792329602.1759646,
+    "finished_unix": 1792329603.6911714,
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "generate_paper_ratio_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/mplconfig",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "afeef0c161de5daa5443b534364b670e9808270e",
+    "started_unix": 1792329603.6933434,
+    "finished_unix": 1792329604.9177594,
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "python_unittest",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/gate02_post_import_validation/mplconfig",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "afeef0c161de5daa5443b534364b670e9808270e",
+    "started_unix": 1792329604.919443,
+    "finished_unix": 1792329629.794479,
+    "exit_code": 1,
+    "expected_exit_code": 0
+  }
+]

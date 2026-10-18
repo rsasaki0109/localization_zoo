@@ -1,0 +1,22 @@
+{
+  "label": "steps",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/mesh_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/mesh_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/mesh_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_elevation.json",
+    "--method",
+    "Mesh-LOAM",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00/mesh_loam/steps.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792287250.6599526,
+  "finished_unix": 1792287251.3275752,
+  "exit_code": 0
+}

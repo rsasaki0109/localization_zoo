@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 801
+GT poses: 801
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 560.8 m
+Running KISS-ICP...
+  source_voxel_size=0.0 max_source_points=18446744073709551615 voxel_size=1.0 max_iterations=500 local_map_radius=100.0 update_full_voxels=off model_deviation_threshold=on model_deviation_correspondence_multiplier=3.0 mulran_deskew=off motion_guard=off max_step_translation_m=2.0 max_step_rotation_deg=20.0
+  [KISS-ICP] 0/801 voxels=3083  [KISS-ICP] 10/801 voxels=5932  [KISS-ICP] 20/801 voxels=8144  [KISS-ICP] 30/801 voxels=10674  [KISS-ICP] 40/801 voxels=12816  [KISS-ICP] 50/801 voxels=14895  [KISS-ICP] 60/801 voxels=16985  [KISS-ICP] 70/801 voxels=18463  [KISS-ICP] 80/801 voxels=19489  [KISS-ICP] 90/801 voxels=20317  [KISS-ICP] 100/801 voxels=21252  [KISS-ICP] 110/801 voxels=22058  [KISS-ICP] 120/801 voxels=22957  [KISS-ICP] 130/801 voxels=23674  [KISS-ICP] 140/801 voxels=24155  [KISS-ICP] 150/801 voxels=23850  [KISS-ICP] 160/801 voxels=23292  [KISS-ICP] 170/801 voxels=22906  [KISS-ICP] 180/801 voxels=22099  [KISS-ICP] 190/801 voxels=20851  [KISS-ICP] 200/801 voxels=20250  [KISS-ICP] 210/801 voxels=19701  [KISS-ICP] 220/801 voxels=19399  [KISS-ICP] 230/801 voxels=19302  [KISS-ICP] 240/801 voxels=18812  [KISS-ICP] 250/801 voxels=18586  [KISS-ICP] 260/801 voxels=18783  [KISS-ICP] 270/801 voxels=18773  [KISS-ICP] 280/801 voxels=18193  [KISS-ICP] 290/801 voxels=18244  [KISS-ICP] 300/801 voxels=17672  [KISS-ICP] 310/801 voxels=16968  [KISS-ICP] 320/801 voxels=16456  [KISS-ICP] 330/801 voxels=15595  [KISS-ICP] 340/801 voxels=15464  [KISS-ICP] 350/801 voxels=15297  [KISS-ICP] 360/801 voxels=15279  [KISS-ICP] 370/801 voxels=15448  [KISS-ICP] 380/801 voxels=16277  [KISS-ICP] 390/801 voxels=17298  [KISS-ICP] 400/801 voxels=18349  [KISS-ICP] 410/801 voxels=18874  [KISS-ICP] 420/801 voxels=19384  [KISS-ICP] 430/801 voxels=20156  [KISS-ICP] 440/801 voxels=20765  [KISS-ICP] 450/801 voxels=20979  [KISS-ICP] 460/801 voxels=20913  [KISS-ICP] 470/801 voxels=20587  [KISS-ICP] 480/801 voxels=20083  [KISS-ICP] 490/801 voxels=19534  [KISS-ICP] 500/801 voxels=18594  [KISS-ICP] 510/801 voxels=18804  [KISS-ICP] 520/801 voxels=19278  [KISS-ICP] 530/801 voxels=19053  [KISS-ICP] 540/801 voxels=18971  [KISS-ICP] 550/801 voxels=18960  [KISS-ICP] 560/801 voxels=19397  [KISS-ICP] 570/801 voxels=19891  [KISS-ICP] 580/801 voxels=20143  [KISS-ICP] 590/801 voxels=20634  [KISS-ICP] 600/801 voxels=20950  [KISS-ICP] 610/801 voxels=21799  [KISS-ICP] 620/801 voxels=22144  [KISS-ICP] 630/801 voxels=22823  [KISS-ICP] 640/801 voxels=22796  [KISS-ICP] 650/801 voxels=22236  [KISS-ICP] 660/801 voxels=22764  [KISS-ICP] 670/801 voxels=22982  [KISS-ICP] 680/801 voxels=22521  [KISS-ICP] 690/801 voxels=22324  [KISS-ICP] 700/801 voxels=22204  [KISS-ICP] 710/801 voxels=21703  [KISS-ICP] 720/801 voxels=21551  [KISS-ICP] 730/801 voxels=21385  [KISS-ICP] 740/801 voxels=21155  [KISS-ICP] 750/801 voxels=21060  [KISS-ICP] 760/801 voxels=21049  [KISS-ICP] 770/801 voxels=20828  [KISS-ICP] 780/801 voxels=20729  [KISS-ICP] 790/801 voxels=20711  [KISS-ICP] 800/801 voxels=20860
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+KISS-ICP                ok          3.773       0.756          801         156919.1       5.1         
+
+Notes:
+- KISS-ICP: Adaptive sigma min/mean/max=0.362307/0.444697/2; correspondence_multiplier=3; neighbor_voxel_radius=1; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=5.10454; algorithm_fps=5.60175.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_03_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_03_full_evaluation_manifest.json)

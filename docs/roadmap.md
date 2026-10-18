@@ -277,11 +277,40 @@ independent. Each item says what "done" means.
      not a clean pass. Full 00's 20 candidate runs also finish: 15 match;
      A-LOAM, F-LOAM, LeGO-LOAM, Mesh-LOAM and VLOM differ, with RPE worsening
      on all five. Their numeric pairs are retained in the method READMEs;
-     A-LOAM, F-LOAM and LeGO-LOAM's frozen pre-extraction controls now finish
-     with zero metric differences and byte-identical saved poses, so their
-     historical differences predate extraction. Mesh-LOAM/VLOM comparisons
-     and input cleanup are still in progress.
-     00 is not yet a completed sequence checkpoint. The historical NCLT cutoff is retained
+     All five frozen pre-extraction controls now finish with zero metric
+     differences and byte-identical saved poses, so their historical differences
+     predate extraction; the original causes remain unresolved. Input hashes
+     were verified before removing the owned 00 scans. The implementation is merged
+     in [PR #137](https://github.com/rsasaki0109/localization_zoo/pull/137);
+     later audit results are follow-up work.
+     [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
+     locate error growth; missing referenced historical paths prevent a paired
+     diagnosis of the historical metric differences.
+     The committed, cleaned 04/00/01/02/03 checkpoint now covers 79/177 cells:
+     64 historical matches and 15 differences, all reproduced by frozen controls.
+     All 17 controls have zero metric differences and byte-identical poses.
+     All five historical audits retain exit 1; checkpoint verification exits 0.
+     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/03/summary.json).
+     [Saved02 diagnosis](../experiments/results/shared_near_range/diagnostics/02/README.md)
+     retains current error-growth blocks and the available Mesh paired path,
+     with explicit missing-path/runtime limits. Full03 adds a Mesh historical
+     difference reproduced by its frozen control; method READMEs retain all
+     numerical pairs. Inputs were hash-verified before deletion.
+     The environment restarted during05. Interrupted outputs are preserved and
+     excluded from coverage; a source-pinned recovery reruns all selected05
+     cells with the same frozen executables/settings before continuing.
+     [Recovery protocol](../experiments/results/shared_near_range/recovery05_protocol.json).
+     Full 01 candidate replay also finishes all 13 cells: 11 match;
+     CT-ICP and Mesh-LOAM differ, retaining audit exit 1. Their numeric pairs
+     are in the method READMEs. Both frozen pre-extraction controls have zero
+     metric differences and byte-identical poses; the differences predate
+     extraction. The frozen historical audit retains exit 1. All input hashes
+     were verified before deleting the owned 01 scans and alias.
+     [Candidate evidence](../experiments/results/shared_near_range/sequences/01/audit/)
+     and [saved-path diagnosis](../experiments/results/shared_near_range/diagnostics/01/README.md)
+     retain Mesh's paired path gap and CT's current error-growth block, with
+     explicit runtime/missing-path limits and no cause attribution.
+     The historical NCLT cutoff is retained
      without reselection. DiLO's historical cut/uncut profiles also differ in
      range-image geometry, so their RTE difference cannot isolate the cut's
      effect; its ATE worsens from 54.344593 to 75.832748 m. Real NCLT validation

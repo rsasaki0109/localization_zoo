@@ -1,0 +1,38 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/diagnostics02_fixed",
+      "destination": "experiments/results/shared_near_range/diagnostics/02",
+      "log_sha256": "d3810c67dad161c522e560f23568e9af66636c39954a2cdb007e236b8711f3da",
+      "files": {
+        "summary.json": "c0f4f09ace7c5a88d17a3c852858e7229866a202c64a03a7455cfec2f2a62f16",
+        "analysis.log.gz": "896d8c68401b0e8d0d4a8e742854efd8b9c4510c62220cd7dd1695ce3ad3fb28",
+        "analysis_command.json": "cf627d288efa2758597d61ac3944ab3f6bf0e5a7cf825e63853179552d410444",
+        "aloam/current_steps.json": "f1b520649551d9d7ae1f8775c2a5fe218e62dc0a2910bae88692a92444557aab",
+        "aloam/trace.csv": "b6ed0aebaf9fb1751098ff2c24932003b7eb6d0b208e121c7ceb937c22200f57",
+        "mesh_loam/current_steps.json": "fd3e81cdd58f42b5b50f5ec1e18de5b3d27c779b680f8ed988c55ccb84adeff1",
+        "mesh_loam/paired_trace.png": "f53bfefb214ce9da6f7251d8e95ede48d12e7fd1f208ebe43f6418a06f2df62c",
+        "mesh_loam/trace.csv": "4b846a032b0b350e9cf013681f1d4c79b822b7f08c265c3cd18064fa3774987a",
+        "mesh_loam/historical_steps.json": "e928a9469718c23311f271d13b15b1c26659dc1ec4c59243d638fe10554ecfc2",
+        "lego_loam/current_steps.json": "28a8f6fe663b9f8e54b4e4654f3661cb7f169d8b1a31898e9bc918ca7b3c71d5",
+        "lego_loam/trace.csv": "114af761b6841e2de866a7ffc5e270aaef1ac594708a3023b9c540c5ea2e0ca5",
+        "ct_icp/current_steps.json": "c98bce5ee63a4bc5af8dcc797ed7fbe2d5f5c884b4852ead39b5fbaaf9079bcf",
+        "ct_icp/trace.csv": "b0a9e66afdda9f25d5ad89fe65cef9b2e08569c08e373b793cf43fd274e07489",
+        "floam/current_steps.json": "0f738b57d3facbfb946e31e3f8a6ee1505fc855ed95c5fe70d08183603edeeb6",
+        "floam/trace.csv": "f951f3782f5d15b19fee3feea6501a9d2527c2602b2194ba6b6ac2d19062a8f4"
+      }
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/checkpoint03_resume/checkpoint03",
+      "destination": "experiments/results/shared_near_range/checkpoints/03",
+      "log_sha256": "fb95a59d60a6b6341a8ccf24b3baf75cf83e8f7adff2d0c024bf015749379d98",
+      "files": {
+        "summary.json": "6771140636a2332248946d37960ccd2eaf432e34843e420f90197c559eab3daa",
+        "analysis.log.gz": "daa8942f92903b6f92acf3bddb0536ff7eba159553bcacc0a58a4839f8e98500",
+        "analysis_command.json": "09f335b845566d0a8c69ea647e20df9036f8097d55183ecb20104286a9e70b36",
+        "comparison.csv": "65ec6cc1615d6d3cd0230241c8e426e8f0905683091d51862406b9bf0fc85e54"
+      }
+    }
+  ],
+  "scope": "Only committed cleaned02/03 inputs and offline analyses; live05 excluded. Source fixation precedes execution. Corrected outer receipt field names distinguish terminal checkout HEAD from input revision recorded by each analyzer."
+}

@@ -1,0 +1,25 @@
+{
+  "label": "diagnostic_evidence_unchanged",
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "1426a851c9f021cbffae239e814b6379a5788b25",
+    "--",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/summary.json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/analysis.log.gz",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/analysis_command.json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/log_import.json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/mesh_loam/current_steps.json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/mesh_loam/paired_trace.png",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/mesh_loam/trace.csv",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/mesh_loam/historical_steps.json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/ct_icp/current_steps.json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/01/ct_icp/trace.csv"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792304092.2903419,
+  "finished_unix": 1792304092.3040469,
+  "exit_code": 0
+}

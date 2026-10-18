@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "checked_checkout_commit": "afeef0c161de5daa5443b534364b670e9808270e",
+  "phase": "post_import",
+  "error": "python_unittest returned an unexpected exit"
+}

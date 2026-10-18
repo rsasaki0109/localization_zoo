@@ -1,0 +1,22 @@
+{
+  "label": "checkpoint03",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_near_range/checkpoint_report.py",
+    "--output-dir",
+    "/workspace/localization-env/shared-near-range/checkpoint03_resume/checkpoint03"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "environment_overrides": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/checkpoint03_resume/mplconfig",
+    "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/checkpoint03_resume/xdgcache"
+  },
+  "started_unix": 1792360718.4578528,
+  "finished_unix": 1792360718.7789466,
+  "exit_code": 0,
+  "checkout_head_when_command_finished": "d8278c749cfd1840ef7bc0efa20ae4de9df21c94",
+  "analysis_input_commit": "d8278c749cfd1840ef7bc0efa20ae4de9df21c94"
+}

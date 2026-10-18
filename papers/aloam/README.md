@@ -125,7 +125,49 @@ were committed at `7d55897901c17b0c64567115a6f59db06cf585b0`.
 
 [Completed candidate commands, actual exits, logs and summaries](../../experiments/results/shared_near_range/sequences/00/audit/)
 were committed at `485fa00601644731827dae601eb3b43c7543efeb`.
-[Protocol and current scope](../../experiments/results/shared_near_range/README.md)
-distinguish these completed runs from a cleaned sequence checkpoint: 00 input
-cleanup and the whole-zoo audit are incomplete. Defaults remain off.
+The full [frozen comparison](../../experiments/results/shared_near_range/sequences/00/frozen_comparison.json)
+and [verified input cleanup](../../experiments/results/shared_near_range/sequences/00/cleanup.json)
+were committed at `10cf31616365b41878ec9311f0b705e798716c51`.
+The [committed checkpoint](../../experiments/results/shared_near_range/checkpoints/00/summary.json)
+now covers cleaned 04 and 00; the whole-zoo audit remains incomplete.
+Defaults remain off.
 <!-- /SHARED_NEAR_RANGE_00_PRIMARY -->
+
+<!-- SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
+## KITTI 00 current-replay error growth
+
+The committed current replay has 13/4514 moving steps with length error above 20%, and 42/4514 with local translation-vector error above 20%. The existing diagnostic uses the same 100-frame blocks and GT step threshold of 0.1 m for every method.
+
+The largest increase in pointwise position error among those blocks is poses 600–700: GT travels 98.739614 m, while error rises from 7.208486 m to 11.810234 m (increase 4.601748 m). These frame blocks diagnose the current trajectory; they are **not official KITTI RTE**. The tool uses first-pose normalization without fitting or rescaling.
+
+The referenced historical per-run summary is absent at the inspected revision and was not found in this checkout's reachable history. Without its historical saved path, this does not locate the cause of the historical metric difference. [Plot, full trace, commands and limits](../../experiments/results/shared_near_range/diagnostics/00/README.md) use the committed current poses, with diagnostic evidence committed at `61c1f26e1019aa3f0b05b100404c8bb117448b41`. Native source remains `0b079dbbcb7c6f58c1d8367ade881c15f003e525`.
+<!-- /SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+## Shared-loader replay: committed KITTI02 difference and saved-path diagnosis
+
+| Method | Seq | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| A-LOAM | 02 | 0.923231 | 0.926292 | 50.114358 | 50.789841 |
+
+The selected `kitti_default` arguments are unchanged throughout this full
+sequence. The historical audit retains exit **1**; native executions exit **0**.
+Frozen pre-extraction controls have zero recorded metric differences and
+byte-identical poses. This historical difference predates extraction; its
+original cause remains unresolved. Input hashes were verified before owned
+scan/alias removal. The near-range cut stays disabled.
+
+The largest current position-error increase among the inherited fixed blocks
+is frames **0-100**:
+**0.000000 to 19.558007 m**.
+
+The referenced historical per-run path is unavailable in the inspected tree/history.
+Current error growth cannot locate a gap from that unavailable trajectory.
+
+The [protocol, all steps/CSVs and plot](../../experiments/results/shared_near_range/diagnostics/02/README.md)
+come from committed evidence `8f5841e3946995cedfa9c0e2fc484dbd2c02373e`. First-pose normalization uses no fitted
+alignment or rescaling. These observations locate errors without assigning a
+cause or replacing published accuracy. The
+[cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
+retains all historical differences and audit exits.
+<!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->

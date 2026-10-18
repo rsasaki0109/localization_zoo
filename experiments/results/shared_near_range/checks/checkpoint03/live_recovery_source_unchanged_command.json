@@ -1,0 +1,17 @@
+{
+  "label": "live_recovery_source_unchanged",
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "d8278c749cfd1840ef7bc0efa20ae4de9df21c94",
+    "--",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/recover_interrupted05.py",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/recovery05_protocol.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792361077.934992,
+  "finished_unix": 1792361077.949516,
+  "exit_code": 0
+}

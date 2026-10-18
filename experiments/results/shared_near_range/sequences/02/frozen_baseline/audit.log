@@ -1,0 +1,6 @@
+[audit] CT-ICP 02 upstream_mechanics_elevation: drift
+[audit] F-LOAM 02 dense: drift
+[audit] A-LOAM 02 kitti_default: drift
+[audit] LeGO-LOAM 02 kitti_default: drift
+[audit] Mesh-LOAM 02 paper_odometry_elevation: drift
+[done] 5 drifted, 0 failed of 5 cells; exit 1; wrote /workspace/localization_zoo/experiments/results/shared_near_range/sequences/02/frozen_baseline/report.json

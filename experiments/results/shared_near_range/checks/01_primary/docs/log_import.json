@@ -1,0 +1,79 @@
+[
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/branch_whitespace.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/branch_whitespace.log.gz",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/diagnostic_evidence_unchanged.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/diagnostic_evidence_unchanged.log.gz",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/generate_full_variant_table.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/generate_full_variant_table.log.gz",
+    "original_sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc",
+    "gzip_sha256": "c1eaaa90d87b4d1b5ac36b77258f3db36209d0fec798d0bb521b91e6d01b08b5",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/generate_paper_ratio_table.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/generate_paper_ratio_table.log.gz",
+    "original_sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+    "gzip_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/leaderboard.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/leaderboard.log.gz",
+    "original_sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+    "gzip_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/paper_ready.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/paper_ready.log.gz",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/preservation.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/preservation.log.gz",
+    "original_sha256": "2a2981c4a4333b87dd19f7fc77c06341f89d7c42f8b1dfcefcf46a13ced7fb90",
+    "gzip_sha256": "f10c563af0b8a1853c8b2ad97fd9874504a739cd2e557524aa390b78792de998",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/primary_evidence_unchanged.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/primary_evidence_unchanged.log.gz",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/python.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/python.log.gz",
+    "original_sha256": "e05f65803e31c7e4b87d9e369b50db8b1709550a04e27cd37fb0a401c5f9ac70",
+    "gzip_sha256": "4ae57c6908b14fe8bb2b4761861754277a2962408f8269b4b3f4182f4401fd7f",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/refresh_study_docs.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/refresh_study_docs.log.gz",
+    "original_sha256": "bad8a97c9a751765a075735a5a5eb925a46a30e5ffba6609a2c83c55ad183422",
+    "gzip_sha256": "743829a63ecbc611d02a921e098661013eb4e1cfdd236c78bb10c94bfd6fca50",
+    "lossless_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/primary01_docs/showcase.log",
+    "archived": "experiments/results/shared_near_range/checks/01_primary/docs/showcase.log.gz",
+    "original_sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+    "gzip_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466",
+    "lossless_verified": true
+  }
+]

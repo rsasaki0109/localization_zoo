@@ -1,0 +1,27 @@
+{
+  "primary_head": "c3698e6700199b352d846f70a6580ad007ea35cc",
+  "sealed_and_recovery_files_match": {
+    "finish_when_complete.py": true,
+    "finish_docs.py": true,
+    "support.py": true,
+    "report.py": true,
+    "verify_preservation.py": true,
+    "run_all.py": true,
+    "protocol.json": true,
+    "selection.json": true,
+    "baseline.json": true,
+    "candidate.json": true,
+    "native_wrapper.py": true,
+    "recover_interrupted05.py": true,
+    "recovery05_protocol.json": true
+  },
+  "binary_hashes_match": {
+    "baseline": true,
+    "candidate": true
+  },
+  "process_exists": {
+    "2309": true,
+    "2310": true
+  },
+  "scope": "Only hashes/source/status; no scan reads, new native run or active checkout mutation."
+}

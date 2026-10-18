@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "method": "ct_icp",
+      "persistent_01_diagnostics_preserved": true,
+      "temporary_01_block_removed": true
+    },
+    {
+      "method": "mesh_loam",
+      "persistent_01_diagnostics_preserved": true,
+      "temporary_01_block_removed": true
+    },
+    {
+      "method": "aloam",
+      "existing_00_diagnostics_unchanged": true
+    },
+    {
+      "method": "floam",
+      "existing_00_diagnostics_unchanged": true
+    },
+    {
+      "method": "lego_loam",
+      "existing_00_diagnostics_unchanged": true
+    },
+    {
+      "method": "mesh_loam",
+      "existing_00_diagnostics_unchanged": true
+    },
+    {
+      "method": "vlom",
+      "existing_00_diagnostics_unchanged": true
+    }
+  ],
+  "exit_code": 0,
+  "scope": "Exercise the actual sealed completion renderer without changing its files."
+}

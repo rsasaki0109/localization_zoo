@@ -1,0 +1,12 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": ""
+}

@@ -11,8 +11,10 @@ stored aggregate, paper value or published accuracy table is changed.
 
 ## Scope and reproducibility
 
-[`protocol.json`](protocol.json) selects the new fixed-setting coverage runs
-01-06 and 08-10 before analysis. Historical 00/07 runs are outside this log
+[`protocol.json`](protocol.json) records the new fixed-setting coverage runs
+01-06 and 08-10 included in this analysis. The low-count hypothesis was formed
+while inspecting these saved failures; this is an exploratory diagnostic.
+Historical 00/07 runs are outside this log
 analysis. Every included manifest uses the unchanged `paper_odometry_plane_check`
 arguments: the plane distance and elevation correction were selected on 07,
 with 00 influencing the diagnosis. No new setting is selected here. The focus

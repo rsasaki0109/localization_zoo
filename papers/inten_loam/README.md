@@ -666,3 +666,13 @@ long-segment RTE is unavailable, no speed is remeasured, and the full failure
 cause remains open. Defaults and historical numbers are unchanged.
 [Commands, settings provenance, evidence and limits](../../experiments/results/inten_passive_trace/integration/README.md).
 <!-- /INTEN_PASSIVE_TRACE_ACCELERATION -->
+
+<!-- INTEN_TRACE_VALIDATION_ACCELERATION -->
+## Offline validation of accelerated exports
+
+The unchanged reader accepts all 4 committed default/accelerated export tuples
+with exit 0, preserving their input bytes (`b1ef79df`). The original legacy
+corpus and synthetic corruptions remain separate. No estimator or raw scan is
+opened by these checks. [Commands, hashes and limits](../../experiments/results/inten_trace_validation/integration/README.md)
+cover consistency only; full-sequence accuracy and solver cause remain open.
+<!-- /INTEN_TRACE_VALIDATION_ACCELERATION -->

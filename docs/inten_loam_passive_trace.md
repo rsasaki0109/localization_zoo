@@ -227,3 +227,12 @@ compatibility calls exit 0, with identical saved poses within each execution
 mode. Evidence was committed at `7aa83cff` / `fb9318f3` before this statement.
 [Protocol, exact commands and limits](../experiments/results/inten_passive_trace/integration/README.md)
 separate these checks from the pending full-sequence failure diagnosis.
+
+## Validate integrated accelerated exports
+
+The reader also accepts the additive effective acceleration field. All 4
+committed export tuples validate with exit 0 using the unchanged checker source;
+input bytes remain identical. Evidence was committed at `b1ef79df` before this
+statement. [Exact commands and reports](../experiments/results/inten_trace_validation/integration/README.md)
+preserve the same consistency-only limits as the original checker. Legacy
+schema-version-1 logs remain part of its existing regression corpus.

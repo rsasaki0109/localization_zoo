@@ -66,3 +66,9 @@ Table 6, root README/HTML leaderboard and paper-number JSON are preserved.
 The original whole-zoo replay continues in its separate frozen tree. Native
 build/CTest evidence is inherited from the unchanged parent implementation;
 this Python-only change requires no local native rebuild or replay.
+
+## Integration with accelerated exports
+
+The [later compatibility check](integration/README.md) retains the original
+study and validates the combined API/speed/export records with the unchanged
+reader. It adds no estimator or parameter-selection path.

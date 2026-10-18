@@ -5,6 +5,8 @@ IMLS-SLAM raw-scan model, DiLO range-image and LiTAMIN2 Gaussian-map pipelines.
 They preserve native parameter defaults and causal state without ground-truth
 seeding or wrapper-side pose accumulation. This is an interface check on the
 committed MCD fixture; accuracy conclusions use the existing benchmark evidence.
+The [main integration check](#integration-with-shared-components) below records
+the interfaces after the shared robustness components were merged.
 
 ## Local native/Python verification
 
@@ -102,9 +104,11 @@ libraries. ROS CI runs the command recorded in `.github/workflows/ci.yml` after
 sourcing the installed ROS workspace. Raw scan files and executable binaries are
 not added to this results directory.
 
-Core algorithm sources, common code, runner loaders and stored benchmark
-aggregates are unchanged. The new binding targets link existing cores; this work
-does not change published paper numbers or enable robustness/sensor corrections.
+The original interface-only revision left core algorithm sources, common code,
+runner loaders and stored benchmark aggregates unchanged relative to its stated
+base. The main integration below incorporates the already-merged shared
+components without further algorithm changes. Binding targets link those cores;
+they do not change published paper numbers or enable robustness/sensor corrections.
 The [final local checks](checks/final/commands.json) pass, including document
 regeneration, Python regressions and showcase/leaderboard contracts. The
 [preservation report](checks/final/preservation.json) confirms that historical
@@ -112,3 +116,67 @@ aggregates, paper reference values and published tables are unchanged; the root
 README only adds the authorized binding description.
 The NCLT real-data sensor-assistant check remains pending separately because its
 approved download host is still absent from the enforced environment allowlist.
+
+## Integration with shared components
+
+Implementation `ff2fe7f1c8f38a0775329ac19333d65c3f200d61` merges main
+`7505a2914328d53ac9b319d5f8042189b378d457` into the binding branch. Derived
+documents are regenerated, while the roadmap retains both shared-component
+results and the completed binding entry. Core algorithms, common code and runner
+loaders match that main revision. Validation uses a separate worktree/build;
+the ongoing KITTI replay's checkout, executable pins and sealed scripts remain
+unchanged.
+
+SuMa's newly merged `degenerate_ratio`, `coarse_frames`, `coarse_iterations` and
+`coarse_distance_scale` fields are exposed in Python and ROS. Python also returns
+`coarse_start` and the actual coarse iteration count. Remapping and coarse startup
+retain their native disabled defaults.
+
+The additional joint interface case explicitly uses remap ratio 0.03 and a single
+coarse registration with budget 10 and distance multiplier 5.0. These transfer
+settings come from the existing shared-remap/shared-coarse-start studies; none was
+selected on this fixture. This combined case checks interface wiring and startup
+expiry, without isolating either correction's accuracy effect. Each case uses
+one unchanged configuration for every input scan.
+
+Raw results were committed at `f8147ef3` before the following numbers:
+[Python/native report](checks/main_refresh/native/paper_python_fixture.json),
+[ROS/native report](checks/main_refresh/ci_ros/report.json),
+[ROS job receipt](checks/main_refresh/ci_ros/receipt.json).
+
+| Fixture case | Scans | Maximum Python/C++ pose-element difference | Maximum ROS odometry/C++ difference | Maximum TF/C++ difference |
+|---|---:|---:|---:|---:|
+| SuMa, native defaults | 3 | 0 | 1.11e-15 | 1.11e-15 |
+| IMLS-SLAM, native defaults | 3 | 0 | 4.44e-16 | 4.44e-16 |
+| DiLO, native defaults | 3 | 0 | 0 | 0 |
+| LiTAMIN2, native defaults | 3 | 0 | 4.44e-16 | 4.44e-16 |
+| DiLO, moving room / same defaults | 3 | 0 | 3.33e-16 | 3.33e-16 |
+| SuMa, explicit shared options | 3 | 0 | 5.55e-16 | 5.55e-16 |
+
+Python/native diagnostics match exactly. The explicit SuMa case reports coarse
+startup `[false, true, false]` and coarse iterations `[0, 10, 0]`. The real DiLO
+default remains identity; its moving-room case guards against constant output.
+These short fixtures establish interface parity, with no new full-sequence
+accuracy or speed claim. The earlier delivery/observer failures remain above.
+
+The [native commands and actual exits](checks/main_refresh/native/commands.json)
+cover a Release build of the affected targets, all 8 affected CTest entries,
+the existing Python example and every paper example, all exiting 0. The
+[document checks](checks/main_refresh/docs/commands.json) include all three
+generators, 290 Python regressions and showcase/leaderboard/paper-ready checks,
+also exiting 0. [Preservation](checks/main_refresh/docs/preservation.json) keeps
+all 688 historical aggregate hashes, paper reference values, Table 6 and published
+leaderboards unchanged relative to main. Native/ROS execution commands retain
+their actual workspace paths; full ROS commands are in the losslessly compressed
+[job transcript](checks/main_refresh/ci_ros/job.log.gz).
+
+The initial full-branch whitespace check exits 2 on three previously committed
+raw CI transcripts. [The failure](checks/main_refresh/prepare/initial_whitespace.json)
+is retained, their original bytes are preserved, and only those exact log paths
+receive whitespace attributes. The corrected check exits 0. New raw logs are
+stored as gzip with [verified original/output hashes](checks/main_refresh/import.json).
+The [check driver](refresh_main_checks.py) takes `--phase native` or `--phase docs`
+and requires a fresh `--output-dir`; full-suite and ROS verification also run in CI.
+The [post-import regeneration and checks](checks/main_refresh/post_import/commands.json)
+and [preservation receipt](checks/main_refresh/post_import/preservation.json)
+cover the imported evidence and this updated report.

@@ -73,7 +73,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j2
 TEST_TMPDIR=/workspace/localization-env/inten-passive-trace/native_checks_retry/tmp ctest --test-dir build --output-on-failure
 /workspace/localization-env/host-venv/bin/python experiments/results/inten_passive_trace/validate_fixture.py --output-dir /workspace/localization-env/inten-passive-trace/native_fixture
-/workspace/localization-env/host-venv/bin/python experiments/results/inten_passive_trace/verify_preservation.py --output /workspace/localization-env/inten-passive-trace/preservation.json
+/workspace/localization-env/host-venv/bin/python experiments/results/inten_passive_trace/verify_preservation.py --output /workspace/localization-env/inten-passive-trace/final_source_checks/preservation.json
 ```
 
 [protocol.json](protocol.json) pins scope, source and comparison rules.

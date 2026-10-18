@@ -1,0 +1,83 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_default__accelerated.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_default__accelerated.json",
+      "original_sha256": "befb1cef4df47e05ebce069e1c2682c76954b6de9aa4d4a884a685ac59d2a705",
+      "stored_sha256": "befb1cef4df47e05ebce069e1c2682c76954b6de9aa4d4a884a685ac59d2a705"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_default__accelerated.log",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_default__accelerated.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_default__accelerated_command.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_default__accelerated_command.json",
+      "original_sha256": "88e5e81ed197f692c95f42e7dd3d134074972e7d4b6f551cb47f7b4759845500",
+      "stored_sha256": "88e5e81ed197f692c95f42e7dd3d134074972e7d4b6f551cb47f7b4759845500"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_default__default.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_default__default.json",
+      "original_sha256": "e9f60e95e0389ad13382d9667427ae2a90029ed86e225a987bae5102ee19303b",
+      "stored_sha256": "e9f60e95e0389ad13382d9667427ae2a90029ed86e225a987bae5102ee19303b"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_default__default.log",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_default__default.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_default__default_command.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_default__default_command.json",
+      "original_sha256": "4360b0d38d03e0cdd2a8f05b397d2e1d42101823c60be2dba65883bf5394fcb0",
+      "stored_sha256": "4360b0d38d03e0cdd2a8f05b397d2e1d42101823c60be2dba65883bf5394fcb0"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_odometry_plane_check__accelerated.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_odometry_plane_check__accelerated.json",
+      "original_sha256": "94503c4eb930d0798fb98e0a5314c13d8fd1b9e246e16987b7ebc8fa5c5edbf0",
+      "stored_sha256": "94503c4eb930d0798fb98e0a5314c13d8fd1b9e246e16987b7ebc8fa5c5edbf0"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_odometry_plane_check__accelerated.log",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_odometry_plane_check__accelerated.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_odometry_plane_check__accelerated_command.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_odometry_plane_check__accelerated_command.json",
+      "original_sha256": "f6f3fdb789fa5b3fdbfc842b2fceb3cdaa62a218c697c0aad5da9a3e470741ee",
+      "stored_sha256": "f6f3fdb789fa5b3fdbfc842b2fceb3cdaa62a218c697c0aad5da9a3e470741ee"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_odometry_plane_check__default.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_odometry_plane_check__default.json",
+      "original_sha256": "e1f18eed5ad49dcd09d0b43a77b6c4061294f42158fe03a633f5167d849a3c16",
+      "stored_sha256": "e1f18eed5ad49dcd09d0b43a77b6c4061294f42158fe03a633f5167d849a3c16"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_odometry_plane_check__default.log",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_odometry_plane_check__default.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_odometry_plane_check__default_command.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/paper_odometry_plane_check__default_command.json",
+      "original_sha256": "386b908d3cac50eb337db49632138586e089a98ef09d42a90c930795153156d6",
+      "stored_sha256": "386b908d3cac50eb337db49632138586e089a98ef09d42a90c930795153156d6"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/validator_corpus/summary.json",
+      "stored": "experiments/results/inten_trace_validation/integration/evidence/summary.json",
+      "original_sha256": "88354ab5619508b96ed280deafa6984028ad595754d43e1513cba5a28bdd5bf4",
+      "stored_sha256": "88354ab5619508b96ed280deafa6984028ad595754d43e1513cba5a28bdd5bf4"
+    }
+  ],
+  "exit_code": 0
+}

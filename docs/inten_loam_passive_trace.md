@@ -150,6 +150,58 @@ the invocation; an interrupted file is kept as evidence.
 cover the CLI separately from the underlying observation API. Full failure
 sequence diagnosis remains open.
 
+
+## Validate a stored trace
+
+Use the offline checker with a trace, its normal native summary, and the
+collector's native command/exit receipt. For a committed example:
+
+```bash
+trace_run=experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on
+python3 evaluation/scripts/check_inten_trace.py \
+  --trace "$trace_run/trace.jsonl" \
+  --summary "$trace_run/summary.json" \
+  --receipt "$trace_run/command.json" \
+  --output /tmp/inten-trace-check.json
+```
+
+The output path must be new. Check the command's exit status directly;
+invalid input exits nonzero and creates no report. Existing output bytes are
+preserved. All trace validation completes before a report is opened.
+
+The receipt requires integer `exit_code: 0`. Its `native_argv` must match
+the header argv exactly; alternatively its array-valued `command` must end
+with that complete native argv, as with a Docker command prefix. Shell
+command strings are not interpreted. Summary input paths, selected method,
+status and frame counts must agree. Embedded paths are compared as strings;
+the checker opens only the files explicitly passed on its command line.
+Archived traces therefore need no original scan tree or executable.
+
+The checker streams one record at a time. It requires the supported schema,
+complete header/end, every input index, contiguous estimator call indices,
+explicit skips, matrix/vector dimensions, class/total pair counts, typed
+step flags and consistent termination. An unattempted iteration terminates
+with insufficient pairs; a failed nonfinite step terminates with its
+explicit tagged delta. Uncalled stages retain placeholder matrices and
+contribute no solver calls/iterations to the counters.
+
+The JSON report contains file hashes, frame/skip counts, stage call/iteration
+counts, stop counts and the number of explicit nonfinite values. It retains
+`NaN`, `+Infinity` and `-Infinity` as observed tags during validation and
+rejects nonstandard JSON numeric literals or duplicate keys. No tag is
+replaced with a zero update.
+
+Validation covers record/run consistency. Accuracy, matrix conditioning,
+GT remapping and binary/input/source authenticity require separate evidence.
+Matching argv alone cannot distinguish repeated executions with identical
+arguments; preserve the collector's hashes and provenance. In particular,
+explicit skips need GT remapping before the inherited accuracy fields can
+be interpreted. The tool adds no estimator gate or setting.
+
+[Committed checker tests, corruptions and commands](../experiments/results/inten_trace_validation/README.md)
+cover this contract. Full failure-sequence tracing and cause diagnosis
+remain open.
+
 ## Export with optional acceleration
 
 `--paper-pipeline-accelerated` can be combined with passive export. The header
@@ -175,3 +227,12 @@ compatibility calls exit 0, with identical saved poses within each execution
 mode. Evidence was committed at `7aa83cff` / `fb9318f3` before this statement.
 [Protocol, exact commands and limits](../experiments/results/inten_passive_trace/integration/README.md)
 separate these checks from the pending full-sequence failure diagnosis.
+
+## Validate integrated accelerated exports
+
+The reader also accepts the additive effective acceleration field. All 4
+committed export tuples validate with exit 0 using the unchanged checker source;
+input bytes remain identical. Evidence was committed at `b1ef79df` before this
+statement. [Exact commands and reports](../experiments/results/inten_trace_validation/integration/README.md)
+preserve the same consistency-only limits as the original checker. Legacy
+schema-version-1 logs remain part of its existing regression corpus.

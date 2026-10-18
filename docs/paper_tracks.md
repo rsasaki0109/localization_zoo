@@ -1,6 +1,6 @@
 # Paper Tracks
 
-_Generated at 2026-10-18T10:39:46+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-18T10:44:53+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.

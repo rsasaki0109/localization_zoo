@@ -1,0 +1,69 @@
+{
+  "exit_code": 0,
+  "tool_source_commit": "8752c852d750277a2bbeda49ec7c36f154558529",
+  "input_commit": "9a18f1a3e57dae7fa59d0cc7de76e60131afe313",
+  "source_guard_command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "8752c852d750277a2bbeda49ec7c36f154558529",
+    "--",
+    "evaluation/scripts/check_inten_trace.py",
+    "tests/test_inten_trace_validation.py"
+  ],
+  "checks": [
+    {
+      "profile": "paper_default",
+      "execution_mode": "default",
+      "exit_code": 0,
+      "effective_accelerated": false,
+      "report": "paper_default__default.json",
+      "input_sha256": {
+        "trace.jsonl": "1fc31a816982d3f61c6602616d7ccd95f8018eb77c95470192c63cfa1f78e20a",
+        "summary.json": "a03e1ca3c0db132d14157e6f38ece9246400581f746a4312bb61546cec428823",
+        "command.json": "3ca361211d07c31d31a226e1bbe36cf413188a0cfe271ce0b7a740c59b8dda71"
+      },
+      "report_sha256": "e9f60e95e0389ad13382d9667427ae2a90029ed86e225a987bae5102ee19303b"
+    },
+    {
+      "profile": "paper_default",
+      "execution_mode": "accelerated",
+      "exit_code": 0,
+      "effective_accelerated": true,
+      "report": "paper_default__accelerated.json",
+      "input_sha256": {
+        "trace.jsonl": "0a899f0d422cec405dc9385d4a3880d9dcc68c9520b70e95c2652bca82ad6992",
+        "summary.json": "e460c84885632c48325516c998e1b42e27785b24b675645b4a3eab812aeca124",
+        "command.json": "e33793ac02b6c313712ec29e62651ae664e8b23104a9832161b374efd8aa15c4"
+      },
+      "report_sha256": "befb1cef4df47e05ebce069e1c2682c76954b6de9aa4d4a884a685ac59d2a705"
+    },
+    {
+      "profile": "paper_odometry_plane_check",
+      "execution_mode": "default",
+      "exit_code": 0,
+      "effective_accelerated": false,
+      "report": "paper_odometry_plane_check__default.json",
+      "input_sha256": {
+        "trace.jsonl": "d1298289e0919fb5957a8ea6eb15253c1b86edf4c63a0edac08e07cbd4bba2ad",
+        "summary.json": "0d423481887140429151aa4825ba2e57f55912d05985e9029e1318c18aa06702",
+        "command.json": "3ec3b331f91ba20b5930213faa42a20923f94af092faf687abe50f71655183c6"
+      },
+      "report_sha256": "e1f18eed5ad49dcd09d0b43a77b6c4061294f42158fe03a633f5167d849a3c16"
+    },
+    {
+      "profile": "paper_odometry_plane_check",
+      "execution_mode": "accelerated",
+      "exit_code": 0,
+      "effective_accelerated": true,
+      "report": "paper_odometry_plane_check__accelerated.json",
+      "input_sha256": {
+        "trace.jsonl": "aca8a55d36e155b0ea66a4c454b3fa634ef682adbabbdd6a83b12b28f00998c2",
+        "summary.json": "11a4cf72a1d2319b4d0f4b319458e0d0a5b1e48d7ee902c66e97f0bb0a676bc5",
+        "command.json": "90390234408935a7ed638deb068a5a1dcb6de8afbaf00ee2419a058a9ec1d800"
+      },
+      "report_sha256": "94503c4eb930d0798fb98e0a5314c13d8fd1b9e246e16987b7ebc8fa5c5edbf0"
+    }
+  ],
+  "scope": "Record/run consistency only. No native invocation, raw scan read/fetch, setting selection, accuracy or solver-cause claim."
+}

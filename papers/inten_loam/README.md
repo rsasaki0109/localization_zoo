@@ -536,6 +536,23 @@ was committed at `c679dde4837dc097b697f18654c6cc51da0ffa0f` before this statemen
 initial exit 120, closed-stdout reproduction and regular-file recovery exit 0
 are retained separately; the successful native tests were not rerun.
 <!-- /INTEN_TRACE_EXPORT -->
+
+<!-- INTEN_TRACE_VALIDATION -->
+## Offline trace validation
+
+The manually invoked `evaluation/scripts/check_inten_trace.py` streams a
+saved passive trace with its native summary and command/exit receipt.
+It checks completion, input/call indices, stage/iteration structure and run
+consistency before publishing counters. This analysis tool is outside the
+paper and leaves native code/settings unchanged.
+
+All 9 unit/CLI tests pass with exit 0. All 3 committed normal/lifecycle traces
+validate with exit 0; all 7 explicit synthetic corruptions return exit 1
+and create no report. Evidence was committed at `e27ff091` before these
+numbers. [Results, negative cases and exact commands](../../experiments/results/inten_trace_validation/README.md)
+retain the scope: accuracy, GT indexing, conditioning and solver cause
+require separate evidence. The full failure diagnosis remains open.
+<!-- /INTEN_TRACE_VALIDATION -->
 ## Optional execution acceleration
 
 `--paper-pipeline-accelerated` enables repository implementation optimizations
@@ -649,3 +666,13 @@ long-segment RTE is unavailable, no speed is remeasured, and the full failure
 cause remains open. Defaults and historical numbers are unchanged.
 [Commands, settings provenance, evidence and limits](../../experiments/results/inten_passive_trace/integration/README.md).
 <!-- /INTEN_PASSIVE_TRACE_ACCELERATION -->
+
+<!-- INTEN_TRACE_VALIDATION_ACCELERATION -->
+## Offline validation of accelerated exports
+
+The unchanged reader accepts all 4 committed default/accelerated export tuples
+with exit 0, preserving their input bytes (`b1ef79df`). The original legacy
+corpus and synthetic corruptions remain separate. No estimator or raw scan is
+opened by these checks. [Commands, hashes and limits](../../experiments/results/inten_trace_validation/integration/README.md)
+cover consistency only; full-sequence accuracy and solver cause remain open.
+<!-- /INTEN_TRACE_VALIDATION_ACCELERATION -->

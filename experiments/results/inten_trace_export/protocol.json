@@ -22,7 +22,8 @@
       "OMP_NUM_THREADS": "1",
       "OPENBLAS_NUM_THREADS": "1"
     },
-    "fetch_raw_data": false
+    "fetch_raw_data": false,
+    "focused_build": "Changed runner compiled with the pinned PR140 Release flags and linked with its unchanged library artifacts. Hash every static/system link input inside the build container before/after; record exact commands. This incremental build supports the fixture comparison; separate fresh full CMake/CTest validation is recorded independently."
   },
   "preservation": "All published aggregates, Table6, root README, paper_reported_numbers and prior study evidence remain identical. Frozen177 primary source, binaries and sealed files remain untouched.",
   "limits": "Short compatibility fixture and serializer tests only. No full KITTI failure trace, no conditioning threshold or solver gate, no SDK/ROS export. End record marks estimator traversal; native exit status and summary must also succeed."

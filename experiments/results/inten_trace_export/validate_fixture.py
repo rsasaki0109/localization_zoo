@@ -82,11 +82,12 @@ def check_trace(path, method_path, expected_flags):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', required=True, type=Path)
+    parser.add_argument('--candidate-binary', type=Path)
     args = parser.parse_args()
     out = args.output_dir.resolve()
     assert not out.exists(), 'Use a fresh directory.'
     reference = Path(P['validation']['reference_binary'])
-    candidate = REPO / 'build/evaluation/pcd_dogfooding'
+    candidate = (args.candidate_binary or REPO / 'build/evaluation/pcd_dogfooding').resolve()
     assert sha(reference) == P['validation']['reference_binary_sha256']
     subprocess.run(['git', 'diff', '--exit-code', P['base_commit'], P['validation']['reference_native_source_commit'], '--',
                     *NATIVE], cwd=REPO, check=True)

@@ -16,8 +16,9 @@ It does not sanitize non-finite points; consumers retain that policy.
 
 ## Scope and status
 
-Implementation and the regression protocol are committed. Full KITTI replay
-is running; no full audit completion or new NCLT result is claimed here.
+Implementation and the regression protocol were merged in
+[PR #137](https://github.com/rsasaki0109/localization_zoo/pull/137). Full KITTI
+replay is running; no full audit completion or new NCLT result is claimed here.
 [`selection.json`](selection.json) freezes all stored full-sequence best-RPE
 cells across the zoo; the selection command and its actual exit are retained.
 These are replays of historical arguments, which can differ by cell. They do
@@ -97,9 +98,16 @@ unresolved. [Closed control evidence](checks/00_closed_controls/summary.json),
 including commands, native exits and artifact hashes, was committed at
 `7d55897901c17b0c64567115a6f59db06cf585b0`.
 
-Mesh-LOAM and VLOM's frozen replays are **still running**; the extraction's
-effect on those two cells is not yet established. The parent frozen audit has
-no terminal exit yet. No setting is changed or historical result replaced.
+VLOM's frozen replay also finishes with native exit 0. Its RPE, ATE, frames
+and official translation/rotation RTE have zero old-vs-extracted differences,
+with byte-identical saved poses. Thus both its RPE and ATE worsening predate
+extraction; their original cause remains unresolved. The
+[VLOM control and verification](checks/00_vlom_control/summary.json) were
+committed at `1f7b554f9dfe5878067dc42ae18ed45c51a58e35`.
+
+Only Mesh-LOAM's frozen replay is **still running**; the extraction's effect
+on that cell is not yet established. The parent frozen audit has no terminal
+exit yet. No setting is changed or historical result replaced.
 Summary `evaluator_git_commit` records the working-tree HEAD at write time;
 native provenance comes from the frozen executable SHA256/source pins, not
 that metadata field.
@@ -190,8 +198,11 @@ The required generators, Python/doc checks, preservation and full-branch
 whitespace checks must then pass before the final documentation is committed
 and pushed. It does not merge, mark the PR ready, or claim new NCLT validation.
 
-Outputs go to `completion/01/`; the prepared `PR_BODY.md` and pushed-head CI need
-the connected GitHub tool's final review/update. The ordinary GitHub CLI API
+Outputs go to `completion/01/`; later evidence needs a new follow-up PR against
+`main`, because implementation PR #137 is already merged. The prepared
+`PR_BODY.md` contains an old PR137 readiness reference that must be adapted for
+the follow-up; pushed-head CI also needs the connected GitHub tool's final
+review/update. The ordinary GitHub CLI API
 probe was refused; its actual exit is retained, and no alternate access path is
 attempted by the worker. [Guard and renderer validation](checks/finalizer_preflight/)
 uses committed partial 04/00 evidence: partial reports and the still-running

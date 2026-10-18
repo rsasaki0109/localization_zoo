@@ -1,0 +1,13 @@
+{
+  "source": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+  "main": "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+  "frozen_primary": "c3698e6700199b352d846f70a6580ad007ea35cc",
+  "python_test_summaries": [
+    "Ran 313 tests in 14.944s"
+  ],
+  "skip_summaries": [
+    "OK (skipped=5)"
+  ],
+  "local_required_exit_code": 0,
+  "scope": "Current-main source integration and historical publication preservation. Original79-cell numerical evidence remains frozen native0b. Host worktree has no built evaluator; final CI covers its native evaluation guards."
+}

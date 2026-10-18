@@ -1,0 +1,277 @@
+[
+  {
+    "label": "native_main_identity",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/scripts",
+      "evaluation/CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt",
+      "python",
+      "ros2"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792361973.2608585,
+    "finished_unix": 1792361973.2887707,
+    "exit_code": 0
+  },
+  {
+    "label": "historical_study_unchanged",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "c3698e6700199b352d846f70a6580ad007ea35cc",
+      "--",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/finish_when_complete.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/finish_docs.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/support.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/report.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/verify_preservation.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/run_all.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/protocol.json",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/selection.json",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/baseline.json",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/candidate.json",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/native_wrapper.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/recover_interrupted05.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/recovery05_protocol.json",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/diagnose_saved02.py",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/sequences",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/checkpoints",
+      "/workspace/localization-env/shared-near-range/merge138/worktree/experiments/results/shared_near_range/diagnostics",
+      "experiments/results/runs",
+      "experiments/results/mesh_inten_kitti_coverage"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792361973.2894673,
+    "finished_unix": 1792361973.3299756,
+    "exit_code": 0
+  },
+  {
+    "label": "refresh_study_docs",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792361973.331458,
+    "finished_unix": 1792362055.2622688,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_full_variant_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792362055.2675307,
+    "finished_unix": 1792362055.5047889,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_paper_ratio_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792362055.5059671,
+    "finished_unix": 1792362055.6568363,
+    "exit_code": 0
+  },
+  {
+    "label": "python_regressions",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792362055.6581464,
+    "finished_unix": 1792362071.376674,
+    "exit_code": 0
+  },
+  {
+    "label": "validate_showcase",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792362071.3776207,
+    "finished_unix": 1792362071.5414953,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_leaderboard",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792362071.5420017,
+    "finished_unix": 1792362071.7545543,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_paper_ready_evidence",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792362071.7565844,
+    "finished_unix": 1792362071.8095496,
+    "exit_code": 0
+  },
+  {
+    "label": "primary_native_identity",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792362071.9736578,
+    "finished_unix": 1792362072.0027938,
+    "exit_code": 0
+  },
+  {
+    "label": "branch_whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-near-range/merge138/mplconfig",
+      "XDG_CACHE_HOME": "/workspace/localization-env/shared-near-range/merge138/xdgcache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "86b1b6a29e12622485dc53285c8f9d46849451bc",
+    "started_unix": 1792362072.144202,
+    "finished_unix": 1792362072.917004,
+    "exit_code": 0
+  }
+]

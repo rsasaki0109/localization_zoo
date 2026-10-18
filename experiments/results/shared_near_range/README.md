@@ -367,3 +367,8 @@ The running controller and completion worker keep their original files and
 scan ownership. Later completed sequences are follow-up evidence. Recorded
 numerical results retain their original source pins; integrating their documents
 does not re-run them on the current native implementations.
+
+[Isolated integration checks and exact commands](checks/merge138/) retain the
+native-main identity, historical result/publication preservation and independent
+primary-checkout source/binary/sealed-file guards. Full native/Python and ROS
+validation runs in CI for the integrated PR head.

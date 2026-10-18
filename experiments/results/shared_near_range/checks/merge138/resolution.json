@@ -1,0 +1,73 @@
+{
+  "conflicts": [
+    "docs/decisions.md",
+    "docs/experiments.md",
+    "docs/interfaces.md",
+    "docs/paper_assets.md",
+    "docs/paper_captions.md",
+    "docs/paper_comparison.md",
+    "docs/paper_roadmap.md",
+    "docs/paper_tracks.md",
+    "docs/reproduction_status.md",
+    "docs/variant_analysis.md",
+    "experiments/results/index.json",
+    "papers/mesh_loam/README.md"
+  ],
+  "policy": "Keep both Mesh diagnostic blocks and main acceleration compatibility section; generated files start from main and are regenerated before final push. Native/evaluation/Python/ROS sources match main.",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+        "--",
+        "common",
+        "evaluation/src",
+        "evaluation/scripts",
+        "evaluation/CMakeLists.txt",
+        ":(glob)papers/*/src/**",
+        ":(glob)papers/*/include/**",
+        ":(glob)papers/*/test/**",
+        ":(glob)papers/*/CMakeLists.txt",
+        "CMakeLists.txt",
+        "python",
+        "ros2"
+      ],
+      "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+      "exit_code": 0,
+      "started_unix": 1792361921.3346772,
+      "finished_unix": 1792361921.3574388,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+      "exit_code": 0,
+      "started_unix": 1792361921.3579066,
+      "finished_unix": 1792361921.4977887,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "commit",
+        "-m",
+        "Integrate the committed frozen-replay checkpoint with current main in an isolated worktree"
+      ],
+      "cwd": "/workspace/localization-env/shared-near-range/merge138/worktree",
+      "exit_code": 0,
+      "started_unix": 1792361921.4981997,
+      "finished_unix": 1792361921.601091,
+      "stdout": "[codex/shared-range-checkpoint-merge138 86b1b6a2] Integrate the committed frozen-replay checkpoint with current main in an isolated worktree\n",
+      "stderr": ""
+    }
+  ]
+}

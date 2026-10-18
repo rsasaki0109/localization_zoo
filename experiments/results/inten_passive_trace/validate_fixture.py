@@ -80,6 +80,9 @@ def main():
         for name in ('reference', 'candidate'):
             paths[name] = {p.name: p for p in (out / variant / name / 'dogfooding_results').glob('*.txt')}
         assert paths['reference'].keys() == paths['candidate'].keys() and paths['reference']
+        required = {'InTEn_LOAM.txt', 'gt.txt',
+                    Path(results['reference']['artifacts']['evaluated_gt_path']).name}
+        assert required <= paths['reference'].keys(), required
         pose_checks = {}
         for key, path in paths['reference'].items():
             other = paths['candidate'][key]

@@ -1,0 +1,19 @@
+{
+  "label": "diagnose00",
+  "command": [
+    "env",
+    "MPLCONFIGDIR=/tmp/localization-range-plots",
+    "OMP_NUM_THREADS=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnose_current00.py",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792287242.0253725,
+  "finished_unix": 1792287253.8142717,
+  "exit_code": 0
+}

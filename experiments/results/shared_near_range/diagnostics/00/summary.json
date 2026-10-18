@@ -1,0 +1,346 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnose_current00.py",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "input_commit": "e527c8340158a643be9faf3a7b165cb2f94cb705",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "script_sha256": "e43a120b112b4e428baa36dd7479a33059206045c0a3fdc3c978f68a06064085",
+  "input_sha256": {
+    "experiments/results/shared_near_range/sequences/00/audit/report.json": "add4390f49a10ccf6b90a4db125f4a55ba7228483c70ca34353e743dc7ff1651",
+    "experiments/results/shared_near_range/sequences/00/audit/audit_command.json": "ed15f49804ecead5ff36ff0f0e00fce24112d781bd607e7b723bf90d90629b5c",
+    "experiments/results/shared_near_range/candidate.json": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a",
+    "evaluation/scripts/diagnose_kitti_steps.py": "31c33e09a25890a9206fea331835f22e6bee7aa86327663b4c6a009dd091825a",
+    "evaluation/scripts/evaluate_external_kitti_odometry.py": "dd7e8c4b332ead68cf5c87dfd67d7eed12851d8256db4ff9f3b6999a7f0170e4",
+    "experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json": "6144712c502d9b61c62f3a940c03615dd9e711e01728fe062add541da47449c8",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default.json": "ba39bdcc65ccd991680a388d6de50d454f92bf982df799f2daa0edcea6aae877",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native_command.json": "b500abc673b7accc031e0c744c6ed7a8b911e31a4666ffbbe6b51706f42e444d",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt": "c4ddd7420c016b271aecb63f9383ca208623460572fdfad3f75ad3571e3f9ba2",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/floam_kitti_seq_00_full_transfer_matrix.json": "e0072db10bc3210bac956b4b89047a346b7886e274e9047c1c27191fc5383f71",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/floam_kitti_seq_00_full_transfer_matrix__dense.json": "cbc0ad799667c3ec7b10a990b5987326594087351f051e0cee62a22b8c2bc9cd",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/floam_kitti_seq_00_full_transfer_matrix__dense_native_command.json": "563cb5776b1c9d8fd81c692b4f4e72866ab8d1d950a68b9c828439d34286df1f",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/floam_kitti_seq_00_full_transfer_matrix__dense_native/dogfooding_results/F_LOAM.txt": "1f0c9d1cbfc18227ca4f01dd180b1a04422e0b41bbcd41b48718ba7b2f52eee4",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/floam_kitti_seq_00_full_transfer_matrix__dense_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json": "b0ad2bf55dcd134d73ea3a322e74f2ff2b946dd86d5b3b167484f3547c95c4b5",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default.json": "970bc42ee923cd34147d8cc7ed25f2af3b31778c24b268ceaca143a03763316c",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native_command.json": "90a684af747ec7da069d8587fd215374bc2069fd061821bc4ea51cac2a93b78b",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/LeGO_LOAM.txt": "20d094b63843efd7de5c5913b2904ed2e36c75b269098cd0fe3476ecd22d9854",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json": "502a5d7b25533995fe301f095dd7250281ed2a8d2a0ed994cfaa37b42ccedf07",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/mesh_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_elevation.json": "8ab82f4a37455727022ddea038ae66b4dd8fc4288c8548e109fc2b4acd5186b9",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/mesh_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_elevation_native_command.json": "85dcaa48b91fd16d11fe28b79cff609267c1afcad7e38c1d6d4d10545ce9cda1",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/mesh_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt": "abcae0e1e983cee5871b78d680cd582b2f603ed1f432c9ed9f0f7a927af5d304",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/mesh_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json": "fd42540bd125aa9876545577d5d8182762ebdcf7e1f2320a7eeecc4bb958c055",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default.json": "681b215e0c4bf15984c8edaa41845eae0e79243b7dd2559b191577f517b7db1e",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native_command.json": "1017f0c9502be6e1e1d94418f419868d67db4b22d26fcb9d4f83ee200f4221f9",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native/dogfooding_results/VLOM.txt": "c4ddd7420c016b271aecb63f9383ca208623460572fdfad3f75ad3571e3f9ba2",
+    "experiments/results/shared_near_range/sequences/00/audit/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2"
+  },
+  "shallow_history": "false",
+  "diagnostic_parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "block_selection": "Largest position_error_end_m minus position_error_start_m among all tool blocks; final partial block included.",
+  "position_error_definition": "Euclidean position difference after the existing tool first-pose normalization; no fitted alignment or rescaling.",
+  "rows": [
+    {
+      "method": "A-LOAM",
+      "stored_rpe_trans_pct": 0.891327,
+      "replayed_rpe_trans_pct": 0.914174,
+      "stored_ate_m": 12.04376,
+      "replayed_ate_m": 9.52057,
+      "frames": 4541,
+      "moving_step_count": 4514,
+      "steps_length_off_over_threshold": 13,
+      "steps_vector_off_over_threshold": 42,
+      "largest_position_error_growth_block": {
+        "first_pose_frame": 600,
+        "last_pose_frame": 700,
+        "gt_distance_m": 98.73961401339176,
+        "path_length_ratio": 0.9995975250034134,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 0.9990364260671643,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 7.208485643256182,
+        "position_error_end_m": 11.810233794639256,
+        "block_relative_translation_error_pct": 1.6397783501674195,
+        "block_relative_rotation_error_deg_per_100m": 0.5459756397526696
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 6.47488409555308e-08,
+        "rpe_trans_pct": 2.5958009475246513e-07,
+        "kitti_rte_trans_pct": 3.7077439452026795e-07,
+        "kitti_rte_rot_deg_per_100m": 1.7138452979015284e-07
+      },
+      "saved_pose_metric_check_abs_tolerance": 0.001,
+      "legacy_summary_path": "experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "e527c8340158a643be9faf3a7b165cb2f94cb705:experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json' does not exist in 'e527c8340158a643be9faf3a7b165cb2f94cb705'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "--format=%H",
+          "-1",
+          "--",
+          "experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_path_comparison_available": false,
+      "diagnostic_path": "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00/aloam/steps.json"
+    },
+    {
+      "method": "F-LOAM",
+      "stored_rpe_trans_pct": 0.92141,
+      "replayed_rpe_trans_pct": 0.990961,
+      "stored_ate_m": 9.833596,
+      "replayed_ate_m": 8.556112,
+      "frames": 4541,
+      "moving_step_count": 4514,
+      "steps_length_off_over_threshold": 12,
+      "steps_vector_off_over_threshold": 42,
+      "largest_position_error_growth_block": {
+        "first_pose_frame": 600,
+        "last_pose_frame": 700,
+        "gt_distance_m": 98.73961401339176,
+        "path_length_ratio": 1.000164321568401,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 0.9993014986838723,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 6.940767076077806,
+        "position_error_end_m": 11.452314838224316,
+        "block_relative_translation_error_pct": 1.6185156233179343,
+        "block_relative_rotation_error_deg_per_100m": 0.5811346118681702
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 1.5196357594504661e-07,
+        "rpe_trans_pct": 2.056755400436927e-07,
+        "kitti_rte_trans_pct": 1.0115613369165999e-07,
+        "kitti_rte_rot_deg_per_100m": 3.6993072971558405e-07
+      },
+      "saved_pose_metric_check_abs_tolerance": 0.001,
+      "legacy_summary_path": "experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "e527c8340158a643be9faf3a7b165cb2f94cb705:experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/summary.json' does not exist in 'e527c8340158a643be9faf3a7b165cb2f94cb705'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "--format=%H",
+          "-1",
+          "--",
+          "experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_path_comparison_available": false,
+      "diagnostic_path": "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00/floam/steps.json"
+    },
+    {
+      "method": "LeGO-LOAM",
+      "stored_rpe_trans_pct": 0.838536,
+      "replayed_rpe_trans_pct": 0.842687,
+      "stored_ate_m": 12.833331,
+      "replayed_ate_m": 12.378148,
+      "frames": 4541,
+      "moving_step_count": 4514,
+      "steps_length_off_over_threshold": 12,
+      "steps_vector_off_over_threshold": 41,
+      "largest_position_error_growth_block": {
+        "first_pose_frame": 3800,
+        "last_pose_frame": 3900,
+        "gt_distance_m": 105.7994220331846,
+        "path_length_ratio": 0.9998779440267667,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 1.0006162180510723,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 12.616529345040082,
+        "position_error_end_m": 19.49630939094375,
+        "block_relative_translation_error_pct": 1.1272901035321703,
+        "block_relative_rotation_error_deg_per_100m": 0.4548930414215088
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 1.3429402123676937e-07,
+        "rpe_trans_pct": 1.8782664057415133e-07,
+        "kitti_rte_trans_pct": 3.312706853275671e-08,
+        "kitti_rte_rot_deg_per_100m": 3.7997448815163537e-07
+      },
+      "saved_pose_metric_check_abs_tolerance": 0.001,
+      "legacy_summary_path": "experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "e527c8340158a643be9faf3a7b165cb2f94cb705:experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json' does not exist in 'e527c8340158a643be9faf3a7b165cb2f94cb705'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "--format=%H",
+          "-1",
+          "--",
+          "experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_path_comparison_available": false,
+      "diagnostic_path": "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00/lego_loam/steps.json"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "stored_rpe_trans_pct": 0.773243,
+      "replayed_rpe_trans_pct": 0.774034,
+      "stored_ate_m": 10.180105,
+      "replayed_ate_m": 10.099834,
+      "frames": 4541,
+      "moving_step_count": 4514,
+      "steps_length_off_over_threshold": 14,
+      "steps_vector_off_over_threshold": 43,
+      "largest_position_error_growth_block": {
+        "first_pose_frame": 3800,
+        "last_pose_frame": 3900,
+        "gt_distance_m": 105.7994220331846,
+        "path_length_ratio": 1.0006919136098746,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 1.0008484541072422,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 13.138734456155694,
+        "position_error_end_m": 18.361150215973932,
+        "block_relative_translation_error_pct": 0.713562503677864,
+        "block_relative_rotation_error_deg_per_100m": 0.3365305641297659
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 4.7586513929331886e-07,
+        "rpe_trans_pct": 4.1074039414112917e-07,
+        "kitti_rte_trans_pct": 1.1495437501896077e-07,
+        "kitti_rte_rot_deg_per_100m": 4.5510462390319084e-07
+      },
+      "saved_pose_metric_check_abs_tolerance": 0.001,
+      "legacy_summary_path": "experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "e527c8340158a643be9faf3a7b165cb2f94cb705:experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation/summary.json' does not exist in 'e527c8340158a643be9faf3a7b165cb2f94cb705'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "--format=%H",
+          "-1",
+          "--",
+          "experiments/results/runs/mesh_loam_kitti_seq_00_full_paper_comp_matrix/paper_odometry_elevation/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_path_comparison_available": false,
+      "diagnostic_path": "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00/mesh_loam/steps.json"
+    },
+    {
+      "method": "VLOM",
+      "stored_rpe_trans_pct": 0.875872,
+      "replayed_rpe_trans_pct": 0.914174,
+      "stored_ate_m": 9.391448,
+      "replayed_ate_m": 9.52057,
+      "frames": 4541,
+      "moving_step_count": 4514,
+      "steps_length_off_over_threshold": 13,
+      "steps_vector_off_over_threshold": 42,
+      "largest_position_error_growth_block": {
+        "first_pose_frame": 600,
+        "last_pose_frame": 700,
+        "gt_distance_m": 98.73961401339176,
+        "path_length_ratio": 0.9995975250034134,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 0.9990364260671643,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 7.208485643256182,
+        "position_error_end_m": 11.810233794639256,
+        "block_relative_translation_error_pct": 1.6397783501674195,
+        "block_relative_rotation_error_deg_per_100m": 0.5459756397526696
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 6.47488409555308e-08,
+        "rpe_trans_pct": 2.5958009475246513e-07,
+        "kitti_rte_trans_pct": 3.7077439452026795e-07,
+        "kitti_rte_rot_deg_per_100m": 1.7138452979015284e-07
+      },
+      "saved_pose_metric_check_abs_tolerance": 0.001,
+      "legacy_summary_path": "experiments/results/runs/vlom_kitti_seq_00_full_paper_comp_matrix/default/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "e527c8340158a643be9faf3a7b165cb2f94cb705:experiments/results/runs/vlom_kitti_seq_00_full_paper_comp_matrix/default/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/vlom_kitti_seq_00_full_paper_comp_matrix/default/summary.json' does not exist in 'e527c8340158a643be9faf3a7b165cb2f94cb705'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "--format=%H",
+          "-1",
+          "--",
+          "experiments/results/runs/vlom_kitti_seq_00_full_paper_comp_matrix/default/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_path_comparison_available": false,
+      "diagnostic_path": "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00/vlom/steps.json"
+    }
+  ],
+  "exit_code": 0,
+  "scope": "Current committed00 replay paths only. Blocks are diagnostics, not official KITTI RTE or localization of the difference from an unavailable historical path. No native rerun, new setting, cleanup or whole-zoo completion claim."
+}

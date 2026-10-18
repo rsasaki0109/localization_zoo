@@ -1,0 +1,22 @@
+{
+  "label": "steps",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/LeGO_LOAM.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default.json",
+    "--method",
+    "LeGO-LOAM",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00/lego_loam/steps.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792287249.4036653,
+  "finished_unix": 1792287250.208281,
+  "exit_code": 0
+}

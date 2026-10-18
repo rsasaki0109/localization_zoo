@@ -1,0 +1,22 @@
+{
+  "label": "steps",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native/dogfooding_results/VLOM.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/00/audit/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default.json",
+    "--method",
+    "VLOM",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/diagnostics/00/vlom/steps.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792287251.7601345,
+  "finished_unix": 1792287252.7498033,
+  "exit_code": 0
+}

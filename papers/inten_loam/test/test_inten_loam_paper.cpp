@@ -1,4 +1,5 @@
 #include "inten_loam/inten_loam_paper.h"
+#include "inten_loam/detail/feature_tree.h"
 
 #include <gtest/gtest.h>
 #include <Eigen/Geometry>
@@ -6,6 +7,13 @@
 
 #include <cmath>
 #include <stdexcept>
+
+#include <limits>
+#include <random>
+#include <utility>
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 using namespace localization_zoo::inten_loam;
 
@@ -66,6 +74,110 @@ void scanAt(const Eigen::Matrix4d& pose, std::vector<Eigen::Vector3d>* pts, std:
 }
 
 }  // namespace
+
+TEST(InTenLoamPaper, NativeSmallKQueriesMatchPclIncludingTiesAndRebuilds) {
+  detail::FeatureTree legacy, native;
+  std::mt19937 rng(43);
+  std::uniform_real_distribution<double> uniform(-3.0, 3.0);
+  for (int size : {0, 1, 3, 31, 512}) {
+    legacy.pts.clear();
+    for (int i = 0; i < size; ++i) {
+      PaperFeature f;
+      f.p = i < 20 ? Eigen::Vector3d(i % 2, (i / 2) % 2, (i / 4) % 2)
+                   : Eigen::Vector3d(uniform(rng), uniform(rng), uniform(rng));
+      legacy.pts.push_back(f);  // repeated lattice points exercise exact ties
+    }
+    native.pts = legacy.pts;
+    legacy.build();
+    native.build(true);
+    for (int query = 0; query < 80; ++query) {
+      const Eigen::Vector3d x = query < 10 ? Eigen::Vector3d(.5, .5, .5)
+                                         : Eigen::Vector3d(uniform(rng), uniform(rng), uniform(rng));
+      for (int k : {0, 1, 5, 10}) {
+        std::vector<int> a, b;
+        std::vector<float> da, db;
+        EXPECT_EQ(legacy.knn(x, k, &a, &da), native.knn(x, k, &b, &db));
+        EXPECT_EQ(a, b) << "size=" << size << " k=" << k;
+        EXPECT_EQ(da, db);
+      }
+    }
+  }
+  // PCL filters nonfinite coordinates and maps indices back to the original
+  // cloud. The native option deliberately falls back to PCL for this case.
+  PaperFeature invalid;
+  invalid.p.x() = std::numeric_limits<double>::quiet_NaN();
+  legacy.pts.insert(legacy.pts.begin(), invalid);
+  native.pts = legacy.pts;
+  legacy.build();
+  native.build(true);
+  std::vector<int> a, b;
+  std::vector<float> da, db;
+  EXPECT_EQ(legacy.knn(Eigen::Vector3d::Zero(), 5, &a, &da),
+            native.knn(Eigen::Vector3d::Zero(), 5, &b, &db));
+  EXPECT_EQ(a, b);
+  EXPECT_EQ(da, db);
+}
+
+TEST(InTenLoamPaper, AcceleratedQueriesKeepNormalEquationsCountsAndPoses) {
+#ifdef _OPENMP
+  const int original_threads = omp_get_max_threads();
+#endif
+  for (int threads : {1, 4}) {
+#ifdef _OPENMP
+    omp_set_num_threads(threads);
+#endif
+    InTenLoamPaperParams params;
+    params.s2m_plane_max_dist = 0.05;
+    InTenLoamPaper legacy(params), legacy_forced(params);
+    params.accelerated = true;
+    InTenLoamPaper accelerated(params), accelerated_forced(params);
+    for (int k = 0; k < 4; ++k) {
+      Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+      pose.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.008 * k, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+      pose(0, 3) = 0.3 * k;
+      std::vector<Eigen::Vector3d> points;
+      std::vector<float> intensity;
+      scanAt(pose, &points, &intensity);
+      const auto fa = legacy.extractFeatures(points, intensity);
+      const auto fb = accelerated.extractFeatures(points, intensity);
+      for (const auto& pair : {std::make_pair(&fa.all, &fb.all),
+                               std::make_pair(&fa.ground, &fb.ground),
+                               std::make_pair(&fa.facade, &fb.facade),
+                               std::make_pair(&fa.edge, &fb.edge),
+                               std::make_pair(&fa.reflector, &fb.reflector)}) {
+        ASSERT_EQ(pair.first->size(), pair.second->size());
+        for (size_t j = 0; j < pair.first->size(); ++j) {
+          const auto& x = (*pair.first)[j];
+          const auto& y = (*pair.second)[j];
+          EXPECT_TRUE((x.p.array() == y.p.array()).all());
+          EXPECT_EQ(x.intensity, y.intensity);
+          EXPECT_EQ(x.row, y.row);
+          EXPECT_EQ(x.cluster, y.cluster);
+        }
+      }
+      const auto a = legacy.process(points, intensity), b = accelerated.process(points, intensity);
+      EXPECT_TRUE((a.pose.array() == b.pose.array()).all()) << "threads=" << threads << " frame=" << k;
+      EXPECT_EQ(a.s2s_pairs, b.s2s_pairs);
+      EXPECT_EQ(a.s2m_pairs, b.s2m_pairs);
+      EXPECT_EQ(a.dor_removed, b.dor_removed);
+      InTenLoamPaperDiagnostics da, db;
+      da.forced_pose = db.forced_pose = &pose;
+      legacy_forced.process(points, intensity, &da);
+      accelerated_forced.process(points, intensity, &db);
+      for (int c = 0; c < 4; ++c) {
+        EXPECT_EQ(da.s2s_n[c], db.s2s_n[c]);
+        EXPECT_EQ(da.s2m_n[c], db.s2m_n[c]);
+        EXPECT_TRUE((da.s2s_H[c].array() == db.s2s_H[c].array()).all());
+        EXPECT_TRUE((da.s2m_H[c].array() == db.s2m_H[c].array()).all());
+        EXPECT_TRUE((da.s2s_g[c].array() == db.s2s_g[c].array()).all());
+        EXPECT_TRUE((da.s2m_g[c].array() == db.s2m_g[c].array()).all());
+      }
+    }
+  }
+#ifdef _OPENMP
+  omp_set_num_threads(original_threads);
+#endif
+}
 
 TEST(InTenLoamPaper, SegmentsGroundAndFindsPlanarFeatures) {
   InTenLoamPaper odo;
@@ -224,8 +336,12 @@ TEST(InTenLoamPaper, PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods)
   EXPECT_LT(worst[1], 0.5 * worst[0]);
 }
 
-TEST(InTenLoamPaper, PassiveTracePreservesMovingPosesAndFutureMapState) {
-  InTenLoamPaper plain, observed;
+class InTenLoamPassiveTrace : public ::testing::TestWithParam<bool> {};
+
+TEST_P(InTenLoamPassiveTrace, PreservesMovingPosesAndFutureMapState) {
+  InTenLoamPaperParams params;
+  params.accelerated = GetParam();
+  InTenLoamPaper plain(params), observed(params);
   std::vector<Eigen::Vector3d> pts;
   std::vector<float> inten;
   Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
@@ -280,8 +396,10 @@ TEST(InTenLoamPaper, PassiveTracePreservesMovingPosesAndFutureMapState) {
   }
 }
 
-TEST(InTenLoamPaper, PassiveTraceShowsFallbackAndMappingRejectionWithoutStaleIterations) {
-  InTenLoamPaper plain, observed;
+TEST_P(InTenLoamPassiveTrace, ShowsFallbackAndMappingRejectionWithoutStaleIterations) {
+  InTenLoamPaperParams params;
+  params.accelerated = GetParam();
+  InTenLoamPaper plain(params), observed(params);
   std::vector<Eigen::Vector3d> pts;
   std::vector<float> inten;
   InTenLoamPaperTrace trace;
@@ -311,9 +429,10 @@ TEST(InTenLoamPaper, PassiveTraceShowsFallbackAndMappingRejectionWithoutStaleIte
   }
 }
 
-TEST(InTenLoamPaper, PassiveTraceDistinguishesSkippedMappingAndZeroIterationBudget) {
+TEST_P(InTenLoamPassiveTrace, DistinguishesSkippedMappingAndZeroIterationBudget) {
   for (bool mapping : {false, true}) {
     InTenLoamPaperParams params;
+    params.accelerated = GetParam();
     params.use_mapping = mapping;
     params.s2m_interval = 2;
     params.s2s_iterations = 0;
@@ -335,11 +454,12 @@ TEST(InTenLoamPaper, PassiveTraceDistinguishesSkippedMappingAndZeroIterationBudg
   }
 }
 
-TEST(InTenLoamPaper, PassiveTraceReportsIterationBudgetAndConvergenceSeparately) {
+TEST_P(InTenLoamPassiveTrace, ReportsIterationBudgetAndConvergenceSeparately) {
   std::vector<Eigen::Vector3d> pts;
   std::vector<float> inten;
   for (bool converge : {false, true}) {
     InTenLoamPaperParams params;
+    params.accelerated = GetParam();
     params.s2s_iterations = params.s2m_iterations = 1;
     params.convergence = converge ? 1e6 : 0.0;
     InTenLoamPaper odo(params);
@@ -358,8 +478,10 @@ TEST(InTenLoamPaper, PassiveTraceReportsIterationBudgetAndConvergenceSeparately)
   }
 }
 
-TEST(InTenLoamPaper, PassiveTraceRejectsForcedPoseBeforeChangingEstimatorState) {
-  InTenLoamPaper plain, observed;
+TEST_P(InTenLoamPassiveTrace, RejectsForcedPoseBeforeChangingEstimatorState) {
+  InTenLoamPaperParams params;
+  params.accelerated = GetParam();
+  InTenLoamPaper plain(params), observed(params);
   Eigen::Matrix4d intervention = Eigen::Matrix4d::Identity();
   intervention(0, 3) = 100.0;
   InTenLoamPaperDiagnostics diag;
@@ -372,3 +494,6 @@ TEST(InTenLoamPaper, PassiveTraceRejectsForcedPoseBeforeChangingEstimatorState) 
   EXPECT_EQ(trace.frame_index, 0);
   EXPECT_EQ((a.pose - b.pose).norm(), 0.0);
 }
+
+INSTANTIATE_TEST_SUITE_P(AccelerationModes, InTenLoamPassiveTrace,
+                         ::testing::Values(false, true));

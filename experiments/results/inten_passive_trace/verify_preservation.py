@@ -12,8 +12,9 @@ REPO = E.parents[2]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--base-commit', help='Explicit integration baseline; defaults to the original study base.')
     args = parser.parse_args()
-    base = json.loads((E / 'protocol.json').read_text())['base_commit']
+    base = args.base_commit or json.loads((E / 'protocol.json').read_text())['base_commit']
     expected = json.loads((REPO / 'experiments/results/shared_near_range/historical_aggregate_sha256.json').read_text())
     actual = {p.relative_to(REPO).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
               for p in (REPO / 'experiments/results').glob('*_matrix.json')}

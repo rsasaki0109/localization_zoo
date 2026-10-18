@@ -1,0 +1,8 @@
+{
+  "completed": true,
+  "validation_exit_code": 0,
+  "previous_failed_attempt": "checks/release_final_validation_failed_socket/",
+  "release_build_and_trajectory_checks": "release_verification/1b51db69/",
+  "raw_cleanup": "cleanup_kitti07.json",
+  "source_commit": "7bacc2101f5601f2a0c005034a403466925328e1"
+}

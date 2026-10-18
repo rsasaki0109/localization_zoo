@@ -1,0 +1,20 @@
+[1/20] Building CXX object papers/imls_slam/CMakeFiles/imls_slam.dir/src/imls_slam.cpp.o
+[2/20] Building CXX object papers/imls_slam/CMakeFiles/test_imls_slam.dir/test/test_imls_slam.cpp.o
+[3/20] Building CXX object papers/imls_slam/CMakeFiles/imls_slam.dir/src/imls_paper_odometry.cpp.o
+[4/20] Linking CXX static library papers/imls_slam/libimls_slam.a
+[5/20] Linking CXX executable papers/imls_slam/test_imls_slam
+[6/20] Building CXX object papers/imls_slam/CMakeFiles/test_imls_paper_odometry.dir/test/test_imls_paper_odometry.cpp.o
+[7/20] Linking CXX executable papers/imls_slam/test_imls_paper_odometry
+[8/20] Building CXX object papers/mesh_loam/CMakeFiles/test_mesh_loam.dir/test/test_mesh_loam.cpp.o
+[9/20] Building CXX object papers/inten_loam/CMakeFiles/inten_loam.dir/src/inten_loam.cpp.o
+[10/20] Building CXX object papers/mesh_loam/CMakeFiles/mesh_loam.dir/src/mesh_loam.cpp.o
+[11/20] Linking CXX static library papers/mesh_loam/libmesh_loam.a
+[12/20] Linking CXX executable papers/mesh_loam/test_mesh_loam
+[13/20] Building CXX object papers/inten_loam/CMakeFiles/test_inten_loam.dir/test/test_inten_loam.cpp.o
+[14/20] Building CXX object papers/inten_loam/CMakeFiles/inten_loam.dir/src/inten_loam_paper.cpp.o
+[15/20] Linking CXX static library papers/inten_loam/libinten_loam.a
+[16/20] Linking CXX executable papers/inten_loam/test_inten_loam
+[17/20] Building CXX object papers/inten_loam/CMakeFiles/test_inten_loam_paper.dir/test/test_inten_loam_paper.cpp.o
+[18/20] Linking CXX executable papers/inten_loam/test_inten_loam_paper
+[19/20] Building CXX object evaluation/CMakeFiles/pcd_dogfooding.dir/src/pcd_dogfooding.cpp.o
+[20/20] Linking CXX executable evaluation/pcd_dogfooding

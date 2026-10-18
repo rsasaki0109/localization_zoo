@@ -1,0 +1,8 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-speed/check_python_and_docs.py"
+  ],
+  "pid": 30431,
+  "started_unix": 1792170428.9765067
+}

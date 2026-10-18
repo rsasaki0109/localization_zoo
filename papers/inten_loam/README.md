@@ -506,3 +506,89 @@ fresh user-owned `TEST_TMPDIR`. The study documents both attempts.
 [protocol, complete evidence, commands and limits](../../experiments/results/inten_passive_trace/README.md)
 describe the scope. Published results and estimator defaults are unchanged.
 <!-- /INTEN_PASSIVE_TRACE -->
+
+## Optional execution acceleration
+
+`--paper-pipeline-accelerated` enables repository implementation optimizations
+for `--inten-loam-paper-odometry`. It is not a processing step from the paper and
+is **off by default**. Independent ground fits, image-row stages, tree builds
+and residual queries use OpenMP; constant beam-angle trigonometry is reused.
+Residuals are reduced in the original feature order, including the Huber weights
+and diagnostic class systems. Small-k queries use the same float FLANN single-
+tree index and exact search/result-set parameters as PCL, bypassing its per-query
+allocation and OpenMP wrapper. Nonfinite index data use the PCL path. KD-trees
+used only to hold points for rendering
+or spline construction are omitted; their point data are retained. Feature
+counts, gates, S2S/S2M iterations, TVF and DOR settings are unchanged.
+
+The initial candidate (`fe607199`) took 18.661 s against 45.685 s for the
+frozen baseline on the first 120 KITTI 07 frames (**2.45x**). The changed
+binary's default path took 34.105 s. Both saved trajectories match the control
+exactly. This development-window attempt falls short of the speed target; it
+is not a full-sequence claim. Raw evidence and exact commands were committed in
+`8fe732a7` under
+[`candidates/fe607199/`](../../experiments/results/paper_pipeline_speed/candidates/fe607199/).
+
+A later soft-pause scheduling candidate (`fe03ed88`) took 26.305 s against
+35.078 s for its frozen control (**1.33x**); the changed default took 32.961 s.
+Saved poses still matched. The repeat at `67867d0b` used the same InTEn implementation and produced a
+larger ratio with a much slower control, as the table below shows. Scheduling
+benefit remains uncertain; the final candidate excludes soft-pause calls. These single-window timings vary with the
+host; final speed ratios use a fresh full control immediately before each
+accelerated run. The rejected candidate's raw screening was committed in
+`21935329` under
+[`candidates/fe03ed88/`](../../experiments/results/paper_pipeline_speed/candidates/fe03ed88/).
+
+Repeated development windows (first 120 KITTI 07 frames, four workers,
+profiler disabled; every source and exact command is in the linked evidence):
+
+| Source | Frozen control [s] | Changed default [s] | Opt-in [s] | Control / opt-in |
+|---|---:|---:|---:|---:|
+| `fe607199` | 45.685 | 34.105 | 18.661 | 2.45x |
+| `fe03ed88` | 35.078 | 32.961 | 26.305 | 1.33x |
+| `67867d0b` | 74.308 | 32.637 | 15.464 | 4.81x |
+
+All saved poses agree with the frozen control at the saved precision (nine
+significant digits). Execution time varies substantially, including between
+unchanged method implementations. These windows do not establish the full
+speed target. The primary full comparison uses fresh immediately preceding
+controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
+
+[Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
+and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573.json).
+
+Full KITTI 07 at measured candidate `f4755573` and control `134ead2f`,
+identical selected registration arguments, four OpenMP workers, one method at a
+time on the same recorded host; the profiler is disabled. These times belong
+to those revisions and are not remeasured by the later shared-component integration:
+
+| Execution | Time [s] | FPS | Official RTE [%] | ATE [m] |
+|---|---:|---:|---:|---:|
+| Paired frozen control | 636.65 | 1.729 | 0.364131 | 1.461444 |
+| Opt-in acceleration | 373.48 | 2.948 | 0.364131 | 1.461444 |
+
+Measured speedup: **1.70x**. Maximum translation difference from the
+paired frozen control: 0.000000000 m.
+Pose differences use the saved KITTI matrices (nine significant digits).
+Official RTE agrees to the third decimal.
+
+**Negative result:** this attempt does not meet the roadmap speed target.
+The option remains off by default.
+The roadmap item is still open.
+
+KITTI 07 guided implementation and is not held out. This comparison uses a
+frozen-source full control run immediately before acceleration on the same host
+and thread count. Historical
+Table 6 results retain their original evidence and are not replaced.
+
+## Acceleration integration with shared components
+
+The current-main compatibility evidence, committed in `7619f198`, compares
+frozen main, merged default and merged global-flag modes on the same 3 real
+MCD scans with the historical fixed arguments. Both merged modes have zero
+recorded accuracy/frame differences from main and byte-identical saved poses.
+The acceleration kernels are unchanged; the option stays off by default.
+These short executions check compatibility; they do not establish long-segment
+KITTI RTE or remeasure full-sequence throughput. The speed figures above remain
+tied to their recorded sources. [Commands, binary/input hashes, comparison and
+limits](../../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).

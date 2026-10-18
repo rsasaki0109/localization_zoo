@@ -1,0 +1,15 @@
+{
+  "head": "9b6092e77d581279411bf580676b599653f8a42f",
+  "integration_source": "70c77efa80f6b7739ad7fd00122b3c18e6f9024e",
+  "base": "a597e4c95614e733fc20977321fe4d6aea0fba46",
+  "run_id": 39126883285,
+  "job_id": 117673763755,
+  "job_conclusion": "success",
+  "command_source": ".github/workflows/ci.yml",
+  "retrieval_tool": "github_fetch_workflow_job_logs",
+  "log_encoding": "UTF-8 decoded by GitHub connector; full job transcript preserved",
+  "decoded_log_sha256": "fd1b3186280888afa77db32b0f8568dc18f34ed76960bb893989c4411e82824d",
+  "gzip_sha256": "3f8baba1ad91b7753511a0aacb3fd3fa9346d63132dcc86ebdf43e20e0d0c2a2",
+  "report_marker": "PAPER_ROS_FIXTURE_REPORT",
+  "lossless": true
+}

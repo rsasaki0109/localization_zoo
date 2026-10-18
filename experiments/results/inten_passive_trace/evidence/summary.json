@@ -1,0 +1,23 @@
+{
+  "exit_code": 0,
+  "native_source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+  "validation_helper_commit": "52fd94ea32a68f218552ae1fe9bf9dc2b41ec390",
+  "ctest_entries_passed": 125,
+  "new_passive_test_cases_passed": [
+    "InTenLoamPaper.PassiveTraceDistinguishesSkippedMappingAndZeroIterationBudget",
+    "InTenLoamPaper.PassiveTracePreservesMovingPosesAndFutureMapState",
+    "InTenLoamPaper.PassiveTraceRejectsForcedPoseBeforeChangingEstimatorState",
+    "InTenLoamPaper.PassiveTraceReportsIterationBudgetAndConvergenceSeparately",
+    "InTenLoamPaper.PassiveTraceShowsFallbackAndMappingRejectionWithoutStaleIterations"
+  ],
+  "initial_ctest_exit_code": 8,
+  "initial_failure": "Root-owned /tmp/posture_profile.yaml is unwritable for user1000; the unchanged existing test uses unchecked fopen then fputs.",
+  "correction": "Only user-owned TEST_TMPDIR for targeted and full-suite rerun; binaries, tests and thresholds unchanged.",
+  "initial_preservation_exit_code": 1,
+  "preservation_failure": "Nonrecursive Git pathspec omitted source files, causing a false native-scope failure; explicit recursive globs correct it.",
+  "build_commands": "initial_attempt/commands.json",
+  "test_commands": "native_checks/commands.json",
+  "fixture_comparison": "fixture/summary.json",
+  "preservation": "final_source_checks/preservation.json",
+  "scope": "Synthetic tracing-on parity and short-fixture tracing-disabled compatibility; no full-sequence trace or cause finding."
+}

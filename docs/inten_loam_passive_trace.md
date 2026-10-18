@@ -149,3 +149,15 @@ the invocation; an interrupted file is kept as evidence.
 [Exporter validation protocol and execution records](../experiments/results/inten_trace_export/README.md)
 cover the CLI separately from the underlying observation API. Full failure
 sequence diagnosis remains open.
+
+## Export with optional acceleration
+
+`--paper-pipeline-accelerated` can be combined with passive export. The header
+records its effective `params.accelerated` boolean. Acceleration and export both
+remain off by default; this additive header field leaves archived records intact.
+
+All 12 real-fixture calls and all 126 CTest entries pass, with saved-pose parity
+within each execution mode. The 7 expected negative CLI exits are retained;
+four-worker InTEn/serializer checks also pass. Evidence precedes this statement
+at `2e6d7689` / `79cd80a3`. [Commands, traces and limits](../experiments/results/inten_trace_export/integration/README.md)
+separate compatibility from full-sequence accuracy, speed and solver diagnosis.

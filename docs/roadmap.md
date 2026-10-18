@@ -312,6 +312,9 @@ independent. Each item says what "done" means.
     [export protocol and validation status](../experiments/results/inten_trace_export/README.md)
     record short-fixture trace-on/off pose parity and explicit skipped-input
     handling separately from full failure-sequence diagnosis.
+    An [offline streaming checker](../experiments/results/inten_trace_validation/README.md)
+    validates completion, stage structure and native run receipts before
+    analysis; it adds no estimator gate or failure-cause finding.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

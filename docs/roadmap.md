@@ -301,6 +301,10 @@ independent. Each item says what "done" means.
      incomplete best-effort ROS trial remain documented; a moving synthetic
      fixture also exercises non-identity DiLO output with the same defaults.
    - [Commands, committed parity reports, failures and scope](../experiments/results/paper_pipeline_bindings/README.md).
+   - [Integration with the merged acceleration and passive trace stack](../experiments/results/paper_pipeline_bindings/README.md#integration-with-the-merged-acceleration-and-passive-trace-stack)
+     retains native defaults and existing benchmark evidence. IMLS-SLAM's
+     accelerated execution option remains available through the native API and
+     runner; these Python/ROS interfaces keep it disabled.
 
 ### Phase 3: beyond KITTI
 

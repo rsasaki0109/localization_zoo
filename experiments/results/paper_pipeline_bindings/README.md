@@ -219,3 +219,28 @@ it does not provision its container. [Executable/input hashes](checks/merged_sta
 and [lossless import receipts](checks/merged_stack/native_import.json) retain
 the provenance of this run. Earlier parity tables and negative ROS trials above
 remain attached to their original source revisions.
+
+ROS evidence was committed at `518fa5a8` before these numbers. The completed
+[ROS CI job](https://github.com/rsasaki0109/localization_zoo/actions/runs/39126883285/job/117673763755)
+checks all 6 cases with 3 input scans each, including real odometry and TF,
+with maximum pose-element differences of 1.11e-15 for both outputs. The
+[per-case report](checks/merged_stack/ci_ros/report.json),
+[source/job/hash receipt](checks/merged_stack/ci_ros/receipt.json) and
+[complete compressed transcript](checks/merged_stack/ci_ros/job.log.gz) retain
+the execution commands, input/output checks and original values. This repeats
+the existing fixture protocol and explicitly reliable input choice; it does
+not reselect registration parameters or change the default subscriber QoS.
+
+Document-check evidence was committed at `84466d64`: the
+[recorded commands](checks/merged_stack/docs/commands.json) exit 0 for all
+required generators, 299 Python regressions, showcase/leaderboard/paper-ready
+contracts and full-branch whitespace. The [preservation receipt](checks/merged_stack/docs/preservation.json)
+confirms that all 688 historical aggregate hashes, paper values, Table 6 and
+published leaderboards match the integrated main baseline. The root README
+diff is limited to the binding description. Use the driver with `--phase docs`
+and the same explicit base to reproduce these checks in a fresh output directory.
+
+[Post-import commands](checks/merged_stack/post_import/commands.json) and
+[preservation](checks/merged_stack/post_import/preservation.json) cover the
+imported ROS evidence and this report. Full native/Python and ROS builds also
+run in CI for the final PR head.

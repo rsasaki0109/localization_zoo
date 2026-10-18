@@ -119,3 +119,21 @@ conditioning threshold, retry or estimator fix is added.
 
 Fresh whole-zoo CMake/CTest evidence is maintained separately from the
 focused binary comparison above; the PR links the exact-head CI status.
+
+## Fresh whole-zoo native validation
+
+The separate fresh Release configure/build and all 126 CTest entries
+exit 0. A fresh user-owned `TEST_TMPDIR` is selected before the run.
+[Commands and actual exits](evidence/full_native/commands.json),
+[whole-suite evidence](evidence/full_native/summary.json), lossless logs and
+the as-executed driver are retained. This evidence was committed at
+`c679dde4837dc097b697f18654c6cc51da0ffa0f` before this prose. The closed build/CTest and fixture
+checks were not rerun during import recovery.
+
+The first postprocessor stops when its preservation subprocess exits 120
+after writing a successful result JSON. The controlled same-command check
+reproduces exit 120 and `BrokenPipeError` with a closed stdout pipe, while
+regular-file capture exits 0 and produces an identical success report.
+Original stderr is unavailable, so the original pipe state is not proven.
+[Failure and recovery evidence](evidence/full_native/recovery/summary.json)
+retain this distinction; the recovery captures subprocess output to files.

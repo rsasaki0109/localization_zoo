@@ -530,4 +530,9 @@ committed at `4f235364` / `086d70d0` before these results.
 
 Full failure-sequence tracing and the solver-level cause remain open;
 this export capability is not an accuracy result.
+The separate fresh Release full build and all 126 CTest entries also
+exit 0. [Native evidence](../../experiments/results/inten_trace_export/evidence/full_native/summary.json)
+was committed at `c679dde4837dc097b697f18654c6cc51da0ffa0f` before this statement. The postprocessor's
+initial exit 120, closed-stdout reproduction and regular-file recovery exit 0
+are retained separately; the successful native tests were not rerun.
 <!-- /INTEN_TRACE_EXPORT -->

@@ -1,0 +1,20 @@
+{
+  "pid": 87603,
+  "source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "worker_launch_commit": "c5fc914ed67140609280dfdb3e006890dc63871d",
+  "status": "waiting_for_controller",
+  "attempt": "01",
+  "sealed_file_sha256": {
+    "finish_when_complete.py": "b85c467064d82799bc8d7e7addbcafb81d62cc538730f3d78b7a8fb375c22dfc",
+    "finish_docs.py": "de1bb0d3a597928593bdc5f1efa2317c924560996e8f06ddfbb6e9255f1c7184",
+    "support.py": "bc04bce97bf2df5cc8912137e0d371efe0e065c5b40f860f1d40ac8e68a7b761",
+    "report.py": "38031996ecaea8df33af9f5167452f2d575767a953b742900329fd35457123d1",
+    "verify_preservation.py": "770f3d24c671d15cdcc60825fdd0d31f7b0d3fe9bcd369eaa7ac08da6d370b3b",
+    "run_all.py": "777ee163bdc72c8571456b21d0906a2beb64076fcc13f272f9d0a72a17211d7e",
+    "protocol.json": "1f00d46f4c0c24ee63cef21bd6fdaefe23a0d714abf92e13f8dc6b1c0294808b",
+    "selection.json": "80f595fe0d6a93ffba4c085977b63f2d139ec711ba94ba87c597a81b3e56033e",
+    "baseline.json": "7d9344421e2ea56776a8fff4fb49dadaf308d2635bd643a1c1ae333c99428fd2",
+    "candidate.json": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a",
+    "native_wrapper.py": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/finish_when_complete.py",
+    "--wait",
+    "--push",
+    "--attempt",
+    "02"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "pid": 2310,
+  "source_commit": "d8278c749cfd1840ef7bc0efa20ae4de9df21c94",
+  "started_unix": 1792360761.8139803,
+  "exit_code": null,
+  "status": "started_waiting_for_original_terminal_completion",
+  "log": "/workspace/localization-env/shared-near-range/checkpoint03_resume/completion_worker.log",
+  "stale_lock_archived": "/workspace/localization-env/shared-near-range/checkpoint03_resume/completion_worker_stale.lock"
+}

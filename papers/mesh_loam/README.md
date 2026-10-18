@@ -368,8 +368,10 @@ controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573.json).
 
-Full KITTI 07, identical selected registration arguments, four OpenMP workers,
-one method at a time on the same recorded host; the profiler is disabled:
+Full KITTI 07 at measured candidate `f4755573` and control `134ead2f`,
+identical selected registration arguments, four OpenMP workers, one method at a
+time on the same recorded host; the profiler is disabled. These times belong
+to those revisions and are not remeasured by the later shared-component integration:
 
 | Execution | Time [s] | FPS | Official RTE [%] | ATE [m] |
 |---|---:|---:|---:|---:|
@@ -442,3 +444,15 @@ were committed at `485fa00601644731827dae601eb3b43c7543efeb`.
 distinguish these completed runs from a cleaned sequence checkpoint: 00 input
 cleanup and the whole-zoo audit are incomplete. Defaults remain off.
 <!-- /SHARED_NEAR_RANGE_00_PRIMARY -->
+
+## Acceleration integration with shared components
+
+The current-main compatibility evidence, committed in `7619f198`, compares
+frozen main, merged default and merged global-flag modes on the same 3 real
+MCD scans with the historical fixed arguments. Both merged modes have zero
+recorded accuracy/frame differences from main and byte-identical saved poses.
+The global flag is ignored by Mesh; its rejected acceleration remains excluded.
+These short executions check compatibility; they do not establish long-segment
+KITTI RTE or remeasure full-sequence throughput. The speed figures above remain
+tied to their recorded sources. [Commands, binary/input hashes, comparison and
+limits](../../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).

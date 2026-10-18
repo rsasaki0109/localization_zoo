@@ -207,8 +207,10 @@ controls. Source `67867d0b` raw screening is committed in `f3c6b9f3`.
 [Execution protocol and CPU profiles](../../experiments/results/paper_pipeline_speed/README.md)
 and [full comparison](../../experiments/results/paper_pipeline_speed/comparisons/f4755573.json).
 
-Full KITTI 07, identical selected registration arguments, four OpenMP workers,
-one method at a time on the same recorded host; the profiler is disabled:
+Full KITTI 07 at measured candidate `f4755573` and control `134ead2f`,
+identical selected registration arguments, four OpenMP workers, one method at a
+time on the same recorded host; the profiler is disabled. These times belong
+to those revisions and are not remeasured by the later shared-component integration:
 
 | Execution | Time [s] | FPS | Official RTE [%] | ATE [m] |
 |---|---:|---:|---:|---:|
@@ -228,3 +230,16 @@ KITTI 07 guided implementation and is not held out. This comparison uses a
 frozen-source full control run immediately before acceleration on the same host
 and thread count. Historical
 Table 6 results retain their original evidence and are not replaced.
+
+## Acceleration integration with shared components
+
+The current-main compatibility evidence, committed in `7619f198`, compares
+frozen main, merged default and merged global-flag modes on the same 3 real
+MCD scans with the historical fixed arguments. Both merged modes have zero
+recorded accuracy/frame differences from main and byte-identical saved poses.
+The existing coarse startup is retained through the shared policy; acceleration
+stays opt-in and default off.
+These short executions check compatibility; they do not establish long-segment
+KITTI RTE or remeasure full-sequence throughput. The speed figures above remain
+tied to their recorded sources. [Commands, binary/input hashes, comparison and
+limits](../../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).

@@ -4,6 +4,10 @@ The full KITTI 07 comparison retains optional IMLS-SLAM and InTEn-LOAM
 optimizations. Mesh-LOAM's candidate was slower and is excluded from the
 implementation. **The roadmap's speed target remains open.**
 
+The timing tables identify their measured source revisions. The subsequent
+integration with merged shared components is a compatibility check; it does not
+remeasure throughput on the current main revision or select registration values.
+
 ## Full paired comparison
 
 [Committed comparison](comparisons/f4755573.json), measured implementation
@@ -31,11 +35,11 @@ the primary speed ratios.
 ## Retained code and fixed settings
 
 The measured candidate above includes the rejected Mesh implementation. The
-retained source is `1b51db694a137379151366b889087f1186bb08b5`: Mesh source,
+historical retained release is `1b51db694a137379151366b889087f1186bb08b5`: Mesh source,
 header and original mechanism tests are restored to the frozen baseline, and
 `--paper-pipeline-accelerated` applies only to the IMLS-SLAM and InTEn-LOAM paper
 paths. The option is off by default and describes repository implementation
-optimizations, not a processing step specified by either paper. Their kernels
+optimizations, not a processing step specified by either paper. That release's kernels
 and mechanism tests are unchanged from the measured candidate. The harness
 also fixes IMLS's reporting of effective paper-path settings.
 
@@ -199,3 +203,59 @@ successful retry reused completed files. Profiler installation initially used an
 unreachable proxy address saved in the existing container; the successful command
 forwards the current session proxy for that command only. Both failures and the
 successful exits are preserved.
+
+## Integration with merged shared components
+
+Compatibility source `82678117fd7491b15f5c0c91f215c60c3e147d11` includes main
+`7505a2914328d53ac9b319d5f8042189b378d457`. Native main sources match the frozen
+pre-acceleration executable source `0b079dbbcb7c6f58c1d8367ade881c15f003e525`.
+IMLS links both OpenMP and the shared startup policy; its numerical stages
+and the retained acceleration code preserve their order. InTEn native code is
+unchanged from the previous speed branch, and Mesh native code matches main.
+
+Raw compatibility evidence was committed in `7619f198` before these numbers:
+[commands and actual exits](checks/main_refresh/native/commands.json),
+[binary/input hashes and comparison](checks/main_refresh/native/comparison.json),
+[source merge review](checks/main_refresh/prepare/source_merge_review.json).
+
+Each of the 9 native runs processes the same 3 committed MCD scans, using the
+old fixed argument lists without reselection. IMLS retains the coarse startup
+chosen after its KITTI 04 failure; this fixture is not used to tune it. The
+comparison uses four OpenMP workers and one OpenBLAS worker. All native exits
+are 0. The two merged modes are compared with the frozen main executable:
+
+| Method | Default saved poses equal main | Flag saved poses equal main | Default ATE delta [m] | Flag ATE delta [m] |
+|---|---|---|---:|---:|
+| IMLS-SLAM | yes | yes | 0.000000 | 0.000000 |
+| InTEn-LOAM | yes | yes | 0.000000 | 0.000000 |
+| Mesh-LOAM | yes | yes | 0.000000 | 0.000000 |
+
+Every available recorded accuracy/frame field has zero difference. Mesh
+ignores the global acceleration flag. Saved-pose equality is limited to its
+serialization precision; the mechanism tests also compare internal poses,
+feature ordering and queries across worker counts. The 3-frame fixture cannot
+establish official long-segment KITTI RTE. These are compatibility executions;
+their times are excluded from the speed ratios, and no full speed measurement
+on the newly merged source is claimed. The historical target remains open.
+
+The affected Release build and all four affected CTest entries pass with
+actual exit 0. [Document/preservation checks](checks/main_refresh/docs/commands.json)
+include the required generators, 290 Python regressions and public-document
+contracts. [Preservation](checks/main_refresh/docs/preservation.json) keeps all
+688 historical aggregate hashes, published README/HTML, Table 6 and paper
+references unchanged. Earlier shared-component evidence is also unchanged.
+
+The [initial whitespace failure](checks/main_refresh/prepare/initial_whitespace.json)
+is retained. Historical native/profiler logs keep their original bytes through
+narrow log attributes; all new raw logs are losslessly compressed with
+[original/output hashes](checks/main_refresh/import.json). Native provenance
+comes from executable hashes and checked source trees; `evaluator_git_commit`
+is write-time metadata and does not identify a frozen executable.
+
+Reproduce the compatibility build and runs with
+`python3 experiments/results/paper_pipeline_speed/helpers/revalidate_main.py --output-dir <fresh-dir>`.
+The recorded commands preserve their actual container/workspace paths.
+
+[Post-import regeneration/checks](checks/main_refresh/post_import/commands.json) and
+[preservation](checks/main_refresh/post_import/preservation.json) cover this report
+and the committed compatibility evidence.

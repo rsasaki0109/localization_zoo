@@ -224,6 +224,11 @@ independent. Each item says what "done" means.
    - Primary ratios use fresh frozen-source full controls immediately before
      each candidate run, with the profiler disabled and fixed thread counts.
      [Commands, profiles, comparisons and limits](../experiments/results/paper_pipeline_speed/README.md).
+   - The subsequent shared-component integration preserves the fixed arguments
+     and passes frozen-main/default/flag real-fixture comparisons. These are
+     compatibility checks; the timing ratios above remain attached to the
+     original measured source and have not been remeasured on the merged source.
+     [Integration evidence and limits](../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).
    <!-- PAPER-PIPELINE-SPEED:END -->
 
 6. **Shared robustness components.** Move the opt-in fixes into `common/`

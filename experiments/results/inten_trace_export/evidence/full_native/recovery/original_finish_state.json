@@ -1,0 +1,9 @@
+{
+  "status": "stopped_for_review",
+  "pid": 123609,
+  "launch_head": "79734a800fc4dc3fafc93e0c6b4ca1fe24c1e9e3",
+  "native_source_commit": "f8ee0b08bb160e6c0be91a240190862278c7ba51",
+  "updated_unix": 1792308160.3628783,
+  "error": "Command '['/workspace/localization-env/host-venv/bin/python', '/workspace/localization-env/inten-trace-export/worktree/experiments/results/inten_trace_export/verify_preservation.py', '--output', '/workspace/localization-env/inten-trace-export/full_native_preservation.json']' returned non-zero exit status 120.",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/localization-env/inten-trace-export/finish_after_native.py\", line 39, in <module>\n    run(['/workspace/localization-env/host-venv/bin/python',str(E/'verify_preservation.py'),'--output',str(R/'full_native_preservation.json')])\n  File \"/workspace/localization-env/inten-trace-export/finish_after_native.py\", line 13, in run\n    def run(cmd,**kwargs):return subprocess.run(cmd,cwd=REPO,check=True,**kwargs)\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/workspace/localization-env/host-venv/bin/python', '/workspace/localization-env/inten-trace-export/worktree/experiments/results/inten_trace_export/verify_preservation.py', '--output', '/workspace/localization-env/inten-trace-export/full_native_preservation.json']' returned non-zero exit status 120.\n"
+}

@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "original_subprocess_exit": 120,
+  "original_report_exit": 0,
+  "controlled_closed_stdout_exit": 120,
+  "captured_stdout_exit": 0,
+  "reports_identical": true,
+  "scope": "Same preservation command reproduces Python shutdown BrokenPipeError/exit120 when stdout has no reader, despite its successful JSON report. A regular output file exits0. Original stderr is unavailable, so this establishes the mechanism but does not prove the original pipe state. The already-successful build/CTest are not rerun."
+}

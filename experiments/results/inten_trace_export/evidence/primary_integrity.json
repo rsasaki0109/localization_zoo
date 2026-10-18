@@ -1,0 +1,76 @@
+{
+  "exit_code": 0,
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+    "--",
+    "common",
+    "evaluation/src",
+    "evaluation/CMakeLists.txt",
+    ":(glob)papers/*/src/**",
+    ":(glob)papers/*/include/**",
+    ":(glob)papers/*/test/**",
+    ":(glob)papers/*/CMakeLists.txt",
+    "CMakeLists.txt"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "source_exit_code": 0,
+  "sealed_files": {
+    "finish_when_complete.py": {
+      "expected": "b85c467064d82799bc8d7e7addbcafb81d62cc538730f3d78b7a8fb375c22dfc",
+      "actual": "b85c467064d82799bc8d7e7addbcafb81d62cc538730f3d78b7a8fb375c22dfc"
+    },
+    "finish_docs.py": {
+      "expected": "de1bb0d3a597928593bdc5f1efa2317c924560996e8f06ddfbb6e9255f1c7184",
+      "actual": "de1bb0d3a597928593bdc5f1efa2317c924560996e8f06ddfbb6e9255f1c7184"
+    },
+    "support.py": {
+      "expected": "bc04bce97bf2df5cc8912137e0d371efe0e065c5b40f860f1d40ac8e68a7b761",
+      "actual": "bc04bce97bf2df5cc8912137e0d371efe0e065c5b40f860f1d40ac8e68a7b761"
+    },
+    "report.py": {
+      "expected": "38031996ecaea8df33af9f5167452f2d575767a953b742900329fd35457123d1",
+      "actual": "38031996ecaea8df33af9f5167452f2d575767a953b742900329fd35457123d1"
+    },
+    "verify_preservation.py": {
+      "expected": "770f3d24c671d15cdcc60825fdd0d31f7b0d3fe9bcd369eaa7ac08da6d370b3b",
+      "actual": "770f3d24c671d15cdcc60825fdd0d31f7b0d3fe9bcd369eaa7ac08da6d370b3b"
+    },
+    "run_all.py": {
+      "expected": "777ee163bdc72c8571456b21d0906a2beb64076fcc13f272f9d0a72a17211d7e",
+      "actual": "777ee163bdc72c8571456b21d0906a2beb64076fcc13f272f9d0a72a17211d7e"
+    },
+    "protocol.json": {
+      "expected": "1f00d46f4c0c24ee63cef21bd6fdaefe23a0d714abf92e13f8dc6b1c0294808b",
+      "actual": "1f00d46f4c0c24ee63cef21bd6fdaefe23a0d714abf92e13f8dc6b1c0294808b"
+    },
+    "selection.json": {
+      "expected": "80f595fe0d6a93ffba4c085977b63f2d139ec711ba94ba87c597a81b3e56033e",
+      "actual": "80f595fe0d6a93ffba4c085977b63f2d139ec711ba94ba87c597a81b3e56033e"
+    },
+    "baseline.json": {
+      "expected": "7d9344421e2ea56776a8fff4fb49dadaf308d2635bd643a1c1ae333c99428fd2",
+      "actual": "7d9344421e2ea56776a8fff4fb49dadaf308d2635bd643a1c1ae333c99428fd2"
+    },
+    "candidate.json": {
+      "expected": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a",
+      "actual": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a"
+    },
+    "native_wrapper.py": {
+      "expected": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3",
+      "actual": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3"
+    }
+  },
+  "binaries": {
+    "baseline_pcd_dogfooding": {
+      "expected": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+      "actual": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450"
+    },
+    "candidate_pcd_dogfooding": {
+      "expected": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+      "actual": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d"
+    }
+  }
+}

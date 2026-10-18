@@ -507,6 +507,35 @@ fresh user-owned `TEST_TMPDIR`. The study documents both attempts.
 describe the scope. Published results and estimator defaults are unchanged.
 <!-- /INTEN_PASSIVE_TRACE -->
 
+<!-- INTEN_TRACE_EXPORT -->
+## Optional runner trace export
+
+The paper runner accepts `--inten-loam-paper-trace-jsonl NEW.jsonl` with
+`--methods inten_loam --inten-loam-paper-odometry`. It streams the passive
+observations and explicit skipped-input records, with a final traversal
+record. This repository diagnostic is outside the paper and default off.
+It changes no estimator setting, decision or map input.
+
+[Usage, coordinates and incomplete/nonfinite record handling](../../docs/inten_loam_passive_trace.md#streaming-export-from-the-evaluation-runner)
+and the [separate validation record](../../experiments/results/inten_trace_export/README.md)
+describe its scope. On the committed short MCD fixture, all 6 native comparisons exit 0:
+reference, new trace-off and trace-on have zero available metric differences
+and byte-identical poses with both the default and unchanged 07-selected
+plane-check setting. Segment RTE is unavailable. A separate empty-middle-input
+lifecycle check also has identical poses across all 3 calls; its GT timing
+makes accuracy fields unsuitable for interpretation. The initial lifecycle
+attempt exits 1 because its builder omitted timestamps; the corrected builder
+copies the committed timestamps without relaxing association. Evidence was
+committed at `4f235364` / `086d70d0` before these results.
+
+Full failure-sequence tracing and the solver-level cause remain open;
+this export capability is not an accuracy result.
+The separate fresh Release full build and all 126 CTest entries also
+exit 0. [Native evidence](../../experiments/results/inten_trace_export/evidence/full_native/summary.json)
+was committed at `c679dde4837dc097b697f18654c6cc51da0ffa0f` before this statement. The postprocessor's
+initial exit 120, closed-stdout reproduction and regular-file recovery exit 0
+are retained separately; the successful native tests were not rerun.
+<!-- /INTEN_TRACE_EXPORT -->
 ## Optional execution acceleration
 
 `--paper-pipeline-accelerated` enables repository implementation optimizations
@@ -592,6 +621,20 @@ These short executions check compatibility; they do not establish long-segment
 KITTI RTE or remeasure full-sequence throughput. The speed figures above remain
 tied to their recorded sources. [Commands, binary/input hashes, comparison and
 limits](../../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).
+
+<!-- INTEN_TRACE_EXPORT_ACCELERATION -->
+## Passive export with optional acceleration
+
+The integrated runner records `params.accelerated` in its trace header. All 12
+real-fixture calls exit 0, with zero available metric differences and identical
+saved poses within each default/accelerated registration profile (`2e6d7689`).
+All 7 expected negative CLI exits are retained. The full incremental Release
+build, all 126 CTest entries and four-worker InTEn/serializer checks also exit 0
+(`79cd80a3`). Settings are reused unchanged from KITTI07, with KITTI00 influencing
+the earlier diagnosis. These short checks provide no new speed or long-segment
+accuracy result; the full failure cause remains open.
+[Exact commands, hashes, traces and limits](../../experiments/results/inten_trace_export/integration/README.md).
+<!-- /INTEN_TRACE_EXPORT_ACCELERATION -->
 
 <!-- INTEN_PASSIVE_TRACE_ACCELERATION -->
 ## Passive trace and acceleration integration

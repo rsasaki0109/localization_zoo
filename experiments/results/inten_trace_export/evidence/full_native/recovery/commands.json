@@ -1,0 +1,32 @@
+[
+  {
+    "name": "closed_pipe_reproduction",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization-env/inten-trace-export/worktree/experiments/results/inten_trace_export/verify_preservation.py",
+      "--output",
+      "/workspace/localization-env/inten-trace-export/native_recovery/closed_pipe_preservation.json"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-export/worktree",
+    "exit_code": 120,
+    "expected_exit_code": 120,
+    "stdout_mode": "closed_pipe_for_reproduction",
+    "started_unix": 1792312317.2748768,
+    "finished_unix": 1792312317.6075804
+  },
+  {
+    "name": "captured_preservation",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization-env/inten-trace-export/worktree/experiments/results/inten_trace_export/verify_preservation.py",
+      "--output",
+      "/workspace/localization-env/inten-trace-export/native_recovery/captured_preservation.json"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-export/worktree",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "stdout_mode": "regular_file",
+    "started_unix": 1792312317.6086416,
+    "finished_unix": 1792312317.8394003
+  }
+]

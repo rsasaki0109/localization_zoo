@@ -1,0 +1,100 @@
+{
+  "exit_code": 0,
+  "native_source_commit": "f8ee0b08bb160e6c0be91a240190862278c7ba51",
+  "ctest_entries": 126,
+  "commands": "commands.json",
+  "fresh_binary_sha256": "6bbeb9e336068ec963076ba53d6091398e7a07b5479c7f48a812ea150b62c864",
+  "logs": {
+    "build.log.gz": {
+      "original_sha256": "2a62d7e04770fc6c673c65a91e2e5ce93b22c194956ca719a6429ac29d72ed43",
+      "stored_sha256": "76d5d0757de43c12e0e16f398b7dad0b17ad2d9e859dc61ac7c87785b5ef7279",
+      "lossless": true
+    },
+    "commands.json": {
+      "original_sha256": "de82bab86e5c0597851052391feff38f152a1879d0fbd62f35faca528139454b",
+      "stored_sha256": "de82bab86e5c0597851052391feff38f152a1879d0fbd62f35faca528139454b",
+      "lossless": true
+    },
+    "configure.log.gz": {
+      "original_sha256": "f5654c48dfae6ebf3cf202a85893d5aa3ea1beb4c8d5500f33c77c72e09553b8",
+      "stored_sha256": "199225ffffc55134f58c24becf47bf6c713b72887a19a8dee3e436e755140a4e",
+      "lossless": true
+    },
+    "ctest.log.gz": {
+      "original_sha256": "e54c8bc7b9f78a98602ff21ee479550b025bb781543a1731dcac1ee6cf1c0c8a",
+      "stored_sha256": "9f875f2070b2a24a49d5fd32c1dc25c3a12cb71cbaa5bcaf52ac33be294eb4de",
+      "lossless": true
+    },
+    "exit.json": {
+      "original_sha256": "c0027cd39161ecf47aec9fdd9948b109da70d9a1cca5c8134f939745e80cc890",
+      "stored_sha256": "c0027cd39161ecf47aec9fdd9948b109da70d9a1cca5c8134f939745e80cc890",
+      "lossless": true
+    },
+    "source_guard.log.gz": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    "LastTest.log.gz": {
+      "original_sha256": "4dcd4587fd65e93e2b16c507edf14c591c33cf5ff5a3078cd897786f686edded",
+      "stored_sha256": "c89dcee505e5506aaaf6ea40ffec8fc58fa68bfff6a44cf118a490bf2423cf16",
+      "lossless": true
+    },
+    "recovery/captured_preservation.json": {
+      "original_sha256": "a603f4931618b085b39bc158376fff3ae37e29f3628b4306ec73812a83140bee",
+      "stored_sha256": "a603f4931618b085b39bc158376fff3ae37e29f3628b4306ec73812a83140bee",
+      "lossless": true
+    },
+    "recovery/captured_preservation.log.gz": {
+      "original_sha256": "d6ca301a87c4a8ef8c92e26b736a3d3c6146e9aebd16a51aa6c66621e129e58e",
+      "stored_sha256": "e4fc5398497552d608462f4a05aa1d98a3c188205242ce971baf2dd684d55106",
+      "lossless": true
+    },
+    "recovery/closed_pipe_preservation.json": {
+      "original_sha256": "a603f4931618b085b39bc158376fff3ae37e29f3628b4306ec73812a83140bee",
+      "stored_sha256": "a603f4931618b085b39bc158376fff3ae37e29f3628b4306ec73812a83140bee",
+      "lossless": true
+    },
+    "recovery/closed_pipe_reproduction.log.gz": {
+      "original_sha256": "c7593c086bf05d69ae91a2e061c8b9cc97906f0aa9a615c346e4f4b2fca74c4f",
+      "stored_sha256": "95ad8662c790b5dbf6764091547292715bbe30b5dfd9f4d6a5843e0234853b98",
+      "lossless": true
+    },
+    "recovery/commands.json": {
+      "original_sha256": "33115009d857939ebfb5c4b1330871fb0c9ee509ccae1a919c4b303119873869",
+      "stored_sha256": "33115009d857939ebfb5c4b1330871fb0c9ee509ccae1a919c4b303119873869",
+      "lossless": true
+    },
+    "recovery/finish_after_native_as_executed.py": {
+      "original_sha256": "2631a36f3c4be599074cdb7832ba18e12ac07a77001873190b2fa04efdbdc2a1",
+      "stored_sha256": "2631a36f3c4be599074cdb7832ba18e12ac07a77001873190b2fa04efdbdc2a1",
+      "lossless": true
+    },
+    "recovery/original_finish_state.json": {
+      "original_sha256": "6e7e3542680b24cb98bc25341313b621d086ab0e60e4d1988eec2936e4420106",
+      "stored_sha256": "6e7e3542680b24cb98bc25341313b621d086ab0e60e4d1988eec2936e4420106",
+      "lossless": true
+    },
+    "recovery/original_preservation.json": {
+      "original_sha256": "a603f4931618b085b39bc158376fff3ae37e29f3628b4306ec73812a83140bee",
+      "stored_sha256": "a603f4931618b085b39bc158376fff3ae37e29f3628b4306ec73812a83140bee",
+      "lossless": true
+    },
+    "recovery/summary.json": {
+      "original_sha256": "1dc1f37aa89ea177371ad795a3dc709bf1cf37dc3741faebd509e63f6ea4982f",
+      "stored_sha256": "1dc1f37aa89ea177371ad795a3dc709bf1cf37dc3741faebd509e63f6ea4982f",
+      "lossless": true
+    },
+    "run_native_checks.py": {
+      "original_sha256": "ab20fc0e920b3c13e251e0abd718b797797d6b71a5761e72cdde2b7a5c728dd2",
+      "stored_sha256": "ab20fc0e920b3c13e251e0abd718b797797d6b71a5761e72cdde2b7a5c728dd2",
+      "lossless": true
+    },
+    "finish_closed_native.py": {
+      "original_sha256": "f7a4d8e48847a9ad6ac96d791417c89dd6128c7a250fb3afbf760ce23ab96128",
+      "stored_sha256": "f7a4d8e48847a9ad6ac96d791417c89dd6128c7a250fb3afbf760ce23ab96128",
+      "lossless": true
+    }
+  },
+  "scope": "Fresh Release whole-zoo build and full CTest, with fresh user-owned TEST_TMPDIR. No native source changed after the pinned implementation. Recovery imports closed evidence without rerunning tests."
+}

@@ -1,0 +1,9 @@
+{
+  "head": "ff2fe7f1c8f38a0775329ac19333d65c3f200d61",
+  "run_id": 39089440130,
+  "job_id": 117562816980,
+  "job_conclusion": "success",
+  "command_source": ".github/workflows/ci.yml",
+  "retrieval_tool": "github_fetch_workflow_job_logs",
+  "log_encoding": "UTF-8 decoded by GitHub connector; full job transcript preserved"
+}

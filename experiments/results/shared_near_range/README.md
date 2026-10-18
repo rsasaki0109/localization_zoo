@@ -24,6 +24,9 @@ available historical/current Mesh-LOAM paths and locates current CT-ICP error
 growth. Its runtime and missing-path limits are explicit; it does not identify
 the cause of historical metric differences.
 
+The [KITTI02 saved-path diagnosis](diagnostics/02/README.md) now includes all
+historical differences on that sequence and the available Mesh paired paths.
+
 ## Scope and status
 
 Implementation and the regression protocol were merged in
@@ -77,7 +80,7 @@ cells are pending; this checkpoint does not establish whole-zoo completion.
 
 [`checkpoints/04/`](checkpoints/04/) records the earlier 04-only checkpoint.
 [`checkpoints/00/`](checkpoints/00/) records the earlier cleaned 04/00 checkpoint.
-The current [`checkpoints/01/`](checkpoints/01/) adds the committed, cleaned 01
+The earlier [`checkpoints/01/`](checkpoints/01/) adds the committed, cleaned 01
 sequence. Its verification exit 0 does not replace the retained historical
 audit exits 1.
 [`checks/checkpoint04/`](checks/checkpoint04/) retains the required document
@@ -306,3 +309,52 @@ uses committed partial 04/00 evidence: partial reports and the still-running
 controller are rejected before public documentation changes. Rendering previews
 retain the real 04 numeric differences and historical NCLT confound; they are
 validation artifacts, not full-study completion.
+
+## Current cleaned checkpoint: 02 and 03 added
+
+The [checkpoint](checkpoints/03/summary.json) and [comparison CSV](checkpoints/03/comparison.csv),
+committed at `8f5841e3946995cedfa9c0e2fc484dbd2c02373e`, cover **79/177 cells**
+across 04, 00, 01, 02 and 03: **64** historical matches and
+**15** differences. All **17** frozen controls have zero
+recorded metric differences and byte-identical saved poses. All five historical
+audits retain exit **1**; checkpoint verification exits **0**. Coverage is incomplete.
+
+New historical differences, retained in each method README:
+
+| Method | Seq | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| A-LOAM | 02 | 0.923231 | 0.926292 | 50.114358 | 50.789841 |
+| CT-ICP | 02 | 0.810338 | 0.813023 | 20.606805 | 19.687922 |
+| F-LOAM | 02 | 0.937750 | 0.945974 | 52.068212 | 53.822119 |
+| LeGO-LOAM | 02 | 0.883497 | 0.883304 | 41.755869 | 42.208784 |
+| Mesh-LOAM | 02 | 0.785133 | 0.785817 | 22.288359 | 22.328196 |
+| Mesh-LOAM | 03 | 0.877028 | 0.877431 | 3.992708 | 3.995116 |
+
+Candidate/frozen reports and native receipts are committed. Scan hashes were
+verified before deleting owned inputs and aliases. The sequence commits are
+`a821eaee` (02) and `eebaf3d7` (03). These differences predate extraction;
+their original causes remain unresolved. This replays historical per-cell
+arguments rather than defining a new single-setting accuracy study.
+[Saved02 diagnostics](diagnostics/02/README.md) locate current error growth and
+the available Mesh path gap, with missing-path/runtime limits and no cause attribution.
+
+## Environment interruption and remaining-sequence recovery
+
+The managed environment restarted during05; its original controller, native
+processes and completion worker were absent afterward. The interrupted audit is
+preserved under `sequences/05/interrupted_20261018/`. Unknown exits are null,
+and that attempt contributes no completed cells.
+
+The [recovery protocol](recovery05_protocol.json) and [source](recover_interrupted05.py)
+verify frozen source/binary/sealed pins and owned official05 scan/GT hashes, then
+rerun every selected05 cell from fresh native state. Original audit/comparison
+helpers, arguments, one-thread settings and cleanup policy are retained.
+After a complete05 commit, the sealed controller continues at the next unstarted
+sequence. This is an explicit environment-interruption addendum to the original
+fetch-failure-only restart procedure.
+
+[Launch receipts](checks/recovery05_launch/) identify the recovery and replacement
+completion worker. Unfinished work is excluded from the checkpoint. Historical
+aggregates, paper numbers, Table 6 and defaults are preserved. This replay retains
+its original frozen implementation; current-main acceleration/passive tracing
+and real NCLT validation keep their previously documented scope.

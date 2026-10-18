@@ -199,3 +199,32 @@ come from committed evidence `1426a851c9f021cbffae239e814b6379a5788b25`. First-p
 is used without fitted alignment or rescaling. No estimator is rerun and no
 published accuracy result is replaced.
 <!-- /SHARED_NEAR_RANGE_01_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+## Shared-loader replay: committed KITTI02 difference and saved-path diagnosis
+
+| Method | Seq | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| CT-ICP | 02 | 0.810338 | 0.813023 | 20.606805 | 19.687922 |
+
+The selected `upstream_mechanics_elevation` arguments are unchanged throughout this full
+sequence. The historical audit retains exit **1**; native executions exit **0**.
+Frozen pre-extraction controls have zero recorded metric differences and
+byte-identical poses. This historical difference predates extraction; its
+original cause remains unresolved. Input hashes were verified before owned
+scan/alias removal. The near-range cut stays disabled.
+
+The largest current position-error increase among the inherited fixed blocks
+is frames **4400-4500**:
+**19.888348 to 30.148291 m**.
+
+The referenced historical per-run path is unavailable in the inspected tree/history.
+Current error growth cannot locate a gap from that unavailable trajectory.
+
+The [protocol, all steps/CSVs and plot](../../experiments/results/shared_near_range/diagnostics/02/README.md)
+come from committed evidence `8f5841e3946995cedfa9c0e2fc484dbd2c02373e`. First-pose normalization uses no fitted
+alignment or rescaling. These observations locate errors without assigning a
+cause or replacing published accuracy. The
+[cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
+retains all historical differences and audit exits.
+<!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->

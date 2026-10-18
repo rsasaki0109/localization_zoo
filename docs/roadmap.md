@@ -267,10 +267,20 @@ independent. Each item says what "done" means.
      [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
      locate error growth; missing referenced historical paths prevent a paired
      diagnosis of the historical metric differences.
-     The committed, cleaned 04/00/01 checkpoint now covers 47/177 cells:
-     38 historical matches and 9 differences, all reproduced by frozen controls.
-     All three historical audits retain exit 1; checkpoint verification exits 0.
-     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/01/summary.json).
+     The committed, cleaned 04/00/01/02/03 checkpoint now covers 79/177 cells:
+     64 historical matches and 15 differences, all reproduced by frozen controls.
+     All 17 controls have zero metric differences and byte-identical poses.
+     All five historical audits retain exit 1; checkpoint verification exits 0.
+     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/03/summary.json).
+     [Saved02 diagnosis](../experiments/results/shared_near_range/diagnostics/02/README.md)
+     retains current error-growth blocks and the available Mesh paired path,
+     with explicit missing-path/runtime limits. Full03 adds a Mesh historical
+     difference reproduced by its frozen control; method READMEs retain all
+     numerical pairs. Inputs were hash-verified before deletion.
+     The environment restarted during05. Interrupted outputs are preserved and
+     excluded from coverage; a source-pinned recovery reruns all selected05
+     cells with the same frozen executables/settings before continuing.
+     [Recovery protocol](../experiments/results/shared_near_range/recovery05_protocol.json).
      Full 01 candidate replay also finishes all 13 cells: 11 match;
      CT-ICP and Mesh-LOAM differ, retaining audit exit 1. Their numeric pairs
      are in the method READMEs. Both frozen pre-extraction controls have zero

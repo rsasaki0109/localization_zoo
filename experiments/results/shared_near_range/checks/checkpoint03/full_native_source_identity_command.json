@@ -1,0 +1,23 @@
+{
+  "label": "full_native_source_identity",
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+    "--",
+    "common",
+    "evaluation/src",
+    "evaluation/CMakeLists.txt",
+    ":(glob)papers/*/src/**",
+    ":(glob)papers/*/include/**",
+    ":(glob)papers/*/test/**",
+    ":(glob)papers/*/CMakeLists.txt",
+    "CMakeLists.txt"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792361077.9508457,
+  "finished_unix": 1792361077.9698613,
+  "exit_code": 0
+}

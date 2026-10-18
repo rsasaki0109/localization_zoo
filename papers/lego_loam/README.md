@@ -60,3 +60,32 @@ The largest increase in pointwise position error among those blocks is poses 380
 
 The referenced historical per-run summary is absent at the inspected revision and was not found in this checkout's reachable history. Without its historical saved path, this does not locate the cause of the historical metric difference. [Plot, full trace, commands and limits](../../experiments/results/shared_near_range/diagnostics/00/README.md) use the committed current poses, with diagnostic evidence committed at `61c1f26e1019aa3f0b05b100404c8bb117448b41`. Native source remains `0b079dbbcb7c6f58c1d8367ade881c15f003e525`.
 <!-- /SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+## Shared-loader replay: committed KITTI02 difference and saved-path diagnosis
+
+| Method | Seq | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| LeGO-LOAM | 02 | 0.883497 | 0.883304 | 41.755869 | 42.208784 |
+
+The selected `kitti_default` arguments are unchanged throughout this full
+sequence. The historical audit retains exit **1**; native executions exit **0**.
+Frozen pre-extraction controls have zero recorded metric differences and
+byte-identical poses. This historical difference predates extraction; its
+original cause remains unresolved. Input hashes were verified before owned
+scan/alias removal. The near-range cut stays disabled.
+
+The largest current position-error increase among the inherited fixed blocks
+is frames **4400-4500**:
+**40.384993 to 60.227505 m**.
+
+The referenced historical per-run path is unavailable in the inspected tree/history.
+Current error growth cannot locate a gap from that unavailable trajectory.
+
+The [protocol, all steps/CSVs and plot](../../experiments/results/shared_near_range/diagnostics/02/README.md)
+come from committed evidence `8f5841e3946995cedfa9c0e2fc484dbd2c02373e`. First-pose normalization uses no fitted
+alignment or rescaling. These observations locate errors without assigning a
+cause or replacing published accuracy. The
+[cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
+retains all historical differences and audit exits.
+<!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->

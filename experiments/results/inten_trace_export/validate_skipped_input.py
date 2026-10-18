@@ -11,6 +11,7 @@ def main():
     parser.add_argument('--output-dir',required=True,type=Path)
     a=parser.parse_args();out=a.output_dir.resolve();assert not out.exists();out.mkdir()
     fixture=out/'input';fixture.mkdir()
+    shutil.copyfile(REPO/P['validation']['fixture']/'frame_timestamps.csv',fixture/'frame_timestamps.csv')
     clouds=sorted((REPO/P['validation']['fixture']).glob('*/cloud.pcd'));assert len(clouds)==3
     for i,p in enumerate(clouds):
         dest=fixture/f'{i:08d}'/'cloud.pcd';dest.parent.mkdir()
@@ -48,7 +49,7 @@ def main():
     assert records[2]['reason']=='empty_cloud' and 's2s' not in records[2] and 's2m' not in records[2]
     assert records[-1]==dict(type='end',processed_frames=2,skipped_frames=1)
     for name,p in [('reference',reference),('candidate',candidate)]:assert sha(p)==binaries[name]['sha256']
-    inputs={str(p.relative_to(out)):sha(p) for p in fixture.glob('*/cloud.pcd')}
+    inputs={str(p.relative_to(out)):sha(p) for p in fixture.rglob('*') if p.is_file()}
     summary=dict(exit_code=0,native_source_commit=P['native_source_commit'],binaries=binaries,native_exits=exits,
                  input_sha256=inputs,record_types=[x['type'] for x in records],input_indices=[0,1,2],
                  estimator_frame_indices=[0,1],processed_frames=2,skipped_frames=1,

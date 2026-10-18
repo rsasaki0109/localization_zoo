@@ -175,6 +175,8 @@ def main():
         assert sha(binary) == binaries[name]['sha256']
     inputs = {str(p.relative_to(REPO)): sha(p) for p in (REPO / P['validation']['fixture']).glob('*/cloud.pcd')}
     inputs[P['validation']['gt']] = sha(REPO / P['validation']['gt'])
+    ts = REPO / P['validation']['fixture'] / 'frame_timestamps.csv'
+    inputs[str(ts.relative_to(REPO))] = sha(ts)
     summary = dict(exit_code=0, native_source_commit=P['native_source_commit'], recorded_head=source_head,
                    binaries=binaries, input_sha256=inputs, comparisons=comparisons,
                    successful_native_exits=[r['exit_code'] for r in receipts if r['expected_exit_code'] == 0],

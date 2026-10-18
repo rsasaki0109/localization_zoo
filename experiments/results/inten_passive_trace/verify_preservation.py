@@ -34,8 +34,9 @@ def main():
     if prior.returncode:
         failures.append('Prior study evidence changed.')
     changed = subprocess.check_output(['git', 'diff', '--name-only', base, '--',
-              'common', 'evaluation/src', 'evaluation/CMakeLists.txt', 'papers/*/src',
-              'papers/*/include', 'papers/*/test', 'papers/*/CMakeLists.txt', 'CMakeLists.txt'],
+              'common', 'evaluation/src', 'evaluation/CMakeLists.txt',
+              ':(glob)papers/*/src/**', ':(glob)papers/*/include/**',
+              ':(glob)papers/*/test/**', ':(glob)papers/*/CMakeLists.txt', 'CMakeLists.txt'],
               cwd=REPO, text=True).splitlines()
     allowed = ['papers/inten_loam/include/inten_loam/inten_loam_paper.h',
                'papers/inten_loam/src/inten_loam_paper.cpp',

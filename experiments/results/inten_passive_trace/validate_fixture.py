@@ -26,8 +26,8 @@ def main():
     candidate = REPO / 'build/evaluation/pcd_dogfooding'
     assert sha(reference) == fixture['reference_binary_sha256']
     native_paths = ['common', 'evaluation/src', 'evaluation/CMakeLists.txt',
-                    'papers/*/src', 'papers/*/include', 'papers/*/test',
-                    'papers/*/CMakeLists.txt', 'CMakeLists.txt']
+                    ':(glob)papers/*/src/**', ':(glob)papers/*/include/**',
+                    ':(glob)papers/*/test/**', ':(glob)papers/*/CMakeLists.txt', 'CMakeLists.txt']
     subprocess.run(['git', 'diff', '--exit-code', PROTOCOL['base_commit'],
                     fixture['reference_binary_source_commit'], '--', *native_paths],
                    cwd=REPO, check=True)

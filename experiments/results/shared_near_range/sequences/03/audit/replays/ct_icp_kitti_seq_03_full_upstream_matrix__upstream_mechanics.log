@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 801
+GT poses: 801
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 560.8 m
+Running CT-ICP...
+  source_voxel_size=0.6 max_source_points=700 voxel_resolution=1.2 max_iterations=10 ceres_max_iterations=6 max_frames_in_map=20 multi_scale=on normal_cholesky=on regularizer_n_cap=0 auto_regularizer_cap=off
+  [CT-ICP upstream] 0/801  [CT-ICP upstream] 10/801  [CT-ICP upstream] 20/801  [CT-ICP upstream] 30/801  [CT-ICP upstream] 40/801  [CT-ICP upstream] 50/801  [CT-ICP upstream] 60/801  [CT-ICP upstream] 70/801  [CT-ICP upstream] 80/801  [CT-ICP upstream] 90/801  [CT-ICP upstream] 100/801  [CT-ICP upstream] 110/801  [CT-ICP upstream] 120/801  [CT-ICP upstream] 130/801  [CT-ICP upstream] 140/801  [CT-ICP upstream] 150/801  [CT-ICP upstream] 160/801  [CT-ICP upstream] 170/801  [CT-ICP upstream] 180/801  [CT-ICP upstream] 190/801  [CT-ICP upstream] 200/801  [CT-ICP upstream] 210/801  [CT-ICP upstream] 220/801  [CT-ICP upstream] 230/801  [CT-ICP upstream] 240/801  [CT-ICP upstream] 250/801  [CT-ICP upstream] 260/801  [CT-ICP upstream] 270/801  [CT-ICP upstream] 280/801  [CT-ICP upstream] 290/801  [CT-ICP upstream] 300/801  [CT-ICP upstream] 310/801  [CT-ICP upstream] 320/801  [CT-ICP upstream] 330/801  [CT-ICP upstream] 340/801  [CT-ICP upstream] 350/801  [CT-ICP upstream] 360/801  [CT-ICP upstream] 370/801  [CT-ICP upstream] 380/801  [CT-ICP upstream] 390/801  [CT-ICP upstream] 400/801  [CT-ICP upstream] 410/801  [CT-ICP upstream] 420/801  [CT-ICP upstream] 430/801  [CT-ICP upstream] 440/801  [CT-ICP upstream] 450/801  [CT-ICP upstream] 460/801  [CT-ICP upstream] 470/801  [CT-ICP upstream] 480/801  [CT-ICP upstream] 490/801  [CT-ICP upstream] 500/801  [CT-ICP upstream] 510/801  [CT-ICP upstream] 520/801  [CT-ICP upstream] 530/801  [CT-ICP upstream] 540/801  [CT-ICP upstream] 550/801  [CT-ICP upstream] 560/801  [CT-ICP upstream] 570/801  [CT-ICP upstream] 580/801  [CT-ICP upstream] 590/801  [CT-ICP upstream] 600/801  [CT-ICP upstream] 610/801  [CT-ICP upstream] 620/801  [CT-ICP upstream] 630/801  [CT-ICP upstream] 640/801  [CT-ICP upstream] 650/801  [CT-ICP upstream] 660/801  [CT-ICP upstream] 670/801  [CT-ICP upstream] 680/801  [CT-ICP upstream] 690/801  [CT-ICP upstream] 700/801  [CT-ICP upstream] 710/801  [CT-ICP upstream] 720/801  [CT-ICP upstream] 730/801  [CT-ICP upstream] 740/801  [CT-ICP upstream] 750/801  [CT-ICP upstream] 760/801  [CT-ICP upstream] 770/801  [CT-ICP upstream] 780/801  [CT-ICP upstream] 790/801  [CT-ICP upstream] 800/801
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+CT-ICP                  ok          6.368       0.706          801         207206.8       3.9         
+
+Notes:
+- CT-ICP: Upstream mechanics (jedeschaud/ct_icp driving_config); anchor matches the first GT pose. 0 frames would have stopped upstream; 0 map insertions skipped.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_03_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_03_full_evaluation_manifest.json)

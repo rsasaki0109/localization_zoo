@@ -1,0 +1,14 @@
+{
+  "label": "preservation",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/verify_preservation.py",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/finalizer_preflight/docs/preservation.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792282231.1037176,
+  "finished_unix": 1792282231.6654198,
+  "exit_code": 0
+}

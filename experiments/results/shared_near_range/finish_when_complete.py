@@ -70,7 +70,9 @@ def main():
     with os.fdopen(lock, 'w') as stream:
         stream.write(str(os.getpid()) + '\n')
     folder = E / 'completion' / args.attempt
-    state = dict(pid=os.getpid(), source_commit=SOURCE, status='starting', attempt=args.attempt)
+    worker_launch_commit = git('rev-parse', 'HEAD')
+    state = dict(pid=os.getpid(), source_commit=SOURCE, worker_launch_commit=worker_launch_commit,
+                 status='starting', attempt=args.attempt)
 
     def update(**fields):
         state.update(fields)
@@ -94,7 +96,8 @@ def main():
             raise RuntimeError('Completion evidence already exists; choose a fresh attempt after review.')
         verify_binaries()
         write(folder / 'launch.json', dict(command=[sys.executable, *sys.argv], cwd=str(REPO),
-              source_commit=SOURCE, sealed_file_sha256=expected, exit_code=0,
+              source_commit=SOURCE, worker_launch_commit=worker_launch_commit,
+              completed_evidence_commit=git('rev-parse', 'HEAD'), sealed_file_sha256=expected, exit_code=0,
               scope='Controller terminal completion validated; this is not a final-check success receipt.'))
         report = folder / 'report/summary.json'
         run('report', [sys.executable, str(E / 'report.py'), '--output-dir', str(report.parent)], folder / 'checks')

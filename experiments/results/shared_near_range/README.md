@@ -163,3 +163,28 @@ downloader. A fetch-only continuation never changes the source or arguments.
 
 Tests and checks are judged by actual process exits, not log tails. Concurrent
 replays use one OMP/BLAS thread per process; no speed comparison is made.
+
+## One-shot completion of the existing run
+
+`finish_when_complete.py --wait --push --attempt 01` waits for this controller's
+terminal success, all committed sequence checkpoints and verified input cleanup.
+It starts no native replay. It seals execution scripts/configuration, checks the
+working branch and clean tree, and refuses partial data, failed controllers,
+changed binaries/source or an existing completion attempt.
+
+After completion it generates and commits the full report before using its
+numbers in documentation. `finish_docs.py` retains every historical difference
+in the method READMEs, including improvements and original audit exits 1, and
+requires zero recorded old-vs-extracted control deltas and identical saved poses.
+The required generators, Python/doc checks, preservation and full-branch
+whitespace checks must then pass before the final documentation is committed
+and pushed. It does not merge, mark the PR ready, or claim new NCLT validation.
+
+Outputs go to `completion/01/`; the prepared `PR_BODY.md` and pushed-head CI need
+the connected GitHub tool's final review/update. The ordinary GitHub CLI API
+probe was refused; its actual exit is retained, and no alternate access path is
+attempted by the worker. [Guard and renderer validation](checks/finalizer_preflight/)
+uses committed partial 04/00 evidence: partial reports and the still-running
+controller are rejected before public documentation changes. Rendering previews
+retain the real 04 numeric differences and historical NCLT confound; they are
+validation artifacts, not full-study completion.

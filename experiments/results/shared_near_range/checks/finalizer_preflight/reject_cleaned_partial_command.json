@@ -1,0 +1,15 @@
+{
+  "label": "reject_cleaned_partial",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/finish_docs.py",
+    "--report",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checkpoints/04/summary.json",
+    "--apply"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792281827.8361652,
+  "finished_unix": 1792281827.9755652,
+  "exit_code": 2
+}

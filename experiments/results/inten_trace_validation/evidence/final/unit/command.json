@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_inten_trace_validation.py",
+    "-v"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-validator/worktree",
+  "exit_code": 0,
+  "source_commit": "8752c852d750277a2bbeda49ec7c36f154558529",
+  "started_unix": 1792314264.1349897,
+  "finished_unix": 1792314264.7926683
+}

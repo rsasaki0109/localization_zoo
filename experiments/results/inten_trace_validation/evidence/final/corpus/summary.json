@@ -1,0 +1,182 @@
+{
+  "exit_code": 0,
+  "tool_source_commit": "8752c852d750277a2bbeda49ec7c36f154558529",
+  "recorded_head": "16d71493074a80d604cbe70924e42be7c8a926c9",
+  "input_sha256": {
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/trace.jsonl": "215b910da4024ef7df3b0a3d2ff984404e370dbdb18f074c3bb3644c39bdb0ce",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/summary.json": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/command.json": "dc45eaa6127911e907573fe19a3bf53b003203f61f482b17dc329753e1f6e7f6",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/trace.jsonl": "6e6737f7386ba2c0ffc423c50ea70988ec2170f88bf85b7488a8f6de91651bab",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/summary.json": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/command.json": "3ed2f8fab8f1bc589cbed7283b984035728f6eb547e88d3a8fc31f68bf28d90c",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/trace.jsonl": "a2d18b826bba502c63791bbf4118263a076caee50c066893a8fb51e973aac6ff",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/summary.json": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/command.json": "11c69619c5b0f24ade19033cd5abdb3d541db1539c12f822b784fbd9d97e07d8"
+  },
+  "source_inputs_unchanged": true,
+  "valid": [
+    {
+      "case": "default",
+      "exit_code": 0,
+      "report": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "215b910da4024ef7df3b0a3d2ff984404e370dbdb18f074c3bb3644c39bdb0ce",
+        "summary_sha256": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+        "receipt_sha256": "dc45eaa6127911e907573fe19a3bf53b003203f61f482b17dc329753e1f6e7f6",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 3,
+        "skipped_frames": 0,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 2,
+            "iterations": 20,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 2
+            }
+          },
+          "s2m": {
+            "calls": 2,
+            "iterations": 16,
+            "stops": {
+              "not_run": 1,
+              "converged": 2
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "plane_check",
+      "exit_code": 0,
+      "report": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "6e6737f7386ba2c0ffc423c50ea70988ec2170f88bf85b7488a8f6de91651bab",
+        "summary_sha256": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+        "receipt_sha256": "3ed2f8fab8f1bc589cbed7283b984035728f6eb547e88d3a8fc31f68bf28d90c",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 3,
+        "skipped_frames": 0,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 2,
+            "iterations": 20,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 2
+            }
+          },
+          "s2m": {
+            "calls": 2,
+            "iterations": 16,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 1,
+              "converged": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "skipped_input",
+      "exit_code": 0,
+      "report": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "a2d18b826bba502c63791bbf4118263a076caee50c066893a8fb51e973aac6ff",
+        "summary_sha256": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+        "receipt_sha256": "11c69619c5b0f24ade19033cd5abdb3d541db1539c12f822b784fbd9d97e07d8",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 2,
+        "skipped_frames": 1,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 1,
+            "iterations": 10,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 1
+            }
+          },
+          "s2m": {
+            "calls": 1,
+            "iterations": 5,
+            "stops": {
+              "not_run": 1,
+              "converged": 1
+            }
+          }
+        }
+      }
+    }
+  ],
+  "invalid": [
+    {
+      "case": "missing_end",
+      "exit_code": 1,
+      "expected_error": "incomplete",
+      "no_report_created": true
+    },
+    {
+      "case": "after_end",
+      "exit_code": 1,
+      "expected_error": "record after end",
+      "no_report_created": true
+    },
+    {
+      "case": "footer_count",
+      "exit_code": 1,
+      "expected_error": "end counters",
+      "no_report_created": true
+    },
+    {
+      "case": "literal_nan",
+      "exit_code": 1,
+      "expected_error": "nonstandard JSON numeric literal",
+      "no_report_created": true
+    },
+    {
+      "case": "mixed_receipt",
+      "exit_code": 1,
+      "expected_error": "argv mismatch",
+      "no_report_created": true
+    },
+    {
+      "case": "native_failure",
+      "exit_code": 1,
+      "expected_error": "not exit 0",
+      "no_report_created": true
+    },
+    {
+      "case": "summary_count",
+      "exit_code": 1,
+      "expected_error": "processed frame count",
+      "no_report_created": true
+    }
+  ],
+  "cli_exits": [
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "scope": "Offline checker only, using committed parent traces. Synthetic rejection cases are data mutations, not odometry failures. No native process or data fetch occurs."
+}

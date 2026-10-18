@@ -8,6 +8,7 @@ import importlib.util
 import io
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -117,10 +118,41 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.git('add', '.')
         self.git('commit', '-qm', 'Synthetic committed saved-path fixture')
 
-    def invoke(self):
-        with patch.object(sys, 'argv', [str(self.script), '--output-dir', str(self.output)]), \
+    def invoke(self, *extra):
+        with patch.object(sys, 'argv', [str(self.script), '--output-dir', str(self.output), *extra]), \
                 contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             self.module.main()
+
+    def prepare_relocated03(self):
+        """Move a closed cohort into03; receipts point at a different checkout."""
+        source = self.study / 'sequences/02'
+        target = self.study / 'sequences/03'
+        shutil.copytree(source, target)
+        protocol = json.loads((STUDY / 'diagnostics/03_protocol.json').read_text())
+        write_json(self.study / 'diagnostics/03_protocol.json', protocol)
+        recorded_root = Path('/archived/saved-study-checkout')
+        for mode in ('audit', 'frozen_baseline'):
+            path = target / mode / 'report.json'
+            report = json.loads(path.read_text())
+            report['rows'] = [row for row in report['rows'] if row['method'] == 'Mesh-LOAM']
+            for row in report['rows']:
+                relative = Path(row['summary_path']).relative_to(self.repo)
+                relative = Path(str(relative).replace('sequences/02/', 'sequences/03/'))
+                row.update(sequence='03', cwd=str(recorded_root),
+                           summary_path=str(recorded_root / relative))
+            write_json(path, report)
+        for path in target.glob('*/replays/*_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt'):
+            path.rename(path.with_name('kitti_seq_03_full_evaluated_gt.txt'))
+        path = target / 'frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'] = [row for row in comparison['checks'] if row['method'] == 'Mesh-LOAM']
+        comparison['checks'][0]['sequence'] = '03'
+        write_json(path, comparison)
+        path = target / 'cleanup.json'
+        cleanup = json.loads(path.read_text())
+        cleanup['sequence'] = '03'
+        write_json(path, cleanup)
+        self.commit()
 
     def test_complete_committed_paths_produce_zero_error_and_keep_all_methods(self):
         self.invoke()
@@ -208,6 +240,57 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.commit()
         with self.assertRaises(SystemExit) as failure:
             self.invoke()
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_closed03_uses_committed_artifacts_in_relocated_checkout(self):
+        self.prepare_relocated03()
+        self.invoke('--sequence', '03')
+        result = json.loads((self.output / 'summary.json').read_text())
+        self.assertEqual(result['sequence'], '03')
+        self.assertEqual([row['method'] for row in result['rows']], ['Mesh-LOAM'])
+        self.assertEqual(result['rows'][0]['largest_current_error_growth_block']['position_error_end_m'], 0)
+        self.assertTrue(all(result['completion_gate'].values()))
+
+    def test03_rejects_a_protocol_for_another_sequence_before_output(self):
+        self.prepare_relocated03()
+        path = self.study / 'diagnostics/03_protocol.json'
+        protocol = json.loads(path.read_text())
+        protocol['sequence'] = '02'
+        write_json(path, protocol)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '03')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test03_rejects_frozen_comparison_from_another_sequence(self):
+        self.prepare_relocated03()
+        path = self.study / 'sequences/03/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'][0]['sequence'] = '02'
+        write_json(path, comparison)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '03')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test03_rejects_summary_outside_recorded_checkout(self):
+        self.prepare_relocated03()
+        path = self.study / 'sequences/03/audit/report.json'
+        report = json.loads(path.read_text())
+        report['rows'][0]['summary_path'] = '/unrelated/mesh_loam.json'
+        write_json(path, report)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '03')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_active05_is_not_an_allowed_diagnostic_sequence(self):
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '05')
         self.assertEqual(failure.exception.code, 2)
         self.assertFalse(self.output.exists())
 

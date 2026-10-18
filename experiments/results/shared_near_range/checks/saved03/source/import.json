@@ -1,0 +1,65 @@
+[
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks/03_protocol.json.gz",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks/03_protocol.json.gz",
+    "source_sha256": "312ba2cccbaf983abdff4b2b9b2dab65d5347fb819968e517a5e92fd856efee1",
+    "destination_sha256": "312ba2cccbaf983abdff4b2b9b2dab65d5347fb819968e517a5e92fd856efee1",
+    "gzip_original_verified": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks/commands.json",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks/commands.json",
+    "source_sha256": "effa243c98e608fe210e2eb23c94956d00838e93c20632d2bf2f75d8be2c7d3f",
+    "destination_sha256": "effa243c98e608fe210e2eb23c94956d00838e93c20632d2bf2f75d8be2c7d3f",
+    "gzip_original_verified": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks/diagnose_saved02.py.gz",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks/diagnose_saved02.py.gz",
+    "source_sha256": "936668b4bd31a38e258dd538a5f8cfe2dd019fa39ee684d6511511e9dbf36337",
+    "destination_sha256": "936668b4bd31a38e258dd538a5f8cfe2dd019fa39ee684d6511511e9dbf36337",
+    "gzip_original_verified": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks/publication_gates.log",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks/publication_gates.log.gz",
+    "source_sha256": "469067d74b1706a272d88ff0bdf5935ccdef2e085d53f6978d8e1d67058b30e9",
+    "destination_sha256": "47d354f125ef7843953fb065a14f5885beca6a04951614291c61d37230f32c71",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks/test_shared_range_saved02_gate.py.gz",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks/test_shared_range_saved02_gate.py.gz",
+    "source_sha256": "71a3eafae35eb3b1255ca5c1f9dd204195c5a738495ee7b073a9584505be0e6e",
+    "destination_sha256": "71a3eafae35eb3b1255ca5c1f9dd204195c5a738495ee7b073a9584505be0e6e",
+    "gzip_original_verified": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks/tested_source_sha256.json",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks/tested_source_sha256.json",
+    "source_sha256": "62da40be28ee775c58dbde30f04769ce207d1d753663aa80d102da64bc14a40a",
+    "destination_sha256": "62da40be28ee775c58dbde30f04769ce207d1d753663aa80d102da64bc14a40a",
+    "gzip_original_verified": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks_fixed/commands.json",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks_fixed/commands.json",
+    "source_sha256": "c657fa4e27db8d434f26441e854e55b744cd8eb88c4ad08ccf7b8e2df0858c77",
+    "destination_sha256": "c657fa4e27db8d434f26441e854e55b744cd8eb88c4ad08ccf7b8e2df0858c77",
+    "gzip_original_verified": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks_fixed/publication_gates.log",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks_fixed/publication_gates.log.gz",
+    "source_sha256": "0b1bc505f662c4401a18f2cfda205c3accc45533c067b49b0128b2113964bf84",
+    "destination_sha256": "9c6eb30174d9cbf2aaf47114bb0eab67ebf31ca8c3f9cee50c033b8ded8bd9ec",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics03/source_checks_fixed/publication_gates_optimized.log",
+    "destination": "experiments/results/shared_near_range/checks/saved03/source/source_checks_fixed/publication_gates_optimized.log.gz",
+    "source_sha256": "53f872ecacda7d94c6a87a4975489fa89fbae00e9907467685863612690f0dcd",
+    "destination_sha256": "fd488d84ab8cba3264ea225461776c38ead5f10e884eff008581a158cf840c7a",
+    "gzip_original_verified": true
+  }
+]

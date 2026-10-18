@@ -45,6 +45,10 @@ class PaperOdometryNode : public rclcpp::Node {
       p.bilinear_sampling = declare_parameter("bilinear_sampling", p.bilinear_sampling);
       p.normalize_bilinear = declare_parameter("normalize_bilinear", p.normalize_bilinear);
       p.initialize_identity = declare_parameter("initialize_identity", p.initialize_identity);
+      p.degenerate_ratio = declare_parameter("degenerate_ratio", p.degenerate_ratio);
+      p.coarse_frames = declare_parameter("coarse_frames", p.coarse_frames);
+      p.coarse_iterations = declare_parameter("coarse_iterations", p.coarse_iterations);
+      p.coarse_distance_scale = declare_parameter("coarse_distance_scale", p.coarse_distance_scale);
       p.fallback_mode = declare_parameter("fallback_mode", p.fallback_mode);
       p.fallback_max_distance = declare_parameter("fallback_max_distance", p.fallback_max_distance);
       p.fallback_max_angle_deg = declare_parameter("fallback_max_angle_deg", p.fallback_max_angle_deg);

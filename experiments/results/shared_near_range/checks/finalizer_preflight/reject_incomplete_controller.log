@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/workspace/localization_zoo/experiments/results/shared_near_range/finish_when_complete.py", line 84, in main
+    raise RuntimeError('Study is incomplete; no finalization writes were made.')
+RuntimeError: Study is incomplete; no finalization writes were made.

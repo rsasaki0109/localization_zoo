@@ -1,0 +1,8 @@
+{
+  "original_log": "branch_whitespace_after_native_log_attribute.log",
+  "archive": "branch_whitespace_after_native_log_attribute.log.gz",
+  "raw_sha256": "5786a846b2d3b5b6a8d217a5f61e5bd5f641ef898f1b297cdce6fe5475334082",
+  "exit_receipt": "branch_whitespace_after_native_log_attribute_command.json",
+  "exit_code": 2,
+  "reason": "Second check found fixture native stdout padding too; preserve exact failure output."
+}

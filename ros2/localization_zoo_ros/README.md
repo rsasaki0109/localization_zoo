@@ -47,6 +47,12 @@ ros2 run localization_zoo_ros imls_slam_paper_node --ros-args \
   -r points_raw:=/lidar/points -p coarse_frames:=1 -p publish_tf:=false
 ```
 
+SuMa also exposes the shared `degenerate_ratio`, `coarse_frames`,
+`coarse_iterations` and `coarse_distance_scale` parameters. Remapping and coarse
+startup retain their disabled native defaults. Their transfer evaluations and
+limitations are documented in the SuMa README; enabling them is an explicit
+non-paper choice.
+
 For LiTAMIN2, `map_mode` accepts `aggregate`, `first` or `latest`. The launch
 also accepts `points_topic`, `odom_topic`, `map_frame_id`, `publish_tf`,
 `use_sim_time`, `input_reliability` and an optional `params_file`. It preserves native defaults,

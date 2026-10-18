@@ -135,7 +135,7 @@ pcd_dogfooding <seq_pcd_dir> <seq_gt_csv> \
 差の大半は「疎なボクセル地図」と「補正なし」の 2 点で説明できる。窓 10 → 100 の差は論文
 Table IV (n = 10: 0.56 %, n = 100: 0.55 %) と同じく小さい。
 
-### KITTI 00-10 (値は 07 で選択、ほかのシーケンスは評価にだけ使用)
+### KITTI 00-10 (通常設定の選択は 07、粗い初期段の導入は 04)
 
 窓 100 の設定を 00-10 で走らせると、04 だけが 11.93 % (36x) で崩れる。04 は最初のスキャンで
 既に 1.3 m/scan で走っており、等速予測はゼロから始まる。サンプルはモデル点が r = 0.2 m 以内に
@@ -143,6 +143,21 @@ Table IV (n = 10: 0.56 %, n = 100: 0.55 %) と同じく小さい。
 (進行方向を横切る面) が飛ばされ、推定はおよそ 60 スキャン短いままになる。最初の 1 回の
 位置合わせだけ粗い段 (r = 1.0 m, h = 0.3 m, 10 反復) を先に入れると (論文にはない、
 `--imls-slam-paper-coarse-frames 1`) 04 は 0.425 % になる (1 / 3 / 10 フレームで同じ)。
+この初期段の実行順序・登録回数の制御は `common/initial_registration.h` に移し、
+SuMa と共有した。IMLS の半径・帯域幅・反復数・対応付けと更新順序は維持し、
+SuMa は自身のソルバーを使う。粗い段は論文にはなく、既定オフのままである。
+通常設定は 07、粗い初期段の導入は 04 の失敗を見て決めたので、04 は取り置き評価ではない。
+[共通化の監査と SuMa 転用実験](../../experiments/results/shared_coarse_start/README.md)
+は別に記録し、以下の既存結果は更新しない。
+
+<!-- SHARED_COARSE_AUDIT:START -->
+00–10 の既存採用セルを IMLS-SLAM・SuMa 各 11 件、計 22 件照合し、RPE・ATE・
+フレーム数・公式並進／回転 RTE の差はすべて 0 だった
+([全監査集計](../../experiments/results/shared_coarse_start/report/summary.json))。
+共通化前の固定バイナリとの full 04 比較も記録した
+([比較](../../experiments/results/shared_coarse_start/sequences/04/frozen_comparison.json))。
+監査対象は初期段ヘルパーを使うこの 2 手法であり、全手法の再実行ではない。
+<!-- SHARED_COARSE_AUDIT:END -->
 00 / 07 は変わらない。`experiments/imls_slam_kitti_seq_NN_full_paper_comp_matrix.json`、
 公式 RTE [%]:
 

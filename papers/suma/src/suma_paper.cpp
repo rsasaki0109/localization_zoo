@@ -1,4 +1,6 @@
 #include "suma/suma_paper.h"
+#include "common/degeneracy.h"
+#include "common/initial_registration.h"
 
 #include <Eigen/Cholesky>
 
@@ -360,6 +362,15 @@ Eigen::Matrix4d SuMaPaper::alignProjective(const VertexNormalMap& data,
                                            const Eigen::Matrix4d& initial,
                                            double max_distance, double max_angle_deg,
                                            IcpStats* stats) const {
+  return alignProjectiveStage(data, model, initial, max_distance, max_angle_deg,
+                              params_.max_iterations, stats);
+}
+
+Eigen::Matrix4d SuMaPaper::alignProjectiveStage(const VertexNormalMap& data,
+                                               const VertexNormalMap& model,
+                                               const Eigen::Matrix4d& initial,
+                                               double max_distance, double max_angle_deg,
+                                               int max_iterations, IcpStats* stats) const {
   Eigen::Matrix4d T = initial;
   const double cos_max_angle = std::cos(deg2rad(max_angle_deg));
   double last_error = std::numeric_limits<float>::max();
@@ -367,11 +378,13 @@ Eigen::Matrix4d SuMaPaper::alignProjective(const VertexNormalMap& data,
   eq.JtJ.setZero();
   eq.Jtf.setZero();
   int iterations = 0;
-  for (int k = 0; k < params_.max_iterations; ++k) {
+  for (int k = 0; k < max_iterations; ++k) {
     accumulate(data, model, T, max_distance, cos_max_angle, &eq);
     if (eq.inliers < 6) break;
-    const Eigen::Matrix<double, 6, 1> dx = eq.JtJ.ldlt().solve(-eq.Jtf);
+    Eigen::Matrix<double, 6, 1> dx = eq.JtJ.ldlt().solve(-eq.Jtf);
     if (!dx.allFinite()) break;
+    if (params_.degenerate_ratio > 0.0)
+      math::remapDegenerateTranslation(eq.JtJ.topLeftCorner<3, 3>(), params_.degenerate_ratio, dx.head<3>());
     bool converged = false;
     if (dx.lpNorm<Eigen::Infinity>() < params_.stop_delta) converged = true;
     if (std::abs(eq.Jtf.maxCoeff()) < params_.stop_epsilon) converged = true;
@@ -567,8 +580,19 @@ SuMaPaperResult SuMaPaper::process(const std::vector<Eigen::Vector3d>& points) {
     const Eigen::Matrix4d T0 =
         params_.initialize_identity ? Eigen::Matrix4d::Identity() : last_increment_;
     IcpStats stats;
-    increment = alignProjective(data, model_, T0, params_.icp_max_distance,
-                                params_.icp_max_angle_deg, &stats);
+    Eigen::Matrix4d initial = T0;
+    increment = registration::initialCoarseThenFine(
+        timestamp_, params_.coarse_frames, params_.coarse_iterations,
+        [&](int iterations) {
+          IcpStats coarse_stats;
+          initial = alignProjectiveStage(data, model_, initial,
+              params_.icp_max_distance * params_.coarse_distance_scale,
+              params_.icp_max_angle_deg, iterations, &coarse_stats);
+          result.coarse_iterations = coarse_stats.iterations;
+        },
+        [&]() { return alignProjective(data, model_, initial, params_.icp_max_distance,
+                                       params_.icp_max_angle_deg, &stats); },
+        &result.coarse_start);
     const Eigen::Matrix4d delta = last_increment_.inverse() * increment;
     const double t_err = delta.block<3, 1>(0, 3).norm();
     const double c = std::clamp(0.5 * (delta.topLeftCorner<3, 3>().trace() - 1.0), -1.0, 1.0);

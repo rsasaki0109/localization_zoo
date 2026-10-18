@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-coarse-start/baseline_pcd_dogfooding",
+    "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke",
+    "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke_gt.csv",
+    "--methods",
+    "suma",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/wrapper_validation/suma_raw/baseline_wrapped/summary.json",
+    "--no-gt-seed",
+    "--suma-paper"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_coarse_start/wrapper_validation/suma_raw/baseline_wrapped/summary_native",
+  "binary_sha256": "373c3213abf556cd0eade81818269df3c9c3a05133599baabe205344d245a819",
+  "started_unix": 1792208942.4998586,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792208942.9575286
+}

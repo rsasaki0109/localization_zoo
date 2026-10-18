@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/SuMa.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary.json",
+    "--method",
+    "SuMa",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/early/02/candidate_drift.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "input_commit": "f024e937d0ddb4dd5ba95fd9245f42061a52c2c6",
+  "committed_input_sha256": {
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary.json": "1d0365e14a295676ee5b1da0aed2fc08295e0663a58cdd7e16196629e749f150",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_02_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/SuMa.txt": "d9957b142b375d83a7dec6291b54e38b5e34a32ad7618adcc94e3108963347ee"
+  },
+  "started_unix": 1792224286.627858,
+  "finished_unix": 1792224290.170972,
+  "actual_exit_code": 0
+}

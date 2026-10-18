@@ -73,7 +73,8 @@ def primary_result(summary: dict[str, Any], primary_method: str) -> dict[str, An
     raise KeyError(primary_method)
 
 
-def rescore_row(row: dict[str, str], args: argparse.Namespace) -> dict[str, Any]:
+def replay_command(row: dict[str, str], args: argparse.Namespace) -> list[str]:
+    """Build the exact replay argv, also used by the drift audit's receipts."""
     aggregate_path = row["repo_best_aggregate"]
     aggregate = json.loads((REPO_ROOT / aggregate_path).read_text())
     variant = find_variant(aggregate, row["repo_best_variant"])
@@ -81,7 +82,7 @@ def rescore_row(row: dict[str, str], args: argparse.Namespace) -> dict[str, Any]
     pcd_dir = args.data_root / dataset["pcd_dir"]
     gt_csv = REPO_ROOT / dataset["gt_csv"]
     summary_path = args.work_dir / f"{Path(aggregate_path).stem}__{variant['id']}.json"
-    command = [
+    return [
         str(args.binary),
         str(pcd_dir),
         str(gt_csv),
@@ -93,7 +94,15 @@ def rescore_row(row: dict[str, str], args: argparse.Namespace) -> dict[str, Any]
         *variant["args"],
         *getattr(args, "extra_arg", []),
     ]
-    subprocess.run(command, cwd=REPO_ROOT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+
+
+def rescore_row(row: dict[str, str], args: argparse.Namespace) -> dict[str, Any]:
+    aggregate_path = row["repo_best_aggregate"]
+    aggregate = json.loads((REPO_ROOT / aggregate_path).read_text())
+    variant = find_variant(aggregate, row["repo_best_variant"])
+    summary_path = args.work_dir / f"{Path(aggregate_path).stem}__{variant['id']}.json"
+    subprocess.run(replay_command(row, args), cwd=REPO_ROOT, check=True,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     result = primary_result(
         json.loads(summary_path.read_text()), str(aggregate["stable_interface"]["primary_method"])
     )

@@ -1,0 +1,36 @@
+{
+  "failed_status": {
+    "exit_code": 1,
+    "error": "fetch failed after bounded retries; all failed receipts retained",
+    "sequence": "00"
+  },
+  "failed_active_state": {
+    "source_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+    "status": "failed",
+    "sequence": "00",
+    "runners": {},
+    "completed": [
+      "04",
+      "01"
+    ],
+    "last_commit": "a02173655f0ecf79c3d69c01483fecc5c5791e31",
+    "error": "fetch failed after bounded retries; all failed receipts retained"
+  },
+  "launcher": {
+    "pid": 66143,
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "started_unix": 1792209178.7059226,
+    "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+    "controller_checkout_commit": "cb3c90b80d8ddfbff6a0070b2020b8e4b2ee01f2",
+    "scope": "Fixed coarse-stage settings on full00-10, affectedIMLS/SuMaaudit22. One sequence of scans at a time. Defaults unchanged; no speed or paper-ratio claim."
+  },
+  "recorded_at_unix": 1792212286.72945,
+  "controller_confirmed_not_running": true,
+  "retained_complete_bins": 4502,
+  "retained_complete_bin_bytes": 8751201760,
+  "scope": "Official HTTP Range EOF errors before native00 artifacts. Fixed native source/binaries/settings unchanged. No method result failure."
+}

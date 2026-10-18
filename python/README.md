@@ -97,7 +97,11 @@ and `Litamin2OdometryParams`. They mirror the native C++ fields and defaults;
 pass the parameters at construction. The LiTAMIN2 field `lambda` is named
 `lambda_` in Python; `map_mode` uses `Litamin2MapMode.AGGREGATE`, `FIRST` or
 `LATEST`. Existing opt-in corrections stay disabled by default, including
-SuMa `normalize_bilinear`, IMLS `coarse_frames` and DiLO `degenerate_ratio`.
+SuMa `normalize_bilinear`, SuMa/DiLO `degenerate_ratio` and SuMa/IMLS
+`coarse_frames`. SuMa also exposes `coarse_iterations` and
+`coarse_distance_scale`; its result reports `coarse_start` and the iterations
+actually used in that stage. These non-paper options require explicit selection;
+their KITTI transfer results and limitations remain in the method READMEs.
 
 Run each example on the committed point-cloud fixture, or replace the scan
 directory with stored PCD/KITTI XYZI scans:

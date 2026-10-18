@@ -65,6 +65,8 @@ def verified_current() -> set[tuple[str, str]]:
         if not path.is_file():
             continue
         for row in json.loads(path.read_text()).get("rows", []):
+            if row.get("drifted") or row.get("audit_status", "ok") != "ok":
+                continue
             delta = row.get("rerun_rpe_abs_delta")
             if not row.get("rescore_extra_args") and isinstance(delta, (int, float)) and delta <= 1e-9:
                 verified.add((Path(row["aggregate_path"]).name, str(row["variant_id"])))

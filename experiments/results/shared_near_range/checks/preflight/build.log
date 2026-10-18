@@ -1,0 +1,4 @@
+[1/4] Building CXX object common/CMakeFiles/test_range_filter.dir/test/test_range_filter.cpp.o
+[2/4] Linking CXX executable common/test_range_filter
+[3/4] Building CXX object evaluation/CMakeFiles/pcd_dogfooding.dir/src/pcd_dogfooding.cpp.o
+[4/4] Linking CXX executable evaluation/pcd_dogfooding

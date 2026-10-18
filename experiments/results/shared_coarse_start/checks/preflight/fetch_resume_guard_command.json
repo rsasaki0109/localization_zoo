@@ -1,0 +1,17 @@
+{
+  "label": "fetch_resume_guard",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/run_all.py",
+    "--resume-from",
+    "04",
+    "--check-resume-only"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "checkout_commit": "5887b4ac6cca75bf768cd7436433ae3cf6df7a19",
+  "started_unix": 1792208941.5524836,
+  "finished_unix": 1792208941.8921752,
+  "expected_exit_code": 0,
+  "exit_code": 0
+}

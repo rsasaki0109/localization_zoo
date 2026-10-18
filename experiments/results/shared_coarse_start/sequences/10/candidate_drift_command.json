@@ -1,0 +1,22 @@
+{
+  "label": "candidate_drift",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_10_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/SuMa.txt",
+    "--gt",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_10_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native/dogfooding_results/kitti_seq_10_full_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_10_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary.json",
+    "--method",
+    "SuMa",
+    "--output",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/10/candidate_drift.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "started_unix": 1792247682.7198822,
+  "finished_unix": 1792247683.4987803,
+  "exit_code": 0
+}

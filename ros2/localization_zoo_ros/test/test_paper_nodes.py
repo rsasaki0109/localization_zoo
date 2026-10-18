@@ -76,6 +76,7 @@ class PaperNodes(unittest.TestCase):
         real_scans = load_scans(ROOT / 'evaluation/fixtures/mcd_kth_smoke')
         cases = [(method, method, real_scans) for method in METHODS]
         cases.append(('dilo_synthetic', 'dilo_paper', moving_room_scans()))
+        cases.append(('suma_shared_optins', 'suma_paper', real_scans))
         with tempfile.TemporaryDirectory() as directory:
             for case, method, scans in cases:
                 paths = []
@@ -84,7 +85,9 @@ class PaperNodes(unittest.TestCase):
                     scan.astype('<f8').tofile(path)
                     paths.append(str(path))
                 with self.subTest(method=method, fixture=case):
-                    expected = subprocess.run([str(ARGS.reference), method, *paths],
+                    reference_method = ('suma_paper_shared_optins'
+                                        if case == 'suma_shared_optins' else method)
+                    expected = subprocess.run([str(ARGS.reference), reference_method, *paths],
                                               check=True, capture_output=True, text=True)
                     reference = np.loadtxt(io.StringIO(expected.stdout), delimiter=',', ndmin=2)
                     if case == 'dilo_synthetic':
@@ -108,6 +111,9 @@ class PaperNodes(unittest.TestCase):
                                '-r', f'__ns:={namespace}', '-r', f'points_raw:={namespace}/points',
                                '-r', f'odom:={namespace}/odom', '-p', 'map_frame_id:=fixture_world',
                                '-p', 'input_reliability:=reliable']
+                    if case == 'suma_shared_optins':
+                        command += ['-p', 'degenerate_ratio:=0.03', '-p', 'coarse_frames:=1',
+                                    '-p', 'coarse_iterations:=10', '-p', 'coarse_distance_scale:=5.0']
                     log_path = Path(directory) / f'{case}.log'
                     with log_path.open('w') as log:
                         child = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT)

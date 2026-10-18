@@ -1,0 +1,24 @@
+[
+  {
+    "method": "suma",
+    "equal_metrics": {
+      "status": true,
+      "frames": true,
+      "ate_m": true,
+      "rpe_trans_pct": true,
+      "kitti_rte_trans_pct": true
+    },
+    "saved_pose_bytes_equal": true
+  },
+  {
+    "method": "dilo",
+    "equal_metrics": {
+      "status": true,
+      "frames": true,
+      "ate_m": true,
+      "rpe_trans_pct": true,
+      "kitti_rte_trans_pct": true
+    },
+    "saved_pose_bytes_equal": true
+  }
+]

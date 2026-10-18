@@ -1,0 +1,56 @@
+{
+  "active_state": {
+    "source_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+    "status": "failed",
+    "sequence": "06",
+    "runners": {},
+    "completed": [
+      "01",
+      "00",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "resume_from": "03",
+    "checkpoint_revision": "954e660953801564b2239aba47d349eaaeb65402",
+    "last_commit": "66a2e0f871387bbfc2f081d0d43d89f85f02a1ec",
+    "error": "fetch failed after bounded retries; all failed receipts retained"
+  },
+  "exit_receipt": {
+    "exit_code": 1,
+    "error": "fetch failed after bounded retries; all failed receipts retained",
+    "sequence": "06"
+  },
+  "controller_launcher": {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/run_all.py",
+      "--resume-from",
+      "03"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "pid": 57438,
+    "started_unix": 1792196953.8860602,
+    "controller_commit": "954e660953801564b2239aba47d349eaaeb65402",
+    "implementation_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+    "native_identity_command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+      "--",
+      "common",
+      "evaluation/src",
+      "papers/*/src",
+      "papers/*/include",
+      "papers/*/test",
+      "papers/*/CMakeLists.txt",
+      "ros2/localization_zoo_ros/CMakeLists.txt"
+    ],
+    "native_identity_exit_code": 0,
+    "completion_receipt": "/workspace/localization-env/shared-remap/run_exit.json"
+  },
+  "retained_scan_count": 1056,
+  "recovery": "Continue only fetch06; complete00-05andtheircleanuparecommitted. Keepfailedattempts and CRC-checkedfiles; no native06 artifacts exist. Same native binary/settings."
+}

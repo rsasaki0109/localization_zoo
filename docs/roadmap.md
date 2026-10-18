@@ -172,6 +172,11 @@ independent. Each item says what "done" means.
    `evaluation/scripts/audit_kitti_drift.py`, which re-runs the README
    leaderboard's KITTI cells
    ([last audit](../experiments/results/kitti_drift_audit.json)).
+   - [Sequence-at-a-time audit procedure](kitti_drift_audit.md): inspect cells
+     with `--list`, select with `--sequence`, and keep each report with its
+     replay logs. Filtered audits require an explicit output path. Drift and
+     replay failure return nonzero exit codes; RPE, ATE and frame count are
+     checked. This tooling update does not constitute a new full KITTI audit.
    - Done: the audit shows no drift, or the drift is documented.
 
 ### Phase 2: usability
@@ -216,6 +221,53 @@ independent. Each item says what "done" means.
      ELO and DiLO on NCLT.
    - Done: one implementation each with tests, used by at least two methods,
      defaults unchanged.
+   - First component implemented and evaluated in [PR #135](https://github.com/rsasaki0109/localization_zoo/pull/135):
+     the DiLO translation remap is an Eigen-only helper used by DiLO and
+     opt-in SuMa, with mechanism and integration tests. The fixed value 0.03,
+     transferred from the existing DiLO 01 selection without SuMa tuning, was
+     run on full KITTI 00-10. SuMa 01 worsens from official RTE 13.792690% to
+     95.257580%; this transfer is rejected as a general setting and defaults
+     stay off. The method README retains every sequence and its negative
+     diagnostics. All 22 affected existing DiLO/SuMa cells match RPE, ATE,
+     frame count and official translation/rotation RTE.
+     [Protocol, committed results and commands](../experiments/results/shared_degeneracy_remap/README.md).
+     Near-range sharing and NCLT progress are tracked below.
+   - Second component implemented and evaluated in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136):
+     IMLS-SLAM and opt-in SuMa share the initial coarse/fine stage policy.
+     Per-method correspondences, residuals and numerical stopping remain local;
+     this is not a shared numerical aligner. The fixed budget and distance scale
+     derive from the existing IMLS 04 choice without a SuMa sweep. Full KITTI
+     00-10 paired results and saved-pose diagnostics are committed, including
+     every negative pair. SuMa 01 RTE changes from 13.792690%
+     to 10.686955%, but ATE remains 150.500523 m
+     and later drift remains. No setting is reselected and defaults stay off.
+     All 22 affected existing cells match
+     RPE, ATE, frame count and official translation/rotation RTE.
+     [Protocol, completed results and commands](../experiments/results/shared_coarse_start/README.md).
+     Near-range sharing and NCLT progress are tracked below.
+   - Third component implemented: the runner's opt-in sensor-frame near-range
+     cut now lives in `common/range_filter.h`, used by ELO and DiLO through
+     their shared loader and by intensity-preserving loaders. Float arithmetic,
+     strict boundary, processing order and zero/off default remain unchanged;
+     standalone method libraries do not apply it automatically.
+     Whole-zoo KITTI replay is in progress: full 04 covers all 14 selected cells,
+     with 12 matching the stored metrics. CT-ICP and Mesh-LOAM differ from the
+     historical values, but the frozen pre-extraction executable reproduces
+     both differences with identical saved poses; their causes remain open
+     and their method READMEs retain the values. The historical audit exits 1,
+     not a clean pass. Full 00's 20 candidate runs also finish: 15 match;
+     A-LOAM, F-LOAM, LeGO-LOAM, Mesh-LOAM and VLOM differ, with RPE worsening
+     on all five. Their numeric pairs are retained in the method READMEs;
+     A-LOAM, F-LOAM and LeGO-LOAM's frozen pre-extraction controls now finish
+     with zero metric differences and byte-identical saved poses, so their
+     historical differences predate extraction. Mesh-LOAM/VLOM comparisons
+     and input cleanup are still in progress.
+     00 is not yet a completed sequence checkpoint. The historical NCLT cutoff is retained
+     without reselection. DiLO's historical cut/uncut profiles also differ in
+     range-image geometry, so their RTE difference cannot isolate the cut's
+     effect; its ATE worsens from 54.344593 to 75.832748 m. Real NCLT validation
+     remains blocked by the enforced official-host allowlist.
+     [Protocol, scope and execution records](../experiments/results/shared_near_range/README.md).
 7. **Completed: paper-pipeline bindings and ROS 2 nodes.** Python now exposes
    SuMa frame-to-model, IMLS-SLAM raw-scan model, DiLO range-image and LiTAMIN2
    Gaussian-map odometry, alongside the existing registration bindings.

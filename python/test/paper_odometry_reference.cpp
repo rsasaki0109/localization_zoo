@@ -29,7 +29,17 @@ int main(int argc, char** argv) {
   try {
     if (argc < 3) throw std::runtime_error("usage: paper_odometry_reference METHOD SCAN.f64 ...");
     const std::string method = argv[1];
-    suma::SuMaPaper suma;
+    // Exercise the already-evaluated opt-ins at their transferred settings;
+    // this fixture checks interface parity, without selecting an accuracy value.
+    const bool suma_shared = method == "suma_paper_shared_optins";
+    suma::SuMaPaperParams suma_params;
+    if (suma_shared) {
+      suma_params.degenerate_ratio = 0.03;
+      suma_params.coarse_frames = 1;
+      suma_params.coarse_iterations = 10;
+      suma_params.coarse_distance_scale = 5.0;
+    }
+    suma::SuMaPaper suma(suma_params);
     imls_slam::ImlsPaperOdometry imls;
     dilo::DiloPaperOdometry dilo;
     litamin2::LiTAMIN2Odometry litamin;
@@ -39,9 +49,12 @@ int main(int argc, char** argv) {
       Eigen::Matrix4d pose;
       size_t state = 0;
       int support = 0;
-      if (method == "suma_paper") {
+      bool coarse_start = false;
+      int coarse_iterations = 0;
+      if (method == "suma_paper" || suma_shared) {
         const auto result = suma.process(scan);
         pose = result.pose; state = result.num_surfels; support = result.inliers;
+        coarse_start = result.coarse_start; coarse_iterations = result.coarse_iterations;
       } else if (method == "imls_slam_paper") {
         const auto result = imls.process(scan);
         pose = result.pose; state = result.model_points; support = result.samples;
@@ -56,7 +69,9 @@ int main(int argc, char** argv) {
       }
       for (int row = 0; row < 4; ++row)
         for (int col = 0; col < 4; ++col) std::cout << pose(row, col) << ',';
-      std::cout << state << ',' << support << '\n';
+      std::cout << state << ',' << support;
+      if (suma_shared) std::cout << ',' << coarse_start << ',' << coarse_iterations;
+      std::cout << '\n';
     }
   } catch (const std::exception& error) {
     std::cerr << error.what() << '\n';

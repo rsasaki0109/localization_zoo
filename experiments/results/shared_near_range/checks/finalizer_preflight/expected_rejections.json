@@ -1,0 +1,19 @@
+{
+  "expected_cases": {
+    "reject_cleaned_partial": {
+      "exit_code": 2,
+      "message": "Incomplete cell count."
+    },
+    "reject_primary_only": {
+      "exit_code": 2,
+      "message": "Wrong native source."
+    },
+    "reject_incomplete_controller": {
+      "exit_code": 1,
+      "message": "Study is incomplete; no finalization writes were made."
+    }
+  },
+  "actual_messages_and_exits_match": true,
+  "scope": "Expected rejection cases; not failed benchmarks or completion claims.",
+  "exit_code": 0
+}

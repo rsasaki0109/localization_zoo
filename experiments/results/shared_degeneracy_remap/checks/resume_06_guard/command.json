@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "experiments/results/shared_degeneracy_remap/run_all.py",
+    "--resume-from",
+    "06",
+    "--check-resume-only"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792199727.8715963,
+  "finished_unix": 1792199728.200137,
+  "expected_exit_code": 0,
+  "actual_exit_code": 0
+}

@@ -1,0 +1,7 @@
+{
+  "checkout_commit": "14cfe450b55cb495190140e1f1fcb2c4119c43c7",
+  "native_implementation_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+  "binary": "/workspace/localization-env/shared-coarse-start/baseline_pcd_dogfooding",
+  "sha256": "373c3213abf556cd0eade81818269df3c9c3a05133599baabe205344d245a819",
+  "provenance": "Frozen executable from prior shared-remap study; source identity at base14c verified by prior final preservation receipt."
+}

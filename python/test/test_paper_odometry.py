@@ -109,8 +109,47 @@ class PaperBindings(unittest.TestCase):
                 pose, _, _ = process(odometry, method, self.scans[0][1])
                 np.testing.assert_array_equal(pose, np.eye(4))
 
+    def test_suma_shared_opt_ins_match_native_and_expire(self):
+        params = lz.SumaPaperParams()
+        params.degenerate_ratio = 0.03
+        params.coarse_frames = 1
+        params.coarse_iterations = 10
+        params.coarse_distance_scale = 5.0
+        with tempfile.TemporaryDirectory() as directory:
+            paths = []
+            for i, (_, scan) in enumerate(self.scans):
+                path = Path(directory) / f'{i}.f64'
+                scan.astype('<f8').tofile(path)
+                paths.append(str(path))
+            completed = subprocess.run(
+                [str(ARGS.reference), 'suma_paper_shared_optins', *paths],
+                check=True, capture_output=True, text=True)
+            reference = np.loadtxt(io.StringIO(completed.stdout), delimiter=',', ndmin=2)
+            odometry = lz.SumaPaper(params)
+            rows = []
+            for _, scan in self.scans:
+                result = odometry.process(scan)
+                rows.append([*result.pose.reshape(-1), result.num_surfels, result.inliers,
+                             result.coarse_start, result.coarse_iterations])
+            actual = np.asarray(rows)
+            np.testing.assert_allclose(actual, reference, rtol=0, atol=1e-12)
+            np.testing.assert_array_equal(actual[:, 18], [False, True, False])
+            self.assertGreater(actual[1, 19], 0)
+            self.assertLessEqual(actual[1, 19], params.coarse_iterations)
+            self.reports['suma_shared_optins'] = {
+                'frames': len(rows),
+                'max_abs_pose_delta': float(np.max(np.abs(actual[:, :16] - reference[:, :16]))),
+                'diagnostics_equal': bool(np.array_equal(actual[:, 16:], reference[:, 16:])),
+                'coarse_start': actual[:, 18].astype(bool).tolist(),
+                'coarse_iterations': actual[:, 19].astype(int).tolist(),
+                'python_poses': actual[:, :16].tolist(),
+                'native_poses': reference[:, :16].tolist(),
+            }
+
     def test_existing_opt_in_defaults_and_enum_roundtrip(self):
         self.assertFalse(lz.SumaPaperParams().normalize_bilinear)
+        self.assertEqual(lz.SumaPaperParams().degenerate_ratio, 0)
+        self.assertEqual(lz.SumaPaperParams().coarse_frames, 0)
         self.assertEqual(lz.ImlsPaperParams().coarse_frames, 0)
         self.assertEqual(lz.DiloPaperParams().degenerate_ratio, 0)
         params = lz.Litamin2OdometryParams()

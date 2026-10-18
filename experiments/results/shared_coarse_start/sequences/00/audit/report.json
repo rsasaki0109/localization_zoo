@@ -1,0 +1,118 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-17T06:46:09+00:00",
+  "purpose": "Selected stored full-sequence KITTI cells re-run with the current code",
+  "concurrent_jobs": 2,
+  "scope": {
+    "methods": [
+      "IMLS-SLAM",
+      "SuMa"
+    ],
+    "sequences": [
+      "00"
+    ],
+    "selected_cell_count": 2,
+    "filtered": true
+  },
+  "metric_absolute_tolerance": 1e-06,
+  "binary_sha256": "23ea48658713250703c1a1937abeb8866149e2093ce508976eea98c22c3dc467",
+  "exit_code": 0,
+  "host": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cores": 5,
+    "memory_gib": 17.6,
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.18.44",
+    "architecture": "x86_64"
+  },
+  "rows": [
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "00",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_w100",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/imls_slam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_w100.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/imls_slam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_w100.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_00_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_00_full_gt.csv",
+        "--methods",
+        "imls_slam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/imls_slam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_w100.json",
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "kitti_rte_trans_pct": 0.523102,
+      "kitti_rte_rot_deg_per_100m": 0.190534,
+      "fps": 0.635196,
+      "stored_rpe_trans_pct": 0.791743,
+      "rerun_rpe_trans_pct": 0.791743,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 7.122935,
+      "rerun_ate_m": 7.122935,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 4541,
+      "frames": 4541,
+      "drift_metrics": []
+    },
+    {
+      "method": "SuMa",
+      "sequence": "00",
+      "aggregate_path": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json",
+      "variant_id": "paper_odometry",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/suma_kitti_seq_00_full_transfer_matrix__paper_odometry.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/suma_kitti_seq_00_full_transfer_matrix__paper_odometry.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_00_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_00_full_gt.csv",
+        "--methods",
+        "suma",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/00/audit/replays/suma_kitti_seq_00_full_transfer_matrix__paper_odometry.json",
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "kitti_rte_trans_pct": 0.697236,
+      "kitti_rte_rot_deg_per_100m": 0.27652,
+      "fps": 1.457747,
+      "stored_rpe_trans_pct": 0.815476,
+      "rerun_rpe_trans_pct": 0.815476,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 8.196443,
+      "rerun_ate_m": 8.196443,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 4541,
+      "frames": 4541,
+      "drift_metrics": []
+    }
+  ]
+}

@@ -1,0 +1,755 @@
+{
+  "schema_version": 1,
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/summarize_results.py",
+    "--allow-partial",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_coarse_start/checks/reporting_01_04/report"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "generated_at": "2026-10-17T04:37:20.771455+00:00",
+  "input_commit": "a02173655f0ecf79c3d69c01483fecc5c5791e31",
+  "script_sha256": "a6c093964a97f2d0f5a97f1f3a0cb4e9f0dd2e5bde6ee6c67e71dbf21c607e03",
+  "implementation_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "fixed_arguments": [
+    "--no-gt-seed",
+    "--suma-paper",
+    "--suma-paper-set",
+    "coarse_frames=1",
+    "--suma-paper-set",
+    "coarse_distance_scale=5",
+    "--suma-paper-set",
+    "coarse_iterations=10"
+  ],
+  "complete": false,
+  "missing_sequences": [
+    "00",
+    "02",
+    "03",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "scope": "Non-paper fixed-setting transfer, no paper ratio or speed claim",
+  "diagnostic_block_selection": {
+    "candidate_worst_blocks": "Largest finite relative endpoint translation errors among blocks with moving steps.",
+    "largest_error_growth_blocks": "Largest positive end-minus-start pointwise position-error increases, including stationary blocks; no alignment fit or rescaling.",
+    "scope": "Blocks retain GT travel distance and frame bounds. Both rankings are diagnostic only, not official KITTI RTE."
+  },
+  "rows": [
+    {
+      "sequence": "01",
+      "frames": 1101,
+      "control_rte_pct": 13.79269,
+      "candidate_rte_pct": 10.686955,
+      "rte_difference_pp": -3.105735000000001,
+      "control_ate_m": 175.82676,
+      "candidate_ate_m": 150.500523,
+      "control_path_length_ratio": 1.1360072569557829,
+      "candidate_path_length_ratio": 1.1028287653199114,
+      "control_bad_length_steps": 134,
+      "candidate_bad_length_steps": 113,
+      "control_bad_vector_steps": 135,
+      "candidate_bad_vector_steps": 113,
+      "candidate_moving_steps": 1100,
+      "control_bad_length_ranges": [
+        [
+          493,
+          519
+        ],
+        [
+          771,
+          771
+        ],
+        [
+          773,
+          773
+        ],
+        [
+          817,
+          906
+        ],
+        [
+          908,
+          912
+        ],
+        [
+          914,
+          914
+        ],
+        [
+          950,
+          953
+        ],
+        [
+          1058,
+          1061
+        ],
+        [
+          1064,
+          1064
+        ]
+      ],
+      "candidate_bad_length_ranges": [
+        [
+          480,
+          488
+        ],
+        [
+          490,
+          517
+        ],
+        [
+          786,
+          786
+        ],
+        [
+          809,
+          809
+        ],
+        [
+          823,
+          896
+        ]
+      ],
+      "control_largest_error_growth_blocks": [
+        {
+          "first_pose_frame": 800,
+          "last_pose_frame": 900,
+          "gt_distance_m": 193.1232215063937,
+          "path_length_ratio": 2.4622074769730142,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 2.1385673253284367,
+          "steps_length_off_over_threshold": 84,
+          "steps_vector_off_over_threshold": 84,
+          "position_error_start_m": 138.02286428766124,
+          "position_error_end_m": 375.0111335219466,
+          "block_relative_translation_error_pct": 146.3603581458169,
+          "block_relative_rotation_error_deg_per_100m": 3.039971719434783,
+          "position_error_increase_m": 236.98826923428535
+        },
+        {
+          "first_pose_frame": 500,
+          "last_pose_frame": 600,
+          "gt_distance_m": 256.64478978236457,
+          "path_length_ratio": 1.1027552244004635,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.011623766796558,
+          "steps_length_off_over_threshold": 19,
+          "steps_vector_off_over_threshold": 19,
+          "position_error_start_m": 43.15910728398784,
+          "position_error_end_m": 76.7975913400665,
+          "block_relative_translation_error_pct": 10.426570480380212,
+          "block_relative_rotation_error_deg_per_100m": 0.7752455657009407,
+          "position_error_increase_m": 33.63848405607867
+        },
+        {
+          "first_pose_frame": 700,
+          "last_pose_frame": 800,
+          "gt_distance_m": 248.26250962757283,
+          "path_length_ratio": 1.0211583647539586,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.0210522440870462,
+          "steps_length_off_over_threshold": 2,
+          "steps_vector_off_over_threshold": 2,
+          "position_error_start_m": 105.33517304582658,
+          "position_error_end_m": 138.02286428766124,
+          "block_relative_translation_error_pct": 2.2657065365181666,
+          "block_relative_rotation_error_deg_per_100m": 0.30435176670201003,
+          "position_error_increase_m": 32.687691241834656
+        }
+      ],
+      "candidate_largest_error_growth_blocks": [
+        {
+          "first_pose_frame": 800,
+          "last_pose_frame": 900,
+          "gt_distance_m": 193.1232215063937,
+          "path_length_ratio": 1.955392502290173,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.874364720245914,
+          "steps_length_off_over_threshold": 75,
+          "steps_vector_off_over_threshold": 75,
+          "position_error_start_m": 146.81632002665975,
+          "position_error_end_m": 307.06441487082105,
+          "block_relative_translation_error_pct": 95.28425624243383,
+          "block_relative_rotation_error_deg_per_100m": 3.6116593829056063,
+          "position_error_increase_m": 160.2480948441613
+        },
+        {
+          "first_pose_frame": 500,
+          "last_pose_frame": 600,
+          "gt_distance_m": 256.64478978236457,
+          "path_length_ratio": 1.1357536211486052,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.006174653038459,
+          "steps_length_off_over_threshold": 17,
+          "steps_vector_off_over_threshold": 17,
+          "position_error_start_m": 48.08800100661854,
+          "position_error_end_m": 90.41080227898121,
+          "block_relative_translation_error_pct": 13.663761617289582,
+          "block_relative_rotation_error_deg_per_100m": 0.6898029840531045,
+          "position_error_increase_m": 42.32280127236267
+        },
+        {
+          "first_pose_frame": 700,
+          "last_pose_frame": 800,
+          "gt_distance_m": 248.26250962757283,
+          "path_length_ratio": 1.0169029485480985,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.012142015185727,
+          "steps_length_off_over_threshold": 1,
+          "steps_vector_off_over_threshold": 1,
+          "position_error_start_m": 116.04838515232386,
+          "position_error_end_m": 146.81632002665975,
+          "block_relative_translation_error_pct": 1.87212327512329,
+          "block_relative_rotation_error_deg_per_100m": 0.31196119518965226,
+          "position_error_increase_m": 30.767934874335893
+        }
+      ],
+      "candidate_worst_blocks": [
+        {
+          "first_pose_frame": 800,
+          "last_pose_frame": 900,
+          "gt_distance_m": 193.1232215063937,
+          "path_length_ratio": 1.955392502290173,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.874364720245914,
+          "steps_length_off_over_threshold": 75,
+          "steps_vector_off_over_threshold": 75,
+          "position_error_start_m": 146.81632002665975,
+          "position_error_end_m": 307.06441487082105,
+          "block_relative_translation_error_pct": 95.28425624243383,
+          "block_relative_rotation_error_deg_per_100m": 3.6116593829056063
+        },
+        {
+          "first_pose_frame": 500,
+          "last_pose_frame": 600,
+          "gt_distance_m": 256.64478978236457,
+          "path_length_ratio": 1.1357536211486052,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.006174653038459,
+          "steps_length_off_over_threshold": 17,
+          "steps_vector_off_over_threshold": 17,
+          "position_error_start_m": 48.08800100661854,
+          "position_error_end_m": 90.41080227898121,
+          "block_relative_translation_error_pct": 13.663761617289582,
+          "block_relative_rotation_error_deg_per_100m": 0.6898029840531045
+        },
+        {
+          "first_pose_frame": 400,
+          "last_pose_frame": 500,
+          "gt_distance_m": 263.17794861623224,
+          "path_length_ratio": 1.088627659448039,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.0170976115145764,
+          "steps_length_off_over_threshold": 20,
+          "steps_vector_off_over_threshold": 20,
+          "position_error_start_m": 24.736456867082918,
+          "position_error_end_m": 48.08800100661854,
+          "block_relative_translation_error_pct": 9.018699197216069,
+          "block_relative_rotation_error_deg_per_100m": 0.6944602977927136
+        }
+      ],
+      "comparison_path": "experiments/results/shared_coarse_start/sequences/01/comparison.json"
+    },
+    {
+      "sequence": "04",
+      "frames": 271,
+      "control_rte_pct": 0.416845,
+      "candidate_rte_pct": 0.38997,
+      "rte_difference_pp": -0.026875000000000038,
+      "control_ate_m": 0.974258,
+      "candidate_ate_m": 0.929463,
+      "control_path_length_ratio": 1.0016942287169197,
+      "candidate_path_length_ratio": 1.0013242311171566,
+      "control_bad_length_steps": 0,
+      "candidate_bad_length_steps": 0,
+      "control_bad_vector_steps": 0,
+      "candidate_bad_vector_steps": 0,
+      "candidate_moving_steps": 270,
+      "control_bad_length_ranges": [],
+      "candidate_bad_length_ranges": [],
+      "control_largest_error_growth_blocks": [
+        {
+          "first_pose_frame": 200,
+          "last_pose_frame": 270,
+          "gt_distance_m": 112.09366640246202,
+          "path_length_ratio": 1.001557046663121,
+          "moving_step_count": 70,
+          "step_length_ratio_median": 0.9991389866254254,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.9796592304157445,
+          "position_error_end_m": 2.457208677874566,
+          "block_relative_translation_error_pct": 0.20228315219348575,
+          "block_relative_rotation_error_deg_per_100m": 0.34904538569950694,
+          "position_error_increase_m": 1.4775494474588213
+        },
+        {
+          "first_pose_frame": 100,
+          "last_pose_frame": 200,
+          "gt_distance_m": 144.36863004693618,
+          "path_length_ratio": 1.004255521195798,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.004785864076499,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.21382879226237897,
+          "position_error_end_m": 0.9796592304157445,
+          "block_relative_translation_error_pct": 0.4306858097349844,
+          "block_relative_rotation_error_deg_per_100m": 0.28453474937406253,
+          "position_error_increase_m": 0.7658304381533656
+        },
+        {
+          "first_pose_frame": 0,
+          "last_pose_frame": 100,
+          "gt_distance_m": 137.18298063486523,
+          "path_length_ratio": 0.9991108685558403,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 0.9978555412040614,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.0,
+          "position_error_end_m": 0.21382879226237897,
+          "block_relative_translation_error_pct": 0.15587122489866725,
+          "block_relative_rotation_error_deg_per_100m": 0.27053788187146377,
+          "position_error_increase_m": 0.21382879226237897
+        }
+      ],
+      "candidate_largest_error_growth_blocks": [
+        {
+          "first_pose_frame": 200,
+          "last_pose_frame": 270,
+          "gt_distance_m": 112.09366640246202,
+          "path_length_ratio": 1.00105800135142,
+          "moving_step_count": 70,
+          "step_length_ratio_median": 0.9980876948595927,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.8916557981523271,
+          "position_error_end_m": 2.370631628985743,
+          "block_relative_translation_error_pct": 0.17336038480771007,
+          "block_relative_rotation_error_deg_per_100m": 0.278986830311401,
+          "position_error_increase_m": 1.478975830833416
+        },
+        {
+          "first_pose_frame": 100,
+          "last_pose_frame": 200,
+          "gt_distance_m": 144.36863004693618,
+          "path_length_ratio": 1.0037293750603131,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.0035292251588883,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.2357545545472344,
+          "position_error_end_m": 0.8916557981523271,
+          "block_relative_translation_error_pct": 0.37511744314241297,
+          "block_relative_rotation_error_deg_per_100m": 0.2823999418015552,
+          "position_error_increase_m": 0.6559012436050927
+        },
+        {
+          "first_pose_frame": 0,
+          "last_pose_frame": 100,
+          "gt_distance_m": 137.18298063486523,
+          "path_length_ratio": 0.99901064480985,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 0.9974626095001593,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.0,
+          "position_error_end_m": 0.2357545545472344,
+          "block_relative_translation_error_pct": 0.17185408381183787,
+          "block_relative_rotation_error_deg_per_100m": 0.2786516050980223,
+          "position_error_increase_m": 0.2357545545472344
+        }
+      ],
+      "candidate_worst_blocks": [
+        {
+          "first_pose_frame": 100,
+          "last_pose_frame": 200,
+          "gt_distance_m": 144.36863004693618,
+          "path_length_ratio": 1.0037293750603131,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 1.0035292251588883,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.2357545545472344,
+          "position_error_end_m": 0.8916557981523271,
+          "block_relative_translation_error_pct": 0.37511744314241297,
+          "block_relative_rotation_error_deg_per_100m": 0.2823999418015552
+        },
+        {
+          "first_pose_frame": 200,
+          "last_pose_frame": 270,
+          "gt_distance_m": 112.09366640246202,
+          "path_length_ratio": 1.00105800135142,
+          "moving_step_count": 70,
+          "step_length_ratio_median": 0.9980876948595927,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.8916557981523271,
+          "position_error_end_m": 2.370631628985743,
+          "block_relative_translation_error_pct": 0.17336038480771007,
+          "block_relative_rotation_error_deg_per_100m": 0.278986830311401
+        },
+        {
+          "first_pose_frame": 0,
+          "last_pose_frame": 100,
+          "gt_distance_m": 137.18298063486523,
+          "path_length_ratio": 0.99901064480985,
+          "moving_step_count": 100,
+          "step_length_ratio_median": 0.9974626095001593,
+          "steps_length_off_over_threshold": 0,
+          "steps_vector_off_over_threshold": 0,
+          "position_error_start_m": 0.0,
+          "position_error_end_m": 0.2357545545472344,
+          "block_relative_translation_error_pct": 0.17185408381183787,
+          "block_relative_rotation_error_deg_per_100m": 0.2786516050980223
+        }
+      ],
+      "comparison_path": "experiments/results/shared_coarse_start/sequences/04/comparison.json"
+    }
+  ],
+  "worse_sequences": [],
+  "audit_rows": [
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "01",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_w100_coarse_start",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/01/audit/replays/imls_slam_kitti_seq_01_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/01/audit/replays/imls_slam_kitti_seq_01_full_paper_comp_matrix__paper_odometry_w100_coarse_start.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_01_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_01_full_gt.csv",
+        "--methods",
+        "imls_slam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/01/audit/replays/imls_slam_kitti_seq_01_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "kitti_rte_trans_pct": 0.842393,
+      "kitti_rte_rot_deg_per_100m": 0.107762,
+      "fps": 0.672902,
+      "stored_rpe_trans_pct": 0.854732,
+      "rerun_rpe_trans_pct": 0.854732,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 17.876129,
+      "rerun_ate_m": 17.876129,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 1101,
+      "frames": 1101,
+      "drift_metrics": []
+    },
+    {
+      "method": "SuMa",
+      "sequence": "01",
+      "aggregate_path": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json",
+      "variant_id": "paper_odometry_clean_lookup_elevation",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/01/audit/replays/suma_kitti_seq_01_full_paper_matrix__paper_odometry_clean_lookup_elevation.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/01/audit/replays/suma_kitti_seq_01_full_paper_matrix__paper_odometry_clean_lookup_elevation.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_01_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_01_full_gt.csv",
+        "--methods",
+        "suma",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/01/audit/replays/suma_kitti_seq_01_full_paper_matrix__paper_odometry_clean_lookup_elevation.json",
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "normalize_bilinear=1",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "normalize_bilinear=1",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "kitti_rte_trans_pct": 3.550459,
+      "kitti_rte_rot_deg_per_100m": 0.220516,
+      "fps": 1.977226,
+      "stored_rpe_trans_pct": 3.507726,
+      "rerun_rpe_trans_pct": 3.507726,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 59.042981,
+      "rerun_ate_m": 59.042981,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 1101,
+      "frames": 1101,
+      "drift_metrics": []
+    },
+    {
+      "method": "IMLS-SLAM",
+      "sequence": "04",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_w100_coarse_start",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/imls_slam_kitti_seq_04_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/imls_slam_kitti_seq_04_full_paper_comp_matrix__paper_odometry_w100_coarse_start.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_04_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_04_full_gt.csv",
+        "--methods",
+        "imls_slam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/imls_slam_kitti_seq_04_full_paper_comp_matrix__paper_odometry_w100_coarse_start.json",
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--imls-slam-paper-odometry",
+        "--imls-slam-paper-window",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22",
+        "--imls-slam-paper-coarse-frames",
+        "1"
+      ],
+      "kitti_rte_trans_pct": 0.425331,
+      "kitti_rte_rot_deg_per_100m": 0.121744,
+      "fps": 0.709921,
+      "stored_rpe_trans_pct": 0.431994,
+      "rerun_rpe_trans_pct": 0.431994,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 0.920863,
+      "rerun_ate_m": 0.920863,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 271,
+      "frames": 271,
+      "drift_metrics": []
+    },
+    {
+      "method": "SuMa",
+      "sequence": "04",
+      "aggregate_path": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+      "variant_id": "paper_odometry",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/native_wrapper.py",
+        "/workspace/localization-env/shared-coarse-start/data/dogfooding_results/kitti_seq_04_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_04_full_gt.csv",
+        "--methods",
+        "suma",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry.json",
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "ok",
+      "drifted": false,
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "kitti_rte_trans_pct": 0.416845,
+      "kitti_rte_rot_deg_per_100m": 0.26054,
+      "fps": 1.826518,
+      "stored_rpe_trans_pct": 0.392312,
+      "rerun_rpe_trans_pct": 0.392312,
+      "rerun_rpe_abs_delta": 0.0,
+      "stored_ate_m": 0.974258,
+      "rerun_ate_m": 0.974258,
+      "rerun_ate_abs_delta": 0.0,
+      "stored_frames": 271,
+      "frames": 271,
+      "drift_metrics": []
+    }
+  ],
+  "audit_official_metric_checks": [
+    {
+      "sequence": "01",
+      "method": "IMLS-SLAM",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_w100_coarse_start",
+      "stored": {
+        "kitti_rte_trans_pct": 0.842393,
+        "kitti_rte_rot_deg_per_100m": 0.107762
+      },
+      "rerun": {
+        "kitti_rte_trans_pct": 0.842393,
+        "kitti_rte_rot_deg_per_100m": 0.107762
+      },
+      "absolute_delta": {
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      }
+    },
+    {
+      "sequence": "01",
+      "method": "SuMa",
+      "aggregate_path": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json",
+      "variant_id": "paper_odometry_clean_lookup_elevation",
+      "stored": {
+        "kitti_rte_trans_pct": 3.550459,
+        "kitti_rte_rot_deg_per_100m": 0.220516
+      },
+      "rerun": {
+        "kitti_rte_trans_pct": 3.550459,
+        "kitti_rte_rot_deg_per_100m": 0.220516
+      },
+      "absolute_delta": {
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      }
+    },
+    {
+      "sequence": "04",
+      "method": "IMLS-SLAM",
+      "aggregate_path": "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_w100_coarse_start",
+      "stored": {
+        "kitti_rte_trans_pct": 0.425331,
+        "kitti_rte_rot_deg_per_100m": 0.121744
+      },
+      "rerun": {
+        "kitti_rte_trans_pct": 0.425331,
+        "kitti_rte_rot_deg_per_100m": 0.121744
+      },
+      "absolute_delta": {
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      }
+    },
+    {
+      "sequence": "04",
+      "method": "SuMa",
+      "aggregate_path": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+      "variant_id": "paper_odometry",
+      "stored": {
+        "kitti_rte_trans_pct": 0.416845,
+        "kitti_rte_rot_deg_per_100m": 0.26054
+      },
+      "rerun": {
+        "kitti_rte_trans_pct": 0.416845,
+        "kitti_rte_rot_deg_per_100m": 0.26054
+      },
+      "absolute_delta": {
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      }
+    }
+  ],
+  "raw_control_preservation_checks": [
+    {
+      "sequence": "01",
+      "reference_comparison": "experiments/results/shared_degeneracy_remap/sequences/01/comparison.json",
+      "official_scan_bin_hashes_match": true,
+      "absolute_metric_delta": {
+        "frames": 0,
+        "ate_m": 0.0,
+        "rpe_trans_pct": 0.0,
+        "rpe_rot_deg_per_m": 0.0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      }
+    },
+    {
+      "sequence": "04",
+      "reference_comparison": "experiments/results/shared_degeneracy_remap/sequences/04/comparison.json",
+      "official_scan_bin_hashes_match": true,
+      "absolute_metric_delta": {
+        "frames": 0,
+        "ate_m": 0.0,
+        "rpe_trans_pct": 0.0,
+        "rpe_rot_deg_per_m": 0.0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      }
+    }
+  ],
+  "input_identity_reference": "Official scan .bin SHA256/bytes and GT CSV must match the prior committed full shared-remap study; per-fetch metadata is excluded.",
+  "audit_preservation_summary": {
+    "cells": 4,
+    "drifted_cells": 0,
+    "max_abs_rpe_trans_delta_pct": 0.0,
+    "max_abs_ate_delta_m": 0.0,
+    "max_abs_frame_delta": 0,
+    "max_abs_official_translation_rte_delta_pct": 0.0,
+    "max_abs_official_rotation_rte_delta_deg_per_100m": 0.0
+  },
+  "committed_input_sha256": {
+    "experiments/results/shared_coarse_start/protocol.json": "c12034635cae8b1075f9e802be29cce3ec8724f2fe5828b193a07e482fa0499d",
+    "experiments/results/shared_coarse_start/candidate.json": "52025c08cc3bc2da17342a4316d4adeafe526c08884178a4b75a87d7b8370398",
+    "experiments/results/shared_coarse_start/sequences/01/comparison.json": "9f92d5e345b5930359197ce980219275f13aa1248d8fffa74219748d44a0a8c9",
+    "experiments/results/shared_coarse_start/sequences/01/cleanup.json": "58df3e057d78b6a41ecf6b38650fa4093a8d80204c984ecf82db30d3999bd407",
+    "experiments/results/shared_coarse_start/sequences/01/inputs.json": "bb6c3dc2c4ac33f837270ee78d55cb89306be8fc3eebe266a71f48dee39cf1d0",
+    "experiments/reference_data/kitti_seq_01_full_gt.csv": "5b0099d9adb6bdb0a39ce905068645c911bb24e6bd4e2f303ce88aec9aae1d27",
+    "experiments/results/shared_degeneracy_remap/sequences/01/inputs.json": "659fb4104696a194b2992b725beb7d1354160d1b38471d51a277a851956adcc2",
+    "experiments/results/shared_degeneracy_remap/sequences/01/comparison.json": "afdab6ec8884fa32b192853851655ff0977abbe18b8777b88099131cbc865ffe",
+    "experiments/results/shared_coarse_start/sequences/01/raw_control/summary_native_command.json": "0abd639d29f8ffe3ae72aef82a413d5c18305b3b3ad023a3634f76593c84d3ea",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_01_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native_command.json": "2cedf1a8dcc0d0381d2f390ab993e69f8cb303ddc092c5e1edd50ce7b91cf6fa",
+    "experiments/results/shared_coarse_start/sequences/01/candidate_drift.json": "ea06531a6f617e6c1ae918f9c1a303f4da56254cdaac4f5ded8472671743f942",
+    "experiments/results/shared_coarse_start/sequences/01/raw_control_drift.json": "49ed70a6ff7ce99909e19f7662e09bfa7d77ee4dee0a054ba1d1e14255fbec62",
+    "experiments/results/shared_coarse_start/sequences/01/audit/report.json": "63721d17069a5f0c31b37fb45c49513dd0055fc78ca844f4e9de11971f1e41dd",
+    "experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json": "2890884a6cfbb3acd04e14db235e99aae066cd04e4b138bc057a4ad8ebd19a19",
+    "experiments/results/suma_kitti_seq_01_full_paper_matrix.json": "ed63a3d23e90b73f330964035e80c88d583d2cc225e00fb30baa8ea63de8f093",
+    "experiments/results/shared_coarse_start/sequences/04/comparison.json": "58b4917381b3bb7e9cad67584e51df9a6046ab8537fc51418418303e21efb304",
+    "experiments/results/shared_coarse_start/sequences/04/cleanup.json": "a008d659b0ec17042a349a47f7a38441430684059f6f5a9309f8d45103936d6b",
+    "experiments/results/shared_coarse_start/sequences/04/inputs.json": "1fb71a4a2ba130334b05ee5654ef86bbcc624ca3c5db3ebde433249889bcc261",
+    "experiments/reference_data/kitti_seq_04_full_gt.csv": "850488c37a8bc4f4c216fcfa2fcc1e0f17ba6103680acc3985fcedc09ccfa360",
+    "experiments/results/shared_degeneracy_remap/sequences/04/inputs.json": "0425ed4b6073ad8fb0d588c11d7af4cb256d2db268d35eae0a6878d5e7f2bc97",
+    "experiments/results/shared_degeneracy_remap/sequences/04/comparison.json": "ea285da12d81ca86ef3e1db92648ed139024ee0039425e1a14aefb9389e2e969",
+    "experiments/results/shared_coarse_start/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry_native_command.json": "8d5302cfba4c3c3ac33a24ac0c80ddf4e280ef8669104aef78e5fb013d7d6cc0",
+    "experiments/results/shared_coarse_start/benchmarks/runs/suma_kitti_seq_04_full_shared_coarse_start_matrix/shared_coarse_start_1x5x10/summary_native_command.json": "015ef06251270fd8cc21361354a1b9e2bfd5e7c657ca0bba92e1ba89c1f8e0d2",
+    "experiments/results/shared_coarse_start/sequences/04/candidate_drift.json": "ee668f25421058f1007097db53f136207e3bd647605ef5a5439f42af7d3c6a82",
+    "experiments/results/shared_coarse_start/sequences/04/raw_control_drift.json": "31dde573b159c38bd11029f4d4ca31ee000c0f1bec4a7d816e6158b280664e36",
+    "experiments/results/shared_coarse_start/sequences/04/audit/report.json": "3eff2ae83d6b689ffad77c3d6b7a1d285b8c4aa12734b50323f3dd0bdaf78f58",
+    "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json": "b9f0ab8818558583d55ec4066a09f3f7478a84222b98fcd6c30b26815ada2f0f",
+    "experiments/results/suma_kitti_seq_04_full_paper_matrix.json": "a75d05ad2e629e094fb57f5efc37d6c6244a44b2d169f686bb60f930c3495424",
+    "experiments/results/shared_coarse_start/sequences/04/frozen_comparison.json": "0639e73c7db5a736e6ecac69f7f47dea74b3e6e55df0a374eb8715a28bda803f"
+  }
+}

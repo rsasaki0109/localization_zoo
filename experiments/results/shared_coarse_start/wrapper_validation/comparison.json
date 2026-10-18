@@ -1,0 +1,80 @@
+[
+  {
+    "case": "suma_raw",
+    "comparison": "baseline_wrapped_vs_candidate_wrapped",
+    "equal_metrics": {
+      "status": true,
+      "frames": true,
+      "ate_m": true,
+      "rpe_trans_pct": true,
+      "kitti_rte_trans_pct": true,
+      "kitti_rte_rot_deg_per_100m": true
+    },
+    "saved_pose_bytes_equal": true
+  },
+  {
+    "case": "suma_raw",
+    "comparison": "candidate_direct_vs_candidate_wrapped",
+    "equal_metrics": {
+      "status": true,
+      "frames": true,
+      "ate_m": true,
+      "rpe_trans_pct": true,
+      "kitti_rte_trans_pct": true,
+      "kitti_rte_rot_deg_per_100m": true
+    },
+    "saved_pose_bytes_equal": true
+  },
+  {
+    "case": "imls_raw",
+    "comparison": "baseline_wrapped_vs_candidate_wrapped",
+    "equal_metrics": {
+      "status": true,
+      "frames": true,
+      "ate_m": true,
+      "rpe_trans_pct": true,
+      "kitti_rte_trans_pct": true,
+      "kitti_rte_rot_deg_per_100m": true
+    },
+    "saved_pose_bytes_equal": true
+  },
+  {
+    "case": "imls_raw",
+    "comparison": "candidate_direct_vs_candidate_wrapped",
+    "equal_metrics": {
+      "status": true,
+      "frames": true,
+      "ate_m": true,
+      "rpe_trans_pct": true,
+      "kitti_rte_trans_pct": true,
+      "kitti_rte_rot_deg_per_100m": true
+    },
+    "saved_pose_bytes_equal": true
+  },
+  {
+    "case": "imls_coarse",
+    "comparison": "baseline_wrapped_vs_candidate_wrapped",
+    "equal_metrics": {
+      "status": true,
+      "frames": true,
+      "ate_m": true,
+      "rpe_trans_pct": true,
+      "kitti_rte_trans_pct": true,
+      "kitti_rte_rot_deg_per_100m": true
+    },
+    "saved_pose_bytes_equal": true
+  },
+  {
+    "case": "imls_coarse",
+    "comparison": "candidate_direct_vs_candidate_wrapped",
+    "equal_metrics": {
+      "status": true,
+      "frames": true,
+      "ate_m": true,
+      "rpe_trans_pct": true,
+      "kitti_rte_trans_pct": true,
+      "kitti_rte_rot_deg_per_100m": true
+    },
+    "saved_pose_bytes_equal": true
+  }
+]

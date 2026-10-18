@@ -1,0 +1,25 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+Running L-LO...
+  [L-LO] 0/271 clusters=95 matches=0  [L-LO] 10/271 clusters=92 matches=71  [L-LO] 20/271 clusters=95 matches=67  [L-LO] 30/271 clusters=61 matches=43  [L-LO] 40/271 clusters=43 matches=36  [L-LO] 50/271 clusters=39 matches=29  [L-LO] 60/271 clusters=40 matches=27  [L-LO] 70/271 clusters=59 matches=33  [L-LO] 80/271 clusters=56 matches=35  [L-LO] 90/271 clusters=40 matches=22  [L-LO] 100/271 clusters=34 matches=23  [L-LO] 110/271 clusters=28 matches=21  [L-LO] 120/271 clusters=36 matches=23  [L-LO] 130/271 clusters=32 matches=19  [L-LO] 140/271 clusters=32 matches=23  [L-LO] 150/271 clusters=27 matches=23  [L-LO] 160/271 clusters=27 matches=26  [L-LO] 170/271 clusters=21 matches=18  [L-LO] 180/271 clusters=28 matches=24  [L-LO] 190/271 clusters=32 matches=18  [L-LO] 200/271 clusters=36 matches=28  [L-LO] 210/271 clusters=29 matches=21  [L-LO] 220/271 clusters=35 matches=28  [L-LO] 230/271 clusters=67 matches=37  [L-LO] 240/271 clusters=82 matches=51  [L-LO] 250/271 clusters=108 matches=69  [L-LO] 260/271 clusters=86 matches=58  [L-LO] 270/271 clusters=56 matches=38
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+L-LO                    ok          5.259       1.819          271         292661.0       0.9         
+
+Notes:
+- L-LO: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.6222 frames_below_3_matches=0/270
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

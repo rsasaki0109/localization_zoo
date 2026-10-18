@@ -180,3 +180,42 @@ and requires a fresh `--output-dir`; full-suite and ROS verification also run in
 The [post-import regeneration and checks](checks/main_refresh/post_import/commands.json)
 and [preservation receipt](checks/main_refresh/post_import/preservation.json)
 cover the imported evidence and this updated report.
+
+## Integration with the merged acceleration and passive trace stack
+
+Integration source `70c77efa80f6b7739ad7fd00122b3c18e6f9024e` merges main
+`a597e4c95614e733fc20977321fe4d6aea0fba46`. Validation source
+`9b6092e77d581279411bf580676b599653f8a42f` adds an explicit baseline argument
+and recursive native-source guards to the existing check driver. The guards
+confirm that algorithms, common code and evaluation sources/scripts match that
+main. Python and ROS wrapper sources match the previously checked binding head
+`5ee60bb6f05d38eceee006c5ff854bc37348570a`.
+
+The IMLS-SLAM acceleration option remains disabled through these interfaces;
+it is currently exposed only by the native API and runner. The passive InTEn-LOAM
+API/runner changes do not add an InTEn-LOAM Python class or ROS node. No stored
+registration setting is reselected. The separate validation worktree leaves the
+ongoing full KITTI replay's source, executable pins and sealed scripts unchanged.
+
+Native evidence was committed at `ac767dfc` before these results. The
+[commands and actual exits](checks/merged_stack/native/commands.json) cover the
+affected Release build, all 8 affected CTest entries and the existing/paper Python
+examples, all exiting 0. In the [parity report](checks/merged_stack/native/paper_python_fixture.json),
+all 6 cases have maximum Python/C++ pose-element difference 0 and identical native
+diagnostics. The real DiLO default still returns identity; the moving-room case
+still exercises non-identity output with the same native defaults. This is a
+short-fixture compatibility check, without a new accuracy or speed claim.
+
+Reproduce with a fresh output directory and a checkout of the recorded source:
+
+```bash
+python3 experiments/results/paper_pipeline_bindings/refresh_main_checks.py \
+  --phase native --base-commit a597e4c95614e733fc20977321fe4d6aea0fba46 \
+  --output-dir /absolute/path/to/fresh-native-checks
+```
+
+The driver records the actual Docker/build/example commands and checkout commit;
+it does not provision its container. [Executable/input hashes](checks/merged_stack/native/hashes.json)
+and [lossless import receipts](checks/merged_stack/native_import.json) retain
+the provenance of this run. Earlier parity tables and negative ROS trials above
+remain attached to their original source revisions.

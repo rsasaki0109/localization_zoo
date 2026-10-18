@@ -37,7 +37,7 @@ wrapper-side pose accumulation. Pace offline playback when comparing complete
 sequences. DiLO publishes each new causal pose; earlier published odometry is
 not replaced when its internal window is refined.
 
-All native scalar parameters are declared with the C++ defaults. Set them when
+Native registration parameters are declared with the C++ defaults. Set them when
 launching; restart the node to apply new settings and begin a new sequence. Non-paper
 opt-ins such as `coarse_frames`, `degenerate_ratio` and `normalize_bilinear`
 are not enabled by the wrapper. Override them explicitly with ROS parameters:
@@ -52,6 +52,9 @@ SuMa also exposes the shared `degenerate_ratio`, `coarse_frames`,
 startup retain their disabled native defaults. Their transfer evaluations and
 limitations are documented in the SuMa README; enabling them is an explicit
 non-paper choice.
+The IMLS-SLAM `accelerated` execution option is currently available through
+the native C++ API and evaluation runner; this node keeps its disabled native
+default and does not declare that option.
 
 For LiTAMIN2, `map_mode` accepts `aggregate`, `first` or `latest`. The launch
 also accepts `points_topic`, `odom_topic`, `map_frame_id`, `publish_tf`,

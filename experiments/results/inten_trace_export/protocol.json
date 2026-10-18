@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "base_commit": "45721068c788392e5070145de346707451d2543c",
+  "native_source_commit": "f8ee0b08bb160e6c0be91a240190862278c7ba51",
+  "depends_on_pr": "https://github.com/rsasaki0109/localization_zoo/pull/140",
+  "scope": "Default-off CLI export for passive observations. No estimator/library changes, parameter selection, KITTI accuracy claim, speed claim or failure-cause attribution.",
+  "opt_in": "--methods inten_loam --inten-loam-paper-odometry --inten-loam-paper-trace-jsonl NEW.jsonl",
+  "validation": {
+    "native": "Fresh Release full build and CTest, including serialization/nonfinite/string/matrix/lifecycle checks. Fresh user-owned TEST_TMPDIR.",
+    "fixture": "evaluation/fixtures/mcd_kth_smoke",
+    "gt": "evaluation/fixtures/mcd_kth_smoke_gt.csv",
+    "reference_binary": "/workspace/localization-env/inten-passive-trace/worktree/build/evaluation/pcd_dogfooding",
+    "reference_binary_sha256": "e34c6294bdd41c5d1efe64b576283511cbe6d12dfb138ae62a5bf84d110b8459",
+    "reference_native_source_commit": "67cb05b24a7566c6cf00415784f36cb03593ea71",
+    "variants": [
+      "paper_default",
+      "paper_odometry_plane_check"
+    ],
+    "selection": "Default and previously KITTI07-selected plane-check arguments, with KITTI00 influencing the earlier diagnosis. Transfer unchanged to the committed short fixture; no fixture tuning.",
+    "comparisons": "Reference off vs candidate off vs candidate trace-on: all available accuracy fields, frame count/status and all saved pose bytes. Parse every JSONL record; compare exported anchored poses with the saved trajectory within its existing output precision. Negative CLI invocations record expected nonzero exit codes.",
+    "threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "fetch_raw_data": false
+  },
+  "preservation": "All published aggregates, Table6, root README, paper_reported_numbers and prior study evidence remain identical. Frozen177 primary source, binaries and sealed files remain untouched.",
+  "limits": "Short compatibility fixture and serializer tests only. No full KITTI failure trace, no conditioning threshold or solver gate, no SDK/ROS export. End record marks estimator traversal; native exit status and summary must also succeed."
+}

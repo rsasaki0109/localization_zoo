@@ -310,7 +310,8 @@ independent. Each item says what "done" means.
     [Validation evidence and commands](../experiments/results/inten_passive_trace/README.md).
     The default-off evaluation CLI can also stream the observation records;
     [export protocol and validation status](../experiments/results/inten_trace_export/README.md)
-    track this separately from full failure-sequence diagnosis.
+    record short-fixture trace-on/off pose parity and explicit skipped-input
+    handling separately from full failure-sequence diagnosis.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

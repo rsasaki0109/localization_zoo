@@ -518,6 +518,16 @@ It changes no estimator setting, decision or map input.
 
 [Usage, coordinates and incomplete/nonfinite record handling](../../docs/inten_loam_passive_trace.md#streaming-export-from-the-evaluation-runner)
 and the [separate validation record](../../experiments/results/inten_trace_export/README.md)
-describe its scope. Full failure-sequence tracing and the solver-level cause
-remain open; this export capability is not an accuracy result.
+describe its scope. On the committed short MCD fixture, all 6 native comparisons exit 0:
+reference, new trace-off and trace-on have zero available metric differences
+and byte-identical poses with both the default and unchanged 07-selected
+plane-check setting. Segment RTE is unavailable. A separate empty-middle-input
+lifecycle check also has identical poses across all 3 calls; its GT timing
+makes accuracy fields unsuitable for interpretation. The initial lifecycle
+attempt exits 1 because its builder omitted timestamps; the corrected builder
+copies the committed timestamps without relaxing association. Evidence was
+committed at `4f235364` / `086d70d0` before these results.
+
+Full failure-sequence tracing and the solver-level cause remain open;
+this export capability is not an accuracy result.
 <!-- /INTEN_TRACE_EXPORT -->

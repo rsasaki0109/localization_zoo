@@ -1,0 +1,24 @@
+[
+  {
+    "method": "DiLO",
+    "sequence": "01",
+    "metric_abs_delta": {
+      "rerun_rpe_trans_pct": 0.0,
+      "rerun_ate_m": 0.0,
+      "frames": 0
+    },
+    "saved_pose_bytes_equal": true,
+    "saved_pose_max_abs_delta": 0.0
+  },
+  {
+    "method": "SuMa",
+    "sequence": "01",
+    "metric_abs_delta": {
+      "rerun_rpe_trans_pct": 0.0,
+      "rerun_ate_m": 0.0,
+      "frames": 0
+    },
+    "saved_pose_bytes_equal": true,
+    "saved_pose_max_abs_delta": 0.0
+  }
+]

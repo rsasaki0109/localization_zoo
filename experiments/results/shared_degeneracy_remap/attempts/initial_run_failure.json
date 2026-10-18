@@ -1,0 +1,29 @@
+{
+  "controller_command": {
+    "pid": 52096,
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/run_all.py"
+    ]
+  },
+  "controller_source_commit": "cde9f446a3e5ad638931aaa86bdebf23d6e5f93e",
+  "active_state": {
+    "source_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+    "status": "failed",
+    "sequence": "03",
+    "runners": {},
+    "completed": [
+      "01",
+      "00",
+      "02"
+    ],
+    "last_commit": "7641da7777204c0498178b601702b831cbae7cbc",
+    "error": "fetch exited 1"
+  },
+  "exit_receipt": {
+    "exit_code": 1,
+    "error": "fetch exited 1",
+    "sequence": "03"
+  },
+  "recovery": "Only fetch failed; keep CRC-checked completed scans, preserve failed log/receipt, validate committed completed sequence checkpoints before resuming03. Native implementation and fixed arguments stay unchanged."
+}

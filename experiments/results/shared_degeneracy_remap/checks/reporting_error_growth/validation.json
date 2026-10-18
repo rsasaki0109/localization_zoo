@@ -1,0 +1,9 @@
+{
+  "completed_sequences": [
+    "00",
+    "01"
+  ],
+  "complete": false,
+  "positive_growth_blocks_finite_and_ordered": true,
+  "actual_exit_code": 0
+}

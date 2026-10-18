@@ -77,6 +77,10 @@ struct SuMaPaperParams {
   // forward (README, "Seq 02").
   bool normalize_bilinear = false;
   bool initialize_identity = false;  // false: warm start with last increment
+  // Non-paper opt-in: project local translation updates out of weak normal-
+  // equation directions, using common/degeneracy.h. 0 disables the remap.
+  // This does not freeze the accumulated pose along those directions.
+  double degenerate_ratio = 0.0;
 
   // Frame-to-frame fallback after a track loss (official).
   bool fallback_mode = true;

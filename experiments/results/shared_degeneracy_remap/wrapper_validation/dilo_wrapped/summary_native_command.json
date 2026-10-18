@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-remap/candidate_pcd_dogfooding",
+    "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke",
+    "/workspace/localization_zoo/evaluation/fixtures/mcd_kth_smoke_gt.csv",
+    "--methods",
+    "dilo",
+    "--summary-json",
+    "/workspace/localization-env/shared-remap/wrapper_validation/dilo_wrapped/summary.json",
+    "--no-gt-seed",
+    "--dilo-paper-odometry"
+  ],
+  "cwd": "/workspace/localization-env/shared-remap/wrapper_validation/dilo_wrapped/summary_native",
+  "binary_sha256": "373c3213abf556cd0eade81818269df3c9c3a05133599baabe205344d245a819",
+  "started_unix": 1792189277.416888,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792189277.5638862
+}

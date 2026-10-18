@@ -1,0 +1,11 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792205824.2057328,
+  "finished_unix": 1792205824.5020392,
+  "exit_code": 0
+}

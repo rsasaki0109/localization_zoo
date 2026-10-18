@@ -1,0 +1,2 @@
+sequence,frames,control_rte_pct,candidate_rte_pct,rte_difference_pp,control_ate_m,candidate_ate_m,control_path_length_ratio,candidate_path_length_ratio,control_bad_length_steps,candidate_bad_length_steps
+01,1101,13.79269,95.25758,81.46489,175.82676,1398.495188,1.1360072569557829,0.03193369841441006,134,1100

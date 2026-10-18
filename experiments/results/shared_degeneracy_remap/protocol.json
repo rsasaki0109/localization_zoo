@@ -1,0 +1,49 @@
+{
+  "implementation_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+  "base_commit": "9112e6a5b62466e2a509e015607438decb873c00",
+  "base_branch": "codex/kitti-audit-failures",
+  "scope": "Roadmap6 first component: existing DiLO local translation remap shared with SuMa. No coarse-start or near-range changes. NCLT real-data unavailable under enforced policy111.",
+  "suma_fixed_arguments": [
+    "--no-gt-seed",
+    "--suma-paper",
+    "--suma-paper-set",
+    "degenerate_ratio=0.03"
+  ],
+  "selection": "0.03 transferred unchanged from the existing DiLO01 selection; no SuMa retuning/sweep.01 motivates development and is not held out. Historical SuMa results/02 diagnostics were already known, so no new held-out claim.",
+  "sequences": [
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "order": [
+    "01",
+    "00",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "audit_methods": [
+    "DiLO",
+    "SuMa"
+  ],
+  "audit_scope": "Every stored best-RPE full-sequence cell for the only native consumers of the new header. Shared existing common sources and runner loaders unchanged. Other cores remain unchanged and fixture/CTest checks cover them. This is an affected-method audit, not a claim to have re-run all zoo cells.",
+  "controls": "SuMa raw defaults from fresh audit when matching; separate fresh raw control on01/02. Frozen pre-change full01 audit, and frozen replay for any later drifted audit cells.",
+  "timing_scope": "Independent processes run concurrently with one OpenMP/OpenBLAS worker each; no speed claims.",
+  "output_isolation": "Wrapper forwards all native arguments unchanged and changes only cwd. Direct/wrapped parity on committed MCD fixture is recorded; wrapper and actual native commands/exits/hashes are retained.",
+  "publication": "New measurements stay in this nested evidence directory; no leaderboard/Table6/paper-reference promotion. Historical aggregates/paper metadata remain unchanged.",
+  "data_policy": "Use official fetch script one sequence at a time, hash/verify inputs and expected frames, run all its jobs, save artifacts, then remove only the owned downloaded sequence before fetching another."
+}

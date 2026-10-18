@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 801
+GT poses: 801
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 560.8 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running DiLO...
+  source_voxel_size=0.0 sri=64x1024 lookup_radius=1 lookup_max_dist=1.5 keyframe_translation=2.0
+  [DiLO paper] 0/801  [DiLO paper] 50/801  [DiLO paper] 100/801  [DiLO paper] 150/801  [DiLO paper] 200/801  [DiLO paper] 250/801  [DiLO paper] 300/801  [DiLO paper] 350/801  [DiLO paper] 400/801  [DiLO paper] 450/801  [DiLO paper] 500/801  [DiLO paper] 550/801  [DiLO paper] 600/801  [DiLO paper] 650/801  [DiLO paper] 700/801  [DiLO paper] 750/801  [DiLO paper] 800/801
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+DiLO                    ok          3.037       0.846          801         291358.3       2.7         
+
+Notes:
+- DiLO: DiLO paper odometry (192x2048 sin-elevation range image, top 3 deg, vertical fill up to 4 rows, Farid-filter normals, 11 planarity-weighted key-point lists x 100, window of 10 frames, 5 pairwise-averaging iterations; plane key points only); poses after leaving the window; no GT seed.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_03_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_03_full_evaluation_manifest.json)

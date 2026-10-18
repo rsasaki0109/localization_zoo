@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_degeneracy_remap/run_all.py",
+    "--resume-from",
+    "08"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "pid": 60571,
+  "started_unix": 1792201508.2018545,
+  "controller_commit": "afe1b33312ce696b5e92530c4fff8ac0f27bd16f",
+  "implementation_commit": "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+  "native_identity_command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "52aef810ac4f9fe3600188f08ebb943d001bc0fe",
+    "--",
+    "common",
+    "evaluation/src",
+    "papers/*/src",
+    "papers/*/include",
+    "papers/*/test",
+    "papers/*/CMakeLists.txt",
+    "ros2/localization_zoo_ros/CMakeLists.txt"
+  ],
+  "native_identity_exit_code": 0,
+  "completion_receipt": "/workspace/localization-env/shared-remap/run_exit.json"
+}

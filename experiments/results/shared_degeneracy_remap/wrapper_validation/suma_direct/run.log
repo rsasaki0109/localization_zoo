@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 3
+GT poses: 3
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: timestamp
+Frame gap [s]: min=0.101 median=0.102 mean=0.102 max=0.102
+Trajectory length: 0.0 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running SuMa...
+  [SuMa paper] 0/3
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+SuMa                    ok          0.108       485.546        3           142.4          21.1        
+
+Notes:
+- SuMa: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/mcd_kth_smoke_evaluated_gt.txt, manifest: dogfooding_results/mcd_kth_smoke_evaluation_manifest.json)

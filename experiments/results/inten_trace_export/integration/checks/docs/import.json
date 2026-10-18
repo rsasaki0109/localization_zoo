@@ -1,0 +1,113 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/branch_whitespace.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/branch_whitespace.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/check_cli_docs.py",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/check_cli_docs.py",
+      "original_sha256": "c53ff03ec74cc319da058ff85b591243741260222aae6c9f7fa19de7d154765f",
+      "stored_sha256": "c53ff03ec74cc319da058ff85b591243741260222aae6c9f7fa19de7d154765f"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/commands.json",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/commands.json",
+      "original_sha256": "74e8ddaf65e315620853ebfc9be8462925193f87cd0b315cdf869bbecb2e9f09",
+      "stored_sha256": "74e8ddaf65e315620853ebfc9be8462925193f87cd0b315cdf869bbecb2e9f09"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/document_cli.py",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/document_cli.py",
+      "original_sha256": "c3c6756f19b048e6d245fb94f945f410d4ab84793a779888f6a763e8d27d5ade",
+      "stored_sha256": "c3c6756f19b048e6d245fb94f945f410d4ab84793a779888f6a763e8d27d5ade"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/exit.json",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/exit.json",
+      "original_sha256": "0aa22bd88a5fec042724f9aa785d238baec30078ce3af78d332b2dac5cc60d0b",
+      "stored_sha256": "0aa22bd88a5fec042724f9aa785d238baec30078ce3af78d332b2dac5cc60d0b"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/generate_full_variant_table.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/generate_full_variant_table.log.gz",
+      "original_sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc",
+      "stored_sha256": "c1eaaa90d87b4d1b5ac36b77258f3db36209d0fec798d0bb521b91e6d01b08b5"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/generate_paper_ratio_table.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/generate_paper_ratio_table.log.gz",
+      "original_sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+      "stored_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/generated_identity.json",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/generated_identity.json",
+      "original_sha256": "f5f69c9c1b74c6a7e975962c3f0b77196c6d0b92a588516cc0b1d91cedf0a3f5",
+      "stored_sha256": "f5f69c9c1b74c6a7e975962c3f0b77196c6d0b92a588516cc0b1d91cedf0a3f5"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/leaderboard.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/leaderboard.log.gz",
+      "original_sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+      "stored_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/native_evidence_identity.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/native_evidence_identity.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/native_source_identity.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/native_source_identity.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/paper_ready.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/paper_ready.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/preservation.json",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/preservation.json",
+      "original_sha256": "bce87de07b7811641824949559b91c01093c0cfb05771c81cb194ebdfcf16c62",
+      "stored_sha256": "bce87de07b7811641824949559b91c01093c0cfb05771c81cb194ebdfcf16c62"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/preservation.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/preservation.log.gz",
+      "original_sha256": "d6ca301a87c4a8ef8c92e26b736a3d3c6146e9aebd16a51aa6c66621e129e58e",
+      "stored_sha256": "e4fc5398497552d608462f4a05aa1d98a3c188205242ce971baf2dd684d55106"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/python_unittest.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/python_unittest.log.gz",
+      "original_sha256": "4116af174c60687494ab48eda694a7852f3012e95c8f5c32db9f10088b7463e3",
+      "stored_sha256": "0d32b55ace950c5e0d820caf9be99f6a31d45c39820e35c6d282016db69e0571"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/refresh_study_docs.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/refresh_study_docs.log.gz",
+      "original_sha256": "9b8d3b82c256ba5b9b5d1271e47d5c80457fb42865b1e65114b481d85dc116c8",
+      "stored_sha256": "fc6b2a20488c20866fa562df21dfc307144267524a966d75c83cd5c8c6f67447"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/showcase.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/showcase.log.gz",
+      "original_sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+      "stored_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/cli_docs/staged_branch_whitespace.log",
+      "destination": "experiments/results/inten_trace_export/integration/checks/docs/staged_branch_whitespace.log.gz",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  ],
+  "exit_code": 0
+}

@@ -70,16 +70,17 @@ Evidence committed at `7458c24d16096cc305889ed0864a5ef8bfb6bdf4`:
 scan/GT hashes and were verified and removed before fetching 00. The remaining
 cells are pending; this checkpoint does not establish whole-zoo completion.
 
-[`checkpoints/04/`](checkpoints/04/) is generated only from committed,
-cleaned sequence checkpoints; live 00 outputs are excluded. The checkpoint's
-verification exit 0 does not replace the retained native audit exit 1.
+[`checkpoints/04/`](checkpoints/04/) records the earlier 04-only checkpoint.
+The current [`checkpoints/00/`](checkpoints/00/) covers both committed, cleaned
+sequences. Its verification exit 0 does not replace the retained native audit
+exits 1.
 [`checks/checkpoint04/`](checks/checkpoint04/) retains the required document
 generators, Python/doc checks and preservation review. Staged whitespace checks
 caught CRLF in the derived CSV and then its captured error log. CSV writers now
 emit LF; exact failed logs and their nonzero exits are retained as gzip archives,
 and the corrected staged check exits 0. Native results are unchanged.
 
-## Completed 00 runs; frozen comparison and cleanup pending
+## Completed KITTI checkpoint: 00
 
 The full 00 candidate audit has finished all 20 selected cells. Fifteen match
 the historical RPE, ATE and frame count; the following five differ. All native
@@ -110,9 +111,17 @@ extraction; their original cause remains unresolved. The
 [VLOM control and verification](checks/00_vlom_control/summary.json) were
 committed at `1f7b554f9dfe5878067dc42ae18ed45c51a58e35`.
 
-Only Mesh-LOAM's frozen replay is **still running**; the extraction's effect
-on that cell is not yet established. The parent frozen audit has no terminal
-exit yet. No setting is changed or historical result replaced.
+Mesh-LOAM's frozen replay now also completes with native exit 0. Its RPE,
+ATE, frames and official translation/rotation RTE have zero recorded differences
+from the extracted implementation, with byte-identical saved poses. Therefore
+all five historical 00 differences predate extraction; their original causes
+remain unresolved. The parent frozen historical audit exits **1**, retaining
+the same differences rather than reporting a clean historical pass.
+The complete [frozen comparison](sequences/00/frozen_comparison.json),
+[commands and exits](sequences/00/frozen_baseline/) and
+[verified input cleanup](sequences/00/cleanup.json) were committed at
+`10cf31616365b41878ec9311f0b705e798716c51`. No setting is changed or historical
+result replaced.
 Summary `evaluator_git_commit` records the working-tree HEAD at write time;
 native provenance comes from the frozen executable SHA256/source pins, not
 that metadata field.
@@ -123,10 +132,17 @@ provenance were committed at `485fa00601644731827dae601eb3b43c7543efeb`:
 [`inputs.json`](sequences/00/inputs.json),
 [`fetch_attempts/`](sequences/00/fetch_attempts/) and
 [`checks/00_primary/verification.json`](checks/00_primary/verification.json).
-The official scans remain available for the running frozen comparisons. No 01
-inputs are fetched before 00 comparisons and verified cleanup complete.
-The completed, cleaned sequence checkpoint count therefore remains 14 cells
-(04); these 20 completed candidate runs are reported separately.
+All 00 scan hashes were verified before deleting the owned scans and alias.
+Subsequent sequences are excluded until their own comparison and cleanup
+checkpoints are committed. The current [checkpoint summary](checkpoints/00/summary.json)
+and [comparison CSV](checkpoints/00/comparison.csv), committed at `57fb04d3`,
+contain **34 of 177 cells** across 04 and 00:
+27 historical matches and 7 differences. All 9 frozen controls have zero
+recorded metric differences and byte-identical saved poses. Both historical
+sequence audits exit 1; checkpoint verification exits 0. Whole-zoo coverage is
+still incomplete. The required generators, Python/doc contracts, preservation
+and whitespace checks are retained under [checks/checkpoint00/](checks/checkpoint00/),
+with actual process exits and losslessly compressed logs.
 
 Native stdout contains padded tables. Git whitespace attributes are scoped to
 native replay/fixture logs so their exact bytes are retained; code, CSV and

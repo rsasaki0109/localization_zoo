@@ -258,16 +258,20 @@ independent. Each item says what "done" means.
      not a clean pass. Full 00's 20 candidate runs also finish: 15 match;
      A-LOAM, F-LOAM, LeGO-LOAM, Mesh-LOAM and VLOM differ, with RPE worsening
      on all five. Their numeric pairs are retained in the method READMEs;
-     A-LOAM, F-LOAM, LeGO-LOAM and VLOM's frozen pre-extraction controls now
-     finish with zero metric differences and byte-identical saved poses, so
-     their historical differences predate extraction. Mesh-LOAM's comparison
-     and input cleanup are still in progress. The implementation is merged
+     All five frozen pre-extraction controls now finish with zero metric
+     differences and byte-identical saved poses, so their historical differences
+     predate extraction; the original causes remain unresolved. Input hashes
+     were verified before removing the owned 00 scans. The implementation is merged
      in [PR #137](https://github.com/rsasaki0109/localization_zoo/pull/137);
      later audit results are follow-up work.
      [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
      locate error growth; missing referenced historical paths prevent a paired
      diagnosis of the historical metric differences.
-     00 is not yet a completed sequence checkpoint. The historical NCLT cutoff is retained
+     The committed, cleaned 04/00 checkpoint now covers 34/177 cells:
+     27 historical matches and 7 differences, all reproduced by frozen controls.
+     Both historical audits retain exit 1; checkpoint verification exits 0.
+     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/00/summary.json).
+     The historical NCLT cutoff is retained
      without reselection. DiLO's historical cut/uncut profiles also differ in
      range-image geometry, so their RTE difference cannot isolate the cut's
      effect; its ATE worsens from 54.344593 to 75.832748 m. Real NCLT validation

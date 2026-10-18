@@ -43,9 +43,12 @@ were committed at `7d55897901c17b0c64567115a6f59db06cf585b0`.
 
 [Completed candidate commands, actual exits, logs and summaries](../../experiments/results/shared_near_range/sequences/00/audit/)
 were committed at `485fa00601644731827dae601eb3b43c7543efeb`.
-[Protocol and current scope](../../experiments/results/shared_near_range/README.md)
-distinguish these completed runs from a cleaned sequence checkpoint: 00 input
-cleanup and the whole-zoo audit are incomplete. Defaults remain off.
+The full [frozen comparison](../../experiments/results/shared_near_range/sequences/00/frozen_comparison.json)
+and [verified input cleanup](../../experiments/results/shared_near_range/sequences/00/cleanup.json)
+were committed at `10cf31616365b41878ec9311f0b705e798716c51`.
+The [committed checkpoint](../../experiments/results/shared_near_range/checkpoints/00/summary.json)
+now covers cleaned 04 and 00; the whole-zoo audit remains incomplete.
+Defaults remain off.
 <!-- /SHARED_NEAR_RANGE_00_PRIMARY -->
 
 <!-- SHARED_NEAR_RANGE_00_DIAGNOSTICS -->

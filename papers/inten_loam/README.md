@@ -387,6 +387,33 @@ pose and returns the S2S / S2M estimates from it and the normal equations of
 each feature class there; the window analysis above used it with the
 ground truth.
 
+<!-- INTEN_SUPPORT_DIAGNOSTICS -->
+#### Pair support at the failure steps
+
+An offline join of the committed native progress logs and saved poses covers
+the fixed-setting runs 01-06 and 08-10. In 01, 14
+of the 136 bad-length steps have progress records; their
+minimum returned S2S / S2M pair counts are
+**694 / 1381**.
+In 02, 14 of 133 have
+records, with minima **927 / 1413**.
+None of these sampled bad steps has a count below 30. At those frames the
+code keeps the returned S2S transform without low-count replacement and the
+S2M pose passes its count-based acceptance test. The low-count branches do
+not explain those individual steps; this does not establish solver convergence.
+
+This is a negative check of the low-count hypothesis, not a cause or fix for
+the paper gap. There are still 122 unlogged bad steps
+in 01 and 119 in 02. Their branch decisions and the
+effect of earlier fallback remain unknown. High pair counts also do not
+establish geometric conditioning or correct associations. The solver-level
+cause remains open; settings and stored results are unchanged.
+
+[Protocol, all sequence counts, CSVs, commands and limits](../../experiments/results/inten_support_diagnostics/README.md)
+derive from evidence committed at `283bc86fa939062d80b36057ccca2ce42a891f9c`. No native replay or new
+accuracy measurement is performed.
+<!-- /INTEN_SUPPORT_DIAGNOSTICS -->
+
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):

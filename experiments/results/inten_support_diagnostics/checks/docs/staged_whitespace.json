@@ -1,0 +1,13 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check",
+    "7505a2914328d53ac9b319d5f8042189b378d457"
+  ],
+  "cwd": "/workspace/localization-env/inten-support/worktree",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": ""
+}

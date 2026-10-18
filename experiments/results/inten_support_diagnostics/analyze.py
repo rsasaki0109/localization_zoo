@@ -70,9 +70,17 @@ def main():
     runs = json.loads(committed('experiments/results/mesh_inten_kitti_coverage/parallel_execution.json'))
     recorded_native_commit = provenance['evaluator_git_commit']
     native_path = 'papers/inten_loam/src/inten_loam_paper.cpp'
-    native = committed(native_path, recorded_native_commit).decode()
-    committed(native_path)
-    committed('papers/inten_loam/include/inten_loam/inten_loam_paper.h', recorded_native_commit)
+    native_sources = {}
+    for relative in (native_path, 'papers/inten_loam/include/inten_loam/inten_loam_paper.h'):
+        recorded = committed(relative, recorded_native_commit, require_worktree=False)
+        study_input = committed(relative, require_worktree=False)
+        if recorded != study_input:
+            raise ValueError('Recorded execution and pinned study source differ: ' + relative)
+        native_sources[relative] = dict(recorded_execution_commit=recorded_native_commit,
+                                       study_input_commit=protocol['input_commit'],
+                                       sha256=hashlib.sha256(recorded).hexdigest(), identical=True)
+        if relative == native_path:
+            native = recorded.decode()
     assert 'if (result.s2s_pairs < 30) rel = last_rel_;' in native
     assert 'if (result.s2m_pairs >= 30) {' in native
     runner = committed('evaluation/src/pcd_dogfooding.cpp', recorded_native_commit,
@@ -163,6 +171,9 @@ def main():
     result = dict(command=[sys.executable, *sys.argv], cwd=str(REPO), analysis_commit=revision,
                   protocol=protocol, recorded_native_commit=recorded_native_commit,
                   recorded_native_binary_sha256=provenance['binary_sha256'],
+                  native_source_provenance=dict(files=native_sources,
+                      scope='Interpret recorded progress using its historical source blobs and pinned study input. '
+                            'Current native checkout files are not analysis inputs or a replay of these results.'),
                   input_sha256=sources, fixed_variant_args=fixed_args,
                   sequences=sequences, bad_length_intervals=intervals, exit_code=0)
     (args.output_dir / 'summary.json').write_text(json.dumps(result, indent=2, allow_nan=False) + '\n')

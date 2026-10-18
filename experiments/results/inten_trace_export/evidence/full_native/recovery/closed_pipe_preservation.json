@@ -1,0 +1,40 @@
+{
+  "exit_code": 0,
+  "base_commit": "45721068c788392e5070145de346707451d2543c",
+  "native_source_commit": "f8ee0b08bb160e6c0be91a240190862278c7ba51",
+  "aggregate_count": 688,
+  "aggregate_hashes_match": true,
+  "publication": {
+    "README.md": {
+      "identical": true,
+      "sha256": "e4856f5f9868afda8964907ef442d05c8b3c791533c16385bf630e01b25d0a15"
+    },
+    "docs/index.html": {
+      "identical": true,
+      "sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab"
+    },
+    "docs/assets/paper/paper_ratio_table.csv": {
+      "identical": true,
+      "sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509"
+    },
+    "evaluation/data/paper_reported_numbers.json": {
+      "identical": true,
+      "sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e"
+    }
+  },
+  "prior_evidence_exit_code": 0,
+  "native_source_identity_exit_code": 0,
+  "changed_native_files": [
+    "evaluation/CMakeLists.txt",
+    "evaluation/src/inten_trace_jsonl.h",
+    "evaluation/src/pcd_dogfooding.cpp",
+    "evaluation/test/test_inten_trace_jsonl.cpp"
+  ],
+  "allowed_native_files": [
+    "evaluation/CMakeLists.txt",
+    "evaluation/src/pcd_dogfooding.cpp",
+    "evaluation/src/inten_trace_jsonl.h",
+    "evaluation/test/test_inten_trace_jsonl.cpp"
+  ],
+  "failures": []
+}

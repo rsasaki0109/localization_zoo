@@ -1,0 +1,347 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/candidate/command.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/candidate/command.json",
+      "original_sha256": "1dda32338d26cd3dec9cf1cd3fae562559fe1b36338dc126b3377f9d3ff10e47",
+      "stored_sha256": "1dda32338d26cd3dec9cf1cd3fae562559fe1b36338dc126b3377f9d3ff10e47"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "original_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+      "stored_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/candidate/dogfooding_results/gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/candidate/dogfooding_results/gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/candidate/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/candidate/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/candidate/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/candidate/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "original_sha256": "4d211613733369ab12bcd3561e490dc5d5396f6fae1e03b0a5c6fba03dda57e7",
+      "stored_sha256": "4d211613733369ab12bcd3561e490dc5d5396f6fae1e03b0a5c6fba03dda57e7"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/candidate/native.log",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/candidate/native.log.gz",
+      "original_sha256": "1f0fa71f263c6e6263abafdd7c7a245759620759f84c8cf410b167eab72cab52",
+      "stored_sha256": "fc895c22bdf9d74ef88efc85cfe59b4b2dc36b1f785d3bfbbc09c290c8a531f4"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/candidate/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/candidate/summary.json",
+      "original_sha256": "4d211613733369ab12bcd3561e490dc5d5396f6fae1e03b0a5c6fba03dda57e7",
+      "stored_sha256": "4d211613733369ab12bcd3561e490dc5d5396f6fae1e03b0a5c6fba03dda57e7"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/reference/command.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/reference/command.json",
+      "original_sha256": "91063bfb820c2c5acc5a9f3a5b38c3f384590628d78ba4d53a840741b521d1ca",
+      "stored_sha256": "91063bfb820c2c5acc5a9f3a5b38c3f384590628d78ba4d53a840741b521d1ca"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/reference/dogfooding_results/InTEn_LOAM.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/reference/dogfooding_results/InTEn_LOAM.txt",
+      "original_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+      "stored_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/reference/dogfooding_results/gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/reference/dogfooding_results/gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "original_sha256": "cde830a8d4349ee01847838d5bcf066019ea845d01b3e904c67582c903f0463c",
+      "stored_sha256": "cde830a8d4349ee01847838d5bcf066019ea845d01b3e904c67582c903f0463c"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/reference/native.log",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/reference/native.log.gz",
+      "original_sha256": "9dee5cc30a97f2ea5b16709fae0fafa9a9a767c5cdd0af3ef281ac33ad7cb64c",
+      "stored_sha256": "8fe94263e6a606bbe68eae1d737a06bc605447327b9d632765c47b98f2d48117"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/accelerated/reference/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/accelerated/reference/summary.json",
+      "original_sha256": "cde830a8d4349ee01847838d5bcf066019ea845d01b3e904c67582c903f0463c",
+      "stored_sha256": "cde830a8d4349ee01847838d5bcf066019ea845d01b3e904c67582c903f0463c"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/candidate/command.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/candidate/command.json",
+      "original_sha256": "692c6d639b27f7c24dce7b28eef94d4195136a4cedb8866d5fea662b767d5f47",
+      "stored_sha256": "692c6d639b27f7c24dce7b28eef94d4195136a4cedb8866d5fea662b767d5f47"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "original_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+      "stored_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/candidate/dogfooding_results/gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/candidate/dogfooding_results/gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/candidate/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/candidate/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/candidate/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/candidate/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "original_sha256": "74481b2b39ca75ca5b860a0106a9958fe78786b7d7d41b9f92524580cebdb22c",
+      "stored_sha256": "74481b2b39ca75ca5b860a0106a9958fe78786b7d7d41b9f92524580cebdb22c"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/candidate/native.log",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/candidate/native.log.gz",
+      "original_sha256": "11cadccecef9f052b4177f1f640778a5475d03053ca4da4ffbb1f0f2751f88d6",
+      "stored_sha256": "c38437a5d24041b678ffec3f294f818091318c9cafa98a383bba97dbbc652cdf"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/candidate/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/candidate/summary.json",
+      "original_sha256": "74481b2b39ca75ca5b860a0106a9958fe78786b7d7d41b9f92524580cebdb22c",
+      "stored_sha256": "74481b2b39ca75ca5b860a0106a9958fe78786b7d7d41b9f92524580cebdb22c"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/reference/command.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/reference/command.json",
+      "original_sha256": "0c3e85957ae241fee3f5c43bdc88e67fd515bb1d6a77736bc352ce761d3eecb9",
+      "stored_sha256": "0c3e85957ae241fee3f5c43bdc88e67fd515bb1d6a77736bc352ce761d3eecb9"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/reference/dogfooding_results/InTEn_LOAM.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/reference/dogfooding_results/InTEn_LOAM.txt",
+      "original_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f",
+      "stored_sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/reference/dogfooding_results/gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/reference/dogfooding_results/gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "original_sha256": "9d78853991a4ba37db328d400e854e7be059087d6582204249e48230fd4d9862",
+      "stored_sha256": "9d78853991a4ba37db328d400e854e7be059087d6582204249e48230fd4d9862"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/reference/native.log",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/reference/native.log.gz",
+      "original_sha256": "30cbd8826234e717fde5d647f21f23f987c3152b84545c6f82bf93e6aa0598ee",
+      "stored_sha256": "14d98faea8fd5d1e2452bb254912667928414fafee1c80bb7674aa96921e2840"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_default/default/reference/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_default/default/reference/summary.json",
+      "original_sha256": "9d78853991a4ba37db328d400e854e7be059087d6582204249e48230fd4d9862",
+      "stored_sha256": "9d78853991a4ba37db328d400e854e7be059087d6582204249e48230fd4d9862"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/candidate/command.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/candidate/command.json",
+      "original_sha256": "c98e6ebc6e68e81198b512867980fa594ca8d5737e966cd9e98014ac49464165",
+      "stored_sha256": "c98e6ebc6e68e81198b512867980fa594ca8d5737e966cd9e98014ac49464165"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "original_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+      "stored_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/candidate/dogfooding_results/gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/candidate/dogfooding_results/gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/candidate/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/candidate/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/candidate/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/candidate/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "original_sha256": "ffca2ce7369bc9907d6fb9708f8b02eed25f6a8d0b559e1247135515afb3ae9d",
+      "stored_sha256": "ffca2ce7369bc9907d6fb9708f8b02eed25f6a8d0b559e1247135515afb3ae9d"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/candidate/native.log",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/candidate/native.log.gz",
+      "original_sha256": "4c47c386cf9ed75551a2d9c811538edef266b1643839235b0000618ebc06f937",
+      "stored_sha256": "b09cae4e2af601e78a278b9eec37b955941fdd34bda6eb34e34884207e201acb"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/candidate/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/candidate/summary.json",
+      "original_sha256": "ffca2ce7369bc9907d6fb9708f8b02eed25f6a8d0b559e1247135515afb3ae9d",
+      "stored_sha256": "ffca2ce7369bc9907d6fb9708f8b02eed25f6a8d0b559e1247135515afb3ae9d"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/reference/command.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/reference/command.json",
+      "original_sha256": "0885cdbf62571964a67dd12a5df26eafdf3a4d42df31991246a3c244d257c08b",
+      "stored_sha256": "0885cdbf62571964a67dd12a5df26eafdf3a4d42df31991246a3c244d257c08b"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/reference/dogfooding_results/InTEn_LOAM.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/reference/dogfooding_results/InTEn_LOAM.txt",
+      "original_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+      "stored_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/reference/dogfooding_results/gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/reference/dogfooding_results/gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "original_sha256": "b6d2ceeb132881d46b39d62d547b1b370d9309b7f0b7214db907e082974c4006",
+      "stored_sha256": "b6d2ceeb132881d46b39d62d547b1b370d9309b7f0b7214db907e082974c4006"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/reference/native.log",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/reference/native.log.gz",
+      "original_sha256": "66b75c674fa0b3da95e7bd8c54c4730be433dc31ec35db12ce84f792695c74ff",
+      "stored_sha256": "982a6893a571f89709bf782920b273d190c93205de766f3c3417e683052bf67d"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/accelerated/reference/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/accelerated/reference/summary.json",
+      "original_sha256": "b6d2ceeb132881d46b39d62d547b1b370d9309b7f0b7214db907e082974c4006",
+      "stored_sha256": "b6d2ceeb132881d46b39d62d547b1b370d9309b7f0b7214db907e082974c4006"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/candidate/command.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/candidate/command.json",
+      "original_sha256": "f23b08a7c34a9cdd70771527d98611694cf6380cd54b8a80ea64f3b4c4a6c33c",
+      "stored_sha256": "f23b08a7c34a9cdd70771527d98611694cf6380cd54b8a80ea64f3b4c4a6c33c"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "original_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+      "stored_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/candidate/dogfooding_results/gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/candidate/dogfooding_results/gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/candidate/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/candidate/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/candidate/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/candidate/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "original_sha256": "83e58f518e1cd842e6dc3c824bd1cea074ec7a65af78f0c7a8026bf01430d994",
+      "stored_sha256": "83e58f518e1cd842e6dc3c824bd1cea074ec7a65af78f0c7a8026bf01430d994"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/candidate/native.log",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/candidate/native.log.gz",
+      "original_sha256": "d66261186b4eff8071618220b9ae78c380533e9a38e732bb3186d569bfdee313",
+      "stored_sha256": "40d4b9956a426959cb73d9a64e2fb23f4f34e043ac5c52d1645c816578f89f90"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/candidate/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/candidate/summary.json",
+      "original_sha256": "83e58f518e1cd842e6dc3c824bd1cea074ec7a65af78f0c7a8026bf01430d994",
+      "stored_sha256": "83e58f518e1cd842e6dc3c824bd1cea074ec7a65af78f0c7a8026bf01430d994"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/reference/command.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/reference/command.json",
+      "original_sha256": "ecc520920e8de47fdda5c08af3b89c722d82eec4c17e77f54316a685e2d447e3",
+      "stored_sha256": "ecc520920e8de47fdda5c08af3b89c722d82eec4c17e77f54316a685e2d447e3"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/reference/dogfooding_results/InTEn_LOAM.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/reference/dogfooding_results/InTEn_LOAM.txt",
+      "original_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4",
+      "stored_sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/reference/dogfooding_results/gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/reference/dogfooding_results/gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/reference/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "original_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/reference/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "original_sha256": "12b43f91552a98710253beab9b2a443d2efef6fcf4a3e8f42258a0a61d56ae88",
+      "stored_sha256": "12b43f91552a98710253beab9b2a443d2efef6fcf4a3e8f42258a0a61d56ae88"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/reference/native.log",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/reference/native.log.gz",
+      "original_sha256": "bfc077afa4504d4113fbe6d8ea3a7fc9ceaf59def7e6d54c5570b362e641ffe6",
+      "stored_sha256": "0ecdc721b24ab10a55fa08f490dad1fde5d08d4a440e5ec983eaa8376cc66b5e"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/paper_odometry_plane_check/default/reference/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/paper_odometry_plane_check/default/reference/summary.json",
+      "original_sha256": "12b43f91552a98710253beab9b2a443d2efef6fcf4a3e8f42258a0a61d56ae88",
+      "stored_sha256": "12b43f91552a98710253beab9b2a443d2efef6fcf4a3e8f42258a0a61d56ae88"
+    },
+    {
+      "source": "/workspace/localization-env/paper-trace-integration/api_fixture/summary.json",
+      "stored": "experiments/results/inten_passive_trace/integration/evidence/fixture/summary.json",
+      "original_sha256": "eccd35763864efa48ca3faa1e96d53a53f3b049fd7ce18a42c173ea7157b80ed",
+      "stored_sha256": "eccd35763864efa48ca3faa1e96d53a53f3b049fd7ce18a42c173ea7157b80ed"
+    }
+  ],
+  "exit_code": 0
+}

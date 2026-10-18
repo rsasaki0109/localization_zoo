@@ -1,0 +1,18 @@
+{
+  "exit_code": 0,
+  "tests": 3,
+  "commands": "commands.json",
+  "native_source_commit": "f8ee0b08bb160e6c0be91a240190862278c7ba51",
+  "logs": {
+    "compile.log": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    "test.log": {
+      "original_sha256": "96f8dc3375dea33eb210d595a5905d63ce6d45b250192e9b4f91243507785558",
+      "stored_sha256": "58486f0efb36b939dbf97407c68de2c09df51b9254cb37d739092017a71c6ce6",
+      "lossless": true
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-trace-validator/worktree/evaluation/scripts/check_inten_trace.py",
+    "--trace",
+    "/workspace/localization-env/inten-trace-validator/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/trace.jsonl",
+    "--summary",
+    "/workspace/localization-env/inten-trace-validator/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/summary.json",
+    "--receipt",
+    "/workspace/localization-env/inten-trace-validator/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/command.json",
+    "--output",
+    "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_default__accelerated.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-validator/worktree",
+  "exit_code": 0,
+  "tool_source_commit": "8752c852d750277a2bbeda49ec7c36f154558529",
+  "input_commit": "9a18f1a3e57dae7fa59d0cc7de76e60131afe313",
+  "input_sha256": {
+    "trace.jsonl": "0a899f0d422cec405dc9385d4a3880d9dcc68c9520b70e95c2652bca82ad6992",
+    "summary.json": "e460c84885632c48325516c998e1b42e27785b24b675645b4a3eab812aeca124",
+    "command.json": "e33793ac02b6c313712ec29e62651ae664e8b23104a9832161b374efd8aa15c4"
+  },
+  "started_unix": 1792320159.2731023,
+  "finished_unix": 1792320159.4078677
+}

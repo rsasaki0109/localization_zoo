@@ -39,6 +39,9 @@ namespace localization_zoo {
 namespace inten_loam {
 
 struct InTenLoamPaperParams {
+  // Opt-in repository acceleration: independent feature stages, queries and
+  // tree builds in parallel; residuals retain the original feature order.
+  bool accelerated = false;
   // Motion compensation (Sec. 3.1.1, eq. 1) with the constant-velocity
   // motion and the point time read from the azimuth (KITTI scans carry no
   // per-point time): 0 off, +1 / -1 the two spin directions. Points are
@@ -154,14 +157,60 @@ struct InTenLoamPaperDiagnostics {
   Eigen::Matrix4d s2m_estimate = Eigen::Matrix4d::Identity();  // world <- sensor, from forced_pose
 };
 
+// Optional observation of the normal estimator, separate from forced-pose
+// interventions above. No solver is rerun and no pose is supplied by this API.
+enum class PaperSolverStop {
+  NotRun, NoIterations, InsufficientPairs, NonFiniteStep, Converged, IterationLimit
+};
+
+struct PaperIterationTrace {
+  using Mat6 = Eigen::Matrix<double, 6, 6>;
+  using Vec6 = Eigen::Matrix<double, 6, 1>;
+  Eigen::Matrix4d linearization_pose = Eigen::Matrix4d::Identity();
+  Mat6 H = Mat6::Zero();  // unregularized, left perturbation [t, w]
+  Vec6 g = Vec6::Zero();
+  Vec6 delta = Vec6::Zero();  // solve uses H + 1e-6 I, as without tracing
+  int class_pairs[4] = {0, 0, 0, 0};  // edge, ground, facade, intensity
+  int pairs = 0;
+  // Sum w*r*r at this linearization; w is the existing Huber IRLS weight.
+  // This is not the Huber objective, a post-update score or a quality gate.
+  double weighted_squared_residual = 0.0;
+  bool step_attempted = false;
+  bool step_finite = false;
+  bool update_applied = false;
+};
+
+struct PaperSolverTrace {
+  bool called = false;
+  Eigen::Matrix4d input = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d output = Eigen::Matrix4d::Identity();
+  int returned_pairs = 0;  // includes the existing nonfinite-step return of zero
+  PaperSolverStop stop = PaperSolverStop::NotRun;
+  std::vector<PaperIterationTrace> iterations;
+};
+
+struct InTenLoamPaperTrace {
+  int frame_index = 0;
+  bool initialization = false;
+  PaperSolverTrace s2s, s2m;
+  bool s2s_fallback = false;
+  Eigen::Matrix4d accepted_relative = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d s2m_prediction = Eigen::Matrix4d::Identity();  // drift * odom
+  bool s2m_accepted = false;
+  Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();  // final world <- sensor
+};
+
 class InTenLoamPaper {
 public:
   explicit InTenLoamPaper(const InTenLoamPaperParams& params = InTenLoamPaperParams());
 
-  // points: sensor frame, intensity in [0, 1].
+  // points: sensor frame, intensity in [0, 1]. trace is reset on each call.
+  // Tracing is off by default and cannot be combined with forced_pose:
+  // that combination throws std::invalid_argument before estimator updates.
   InTenLoamPaperResult process(const std::vector<Eigen::Vector3d>& points,
                                const std::vector<float>& intensity,
-                               InTenLoamPaperDiagnostics* diag = nullptr);
+                               InTenLoamPaperDiagnostics* diag = nullptr,
+                               InTenLoamPaperTrace* trace = nullptr);
 
   // Exposed for tests.
   PaperFrame extractFeatures(const std::vector<Eigen::Vector3d>& points,
@@ -197,9 +246,10 @@ private:
   struct ClassSystems;
 
   // Gauss-Newton on se(3) with re-association; T maps source into target.
-  int solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first = nullptr) const;
+  int solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first = nullptr,
+               PaperSolverTrace* trace = nullptr) const;
   int solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4] = nullptr,
-               ClassSystems* first = nullptr) const;
+               ClassSystems* first = nullptr, PaperSolverTrace* trace = nullptr) const;
   std::vector<char> dynamicMask(const PaperFrame& curr, const Eigen::Matrix4d& T_w) const;
   void insert(const PaperFrame& curr, const Eigen::Matrix4d& T_w, const std::vector<char>& dynamic);
 

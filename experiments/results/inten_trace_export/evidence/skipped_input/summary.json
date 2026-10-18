@@ -1,0 +1,46 @@
+{
+  "exit_code": 0,
+  "native_source_commit": "f8ee0b08bb160e6c0be91a240190862278c7ba51",
+  "binaries": {
+    "reference": {
+      "path": "/workspace/localization-env/inten-passive-trace/worktree/build/evaluation/pcd_dogfooding",
+      "sha256": "e34c6294bdd41c5d1efe64b576283511cbe6d12dfb138ae62a5bf84d110b8459"
+    },
+    "candidate": {
+      "path": "/workspace/localization-env/inten-trace-export/focused_build/pcd_dogfooding",
+      "sha256": "6bbeb9e336068ec963076ba53d6091398e7a07b5479c7f48a812ea150b62c864"
+    }
+  },
+  "native_exits": [
+    0,
+    0,
+    0
+  ],
+  "input_sha256": {
+    "input/frame_timestamps.csv": "46e35bcd38a41f27c1db136d4d77e550645921bcd4750210a2bb7fa8e9e9094c",
+    "input/00000001/cloud.pcd": "8448148860c9a3f475beeff45fea77e4f7a15ab41b3ce559dfa0587dbe70de4d",
+    "input/00000002/cloud.pcd": "91e90a6f487b0877b80dc30275582ed02e326eec506682000a0663fd7ed640e3",
+    "input/00000000/cloud.pcd": "cc61530bc780bc47ca01a926e488a55b58caeab8ad683c0bbcc416972c569df9"
+  },
+  "record_types": [
+    "header",
+    "frame",
+    "skipped_frame",
+    "frame",
+    "end"
+  ],
+  "input_indices": [
+    0,
+    1,
+    2
+  ],
+  "estimator_frame_indices": [
+    0,
+    1
+  ],
+  "processed_frames": 2,
+  "skipped_frames": 1,
+  "saved_pose_bytes_identical": true,
+  "gt_sha256": "c3e35ffa624471c7299fbe99bb905387ea5b9f3f4f86114a41aead3638efd528",
+  "scope": "Synthetic missing-input lifecycle check only. First/third committed MCD scans, middle replaced by empty PCD. Accuracy fields are not interpreted because the inherited runner removes the empty scan without retiming GT."
+}

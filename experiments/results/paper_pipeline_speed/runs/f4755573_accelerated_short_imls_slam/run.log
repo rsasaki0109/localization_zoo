@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 120
+GT poses: 120
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 68.9 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running IMLS-SLAM...
+  source_voxel_size=0.5 voxel_size=1.0 imls_h=0.5 sampling=1
+  [IMLS paper] 0/120 model=122626  [IMLS paper] 20/120 model=2576644  [IMLS paper] 40/120 model=5023372  [IMLS paper] 60/120 model=7382984  [IMLS paper] 80/120 model=9708934  [IMLS paper] 100/120 model=11985765
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+IMLS-SLAM               ok          0.157       0.520          120         63548.0        1.9         
+
+Notes:
+- IMLS-SLAM: IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0; coarse start on the first 1 registrations (r=1.0 h=0.3, not in the paper); repository acceleration enabled (opt-in, not in the paper)
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/velodyne_evaluated_gt.txt, manifest: dogfooding_results/velodyne_evaluation_manifest.json)

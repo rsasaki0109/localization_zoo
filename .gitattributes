@@ -20,3 +20,7 @@ experiments/results/shared_near_range/historical_aggregate_sha256.json linguist-
 experiments/results/shared_near_range/sequences/**/replays/*.log -whitespace
 experiments/results/shared_near_range/checks/fixture_parity/**/baseline.log -whitespace
 experiments/results/shared_near_range/checks/fixture_parity/**/candidate.log -whitespace
+# Preserve historical native/profiler stdout verbatim, including table padding.
+experiments/results/paper_pipeline_speed/runs/*/run.log -whitespace
+experiments/results/paper_pipeline_speed/release_verification/1b51db69/*/run.log -whitespace
+experiments/results/paper_pipeline_speed/install_profiler.log -whitespace

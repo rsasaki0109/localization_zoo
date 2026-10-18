@@ -1,0 +1,6 @@
+{
+  "pid": 35023,
+  "signal": "SIGTERM",
+  "time_unix": 1792171684.5052922,
+  "reason": "Only a waiting monitor stopped. The completed fe03ed88 screening shows OpenMP soft pause is slower; reject that change before the final paired full runs. V4 build/screening continues untouched; no full run started."
+}

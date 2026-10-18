@@ -5,6 +5,9 @@
 
 #include <cmath>
 #include <random>
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 using namespace localization_zoo::imls_slam;
 
@@ -132,4 +135,50 @@ TEST(ImlsPaperOdometry, CoarseStartRecoversAStartInMotion) {
   // Later registrations have a velocity guess and run the paper's iterations only.
   EXPECT_FALSE(odometry.process(seenFrom(world, third)).coarse_start);
   EXPECT_LT((odometry.pose().block<3, 1>(0, 3) - third.block<3, 1>(0, 3)).norm(), 0.03);
+}
+
+TEST(ImlsPaperOdometry, AccelerationPreservesNormalsListsAndSlidingWindowTrajectory) {
+#ifdef _OPENMP
+  const int original_threads = omp_get_max_threads();
+#endif
+  for (int threads : {1, 4}) {
+#ifdef _OPENMP
+    omp_set_num_threads(threads);
+#endif
+    std::mt19937 rng(19);
+    auto world = room(0.18, rng);
+    world.emplace_back(1000.0, 0.0, 0.0);  // no normal support
+    ImlsPaperParams params;
+    params.min_range = 0.0;
+    params.window_scans = 2;  // exercise removal and cache invalidation
+    params.coarse_frames = 1;
+    params.samples_per_list = 20;
+    params.iterations = 6;
+    ImlsPaperOdometry legacy(params);
+    params.accelerated = true;
+    ImlsPaperOdometry accelerated(params);
+    const auto before = legacy.describe(world), after = accelerated.describe(world);
+    ASSERT_EQ(before.size(), after.size());
+    for (size_t i = 0; i < before.size(); ++i) {
+      EXPECT_TRUE((before[i].p.array() == after[i].p.array()).all());
+      EXPECT_TRUE((before[i].n.array() == after[i].n.array()).all());
+      EXPECT_EQ(before[i].a2d, after[i].a2d);
+    }
+    EXPECT_EQ(legacy.sampleLists(before), accelerated.sampleLists(after));
+    for (int k = 0; k < 7; ++k) {
+      Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+      pose.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.012 * k, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+      pose(0, 3) = 0.10 * k;
+      pose(1, 3) = 0.008 * k * k;
+      const auto scan = seenFrom(world, pose);
+      const auto a = legacy.process(scan), b = accelerated.process(scan);
+      EXPECT_EQ(a.samples, b.samples);
+      EXPECT_EQ(a.model_points, b.model_points);
+      EXPECT_EQ(a.coarse_start, b.coarse_start);
+      EXPECT_TRUE((a.pose.array() == b.pose.array()).all()) << "threads=" << threads << " frame=" << k;
+    }
+  }
+#ifdef _OPENMP
+  omp_set_num_threads(original_threads);
+#endif
 }

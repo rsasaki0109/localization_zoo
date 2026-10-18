@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-trace-validator/worktree/evaluation/scripts/check_inten_trace.py",
+    "--trace",
+    "/workspace/localization-env/inten-trace-validator/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/trace.jsonl",
+    "--summary",
+    "/workspace/localization-env/inten-trace-validator/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/summary.json",
+    "--receipt",
+    "/workspace/localization-env/inten-trace-validator/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/command.json",
+    "--output",
+    "/workspace/localization-env/paper-trace-integration/validator_corpus/paper_odometry_plane_check__accelerated.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-validator/worktree",
+  "exit_code": 0,
+  "tool_source_commit": "8752c852d750277a2bbeda49ec7c36f154558529",
+  "input_commit": "9a18f1a3e57dae7fa59d0cc7de76e60131afe313",
+  "input_sha256": {
+    "trace.jsonl": "aca8a55d36e155b0ea66a4c454b3fa634ef682adbabbdd6a83b12b28f00998c2",
+    "summary.json": "11a4cf72a1d2319b4d0f4b319458e0d0a5b1e48d7ee902c66e97f0bb0a676bc5",
+    "command.json": "90390234408935a7ed638deb068a5a1dcb6de8afbaf00ee2419a058a9ec1d800"
+  },
+  "started_unix": 1792320159.662383,
+  "finished_unix": 1792320159.7594483
+}

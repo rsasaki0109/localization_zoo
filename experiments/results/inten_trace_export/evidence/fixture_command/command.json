@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_trace_export/validate_fixture.py",
+    "--candidate-binary",
+    "/workspace/localization-env/inten-trace-export/focused_build/pcd_dogfooding",
+    "--output-dir",
+    "/workspace/localization-env/inten-trace-export/fixture_run"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-export/worktree",
+  "exit_code": 0,
+  "started_unix": 1792306325.742622,
+  "finished_unix": 1792306336.5831687
+}

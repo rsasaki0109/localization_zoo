@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "base_commit": "194133b787e3b805fbb645105e950dd00fedb8fe",
+  "tool_source_commit": "e367f0638c3b6ca09fc880a328be413d004074ac",
+  "depends_on_pr": "https://github.com/rsasaki0109/localization_zoo/pull/141",
+  "scope": "Offline structural validation of existing passive trace files and native run receipts. No native invocation, data fetch, estimator setting, accuracy/conditioning threshold or cause claim.",
+  "inputs": [
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on"
+  ],
+  "provenance": "All inputs are committed in the parent PR141. Default and unchanged KITTI07-selected plane-check settings were used for those short MCD compatibility runs;00 influenced the earlier diagnosis. This tool selects no estimator setting.",
+  "validation": {
+    "unit": "Adversarial tests for truncation/trailing data, input versus estimator indices, run mixing/native exit, explicit nonfinite values versus JSON NaN, support/matrix/flag corruption, extreme integer, schema/duplicate keys, native summary and exclusive output.",
+    "corpus": "Run CLI on all three committed trace/summary/receipt tuples and retain outputs/hashes/commands. Synthetic invalid cases: no end, data after end, footer mismatch, raw NaN, mixed-run receipt, failed-native receipt, and wrong method frame count. Expect exit1 and no report for each.",
+    "preservation": "All native sources/CMake and previous results/publication are byte-identical to base. Original177 sources, binary pins and worker seals stay frozen.",
+    "required_checks": "All Python tests and3generators, showcase/leaderboard/paper-ready, source/evidence/publication and whitespace checks. No local native rebuild/rerun for this Python-only change; exact-head CI also runs the native suite."
+  },
+  "limits": "Validation establishes record/run consistency, not motion quality, matrix conditioning, binary/input authenticity or correct GT alignment. An empty-input skip remains explicit and makes inherited accuracy fields unsuitable without GT remapping. No full KITTI failure trace or cause finding."
+}

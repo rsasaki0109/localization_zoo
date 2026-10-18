@@ -1,0 +1,7 @@
+{
+  "source": "/workspace/localization-env/shared-near-range/diagnostics01/diagnose_saved01.log",
+  "original_sha256": "b81f222adac087c48031a33a549f18460fda9abdae372c9be6e29faa49a88fbf",
+  "gzip_sha256": "a7fca258df6a026efd8ebeb4d20d6276649e74a07b6593c0d573589956f5821a",
+  "lossless_verified": true,
+  "note": "Fontconfig emitted cache-writability diagnostics; process exit0 and the generated plot was visually inspected."
+}

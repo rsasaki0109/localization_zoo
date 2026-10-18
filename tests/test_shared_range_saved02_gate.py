@@ -3,6 +3,7 @@
 No estimator, scanner data or running study output is used by these fixtures.
 """
 import contextlib
+import hashlib
 import importlib.util
 import io
 import json
@@ -38,6 +39,9 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.script.parent.mkdir(parents=True)
         self.script.write_bytes((STUDY / self.script.name).read_bytes())
         (self.study / 'support.py').write_text('# This fixture installs an isolated support namespace.\n')
+        wrapper = self.study / 'native_wrapper.py'
+        wrapper.write_text('# Synthetic output-isolation wrapper, distinct from both native executables.\n')
+        self.wrapper_sha256 = hashlib.sha256(wrapper.read_bytes()).hexdigest()
         write_json(self.study / 'protocol.json', {'implementation_commit': 'synthetic-frozen-source'})
         protocol = json.loads((STUDY / 'diagnostics/02_protocol.json').read_text())
         write_json(self.study / 'diagnostics/02_protocol.json', protocol)
@@ -95,7 +99,7 @@ class Saved02PublicationGateTests(unittest.TestCase):
         for mode, digest, report_rows in (('audit', 'candidate', rows),
                                           ('frozen_baseline', 'baseline', frozen_rows)):
             write_json(self.study / 'sequences/02' / mode / 'report.json',
-                       dict(exit_code=1, binary_sha256=digest, rows=report_rows))
+                       dict(exit_code=1, binary_sha256=self.wrapper_sha256, rows=report_rows))
             write_json(self.study / 'sequences/02' / mode / 'audit_command.json', {'exit_code': 1})
         write_json(self.study / 'sequences/02/frozen_comparison.json', dict(exit_code=0, checks=checks))
         write_json(self.study / 'sequences/02/cleanup.json',
@@ -178,6 +182,29 @@ class Saved02PublicationGateTests(unittest.TestCase):
         report = json.loads(path.read_text())
         report['exit_code'] = 2
         write_json(path, report)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke()
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_native_hash_cannot_substitute_for_audit_wrapper_hash(self):
+        path = self.study / 'sequences/02/audit/report.json'
+        report = json.loads(path.read_text())
+        report['binary_sha256'] = 'candidate'
+        write_json(path, report)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke()
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_wrapper_hash_cannot_substitute_for_native_receipt_hash(self):
+        summary = self.paths['Mesh-LOAM']
+        path = summary.with_name(summary.stem + '_native_command.json')
+        receipt = json.loads(path.read_text())
+        receipt['binary_sha256'] = self.wrapper_sha256
+        write_json(path, receipt)
         self.commit()
         with self.assertRaises(SystemExit) as failure:
             self.invoke()

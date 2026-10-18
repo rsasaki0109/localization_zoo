@@ -59,6 +59,7 @@ def main():
     report = json.loads(committed(E / 'sequences/02/audit/report.json'))
     command = json.loads(committed(E / 'sequences/02/audit/audit_command.json'))
     candidate = json.loads(committed(E / 'candidate.json'))
+    wrapper_sha256 = hashlib.sha256(committed(E / 'native_wrapper.py')).hexdigest()
     require(SOURCE == execution_protocol['implementation_commit'] == candidate['source_commit'],
             'Candidate source does not match the frozen execution protocol')
     baseline = json.loads(committed(E / 'baseline.json'))
@@ -68,13 +69,13 @@ def main():
     cleanup = json.loads(committed(E / 'sequences/02/cleanup.json'))
     require(report['exit_code'] == command['exit_code'] == 1,
             'Candidate audit must retain its recorded historical-drift exit')
-    require(report['binary_sha256'] == candidate['sha256'], 'Candidate binary pin differs')
+    require(report['binary_sha256'] == wrapper_sha256, 'Candidate audit wrapper pin differs')
     require(all(r['process_exit_code'] == 0 for r in report['rows']), 'Candidate native run failed')
     selected = {r['method']: r for r in report['rows'] if r['audit_status'] == 'drift'}
     require(set(selected) == set(METHODS) == set(protocol['methods']), 'Historical-difference cohort differs')
     require(frozen['exit_code'] == frozen_command['exit_code'] and frozen['exit_code'] in (0, 1),
             'Frozen audit did not finish with an allowed recorded exit')
-    require(frozen['binary_sha256'] == baseline['sha256'], 'Frozen binary pin differs')
+    require(frozen['binary_sha256'] == wrapper_sha256, 'Frozen audit wrapper pin differs')
     require({r['method'] for r in frozen['rows']} == set(selected), 'Frozen control cohort differs')
     require(all(r['process_exit_code'] == 0 for r in frozen['rows']), 'Frozen native run failed')
     require(comparison['exit_code'] == 0, 'Frozen comparison failed')
@@ -236,7 +237,8 @@ def main():
                 for name, expected in sources.items()), 'Inputs changed during analysis')
     write(args.output_dir / 'summary.json', dict(command=[sys.executable, *sys.argv], cwd=str(REPO),
           input_commit=revision, implementation_commit=SOURCE, protocol=protocol,
-          input_sha256=sources, candidate_binary_sha256=candidate['sha256'], rows=results,
+          input_sha256=sources, candidate_binary_sha256=candidate['sha256'],
+          audit_wrapper_sha256=wrapper_sha256, rows=results,
           completion_gate=dict(committed_candidate=True, committed_frozen_comparison=True,
                                committed_cleanup=True, owned_scans_and_alias_absent=True),
           exit_code=0, scope='Offline saved-path diagnosis after committed matching frozen controls and cleanup. '

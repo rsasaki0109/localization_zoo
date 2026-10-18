@@ -1,0 +1,7 @@
+{
+  "source_commit": "eebaf3d7559a9e8ed98e59e93814f66838f6b5f6",
+  "actual_exit_code": 2,
+  "output_directory_created": false,
+  "problem": "Audit binary_sha256 identifies the isolation wrapper; per-native execution receipts identify the candidate/baseline executable. Preserve both distinct pins.",
+  "scope": "Source gate fix only; native source/binaries/sealed execution files and completed02/03 results unchanged."
+}

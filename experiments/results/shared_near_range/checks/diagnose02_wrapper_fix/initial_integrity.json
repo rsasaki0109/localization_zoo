@@ -1,0 +1,61 @@
+{
+  "recorded_unix": 1792360438.584119,
+  "head": "eebaf3d7559a9e8ed98e59e93814f66838f6b5f6",
+  "sealed_hashes_match": {
+    "finish_when_complete.py": true,
+    "finish_docs.py": true,
+    "support.py": true,
+    "report.py": true,
+    "verify_preservation.py": true,
+    "run_all.py": true,
+    "protocol.json": true,
+    "selection.json": true,
+    "baseline.json": true,
+    "candidate.json": true,
+    "native_wrapper.py": true
+  },
+  "binary_hashes_match": {
+    "baseline": true,
+    "candidate": true
+  },
+  "native_source_guard": {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "matching_processes": [],
+  "active_state": {
+    "source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+    "status": "auditing",
+    "sequence": "05",
+    "completed": [
+      "04",
+      "00",
+      "01",
+      "02",
+      "03"
+    ],
+    "methods": [
+      "Mesh-LOAM"
+    ],
+    "last_commit": "eebaf3d7559a9e8ed98e59e93814f66838f6b5f6"
+  },
+  "run_exit_exists": false,
+  "exit_code": 0
+}

@@ -231,7 +231,7 @@ independent. Each item says what "done" means.
      diagnostics. All 22 affected existing DiLO/SuMa cells match RPE, ATE,
      frame count and official translation/rotation RTE.
      [Protocol, committed results and commands](../experiments/results/shared_degeneracy_remap/README.md).
-     Near-range sharing and NCLT evaluation remain open.
+     Near-range sharing and NCLT progress are tracked below.
    - Second component implemented and evaluated in [PR #136](https://github.com/rsasaki0109/localization_zoo/pull/136):
      IMLS-SLAM and opt-in SuMa share the initial coarse/fine stage policy.
      Per-method correspondences, residuals and numerical stopping remain local;
@@ -244,7 +244,30 @@ independent. Each item says what "done" means.
      All 22 affected existing cells match
      RPE, ATE, frame count and official translation/rotation RTE.
      [Protocol, completed results and commands](../experiments/results/shared_coarse_start/README.md).
-     Near-range sharing and NCLT evaluation remain open.
+     Near-range sharing and NCLT progress are tracked below.
+   - Third component implemented: the runner's opt-in sensor-frame near-range
+     cut now lives in `common/range_filter.h`, used by ELO and DiLO through
+     their shared loader and by intensity-preserving loaders. Float arithmetic,
+     strict boundary, processing order and zero/off default remain unchanged;
+     standalone method libraries do not apply it automatically.
+     Whole-zoo KITTI replay is in progress: full 04 covers all 14 selected cells,
+     with 12 matching the stored metrics. CT-ICP and Mesh-LOAM differ from the
+     historical values, but the frozen pre-extraction executable reproduces
+     both differences with identical saved poses; their causes remain open
+     and their method READMEs retain the values. The historical audit exits 1,
+     not a clean pass. Full 00's 20 candidate runs also finish: 15 match;
+     A-LOAM, F-LOAM, LeGO-LOAM, Mesh-LOAM and VLOM differ, with RPE worsening
+     on all five. Their numeric pairs are retained in the method READMEs;
+     A-LOAM, F-LOAM and LeGO-LOAM's frozen pre-extraction controls now finish
+     with zero metric differences and byte-identical saved poses, so their
+     historical differences predate extraction. Mesh-LOAM/VLOM comparisons
+     and input cleanup are still in progress.
+     00 is not yet a completed sequence checkpoint. The historical NCLT cutoff is retained
+     without reselection. DiLO's historical cut/uncut profiles also differ in
+     range-image geometry, so their RTE difference cannot isolate the cut's
+     effect; its ATE worsens from 54.344593 to 75.832748 m. Real NCLT validation
+     remains blocked by the enforced official-host allowlist.
+     [Protocol, scope and execution records](../experiments/results/shared_near_range/README.md).
 7. **Bindings.** The Python bindings cover KISS-ICP, NDT, GICP and LiTAMIN2
    (`python/`). Add the paper pipelines that are near paper (SuMa,
    IMLS-SLAM, DiLO, LiTAMIN2 paper path) and ROS 2 nodes for them.

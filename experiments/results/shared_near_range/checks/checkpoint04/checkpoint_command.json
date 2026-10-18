@@ -1,0 +1,14 @@
+{
+  "label": "checkpoint",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checkpoint_report.py",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checkpoints/04"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792255266.3245585,
+  "finished_unix": 1792255266.4935174,
+  "exit_code": 0
+}

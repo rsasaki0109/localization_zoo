@@ -131,3 +131,26 @@ KITTI 00 の Table 6 バリアントは、i5-1145G7 のホストで 1.664 %、�
 ビルドやホストの違いで生じる浮動小数点の差がこの増幅で数十 % の差になる。保存値
 1.664 % は摂動での散らばりの範囲に入っている。upstream mechanics は公式コードと
 同程度に安定で、長い系列の CT-ICP の数値はこちらを使うべきである。
+
+<!-- SHARED_NEAR_RANGE_AUDIT -->
+## Shared-loader replay: historical KITTI 04 difference
+
+After extracting the opt-in near-range filter, the full 04 stored-cell replay
+(`upstream_mechanics_elevation`, original recorded arguments, cut still off)
+has 100 m RPE **0.733247%** and ATE **2.191953 m**, versus stored **0.713006%**
+and **2.184636 m**. All 271 frames complete. This is a negative reproduction
+result: the historical audit exits 1 and the stored result is preserved.
+
+The frozen pre-extraction executable produces the same replayed RPE/ATE,
+frame count, official translation/rotation RTE and byte-identical saved poses.
+Thus the difference predates this filter extraction; its historical cause
+is still unresolved. This does not establish a new CT-ICP accuracy result,
+attribute the difference to a particular compiler, or reselect a setting.
+
+[Exact audit commands, exits, summaries and logs](../../experiments/results/shared_near_range/sequences/04/audit/),
+[frozen replay](../../experiments/results/shared_near_range/sequences/04/frozen_baseline/),
+[comparison](../../experiments/results/shared_near_range/sequences/04/frozen_comparison.json)
+were committed at `7458c24d16096cc305889ed0864a5ef8bfb6bdf4`.
+The [whole-zoo audit](../../experiments/results/shared_near_range/README.md)
+is incomplete; the opt-in cut remains off by default.
+<!-- /SHARED_NEAR_RANGE_AUDIT -->

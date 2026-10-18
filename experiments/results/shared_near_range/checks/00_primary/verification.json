@@ -1,0 +1,138 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/00_primary/verify_primary.py"
+  ],
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "completed_primary_cells": 20,
+  "historical_matching_cells": 15,
+  "historical_drift_cells": 5,
+  "historical_audit_exit_code": 1,
+  "primary_native_process_exits_all_zero": true,
+  "cleanup_complete": false,
+  "frozen_comparison_complete": false,
+  "checked_summaries": [
+    {
+      "method": "A-LOAM",
+      "status": "drift",
+      "summary_sha256": "ba39bdcc65ccd991680a388d6de50d454f92bf982df799f2daa0edcea6aae877",
+      "native_receipt_sha256": "b500abc673b7accc031e0c744c6ed7a8b911e31a4666ffbbe6b51706f42e444d"
+    },
+    {
+      "method": "CT-ICP",
+      "status": "ok",
+      "summary_sha256": "3fdaa81f0a116724407f17d17ede056f6c7ecea27a68c14bb67c12ef8a972c64",
+      "native_receipt_sha256": "c949dadfccf2680f37325288ef17e6e0ad735a9934d31d7648d0e41c3f09af14"
+    },
+    {
+      "method": "DiLO",
+      "status": "ok",
+      "summary_sha256": "18d4acdb32d04c27b60f5c28d6c2b0dbec0c48366775dfd510bdcc6a930abb24",
+      "native_receipt_sha256": "4ba0cceef0796039daaee59c470e15afa1dbeea6e82ac48de07a457f4b8eb28c"
+    },
+    {
+      "method": "ELO",
+      "status": "ok",
+      "summary_sha256": "f8e28f380963a8116c1b05087b795fa7bffd24cf59560b848b7fea311676c44f",
+      "native_receipt_sha256": "56da44a897a7ec8d0fb5d71eeebc4cb27c2ba6811ffa1d075689bd24fe30aca3"
+    },
+    {
+      "method": "F-LOAM",
+      "status": "drift",
+      "summary_sha256": "cbc0ad799667c3ec7b10a990b5987326594087351f051e0cee62a22b8c2bc9cd",
+      "native_receipt_sha256": "563cb5776b1c9d8fd81c692b4f4e72866ab8d1d950a68b9c828439d34286df1f"
+    },
+    {
+      "method": "IMLS-SLAM",
+      "status": "ok",
+      "summary_sha256": "6d538696f41c6e097b61863b1c23d5278ab27fbd63f3c31bcaee6d9dd444ecfe",
+      "native_receipt_sha256": "0e28d8dd09a1884599c0671fe0f201db9495b2bfa6e5ce0e758dc45c5e611587"
+    },
+    {
+      "method": "InTEn-LOAM",
+      "status": "ok",
+      "summary_sha256": "094cbc854479d408a63725dc80b25e167940861a40ba1023ad875c005a9cbc39",
+      "native_receipt_sha256": "247ab4554517c1b448cd157e6d01dbb0021a4cfb3e6ca333af08f32a29e1de67"
+    },
+    {
+      "method": "KISS-ICP",
+      "status": "ok",
+      "summary_sha256": "7af0a6abd5cddff5321421413f51bd56f3bf017d6410e03bbfa2d0d057eded49",
+      "native_receipt_sha256": "cba8a887bc4c0891e1140a79b917aac174ddd8ae0b5a08173ede987d07f98d47"
+    },
+    {
+      "method": "L-LO",
+      "status": "ok",
+      "summary_sha256": "b1a5bb172dd85a279597763c70b6a62d0e87fea92503f98c0ceed8d4703b85da",
+      "native_receipt_sha256": "747aed3ff53574acd768006f15a1dc1697d0d28d08257ece08b45aec2053373c"
+    },
+    {
+      "method": "LF-GICP",
+      "status": "ok",
+      "summary_sha256": "128d21496b52cca3215e2de48ffc9dd4c42119e929e50c1367451f71e5c91f9d",
+      "native_receipt_sha256": "fd5feda9d2674bdc14ac3bcc2462154fd321322d3662bd060d089106d72c935e"
+    },
+    {
+      "method": "LeGO-LOAM",
+      "status": "drift",
+      "summary_sha256": "970bc42ee923cd34147d8cc7ed25f2af3b31778c24b268ceaca143a03763316c",
+      "native_receipt_sha256": "90a684af747ec7da069d8587fd215374bc2069fd061821bc4ea51cac2a93b78b"
+    },
+    {
+      "method": "LiTAMIN2",
+      "status": "ok",
+      "summary_sha256": "d5d4706ea83b306eba9325e13d099062b60a2fe5446076c2eb37e20675561f55",
+      "native_receipt_sha256": "5e006afafd94b04e3137d5551dc7acf637ae80a9ba3d69f8d298610c5c2431d1"
+    },
+    {
+      "method": "MULLS",
+      "status": "ok",
+      "summary_sha256": "c222be879aac776fb5217d8811d23539131715db5ebb70d57d15cd8a18371328",
+      "native_receipt_sha256": "20afc8f26ecb0c5f3ac2ff495ee7fe72dda031caafbaf9ab708257d6f731a170"
+    },
+    {
+      "method": "Mesh-LOAM",
+      "status": "drift",
+      "summary_sha256": "8ab82f4a37455727022ddea038ae66b4dd8fc4288c8548e109fc2b4acd5186b9",
+      "native_receipt_sha256": "85dcaa48b91fd16d11fe28b79cff609267c1afcad7e38c1d6d4d10545ce9cda1"
+    },
+    {
+      "method": "NDT",
+      "status": "ok",
+      "summary_sha256": "9ddcae8b56e7c96894ea1b27bd92bcc3f775e9d0e5bf15303a6fbb3fb4968a75",
+      "native_receipt_sha256": "f1393266541bc14ba260a95339a88f00c09a8a8395e2f707ae8f4ce6d2a4b6f8"
+    },
+    {
+      "method": "Quadric-LO",
+      "status": "ok",
+      "summary_sha256": "7ef0fdeabba1c64fc1bfd846ed5979b9cf7393ef76aee74e9eba56f4cc7cfd47",
+      "native_receipt_sha256": "a856feb6511247268d85fdb297b26f71e161582efe7adea372572d7999fda197"
+    },
+    {
+      "method": "Small-GICP",
+      "status": "ok",
+      "summary_sha256": "f9bc580d3e0ce4356be4b76bf90ed27fbea8c83d3343c599c1c04891f3437c23",
+      "native_receipt_sha256": "9c05382c058c8f42f2416f2294ab7796a33b8063d27f616d5f27f59c01a5c3da"
+    },
+    {
+      "method": "SuMa",
+      "status": "ok",
+      "summary_sha256": "e7a60c91c8fd602f5bc77c1968c192bf1876c8c9f16cba2b7e5a7bdee6b59472",
+      "native_receipt_sha256": "f991873dd59023bee6acb97b008c006e4480545d1763f6e9151c40fdb8e8636b"
+    },
+    {
+      "method": "VLOM",
+      "status": "drift",
+      "summary_sha256": "681b215e0c4bf15984c8edaa41845eae0e79243b7dd2559b191577f517b7db1e",
+      "native_receipt_sha256": "1017f0c9502be6e1e1d94418f419868d67db4b22d26fcb9d4f83ee200f4221f9"
+    },
+    {
+      "method": "Voxel-GICP",
+      "status": "ok",
+      "summary_sha256": "65cb7eb26165419ee558f5f37c68984fd926d5d520508f64b6beed67615bc056",
+      "native_receipt_sha256": "5b516dfa0bbaaf10be7e26f1875515402c6e4025a5432efbc7f5f8a65d6a29a2"
+    }
+  ],
+  "exit_code": 0,
+  "scope": "Completed primary runs only; frozen comparison and owned input cleanup are in progress, so00 is not a completed sequence checkpoint."
+}

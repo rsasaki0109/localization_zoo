@@ -230,3 +230,31 @@ Full sequences with the three fixes (`dense_elevation_paper_normals_unbiased`:
 0.656 -> **0.586 %** (paper 0.54 %, held out), seq 07 0.480 -> **0.391 %**
 (paper 0.31 %); 1.09x / 1.26x, geometric mean 1.17x (from 1.37x).
 
+
+<!-- SHARED_NEAR_RANGE -->
+## Optional shared sensor-frame near-range cut
+
+The runner's existing `--input-min-range-m` filter is shared in
+[`common/range_filter.h`](../../common/include/common/range_filter.h), used by
+ELO and DiLO through their XYZ loader and by intensity-preserving loaders.
+It runs after `--input-sensor-pose` conversion, before elevation correction
+and downsampling. It removes points strictly inside the radius and preserves
+retained point order/fields. This preprocessing is **not in the paper**;
+zero remains the default (off), and standalone ELO does not apply it automatically.
+
+Historical full NCLT 2013-01-10 evidence: with the sensor settings in
+[`nclt_paper_paths.md`](../../docs/nclt_paper_paths.md), the existing 5 m cut
+changes official translation RTE from 18.132951% to 3.361084% and ATE from
+126.612474 m to 51.639158 m. Substantial position error remains. The value was
+chosen using that sequence and its restart window, so this is not held-out
+validation. Sources are committed `elo.json` / `elo_m5.json` under
+[`docs/benchmarks/nclt_paper_paths/`](../../docs/benchmarks/nclt_paper_paths/);
+the original summaries lack evaluator-commit/argv provenance. These historical
+numbers have not been rerun for the extraction.
+
+The [shared-filter protocol and execution records](../../experiments/results/shared_near_range/README.md)
+distinguish regression checks from NCLT evaluation. Full KITTI replay is running;
+full 04 matches the stored ELO metrics and the frozen pre-extraction saved poses.
+The remaining sequences are pending;
+real NCLT validation remains blocked by the enforced official-host allowlist.
+<!-- /SHARED_NEAR_RANGE -->

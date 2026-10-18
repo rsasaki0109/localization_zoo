@@ -1,0 +1,541 @@
+{
+  "source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "checks": [
+    {
+      "case": "disabled",
+      "method": "DiLO",
+      "arguments": [],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.021243,
+        "rpe_trans_pct": 99.808184,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.021243,
+        "rpe_trans_pct": 99.808184,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "disabled",
+      "method": "ELO",
+      "arguments": [],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.016251,
+        "rpe_trans_pct": 69.34694,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.016251,
+        "rpe_trans_pct": 69.34694,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "disabled",
+      "method": "InTEn-LOAM",
+      "arguments": [],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.046329,
+        "rpe_trans_pct": 209.541539,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.046329,
+        "rpe_trans_pct": 209.541539,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "explicit_zero",
+      "method": "DiLO",
+      "arguments": [
+        "--input-min-range-m",
+        "0"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.021243,
+        "rpe_trans_pct": 99.808184,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.021243,
+        "rpe_trans_pct": 99.808184,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "explicit_zero",
+      "method": "ELO",
+      "arguments": [
+        "--input-min-range-m",
+        "0"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.016251,
+        "rpe_trans_pct": 69.34694,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.016251,
+        "rpe_trans_pct": 69.34694,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "explicit_zero",
+      "method": "InTEn-LOAM",
+      "arguments": [
+        "--input-min-range-m",
+        "0"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.046329,
+        "rpe_trans_pct": 209.541539,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.046329,
+        "rpe_trans_pct": 209.541539,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "five_m",
+      "method": "DiLO",
+      "arguments": [
+        "--input-min-range-m",
+        "5"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.021243,
+        "rpe_trans_pct": 99.808184,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.021243,
+        "rpe_trans_pct": 99.808184,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "five_m",
+      "method": "ELO",
+      "arguments": [
+        "--input-min-range-m",
+        "5"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.016608,
+        "rpe_trans_pct": 72.054889,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.016608,
+        "rpe_trans_pct": 72.054889,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "five_m",
+      "method": "InTEn-LOAM",
+      "arguments": [
+        "--input-min-range-m",
+        "5"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.053332,
+        "rpe_trans_pct": 171.428181,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.053332,
+        "rpe_trans_pct": 171.428181,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "sensor_frame_five_m",
+      "method": "DiLO",
+      "arguments": [
+        "--input-sensor-pose",
+        "1",
+        "2",
+        "-0.957",
+        "180",
+        "0",
+        "0",
+        "--input-min-range-m",
+        "5"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.115468,
+        "rpe_trans_pct": 99.945292,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.115468,
+        "rpe_trans_pct": 99.945292,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "sensor_frame_five_m",
+      "method": "ELO",
+      "arguments": [
+        "--input-sensor-pose",
+        "1",
+        "2",
+        "-0.957",
+        "180",
+        "0",
+        "0",
+        "--input-min-range-m",
+        "5"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.170212,
+        "rpe_trans_pct": 146.360423,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.170212,
+        "rpe_trans_pct": 146.360423,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "sensor_frame_five_m",
+      "method": "InTEn-LOAM",
+      "arguments": [
+        "--input-sensor-pose",
+        "1",
+        "2",
+        "-0.957",
+        "180",
+        "0",
+        "0",
+        "--input-min-range-m",
+        "5"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.179292,
+        "rpe_trans_pct": 156.557544,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.179292,
+        "rpe_trans_pct": 156.557544,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "corrected_five_m",
+      "method": "DiLO",
+      "arguments": [
+        "--input-sensor-pose",
+        "1",
+        "2",
+        "-0.957",
+        "180",
+        "0",
+        "0",
+        "--input-min-range-m",
+        "5",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.115468,
+        "rpe_trans_pct": 99.945292,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.115468,
+        "rpe_trans_pct": 99.945292,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "corrected_five_m",
+      "method": "ELO",
+      "arguments": [
+        "--input-sensor-pose",
+        "1",
+        "2",
+        "-0.957",
+        "180",
+        "0",
+        "0",
+        "--input-min-range-m",
+        "5",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.168306,
+        "rpe_trans_pct": 143.611752,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.168306,
+        "rpe_trans_pct": 143.611752,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    },
+    {
+      "case": "corrected_five_m",
+      "method": "InTEn-LOAM",
+      "arguments": [
+        "--input-sensor-pose",
+        "1",
+        "2",
+        "-0.957",
+        "180",
+        "0",
+        "0",
+        "--input-min-range-m",
+        "5",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "metrics_match": {
+        "status": true,
+        "frames": true,
+        "ate_m": true,
+        "rpe_trans_pct": true,
+        "kitti_rte_trans_pct": true,
+        "kitti_rte_rot_deg_per_100m": true
+      },
+      "saved_poses_equal": true,
+      "baseline_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.177892,
+        "rpe_trans_pct": 155.277693,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      },
+      "candidate_metrics": {
+        "status": "ok",
+        "frames": 3,
+        "ate_m": 0.177892,
+        "rpe_trans_pct": 155.277693,
+        "kitti_rte_trans_pct": null,
+        "kitti_rte_rot_deg_per_100m": null
+      }
+    }
+  ],
+  "exit_code": 0,
+  "scope": "Three real runner consumers on the committed short MCD fixture; not NCLT."
+}

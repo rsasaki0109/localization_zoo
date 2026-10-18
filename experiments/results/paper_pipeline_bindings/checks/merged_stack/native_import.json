@@ -1,0 +1,149 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/build_affected_targets.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/build_affected_targets.log.gz",
+      "source_sha256": "8b12d60ecfc8ee9b852c9a00e3c4c666be3d736f4af8c3bb77659dba7b7d0e27",
+      "destination_sha256": "460084ae0e5915e8f49453db1d0f3c4d935f7926c29affbaa00b7492df25cb13",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/commands.json",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/commands.json",
+      "source_sha256": "424bc6c0f6d357280f7e9d1258649e0b6cc7ee8711969442ee18982e7d206b08",
+      "destination_sha256": "424bc6c0f6d357280f7e9d1258649e0b6cc7ee8711969442ee18982e7d206b08",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/configure.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/configure.log.gz",
+      "source_sha256": "351741b88d567d7a0b0015acaada745c3d95d745d5c8056d9c96c9ce41ae3bf9",
+      "destination_sha256": "9a9aec5a5af505265e25ad9e4b73e3304d3489372fd05779ee16b9f0d4473c78",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/ctest_affected.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/ctest_affected.log.gz",
+      "source_sha256": "fe25a6b9e83f578c0c1ee21b7e415e901be34a2695c97c90a915879dafe289db",
+      "destination_sha256": "9cf36014e34ba572ce86ceaa5ff74565fd606a769ee998c2483c3a83ed69b068",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/dilo_paper_poses.csv",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/dilo_paper_poses.csv",
+      "source_sha256": "2340eec1fbcb8541b05770aaece42834db87b8d8ef71700c06a7305670106bb4",
+      "destination_sha256": "2340eec1fbcb8541b05770aaece42834db87b8d8ef71700c06a7305670106bb4",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/example_dilo_paper.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/example_dilo_paper.log.gz",
+      "source_sha256": "2655fb44d40fd07c98231b5b02ea9360c567c89ca8f66e26e569d557a7d3f0fb",
+      "destination_sha256": "27bcd3fa60c0a5a378fe4cef424af707c5e559d3811b35d8d125e44317a741dc",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/example_imls_slam_paper.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/example_imls_slam_paper.log.gz",
+      "source_sha256": "f110e60e3dbc489902c6eea900d91e80786322100e25eb5d40930a1d4ee96861",
+      "destination_sha256": "c63a12f46fbe2cdc1ac33b78cd48e16cab66e48e45580bccadb8f4a64ec2827a",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/example_litamin2_paper.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/example_litamin2_paper.log.gz",
+      "source_sha256": "5530aeb1b31884ee2cbace1cd438dc00cd976ac2fb815c1127230fe757feb3c6",
+      "destination_sha256": "b06a1715be6a7a9fa2e5c16dd0141d75bbb0b1e07e005db4ba865b5430e0fd45",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/example_suma_paper.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/example_suma_paper.log.gz",
+      "source_sha256": "a1b18b7aa9291a7ee2ddc6b752742e7c88984801a20d0fc211c37a690b09fac6",
+      "destination_sha256": "bc5367146bf49338dd2a6b26d161188d9e9ecce4a31d95e2f1ff82ddfb6dc7e3",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/existing_python_example.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/existing_python_example.log.gz",
+      "source_sha256": "8bd36def0cfde63a6d86ae7338b3fc33e591f8f79b209222fbb2f466c8a7b440",
+      "destination_sha256": "03ba2ca61a324b58cc7f2896d74fad0e6329af5c4580e322ace5dcc1d20ae7e9",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/exit.json",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/exit.json",
+      "source_sha256": "caf46b1f2e350ed05e0dc6cfc94758d671f6a2792702747b23e7344ebec5e846",
+      "destination_sha256": "caf46b1f2e350ed05e0dc6cfc94758d671f6a2792702747b23e7344ebec5e846",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/hashes.json",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/hashes.json",
+      "source_sha256": "e8cf42dcd584a46fe390b68796792263fcf619776a417f376c217597742adcfe",
+      "destination_sha256": "e8cf42dcd584a46fe390b68796792263fcf619776a417f376c217597742adcfe",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/imls_slam_paper_poses.csv",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/imls_slam_paper_poses.csv",
+      "source_sha256": "7ebeb6065c9cb4c3b4f206b499195b9390b94b80d66ebbb3311ead78d61b095e",
+      "destination_sha256": "7ebeb6065c9cb4c3b4f206b499195b9390b94b80d66ebbb3311ead78d61b095e",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/litamin2_paper_poses.csv",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/litamin2_paper_poses.csv",
+      "source_sha256": "53a9f3efbd1ccf50c86433a4bf428b55833547270c3315956a253b2bfd920995",
+      "destination_sha256": "53a9f3efbd1ccf50c86433a4bf428b55833547270c3315956a253b2bfd920995",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/native_core_identity.log",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/native_core_identity.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/paper_python_fixture.json",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/paper_python_fixture.json",
+      "source_sha256": "ae3cb24c82b28ca14f92913f4df4ecb76df66b556ba7b0ea0730ce19fb890050",
+      "destination_sha256": "ae3cb24c82b28ca14f92913f4df4ecb76df66b556ba7b0ea0730ce19fb890050",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/paper-bindings/merged_stack_native/suma_paper_poses.csv",
+      "destination": "experiments/results/paper_pipeline_bindings/checks/merged_stack/native/suma_paper_poses.csv",
+      "source_sha256": "5fcccd262849e62db3d70da2f6c82a02105f34e428c7b5f715e5553762a446fe",
+      "destination_sha256": "5fcccd262849e62db3d70da2f6c82a02105f34e428c7b5f715e5553762a446fe",
+      "lossless": true
+    }
+  ],
+  "source_receipt": {
+    "head": "9b6092e77d581279411bf580676b599653f8a42f",
+    "main": "a597e4c95614e733fc20977321fe4d6aea0fba46",
+    "integration_source": "70c77efa80f6b7739ad7fd00122b3c18e6f9024e",
+    "wrapper_identity": {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "5ee60bb6f05d38eceee006c5ff854bc37348570a",
+        "--",
+        "python",
+        "ros2"
+      ],
+      "exit_code": 0
+    },
+    "push": {
+      "command": [
+        "git",
+        "push",
+        "origin",
+        "codex/paper-pipeline-bindings"
+      ],
+      "exit_code": 0
+    }
+  }
+}

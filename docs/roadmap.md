@@ -267,14 +267,16 @@ independent. Each item says what "done" means.
      [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
      locate error growth; missing referenced historical paths prevent a paired
      diagnosis of the historical metric differences.
-     The committed, cleaned 04/00 checkpoint now covers 34/177 cells:
-     27 historical matches and 7 differences, all reproduced by frozen controls.
-     Both historical audits retain exit 1; checkpoint verification exits 0.
-     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/00/summary.json).
+     The committed, cleaned 04/00/01 checkpoint now covers 47/177 cells:
+     38 historical matches and 9 differences, all reproduced by frozen controls.
+     All three historical audits retain exit 1; checkpoint verification exits 0.
+     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/01/summary.json).
      Full 01 candidate replay also finishes all 13 cells: 11 match;
      CT-ICP and Mesh-LOAM differ, retaining audit exit 1. Their numeric pairs
-     are in the method READMEs. Full frozen comparison and input cleanup are
-     pending, so the cleaned checkpoint count remains 34/177.
+     are in the method READMEs. Both frozen pre-extraction controls have zero
+     metric differences and byte-identical poses; the differences predate
+     extraction. The frozen historical audit retains exit 1. All input hashes
+     were verified before deleting the owned 01 scans and alias.
      [Candidate evidence](../experiments/results/shared_near_range/sequences/01/audit/)
      and [saved-path diagnosis](../experiments/results/shared_near_range/diagnostics/01/README.md)
      retain Mesh's paired path gap and CT's current error-growth block, with

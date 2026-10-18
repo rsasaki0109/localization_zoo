@@ -376,7 +376,7 @@ The referenced historical per-run summary is absent at the inspected revision an
 <!-- /SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
 
 <!-- SHARED_NEAR_RANGE_REPLAY -->
-## Shared-loader replay: KITTI 01 comparison in progress
+## Shared-loader replay: KITTI 01 frozen comparison complete
 
 The full stored `paper_odometry_elevation` replay completes all 1101 frames with
 native exit 0. Historical 100 m RPE is **0.849506%**, versus
@@ -384,15 +384,21 @@ native exit 0. Historical 100 m RPE is **0.849506%**, versus
 versus **30.940997 m**. RPE worsens; ATE
 worsens. The historical audit exits **1**, preserving the difference.
 
-The complete frozen pre-extraction comparison and verified input cleanup are
-pending. Whether this cell changes because of extraction is not established
-by the candidate result. Its historical cause remains unresolved. No setting
-is reselected, and the near-range cut remains off.
+The frozen pre-extraction replay also completes with native exit 0. RPE,
+ATE, frames and official translation/rotation RTE have zero recorded differences
+from the extracted implementation, with byte-identical saved poses. This
+historical difference predates extraction; its original cause remains unresolved.
+The frozen historical audit also exits 1. No setting is reselected, and the
+near-range cut remains off.
 
 [Commands, exits, hashes and candidate results](../../experiments/results/shared_near_range/sequences/01/audit/)
 were committed at `9555f01fda68a0294fc7dd5a828a85fac207f68f`. The
 [study and cleaned checkpoint scope](../../experiments/results/shared_near_range/README.md)
-keep this candidate-only evidence separate from completed sequence checkpoints.
+now include the full [frozen comparison](../../experiments/results/shared_near_range/sequences/01/frozen_comparison.json)
+and [verified input cleanup](../../experiments/results/shared_near_range/sequences/01/cleanup.json),
+committed at `6188b71d8e48933a4dffce54afdde7a01382f4b0`. The cleaned
+[04/00/01 checkpoint](../../experiments/results/shared_near_range/checkpoints/01/summary.json)
+remains partial whole-zoo coverage.
 <!-- /SHARED_NEAR_RANGE_REPLAY -->
 
 <!-- SHARED_NEAR_RANGE_01_DIAGNOSTICS -->

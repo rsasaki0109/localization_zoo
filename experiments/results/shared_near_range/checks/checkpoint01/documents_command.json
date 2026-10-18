@@ -1,0 +1,12 @@
+{
+  "label": "documents",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-near-range/document_checkpoint01.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792303992.6271152,
+  "finished_unix": 1792303992.7780826,
+  "exit_code": 0
+}

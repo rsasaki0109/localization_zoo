@@ -76,9 +76,10 @@ scan/GT hashes and were verified and removed before fetching 00. The remaining
 cells are pending; this checkpoint does not establish whole-zoo completion.
 
 [`checkpoints/04/`](checkpoints/04/) records the earlier 04-only checkpoint.
-The current [`checkpoints/00/`](checkpoints/00/) covers both committed, cleaned
-sequences. Its verification exit 0 does not replace the retained native audit
-exits 1.
+[`checkpoints/00/`](checkpoints/00/) records the earlier cleaned 04/00 checkpoint.
+The current [`checkpoints/01/`](checkpoints/01/) adds the committed, cleaned 01
+sequence. Its verification exit 0 does not replace the retained historical
+audit exits 1.
 [`checks/checkpoint04/`](checks/checkpoint04/) retains the required document
 generators, Python/doc checks and preservation review. Staged whitespace checks
 caught CRLF in the derived CSV and then its captured error log. CSV writers now
@@ -139,7 +140,7 @@ provenance were committed at `485fa00601644731827dae601eb3b43c7543efeb`:
 [`checks/00_primary/verification.json`](checks/00_primary/verification.json).
 All 00 scan hashes were verified before deleting the owned scans and alias.
 Subsequent sequences are excluded until their own comparison and cleanup
-checkpoints are committed. The current [checkpoint summary](checkpoints/00/summary.json)
+checkpoints are committed. The earlier [00 checkpoint summary](checkpoints/00/summary.json)
 and [comparison CSV](checkpoints/00/comparison.csv), committed at `57fb04d3`,
 contain **34 of 177 cells** across 04 and 00:
 27 historical matches and 7 differences. All 9 frozen controls have zero
@@ -149,7 +150,7 @@ still incomplete. The required generators, Python/doc contracts, preservation
 and whitespace checks are retained under [checks/checkpoint00/](checks/checkpoint00/),
 with actual process exits and losslessly compressed logs.
 
-## Completed candidate runs: 01; full frozen comparison and cleanup pending
+## Completed KITTI checkpoint: 01
 
 All 13 selected candidate cells finish, with native exits 0 and
 1101 evaluated frames each. 11 match stored RPE, ATE and frame count;
@@ -167,12 +168,26 @@ at `9555f01fda68a0294fc7dd5a828a85fac207f68f`:
 [candidate evidence](sequences/01/audit/), [inputs](sequences/01/inputs.json),
 [verification](checks/01_primary/verification.json).
 
-The controller is comparing both historical differences with the frozen
-pre-extraction executable. The complete comparison and owned-input cleanup
-remain pending, so these candidate runs are **not** added to the cleaned
-checkpoint count. The cleaned 04/00 checkpoint remains **34/177** cells.
-Attribution of either 01 difference to extraction remains unestablished here.
-Stored aggregates, Table 6, paper metadata and defaults are unchanged.
+Both frozen pre-extraction controls now complete with native exits 0. RPE,
+ATE, frames and official translation/rotation RTE have zero recorded differences
+from the extracted implementation, with byte-identical saved poses. The frozen
+historical audit also exits 1. Both historical differences therefore predate
+extraction; their original causes remain unresolved.
+The [full comparison](sequences/01/frozen_comparison.json),
+[commands and exits](sequences/01/frozen_baseline/) and
+[hash-verified input cleanup](sequences/01/cleanup.json) were committed at
+`6188b71d8e48933a4dffce54afdde7a01382f4b0`. The owned scans and alias are removed.
+
+The [current checkpoint](checkpoints/01/summary.json) and
+[comparison CSV](checkpoints/01/comparison.csv), committed at `d63dd3dfe5d25f9444442c3809b13ea3e9c05238`,
+cover **47/177 cells** across 04, 00 and 01:
+38 historical matches and 9 differences. All 11 frozen controls have
+zero recorded metric differences and byte-identical saved poses. All three
+historical audits retain exit 1; checkpoint verification exits 0. Remaining
+sequences are excluded until their own comparisons and cleanup are committed.
+Stored aggregates, Table 6, paper metadata and defaults are unchanged; whole-zoo
+coverage remains incomplete. Required checks are retained under
+[checks/checkpoint01/](checks/checkpoint01/).
 
 [Committed saved-path diagnostics](diagnostics/01/README.md) pair Mesh-LOAM's
 historical/current paths against byte-identical evaluated GT, and locate current

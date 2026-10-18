@@ -1,0 +1,558 @@
+{
+  "exit_code": 0,
+  "native_source_commit": "1dd35f5cd4a052c275321ba52e99c399dc4aea62",
+  "recorded_head": "cab2c4ebe3c19df3e44cee35df04c1a2624fad88",
+  "binaries": {
+    "reference": {
+      "path": "/workspace/localization-env/inten-passive-trace/worktree/build/evaluation/pcd_dogfooding",
+      "sha256": "d8b467c89d0c9ecafae5644e68b1100043550faaaf00480a5e8b30407c5855d2"
+    },
+    "candidate": {
+      "path": "/workspace/localization-env/inten-trace-export/worktree/build/evaluation/pcd_dogfooding",
+      "sha256": "bb9a3a5f8a5f1e55181f76b8766c1d80f07a7dd3ee87964c136eec5f8da79042"
+    }
+  },
+  "input_sha256": {
+    "evaluation/fixtures/mcd_kth_smoke/00000001/cloud.pcd": "cc8d302c63f04900d13685ad1e17aa9e0cbd6f89702cb4c45aea76d9557de99b",
+    "evaluation/fixtures/mcd_kth_smoke/00000002/cloud.pcd": "91e90a6f487b0877b80dc30275582ed02e326eec506682000a0663fd7ed640e3",
+    "evaluation/fixtures/mcd_kth_smoke/00000000/cloud.pcd": "cc61530bc780bc47ca01a926e488a55b58caeab8ad683c0bbcc416972c569df9",
+    "evaluation/fixtures/mcd_kth_smoke_gt.csv": "c3e35ffa624471c7299fbe99bb905387ea5b9f3f4f86114a41aead3638efd528",
+    "evaluation/fixtures/mcd_kth_smoke/frame_timestamps.csv": "46e35bcd38a41f27c1db136d4d77e550645921bcd4750210a2bb7fa8e9e9094c"
+  },
+  "comparisons": [
+    {
+      "variant": "paper_default__default",
+      "flags": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry"
+      ],
+      "metric_abs_delta": {
+        "reference": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        },
+        "candidate_off": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        },
+        "candidate_on": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        }
+      },
+      "unavailable_metrics": [
+        "kitti_rte_trans_pct",
+        "kitti_rte_rot_deg_per_100m"
+      ],
+      "poses": {
+        "candidate_off": {
+          "InTEn_LOAM.txt": {
+            "identical": true,
+            "sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+          },
+          "gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          },
+          "mcd_kth_smoke_evaluated_gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          }
+        },
+        "candidate_on": {
+          "InTEn_LOAM.txt": {
+            "identical": true,
+            "sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+          },
+          "gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          },
+          "mcd_kth_smoke_evaluated_gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          }
+        }
+      },
+      "trace": {
+        "records": 5,
+        "processed_frames": 3,
+        "iterations": 36,
+        "stops": {
+          "not_run": 2,
+          "iteration_limit": 2,
+          "converged": 2
+        },
+        "max_saved_pose_rounding_abs": 4.2239400865895504e-10,
+        "strict_json": true,
+        "effective_parameter_keys": [
+          "accelerated",
+          "deskew",
+          "width",
+          "height",
+          "theta_down_deg",
+          "theta_up_deg",
+          "min_range",
+          "max_range",
+          "segment_columns",
+          "segment_bin",
+          "ground_max_slope",
+          "ground_max_fit_error",
+          "ground_start_below",
+          "ground_threshold",
+          "cluster_angle_deg",
+          "min_cluster_points",
+          "curvature_half_window",
+          "edge_threshold",
+          "facade_threshold",
+          "reflector_delta",
+          "intensity_blocks_u",
+          "intensity_blocks_v",
+          "sectors_per_row",
+          "edges_per_sector",
+          "facades_per_sector",
+          "max_ground",
+          "max_reflectors",
+          "use_intensity",
+          "intensity_knot",
+          "intensity_weight",
+          "huber",
+          "s2s_gate_sq",
+          "s2s_iterations",
+          "s2m_iterations",
+          "convergence",
+          "use_mapping",
+          "s2m_interval",
+          "map_edge_voxel",
+          "map_plane_voxel",
+          "map_intensity_voxel",
+          "map_radius",
+          "temporal_window",
+          "s2m_gate_sq",
+          "s2m_plane_max_dist",
+          "s2m_plane_min_spread",
+          "use_dor",
+          "dor_relative_range",
+          "dor_object_ratio"
+        ],
+        "trace_sha256": "1fc31a816982d3f61c6602616d7ccd95f8018eb77c95470192c63cfa1f78e20a"
+      }
+    },
+    {
+      "variant": "paper_default__accelerated",
+      "flags": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--paper-pipeline-accelerated"
+      ],
+      "metric_abs_delta": {
+        "reference": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        },
+        "candidate_off": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        },
+        "candidate_on": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        }
+      },
+      "unavailable_metrics": [
+        "kitti_rte_trans_pct",
+        "kitti_rte_rot_deg_per_100m"
+      ],
+      "poses": {
+        "candidate_off": {
+          "InTEn_LOAM.txt": {
+            "identical": true,
+            "sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+          },
+          "gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          },
+          "mcd_kth_smoke_evaluated_gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          }
+        },
+        "candidate_on": {
+          "InTEn_LOAM.txt": {
+            "identical": true,
+            "sha256": "40895caadccea2140190990f8e4ac883ba7ab7a973b7c8552c8243d562a54a4f"
+          },
+          "gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          },
+          "mcd_kth_smoke_evaluated_gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          }
+        }
+      },
+      "trace": {
+        "records": 5,
+        "processed_frames": 3,
+        "iterations": 36,
+        "stops": {
+          "not_run": 2,
+          "iteration_limit": 2,
+          "converged": 2
+        },
+        "max_saved_pose_rounding_abs": 4.2239400865895504e-10,
+        "strict_json": true,
+        "effective_parameter_keys": [
+          "accelerated",
+          "deskew",
+          "width",
+          "height",
+          "theta_down_deg",
+          "theta_up_deg",
+          "min_range",
+          "max_range",
+          "segment_columns",
+          "segment_bin",
+          "ground_max_slope",
+          "ground_max_fit_error",
+          "ground_start_below",
+          "ground_threshold",
+          "cluster_angle_deg",
+          "min_cluster_points",
+          "curvature_half_window",
+          "edge_threshold",
+          "facade_threshold",
+          "reflector_delta",
+          "intensity_blocks_u",
+          "intensity_blocks_v",
+          "sectors_per_row",
+          "edges_per_sector",
+          "facades_per_sector",
+          "max_ground",
+          "max_reflectors",
+          "use_intensity",
+          "intensity_knot",
+          "intensity_weight",
+          "huber",
+          "s2s_gate_sq",
+          "s2s_iterations",
+          "s2m_iterations",
+          "convergence",
+          "use_mapping",
+          "s2m_interval",
+          "map_edge_voxel",
+          "map_plane_voxel",
+          "map_intensity_voxel",
+          "map_radius",
+          "temporal_window",
+          "s2m_gate_sq",
+          "s2m_plane_max_dist",
+          "s2m_plane_min_spread",
+          "use_dor",
+          "dor_relative_range",
+          "dor_object_ratio"
+        ],
+        "trace_sha256": "0a899f0d422cec405dc9385d4a3880d9dcc68c9520b70e95c2652bca82ad6992"
+      }
+    },
+    {
+      "variant": "paper_odometry_plane_check__default",
+      "flags": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ],
+      "metric_abs_delta": {
+        "reference": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        },
+        "candidate_off": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        },
+        "candidate_on": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        }
+      },
+      "unavailable_metrics": [
+        "kitti_rte_trans_pct",
+        "kitti_rte_rot_deg_per_100m"
+      ],
+      "poses": {
+        "candidate_off": {
+          "InTEn_LOAM.txt": {
+            "identical": true,
+            "sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+          },
+          "gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          },
+          "mcd_kth_smoke_evaluated_gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          }
+        },
+        "candidate_on": {
+          "InTEn_LOAM.txt": {
+            "identical": true,
+            "sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+          },
+          "gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          },
+          "mcd_kth_smoke_evaluated_gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          }
+        }
+      },
+      "trace": {
+        "records": 5,
+        "processed_frames": 3,
+        "iterations": 36,
+        "stops": {
+          "not_run": 2,
+          "iteration_limit": 3,
+          "converged": 1
+        },
+        "max_saved_pose_rounding_abs": 4.410894982598279e-10,
+        "strict_json": true,
+        "effective_parameter_keys": [
+          "accelerated",
+          "deskew",
+          "width",
+          "height",
+          "theta_down_deg",
+          "theta_up_deg",
+          "min_range",
+          "max_range",
+          "segment_columns",
+          "segment_bin",
+          "ground_max_slope",
+          "ground_max_fit_error",
+          "ground_start_below",
+          "ground_threshold",
+          "cluster_angle_deg",
+          "min_cluster_points",
+          "curvature_half_window",
+          "edge_threshold",
+          "facade_threshold",
+          "reflector_delta",
+          "intensity_blocks_u",
+          "intensity_blocks_v",
+          "sectors_per_row",
+          "edges_per_sector",
+          "facades_per_sector",
+          "max_ground",
+          "max_reflectors",
+          "use_intensity",
+          "intensity_knot",
+          "intensity_weight",
+          "huber",
+          "s2s_gate_sq",
+          "s2s_iterations",
+          "s2m_iterations",
+          "convergence",
+          "use_mapping",
+          "s2m_interval",
+          "map_edge_voxel",
+          "map_plane_voxel",
+          "map_intensity_voxel",
+          "map_radius",
+          "temporal_window",
+          "s2m_gate_sq",
+          "s2m_plane_max_dist",
+          "s2m_plane_min_spread",
+          "use_dor",
+          "dor_relative_range",
+          "dor_object_ratio"
+        ],
+        "trace_sha256": "d1298289e0919fb5957a8ea6eb15253c1b86edf4c63a0edac08e07cbd4bba2ad"
+      }
+    },
+    {
+      "variant": "paper_odometry_plane_check__accelerated",
+      "flags": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated"
+      ],
+      "metric_abs_delta": {
+        "reference": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        },
+        "candidate_off": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        },
+        "candidate_on": {
+          "ate_m": 0.0,
+          "rpe_trans_pct": 0.0,
+          "rpe_rot_deg_per_m": 0.0,
+          "frames": 0
+        }
+      },
+      "unavailable_metrics": [
+        "kitti_rte_trans_pct",
+        "kitti_rte_rot_deg_per_100m"
+      ],
+      "poses": {
+        "candidate_off": {
+          "InTEn_LOAM.txt": {
+            "identical": true,
+            "sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+          },
+          "gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          },
+          "mcd_kth_smoke_evaluated_gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          }
+        },
+        "candidate_on": {
+          "InTEn_LOAM.txt": {
+            "identical": true,
+            "sha256": "bf5a146e9d6fc41bc348cc9585d264f00232710e7936c723f00447f038d6aea4"
+          },
+          "gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          },
+          "mcd_kth_smoke_evaluated_gt.txt": {
+            "identical": true,
+            "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+          }
+        }
+      },
+      "trace": {
+        "records": 5,
+        "processed_frames": 3,
+        "iterations": 36,
+        "stops": {
+          "not_run": 2,
+          "iteration_limit": 3,
+          "converged": 1
+        },
+        "max_saved_pose_rounding_abs": 4.410894982598279e-10,
+        "strict_json": true,
+        "effective_parameter_keys": [
+          "accelerated",
+          "deskew",
+          "width",
+          "height",
+          "theta_down_deg",
+          "theta_up_deg",
+          "min_range",
+          "max_range",
+          "segment_columns",
+          "segment_bin",
+          "ground_max_slope",
+          "ground_max_fit_error",
+          "ground_start_below",
+          "ground_threshold",
+          "cluster_angle_deg",
+          "min_cluster_points",
+          "curvature_half_window",
+          "edge_threshold",
+          "facade_threshold",
+          "reflector_delta",
+          "intensity_blocks_u",
+          "intensity_blocks_v",
+          "sectors_per_row",
+          "edges_per_sector",
+          "facades_per_sector",
+          "max_ground",
+          "max_reflectors",
+          "use_intensity",
+          "intensity_knot",
+          "intensity_weight",
+          "huber",
+          "s2s_gate_sq",
+          "s2s_iterations",
+          "s2m_iterations",
+          "convergence",
+          "use_mapping",
+          "s2m_interval",
+          "map_edge_voxel",
+          "map_plane_voxel",
+          "map_intensity_voxel",
+          "map_radius",
+          "temporal_window",
+          "s2m_gate_sq",
+          "s2m_plane_max_dist",
+          "s2m_plane_min_spread",
+          "use_dor",
+          "dor_relative_range",
+          "dor_object_ratio"
+        ],
+        "trace_sha256": "aca8a55d36e155b0ea66a4c454b3fa634ef682adbabbdd6a83b12b28f00998c2"
+      }
+    }
+  ],
+  "successful_native_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "negative_expected_exits": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    1
+  ],
+  "scope": "Real-fixture compatibility within each default/accelerated execution mode. Trace settings capture includes the effective accelerated boolean. No speed, full-KITTI accuracy or solver-cause claim. Existing177 source, binaries, scripts and owned raw inputs are untouched."
+}

@@ -1,0 +1,89 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/before_fix/analyze.log",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/before_fix/analyze.log.gz",
+      "source_sha256": "cc4755bf8a387227f9ca7470a328ec52a33d446e400cd8d9056a61649f3e6216",
+      "destination_sha256": "ae62a5927cbd3f23796142706a19cd9e305299ec580f10fe7ee85853d2287f22",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/before_fix/command.json",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/before_fix/command.json",
+      "source_sha256": "b5e38b4a022c70fef57e650ea9e500551bf55f26cd72fbe81f90fb2b4142ee2d",
+      "destination_sha256": "b5e38b4a022c70fef57e650ea9e500551bf55f26cd72fbe81f90fb2b4142ee2d",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/analysis/bad_length_intervals.csv",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/analysis/bad_length_intervals.csv",
+      "source_sha256": "29ed84e45952b2b59c750e4669c762ed36698dccea393839f26cf5214a4419dc",
+      "destination_sha256": "29ed84e45952b2b59c750e4669c762ed36698dccea393839f26cf5214a4419dc",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/analysis/logged_steps.csv",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/analysis/logged_steps.csv",
+      "source_sha256": "67f68a62a5adc3f5ee328c36e878450becdd585111d115398ef8b63af6d496b2",
+      "destination_sha256": "67f68a62a5adc3f5ee328c36e878450becdd585111d115398ef8b63af6d496b2",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/analysis/summary.json",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/analysis/summary.json",
+      "source_sha256": "a4d59dc941a176acec9ee4839cec2e499efbd27d54e610009441d4455438b35a",
+      "destination_sha256": "a4d59dc941a176acec9ee4839cec2e499efbd27d54e610009441d4455438b35a",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/branch_whitespace.log",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/branch_whitespace.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/commands.json",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/commands.json",
+      "source_sha256": "8194a2aa2c01496fad4c54372e83c9b2850f51079f15986a4a4367fa7db32455",
+      "destination_sha256": "8194a2aa2c01496fad4c54372e83c9b2850f51079f15986a4a4367fa7db32455",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/exit.json",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/exit.json",
+      "source_sha256": "7a09d04d2feaefae6ad4170525c86d3ae31043190fd61d80c9a55be2ae828fab",
+      "destination_sha256": "7a09d04d2feaefae6ad4170525c86d3ae31043190fd61d80c9a55be2ae828fab",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/native_main_identity.log",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/native_main_identity.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/numerical_identity.json",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/numerical_identity.json",
+      "source_sha256": "54a355c39303c127a9bd5a2190b607a55bedb2369bd11e21901174f0628fc1e6",
+      "destination_sha256": "54a355c39303c127a9bd5a2190b607a55bedb2369bd11e21901174f0628fc1e6",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/original_study_unchanged.log",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/original_study_unchanged.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-support/main_refresh/analysis_check/reproduce_analysis.log",
+      "destination": "experiments/results/inten_support_diagnostics/checks/main_refresh/analysis/reproduce_analysis.log.gz",
+      "source_sha256": "6eeaea63ed8e03fa4f9143edbe9159e9f8233b62b4fd7548c57d83d566450ed5",
+      "destination_sha256": "2fd05c3b0993c6084977339e82aac1f4c63d2f44cc4589b8fc6d503d005aa8ed",
+      "lossless": true
+    }
+  ],
+  "scope": "Before-fix source mismatch and successful historical re-analysis; original analysis stays unchanged."
+}

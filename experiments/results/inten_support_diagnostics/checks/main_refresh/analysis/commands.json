@@ -1,0 +1,103 @@
+[
+  {
+    "label": "native_main_identity",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "a597e4c95614e733fc20977321fe4d6aea0fba46",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/CMakeLists.txt",
+      "evaluation/scripts",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt",
+      "python/src",
+      "ros2"
+    ],
+    "cwd": "/workspace/localization-env/inten-support/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/inten-support/main_refresh/analysis_check/mplconfig",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe",
+    "started_unix": 1792330591.289755,
+    "finished_unix": 1792330591.3261096,
+    "exit_code": 0
+  },
+  {
+    "label": "original_study_unchanged",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "a834d44eb047729bda90426c4ac3b79edfbf13fd",
+      "--",
+      "/workspace/localization-env/inten-support/worktree/experiments/results/inten_support_diagnostics/analysis",
+      "/workspace/localization-env/inten-support/worktree/experiments/results/inten_support_diagnostics/protocol.json",
+      "experiments/results/runs",
+      "experiments/results/mesh_inten_kitti_coverage"
+    ],
+    "cwd": "/workspace/localization-env/inten-support/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/inten-support/main_refresh/analysis_check/mplconfig",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe",
+    "started_unix": 1792330591.3276758,
+    "finished_unix": 1792330591.373479,
+    "exit_code": 0
+  },
+  {
+    "label": "reproduce_analysis",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization-env/inten-support/worktree/experiments/results/inten_support_diagnostics/analyze.py",
+      "--output-dir",
+      "/workspace/localization-env/inten-support/main_refresh/analysis_check/analysis"
+    ],
+    "cwd": "/workspace/localization-env/inten-support/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/inten-support/main_refresh/analysis_check/mplconfig",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe",
+    "started_unix": 1792330591.3744457,
+    "finished_unix": 1792330597.8435128,
+    "exit_code": 0
+  },
+  {
+    "label": "branch_whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "a597e4c95614e733fc20977321fe4d6aea0fba46"
+    ],
+    "cwd": "/workspace/localization-env/inten-support/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/inten-support/main_refresh/analysis_check/mplconfig",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "checked_checkout_commit": "3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe",
+    "started_unix": 1792330597.8600008,
+    "finished_unix": 1792330597.9570768,
+    "exit_code": 0
+  }
+]

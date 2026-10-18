@@ -1,0 +1,578 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-support/worktree/experiments/results/inten_support_diagnostics/analyze.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-support/main_refresh/analysis_check/analysis"
+  ],
+  "cwd": "/workspace/localization-env/inten-support/worktree",
+  "analysis_commit": "3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe",
+  "protocol": {
+    "schema_version": 1,
+    "input_commit": "7505a2914328d53ac9b319d5f8042189b378d457",
+    "variant": "paper_odometry_plane_check",
+    "sequences": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "08",
+      "09",
+      "10"
+    ],
+    "focus_sequences": [
+      "01",
+      "02",
+      "10"
+    ],
+    "selection": "The nine new fixed-setting executions from mesh_inten_kitti_coverage; focus sequences already exceeded twice their paper values. Historical 00/07 executions are outside this log analysis.",
+    "diagnostic_parameters": {
+      "block_frames": 100,
+      "min_step_m": 0.1,
+      "relative_step_threshold": 0.2
+    },
+    "expected_log_stride": 10,
+    "support_cutoff": 30,
+    "hypotheses": [
+      "S2S replaces the solved relative motion with the previous relative motion when the returned pair count is below 30.",
+      "S2M does not accept its correction when the returned pair count is below 30."
+    ],
+    "scope": "Offline join of committed native progress records and saved-pose step errors. No scan access, native replay, parameter selection, method change or new accuracy result. Ground truth labels saved steps only; no oracle initialization.",
+    "limits": "Progress is logged every ten frames. A sampled high-error step can exclude a low-count branch at that frame only. Unlogged frames, earlier fallback, correspondence quality, conditioning and convergence remain unresolved. Large pair counts do not establish observability."
+  },
+  "recorded_native_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+  "recorded_native_binary_sha256": "a75d8c5b42e8b021ba3afbe63708a2bca26b776253d100acdda94c87f179b0e2",
+  "native_source_provenance": {
+    "files": {
+      "papers/inten_loam/src/inten_loam_paper.cpp": {
+        "recorded_execution_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+        "study_input_commit": "7505a2914328d53ac9b319d5f8042189b378d457",
+        "sha256": "ceb840231ff50a454bcfcea5d532d539e62665b0047748740b9ea988e8fa24ba",
+        "identical": true
+      },
+      "papers/inten_loam/include/inten_loam/inten_loam_paper.h": {
+        "recorded_execution_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+        "study_input_commit": "7505a2914328d53ac9b319d5f8042189b378d457",
+        "sha256": "ae3cbbfeb0edac9ea22902d4dcbffe0e630ae880ffde56b4dfba9f60da406097",
+        "identical": true
+      }
+    },
+    "scope": "Interpret recorded progress using its historical source blobs and pinned study input. Current native checkout files are not analysis inputs or a replay of these results."
+  },
+  "input_sha256": {
+    "3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe:experiments/results/inten_support_diagnostics/analyze.py": "630e4357b3c1d65dd95d62086809d0857a885bb875323b9e5b7c7f53a0407418",
+    "3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe:experiments/results/inten_support_diagnostics/protocol.json": "faedc5abd77069ef91e52e06d185eb9df74e9c2018b8c812f9ec45973c5ed379",
+    "7505a2914328d53ac9b319d5f8042189b378d457:evaluation/scripts/diagnose_kitti_steps.py": "31c33e09a25890a9206fea331835f22e6bee7aa86327663b4c6a009dd091825a",
+    "7505a2914328d53ac9b319d5f8042189b378d457:evaluation/scripts/evaluate_external_kitti_odometry.py": "dd7e8c4b332ead68cf5c87dfd67d7eed12851d8256db4ff9f3b6999a7f0170e4",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/mesh_inten_kitti_coverage/environment.json": "c847af574261c526da89609aea92e6145190ff8a0a7ff4e8d976148f2408678b",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/mesh_inten_kitti_coverage/parallel_execution.json": "a3412fa4d7fb38606140ee1101654b7ace2dd4ae9a57e2c9ffde948bc11d913b",
+    "d1b7288ff46964bde86ef15ab34b2ae8b4f389da:papers/inten_loam/src/inten_loam_paper.cpp": "ceb840231ff50a454bcfcea5d532d539e62665b0047748740b9ea988e8fa24ba",
+    "7505a2914328d53ac9b319d5f8042189b378d457:papers/inten_loam/src/inten_loam_paper.cpp": "ceb840231ff50a454bcfcea5d532d539e62665b0047748740b9ea988e8fa24ba",
+    "d1b7288ff46964bde86ef15ab34b2ae8b4f389da:papers/inten_loam/include/inten_loam/inten_loam_paper.h": "ae3cbbfeb0edac9ea22902d4dcbffe0e630ae880ffde56b4dfba9f60da406097",
+    "7505a2914328d53ac9b319d5f8042189b378d457:papers/inten_loam/include/inten_loam/inten_loam_paper.h": "ae3cbbfeb0edac9ea22902d4dcbffe0e630ae880ffde56b4dfba9f60da406097",
+    "d1b7288ff46964bde86ef15ab34b2ae8b4f389da:evaluation/src/pcd_dogfooding.cpp": "4ddd49ec5616a133e662cf2371bd7299c440d09bf331b5da643f2a9db19b342c",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_01_full_paper_comp_matrix.json": "cc5ae96b4b8a8162f017c4e9cf319afe2d59af90097b2203d310395a2c4c7a72",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "ced5bba5e93d9d968f703a5b7e96b90db74258f8a0d1484ff0aa5482bb899ace",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "52d7a1348e260fd54ec3d07465a13009fe86692a43dfb8f1ccf11932cc0356d1",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "7b415f2824618f4c23c8f3f6bf0a535c9b7fd5b302cd542b5252ad42d8fea8a4",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "bb6cbdca61b7b0a1b32af9cbb3caf8b490942b1587b150ee1bad1e050e8bd157",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "8382f8f6af3a99f823d0c256817fbe9cd4e9b85d973ad7bb88ea632cb1023a81",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_02_full_paper_comp_matrix.json": "abebcd8d75ca5a130c8cd6d42cb636e217e544529fdc22a84a9c662f80cb526f",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "247c937d6ca36567d89143264c83d68ad6169e05d59878e011c4ed8249437772",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "7e4f38c200fe2332a07b15fb8a0d015d2f8cb9086fb34bfb30433c0678dc5c8a",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "95c158c84519e6ea48c45f95e7ffe0440641dc52c873010fe7de1361a8cf413c",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "88596ce0757f8280495244d8e28e2ef948ffa17c4f432b4c98a9dba30cc661d3",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "34e33e14928571c147eedeff95a67a26fc5e7ea0da2b6e002c9bc5853aa48503",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_03_full_paper_comp_matrix.json": "6a8e25d3447048e20eb324d1f904d0b61ba6a25983f6e42d2b5b14e40344e56f",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "994492a2207aba890b4629e785dab2ed08671a8eaa728b9e8d78e48d0d706b40",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "a71d2d5c907f52f4edfd4e62df1622c2b066e73f959a83ac437f67dd74dcb7d3",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "10164c6122d5e1baf472529e44f0a9ec6f2828ff4b2fb0b38bf23e10fc5e4ccb",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "e18cc9460922054ad77a5ccad0e4cec8094c090e5432071847dcb4cf8312f311",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "7e0d61d3332341b8e43cc04e04ce4b3dfc284e6c152e7a23dc88f36912ab2aae",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_04_full_paper_comp_matrix.json": "203ba8d20c32fb53dc2a772c30559ca13ea32c096c475a0f80d806ff08a5a510",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "dd2d957aa36914af4c8083baa1dc1d33c134a91656ee67cf5037e5febabce9a7",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "846e3229c5d7e9e81e21f656ef4ce1d69057b142e7ca78292756bbdc10429f4d",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "c41343ce1cf0f5b2872f74563e6b7fa1f05f99ca5e4deea00dc06165680be169",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "5ec2eb06ae3eef4338dcd10440f76911871b9d926a7957280ff8df422c179c79",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "63f40173413a94e75f01e88a031c1579b11b3cf20d8570bbff7fa384e6d9ed45",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_05_full_paper_comp_matrix.json": "ab7d27249fbae64d543117e03e81e2fb395144674d0349ecdf473708289d2bbc",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "dfe3f722b1743abaabc2e1616b9f0b2e90407bcc484c51f1613ea30f620f2d7e",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "260889239b425c69257d2e3a2d68c9515e9f609000c2b8409460144ed4f69c50",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "de92ab55f021879303b62a553211c653252e31d3c7cb57e1a5c628b70a59cf1f",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "50bbc2c798d2d595a0bd8e55d9a16b3439de9897fdbf5543c67e865c62a41726",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "6ca1be213e811a4062c9036e98c21d9086a68ae65741e42a14c4dc51e35ee16a",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_06_full_paper_comp_matrix.json": "a2e054ac320396dcccf008a66d09ab9cbfe9352d22081b1a95f6b73e2a3a0be8",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "9873ea78ebd6b6a46588595f7a743ccfd1bed578f8daf3b3096e2d608efd2365",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "dcb2e703c885a3944415957eb0b7b3c4bc52501f180d591ccf7f3905d0de9a22",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "1dae7cbd727df52ceec7442ad6155ac62469d73ede864142cc5df9f0148ebb3c",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "327523e289e71cabf34bc453db1510ef4602985cbcea63c80e95f520dc4c9f66",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_08_full_paper_comp_matrix.json": "1101449a91fe124d7d0fe87e7cbd9a166c5c5dfb97f9a4ecce224bc4f3c4cdae",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "3235fe189d3ddf6ab9bbbef5d110f4a737065503d25db5928f1e3b3b98a4f16e",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "401560811f1f82946a286d2e228d3d78a93c3dd9e4949aa3beb175c33dde3b7c",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "616e10ba2656e1847b16afb8402b96a6f3316f5ad3d1a4d821e713adab16993f",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "da57c9ef11c7478f5e86f72b0762a071bf0c57e11d5c998fdb2be02c7336e379",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "86d4060a32418151c81fc0fbab87e4119e4070be1fe12808f53810e06cab3d70",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_09_full_paper_comp_matrix.json": "8cb4485f14ba9aa01eb9e44af3ccc59d9edc35a6ec1860c579c71af8ee712b39",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "0510cf3656e906446bf46fc7fbf9aea7a8b83efd426102dcebf1668cd442def8",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "7f87d02261f86488b4d0a59c190674f0241aad318e509e6015e6cf12e2416c3f",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "08ed441c94a14873365d6ef359bda7b613c63bf8daa20b829c30366c388b8ff7",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "f754ced260c00287aa6613cf07da4f7b37c14d8fae20ffa77761f0aa6b19920f",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "81b34b0f04fdd787b2f0bcac111e0e08665c9beb21bbff702947d2523d2edeb5",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json": "4fecd31d8d7264a1b79d3ecc844bd6ae5ec842d5fa3967d48b8474a138dadd02",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/summary.json": "f3d14e321fe89af9ea05882bea5836e3a839c5decf7279a60bd04a489a0e80f8",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/step_diagnostics.json": "0e809077037e9b03d23453db93165cc9ea160af003bdae1bb87d2ed425da36ed",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt": "4f1c49bf75cbd347d6cb2ee9bf3c63422f8bedc9285e212e845536fb58f48857",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt": "edc8923a12515b48305abe1aa9f996624aa91e31560085649a421097a24526b5",
+    "7505a2914328d53ac9b319d5f8042189b378d457:experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/run.log": "f3f9fd98592bfabcd9f4c505a61d5417fe5315df32393f0a672603cca20da913"
+  },
+  "fixed_variant_args": [
+    "--no-gt-seed",
+    "--inten-loam-paper-odometry",
+    "--input-max-range-m",
+    "120",
+    "--input-vertical-angle-correction-deg",
+    "0.17",
+    "--inten-loam-paper-set",
+    "s2m_plane_max_dist=0.05"
+  ],
+  "sequences": [
+    {
+      "sequence": "01",
+      "frames": 1101,
+      "logged_progress_records": 111,
+      "logged_noninitial_steps": 110,
+      "all_bad_length_steps": 136,
+      "all_bad_vector_steps": 136,
+      "unlogged_bad_length_steps": 122,
+      "logged_moving": {
+        "logged_steps": 110,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 411,
+        "s2m_min": 1065
+      },
+      "logged_bad_length": {
+        "logged_steps": 14,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 694,
+        "s2m_min": 1381
+      },
+      "logged_bad_vector": {
+        "logged_steps": 14,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 694,
+        "s2m_min": 1381
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 3.427859951443679e-07,
+        "rpe_trans_pct": 1.9194954958834387e-08,
+        "kitti_rte_trans_pct": 5.331081744941457e-07,
+        "kitti_rte_rot_deg_per_100m": 1.741407510968962e-07
+      }
+    },
+    {
+      "sequence": "02",
+      "frames": 4661,
+      "logged_progress_records": 467,
+      "logged_noninitial_steps": 466,
+      "all_bad_length_steps": 133,
+      "all_bad_vector_steps": 139,
+      "unlogged_bad_length_steps": 119,
+      "logged_moving": {
+        "logged_steps": 466,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 627,
+        "s2m_min": 1264
+      },
+      "logged_bad_length": {
+        "logged_steps": 14,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 927,
+        "s2m_min": 1413
+      },
+      "logged_bad_vector": {
+        "logged_steps": 14,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 927,
+        "s2m_min": 1413
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 4.132369895160082e-07,
+        "rpe_trans_pct": 2.912126682019789e-07,
+        "kitti_rte_trans_pct": 1.268066220916353e-07,
+        "kitti_rte_rot_deg_per_100m": 4.1649473447868957e-07
+      }
+    },
+    {
+      "sequence": "03",
+      "frames": 801,
+      "logged_progress_records": 81,
+      "logged_noninitial_steps": 80,
+      "all_bad_length_steps": 2,
+      "all_bad_vector_steps": 2,
+      "unlogged_bad_length_steps": 2,
+      "logged_moving": {
+        "logged_steps": 78,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 599,
+        "s2m_min": 1488
+      },
+      "logged_bad_length": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "logged_bad_vector": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 3.550516112227342e-07,
+        "rpe_trans_pct": 1.2750936850824957e-07,
+        "kitti_rte_trans_pct": 4.5503546375336157e-07,
+        "kitti_rte_rot_deg_per_100m": 1.3016614386351932e-07
+      }
+    },
+    {
+      "sequence": "04",
+      "frames": 271,
+      "logged_progress_records": 28,
+      "logged_noninitial_steps": 27,
+      "all_bad_length_steps": 0,
+      "all_bad_vector_steps": 0,
+      "unlogged_bad_length_steps": 0,
+      "logged_moving": {
+        "logged_steps": 27,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 674,
+        "s2m_min": 1398
+      },
+      "logged_bad_length": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "logged_bad_vector": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 3.304082571986555e-07,
+        "rpe_trans_pct": 4.141492663256585e-07,
+        "kitti_rte_trans_pct": 4.472224930385238e-07,
+        "kitti_rte_rot_deg_per_100m": 8.80350983667455e-07
+      }
+    },
+    {
+      "sequence": "05",
+      "frames": 2761,
+      "logged_progress_records": 277,
+      "logged_noninitial_steps": 276,
+      "all_bad_length_steps": 0,
+      "all_bad_vector_steps": 0,
+      "unlogged_bad_length_steps": 0,
+      "logged_moving": {
+        "logged_steps": 268,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 813,
+        "s2m_min": 1661
+      },
+      "logged_bad_length": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "logged_bad_vector": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 3.7748167258655485e-08,
+        "rpe_trans_pct": 4.846125490898245e-07,
+        "kitti_rte_trans_pct": 2.964047868259101e-07,
+        "kitti_rte_rot_deg_per_100m": 4.792812465237439e-07
+      }
+    },
+    {
+      "sequence": "06",
+      "frames": 1101,
+      "logged_progress_records": 111,
+      "logged_noninitial_steps": 110,
+      "all_bad_length_steps": 0,
+      "all_bad_vector_steps": 0,
+      "unlogged_bad_length_steps": 0,
+      "logged_moving": {
+        "logged_steps": 110,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 696,
+        "s2m_min": 1544
+      },
+      "logged_bad_length": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "logged_bad_vector": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 4.3853498965518156e-07,
+        "rpe_trans_pct": 4.639464178390895e-07,
+        "kitti_rte_trans_pct": 4.92108803373803e-07,
+        "kitti_rte_rot_deg_per_100m": 7.292632470123905e-08
+      }
+    },
+    {
+      "sequence": "08",
+      "frames": 4071,
+      "logged_progress_records": 408,
+      "logged_noninitial_steps": 407,
+      "all_bad_length_steps": 20,
+      "all_bad_vector_steps": 99,
+      "unlogged_bad_length_steps": 18,
+      "logged_moving": {
+        "logged_steps": 404,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 713,
+        "s2m_min": 1501
+      },
+      "logged_bad_length": {
+        "logged_steps": 2,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 1061,
+        "s2m_min": 1951
+      },
+      "logged_bad_vector": {
+        "logged_steps": 10,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 1007,
+        "s2m_min": 1725
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 4.4942636989731e-07,
+        "rpe_trans_pct": 4.560331230418768e-07,
+        "kitti_rte_trans_pct": 3.5986228663631437e-08,
+        "kitti_rte_rot_deg_per_100m": 2.0099648445626173e-07
+      }
+    },
+    {
+      "sequence": "09",
+      "frames": 1591,
+      "logged_progress_records": 160,
+      "logged_noninitial_steps": 159,
+      "all_bad_length_steps": 0,
+      "all_bad_vector_steps": 0,
+      "unlogged_bad_length_steps": 0,
+      "logged_moving": {
+        "logged_steps": 159,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 487,
+        "s2m_min": 1072
+      },
+      "logged_bad_length": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "logged_bad_vector": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 4.423059074554203e-08,
+        "rpe_trans_pct": 1.2646676428307302e-07,
+        "kitti_rte_trans_pct": 2.3243552360607822e-07,
+        "kitti_rte_rot_deg_per_100m": 9.245649615352569e-08
+      }
+    },
+    {
+      "sequence": "10",
+      "frames": 1201,
+      "logged_progress_records": 121,
+      "logged_noninitial_steps": 120,
+      "all_bad_length_steps": 0,
+      "all_bad_vector_steps": 0,
+      "unlogged_bad_length_steps": 0,
+      "logged_moving": {
+        "logged_steps": 115,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": 624,
+        "s2m_min": 1240
+      },
+      "logged_bad_length": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "logged_bad_vector": {
+        "logged_steps": 0,
+        "s2s_below_cutoff": 0,
+        "s2m_below_cutoff": 0,
+        "s2s_min": null,
+        "s2m_min": null
+      },
+      "saved_pose_metric_abs_delta": {
+        "ate_m": 3.565939525884687e-07,
+        "rpe_trans_pct": 4.896395607856263e-07,
+        "kitti_rte_trans_pct": 2.2234037611035262e-07,
+        "kitti_rte_rot_deg_per_100m": 4.330830947196773e-07
+      }
+    }
+  ],
+  "bad_length_intervals": [
+    {
+      "sequence": "01",
+      "first_frame": 217,
+      "last_frame": 253,
+      "total_bad_steps": 37,
+      "unlogged_bad_steps": 33,
+      "logged_steps": 4,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": 739,
+      "s2m_min": 1481
+    },
+    {
+      "sequence": "01",
+      "first_frame": 420,
+      "last_frame": 518,
+      "total_bad_steps": 99,
+      "unlogged_bad_steps": 89,
+      "logged_steps": 10,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": 694,
+      "s2m_min": 1381
+    },
+    {
+      "sequence": "02",
+      "first_frame": 1787,
+      "last_frame": 1787,
+      "total_bad_steps": 1,
+      "unlogged_bad_steps": 1,
+      "logged_steps": 0,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": null,
+      "s2m_min": null
+    },
+    {
+      "sequence": "02",
+      "first_frame": 1878,
+      "last_frame": 1943,
+      "total_bad_steps": 66,
+      "unlogged_bad_steps": 59,
+      "logged_steps": 7,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": 927,
+      "s2m_min": 1413
+    },
+    {
+      "sequence": "02",
+      "first_frame": 3308,
+      "last_frame": 3308,
+      "total_bad_steps": 1,
+      "unlogged_bad_steps": 1,
+      "logged_steps": 0,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": null,
+      "s2m_min": null
+    },
+    {
+      "sequence": "02",
+      "first_frame": 4460,
+      "last_frame": 4524,
+      "total_bad_steps": 65,
+      "unlogged_bad_steps": 58,
+      "logged_steps": 7,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": 932,
+      "s2m_min": 1677
+    },
+    {
+      "sequence": "03",
+      "first_frame": 756,
+      "last_frame": 757,
+      "total_bad_steps": 2,
+      "unlogged_bad_steps": 2,
+      "logged_steps": 0,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": null,
+      "s2m_min": null
+    },
+    {
+      "sequence": "08",
+      "first_frame": 28,
+      "last_frame": 46,
+      "total_bad_steps": 19,
+      "unlogged_bad_steps": 17,
+      "logged_steps": 2,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": 1061,
+      "s2m_min": 1951
+    },
+    {
+      "sequence": "08",
+      "first_frame": 4033,
+      "last_frame": 4033,
+      "total_bad_steps": 1,
+      "unlogged_bad_steps": 1,
+      "logged_steps": 0,
+      "s2s_below_cutoff": 0,
+      "s2m_below_cutoff": 0,
+      "s2s_min": null,
+      "s2m_min": null
+    }
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 3
+GT poses: 3
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: timestamp
+Frame gap [s]: min=0.101 median=0.102 mean=0.102 max=0.102
+Trajectory length: 0.0 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running KISS-ICP...
+  source_voxel_size=0.5 max_source_points=4500 voxel_size=1.0 max_iterations=30 local_map_radius=60.0 update_full_voxels=off model_deviation_threshold=off model_deviation_correspondence_multiplier=3.0 mulran_deskew=off motion_guard=off max_step_translation_m=2.0 max_step_rotation_deg=20.0
+  [KISS-ICP] 0/3 voxels=3064
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+KISS-ICP                ok          0.036       167.034        3           197.6          15.2        
+
+Notes:
+- KISS-ICP: Adaptive sigma min/mean/max=0.15/0.60252/1.5; correspondence_multiplier=1; neighbor_voxel_radius=auto; vertical_angle_correction_deg=0; mulran_deskew=off; deskewed_frames=0; deskew_timestamp_fallbacks=0; motion_guard=off; motion_guard_rejections=0; adaptive_motion_guard_acceptances=0; end_to_end_fps=15.1812; algorithm_fps=18.4371.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/mcd_kth_smoke_evaluated_gt.txt, manifest: dogfooding_results/mcd_kth_smoke_evaluation_manifest.json)

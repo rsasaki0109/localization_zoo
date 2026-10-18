@@ -1,0 +1,6 @@
+test_rescore_row_replays_variant_and_reports_determinism (test_rescore_kitti_rte.RescoreKittiRteTests.test_rescore_row_replays_variant_and_reports_determinism) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.062s
+
+OK

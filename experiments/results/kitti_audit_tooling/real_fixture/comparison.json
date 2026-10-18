@@ -1,0 +1,51 @@
+{
+  "scope": "tooling/exit-code validation only",
+  "cases": [
+    {
+      "case": "same",
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "audit_status": "ok",
+      "drift_metrics": [],
+      "process_exit_code": 0
+    },
+    {
+      "case": "ate_drift",
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "audit_status": "drift",
+      "drift_metrics": [
+        "ate_m"
+      ],
+      "process_exit_code": 0
+    },
+    {
+      "case": "frame_drift",
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "audit_status": "drift",
+      "drift_metrics": [
+        "frames"
+      ],
+      "process_exit_code": 0
+    },
+    {
+      "case": "rpe_drift",
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "audit_status": "drift",
+      "drift_metrics": [
+        "rpe_trans_pct"
+      ],
+      "process_exit_code": 0
+    },
+    {
+      "case": "missing_input",
+      "expected_exit_code": 2,
+      "actual_exit_code": 2,
+      "audit_status": "error",
+      "drift_metrics": null,
+      "process_exit_code": null
+    }
+  ]
+}

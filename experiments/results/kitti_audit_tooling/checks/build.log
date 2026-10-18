@@ -1,0 +1,18 @@
+[1/18] Building CXX object papers/dilo/CMakeFiles/dilo.dir/src/dilo.cpp.o
+[2/18] Building CXX object papers/dilo/CMakeFiles/dilo.dir/src/dilo_paper.cpp.o
+[3/18] Linking CXX static library papers/dilo/libdilo.a
+[4/18] Linking CXX executable papers/dilo/test_dilo
+[5/18] Linking CXX executable papers/dilo/test_dilo_paper
+[6/18] Building CXX object papers/imls_slam/CMakeFiles/imls_slam.dir/src/imls_slam.cpp.o
+[7/18] Building CXX object papers/suma/CMakeFiles/suma.dir/src/suma.cpp.o
+[8/18] Building CXX object papers/imls_slam/CMakeFiles/imls_slam.dir/src/imls_paper_odometry.cpp.o
+[9/18] Linking CXX static library papers/imls_slam/libimls_slam.a
+[10/18] Linking CXX executable papers/imls_slam/test_imls_slam
+[11/18] Linking CXX executable papers/imls_slam/test_imls_paper_odometry
+[12/18] Building CXX object papers/suma/CMakeFiles/suma.dir/src/suma_paper.cpp.o
+[13/18] Linking CXX static library papers/suma/libsuma.a
+[14/18] Linking CXX executable papers/suma/test_suma_paper
+[15/18] Linking CXX executable papers/suma/test_suma
+[16/18] Linking CXX executable evaluation/pcd_dogfooding
+[17/18] Building CXX object python/CMakeFiles/localization_zoo_py.dir/src/localization_zoo_py.cpp.o
+[18/18] Linking CXX shared module python/localization_zoo.cpython-310-x86_64-linux-gnu.so

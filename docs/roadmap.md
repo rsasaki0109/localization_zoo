@@ -172,6 +172,11 @@ independent. Each item says what "done" means.
    `evaluation/scripts/audit_kitti_drift.py`, which re-runs the README
    leaderboard's KITTI cells
    ([last audit](../experiments/results/kitti_drift_audit.json)).
+   - [Sequence-at-a-time audit procedure](kitti_drift_audit.md): inspect cells
+     with `--list`, select with `--sequence`, and keep each report with its
+     replay logs. Filtered audits require an explicit output path. Drift and
+     replay failure return nonzero exit codes; RPE, ATE and frame count are
+     checked. This tooling update does not constitute a new full KITTI audit.
    - Done: the audit shows no drift, or the drift is documented.
 
 ### Phase 2: usability

@@ -506,3 +506,18 @@ fresh user-owned `TEST_TMPDIR`. The study documents both attempts.
 [protocol, complete evidence, commands and limits](../../experiments/results/inten_passive_trace/README.md)
 describe the scope. Published results and estimator defaults are unchanged.
 <!-- /INTEN_PASSIVE_TRACE -->
+
+<!-- INTEN_TRACE_EXPORT -->
+## Optional runner trace export
+
+The paper runner accepts `--inten-loam-paper-trace-jsonl NEW.jsonl` with
+`--methods inten_loam --inten-loam-paper-odometry`. It streams the passive
+observations and explicit skipped-input records, with a final traversal
+record. This repository diagnostic is outside the paper and default off.
+It changes no estimator setting, decision or map input.
+
+[Usage, coordinates and incomplete/nonfinite record handling](../../docs/inten_loam_passive_trace.md#streaming-export-from-the-evaluation-runner)
+and the [separate validation record](../../experiments/results/inten_trace_export/README.md)
+describe its scope. Full failure-sequence tracing and the solver-level cause
+remain open; this export capability is not an accuracy result.
+<!-- /INTEN_TRACE_EXPORT -->

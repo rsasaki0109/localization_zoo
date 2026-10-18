@@ -1,0 +1,7 @@
+{
+  "build/python/localization_zoo.cpython-310-x86_64-linux-gnu.so": "641881a6101783b61e216053ca8785e0d93d82a60a2160c878e699a73472fd1c",
+  "build/python/paper_odometry_reference": "35dedbd24580398faa488f2faad3e92577fdeb02a5f0da685a2aa724b1ee1446",
+  "evaluation/fixtures/mcd_kth_smoke/00000001/cloud.pcd": "cc8d302c63f04900d13685ad1e17aa9e0cbd6f89702cb4c45aea76d9557de99b",
+  "evaluation/fixtures/mcd_kth_smoke/00000002/cloud.pcd": "91e90a6f487b0877b80dc30275582ed02e326eec506682000a0663fd7ed640e3",
+  "evaluation/fixtures/mcd_kth_smoke/00000000/cloud.pcd": "cc61530bc780bc47ca01a926e488a55b58caeab8ad683c0bbcc416972c569df9"
+}

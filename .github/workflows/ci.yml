@@ -42,6 +42,14 @@ jobs:
       - name: Python bindings smoke
         run: python3 python/example_synthetic.py
 
+      - name: Upload paper Python fixture parity
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-python-fixture
+          path: build/python/paper_python_fixture.json
+          if-no-files-found: ignore
+
       - name: Dogfooding smoke (committed 3-frame MCD fixture ~3MB)
         run: |
           chmod +x evaluation/scripts/smoke_ci_fixture.sh
@@ -135,7 +143,10 @@ jobs:
             ros-humble-tf2-ros \
             ros-humble-tf2-eigen \
             ros-humble-pcl-conversions \
-            ros-humble-pcl-ros
+            ros-humble-pcl-ros \
+            ros-humble-rclpy \
+            ros-humble-tf2-msgs \
+            python3-numpy
 
       - name: Build ROS2 package
         shell: bash
@@ -143,3 +154,26 @@ jobs:
           source /opt/ros/humble/setup.bash
           cd ros2
           colcon build --packages-select localization_zoo_ros
+
+      - name: Paper odometry nodes (native fixture parity, odometry and TF)
+        shell: bash
+        env:
+          ROS_LOCALHOST_ONLY: '1'
+          OMP_NUM_THREADS: '1'
+          OPENBLAS_NUM_THREADS: '1'
+        run: |
+          source /opt/ros/humble/setup.bash
+          cd ros2
+          source install/setup.bash
+          python3 localization_zoo_ros/test/test_paper_nodes.py \
+            --node-dir install/localization_zoo_ros/lib/localization_zoo_ros \
+            --reference build/localization_zoo_ros/paper_odometry_reference \
+            --report paper_ros_fixture.json
+
+      - name: Upload paper ROS fixture parity
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-ros-fixture
+          path: ros2/paper_ros_fixture.json
+          if-no-files-found: ignore

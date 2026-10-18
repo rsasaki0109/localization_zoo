@@ -1,0 +1,15 @@
+{
+  "source_commit": "1398455265a4bcaf3b7683ff77664d998f1754c3",
+  "workflow_run_id": 38965411672,
+  "job_id": 117190548783,
+  "job_conclusion": "success",
+  "runtime_test_exit_code": 0,
+  "log_tool": {
+    "name": "github_fetch_workflow_job_logs",
+    "arguments": {
+      "repo_full_name": "rsasaki0109/localization_zoo",
+      "job_id": 117190548783
+    }
+  },
+  "note": "Reliable input selected, native defaults/scans/tolerances unchanged. Input discovery only; later protocol also waits for output endpoints."
+}

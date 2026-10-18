@@ -1,0 +1,11 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+  "exit_code": 0,
+  "output": ""
+}

@@ -1,0 +1,15 @@
+{
+  "source_commit": "021534d536aaf12ab2968a8731574c5a3cb58822",
+  "workflow_run_id": 38965567416,
+  "job_id": 117191061043,
+  "job_conclusion": "failure",
+  "runtime_test_exit_code": 1,
+  "log_tool": {
+    "name": "github_fetch_workflow_job_logs",
+    "arguments": {
+      "repo_full_name": "rsasaki0109/localization_zoo",
+      "job_id": 117191061043
+    }
+  },
+  "note": "Test observer used Subscription.get_publisher_count, absent in ROS2 Humble. No method comparison completed; fix supported Node graph API."
+}

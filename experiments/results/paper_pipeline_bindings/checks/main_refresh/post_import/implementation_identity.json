@@ -1,0 +1,15 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "ff2fe7f1",
+    "--",
+    "python",
+    "ros2",
+    ".github/workflows/ci.yml",
+    "experiments/results/paper_pipeline_bindings/refresh_main_checks.py"
+  ],
+  "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+  "exit_code": 0
+}

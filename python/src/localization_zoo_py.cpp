@@ -12,6 +12,8 @@
 
 namespace py = pybind11;
 
+void bindPaperOdometry(py::module_& m);
+
 namespace {
 
 using RowMatX3 = Eigen::Matrix<double, Eigen::Dynamic, 3, Eigen::RowMajor>;
@@ -32,6 +34,8 @@ PYBIND11_MODULE(localization_zoo, m) {
       "Point clouds are Nx3 float64 numpy arrays; poses are 4x4 numpy arrays.";
 
   using namespace localization_zoo;
+
+  bindPaperOdometry(m);
 
   // ---- KISS-ICP (odometry pipeline) ----
   py::class_<kiss_icp::KISSICPParams>(m, "KissICPParams")

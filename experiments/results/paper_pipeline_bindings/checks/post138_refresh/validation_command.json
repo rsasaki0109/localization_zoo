@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/paper_pipeline_bindings/refresh_main_checks.py",
+    "--phase",
+    "docs",
+    "--base-commit",
+    "17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f",
+    "--output-dir",
+    "/workspace/localization-env/paper-bindings/post138_refresh/docs"
+  ],
+  "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+  "started_unix": 1792364569.6496701,
+  "checked_checkout_commit": "9f207266a8e7be5197dd7c545c7fc98fdd3fbc41",
+  "exit_code": 0,
+  "finished_unix": 1792364646.1794305
+}

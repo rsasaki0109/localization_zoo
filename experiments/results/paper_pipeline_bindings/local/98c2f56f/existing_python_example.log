@@ -1,0 +1,5 @@
+NDT        converged=True t_err=0.0018 m  OK
+GICP       converged=True t_err=0.0000 m  OK
+LiTAMIN2   converged=True t_err=0.0931 m  OK
+KISS-ICP   pose t_err=0.0018 m  OK
+all bindings OK

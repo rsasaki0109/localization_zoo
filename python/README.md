@@ -8,6 +8,10 @@ A thin pybind11 layer over a representative subset of the C++ methods:
 | `Litamin2` | `litamin2::LiTAMIN2Registration` | scan-to-target (`set_target` / `align`) |
 | `Ndt` | `ndt::NDTRegistration` | scan-to-target (`set_target` / `align`) |
 | `Gicp` | `gicp::GICPRegistration` | scan-to-target (`set_target` / `align`) |
+| `SumaPaper` | `suma::SuMaPaper` | frame-to-model paper odometry (`process`) |
+| `ImlsPaperOdometry` | `imls_slam::ImlsPaperOdometry` | raw-scan sliding-model paper odometry (`process`) |
+| `DiloPaperOdometry` | `dilo::DiloPaperOdometry` | range-image paper odometry (`process`) |
+| `Litamin2Odometry` | `litamin2::LiTAMIN2Odometry` | Gaussian-map paper odometry (`process`) |
 
 Point clouds are Nx3 `float64` numpy arrays; poses and initial guesses are
 4x4 numpy arrays.
@@ -59,3 +63,63 @@ A runnable end-to-end check lives in
 ```bash
 python3 python/example_synthetic.py
 ```
+
+## Stateful paper pipelines
+
+Feed scans in acquisition order, in the stored sensor frame. Each object owns
+its map/window and predicts motion without a ground-truth seed. Construct a new
+object for a new sequence. `Litamin2Odometry` is separate from the existing
+scan-to-target `Litamin2` class. SuMa exposes frame-to-model odometry, without
+loop closure.
+
+```python
+pipelines = {
+    "suma": lz.SumaPaper(),
+    "imls_slam": lz.ImlsPaperOdometry(),
+    "dilo": lz.DiloPaperOdometry(),
+    "litamin2": lz.Litamin2Odometry(),
+}
+for scan in scans:
+    for name, pipeline in pipelines.items():
+        result = pipeline.process(scan)
+        pose = result if name == "dilo" else result.pose
+        print(name, pose)  # world <- stored scan frame
+```
+
+`pose` returns a copy of the accumulated pose. DiLO also exposes copies of
+`window_poses` and `finalized_poses`; its `process` result is the causal pose of
+the new scan, while older poses can be refined within the window. Other result
+objects expose the native registration/map diagnostics. Empty or nonfinite
+arrays raise `ValueError` before advancing these new pipelines.
+
+Parameter classes are `SumaPaperParams`, `ImlsPaperParams`, `DiloPaperParams`
+and `Litamin2OdometryParams`. They expose the native registration fields and defaults;
+pass the parameters at construction. The LiTAMIN2 field `lambda` is named
+`lambda_` in Python; `map_mode` uses `Litamin2MapMode.AGGREGATE`, `FIRST` or
+`LATEST`. Existing opt-in corrections stay disabled by default, including
+SuMa `normalize_bilinear`, SuMa/DiLO `degenerate_ratio` and SuMa/IMLS
+`coarse_frames`. SuMa also exposes `coarse_iterations` and
+`coarse_distance_scale`; its result reports `coarse_start` and the iterations
+actually used in that stage. These non-paper options require explicit selection;
+their KITTI transfer results and limitations remain in the method READMEs.
+The IMLS-SLAM `accelerated` execution option is currently available through
+the native C++ API and evaluation runner; these bindings keep its disabled
+native default and do not expose that option.
+
+Run each example on the committed point-cloud fixture, or replace the scan
+directory with stored PCD/KITTI XYZI scans:
+
+```bash
+python3 python/example_paper_odometry.py suma_paper
+python3 python/example_paper_odometry.py imls_slam_paper
+python3 python/example_paper_odometry.py dilo_paper
+python3 python/example_paper_odometry.py litamin2_paper
+cmake --build build --target paper_odometry_reference
+ctest --test-dir build -R test_paper_python_bindings --output-on-failure
+```
+
+The fixture test compares the Python poses and native diagnostics against the
+same C++ paper pipelines, including non-contiguous NumPy inputs. These examples
+use native defaults; reproducing a published harness variant also requires its
+recorded sensor preprocessing and arguments. They do not replace the stored
+benchmark results. [ROS 2 interfaces](../ros2/localization_zoo_ros/README.md).

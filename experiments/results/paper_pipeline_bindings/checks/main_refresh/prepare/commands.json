@@ -1,0 +1,48 @@
+[
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "exit_code": 0,
+    "label": "refresh_study_docs"
+  },
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "exit_code": 0,
+    "label": "generate_full_variant_table"
+  },
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "exit_code": 0,
+    "label": "generate_paper_ratio_table"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "origin/main",
+      "--",
+      "common",
+      "papers/*/src",
+      "papers/*/include",
+      "papers/*/test",
+      "papers/*/CMakeLists.txt",
+      "evaluation/src",
+      "evaluation/scripts"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "exit_code": 0,
+    "label": "native_core_identity"
+  }
+]

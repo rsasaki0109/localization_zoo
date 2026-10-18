@@ -1,0 +1,38 @@
+.............................................................fixture golden: /tmp/tmpwxrqiweo/golden.json does not exist; actual values written to /tmp/tmpwxrqiweo/out/actual.json
+.fixture golden: /tmp/tmpmsfppwnh/golden.json does not exist; actual values written to /tmp/tmpmsfppwnh/out/actual.json
+fixture drift: kiss_icp/KISS-ICP.ate_m: 0.036234 != golden 0.035614
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmpi5jb23t3/golden.json with /tmp/tmpi5jb23t3/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+fixture golden: no summaries found
+fixture drift: other/X: not in golden file (new method? update the golden file)
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmponif3h2k/golden.json with /tmp/tmponif3h2k/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+.fixture golden: /tmp/tmp8i8yy0mp/golden.json does not exist; actual values written to /tmp/tmp8i8yy0mp/out/actual.json
+fixture drift: m/M.status: 'ok' != golden 'invalid_metric'
+fixture drift: m/M.ate_m: 0.1 != golden nan
+fixture golden: 2 difference(s). If intentional, replace /tmp/tmpiogwpw5y/golden.json with /tmp/tmpiogwpw5y/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+................................................................................................./workspace/localization_zoo/tests/test_full_variant_table.py:41: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpvbf8y8ir/out.csv' mode='r' encoding='UTF-8'>
+  parsed = list(csv.DictReader((root / "out.csv").open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+./workspace/localization_zoo/tests/test_full_variant_table.py:57: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization_zoo/docs/assets/paper/full_variant_results.csv' mode='r' encoding='UTF-8'>
+  rows = list(csv.DictReader((repo / "docs/assets/paper/full_variant_results.csv").open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......................................................................................................................
+----------------------------------------------------------------------
+Ran 280 tests in 8.804s
+
+OK
+[report] /tmp/tmpt78a0kow/out.json /tmp/tmpt78a0kow/out.md
+drift: fixed6.inclination_rmse_deg: expected 2.1, got 2.0
+[check] 2 variants, 1 drift(s)
+[check] 1 variants, 0 drift(s)
+fixture golden: 1 method results match /tmp/tmppty23o2o/golden.json
+fixture golden: 1 method results match /tmp/tmp391at6gp/golden.json
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+Wrote 3 identity poses to /tmp/tmp59t2do31/identity.csv; metrics against this file are invalid by construction.
+recorded official KISS-ICP seq 07 correction=False: RTE 0.900 %
+recorded official KISS-ICP seq 07 correction=False: RTE 0.800 %
+[report] /tmp/tmpmy2xh9dn/r.json /tmp/tmpmy2xh9dn/r.md /tmp/tmpmy2xh9dn/imu.yaml
+[check] 4 parameters, 0 drift(s)
+drift: gyro_white_noise_density: expected 1.0, got 8.001002583826693e-05
+[check] 1 parameters, 1 drift(s)

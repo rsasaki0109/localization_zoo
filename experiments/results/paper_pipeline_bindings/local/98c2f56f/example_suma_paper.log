@@ -1,0 +1,3 @@
+cloud.pcd: position=[0. 0. 0.] state=13765 support=0
+cloud.pcd: position=[-8.20398745e-05 -5.73223737e-02  6.53449392e-02] state=22224 support=1933
+cloud.pcd: position=[ 0.02685584 -0.14031753  0.07438147] state=28728 support=3617

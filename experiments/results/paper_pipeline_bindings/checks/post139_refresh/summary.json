@@ -1,0 +1,22 @@
+{
+  "integration_source": "a3a5cbfd5aaffe978e70d0bf7e5d20b890d40017",
+  "main_base": "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+  "previous_head": "8d2d0ac36ba0411270aeba60a3056ea78a89f9f9",
+  "python_test_count": 301,
+  "python_skip_count": 5,
+  "skip_reason": "Native evaluation-guard binary is not built in this separate bindings worktree; full CI builds it. Exact skip output is retained in the full unit-test log.",
+  "actual_driver_exit": 0,
+  "preservation": {
+    "base": "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+    "historical_aggregate_count": 688,
+    "changed_aggregates": [],
+    "unchanged_published_evidence": {
+      "evaluation/data/paper_reported_numbers.json": true,
+      "docs/assets/paper/paper_ratio_table.csv": true,
+      "docs/index.html": true,
+      "README leaderboard": true,
+      "README except binding description": true
+    }
+  },
+  "scope": "Documentation/conflict integration only. Native/common/evaluation source equals merged main; Python/ROS wrappers and prior binding evidence unchanged. Existing native/ROS fixture numbers remain attributed to their original source."
+}

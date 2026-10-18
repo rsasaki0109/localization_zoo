@@ -1,0 +1,93 @@
+{
+  "recorded_unix": 1792334356.2993228,
+  "identity_commands": [
+    {
+      "label": "wrappers_previous",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "8d2d0ac36ba0411270aeba60a3056ea78a89f9f9",
+        "--",
+        "python",
+        "ros2",
+        ".github/workflows/ci.yml"
+      ],
+      "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "support_study_main",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "fff8cfa76072a8d975bcccc1cf4aae390bcb6b4e",
+        "--",
+        "experiments/results/inten_support_diagnostics",
+        "tests/test_inten_support_diagnostics.py",
+        "papers/inten_loam/README.md"
+      ],
+      "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "existing_bindings_evidence",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "8d2d0ac36ba0411270aeba60a3056ea78a89f9f9",
+        "--",
+        "experiments/results/paper_pipeline_bindings"
+      ],
+      "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "primary_sealed_hashes_match": {
+    "finish_when_complete.py": true,
+    "finish_docs.py": true,
+    "support.py": true,
+    "report.py": true,
+    "verify_preservation.py": true,
+    "run_all.py": true,
+    "protocol.json": true,
+    "selection.json": true,
+    "baseline.json": true,
+    "candidate.json": true,
+    "native_wrapper.py": true
+  },
+  "primary_binary_hashes_match": {
+    "baseline_pcd_dogfooding": true,
+    "candidate_pcd_dogfooding": true
+  },
+  "primary_native_guard": {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+      "--",
+      "common",
+      "evaluation/src",
+      "evaluation/CMakeLists.txt",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "scope": "Hash/source guards only, no scan reads, new native execution, source/build/sealed changes or controller restart."
+}

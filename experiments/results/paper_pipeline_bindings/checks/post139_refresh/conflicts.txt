@@ -1,0 +1,11 @@
+docs/decisions.md
+docs/experiments.md
+docs/interfaces.md
+docs/paper_assets.md
+docs/paper_captions.md
+docs/paper_comparison.md
+docs/paper_roadmap.md
+docs/paper_tracks.md
+docs/reproduction_status.md
+docs/variant_analysis.md
+experiments/results/index.json

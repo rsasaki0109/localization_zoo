@@ -1,0 +1,13 @@
+{
+  "command": [
+    "git",
+    "merge",
+    "--no-commit",
+    "--no-ff",
+    "origin/main"
+  ],
+  "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+  "exit_code": 1,
+  "started_unix": 1792334255.0157447,
+  "finished_unix": 1792334255.9405706
+}

@@ -184,9 +184,47 @@ add_library(xicp STATIC
 target_include_directories(xicp PUBLIC ${ZOO_ROOT}/papers/xicp/include)
 target_link_libraries(xicp PUBLIC localization_common)
 
+# Paper odometry stays separate from the existing dense/scan-to-target nodes.
+add_library(paper_suma_core STATIC ${ZOO_ROOT}/papers/suma/src/suma_paper.cpp)
+target_include_directories(paper_suma_core PUBLIC ${ZOO_ROOT}/papers/suma/include)
+target_link_libraries(paper_suma_core PUBLIC aloam)
+add_library(paper_imls_core STATIC ${ZOO_ROOT}/papers/imls_slam/src/imls_paper_odometry.cpp)
+target_include_directories(paper_imls_core PUBLIC ${ZOO_ROOT}/papers/imls_slam/include)
+target_link_libraries(paper_imls_core PUBLIC Eigen3::Eigen)
+add_library(paper_dilo_core STATIC ${ZOO_ROOT}/papers/dilo/src/dilo_paper.cpp)
+target_include_directories(paper_dilo_core PUBLIC ${ZOO_ROOT}/papers/dilo/include)
+target_link_libraries(paper_dilo_core PUBLIC Eigen3::Eigen)
+add_library(paper_litamin2_core STATIC ${ZOO_ROOT}/papers/litamin2/src/litamin2_odometry.cpp)
+target_include_directories(paper_litamin2_core PUBLIC ${ZOO_ROOT}/papers/litamin2/include)
+target_link_libraries(paper_litamin2_core PUBLIC localization_common)
+find_package(OpenMP QUIET)
+if(OpenMP_CXX_FOUND)
+  target_link_libraries(paper_litamin2_core PUBLIC OpenMP::OpenMP_CXX)
+endif()
+set(PAPER_CORES paper_suma_core paper_imls_core paper_dilo_core paper_litamin2_core)
+
 # === ROS2 ノード ===
 
 set(ROS_DEPS rclcpp sensor_msgs geometry_msgs nav_msgs std_msgs tf2_ros tf2_eigen pcl_conversions)
+
+add_library(paper_odometry_ros STATIC src/paper_odometry_node.cpp)
+target_link_libraries(paper_odometry_ros ${PAPER_CORES})
+ament_target_dependencies(paper_odometry_ros ${ROS_DEPS})
+foreach(method suma imls_slam dilo litamin2)
+  add_executable(${method}_paper_node src/paper_odometry_main.cpp)
+  target_compile_definitions(${method}_paper_node PRIVATE ZOO_PAPER_METHOD="${method}_paper")
+  target_link_libraries(${method}_paper_node paper_odometry_ros)
+  ament_target_dependencies(${method}_paper_node rclcpp)
+  install(TARGETS ${method}_paper_node DESTINATION lib/${PROJECT_NAME})
+endforeach()
+
+# The runtime smoke test compares actual odometry messages against this native
+# oracle; no ground truth, synthetic expected trajectory or wrapper accumulation.
+include(CTest)
+if(BUILD_TESTING)
+  add_executable(paper_odometry_reference ${ZOO_ROOT}/python/test/paper_odometry_reference.cpp)
+  target_link_libraries(paper_odometry_reference ${PAPER_CORES})
+endif()
 
 # LiDAR-free IMU Motion & Health Node
 add_executable(imu_motion_health_node src/imu_motion_health_node.cpp)

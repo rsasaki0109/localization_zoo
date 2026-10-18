@@ -1,0 +1,20 @@
+{
+  "source_commit": "ff2fe7f1c8f38a0775329ac19333d65c3f200d61",
+  "merge_parents": [
+    "c6221acbe1234d543aa8dc3b6b7c96e64154123e",
+    "7505a2914328d53ac9b319d5f8042189b378d457"
+  ],
+  "base_main": "7505a2914328d53ac9b319d5f8042189b378d457",
+  "old_binding_evidence_unchanged": true,
+  "old_binding_evidence_file_count": 34,
+  "native_core_scope_unchanged_vs_main": true,
+  "shared_option_fixture_values": {
+    "degenerate_ratio": 0.03,
+    "coarse_frames": 1,
+    "coarse_iterations": 10,
+    "coarse_distance_scale": 5.0
+  },
+  "selection_provenance": "Existing SuMa shared-remap and shared-coarse-start transfer settings; joint interface wiring check, no accuracy selection or isolated ablation.",
+  "conflict_resolution": "Regenerate the derived files; retain both current main shared-component notes and completed binding roadmap entry.",
+  "whitespace": "Initial full-branch whitespace exits 2 on three pre-existing raw CI logs. Exact existing log bytes preserved; only these three file paths receive -whitespace attributes; corrected check exits 0."
+}

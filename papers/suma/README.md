@@ -1,5 +1,14 @@
 # SuMa
 
+Paper-path interfaces: [Python API and examples](../../python/README.md#stateful-paper-pipelines),
+[ROS 2 nodes](../../ros2/localization_zoo_ros/README.md#paper-odometry-nodes).
+[Native fixture checks](../../experiments/results/paper_pipeline_bindings/README.md).
+
+The initial ROS interface trial observed 0/3 odometry messages before its
+per-scan deadline with best-effort input. The recorded reliable-input trial
+completed 3/3 and matched the native pipeline; commands and both trials are
+linked above. This short interface check retains the benchmark evidence below.
+
 lightweight `SuMa` 再現版です。生点群を range image に射影して surfel を作り、
 sliding window surfel map に対する point-to-plane で pose を更新します。
 

@@ -1,0 +1,31 @@
+{
+  "integration_source": "9f207266a8e7be5197dd7c545c7fc98fdd3fbc41",
+  "main_base": "17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f",
+  "command_exit_codes": {
+    "native_core_identity": 0,
+    "refresh_study_docs": 0,
+    "generate_full_variant_table": 0,
+    "generate_paper_ratio_table": 0,
+    "python_unittest": 0,
+    "validate_showcase": 0,
+    "generate_leaderboard": 0,
+    "generate_paper_ready_evidence": 0,
+    "whitespace": 0
+  },
+  "python_tests": 313,
+  "python_skipped": 5,
+  "skip_reason": "This separate bindings worktree has no evaluation executable build; final-head CI builds it and exercises native evaluation guards.",
+  "preservation": {
+    "base": "17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f",
+    "historical_aggregate_count": 688,
+    "changed_aggregates": [],
+    "unchanged_published_evidence": {
+      "evaluation/data/paper_reported_numbers.json": true,
+      "docs/assets/paper/paper_ratio_table.csv": true,
+      "docs/index.html": true,
+      "README leaderboard": true,
+      "README except binding description": true
+    }
+  },
+  "scope": "Generated documentation integration only. Native and wrapper source identity commands and original runtime evidence remain attached to their recorded sources. Primary replay is not mutated."
+}

@@ -316,10 +316,24 @@ independent. Each item says what "done" means.
      effect; its ATE worsens from 54.344593 to 75.832748 m. Real NCLT validation
      remains blocked by the enforced official-host allowlist.
      [Protocol, scope and execution records](../experiments/results/shared_near_range/README.md).
-7. **Bindings.** The Python bindings cover KISS-ICP, NDT, GICP and LiTAMIN2
-   (`python/`). Add the paper pipelines that are near paper (SuMa,
-   IMLS-SLAM, DiLO, LiTAMIN2 paper path) and ROS 2 nodes for them.
-   - Done: an example per method and a test on a short fixture.
+7. **Completed: paper-pipeline bindings and ROS 2 nodes.** Python now exposes
+   SuMa frame-to-model, IMLS-SLAM raw-scan model, DiLO range-image and LiTAMIN2
+   Gaussian-map odometry, alongside the existing registration bindings.
+   - [Python examples](../python/README.md#stateful-paper-pipelines) and
+     [ROS 2 examples](../ros2/localization_zoo_ros/README.md#paper-odometry-nodes)
+     cover each method. Separate node/class names preserve existing interfaces.
+   - Native defaults and opt-in correction defaults are preserved; no sensor
+     profile or ground-truth seed is silently added. ROS output uses acquisition
+     stamps and the stored scan frame; the input QoS is configurable explicitly.
+   - Fixture checks compare Python diagnostics/poses and real ROS odometry/TF
+     with native C++. The identity DiLO result on the real fixture and the
+     incomplete best-effort ROS trial remain documented; a moving synthetic
+     fixture also exercises non-identity DiLO output with the same defaults.
+   - [Commands, committed parity reports, failures and scope](../experiments/results/paper_pipeline_bindings/README.md).
+   - [Integration with the merged acceleration and passive trace stack](../experiments/results/paper_pipeline_bindings/README.md#integration-with-the-merged-acceleration-and-passive-trace-stack)
+     retains native defaults and existing benchmark evidence. IMLS-SLAM's
+     accelerated execution option remains available through the native API and
+     runner; these Python/ROS interfaces keep it disabled.
 
 ### Phase 3: beyond KITTI
 

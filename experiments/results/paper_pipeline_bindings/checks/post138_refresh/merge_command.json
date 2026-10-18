@@ -1,0 +1,12 @@
+{
+  "command": [
+    "git",
+    "merge",
+    "--no-commit",
+    "--no-ff",
+    "origin/main"
+  ],
+  "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+  "exit_code": 1,
+  "merge_base_main": "17b7ded0ee0cbf6b290da7bcc5fd6aaa689faa9f"
+}

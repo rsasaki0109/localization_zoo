@@ -1,0 +1,16 @@
+{
+  "label": "fetch_kitti07",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--output-root",
+    "/workspace/localization-env/paper-speed/kitti",
+    "--sequence",
+    "07"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "started_unix": 1792163762.4372995,
+  "finished_unix": 1792163777.8408084,
+  "exit_code": 0,
+  "log": "fetch_kitti07.log"
+}

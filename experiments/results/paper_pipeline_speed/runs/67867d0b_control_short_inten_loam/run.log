@@ -1,0 +1,28 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 120
+GT poses: 120
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 68.9 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+
+=== InTEn-LOAM ===
+  stride=2 cyl=1024x64 intensity_reg=1 tvf=1 dor=1 mapping=1
+  [InTEn-LOAM paper] 0/120 g/f/e/r=1000/1150/506/300 s2s=0 s2m=0 (e/g/f/i 0/0/0/0)     [InTEn-LOAM paper] 10/120 g/f/e/r=1000/1058/502/300 s2s=1283 s2m=2285 (e/g/f/i 285/896/893/211)     [InTEn-LOAM paper] 20/120 g/f/e/r=1000/1023/484/300 s2s=1221 s2m=2271 (e/g/f/i 278/913/845/235)     [InTEn-LOAM paper] 30/120 g/f/e/r=1000/1010/470/300 s2s=1177 s2m=2286 (e/g/f/i 300/913/815/258)     [InTEn-LOAM paper] 40/120 g/f/e/r=1000/1263/564/300 s2s=1420 s2m=2450 (e/g/f/i 320/880/988/262)     [InTEn-LOAM paper] 50/120 g/f/e/r=1000/1540/371/300 s2s=1932 s2m=2654 (e/g/f/i 231/867/1290/266)     [InTEn-LOAM paper] 60/120 g/f/e/r=1000/1444/349/300 s2s=1775 s2m=2569 (e/g/f/i 221/841/1255/252)     [InTEn-LOAM paper] 70/120 g/f/e/r=1000/1424/403/300 s2s=1753 s2m=2518 (e/g/f/i 243/867/1166/242)     [InTEn-LOAM paper] 80/120 g/f/e/r=1000/1363/460/300 s2s=1643 s2m=2445 (e/g/f/i 251/844/1107/243)     [InTEn-LOAM paper] 90/120 g/f/e/r=1000/1241/275/300 s2s=1366 s2m=2343 (e/g/f/i 148/896/1059/240)     [InTEn-LOAM paper] 100/120 g/f/e/r=1000/1120/405/300 s2s=1206 s2m=2287 (e/g/f/i 213/892/931/251)     [InTEn-LOAM paper] 110/120 g/f/e/r=1000/1587/541/300 s2s=2123 s2m=2761 (e/g/f/i 335/832/1362/232)   
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+InTEn-LOAM              ok          0.219       0.706          120         74308.2        1.6         
+
+Notes:
+- InTEn-LOAM: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1533 s2m=2412 dor points/frame=122
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/velodyne_evaluated_gt.txt, manifest: dogfooding_results/velodyne_evaluation_manifest.json)

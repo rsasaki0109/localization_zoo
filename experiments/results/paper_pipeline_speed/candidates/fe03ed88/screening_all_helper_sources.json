@@ -1,0 +1,67 @@
+{
+  "screen_candidate.py": {
+    "original_path": "/workspace/localization-env/paper-speed/screen_candidate.py",
+    "sha256": "fbd29b9a72ddf2ebd577473d49f47eca1eae22eab00d78dd6a069ad952e153c8",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/screen_candidate.py"
+  },
+  "resume_screen_candidate.py": {
+    "original_path": "/workspace/localization-env/paper-speed/resume_screen_candidate.py",
+    "sha256": "6f524c495fd3f4f3bf46ca6bd87b87f4e35316aede1686526e316ffb1de7b708",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/resume_screen_candidate.py"
+  },
+  "run_full_candidate.py": {
+    "original_path": "/workspace/localization-env/paper-speed/run_full_candidate.py",
+    "sha256": "c0ce172cee4b4add3018f93ad1401edf481272dea8fcb3179051d86dc6d4edb1",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/run_full_candidate.py"
+  },
+  "import_candidate.py": {
+    "original_path": "/workspace/localization-env/paper-speed/import_candidate.py",
+    "sha256": "c04c17187992486c5420d0b3b1fd4f83670d66287ba7c7dad777f31ab2b64555",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/import_candidate_c04c17187992.py"
+  },
+  "compare_full.py": {
+    "original_path": "/workspace/localization-env/paper-speed/compare_full.py",
+    "sha256": "65e949d9b0de3104d5ba996285b04dbd7e17f967cf050110817cf50ce6b827f6",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/compare_full_65e949d9b0de.py"
+  },
+  "capture_baseline_flags.py": {
+    "original_path": "/workspace/localization-env/paper-speed/capture_baseline_flags.py",
+    "sha256": "39bff3b2e5262af2c21fed83f78b01981c965609c79a006591c99d29b2bf4495",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/capture_baseline_flags.py"
+  },
+  "build_screen_v3.py": {
+    "original_path": "/workspace/localization-env/paper-speed/build_screen_v3.py",
+    "sha256": "1ed86c276021aa06b08c6cfc45964ab75c516c42d0adcca7838cb93b723b7721",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/build_screen_v3.py"
+  },
+  "add_worker_pause_candidate.py": {
+    "original_path": "/workspace/localization-env/paper-speed/add_worker_pause_candidate.py",
+    "sha256": "b9aca59a5c9dea74b8f02c7ccf11a4a54ce7e673c7190ec6ba246fda35889cc3",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/add_worker_pause_candidate.py"
+  },
+  "refine_packet_candidate.py": {
+    "original_path": "/workspace/localization-env/paper-speed/refine_packet_candidate.py",
+    "sha256": "251f8974300ab625b61bd4ffeb071dd9348d1b000934e0fdd2b302e799b886c1",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/refine_packet_candidate.py"
+  },
+  "run_paired_full_candidate.py": {
+    "original_path": "/workspace/localization-env/paper-speed/run_paired_full_candidate.py",
+    "sha256": "cc2c795058ca7cf7b0499478f7b74c56be63b019f4382af525317218e44466a2",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/run_paired_full_candidate.py"
+  },
+  "gate_full_paired_v3.py": {
+    "original_path": "/workspace/localization-env/paper-speed/gate_full_paired_v3.py",
+    "sha256": "797b4f5ac0fb8dd8bcb82ab11bd5548204f8075c50462807dee0a3fa3452025b",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/gate_full_paired_v3.py"
+  },
+  "build_screen_v4.py": {
+    "original_path": "/workspace/localization-env/paper-speed/build_screen_v4.py",
+    "sha256": "6bc2e00336b29c1934260e320f42a88fc3c136bebf7a3719ca4fe565981cf4be",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/build_screen_v4.py"
+  },
+  "gate_full_paired_v4.py": {
+    "original_path": "/workspace/localization-env/paper-speed/gate_full_paired_v4.py",
+    "sha256": "ad14a38d971bfbb1028614e6bb4824a9f6ad134b3ee0767ff14168294a08830a",
+    "archived_path": "experiments/results/paper_pipeline_speed/helpers/gate_full_paired_v4.py"
+  }
+}

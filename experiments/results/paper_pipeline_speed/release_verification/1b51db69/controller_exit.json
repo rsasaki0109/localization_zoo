@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "release_source": "1b51db694a137379151366b889087f1186bb08b5",
+  "results": "/workspace/localization-env/paper-speed/release_verification/1b51db69",
+  "next": "Review/import/commit profile and release verification. Then render/update numeric docs from committed full comparison, cleanup raw inputs, run release_final_validation.py, publish PR and verify exact HEAD CI."
+}

@@ -126,6 +126,7 @@ inline void params(std::ostream& out, const InTenLoamPaperParams& p) {
   INTEN_TRACE_PARAM(s2m_gate_sq); INTEN_TRACE_PARAM(s2m_plane_max_dist);
   INTEN_TRACE_PARAM(s2m_plane_min_spread); out << ",\"use_dor\":" << p.use_dor;
   INTEN_TRACE_PARAM(dor_relative_range); INTEN_TRACE_PARAM(dor_object_ratio);
+  out << ",\"accelerated\":" << p.accelerated;
 #undef INTEN_TRACE_PARAM
   out << '}';
 }

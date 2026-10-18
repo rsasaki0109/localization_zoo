@@ -1,0 +1,37 @@
+{
+  "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+  "logical_cores": 5,
+  "memory_gib": 17.6,
+  "gpu": "none detected",
+  "os": "Ubuntu 22.04.5 LTS",
+  "kernel": "6.18.44",
+  "architecture": "x86_64",
+  "tools": {
+    "C++ compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "CMake": "cmake version 3.22.1",
+    "Python": "3.10.12"
+  },
+  "libraries": {
+    "Eigen": "3.4.0",
+    "PCL": "1.12.1",
+    "Ceres Solver": "2.0.0+dfsg1-5",
+    "glog": "0.4.0",
+    "GoogleTest": "1.11.0",
+    "OpenCV": "4.5.4"
+  },
+  "cpu_quota": "max 100000",
+  "memory_limit": "max",
+  "runtime_environment": {
+    "OMP_NUM_THREADS": "4",
+    "OMP_DYNAMIC": "FALSE",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "profiler_package_version": "2.9.1-0ubuntu3",
+  "compiler_flags": {
+    "build_type": "Release",
+    "cxx_flags": "",
+    "cxx_flags_release": "-O3 -DNDEBUG",
+    "OpenMP": "-fopenmp"
+  },
+  "base_commit": "134ead2f21a4611ec328a45aa543b31428d6b92c"
+}

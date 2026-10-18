@@ -1,0 +1,7 @@
+{
+  "source_commit": "3541f773589562966c7f0ff2f2ae431801a0fb7a",
+  "binary_path": "/workspace/localization-env/paper-speed/3541f773_pcd_dogfooding",
+  "binary_sha256": "91f9cecba64ec2a399b31e73f934e7087096ddd8219789d8a86dec66833f778e",
+  "evaluator_sources_verified_against_commit": true,
+  "validation_status": "Build passed; full CTest exited8 because freeze-memory test mixed legacy and accelerated cache footprints. No screening or full benchmarks run."
+}

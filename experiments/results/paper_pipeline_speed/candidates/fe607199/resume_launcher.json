@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/paper-speed/resume_screen_candidate.py"
+  ],
+  "pid": 28684,
+  "started_unix": 1792169089.4674075,
+  "stdout": "resume_screen_stdout.log",
+  "reason": "Continue saved successful work after transport-related BrokenPipeError; output is now an independent file."
+}

@@ -1,0 +1,14 @@
+[done] aloam: geometric-mean best/paper ratio 1.07x
+[done] ct_icp: geometric-mean best/paper ratio 1.15x
+[done] dilo: geometric-mean best/paper ratio 0.96x
+[done] elo: geometric-mean best/paper ratio 1.22x
+[done] imls_slam: geometric-mean best/paper ratio 1.05x
+[done] inten_loam: geometric-mean best/paper ratio 2.19x
+[done] kiss_icp: geometric-mean best/paper ratio 1.04x
+[done] l_lo: geometric-mean best/paper ratio 1.57x
+[done] lf_gicp: geometric-mean best/paper ratio 1.12x
+[done] litamin2: geometric-mean best/paper ratio 1.01x
+[done] mesh_loam: geometric-mean best/paper ratio 1.28x
+[done] mulls: geometric-mean best/paper ratio 1.12x
+[done] quadric_lo: geometric-mean best/paper ratio 0.85x
+[done] suma: geometric-mean best/paper ratio 0.97x

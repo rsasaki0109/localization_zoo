@@ -1,0 +1,126 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/00_closed_controls/verify.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "evidence_revision": "c5fc914ed67140609280dfdb3e006890dc63871d",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "baseline_source_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "checks": [
+    {
+      "method": "A-LOAM",
+      "sequence": "00",
+      "native_process_exit_code": 0,
+      "historical_audit_status": "drift",
+      "stored_rpe_trans_pct": 0.891327,
+      "stored_ate_m": 12.04376,
+      "replayed_metrics": {
+        "rpe_trans_pct": 0.914174,
+        "ate_m": 9.52057,
+        "frames": 4541,
+        "kitti_rte_trans_pct": 0.852256,
+        "kitti_rte_rot_deg_per_100m": 0.371171
+      },
+      "metric_abs_delta": {
+        "rpe_trans_pct": 0.0,
+        "ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "A_LOAM.txt": true,
+        "gt.txt": true
+      },
+      "baseline_summary_head_metadata": "c5fc914ed67140609280dfdb3e006890dc63871d"
+    },
+    {
+      "method": "F-LOAM",
+      "sequence": "00",
+      "native_process_exit_code": 0,
+      "historical_audit_status": "drift",
+      "stored_rpe_trans_pct": 0.92141,
+      "stored_ate_m": 9.833596,
+      "replayed_metrics": {
+        "rpe_trans_pct": 0.990961,
+        "ate_m": 8.556112,
+        "frames": 4541,
+        "kitti_rte_trans_pct": 1.042446,
+        "kitti_rte_rot_deg_per_100m": 0.492402
+      },
+      "metric_abs_delta": {
+        "rpe_trans_pct": 0.0,
+        "ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "F_LOAM.txt": true,
+        "gt.txt": true
+      },
+      "baseline_summary_head_metadata": "c5fc914ed67140609280dfdb3e006890dc63871d"
+    },
+    {
+      "method": "LeGO-LOAM",
+      "sequence": "00",
+      "native_process_exit_code": 0,
+      "historical_audit_status": "drift",
+      "stored_rpe_trans_pct": 0.838536,
+      "stored_ate_m": 12.833331,
+      "replayed_metrics": {
+        "rpe_trans_pct": 0.842687,
+        "ate_m": 12.378148,
+        "frames": 4541,
+        "kitti_rte_trans_pct": 0.910302,
+        "kitti_rte_rot_deg_per_100m": 0.478609
+      },
+      "metric_abs_delta": {
+        "rpe_trans_pct": 0.0,
+        "ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "LeGO_LOAM.txt": true,
+        "gt.txt": true
+      },
+      "baseline_summary_head_metadata": "c5fc914ed67140609280dfdb3e006890dc63871d"
+    }
+  ],
+  "evidence_files": {
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default.json": "e11232f8adf9c62774b80267ce8efd6c2d55f5e91dbafa2ecad986c1314737a5",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default.log": "3f067175f5efb78554e9087f9bb34c8759a455cd98c6f1bf4047d940f722b066",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt": "c4ddd7420c016b271aecb63f9383ca208623460572fdfad3f75ad3571e3f9ba2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_00_full_evaluation_manifest.json": "e11232f8adf9c62774b80267ce8efd6c2d55f5e91dbafa2ecad986c1314737a5",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native_command.json": "33d885e6e974c0af227417b164ba7b0b20121e5c94883ed634d39bac6edee5a3",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/floam_kitti_seq_00_full_transfer_matrix__dense.json": "867fa2073c924ff39949dd7fcfc2c5d070959ac5a94eb12c83001c20ffdf9889",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/floam_kitti_seq_00_full_transfer_matrix__dense.log": "be59e429d6a6113c0f6996fce0a825db0e110184fff113154720347b73a5630f",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/floam_kitti_seq_00_full_transfer_matrix__dense_native/dogfooding_results/F_LOAM.txt": "1f0c9d1cbfc18227ca4f01dd180b1a04422e0b41bbcd41b48718ba7b2f52eee4",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/floam_kitti_seq_00_full_transfer_matrix__dense_native/dogfooding_results/gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/floam_kitti_seq_00_full_transfer_matrix__dense_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/floam_kitti_seq_00_full_transfer_matrix__dense_native/dogfooding_results/kitti_seq_00_full_evaluation_manifest.json": "867fa2073c924ff39949dd7fcfc2c5d070959ac5a94eb12c83001c20ffdf9889",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/floam_kitti_seq_00_full_transfer_matrix__dense_native_command.json": "ea96c9944c52a36cdcfdb5974a6ec45f0add44f3e6f665f2f447678cc505635f",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default.json": "85516d4a7ee3d8aac9c2c7b97da9b8d98558304e5d456f25c9ec638e1ed62214",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default.log": "5205f8f535d633a3d22917ab932f78e219ec109842a917089553cfe64cccf6c5",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/LeGO_LOAM.txt": "20d094b63843efd7de5c5913b2904ed2e36c75b269098cd0fe3476ecd22d9854",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/kitti_seq_00_full_evaluation_manifest.json": "85516d4a7ee3d8aac9c2c7b97da9b8d98558304e5d456f25c9ec638e1ed62214",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/lego_loam_kitti_seq_00_full_transfer_matrix__kitti_default_native_command.json": "e42e783b62ac6f1db61d20209c6a7e2aff85ac8bd99861a23b5c6e2b70a3bf97"
+  },
+  "pending_frozen_methods": [
+    "Mesh-LOAM",
+    "VLOM"
+  ],
+  "sequence_checkpoint_complete": false,
+  "owned_input_cleanup_complete": false,
+  "parent_frozen_audit_exit_available": false,
+  "exit_code": 0,
+  "provenance_note": "Summary evaluator_git_commit records working-tree HEAD at write time; frozen source and executable SHA256 pins establish native provenance.",
+  "scope": "Closed frozen-control subset only. Historical primary audit retains exit 1. No complete00, whole-zoo or fresh NCLT claim."
+}

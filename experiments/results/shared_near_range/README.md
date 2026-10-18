@@ -14,6 +14,11 @@ arithmetic, boundary inclusion, retained order/fields and cloud metadata follow
 the old implementation. This is non-paper preprocessing and stays opt-in.
 It does not sanitize non-finite points; consumers retain that policy.
 
+The [current KITTI 00 saved-pose diagnostics](diagnostics/00/README.md) locate
+error growth in the five replay paths that differ from stored metrics.
+Referenced historical per-run summaries are missing at the inspected revision,
+so these diagnostics do not identify the cause of the historical differences.
+
 ## Scope and status
 
 Implementation and the regression protocol were merged in

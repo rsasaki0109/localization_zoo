@@ -359,3 +359,13 @@ were committed at `485fa00601644731827dae601eb3b43c7543efeb`.
 distinguish these completed runs from a cleaned sequence checkpoint: 00 input
 cleanup and the whole-zoo audit are incomplete. Defaults remain off.
 <!-- /SHARED_NEAR_RANGE_00_PRIMARY -->
+
+<!-- SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
+## KITTI 00 current-replay error growth
+
+The committed current replay has 14/4514 moving steps with length error above 20%, and 43/4514 with local translation-vector error above 20%. The existing diagnostic uses the same 100-frame blocks and GT step threshold of 0.1 m for every method.
+
+The largest increase in pointwise position error among those blocks is poses 3800–3900: GT travels 105.799422 m, while error rises from 13.138734 m to 18.361150 m (increase 5.222416 m). These frame blocks diagnose the current trajectory; they are **not official KITTI RTE**. The tool uses first-pose normalization without fitting or rescaling.
+
+The referenced historical per-run summary is absent at the inspected revision and was not found in this checkout's reachable history. Without its historical saved path, this does not locate the cause of the historical metric difference. [Plot, full trace, commands and limits](../../experiments/results/shared_near_range/diagnostics/00/README.md) use the committed current poses, with diagnostic evidence committed at `61c1f26e1019aa3f0b05b100404c8bb117448b41`. Native source remains `0b079dbbcb7c6f58c1d8367ade881c15f003e525`.
+<!-- /SHARED_NEAR_RANGE_00_DIAGNOSTICS -->

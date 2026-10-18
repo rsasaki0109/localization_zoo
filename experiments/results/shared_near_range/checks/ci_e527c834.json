@@ -1,0 +1,24 @@
+{
+  "tool": "github_fetch_workflow_run_jobs",
+  "arguments": {
+    "repo_full_name": "rsasaki0109/localization_zoo",
+    "run_id": 39086491562
+  },
+  "head_sha": "e527c8340158a643be9faf3a7b165cb2f94cb705",
+  "url": "https://github.com/rsasaki0109/localization_zoo/actions/runs/39086491562",
+  "jobs": [
+    {
+      "id": 117554056708,
+      "name": "ros2-colcon-build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117554056928,
+      "name": "build-and-test",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "scope": "Successful CI at the previously pushed VLOM evidence head; not full KITTI completion or CI of later diagnostic commits."
+}

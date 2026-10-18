@@ -264,6 +264,9 @@ independent. Each item says what "done" means.
      and input cleanup are still in progress. The implementation is merged
      in [PR #137](https://github.com/rsasaki0109/localization_zoo/pull/137);
      later audit results are follow-up work.
+     [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
+     locate error growth; missing referenced historical paths prevent a paired
+     diagnosis of the historical metric differences.
      00 is not yet a completed sequence checkpoint. The historical NCLT cutoff is retained
      without reselection. DiLO's historical cut/uncut profiles also differ in
      range-image geometry, so their RTE difference cannot isolate the cut's

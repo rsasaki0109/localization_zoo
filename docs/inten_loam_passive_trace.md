@@ -87,3 +87,5 @@ sequences using their unchanged selected setting. The solver-level cause
 in [roadmap item 12](roadmap.md) remains open. Synthetic parity tests and
 short-fixture compatibility do not establish that cause or replace a full
 sequence replay.
+
+[Committed validation results and exact commands](../experiments/results/inten_passive_trace/README.md) retain the native tests, compatibility comparison and their scope.

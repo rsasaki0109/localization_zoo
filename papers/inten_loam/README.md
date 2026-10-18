@@ -477,3 +477,32 @@ ray-cast street; the B-spline intensity field on a linear ramp; 1 m per scan
 tracked at full scale (also with the 5 cm plane check); ground-truth-placed
 frames with their per-class normal equations; the plane spread check
 against neighbours along one line.
+
+<!-- INTEN_PASSIVE_TRACE -->
+## Optional passive solver trace
+
+The C++ `InTenLoamPaper::process` API accepts an optional fourth argument,
+`InTenLoamPaperTrace*`. It observes the normal S2S/S2M path, accepted poses,
+fallback decisions, iteration normal equations, weighted residual sums and
+stop reasons. This repository analysis tool is outside the paper and off by
+default. Combining it with `forced_pose` throws before estimator state changes;
+the older forced-pose diagnostic remains an intervention.
+
+All 125 CTest entries pass, including moving trace-on/off
+pose and retained-map parity. The default and unchanged 07-selected plane-check
+settings also match the pinned old executable on the committed short MCD
+fixture: all 4 native calls exit 0, available accuracy/frame
+differences are zero and saved poses are byte-identical. Short-fixture KITTI
+segment RTE remains unavailable. Evidence was committed at `ad6010cf1c1cecb5c7012f37d92558126132a83e` before
+this prose. These checks preserve behavior; the full KITTI solver-level cause
+remains open.
+
+The initial whole-suite run exits 8 because an
+unrelated existing test tries to overwrite a root-owned shared temporary file.
+Its failure is retained; the same tests and binaries pass after selecting a
+fresh user-owned `TEST_TMPDIR`. The study documents both attempts.
+
+[API semantics](../../docs/inten_loam_passive_trace.md) and
+[protocol, complete evidence, commands and limits](../../experiments/results/inten_passive_trace/README.md)
+describe the scope. Published results and estimator defaults are unchanged.
+<!-- /INTEN_PASSIVE_TRACE -->

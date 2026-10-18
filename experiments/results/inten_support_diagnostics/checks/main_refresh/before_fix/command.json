@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_support_diagnostics/analyze.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-support/main_refresh/before_fix/unexpected_output"
+  ],
+  "cwd": "/workspace/localization-env/inten-support/worktree",
+  "source_commit": "b98afbbdf319f256df903685894938e226c6b05d",
+  "started_unix": 1792330474.461978,
+  "finished_unix": 1792330475.4153326,
+  "exit_code": 1,
+  "output_exists": false
+}

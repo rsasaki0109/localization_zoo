@@ -1,0 +1,43 @@
+{
+  "original_commit": "a834d44eb047729bda90426c4ac3b79edfbf13fd",
+  "reproduced_commit": "3d7e3f91d4e0c28d8c286fef68e72a49ca5c14fe",
+  "semantic_fields_unchanged": {
+    "protocol": true,
+    "recorded_native_commit": true,
+    "recorded_native_binary_sha256": true,
+    "fixed_variant_args": true,
+    "sequences": true,
+    "bad_length_intervals": true,
+    "exit_code": true
+  },
+  "csv_files": {
+    "logged_steps.csv": {
+      "byte_identical": true,
+      "original_sha256": "67f68a62a5adc3f5ee328c36e878450becdd585111d115398ef8b63af6d496b2",
+      "reproduced_sha256": "67f68a62a5adc3f5ee328c36e878450becdd585111d115398ef8b63af6d496b2"
+    },
+    "bad_length_intervals.csv": {
+      "byte_identical": true,
+      "original_sha256": "29ed84e45952b2b59c750e4669c762ed36698dccea393839f26cf5214a4419dc",
+      "reproduced_sha256": "29ed84e45952b2b59c750e4669c762ed36698dccea393839f26cf5214a4419dc"
+    }
+  },
+  "added_provenance": {
+    "files": {
+      "papers/inten_loam/src/inten_loam_paper.cpp": {
+        "recorded_execution_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+        "study_input_commit": "7505a2914328d53ac9b319d5f8042189b378d457",
+        "sha256": "ceb840231ff50a454bcfcea5d532d539e62665b0047748740b9ea988e8fa24ba",
+        "identical": true
+      },
+      "papers/inten_loam/include/inten_loam/inten_loam_paper.h": {
+        "recorded_execution_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+        "study_input_commit": "7505a2914328d53ac9b319d5f8042189b378d457",
+        "sha256": "ae3cbbfeb0edac9ea22902d4dcbffe0e630ae880ffde56b4dfba9f60da406097",
+        "identical": true
+      }
+    },
+    "scope": "Interpret recorded progress using its historical source blobs and pinned study input. Current native checkout files are not analysis inputs or a replay of these results."
+  },
+  "scope": "Replay of the same stored log/pose analysis; no scans, estimator run or new accuracy data."
+}

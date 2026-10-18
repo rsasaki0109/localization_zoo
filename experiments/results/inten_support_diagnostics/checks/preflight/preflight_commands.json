@@ -1,0 +1,31 @@
+[
+  {
+    "label": "parser_tests",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_inten_support_diagnostics.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-support/worktree",
+    "started_unix": 1792296214.9677973,
+    "finished_unix": 1792296215.2355947,
+    "exit_code": 0
+  },
+  {
+    "label": "whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/inten-support/worktree",
+    "started_unix": 1792296215.2362714,
+    "finished_unix": 1792296215.2735662,
+    "exit_code": 0
+  }
+]

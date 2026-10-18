@@ -333,7 +333,12 @@ independent. Each item says what "done" means.
     4460-4524. Sequence 10 reaches 2.57x without any moving step exceeding
     20 % length or vector error; its error grows through smaller increments.
     These saved-pose diagnostics locate the failures; the solver-level cause
-    remains open. The plane check and correction were chosen on 07 windows
+    remains open. An [offline log/pose join](../experiments/results/inten_support_diagnostics/README.md)
+    finds 14 logged bad-length steps each in 01 and 02; all have S2S/S2M
+    counts above the low-count cutoff. That excludes low-count fallback at
+    those frames only: 122 / 119 other bad steps are unlogged, and high counts
+    do not establish conditioning or correct associations. No setting is changed.
+    The plane check and correction were chosen on 07 windows
     with 00 influencing the diagnosis, so 00 is not fully held out.
     An opt-in [passive C++ solver trace](inten_loam_passive_trace.md) now records
     the normal S2S/S2M stages, fallback and acceptance decisions, normal

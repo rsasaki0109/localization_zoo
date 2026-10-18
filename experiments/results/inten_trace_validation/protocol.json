@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "base_commit": "194133b787e3b805fbb645105e950dd00fedb8fe",
-  "tool_source_commit": "e367f0638c3b6ca09fc880a328be413d004074ac",
+  "tool_source_commit": "8752c852d750277a2bbeda49ec7c36f154558529",
   "depends_on_pr": "https://github.com/rsasaki0109/localization_zoo/pull/141",
   "scope": "Offline structural validation of existing passive trace files and native run receipts. No native invocation, data fetch, estimator setting, accuracy/conditioning threshold or cause claim.",
   "inputs": [
@@ -16,5 +16,7 @@
     "preservation": "All native sources/CMake and previous results/publication are byte-identical to base. Original177 sources, binary pins and worker seals stay frozen.",
     "required_checks": "All Python tests and3generators, showcase/leaderboard/paper-ready, source/evidence/publication and whitespace checks. No local native rebuild/rerun for this Python-only change; exact-head CI also runs the native suite."
   },
-  "limits": "Validation establishes record/run consistency, not motion quality, matrix conditioning, binary/input authenticity or correct GT alignment. An empty-input skip remains explicit and makes inherited accuracy fields unsuitable without GT remapping. No full KITTI failure trace or cause finding."
+  "limits": "Validation establishes record/run consistency, not motion quality, matrix conditioning, binary/input authenticity or correct GT alignment. An empty-input skip remains explicit and makes inherited accuracy fields unsuitable without GT remapping. No full KITTI failure trace or cause finding.",
+  "earlier_tool_source_commit": "e367f0638c3b6ca09fc880a328be413d004074ac",
+  "revision": "Reject an unattempted iteration unless it is the final insufficient-pairs stop. Initial closed checks remain in evidence; extended current-source results are stored separately."
 }

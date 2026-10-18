@@ -23,7 +23,8 @@
       "OPENBLAS_NUM_THREADS": "1"
     },
     "fetch_raw_data": false,
-    "focused_build": "Changed runner compiled with the pinned PR140 Release flags and linked with its unchanged library artifacts. Hash every static/system link input inside the build container before/after; record exact commands. This incremental build supports the fixture comparison; separate fresh full CMake/CTest validation is recorded independently."
+    "focused_build": "Changed runner compiled with the pinned PR140 Release flags and linked with its unchanged library artifacts. Hash every static/system link input inside the build container before/after; record exact commands. This incremental build supports the fixture comparison; separate fresh full CMake/CTest validation is recorded independently.",
+    "skipped_input": "Separate lifecycle check with committed MCD scans1/3 and an explicitly empty middle PCD: old reference, candidate off and on must save identical pose bytes. Trace input indices0,1,2, estimator frame indices0,1, explicit empty skip and end counts2/1. Inherited GT timing is not repaired; do not interpret accuracy fields from this synthetic missing-input case."
   },
   "preservation": "All published aggregates, Table6, root README, paper_reported_numbers and prior study evidence remain identical. Frozen177 primary source, binaries and sealed files remain untouched.",
   "limits": "Short compatibility fixture and serializer tests only. No full KITTI failure trace, no conditioning threshold or solver gate, no SDK/ROS export. End record marks estimator traversal; native exit status and summary must also succeed."

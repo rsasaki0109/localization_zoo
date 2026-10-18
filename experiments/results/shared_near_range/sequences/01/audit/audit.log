@@ -1,0 +1,14 @@
+[audit] CT-ICP 01 upstream_mechanics_elevation: drift
+[audit] DiLO 01 paper_odometry_degenerate: ok
+[audit] A-LOAM 01 kitti_default: ok
+[audit] InTEn-LOAM 01 paper_odometry_plane_check: ok
+[audit] KISS-ICP 01 upstream_mechanics_elevation: ok
+[audit] IMLS-SLAM 01 paper_odometry_w100_coarse_start: ok
+[audit] LiTAMIN2 01 paper_icp_first: ok
+[audit] ELO 01 dense_elevation_paper_normals_unbiased: ok
+[audit] MULLS 01 mulls_lo_highway_elevation: ok
+[audit] LF-GICP 01 paper_default: ok
+[audit] SuMa 01 paper_odometry_clean_lookup_elevation: ok
+[audit] Quadric-LO 01 dense_profile: ok
+[audit] Mesh-LOAM 01 paper_odometry_elevation: drift
+[done] 2 drifted, 0 failed of 13 cells; exit 1; wrote /workspace/localization_zoo/experiments/results/shared_near_range/sequences/01/audit/report.json

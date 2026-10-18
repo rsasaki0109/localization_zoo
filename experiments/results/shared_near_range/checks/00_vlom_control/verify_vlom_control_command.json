@@ -1,0 +1,12 @@
+{
+  "label": "verify_vlom_control",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/00_vlom_control/verify.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792286536.5449443,
+  "finished_unix": 1792286536.9248776,
+  "exit_code": 0
+}

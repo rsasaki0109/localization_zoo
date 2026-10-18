@@ -1,0 +1,57 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/checks/00_vlom_control/verify.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "evidence_revision": "77d9c552c4b62765d1dac90a1dc529fd5c29ca7f",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "baseline_source_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+  "checks": [
+    {
+      "method": "VLOM",
+      "sequence": "00",
+      "native_process_exit_code": 0,
+      "historical_audit_status": "drift",
+      "stored_rpe_trans_pct": 0.875872,
+      "stored_ate_m": 9.391448,
+      "replayed_metrics": {
+        "rpe_trans_pct": 0.914174,
+        "ate_m": 9.52057,
+        "frames": 4541,
+        "kitti_rte_trans_pct": 0.852256,
+        "kitti_rte_rot_deg_per_100m": 0.371171
+      },
+      "metric_abs_delta": {
+        "rpe_trans_pct": 0.0,
+        "ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "VLOM.txt": true,
+        "gt.txt": true
+      },
+      "baseline_summary_head_metadata": "77d9c552c4b62765d1dac90a1dc529fd5c29ca7f"
+    }
+  ],
+  "evidence_files": {
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default.json": "ab5aad2169c52bb021c5b8d0bb0924c0a02d671c40f0560a1d7341d4d552177d",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default.log": "50f6f56b684573621ad51f4c9d8051ea9b92fd53b591905a2d03d4d08f34e65e",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native/dogfooding_results/VLOM.txt": "c4ddd7420c016b271aecb63f9383ca208623460572fdfad3f75ad3571e3f9ba2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native/dogfooding_results/gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native/dogfooding_results/kitti_seq_00_full_evaluated_gt.txt": "9dff6b35063d3f69a9192789753da6a49ca1ee0b55da7484946ab030553670e2",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native/dogfooding_results/kitti_seq_00_full_evaluation_manifest.json": "ab5aad2169c52bb021c5b8d0bb0924c0a02d671c40f0560a1d7341d4d552177d",
+    "experiments/results/shared_near_range/sequences/00/frozen_baseline/replays/vlom_kitti_seq_00_full_paper_comp_matrix__default_native_command.json": "083c12d70f474e554b0d56071548d84fd221467650a9171904f9721fd6159394"
+  },
+  "pending_frozen_methods": [
+    "Mesh-LOAM"
+  ],
+  "sequence_checkpoint_complete": false,
+  "owned_input_cleanup_complete": false,
+  "parent_frozen_audit_exit_available": false,
+  "exit_code": 0,
+  "provenance_note": "Summary evaluator_git_commit records working-tree HEAD at write time; frozen source and executable SHA256 pins establish native provenance.",
+  "scope": "Closed VLOM frozen-control subset only. Historical primary audit retains exit 1. No complete00, whole-zoo or fresh NCLT claim."
+}

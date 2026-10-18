@@ -76,6 +76,7 @@ def main():
                 delta[key] = abs(a[key] - b[key])
                 assert delta[key] == 0, (variant, key, a[key], b[key])
         assert a['status'] == b['status'] == 'ok'
+        assert a['frames'] == b['frames'] == 3
         paths = {}
         for name in ('reference', 'candidate'):
             paths[name] = {p.name: p for p in (out / variant / name / 'dogfooding_results').glob('*.txt')}

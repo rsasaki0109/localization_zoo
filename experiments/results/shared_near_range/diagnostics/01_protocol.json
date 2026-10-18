@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "sequence": "01",
+  "primary_evidence_commit": "9555f01fda68a0294fc7dd5a828a85fac207f68f",
+  "methods": ["CT-ICP", "Mesh-LOAM"],
+  "diagnostic_parameters": {"block_frames": 100, "min_step_m": 0.1, "relative_step_threshold": 0.2},
+  "selection": "Both historical differences in the completed candidate01 audit; fixed diagnostic definitions inherited from diagnose_kitti_steps.py, with no setting selected or estimator rerun.",
+  "position_error": "First-pose-normalized estimated position versus the same evaluated GT; no fitted alignment or rescaling.",
+  "paired_gap": "Euclidean position difference between first-pose-normalized historical and current estimates. Rank fixed blocks by gap at end minus gap at start; retain every block.",
+  "limits": "Only available committed historical trajectories can be paired. Error-growth blocks do not attribute a historical metric difference to a solver, filter extraction or runtime. Original and current OpenMP thread counts differ; no controlled thread-count experiment is performed. Frozen pre-extraction comparisons and owned input cleanup are outside this offline analysis."
+}

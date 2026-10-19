@@ -42,6 +42,12 @@ historical differences and current error-growth traces, including VLOM. Its
 [current cleaned checkpoint](checkpoints/07/summary.json) excludes live runs;
 referenced historical paths are unavailable in the inspected tree/history.
 
+The [KITTI08 saved-path diagnosis](diagnostics/08/README.md) adds all four
+historical differences, current error-growth traces and the available Mesh paired
+path, with explicit missing-path/runtime limits. Its
+[current cleaned checkpoint](checkpoints/08/summary.json) includes verified08
+cleanup; live09/10 results remain excluded.
+
 ## Scope and status
 
 Implementation and the regression protocol were merged in
@@ -472,7 +478,7 @@ remain untouched. Stored aggregates, Table 6, paper metadata and defaults are
 preserved. Historical per-cell replay is not a new fixed-setting accuracy study
 or a whole-zoo validation of current-main acceleration/passive tracing.
 
-## Current cleaned checkpoint: 07 completed
+## Earlier cleaned checkpoint: 07 completed
 
 Native/cleanup commit `ed37e2fd`, imported unchanged as `9c9976c6`, contains all
 **20** selected cells and **6** frozen controls. **14** match historical RPE,
@@ -513,6 +519,49 @@ The existing frozen controller advances to08 without changes to source,
 binaries or settings. Historical per-cell replay is not a new fixed-setting
 accuracy study or a whole-zoo validation of current-main acceleration/tracing.
 Table 6, published accuracy, paper metadata and defaults are preserved.
+
+## Current cleaned checkpoint: 08 completed
+
+Original native/cleanup `15157bab`, imported unchanged as `d0a76218`, contains
+all **18** selected candidate cells, **4** completed frozen controls and verified
+input cleanup. **14** match historical RPE, ATE and frames; these **4** differ:
+
+| Method | Stored 100 m RPE [%] | Replay RPE [%] | Stored ATE [m] | Replay ATE [m] |
+|---|---:|---:|---:|---:|
+| A-LOAM | 1.390107 | 1.394630 | 18.110228 | 18.661434 |
+| F-LOAM | 1.399647 | 1.372876 | 20.440418 | 17.318202 |
+| LeGO-LOAM | 1.375340 | 1.374146 | 17.896468 | 19.120563 |
+| Mesh-LOAM | 1.331902 | 1.332030 | 22.402218 | 22.431217 |
+
+A-LOAM/Mesh worsen in both metrics; F-LOAM improves in both; LeGO RPE improves
+while ATE worsens. All method READMEs retain their numerical pairs. Both
+historical audits exit **1**; all native runs exit **0** with **4,071** frames.
+Frozen controls have zero recorded metric/frame differences and byte-identical
+saved poses. Comparison exits **0**; the differences predate extraction and
+their original causes remain unresolved.
+
+The [checkpoint](checkpoints/08/summary.json) and [CSV](checkpoints/08/comparison.csv),
+committed at `9197f428`, cover **149/177** cells: **117** historical matches and
+**32** differences, reproduced by **34** exact frozen controls. All nine
+historical audits retain exit **1**; checkpoint verification exits **0**.
+Remaining09/10 are excluded until their own committed cleanup exists.
+
+The [saved08 diagnosis](diagnostics/08/README.md) records current error growth
+at **0-100** for all four methods. GT travels **50.647955 m** in this inherited
+block, shorter than official KITTI segments, so its block error is not official
+RTE. The available historical/current Mesh gap reaches **0.536423 m** at final
+frame **4070**; original/replay OpenMP counts **2 / 1** remain a confound.
+Missing exact A/F/LeGO historical paths prevent paired diagnosis for those methods.
+All blocks/frames and missing-path/runtime limits are retained without cause claims.
+
+Source/protocol `d969608e` precedes analysis; the real incomplete-input refusal
+and synthetic gates are retained at `9f94c9c4`. Original08 input hashes were
+verified before deleting the scans/alias and advancing the controller to09.
+No estimator or setting selection occurs in this offline analysis. Frozen native
+source `0b079dbb`, executables, sealed controller and active09 inputs are untouched.
+Published accuracy, paper metadata and defaults remain unchanged. The
+[final integration protocol](final_integration_protocol.json) groups the remaining
+actual results into one audit-completion PR after every terminal gate passes.
 
 ## Checkpoint integration while the frozen replay continues
 

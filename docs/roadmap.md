@@ -286,11 +286,11 @@ independent. Each item says what "done" means.
      [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
      locate error growth; missing referenced historical paths prevent a paired
      diagnosis of the historical metric differences.
-     The committed, cleaned 04/00/01/02/03/05/06/07 checkpoint now covers 131/177 cells:
-     103 historical matches and 28 differences, all reproduced by frozen controls.
-     All 30 controls have zero metric differences and byte-identical poses.
-     All eight historical audits retain exit 1; checkpoint verification exits 0.
-     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/07/summary.json).
+     The committed, cleaned 04/00/01/02/03/05/06/07/08 checkpoint now covers 149/177 cells:
+     117 historical matches and 32 differences, all reproduced by frozen controls.
+     All 34 controls have zero metric differences and byte-identical poses.
+     All nine historical audits retain exit 1; checkpoint verification exits 0.
+     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/08/summary.json).
      [Saved02 diagnosis](../experiments/results/shared_near_range/diagnostics/02/README.md)
      retains current error-growth blocks and the available Mesh paired path,
      with explicit missing-path/runtime limits. Full03 adds a Mesh historical
@@ -317,6 +317,13 @@ independent. Each item says what "done" means.
      is retained. Referenced historical paths are unavailable in the inspected
      tree/history, so no paired historical gap or original cause is claimed.
      Verified07 cleanup precedes the frozen controller's advance to08.
+     [Saved08 diagnosis](../experiments/results/shared_near_range/diagnostics/08/README.md)
+     adds all four historical differences, current error-growth blocks and the
+     available Mesh paired gap. Improving and worsening metrics are both retained;
+     missing paths/runtime limits prevent original-cause attribution. Verified08
+     cleanup precedes the controller's advance to09. The remaining results will
+     form one audit-completion PR after the complete terminal/report/check gates
+     in the [final integration protocol](../experiments/results/shared_near_range/final_integration_protocol.json).
      A later full environment recreation removed the earlier retained05
      recovery attempt, owned scans and executables; unavailable work is excluded.
      Both frozen executables were rebuilt with exact SHA256 matches. The sealed

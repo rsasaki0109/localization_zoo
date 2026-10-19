@@ -150,3 +150,34 @@ Native source remains `0b079dbb`. Historical per-cell arguments are unchanged;
 this is not a new fixed-setting accuracy study. Existing results, paper tables
 and defaults are preserved.
 <!-- /SHARED_NEAR_RANGE_07_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_08_DIAGNOSTICS -->
+## KITTI08 historical replay and saved-path diagnosis
+
+The full historical `kitti_default` cell completes **4,071** frames
+with native exit **0**. Stored/replayed 100 m RPE changes from
+**1.375340%** to **1.374146%**;
+ATE changes from **17.896468 m** to **19.120563 m**.
+RPE improves; ATE worsens. Both metrics are retained. The historical audit
+still exits **1**. Frozen pre-extraction controls reproduce the metrics with
+zero recorded differences and byte-identical saved poses; comparison exits **0**.
+The difference predates extraction; its original cause remains unresolved.
+
+The largest inherited **100**-step increase in current position error is
+poses **0-100**: **0.000000 to 17.480118 m**.
+GT travels **50.647955 m** in that block, shorter than the official KITTI
+**100-800 m** segments. These first-pose-normalized position errors use zero-based
+indices, no fitted alignment and no rescaling; they are not official RTE or a
+historical gap. All blocks and every frame are retained.
+
+The exact referenced historical path is unavailable in the inspected tree/history.
+This locates current error growth without manufacturing a historical gap or cause.
+
+[All numerical pairs, plot, traces, commands and limits](../../experiments/results/shared_near_range/diagnostics/08/README.md)
+use original native evidence `15157bab` (lossless import `d0a76218`), analysis
+source/protocol `d969608e` and raw results `9197f428`, committed before this prose.
+Native source remains `0b079dbb`; historical per-cell arguments and default-off
+preprocessing are unchanged. This is not a new fixed-setting accuracy study
+or validation of current-main acceleration/tracing. Existing published results
+and paper tables are preserved.
+<!-- /SHARED_NEAR_RANGE_08_DIAGNOSTICS -->

@@ -1,0 +1,55 @@
+{
+  "exit_code": 0,
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "publication": {
+    "README.md": {
+      "sha256": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+      "identical": true
+    },
+    "docs/index.html": {
+      "sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+      "identical": true
+    },
+    "docs/assets/paper/paper_ratio_table.csv": {
+      "sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+      "identical": true
+    },
+    "docs/assets/paper/full_variant_results.csv": {
+      "sha256": "1a0da43abf1f2656556f7fb2ce8f24cf742881d72644669a2ca379525d453885",
+      "identical": true
+    },
+    "evaluation/data/paper_reported_numbers.json": {
+      "sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+      "identical": true
+    }
+  },
+  "raw05_imported_file_count": 174,
+  "raw05_bytes_match_original_commit": true,
+  "previous_method_readme_bytes_preserved": true,
+  "native_and_evaluation_and_prior_study_bytes_preserved": true,
+  "primary_native_source_preserved": true,
+  "primary_sealed_file_sha256": {
+    "finish_when_complete.py": "b85c467064d82799bc8d7e7addbcafb81d62cc538730f3d78b7a8fb375c22dfc",
+    "finish_docs.py": "de1bb0d3a597928593bdc5f1efa2317c924560996e8f06ddfbb6e9255f1c7184",
+    "support.py": "bc04bce97bf2df5cc8912137e0d371efe0e065c5b40f860f1d40ac8e68a7b761",
+    "report.py": "38031996ecaea8df33af9f5167452f2d575767a953b742900329fd35457123d1",
+    "verify_preservation.py": "770f3d24c671d15cdcc60825fdd0d31f7b0d3fe9bcd369eaa7ac08da6d370b3b",
+    "run_all.py": "777ee163bdc72c8571456b21d0906a2beb64076fcc13f272f9d0a72a17211d7e",
+    "protocol.json": "1f00d46f4c0c24ee63cef21bd6fdaefe23a0d714abf92e13f8dc6b1c0294808b",
+    "selection.json": "80f595fe0d6a93ffba4c085977b63f2d139ec711ba94ba87c597a81b3e56033e",
+    "baseline.json": "7d9344421e2ea56776a8fff4fb49dadaf308d2635bd643a1c1ae333c99428fd2",
+    "candidate.json": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a",
+    "native_wrapper.py": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3"
+  },
+  "frozen_binaries": {
+    "baseline": {
+      "source": "40278ee01ede562a490e4d09d256e435a1b562d6",
+      "sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450"
+    },
+    "candidate": {
+      "source": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+      "sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d"
+    }
+  }
+}

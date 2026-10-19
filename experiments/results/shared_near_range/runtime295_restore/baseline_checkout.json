@@ -1,0 +1,1975 @@
+{
+  "command": [
+    "git",
+    "switch",
+    "-c",
+    "codex/restore-frozen-baseline295",
+    "40278ee01ede562a490e4d09d256e435a1b562d6"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "exit_code": 128,
+  "stdout": "",
+  "stderr": "fatal: cannot create directory at 'experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix': Permission denied\n",
+  "archived_agent_partial": [
+    {
+      "path": ".gitattributes",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/.gitattributes",
+      "sha256": "5c831b19b57994122d3241e3cb510ad7657bcd564c798804e1445e0233c24932"
+    },
+    {
+      "path": "common/include/common/degeneracy.h",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/common/include/common/degeneracy.h",
+      "sha256": "ebeeac90078bf21cdfac3d1c52741a4886792515afca7de3c6e735ee0baebfd9"
+    },
+    {
+      "path": "common/include/common/initial_registration.h",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/common/include/common/initial_registration.h",
+      "sha256": "b9f5ed6d32ae4b48b149172b6d32405ae91c920896cf037ac6d4d5f47823f046"
+    },
+    {
+      "path": "common/test/test_degeneracy.cpp",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/common/test/test_degeneracy.cpp",
+      "sha256": "95344031c1649942f09eb5bd8999798bde5ac2e0575a6ae3f9509da5acea8c47"
+    },
+    {
+      "path": "common/test/test_initial_registration.cpp",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/common/test/test_initial_registration.cpp",
+      "sha256": "442b83fb9b298039e201536ed1fcd2fda5a0a03d70f8926240f4c78ff973a269"
+    },
+    {
+      "path": "docs/kitti_drift_audit.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/docs/kitti_drift_audit.md",
+      "sha256": "aa67ef0566ddd0b40d233113787827da8824d4bfb067bf564879868dfb40dfe3"
+    },
+    {
+      "path": "docs/sensor_setup_assistant.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/docs/sensor_setup_assistant.md",
+      "sha256": "c353d06c41164dbb823efff031227b483e50b5aabafa65cbcb41b0ee90d2c8d7"
+    },
+    {
+      "path": "evaluation/scripts/diagnose_kitti_steps.py",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/evaluation/scripts/diagnose_kitti_steps.py",
+      "sha256": "31c33e09a25890a9206fea331835f22e6bee7aa86327663b4c6a009dd091825a"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "b943806f08b4b7ccedf8b2b55435f6e19af0fdae4273a25d602ce5777ba5581e"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "d78382e5a68f444865a7d8cedefec1c16980a36aad25d4cc4e3840be0c6fd9b4"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "f9529f2efe614336906e0591ade53f1476cd2a256a9ace98bf8ecc49286c81f5"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "9dde579ff474da9d0a559b3cd933011080943b3f5348bc7cbf43f72325979de1"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/aloam_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "6b054f633aee5b0d8982b0e97b5b9d17a8a8e08b6bc9a7e79701b1e0b2ab68f9"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "defed610db9e702c99fccccd79ea9412046939d98aa3a0b86a0ed6026cd5fd89"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "cc5ae96b4b8a8162f017c4e9cf319afe2d59af90097b2203d310395a2c4c7a72"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "sha256": "abebcd8d75ca5a130c8cd6d42cb636e217e544529fdc22a84a9c662f80cb526f"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "6a8e25d3447048e20eb324d1f904d0b61ba6a25983f6e42d2b5b14e40344e56f"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "203ba8d20c32fb53dc2a772c30559ca13ea32c096c475a0f80d806ff08a5a510"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "sha256": "ab7d27249fbae64d543117e03e81e2fb395144674d0349ecdf473708289d2bbc"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "a2e054ac320396dcccf008a66d09ab9cbfe9352d22081b1a95f6b73e2a3a0be8"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "sha256": "1101449a91fe124d7d0fe87e7cbd9a166c5c5dfb97f9a4ecce224bc4f3c4cdae"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "8cb4485f14ba9aa01eb9e44af3ccc59d9edc35a6ec1860c579c71af8ee712b39"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "4fecd31d8d7264a1b79d3ecc844bd6ae5ec842d5fa3967d48b8474a138dadd02"
+    },
+    {
+      "path": "experiments/kitti_remaining_fixed_coverage_plan.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/kitti_remaining_fixed_coverage_plan.json",
+      "sha256": "bf5d66cd4d7307212bbfb3f7a9f5aaaea567dc5e2bf3bb198c2b979c3b75b532"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "ec6240d1e69dab04bfbfc9a90c475981d25d475692c38f83c771994ff05044b6"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "1b888d292723c5dedc405d169d5989683b0db413a2c8d50ea4500f6c871e6aec"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "6e7b2bb5db6938de312d33899599799227f0228c2ba7fa764d20220d2de1d6d3"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/l_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "98c808154a5ace7428356fafd7f5ac68fef8915df303e84f3702de95f4506a52"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "0f1df1856d44b842e8df084fb8e64c0461d9bba17fd4189e2722f2095afa224e"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "983ad6cb28fc8d1d7320310f8f084b3899084196ffaca0c72cb14d45de15d87c"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "911f2d1f99d26f9bf86224e7e7c5a5dd3461c2f3b4b47bdf3ecebdf48edf1b39"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "f9df2e4870228ae5a96c5e3452ef748de73d7e6ed0a4c3de105f16bf73f381dd"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "bbd0c155c6f6e44f3c0983582916df03b103f58e9e3623010e0688174b36e2d4"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "ae05a82727655bf0c3754636c1167ea883c4fea1fadbdbe628fd706da5551bf8"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "6958d12dc368e27efe8ac400d25e61ca5644dc66628e8c4e50f5ddc101b6c48f"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "62d05e92e94050a3ac071ea434d720de283d5907b121d684a84968d126c25b50"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "sha256": "e955faff467bc43cc958505422a9d617ae7ca0ae1319da18dd6d519401444b37"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "f858f9c89573d398f131f494c84f75b7028f20ff4115a15019de8eb0c8166725"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "a01ce95d88fbf63abe25401f221c2e3af29075aad129e363ea226672672ded2b"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "sha256": "af212b06b49f05f596e3ab38f26ee13680d4fe19629aa4db1b044be472efab0a"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "d781a4dcacd22a3d90baec78d7e0a54f2cfe0502451425d882e9050d7685191d"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "sha256": "5938e38c1edde74bfd4b414a722e4b6134e14ddeaadce04a5ded2a89f9e22b3d"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "94024acaff11b6fa2c118225beeba11b242bf17cef54e6f9b17ada9417938e2c"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "897a66b0c0f69495dc4daf56f6321651a0c906c60ea67ef5c2149e61e2a1de92"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "2f3693daffd7dfeded63030e359a08dc8d67417dc394cf3428785a36f02bd318"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+      "sha256": "8e189bbe22c1b100aaf9a5d13ec6bfd91685e8923ed201445267193fb003d68d"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "839489ad309b47d9729e9059df757f588e130d2db66cf464e9ae1c370cca1d6e"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "1c2588e7bdacf8ba49343d923777cbae2f93b7277b11eb255ec132a05f413bee"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+      "sha256": "f04c41902f1808eee53dfae0f8aaaf34256b7813ce019d30a283ae839549d3ec"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "ca4b2c2bd34114cd6b1bd1716e4c2193ba17db6e7c9b7977d42a1be72c83d400"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+      "sha256": "71e0f1c8abdd59ba47ed1cb875a1ec9c216768863bc2d0c43ffdcc536d4394a2"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "92daea8897fd7357a0fc45b5db27d59d02d0016b5eb73ec856823a72ca6332ec"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "b099c1ca4a2dc1fd7c4304e40ca8d63f2a233338846c2632500384c62544ed22"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "dcbd074846790628499dd04b464fae609f100e696ad7b061e19c77d5978df77d"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "ec4db7631c22a2e2c30db171ab61dda1f240a500c70411c079fb0a0c9f710d34"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "06c1519e432caabdc6f5f4c34569a7766ea23566074e1166ded38a9da519e77d"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "1290b15aae1651d063fe4da7a2acc2c6f78f9e477c392e06cc46d458a9796ff2"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "7c084ff7aa73f3788c6107832784508c3cc43c69d67c1892853387787b4ef080"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "ca5f47d255ad6f2a4995bd5fd9c4add61c8a1d9cf1cf991d0f9fb9d001144ccc"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "d4eb4dced2d3af1a48afe098fa21325d7255e6faf64acf7d55921999c703dc94"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "sha256": "301cf303a07c1850ad19b3b5fdfd8a4d43dd3e2c71c78f163478428284bd20e9"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "54b53c224bdea5b5b97009d0b8c6f155467dd83d3bca2ae2c1b6b6b8801a1e73"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "03032365c8f9652fbbc6246da333ad4def1d49f4bf2dd6dd2a574fa2b0f28371"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "sha256": "07834aeee3c3cb3c1e2b47befc1a685f274038730c1dc4460b5ab5fa67f38d6f"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "2dfdbea56142ac45a2c22db4f92b8f7beaab0b94f0644e935371fc8cd7f7356b"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "sha256": "8d93267e010aa579cb99130e95719833c35d32478651b647e81fe7030e1f991d"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "1e87281f0facf1cd32f56e32ae76384e834ae4878acb0c0429d7f6f8e84e5a90"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "29af5c689573beeb4aa6081f2e096bb521d6540113520a468ece31c2acadff5c"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/README.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/README.md",
+      "sha256": "51295d5b2c24c9b6f32b36f41eb742a95c3caf28a7207635f8bfde6312a45dc4"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/build.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/build.log",
+      "sha256": "28737a4f1ec7ef295e9dd8767c788ffcd6b02281305c9d6dbbbcfb3633fa5b37"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/commands.json",
+      "sha256": "0b908275956ceb95e24cb40b3cafaed8216d1fe2dad60740de11e963b3a6e93f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/configure.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/configure.log",
+      "sha256": "5f7d38929b5e7bebc9b2ce551bf32781db23db10caeba2a8219541b3b146b231"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/ctest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/ctest.log",
+      "sha256": "ecd9339cb3c7f89ed166b6b91cb2132fd1e98d4aa861fe90bbf56d30402d5f21"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/exit.json",
+      "sha256": "72eb2f6db12e74054628502458ec2f62fbe1a7e31762cffb84de5125266a4f7b"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/generate_leaderboard_check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/generate_leaderboard_check.log",
+      "sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/generate_paper_ready_evidence_check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/generate_paper_ready_evidence_check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/preservation.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/preservation.json",
+      "sha256": "797356787c18f6c2b4b087727092f7c3e34cc0d635f9bfdf7d6819330f949a5f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/python_unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/python_unittest.log",
+      "sha256": "449f576677f0f9043848408bbde78e328897600639ad8bca99c32a9472d2d830"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/syntax.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/syntax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/unchanged_native_sources.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/unchanged_native_sources.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/validate_showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/validate_showcase.log",
+      "sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/checks/whitespace.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/commands.json",
+      "sha256": "48f3ea9bdedb6b86478d62ced2f4e3cd50695586ab3248a38d00a20b821e916c"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/exit.json",
+      "sha256": "e89df0eae5ec7db81135aed16463968955c578bcc4f2ec43172eff351f080c17"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/generate_full_variant_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/generate_full_variant_table.log",
+      "sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/generate_leaderboard_check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/generate_leaderboard_check.log",
+      "sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/generate_paper_ratio_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/generate_paper_ratio_table.log",
+      "sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/generate_paper_ready_evidence_check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/generate_paper_ready_evidence_check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/implementation_identity.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/implementation_identity.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/preservation.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/preservation.json",
+      "sha256": "797356787c18f6c2b4b087727092f7c3e34cc0d635f9bfdf7d6819330f949a5f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/refresh_study_docs.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/refresh_study_docs.log",
+      "sha256": "bad8a97c9a751765a075735a5a5eb925a46a30e5ffba6609a2c83c55ad183422"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/validate_showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/validate_showcase.log",
+      "sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/final_checks/whitespace.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/historical_aggregate_sha256.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/historical_aggregate_sha256.json",
+      "sha256": "2ecb4ac52e5a09c31a4538beb4fd03c730c0ae1589175123f514c802ab193129"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/protocol.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/protocol.json",
+      "sha256": "4e19ea5836b6183a0c64586d14055b3932c775d40fd32d826d9d3878b5db881a"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/ate_drift.log",
+      "sha256": "35ebdf92e981f6b718902d95bc5b51aa516d975f84cbcbf934beb07b753d3ba8"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/ate_drift_reference.json",
+      "sha256": "2d0cc3ca3b25306168c62c1e67140a03751194caf693a4bf588d69cc327898fa"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/ate_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "sha256": "81674c08269421b1f4f71b4afee6d297684e33c7e0756452f22e1bea1e187951"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/ate_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "sha256": "b1f858961a484c4c5541c32f12b3b28a5bc96c2bd0f812408cf656bc77a790ac"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/ate_drift_report.json",
+      "sha256": "73d1f60fea6146dd11937515e3c9be6b316ff6de1c18946d062c2d7c55317c4c"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/baseline.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/baseline.log",
+      "sha256": "1db51cdb29cc7ea30678b7fd0f11bf91736d78dfd1625d77dc672847b20d2bc5"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/baseline_summary.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/baseline_summary.json",
+      "sha256": "abf1fcea5886b31bbd262bbb00db8e28eb1f5544d9ffcae53d32fae5a11f9001"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/commands.json",
+      "sha256": "a4fac0a451881c6934e2dc3bb10981e8b3e9689f80fd940d831e719cc0d26e44"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/comparison.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/comparison.json",
+      "sha256": "f7cb67f253e43215c474affc0e22cc9edf07b607bc121d57546bf2f8242bc016"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/exit.json",
+      "sha256": "e89df0eae5ec7db81135aed16463968955c578bcc4f2ec43172eff351f080c17"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/frame_drift.log",
+      "sha256": "89fcef6bf62b3008b4438c52c1d939c22fc2cd4b2c4ede18ad1a8cc7d85bba2b"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/frame_drift_reference.json",
+      "sha256": "41247128024c7c5c9ce3379f669403ea6bb11f5ccfbd6cfac0e3c8ba47469c10"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "sha256": "788692ba680779256a4da0acfdcbccde7083c237f6c9088de7aeebd9e8aa3a02"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "sha256": "0370944e6ac73dbefc7339001c3a0648aa4e3db6c11d9739901f706522afafae"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/frame_drift_report.json",
+      "sha256": "9b9c00d222ba023d932b11f68e845e773a6eb0ddc45b9ab1abcf5a10ab08371c"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/inputs.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/inputs.json",
+      "sha256": "1ec019b6a845094738285b116b9ebef96078568fb1f60673b1ba2cb4f2a6b369"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/launcher.json",
+      "sha256": "b02d60320bd5cedb13d97556c6b9665aaef9ee45e5e1e907aede0cd8303b502a"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/missing_input.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/missing_input.log",
+      "sha256": "c1032ba1c7b8b1d29fb1a03d93256111b07a7a6cf7eea043098218ca19b45936"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/missing_input_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/missing_input_reference.json",
+      "sha256": "0a94d5a3a1a6b834b93c5a3006cb7f3ab37b4420565c718c52aea8a78ac1978f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/missing_input_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/missing_input_report.json",
+      "sha256": "6806ace40de54c276e348199a0e3502e3afde2e1fd178a984cff8ff6e0b72fbf"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift.log",
+      "sha256": "9f9e5f8a72672d3bb9ace138ccab509ba8af6c0563e8fec7715b2356385ecd62"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_reference.json",
+      "sha256": "18f7c2105c85eadf9a934825d3aef0ba9477340fdc5a4a13377ea54a94e345c2"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "sha256": "73b9e86fd96b8285239e17ef4b0db44518f45fb3cd4a181d102b2e437865e3b7"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "sha256": "3e0ed86b3578f0f12fce84669e9ea8475cd8114be6d0c9e2a0b3a6df4509d85f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_report.json",
+      "sha256": "c52d34d40059f94f70e4433198fe39aea97277c2fefb9f016870ecdaec1a2919"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/same.log",
+      "sha256": "e8ebdc322ba95c4afe652e8bcaa73489e43332670c2e48adf83f656c21c778e5"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/same_reference.json",
+      "sha256": "0a94d5a3a1a6b834b93c5a3006cb7f3ab37b4420565c718c52aea8a78ac1978f"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same_replay/fixture_reference_matrix__fixture_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/same_replay/fixture_reference_matrix__fixture_reference.json",
+      "sha256": "bc7e49716147a58c69cc7b443d8c3167ce6f8d7dda86bfe7ada8064669d04d12"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same_replay/fixture_reference_matrix__fixture_reference.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/same_replay/fixture_reference_matrix__fixture_reference.log",
+      "sha256": "49873d65e0b66d0caa0bff4c29f7c19c9586f4966a9dd707073ae5a34acff5fd"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/real_fixture/same_report.json",
+      "sha256": "ee6485ecf74bbb1df8062643e144620b3490d11c54bfd30566032db88346fb64"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/audit_regressions.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/targeted/audit_regressions.log",
+      "sha256": "33b0dd6d50c353374af082ba32191599d2d25d5e5e86996d0d81d8139a38c159"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/targeted/commands.json",
+      "sha256": "3cd41368f141a2148dfa659a2e5784007cf4aa1723c6299d487b7b45030d2e08"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/targeted/exit.json",
+      "sha256": "e89df0eae5ec7db81135aed16463968955c578bcc4f2ec43172eff351f080c17"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/rescore_regression.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/targeted/rescore_regression.log",
+      "sha256": "a2c785c1bbda2dcd1a797d501678647e609f2fcd328349002263b85b9d52c826"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/targeted/whitespace.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/validate_real_fixture.py",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/kitti_audit_tooling/validate_real_fixture.py",
+      "sha256": "510c390fcc6bb57bade2ebcf8ebe83eaeea493f4a60caa9ad26f955b17751487"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "b11be5f141178e75b42698de8ad15cd20dd3e88d036960e5af5397790846319e"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "23ebc9475735145a2686c550683aebfb293d1803d70c52c707dcd7237e415953"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "ca36c7a5340822464544a16fa401b482cd038b17a442ca40712c1f4276e42d31"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "a8d4d232acbe11aaf1677fa61a91767708291acd22deec2ade4138d651cc73b8"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "05a97e76ded26ff2d13001baca1cba56efbd6627cf10405f74fabf4dbac187c8"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "4b9e99d22bbc894070136edec52db45bb0e8b5427090a5448d533732d6b8473c"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "61af5d3e4d3cde7e708aaa8d86388324df20c2d849383698a12d7aab25bb57d4"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "850882d0c75766d37096fc5f64f34566ee191fb0a27a4e82d5c1ff0c09bc0e03"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "833b8628d526fc7bbf8e41bb78d97e6fab4aabb29e1f860bfba085c7752c16ce"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "87f3f56c7d41f53af8c8fa5db2b1eda91615140744deb8ae489d3472c53f3c2e"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "0b2e7453b49998729f0b69d11bb2d87b9ba78714c99047a6fb58c676313226a4"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/README.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/README.md",
+      "sha256": "1290c2b8bbf446dae31733e06ac8152c8f984984acb68a2ff2b89067264e6f3d"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_checks.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/final_checks.json",
+      "sha256": "c7ffe6502479bd8b3dd2c1cec262602454ceb8bd0e6a2d3109ced319ff46819d"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_leaderboard-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/final_leaderboard-check.log",
+      "sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_paper-ready-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/final_paper-ready-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_python-unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/final_python-unittest.log",
+      "sha256": "55ff36c7c8bf55f7b168133fa2a30829db27623506e110ceb18f3d0331e67724"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_validate-showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/final_validate-showcase.log",
+      "sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_checks.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_checks.json",
+      "sha256": "79f05bf0b1e9ac6b7fffb4069725e51ae43fabf8375425988807db4c35b459e7"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_ctest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_ctest.log",
+      "sha256": "5af897cc4205342bb386084d78b63374fc192bae00fd20d2ae1e8eb5706a6d3c"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_leaderboard-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_leaderboard-check.log",
+      "sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_paper-ready-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_paper-ready-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_python-unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_python-unittest.log",
+      "sha256": "722249c0579fae82acd2fcbf95bb1b2d1b4d3c9f60af8c6fb8888a17d80f39cf"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_validate-showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_validate-showcase.log",
+      "sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/controller_resume_exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/controller_resume_exit.json",
+      "sha256": "0b83da821b49731553b497a8169f2952f128f8ba572a132c3aef9270e3d3f7c0"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/controller_resume_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/controller_resume_stdout.log",
+      "sha256": "e442437ceb62b05c6af0739f3d2b174c631f6b5f1931ec483a0b2b4853f1225f"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/environment.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/environment.json",
+      "sha256": "c847af574261c526da89609aea92e6145190ff8a0a7ff4e8d976148f2408678b"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/generate_fixed_coverage_readmes.py",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/generate_fixed_coverage_readmes.py",
+      "sha256": "89aaaf24c12bc4a9faa3eb1cfe0c7921b63f6a947bfffd5fac01d6170c06c804"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/helper_resume_exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/helper_resume_exit.json",
+      "sha256": "b6645a230907d78054f62fdde22b535fb15b02377669f4c18b3f17a5726299df"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/helper_resume_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/helper_resume_stdout.log",
+      "sha256": "913ae13932b58b05a28292b852a134fc4bee44c32be433a3d41fe6f9d018d064"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/historical_aggregate_regeneration_check.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/historical_aggregate_regeneration_check.json",
+      "sha256": "6d7e76125547e2a25a9e95661a6304c1459a3fbdbfada29eab774746263499eb"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/historical_aggregate_sha256.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/historical_aggregate_sha256.json",
+      "sha256": "4778149eeb0ae57be074d6828306a35fc88eca1d043dc666f3fd7283ed8b99f4"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/import_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/import_commands.json",
+      "sha256": "70e037addadef0b528cb58c766ac4d615a1d84f95c7610ea89b794e229b5e5dc"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/parallel_execution.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/parallel_execution.json",
+      "sha256": "a3412fa4d7fb38606140ee1101654b7ace2dd4ae9a57e2c9ffde948bc11d913b"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_generate_full_variant_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/regenerate_generate_full_variant_table.log",
+      "sha256": "2b60491baa77c4211215051b9fdd4cdd9148ce5005e60e4bf7f1edf5a2a5c9b7"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_generate_paper_comparison.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/regenerate_generate_paper_comparison.log",
+      "sha256": "0bab7dea2c1186b548f51cbfcb59033d28cae46be47204f0a028216c66d039ad"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_generate_paper_ratio_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/regenerate_generate_paper_ratio_table.log",
+      "sha256": "0cc23a9c0c2944e4da9216593f2ddaf71e7557b65964ac82405e1fdb22959b44"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_generate_reproduction_status.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/regenerate_generate_reproduction_status.log",
+      "sha256": "668a28886d0d656ef222fffc0a6d4703884c72ebba93087a830c5868a408cf10"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_refresh_study_docs.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/regenerate_refresh_study_docs.log",
+      "sha256": "c24df998ca0d27f7a0bae4c4a00c3b6f0a6cb60d52dd640dd498d9a349517e71"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regeneration_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/regeneration_commands.json",
+      "sha256": "0a02e211c51c67107d3cab49dad340933feee077a4ee4b8d84e45f001aea7cae"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_01_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_01_commands.log",
+      "sha256": "a56de558cb826ed3b67a009d14f20509c2662f036ac6f312100a00b56ab4bc20"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_01_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_01_complete.json",
+      "sha256": "dcbeec1b4cf8c949359605c41f9ebf24e4a0023ac263e69c30a65f8985d101ae"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_02_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_02_commands.log",
+      "sha256": "3f3a38a2d5fa0d471cf7ec8a460cc46cf890cc65b82422faf2c5a81bd0b43cf5"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_02_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_02_complete.json",
+      "sha256": "9e0a4b948287cff07e496074cb5190cb5e50a9bd4936cb9ec6a327fb365db98c"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_03_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_03_commands.log",
+      "sha256": "bf135a3594b9ca489399147d42e9adc08a42edfdcf5194ecd4f8a72314fbe24d"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_03_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_03_complete.json",
+      "sha256": "2e736f725f73383be708758162985c7c332f65f52a3747f17eb302f192c4f7a7"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_04_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_04_commands.log",
+      "sha256": "b077a01a7adc128e80baee2a406f87bb77c35aa252cb4e2c6114a63ff9a133b2"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_04_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_04_complete.json",
+      "sha256": "8f912c1c5545899754b93b5e477a07d3110f55ad1af38e4120edcde821f5e287"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_05_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_05_commands.log",
+      "sha256": "9b18c439bd2ee5b1360b64f7286919e664d1e418e0989a5080a7bf770e7ce92a"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_05_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_05_complete.json",
+      "sha256": "ed1ddd818e2384153c35a42b03fdd8f425fb18e6cd4e82381ee2d7f072b56e21"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_06_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_06_commands.log",
+      "sha256": "80a08d10a76fa91b592dddb4dd6c44f8826f073d94d8d22a01e00f944c392dcb"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_06_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_06_complete.json",
+      "sha256": "1ce029d8df7928ca62e1a4b6e53c2a8c535c16610fc1f657d1577b1d52c9b129"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_08_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_08_commands.log",
+      "sha256": "1a8aee1b170458a0dac28a6fdce8cea9e05fd734829baeb7e04db838f6f41dad"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_08_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_08_complete.json",
+      "sha256": "bd0d93164f768364db57467e222ea2a85698230e51915231b15a312a6d45a004"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_09_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_09_commands.log",
+      "sha256": "490c22f93f94de389c8ef0d3284cdd24bb9f2216bd4ea65834415d3b75514d31"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_09_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_09_complete.json",
+      "sha256": "e3ebc85def4352b7be6641f3f8e941cff8ed8f1395b2f5a4061d8bb972e342a5"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_10_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_10_commands.log",
+      "sha256": "12e469011277c46662d856dfff3a07b5540c8006d9907f8d77b2349a7d4c02b4"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_10_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/seq_10_complete.json",
+      "sha256": "1389b2db2f8275ca8155ca2d055810e959cfbb735807df5bfb50838fc8d60cd9"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/summary.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/summary.json",
+      "sha256": "471da2e457aa5f01627dde56ef356d804db90c7b7577dc2381c21dc5cb9c31ce"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/transport_recovery.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/transport_recovery.json",
+      "sha256": "606d20333e2ecc5888e9a38e3615b922fc647c1996da8689235f482f14629f92"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/validation_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_inten_kitti_coverage/validation_commands.json",
+      "sha256": "8d28ad19b88673687349fcc968f82bd4ea415ac911195216428edb8f5e598314"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "a5ac2c3ec8fab7cb62d374da089a7b082e723c1deb2118b4b7b5b06c87909795"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "sha256": "338385322b28145717a0f0072fa0b1b56b898d31e3eead0b6ad9b6b832eaf478"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "9145a99392d7e04c9a52335ca46fda50a831527dc20cd2a5a7f6bfcdbc2ccc03"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "b303fdf67f65c099145f0fc767550b64d0e63e85e9dd2979f66d1ea36e118ea2"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "sha256": "6b329e17584215e4bbb4e4280e67e625b11b0fb59597760fa5d4fbc4f4d7f8a5"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "557404585aa0f59ef744fdd44d4d19e1385d9cbda0767ede763f30119c021ff5"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "sha256": "76b7fd5e78749b154c5c7e36d2ea12c59668c363119c15e987bb036c80a170d7"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "aec0c09e2921f136ca178b8db44c31e2ce54b3ad0d3920b2bac1fb000bad3a5b"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "cd0bc5812e72ea585bcc2b20e7793cb3ecc1818ab8f1d593afd25e0a64a3d531"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "34f3fc7ccab569652714e09f07aba1509ea7f4a3b35e0b41e08258671b1da151"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+      "sha256": "f6c0495e401e5baca7aae3c1bd324d4f9fd703827d6087eff296814990ae9e88"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "sha256": "180d53ba8bdee5f38863431e5b9543bbbf645df2aadcff10940f0d30fb739ed2"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "sha256": "c1237a7014e6e0674284309d151668fcbdffae0e3d45620e5b563c6b61ac1d6f"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+      "sha256": "4f65eb99ad0a2b90f27dab0e54ab03d2d2ae0aa7d23d8f201102a11ecdd3cbd6"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "sha256": "00f79ead5cee6db8b8ee3d3dd8db410d7be4bf2d42af2f02aa476eb4ad00136e"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+      "sha256": "ff9aff95a5f6eafc77e725026bb3b183054de5237888b0eca8aa75062ac81330"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "sha256": "e40fc24d89fcba57aba28a2d00481fa9442060c2e45904951b87a951acbb8018"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "df65b56c1fcc80b48b5d19a8d983650a6a94fc85e0998a0eddc199278bbc28a8"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/README.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/README.md",
+      "sha256": "3f1cd623f5b023028bf125f6668223a3189233d37878726a1d84341793170e06"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/aloam_launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/aloam_launcher.json",
+      "sha256": "ea4e569548462501958d95ccfc34b7445d940290ca2bbfd2c2a94f2360e46812"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/build_0.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/build_0.log",
+      "sha256": "5f7d38929b5e7bebc9b2ce551bf32781db23db10caeba2a8219541b3b146b231"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/build_1.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/build_1.log",
+      "sha256": "8c35b1682f73592d30612d7b0fabdb384fcfff35cb5a076cb48b85b1368aa794"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/build_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/build_commands.json",
+      "sha256": "0095a224a8c30d2572f2c4769497d2b9dac5a05a73afefe3827c54ad157fb9b1"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_checks.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/final_checks.json",
+      "sha256": "069ee80481696e78825c30dcfb6eb4fca4df036ff673a0bacef0a9d4af5e7ae8"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_leaderboard-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/final_leaderboard-check.log",
+      "sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_paper-ready-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/final_paper-ready-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_python-unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/final_python-unittest.log",
+      "sha256": "7d87c9d516d540d98b2aa74bd29bdd1d4bb6a3d581ef821c5128107402762f6d"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_validate-showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/final_validate-showcase.log",
+      "sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_checks.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/postbuild_checks.json",
+      "sha256": "93fcac4cbd01f45ef86c3142121f5c7c8e505f8088d5a7ccbabdd807344a3cb2"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_ctest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/postbuild_ctest.log",
+      "sha256": "bbd6065a35e176751fb5237cbf520eec0a6784228fc39e4c84ad906267451530"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_leaderboard-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/postbuild_leaderboard-check.log",
+      "sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_paper-ready-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/postbuild_paper-ready-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_python-unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/postbuild_python-unittest.log",
+      "sha256": "8aa714fc3f137d63dec781537ab3855f46d9b1e1b4c15f3c0df1147d6dda0bac"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_validate-showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/checks/postbuild_validate-showcase.log",
+      "sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/controller_exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/controller_exit.json",
+      "sha256": "34edace075a4d532a28936d02513b37c1c381783f308f373bac52f3d51ff4972"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/controller_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/controller_stdout.log",
+      "sha256": "bb5d0bd510b4a1282e514d2fef72977adc6f6c27a29a0ec7154beb724c41f38a"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/environment.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/environment.json",
+      "sha256": "24ba863106667eede746a212823d2069ca5d724e3f491f948d6813b53a42d593"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/generate_fixed_coverage_readmes.py",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/generate_fixed_coverage_readmes.py",
+      "sha256": "0f367b7f97f826baa133a50dd1f177dbbdb042643bc54f1fefee7c1035c76309"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/historical_aggregate_import_check.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/historical_aggregate_import_check.json",
+      "sha256": "4a844926a92ed370c96d34513c32545e9832fcbe2ef49839d200d039dccff05a"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/historical_aggregate_regeneration_check.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/historical_aggregate_regeneration_check.json",
+      "sha256": "735d8cf48d110c9d58940b071cc6466bfdda47f50845b926f2eb3e07fc8a7bfc"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/historical_aggregate_sha256.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/historical_aggregate_sha256.json",
+      "sha256": "1c1554973292b2f3e6ba97433fde2aeb2255e6153e982d23f33ecf876ce49b0b"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/import_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/import_commands.json",
+      "sha256": "7e9a311b025dfee17f517a056f1e97da89aaf05984002591bf9a600268693955"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/import_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/import_stdout.log",
+      "sha256": "f6e7fab7eda51db8719044f6b5c471db0e90598c8b643894cb393f55939ff931"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/l_lo_launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/l_lo_launcher.json",
+      "sha256": "739e35258262606764e69e9b2727e1c435dbdf1a387d556c3f5e1a5728fba587"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/lf_gicp_launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/lf_gicp_launcher.json",
+      "sha256": "ad4c8e962ffda68d2e1552bdde9effde1aeebccae9e2bb2b0657ecccced3594f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/overview_ratio_audit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/overview_ratio_audit.json",
+      "sha256": "1a6fd8d8ce849466e805cac7a776da3f5f3bacbc0ad73686fa349912b486ebad"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/overview_ratio_audit_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/overview_ratio_audit_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/postprocess_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/postprocess_commands.json",
+      "sha256": "a0343e0f9d378633e573bba282de60146c481853c6e3269fe6fb75aca346a3c4"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/postprocess_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/postprocess_stdout.log",
+      "sha256": "c6e0e6a837463a2c494bfd80a9e7ae8647786939da622f4956307d347d12f611"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/quadric_lo_launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/quadric_lo_launcher.json",
+      "sha256": "f921a4d5431f7a327039e683606b46782657708c580379f5152df8c951299549"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_generate_full_variant_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/regenerate_generate_full_variant_table.log",
+      "sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_generate_paper_comparison.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/regenerate_generate_paper_comparison.log",
+      "sha256": "0bab7dea2c1186b548f51cbfcb59033d28cae46be47204f0a028216c66d039ad"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_generate_paper_ratio_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/regenerate_generate_paper_ratio_table.log",
+      "sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_generate_reproduction_status.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/regenerate_generate_reproduction_status.log",
+      "sha256": "668a28886d0d656ef222fffc0a6d4703884c72ebba93087a830c5868a408cf10"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_refresh_study_docs.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/regenerate_refresh_study_docs.log",
+      "sha256": "eff40f729852598399813ba0e8b90f80ea8719df9dd496e7417126dd3022f7b6"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regeneration_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/regeneration_commands.json",
+      "sha256": "5a10f7b17b728ef363178c56047e030cd1166cb997bc63835caf193cd888df0c"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/render_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/render_commands.json",
+      "sha256": "4af2af5bc7c5c1ed795792aea1b0198ddf25959efabc5e8336364c1284fe8a3f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/render_stdout.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/render_stdout.json",
+      "sha256": "d769b015be59549ffd79e5f3c00dbe415adb0492fad14232ceb23a3cfa1e7382"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.json",
+      "sha256": "37581265494e8d5e4a84a743cc02883dcf5853123121756315d8b17cb76d8c29"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.log",
+      "sha256": "a61e3e6203d5f4ffaeb1f325f31062093a97b54c1c92f4f15041ca44ed2a7484"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_aloam_complete.json",
+      "sha256": "6a5637994e6d83db3ac7d512e0f9d6dd59a1f200ac64ee85e043d4790971f3d9"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_aloam_status.json",
+      "sha256": "f5c8203f0f56536dfdcb639ea90c29b9a45003f08c22ae693c8aabb82098bcf5"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_complete.json",
+      "sha256": "01b261d31005566221aef7e88b9633de7b4be7cc95b27471f4fbfcad18d08157"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.json",
+      "sha256": "287e528d59347dcafbd1d55cfcea08a6013ae6664ead2e640e5e5352ca913672"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.log",
+      "sha256": "407c5b9b0c2372656cb0bf0097120a75fb69b8ecbdad3c2181526ac872106c3f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.json",
+      "sha256": "8e1f3791467d22b6c7e0765e7fb2dee6c55580510ffd2f20a11826f982c239e3"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.log",
+      "sha256": "de337318bf09e767bfba58068c00d987e0269d17ba8ed25c29d542d437fe180d"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_complete.json",
+      "sha256": "66a1fb1a8ba1924ff68085b5515073da88e6837e0dd7c193bf309d13ff45b3ff"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_status.json",
+      "sha256": "caa7694b55e48378c13b08b8d1780fa014b96c8b0f36ba7ec9aecf9a3383629f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.json",
+      "sha256": "e0d9f2dce4d210013412080fbf78ea294f2ea03238f22b0781e10a578c77c2dc"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.log",
+      "sha256": "874f2505e578a3d0cbf41c1c8e887663a0ccba03b88c8eed218e5a06f2eb2d88"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_complete.json",
+      "sha256": "b9415c504fcd81c51b3e350e071195885575a74ddfe7bc9a23cbfae28d735564"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_status.json",
+      "sha256": "a2d9c5eda163204894fac4526f614f8e29c671568889c613fa3183b645e29124"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_02_complete.json",
+      "sha256": "38d33f5a1339bc007d15ba60dc3e88376aea2ef48ae186386ab9f7f383ee5e30"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.json",
+      "sha256": "3bbebeddad7ade2b5e04438f3b85518fe2d6adf28d822808c244a30400f9ced6"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.log",
+      "sha256": "ed1c075f347b1b00a618786d33d46d6b8db5852599bf51ba9d794d247734dd3e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.json",
+      "sha256": "27bbe06cd81615d0fbd9ae2f529d55c515b7e2997c5b39b88fc273fd68b5b666"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.log",
+      "sha256": "45879e100e8409ed94a60a76edcc2da0bfbc0a576d03e20af623add02ab26194"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_complete.json",
+      "sha256": "88419196c749777b606294e4cedd2423a3e73b2a9fd681e1af96c84eb334dbcf"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_status.json",
+      "sha256": "2ec61003eb064c19892deaaa27b8ff913f568fab29f3c14bc22a0fbd9b49080f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.json",
+      "sha256": "a28cc4191263d20952ca12ab3b6280be9b6b2f2f14bc13d84e5b249dcfe763df"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.log",
+      "sha256": "193cdfd7c1cffba91359997047abfbdcb1e0cf1e2442cd900dc9c0344ee397f5"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_aloam_complete.json",
+      "sha256": "2362733f7d1abcc18dbbea12c7f9edf346dfd7e0de63184896c98fb366b9ae21"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_aloam_status.json",
+      "sha256": "85c99fcac1ea862320d2e2a73ac3884999d0d46295d1f2be656c4f2c312b3c99"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_complete.json",
+      "sha256": "3a842293dc0aa5966792891815e9b9b3a8a3be753d58a598a17404937db32e21"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.json",
+      "sha256": "ee5c8c346423808f7c3149d09701c0c1c95badf72730ead827894a405ee7708e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.log",
+      "sha256": "a465eb48f49c45dfd9e02e07bea695e2b0ca632c988b269661f3da7095870f63"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.json",
+      "sha256": "4e6b8ad46b48a50a26d7407d306d1af149f2ef397f72fe1928bb4998df2249c9"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.log",
+      "sha256": "0847919d65e7a3f4779df3d0b24895e0d898bf607a7ece0af46d286d481d1778"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_l_lo_complete.json",
+      "sha256": "99f35a72234c62e013ba27c1fda4f33b849a9b6ad12e5998ed1ea58f8f5b15ad"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_l_lo_status.json",
+      "sha256": "8f737de8aced8e11822306ba19f336288c17a14d28c47726de66200dba95c428"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.json",
+      "sha256": "4699243b4e6b6eba03a16a3c964078592ef75c91203b394910f8d1bb851f60c7"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.log",
+      "sha256": "eb9344d4b632543952a2c0c9a85f6605e69f1820a47d3ded04b0c4386b95691e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_complete.json",
+      "sha256": "ec2c9fed50d13db6080032644e58bf32c41f7f88d391656dcaa85afceb80afae"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_status.json",
+      "sha256": "96e52a50e4837e506a7c9e868e77972250206bfaf2415179a3f5ed21c4feac6a"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.json",
+      "sha256": "1eca6ed2a529c8093d8143c595fbb363f2fae175d5118f868b0871df61c9c8ab"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.log",
+      "sha256": "05269e4bf2f91ed8d7b6d24de591f1dae01834e1ed6e258d0dc65ce3dfd377e0"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_complete.json",
+      "sha256": "6b8cd2a0b5e4af1db099520c4c522cf7deef46d4ebffe7da83e03c19fdcd063d"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_status.json",
+      "sha256": "c773e39f802daff9bad29140747bfdf68e9502bb68ae4e2fcc50977c40320a6d"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.json",
+      "sha256": "b87df3521e116dca959ecf70bc48b9c74271e1eecd0afec8c272ffc940317eef"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.log",
+      "sha256": "3c379c491160ef9f26c1c3a8460bd3bc450b724dc08ec46923a23291f62c25f5"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_aloam_complete.json",
+      "sha256": "d1a265a29e6db934917d480ed196d787c8106b18c351865de5947023bdca6296"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_aloam_status.json",
+      "sha256": "f7e42c26e964d9c98fae7240f90e6c08bea5bcf2e706bd4f66b1617f2cc08b7e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_complete.json",
+      "sha256": "793aaa2c974b5838474cc37b1355b75da6358bab9bd36637021ae60ab79753fb"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.json",
+      "sha256": "3fb105ee36210ead6e2e553596baf7fda22fdd8f8cb6b7ec98af0a96e34eba84"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.log",
+      "sha256": "3c401ab0d9cafcb9991a4893e9cda1729ab46be5a1368c04dd0ecb09112455cc"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.json",
+      "sha256": "c1384ce101f356c8dddb388863db3c453e2ad4cd670ba65ff2d9696026a27023"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.log",
+      "sha256": "a62dfbc218bbe5af241c2e9fe81b03e155072afeac30f0c94750730bdd2320e6"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_l_lo_complete.json",
+      "sha256": "6d2d58d83966e5a8861018529f20e3573e36a80f02df3f96263c17dda7bfe4c6"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_l_lo_status.json",
+      "sha256": "5f014588ca173c4c817f42707432315a630574c51b0401d3005dcea1504f3b13"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.json",
+      "sha256": "f0d0c9579ce0b3658039455cea32efb368f72a2ca8e6b3ee23d17fea2054332e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.log",
+      "sha256": "4dc5374a8b139e7ecede132bf73a6926e1458025c9c0a1566b2762b01e17f6b8"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_complete.json",
+      "sha256": "3960c38c243a0b9426d377d5222a16fb5234eb9e08441c1d1f0414a6ab5340ec"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_status.json",
+      "sha256": "a7387ab4773e0ab299abcda192eaf81197a4cd6d348d465d3dfd9956e2ab2ba9"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.json",
+      "sha256": "eed11b7d53e66775e3e34ed1cdd277e46ba21764e7b8b326426099b7118293a2"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.log",
+      "sha256": "ec135379808b0528269c8a079104619e1124ab4b00949233d2a296eac1f99c64"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_complete.json",
+      "sha256": "e687d8fc71f69e5628b7f0fa3d5d9734132396196eb23ff4dd4bafc11f8d6fe4"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_status.json",
+      "sha256": "e074e08e46643f3ee8e35b81c9e93c9c00ad8de10b04b0a06fa4fc3573340ba3"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_05_complete.json",
+      "sha256": "0cd20ac76a9fd14975e4d212dafd396237b96bc3297352ad49659edca833b5ca"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.json",
+      "sha256": "b80beb3a6b766b6d1b812370b3857aa08a97069f4e665b5494b863ab78efefa8"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.log",
+      "sha256": "2ad9977cbde1fea902bd0cbc1564d242a9f30fd8ea6d802921a38956952ee52e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.json",
+      "sha256": "d45f4f5b36b0aea77f0cc877c41a4a4d1f292591359ac74e520e3d931f9e4d84"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.log",
+      "sha256": "55831b3fe2484f78aa8f7e2a68fc01343c0d96cc1f024d48682df982374e75e8"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_complete.json",
+      "sha256": "1d985f8fa1ac2cd8e9be6805c94b87d590274de35a6ae68df6a088f08e04b8a1"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_status.json",
+      "sha256": "a60846e3158b9662eb66112aef62952a2d5a85b55f618fdbd885096451715605"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.json",
+      "sha256": "9fcf337cce4867ce483e35e54086c6e92029219dd2931f1634731e8faa5e4e09"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.log",
+      "sha256": "a83d1d95cde1c102a7ba5fbf4a101253188d241bdbcf09082a6e82f9e50a02c0"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_aloam_complete.json",
+      "sha256": "03df0f0645dbfe941b1d55e68d5217d4b67a724e3e369dfbb2e8346515f2af14"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_aloam_status.json",
+      "sha256": "8b5af806bcb5ebf0b2ff345f513300f165107d5def0de5018b7a17791b8491d0"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_complete.json",
+      "sha256": "ad2bc1f3635eabf973d64e00831a574b19e6e593db9ae0026b2baebdd0fec86f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.json",
+      "sha256": "cdf8ea0fdb7cbd3837452c9503f5632885a7f6069d23496b8dded7f26ece16f7"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.log",
+      "sha256": "0e7896e312b3232359f547493528e1025f0d826d12608cfe4d2843d9aca08177"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.json",
+      "sha256": "52cb5239280cd27b778ab48fb0e354d1f489c4339c59f3bf36cd019e65bd4c51"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.log",
+      "sha256": "9541f6eea172907208d5924d59b50a4f660db70dd1f221fb71e87f0b2c8ca894"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_l_lo_complete.json",
+      "sha256": "a40db8c7edcaf345d53efd36a146774c63b49b466e55650bec7f332e072c9469"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_l_lo_status.json",
+      "sha256": "09ec185b4c7bb8c7de17e1737e3839cf3df245af32832d5595b5f2485eb1d098"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.json",
+      "sha256": "2e6c94bca56ffb019882811d2c7d1ec0280d029d813c493f4e55d8133882592d"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.log",
+      "sha256": "d2df304a03ad5e583886bb7d6ec0147a50c64f8fbbd9f77063dfe2475b02d9ea"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_complete.json",
+      "sha256": "90893cb961a4b56e0938ced767d3475a24f90fbb1f608946d4e50883faa62994"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_status.json",
+      "sha256": "7dfa18dc17ce4b34d29a19bbf7822c1073928b87248f50774b2163d2aec23c64"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.json",
+      "sha256": "042688bc05fe5c266fb3352445070753d80cd44f84226cdbead3c04100eb9711"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.log",
+      "sha256": "9472a3c6e997fdacec6568402ba90f06fd9a75c6bd633ff0c12d96e95ca3603d"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_complete.json",
+      "sha256": "4fe862d5d851457d38bb56cf1356ae757e74cd7172edf341b79df81630b1997d"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_status.json",
+      "sha256": "b79420d73c5880aa5913c9849ed955967631907a33cde86f0bbf93c42e123f08"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_08_complete.json",
+      "sha256": "d80d931012dee820c0b90071273c4ff48a43a07a9ffc9d5bd54633f4faacfb7c"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.json",
+      "sha256": "9926ddfc847bade28751f26178b2d788a39d91f503af6ffa941734c04fe50ad1"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.log",
+      "sha256": "168b1ac089c778dbb440d24fe9c365ca2ccc7e7b4bdde9f3f9eed354e49c2afe"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.json",
+      "sha256": "3bbb4a573496d889bc1d2c6e9da0cdd6447658c9913180f0b3ad8e8cd13d79e8"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.log",
+      "sha256": "70b604dd4326e0e93a92267ca26bfcdac5f2373ec0075241d8275c0a71705133"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_complete.json",
+      "sha256": "78f63549a6433ce46fcbae96b8476bed053d2b372ebf8b5d741adaae356cf714"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_status.json",
+      "sha256": "037998f8de131c85afcfa307e950885b7b093e5a2717dfa4cf8b0c29e4655b1e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.json",
+      "sha256": "3d7f0d2f3d2bf8b983924ec8b830eeb9ede3261f1e532fa3dcabad983dc84cd3"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.log",
+      "sha256": "d01eec04b0a902a11bf07493dc03ef1e018388188ff498eb4b820a01a9567ffa"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_aloam_complete.json",
+      "sha256": "cf3ca133325884c4a0cb3800c7427b7992cc2b6bc339355e693c8df9f7c7c2ab"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_aloam_status.json",
+      "sha256": "1d8c8cd864fe085c019a9edad1c70aa33280565b9ffb3967eb225d39350aab89"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_complete.json",
+      "sha256": "a98b2148a84fd118457798227e8d76273e4341e8bddfc9bb0ccaacda9544fe89"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.json",
+      "sha256": "fbd418ae8b3a05865d1fe54510771a155e70e933402c9e4c8a863fe29e1a42ea"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.log",
+      "sha256": "f8a58705df07e404a868376767287f7c9ed846cc66e65a066407a1ad944153a2"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.json",
+      "sha256": "533f52213f1b7a86cb901c952fe1c859994c3a6da6a9a3512b7ff6a0939d7004"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.log",
+      "sha256": "6e1d6cdf712feb0474c0993a77b49400b514263d224086ddaace4c1c14006344"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_l_lo_complete.json",
+      "sha256": "7a026030d5cd3833862587177d285df399c437044079735cf4fcea8784c3c798"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_l_lo_status.json",
+      "sha256": "16fd775ded2f6ba12cd8056c1b3a799ebd51c4e24f7af063d07ddabebb028fab"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.json",
+      "sha256": "5b81b3b898591af3d8b17a8cd30b1811bc3a11d6c4be35c58137b7e8a63a8a91"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.log",
+      "sha256": "8d8b4471cb839874125ff9fa7c6fa3b275ea8d71e3273d2097018e84d67bda18"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_complete.json",
+      "sha256": "1b33e3d631aa1fa1f9a9620ae10e63019428b57044e24adcf885fdff54f36653"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_status.json",
+      "sha256": "c8188ccbad387fe2d19e8526290a528d5443c74d80921668b8400acd4cf0bfb3"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.json",
+      "sha256": "1621632f99a6fc754cdbe27c2b7d7d9194872c53f756c0ea9b587f8f4e4de0cc"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.log",
+      "sha256": "accfac4c3ee9684d4c73880b366eadf8af8cb331243708169406036bf390982c"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_complete.json",
+      "sha256": "5a694520dc5cb771f1c6e402197adf9ee95b6ea2a1dde8e62d7e73c120659675"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_status.json",
+      "sha256": "9cdcb81c6d400ce3a5a4a6a75c78fcc5345da13a7237cfed0fbb9afe89877f72"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.json",
+      "sha256": "8e41768b72078dbc2abed88110fe91109947c0833288e60f938b6bc86b8aa666"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.log",
+      "sha256": "de44893f83627a80cea3c9852b93aab08712fca55ed2824c81ad50a00bdf5009"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_aloam_complete.json",
+      "sha256": "b1946d9e4d564e65560d32e351aeb652907378d98afd3be90b9106906e74e3f0"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_aloam_status.json",
+      "sha256": "297270ff7f89359b1956135a68cc42c15d532e6766d6e69e83d55fc5c4b884f7"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_complete.json",
+      "sha256": "9344b9766e5033f74c803e003c37f86593f54e6dd6a27689500299b184d66107"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.json",
+      "sha256": "268a8b741ed7f42b31f26af4c1aa2277d6b770c55892bfdd74d29fc6e01e556e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.log",
+      "sha256": "5f071990e9e8879e7eceac49c230da13fe939281e38c7f76b2e7c9b198f58c0f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.json",
+      "sha256": "7ea9230368ecb8193471de0e9a9ddc74bef372c541328fa39ab5da3e27b0280e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.log",
+      "sha256": "8e6c85cfa4e0a419690c8e35693036ce3282c62f02e45579e07dfe99b18571ba"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_l_lo_complete.json",
+      "sha256": "7e962d080a2dd5f4e85eef192866a7ca7d1d2e11aa51db038615eb95aabd3b0c"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_l_lo_status.json",
+      "sha256": "2a8b66aed446cf2973e608ca668b02e4711974e9f9c2db4f74af8447c518ad3c"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.json",
+      "sha256": "fbbd76b51e625dbeecd4ddb72a5991764be043a043591e55f27e31e04a6a9c8f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.log",
+      "sha256": "e6d3df4e19adaf6d2d6082176338fb277b2e8358c7df2966ffbe21e08d61a3e6"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_complete.json",
+      "sha256": "678e99657b418fa181b28f27592df7fd82cc53ad050b15af80e216aef73e543c"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_status.json",
+      "sha256": "56937e8d86b0be8cd1f0768e82e73c3d01caa350d0bdd410832936a1208de1b3"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.json",
+      "sha256": "dca75722f0a5c0678d9ddfbe80dca3545d78de426900db1798516073dda39597"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.log",
+      "sha256": "3fda9dedf4ddbecad4a5616fc0b67b1c56bd3002b82b1455fa4851efaf416642"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_complete.json",
+      "sha256": "9cfeee66e9ffb8445b77333c6029348bd1f0e4bfcf6f8ac28e796d3baabe9348"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_status.json",
+      "sha256": "d57be30b5215a011ec30ffa1ce51202e9a8b0f35a7f32118447b06ac984c6891"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/stage.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/stage.json",
+      "sha256": "5cf78dcbe309281107a29d723e06e1f736b3c3a990124a199f23880f6518a8b6"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/summary.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/summary.json",
+      "sha256": "b0fcd5c75e9e2db750622ce54f8f879ab0f2b1cb49d688764939ffc5a368ed8e"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/transport_recovery.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/transport_recovery.json",
+      "sha256": "8ece311cb2136f590c6ed8186d4138e9641c3e3120a02bd0898185d544a8c2d2"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_commands.json",
+      "sha256": "71cb9758253efadeb6c9a54ead3a7469754be1d66aed7001887de28abaab9314"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_coverage.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_coverage.log",
+      "sha256": "7bd8cd0800eada988facd5039cfe24d3ecfb1519be00a6f745ce92b38384c3c3"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_coverage_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_coverage_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup.log",
+      "sha256": "035fd10885efe5e0a4c6a3813e3cde3853843b7387da932dbec02683e8aa310f"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_source-document-whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_source-document-whitespace.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_source-document-whitespace_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_source-document-whitespace_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_staged-whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_staged-whitespace.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_staged-whitespace_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout/experiments/results/remaining_kitti_coverage/validation_staged-whitespace_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

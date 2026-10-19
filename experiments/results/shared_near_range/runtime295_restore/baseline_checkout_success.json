@@ -1,0 +1,1585 @@
+{
+  "command": [
+    "git",
+    "switch",
+    "-c",
+    "codex/restore-frozen-baseline295",
+    "40278ee01ede562a490e4d09d256e435a1b562d6"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "Switched to a new branch 'codex/restore-frozen-baseline295'\n",
+  "archived_agent_partial": [
+    {
+      "path": ".gitattributes",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/.gitattributes"
+    },
+    {
+      "path": "common/include/common/degeneracy.h",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/common/include/common/degeneracy.h"
+    },
+    {
+      "path": "common/include/common/initial_registration.h",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/common/include/common/initial_registration.h"
+    },
+    {
+      "path": "common/test/test_degeneracy.cpp",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/common/test/test_degeneracy.cpp"
+    },
+    {
+      "path": "common/test/test_initial_registration.cpp",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/common/test/test_initial_registration.cpp"
+    },
+    {
+      "path": "docs/kitti_drift_audit.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/docs/kitti_drift_audit.md"
+    },
+    {
+      "path": "docs/sensor_setup_assistant.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/docs/sensor_setup_assistant.md"
+    },
+    {
+      "path": "evaluation/scripts/diagnose_kitti_steps.py",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/evaluation/scripts/diagnose_kitti_steps.py"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/aloam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/aloam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/aloam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/aloam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/aloam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/aloam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/kitti_remaining_fixed_coverage_plan.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/kitti_remaining_fixed_coverage_plan.json"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/l_lo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/l_lo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/l_lo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/l_lo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/l_lo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/README.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/README.md"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/build.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/build.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/commands.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/configure.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/configure.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/ctest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/ctest.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/exit.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/generate_leaderboard_check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/generate_leaderboard_check.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/generate_paper_ready_evidence_check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/generate_paper_ready_evidence_check.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/preservation.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/preservation.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/python_unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/python_unittest.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/syntax.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/syntax.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/unchanged_native_sources.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/unchanged_native_sources.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/validate_showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/validate_showcase.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/checks/whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/checks/whitespace.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/commands.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/exit.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/generate_full_variant_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/generate_full_variant_table.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/generate_leaderboard_check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/generate_leaderboard_check.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/generate_paper_ratio_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/generate_paper_ratio_table.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/generate_paper_ready_evidence_check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/generate_paper_ready_evidence_check.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/implementation_identity.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/implementation_identity.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/preservation.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/preservation.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/refresh_study_docs.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/refresh_study_docs.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/validate_showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/validate_showcase.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/final_checks/whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/final_checks/whitespace.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/historical_aggregate_sha256.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/historical_aggregate_sha256.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/protocol.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/protocol.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/ate_drift.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/ate_drift_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/ate_drift_replay/fixture_reference_matrix__fixture_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/ate_drift_replay/fixture_reference_matrix__fixture_reference.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/ate_drift_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/ate_drift_report.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/baseline.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/baseline.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/baseline_summary.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/baseline_summary.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/commands.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/comparison.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/comparison.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/exit.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/frame_drift.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/frame_drift_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/frame_drift_replay/fixture_reference_matrix__fixture_reference.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/frame_drift_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/frame_drift_report.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/inputs.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/inputs.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/launcher.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/missing_input.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/missing_input.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/missing_input_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/missing_input_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/missing_input_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/missing_input_report.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_replay/fixture_reference_matrix__fixture_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_replay/fixture_reference_matrix__fixture_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_replay/fixture_reference_matrix__fixture_reference.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_replay/fixture_reference_matrix__fixture_reference.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/rpe_drift_report.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/same.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/same_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same_replay/fixture_reference_matrix__fixture_reference.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/same_replay/fixture_reference_matrix__fixture_reference.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same_replay/fixture_reference_matrix__fixture_reference.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/same_replay/fixture_reference_matrix__fixture_reference.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/real_fixture/same_report.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/real_fixture/same_report.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/audit_regressions.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/targeted/audit_regressions.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/targeted/commands.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/targeted/exit.json"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/rescore_regression.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/targeted/rescore_regression.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/targeted/whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/targeted/whitespace.log"
+    },
+    {
+      "path": "experiments/results/kitti_audit_tooling/validate_real_fixture.py",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/kitti_audit_tooling/validate_real_fixture.py"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/README.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/README.md"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_checks.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/final_checks.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_leaderboard-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/final_leaderboard-check.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_paper-ready-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/final_paper-ready-check.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_python-unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/final_python-unittest.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/final_validate-showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/final_validate-showcase.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_checks.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_checks.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_ctest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_ctest.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_leaderboard-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_leaderboard-check.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_paper-ready-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_paper-ready-check.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_python-unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_python-unittest.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/checks/postbuild_validate-showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/checks/postbuild_validate-showcase.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/controller_resume_exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/controller_resume_exit.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/controller_resume_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/controller_resume_stdout.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/environment.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/environment.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/generate_fixed_coverage_readmes.py",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/generate_fixed_coverage_readmes.py"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/helper_resume_exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/helper_resume_exit.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/helper_resume_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/helper_resume_stdout.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/historical_aggregate_regeneration_check.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/historical_aggregate_regeneration_check.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/historical_aggregate_sha256.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/historical_aggregate_sha256.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/import_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/import_commands.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/parallel_execution.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/parallel_execution.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_generate_full_variant_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/regenerate_generate_full_variant_table.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_generate_paper_comparison.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/regenerate_generate_paper_comparison.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_generate_paper_ratio_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/regenerate_generate_paper_ratio_table.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_generate_reproduction_status.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/regenerate_generate_reproduction_status.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regenerate_refresh_study_docs.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/regenerate_refresh_study_docs.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/regeneration_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/regeneration_commands.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_01_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_01_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_01_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_01_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_02_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_02_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_02_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_02_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_03_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_03_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_03_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_03_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_04_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_04_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_04_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_04_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_05_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_05_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_05_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_05_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_06_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_06_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_06_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_06_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_08_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_08_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_08_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_08_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_09_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_09_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_09_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_09_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_10_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_10_commands.log"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/seq_10_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/seq_10_complete.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/summary.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/summary.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/transport_recovery.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/transport_recovery.json"
+    },
+    {
+      "path": "experiments/results/mesh_inten_kitti_coverage/validation_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_inten_kitti_coverage/validation_commands.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/README.md",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/README.md"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/aloam_launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/aloam_launcher.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/build_0.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/build_0.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/build_1.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/build_1.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/build_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/build_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_checks.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/final_checks.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_leaderboard-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/final_leaderboard-check.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_paper-ready-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/final_paper-ready-check.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_python-unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/final_python-unittest.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/final_validate-showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/final_validate-showcase.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_checks.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/postbuild_checks.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_ctest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/postbuild_ctest.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_leaderboard-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/postbuild_leaderboard-check.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_paper-ready-check.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/postbuild_paper-ready-check.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_python-unittest.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/postbuild_python-unittest.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/checks/postbuild_validate-showcase.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/checks/postbuild_validate-showcase.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/controller_exit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/controller_exit.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/controller_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/controller_stdout.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/environment.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/environment.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/generate_fixed_coverage_readmes.py",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/generate_fixed_coverage_readmes.py"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/historical_aggregate_import_check.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/historical_aggregate_import_check.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/historical_aggregate_regeneration_check.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/historical_aggregate_regeneration_check.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/historical_aggregate_sha256.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/historical_aggregate_sha256.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/import_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/import_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/import_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/import_stdout.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/l_lo_launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/l_lo_launcher.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/lf_gicp_launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/lf_gicp_launcher.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/overview_ratio_audit.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/overview_ratio_audit.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/overview_ratio_audit_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/overview_ratio_audit_stderr.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/postprocess_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/postprocess_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/postprocess_stdout.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/postprocess_stdout.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/quadric_lo_launcher.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/quadric_lo_launcher.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_generate_full_variant_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/regenerate_generate_full_variant_table.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_generate_paper_comparison.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/regenerate_generate_paper_comparison.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_generate_paper_ratio_table.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/regenerate_generate_paper_ratio_table.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_generate_reproduction_status.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/regenerate_generate_reproduction_status.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regenerate_refresh_study_docs.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/regenerate_refresh_study_docs.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/regeneration_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/regeneration_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/render_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/render_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/render_stdout.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/render_stdout.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_aloam_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_aloam_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_aloam_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_lf_gicp_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_01_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_02_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_02_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_02_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_aloam_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_aloam_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_aloam_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_l_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_l_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_l_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_lf_gicp_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_03_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_aloam_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_aloam_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_aloam_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_l_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_l_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_l_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_lf_gicp_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_04_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_05_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_05_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_05_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_aloam_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_aloam_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_aloam_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_l_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_l_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_l_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_lf_gicp_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_06_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_08_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_08_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_08_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_aloam_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_aloam_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_aloam_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_l_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_l_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_l_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_lf_gicp_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_09_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_aloam_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_aloam_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_aloam_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_aloam_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_aloam_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_fetch_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_l_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_l_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_l_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_l_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_l_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_lf_gicp_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_commands.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_complete.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_complete.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_status.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/seq_10_quadric_lo_status.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/stage.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/stage.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/summary.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/summary.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/transport_recovery.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/transport_recovery.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_commands.json",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_commands.json"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_coverage.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_coverage.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_coverage_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_coverage_stderr.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_raw-scan-cleanup_stderr.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_source-document-whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_source-document-whitespace.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_source-document-whitespace_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_source-document-whitespace_stderr.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_staged-whitespace.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_staged-whitespace.log"
+    },
+    {
+      "path": "experiments/results/remaining_kitti_coverage/validation_staged-whitespace_stderr.log",
+      "archive": "/workspace/localization-env/shared-near-range/restore295/agent_partial_checkout02/experiments/results/remaining_kitti_coverage/validation_staged-whitespace_stderr.log"
+    }
+  ],
+  "directory_ownership_repaired_to": "1000:1000",
+  "prior_failure": "Container root was mapped to host65534; conditional chown did not match inside container. Explicit bounded chown repaired metadata only."
+}

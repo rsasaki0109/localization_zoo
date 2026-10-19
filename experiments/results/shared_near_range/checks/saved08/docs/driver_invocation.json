@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-range-final-audit/check_docs08.py",
+    "15157babba6d83ccd890c2251050d22629ad0c6b"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+  "source_commit": "41626da55c2a3a54478847117920cc74c60c687b",
+  "exit_code": 0,
+  "scope": "Actual full driver invocation; per-subcommand timings/exits are in commands.json. Preservation details and original native commit are in preservation.json."
+}

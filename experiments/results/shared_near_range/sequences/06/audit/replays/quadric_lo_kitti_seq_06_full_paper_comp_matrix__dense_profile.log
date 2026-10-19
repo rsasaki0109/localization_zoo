@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 1232.7 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running Quadric-LO...
+  source_voxel_size=0.3 voxel_size=0.8 quadric_min_neighbors=14 plane_fallback=1 quadric_weight=1.0
+  [Quadric-LO] 0/1101 voxels=4210  [Quadric-LO] 10/1101 voxels=11439  [Quadric-LO] 20/1101 voxels=13604  [Quadric-LO] 30/1101 voxels=14947  [Quadric-LO] 40/1101 voxels=16929  [Quadric-LO] 50/1101 voxels=18048  [Quadric-LO] 60/1101 voxels=17826  [Quadric-LO] 70/1101 voxels=19672  [Quadric-LO] 80/1101 voxels=20707  [Quadric-LO] 90/1101 voxels=21729  [Quadric-LO] 100/1101 voxels=23190  [Quadric-LO] 110/1101 voxels=22868  [Quadric-LO] 120/1101 voxels=21828  [Quadric-LO] 130/1101 voxels=22394  [Quadric-LO] 140/1101 voxels=21554  [Quadric-LO] 150/1101 voxels=20545  [Quadric-LO] 160/1101 voxels=21638  [Quadric-LO] 170/1101 voxels=21889  [Quadric-LO] 180/1101 voxels=21981  [Quadric-LO] 190/1101 voxels=23340  [Quadric-LO] 200/1101 voxels=22964  [Quadric-LO] 210/1101 voxels=22604  [Quadric-LO] 220/1101 voxels=23068  [Quadric-LO] 230/1101 voxels=22968  [Quadric-LO] 240/1101 voxels=21852  [Quadric-LO] 250/1101 voxels=22070  [Quadric-LO] 260/1101 voxels=20762  [Quadric-LO] 270/1101 voxels=19662  [Quadric-LO] 280/1101 voxels=20934  [Quadric-LO] 290/1101 voxels=21054  [Quadric-LO] 300/1101 voxels=21628  [Quadric-LO] 310/1101 voxels=22869  [Quadric-LO] 320/1101 voxels=23506  [Quadric-LO] 330/1101 voxels=23553  [Quadric-LO] 340/1101 voxels=24025  [Quadric-LO] 350/1101 voxels=24502  [Quadric-LO] 360/1101 voxels=24155  [Quadric-LO] 370/1101 voxels=24303  [Quadric-LO] 380/1101 voxels=23611  [Quadric-LO] 390/1101 voxels=23533  [Quadric-LO] 400/1101 voxels=25594  [Quadric-LO] 410/1101 voxels=25178  [Quadric-LO] 420/1101 voxels=23359  [Quadric-LO] 430/1101 voxels=24177  [Quadric-LO] 440/1101 voxels=23230  [Quadric-LO] 450/1101 voxels=23077  [Quadric-LO] 460/1101 voxels=24495  [Quadric-LO] 470/1101 voxels=24555  [Quadric-LO] 480/1101 voxels=23458  [Quadric-LO] 490/1101 voxels=24089  [Quadric-LO] 500/1101 voxels=23274  [Quadric-LO] 510/1101 voxels=22540  [Quadric-LO] 520/1101 voxels=23156  [Quadric-LO] 530/1101 voxels=20798  [Quadric-LO] 540/1101 voxels=19279  [Quadric-LO] 550/1101 voxels=19884  [Quadric-LO] 560/1101 voxels=19771  [Quadric-LO] 570/1101 voxels=18994  [Quadric-LO] 580/1101 voxels=19905  [Quadric-LO] 590/1101 voxels=19432  [Quadric-LO] 600/1101 voxels=19574  [Quadric-LO] 610/1101 voxels=20340  [Quadric-LO] 620/1101 voxels=18771  [Quadric-LO] 630/1101 voxels=17931  [Quadric-LO] 640/1101 voxels=18962  [Quadric-LO] 650/1101 voxels=18350  [Quadric-LO] 660/1101 voxels=17327  [Quadric-LO] 670/1101 voxels=18121  [Quadric-LO] 680/1101 voxels=18578  [Quadric-LO] 690/1101 voxels=19303  [Quadric-LO] 700/1101 voxels=20721  [Quadric-LO] 710/1101 voxels=22409  [Quadric-LO] 720/1101 voxels=23355  [Quadric-LO] 730/1101 voxels=23546  [Quadric-LO] 740/1101 voxels=22744  [Quadric-LO] 750/1101 voxels=21869  [Quadric-LO] 760/1101 voxels=22075  [Quadric-LO] 770/1101 voxels=20447  [Quadric-LO] 780/1101 voxels=19854  [Quadric-LO] 790/1101 voxels=21388  [Quadric-LO] 800/1101 voxels=21234  [Quadric-LO] 810/1101 voxels=19704  [Quadric-LO] 820/1101 voxels=19890  [Quadric-LO] 830/1101 voxels=19339  [Quadric-LO] 840/1101 voxels=19244  [Quadric-LO] 850/1101 voxels=19804  [Quadric-LO] 860/1101 voxels=18840  [Quadric-LO] 870/1101 voxels=18580  [Quadric-LO] 880/1101 voxels=19755  [Quadric-LO] 890/1101 voxels=18875  [Quadric-LO] 900/1101 voxels=19343  [Quadric-LO] 910/1101 voxels=21415  [Quadric-LO] 920/1101 voxels=22431  [Quadric-LO] 930/1101 voxels=22639  [Quadric-LO] 940/1101 voxels=23443  [Quadric-LO] 950/1101 voxels=22549  [Quadric-LO] 960/1101 voxels=20818  [Quadric-LO] 970/1101 voxels=21911  [Quadric-LO] 980/1101 voxels=21082  [Quadric-LO] 990/1101 voxels=20765  [Quadric-LO] 1000/1101 voxels=22681  [Quadric-LO] 1010/1101 voxels=22563  [Quadric-LO] 1020/1101 voxels=22273  [Quadric-LO] 1030/1101 voxels=23157  [Quadric-LO] 1040/1101 voxels=22513  [Quadric-LO] 1050/1101 voxels=21943  [Quadric-LO] 1060/1101 voxels=21929  [Quadric-LO] 1070/1101 voxels=20701  [Quadric-LO] 1080/1101 voxels=19016  [Quadric-LO] 1090/1101 voxels=19782  [Quadric-LO] 1100/1101 voxels=19634
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+Quadric-LO              ok          2.425       0.587          1101        1164482.5      0.9         
+
+Notes:
+- Quadric-LO: Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=3805/40 plane_fallback_ratio=0.0104
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_06_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_06_full_evaluation_manifest.json)

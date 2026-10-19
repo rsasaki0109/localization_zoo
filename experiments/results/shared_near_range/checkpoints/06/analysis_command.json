@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_near_range/checkpoint_report.py",
+    "--output-dir",
+    "/workspace/localization-env/shared-range-checkpoint06/checkpoint"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-checkpoint06/worktree",
+  "source_commit": "54eaeab6aadc8bc8a27ed5398962f1e566aca0ae",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/shared-range-checkpoint06/matplotlib"
+  },
+  "started_unix": 1792395920.478372,
+  "finished_unix": 1792395920.6656525,
+  "exit_code": 0
+}

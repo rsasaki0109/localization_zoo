@@ -1,0 +1,319 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_near_range/diagnose_saved02.py",
+    "--sequence",
+    "06",
+    "--output-dir",
+    "/workspace/localization-env/shared-range-checkpoint06/diagnosis"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-checkpoint06/worktree",
+  "input_commit": "54eaeab6aadc8bc8a27ed5398962f1e566aca0ae",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "sequence": "06",
+  "protocol": {
+    "schema_version": 1,
+    "sequence": "06",
+    "status": "awaiting_committed_frozen_comparison_and_cleanup",
+    "inherited_protocol": "experiments/results/shared_near_range/diagnostics/02_protocol.json",
+    "inherited_protocol_commit": "878942285f60f6f4fca4ee700df940f37000c79d",
+    "methods": [
+      "CT-ICP",
+      "Mesh-LOAM"
+    ],
+    "diagnostic_parameters": {
+      "block_frames": 100,
+      "min_step_m": 0.1,
+      "relative_step_threshold": 0.2
+    },
+    "selection": "Every historical difference confirmed by the closed candidate06 audit, expected CT-ICP and Mesh-LOAM. Require committed candidate/frozen reports to confirm this exact set before output. Diagnostic parameters transfer unchanged from02/01; no registration setting is selected and no estimator is rerun.",
+    "publication_gate": "Candidate/frozen reports and actual command receipts, matching frozen comparison and input cleanup must be committed and unchanged. Owned scans and alias must be absent before any diagnostic output is created.",
+    "position_error": "First-pose-normalized estimated position versus the same evaluated GT; no fitted alignment or rescaling.",
+    "paired_gap": "Euclidean position difference between first-pose-normalized historical and current estimates. Rank inherited fixed blocks by gap at end minus gap at start; retain every block and every frame.",
+    "limits": "Pair only available committed historical trajectories with byte-identical evaluated GT. Exact-path and reachable-history probes describe this checkout, not global absence. Error-growth blocks cannot establish historical/runtime causality or an extraction effect. Record Mesh historical/current runtime and core identity; differing thread counts are a confound, not a cause. Commit raw diagnostic results before numerical prose; the historical audit's drift exit remains a negative result. These results use the original frozen implementation, not a whole-zoo validation of newly merged acceleration or passive tracing.",
+    "frozen_control_methods": [
+      "CT-ICP",
+      "Mesh-LOAM"
+    ]
+  },
+  "frozen_control_methods": [
+    "CT-ICP",
+    "Mesh-LOAM"
+  ],
+  "input_sha256": {
+    "experiments/results/shared_near_range/diagnose_saved02.py": "c98e6a57e538705b2d1b51c3e1caf8d39a4720781b88441563e4d44d218feee5",
+    "experiments/results/shared_near_range/support.py": "bc04bce97bf2df5cc8912137e0d371efe0e065c5b40f860f1d40ac8e68a7b761",
+    "experiments/results/shared_near_range/protocol.json": "1f00d46f4c0c24ee63cef21bd6fdaefe23a0d714abf92e13f8dc6b1c0294808b",
+    "experiments/results/shared_near_range/diagnostics/06_protocol.json": "4224098f333e8ec5649e0858879d37c19db8bb59f9a8c84a08b9dd7ef2ec0b82",
+    "experiments/results/shared_near_range/sequences/06/audit/report.json": "1f61866805c0a241561e0a2ae3858a8c0a88afe4151d11a39205cd4292ea0d8e",
+    "experiments/results/shared_near_range/sequences/06/audit/audit_command.json": "d80be8940940b7fc85e346bf6089b597a74c22009f623540d6d146b4ba05c1d0",
+    "experiments/results/shared_near_range/candidate.json": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a",
+    "experiments/results/shared_near_range/native_wrapper.py": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3",
+    "experiments/results/shared_near_range/baseline.json": "7d9344421e2ea56776a8fff4fb49dadaf308d2635bd643a1c1ae333c99428fd2",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/report.json": "a00d7e6686c313cd7d4d89122216bd11744b3fa260b4c1798939be855c78ca14",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/audit_command.json": "731f82371816b75996d40af3f9b7ba862eb4be5f63f1ae88b421bb8241dc9c80",
+    "experiments/results/shared_near_range/sequences/06/frozen_comparison.json": "dc26481d20abf52298cd0b5939249953b16429d179180c5576b9074704025efe",
+    "experiments/results/shared_near_range/sequences/06/cleanup.json": "8d6f12e85d774ce35f958a487d135dcbe4a6599d5e5a25582620a2bcc7f8f8a4",
+    "evaluation/scripts/diagnose_kitti_steps.py": "31c33e09a25890a9206fea331835f22e6bee7aa86327663b4c6a009dd091825a",
+    "evaluation/scripts/evaluate_external_kitti_odometry.py": "dd7e8c4b332ead68cf5c87dfd67d7eed12851d8256db4ff9f3b6999a7f0170e4",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation.json": "6573124dbbf83fa4c4f97f30a279ec25d773f89c004577bcb967f441d1107938",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native_command.json": "b33126edf320effeb3f9101fb0ab434bd562681ca9e44e3e0f8ffce7ceee7d0b",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation.json": "620dd15656e6e53ceac78cd4f7dede0adfd9d8d3c1a28472fe46597af09b63e6",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation_native_command.json": "d3da5620815bfba9bf2376fbdc05a3ca99a5f54b88eac85ad89c0d08cdba6ad8",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation.json": "32bd437fd31f589e8260e951881c0c6d7798896f3671d42699c0377845708f20",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native_command.json": "4f575bf145ff73616bef533a7a438dc97782ded95a221d520f1a23f2578abff6",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt": "fae1c22cbf30befd6908c232d70af5251a87603a0029183f77f55dfe099b6334",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt": "fae1c22cbf30befd6908c232d70af5251a87603a0029183f77f55dfe099b6334",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/gt.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/gt.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/kitti_seq_06_full_evaluated_gt.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/kitti_seq_06_full_evaluated_gt.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json": "4e3cd6e36bde3118ea6444d64c31ad50bdc4dcb1bbe580a6444e9a6f444eaf0c",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation.json": "f99ec4d8c264b25bfb6785ff18af3aac4d7a6244c7d6219b791024c5d54ca096",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation_native_command.json": "7bd4f46b3f5097b025d79930117ab26e288a4fab2985cdf998c2082eafb45ea2",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt": "e133a229996f6dbcd8aa599da845df7d8d7ab5c4d1cb74031eb8979240cfc872",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt": "e133a229996f6dbcd8aa599da845df7d8d7ab5c4d1cb74031eb8979240cfc872",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/gt.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/gt.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/shared_near_range/sequences/06/audit/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/kitti_seq_06_full_evaluated_gt.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/shared_near_range/sequences/06/frozen_baseline/replays/mesh_loam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/kitti_seq_06_full_evaluated_gt.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json": "557404585aa0f59ef744fdd44d4d19e1385d9cbda0767ede763f30119c021ff5",
+    "experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/summary.json": "d9b70d065ef5e2ce773e9da334f90022c922438ea825b49b18601500069ae3a9",
+    "experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt": "985db668e97d99e17a5278261a400201920011e35513eeec8fe0d4f2249eb4ea",
+    "experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/evaluated_gt_kitti.txt": "2b1a8d3988302f93535a4f0a9ceb4eef575fa6c9213edc36a8e247476ccb9e92",
+    "experiments/results/mesh_inten_kitti_coverage/environment.json": "c847af574261c526da89609aea92e6145190ff8a0a7ff4e8d976148f2408678b",
+    "experiments/results/mesh_inten_kitti_coverage/seq_06_commands.log": "80a08d10a76fa91b592dddb4dd6c44f8826f073d94d8d22a01e00f944c392dcb",
+    "papers/mesh_loam/src/mesh_loam.cpp": "5552ddaa80f0f7df8a5f5ebb916bbfdc0c573c6413df38607473f70852968db8",
+    "papers/mesh_loam/include/mesh_loam/mesh_loam.h": "f7d9112478cfbcf9b63ad5818293db70caa9384b7d4f8ca7535a4fda57969604"
+  },
+  "candidate_binary_sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+  "audit_wrapper_sha256": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3",
+  "rows": [
+    {
+      "method": "CT-ICP",
+      "current_saved_pose_metric_abs_delta": {
+        "ate_m": 3.4341407095794807e-07,
+        "rpe_trans_pct": 4.3791587767127993e-07,
+        "kitti_rte_trans_pct": 2.7437131921992375e-07,
+        "kitti_rte_rot_deg_per_100m": 2.1565145377766548e-07
+      },
+      "metric_check_abs_tolerance": 0.001,
+      "largest_current_error_growth_block": {
+        "first_pose_frame": 900,
+        "last_pose_frame": 1000,
+        "gt_distance_m": 127.87481897923008,
+        "path_length_ratio": 1.0005605679822054,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 0.9992374578028811,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 1.0821539650949723,
+        "position_error_end_m": 5.860882155048122,
+        "block_relative_translation_error_pct": 0.3955123777236307,
+        "block_relative_rotation_error_deg_per_100m": 0.32938286849361803
+      },
+      "legacy_summary_path": "experiments/results/runs/ct_icp_kitti_seq_06_full_upstream_matrix/upstream_mechanics_elevation/summary.json",
+      "legacy_summary_exists": false,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "54eaeab6aadc8bc8a27ed5398962f1e566aca0ae:experiments/results/runs/ct_icp_kitti_seq_06_full_upstream_matrix/upstream_mechanics_elevation/summary.json"
+        ],
+        "exit_code": 128,
+        "stderr": "fatal: path 'experiments/results/runs/ct_icp_kitti_seq_06_full_upstream_matrix/upstream_mechanics_elevation/summary.json' does not exist in '54eaeab6aadc8bc8a27ed5398962f1e566aca0ae'\n"
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "-1",
+          "--format=%H",
+          "--",
+          "experiments/results/runs/ct_icp_kitti_seq_06_full_upstream_matrix/upstream_mechanics_elevation/summary.json"
+        ],
+        "latest_reachable_commit": null
+      },
+      "paired_historical_comparison_available": false
+    },
+    {
+      "method": "Mesh-LOAM",
+      "current_saved_pose_metric_abs_delta": {
+        "ate_m": 3.824428866927576e-07,
+        "rpe_trans_pct": 1.8430728032647892e-07,
+        "kitti_rte_trans_pct": 4.5656112224179424e-07,
+        "kitti_rte_rot_deg_per_100m": 5.158585986153597e-07
+      },
+      "metric_check_abs_tolerance": 0.001,
+      "largest_current_error_growth_block": {
+        "first_pose_frame": 900,
+        "last_pose_frame": 1000,
+        "gt_distance_m": 127.87481897923008,
+        "path_length_ratio": 1.0023503522449497,
+        "moving_step_count": 100,
+        "step_length_ratio_median": 1.0015966721388068,
+        "steps_length_off_over_threshold": 0,
+        "steps_vector_off_over_threshold": 0,
+        "position_error_start_m": 0.7123294721434635,
+        "position_error_end_m": 2.8786832974418224,
+        "block_relative_translation_error_pct": 0.6916289364577779,
+        "block_relative_rotation_error_deg_per_100m": 0.24689620359922604
+      },
+      "legacy_summary_path": "experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/summary.json",
+      "legacy_summary_exists": true,
+      "legacy_git_probe": {
+        "command": [
+          "git",
+          "cat-file",
+          "-e",
+          "54eaeab6aadc8bc8a27ed5398962f1e566aca0ae:experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/summary.json"
+        ],
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "legacy_history_probe": {
+        "command": [
+          "git",
+          "log",
+          "--all",
+          "-1",
+          "--format=%H",
+          "--",
+          "experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/summary.json"
+        ],
+        "latest_reachable_commit": "bd5fb3c5efc5941cb6895222c18666fab0c59c3e"
+      },
+      "paired_historical_comparison_available": true,
+      "historical_saved_pose_metric_abs_delta": {
+        "ate_m": 1.0410893480639061e-07,
+        "rpe_trans_pct": 1.9283337038267234e-07,
+        "kitti_rte_trans_pct": 6.527531526412389e-08,
+        "kitti_rte_rot_deg_per_100m": 5.253136336202946e-07
+      },
+      "same_evaluated_gt_bytes": true,
+      "current_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      },
+      "first_different_saved_pose_row": 1,
+      "final_path_gap_m": 0.020145934811432373,
+      "max_path_gap_m": 0.020145934811432373,
+      "max_path_gap_frame": 1100,
+      "paired_blocks": [
+        {
+          "first_pose_frame": 0,
+          "last_pose_frame": 100,
+          "gap_start_m": 0.0,
+          "gap_end_m": 0.00019012406009334305,
+          "gap_growth_m": 0.00019012406009334305
+        },
+        {
+          "first_pose_frame": 100,
+          "last_pose_frame": 200,
+          "gap_start_m": 0.00019012406009334305,
+          "gap_end_m": 0.0006444472778611534,
+          "gap_growth_m": 0.00045432321776781037
+        },
+        {
+          "first_pose_frame": 200,
+          "last_pose_frame": 300,
+          "gap_start_m": 0.0006444472778611534,
+          "gap_end_m": 0.0012081821498818076,
+          "gap_growth_m": 0.0005637348720206542
+        },
+        {
+          "first_pose_frame": 300,
+          "last_pose_frame": 400,
+          "gap_start_m": 0.0012081821498818076,
+          "gap_end_m": 0.0005064121345297538,
+          "gap_growth_m": -0.0007017700153520538
+        },
+        {
+          "first_pose_frame": 400,
+          "last_pose_frame": 500,
+          "gap_start_m": 0.0005064121345297538,
+          "gap_end_m": 0.0026821107429487517,
+          "gap_growth_m": 0.0021756986084189977
+        },
+        {
+          "first_pose_frame": 500,
+          "last_pose_frame": 600,
+          "gap_start_m": 0.0026821107429487517,
+          "gap_end_m": 0.0074322739094775155,
+          "gap_growth_m": 0.004750163166528764
+        },
+        {
+          "first_pose_frame": 600,
+          "last_pose_frame": 700,
+          "gap_start_m": 0.0074322739094775155,
+          "gap_end_m": 0.014940270416109598,
+          "gap_growth_m": 0.007507996506632083
+        },
+        {
+          "first_pose_frame": 700,
+          "last_pose_frame": 800,
+          "gap_start_m": 0.014940270416109598,
+          "gap_end_m": 0.0065008342217971835,
+          "gap_growth_m": -0.008439436194312415
+        },
+        {
+          "first_pose_frame": 800,
+          "last_pose_frame": 900,
+          "gap_start_m": 0.0065008342217971835,
+          "gap_end_m": 0.004241714916099569,
+          "gap_growth_m": -0.0022591193056976143
+        },
+        {
+          "first_pose_frame": 900,
+          "last_pose_frame": 1000,
+          "gap_start_m": 0.004241714916099569,
+          "gap_end_m": 0.014211516852893518,
+          "gap_growth_m": 0.009969801936793948
+        },
+        {
+          "first_pose_frame": 1000,
+          "last_pose_frame": 1100,
+          "gap_start_m": 0.014211516852893518,
+          "gap_end_m": 0.020145934811432373,
+          "gap_growth_m": 0.005934417958538855
+        }
+      ],
+      "largest_path_gap_growth_block": {
+        "first_pose_frame": 900,
+        "last_pose_frame": 1000,
+        "gap_start_m": 0.004241714916099569,
+        "gap_end_m": 0.014211516852893518,
+        "gap_growth_m": 0.009969801936793948
+      },
+      "historical_core_identity": {
+        "papers/mesh_loam/src/mesh_loam.cpp": {
+          "recorded_source_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+          "current_source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+          "sha256": "5552ddaa80f0f7df8a5f5ebb916bbfdc0c573c6413df38607473f70852968db8",
+          "identical": true
+        },
+        "papers/mesh_loam/include/mesh_loam/mesh_loam.h": {
+          "recorded_source_commit": "d1b7288ff46964bde86ef15ab34b2ae8b4f389da",
+          "current_source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+          "sha256": "f7d9112478cfbcf9b63ad5818293db70caa9384b7d4f8ca7535a4fda57969604",
+          "identical": true
+        }
+      },
+      "historical_binary_sha256": "a75d8c5b42e8b021ba3afbe63708a2bca26b776253d100acdda94c87f179b0e2",
+      "historical_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OPENBLAS_NUM_THREADS": "1"
+      }
+    }
+  ],
+  "completion_gate": {
+    "committed_candidate": true,
+    "committed_frozen_comparison": true,
+    "committed_cleanup": true,
+    "owned_scans_and_alias_absent": true
+  },
+  "exit_code": 0,
+  "scope": "Offline saved-path diagnosis after committed matching frozen controls and cleanup. Blocks locate error growth, not its cause. No estimator/scan read, setting selection, new accuracy claim or current-main whole-zoo validation."
+}

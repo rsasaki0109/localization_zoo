@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-near-range/restore295/launch_and_back_up.py"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "pid": 3209,
+  "source_commit": "c2d1d9baa85eddf6def0137fcc938f52e46c5b44",
+  "source_sha256": "7e69b55aec08758458e38c185c027baf18a70e5cd17b809735b692b119722b35",
+  "started_unix": 1792382722.0829859,
+  "exit_code": null
+}

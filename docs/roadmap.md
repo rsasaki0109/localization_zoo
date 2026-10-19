@@ -299,10 +299,12 @@ independent. Each item says what "done" means.
      [Saved03 Mesh diagnosis](../experiments/results/shared_near_range/diagnostics/03/README.md)
      retains the paired historical path gap and inherited block breakdown;
      runtime differs, so the original cause remains open.
-     The environment restarted during05. Interrupted outputs are preserved and
-     excluded from coverage; a source-pinned recovery reruns all selected05
-     cells with the same frozen executables/settings before continuing.
-     [Recovery protocol](../experiments/results/shared_near_range/recovery05_protocol.json).
+     A later full environment recreation removed the earlier retained05
+     recovery attempt, owned scans and executables; unavailable work is excluded.
+     Both frozen executables were rebuilt with exact SHA256 matches. The sealed
+     controller restarted at fresh05 acquisition with unchanged cell settings;
+     completed, cleaned sequence commits now receive a separate normal-push backup.
+     [Restoration, restart receipts and backup limits](../experiments/results/shared_near_range/runtime295_restore/README.md).
      Full 01 candidate replay also finishes all 13 cells: 11 match;
      CT-ICP and Mesh-LOAM differ, retaining audit exit 1. Their numeric pairs
      are in the method READMEs. Both frozen pre-extraction controls have zero

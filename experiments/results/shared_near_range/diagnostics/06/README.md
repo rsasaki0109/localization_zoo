@@ -81,6 +81,17 @@ Closed06 retains its complete CT/Mesh cohort without inheriting04's additional
 controls; unexpected controls are rejected before output. All **21** gate tests
 pass with actual exit **0** in normal and optimized Python.
 
+[Repository checks and exact commands](../../checks/saved06/docs/commands.json)
+retain full, losslessly compressed logs. Required document generators,
+showcase, leaderboard, paper-ready and whitespace checks exit **0**. Full Python
+runs **336** tests with **5** built-evaluator skips in this separate checkout,
+exiting **0**; final-head CI provides native coverage. The
+[preservation receipt](../../checks/saved06/docs/preservation.json) verifies all
+**688** historical aggregate hashes, unchanged publication/paper-number bytes,
+lossless raw06 import, prior README content and the running primary's frozen
+native source, sealed scripts and executable hashes. Timestamp-only generator
+changes retain prior bytes with an explicit disposition receipt.
+
 The new [cleaned checkpoint](../../checkpoints/06/summary.json) covers **111/177**
 cells across 04/00/01/02/03/05/06: **89** historical matches and **22** differences.
 All **24** frozen controls have zero metric differences and identical saved

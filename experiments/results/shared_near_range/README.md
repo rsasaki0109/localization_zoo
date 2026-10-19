@@ -469,6 +469,11 @@ or a whole-zoo validation of current-main acceleration/passive tracing.
 
 ## Checkpoint integration while the frozen replay continues
 
+The [06 regeneration, regression and preservation checks](checks/saved06/docs/)
+retain exact commands, actual exits, complete lossless logs and raw-import hashes.
+The separate checkout's built-evaluator skips remain visible; full native and
+ROS coverage runs in final-head CI. The original running checkout is preserved.
+
 The committed checkpoint and diagnostics can be integrated using a separate
 worktree while the original replay retains its frozen checkout and executables.
 The running controller and completion worker keep their original files and

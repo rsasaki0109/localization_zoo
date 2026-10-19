@@ -27,6 +27,12 @@ the cause of historical metric differences.
 The [KITTI02 saved-path diagnosis](diagnostics/02/README.md) now includes all
 historical differences on that sequence and the available Mesh paired paths.
 
+The [KITTI03 Mesh diagnosis](diagnostics/03/README.md) retains the paired
+historical gap and current error growth. The
+[KITTI04 CT/Mesh diagnosis](diagnostics/04/README.md) retains both numerical
+pairs, the available Mesh pair and CT's historical-path availability limits.
+Their runtime limits and unresolved causes remain explicit.
+
 The [KITTI05 saved-path diagnosis](diagnostics/05/README.md) adds the fresh,
 cleaned05 cohort, every historical numerical difference and the available Mesh
 paired path. Its [cleaned checkpoint](checkpoints/05/summary.json)
@@ -46,12 +52,16 @@ The [KITTI08 saved-path diagnosis](diagnostics/08/README.md) adds all four
 historical differences, current error-growth traces and the available Mesh paired
 path, with explicit missing-path/runtime limits. Its
 [earlier cleaned checkpoint](checkpoints/08/summary.json) includes verified08
-cleanup; live09/10 results remain excluded.
+cleanup; later sequences are excluded from that checkpoint.
 
 The [KITTI09 saved-path diagnosis](diagnostics/09/README.md) adds the Mesh
 historical difference, current error-growth block and available paired path.
 Its [current cleaned checkpoint](checkpoints/09/summary.json) includes verified09
 cleanup; live10 results remain excluded. The historical cause remains unresolved.
+
+The [runtime restoration and backup record](runtime295_restore/README.md)
+retains the environment loss, exact executable restoration, fresh restart and
+normal-push backup limits. Closed evidence excludes unavailable interrupted work.
 
 ## Scope and status
 

@@ -1,0 +1,6 @@
+{
+  "source_commit": "d621fe2a68bff4c7b224ff14889957593fe4bfaa",
+  "baseline": "e20abfaf83708401678a94179f42aae679f4ef6d",
+  "role": "Isolated integration; original primary/native/controller unchanged. Full local Python suite uses no evaluator built in this worktree.",
+  "exit_code": 0
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "9ed935a045989d1806c0a19baa98794fa482eb54"
+  ],
+  "cwd": "/workspace/localization-env/shared-near-range/restore295/worktree",
+  "started_unix": 1792382923.3326008,
+  "finished_unix": 1792382923.3547888,
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "",
+  "reason": "Preserve original compiler trailing newlines in JSON; raw output bytes remain recoverable without whitespace violations."
+}

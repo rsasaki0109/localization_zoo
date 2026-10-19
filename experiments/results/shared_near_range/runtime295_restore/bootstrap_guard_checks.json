@@ -1,0 +1,25 @@
+[
+  {
+    "command": [
+      "python3",
+      "/workspace/localization-env/shared-near-range/restore295/test_launch_backup.py"
+    ],
+    "cwd": "/workspace",
+    "started_unix": 1792382670.886643,
+    "finished_unix": 1792382670.9939327,
+    "exit_code": 0,
+    "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.002s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-O",
+      "/workspace/localization-env/shared-near-range/restore295/test_launch_backup.py"
+    ],
+    "cwd": "/workspace",
+    "started_unix": 1792382670.994194,
+    "finished_unix": 1792382671.3176453,
+    "exit_code": 0,
+    "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.002s\n\nOK\n"
+  }
+]

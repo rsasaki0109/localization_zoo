@@ -1,0 +1,42 @@
+{
+  "exit_code": 0,
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "publication": {
+    "README.md": {
+      "sha256": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+      "identical": true
+    },
+    "docs/index.html": {
+      "sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+      "identical": true
+    },
+    "docs/assets/paper/paper_ratio_table.csv": {
+      "sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+      "identical": true
+    },
+    "docs/assets/paper/full_variant_results.csv": {
+      "sha256": "1a0da43abf1f2656556f7fb2ce8f24cf742881d72644669a2ca379525d453885",
+      "identical": true
+    },
+    "evaluation/data/paper_reported_numbers.json": {
+      "sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+      "identical": true
+    }
+  },
+  "native_method_evaluation_and_prior_study_bytes_preserved": true,
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "9ed935a045989d1806c0a19baa98794fa482eb54",
+    "--",
+    "common",
+    "papers",
+    "evaluation",
+    "CMakeLists.txt",
+    "experiments/results/shared_coarse_start",
+    "experiments/results/shared_degeneracy_remap"
+  ],
+  "command_exit_code": 0
+}

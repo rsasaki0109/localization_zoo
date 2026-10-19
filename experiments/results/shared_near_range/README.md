@@ -345,24 +345,32 @@ all recorded additional frozen controls remain validated.
 
 ## Environment interruption and remaining-sequence recovery
 
-The managed environment restarted during05; its original controller, native
-processes and completion worker were absent afterward. The interrupted audit is
-preserved under `sequences/05/interrupted_20261018/`. Unknown exits are null,
-and that attempt contributes no completed cells.
+An earlier managed-environment restart during05 removed the original controller,
+native processes and completion worker. At that recovery boundary the interrupted
+audit was preserved locally under `sequences/05/interrupted_20261018/`.
+Unknown exits remain null, and that attempt contributes no completed cells.
 
 The [recovery protocol](recovery05_protocol.json) and [source](recover_interrupted05.py)
-verify frozen source/binary/sealed pins and owned official05 scan/GT hashes, then
-rerun every selected05 cell from fresh native state. Original audit/comparison
-helpers, arguments, one-thread settings and cleanup policy are retained.
-After a complete05 commit, the sealed controller continues at the next unstarted
-sequence. This is an explicit environment-interruption addendum to the original
-fetch-failure-only restart procedure.
+verified frozen source/binary/sealed pins and the retained owned official05
+scan/GT hashes, then reran every selected05 cell from fresh native state. That
+attempt retained the original audit/comparison helpers, arguments, one-thread
+settings and cleanup policy. It was an explicit environment-interruption
+addendum to the original fetch-failure-only restart procedure.
 
 [Launch receipts](checks/recovery05_launch/) identify the recovery and replacement
 completion worker. Unfinished work is excluded from the checkpoint. Historical
 aggregates, paper numbers, Table 6 and defaults are preserved. This replay retains
 its original frozen implementation; current-main acceleration/passive tracing
 and real NCLT validation keep their previously documented scope.
+
+The subsequent full environment recreation removed that local interrupted
+archive, uncommitted05 outputs, owned scans and pinned executables. Both
+executables have now been rebuilt at their original sources with exact SHA256
+matches, and the original sealed controller restarted at the fresh05 fetch
+boundary. Successfully committed and cleaned sequence checkpoints are backed
+up by normal pushes to a separate branch. Unavailable05 work remains excluded;
+the cleaned checkpoint above is unchanged. The earlier retained-input recovery
+was not invoked again. [Restoration receipts, fresh restart and backup limits](runtime295_restore/README.md).
 
 ## Checkpoint integration while the frozen replay continues
 

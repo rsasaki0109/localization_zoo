@@ -1,0 +1,30 @@
+[
+  {
+    "command": [
+      "git",
+      "worktree",
+      "add",
+      "-b",
+      "codex/shared-range-saved04",
+      "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+      "e20abfaf83708401678a94179f42aae679f4ef6d"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "exit_code": 0,
+    "stdout": "HEAD is now at e20abfaf Verify saved04 diagnosis with merged conditioning analysis\n",
+    "stderr": "Preparing worktree (new branch 'codex/shared-range-saved04')\nUpdating files:  72% (9822/13596)\nUpdating files:  73% (9926/13596)\nUpdating files:  74% (10062/13596)\nUpdating files:  75% (10197/13596)\nUpdating files:  76% (10333/13596)\nUpdating files:  77% (10469/13596)\nUpdating files:  78% (10605/13596)\nUpdating files:  79% (10741/13596)\nUpdating files:  80% (10877/13596)\nUpdating files:  81% (11013/13596)\nUpdating files:  82% (11149/13596)\nUpdating files:  83% (11285/13596)\nUpdating files:  84% (11421/13596)\nUpdating files:  85% (11557/13596)\nUpdating files:  86% (11693/13596)\nUpdating files:  87% (11829/13596)\nUpdating files:  88% (11965/13596)\nUpdating files:  89% (12101/13596)\nUpdating files:  90% (12237/13596)\nUpdating files:  91% (12373/13596)\nUpdating files:  92% (12509/13596)\nUpdating files:  93% (12645/13596)\nUpdating files:  94% (12781/13596)\nUpdating files:  95% (12917/13596)\nUpdating files:  96% (13053/13596)\nUpdating files:  97% (13189/13596)\nUpdating files:  98% (13325/13596)\nUpdating files:  99% (13461/13596)\nUpdating files: 100% (13596/13596)\nUpdating files: 100% (13596/13596), done.\n"
+  },
+  {
+    "command": [
+      "git",
+      "switch",
+      "-c",
+      "codex/restore-frozen-baseline295",
+      "40278ee01ede562a490e4d09d256e435a1b562d6"
+    ],
+    "cwd": "/workspace/localization_zoo",
+    "exit_code": 128,
+    "stdout": "",
+    "stderr": "fatal: cannot create directory at 'experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix': Permission denied\n"
+  }
+]

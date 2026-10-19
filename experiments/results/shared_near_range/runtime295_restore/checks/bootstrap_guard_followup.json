@@ -1,0 +1,33 @@
+{
+  "records": [
+    {
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "/workspace/localization-env/shared-near-range/restore295/worktree/experiments/results/shared_near_range/runtime295_restore/test_launch_backup.py"
+      ],
+      "cwd": "/workspace/localization-env/shared-near-range/restore295/worktree",
+      "source_commit": "8d1b1c34e785468d4c925d6ffc5aa1a5ea6a570c",
+      "exit_code": 0,
+      "started_unix": 1792383057.76237,
+      "finished_unix": 1792383057.8659136,
+      "stdout": "",
+      "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.003s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/workspace/localization-env/host-venv/bin/python",
+        "-O",
+        "/workspace/localization-env/shared-near-range/restore295/worktree/experiments/results/shared_near_range/runtime295_restore/test_launch_backup.py"
+      ],
+      "cwd": "/workspace/localization-env/shared-near-range/restore295/worktree",
+      "source_commit": "8d1b1c34e785468d4c925d6ffc5aa1a5ea6a570c",
+      "exit_code": 0,
+      "started_unix": 1792383057.8659616,
+      "finished_unix": 1792383058.1829624,
+      "stdout": "",
+      "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.003s\n\nOK\n"
+    }
+  ],
+  "active_supervisor_source_unchanged": true,
+  "launched_sha256": "7e69b55aec08758458e38c185c027baf18a70e5cd17b809735b692b119722b35"
+}

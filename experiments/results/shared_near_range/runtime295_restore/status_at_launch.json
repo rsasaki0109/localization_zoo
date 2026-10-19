@@ -1,0 +1,24 @@
+{
+  "recorded_unix": 1792382776.8625972,
+  "supervisor": {
+    "child_pid": 3272,
+    "controller_exit_code": null,
+    "head": "c3698e6700199b352d846f70a6580ad007ea35cc",
+    "backed_up_head": "c3698e6700199b352d846f70a6580ad007ea35cc",
+    "backup_pending": false,
+    "updated_unix": 1792382768.721419
+  },
+  "controller": {
+    "source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+    "status": "fetching",
+    "sequence": "05",
+    "completed": [
+      "04",
+      "00",
+      "01",
+      "02",
+      "03"
+    ]
+  },
+  "completed05_claim": false
+}

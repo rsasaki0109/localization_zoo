@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/run_all.py",
+    "--resume-from",
+    "05"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "pid": 3272,
+  "supervisor_pid": 3209,
+  "source_head": "c3698e6700199b352d846f70a6580ad007ea35cc",
+  "started_unix": 1792382723.7121398,
+  "exit_code": null,
+  "backup_ref": "refs/heads/codex/shared-range-replay295"
+}

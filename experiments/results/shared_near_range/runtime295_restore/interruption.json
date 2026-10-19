@@ -1,0 +1,25 @@
+{
+  "recorded_unix": 1792381583.6593406,
+  "environment_revision": "295",
+  "restored_snapshot_head": "9117195f8d7931ec9d0cd87b031bd08b8e440e7d",
+  "last_observed_before_unavailability": {
+    "primary_head": "c3698e6700199b352d846f70a6580ad007ea35cc",
+    "native_source": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+    "sequence": "05",
+    "status": "frozen_comparison",
+    "committed05_cleanup": false
+  },
+  "missing_after_recreation": [
+    "shared-near-range/active.json",
+    "shared-near-range/baseline_pcd_dogfooding",
+    "shared-near-range/candidate_pcd_dogfooding",
+    "shared-near-range/data",
+    "shared-near-range/kitti",
+    "shared-near-range/diagnostics03/worktree"
+  ],
+  "owned_native_or_controller_processes_found": false,
+  "controller_exit_code": null,
+  "native_exit_code": null,
+  "initial_snapshot_binary_sha256": "fdcbfce050f77c9e790666cb5644c63e5dd189eae567249006bade829e3078ee",
+  "policy": "All committed checkpoints remain on GitHub; no missing/uncommitted05 output is counted. Try exact pinned-executable restoration before replay. No hash/spec or stored result replacement."
+}

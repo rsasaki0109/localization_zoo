@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding",
+    "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_09_full",
+    "/workspace/localization_zoo/experiments/reference_data/kitti_seq_09_full_gt.csv",
+    "--methods",
+    "quadric_lo",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/09/audit/replays/quadric_lo_kitti_seq_09_full_paper_comp_matrix__dense_profile.json",
+    "--no-gt-seed",
+    "--quadric-lo-dense-profile"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/09/audit/replays/quadric_lo_kitti_seq_09_full_paper_comp_matrix__dense_profile_native",
+  "binary_sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+  "started_unix": 1792417539.1954353,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792419541.0704212
+}

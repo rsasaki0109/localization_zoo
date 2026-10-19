@@ -1,0 +1,2 @@
+[audit] Mesh-LOAM 09 paper_odometry_elevation: drift
+[done] 1 drifted, 0 failed of 1 cells; exit 1; wrote /workspace/localization_zoo/experiments/results/shared_near_range/sequences/09/frozen_baseline/report.json

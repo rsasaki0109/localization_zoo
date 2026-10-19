@@ -286,11 +286,11 @@ independent. Each item says what "done" means.
      [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
      locate error growth; missing referenced historical paths prevent a paired
      diagnosis of the historical metric differences.
-     The committed, cleaned 04/00/01/02/03/05/06 checkpoint now covers 111/177 cells:
-     89 historical matches and 22 differences, all reproduced by frozen controls.
-     All 24 controls have zero metric differences and byte-identical poses.
-     All seven historical audits retain exit 1; checkpoint verification exits 0.
-     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/06/summary.json).
+     The committed, cleaned 04/00/01/02/03/05/06/07 checkpoint now covers 131/177 cells:
+     103 historical matches and 28 differences, all reproduced by frozen controls.
+     All 30 controls have zero metric differences and byte-identical poses.
+     All eight historical audits retain exit 1; checkpoint verification exits 0.
+     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/07/summary.json).
      [Saved02 diagnosis](../experiments/results/shared_near_range/diagnostics/02/README.md)
      retains current error-growth blocks and the available Mesh paired path,
      with explicit missing-path/runtime limits. Full03 adds a Mesh historical
@@ -311,6 +311,12 @@ independent. Each item says what "done" means.
      adds CT-ICP/Mesh numerical pairs, current error-growth blocks and the
      available Mesh historical gap, with explicit missing-path/runtime limits.
      Verified06 input cleanup precedes the existing controller's advance to07.
+     [Saved07 diagnosis](../experiments/results/shared_near_range/diagnostics/07/README.md)
+     adds all six historical differences and current error-growth blocks,
+     including VLOM. Every numerical pair, including F-LOAM's worsening ATE,
+     is retained. Referenced historical paths are unavailable in the inspected
+     tree/history, so no paired historical gap or original cause is claimed.
+     Verified07 cleanup precedes the frozen controller's advance to08.
      A later full environment recreation removed the earlier retained05
      recovery attempt, owned scans and executables; unavailable work is excluded.
      Both frozen executables were rebuilt with exact SHA256 matches. The sealed

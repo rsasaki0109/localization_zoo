@@ -33,7 +33,7 @@ paired path. Its [cleaned checkpoint](checkpoints/05/summary.json)
 retains incomplete whole-zoo coverage and the original historical audit exits.
 
 The [KITTI06 saved-path diagnosis](diagnostics/06/README.md) adds CT-ICP/Mesh
-numerical pairs and the available Mesh historical gap. The current
+numerical pairs and the available Mesh historical gap. Its earlier
 [cleaned checkpoint](checkpoints/06/summary.json) includes only completed,
 committed sequences with verified input cleanup.
 
@@ -429,7 +429,7 @@ retain actual commands and exits, full lossless logs and exact raw05 import hash
 The separate checkout's built-evaluator skips remain visible; full native and
 ROS coverage runs in final-head CI. The original running checkout is preserved.
 
-## Current cleaned checkpoint: 06 completed
+## Earlier cleaned checkpoint: 06 completed
 
 The06 sequence commit `27354aa4`, imported unchanged as `54eaeab6`, contains all
 **14** selected candidate cells, the completed frozen controls and verified
@@ -467,9 +467,51 @@ remain untouched. Stored aggregates, Table 6, paper metadata and defaults are
 preserved. Historical per-cell replay is not a new fixed-setting accuracy study
 or a whole-zoo validation of current-main acceleration/passive tracing.
 
+## Current cleaned checkpoint: 07 completed
+
+Native/cleanup commit `ed37e2fd`, imported unchanged as `9c9976c6`, contains all
+**20** selected cells and **6** frozen controls. **14** match historical RPE,
+ATE and frames; these **6** differ:
+
+| Method | Stored 100 m RPE [%] | Replay RPE [%] | Stored ATE [m] | Replay ATE [m] |
+|---|---:|---:|---:|---:|
+| A-LOAM | 0.607458 | 0.605313 | 2.544355 | 2.505243 |
+| CT-ICP | 0.455389 | 0.450827 | 1.256652 | 1.243500 |
+| F-LOAM | 0.612719 | 0.590347 | 2.971748 | 3.173641 |
+| LeGO-LOAM | 0.527758 | 0.526845 | 2.589775 | 2.557870 |
+| Mesh-LOAM | 0.469625 | 0.469538 | 0.852913 | 0.843704 |
+| VLOM | 0.607458 | 0.605313 | 2.544355 | 2.505243 |
+
+RPE improves on all six; F-LOAM ATE worsens while the other ATEs improve. Both
+historical audits retain exit **1**. All native runs finish with exit **0** and
+**1,101** frames. Frozen controls have zero recorded metric/frame differences
+and byte-identical saved poses; comparison exits **0**. These differences
+predate extraction and their original causes remain unresolved. Every affected
+method README retains its numerical pair.
+
+The [checkpoint](checkpoints/07/summary.json) and [CSV](checkpoints/07/comparison.csv),
+committed at `6db8522a`, cover **131/177** cells across 04/00/01/02/03/05/06/07:
+**103** historical matches and **28** differences, reproduced by **30** exact
+frozen controls. All eight historical audits retain exit **1**; checkpoint
+verification exits **0**. Whole-zoo coverage is incomplete; remaining08/09/10
+cells are excluded until their own committed cleanup exists.
+
+The [saved07 diagnosis](diagnostics/07/README.md) retains all six current
+error-growth traces. Every largest inherited block increase occurs at
+**800-900**. None of the exact referenced historical paths is available in the
+inspected tree/history; no paired historical gap or cause is inferred.
+Analysis source/protocol `59e69241` transfers diagnostic parameters unchanged;
+raw evidence is committed before numerical interpretation.
+
+Official07 inputs were hash-verified before deleting owned scans and alias.
+The existing frozen controller advances to08 without changes to source,
+binaries or settings. Historical per-cell replay is not a new fixed-setting
+accuracy study or a whole-zoo validation of current-main acceleration/tracing.
+Table 6, published accuracy, paper metadata and defaults are preserved.
+
 ## Checkpoint integration while the frozen replay continues
 
-The [06 regeneration, regression and preservation checks](checks/saved06/docs/)
+The earlier [06 regeneration, regression and preservation checks](checks/saved06/docs/)
 retain exact commands, actual exits, complete lossless logs and raw-import hashes.
 The separate checkout's built-evaluator skips remain visible; full native and
 ROS coverage runs in final-head CI. The original running checkout is preserved.

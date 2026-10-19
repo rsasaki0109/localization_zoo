@@ -1,0 +1,205 @@
+[
+  {
+    "case": "legacy_default",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/analyze_inten_conditioning.py",
+      "--trace",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/trace.jsonl",
+      "--summary",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/summary.json",
+      "--receipt",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/command.json",
+      "--rotation-length-m",
+      "1.0",
+      "--rank-rtol",
+      "1e-09",
+      "--output-dir",
+      "/workspace/localization-env/inten-trace-conditioning/analysis/legacy_default"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "source_commit": "5576c48b7bc7bbab46ecb53bacb1119f7df3ff10",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373538.702042,
+    "finished_unix": 1792373539.0878587,
+    "exit_code": 0
+  },
+  {
+    "case": "legacy_plane_check",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/analyze_inten_conditioning.py",
+      "--trace",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/trace.jsonl",
+      "--summary",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/summary.json",
+      "--receipt",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/command.json",
+      "--rotation-length-m",
+      "1.0",
+      "--rank-rtol",
+      "1e-09",
+      "--output-dir",
+      "/workspace/localization-env/inten-trace-conditioning/analysis/legacy_plane_check"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "source_commit": "5576c48b7bc7bbab46ecb53bacb1119f7df3ff10",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373539.0885549,
+    "finished_unix": 1792373539.371029,
+    "exit_code": 0
+  },
+  {
+    "case": "skipped_input",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/analyze_inten_conditioning.py",
+      "--trace",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/trace.jsonl",
+      "--summary",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/summary.json",
+      "--receipt",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/command.json",
+      "--rotation-length-m",
+      "1.0",
+      "--rank-rtol",
+      "1e-09",
+      "--output-dir",
+      "/workspace/localization-env/inten-trace-conditioning/analysis/skipped_input"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "source_commit": "5576c48b7bc7bbab46ecb53bacb1119f7df3ff10",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373539.3731139,
+    "finished_unix": 1792373539.6197426,
+    "exit_code": 0
+  },
+  {
+    "case": "paper_default__default",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/analyze_inten_conditioning.py",
+      "--trace",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/trace.jsonl",
+      "--summary",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/summary.json",
+      "--receipt",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/command.json",
+      "--rotation-length-m",
+      "1.0",
+      "--rank-rtol",
+      "1e-09",
+      "--output-dir",
+      "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__default"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "source_commit": "5576c48b7bc7bbab46ecb53bacb1119f7df3ff10",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373539.62093,
+    "finished_unix": 1792373539.881979,
+    "exit_code": 0
+  },
+  {
+    "case": "paper_default__accelerated",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/analyze_inten_conditioning.py",
+      "--trace",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/trace.jsonl",
+      "--summary",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/summary.json",
+      "--receipt",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/command.json",
+      "--rotation-length-m",
+      "1.0",
+      "--rank-rtol",
+      "1e-09",
+      "--output-dir",
+      "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__accelerated"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "source_commit": "5576c48b7bc7bbab46ecb53bacb1119f7df3ff10",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373539.882979,
+    "finished_unix": 1792373540.1973712,
+    "exit_code": 0
+  },
+  {
+    "case": "paper_odometry_plane_check__default",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/analyze_inten_conditioning.py",
+      "--trace",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/trace.jsonl",
+      "--summary",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/summary.json",
+      "--receipt",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/command.json",
+      "--rotation-length-m",
+      "1.0",
+      "--rank-rtol",
+      "1e-09",
+      "--output-dir",
+      "/workspace/localization-env/inten-trace-conditioning/analysis/paper_odometry_plane_check__default"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "source_commit": "5576c48b7bc7bbab46ecb53bacb1119f7df3ff10",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373540.1985044,
+    "finished_unix": 1792373540.4611347,
+    "exit_code": 0
+  },
+  {
+    "case": "paper_odometry_plane_check__accelerated",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/analyze_inten_conditioning.py",
+      "--trace",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/trace.jsonl",
+      "--summary",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/summary.json",
+      "--receipt",
+      "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/command.json",
+      "--rotation-length-m",
+      "1.0",
+      "--rank-rtol",
+      "1e-09",
+      "--output-dir",
+      "/workspace/localization-env/inten-trace-conditioning/analysis/paper_odometry_plane_check__accelerated"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "source_commit": "5576c48b7bc7bbab46ecb53bacb1119f7df3ff10",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373540.461744,
+    "finished_unix": 1792373540.716351,
+    "exit_code": 0
+  }
+]

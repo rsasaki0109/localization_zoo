@@ -707,3 +707,26 @@ corpus and synthetic corruptions remain separate. No estimator or raw scan is
 opened by these checks. [Commands, hashes and limits](../../experiments/results/inten_trace_validation/integration/README.md)
 cover consistency only; full-sequence accuracy and solver cause remain open.
 <!-- /INTEN_TRACE_VALIDATION_ACCELERATION -->
+
+<!-- INTEN-CONDITIONING:START -->
+## Passive normal-equation conditioning
+
+An [offline analyzer](../../experiments/results/inten_conditioning/README.md)
+now expresses recorded H/g about the current sensor centre and its axes, with
+a required explicit rotation length. This analysis tooling is outside the paper
+and adds no estimator gate or default behaviour.
+
+Raw evidence `6f96bf4702f2cb6a923a99ac85031bf559ebedce` precedes this statement.
+All **7** existing positive trace tuples analyze successfully: every one of
+**231** systems has numerical rank **6** at the declared **1 m** rotation length
+and **1e-9** relative cutoff. The short fixtures show no rank deficit under that
+convention. Full rank/high support cannot establish correct associations, motion
+or the cause of the saved KITTI failures.
+
+Singular, zero, nonfinite, asymmetric and indefinite systems retain explicit
+results or unavailable markers; failed deltas are not zero-filled.
+[Coordinates, spectra, commands and limits](../../docs/inten_loam_passive_trace.md#analyze-normal-equation-conditioning)
+describe the first-order convention. Full continuous failure-sequence collection
+remains pending. No scans were read, estimator rerun or registration setting
+selected; stored accuracy and opt-in defaults are preserved.
+<!-- INTEN-CONDITIONING:END -->

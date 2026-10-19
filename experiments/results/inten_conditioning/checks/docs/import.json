@@ -1,0 +1,89 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/branch_whitespace.log",
+      "destination": "experiments/results/inten_conditioning/checks/docs/branch_whitespace.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/commands.json",
+      "destination": "experiments/results/inten_conditioning/checks/docs/commands.json",
+      "source_sha256": "33750755d9af5824d3a358a1de28e039173ca1e5a933fcb78387ac438ff2b187",
+      "stored_sha256": "33750755d9af5824d3a358a1de28e039173ca1e5a933fcb78387ac438ff2b187",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/generate_full_variant_table.log",
+      "destination": "experiments/results/inten_conditioning/checks/docs/generate_full_variant_table.log.gz",
+      "source_sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc",
+      "stored_sha256": "c1eaaa90d87b4d1b5ac36b77258f3db36209d0fec798d0bb521b91e6d01b08b5",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/generate_leaderboard.log",
+      "destination": "experiments/results/inten_conditioning/checks/docs/generate_leaderboard.log.gz",
+      "source_sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+      "stored_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/generate_paper_ratio_table.log",
+      "destination": "experiments/results/inten_conditioning/checks/docs/generate_paper_ratio_table.log.gz",
+      "source_sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+      "stored_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/generate_paper_ready_evidence.log",
+      "destination": "experiments/results/inten_conditioning/checks/docs/generate_paper_ready_evidence.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/preservation.json",
+      "destination": "experiments/results/inten_conditioning/checks/docs/preservation.json",
+      "source_sha256": "44575ecfff2612e8c5ae2bb79ba7f2caa13022cf59e8c4deb9252ddf7e92abf1",
+      "stored_sha256": "44575ecfff2612e8c5ae2bb79ba7f2caa13022cf59e8c4deb9252ddf7e92abf1",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/primary_integrity.json",
+      "destination": "experiments/results/inten_conditioning/checks/docs/primary_integrity.json",
+      "source_sha256": "3f80631775bd91e0f51f38d531c13039cb6683363c3191642b6f02123b7b77c3",
+      "stored_sha256": "3f80631775bd91e0f51f38d531c13039cb6683363c3191642b6f02123b7b77c3",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/python_unittest.log",
+      "destination": "experiments/results/inten_conditioning/checks/docs/python_unittest.log.gz",
+      "source_sha256": "17fedf194ed6a75bff80cdbae0fc64b19bff526a6549cca03e166b0c33701de7",
+      "stored_sha256": "9640832075d2a4369cc6d140235b29c763e17ad12eb1b1c6fb6563f468cd1f07",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/refresh_study_docs.log",
+      "destination": "experiments/results/inten_conditioning/checks/docs/refresh_study_docs.log.gz",
+      "source_sha256": "1942f111664369cae4d7af996dd34211fac730ebac2a0eb4ba8a6c2a9f3cdd8c",
+      "stored_sha256": "fd5f1f7b303a4091f48e0d68bd6f66d17aa54806c172eef90dec5bfc6a76cba9",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/summary.json",
+      "destination": "experiments/results/inten_conditioning/checks/docs/summary.json",
+      "source_sha256": "e9c63ab2523e38eb71a6f6be9dbb7257e8b5dee77a468b191abfdfe8d405d451",
+      "stored_sha256": "e9c63ab2523e38eb71a6f6be9dbb7257e8b5dee77a468b191abfdfe8d405d451",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/docs_checks/validate_showcase.log",
+      "destination": "experiments/results/inten_conditioning/checks/docs/validate_showcase.log.gz",
+      "source_sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+      "stored_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466",
+      "lossless": true
+    }
+  ],
+  "exit_code": 0
+}

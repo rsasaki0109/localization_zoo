@@ -1,0 +1,17 @@
+{
+  "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+  "python_tests": 327,
+  "python_skipped": 5,
+  "skip_reason": "No evaluator binary is built in this separate checkout; final-head CI builds it and runs the evaluation guards.",
+  "command_exit_codes": {
+    "refresh_study_docs": 0,
+    "generate_full_variant_table": 0,
+    "generate_paper_ratio_table": 0,
+    "python_unittest": 0,
+    "validate_showcase": 0,
+    "generate_leaderboard": 0,
+    "generate_paper_ready_evidence": 0,
+    "branch_whitespace": 0
+  },
+  "scope": "Offline conditioning tool and documented existing-fixture analysis. No native code/settings/old artifacts/accuracy tables or active replay ownership changes."
+}

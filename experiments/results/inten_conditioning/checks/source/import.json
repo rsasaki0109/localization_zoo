@@ -1,0 +1,26 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/source_checks/commands.json",
+      "destination": "experiments/results/inten_conditioning/checks/source/commands.json",
+      "source_sha256": "fb6b8bb99166300a26fb724763e0b5c2b718fb11faf4837e7c7409f27dacf1fe",
+      "stored_sha256": "fb6b8bb99166300a26fb724763e0b5c2b718fb11faf4837e7c7409f27dacf1fe",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/source_checks/normal.log",
+      "destination": "experiments/results/inten_conditioning/checks/source/normal.log.gz",
+      "source_sha256": "1692e9b4df4a5d8b88d96380141a6ea4247885dcc72833710f34bfa92f68790a",
+      "stored_sha256": "b8573bf6c0f041ffd00774ea0e4c0a00148e2c5f7e036c3d938dd724f3e55785",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/source_checks/optimized.log",
+      "destination": "experiments/results/inten_conditioning/checks/source/optimized.log.gz",
+      "source_sha256": "2365142a1cc38a2dd216b3e613387f8a3a6cc02450d3b855b960fcbced81f28c",
+      "stored_sha256": "163ccaa1fefe29be62b2085a586202eb06c365d33f51af7e36266dc1996cfbcd",
+      "lossless": true
+    }
+  ],
+  "exit_code": 0
+}

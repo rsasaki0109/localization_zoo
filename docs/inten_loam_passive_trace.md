@@ -202,6 +202,55 @@ be interpreted. The tool adds no estimator gate or setting.
 cover this contract. Full failure-sequence tracing and cause diagnosis
 remain open.
 
+## Analyze normal-equation conditioning
+
+`evaluation/scripts/analyze_inten_conditioning.py` reads the same trace, summary
+and native exit receipt. It invokes the structural checker before streaming the
+analysis. It reads no scan path and changes no estimator decision.
+
+For each iteration, let `T=(R,t)` map the current sensor into the solver target
+at the recorded linearization. Define `q=[u_sensor,L*omega_sensor]`, where `u`
+is an infinitesimal displacement at the sensor centre. Both parts of q use
+metres when the explicitly supplied characteristic length L uses metres.
+The native left tangent is `A*q`, with `A=[[R,[t]x R/L],[0,R/L]]`.
+The analysis uses `Hq=A.T H A` and `gq=A.T g`. This removes the target-origin
+convention and uses current sensor axes. It is a first-order coordinate change,
+not a transformed finite update or another solve.
+
+```bash
+python3 evaluation/scripts/analyze_inten_conditioning.py \
+  --trace "$trace_run/trace.jsonl" \
+  --summary "$trace_run/summary.json" \
+  --receipt "$trace_run/command.json" \
+  --rotation-length-m 1 --rank-rtol 1e-9 \
+  --output-dir /tmp/fresh-inten-conditioning
+```
+
+The output directory must be new. The required rotation length has no default
+or universally correct value. Changing it or the relative eigenvalue cutoff
+can change condition/rank; both are recorded and neither is an estimator gate.
+
+`iterations.jsonl` retains every actual stage/iteration, both input/frame indices,
+original H/g/delta, linearization pose, residual sum, class counts and native
+decision flags. It adds scaled H/g, ordered eigenvalues, numerical rank and
+condition number. Uncalled/initialization placeholders and loader skips do not
+become solver systems. Original input/run coverage stays in `summary.json`.
+Trace/summary/receipt hashes are rechecked before exclusive publication.
+
+No damping is added or eigenvalue clipped. Only roundoff-sized antisymmetry is
+averaged. Nonfinite H, invalid rigid poses, excessive asymmetry, material
+indefiniteness and arithmetic failure have explicit statuses. A null condition
+number includes systems below full numerical rank; it is not zero or an
+acceptable-motion result. Tagged nonfinite gradients and failed deltas remain
+original observations. Spectra depend on L, residual definitions/weights,
+geometry, sample counts and numerical precision. Sensor centring cannot recover
+precision already lost in the recorded matrix.
+
+A full-rank system can still have wrong associations or motion; this analysis
+supplies no accuracy or cause verdict. The [committed fixture analysis,
+synthetic geometric checks and actual commands](../experiments/results/inten_conditioning/README.md)
+validate the convention; continuous failure-sequence collection remains pending.
+
 ## Export with optional acceleration
 
 `--paper-pipeline-accelerated` can be combined with passive export. The header

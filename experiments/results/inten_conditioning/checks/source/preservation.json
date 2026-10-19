@@ -1,0 +1,27 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "878942285f60f6f4fca4ee700df940f37000c79d",
+    "--",
+    "common",
+    "evaluation/src",
+    "evaluation/CMakeLists.txt",
+    "python",
+    "ros2",
+    "CMakeLists.txt",
+    ":(glob)papers/*/src/**",
+    ":(glob)papers/*/include/**",
+    ":(glob)papers/*/test/**",
+    ":(glob)papers/*/CMakeLists.txt",
+    "evaluation/scripts/check_inten_trace.py",
+    "experiments/results/inten_trace_export",
+    "experiments/results/inten_passive_trace",
+    "experiments/results/inten_trace_validation"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": ""
+}

@@ -1,0 +1,14 @@
+{
+  "label": "report",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/report.py",
+    "--output-dir",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/completion/03/report"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792440318.4528518,
+  "finished_unix": 1792440318.665987,
+  "exit_code": 0
+}

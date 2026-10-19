@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-near-range/baseline_pcd_dogfooding",
+    "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_08_full",
+    "/workspace/localization_zoo/experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "--methods",
+    "floam",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/08/frozen_baseline/replays/floam_kitti_seq_08_full_transfer_matrix__dense.json",
+    "--floam-kitti-profile",
+    "--floam-dense-profile"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/08/frozen_baseline/replays/floam_kitti_seq_08_full_transfer_matrix__dense_native",
+  "binary_sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+  "started_unix": 1792408649.8209293,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792410020.7883437
+}

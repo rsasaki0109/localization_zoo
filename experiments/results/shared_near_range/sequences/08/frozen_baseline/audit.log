@@ -1,0 +1,5 @@
+[audit] LeGO-LOAM 08 kitti_default: drift
+[audit] F-LOAM 08 dense: drift
+[audit] A-LOAM 08 kitti_default: drift
+[audit] Mesh-LOAM 08 paper_odometry_elevation: drift
+[done] 4 drifted, 0 failed of 4 cells; exit 1; wrote /workspace/localization_zoo/experiments/results/shared_near_range/sequences/08/frozen_baseline/report.json

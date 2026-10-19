@@ -68,6 +68,21 @@ and optimized Python, each exiting **0**. A real incomplete09 probe exits **2**
 as expected before output. That probe earns no diagnosis or coverage. Committed
 reports confirm the exact Mesh-only cohort; CT-ICP is not an extra control.
 
+[Repository checks and commands](../../checks/saved09/docs/commands.json),
+committed at `8a90313e`, retain full losslessly compressed logs and the
+[actual driver invocation](../../checks/saved09/docs/driver_invocation.json).
+Required document generators, showcase, leaderboard, paper-ready and whitespace
+checks exit **0**. Full Python runs **342** tests with **5** built-evaluator
+skips in this separate checkout and exits **0**. Actual process exits determine
+the result; intentional negative fixtures remain in the full logs.
+
+The [preservation receipt](../../checks/saved09/docs/preservation.json) verifies
+all **688** historical aggregate hashes, unchanged published/table/paper-number
+bytes, all **118** original native09 files, prior method README content and the
+primary's frozen source, sealed files and executable hashes. Timestamp-only
+generator changes retain prior bytes with an explicit disposition. Final-head
+native and ROS CI remain due for the completed integration PR.
+
 The [cleaned checkpoint](../../checkpoints/09/summary.json) covers **163/177**
 cells across 04/00/01/02/03/05/06/07/08/09: **130** historical matches and
 **33** differences, reproduced by **35** exact frozen controls. All ten historical

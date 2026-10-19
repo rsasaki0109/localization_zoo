@@ -607,6 +607,15 @@ protocol requires all remaining results and checks in one audit-completion PR.
 
 ## Checkpoint integration while the frozen replay continues
 
+The [09 regeneration, regression and preservation checks](checks/saved09/docs/),
+committed at `8a90313e`, retain exact commands, actual exits and full lossless
+logs. Required generators, full Python (**342** tests, **5** explicit
+built-evaluator skips) and documentation checks exit **0**. Preservation confirms
+all **688** historical aggregate hashes, all **118** original native09 files,
+published/table/paper-number bytes, prior method README content and the primary's
+frozen source/sealed files/binaries. Final-head native/ROS CI remains due for the
+completed integration PR.
+
 The [08 regeneration, regression and preservation checks](checks/saved08/docs/),
 committed at `ffca75b8`, retain exact commands, actual exits and full lossless
 logs. All required generators, full Python and documentation checks exit **0**;

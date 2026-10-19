@@ -1,4 +1,4 @@
-"""Diagnose closed KITTI02/03/04/05/06 saved paths after frozen comparison and cleanup.
+"""Diagnose closed KITTI02/03/04/05/06/07 saved paths after frozen comparison and cleanup.
 
 No estimator or scan reader is invoked. Uncommitted inputs are rejected before
 creating output; historical path availability and runtime limits are retained.
@@ -25,11 +25,13 @@ from evaluate_external_kitti_odometry import load_kitti_poses, normalize_first_p
 METHODS = {'A-LOAM': ('aloam', 'A_LOAM.txt'), 'CT-ICP': ('ct_icp', 'CT_ICP.txt'),
            'F-LOAM': ('floam', 'F_LOAM.txt'), 'LeGO-LOAM': ('lego_loam', 'LeGO_LOAM.txt'),
            'Mesh-LOAM': ('mesh_loam', 'Mesh_LOAM.txt')}
+# Keep earlier complete cohorts unchanged;07 additionally differs for VLOM.
+METHODS07 = {**METHODS, 'VLOM': ('vlom', 'VLOM.txt')}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--sequence', choices=('02', '03', '04', '05', '06'), default='02')
+    parser.add_argument('--sequence', choices=('02', '03', '04', '05', '06', '07'), default='02')
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
     sequence = args.sequence
@@ -72,13 +74,14 @@ def main():
     execution_protocol = json.loads(committed(E / 'protocol.json'))
     protocol = json.loads(committed(E / f'diagnostics/{sequence}_protocol.json'))
     require(protocol['sequence'] == sequence, 'Diagnostic protocol sequence differs')
-    cohort = (set(METHODS) if sequence in ('02', '05') else
+    available_methods = METHODS07 if sequence == '07' else METHODS
+    cohort = (set(available_methods) if sequence in ('02', '05', '07') else
               {'CT-ICP', 'Mesh-LOAM'} if sequence in ('04', '06') else {'Mesh-LOAM'})
     frozen_cohort = cohort | ({'DiLO', 'ELO'} if sequence == '04' else set())
     require(set(protocol['methods']) == cohort, 'Diagnostic protocol cohort differs')
     require(set(protocol.get('frozen_control_methods', protocol['methods'])) == frozen_cohort,
             'Diagnostic frozen-control protocol cohort differs')
-    methods = {name: details for name, details in METHODS.items() if name in cohort}
+    methods = {name: details for name, details in available_methods.items() if name in cohort}
     report = json.loads(committed(E / f'sequences/{sequence}/audit/report.json'))
     command = json.loads(committed(E / f'sequences/{sequence}/audit/audit_command.json'))
     candidate = json.loads(committed(E / 'candidate.json'))

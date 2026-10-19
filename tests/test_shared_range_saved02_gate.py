@@ -128,9 +128,40 @@ class Saved02PublicationGateTests(unittest.TestCase):
         source = self.study / 'sequences/02'
         target = self.study / 'sequences' / sequence
         shutil.copytree(source, target)
+        if sequence == '07':
+            # Add a distinct VLOM receipt/path so omitting its control cannot
+            # accidentally pass by reusing A-LOAM's complete cohort.
+            for mode in ('audit', 'frozen_baseline'):
+                path = target / mode / 'report.json'
+                report = json.loads(path.read_text())
+                row = dict(next(row for row in report['rows'] if row['method'] == 'A-LOAM'))
+                original = target / mode / 'replays/aloam.json'
+                summary = original.with_name('vlom.json')
+                contents = json.loads(original.read_text())
+                contents['methods'][0]['name'] = 'VLOM'
+                write_json(summary, contents)
+                shutil.copyfile(original.with_name('aloam_native_command.json'),
+                                summary.with_name('vlom_native_command.json'))
+                shutil.copytree(native_output(original), native_output(summary))
+                (native_output(summary) / 'A_LOAM.txt').rename(native_output(summary) / 'VLOM.txt')
+                row.update(method='VLOM', summary_path=str(
+                    source / mode / 'replays/vlom.json'))
+                if mode == 'audit':
+                    row['aggregate_path'] = 'experiments/results/vlom_matrix.json'
+                    write_json(self.repo / row['aggregate_path'], {'variants': [
+                        dict(id='fixed', args=[], summary_path='missing_history/vlom/summary.json')]})
+                report['rows'].append(row)
+                write_json(path, report)
+            path = target / 'frozen_comparison.json'
+            comparison = json.loads(path.read_text())
+            row = dict(comparison['checks'][0], method='VLOM',
+                       saved_pose_bytes_equal={'VLOM.txt': True, 'gt.txt': True})
+            comparison['checks'].append(row)
+            write_json(path, comparison)
         protocol = json.loads((STUDY / f'diagnostics/{sequence}_protocol.json').read_text())
         write_json(self.study / f'diagnostics/{sequence}_protocol.json', protocol)
-        cohort = (set(self.module.METHODS) if sequence == '05' else
+        cohort = (set(self.module.METHODS07) if sequence == '07' else
+                  set(self.module.METHODS) if sequence == '05' else
                   {'CT-ICP', 'Mesh-LOAM'} if sequence in ('04', '06') else {'Mesh-LOAM'})
         recorded_root = Path('/archived/saved-study-checkout')
         for mode in ('audit', 'frozen_baseline'):
@@ -305,7 +336,29 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.assertEqual(failure.exception.code, 2)
         self.assertFalse(self.output.exists())
 
-    def test_unclosed07_is_not_an_allowed_diagnostic_sequence(self):
+    def test_unclosed08_is_not_an_allowed_diagnostic_sequence(self):
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '08')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_closed07_retains_vlom_alongside_all_five_previous_methods(self):
+        self.prepare_relocated03('07')
+        self.invoke('--sequence', '07')
+        result = json.loads((self.output / 'summary.json').read_text())
+        expected = {'A-LOAM', 'CT-ICP', 'F-LOAM', 'LeGO-LOAM', 'Mesh-LOAM', 'VLOM'}
+        self.assertEqual({row['method'] for row in result['rows']}, expected)
+        self.assertEqual(set(result['frozen_control_methods']), expected)
+        self.assertTrue(all(result['completion_gate'].values()))
+        self.assertTrue((self.output / 'vlom/current_steps.json').is_file())
+
+    def test07_rejects_missing_vlom_control_before_output(self):
+        self.prepare_relocated03('07')
+        path = self.study / 'sequences/07/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'] = [row for row in comparison['checks'] if row['method'] != 'VLOM']
+        write_json(path, comparison)
+        self.commit()
         with self.assertRaises(SystemExit) as failure:
             self.invoke('--sequence', '07')
         self.assertEqual(failure.exception.code, 2)

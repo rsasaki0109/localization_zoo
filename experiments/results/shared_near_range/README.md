@@ -27,6 +27,11 @@ the cause of historical metric differences.
 The [KITTI02 saved-path diagnosis](diagnostics/02/README.md) now includes all
 historical differences on that sequence and the available Mesh paired paths.
 
+The [KITTI05 saved-path diagnosis](diagnostics/05/README.md) adds the fresh,
+cleaned05 cohort, every historical numerical difference and the available Mesh
+paired path. The current [cleaned checkpoint](checkpoints/05/summary.json)
+retains incomplete whole-zoo coverage and the original historical audit exits.
+
 ## Scope and status
 
 Implementation and the regression protocol were merged in
@@ -310,7 +315,7 @@ controller are rejected before public documentation changes. Rendering previews
 retain the real 04 numeric differences and historical NCLT confound; they are
 validation artifacts, not full-study completion.
 
-## Current cleaned checkpoint: 02 and 03 added
+## Earlier cleaned checkpoint: 02 and 03 added
 
 The [checkpoint](checkpoints/03/summary.json) and [comparison CSV](checkpoints/03/comparison.csv),
 committed at `8f5841e3946995cedfa9c0e2fc484dbd2c02373e`, cover **79/177 cells**
@@ -368,9 +373,51 @@ archive, uncommitted05 outputs, owned scans and pinned executables. Both
 executables have now been rebuilt at their original sources with exact SHA256
 matches, and the original sealed controller restarted at the fresh05 fetch
 boundary. Successfully committed and cleaned sequence checkpoints are backed
-up by normal pushes to a separate branch. Unavailable05 work remains excluded;
-the cleaned checkpoint above is unchanged. The earlier retained-input recovery
+up by normal pushes to a separate branch. Unavailable interrupted05 work remains
+excluded; that restart retained the earlier cleaned checkpoint above. The fresh
+completed05 is recorded below. The earlier retained-input recovery
 was not invoked again. [Restoration receipts, fresh restart and backup limits](runtime295_restore/README.md).
+
+## Current cleaned checkpoint: fresh05 completed
+
+The fresh05 sequence commit `e9822bcf`, imported unchanged as `1d4a37a4`, contains
+all **18** selected candidate cells, the completed frozen controls and verified
+input cleanup. **13** match the historical metrics; these **5** differ:
+
+| Method | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---:|---:|---:|---:|
+| A-LOAM | 0.528651 | 0.512096 | 4.839948 | 5.192731 |
+| CT-ICP | 0.469581 | 0.469523 | 4.264453 | 4.079794 |
+| F-LOAM | 0.537259 | 0.538788 | 6.035067 | 6.038695 |
+| LeGO-LOAM | 0.559431 | 0.515567 | 6.449096 | 5.218196 |
+| Mesh-LOAM | 0.397437 | 0.397399 | 5.757510 | 5.772741 |
+
+Both the candidate and frozen historical audits retain exit **1**. Every native
+process exits **0** with **2,761** frames. All five frozen comparisons have
+zero RPE, ATE, frame and official translation/rotation RTE differences, with
+byte-identical saved poses. The differences predate extraction; their original
+causes remain unresolved. The table includes both improvements and deteriorations.
+Every affected method README retains its full numerical pair.
+
+The [checkpoint](checkpoints/05/summary.json) and [CSV](checkpoints/05/comparison.csv),
+committed at `6285c60b`, cover **97/177 cells** across 04/00/01/02/03/05:
+**77** historical matches and **20** differences. All **22** frozen controls
+have zero metric differences and byte-identical saved poses. All six historical
+audits retain exit **1**; checkpoint verification exits **0**. Remaining
+06/07/08/09/10 cells are not counted until their own committed cleanup exists.
+
+The [saved05 diagnosis](diagnostics/05/README.md), also committed before numerical
+prose, locates current error growth and the available Mesh historical path gap.
+Missing paths and differing original/replay thread counts remain explicit
+limits. Analysis source/protocol `35bd3ecf` precedes execution and transfers the
+existing diagnostic parameters unchanged. This is an offline analysis of
+committed paths, with no estimator run or parameter selection.
+
+Official05 scan hashes were verified before removing the owned scans and alias.
+The existing controller has advanced to06; its source, binaries and active data
+remain untouched. Stored aggregates, Table 6, paper metadata and defaults are
+preserved. Historical per-cell replay is not a new fixed-setting accuracy study
+or a whole-zoo validation of current-main acceleration/passive tracing.
 
 ## Checkpoint integration while the frozen replay continues
 

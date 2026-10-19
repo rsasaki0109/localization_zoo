@@ -286,11 +286,11 @@ independent. Each item says what "done" means.
      [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
      locate error growth; missing referenced historical paths prevent a paired
      diagnosis of the historical metric differences.
-     The committed, cleaned 04/00/01/02/03 checkpoint now covers 79/177 cells:
-     64 historical matches and 15 differences, all reproduced by frozen controls.
-     All 17 controls have zero metric differences and byte-identical poses.
-     All five historical audits retain exit 1; checkpoint verification exits 0.
-     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/03/summary.json).
+     The committed, cleaned 04/00/01/02/03/05 checkpoint now covers 97/177 cells:
+     77 historical matches and 20 differences, all reproduced by frozen controls.
+     All 22 controls have zero metric differences and byte-identical poses.
+     All six historical audits retain exit 1; checkpoint verification exits 0.
+     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/05/summary.json).
      [Saved02 diagnosis](../experiments/results/shared_near_range/diagnostics/02/README.md)
      retains current error-growth blocks and the available Mesh paired path,
      with explicit missing-path/runtime limits. Full03 adds a Mesh historical
@@ -302,6 +302,11 @@ independent. Each item says what "done" means.
      [Saved04 CT/Mesh diagnosis](../experiments/results/shared_near_range/diagnostics/04/README.md)
      records current error growth, the paired Mesh gap and CT missing-path limits,
      while retaining every recorded frozen control and the unresolved causes.
+     [Saved05 diagnosis](../experiments/results/shared_near_range/diagnostics/05/README.md)
+     adds all five historical differences, the available Mesh paired path and
+     explicit missing-path/runtime limits. All method READMEs retain numerical
+     pairs, including improvements and deteriorations. Fresh05 inputs were
+     hash-verified and deleted before the existing controller advanced to06.
      A later full environment recreation removed the earlier retained05
      recovery attempt, owned scans and executables; unavailable work is excluded.
      Both frozen executables were rebuilt with exact SHA256 matches. The sealed

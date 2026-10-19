@@ -171,3 +171,37 @@ cause or replacing published accuracy. The
 [cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
 retains all historical differences and audit exits.
 <!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_05_DIAGNOSTICS -->
+## Shared-loader replay: committed KITTI05 difference
+
+The selected historical variant `kitti_default` completes **2761**
+frames with native exit **0**, using its original arguments unchanged.
+
+| Metric | Historical | Replay |
+|---|---:|---:|
+| 100 m RPE [%] | 0.528651 | 0.512096 |
+| ATE [m] | 4.839948 | 5.192731 |
+
+RPE improves; ATE worsens. The historical audit retains exit **1**. The frozen
+pre-extraction control has **0** differences in RPE, ATE, frames and official
+translation/rotation RTE, with byte-identical saved poses. The difference
+therefore predates extraction; its original cause remains unresolved.
+
+The current first-pose-normalized position error grows most in inherited block
+**2600-2700**, from **9.331710 to 14.176748 m**.
+This locates current error growth against GT, not its cause or a change in
+historical accuracy. It does not replace official KITTI RTE.
+
+The referenced historical summary/path is absent in the inspected tree and was
+not found by its exact-path reachable-history probe. No paired historical path
+is available here; the current trace cannot explain the historical difference.
+
+[Raw replay, receipts and verified cleanup](../../experiments/results/shared_near_range/sequences/05/),
+[all diagnostic blocks, traces, commands and limits](../../experiments/results/shared_near_range/diagnostics/05/README.md),
+and the [cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/05/summary.json)
+retain all values and actual exits. Native source remains `0b079dbb`; current-main
+acceleration/passive tracing is outside this frozen replay's scope. No estimator,
+registration setting, default or published result changes. Raw diagnosis
+`6285c60b` precedes this prose; active06 scans and executables are untouched.
+<!-- /SHARED_NEAR_RANGE_05_DIAGNOSTICS -->

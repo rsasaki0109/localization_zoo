@@ -1,0 +1,178 @@
+[
+  {
+    "label": "refresh_study_docs",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+    "working_changes": "Numerical prose from committed conditioning evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/inten-conditioning-mpl",
+      "XDG_CACHE_HOME": "/tmp/inten-conditioning-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792373695.5320125,
+    "finished_unix": 1792373735.6971323,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_full_variant_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+    "working_changes": "Numerical prose from committed conditioning evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/inten-conditioning-mpl",
+      "XDG_CACHE_HOME": "/tmp/inten-conditioning-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792373735.6996458,
+    "finished_unix": 1792373736.06784,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_paper_ratio_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+    "working_changes": "Numerical prose from committed conditioning evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/inten-conditioning-mpl",
+      "XDG_CACHE_HOME": "/tmp/inten-conditioning-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792373736.075349,
+    "finished_unix": 1792373736.5581691,
+    "exit_code": 0
+  },
+  {
+    "label": "python_unittest",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+    "working_changes": "Numerical prose from committed conditioning evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/inten-conditioning-mpl",
+      "XDG_CACHE_HOME": "/tmp/inten-conditioning-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792373736.5586452,
+    "finished_unix": 1792373754.6703455,
+    "exit_code": 0
+  },
+  {
+    "label": "validate_showcase",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+    "working_changes": "Numerical prose from committed conditioning evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/inten-conditioning-mpl",
+      "XDG_CACHE_HOME": "/tmp/inten-conditioning-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792373754.6709964,
+    "finished_unix": 1792373754.7443132,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_leaderboard",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+    "working_changes": "Numerical prose from committed conditioning evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/inten-conditioning-mpl",
+      "XDG_CACHE_HOME": "/tmp/inten-conditioning-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792373754.7448325,
+    "finished_unix": 1792373754.851889,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_paper_ready_evidence",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+    "working_changes": "Numerical prose from committed conditioning evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/inten-conditioning-mpl",
+      "XDG_CACHE_HOME": "/tmp/inten-conditioning-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792373754.8525279,
+    "finished_unix": 1792373754.9154167,
+    "exit_code": 0
+  },
+  {
+    "label": "branch_whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "878942285f60f6f4fca4ee700df940f37000c79d"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "checked_checkout_commit": "6f96bf4702f2cb6a923a99ac85031bf559ebedce",
+    "working_changes": "Numerical prose from committed conditioning evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/inten-conditioning-mpl",
+      "XDG_CACHE_HOME": "/tmp/inten-conditioning-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792373754.9173508,
+    "finished_unix": 1792373755.0237849,
+    "exit_code": 0
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "path": "docs/decisions.md",
+    "before_sha256": "0afeebddfdd05b0d117659e8b87c8ff98db31ac34fa4c8b7859a0c0c6e6a1731",
+    "regenerated_sha256": "f22cf70d7cba46f8a18e0e3c2924306f2637d56f13f14a00984f3b5ea7947403",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/experiments.md",
+    "before_sha256": "bbea6d1274037e11af8dec0a0608ce9de614536673c7962dc9da62e419f1d863",
+    "regenerated_sha256": "78029cf7e5ab8b5b0c016c0a5ad66730589ed6532695f00e858a446e1e8f9b86",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/interfaces.md",
+    "before_sha256": "cde64ba0745233cfed79049f9e5ee06a918d6063d39b4caffd49ec1875548c7f",
+    "regenerated_sha256": "e10b9101817f818f9ae5617344fa60a31e8568a9e26d1e48a848bb469562cd31",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/paper_assets.md",
+    "before_sha256": "ff589c49d99fbfba7df163c95423fdaa6c6e88d0ea82dc2db578ffd213e783ed",
+    "regenerated_sha256": "167177366ec535b5012fc619d10d34ef2eb82e29f16ac1eb50145a5da509dc00",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/paper_captions.md",
+    "before_sha256": "66ee6f1831521443449464503190166b309136090cb82d8ec40a58e40b541b12",
+    "regenerated_sha256": "f2d951f233ee23c95b76bdc6eb2ba3acf1f3324d9dc67f87f67365f0d9722e2e",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/paper_comparison.md",
+    "before_sha256": "7a94b92a9facf4e72f21416f4aa20274a9fbe1d14f43ce0beb25749360c4e53d",
+    "regenerated_sha256": "7333a58b13205a84a5d6f76ff946a94340fc3191c91bcb5a14de02ade694fcea",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/paper_roadmap.md",
+    "before_sha256": "91260ee130de6b5dfde567a828bf27d8c7153898d5b6d4409b06239cd377acb5",
+    "regenerated_sha256": "bfddcd3051afd07a6c621a27d9d917ac1a9170a820d7a6424f2f400b44e16607",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/paper_tracks.md",
+    "before_sha256": "74c1abeb761d00c1c36b9c2577f49bfc7ab353d1be3b909e86e5d3c877882580",
+    "regenerated_sha256": "9460ee24c1d08bf4ac4d9436f23e74d8ab5b8f04c0ca4df50afd16d15d1d621f",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/reproduction_status.md",
+    "before_sha256": "5a41a2afa3c49069a247e1de3fe735ab8b9d1a848077c7d6abac99bfad33f242",
+    "regenerated_sha256": "7b9f0167473f2f3667f5bfd97db0cabd010df84fec7ba9cc73419f0b5fa1f4e0",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "docs/variant_analysis.md",
+    "before_sha256": "0dc850d47d459f038a0be0ca7bb1b018ce4c3ef48e752c5727895aa7bd13037e",
+    "regenerated_sha256": "7ba91569abedf1eca4c466f1effe2fefa108b1a953c60da8131c02e540876a1c",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  },
+  {
+    "path": "experiments/results/index.json",
+    "before_sha256": "022f2a00d9b2bf8b5ae880d4f154ed577acd25d331972dd48b47e0ad9e71cbcc",
+    "regenerated_sha256": "63d663614d7e2503cfa3d9246e7065603dc9dd0fbecb5492a8540759e1b234d0",
+    "timestamp_only": true,
+    "retained_prior_bytes": true
+  }
+]

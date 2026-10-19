@@ -1,0 +1,31 @@
+[
+  {
+    "command": [
+      "git",
+      "fetch",
+      "origin",
+      "main"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792366334.510789,
+    "finished_unix": 1792366335.6549027,
+    "exit_code": 0,
+    "output": "From https://github.com/rsasaki0109/localization_zoo\n * branch              main       -> FETCH_HEAD\n   17b7ded0..56028334  main       -> origin/main\n"
+  },
+  {
+    "command": [
+      "git",
+      "worktree",
+      "add",
+      "-b",
+      "codex/shared-range-saved03",
+      "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+      "origin/main"
+    ],
+    "cwd": "/workspace/localization-env/paper-bindings/refresh_worktree",
+    "started_unix": 1792366335.6568587,
+    "finished_unix": 1792366351.1625466,
+    "exit_code": 0,
+    "output": "Preparing worktree (new branch 'codex/shared-range-saved03')\nbranch 'codex/shared-range-saved03' set up to track 'origin/main'.\nUpdating files:   8% (1185/13458)\nUpdating files:   9% (1212/13458)\nUpdating files:  10% (1346/13458)\nUpdating files:  11% (1481/13458)\nUpdating files:  12% (1615/13458)\nUpdating files:  13% (1750/13458)\nUpdating files:  14% (1885/13458)\nUpdating files:  15% (2019/13458)\nUpdating files:  16% (2154/13458)\nUpdating files:  17% (2288/13458)\nUpdating files:  18% (2423/13458)\nUpdating files:  19% (2558/13458)\nUpdating files:  20% (2692/13458)\nUpdating files:  21% (2827/13458)\nUpdating files:  22% (2961/13458)\nUpdating files:  23% (3096/13458)\nUpdating files:  24% (3230/13458)\nUpdating files:  25% (3365/13458)\nUpdating files:  26% (3500/13458)\nUpdating files:  27% (3634/13458)\nUpdating files:  27% (3732/13458)\nUpdating files:  28% (3769/13458)\nUpdating files:  29% (3903/13458)\nUpdating files:  30% (4038/13458)\nUpdating files:  31% (4172/13458)\nUpdating files:  32% (4307/13458)\nUpdating files:  33% (4442/13458)\nUpdating files:  33% (4448/13458)\nUpdating files:  33% (4480/13458)\nUpdating files:  34% (4576/13458)\nUpdating files:  35% (4711/13458)\nUpdating files:  36% (4845/13458)\nUpdating files:  37% (4980/13458)\nUpdating files:  38% (5115/13458)\nUpdating files:  39% (5249/13458)\nUpdating files:  40% (5384/13458)\nUpdating files:  41% (5518/13458)\nUpdating files:  42% (5653/13458)\nUpdating files:  42% (5666/13458)\nUpdating files:  43% (5787/13458)\nUpdating files:  44% (5922/13458)\nUpdating files:  45% (6057/13458)\nUpdating files:  46% (6191/13458)\nUpdating files:  47% (6326/13458)\nUpdating files:  48% (6460/13458)\nUpdating files:  48% (6492/13458)\nUpdating files:  49% (6595/13458)\nUpdating files:  50% (6729/13458)\nUpdating files:  51% (6864/13458)\nUpdating files:  52% (6999/13458)\nUpdating files:  53% (7133/13458)\nUpdating files:  54% (7268/13458)\nUpdating files:  55% (7402/13458)\nUpdating files:  56% (7537/13458)\nUpdating files:  57% (7672/13458)\nUpdating files:  58% (7806/13458)\nUpdating files:  58% (7856/13458)\nUpdating files:  59% (7941/13458)\nUpdating files:  60% (8075/13458)\nUpdating files:  61% (8210/13458)\nUpdating files:  62% (8344/13458)\nUpdating files:  63% (8479/13458)\nUpdating files:  64% (8614/13458)\nUpdating files:  65% (8748/13458)\nUpdating files:  66% (8883/13458)\nUpdating files:  67% (9017/13458)\nUpdating files:  68% (9152/13458)\nUpdating files:  69% (9287/13458)\nUpdating files:  70% (9421/13458)\nUpdating files:  70% (9436/13458)\nUpdating files:  71% (9556/13458)\nUpdating files:  72% (9690/13458)\nUpdating files:  73% (9825/13458)\nUpdating files:  74% (9959/13458)\nUpdating files:  74% (10071/13458)\nUpdating files:  75% (10094/13458)\nUpdating files:  76% (10229/13458)\nUpdating files:  77% (10363/13458)\nUpdating files:  78% (10498/13458)\nUpdating files:  79% (10632/13458)\nUpdating files:  80% (10767/13458)\nUpdating files:  81% (10901/13458)\nUpdating files:  81% (10933/13458)\nUpdating files:  82% (11036/13458)\nUpdating files:  83% (11171/13458)\nUpdating files:  84% (11305/13458)\nUpdating files:  85% (11440/13458)\nUpdating files:  86% (11574/13458)\nUpdating files:  87% (11709/13458)\nUpdating files:  88% (11844/13458)\nUpdating files:  88% (11866/13458)\nUpdating files:  89% (11978/13458)\nUpdating files:  90% (12113/13458)\nUpdating files:  90% (12125/13458)\nUpdating files:  90% (12189/13458)\nUpdating files:  91% (12247/13458)\nUpdating files:  91% (12251/13458)\nUpdating files:  92% (12382/13458)\nUpdating files:  93% (12516/13458)\nUpdating files:  94% (12651/13458)\nUpdating files:  95% (12786/13458)\nUpdating files:  96% (12920/13458)\nUpdating files:  97% (13055/13458)\nUpdating files:  97% (13061/13458)\nUpdating files:  98% (13189/13458)\nUpdating files:  99% (13324/13458)\nUpdating files: 100% (13458/13458)\nUpdating files: 100% (13458/13458), done.\nHEAD is now at 56028334 Merge pull request #133 from rsasaki0109/codex/paper-pipeline-bindings\n"
+  }
+]

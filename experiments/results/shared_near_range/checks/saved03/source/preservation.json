@@ -1,0 +1,29 @@
+[
+  {
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "560283342bf8fa49aa1db5079efd9d1ff658a233",
+      "--",
+      "common",
+      "evaluation",
+      "python",
+      "ros2",
+      ":(glob)papers/*/src/**",
+      ":(glob)papers/*/include/**",
+      ":(glob)papers/*/test/**",
+      ":(glob)papers/*/CMakeLists.txt",
+      "CMakeLists.txt",
+      "experiments/results/shared_near_range/sequences",
+      "experiments/results/shared_near_range/checkpoints",
+      "experiments/results/shared_near_range/diagnostics/00",
+      "experiments/results/shared_near_range/diagnostics/01",
+      "experiments/results/shared_near_range/diagnostics/02",
+      "experiments/results/shared_near_range/diagnostics/02_protocol.json"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "exit_code": 0,
+    "output": ""
+  }
+]

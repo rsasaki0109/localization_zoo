@@ -1,0 +1,13 @@
+{
+  "command": [
+    "git",
+    "ls-remote",
+    "--heads",
+    "origin",
+    "refs/heads/codex/shared-range-replay295"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": ""
+}

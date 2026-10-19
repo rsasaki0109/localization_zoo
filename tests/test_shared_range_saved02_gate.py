@@ -337,7 +337,29 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.assertEqual(failure.exception.code, 2)
         self.assertFalse(self.output.exists())
 
-    def test_unclosed09_is_not_an_allowed_diagnostic_sequence(self):
+    def test_unclosed10_is_not_an_allowed_diagnostic_sequence(self):
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '10')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_closed09_keeps_mesh_without_inheriting_ct(self):
+        self.prepare_relocated03('09')
+        self.invoke('--sequence', '09')
+        result = json.loads((self.output / 'summary.json').read_text())
+        self.assertEqual([row['method'] for row in result['rows']], ['Mesh-LOAM'])
+        self.assertEqual(result['frozen_control_methods'], ['Mesh-LOAM'])
+        self.assertTrue(all(result['completion_gate'].values()))
+
+    def test09_rejects_an_unexpected_ct_control_before_output(self):
+        self.prepare_relocated03('09')
+        path = self.study / 'sequences/09/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'].append(dict(method='CT-ICP', sequence='09',
+                                         metric_abs_delta={'ate_m': 0},
+                                         saved_pose_bytes_equal={'CT_ICP.txt': True}))
+        write_json(path, comparison)
+        self.commit()
         with self.assertRaises(SystemExit) as failure:
             self.invoke('--sequence', '09')
         self.assertEqual(failure.exception.code, 2)

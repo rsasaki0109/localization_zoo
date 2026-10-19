@@ -118,3 +118,17 @@ Its exact output is now retained in [JSON](baseline_compiler.json), including
 the original trailing newlines and SHA256. The [follow-up check](checks/whitespace_followup.json)
 exits **0**. These checks establish restoration and preservation; they do not
 complete the remaining KITTI audit or add a new accuracy/timing measurement.
+
+## Integration with saved04 diagnosis
+
+Integration source `d621fe2a` retains the reviewed saved04 CT/Mesh diagnosis
+and the runtime restoration together. The roadmap conflict was resolved by
+retaining both the diagnosis link and the newer recreation/restart status.
+[Resolution and input/source preservation](merge144/source/) and
+[complete integration check receipts](merge144/checks/), committed at
+`51214662`, retain actual commands and exits. The local Python suite runs
+**331 tests** with exit **0** and the same **5** missing-built-evaluator skips.
+The normal/optimized bootstrap guard checks, required generators, publication
+checks and full-branch whitespace check all pass. The historical aggregates,
+paper values, native code, prior diagnostic evidence and both pinned runtimes
+remain unchanged. The active05 controller is kept in its original checkout.

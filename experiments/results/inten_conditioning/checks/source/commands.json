@@ -1,0 +1,41 @@
+[
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_inten_conditioning",
+      "tests.test_inten_trace_validation"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373474.0247126,
+    "finished_unix": 1792373475.9146426,
+    "exit_code": 0,
+    "label": "normal"
+  },
+  {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-O",
+      "-m",
+      "unittest",
+      "tests.test_inten_conditioning",
+      "tests.test_inten_trace_validation"
+    ],
+    "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_unix": 1792373475.91584,
+    "finished_unix": 1792373478.5582912,
+    "exit_code": 0,
+    "label": "optimized"
+  }
+]

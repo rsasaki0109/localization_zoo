@@ -1,0 +1,424 @@
+{
+  "source_commit": "5576c48b7bc7bbab46ecb53bacb1119f7df3ff10",
+  "protocol_sha256": "1e71a61f1f7b8e3fcda03d0e370c6ce789112c593596e1cb2402d9d50c2fc564",
+  "input_commit": "878942285f60f6f4fca4ee700df940f37000c79d",
+  "input_sha256": {
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/trace.jsonl": "215b910da4024ef7df3b0a3d2ff984404e370dbdb18f074c3bb3644c39bdb0ce",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/summary.json": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/command.json": "dc45eaa6127911e907573fe19a3bf53b003203f61f482b17dc329753e1f6e7f6",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/trace.jsonl": "6e6737f7386ba2c0ffc423c50ea70988ec2170f88bf85b7488a8f6de91651bab",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/summary.json": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/command.json": "3ed2f8fab8f1bc589cbed7283b984035728f6eb547e88d3a8fc31f68bf28d90c",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/trace.jsonl": "a2d18b826bba502c63791bbf4118263a076caee50c066893a8fb51e973aac6ff",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/summary.json": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/command.json": "11c69619c5b0f24ade19033cd5abdb3d541db1539c12f822b784fbd9d97e07d8",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/trace.jsonl": "1fc31a816982d3f61c6602616d7ccd95f8018eb77c95470192c63cfa1f78e20a",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/summary.json": "a03e1ca3c0db132d14157e6f38ece9246400581f746a4312bb61546cec428823",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/command.json": "3ca361211d07c31d31a226e1bbe36cf413188a0cfe271ce0b7a740c59b8dda71",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/trace.jsonl": "0a899f0d422cec405dc9385d4a3880d9dcc68c9520b70e95c2652bca82ad6992",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/summary.json": "e460c84885632c48325516c998e1b42e27785b24b675645b4a3eab812aeca124",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/command.json": "e33793ac02b6c313712ec29e62651ae664e8b23104a9832161b374efd8aa15c4",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/trace.jsonl": "d1298289e0919fb5957a8ea6eb15253c1b86edf4c63a0edac08e07cbd4bba2ad",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/summary.json": "0d423481887140429151aa4825ba2e57f55912d05985e9029e1318c18aa06702",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/command.json": "3ec3b331f91ba20b5930213faa42a20923f94af092faf687abe50f71655183c6",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/trace.jsonl": "aca8a55d36e155b0ea66a4c454b3fa634ef682adbabbdd6a83b12b28f00998c2",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/summary.json": "11a4cf72a1d2319b4d0f4b319458e0d0a5b1e48d7ee902c66e97f0bb0a676bc5",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/command.json": "90390234408935a7ed638deb068a5a1dcb6de8afbaf00ee2419a058a9ec1d800"
+  },
+  "analysis_parameters": {
+    "rotation_length_m": 1.0,
+    "rank_rtol": 1e-09
+  },
+  "cases": [
+    {
+      "name": "legacy_default",
+      "directory": "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on",
+      "validation": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "215b910da4024ef7df3b0a3d2ff984404e370dbdb18f074c3bb3644c39bdb0ce",
+        "summary_sha256": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+        "receipt_sha256": "dc45eaa6127911e907573fe19a3bf53b003203f61f482b17dc329753e1f6e7f6",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 3,
+        "skipped_frames": 0,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 2,
+            "iterations": 20,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 2
+            }
+          },
+          "s2m": {
+            "calls": 2,
+            "iterations": 16,
+            "stops": {
+              "not_run": 1,
+              "converged": 2
+            }
+          }
+        }
+      },
+      "stages": {
+        "s2s": {
+          "iterations": 20,
+          "statuses": {
+            "ok": 20
+          },
+          "numerical_ranks": {
+            "6": 20
+          }
+        },
+        "s2m": {
+          "iterations": 16,
+          "statuses": {
+            "ok": 16
+          },
+          "numerical_ranks": {
+            "6": 16
+          }
+        }
+      }
+    },
+    {
+      "name": "legacy_plane_check",
+      "directory": "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on",
+      "validation": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "6e6737f7386ba2c0ffc423c50ea70988ec2170f88bf85b7488a8f6de91651bab",
+        "summary_sha256": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+        "receipt_sha256": "3ed2f8fab8f1bc589cbed7283b984035728f6eb547e88d3a8fc31f68bf28d90c",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 3,
+        "skipped_frames": 0,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 2,
+            "iterations": 20,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 2
+            }
+          },
+          "s2m": {
+            "calls": 2,
+            "iterations": 16,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 1,
+              "converged": 1
+            }
+          }
+        }
+      },
+      "stages": {
+        "s2s": {
+          "iterations": 20,
+          "statuses": {
+            "ok": 20
+          },
+          "numerical_ranks": {
+            "6": 20
+          }
+        },
+        "s2m": {
+          "iterations": 16,
+          "statuses": {
+            "ok": 16
+          },
+          "numerical_ranks": {
+            "6": 16
+          }
+        }
+      }
+    },
+    {
+      "name": "skipped_input",
+      "directory": "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on",
+      "validation": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "a2d18b826bba502c63791bbf4118263a076caee50c066893a8fb51e973aac6ff",
+        "summary_sha256": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+        "receipt_sha256": "11c69619c5b0f24ade19033cd5abdb3d541db1539c12f822b784fbd9d97e07d8",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 2,
+        "skipped_frames": 1,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 1,
+            "iterations": 10,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 1
+            }
+          },
+          "s2m": {
+            "calls": 1,
+            "iterations": 5,
+            "stops": {
+              "not_run": 1,
+              "converged": 1
+            }
+          }
+        }
+      },
+      "stages": {
+        "s2s": {
+          "iterations": 10,
+          "statuses": {
+            "ok": 10
+          },
+          "numerical_ranks": {
+            "6": 10
+          }
+        },
+        "s2m": {
+          "iterations": 5,
+          "statuses": {
+            "ok": 5
+          },
+          "numerical_ranks": {
+            "6": 5
+          }
+        }
+      }
+    },
+    {
+      "name": "paper_default__default",
+      "directory": "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on",
+      "validation": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "1fc31a816982d3f61c6602616d7ccd95f8018eb77c95470192c63cfa1f78e20a",
+        "summary_sha256": "a03e1ca3c0db132d14157e6f38ece9246400581f746a4312bb61546cec428823",
+        "receipt_sha256": "3ca361211d07c31d31a226e1bbe36cf413188a0cfe271ce0b7a740c59b8dda71",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 3,
+        "skipped_frames": 0,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 2,
+            "iterations": 20,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 2
+            }
+          },
+          "s2m": {
+            "calls": 2,
+            "iterations": 16,
+            "stops": {
+              "not_run": 1,
+              "converged": 2
+            }
+          }
+        }
+      },
+      "stages": {
+        "s2s": {
+          "iterations": 20,
+          "statuses": {
+            "ok": 20
+          },
+          "numerical_ranks": {
+            "6": 20
+          }
+        },
+        "s2m": {
+          "iterations": 16,
+          "statuses": {
+            "ok": 16
+          },
+          "numerical_ranks": {
+            "6": 16
+          }
+        }
+      }
+    },
+    {
+      "name": "paper_default__accelerated",
+      "directory": "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on",
+      "validation": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "0a899f0d422cec405dc9385d4a3880d9dcc68c9520b70e95c2652bca82ad6992",
+        "summary_sha256": "e460c84885632c48325516c998e1b42e27785b24b675645b4a3eab812aeca124",
+        "receipt_sha256": "e33793ac02b6c313712ec29e62651ae664e8b23104a9832161b374efd8aa15c4",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 3,
+        "skipped_frames": 0,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 2,
+            "iterations": 20,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 2
+            }
+          },
+          "s2m": {
+            "calls": 2,
+            "iterations": 16,
+            "stops": {
+              "not_run": 1,
+              "converged": 2
+            }
+          }
+        }
+      },
+      "stages": {
+        "s2s": {
+          "iterations": 20,
+          "statuses": {
+            "ok": 20
+          },
+          "numerical_ranks": {
+            "6": 20
+          }
+        },
+        "s2m": {
+          "iterations": 16,
+          "statuses": {
+            "ok": 16
+          },
+          "numerical_ranks": {
+            "6": 16
+          }
+        }
+      }
+    },
+    {
+      "name": "paper_odometry_plane_check__default",
+      "directory": "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on",
+      "validation": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "d1298289e0919fb5957a8ea6eb15253c1b86edf4c63a0edac08e07cbd4bba2ad",
+        "summary_sha256": "0d423481887140429151aa4825ba2e57f55912d05985e9029e1318c18aa06702",
+        "receipt_sha256": "3ec3b331f91ba20b5930213faa42a20923f94af092faf687abe50f71655183c6",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 3,
+        "skipped_frames": 0,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 2,
+            "iterations": 20,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 2
+            }
+          },
+          "s2m": {
+            "calls": 2,
+            "iterations": 16,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 1,
+              "converged": 1
+            }
+          }
+        }
+      },
+      "stages": {
+        "s2s": {
+          "iterations": 20,
+          "statuses": {
+            "ok": 20
+          },
+          "numerical_ranks": {
+            "6": 20
+          }
+        },
+        "s2m": {
+          "iterations": 16,
+          "statuses": {
+            "ok": 16
+          },
+          "numerical_ranks": {
+            "6": 16
+          }
+        }
+      }
+    },
+    {
+      "name": "paper_odometry_plane_check__accelerated",
+      "directory": "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on",
+      "validation": {
+        "schema_version": 1,
+        "exit_code": 0,
+        "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+        "trace_sha256": "aca8a55d36e155b0ea66a4c454b3fa634ef682adbabbdd6a83b12b28f00998c2",
+        "summary_sha256": "11a4cf72a1d2319b4d0f4b319458e0d0a5b1e48d7ee902c66e97f0bb0a676bc5",
+        "receipt_sha256": "90390234408935a7ed638deb068a5a1dcb6de8afbaf00ee2419a058a9ec1d800",
+        "records": 5,
+        "input_frames": 3,
+        "processed_frames": 3,
+        "skipped_frames": 0,
+        "nonfinite_values": 0,
+        "stages": {
+          "s2s": {
+            "calls": 2,
+            "iterations": 20,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 2
+            }
+          },
+          "s2m": {
+            "calls": 2,
+            "iterations": 16,
+            "stops": {
+              "not_run": 1,
+              "iteration_limit": 1,
+              "converged": 1
+            }
+          }
+        }
+      },
+      "stages": {
+        "s2s": {
+          "iterations": 20,
+          "statuses": {
+            "ok": 20
+          },
+          "numerical_ranks": {
+            "6": 20
+          }
+        },
+        "s2m": {
+          "iterations": 16,
+          "statuses": {
+            "ok": 16
+          },
+          "numerical_ranks": {
+            "6": 16
+          }
+        }
+      }
+    }
+  ],
+  "exit_code": 0,
+  "scope": "Offline analysis of every complete positive trace tuple in the existing legacy, skipped-input and acceleration compatibility fixture corpus. No scans/native execution, failure-sequence collection, parameter selection, estimator gate or solver-cause claim."
+}

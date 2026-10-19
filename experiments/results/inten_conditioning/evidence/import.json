@@ -1,0 +1,166 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/commands.json",
+      "destination": "experiments/results/inten_conditioning/evidence/commands.json",
+      "source_sha256": "d33f01b4a3777b0960d46b6d1a145741287c0e2646e57ebab927ab760a24c811",
+      "stored_sha256": "d33f01b4a3777b0960d46b6d1a145741287c0e2646e57ebab927ab760a24c811",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/legacy_default/iterations.jsonl",
+      "destination": "experiments/results/inten_conditioning/evidence/legacy_default/iterations.jsonl",
+      "source_sha256": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+      "stored_sha256": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/legacy_default/summary.json",
+      "destination": "experiments/results/inten_conditioning/evidence/legacy_default/summary.json",
+      "source_sha256": "6b6160e22c21db1912402f3c393d86f5538e2707b22fc685db99b768f04bbb63",
+      "stored_sha256": "6b6160e22c21db1912402f3c393d86f5538e2707b22fc685db99b768f04bbb63",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/legacy_default.log",
+      "destination": "experiments/results/inten_conditioning/evidence/legacy_default.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/legacy_plane_check/iterations.jsonl",
+      "destination": "experiments/results/inten_conditioning/evidence/legacy_plane_check/iterations.jsonl",
+      "source_sha256": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+      "stored_sha256": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/legacy_plane_check/summary.json",
+      "destination": "experiments/results/inten_conditioning/evidence/legacy_plane_check/summary.json",
+      "source_sha256": "df9078a49c7a3355ef434e9b56f023df11fe0f6229a2bdffa234c1869ccdfc20",
+      "stored_sha256": "df9078a49c7a3355ef434e9b56f023df11fe0f6229a2bdffa234c1869ccdfc20",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/legacy_plane_check.log",
+      "destination": "experiments/results/inten_conditioning/evidence/legacy_plane_check.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__accelerated/iterations.jsonl",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_default__accelerated/iterations.jsonl",
+      "source_sha256": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+      "stored_sha256": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__accelerated/summary.json",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_default__accelerated/summary.json",
+      "source_sha256": "66d79a1b5e8ea98bff0442e439ae5e550ad381183ace80206d428e2dd2291673",
+      "stored_sha256": "66d79a1b5e8ea98bff0442e439ae5e550ad381183ace80206d428e2dd2291673",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__accelerated.log",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_default__accelerated.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__default/iterations.jsonl",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_default__default/iterations.jsonl",
+      "source_sha256": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+      "stored_sha256": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__default/summary.json",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_default__default/summary.json",
+      "source_sha256": "ea92904135b4ef1ac2b8e9a0bf4b8485c14c1cd61e5243692f78f043cdf368c4",
+      "stored_sha256": "ea92904135b4ef1ac2b8e9a0bf4b8485c14c1cd61e5243692f78f043cdf368c4",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__default.log",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_default__default.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_odometry_plane_check__accelerated/iterations.jsonl",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__accelerated/iterations.jsonl",
+      "source_sha256": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+      "stored_sha256": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_odometry_plane_check__accelerated/summary.json",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__accelerated/summary.json",
+      "source_sha256": "b628fb3be07e2d254f0b2120ae53d5d87a126f63bcc71ec9db9497a532406d68",
+      "stored_sha256": "b628fb3be07e2d254f0b2120ae53d5d87a126f63bcc71ec9db9497a532406d68",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_odometry_plane_check__accelerated.log",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__accelerated.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_odometry_plane_check__default/iterations.jsonl",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__default/iterations.jsonl",
+      "source_sha256": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+      "stored_sha256": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_odometry_plane_check__default/summary.json",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__default/summary.json",
+      "source_sha256": "bb40828687ae2c9321fc06d0fa2e32157db699007e273036f1aaec0ae42ae906",
+      "stored_sha256": "bb40828687ae2c9321fc06d0fa2e32157db699007e273036f1aaec0ae42ae906",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/paper_odometry_plane_check__default.log",
+      "destination": "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__default.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/skipped_input/iterations.jsonl",
+      "destination": "experiments/results/inten_conditioning/evidence/skipped_input/iterations.jsonl",
+      "source_sha256": "f99af6bfd55521c3a305bd310fff3fe957504dab3589fd3b15b4061b210811f8",
+      "stored_sha256": "f99af6bfd55521c3a305bd310fff3fe957504dab3589fd3b15b4061b210811f8",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/skipped_input/summary.json",
+      "destination": "experiments/results/inten_conditioning/evidence/skipped_input/summary.json",
+      "source_sha256": "fc6800802cc9285714e1049c6fcc6031646b127fb8536bb4114bad4233ac73a2",
+      "stored_sha256": "fc6800802cc9285714e1049c6fcc6031646b127fb8536bb4114bad4233ac73a2",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/skipped_input.log",
+      "destination": "experiments/results/inten_conditioning/evidence/skipped_input.log.gz",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "lossless": true
+    },
+    {
+      "source": "/workspace/localization-env/inten-trace-conditioning/analysis/summary.json",
+      "destination": "experiments/results/inten_conditioning/evidence/summary.json",
+      "source_sha256": "042cf0b52d44a8c3fc2a00849ee5720c52b3f66090ff40fbde434934e8c015c7",
+      "stored_sha256": "042cf0b52d44a8c3fc2a00849ee5720c52b3f66090ff40fbde434934e8c015c7",
+      "lossless": true
+    }
+  ],
+  "exit_code": 0
+}

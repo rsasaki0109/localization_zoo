@@ -381,6 +381,11 @@ independent. Each item says what "done" means.
     and short-fixture compatibility checks preserve the existing behavior;
     full failure-sequence tracing and the solver-level cause remain open.
     [Validation evidence and commands](../experiments/results/inten_passive_trace/README.md).
+    An [offline conditioning analyzer](../experiments/results/inten_conditioning/README.md)
+    now specifies sensor-centred tangent coordinates and a required rotation
+    length, with every stored iteration retained. Short fixtures and synthetic
+    coordinate/scale/degeneracy tests validate this interpretation; they do not
+    establish the full-sequence solver cause or alter estimator gates.
     The default-off evaluation CLI can also stream the observation records;
     [export protocol and validation status](../experiments/results/inten_trace_export/README.md)
     record short-fixture trace-on/off pose parity and explicit skipped-input

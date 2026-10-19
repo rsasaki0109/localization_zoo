@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "input_commit": "878942285f60f6f4fca4ee700df940f37000c79d",
+  "scope": "Offline analysis of every complete positive trace tuple in the existing legacy, skipped-input and acceleration compatibility fixture corpus. No scans/native execution, failure-sequence collection, parameter selection, estimator gate or solver-cause claim.",
+  "analysis_parameters": {
+    "rotation_length_m": 1.0,
+    "rank_rtol": 1e-09
+  },
+  "parameter_selection": "A one-metre characteristic rotation length is an explicit analysis convention selected before these fixture analyses, not a universal physical scale. The same convention is applied to every case. Numerical rank uses one relative eigenvalue cutoff; neither value is selected from KITTI failures or changes estimator settings. Sensitivity/unit and coordinate-invariance checks are synthetic mechanism tests.",
+  "coordinates": "q=[u_sensor_m,L*omega_sensor_rad]. Native left tangent = Ad(linearization_pose)*diag(I,I/L)*q. Center and axes are those of the current sensor at the recorded linearization; Hq=A.T*H*A and gq=A.T*g. This is a first-order coordinate change, not a new registration solve or a transformed finite update.",
+  "matrix_policy": "Unregularized H only; no damping or eigenvalue clipping. Average only roundoff-sized antisymmetry. Retain original H, g, delta, pose, residuals, class counts and decision flags. Invalid pose, nonfinite H, excessive asymmetry, material indefiniteness and arithmetic failure are explicit statuses. Only PSD numerical rank six has a finite reported condition number; every other case remains null.",
+  "coverage": "Validate original complete trace/run/exit tuple before analysis; retain every actual iteration and both input/frame indices. Initialization, uncalled stages and skipped inputs do not become solved identity matrices. Hash the second trace pass and recheck summary/receipt bytes before exclusive publication.",
+  "evidence_order": "Commit source/protocol, run from that commit, commit raw evidence and exact commands/exits before numerical README or roadmap statements. Required regeneration and preservation checks follow.",
+  "limits": "Spectra depend on explicit L, residual definitions/weights, sample counts and numerical precision. Sensor centering removes a coordinate-origin artifact but cannot restore precision lost in the recorded native system. High support or full numerical rank cannot show correct associations or motion. Short fixture traces cannot explain KITTI failures. Original registration settings, native source, stored accuracy and active05 source/binaries/scan ownership are preserved.",
+  "cases": [
+    {
+      "name": "legacy_default",
+      "directory": "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on"
+    },
+    {
+      "name": "legacy_plane_check",
+      "directory": "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on"
+    },
+    {
+      "name": "skipped_input",
+      "directory": "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on"
+    },
+    {
+      "name": "paper_default__default",
+      "directory": "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on"
+    },
+    {
+      "name": "paper_default__accelerated",
+      "directory": "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on"
+    },
+    {
+      "name": "paper_odometry_plane_check__default",
+      "directory": "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on"
+    },
+    {
+      "name": "paper_odometry_plane_check__accelerated",
+      "directory": "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on"
+    }
+  ],
+  "input_sha256": {
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/trace.jsonl": "215b910da4024ef7df3b0a3d2ff984404e370dbdb18f074c3bb3644c39bdb0ce",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/summary.json": "7faa2c18cbaa1505aea8b19a1951c178b8109074c15ae2820125bec1bcaf14bd",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_default/candidate_on/command.json": "dc45eaa6127911e907573fe19a3bf53b003203f61f482b17dc329753e1f6e7f6",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/trace.jsonl": "6e6737f7386ba2c0ffc423c50ea70988ec2170f88bf85b7488a8f6de91651bab",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/summary.json": "0e916e6e6fc2d2e755c25995154e88391252acfab575ace0ae2a40ae26432dd5",
+    "experiments/results/inten_trace_export/evidence/fixture/paper_odometry_plane_check/candidate_on/command.json": "3ed2f8fab8f1bc589cbed7283b984035728f6eb547e88d3a8fc31f68bf28d90c",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/trace.jsonl": "a2d18b826bba502c63791bbf4118263a076caee50c066893a8fb51e973aac6ff",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/summary.json": "2d16ad77591de2637d9d2b7a4f5fda083671d1847a8a7f1756c0bc457462851d",
+    "experiments/results/inten_trace_export/evidence/skipped_input/candidate_on/command.json": "11c69619c5b0f24ade19033cd5abdb3d541db1539c12f822b784fbd9d97e07d8",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/trace.jsonl": "1fc31a816982d3f61c6602616d7ccd95f8018eb77c95470192c63cfa1f78e20a",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/summary.json": "a03e1ca3c0db132d14157e6f38ece9246400581f746a4312bb61546cec428823",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__default/candidate_on/command.json": "3ca361211d07c31d31a226e1bbe36cf413188a0cfe271ce0b7a740c59b8dda71",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/trace.jsonl": "0a899f0d422cec405dc9385d4a3880d9dcc68c9520b70e95c2652bca82ad6992",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/summary.json": "e460c84885632c48325516c998e1b42e27785b24b675645b4a3eab812aeca124",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/command.json": "e33793ac02b6c313712ec29e62651ae664e8b23104a9832161b374efd8aa15c4",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/trace.jsonl": "d1298289e0919fb5957a8ea6eb15253c1b86edf4c63a0edac08e07cbd4bba2ad",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/summary.json": "0d423481887140429151aa4825ba2e57f55912d05985e9029e1318c18aa06702",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__default/candidate_on/command.json": "3ec3b331f91ba20b5930213faa42a20923f94af092faf687abe50f71655183c6",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/trace.jsonl": "aca8a55d36e155b0ea66a4c454b3fa634ef682adbabbdd6a83b12b28f00998c2",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/summary.json": "11a4cf72a1d2319b4d0f4b319458e0d0a5b1e48d7ee902c66e97f0bb0a676bc5",
+    "experiments/results/inten_trace_export/integration/evidence/fixture/paper_odometry_plane_check__accelerated/candidate_on/command.json": "90390234408935a7ed638deb068a5a1dcb6de8afbaf00ee2419a058a9ec1d800"
+  }
+}

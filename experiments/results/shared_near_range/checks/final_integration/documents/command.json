@@ -1,0 +1,104 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-range-final-audit/integrate_documents.py"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+  "source_commit": "57e19026e5bca79c59d8cd5257f5f618534d44a8",
+  "original_completion_commit": "ee225d0987affeb71e3878848a7d24223f3a9669",
+  "report_sha256": "e62a64c7987371e5b0d6f2e4cfc0af7a5877e67ba08c496668b40332d6ae6ee1",
+  "started_unix": 1792440455.31384,
+  "finished_unix": 1792440455.387354,
+  "paths": {
+    "papers/aloam/README.md": {
+      "before_sha256": "9d64ebeaa5ce0a014b60e8df3b5b27b60448cd823f9dbf8375d694e1eef49583",
+      "after_sha256": "6590a41cbde5bdb7285c79732acdaa5eced28f5d7dbf59b9d340d2f05023eab6"
+    },
+    "papers/ct_icp/README.md": {
+      "before_sha256": "edfcca19e133a1dd32b8348665ad7de68f7a7cfb95d6fa8eb0a2c1867627f949",
+      "after_sha256": "3f4ff9462d7e0231a3a21eaf3c17096d8baa7a256079bd5f571fcd9b7fb27e28"
+    },
+    "papers/dilo/README.md": {
+      "before_sha256": "412069f3226ab21a7366e778388d17d4e8f7b72e1a288e75b5816d451b04a5d9",
+      "after_sha256": "9c0cbed3ea060ce3fcacea1c201daef435d4f17e0168ed14ae8312ad8bb02a3b"
+    },
+    "papers/elo/README.md": {
+      "before_sha256": "c0f5938c96a38e014b38b9d499b4168af24a69617ba81d83f1d1c0ae2133e20f",
+      "after_sha256": "b9d52803108aa7f491de1fc9f594aa01aebedac435d3888056807fdcb176ec22"
+    },
+    "papers/floam/README.md": {
+      "before_sha256": "dfc8f27ac00ea8fcc7354aca81b42e60194665006a91664e663c70c5b85d4d58",
+      "after_sha256": "a499691a22e170ca3e50223b7e6885a47db304a43ad6930dd39c63d0b53d887d"
+    },
+    "papers/imls_slam/README.md": {
+      "before_sha256": "a5830b489d6edffe16ce007032fba25b49fafe28de94e2b6c1f5b7e35e10feeb",
+      "after_sha256": "a1c062c1727285d953380ebb503c7ce9c7e9e5659913076d184cdd71d0f00438"
+    },
+    "papers/inten_loam/README.md": {
+      "before_sha256": "fe45b0ca468c02509f9ee2baf0fb709deb999e189153ae2fc89cee9669d86747",
+      "after_sha256": "ca0573ce530273676a634ec720374a1aeac54a61da01c6a99c4d874dd6a0b583"
+    },
+    "papers/kiss_icp/README.md": {
+      "before_sha256": "2e1994b162b0ef424a4f4f915224e9d819d5d04900af66aa896f7f317c3daf66",
+      "after_sha256": "1007c032f04876458f9632831748dfff27a8573a99fa8bad415e5eba0d4ed1fe"
+    },
+    "papers/l_lo/README.md": {
+      "before_sha256": "4abc4b1c780ca966dd21bd345548ef6e5e3a34048c8132a046b02189809d6e19",
+      "after_sha256": "a3d461457537a239129db8083115d4e3c8d599464a3147096f59a32c7aef7f4b"
+    },
+    "papers/lf_gicp/README.md": {
+      "before_sha256": "d2b3a871f3253ced51bf1848aecf5c6f0c0661d192cbf8e57a3995749294c7d3",
+      "after_sha256": "d3c03ea64daacffc464c62198fd8a5ee3d54c6fabe8b9eaa0aa4b08b96e5fad2"
+    },
+    "papers/lego_loam/README.md": {
+      "before_sha256": "f542f8255a06e121d3ccc1c3fc06758c0844722d34b998e5b7b5d5d09e204772",
+      "after_sha256": "5c9cdf39206feb218e871079d306c6c9a624556523457e4aa83ffa0ae7105e56"
+    },
+    "papers/litamin2/README.md": {
+      "before_sha256": "7456a06627ba5770e559b27e95e7a09bc37061110605b4743b700956e0202564",
+      "after_sha256": "33017ecea1eeb73f59a9caa2595e9d551493f32f1eb85bb5a1791ec50187ada6"
+    },
+    "papers/mulls/README.md": {
+      "before_sha256": "e168bec9483ec9b20d949405572f2bf51d9afc273b8d9b7a7de46592f270bbc0",
+      "after_sha256": "85393f5c1532142a9d34a6deab700a389c653839952a1e9a7bf47c12a5de361b"
+    },
+    "papers/mesh_loam/README.md": {
+      "before_sha256": "dbcd6eb764904ff991f275900bdab720827a8863d552ccf3424298aa731e223e",
+      "after_sha256": "f51bc45db81493b48b4acb52ab5da11969fdd015df072bcaa2cd8e0a458a5d06"
+    },
+    "papers/ndt/README.md": {
+      "before_sha256": "fd04c3908db577530a601ff54127f869de0311eb02bbecc0a838ec3c8e862ea7",
+      "after_sha256": "6a3fbb8d708f7b25f6450cc290b652cbac7e94071f1b221d7dd86dbc73bd021d"
+    },
+    "papers/quadric_lo/README.md": {
+      "before_sha256": "6c6acf6d93c71a3c5d6a94decbb37256eb568aeb06ef6819655242515be786d1",
+      "after_sha256": "df82f243e68042136cf888e532bdc3c35fcc0aab83b37dbe2106069fbc81c266"
+    },
+    "papers/small_gicp/README.md": {
+      "before_sha256": "64fe773fe82ab518d736610bae3120acd06357b472ae1db52a026db8c301bfd0",
+      "after_sha256": "4385d36b9cfe67832f96ae21c24cc51981791e849a3aa15c5428b8d7e78beaec"
+    },
+    "papers/suma/README.md": {
+      "before_sha256": "81e87e83a1064fc2125677a12f7bc16b6ffb32b104dfb1d04405a9f972187e2f",
+      "after_sha256": "25db64e3fe635fd87edcc6fbb29a97f548463f75df2cde59b7c8797c58ff8dfd"
+    },
+    "papers/vlom/README.md": {
+      "before_sha256": "14e3ca3e6c8a73a92a2b9cf864ceec40e52b569d1e7dc54c02a6197711b45eed",
+      "after_sha256": "4d7aae451a0eb72baa3c29ce0c56475e9067076cb2f61e1a563bed2f0cc1a280"
+    },
+    "papers/voxel_gicp/README.md": {
+      "before_sha256": "05d227eaba47353ddf3d89db546aeccf39f9361850b689e6cdb7d623b30ee1a7",
+      "after_sha256": "e58bc6e1ce971eeffe93700ed3026a15835721e97fd1120ab78c312b6bbbafea"
+    },
+    "experiments/results/shared_near_range/README.md": {
+      "before_sha256": "d1ac3a172a39df3dd7f2a5670f1175b3017cd7a433481cd6c96b8e2638826979",
+      "after_sha256": "538e66d7d0887766cedb38d98d648e0608732680fd074abedd6b029e6da3f73c"
+    },
+    "docs/roadmap.md": {
+      "before_sha256": "73f9788c170ef06bd1f7f4f4c373edecf224d4128818837f74cbb528dec97ed1",
+      "after_sha256": "db0bcb23abdcd423addaeaa564aa34228d329cc067766eab1c91bf08b4c62be5"
+    }
+  },
+  "exit_code": 0,
+  "scope": "Reuse the sealed renderer for current method READMEs; retain current study introduction and replace only the completed roadmap item. No estimator or scan read."
+}

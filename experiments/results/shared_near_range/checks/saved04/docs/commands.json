@@ -1,0 +1,178 @@
+[
+  {
+    "label": "refresh_study_docs",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "checked_checkout_commit": "4cb636eedcd614cb15e2b63121bb39d5966e55bb",
+    "working_changes": "Scientific prose from committed04 raw evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/saved04-docs",
+      "XDG_CACHE_HOME": "/tmp/saved04-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792372012.082836,
+    "finished_unix": 1792372079.4147346,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_full_variant_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "checked_checkout_commit": "4cb636eedcd614cb15e2b63121bb39d5966e55bb",
+    "working_changes": "Scientific prose from committed04 raw evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/saved04-docs",
+      "XDG_CACHE_HOME": "/tmp/saved04-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792372079.4174798,
+    "finished_unix": 1792372079.6449385,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_paper_ratio_table",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "checked_checkout_commit": "4cb636eedcd614cb15e2b63121bb39d5966e55bb",
+    "working_changes": "Scientific prose from committed04 raw evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/saved04-docs",
+      "XDG_CACHE_HOME": "/tmp/saved04-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792372079.6455634,
+    "finished_unix": 1792372079.8214014,
+    "exit_code": 0
+  },
+  {
+    "label": "python_unittest",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "checked_checkout_commit": "4cb636eedcd614cb15e2b63121bb39d5966e55bb",
+    "working_changes": "Scientific prose from committed04 raw evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/saved04-docs",
+      "XDG_CACHE_HOME": "/tmp/saved04-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792372079.8218248,
+    "finished_unix": 1792372097.4555047,
+    "exit_code": 0
+  },
+  {
+    "label": "validate_showcase",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "checked_checkout_commit": "4cb636eedcd614cb15e2b63121bb39d5966e55bb",
+    "working_changes": "Scientific prose from committed04 raw evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/saved04-docs",
+      "XDG_CACHE_HOME": "/tmp/saved04-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792372097.4564757,
+    "finished_unix": 1792372097.5682213,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_leaderboard",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "checked_checkout_commit": "4cb636eedcd614cb15e2b63121bb39d5966e55bb",
+    "working_changes": "Scientific prose from committed04 raw evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/saved04-docs",
+      "XDG_CACHE_HOME": "/tmp/saved04-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792372097.5686808,
+    "finished_unix": 1792372097.7359354,
+    "exit_code": 0
+  },
+  {
+    "label": "generate_paper_ready_evidence",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "checked_checkout_commit": "4cb636eedcd614cb15e2b63121bb39d5966e55bb",
+    "working_changes": "Scientific prose from committed04 raw evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/saved04-docs",
+      "XDG_CACHE_HOME": "/tmp/saved04-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792372097.7364686,
+    "finished_unix": 1792372097.8090334,
+    "exit_code": 0
+  },
+  {
+    "label": "branch_whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "878942285f60f6f4fca4ee700df940f37000c79d"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "checked_checkout_commit": "4cb636eedcd614cb15e2b63121bb39d5966e55bb",
+    "working_changes": "Scientific prose from committed04 raw evidence and required regeneration.",
+    "environment_overrides": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "MPLCONFIGDIR": "/tmp/saved04-docs",
+      "XDG_CACHE_HOME": "/tmp/saved04-cache",
+      "PATH": "/workspace/localization-env/host-venv/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/override:/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/agent/.local/bin:/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback"
+    },
+    "started_unix": 1792372097.810007,
+    "finished_unix": 1792372098.2280405,
+    "exit_code": 0
+  }
+]

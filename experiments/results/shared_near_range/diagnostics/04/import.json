@@ -1,0 +1,44 @@
+{
+  "files": [
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics04/analysis/ct_icp/current_steps.json",
+      "destination": "experiments/results/shared_near_range/diagnostics/04/ct_icp/current_steps.json",
+      "sha256": "d2e432b8b34acd0ad6a2f7c9c19e04d54f1dccdcd7de934a10380c583d92d00c"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics04/analysis/ct_icp/trace.csv",
+      "destination": "experiments/results/shared_near_range/diagnostics/04/ct_icp/trace.csv",
+      "sha256": "ccfbcbfedad81019cc6f527ebd5ffc58eb62b71764564d7ba2e616397a7f9ad1"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics04/analysis/mesh_loam/current_steps.json",
+      "destination": "experiments/results/shared_near_range/diagnostics/04/mesh_loam/current_steps.json",
+      "sha256": "c3d35bfbdd3c6771afefb599e3ee45d024479d8606ec6875a44e5fca543e3b2e"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics04/analysis/mesh_loam/historical_steps.json",
+      "destination": "experiments/results/shared_near_range/diagnostics/04/mesh_loam/historical_steps.json",
+      "sha256": "d6883215f6d0b0840f3aac07e330f813901d26ec90350357dde2aa9bbff2ff04"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics04/analysis/mesh_loam/paired_trace.png",
+      "destination": "experiments/results/shared_near_range/diagnostics/04/mesh_loam/paired_trace.png",
+      "sha256": "177e0ca24725b36d008a72dc40e6c03c2f521a7bdc5fb4f7d88801af4147cf10"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics04/analysis/mesh_loam/trace.csv",
+      "destination": "experiments/results/shared_near_range/diagnostics/04/mesh_loam/trace.csv",
+      "sha256": "a15b6c4ce620f40ee6e39d48e284d0ef870ceb396884c12dc2ef4c8e5064a7ca"
+    },
+    {
+      "source": "/workspace/localization-env/shared-near-range/diagnostics04/analysis/summary.json",
+      "destination": "experiments/results/shared_near_range/diagnostics/04/summary.json",
+      "sha256": "407a31a62dcf4b771f2463ae8dcfffbd721173cbea6504dbedbc2f40c589831f"
+    }
+  ],
+  "log": {
+    "source_sha256": "dc1bfaafeceb6e8a2380f7c17bc649466eec4c631b1c98bde0ccff00c28c9725",
+    "gzip_sha256": "86694228313d2d73b0c99d9b9bbcbf9dfafe0ecbc4dbfb9e8f02ae22193c2bd6",
+    "gzip_original_verified": true
+  }
+}

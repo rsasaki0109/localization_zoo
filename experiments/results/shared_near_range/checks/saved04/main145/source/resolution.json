@@ -1,0 +1,118 @@
+{
+  "old_head": "ddca3fbb2209e59259a9e24b0b0e74865700b0a5",
+  "main": "9ed935a045989d1806c0a19baa98794fa482eb54",
+  "conflicts": [
+    {
+      "path": "docs/decisions.md",
+      "old_head_sha256": "acec5d9689dae88e05974a46abae9e18d6b2642c2dd78001c043b849e457b166",
+      "main_sha256": "88e019d503e553ffdfba2d0a737c037d9159138e9208d64c22c7170b236160d9",
+      "changed_lines": [
+        "-_Generated at 2026-10-19T01:06:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._",
+        "+_Generated at 2026-10-19T01:34:55+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/experiments.md",
+      "old_head_sha256": "38144f9edebf845a19a02b275cac4b8e6b41c4d9134c024adf6b008f9c046149",
+      "main_sha256": "ff3f037faf5d3b1a8e517d64ff46587d59be560fdb62c9737fb370769acf0375",
+      "changed_lines": [
+        "-_Generated at 2026-10-19T01:06:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._",
+        "+_Generated at 2026-10-19T01:34:55+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/interfaces.md",
+      "old_head_sha256": "9330fbf15a00e6f275c45f1b7e1208888257dfae3f8571e9a876a4e22f4772b2",
+      "main_sha256": "4cbdd7caa2fefa2eaaa937898f359c06015521d7a2bbf899756a067c1352de2f",
+      "changed_lines": [
+        "-_Generated at 2026-10-19T01:06:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._",
+        "+_Generated at 2026-10-19T01:34:55+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/paper_assets.md",
+      "old_head_sha256": "c6d3995a70cd1364bc45f7669cadea15be396ab2ccf1b239c36f2b8cb459ebb2",
+      "main_sha256": "3dfddb38ee1f596839225463052947fd21edb5e2a4e0c1fff340e9fa605a7c39",
+      "changed_lines": [
+        "-_Generated at 2026-10-19T01:06:56+00:00 by `evaluation/scripts/export_paper_assets.py`._",
+        "+_Generated at 2026-10-19T01:35:00+00:00 by `evaluation/scripts/export_paper_assets.py`._"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/paper_captions.md",
+      "old_head_sha256": "0f6f637816332b0340f33ca94e810ca8bb2982160577632b6ffef9bcd841aa37",
+      "main_sha256": "dc9c328395cde16b61e2e2ddb57a68136032396def8a362566b1b6d3f1216986",
+      "changed_lines": [
+        "-_Generated at 2026-10-19T01:06:56+00:00 by `evaluation/scripts/export_paper_assets.py`._",
+        "+_Generated at 2026-10-19T01:35:00+00:00 by `evaluation/scripts/export_paper_assets.py`._"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/paper_comparison.md",
+      "old_head_sha256": "113db9d85d482a2fd57df45989665fc012532506db1deb94cf1789609da45e84",
+      "main_sha256": "42793ec58fd3d47c8d3adc37fd123448c7b41fac6e49770a1745e4b85d20bf77",
+      "changed_lines": [
+        "-> Generated: 2026-10-19T01:07:58+00:00",
+        "+> Generated: 2026-10-19T01:35:35+00:00"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/paper_roadmap.md",
+      "old_head_sha256": "4e920f6f2efa3e8d644f7da7e653e577156ad4466b3e76b8cebe361492c4d2c2",
+      "main_sha256": "40783055e2f627e25cb6aa5e9464353980824373aaa7f76101dbdab63364741d",
+      "changed_lines": [
+        "-_Generated at 2026-10-19T01:06:53+00:00 by `evaluation/scripts/generate_publication_docs.py`._",
+        "+_Generated at 2026-10-19T01:34:56+00:00 by `evaluation/scripts/generate_publication_docs.py`._"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/paper_tracks.md",
+      "old_head_sha256": "8d4b5754f7d4e30916c166fe28c07e66990805ea0f4cc1308649028fc4b28ad5",
+      "main_sha256": "910a7ce17849129290706fcc414dde3595ce3a4513242b2dd92bb85e8365fbad",
+      "changed_lines": [
+        "-_Generated at 2026-10-19T01:06:53+00:00 by `evaluation/scripts/generate_publication_docs.py`._",
+        "+_Generated at 2026-10-19T01:34:56+00:00 by `evaluation/scripts/generate_publication_docs.py`._"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/reproduction_status.md",
+      "old_head_sha256": "a9572c399a36c482292f18fd8e318df5294bd65a335a56cd4e4b2bf0ff39782f",
+      "main_sha256": "7d1a440b684a5df52927dbaf5cfab6d209aa59893d0ecb16e3eb3c00838a2b9b",
+      "changed_lines": [
+        "-_Generated at 2026-10-19T01:07:58+00:00 by `evaluation/scripts/generate_reproduction_status.py`._",
+        "+_Generated at 2026-10-19T01:35:35+00:00 by `evaluation/scripts/generate_reproduction_status.py`._"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "docs/variant_analysis.md",
+      "old_head_sha256": "15337a7d73b8ca048e31aeb91393f411e09533d715038f3023c98209ab083bf6",
+      "main_sha256": "71cfa38151a2a9646f51cebab978bf0d7a9d331611fc8616acdb269e17dc0cc7",
+      "changed_lines": [
+        "-> Generated: 2026-10-19T01:07:58+00:00",
+        "+> Generated: 2026-10-19T01:35:35+00:00"
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    },
+    {
+      "path": "experiments/results/index.json",
+      "old_head_sha256": "52c2f4280512f93c5460f914240db0f50121f4e3b6a0495b45e02ad0582947e2",
+      "main_sha256": "dc98466b49c8b16ce44e41fcaefaa104557c75038842470e5d752f1330ca175c",
+      "changed_lines": [
+        "-  \"generated_at\": \"2026-10-19T01:06:52+00:00\",",
+        "+  \"generated_at\": \"2026-10-19T01:34:55+00:00\","
+      ],
+      "resolution": "Use committed main bytes before required regeneration; only generation timestamps differ."
+    }
+  ],
+  "scientific_content_identical_after_timestamp_normalization": true,
+  "exit_code": 0
+}

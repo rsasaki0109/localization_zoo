@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_near_range/diagnose_saved02.py",
+    "--sequence",
+    "04",
+    "--output-dir",
+    "/workspace/localization-env/shared-near-range/diagnostics04/analysis"
+  ],
+  "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+  "checked_checkout_commit": "84d7978675d99c6cbc63005307a18eeddd5d6aa0",
+  "environment_overrides": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/tmp/saved04-analysis",
+    "XDG_CACHE_HOME": "/tmp/saved04-cache"
+  },
+  "started_unix": 1792371736.874117,
+  "exit_code": 0,
+  "finished_unix": 1792371741.940826
+}

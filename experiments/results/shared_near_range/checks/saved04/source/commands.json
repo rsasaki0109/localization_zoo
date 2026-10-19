@@ -1,0 +1,47 @@
+[
+  {
+    "label": "publication_gates",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_shared_range_saved02_gate.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "working_source_sha256": {
+      "experiments/results/shared_near_range/diagnose_saved02.py": "f9653b3c6420313013e621b67eacbb5e0503cb240c7664a74a02256968cb9aff",
+      "experiments/results/shared_near_range/diagnostics/04_protocol.json": "237171948ef3b315a8964f76e7d973f1b75a50f3756eeae1056a0150d326c50c",
+      "tests/test_shared_range_saved02_gate.py": "58e5a044710902d8adf70bd37204b336cf964503f07274d902f294f1d99cb1e8"
+    },
+    "started_unix": 1792371663.1647122,
+    "finished_unix": 1792371673.866972,
+    "exit_code": 0
+  },
+  {
+    "label": "publication_gates_optimized",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-O",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_shared_range_saved02_gate.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+    "working_source_sha256": {
+      "experiments/results/shared_near_range/diagnose_saved02.py": "f9653b3c6420313013e621b67eacbb5e0503cb240c7664a74a02256968cb9aff",
+      "experiments/results/shared_near_range/diagnostics/04_protocol.json": "237171948ef3b315a8964f76e7d973f1b75a50f3756eeae1056a0150d326c50c",
+      "tests/test_shared_range_saved02_gate.py": "58e5a044710902d8adf70bd37204b336cf964503f07274d902f294f1d99cb1e8"
+    },
+    "started_unix": 1792371673.8687177,
+    "finished_unix": 1792371686.135807,
+    "exit_code": 0
+  }
+]

@@ -228,3 +228,29 @@ cause or replacing published accuracy. The
 [cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
 retains all historical differences and audit exits.
 <!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_04_DIAGNOSTICS -->
+## Saved KITTI04 historical difference
+
+| Method | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---:|---:|---:|---:|
+| CT-ICP | 0.713006 | 0.733247 | 2.184636 | 2.191953 |
+
+Both metrics worsen. The historical audit retains exit **1**. The frozen
+pre-extraction executable has zero recorded metric differences and byte-identical
+saved poses, so this difference predates extraction; its original cause remains
+open. Owned scans and alias were removed after input hash verification.
+
+The largest current GT position-error increase in the inherited fixed blocks
+is frames **0-100**:
+**0.000000 to 1.537809 m**.
+
+The referenced historical per-run path is unavailable in the inspected tree and
+reachable-history probe. This current error-growth interval cannot locate the
+difference from that missing path.
+
+[Protocol, every step/block, plots and actual commands](../../experiments/results/shared_near_range/diagnostics/04/README.md)
+come from raw evidence `4cb636eedcd614cb15e2b63121bb39d5966e55bb`, committed before this prose.
+The diagnostic parameters transfer unchanged from 02/01. Native settings and
+published results are preserved; the near-range cut remains disabled.
+<!-- /SHARED_NEAR_RANGE_04_DIAGNOSTICS -->

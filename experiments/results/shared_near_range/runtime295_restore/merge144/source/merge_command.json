@@ -1,0 +1,15 @@
+{
+  "command": [
+    "git",
+    "merge",
+    "--no-commit",
+    "--no-ff",
+    "e20abfaf83708401678a94179f42aae679f4ef6d"
+  ],
+  "cwd": "/workspace/localization-env/shared-near-range/restore295/worktree",
+  "started_unix": 1792385673.2668104,
+  "finished_unix": 1792385673.3755887,
+  "exit_code": 1,
+  "stdout": "Auto-merging docs/roadmap.md\nCONFLICT (content): Merge conflict in docs/roadmap.md\nAuto-merging experiments/results/shared_near_range/README.md\nAutomatic merge failed; fix conflicts and then commit the result.\n",
+  "stderr": ""
+}

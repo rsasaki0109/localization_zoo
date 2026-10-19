@@ -1,0 +1,95 @@
+[
+  {
+    "label": "gate_tests",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_shared_range_saved02_gate.py",
+      "-v"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "59e692419b4ef15290a3825f26813e7f31923eca",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-range-checkpoint07/matplotlib"
+    },
+    "started_unix": 1792402890.8966901,
+    "finished_unix": 1792402896.7866895,
+    "exit_code": 0
+  },
+  {
+    "label": "gate_tests_optimized",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-O",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_shared_range_saved02_gate.py",
+      "-v"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "59e692419b4ef15290a3825f26813e7f31923eca",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-range-checkpoint07/matplotlib"
+    },
+    "started_unix": 1792402896.7868583,
+    "finished_unix": 1792402902.1918886,
+    "exit_code": 0
+  },
+  {
+    "label": "checkpoint",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "experiments/results/shared_near_range/checkpoint_report.py",
+      "--output-dir",
+      "/workspace/localization-env/shared-range-checkpoint07/checkpoint"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "59e692419b4ef15290a3825f26813e7f31923eca",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-range-checkpoint07/matplotlib"
+    },
+    "started_unix": 1792402905.9295375,
+    "finished_unix": 1792402906.1427782,
+    "exit_code": 0
+  },
+  {
+    "label": "diagnosis",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "experiments/results/shared_near_range/diagnose_saved02.py",
+      "--sequence",
+      "07",
+      "--output-dir",
+      "/workspace/localization-env/shared-range-checkpoint07/diagnosis"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "59e692419b4ef15290a3825f26813e7f31923eca",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-range-checkpoint07/matplotlib"
+    },
+    "started_unix": 1792402906.1432776,
+    "finished_unix": 1792402907.8354554,
+    "exit_code": 0
+  }
+]

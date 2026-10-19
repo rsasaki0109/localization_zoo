@@ -1,0 +1,86 @@
+[
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/driver_source.py",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/driver_source.py",
+    "source_sha256": "5f7f28bfc14725c79df031847d52a8baaa586111ae41ff07dde0b8dc9a80c325",
+    "stored_sha256": "5f7f28bfc14725c79df031847d52a8baaa586111ae41ff07dde0b8dc9a80c325",
+    "lossless_gzip": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/whitespace.log",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/whitespace.log.gz",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/python.log",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/python.log.gz",
+    "source_sha256": "eb0253fe3fa744f43a52357b261fbfb9ec04cb0c61c46a9ce2d7250d875a27bf",
+    "stored_sha256": "1d15ae5bfe6d8d83326eae2d9ab920ccb8e6fa9b48ab5d29765288873dfd67e5",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/paper_ready.log",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/paper_ready.log.gz",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/showcase.log",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/showcase.log.gz",
+    "source_sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+    "stored_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/generation_disposition.json",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/generation_disposition.json",
+    "source_sha256": "fea8733184108eabd41fa46f2f6d1eac9a14d308bd4d6ef7ff719e9b1ac14587",
+    "stored_sha256": "fea8733184108eabd41fa46f2f6d1eac9a14d308bd4d6ef7ff719e9b1ac14587",
+    "lossless_gzip": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/commands.json",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/commands.json",
+    "source_sha256": "89d96e8c4d792cb4be99941f3313f3e8d874461ae3476901a8b3d4983643f20e",
+    "stored_sha256": "89d96e8c4d792cb4be99941f3313f3e8d874461ae3476901a8b3d4983643f20e",
+    "lossless_gzip": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/leaderboard.log",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/leaderboard.log.gz",
+    "source_sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+    "stored_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/refresh.log",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/refresh.log.gz",
+    "source_sha256": "a71ac3162776089e584c47941f16206ca369b10c043a009293875af787a9244c",
+    "stored_sha256": "cd5a5d0f04608cce2f4a2a8204960a1b3c54d24c552a18d056fc10a287a6d14a",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/full_variant.log",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/full_variant.log.gz",
+    "source_sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc",
+    "stored_sha256": "c1eaaa90d87b4d1b5ac36b77258f3db36209d0fec798d0bb521b91e6d01b08b5",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/preservation.json",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/preservation.json",
+    "source_sha256": "a744f08db4fae63a5046b3cd96e638dd9c6da51fe4e65dd1955e53ef1586e089",
+    "stored_sha256": "a744f08db4fae63a5046b3cd96e638dd9c6da51fe4e65dd1955e53ef1586e089",
+    "lossless_gzip": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-range-checkpoint05/checks/paper_ratio.log",
+    "destination": "experiments/results/shared_near_range/checks/saved05/docs/paper_ratio.log.gz",
+    "source_sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+    "stored_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1",
+    "lossless_gzip": true
+  }
+]

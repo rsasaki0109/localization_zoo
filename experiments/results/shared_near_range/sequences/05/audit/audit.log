@@ -1,0 +1,19 @@
+[audit] CT-ICP 05 upstream_mechanics_elevation: drift
+[audit] DiLO 05 paper_odometry_degenerate: ok
+[audit] ELO 05 dense_elevation_paper_normals_unbiased: ok
+[audit] A-LOAM 05 kitti_default: drift
+[audit] F-LOAM 05 dense: drift
+[audit] KISS-ICP 05 upstream_mechanics_elevation: ok
+[audit] InTEn-LOAM 05 paper_odometry_plane_check: ok
+[audit] LF-GICP 05 paper_default: ok
+[audit] L-LO 05 seq07_tuned: ok
+[audit] LiTAMIN2 05 paper_icp_cov: ok
+[audit] MULLS 05 mulls_lo_elevation: ok
+[audit] IMLS-SLAM 05 paper_odometry_w100_coarse_start: ok
+[audit] LeGO-LOAM 05 kitti_default: drift
+[audit] Small-GICP 05 balanced_reference: ok
+[audit] SuMa 05 paper_odometry: ok
+[audit] Voxel-GICP 05 dense_profile: ok
+[audit] Quadric-LO 05 dense_profile: ok
+[audit] Mesh-LOAM 05 paper_odometry_elevation: drift
+[done] 5 drifted, 0 failed of 18 cells; exit 1; wrote /workspace/localization_zoo/experiments/results/shared_near_range/sequences/05/audit/report.json

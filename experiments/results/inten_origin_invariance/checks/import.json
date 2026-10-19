@@ -1,0 +1,86 @@
+[
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/driver_source.py",
+    "destination": "experiments/results/inten_origin_invariance/checks/driver_source.py",
+    "source_sha256": "3eb2e0eba0e397672a1f8422ffad3c0f96086124ed3d5e2ffc94a373ed92803f",
+    "stored_sha256": "3eb2e0eba0e397672a1f8422ffad3c0f96086124ed3d5e2ffc94a373ed92803f",
+    "lossless_gzip": false
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/whitespace.log",
+    "destination": "experiments/results/inten_origin_invariance/checks/whitespace.log.gz",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/python.log",
+    "destination": "experiments/results/inten_origin_invariance/checks/python.log.gz",
+    "source_sha256": "cc8a1da865665de018549342086ef73de908e05712d3d849481db8c6faa55c4c",
+    "stored_sha256": "40bbb77ebbfaa5f8c9f01560bd6715264eb1c84d99be4b92f0143487f3630fc7",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/paper_ready.log",
+    "destination": "experiments/results/inten_origin_invariance/checks/paper_ready.log.gz",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/showcase.log",
+    "destination": "experiments/results/inten_origin_invariance/checks/showcase.log.gz",
+    "source_sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+    "stored_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/generation_disposition.json",
+    "destination": "experiments/results/inten_origin_invariance/checks/generation_disposition.json",
+    "source_sha256": "c304be76d0a2cb805fa5cf3472c3bcfb20857c56c60fec1c6041fc09b54de5f8",
+    "stored_sha256": "c304be76d0a2cb805fa5cf3472c3bcfb20857c56c60fec1c6041fc09b54de5f8",
+    "lossless_gzip": false
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/commands.json",
+    "destination": "experiments/results/inten_origin_invariance/checks/commands.json",
+    "source_sha256": "cb2f5b7d4d2935f6bca36953fec3577377932eb039166c03fd1dc3994781de85",
+    "stored_sha256": "cb2f5b7d4d2935f6bca36953fec3577377932eb039166c03fd1dc3994781de85",
+    "lossless_gzip": false
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/leaderboard.log",
+    "destination": "experiments/results/inten_origin_invariance/checks/leaderboard.log.gz",
+    "source_sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+    "stored_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/refresh.log",
+    "destination": "experiments/results/inten_origin_invariance/checks/refresh.log.gz",
+    "source_sha256": "5dd945bcfca4d599a01a0dda899d4f842a52a5a809bbc40570ac4b48905f6736",
+    "stored_sha256": "f373700653aa538ad00d69482adcb89b5f79d7c5b7f22c54922a9956bcdcf577",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/full_variant.log",
+    "destination": "experiments/results/inten_origin_invariance/checks/full_variant.log.gz",
+    "source_sha256": "91f32c3e06754e0c3c5fcd23df19cf1fc9d918cec3334f9d0217a2d6dc40ecfc",
+    "stored_sha256": "c1eaaa90d87b4d1b5ac36b77258f3db36209d0fec798d0bb521b91e6d01b08b5",
+    "lossless_gzip": true
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/preservation.json",
+    "destination": "experiments/results/inten_origin_invariance/checks/preservation.json",
+    "source_sha256": "46cbc4b1d145bd6b6e48909925d13d11d56728edbf219a7bc434a1ba329b56df",
+    "stored_sha256": "46cbc4b1d145bd6b6e48909925d13d11d56728edbf219a7bc434a1ba329b56df",
+    "lossless_gzip": false
+  },
+  {
+    "source": "/workspace/localization-env/inten-origin-study/checks/paper_ratio.log",
+    "destination": "experiments/results/inten_origin_invariance/checks/paper_ratio.log.gz",
+    "source_sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+    "stored_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1",
+    "lossless_gzip": true
+  }
+]

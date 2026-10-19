@@ -1,0 +1,98 @@
+[
+  {
+    "label": "refresh",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+    "started_unix": 1792390222.6906555,
+    "finished_unix": 1792390241.9244351,
+    "exit_code": 0
+  },
+  {
+    "label": "full_variant",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+    "started_unix": 1792390241.924822,
+    "finished_unix": 1792390242.0176494,
+    "exit_code": 0
+  },
+  {
+    "label": "paper_ratio",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+    "started_unix": 1792390242.0179513,
+    "finished_unix": 1792390242.0896213,
+    "exit_code": 0
+  },
+  {
+    "label": "python",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+    "started_unix": 1792390242.2393243,
+    "finished_unix": 1792390250.2688937,
+    "exit_code": 0
+  },
+  {
+    "label": "showcase",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+    "started_unix": 1792390250.2698865,
+    "finished_unix": 1792390250.322885,
+    "exit_code": 0
+  },
+  {
+    "label": "leaderboard",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+    "started_unix": 1792390250.323182,
+    "finished_unix": 1792390250.4033442,
+    "exit_code": 0
+  },
+  {
+    "label": "paper_ready",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+    "started_unix": 1792390250.4036896,
+    "finished_unix": 1792390250.4358344,
+    "exit_code": 0
+  },
+  {
+    "label": "whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "09e173f314548593442de14d16fed29a1a8b4d1a"
+    ],
+    "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+    "started_unix": 1792390250.4364133,
+    "finished_unix": 1792390250.5582607,
+    "exit_code": 0
+  }
+]

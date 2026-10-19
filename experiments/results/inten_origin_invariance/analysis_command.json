@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-origin-study/worktree/experiments/results/inten_origin_invariance/run.py",
+    "--binary",
+    "/workspace/localization-env/inten-origin-study/probe",
+    "--output-dir",
+    "/workspace/localization-env/inten-origin-study/evidence"
+  ],
+  "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+  "source_commit": "8cdac888b64f4f29722b6c4e4edcdfed006455eb",
+  "started_unix": 1792389881.5589614,
+  "finished_unix": 1792389882.3194249,
+  "exit_code": 0,
+  "stdout": "{\"cases\": 3029, \"control_failures\": 0, \"exit_code\": 0}\n",
+  "stderr": ""
+}

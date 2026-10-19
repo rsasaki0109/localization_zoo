@@ -1,0 +1,3583 @@
+{
+  "source_commit": "8cdac888b64f4f29722b6c4e4edcdfed006455eb",
+  "protocol_sha256": "7b431b0123c1ebe4b73d5448a748917c73905bdb8a25d706ee08deb933d7eb5e",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-origin-study/worktree/experiments/results/inten_origin_invariance/run.py",
+    "--binary",
+    "/workspace/localization-env/inten-origin-study/probe",
+    "--output-dir",
+    "/workspace/localization-env/inten-origin-study/evidence"
+  ],
+  "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+  "native_exit_code": 0,
+  "input_hashes": {
+    "experiments/results/inten_conditioning/evidence/legacy_default/iterations.jsonl": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+    "experiments/results/inten_conditioning/evidence/legacy_plane_check/iterations.jsonl": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+    "experiments/results/inten_conditioning/evidence/paper_default__accelerated/iterations.jsonl": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+    "experiments/results/inten_conditioning/evidence/paper_default__default/iterations.jsonl": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+    "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__accelerated/iterations.jsonl": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+    "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__default/iterations.jsonl": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+    "experiments/results/inten_conditioning/evidence/skipped_input/iterations.jsonl": "f99af6bfd55521c3a305bd310fff3fe957504dab3589fd3b15b4061b210811f8"
+  },
+  "observed_systems": 231,
+  "analytic_systems": 2,
+  "cases": 3029,
+  "groups": [
+    {
+      "tuple": "legacy_default",
+      "stage": "s2s",
+      "shift_norm_m": 0.0,
+      "cases": 20,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c0"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_default",
+      "stage": "s2s",
+      "shift_norm_m": 100.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.1217005854187964e-14,
+          "max_case": "s20_c3"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.782288079253018e-15,
+          "max_case": "s23_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.025880034735260866,
+          "max_case": "s0_c3"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.8841699261726045e-14,
+          "max_case": "s25_c6"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1292109293049592e-14,
+          "max_case": "s2_c1"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.025877961464998794,
+          "max_case": "s0_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.6587250489734156e-06,
+          "max_case": "s9_c1"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.5053036807358163e-06,
+          "max_case": "s0_c1"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.273752491403305e-15,
+          "max_case": "s9_c4"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.005690482334325e-15,
+          "max_case": "s0_c4"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_default",
+      "stage": "s2s",
+      "shift_norm_m": 1000.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s0_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.387686795705107e-12,
+          "max_case": "s23_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.5667266208523892e-14,
+          "max_case": "s4_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.2588003473527069,
+          "max_case": "s0_c9"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.869453176845461e-13,
+          "max_case": "s6_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1416551642495895e-13,
+          "max_case": "s27_c12"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.2556241152858809,
+          "max_case": "s0_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.00023586287921617508,
+          "max_case": "s9_c7"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.00014749759666019032,
+          "max_case": "s0_c7"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.086786564801957e-13,
+          "max_case": "s19_c7"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.330505585718033e-13,
+          "max_case": "s0_c8"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_default",
+      "stage": "s2m",
+      "shift_norm_m": 0.0,
+      "cases": 16,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c0"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_default",
+      "stage": "s2m",
+      "shift_norm_m": 100.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.8432043297447866e-14,
+          "max_case": "s18_c3"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.981462566036586e-15,
+          "max_case": "s30_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.006960580593320083,
+          "max_case": "s10_c1"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.3078762168543067e-14,
+          "max_case": "s13_c3"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.2355381859777002e-14,
+          "max_case": "s11_c1"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0069609005222394235,
+          "max_case": "s10_c1"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.601962702364751e-06,
+          "max_case": "s10_c2"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.474448043503454e-07,
+          "max_case": "s10_c2"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.0276573916705029e-14,
+          "max_case": "s10_c2"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.0797898695963496e-15,
+          "max_case": "s10_c2"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_default",
+      "stage": "s2m",
+      "shift_norm_m": 1000.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s10_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 5.756137752375016e-12,
+          "max_case": "s17_c8"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.920416883137064e-14,
+          "max_case": "s30_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.06960580593326514,
+          "max_case": "s10_c7"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.6049227922618698e-13,
+          "max_case": "s18_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.9900921212380463e-13,
+          "max_case": "s11_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.06929606591522319,
+          "max_case": "s10_c7"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0001464060907289615,
+          "max_case": "s10_c8"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.286482877045815e-05,
+          "max_case": "s10_c8"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 6.753925957759857e-13,
+          "max_case": "s10_c9"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.5449714911729733e-13,
+          "max_case": "s10_c9"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_plane_check",
+      "stage": "s2s",
+      "shift_norm_m": 0.0,
+      "cases": 20,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c0"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_plane_check",
+      "stage": "s2s",
+      "shift_norm_m": 100.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.3886556617935087e-14,
+          "max_case": "s60_c4"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.721320602604147e-15,
+          "max_case": "s62_c1"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.007421928439927691,
+          "max_case": "s38_c2"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.2704060854619945e-14,
+          "max_case": "s62_c1"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.196161695474548e-14,
+          "max_case": "s58_c3"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.007421933471710225,
+          "max_case": "s38_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.403132243062682e-06,
+          "max_case": "s38_c1"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 9.616916051356313e-07,
+          "max_case": "s38_c1"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.655748166692752e-15,
+          "max_case": "s38_c1"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.8292280467898042e-15,
+          "max_case": "s38_c1"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_plane_check",
+      "stage": "s2s",
+      "shift_norm_m": 1000.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s36_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.960934642018705e-12,
+          "max_case": "s41_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.862159194287432e-14,
+          "max_case": "s62_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.07421928439926732,
+          "max_case": "s38_c8"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.6327220249556708e-13,
+          "max_case": "s59_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1511091745782946e-13,
+          "max_case": "s63_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.07328913778123608,
+          "max_case": "s38_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0002146114736806609,
+          "max_case": "s38_c7"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 9.340853765581468e-05,
+          "max_case": "s38_c7"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.323531287228607e-13,
+          "max_case": "s36_c10"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.7270238832752413e-13,
+          "max_case": "s38_c10"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_plane_check",
+      "stage": "s2m",
+      "shift_norm_m": 0.0,
+      "cases": 16,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c0"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_plane_check",
+      "stage": "s2m",
+      "shift_norm_m": 100.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.6508018884336353e-14,
+          "max_case": "s51_c2"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.175932985683257e-15,
+          "max_case": "s46_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0024608198594030344,
+          "max_case": "s46_c4"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.5455332526612946e-14,
+          "max_case": "s48_c2"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.6511790021199865e-14,
+          "max_case": "s47_c3"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0024625260048886334,
+          "max_case": "s46_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.4428122095197194e-06,
+          "max_case": "s46_c2"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.256962511704108e-07,
+          "max_case": "s46_c4"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.173154526366731e-15,
+          "max_case": "s46_c1"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 7.539083704320512e-16,
+          "max_case": "s46_c1"
+        }
+      }
+    },
+    {
+      "tuple": "legacy_plane_check",
+      "stage": "s2m",
+      "shift_norm_m": 1000.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s46_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 6.18974605779563e-12,
+          "max_case": "s49_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.0192388743736198e-14,
+          "max_case": "s47_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.02460819859394837,
+          "max_case": "s46_c10"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.013768926011488e-13,
+          "max_case": "s53_c12"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.1007345487496807e-13,
+          "max_case": "s53_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.024515699220852154,
+          "max_case": "s46_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.00023640589230326188,
+          "max_case": "s46_c10"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.091844102303904e-05,
+          "max_case": "s46_c10"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.909271298828072e-13,
+          "max_case": "s46_c9"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 5.662479712062263e-14,
+          "max_case": "s46_c9"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__accelerated",
+      "stage": "s2s",
+      "shift_norm_m": 0.0,
+      "cases": 20,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c0"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__accelerated",
+      "stage": "s2s",
+      "shift_norm_m": 100.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.1217005854187964e-14,
+          "max_case": "s92_c3"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.782288079253018e-15,
+          "max_case": "s95_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.025880034735260866,
+          "max_case": "s72_c3"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.8841699261726045e-14,
+          "max_case": "s97_c6"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1292109293049592e-14,
+          "max_case": "s74_c1"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.025877961464998794,
+          "max_case": "s72_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.6587250489734156e-06,
+          "max_case": "s81_c1"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.5053036807358163e-06,
+          "max_case": "s72_c1"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.273752491403305e-15,
+          "max_case": "s81_c4"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.005690482334325e-15,
+          "max_case": "s72_c4"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__accelerated",
+      "stage": "s2s",
+      "shift_norm_m": 1000.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s72_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.387686795705107e-12,
+          "max_case": "s95_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.5667266208523892e-14,
+          "max_case": "s76_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.2588003473527069,
+          "max_case": "s72_c9"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.869453176845461e-13,
+          "max_case": "s78_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1416551642495895e-13,
+          "max_case": "s99_c12"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.2556241152858809,
+          "max_case": "s72_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.00023586287921617508,
+          "max_case": "s81_c7"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.00014749759666019032,
+          "max_case": "s72_c7"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.086786564801957e-13,
+          "max_case": "s91_c7"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.330505585718033e-13,
+          "max_case": "s72_c8"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__accelerated",
+      "stage": "s2m",
+      "shift_norm_m": 0.0,
+      "cases": 16,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c0"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__accelerated",
+      "stage": "s2m",
+      "shift_norm_m": 100.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.8432043297447866e-14,
+          "max_case": "s90_c3"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.981462566036586e-15,
+          "max_case": "s102_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.006960580593320083,
+          "max_case": "s82_c1"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.3078762168543067e-14,
+          "max_case": "s85_c3"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.2355381859777002e-14,
+          "max_case": "s83_c1"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0069609005222394235,
+          "max_case": "s82_c1"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.601962702364751e-06,
+          "max_case": "s82_c2"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.474448043503454e-07,
+          "max_case": "s82_c2"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.0276573916705029e-14,
+          "max_case": "s82_c2"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.0797898695963496e-15,
+          "max_case": "s82_c2"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__accelerated",
+      "stage": "s2m",
+      "shift_norm_m": 1000.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s82_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 5.756137752375016e-12,
+          "max_case": "s89_c8"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.920416883137064e-14,
+          "max_case": "s102_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.06960580593326514,
+          "max_case": "s82_c7"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.6049227922618698e-13,
+          "max_case": "s90_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.9900921212380463e-13,
+          "max_case": "s83_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.06929606591522319,
+          "max_case": "s82_c7"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0001464060907289615,
+          "max_case": "s82_c8"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.286482877045815e-05,
+          "max_case": "s82_c8"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 6.753925957759857e-13,
+          "max_case": "s82_c9"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.5449714911729733e-13,
+          "max_case": "s82_c9"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__default",
+      "stage": "s2s",
+      "shift_norm_m": 0.0,
+      "cases": 20,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c0"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__default",
+      "stage": "s2s",
+      "shift_norm_m": 100.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.1217005854187964e-14,
+          "max_case": "s128_c3"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.782288079253018e-15,
+          "max_case": "s131_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.025880034735260866,
+          "max_case": "s108_c3"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.8841699261726045e-14,
+          "max_case": "s133_c6"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1292109293049592e-14,
+          "max_case": "s110_c1"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.025877961464998794,
+          "max_case": "s108_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.6587250489734156e-06,
+          "max_case": "s117_c1"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.5053036807358163e-06,
+          "max_case": "s108_c1"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.273752491403305e-15,
+          "max_case": "s117_c4"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.005690482334325e-15,
+          "max_case": "s108_c4"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__default",
+      "stage": "s2s",
+      "shift_norm_m": 1000.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s108_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.387686795705107e-12,
+          "max_case": "s131_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.5667266208523892e-14,
+          "max_case": "s112_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.2588003473527069,
+          "max_case": "s108_c9"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.869453176845461e-13,
+          "max_case": "s114_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1416551642495895e-13,
+          "max_case": "s135_c12"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.2556241152858809,
+          "max_case": "s108_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.00023586287921617508,
+          "max_case": "s117_c7"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.00014749759666019032,
+          "max_case": "s108_c7"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.086786564801957e-13,
+          "max_case": "s127_c7"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.330505585718033e-13,
+          "max_case": "s108_c8"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__default",
+      "stage": "s2m",
+      "shift_norm_m": 0.0,
+      "cases": 16,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c0"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__default",
+      "stage": "s2m",
+      "shift_norm_m": 100.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.8432043297447866e-14,
+          "max_case": "s126_c3"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.981462566036586e-15,
+          "max_case": "s138_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.006960580593320083,
+          "max_case": "s118_c1"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.3078762168543067e-14,
+          "max_case": "s121_c3"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.2355381859777002e-14,
+          "max_case": "s119_c1"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0069609005222394235,
+          "max_case": "s118_c1"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.601962702364751e-06,
+          "max_case": "s118_c2"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.474448043503454e-07,
+          "max_case": "s118_c2"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.0276573916705029e-14,
+          "max_case": "s118_c2"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.0797898695963496e-15,
+          "max_case": "s118_c2"
+        }
+      }
+    },
+    {
+      "tuple": "paper_default__default",
+      "stage": "s2m",
+      "shift_norm_m": 1000.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s118_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 5.756137752375016e-12,
+          "max_case": "s125_c8"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.920416883137064e-14,
+          "max_case": "s138_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.06960580593326514,
+          "max_case": "s118_c7"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.6049227922618698e-13,
+          "max_case": "s126_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.9900921212380463e-13,
+          "max_case": "s119_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.06929606591522319,
+          "max_case": "s118_c7"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0001464060907289615,
+          "max_case": "s118_c8"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.286482877045815e-05,
+          "max_case": "s118_c8"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 6.753925957759857e-13,
+          "max_case": "s118_c9"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.5449714911729733e-13,
+          "max_case": "s118_c9"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__accelerated",
+      "stage": "s2s",
+      "shift_norm_m": 0.0,
+      "cases": 20,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c0"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__accelerated",
+      "stage": "s2s",
+      "shift_norm_m": 100.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.3886556617935087e-14,
+          "max_case": "s168_c4"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.721320602604147e-15,
+          "max_case": "s170_c1"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.007421928439927691,
+          "max_case": "s146_c2"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.2704060854619945e-14,
+          "max_case": "s170_c1"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.196161695474548e-14,
+          "max_case": "s166_c3"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.007421933471710225,
+          "max_case": "s146_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.403132243062682e-06,
+          "max_case": "s146_c1"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 9.616916051356313e-07,
+          "max_case": "s146_c1"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.655748166692752e-15,
+          "max_case": "s146_c1"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.8292280467898042e-15,
+          "max_case": "s146_c1"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__accelerated",
+      "stage": "s2s",
+      "shift_norm_m": 1000.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s144_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.960934642018705e-12,
+          "max_case": "s149_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.862159194287432e-14,
+          "max_case": "s170_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.07421928439926732,
+          "max_case": "s146_c8"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.6327220249556708e-13,
+          "max_case": "s167_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1511091745782946e-13,
+          "max_case": "s171_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.07328913778123608,
+          "max_case": "s146_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0002146114736806609,
+          "max_case": "s146_c7"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 9.340853765581468e-05,
+          "max_case": "s146_c7"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.323531287228607e-13,
+          "max_case": "s144_c10"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.7270238832752413e-13,
+          "max_case": "s146_c10"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__accelerated",
+      "stage": "s2m",
+      "shift_norm_m": 0.0,
+      "cases": 16,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c0"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__accelerated",
+      "stage": "s2m",
+      "shift_norm_m": 100.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.6508018884336353e-14,
+          "max_case": "s159_c2"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.175932985683257e-15,
+          "max_case": "s154_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0024608198594030344,
+          "max_case": "s154_c4"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.5455332526612946e-14,
+          "max_case": "s156_c2"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.6511790021199865e-14,
+          "max_case": "s155_c3"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0024625260048886334,
+          "max_case": "s154_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.4428122095197194e-06,
+          "max_case": "s154_c2"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.256962511704108e-07,
+          "max_case": "s154_c4"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.173154526366731e-15,
+          "max_case": "s154_c1"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 7.539083704320512e-16,
+          "max_case": "s154_c1"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__accelerated",
+      "stage": "s2m",
+      "shift_norm_m": 1000.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s154_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 6.18974605779563e-12,
+          "max_case": "s157_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.0192388743736198e-14,
+          "max_case": "s155_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.02460819859394837,
+          "max_case": "s154_c10"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.013768926011488e-13,
+          "max_case": "s161_c12"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.1007345487496807e-13,
+          "max_case": "s161_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.024515699220852154,
+          "max_case": "s154_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.00023640589230326188,
+          "max_case": "s154_c10"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.091844102303904e-05,
+          "max_case": "s154_c10"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.909271298828072e-13,
+          "max_case": "s154_c9"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 5.662479712062263e-14,
+          "max_case": "s154_c9"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__default",
+      "stage": "s2s",
+      "shift_norm_m": 0.0,
+      "cases": 20,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 20,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c0"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__default",
+      "stage": "s2s",
+      "shift_norm_m": 100.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 5.3886556617935087e-14,
+          "max_case": "s204_c4"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.721320602604147e-15,
+          "max_case": "s206_c1"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.007421928439927691,
+          "max_case": "s182_c2"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.2704060854619945e-14,
+          "max_case": "s206_c1"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.196161695474548e-14,
+          "max_case": "s202_c3"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.007421933471710225,
+          "max_case": "s182_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.403132243062682e-06,
+          "max_case": "s182_c1"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 9.616916051356313e-07,
+          "max_case": "s182_c1"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.655748166692752e-15,
+          "max_case": "s182_c1"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.8292280467898042e-15,
+          "max_case": "s182_c1"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__default",
+      "stage": "s2s",
+      "shift_norm_m": 1000.0,
+      "cases": 120,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s180_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.960934642018705e-12,
+          "max_case": "s185_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.862159194287432e-14,
+          "max_case": "s206_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.07421928439926732,
+          "max_case": "s182_c8"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.6327220249556708e-13,
+          "max_case": "s203_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 2.1511091745782946e-13,
+          "max_case": "s207_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.07328913778123608,
+          "max_case": "s182_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 0.0002146114736806609,
+          "max_case": "s182_c7"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 9.340853765581468e-05,
+          "max_case": "s182_c7"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 4.323531287228607e-13,
+          "max_case": "s180_c10"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 120,
+          "unavailable_count": 0,
+          "finite_max": 1.7270238832752413e-13,
+          "max_case": "s182_c10"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__default",
+      "stage": "s2m",
+      "shift_norm_m": 0.0,
+      "cases": 16,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 16,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c0"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__default",
+      "stage": "s2m",
+      "shift_norm_m": 100.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.6508018884336353e-14,
+          "max_case": "s195_c2"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.175932985683257e-15,
+          "max_case": "s190_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0024608198594030344,
+          "max_case": "s190_c4"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.5455332526612946e-14,
+          "max_case": "s192_c2"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.6511790021199865e-14,
+          "max_case": "s191_c3"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0024625260048886334,
+          "max_case": "s190_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.4428122095197194e-06,
+          "max_case": "s190_c2"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.256962511704108e-07,
+          "max_case": "s190_c4"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.173154526366731e-15,
+          "max_case": "s190_c1"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 7.539083704320512e-16,
+          "max_case": "s190_c1"
+        }
+      }
+    },
+    {
+      "tuple": "paper_odometry_plane_check__default",
+      "stage": "s2m",
+      "shift_norm_m": 1000.0,
+      "cases": 96,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s190_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 6.18974605779563e-12,
+          "max_case": "s193_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 1.0192388743736198e-14,
+          "max_case": "s191_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.02460819859394837,
+          "max_case": "s190_c10"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.013768926011488e-13,
+          "max_case": "s197_c12"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 2.1007345487496807e-13,
+          "max_case": "s197_c11"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.024515699220852154,
+          "max_case": "s190_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 0.00023640589230326188,
+          "max_case": "s190_c10"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 4.091844102303904e-05,
+          "max_case": "s190_c10"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 3.909271298828072e-13,
+          "max_case": "s190_c9"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 96,
+          "unavailable_count": 0,
+          "finite_max": 5.662479712062263e-14,
+          "max_case": "s190_c9"
+        }
+      }
+    },
+    {
+      "tuple": "skipped_input",
+      "stage": "s2s",
+      "shift_norm_m": 0.0,
+      "cases": 10,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 10,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c0"
+        }
+      }
+    },
+    {
+      "tuple": "skipped_input",
+      "stage": "s2s",
+      "shift_norm_m": 100.0,
+      "cases": 60,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 3.636142195863651e-14,
+          "max_case": "s216_c2"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 1.5476115330969342e-15,
+          "max_case": "s223_c1"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 0.09664178318432232,
+          "max_case": "s216_c2"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 2.4614000264362405e-14,
+          "max_case": "s222_c3"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 2.923009242332621e-14,
+          "max_case": "s225_c2"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 0.09662680566078588,
+          "max_case": "s216_c1"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 6.41110741656194e-06,
+          "max_case": "s216_c1"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 3.849025006615602e-06,
+          "max_case": "s216_c1"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 1.2784141196109213e-14,
+          "max_case": "s216_c4"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 9.307425053793564e-15,
+          "max_case": "s216_c4"
+        }
+      }
+    },
+    {
+      "tuple": "skipped_input",
+      "stage": "s2s",
+      "shift_norm_m": 1000.0,
+      "cases": 60,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s216_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 5.678355019800127e-12,
+          "max_case": "s220_c9"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 1.446925603348635e-14,
+          "max_case": "s221_c9"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 0.9664178318432419,
+          "max_case": "s216_c7"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 1.7201690515675752e-13,
+          "max_case": "s217_c8"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 2.0914879502828918e-13,
+          "max_case": "s221_c10"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 0.9503218452126352,
+          "max_case": "s216_c7"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 0.0005269113308731495,
+          "max_case": "s216_c7"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 0.0003769199550918116,
+          "max_case": "s216_c7"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 7.569558766136674e-13,
+          "max_case": "s216_c7"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 60,
+          "unavailable_count": 0,
+          "finite_max": 2.6765390431271616e-13,
+          "max_case": "s216_c9"
+        }
+      }
+    },
+    {
+      "tuple": "skipped_input",
+      "stage": "s2m",
+      "shift_norm_m": 0.0,
+      "cases": 5,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 5,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c0"
+        }
+      }
+    },
+    {
+      "tuple": "skipped_input",
+      "stage": "s2m",
+      "shift_norm_m": 100.0,
+      "cases": 30,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 3.369908192421703e-14,
+          "max_case": "s228_c2"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 4.2722337281269096e-16,
+          "max_case": "s226_c3"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 0.001030723075678306,
+          "max_case": "s226_c3"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 2.031361220351348e-14,
+          "max_case": "s228_c4"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 1.2649603594257066e-14,
+          "max_case": "s227_c3"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 0.0010313623406653695,
+          "max_case": "s226_c3"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 9.668966882494813e-07,
+          "max_case": "s226_c2"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 1.8162346040290243e-07,
+          "max_case": "s226_c4"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 9.076590420383042e-16,
+          "max_case": "s226_c1"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 1.7600098015131826e-16,
+          "max_case": "s226_c4"
+        }
+      }
+    },
+    {
+      "tuple": "skipped_input",
+      "stage": "s2m",
+      "shift_norm_m": 1000.0,
+      "cases": 30,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s226_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 4.445484208463267e-12,
+          "max_case": "s230_c9"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 5.407593485911973e-15,
+          "max_case": "s226_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 0.010307230756823355,
+          "max_case": "s226_c9"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 1.0140822453489405e-13,
+          "max_case": "s226_c10"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 1.4768657282115032e-13,
+          "max_case": "s226_c12"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 0.010302633079034774,
+          "max_case": "s226_c9"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 9.175983492627955e-05,
+          "max_case": "s226_c8"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 1.7671906528378094e-05,
+          "max_case": "s226_c8"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 6.359115929828367e-13,
+          "max_case": "s226_c7"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 30,
+          "unavailable_count": 0,
+          "finite_max": 9.369118946392994e-14,
+          "max_case": "s226_c7"
+        }
+      }
+    },
+    {
+      "tuple": "analytic_translation",
+      "stage": "analytic",
+      "shift_norm_m": 0.0,
+      "cases": 1,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c0"
+        }
+      }
+    },
+    {
+      "tuple": "analytic_translation",
+      "stage": "analytic",
+      "shift_norm_m": 100.0,
+      "cases": 6,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c1"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c1"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c1"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c1"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c1"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.00022139725739590957,
+          "max_case": "s231_c3"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0002213928734079484,
+          "max_case": "s231_c3"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 9.90097049148337e-06,
+          "max_case": "s231_c3"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 5.865432128253046e-14,
+          "max_case": "s231_c4"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 2.6229018956769323e-15,
+          "max_case": "s231_c3"
+        }
+      }
+    },
+    {
+      "tuple": "analytic_translation",
+      "stage": "analytic",
+      "shift_norm_m": 1000.0,
+      "cases": 6,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s231_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 4.263256414560601e-14,
+          "max_case": "s231_c7"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 4.263256414560601e-14,
+          "max_case": "s231_c7"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 4.263256414560601e-14,
+          "max_case": "s231_c7"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0011191733847045451,
+          "max_case": "s231_c9"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0011180552321522718,
+          "max_case": "s231_c9"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 4.999994999583667e-05,
+          "max_case": "s231_c9"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 2.334224518089737e-13,
+          "max_case": "s231_c10"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 1.0438834041961997e-14,
+          "max_case": "s231_c9"
+        }
+      }
+    },
+    {
+      "tuple": "analytic_rotation",
+      "stage": "analytic",
+      "shift_norm_m": 0.0,
+      "cases": 1,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 1,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c0"
+        }
+      }
+    },
+    {
+      "tuple": "analytic_rotation",
+      "stage": "analytic",
+      "shift_norm_m": 100.0,
+      "cases": 6,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c1"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c1"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c1"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.01999973777972133,
+          "max_case": "s232_c3"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 5.347542221830668e-15,
+          "max_case": "s232_c3"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 5.0242958677880805e-15,
+          "max_case": "s232_c3"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.02367078361782384,
+          "max_case": "s232_c4"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.004429615413094262,
+          "max_case": "s232_c1"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.00019801921183444648,
+          "max_case": "s232_c1"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 1.347462678552571e-12,
+          "max_case": "s232_c1"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 6.02400074267706e-14,
+          "max_case": "s232_c1"
+        }
+      }
+    },
+    {
+      "tuple": "analytic_rotation",
+      "stage": "analytic",
+      "shift_norm_m": 1000.0,
+      "cases": 6,
+      "metrics": {
+        "observed_delta_linf": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c7"
+        },
+        "normal_covariance_relative_error": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c7"
+        },
+        "gradient_covariance_relative_error": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.0,
+          "max_case": "s232_c7"
+        },
+        "transported_native_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.19999737779717394,
+          "max_case": "s232_c7"
+        },
+        "transport_formula_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 5.3290705182007514e-14,
+          "max_case": "s232_c8"
+        },
+        "exact_exp_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 2.4868995751603507e-14,
+          "max_case": "s232_c7"
+        },
+        "shifted_native_position_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.2694743566748222,
+          "max_case": "s232_c10"
+        },
+        "raw_solve_sensor_translation_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.22361529486358145,
+          "max_case": "s232_c7"
+        },
+        "raw_solve_rotation_error_rad": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 0.009999980000872672,
+          "max_case": "s232_c7"
+        },
+        "covariant_damping_sensor_translation_error_m": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 1.2860465371541132e-11,
+          "max_case": "s232_c9"
+        },
+        "covariant_damping_rotation_error_rad": {
+          "finite_count": 6,
+          "unavailable_count": 0,
+          "finite_max": 5.751128739905909e-13,
+          "max_case": "s232_c7"
+        }
+      }
+    }
+  ],
+  "control_failures": [],
+  "exit_code": 0,
+  "scope": "Fixed equations and transported native steps only; no re-association, odometry replay, KITTI cause or accuracy finding."
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "native_source_commit": "09e173f314548593442de14d16fed29a1a8b4d1a",
+  "native_source_path": "papers/inten_loam/src/inten_loam_paper.cpp",
+  "native_source_sha256": "2834bf16569f5ddaca8bd5d1d8b327f11140bf1e63e67b136b2ccd4e9896d272",
+  "native_retraction_fragment_sha256": "bfd196e9a702db707ea2fe59193ebdfbaed1238684d9e6ea39719c9bf2db4063",
+  "native_solve_line": "    const Vec6 delta = (sys.H + 1e-6 * Mat6::Identity()).ldlt().solve(-sys.g);",
+  "native_fragment_header_sha256": "571be68565d24f4bc1c66cae604a3210669b07457e686cc6036b47f8578fe7ad",
+  "inputs": {
+    "experiments/results/inten_conditioning/evidence/legacy_default/iterations.jsonl": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+    "experiments/results/inten_conditioning/evidence/legacy_plane_check/iterations.jsonl": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+    "experiments/results/inten_conditioning/evidence/paper_default__accelerated/iterations.jsonl": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+    "experiments/results/inten_conditioning/evidence/paper_default__default/iterations.jsonl": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb",
+    "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__accelerated/iterations.jsonl": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+    "experiments/results/inten_conditioning/evidence/paper_odometry_plane_check__default/iterations.jsonl": "7938b305cf8616a76244d199a7e4d0d414f1eb8e5ea832852292b7ec0777b5cf",
+    "experiments/results/inten_conditioning/evidence/skipped_input/iterations.jsonl": "f99af6bfd55521c3a305bd310fff3fe957504dab3589fd3b15b4061b210811f8"
+  },
+  "shifts_m": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      -100.0,
+      0.0,
+      0.0
+    ],
+    [
+      100.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -100.0,
+      0.0
+    ],
+    [
+      0.0,
+      100.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      -100.0
+    ],
+    [
+      0.0,
+      0.0,
+      100.0
+    ],
+    [
+      -1000.0,
+      0.0,
+      0.0
+    ],
+    [
+      1000.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -1000.0,
+      0.0
+    ],
+    [
+      0.0,
+      1000.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      -1000.0
+    ],
+    [
+      0.0,
+      0.0,
+      1000.0
+    ]
+  ],
+  "regularizer": 1e-06,
+  "control_tolerances": {
+    "observed_delta_linf": 1e-09,
+    "transport_formula_error_m": 1e-08,
+    "exact_exp_position_error_m": 1e-08
+  },
+  "hypothesis": "Test origin dependence of the fixed coordinate damping and finite rotation-plus-translation retraction independently of correspondence counts. Not a KITTI failure-cause finding.",
+  "selection": "All previously committed complete positive normal-equation archives. Includes default, plane-check, acceleration and loader-skip fixtures. No failure-sequence parameter selection.",
+  "controls": "Original observed delta reproduction; exact SE(3) exponential conjugacy; independent analytic finite-error formula; pure-translation synthetic control. Covariantly transported damping is a numerical control, never an estimator option.",
+  "limits": "No scans, no new poses, no geometry or associations reconstructed, no nonlinear convergence or trajectory claim. Coordinate reexpression can lose floating-point precision; retain covariant-damping control errors and nonfinite statuses. Full KITTI failure traces remain required."
+}

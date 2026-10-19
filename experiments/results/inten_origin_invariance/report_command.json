@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "from pathlib import Path\nimport gzip, hashlib, json\np=Path('experiments/results/inten_origin_invariance/evidence')\nrows=[json.loads(l) for l in gzip.open(p/'cases.jsonl.gz','rt')]\nmetrics=list(rows[0]['metrics'])\ndef maximum(items,metric):\n finite=[r for r in items if isinstance(r['metrics'][metric],(int,float))]\n worst=max(finite,key=lambda r:r['metrics'][metric])\n return dict(maximum=worst['metrics'][metric],case=worst['id'],finite_count=len(finite),unavailable_count=len(items)-len(finite))\ngroups=[]\nfor kind in ('stored_fixture','analytic_control'):\n for stage in ('s2s','s2m','analytic'):\n  for shift in (0,100,1000):\n   selected=[r for r in rows if r['kind']==kind and r['stage']==stage and r['shift_norm_m']==shift]\n   if selected: groups.append(dict(kind=kind,stage=stage,shift_norm_m=shift,cases=len(selected),metrics={m:maximum(selected,m) for m in metrics}))\nreport=dict(source_sha256=hashlib.sha256((p/'cases.jsonl.gz').read_bytes()).hexdigest(),source_raw_commit='80cfaf23',groups=groups,all_case_controls={m:maximum(rows,m) for m in ('observed_delta_linf','transport_formula_error_m','exact_exp_position_error_m')},raw_solve_nonfinite=sum(not r['raw_solve_finite'] for r in rows),covariant_solve_nonfinite=sum(not r['covariant_solve_finite'] for r in rows),scope='Stage maxima over all declared tuples and shift axes/signs; tuple copies are not independent statistical samples.')\n(p.parent/'reported_values.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\\n')\n"
+  ],
+  "cwd": "/workspace/localization-env/inten-origin-study/worktree",
+  "source_commit": "80cfaf233e28964f3058f8f7dcea21b7b673c043",
+  "started_unix": 1792390107.9943943,
+  "finished_unix": 1792390108.0971668,
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": ""
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "exit_code": 0,
+  "scope": "Offline normal-equation analysis only. No estimator gate, accuracy, correspondence correctness or solver-cause finding.",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/analyze_inten_conditioning.py",
+    "--trace",
+    "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/trace.jsonl",
+    "--summary",
+    "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/summary.json",
+    "--receipt",
+    "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/command.json",
+    "--rotation-length-m",
+    "1.0",
+    "--rank-rtol",
+    "1e-09",
+    "--output-dir",
+    "/workspace/localization-env/inten-trace-conditioning/analysis/paper_default__accelerated"
+  ],
+  "cwd": "/workspace/localization-env/inten-trace-conditioning/worktree",
+  "implementation_sha256": {
+    "analyze_inten_conditioning.py": "7edfd32ed973f5b4f8f4093f21793fbd2c6806519a4d8dcafb885d2bfd4f012c",
+    "check_inten_trace.py": "166a8e80f5b1927daf5a81f65264c2544c45edb6be86d80c84509816da74a5e1"
+  },
+  "inputs": {
+    "trace": "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/trace.jsonl",
+    "summary": "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/summary.json",
+    "receipt": "/workspace/localization-env/inten-trace-conditioning/worktree/experiments/results/inten_trace_export/integration/evidence/fixture/paper_default__accelerated/candidate_on/command.json"
+  },
+  "validation": {
+    "schema_version": 1,
+    "exit_code": 0,
+    "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+    "trace_sha256": "0a899f0d422cec405dc9385d4a3880d9dcc68c9520b70e95c2652bca82ad6992",
+    "summary_sha256": "e460c84885632c48325516c998e1b42e27785b24b675645b4a3eab812aeca124",
+    "receipt_sha256": "e33793ac02b6c313712ec29e62651ae664e8b23104a9832161b374efd8aa15c4",
+    "records": 5,
+    "input_frames": 3,
+    "processed_frames": 3,
+    "skipped_frames": 0,
+    "nonfinite_values": 0,
+    "stages": {
+      "s2s": {
+        "calls": 2,
+        "iterations": 20,
+        "stops": {
+          "not_run": 1,
+          "iteration_limit": 2
+        }
+      },
+      "s2m": {
+        "calls": 2,
+        "iterations": 16,
+        "stops": {
+          "not_run": 1,
+          "converged": 2
+        }
+      }
+    }
+  },
+  "convention": {
+    "coordinates": "current_sensor_center_and_axes_at_linearization",
+    "q_order": "translation_m_then_rotation_length_m_times_rotation_rad",
+    "rotation_length_m": 1.0,
+    "tangent_map": "A=Ad(linearization_pose)*diag(I,I/L); native_delta=A*q",
+    "normal_matrix": "Hq=A.T*H*A; gq=A.T*g; no damping",
+    "rank_rtol": 1e-09,
+    "rank_cutoff": "rank_rtol*max(abs(eigenvalues))",
+    "symmetry_rtol": 1e-10,
+    "rigid_pose_atol": 1e-08,
+    "condition_number": "lambda_max/lambda_min only for PSD numerical rank 6; otherwise null"
+  },
+  "stages": {
+    "s2s": {
+      "iterations": 20,
+      "statuses": {
+        "ok": 20
+      },
+      "numerical_ranks": {
+        "6": 20
+      }
+    },
+    "s2m": {
+      "iterations": 16,
+      "statuses": {
+        "ok": 16
+      },
+      "numerical_ranks": {
+        "6": 16
+      }
+    }
+  },
+  "iterations_sha256": "87133c916cc17f50ba71c8dae863bce62dbe06421f3b29ea9ef03430479386fb"
+}

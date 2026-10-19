@@ -1,0 +1,106 @@
+[
+  {
+    "label": "refresh",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "4f06275bed2b8f20f04a0e56382e071604afa539",
+    "started_unix": 1792440541.2798927,
+    "finished_unix": 1792440558.885658,
+    "exit_code": 0
+  },
+  {
+    "label": "full_variant",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "4f06275bed2b8f20f04a0e56382e071604afa539",
+    "started_unix": 1792440558.8858988,
+    "finished_unix": 1792440558.9774344,
+    "exit_code": 0
+  },
+  {
+    "label": "paper_ratio",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "4f06275bed2b8f20f04a0e56382e071604afa539",
+    "started_unix": 1792440558.9776516,
+    "finished_unix": 1792440559.0509086,
+    "exit_code": 0
+  },
+  {
+    "label": "python",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "4f06275bed2b8f20f04a0e56382e071604afa539",
+    "started_unix": 1792440559.1660807,
+    "finished_unix": 1792440568.5636358,
+    "exit_code": 0
+  },
+  {
+    "label": "showcase",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "4f06275bed2b8f20f04a0e56382e071604afa539",
+    "started_unix": 1792440568.5639033,
+    "finished_unix": 1792440568.6100287,
+    "exit_code": 0
+  },
+  {
+    "label": "leaderboard",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "4f06275bed2b8f20f04a0e56382e071604afa539",
+    "started_unix": 1792440568.6103356,
+    "finished_unix": 1792440568.6938484,
+    "exit_code": 0
+  },
+  {
+    "label": "paper_ready",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "4f06275bed2b8f20f04a0e56382e071604afa539",
+    "started_unix": 1792440568.6942296,
+    "finished_unix": 1792440568.7320285,
+    "exit_code": 0
+  },
+  {
+    "label": "whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "a4a0c28a1f1a326cccb9c938364d8ef575e281d2"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "4f06275bed2b8f20f04a0e56382e071604afa539",
+    "started_unix": 1792440568.732436,
+    "finished_unix": 1792440569.0384912,
+    "exit_code": 0
+  }
+]

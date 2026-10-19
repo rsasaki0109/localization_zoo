@@ -1,4 +1,4 @@
-"""Diagnose closed KITTI02/03 saved paths after frozen comparison and cleanup.
+"""Diagnose closed KITTI02/03/04 saved paths after frozen comparison and cleanup.
 
 No estimator or scan reader is invoked. Uncommitted inputs are rejected before
 creating output; historical path availability and runtime limits are retained.
@@ -29,7 +29,7 @@ METHODS = {'A-LOAM': ('aloam', 'A_LOAM.txt'), 'CT-ICP': ('ct_icp', 'CT_ICP.txt')
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--sequence', choices=('02', '03'), default='02')
+    parser.add_argument('--sequence', choices=('02', '03', '04'), default='02')
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
     sequence = args.sequence
@@ -72,8 +72,12 @@ def main():
     execution_protocol = json.loads(committed(E / 'protocol.json'))
     protocol = json.loads(committed(E / f'diagnostics/{sequence}_protocol.json'))
     require(protocol['sequence'] == sequence, 'Diagnostic protocol sequence differs')
-    cohort = set(METHODS) if sequence == '02' else {'Mesh-LOAM'}
+    cohort = (set(METHODS) if sequence == '02' else
+              {'CT-ICP', 'Mesh-LOAM'} if sequence == '04' else {'Mesh-LOAM'})
+    frozen_cohort = cohort | ({'DiLO', 'ELO'} if sequence == '04' else set())
     require(set(protocol['methods']) == cohort, 'Diagnostic protocol cohort differs')
+    require(set(protocol.get('frozen_control_methods', protocol['methods'])) == frozen_cohort,
+            'Diagnostic frozen-control protocol cohort differs')
     methods = {name: details for name, details in METHODS.items() if name in cohort}
     report = json.loads(committed(E / f'sequences/{sequence}/audit/report.json'))
     command = json.loads(committed(E / f'sequences/{sequence}/audit/audit_command.json'))
@@ -95,10 +99,14 @@ def main():
     require(frozen['exit_code'] == frozen_command['exit_code'] and frozen['exit_code'] in (0, 1),
             'Frozen audit did not finish with an allowed recorded exit')
     require(frozen['binary_sha256'] == wrapper_sha256, 'Frozen audit wrapper pin differs')
-    require({r['method'] for r in frozen['rows']} == set(selected), 'Frozen control cohort differs')
+    require(len(frozen['rows']) == len(frozen_cohort)
+            and {r['method'] for r in frozen['rows']} == frozen_cohort,
+            'Frozen control cohort differs')
     require(all(r['process_exit_code'] == 0 for r in frozen['rows']), 'Frozen native run failed')
     require(comparison['exit_code'] == 0, 'Frozen comparison failed')
-    require({r['method'] for r in comparison['checks']} == set(selected), 'Frozen comparison cohort differs')
+    require(len(comparison['checks']) == len(frozen_cohort)
+            and {r['method'] for r in comparison['checks']} == frozen_cohort,
+            'Frozen comparison cohort differs')
     for check in comparison['checks']:
         require(check['sequence'] == sequence, 'Frozen comparison sequence differs')
         require(all(0 <= value <= 1e-9 for value in check['metric_abs_delta'].values()),
@@ -116,6 +124,14 @@ def main():
     pp = protocol['diagnostic_parameters']
 
     # Check every required saved path before writing any diagnostic artifact.
+    # 04 also records unchanged DiLO/ELO controls. Validate all native receipts,
+    # while diagnosing only the complete historical-difference cohort above.
+    for row in frozen['rows']:
+        path = resolve_summary_path(row)
+        committed(path)
+        receipt = json.loads(committed(path.with_name(path.stem + '_native_command.json')))
+        require(receipt['exit_code'] == 0 and receipt['binary_sha256'] == baseline['sha256']
+                and 'finished_unix' in receipt, 'Frozen native receipt is incomplete or differs from binary pin')
     for method, (_, pose_name) in methods.items():
         current_path = resolve_summary_path(selected[method])
         frozen_path = resolve_summary_path(next(r for r in frozen['rows'] if r['method'] == method))
@@ -256,6 +272,7 @@ def main():
                 for name, expected in sources.items()), 'Inputs changed during analysis')
     write(args.output_dir / 'summary.json', dict(command=[sys.executable, *sys.argv], cwd=str(REPO),
           input_commit=revision, implementation_commit=SOURCE, sequence=sequence, protocol=protocol,
+          frozen_control_methods=sorted(frozen_cohort),
           input_sha256=sources, candidate_binary_sha256=candidate['sha256'],
           audit_wrapper_sha256=wrapper_sha256, rows=results,
           completion_gate=dict(committed_candidate=True, committed_frozen_comparison=True,

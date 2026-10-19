@@ -299,6 +299,9 @@ independent. Each item says what "done" means.
      [Saved03 Mesh diagnosis](../experiments/results/shared_near_range/diagnostics/03/README.md)
      retains the paired historical path gap and inherited block breakdown;
      runtime differs, so the original cause remains open.
+     [Saved04 CT/Mesh diagnosis](../experiments/results/shared_near_range/diagnostics/04/README.md)
+     records current error growth, the paired Mesh gap and CT missing-path limits,
+     while retaining every recorded frozen control and the unresolved causes.
      The environment restarted during05. Interrupted outputs are preserved and
      excluded from coverage; a source-pinned recovery reruns all selected05
      cells with the same frozen executables/settings before continuing.

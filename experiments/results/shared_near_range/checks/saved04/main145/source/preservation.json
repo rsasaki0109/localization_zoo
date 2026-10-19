@@ -1,0 +1,50 @@
+{
+  "commands": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "ddca3fbb2209e59259a9e24b0b0e74865700b0a5",
+        "--",
+        "experiments/results/shared_near_range/diagnose_saved02.py",
+        "tests/test_shared_range_saved02_gate.py",
+        "experiments/results/shared_near_range/diagnostics",
+        "experiments/results/shared_near_range/sequences",
+        "experiments/results/shared_near_range/checkpoints",
+        "experiments/results/shared_near_range/checks/saved04/source",
+        "experiments/results/shared_near_range/checks/saved04/docs"
+      ],
+      "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "9ed935a045989d1806c0a19baa98794fa482eb54",
+        "--",
+        "common",
+        "evaluation",
+        "python",
+        "ros2",
+        "CMakeLists.txt",
+        ".github/workflows/ci.yml",
+        "tests/test_inten_conditioning.py",
+        "experiments/results/inten_conditioning",
+        ":(glob)papers/*/src/**",
+        ":(glob)papers/*/include/**",
+        ":(glob)papers/*/test/**",
+        ":(glob)papers/*/CMakeLists.txt"
+      ],
+      "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "exit_code": 0
+}

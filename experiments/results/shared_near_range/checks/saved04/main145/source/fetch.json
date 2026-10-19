@@ -1,0 +1,12 @@
+{
+  "command": [
+    "git",
+    "fetch",
+    "origin",
+    "main"
+  ],
+  "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "From https://github.com/rsasaki0109/localization_zoo\n * branch              main       -> FETCH_HEAD\n   87894228..9ed935a0  main       -> origin/main\n"
+}

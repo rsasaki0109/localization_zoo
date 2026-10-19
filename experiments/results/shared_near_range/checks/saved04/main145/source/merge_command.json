@@ -1,0 +1,25 @@
+{
+  "command": [
+    "git",
+    "merge",
+    "--no-commit",
+    "9ed935a045989d1806c0a19baa98794fa482eb54"
+  ],
+  "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+  "exit_code": 1,
+  "stdout": "Auto-merging docs/decisions.md\nCONFLICT (content): Merge conflict in docs/decisions.md\nAuto-merging docs/experiments.md\nCONFLICT (content): Merge conflict in docs/experiments.md\nAuto-merging docs/interfaces.md\nCONFLICT (content): Merge conflict in docs/interfaces.md\nAuto-merging docs/paper_assets.md\nCONFLICT (content): Merge conflict in docs/paper_assets.md\nAuto-merging docs/paper_captions.md\nCONFLICT (content): Merge conflict in docs/paper_captions.md\nAuto-merging docs/paper_comparison.md\nCONFLICT (content): Merge conflict in docs/paper_comparison.md\nAuto-merging docs/paper_roadmap.md\nCONFLICT (content): Merge conflict in docs/paper_roadmap.md\nAuto-merging docs/paper_tracks.md\nCONFLICT (content): Merge conflict in docs/paper_tracks.md\nAuto-merging docs/reproduction_status.md\nCONFLICT (content): Merge conflict in docs/reproduction_status.md\nAuto-merging docs/roadmap.md\nAuto-merging docs/variant_analysis.md\nCONFLICT (content): Merge conflict in docs/variant_analysis.md\nAuto-merging experiments/results/index.json\nCONFLICT (content): Merge conflict in experiments/results/index.json\nAutomatic merge failed; fix conflicts and then commit the result.\n",
+  "stderr": "",
+  "conflicts": [
+    "docs/decisions.md",
+    "docs/experiments.md",
+    "docs/interfaces.md",
+    "docs/paper_assets.md",
+    "docs/paper_captions.md",
+    "docs/paper_comparison.md",
+    "docs/paper_roadmap.md",
+    "docs/paper_tracks.md",
+    "docs/reproduction_status.md",
+    "docs/variant_analysis.md",
+    "experiments/results/index.json"
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics04/source_checks/commands.json",
+    "destination": "experiments/results/shared_near_range/checks/saved04/source/commands.json",
+    "source_sha256": "b4c33fb5cd8272a139959c9e6f3248289d81ed9b1cf51c10e457c510cd3e212f",
+    "destination_sha256": "b4c33fb5cd8272a139959c9e6f3248289d81ed9b1cf51c10e457c510cd3e212f",
+    "gzip_original_verified": false
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics04/source_checks/publication_gates.log",
+    "destination": "experiments/results/shared_near_range/checks/saved04/source/publication_gates.log.gz",
+    "source_sha256": "7347361df2445ab22cb53e7aee389e62a6b7cf4ed66cbcfb2cbd57e78a6003d0",
+    "destination_sha256": "2c841c3275bab56f94ee14f2e4c1021c6553428230e135b1afe7d3d25f5573e4",
+    "gzip_original_verified": true
+  },
+  {
+    "source": "/workspace/localization-env/shared-near-range/diagnostics04/source_checks/publication_gates_optimized.log",
+    "destination": "experiments/results/shared_near_range/checks/saved04/source/publication_gates_optimized.log.gz",
+    "source_sha256": "62d524e56b6759c76e37cdb9481d8e4f99603cf78df45a66acda64805683db27",
+    "destination_sha256": "e7da7c4e41cb950e48a558cdc2210c7a9878d2468e0b6694d263dfb14e9a9e2e",
+    "gzip_original_verified": true
+  }
+]

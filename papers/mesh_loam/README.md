@@ -582,3 +582,32 @@ These short executions check compatibility; they do not establish long-segment
 KITTI RTE or remeasure full-sequence throughput. The speed figures above remain
 tied to their recorded sources. [Commands, binary/input hashes, comparison and
 limits](../../experiments/results/paper_pipeline_speed/README.md#integration-with-merged-shared-components).
+
+<!-- SHARED_NEAR_RANGE_04_DIAGNOSTICS -->
+## Saved KITTI04 historical difference
+
+| Method | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---:|---:|---:|---:|
+| Mesh-LOAM | 0.523782 | 0.520627 | 10.602073 | 10.252902 |
+
+Both metrics improve here. The historical audit retains exit **1**. The frozen
+pre-extraction executable has zero recorded metric differences and byte-identical
+saved poses, so this difference predates extraction; its original cause remains
+open. Owned scans and alias were removed after input hash verification.
+
+The largest current GT position-error increase in the inherited fixed blocks
+is frames **0-100**:
+**0.000000 to 8.793566 m**.
+
+The historical/replayed position gap reaches **0.731906 m** at the final
+frame **270**. Its largest fixed **100**-step block increase is
+**100-200**: **0.260850 to 0.522191 m**.
+This gap and GT position error measure different quantities. Evaluated GT bytes
+and recorded Mesh core match. Original/replay OpenMP **2 / 1** (OpenBLAS **1**)
+remain a runtime confound, without cause attribution or a new accuracy claim.
+
+[Protocol, every step/block, plots and actual commands](../../experiments/results/shared_near_range/diagnostics/04/README.md)
+come from raw evidence `4cb636eedcd614cb15e2b63121bb39d5966e55bb`, committed before this prose.
+The diagnostic parameters transfer unchanged from 02/01. Native settings and
+published results are preserved; the near-range cut remains disabled.
+<!-- /SHARED_NEAR_RANGE_04_DIAGNOSTICS -->

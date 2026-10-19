@@ -143,3 +143,17 @@ evidence; their presence in this branch does not turn the frozen replay into a
 whole-zoo measurement of current-main native code. The later InTEn cause study and
 fresh NCLT work remain open. No estimator, registration argument, published result
 or paper number is changed by this completion.
+
+The [main-based final checks](checks/final_integration/docs/commands.json),
+committed at `dc72313e`, retain exact commands, actual exits and full losslessly
+compressed logs. All required generators, showcase, leaderboard, paper-ready and
+whitespace checks exit **0**. Full Python runs **344** tests with **5** explicit
+built-evaluator skips in this checkout and exits **0**. The
+[actual driver invocation](checks/final_integration/docs/driver_invocation.json)
+and [preservation receipt](checks/final_integration/docs/preservation.json)
+verify all **688** historical aggregate hashes, unchanged published/table/paper-number
+bytes, every original08/09/10 file and all **31** completion files. Prior method
+README content, other roadmap sections, saved diagnostic/recovery links and the
+primary frozen source/sealed files/binaries are preserved. Timestamp-only
+generator changes retain prior bytes with an explicit disposition. Final-head
+native and ROS checks run in the completion PR's CI.

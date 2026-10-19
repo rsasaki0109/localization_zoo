@@ -94,3 +94,12 @@ selects no setting. Native source remains `0b079dbb`. Current-main acceleration
 and tracing, NCLT accuracy and the later InTEn cause study remain outside this
 historical replay's validation scope. Published accuracy, paper numbers and
 default-off preprocessing are preserved.
+
+[Final integration checks](../../checks/final_integration/docs/commands.json),
+committed at `dc72313e`, retain actual exits, exact commands and full losslessly
+compressed logs. Required generators, full Python (**344** tests, **5** explicit
+built-evaluator skips), documentation and whitespace checks exit **0**. The
+[preservation receipt](../../checks/final_integration/docs/preservation.json)
+verifies all **688** historical aggregate hashes, published/table/paper-number
+bytes, all **125** native10 files, prior method README content and frozen source,
+sealed files and binaries. Final-head C++ and ROS validation runs in PR CI.

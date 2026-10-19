@@ -1,0 +1,14 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "a4a0c28a1f1a326cccb9c938364d8ef575e281d2"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+  "started_unix": 1792414771.3628948,
+  "finished_unix": 1792414771.382611,
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": ""
+}

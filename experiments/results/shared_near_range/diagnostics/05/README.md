@@ -95,6 +95,17 @@ creating output. The new closed05 fixture retains the full difference cohort;
 missing controls and even dangling owned-input aliases are rejected. All **19**
 gate tests pass with actual exit **0** in normal and optimized Python.
 
+[Repository checks and exact commands](../../checks/saved05/docs/commands.json)
+retain complete, losslessly compressed logs. Required document generators,
+showcase, leaderboard, paper-ready and whitespace checks exit **0**. Full Python
+runs **334** tests with **5** built-evaluator skips in this separate checkout,
+exiting **0**; final-head CI provides native coverage. The
+[preservation receipt](../../checks/saved05/docs/preservation.json) verifies all
+**688** historical aggregate hashes, unchanged publication/paper-number bytes,
+lossless raw05 import, prior method README content and the running primary's
+frozen native source, sealed scripts and both executable hashes. Timestamp-only
+generator changes retain prior bytes with an explicit disposition receipt.
+
 The new [cleaned checkpoint](../../checkpoints/05/summary.json) covers **97/177**
 cells across 04/00/01/02/03/05: **77** historical matches and **20** differences.
 All **22** frozen controls have zero metric differences and identical saved

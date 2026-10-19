@@ -419,6 +419,11 @@ remain untouched. Stored aggregates, Table 6, paper metadata and defaults are
 preserved. Historical per-cell replay is not a new fixed-setting accuracy study
 or a whole-zoo validation of current-main acceleration/passive tracing.
 
+[Required regeneration, regression and preservation checks](checks/saved05/docs/)
+retain actual commands and exits, full lossless logs and exact raw05 import hashes.
+The separate checkout's built-evaluator skips remain visible; full native and
+ROS coverage runs in final-head CI. The original running checkout is preserved.
+
 ## Checkpoint integration while the frozen replay continues
 
 The committed checkpoint and diagnostics can be integrated using a separate

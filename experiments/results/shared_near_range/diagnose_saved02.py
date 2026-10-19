@@ -1,4 +1,4 @@
-"""Diagnose closed KITTI02/03/04/05 saved paths after frozen comparison and cleanup.
+"""Diagnose closed KITTI02/03/04/05/06 saved paths after frozen comparison and cleanup.
 
 No estimator or scan reader is invoked. Uncommitted inputs are rejected before
 creating output; historical path availability and runtime limits are retained.
@@ -29,7 +29,7 @@ METHODS = {'A-LOAM': ('aloam', 'A_LOAM.txt'), 'CT-ICP': ('ct_icp', 'CT_ICP.txt')
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--sequence', choices=('02', '03', '04', '05'), default='02')
+    parser.add_argument('--sequence', choices=('02', '03', '04', '05', '06'), default='02')
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
     sequence = args.sequence
@@ -73,7 +73,7 @@ def main():
     protocol = json.loads(committed(E / f'diagnostics/{sequence}_protocol.json'))
     require(protocol['sequence'] == sequence, 'Diagnostic protocol sequence differs')
     cohort = (set(METHODS) if sequence in ('02', '05') else
-              {'CT-ICP', 'Mesh-LOAM'} if sequence == '04' else {'Mesh-LOAM'})
+              {'CT-ICP', 'Mesh-LOAM'} if sequence in ('04', '06') else {'Mesh-LOAM'})
     frozen_cohort = cohort | ({'DiLO', 'ELO'} if sequence == '04' else set())
     require(set(protocol['methods']) == cohort, 'Diagnostic protocol cohort differs')
     require(set(protocol.get('frozen_control_methods', protocol['methods'])) == frozen_cohort,

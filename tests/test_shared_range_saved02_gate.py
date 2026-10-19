@@ -131,7 +131,7 @@ class Saved02PublicationGateTests(unittest.TestCase):
         protocol = json.loads((STUDY / f'diagnostics/{sequence}_protocol.json').read_text())
         write_json(self.study / f'diagnostics/{sequence}_protocol.json', protocol)
         cohort = (set(self.module.METHODS) if sequence == '05' else
-                  {'CT-ICP', 'Mesh-LOAM'} if sequence == '04' else {'Mesh-LOAM'})
+                  {'CT-ICP', 'Mesh-LOAM'} if sequence in ('04', '06') else {'Mesh-LOAM'})
         recorded_root = Path('/archived/saved-study-checkout')
         for mode in ('audit', 'frozen_baseline'):
             path = target / mode / 'report.json'
@@ -305,9 +305,9 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.assertEqual(failure.exception.code, 2)
         self.assertFalse(self.output.exists())
 
-    def test_active06_is_not_an_allowed_diagnostic_sequence(self):
+    def test_unclosed07_is_not_an_allowed_diagnostic_sequence(self):
         with self.assertRaises(SystemExit) as failure:
-            self.invoke('--sequence', '06')
+            self.invoke('--sequence', '07')
         self.assertEqual(failure.exception.code, 2)
         self.assertFalse(self.output.exists())
 
@@ -350,6 +350,29 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.assertEqual({row['method'] for row in result['rows']}, {'CT-ICP', 'Mesh-LOAM'})
         self.assertEqual(set(result['frozen_control_methods']), {'CT-ICP', 'DiLO', 'ELO', 'Mesh-LOAM'})
         self.assertTrue(all(result['completion_gate'].values()))
+
+    def test_closed06_keeps_its_complete_cohort_without_inheriting_extra04_controls(self):
+        self.prepare_relocated03('06')
+        self.invoke('--sequence', '06')
+        result = json.loads((self.output / 'summary.json').read_text())
+        self.assertEqual(result['sequence'], '06')
+        self.assertEqual({row['method'] for row in result['rows']}, {'CT-ICP', 'Mesh-LOAM'})
+        self.assertEqual(set(result['frozen_control_methods']), {'CT-ICP', 'Mesh-LOAM'})
+        self.assertTrue(all(result['completion_gate'].values()))
+
+    def test06_rejects_an_unexpected_control_before_output(self):
+        self.prepare_relocated03('06')
+        path = self.study / 'sequences/06/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'].append(dict(method='ELO', sequence='06',
+                                         metric_abs_delta={'ate_m': 0},
+                                         saved_pose_bytes_equal={'ELO.txt': True}))
+        write_json(path, comparison)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '06')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
 
     def test04_rejects_a_bad_receipt_on_an_additional_control_before_output(self):
         self.prepare_relocated03('04')

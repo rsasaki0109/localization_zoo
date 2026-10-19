@@ -1,0 +1,13 @@
+{
+  "command": [
+    "git",
+    "switch",
+    "--create",
+    "codex/shared-range-saved04",
+    "878942285f60f6f4fca4ee700df940f37000c79d"
+  ],
+  "cwd": "/workspace/localization-env/shared-near-range/diagnostics03/worktree",
+  "exit_code": 0,
+  "output": "Switched to a new branch 'codex/shared-range-saved04'\n",
+  "recorded_unix": 1792371573.955861
+}

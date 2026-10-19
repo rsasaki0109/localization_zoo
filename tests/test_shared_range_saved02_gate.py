@@ -123,34 +123,50 @@ class Saved02PublicationGateTests(unittest.TestCase):
                 contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             self.module.main()
 
-    def prepare_relocated03(self):
-        """Move a closed cohort into03; receipts point at a different checkout."""
+    def prepare_relocated03(self, sequence='03'):
+        """Relocate a closed cohort;04 retains its additional native controls."""
         source = self.study / 'sequences/02'
-        target = self.study / 'sequences/03'
+        target = self.study / 'sequences' / sequence
         shutil.copytree(source, target)
-        protocol = json.loads((STUDY / 'diagnostics/03_protocol.json').read_text())
-        write_json(self.study / 'diagnostics/03_protocol.json', protocol)
+        protocol = json.loads((STUDY / f'diagnostics/{sequence}_protocol.json').read_text())
+        write_json(self.study / f'diagnostics/{sequence}_protocol.json', protocol)
+        cohort = {'CT-ICP', 'Mesh-LOAM'} if sequence == '04' else {'Mesh-LOAM'}
         recorded_root = Path('/archived/saved-study-checkout')
         for mode in ('audit', 'frozen_baseline'):
             path = target / mode / 'report.json'
             report = json.loads(path.read_text())
-            report['rows'] = [row for row in report['rows'] if row['method'] == 'Mesh-LOAM']
+            report['rows'] = [row for row in report['rows'] if row['method'] in cohort]
             for row in report['rows']:
                 relative = Path(row['summary_path']).relative_to(self.repo)
-                relative = Path(str(relative).replace('sequences/02/', 'sequences/03/'))
-                row.update(sequence='03', cwd=str(recorded_root),
+                relative = Path(str(relative).replace('sequences/02/', f'sequences/{sequence}/'))
+                row.update(sequence=sequence, cwd=str(recorded_root),
                            summary_path=str(recorded_root / relative))
+            if sequence == '04' and mode == 'frozen_baseline':
+                for method in ('DiLO', 'ELO'):
+                    summary = target / mode / 'replays' / (method.lower() + '.json')
+                    write_json(summary, {'methods': [{'name': method}]})
+                    write_json(summary.with_name(summary.stem + '_native_command.json'),
+                               dict(exit_code=0, binary_sha256='baseline', finished_unix=1))
+                    report['rows'].append(dict(method=method, sequence=sequence,
+                                               process_exit_code=0, cwd=str(recorded_root),
+                                               summary_path=str(recorded_root / summary.relative_to(self.repo))))
             write_json(path, report)
         for path in target.glob('*/replays/*_native/dogfooding_results/kitti_seq_02_full_evaluated_gt.txt'):
-            path.rename(path.with_name('kitti_seq_03_full_evaluated_gt.txt'))
+            path.rename(path.with_name(f'kitti_seq_{sequence}_full_evaluated_gt.txt'))
         path = target / 'frozen_comparison.json'
         comparison = json.loads(path.read_text())
-        comparison['checks'] = [row for row in comparison['checks'] if row['method'] == 'Mesh-LOAM']
-        comparison['checks'][0]['sequence'] = '03'
+        comparison['checks'] = [row for row in comparison['checks'] if row['method'] in cohort]
+        for row in comparison['checks']:
+            row['sequence'] = sequence
+        if sequence == '04':
+            for method in ('DiLO', 'ELO'):
+                comparison['checks'].append(dict(method=method, sequence=sequence,
+                                                metric_abs_delta={'ate_m': 0},
+                                                saved_pose_bytes_equal={method + '.txt': True}))
         write_json(path, comparison)
         path = target / 'cleanup.json'
         cleanup = json.loads(path.read_text())
-        cleanup['sequence'] = '03'
+        cleanup['sequence'] = sequence
         write_json(path, cleanup)
         self.commit()
 
@@ -291,6 +307,52 @@ class Saved02PublicationGateTests(unittest.TestCase):
     def test_active05_is_not_an_allowed_diagnostic_sequence(self):
         with self.assertRaises(SystemExit) as failure:
             self.invoke('--sequence', '05')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_closed04_retains_extra_controls_and_diagnoses_only_historical_differences(self):
+        self.prepare_relocated03('04')
+        self.invoke('--sequence', '04')
+        result = json.loads((self.output / 'summary.json').read_text())
+        self.assertEqual(result['sequence'], '04')
+        self.assertEqual({row['method'] for row in result['rows']}, {'CT-ICP', 'Mesh-LOAM'})
+        self.assertEqual(set(result['frozen_control_methods']), {'CT-ICP', 'DiLO', 'ELO', 'Mesh-LOAM'})
+        self.assertTrue(all(result['completion_gate'].values()))
+
+    def test04_rejects_a_bad_receipt_on_an_additional_control_before_output(self):
+        self.prepare_relocated03('04')
+        path = self.study / 'sequences/04/frozen_baseline/replays/dilo_native_command.json'
+        receipt = json.loads(path.read_text())
+        receipt['binary_sha256'] = self.wrapper_sha256
+        write_json(path, receipt)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '04')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test04_rejects_a_difference_on_an_additional_control_before_output(self):
+        self.prepare_relocated03('04')
+        path = self.study / 'sequences/04/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        row = next(row for row in comparison['checks'] if row['method'] == 'ELO')
+        row['metric_abs_delta']['ate_m'] = 1
+        write_json(path, comparison)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '04')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test04_rejects_a_missing_additional_control_before_output(self):
+        self.prepare_relocated03('04')
+        path = self.study / 'sequences/04/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'] = [row for row in comparison['checks'] if row['method'] != 'DiLO']
+        write_json(path, comparison)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '04')
         self.assertEqual(failure.exception.code, 2)
         self.assertFalse(self.output.exists())
 

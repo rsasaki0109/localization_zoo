@@ -1,4 +1,4 @@
-"""Diagnose closed KITTI02/03/04/05/06/07 saved paths after frozen comparison and cleanup.
+"""Diagnose committed, closed KITTI saved paths after frozen comparison and cleanup.
 
 No estimator or scan reader is invoked. Uncommitted inputs are rejected before
 creating output; historical path availability and runtime limits are retained.
@@ -31,7 +31,7 @@ METHODS07 = {**METHODS, 'VLOM': ('vlom', 'VLOM.txt')}
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--sequence', choices=('02', '03', '04', '05', '06', '07'), default='02')
+    parser.add_argument('--sequence', choices=('02', '03', '04', '05', '06', '07', '08'), default='02')
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
     sequence = args.sequence
@@ -76,6 +76,7 @@ def main():
     require(protocol['sequence'] == sequence, 'Diagnostic protocol sequence differs')
     available_methods = METHODS07 if sequence == '07' else METHODS
     cohort = (set(available_methods) if sequence in ('02', '05', '07') else
+              {'A-LOAM', 'F-LOAM', 'LeGO-LOAM', 'Mesh-LOAM'} if sequence == '08' else
               {'CT-ICP', 'Mesh-LOAM'} if sequence in ('04', '06') else {'Mesh-LOAM'})
     frozen_cohort = cohort | ({'DiLO', 'ELO'} if sequence == '04' else set())
     require(set(protocol['methods']) == cohort, 'Diagnostic protocol cohort differs')

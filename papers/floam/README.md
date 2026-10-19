@@ -15,34 +15,6 @@ lightweight `F-LOAM` 再現版です。`A-LOAM` の feature-based odometry / map
 full original system の全最適化を完全移植したものではなく、この repo の `A-LOAM`
 資産を使って `F-LOAM` の fast pipeline 側を小さく再現した版です。
 
-<!-- SHARED_NEAR_RANGE_00_PRIMARY -->
-## Shared-loader replay: KITTI 00 frozen comparison complete
-
-The full 00 replay of the stored `dense` arguments completes all
-4541 frames, with the optional near-range cut still off. The historical
-100 m RPE changes from **0.921410%** to
-**0.990961%**; ATE changes from **9.833596 m**
-to **8.556112 m**. RPE worsens. ATE improves, so these outcomes are retained separately.
-The native process exits 0, but the historical audit exits **1**.
-
-The frozen pre-extraction replay also finishes with native exit 0. Its
-RPE, ATE, frame count and official translation/rotation RTE have **zero**
-recorded difference from the extracted implementation, and saved poses are
-byte-identical. This historical difference therefore predates the extraction;
-its original cause remains unresolved. No setting is reselected, and the
-stored aggregate and published paper comparison are preserved.
-[Closed control commands, hashes and comparison](../../experiments/results/shared_near_range/checks/00_closed_controls/summary.json)
-were committed at `7d55897901c17b0c64567115a6f59db06cf585b0`.
-
-[Completed candidate commands, actual exits, logs and summaries](../../experiments/results/shared_near_range/sequences/00/audit/)
-were committed at `485fa00601644731827dae601eb3b43c7543efeb`.
-The full [frozen comparison](../../experiments/results/shared_near_range/sequences/00/frozen_comparison.json)
-and [verified input cleanup](../../experiments/results/shared_near_range/sequences/00/cleanup.json)
-were committed at `10cf31616365b41878ec9311f0b705e798716c51`.
-The [committed checkpoint](../../experiments/results/shared_near_range/checkpoints/00/summary.json)
-now covers cleaned 04 and 00; the whole-zoo audit remains incomplete.
-Defaults remain off.
-<!-- /SHARED_NEAR_RANGE_00_PRIMARY -->
 
 <!-- SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
 ## KITTI 00 current-replay error growth
@@ -82,3 +54,23 @@ cause or replacing published accuracy. The
 [cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
 retains all historical differences and audit exits.
 <!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader full KITTI replay
+
+All 5 selected stored F-LOAM full-sequence cells complete with native exits 0. 0 match historical 100 m RPE, ATE and frame count; 5 differ. Each cell uses its original recorded arguments, which may differ by sequence. This audit does not select a new fixed setting or paper value. The optional near-range cut still defaults to zero/off.
+
+Every historical difference is retained below, including improvements. The corresponding historical audits exit **1**.
+
+| Seq | Historical variant | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| 00 | `dense` | 0.921410 | 0.990961 | 9.833596 | 8.556112 |
+| 02 | `dense` | 0.937750 | 0.945974 | 52.068212 | 53.822119 |
+| 05 | `dense` | 0.537259 | 0.538788 | 6.035067 | 6.038695 |
+| 07 | `dense` | 0.612719 | 0.590347 | 2.971748 | 3.173641 |
+| 08 | `dense` | 1.399647 | 1.372876 | 20.440418 | 17.318202 |
+
+For every differing cell, the frozen pre-extraction executable reproduces the replayed metrics and byte-identical saved poses. Thus these differences predate this extraction; their historical causes remain unresolved. Official translation/rotation RTE also matches for those frozen controls. This is not credited as a filter improvement or used to replace stored results.
+
+[Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->

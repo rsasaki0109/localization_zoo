@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-18T22:04:09+00:00
+> Generated: 2026-10-19T20:05:37+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 

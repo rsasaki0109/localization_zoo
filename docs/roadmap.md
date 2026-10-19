@@ -245,58 +245,19 @@ independent. Each item says what "done" means.
      RPE, ATE, frame count and official translation/rotation RTE.
      [Protocol, completed results and commands](../experiments/results/shared_coarse_start/README.md).
      Near-range sharing and NCLT progress are tracked below.
-   - Third component implemented: the runner's opt-in sensor-frame near-range
-     cut now lives in `common/range_filter.h`, used by ELO and DiLO through
-     their shared loader and by intensity-preserving loaders. Float arithmetic,
-     strict boundary, processing order and zero/off default remain unchanged;
-     standalone method libraries do not apply it automatically.
-     Whole-zoo KITTI replay is in progress: full 04 covers all 14 selected cells,
-     with 12 matching the stored metrics. CT-ICP and Mesh-LOAM differ from the
-     historical values, but the frozen pre-extraction executable reproduces
-     both differences with identical saved poses; their causes remain open
-     and their method READMEs retain the values. The historical audit exits 1,
-     not a clean pass. Full 00's 20 candidate runs also finish: 15 match;
-     A-LOAM, F-LOAM, LeGO-LOAM, Mesh-LOAM and VLOM differ, with RPE worsening
-     on all five. Their numeric pairs are retained in the method READMEs;
-     All five frozen pre-extraction controls now finish with zero metric
-     differences and byte-identical saved poses, so their historical differences
-     predate extraction; the original causes remain unresolved. Input hashes
-     were verified before removing the owned 00 scans. The implementation is merged
-     in [PR #137](https://github.com/rsasaki0109/localization_zoo/pull/137);
-     later audit results are follow-up work.
-     [Current 00 trajectory diagnostics](../experiments/results/shared_near_range/diagnostics/00/README.md)
-     locate error growth; missing referenced historical paths prevent a paired
-     diagnosis of the historical metric differences.
-     The committed, cleaned 04/00/01/02/03 checkpoint now covers 79/177 cells:
-     64 historical matches and 15 differences, all reproduced by frozen controls.
-     All 17 controls have zero metric differences and byte-identical poses.
-     All five historical audits retain exit 1; checkpoint verification exits 0.
-     [Checkpoint, CSV and commands](../experiments/results/shared_near_range/checkpoints/03/summary.json).
-     [Saved02 diagnosis](../experiments/results/shared_near_range/diagnostics/02/README.md)
-     retains current error-growth blocks and the available Mesh paired path,
-     with explicit missing-path/runtime limits. Full03 adds a Mesh historical
-     difference reproduced by its frozen control; method READMEs retain all
-     numerical pairs. Inputs were hash-verified before deletion.
-     The environment restarted during05. Interrupted outputs are preserved and
-     excluded from coverage; a source-pinned recovery reruns all selected05
-     cells with the same frozen executables/settings before continuing.
-     [Recovery protocol](../experiments/results/shared_near_range/recovery05_protocol.json).
-     Full 01 candidate replay also finishes all 13 cells: 11 match;
-     CT-ICP and Mesh-LOAM differ, retaining audit exit 1. Their numeric pairs
-     are in the method READMEs. Both frozen pre-extraction controls have zero
-     metric differences and byte-identical poses; the differences predate
-     extraction. The frozen historical audit retains exit 1. All input hashes
-     were verified before deleting the owned 01 scans and alias.
-     [Candidate evidence](../experiments/results/shared_near_range/sequences/01/audit/)
-     and [saved-path diagnosis](../experiments/results/shared_near_range/diagnostics/01/README.md)
-     retain Mesh's paired path gap and CT's current error-growth block, with
-     explicit runtime/missing-path limits and no cause attribution.
-     The historical NCLT cutoff is retained
-     without reselection. DiLO's historical cut/uncut profiles also differ in
-     range-image geometry, so their RTE difference cannot isolate the cut's
-     effect; its ATE worsens from 54.344593 to 75.832748 m. Real NCLT validation
-     remains blocked by the enforced official-host allowlist.
-     [Protocol, scope and execution records](../experiments/results/shared_near_range/README.md).
+   - Third component implemented and audited in [PR #137](https://github.com/rsasaki0109/localization_zoo/pull/137):
+     the optional sensor-frame near-range cut is shared in `common/range_filter.h`,
+     used by ELO/DiLO and intensity-preserving loaders. Float arithmetic, strict
+     boundary, processing order and zero/off default are preserved; standalone
+     cores do not apply it automatically. All 177 selected full KITTI cells
+     complete with verified input cleanup. 142 match historical
+     RPE/ATE/frame values; 35 differ, with every difference reproduced by
+     the frozen pre-extraction executable and retained numerically in method READMEs.
+     Historical audits with differences retain exit 1; their causes remain unresolved.
+     No setting is reselected or published result replaced. Fresh real-NCLT evaluation
+     remains open; its historical DiLO cut/uncut pair also changes range-image geometry
+     and cannot isolate the cut's effect.
+     [Full report, scope, commands and negative results](../experiments/results/shared_near_range/README.md).
 7. **Bindings.** The Python bindings cover KISS-ICP, NDT, GICP and LiTAMIN2
    (`python/`). Add the paper pipelines that are near paper (SuMa,
    IMLS-SLAM, DiLO, LiTAMIN2 paper path) and ROS 2 nodes for them.

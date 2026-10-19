@@ -1,0 +1,29 @@
+{
+  "applied": true,
+  "report": "/workspace/localization_zoo/experiments/results/shared_near_range/completion/03/report/summary.json",
+  "paths": [
+    "papers/aloam/README.md",
+    "papers/ct_icp/README.md",
+    "papers/dilo/README.md",
+    "papers/elo/README.md",
+    "papers/floam/README.md",
+    "papers/imls_slam/README.md",
+    "papers/inten_loam/README.md",
+    "papers/kiss_icp/README.md",
+    "papers/l_lo/README.md",
+    "papers/lf_gicp/README.md",
+    "papers/lego_loam/README.md",
+    "papers/litamin2/README.md",
+    "papers/mulls/README.md",
+    "papers/mesh_loam/README.md",
+    "papers/ndt/README.md",
+    "papers/quadric_lo/README.md",
+    "papers/small_gicp/README.md",
+    "papers/suma/README.md",
+    "papers/vlom/README.md",
+    "papers/voxel_gicp/README.md",
+    "experiments/results/shared_near_range/README.md",
+    "docs/roadmap.md"
+  ],
+  "exit_code": 0
+}

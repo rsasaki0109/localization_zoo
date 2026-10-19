@@ -167,3 +167,11 @@ SuMa は自身のソルバーを使う。粗い段は論文にはなく、既定
 | 10 | 0.53 | - | 0.571 | 1.08x |
 
 Geometric mean over 11 sequences: 1.05x.
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader full KITTI replay
+
+All 11 selected stored IMLS-SLAM full-sequence cells complete with native exits 0. 11 match historical 100 m RPE, ATE and frame count; 0 differ. Each cell uses its original recorded arguments, which may differ by sequence. This audit does not select a new fixed setting or paper value. The optional near-range cut still defaults to zero/off.
+
+[Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->

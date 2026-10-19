@@ -67,34 +67,6 @@ remains stable; visual bootstrap fires on almost every frame but the simplified
 monocular front-end still diverges. Paper seq00 1.18% assumes full ORB-SLAM2-style
 VO on KITTI Raw.
 
-<!-- SHARED_NEAR_RANGE_00_PRIMARY -->
-## Shared-loader replay: KITTI 00 frozen comparison complete
-
-The full 00 replay of the stored `default` arguments completes all
-4541 frames, with the optional near-range cut still off. The historical
-100 m RPE changes from **0.875872%** to
-**0.914174%**; ATE changes from **9.391448 m**
-to **9.520570 m**. RPE worsens. ATE worsens too, so these outcomes are retained separately.
-The native process exits 0, but the historical audit exits **1**.
-
-The frozen pre-extraction replay also finishes with native exit 0. Its
-RPE, ATE, frame count and official translation/rotation RTE have **zero**
-recorded difference from the extracted implementation, and saved poses are
-byte-identical. Both the RPE and ATE worsening therefore predate extraction;
-their original cause remains unresolved. No setting is reselected, and the
-stored aggregate and published paper comparison are preserved.
-[Closed control commands, hashes and comparison](../../experiments/results/shared_near_range/checks/00_vlom_control/summary.json)
-were committed at `1f7b554f9dfe5878067dc42ae18ed45c51a58e35`.
-
-[Completed candidate commands, actual exits, logs and summaries](../../experiments/results/shared_near_range/sequences/00/audit/)
-were committed at `485fa00601644731827dae601eb3b43c7543efeb`.
-The full [frozen comparison](../../experiments/results/shared_near_range/sequences/00/frozen_comparison.json)
-and [verified input cleanup](../../experiments/results/shared_near_range/sequences/00/cleanup.json)
-were committed at `10cf31616365b41878ec9311f0b705e798716c51`.
-The [committed checkpoint](../../experiments/results/shared_near_range/checkpoints/00/summary.json)
-now covers cleaned 04 and 00; the whole-zoo audit remains incomplete.
-Defaults remain off.
-<!-- /SHARED_NEAR_RANGE_00_PRIMARY -->
 
 <!-- SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
 ## KITTI 00 current-replay error growth
@@ -105,3 +77,20 @@ The largest increase in pointwise position error among those blocks is poses 600
 
 The referenced historical per-run summary is absent at the inspected revision and was not found in this checkout's reachable history. Without its historical saved path, this does not locate the cause of the historical metric difference. [Plot, full trace, commands and limits](../../experiments/results/shared_near_range/diagnostics/00/README.md) use the committed current poses, with diagnostic evidence committed at `61c1f26e1019aa3f0b05b100404c8bb117448b41`. Native source remains `0b079dbbcb7c6f58c1d8367ade881c15f003e525`.
 <!-- /SHARED_NEAR_RANGE_00_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader full KITTI replay
+
+All 2 selected stored VLOM full-sequence cells complete with native exits 0. 0 match historical 100 m RPE, ATE and frame count; 2 differ. Each cell uses its original recorded arguments, which may differ by sequence. This audit does not select a new fixed setting or paper value. The optional near-range cut still defaults to zero/off.
+
+Every historical difference is retained below, including improvements. The corresponding historical audits exit **1**.
+
+| Seq | Historical variant | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| 00 | `default` | 0.875872 | 0.914174 | 9.391448 | 9.520570 |
+| 07 | `default` | 0.607458 | 0.605313 | 2.544355 | 2.505243 |
+
+For every differing cell, the frozen pre-extraction executable reproduces the replayed metrics and byte-identical saved poses. Thus these differences predate this extraction; their historical causes remain unresolved. Official translation/rotation RTE also matches for those frozen controls. This is not credited as a filter improvement or used to replace stored results.
+
+[Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->

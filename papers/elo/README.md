@@ -230,31 +230,14 @@ Full sequences with the three fixes (`dense_elevation_paper_normals_unbiased`:
 0.656 -> **0.586 %** (paper 0.54 %, held out), seq 07 0.480 -> **0.391 %**
 (paper 0.31 %); 1.09x / 1.26x, geometric mean 1.17x (from 1.37x).
 
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader full KITTI replay
 
-<!-- SHARED_NEAR_RANGE -->
-## Optional shared sensor-frame near-range cut
+All 11 selected stored ELO full-sequence cells complete with native exits 0. 11 match historical 100 m RPE, ATE and frame count; 0 differ. Each cell uses its original recorded arguments, which may differ by sequence. This audit does not select a new fixed setting or paper value. The optional near-range cut still defaults to zero/off.
 
-The runner's existing `--input-min-range-m` filter is shared in
-[`common/range_filter.h`](../../common/include/common/range_filter.h), used by
-ELO and DiLO through their XYZ loader and by intensity-preserving loaders.
-It runs after `--input-sensor-pose` conversion, before elevation correction
-and downsampling. It removes points strictly inside the radius and preserves
-retained point order/fields. This preprocessing is **not in the paper**;
-zero remains the default (off), and standalone ELO does not apply it automatically.
+The runner's sensor-frame near-range cut is **non-paper preprocessing**, still default zero/off. It is shared by ELO/DiLO and intensity-preserving loaders, after sensor-frame conversion and before elevation correction/downsampling; standalone cores do not apply it automatically.
 
-Historical full NCLT 2013-01-10 evidence: with the sensor settings in
-[`nclt_paper_paths.md`](../../docs/nclt_paper_paths.md), the existing 5 m cut
-changes official translation RTE from 18.132951% to 3.361084% and ATE from
-126.612474 m to 51.639158 m. Substantial position error remains. The value was
-chosen using that sequence and its restart window, so this is not held-out
-validation. Sources are committed `elo.json` / `elo_m5.json` under
-[`docs/benchmarks/nclt_paper_paths/`](../../docs/benchmarks/nclt_paper_paths/);
-the original summaries lack evaluator-commit/argv provenance. These historical
-numbers have not been rerun for the extraction.
+Historical NCLT full-sequence RTE without/with the existing 5 m cut is 18.132951% / 3.361084%; ATE is 126.612474 m / 51.639158 m. The cut still leaves substantial absolute position error. The cutoff was selected on that NCLT sequence and restart window, with no new held-out claim. These are historical numbers, not a fresh NCLT rerun. [Committed summaries](../../docs/benchmarks/nclt_paper_paths/) and [recorded commands and limits](../../docs/nclt_paper_paths.md) retain their original missing evaluator-commit/argv provenance. Fresh NCLT validation remains open.
 
-The [shared-filter protocol and execution records](../../experiments/results/shared_near_range/README.md)
-distinguish regression checks from NCLT evaluation. Full KITTI replay is running;
-full 04 matches the stored ELO metrics and the frozen pre-extraction saved poses.
-The remaining sequences are pending;
-real NCLT validation remains blocked by the enforced official-host allowlist.
-<!-- /SHARED_NEAR_RANGE -->
+[Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->

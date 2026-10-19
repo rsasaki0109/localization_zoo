@@ -132,54 +132,7 @@ KITTI 00 の Table 6 バリアントは、i5-1145G7 のホストで 1.664 %、�
 1.664 % は摂動での散らばりの範囲に入っている。upstream mechanics は公式コードと
 同程度に安定で、長い系列の CT-ICP の数値はこちらを使うべきである。
 
-<!-- SHARED_NEAR_RANGE_AUDIT -->
-## Shared-loader replay: historical KITTI 04 difference
 
-After extracting the opt-in near-range filter, the full 04 stored-cell replay
-(`upstream_mechanics_elevation`, original recorded arguments, cut still off)
-has 100 m RPE **0.733247%** and ATE **2.191953 m**, versus stored **0.713006%**
-and **2.184636 m**. All 271 frames complete. This is a negative reproduction
-result: the historical audit exits 1 and the stored result is preserved.
-
-The frozen pre-extraction executable produces the same replayed RPE/ATE,
-frame count, official translation/rotation RTE and byte-identical saved poses.
-Thus the difference predates this filter extraction; its historical cause
-is still unresolved. This does not establish a new CT-ICP accuracy result,
-attribute the difference to a particular compiler, or reselect a setting.
-
-[Exact audit commands, exits, summaries and logs](../../experiments/results/shared_near_range/sequences/04/audit/),
-[frozen replay](../../experiments/results/shared_near_range/sequences/04/frozen_baseline/),
-[comparison](../../experiments/results/shared_near_range/sequences/04/frozen_comparison.json)
-were committed at `7458c24d16096cc305889ed0864a5ef8bfb6bdf4`.
-The [whole-zoo audit](../../experiments/results/shared_near_range/README.md)
-is incomplete; the opt-in cut remains off by default.
-<!-- /SHARED_NEAR_RANGE_AUDIT -->
-
-<!-- SHARED_NEAR_RANGE_REPLAY -->
-## Shared-loader replay: KITTI 01 frozen comparison complete
-
-The full stored `upstream_mechanics_elevation` replay completes all 1101 frames with
-native exit 0. Historical 100 m RPE is **0.826792%**, versus
-**0.830115%** in this replay; ATE is **58.190972 m**
-versus **57.923334 m**. RPE worsens; ATE
-improves. The historical audit exits **1**, preserving the difference.
-
-The frozen pre-extraction replay also completes with native exit 0. RPE,
-ATE, frames and official translation/rotation RTE have zero recorded differences
-from the extracted implementation, with byte-identical saved poses. This
-historical difference predates extraction; its original cause remains unresolved.
-The frozen historical audit also exits 1. No setting is reselected, and the
-near-range cut remains off.
-
-[Commands, exits, hashes and candidate results](../../experiments/results/shared_near_range/sequences/01/audit/)
-were committed at `9555f01fda68a0294fc7dd5a828a85fac207f68f`. The
-[study and cleaned checkpoint scope](../../experiments/results/shared_near_range/README.md)
-now include the full [frozen comparison](../../experiments/results/shared_near_range/sequences/01/frozen_comparison.json)
-and [verified input cleanup](../../experiments/results/shared_near_range/sequences/01/cleanup.json),
-committed at `6188b71d8e48933a4dffce54afdde7a01382f4b0`. The cleaned
-[04/00/01 checkpoint](../../experiments/results/shared_near_range/checkpoints/01/summary.json)
-remains partial whole-zoo coverage.
-<!-- /SHARED_NEAR_RANGE_REPLAY -->
 
 <!-- SHARED_NEAR_RANGE_01_DIAGNOSTICS -->
 ### Saved KITTI 01 path diagnosis
@@ -228,3 +181,25 @@ cause or replacing published accuracy. The
 [cleaned checkpoint](../../experiments/results/shared_near_range/checkpoints/03/summary.json)
 retains all historical differences and audit exits.
 <!-- /SHARED_NEAR_RANGE_02_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader full KITTI replay
+
+All 11 selected stored CT-ICP full-sequence cells complete with native exits 0. 4 match historical 100 m RPE, ATE and frame count; 7 differ. Each cell uses its original recorded arguments, which may differ by sequence. This audit does not select a new fixed setting or paper value. The optional near-range cut still defaults to zero/off.
+
+Every historical difference is retained below, including improvements. The corresponding historical audits exit **1**.
+
+| Seq | Historical variant | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---|---:|---:|---:|---:|
+| 01 | `upstream_mechanics_elevation` | 0.826792 | 0.830115 | 58.190972 | 57.923334 |
+| 02 | `upstream_mechanics_elevation` | 0.810338 | 0.813023 | 20.606805 | 19.687922 |
+| 04 | `upstream_mechanics_elevation` | 0.713006 | 0.733247 | 2.184636 | 2.191953 |
+| 05 | `upstream_mechanics_elevation` | 0.469581 | 0.469523 | 4.264453 | 4.079794 |
+| 06 | `upstream_mechanics_elevation` | 0.388505 | 0.391531 | 3.963097 | 3.891527 |
+| 07 | `upstream_mechanics_elevation` | 0.455389 | 0.450827 | 1.256652 | 1.243500 |
+| 10 | `upstream_mechanics_elevation` | 0.781185 | 0.789307 | 5.317129 | 5.349091 |
+
+For every differing cell, the frozen pre-extraction executable reproduces the replayed metrics and byte-identical saved poses. Thus these differences predate this extraction; their historical causes remain unresolved. Official translation/rotation RTE also matches for those frozen controls. This is not credited as a filter improvement or used to replace stored results.
+
+[Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->

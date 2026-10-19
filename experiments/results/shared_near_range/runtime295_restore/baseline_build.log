@@ -1,0 +1,195 @@
+[1/195] Building CXX object common/CMakeFiles/localization_common.dir/src/math_utils.cpp.o
+[2/195] Building CXX object common/CMakeFiles/localization_common.dir/src/io.cpp.o
+[3/195] Building CXX object common/CMakeFiles/localization_common.dir/src/felzenszwalb_edt.cpp.o
+[4/195] Linking CXX static library common/liblocalization_common.a
+[5/195] Building CXX object papers/litamin2/CMakeFiles/litamin2.dir/src/litamin2_registration.cpp.o
+[6/195] Building CXX object papers/litamin2/CMakeFiles/litamin2.dir/src/litamin2_odometry.cpp.o
+[7/195] Linking CXX static library papers/litamin2/liblitamin2.a
+[8/195] Building CXX object papers/kiss_icp/CMakeFiles/kiss_icp.dir/src/kiss_icp.cpp.o
+[9/195] Linking CXX static library papers/kiss_icp/libkiss_icp.a
+[10/195] Building CXX object papers/aloam/CMakeFiles/aloam.dir/src/scan_registration.cpp.o
+[11/195] Building CXX object papers/aloam/CMakeFiles/aloam.dir/src/laser_odometry.cpp.o
+[12/195] Building CXX object papers/aloam/CMakeFiles/aloam.dir/src/laser_mapping.cpp.o
+[13/195] Linking CXX static library papers/aloam/libaloam.a
+[14/195] Building CXX object papers/floam/CMakeFiles/floam.dir/src/floam.cpp.o
+[15/195] Linking CXX static library papers/floam/libfloam.a
+[16/195] Building CXX object papers/isc_loam/CMakeFiles/isc_loam.dir/src/isc_loam.cpp.o
+[17/195] Building CXX object papers/ct_icp/CMakeFiles/ct_icp.dir/src/ct_icp_registration.cpp.o
+[18/195] Linking CXX static library papers/ct_icp/libct_icp.a
+[19/195] Building CXX object papers/relead/CMakeFiles/relead.dir/src/degeneracy_detection.cpp.o
+[20/195] Building CXX object papers/relead/CMakeFiles/relead.dir/src/cesikf.cpp.o
+[21/195] Linking CXX static library papers/relead/librelead.a
+[22/195] Building CXX object papers/xicp/CMakeFiles/xicp.dir/src/xicp_registration.cpp.o
+[23/195] Linking CXX static library papers/xicp/libxicp.a
+[24/195] Building CXX object papers/imu_preintegration/CMakeFiles/imu_preintegration.dir/src/imu_preintegration.cpp.o
+[25/195] Linking CXX static library papers/imu_preintegration/libimu_preintegration.a
+[26/195] Building CXX object papers/genz_icp/CMakeFiles/genz_icp.dir/src/genz_icp.cpp.o
+[27/195] Linking CXX static library papers/genz_icp/libgenz_icp.a
+[28/195] Building CXX object papers/lf_gicp/CMakeFiles/lf_gicp.dir/src/lf_gicp.cpp.o
+[29/195] Linking CXX static library papers/lf_gicp/liblf_gicp.a
+[30/195] Building CXX object papers/l_lo/CMakeFiles/l_lo.dir/src/l_lo.cpp.o
+[31/195] Linking CXX static library papers/l_lo/libl_lo.a
+[32/195] Building CXX object papers/adaptive_icp/CMakeFiles/adaptive_icp.dir/src/adaptive_icp.cpp.o
+[33/195] Linking CXX static library papers/adaptive_icp/libadaptive_icp.a
+[34/195] Building CXX object papers/d2lio/CMakeFiles/d2lio.dir/src/d2lio.cpp.o
+[35/195] Linking CXX static library papers/d2lio/libd2lio.a
+[36/195] Building CXX object papers/ct_voxelmap/CMakeFiles/ct_voxelmap.dir/src/ct_voxelmap.cpp.o
+[37/195] Linking CXX static library papers/ct_voxelmap/libct_voxelmap.a
+[38/195] Building CXX object papers/r_voxelmap/CMakeFiles/r_voxelmap.dir/src/r_voxelmap.cpp.o
+[39/195] Linking CXX static library papers/r_voxelmap/libr_voxelmap.a
+[40/195] Building CXX object papers/degen_sense/CMakeFiles/degen_sense.dir/src/degen_sense.cpp.o
+[41/195] Linking CXX static library papers/degen_sense/libdegen_sense.a
+[42/195] Building CXX object papers/vibration_lio/CMakeFiles/vibration_lio.dir/src/vibration_lio.cpp.o
+[43/195] Linking CXX static library papers/vibration_lio/libvibration_lio.a
+[44/195] Building CXX object papers/id_lio/CMakeFiles/id_lio.dir/src/id_lio.cpp.o
+[45/195] Linking CXX static library papers/id_lio/libid_lio.a
+[46/195] Building CXX object papers/rf_lio/CMakeFiles/rf_lio.dir/src/rf_lio.cpp.o
+[47/195] Linking CXX static library papers/rf_lio/librf_lio.a
+[48/195] Building CXX object papers/bievr_lio/CMakeFiles/bievr_lio.dir/src/bievr_lio.cpp.o
+[49/195] Linking CXX static library papers/bievr_lio/libbievr_lio.a
+[50/195] Building CXX object papers/ua_lio/CMakeFiles/ua_lio.dir/src/ua_lio.cpp.o
+[51/195] Linking CXX static library papers/ua_lio/libua_lio.a
+[52/195] Building CXX object papers/damm_loam/CMakeFiles/damm_loam.dir/src/damm_loam.cpp.o
+[53/195] Linking CXX static library papers/damm_loam/libdamm_loam.a
+[54/195] Building CXX object papers/lodestar/CMakeFiles/lodestar.dir/src/lodestar.cpp.o
+[55/195] Linking CXX static library papers/lodestar/liblodestar.a
+[56/195] Building CXX object papers/terrain_rbf_lio/CMakeFiles/terrain_rbf_lio.dir/src/terrain_rbf_lio.cpp.o
+[57/195] Linking CXX static library papers/terrain_rbf_lio/libterrain_rbf_lio.a
+[58/195] Building CXX object papers/lidar_iba/CMakeFiles/lidar_iba.dir/src/lidar_iba.cpp.o
+[59/195] Linking CXX static library papers/lidar_iba/liblidar_iba.a
+[60/195] Building CXX object papers/dali_slam/CMakeFiles/dali_slam.dir/src/dali_slam.cpp.o
+[61/195] Linking CXX static library papers/dali_slam/libdali_slam.a
+[62/195] Building CXX object papers/intensity_flow/CMakeFiles/intensity_flow.dir/src/intensity_flow.cpp.o
+[63/195] Linking CXX static library papers/intensity_flow/libintensity_flow.a
+[64/195] Building CXX object papers/svn_icp/CMakeFiles/svn_icp.dir/src/svn_icp.cpp.o
+[65/195] Linking CXX static library papers/svn_icp/libsvn_icp.a
+[66/195] Building CXX object papers/pcr_dat/CMakeFiles/pcr_dat.dir/src/pcr_dat.cpp.o
+[67/195] Linking CXX static library papers/pcr_dat/libpcr_dat.a
+[68/195] Building CXX object papers/small_mighty/CMakeFiles/small_mighty.dir/src/small_mighty.cpp.o
+[69/195] Linking CXX static library papers/small_mighty/libsmall_mighty.a
+[70/195] Building CXX object papers/m_gclo/CMakeFiles/m_gclo.dir/src/m_gclo.cpp.o
+[71/195] Linking CXX static library papers/m_gclo/libm_gclo.a
+[72/195] Building CXX object papers/quadric_lo/CMakeFiles/quadric_lo.dir/src/quadric_lo.cpp.o
+[73/195] Linking CXX static library papers/quadric_lo/libquadric_lo.a
+[74/195] Building CXX object papers/dilo/CMakeFiles/dilo.dir/src/dilo.cpp.o
+[75/195] Building CXX object papers/dilo/CMakeFiles/dilo.dir/src/dilo_paper.cpp.o
+[76/195] Linking CXX static library papers/dilo/libdilo.a
+[77/195] Building CXX object papers/nhc_lio/CMakeFiles/nhc_lio.dir/src/nhc_lio.cpp.o
+[78/195] Linking CXX static library papers/nhc_lio/libnhc_lio.a
+[79/195] Building CXX object papers/student_t_lo/CMakeFiles/student_t_lo.dir/src/student_t_lo.cpp.o
+[80/195] Linking CXX static library papers/student_t_lo/libstudent_t_lo.a
+[81/195] Building CXX object papers/spectral_lo/CMakeFiles/spectral_lo.dir/src/spectral_lo.cpp.o
+[82/195] Linking CXX static library papers/spectral_lo/libspectral_lo.a
+[83/195] Building CXX object papers/gmm_lo/CMakeFiles/gmm_lo.dir/src/gmm_lo.cpp.o
+[84/195] Linking CXX static library papers/gmm_lo/libgmm_lo.a
+[85/195] Building CXX object papers/gicp/CMakeFiles/gicp.dir/src/gicp_registration.cpp.o
+[86/195] Building CXX object papers/gnc_lo/CMakeFiles/gnc_lo.dir/src/gnc_lo.cpp.o
+[87/195] Linking CXX static library papers/gnc_lo/libgnc_lo.a
+[88/195] Building CXX object papers/mcc_lo/CMakeFiles/mcc_lo.dir/src/mcc_lo.cpp.o
+[89/195] Linking CXX static library papers/mcc_lo/libmcc_lo.a
+[90/195] Building CXX object papers/imls_slam/CMakeFiles/imls_slam.dir/src/imls_slam.cpp.o
+[91/195] Building CXX object papers/imls_slam/CMakeFiles/imls_slam.dir/src/imls_paper_odometry.cpp.o
+[92/195] Linking CXX static library papers/imls_slam/libimls_slam.a
+[93/195] Building CXX object papers/mesh_loam/CMakeFiles/mesh_loam.dir/src/mesh_loam.cpp.o
+[94/195] Linking CXX static library papers/mesh_loam/libmesh_loam.a
+[95/195] Building CXX object papers/elo/CMakeFiles/elo.dir/src/elo.cpp.o
+[96/195] Linking CXX static library papers/elo/libelo.a
+[97/195] Building CXX object papers/tc_lvgf/CMakeFiles/tc_lvgf.dir/src/tc_lvgf.cpp.o
+[98/195] Linking CXX static library papers/tc_lvgf/libtc_lvgf.a
+[99/195] Building CXX object papers/opl_lvio/CMakeFiles/opl_lvio.dir/src/opl_lvio.cpp.o
+[100/195] Linking CXX static library papers/opl_lvio/libopl_lvio.a
+[101/195] Building CXX object papers/v_loam15/CMakeFiles/v_loam15.dir/src/v_loam15.cpp.o
+[102/195] Linking CXX static library papers/v_loam15/libv_loam15.a
+[103/195] Building CXX object papers/tc_vlo/CMakeFiles/tc_vlo.dir/src/tc_vlo.cpp.o
+[104/195] Linking CXX static library papers/tc_vlo/libtc_vlo.a
+[105/195] Building CXX object papers/ad_vlo/CMakeFiles/ad_vlo.dir/src/ad_vlo.cpp.o
+[106/195] Linking CXX static library papers/ad_vlo/libad_vlo.a
+[107/195] Building CXX object papers/tc_mvlo/CMakeFiles/tc_mvlo.dir/src/tc_mvlo.cpp.o
+[108/195] Linking CXX static library papers/tc_mvlo/libtc_mvlo.a
+[109/195] Building CXX object papers/tricp_lo/CMakeFiles/tricp_lo.dir/src/tricp_lo.cpp.o
+[110/195] Linking CXX static library papers/tricp_lo/libtricp_lo.a
+[111/195] Building CXX object papers/kc_lo/CMakeFiles/kc_lo.dir/src/kc_lo.cpp.o
+[112/195] Linking CXX static library papers/kc_lo/libkc_lo.a
+[113/195] Building CXX object papers/i_loam/CMakeFiles/i_loam.dir/src/i_loam.cpp.o
+[114/195] Linking CXX static library papers/i_loam/libi_loam.a
+[115/195] Building CXX object papers/pl_loam/CMakeFiles/pl_loam.dir/src/pl_loam.cpp.o
+[116/195] Building CXX object papers/pl_loam/CMakeFiles/pl_loam.dir/src/image_io.cpp.o
+[117/195] Linking CXX static library papers/pl_loam/libpl_loam.a
+[118/195] Building CXX object papers/inten_loam/CMakeFiles/inten_loam.dir/src/inten_loam.cpp.o
+[119/195] Building CXX object papers/inten_loam/CMakeFiles/inten_loam.dir/src/inten_loam_paper.cpp.o
+[120/195] Linking CXX static library papers/inten_loam/libinten_loam.a
+[121/195] Building CXX object papers/mcgicp/CMakeFiles/mcgicp.dir/src/mcgicp.cpp.o
+[122/195] Linking CXX static library papers/mcgicp/libmcgicp.a
+[123/195] Building CXX object papers/icpsc/CMakeFiles/icpsc.dir/src/icpsc.cpp.o
+[124/195] Linking CXX static library papers/icpsc/libicpsc.a
+[125/195] Building CXX object papers/vlom/CMakeFiles/vlom.dir/src/vlom.cpp.o
+[126/195] Linking CXX static library papers/vlom/libvlom.a
+[127/195] Building CXX object papers/odonet/CMakeFiles/odonet.dir/src/cnn1d.cpp.o
+[128/195] Building CXX object papers/odonet/CMakeFiles/odonet.dir/src/odonet.cpp.o
+[129/195] Linking CXX static library papers/odonet/libodonet.a
+[130/195] Building CXX object papers/nhc_net/CMakeFiles/nhc_net.dir/src/cnn1d.cpp.o
+[131/195] Building CXX object papers/nhc_net/CMakeFiles/nhc_net.dir/src/nhc_net.cpp.o
+[132/195] Linking CXX static library papers/nhc_net/libnhc_net.a
+[133/195] Building CXX object papers/nn_zupt/CMakeFiles/nn_zupt.dir/src/cnn1d.cpp.o
+[134/195] Building CXX object papers/nn_zupt/CMakeFiles/nn_zupt.dir/src/nn_zupt.cpp.o
+[135/195] Linking CXX static library papers/nn_zupt/libnn_zupt.a
+[136/195] Building CXX object papers/imu_dead_reckoning/CMakeFiles/imu_dead_reckoning.dir/src/imu_dead_reckoning.cpp.o
+[137/195] Linking CXX static library papers/imu_dead_reckoning/libimu_dead_reckoning.a
+[138/195] Building CXX object papers/cube_lio_repro/CMakeFiles/cube_lio.dir/src/cube_lio.cpp.o
+[139/195] Linking CXX static library papers/cube_lio_repro/libcube_lio.a
+[140/195] Building CXX object papers/rko_lio/CMakeFiles/rko_lio.dir/src/rko_lio.cpp.o
+[141/195] Linking CXX static library papers/rko_lio/librko_lio.a
+[142/195] Building CXX object papers/fr_lio/CMakeFiles/fr_lio.dir/src/fr_lio.cpp.o
+[143/195] Linking CXX static library papers/fr_lio/libfr_lio.a
+[144/195] Building CXX object papers/pg_lio/CMakeFiles/pg_lio.dir/src/pg_lio.cpp.o
+[145/195] Linking CXX static library papers/pg_lio/libpg_lio.a
+[146/195] Building CXX object papers/rf2o/CMakeFiles/rf2o.dir/src/rf2o.cpp.o
+[147/195] Linking CXX static library papers/rf2o/librf2o.a
+[148/195] Building CXX object papers/ndt/CMakeFiles/ndt.dir/src/ndt_registration.cpp.o
+[149/195] Linking CXX static library papers/ndt/libndt.a
+[150/195] Linking CXX static library papers/gicp/libgicp.a
+[151/195] Linking CXX static library papers/isc_loam/libisc_loam.a
+[152/195] Building CXX object papers/voxel_gicp/CMakeFiles/voxel_gicp.dir/src/voxel_gicp_registration.cpp.o
+[153/195] Linking CXX static library papers/voxel_gicp/libvoxel_gicp.a
+[154/195] Building CXX object papers/small_gicp/CMakeFiles/small_gicp.dir/src/small_gicp_registration.cpp.o
+[155/195] Linking CXX static library papers/small_gicp/libsmall_gicp.a
+[156/195] Building CXX object papers/vgicp_slam/CMakeFiles/vgicp_slam.dir/src/vgicp_slam.cpp.o
+[157/195] Building CXX object papers/loam_livox/CMakeFiles/loam_livox.dir/src/loam_livox.cpp.o
+[158/195] Linking CXX static library papers/loam_livox/libloam_livox.a
+[159/195] Building CXX object papers/lego_loam/CMakeFiles/lego_loam.dir/src/lego_loam.cpp.o
+[160/195] Linking CXX static library papers/lego_loam/liblego_loam.a
+[161/195] Building CXX object papers/mulls/CMakeFiles/mulls.dir/src/mulls.cpp.o
+[162/195] Building CXX object papers/mulls/CMakeFiles/mulls.dir/src/mulls_lo.cpp.o
+[163/195] Building CXX object papers/mulls/CMakeFiles/mulls.dir/src/mulls_lo_features.cpp.o
+[164/195] Building CXX object papers/mulls/CMakeFiles/mulls.dir/src/mulls_lo_icp.cpp.o
+[165/195] Linking CXX static library papers/mulls/libmulls.a
+[166/195] Building CXX object papers/balm2/CMakeFiles/balm2.dir/src/balm2.cpp.o
+[167/195] Linking CXX static library papers/balm2/libbalm2.a
+[168/195] Building CXX object papers/suma/CMakeFiles/suma.dir/src/suma.cpp.o
+[169/195] Building CXX object papers/suma/CMakeFiles/suma.dir/src/suma_paper.cpp.o
+[170/195] Linking CXX static library papers/suma/libsuma.a
+[171/195] Building CXX object papers/dlo/CMakeFiles/dlo.dir/src/dlo.cpp.o
+[172/195] Linking CXX static library papers/dlo/libdlo.a
+[173/195] Building CXX object papers/hdl_graph_slam/CMakeFiles/hdl_graph_slam.dir/src/hdl_graph_slam.cpp.o
+[174/195] Building CXX object papers/dlio/CMakeFiles/dlio.dir/src/dlio.cpp.o
+[175/195] Linking CXX static library papers/dlio/libdlio.a
+[176/195] Building CXX object papers/lins/CMakeFiles/lins.dir/src/lins.cpp.o
+[177/195] Linking CXX static library papers/lins/liblins.a
+[178/195] Building CXX object papers/point_lio/CMakeFiles/point_lio.dir/src/point_lio.cpp.o
+[179/195] Linking CXX static library papers/point_lio/libpoint_lio.a
+[180/195] Building CXX object papers/clins/CMakeFiles/clins.dir/src/clins.cpp.o
+[181/195] Building CXX object papers/ct_lio/CMakeFiles/ct_lio.dir/src/ct_lio_registration.cpp.o
+[182/195] Linking CXX static library papers/ct_lio/libct_lio.a
+[183/195] Linking CXX static library papers/clins/libclins.a
+[184/195] Building CXX object papers/scan_context/CMakeFiles/scan_context.dir/src/scan_context.cpp.o
+[185/195] Linking CXX static library papers/scan_context/libscan_context.a
+[186/195] Linking CXX static library papers/vgicp_slam/libvgicp_slam.a
+[187/195] Linking CXX static library papers/hdl_graph_slam/libhdl_graph_slam.a
+[188/195] Building CXX object papers/lio_sam/CMakeFiles/lio_sam.dir/src/lio_sam.cpp.o
+[189/195] Linking CXX static library papers/lio_sam/liblio_sam.a
+[190/195] Building CXX object papers/fast_lio2/CMakeFiles/fast_lio2.dir/src/fast_lio2.cpp.o
+[191/195] Linking CXX static library papers/fast_lio2/libfast_lio2.a
+[192/195] Building CXX object papers/fast_lio_slam/CMakeFiles/fast_lio_slam.dir/src/fast_lio_slam.cpp.o
+[193/195] Linking CXX static library papers/fast_lio_slam/libfast_lio_slam.a
+[194/195] Building CXX object evaluation/CMakeFiles/pcd_dogfooding.dir/src/pcd_dogfooding.cpp.o
+[195/195] Linking CXX executable evaluation/pcd_dogfooding

@@ -1,0 +1,19 @@
+{
+  "checked_checkout_commit": "1230c95f560de0f3c096d3dbeaeeeeed87c4116e",
+  "integrated_main": "9ed935a045989d1806c0a19baa98794fa482eb54",
+  "previous_pr_head": "ddca3fbb2209e59259a9e24b0b0e74865700b0a5",
+  "python_tests": 331,
+  "python_skipped": 5,
+  "skip_reason": "This separate diagnostic checkout has no built evaluator; final-head CI builds it and runs the evaluation guards.",
+  "command_exit_codes": {
+    "refresh_study_docs": 0,
+    "generate_full_variant_table": 0,
+    "generate_paper_ratio_table": 0,
+    "python_unittest": 0,
+    "validate_showcase": 0,
+    "generate_leaderboard": 0,
+    "generate_paper_ready_evidence": 0,
+    "branch_whitespace": 0
+  },
+  "scope": "Main integration and preservation of both existing scientific features only. No estimator rerun, setting selection, accuracy aggregate/raw diagnostic changes or active05 ownership changes."
+}

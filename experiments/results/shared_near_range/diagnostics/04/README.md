@@ -82,6 +82,11 @@ controls fail before diagnostic output is created.
 logs and actual exits. The local checkout has no built evaluator, so native
 evaluation guards are left to the final-head CI build.
 
+The later [main-integration checks](../../checks/saved04/main145/) retain the
+original diagnosis and the merged InTEn conditioning analysis together. Existing
+raw diagnostic/input bytes and native settings are preserved; this integration
+adds no estimator execution or reinterpretation of the historical results.
+
 The replay retains frozen native source `0b079dbbcb7c6f58c1d8367ade881c15f003e525`,
 historical per-cell arguments and incomplete whole-zoo coverage. Native algorithms,
 settings, defaults, existing accuracy tables and the active 05 source/binary/scan

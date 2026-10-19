@@ -45,6 +45,12 @@ def require(condition, message='runtime restoration guard rejected input'):
         raise RuntimeError(message)
 
 
+def owned_worker(args):
+    names = {'pcd_dogfooding', 'baseline_pcd_dogfooding', 'candidate_pcd_dogfooding',
+             'run_all.py', 'recover_interrupted05.py', 'finish_when_complete.py'}
+    return any(Path(os.fsdecode(a)).name in names for a in args if a)
+
+
 def preflight():
     require(git('rev-parse', 'HEAD') == BASE)
     require(git('branch', '--show-current') == 'codex/shared-near-range')
@@ -76,7 +82,6 @@ def preflight():
         require(not folder.exists())
         require(not (R / 'kitti/dataset/sequences' / seq / 'velodyne').exists())
     own = os.getpid()
-    forbidden = {'pcd_dogfooding', 'run_all.py', 'recover_interrupted05.py', 'finish_when_complete.py'}
     for proc in Path('/proc').iterdir():
         if not proc.name.isdigit() or int(proc.name) == own:
             continue
@@ -84,7 +89,7 @@ def preflight():
             args = proc.joinpath('cmdline').read_bytes().split(b'\0')
         except (FileNotFoundError, PermissionError, ProcessLookupError):
             continue
-        require(not any(Path(os.fsdecode(a)).name in forbidden for a in args if a), str(proc))
+        require(not owned_worker(args), str(proc))
     remote = subprocess.run(['git', 'ls-remote', '--heads', 'origin', BACKUP], cwd=REPO,
                             text=True, capture_output=True)
     write('backup_ref_probe.json', dict(command=remote.args, cwd=str(REPO),

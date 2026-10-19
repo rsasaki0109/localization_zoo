@@ -29,6 +29,11 @@ class BackupGuards(unittest.TestCase):
 
     def test_rejects_estimator_changes(self):
         self.check_rejected('common/src/filter.cpp')
+        for name in ('pcd_dogfooding', 'baseline_pcd_dogfooding', 'candidate_pcd_dogfooding',
+                     'run_all.py', 'recover_interrupted05.py', 'finish_when_complete.py'):
+            with self.subTest(worker=name):
+                self.assertTrue(bootstrap.owned_worker([b'python', ('/frozen/' + name).encode()]))
+        self.assertFalse(bootstrap.owned_worker([b'python', b'/other/analysis.py']))
 
     def test_rejects_rewriting_closed_prefix(self):
         self.check_rejected('experiments/results/shared_near_range/sequences/03/cleanup.json')

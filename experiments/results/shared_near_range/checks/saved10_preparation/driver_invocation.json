@@ -1,0 +1,9 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-range-final-audit/run10_preparation_checks.py"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+  "exit_code": 0,
+  "scope": "Preparation checks only; no native completion or real diagnosis claim."
+}

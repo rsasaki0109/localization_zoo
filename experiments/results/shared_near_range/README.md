@@ -29,8 +29,13 @@ historical differences on that sequence and the available Mesh paired paths.
 
 The [KITTI05 saved-path diagnosis](diagnostics/05/README.md) adds the fresh,
 cleaned05 cohort, every historical numerical difference and the available Mesh
-paired path. The current [cleaned checkpoint](checkpoints/05/summary.json)
+paired path. Its [cleaned checkpoint](checkpoints/05/summary.json)
 retains incomplete whole-zoo coverage and the original historical audit exits.
+
+The [KITTI06 saved-path diagnosis](diagnostics/06/README.md) adds CT-ICP/Mesh
+numerical pairs and the available Mesh historical gap. The current
+[cleaned checkpoint](checkpoints/06/summary.json) includes only completed,
+committed sequences with verified input cleanup.
 
 ## Scope and status
 
@@ -378,7 +383,7 @@ excluded; that restart retained the earlier cleaned checkpoint above. The fresh
 completed05 is recorded below. The earlier retained-input recovery
 was not invoked again. [Restoration receipts, fresh restart and backup limits](runtime295_restore/README.md).
 
-## Current cleaned checkpoint: fresh05 completed
+## Earlier cleaned checkpoint: fresh05 completed
 
 The fresh05 sequence commit `e9822bcf`, imported unchanged as `1d4a37a4`, contains
 all **18** selected candidate cells, the completed frozen controls and verified
@@ -424,7 +429,50 @@ retain actual commands and exits, full lossless logs and exact raw05 import hash
 The separate checkout's built-evaluator skips remain visible; full native and
 ROS coverage runs in final-head CI. The original running checkout is preserved.
 
+## Current cleaned checkpoint: 06 completed
+
+The06 sequence commit `27354aa4`, imported unchanged as `54eaeab6`, contains all
+**14** selected candidate cells, the completed frozen controls and verified
+input cleanup. **12** match stored RPE, ATE and frames; these **2** differ:
+
+| Method | Stored 100 m RPE [%] | Replayed RPE [%] | Stored ATE [m] | Replayed ATE [m] |
+|---|---:|---:|---:|---:|
+| CT-ICP | 0.388505 | 0.391531 | 3.963097 | 3.891527 |
+| Mesh-LOAM | 0.505393 | 0.505226 | 2.018974 | 2.024646 |
+
+Both historical audits retain exit **1**. Every native process exits **0** with
+**1,101** frames. Both frozen comparisons have zero RPE, ATE, frame and official
+translation/rotation RTE differences, with byte-identical saved poses. The
+differences predate extraction; their original causes remain unresolved.
+CT-ICP RPE worsens and ATE improves; Mesh RPE improves and ATE worsens. Both
+method READMEs retain all numerical pairs.
+
+The [checkpoint](checkpoints/06/summary.json) and [CSV](checkpoints/06/comparison.csv),
+committed at `e4c528fe`, cover **111/177 cells** across 04/00/01/02/03/05/06:
+**89** historical matches and **22** differences. All **24** frozen controls
+have zero metric differences and byte-identical saved poses. All seven
+historical audits retain exit **1**; checkpoint verification exits **0**.
+Remaining07/08/09/10 cells are excluded until their own committed cleanup exists.
+
+The [saved06 diagnosis](diagnostics/06/README.md) locates current error growth
+and the available Mesh historical path gap, preserving CT's missing-path and
+Mesh's differing original/replay runtime limits. Analysis source/protocol
+`45cbb341` precedes execution and transfers existing diagnostic parameters
+unchanged. This is an offline analysis of committed paths, with no estimator
+run or parameter selection. Raw results precede the numerical prose.
+
+Official06 scan hashes were verified before removing the owned scans and alias.
+The existing controller has advanced to07; its source, binaries and active data
+remain untouched. Stored aggregates, Table 6, paper metadata and defaults are
+preserved. Historical per-cell replay is not a new fixed-setting accuracy study
+or a whole-zoo validation of current-main acceleration/passive tracing.
+
 ## Checkpoint integration while the frozen replay continues
+
+The [06 regeneration, regression and preservation checks](checks/saved06/docs/)
+retain exact commands, actual exits, complete lossless logs and raw-import hashes.
+The separate checkout's built-evaluator skips remain visible; full native and
+ROS coverage runs in final-head CI. The original running checkout is preserved.
 
 The committed checkpoint and diagnostics can be integrated using a separate
 worktree while the original replay retains its frozen checkout and executables.

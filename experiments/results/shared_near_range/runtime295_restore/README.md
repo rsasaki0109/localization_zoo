@@ -52,7 +52,7 @@ were preserved.
 
 ## Fresh boundary and remote checkpoint backup
 
-The [protocol](restart_protocol.json) and [bootstrap](launch_and_back_up.py)
+The [protocol](restart_protocol.json) and [launched bootstrap](launched_bootstrap.py)
 were committed at `c2d1d9ba` before starting native work. The
 [preflight](resume_preflight.json) verifies the exact binaries, recursively
 checks **527** original native paths, checks sealed execution files, requires
@@ -91,6 +91,11 @@ pass **4 tests** with exit **0** in normal and optimized Python. The
 [initial failed optimized check](bootstrap_guard_checks_initial.json) is retained;
 it exposed assertion-based guards, which were replaced with explicit runtime
 checks before launch. No native work ran during those guard tests.
+
+The [current bootstrap](launch_and_back_up.py) additionally recognizes both
+renamed frozen executable basenames when checking for orphaned workers. The
+archived launched source and the active supervisor remain unchanged; this
+startup guard hardening does not restart or alter the ongoing audit.
 
 ## Integration checks
 

@@ -130,7 +130,8 @@ class Saved02PublicationGateTests(unittest.TestCase):
         shutil.copytree(source, target)
         protocol = json.loads((STUDY / f'diagnostics/{sequence}_protocol.json').read_text())
         write_json(self.study / f'diagnostics/{sequence}_protocol.json', protocol)
-        cohort = {'CT-ICP', 'Mesh-LOAM'} if sequence == '04' else {'Mesh-LOAM'}
+        cohort = (set(self.module.METHODS) if sequence == '05' else
+                  {'CT-ICP', 'Mesh-LOAM'} if sequence == '04' else {'Mesh-LOAM'})
         recorded_root = Path('/archived/saved-study-checkout')
         for mode in ('audit', 'frozen_baseline'):
             path = target / mode / 'report.json'
@@ -304,7 +305,38 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.assertEqual(failure.exception.code, 2)
         self.assertFalse(self.output.exists())
 
-    def test_active05_is_not_an_allowed_diagnostic_sequence(self):
+    def test_active06_is_not_an_allowed_diagnostic_sequence(self):
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '06')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_closed05_retains_all_historical_differences_in_relocated_checkout(self):
+        self.prepare_relocated03('05')
+        self.invoke('--sequence', '05')
+        result = json.loads((self.output / 'summary.json').read_text())
+        self.assertEqual(result['sequence'], '05')
+        self.assertEqual({row['method'] for row in result['rows']}, set(self.module.METHODS))
+        self.assertEqual(set(result['frozen_control_methods']), set(self.module.METHODS))
+        self.assertTrue(all(result['completion_gate'].values()))
+
+    def test05_rejects_a_missing_frozen_control_before_output(self):
+        self.prepare_relocated03('05')
+        path = self.study / 'sequences/05/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'] = [row for row in comparison['checks'] if row['method'] != 'F-LOAM']
+        write_json(path, comparison)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '05')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test05_rejects_a_retained_owned_alias_even_when_dangling(self):
+        self.prepare_relocated03('05')
+        alias = self.repo / 'runtime/data/dogfooding_results/kitti_seq_05_full'
+        alias.parent.mkdir(parents=True)
+        alias.symlink_to(self.repo / 'removed_scans')
         with self.assertRaises(SystemExit) as failure:
             self.invoke('--sequence', '05')
         self.assertEqual(failure.exception.code, 2)

@@ -1,0 +1,118 @@
+[
+  {
+    "label": "refresh",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403002.0770378,
+    "finished_unix": 1792403019.482068,
+    "exit_code": 0
+  },
+  {
+    "label": "full_variant",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403019.4823563,
+    "finished_unix": 1792403019.604514,
+    "exit_code": 0
+  },
+  {
+    "label": "paper_ratio",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403019.604801,
+    "finished_unix": 1792403019.7015085,
+    "exit_code": 0
+  },
+  {
+    "label": "python",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403019.8265183,
+    "finished_unix": 1792403028.9941676,
+    "exit_code": 0
+  },
+  {
+    "label": "showcase",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403028.9945269,
+    "finished_unix": 1792403029.0563753,
+    "exit_code": 0
+  },
+  {
+    "label": "leaderboard",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403029.056725,
+    "finished_unix": 1792403029.147939,
+    "exit_code": 0
+  },
+  {
+    "label": "paper_ready",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403029.1482615,
+    "finished_unix": 1792403029.1830528,
+    "exit_code": 0
+  },
+  {
+    "label": "whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "c3ebd8284f559ace2f7cfbdc45e0182c2ee1d1ee"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403029.1834726,
+    "finished_unix": 1792403029.3353477,
+    "exit_code": 0
+  },
+  {
+    "label": "preservation",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "/workspace/localization-env/shared-range-checkpoint07/verify_preservation.py"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+    "source_commit": "87568be9327fd7177d07acab992005ff15503a95",
+    "started_unix": 1792403066.467962,
+    "finished_unix": 1792403067.2303984,
+    "exit_code": 0
+  }
+]

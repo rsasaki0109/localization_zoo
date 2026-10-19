@@ -37,6 +37,11 @@ numerical pairs and the available Mesh historical gap. Its earlier
 [cleaned checkpoint](checkpoints/06/summary.json) includes only completed,
 committed sequences with verified input cleanup.
 
+The [KITTI07 saved-path diagnosis](diagnostics/07/README.md) adds all six
+historical differences and current error-growth traces, including VLOM. Its
+[current cleaned checkpoint](checkpoints/07/summary.json) excludes live runs;
+referenced historical paths are unavailable in the inspected tree/history.
+
 ## Scope and status
 
 Implementation and the regression protocol were merged in
@@ -510,6 +515,13 @@ accuracy study or a whole-zoo validation of current-main acceleration/tracing.
 Table 6, published accuracy, paper metadata and defaults are preserved.
 
 ## Checkpoint integration while the frozen replay continues
+
+The [07 regeneration, regression and preservation checks](checks/saved07/docs/),
+committed at `88c21dd9`, retain exact commands and actual exits, including the
+corrected private-driver reference failure. All required generators, full
+Python and documentation checks pass. Existing aggregate/publication bytes,
+raw native07 evidence, prior method READMEs, active source/sealed files and
+frozen executable hashes are preserved. Native and ROS coverage run in CI.
 
 The earlier [06 regeneration, regression and preservation checks](checks/saved06/docs/)
 retain exact commands, actual exits, complete lossless logs and raw-import hashes.

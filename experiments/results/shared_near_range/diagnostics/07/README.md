@@ -80,6 +80,22 @@ optimized Python. The closed07 cohort includes VLOM without expanding earlier
 receipts, matching frozen paths and verified input cleanup remain prerequisites.
 Unclosed08 remains excluded.
 
+[Repository check receipts](../../checks/saved07/docs/commands.json), committed
+at `88c21dd9`, retain exact commands, actual exits and full lossless logs.
+All required three generators, showcase, leaderboard, paper-ready and whitespace
+checks exit **0**. Full Python runs **338** tests with **5** built-evaluator skips
+in this separate checkout and exits **0**; native and ROS coverage run in CI.
+The [preservation receipt](../../checks/saved07/docs/preservation.json) confirms
+all **688** historical aggregate hashes, published table/paper-number bytes,
+all **195** raw07 files, prior method README content and the primary's frozen
+native source, sealed files and executable hashes. Timestamp-only generator
+changes retain prior bytes with an explicit disposition receipt.
+
+The initial private check driver failed on a mistyped native Git object name,
+after its regeneration/regression commands had passed. Its source and exit
+record are retained; correcting that reference and rerunning preservation alone
+exits **0**. No estimator, result or publication value changed.
+
 The [cleaned checkpoint](../../checkpoints/07/summary.json) now covers
 **131/177** cells across 04/00/01/02/03/05/06/07: **103** historical matches and
 **28** differences. All **30** frozen controls have zero recorded metric

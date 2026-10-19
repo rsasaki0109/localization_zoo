@@ -39,14 +39,19 @@ committed sequences with verified input cleanup.
 
 The [KITTI07 saved-path diagnosis](diagnostics/07/README.md) adds all six
 historical differences and current error-growth traces, including VLOM. Its
-[current cleaned checkpoint](checkpoints/07/summary.json) excludes live runs;
+[earlier cleaned checkpoint](checkpoints/07/summary.json) excludes live runs;
 referenced historical paths are unavailable in the inspected tree/history.
 
 The [KITTI08 saved-path diagnosis](diagnostics/08/README.md) adds all four
 historical differences, current error-growth traces and the available Mesh paired
 path, with explicit missing-path/runtime limits. Its
-[current cleaned checkpoint](checkpoints/08/summary.json) includes verified08
+[earlier cleaned checkpoint](checkpoints/08/summary.json) includes verified08
 cleanup; live09/10 results remain excluded.
+
+The [KITTI09 saved-path diagnosis](diagnostics/09/README.md) adds the Mesh
+historical difference, current error-growth block and available paired path.
+Its [current cleaned checkpoint](checkpoints/09/summary.json) includes verified09
+cleanup; live10 results remain excluded. The historical cause remains unresolved.
 
 ## Scope and status
 
@@ -520,7 +525,7 @@ binaries or settings. Historical per-cell replay is not a new fixed-setting
 accuracy study or a whole-zoo validation of current-main acceleration/tracing.
 Table 6, published accuracy, paper metadata and defaults are preserved.
 
-## Current cleaned checkpoint: 08 completed
+## Earlier cleaned checkpoint: 08 completed
 
 Original native/cleanup `15157bab`, imported unchanged as `d0a76218`, contains
 all **18** selected candidate cells, **4** completed frozen controls and verified
@@ -562,6 +567,43 @@ source `0b079dbb`, executables, sealed controller and active09 inputs are untouc
 Published accuracy, paper metadata and defaults remain unchanged. The
 [final integration protocol](final_integration_protocol.json) groups the remaining
 actual results into one audit-completion PR after every terminal gate passes.
+
+## Current cleaned checkpoint: 09 completed
+
+Original native/cleanup `a11683e1`, imported unchanged as `609c585c`, contains
+all **14** selected candidate cells, the Mesh frozen control and verified input
+cleanup. All native runs exit **0** with **1,591** frames. **13** match historical
+RPE, ATE and frame count; Mesh differs:
+
+| Method | Stored 100 m RPE [%] | Replay RPE [%] | Stored ATE [m] | Replay ATE [m] |
+|---|---:|---:|---:|---:|
+| Mesh-LOAM | 0.629359 | 0.628839 | 6.346767 | 6.245887 |
+
+Both metrics improve, but both historical audits retain exit **1**. The frozen
+control has zero recorded metric differences and byte-identical saved poses;
+comparison exits **0**. The difference predates extraction, with its original
+cause unresolved. No setting is reselected or stored accuracy replaced.
+
+The [checkpoint](checkpoints/09/summary.json) and [CSV](checkpoints/09/comparison.csv),
+committed at `008f5321`, cover **163/177** cells: **130** historical matches and
+**33** differences, reproduced by **35** exact frozen controls. All ten
+historical audits retain exit **1**; checkpoint verification exits **0**.
+Sequence10 remains excluded until committed input cleanup.
+
+The [saved09 diagnosis](diagnostics/09/README.md) locates current error growth
+at **1400-1500**, from **5.653022 to 9.673839 m**. Historical/current Mesh gap
+reaches **0.194094 m** at frame **969**, ending at **0.060169 m**. The largest
+inherited gap-growth block is **400-500**. Source/header bytes match;
+historical/replay OpenMP counts **2 / 1** remain a confound. These saved-path
+measurements do not establish a cause or replace official KITTI RTE.
+
+Source/protocol `ac18dd30` precedes execution; preparation receipts `28ce56aa`
+retain synthetic gates and the real incomplete-input refusal. Official09 input
+hashes were verified before deleting the owned scans/alias and advancing to10.
+No estimator or scan read occurs in the offline diagnosis. The primary frozen
+source, sealed files, binaries and active10 inputs remain untouched. Defaults,
+published values and earlier evidence remain intact. The final integration
+protocol requires all remaining results and checks in one audit-completion PR.
 
 ## Checkpoint integration while the frozen replay continues
 

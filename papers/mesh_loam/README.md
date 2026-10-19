@@ -746,3 +746,35 @@ preprocessing are unchanged. This is not a new fixed-setting accuracy study
 or validation of current-main acceleration/tracing. Existing published results
 and paper tables are preserved.
 <!-- /SHARED_NEAR_RANGE_08_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_09_DIAGNOSTICS -->
+## KITTI09 historical replay and saved-path diagnosis
+
+The historical `paper_odometry_elevation` cell completes **1,591** frames with
+native exit **0**. Stored/replayed 100 m RPE changes from **0.629359%** to
+**0.628839%**; ATE changes from **6.346767 m** to **6.245887 m**. Both metrics
+improve, but the historical audit retains exit **1**. The frozen pre-extraction
+control reproduces the recorded metrics and byte-identical saved poses;
+comparison exits **0**. The difference predates extraction; its original cause
+remains unresolved. These results do not replace the stored accuracy values.
+
+The largest inherited **100**-step increase in current position error is poses
+**1400-1500**: **5.653022 to 9.673839 m**, with GT travel **138.461331 m**.
+The available historical/current Mesh paths have byte-identical evaluated GT.
+Their gap reaches **0.194094 m** at frame **969**, ending at **0.060169 m**.
+The largest inherited gap-growth block is **400-500**:
+**0.056554 to 0.089540 m**. First-pose normalization, zero-based indices,
+no fitted alignment and no rescaling apply; these position errors/gaps are
+distinct from official KITTI RTE. Every block and frame is retained.
+
+Recorded Mesh source/header bytes match, but historical/replay OpenMP counts
+are **2 / 1** (OpenBLAS **1**), so runtime remains a confound, not an established
+cause. The matched-runtime frozen control separately checks the extraction.
+
+[All numerical pairs, plot, traces, commands and limits](../../experiments/results/shared_near_range/diagnostics/09/README.md)
+use original native evidence `a11683e1` (lossless import `609c585c`), analysis
+source/protocol `ac18dd30` and raw results `008f5321`, committed before this prose.
+Native source remains `0b079dbb`; historical per-cell arguments and defaults
+are unchanged. This is not a new fixed-setting accuracy study or validation of
+current-main acceleration/tracing. Published results and paper tables remain intact.
+<!-- /SHARED_NEAR_RANGE_09_DIAGNOSTICS -->

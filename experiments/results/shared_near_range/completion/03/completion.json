@@ -1,0 +1,10 @@
+{
+  "source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "report_commit": "28406fe81748bb4aae7f67d35a587d5b44ec59a0",
+  "completed_cells": 177,
+  "local_required_checks_exit_code": 0,
+  "github_ci_status": "not_checked_by_this_worker",
+  "pr_metadata_updated": false,
+  "merge_performed": false,
+  "exit_code": 0
+}

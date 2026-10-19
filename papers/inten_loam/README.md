@@ -730,3 +730,30 @@ describe the first-order convention. Full continuous failure-sequence collection
 remains pending. No scans were read, estimator rerun or registration setting
 selected; stored accuracy and opt-in defaults are preserved.
 <!-- INTEN-CONDITIONING:END -->
+
+<!-- INTEN-ORIGIN-INVARIANCE:START -->
+## Origin dependence of a fixed update
+
+An [equation-level experiment](../../experiments/results/inten_origin_invariance/README.md)
+replays every stored short-fixture normal equation with fixed target-origin
+translations. The native `expSe3` uses rotation plus direct translation rather
+than the exact SE(3) exponential; transporting the same step therefore changes
+the finite update. With a **1,000 m** shift, the maximum updated-position
+difference is **0.0696058 m** in S2M and **0.966418 m** in S2S. The latter shifts
+the local target scan for a mathematical control; it is not an actual S2S world
+origin. These are single-iteration differences, not trajectory errors.
+
+The separate native damping comparison changes sensor-centred infinitesimal
+translation by at most **0.000526911 m** and rotation by **0.000376920 rad**
+over the stored fixtures. The transported-damping numerical control stays
+within **7.56956e-13 m / 4.33051e-13 rad**. The independent exact-exponential
+same-step control stays within **2.15111e-13 m**. Raw evidence `80cfaf23` and
+aggregation `c316b4df` precede these statements; all commands and actual exits
+are retained in the linked experiment.
+
+This negative result establishes an origin-dependent implementation property.
+It does not explain KITTI 01/02/10 or demonstrate that an alternative update
+improves accuracy. Continuous natural failure traces remain required before
+selecting an opt-in candidate. No scans or estimator are rerun, no setting is
+selected, and existing defaults and published results are preserved.
+<!-- INTEN-ORIGIN-INVARIANCE:END -->

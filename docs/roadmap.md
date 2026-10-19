@@ -395,6 +395,12 @@ independent. Each item says what "done" means.
     An [offline streaming checker](../experiments/results/inten_trace_validation/README.md)
     validates completion, stage structure and native run receipts before
     analysis; it adds no estimator gate or failure-cause finding.
+    A [fixed-equation origin experiment](../experiments/results/inten_origin_invariance/README.md)
+    establishes origin dependence in the native finite update and coordinate
+    damping, with exact-exponential and transported-penalty controls. The
+    method README retains the measured differences. No estimator is changed;
+    connecting this property to the KITTI failures still requires continuous
+    natural failure traces after the frozen replay releases input ownership.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

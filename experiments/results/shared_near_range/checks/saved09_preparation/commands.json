@@ -1,0 +1,78 @@
+[
+  {
+    "label": "gate_tests",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_shared_range_saved02_gate.py",
+      "-v"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "ac18dd306d1b4e00ec998799a4f1f63415ff337d",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-range-final-audit/matplotlib09"
+    },
+    "started_unix": 1792422253.573706,
+    "finished_unix": 1792422259.581308,
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "gate_tests_optimized",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-O",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_shared_range_saved02_gate.py",
+      "-v"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "ac18dd306d1b4e00ec998799a4f1f63415ff337d",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-range-final-audit/matplotlib09"
+    },
+    "started_unix": 1792422259.5816965,
+    "finished_unix": 1792422266.0422065,
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "label": "incomplete09_refused",
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "experiments/results/shared_near_range/diagnose_saved02.py",
+      "--sequence",
+      "09",
+      "--output-dir",
+      "/workspace/localization-env/shared-range-final-audit/preparation09/refused_output"
+    ],
+    "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+    "source_commit": "ac18dd306d1b4e00ec998799a4f1f63415ff337d",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MPLCONFIGDIR": "/workspace/localization-env/shared-range-final-audit/matplotlib09"
+    },
+    "started_unix": 1792422266.0426195,
+    "finished_unix": 1792422266.4763613,
+    "exit_code": 2,
+    "expected_exit_code": 2
+  }
+]

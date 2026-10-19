@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 694.4 m
+Running Small-GICP...
+  source_voxel_size=1.0 max_source_points=2500 voxel_resolution=0.3 k_neighbors=12 max_iterations=12 max_correspondences=256 map_max_points=40000
+  [Small-GICP] 10/1101 corr=248  [Small-GICP] 20/1101 corr=245  [Small-GICP] 30/1101 corr=234  [Small-GICP] 40/1101 corr=228  [Small-GICP] 50/1101 corr=238  [Small-GICP] 60/1101 corr=237  [Small-GICP] 70/1101 corr=205  [Small-GICP] 80/1101 corr=245  [Small-GICP] 90/1101 corr=231  [Small-GICP] 100/1101 corr=225  [Small-GICP] 110/1101 corr=246  [Small-GICP] 120/1101 corr=216  [Small-GICP] 130/1101 corr=228  [Small-GICP] 140/1101 corr=244  [Small-GICP] 150/1101 corr=246  [Small-GICP] 160/1101 corr=256  [Small-GICP] 170/1101 corr=248  [Small-GICP] 180/1101 corr=220  [Small-GICP] 190/1101 corr=221  [Small-GICP] 200/1101 corr=222  [Small-GICP] 210/1101 corr=247  [Small-GICP] 220/1101 corr=230  [Small-GICP] 230/1101 corr=224  [Small-GICP] 240/1101 corr=244  [Small-GICP] 250/1101 corr=213  [Small-GICP] 260/1101 corr=223  [Small-GICP] 270/1101 corr=249  [Small-GICP] 280/1101 corr=256  [Small-GICP] 290/1101 corr=251  [Small-GICP] 300/1101 corr=247  [Small-GICP] 310/1101 corr=247  [Small-GICP] 320/1101 corr=241  [Small-GICP] 330/1101 corr=247  [Small-GICP] 340/1101 corr=242  [Small-GICP] 350/1101 corr=227  [Small-GICP] 360/1101 corr=227  [Small-GICP] 370/1101 corr=233  [Small-GICP] 380/1101 corr=244  [Small-GICP] 390/1101 corr=230  [Small-GICP] 400/1101 corr=238  [Small-GICP] 410/1101 corr=230  [Small-GICP] 420/1101 corr=214  [Small-GICP] 430/1101 corr=240  [Small-GICP] 440/1101 corr=246  [Small-GICP] 450/1101 corr=241  [Small-GICP] 460/1101 corr=239  [Small-GICP] 470/1101 corr=239  [Small-GICP] 480/1101 corr=250  [Small-GICP] 490/1101 corr=239  [Small-GICP] 500/1101 corr=216  [Small-GICP] 510/1101 corr=209  [Small-GICP] 520/1101 corr=210  [Small-GICP] 530/1101 corr=225  [Small-GICP] 540/1101 corr=230  [Small-GICP] 550/1101 corr=251  [Small-GICP] 560/1101 corr=246  [Small-GICP] 570/1101 corr=254  [Small-GICP] 580/1101 corr=245  [Small-GICP] 590/1101 corr=221  [Small-GICP] 600/1101 corr=210  [Small-GICP] 610/1101 corr=200  [Small-GICP] 620/1101 corr=223  [Small-GICP] 630/1101 corr=222  [Small-GICP] 640/1101 corr=243  [Small-GICP] 650/1101 corr=223  [Small-GICP] 660/1101 corr=218  [Small-GICP] 670/1101 corr=223  [Small-GICP] 680/1101 corr=233  [Small-GICP] 690/1101 corr=222  [Small-GICP] 700/1101 corr=234  [Small-GICP] 710/1101 corr=226  [Small-GICP] 720/1101 corr=221  [Small-GICP] 730/1101 corr=233  [Small-GICP] 740/1101 corr=224  [Small-GICP] 750/1101 corr=220  [Small-GICP] 760/1101 corr=226  [Small-GICP] 770/1101 corr=188  [Small-GICP] 780/1101 corr=220  [Small-GICP] 790/1101 corr=218  [Small-GICP] 800/1101 corr=211  [Small-GICP] 810/1101 corr=224  [Small-GICP] 820/1101 corr=236  [Small-GICP] 830/1101 corr=220  [Small-GICP] 840/1101 corr=202  [Small-GICP] 850/1101 corr=216  [Small-GICP] 860/1101 corr=211  [Small-GICP] 870/1101 corr=236  [Small-GICP] 880/1101 corr=228  [Small-GICP] 890/1101 corr=227  [Small-GICP] 900/1101 corr=227  [Small-GICP] 910/1101 corr=217  [Small-GICP] 920/1101 corr=220  [Small-GICP] 930/1101 corr=248  [Small-GICP] 940/1101 corr=232  [Small-GICP] 950/1101 corr=231  [Small-GICP] 960/1101 corr=199  [Small-GICP] 970/1101 corr=219  [Small-GICP] 980/1101 corr=239  [Small-GICP] 990/1101 corr=255  [Small-GICP] 1000/1101 corr=241  [Small-GICP] 1010/1101 corr=228  [Small-GICP] 1020/1101 corr=228  [Small-GICP] 1030/1101 corr=243  [Small-GICP] 1040/1101 corr=240  [Small-GICP] 1050/1101 corr=228  [Small-GICP] 1060/1101 corr=224  [Small-GICP] 1070/1101 corr=242  [Small-GICP] 1080/1101 corr=237  [Small-GICP] 1090/1101 corr=229  [Small-GICP] 1100/1101 corr=223
+  [Small-GICP] seed fallbacks=16/1100 (1.45455% rolled back to GT seed)
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+Small-GICP              ok          0.925       1.158          1101        31749.7        34.7        
+
+Notes:
+- Small-GICP: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_07_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_07_full_evaluation_manifest.json)

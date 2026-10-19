@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 694.4 m
+Running A-LOAM...
+  n_scans=64 scan_period=0.1 curvature_threshold=0.1 less_flat_leaf_size=0.2 odom_iters=2 map_iters=2
+  [A-LOAM] 0/1101  [A-LOAM] 10/1101  [A-LOAM] 20/1101  [A-LOAM] 30/1101  [A-LOAM] 40/1101  [A-LOAM] 50/1101  [A-LOAM] 60/1101  [A-LOAM] 70/1101  [A-LOAM] 80/1101  [A-LOAM] 90/1101  [A-LOAM] 100/1101  [A-LOAM] 110/1101  [A-LOAM] 120/1101  [A-LOAM] 130/1101  [A-LOAM] 140/1101  [A-LOAM] 150/1101  [A-LOAM] 160/1101  [A-LOAM] 170/1101  [A-LOAM] 180/1101  [A-LOAM] 190/1101  [A-LOAM] 200/1101  [A-LOAM] 210/1101  [A-LOAM] 220/1101  [A-LOAM] 230/1101  [A-LOAM] 240/1101  [A-LOAM] 250/1101  [A-LOAM] 260/1101  [A-LOAM] 270/1101  [A-LOAM] 280/1101  [A-LOAM] 290/1101  [A-LOAM] 300/1101  [A-LOAM] 310/1101  [A-LOAM] 320/1101  [A-LOAM] 330/1101  [A-LOAM] 340/1101  [A-LOAM] 350/1101  [A-LOAM] 360/1101  [A-LOAM] 370/1101  [A-LOAM] 380/1101  [A-LOAM] 390/1101  [A-LOAM] 400/1101  [A-LOAM] 410/1101  [A-LOAM] 420/1101  [A-LOAM] 430/1101  [A-LOAM] 440/1101  [A-LOAM] 450/1101  [A-LOAM] 460/1101  [A-LOAM] 470/1101  [A-LOAM] 480/1101  [A-LOAM] 490/1101  [A-LOAM] 500/1101  [A-LOAM] 510/1101  [A-LOAM] 520/1101  [A-LOAM] 530/1101  [A-LOAM] 540/1101  [A-LOAM] 550/1101  [A-LOAM] 560/1101  [A-LOAM] 570/1101  [A-LOAM] 580/1101  [A-LOAM] 590/1101  [A-LOAM] 600/1101  [A-LOAM] 610/1101  [A-LOAM] 620/1101  [A-LOAM] 630/1101  [A-LOAM] 640/1101  [A-LOAM] 650/1101  [A-LOAM] 660/1101  [A-LOAM] 670/1101  [A-LOAM] 680/1101  [A-LOAM] 690/1101  [A-LOAM] 700/1101  [A-LOAM] 710/1101  [A-LOAM] 720/1101  [A-LOAM] 730/1101  [A-LOAM] 740/1101  [A-LOAM] 750/1101  [A-LOAM] 760/1101  [A-LOAM] 770/1101  [A-LOAM] 780/1101  [A-LOAM] 790/1101  [A-LOAM] 800/1101  [A-LOAM] 810/1101  [A-LOAM] 820/1101  [A-LOAM] 830/1101  [A-LOAM] 840/1101  [A-LOAM] 850/1101  [A-LOAM] 860/1101  [A-LOAM] 870/1101  [A-LOAM] 880/1101  [A-LOAM] 890/1101  [A-LOAM] 900/1101  [A-LOAM] 910/1101  [A-LOAM] 920/1101  [A-LOAM] 930/1101  [A-LOAM] 940/1101  [A-LOAM] 950/1101  [A-LOAM] 960/1101  [A-LOAM] 970/1101  [A-LOAM] 980/1101  [A-LOAM] 990/1101  [A-LOAM] 1000/1101  [A-LOAM] 1010/1101  [A-LOAM] 1020/1101  [A-LOAM] 1030/1101  [A-LOAM] 1040/1101  [A-LOAM] 1050/1101  [A-LOAM] 1060/1101  [A-LOAM] 1070/1101  [A-LOAM] 1080/1101  [A-LOAM] 1090/1101  [A-LOAM] 1100/1101
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+A-LOAM                  ok          2.505       0.605          1101        373555.1       2.9         
+
+Notes:
+- A-LOAM: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_07_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_07_full_evaluation_manifest.json)

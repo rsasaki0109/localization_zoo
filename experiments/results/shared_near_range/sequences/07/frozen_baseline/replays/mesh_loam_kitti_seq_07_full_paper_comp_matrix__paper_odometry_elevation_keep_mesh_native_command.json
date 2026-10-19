@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-near-range/baseline_pcd_dogfooding",
+    "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+    "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "--methods",
+    "mesh_loam",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/mesh_loam_kitti_seq_07_full_paper_comp_matrix__paper_odometry_elevation_keep_mesh.json",
+    "--no-gt-seed",
+    "--mesh-loam-paper-odometry",
+    "--mesh-loam-keep-mesh",
+    "--mesh-loam-marching-cubes",
+    "--mesh-loam-freeze-radius",
+    "100",
+    "--input-vertical-angle-correction-deg",
+    "0.22"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/mesh_loam_kitti_seq_07_full_paper_comp_matrix__paper_odometry_elevation_keep_mesh_native",
+  "binary_sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+  "started_unix": 1792398290.3336577,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792399059.9883063
+}

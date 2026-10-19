@@ -1,0 +1,300 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-19T08:37:39+00:00",
+  "purpose": "Selected stored full-sequence KITTI cells re-run with the current code",
+  "concurrent_jobs": 3,
+  "scope": {
+    "methods": [
+      "A-LOAM",
+      "CT-ICP",
+      "F-LOAM",
+      "LeGO-LOAM",
+      "Mesh-LOAM",
+      "VLOM"
+    ],
+    "sequences": [
+      "07"
+    ],
+    "selected_cell_count": 6,
+    "filtered": true
+  },
+  "metric_absolute_tolerance": 1e-06,
+  "binary_sha256": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3",
+  "exit_code": 1,
+  "host": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logical_cores": 5,
+    "memory_gib": 17.6,
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.18.55",
+    "architecture": "x86_64"
+  },
+  "rows": [
+    {
+      "method": "A-LOAM",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json",
+      "variant_id": "kitti_default",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/aloam_kitti_seq_07_full_sweep_matrix__kitti_default.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/aloam_kitti_seq_07_full_sweep_matrix__kitti_default.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_near_range/native_wrapper.py",
+        "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+        "--methods",
+        "aloam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/aloam_kitti_seq_07_full_sweep_matrix__kitti_default.json",
+        "--aloam-kitti-profile"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "drift",
+      "drifted": true,
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "kitti_rte_trans_pct": 0.673431,
+      "kitti_rte_rot_deg_per_100m": 0.425024,
+      "fps": 2.947357,
+      "stored_rpe_trans_pct": 0.607458,
+      "rerun_rpe_trans_pct": 0.605313,
+      "rerun_rpe_abs_delta": 0.0021450000000000635,
+      "stored_ate_m": 2.544355,
+      "rerun_ate_m": 2.505243,
+      "rerun_ate_abs_delta": 0.039111999999999814,
+      "stored_frames": 1101,
+      "frames": 1101,
+      "drift_metrics": [
+        "rpe_trans_pct",
+        "ate_m"
+      ]
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json",
+      "variant_id": "upstream_mechanics_elevation",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/ct_icp_kitti_seq_07_full_upstream_matrix__upstream_mechanics_elevation.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/ct_icp_kitti_seq_07_full_upstream_matrix__upstream_mechanics_elevation.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_near_range/native_wrapper.py",
+        "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+        "--methods",
+        "ct_icp",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/ct_icp_kitti_seq_07_full_upstream_matrix__upstream_mechanics_elevation.json",
+        "--ct-icp-upstream-mechanics",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "drift",
+      "drifted": true,
+      "args": [
+        "--ct-icp-upstream-mechanics",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "kitti_rte_trans_pct": 0.31999,
+      "kitti_rte_rot_deg_per_100m": 0.240216,
+      "fps": 12.03672,
+      "stored_rpe_trans_pct": 0.455389,
+      "rerun_rpe_trans_pct": 0.450827,
+      "rerun_rpe_abs_delta": 0.0045620000000000105,
+      "stored_ate_m": 1.256652,
+      "rerun_ate_m": 1.2435,
+      "rerun_ate_abs_delta": 0.013152000000000053,
+      "stored_frames": 1101,
+      "frames": 1101,
+      "drift_metrics": [
+        "rpe_trans_pct",
+        "ate_m"
+      ]
+    },
+    {
+      "method": "F-LOAM",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/floam_kitti_seq_07_full_sweep_matrix.json",
+      "variant_id": "dense",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/floam_kitti_seq_07_full_sweep_matrix__dense.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/floam_kitti_seq_07_full_sweep_matrix__dense.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_near_range/native_wrapper.py",
+        "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+        "--methods",
+        "floam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/floam_kitti_seq_07_full_sweep_matrix__dense.json",
+        "--floam-kitti-profile",
+        "--floam-dense-profile"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "drift",
+      "drifted": true,
+      "args": [
+        "--floam-kitti-profile",
+        "--floam-dense-profile"
+      ],
+      "kitti_rte_trans_pct": 0.707419,
+      "kitti_rte_rot_deg_per_100m": 0.551086,
+      "fps": 3.397336,
+      "stored_rpe_trans_pct": 0.612719,
+      "rerun_rpe_trans_pct": 0.590347,
+      "rerun_rpe_abs_delta": 0.02237200000000006,
+      "stored_ate_m": 2.971748,
+      "rerun_ate_m": 3.173641,
+      "rerun_ate_abs_delta": 0.2018930000000001,
+      "stored_frames": 1101,
+      "frames": 1101,
+      "drift_metrics": [
+        "rpe_trans_pct",
+        "ate_m"
+      ]
+    },
+    {
+      "method": "LeGO-LOAM",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json",
+      "variant_id": "kitti_default",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/lego_loam_kitti_seq_07_full_sweep_matrix__kitti_default.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/lego_loam_kitti_seq_07_full_sweep_matrix__kitti_default.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_near_range/native_wrapper.py",
+        "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+        "--methods",
+        "lego_loam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/lego_loam_kitti_seq_07_full_sweep_matrix__kitti_default.json",
+        "--lego-loam-kitti-profile"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "drift",
+      "drifted": true,
+      "args": [
+        "--lego-loam-kitti-profile"
+      ],
+      "kitti_rte_trans_pct": 0.602137,
+      "kitti_rte_rot_deg_per_100m": 0.439678,
+      "fps": 3.642076,
+      "stored_rpe_trans_pct": 0.527758,
+      "rerun_rpe_trans_pct": 0.526845,
+      "rerun_rpe_abs_delta": 0.0009129999999999416,
+      "stored_ate_m": 2.589775,
+      "rerun_ate_m": 2.55787,
+      "rerun_ate_abs_delta": 0.03190500000000007,
+      "stored_frames": 1101,
+      "frames": 1101,
+      "drift_metrics": [
+        "rpe_trans_pct",
+        "ate_m"
+      ]
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "variant_id": "paper_odometry_elevation_keep_mesh",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/mesh_loam_kitti_seq_07_full_paper_comp_matrix__paper_odometry_elevation_keep_mesh.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/mesh_loam_kitti_seq_07_full_paper_comp_matrix__paper_odometry_elevation_keep_mesh.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_near_range/native_wrapper.py",
+        "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+        "--methods",
+        "mesh_loam",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/mesh_loam_kitti_seq_07_full_paper_comp_matrix__paper_odometry_elevation_keep_mesh.json",
+        "--no-gt-seed",
+        "--mesh-loam-paper-odometry",
+        "--mesh-loam-keep-mesh",
+        "--mesh-loam-marching-cubes",
+        "--mesh-loam-freeze-radius",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "drift",
+      "drifted": true,
+      "args": [
+        "--no-gt-seed",
+        "--mesh-loam-paper-odometry",
+        "--mesh-loam-keep-mesh",
+        "--mesh-loam-marching-cubes",
+        "--mesh-loam-freeze-radius",
+        "100",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "kitti_rte_trans_pct": 0.337756,
+      "kitti_rte_rot_deg_per_100m": 0.199886,
+      "fps": 1.431514,
+      "stored_rpe_trans_pct": 0.469625,
+      "rerun_rpe_trans_pct": 0.469538,
+      "rerun_rpe_abs_delta": 8.700000000000374e-05,
+      "stored_ate_m": 0.852913,
+      "rerun_ate_m": 0.843704,
+      "rerun_ate_abs_delta": 0.009209000000000023,
+      "stored_frames": 1101,
+      "frames": 1101,
+      "drift_metrics": [
+        "rpe_trans_pct",
+        "ate_m"
+      ]
+    },
+    {
+      "method": "VLOM",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json",
+      "variant_id": "default",
+      "summary_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/vlom_kitti_seq_07_full_paper_comp_matrix__default.json",
+      "log_path": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/vlom_kitti_seq_07_full_paper_comp_matrix__default.log",
+      "command": [
+        "/workspace/localization_zoo/experiments/results/shared_near_range/native_wrapper.py",
+        "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+        "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+        "--methods",
+        "vlom",
+        "--summary-json",
+        "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/frozen_baseline/replays/vlom_kitti_seq_07_full_paper_comp_matrix__default.json",
+        "--no-gt-seed"
+      ],
+      "cwd": "/workspace/localization_zoo",
+      "process_exit_code": 0,
+      "rescore_extra_args": [],
+      "audit_status": "drift",
+      "drifted": true,
+      "args": [
+        "--no-gt-seed"
+      ],
+      "kitti_rte_trans_pct": 0.673431,
+      "kitti_rte_rot_deg_per_100m": 0.425024,
+      "fps": 2.899311,
+      "stored_rpe_trans_pct": 0.607458,
+      "rerun_rpe_trans_pct": 0.605313,
+      "rerun_rpe_abs_delta": 0.0021450000000000635,
+      "stored_ate_m": 2.544355,
+      "rerun_ate_m": 2.505243,
+      "rerun_ate_abs_delta": 0.039111999999999814,
+      "stored_frames": 1101,
+      "frames": 1101,
+      "drift_metrics": [
+        "rpe_trans_pct",
+        "ate_m"
+      ]
+    }
+  ]
+}

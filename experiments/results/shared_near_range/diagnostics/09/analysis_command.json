@@ -1,0 +1,22 @@
+{
+  "label": "diagnosis",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_near_range/diagnose_saved02.py",
+    "--sequence",
+    "09",
+    "--output-dir",
+    "/workspace/localization-env/shared-range-final-audit/analysis09/diagnosis"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+  "source_commit": "3ca99d81d4f34467676055ede267e63cd2dd3da8",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/shared-range-final-audit/analysis_matplotlib09"
+  },
+  "started_unix": 1792422813.5986912,
+  "finished_unix": 1792422816.1693673,
+  "exit_code": 0
+}

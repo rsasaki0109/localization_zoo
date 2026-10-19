@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 694.4 m
+Running Voxel-GICP...
+  source_voxel_size=0.8 max_source_points=3200 voxel_resolution=0.9 min_points_per_voxel=3 max_iterations=24 map_max_points=50000
+  [Voxel-GICP] 10/1101 corr=166  [Voxel-GICP] 20/1101 corr=124  [Voxel-GICP] 30/1101 corr=147  [Voxel-GICP] 40/1101 corr=118  [Voxel-GICP] 50/1101 corr=221  [Voxel-GICP] 60/1101 corr=219  [Voxel-GICP] 70/1101 corr=267  [Voxel-GICP] 80/1101 corr=282  [Voxel-GICP] 90/1101 corr=260  [Voxel-GICP] 100/1101 corr=222  [Voxel-GICP] 110/1101 corr=236  [Voxel-GICP] 120/1101 corr=210  [Voxel-GICP] 130/1101 corr=194  [Voxel-GICP] 140/1101 corr=220  [Voxel-GICP] 150/1101 corr=241  [Voxel-GICP] 160/1101 corr=222  [Voxel-GICP] 170/1101 corr=227  [Voxel-GICP] 180/1101 corr=229  [Voxel-GICP] 190/1101 corr=216  [Voxel-GICP] 200/1101 corr=215  [Voxel-GICP] 210/1101 corr=259  [Voxel-GICP] 220/1101 corr=206  [Voxel-GICP] 230/1101 corr=257  [Voxel-GICP] 240/1101 corr=241  [Voxel-GICP] 250/1101 corr=245  [Voxel-GICP] 260/1101 corr=236  [Voxel-GICP] 270/1101 corr=238  [Voxel-GICP] 280/1101 corr=242  [Voxel-GICP] 290/1101 corr=237  [Voxel-GICP] 300/1101 corr=190  [Voxel-GICP] 310/1101 corr=109  [Voxel-GICP] 320/1101 corr=80  [Voxel-GICP] 330/1101 corr=81  [Voxel-GICP] 340/1101 corr=86  [Voxel-GICP] 350/1101 corr=135  [Voxel-GICP] 360/1101 corr=144  [Voxel-GICP] 370/1101 corr=121  [Voxel-GICP] 380/1101 corr=135  [Voxel-GICP] 390/1101 corr=123  [Voxel-GICP] 400/1101 corr=109  [Voxel-GICP] 410/1101 corr=103  [Voxel-GICP] 420/1101 corr=64  [Voxel-GICP] 430/1101 corr=40  [Voxel-GICP] 440/1101 corr=42  [Voxel-GICP] 450/1101 corr=31  [Voxel-GICP] 460/1101 corr=23  [Voxel-GICP] 470/1101 corr=22  [Voxel-GICP] 480/1101 corr=52  [Voxel-GICP] 490/1101 corr=78  [Voxel-GICP] 500/1101 corr=109  [Voxel-GICP] 510/1101 corr=172  [Voxel-GICP] 520/1101 corr=179  [Voxel-GICP] 530/1101 corr=198  [Voxel-GICP] 540/1101 corr=167  [Voxel-GICP] 550/1101 corr=145  [Voxel-GICP] 560/1101 corr=128  [Voxel-GICP] 570/1101 corr=133  [Voxel-GICP] 580/1101 corr=196  [Voxel-GICP] 590/1101 corr=212  [Voxel-GICP] 600/1101 corr=225  [Voxel-GICP] 610/1101 corr=222  [Voxel-GICP] 620/1101 corr=187  [Voxel-GICP] 630/1101 corr=195  [Voxel-GICP] 640/1101 corr=209  [Voxel-GICP] 650/1101 corr=132  [Voxel-GICP] 660/1101 corr=108  [Voxel-GICP] 670/1101 corr=107  [Voxel-GICP] 680/1101 corr=104  [Voxel-GICP] 690/1101 corr=103  [Voxel-GICP] 700/1101 corr=101  [Voxel-GICP] 710/1101 corr=92  [Voxel-GICP] 720/1101 corr=92  [Voxel-GICP] 730/1101 corr=81  [Voxel-GICP] 740/1101 corr=81  [Voxel-GICP] 750/1101 corr=62  [Voxel-GICP] 760/1101 corr=96  [Voxel-GICP] 770/1101 corr=129  [Voxel-GICP] 780/1101 corr=189  [Voxel-GICP] 790/1101 corr=207  [Voxel-GICP] 800/1101 corr=210  [Voxel-GICP] 810/1101 corr=202  [Voxel-GICP] 820/1101 corr=189  [Voxel-GICP] 830/1101 corr=176  [Voxel-GICP] 840/1101 corr=191  [Voxel-GICP] 850/1101 corr=192  [Voxel-GICP] 860/1101 corr=192  [Voxel-GICP] 870/1101 corr=149  [Voxel-GICP] 880/1101 corr=145  [Voxel-GICP] 890/1101 corr=141  [Voxel-GICP] 900/1101 corr=72  [Voxel-GICP] 910/1101 corr=83  [Voxel-GICP] 920/1101 corr=84  [Voxel-GICP] 930/1101 corr=180  [Voxel-GICP] 940/1101 corr=200  [Voxel-GICP] 950/1101 corr=232  [Voxel-GICP] 960/1101 corr=239  [Voxel-GICP] 970/1101 corr=208  [Voxel-GICP] 980/1101 corr=237  [Voxel-GICP] 990/1101 corr=249  [Voxel-GICP] 1000/1101 corr=204  [Voxel-GICP] 1010/1101 corr=222  [Voxel-GICP] 1020/1101 corr=215  [Voxel-GICP] 1030/1101 corr=231  [Voxel-GICP] 1040/1101 corr=245  [Voxel-GICP] 1050/1101 corr=260  [Voxel-GICP] 1060/1101 corr=207  [Voxel-GICP] 1070/1101 corr=155  [Voxel-GICP] 1080/1101 corr=131  [Voxel-GICP] 1090/1101 corr=116  [Voxel-GICP] 1100/1101 corr=129
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+Voxel-GICP              ok          1.027       1.423          1101        11228.5        98.1        
+
+Notes:
+- Voxel-GICP: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_07_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_07_full_evaluation_manifest.json)

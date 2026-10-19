@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 694.4 m
+Running CT-ICP...
+  source_voxel_size=0.6 max_source_points=700 voxel_resolution=1.2 max_iterations=10 ceres_max_iterations=6 max_frames_in_map=20 multi_scale=on normal_cholesky=on regularizer_n_cap=0 auto_regularizer_cap=off
+  [CT-ICP upstream] 0/1101  [CT-ICP upstream] 10/1101  [CT-ICP upstream] 20/1101  [CT-ICP upstream] 30/1101  [CT-ICP upstream] 40/1101  [CT-ICP upstream] 50/1101  [CT-ICP upstream] 60/1101  [CT-ICP upstream] 70/1101  [CT-ICP upstream] 80/1101  [CT-ICP upstream] 90/1101  [CT-ICP upstream] 100/1101  [CT-ICP upstream] 110/1101  [CT-ICP upstream] 120/1101  [CT-ICP upstream] 130/1101  [CT-ICP upstream] 140/1101  [CT-ICP upstream] 150/1101  [CT-ICP upstream] 160/1101  [CT-ICP upstream] 170/1101  [CT-ICP upstream] 180/1101  [CT-ICP upstream] 190/1101  [CT-ICP upstream] 200/1101  [CT-ICP upstream] 210/1101  [CT-ICP upstream] 220/1101  [CT-ICP upstream] 230/1101  [CT-ICP upstream] 240/1101  [CT-ICP upstream] 250/1101  [CT-ICP upstream] 260/1101  [CT-ICP upstream] 270/1101  [CT-ICP upstream] 280/1101  [CT-ICP upstream] 290/1101  [CT-ICP upstream] 300/1101  [CT-ICP upstream] 310/1101  [CT-ICP upstream] 320/1101  [CT-ICP upstream] 330/1101  [CT-ICP upstream] 340/1101  [CT-ICP upstream] 350/1101  [CT-ICP upstream] 360/1101  [CT-ICP upstream] 370/1101  [CT-ICP upstream] 380/1101  [CT-ICP upstream] 390/1101  [CT-ICP upstream] 400/1101  [CT-ICP upstream] 410/1101  [CT-ICP upstream] 420/1101  [CT-ICP upstream] 430/1101  [CT-ICP upstream] 440/1101  [CT-ICP upstream] 450/1101  [CT-ICP upstream] 460/1101  [CT-ICP upstream] 470/1101  [CT-ICP upstream] 480/1101  [CT-ICP upstream] 490/1101  [CT-ICP upstream] 500/1101  [CT-ICP upstream] 510/1101  [CT-ICP upstream] 520/1101  [CT-ICP upstream] 530/1101  [CT-ICP upstream] 540/1101  [CT-ICP upstream] 550/1101  [CT-ICP upstream] 560/1101  [CT-ICP upstream] 570/1101  [CT-ICP upstream] 580/1101  [CT-ICP upstream] 590/1101  [CT-ICP upstream] 600/1101  [CT-ICP upstream] 610/1101  [CT-ICP upstream] 620/1101  [CT-ICP upstream] 630/1101  [CT-ICP upstream] 640/1101  [CT-ICP upstream] 650/1101  [CT-ICP upstream] 660/1101  [CT-ICP upstream] 670/1101  [CT-ICP upstream] 680/1101  [CT-ICP upstream] 690/1101  [CT-ICP upstream] 700/1101  [CT-ICP upstream] 710/1101  [CT-ICP upstream] 720/1101  [CT-ICP upstream] 730/1101  [CT-ICP upstream] 740/1101  [CT-ICP upstream] 750/1101  [CT-ICP upstream] 760/1101  [CT-ICP upstream] 770/1101  [CT-ICP upstream] 780/1101  [CT-ICP upstream] 790/1101  [CT-ICP upstream] 800/1101  [CT-ICP upstream] 810/1101  [CT-ICP upstream] 820/1101  [CT-ICP upstream] 830/1101  [CT-ICP upstream] 840/1101  [CT-ICP upstream] 850/1101  [CT-ICP upstream] 860/1101  [CT-ICP upstream] 870/1101  [CT-ICP upstream] 880/1101  [CT-ICP upstream] 890/1101  [CT-ICP upstream] 900/1101  [CT-ICP upstream] 910/1101  [CT-ICP upstream] 920/1101  [CT-ICP upstream] 930/1101  [CT-ICP upstream] 940/1101  [CT-ICP upstream] 950/1101  [CT-ICP upstream] 960/1101  [CT-ICP upstream] 970/1101  [CT-ICP upstream] 980/1101  [CT-ICP upstream] 990/1101  [CT-ICP upstream] 1000/1101  [CT-ICP upstream] 1010/1101  [CT-ICP upstream] 1020/1101  [CT-ICP upstream] 1030/1101  [CT-ICP upstream] 1040/1101  [CT-ICP upstream] 1050/1101  [CT-ICP upstream] 1060/1101  [CT-ICP upstream] 1070/1101  [CT-ICP upstream] 1080/1101  [CT-ICP upstream] 1090/1101  [CT-ICP upstream] 1100/1101
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+CT-ICP                  ok          1.243       0.451          1101        91856.0        12.0        
+
+Notes:
+- CT-ICP: Upstream mechanics (jedeschaud/ct_icp driving_config); anchor matches the first GT pose. 0 frames would have stopped upstream; 0 map insertions skipped.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_07_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_07_full_evaluation_manifest.json)

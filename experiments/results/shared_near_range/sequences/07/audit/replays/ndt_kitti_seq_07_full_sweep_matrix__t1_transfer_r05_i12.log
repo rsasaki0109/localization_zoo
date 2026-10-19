@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 694.4 m
+Running NDT...
+  source_voxel_size=0.8 max_source_points=2000 resolution=0.5 max_iterations=12 map_max_points=22000
+  [NDT] 10/1101 score=2.455  [NDT] 20/1101 score=2.394  [NDT] 30/1101 score=2.241  [NDT] 40/1101 score=2.492  [NDT] 50/1101 score=2.505  [NDT] 60/1101 score=2.352  [NDT] 70/1101 score=2.411  [NDT] 80/1101 score=2.497  [NDT] 90/1101 score=2.011  [NDT] 100/1101 score=2.705  [NDT] 110/1101 score=2.304  [NDT] 120/1101 score=2.577  [NDT] 130/1101 score=2.347  [NDT] 140/1101 score=2.341  [NDT] 150/1101 score=2.335  [NDT] 160/1101 score=2.702  [NDT] 170/1101 score=2.248  [NDT] 180/1101 score=2.221  [NDT] 190/1101 score=2.669  [NDT] 200/1101 score=2.548  [NDT] 210/1101 score=2.453  [NDT] 220/1101 score=2.676  [NDT] 230/1101 score=2.354  [NDT] 240/1101 score=2.643  [NDT] 250/1101 score=2.364  [NDT] 260/1101 score=2.329  [NDT] 270/1101 score=2.503  [NDT] 280/1101 score=2.727  [NDT] 290/1101 score=2.260  [NDT] 300/1101 score=2.358  [NDT] 310/1101 score=2.376  [NDT] 320/1101 score=2.325  [NDT] 330/1101 score=2.433  [NDT] 340/1101 score=2.416  [NDT] 350/1101 score=2.402  [NDT] 360/1101 score=2.502  [NDT] 370/1101 score=2.377  [NDT] 380/1101 score=2.451  [NDT] 390/1101 score=2.411  [NDT] 400/1101 score=0.000  [NDT] 410/1101 score=2.622  [NDT] 420/1101 score=2.675  [NDT] 430/1101 score=2.484  [NDT] 440/1101 score=2.910  [NDT] 450/1101 score=2.669  [NDT] 460/1101 score=2.567  [NDT] 470/1101 score=2.370  [NDT] 480/1101 score=2.609  [NDT] 490/1101 score=2.531  [NDT] 500/1101 score=2.521  [NDT] 510/1101 score=2.463  [NDT] 520/1101 score=2.361  [NDT] 530/1101 score=2.164  [NDT] 540/1101 score=2.697  [NDT] 550/1101 score=2.511  [NDT] 560/1101 score=2.675  [NDT] 570/1101 score=2.382  [NDT] 580/1101 score=2.373  [NDT] 590/1101 score=2.429  [NDT] 600/1101 score=2.422  [NDT] 610/1101 score=2.384  [NDT] 620/1101 score=2.362  [NDT] 630/1101 score=2.305  [NDT] 640/1101 score=2.498  [NDT] 650/1101 score=2.136  [NDT] 660/1101 score=2.343  [NDT] 670/1101 score=1.861  [NDT] 680/1101 score=1.408  [NDT] 690/1101 score=2.033  [NDT] 700/1101 score=1.989  [NDT] 710/1101 score=1.739  [NDT] 720/1101 score=2.655  [NDT] 730/1101 score=2.238  [NDT] 740/1101 score=2.349  [NDT] 750/1101 score=2.299  [NDT] 760/1101 score=2.561  [NDT] 770/1101 score=2.361  [NDT] 780/1101 score=2.332  [NDT] 790/1101 score=2.326  [NDT] 800/1101 score=2.728  [NDT] 810/1101 score=2.118  [NDT] 820/1101 score=2.758  [NDT] 830/1101 score=2.409  [NDT] 840/1101 score=2.498  [NDT] 850/1101 score=2.084  [NDT] 860/1101 score=2.329  [NDT] 870/1101 score=2.262  [NDT] 880/1101 score=2.328  [NDT] 890/1101 score=2.413  [NDT] 900/1101 score=2.254  [NDT] 910/1101 score=2.350  [NDT] 920/1101 score=2.448  [NDT] 930/1101 score=2.240  [NDT] 940/1101 score=2.438  [NDT] 950/1101 score=2.419  [NDT] 960/1101 score=2.186  [NDT] 970/1101 score=2.244  [NDT] 980/1101 score=2.226  [NDT] 990/1101 score=2.688  [NDT] 1000/1101 score=2.147  [NDT] 1010/1101 score=2.158  [NDT] 1020/1101 score=2.107  [NDT] 1030/1101 score=2.414  [NDT] 1040/1101 score=2.054  [NDT] 1050/1101 score=2.202  [NDT] 1060/1101 score=2.251  [NDT] 1070/1101 score=2.644  [NDT] 1080/1101 score=2.608  [NDT] 1090/1101 score=2.342  [NDT] 1100/1101 score=1.636
+  [NDT] seed fallbacks=20/1100 (1.818% rolled back to GT seed)
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+NDT                     ok          0.076       0.201          1101        64383.6        17.1        
+
+Notes:
+- NDT: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_07_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_07_full_evaluation_manifest.json)

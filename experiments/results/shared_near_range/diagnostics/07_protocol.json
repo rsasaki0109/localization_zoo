@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "sequence": "07",
+  "status": "closed_native_evidence_committed_awaiting_offline_analysis",
+  "inherited_protocol": "experiments/results/shared_near_range/diagnostics/02_protocol.json",
+  "inherited_protocol_commit": "878942285f60f6f4fca4ee700df940f37000c79d",
+  "methods": [
+    "A-LOAM",
+    "CT-ICP",
+    "F-LOAM",
+    "LeGO-LOAM",
+    "Mesh-LOAM",
+    "VLOM"
+  ],
+  "diagnostic_parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "selection": "Every historical difference in the closed candidate07 audit. Require the complete A-LOAM/CT-ICP/F-LOAM/LeGO-LOAM/Mesh-LOAM/VLOM cohort and matching frozen controls before output. Diagnostic parameters transfer unchanged from02/01; no registration setting is selected and no estimator is rerun.",
+  "publication_gate": "Candidate/frozen reports and actual command receipts, matching frozen comparison and input cleanup must be committed and unchanged. Owned scans and alias must be absent before any diagnostic output is created.",
+  "position_error": "First-pose-normalized estimated position versus the same evaluated GT; no fitted alignment or rescaling.",
+  "paired_gap": "Euclidean position difference between first-pose-normalized historical and current estimates. Rank inherited fixed blocks by gap at end minus gap at start; retain every block and every frame.",
+  "limits": "Pair only available committed historical trajectories with byte-identical evaluated GT. Exact-path and reachable-history probes describe this checkout, not global absence. Error-growth blocks cannot establish historical/runtime causality or an extraction effect. Record Mesh historical/current runtime and core identity; differing thread counts are a confound, not a cause. Commit raw diagnostic results before numerical prose; the historical audit's drift exit remains a negative result. These results use the original frozen implementation, not a whole-zoo validation of newly merged acceleration or passive tracing.",
+  "frozen_control_methods": [
+    "A-LOAM",
+    "CT-ICP",
+    "F-LOAM",
+    "LeGO-LOAM",
+    "Mesh-LOAM",
+    "VLOM"
+  ],
+  "native_evidence_commit": "ed37e2fdfdfb6a5bd7ce70f1d30323bb0619bfaa",
+  "native_import_commit": "9c9976c6"
+}

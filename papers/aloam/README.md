@@ -205,3 +205,30 @@ acceleration/passive tracing is outside this frozen replay's scope. No estimator
 registration setting, default or published result changes. Raw diagnosis
 `6285c60b` precedes this prose; active06 scans and executables are untouched.
 <!-- /SHARED_NEAR_RANGE_05_DIAGNOSTICS -->
+
+<!-- SHARED_NEAR_RANGE_07_DIAGNOSTICS -->
+## KITTI07 historical replay and saved-path diagnosis
+
+The full historical `kitti_default` cell completes **1,101**
+frames with native exit **0**. Stored/replayed 100 m RPE changes from
+**0.607458%** to **0.605313%**;
+ATE changes from **2.544355 m** to **2.505243 m**.
+RPE improves; ATE improves. Both metrics are retained. The historical audit
+still exits **1**. Frozen pre-extraction controls reproduce the metrics with
+zero recorded differences and byte-identical saved poses; comparison exits **0**.
+The difference predates extraction; its original cause remains unresolved.
+
+With inherited **100**-step blocks, the largest current position-error increase
+is poses **800-900**: **1.728689 to 4.569446 m**.
+This uses first-pose normalization, zero-based indices, no fitted alignment or
+rescaling. Every block/frame is retained. The exact referenced historical path
+is unavailable in the inspected tree/history, so this diagnoses current error
+growth without locating a historical difference or establishing its cause.
+
+[All numerical pairs, commands, complete traces and limits](../../experiments/results/shared_near_range/diagnostics/07/README.md)
+use original native evidence `ed37e2fd` (lossless import `9c9976c6`), analysis
+source/protocol `59e69241` and raw results `6db8522a`, committed before this prose.
+Native source remains `0b079dbb`. Historical per-cell arguments are unchanged;
+this is not a new fixed-setting accuracy study. Existing results, paper tables
+and defaults are preserved.
+<!-- /SHARED_NEAR_RANGE_07_DIAGNOSTICS -->

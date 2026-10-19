@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding",
+    "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+    "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "--methods",
+    "litamin2",
+    "--summary-json",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/audit/replays/litamin2_kitti_seq_07_full_elevation_matrix__coarse_to_fine_3_2_1_elevation.json",
+    "--no-gt-seed",
+    "--litamin2-voxel-resolution",
+    "1.0",
+    "--litamin2-max-iterations",
+    "12",
+    "--litamin2-coarse-to-fine-voxels",
+    "3.0,2.0,1.0",
+    "--input-vertical-angle-correction-deg",
+    "0.205"
+  ],
+  "cwd": "/workspace/localization_zoo/experiments/results/shared_near_range/sequences/07/audit/replays/litamin2_kitti_seq_07_full_elevation_matrix__coarse_to_fine_3_2_1_elevation_native",
+  "binary_sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+  "started_unix": 1792396643.9889975,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792396665.2172537
+}

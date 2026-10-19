@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_near_range/diagnose_saved02.py",
+    "--sequence",
+    "07",
+    "--output-dir",
+    "/workspace/localization-env/shared-range-checkpoint07/diagnosis"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-checkpoint07/worktree",
+  "source_commit": "59e692419b4ef15290a3825f26813e7f31923eca",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/shared-range-checkpoint07/matplotlib"
+  },
+  "started_unix": 1792402906.1432776,
+  "finished_unix": 1792402907.8354554,
+  "exit_code": 0
+}

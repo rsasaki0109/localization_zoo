@@ -1,0 +1,7 @@
+{
+  "exit_code": 1,
+  "failed_stage": "preservation_raw_import_probe",
+  "error": "private check-driver sequence substitution changed ed37e2fdfdfb6a5bd7ce70f1d30323bb0619bfaa to nonexistent ed37e2fdfdfb6a5bd7ce70f1d30323bb0719bfaa",
+  "completed_commands": "commands.json",
+  "recovery": "Correct the native commit reference and rerun preservation only; retain all successful command results."
+}

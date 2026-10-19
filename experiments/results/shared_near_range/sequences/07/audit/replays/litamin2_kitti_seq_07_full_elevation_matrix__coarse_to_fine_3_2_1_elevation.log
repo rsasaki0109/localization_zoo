@@ -1,0 +1,28 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1101
+GT poses: 1101
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 694.4 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+
+Running LiTAMIN2...
+  voxel_resolution=1.0 max_iterations=12 max_source_points=2500 refresh_interval=3 map_max_points=45000 map_radius=45.0 local_map_policy=refresh keyframe_translation=1.0 keyframe_rotation=0.1 max_seed_translation_delta=2.0 max_seed_rotation_delta=0.2 max_motion_translation_delta=-1.0 max_motion_rotation_delta=-1.0 min_cov_eigenvalue=0.0 correspondence_search_radius=0 max_correspondence_distance=0.0 use_cov_cost=on covariance_gradient=off covariance_gradient_weight=1.0 line_search=off line_search_min_step=0.1 scan_to_scan=off coarse_to_fine_levels=3 coarse_to_fine_iteration_levels=0 num_threads=2
+  [LiTAMIN2] 10/1101  [LiTAMIN2] 20/1101  [LiTAMIN2] 30/1101  [LiTAMIN2] 40/1101  [LiTAMIN2] 50/1101  [LiTAMIN2] 60/1101  [LiTAMIN2] 70/1101  [LiTAMIN2] 80/1101  [LiTAMIN2] 90/1101  [LiTAMIN2] 100/1101  [LiTAMIN2] 110/1101  [LiTAMIN2] 120/1101  [LiTAMIN2] 130/1101  [LiTAMIN2] 140/1101  [LiTAMIN2] 150/1101  [LiTAMIN2] 160/1101  [LiTAMIN2] 170/1101  [LiTAMIN2] 180/1101  [LiTAMIN2] 190/1101  [LiTAMIN2] 200/1101  [LiTAMIN2] 210/1101  [LiTAMIN2] 220/1101  [LiTAMIN2] 230/1101  [LiTAMIN2] 240/1101  [LiTAMIN2] 250/1101  [LiTAMIN2] 260/1101  [LiTAMIN2] 270/1101  [LiTAMIN2] 280/1101  [LiTAMIN2] 290/1101  [LiTAMIN2] 300/1101  [LiTAMIN2] 310/1101  [LiTAMIN2] 320/1101  [LiTAMIN2] 330/1101  [LiTAMIN2] 340/1101  [LiTAMIN2] 350/1101  [LiTAMIN2] 360/1101  [LiTAMIN2] 370/1101  [LiTAMIN2] 380/1101  [LiTAMIN2] 390/1101  [LiTAMIN2] 400/1101  [LiTAMIN2] 410/1101  [LiTAMIN2] 420/1101  [LiTAMIN2] 430/1101  [LiTAMIN2] 440/1101  [LiTAMIN2] 450/1101  [LiTAMIN2] 460/1101  [LiTAMIN2] 470/1101  [LiTAMIN2] 480/1101  [LiTAMIN2] 490/1101  [LiTAMIN2] 500/1101  [LiTAMIN2] 510/1101  [LiTAMIN2] 520/1101  [LiTAMIN2] 530/1101  [LiTAMIN2] 540/1101  [LiTAMIN2] 550/1101  [LiTAMIN2] 560/1101  [LiTAMIN2] 570/1101  [LiTAMIN2] 580/1101  [LiTAMIN2] 590/1101  [LiTAMIN2] 600/1101  [LiTAMIN2] 610/1101  [LiTAMIN2] 620/1101  [LiTAMIN2] 630/1101  [LiTAMIN2] 640/1101  [LiTAMIN2] 650/1101  [LiTAMIN2] 660/1101  [LiTAMIN2] 670/1101  [LiTAMIN2] 680/1101  [LiTAMIN2] 690/1101  [LiTAMIN2] 700/1101  [LiTAMIN2] 710/1101  [LiTAMIN2] 720/1101  [LiTAMIN2] 730/1101  [LiTAMIN2] 740/1101  [LiTAMIN2] 750/1101  [LiTAMIN2] 760/1101  [LiTAMIN2] 770/1101  [LiTAMIN2] 780/1101  [LiTAMIN2] 790/1101  [LiTAMIN2] 800/1101  [LiTAMIN2] 810/1101  [LiTAMIN2] 820/1101  [LiTAMIN2] 830/1101  [LiTAMIN2] 840/1101  [LiTAMIN2] 850/1101  [LiTAMIN2] 860/1101  [LiTAMIN2] 870/1101  [LiTAMIN2] 880/1101  [LiTAMIN2] 890/1101  [LiTAMIN2] 900/1101  [LiTAMIN2] 910/1101  [LiTAMIN2] 920/1101  [LiTAMIN2] 930/1101  [LiTAMIN2] 940/1101  [LiTAMIN2] 950/1101  [LiTAMIN2] 960/1101  [LiTAMIN2] 970/1101  [LiTAMIN2] 980/1101  [LiTAMIN2] 990/1101  [LiTAMIN2] 1000/1101  [LiTAMIN2] 1010/1101  [LiTAMIN2] 1020/1101  [LiTAMIN2] 1030/1101  [LiTAMIN2] 1040/1101  [LiTAMIN2] 1050/1101  [LiTAMIN2] 1060/1101  [LiTAMIN2] 1070/1101  [LiTAMIN2] 1080/1101  [LiTAMIN2] 1090/1101  [LiTAMIN2] 1100/1101
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+LiTAMIN2                ok          2.086       0.478          1101        21163.2        52.0        
+
+Notes:
+- LiTAMIN2: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule. Local-map policy=refresh.
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_07_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_07_full_evaluation_manifest.json)

@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "/workspace/localization-env/shared-near-range/data/dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "gt_sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+  "input_max_range_m": 80,
+  "input_vertical_angle_correction_deg": 0.205,
+  "input_azimuth_time": false,
+  "total_pcd_frames": 1101,
+  "num_frames": 1101,
+  "raw_gt_pose_count": 1101,
+  "used_gt_pose_count": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "27354aa47ec04f668ee8305c18b83e34786e9fdb",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_07_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 1101,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 1100.000000]
+  },
+  "gt": {
+    "source": "/workspace/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 1101,
+    "raw_timestamp_range": [0.000000, 1100.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 1101,
+    "associated_gt_index_range": [0, 1100],
+    "associated_gt_timestamp_range": [0.000000, 1100.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "LiTAMIN2",
+      "status": "ok",
+      "ate_m": 2.086205,
+      "rpe_trans_pct": 0.477510,
+      "rpe_rot_deg_per_m": 0.006129,
+      "kitti_rte_trans_pct": 0.433043,
+      "kitti_rte_rot_deg_per_100m": 0.495359,
+      "frames": 1101,
+      "time_ms": 21163.176976,
+      "fps": 52.024325,
+      "algorithm_time_ms": null,
+      "algorithm_fps": null,
+      "seed_fallback_rate_pct": null,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule. Local-map policy=refresh."
+    }
+  ]
+}

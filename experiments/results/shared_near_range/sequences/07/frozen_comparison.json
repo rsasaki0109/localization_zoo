@@ -1,0 +1,95 @@
+{
+  "checks": [
+    {
+      "method": "A-LOAM",
+      "sequence": "07",
+      "metric_abs_delta": {
+        "rerun_rpe_trans_pct": 0.0,
+        "rerun_ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "A_LOAM.txt": true,
+        "gt.txt": true
+      }
+    },
+    {
+      "method": "CT-ICP",
+      "sequence": "07",
+      "metric_abs_delta": {
+        "rerun_rpe_trans_pct": 0.0,
+        "rerun_ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "CT_ICP.txt": true,
+        "gt.txt": true
+      }
+    },
+    {
+      "method": "F-LOAM",
+      "sequence": "07",
+      "metric_abs_delta": {
+        "rerun_rpe_trans_pct": 0.0,
+        "rerun_ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "F_LOAM.txt": true,
+        "gt.txt": true
+      }
+    },
+    {
+      "method": "LeGO-LOAM",
+      "sequence": "07",
+      "metric_abs_delta": {
+        "rerun_rpe_trans_pct": 0.0,
+        "rerun_ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "LeGO_LOAM.txt": true,
+        "gt.txt": true
+      }
+    },
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "07",
+      "metric_abs_delta": {
+        "rerun_rpe_trans_pct": 0.0,
+        "rerun_ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "Mesh_LOAM.txt": true,
+        "gt.txt": true
+      }
+    },
+    {
+      "method": "VLOM",
+      "sequence": "07",
+      "metric_abs_delta": {
+        "rerun_rpe_trans_pct": 0.0,
+        "rerun_ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "VLOM.txt": true,
+        "gt.txt": true
+      }
+    }
+  ],
+  "exit_code": 0
+}

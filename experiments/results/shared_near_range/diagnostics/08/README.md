@@ -86,6 +86,21 @@ older cohorts. A real incomplete08 invocation exits **2** as expected before
 output at the committed-input gate; no diagnosis or coverage is credited to that
 [preparation check](../../checks/saved08_preparation/scope.json).
 
+[Repository checks and exact commands](../../checks/saved08/docs/commands.json),
+committed at `ffca75b8`, retain full losslessly compressed logs and the
+[actual full-driver invocation](../../checks/saved08/docs/driver_invocation.json).
+Required document generators, showcase, leaderboard, paper-ready and whitespace
+checks exit **0**. Full Python runs **340** tests with **5** built-evaluator skips
+in this separate checkout and exits **0**. The full logs retain intentional
+negative test fixtures; actual process exits determine the result. Final-head
+native and ROS CI will validate the completed integration PR.
+
+The [preservation receipt](../../checks/saved08/docs/preservation.json) verifies
+all **688** historical aggregate hashes, unchanged published/table/paper-number
+bytes, all **167** original native08 files, prior method README content and the
+active primary's frozen source, sealed files and executable hashes. Timestamp-only
+generator changes retain prior bytes with an explicit disposition receipt.
+
 The [cleaned checkpoint](../../checkpoints/08/summary.json) covers **149/177**
 cells across 04/00/01/02/03/05/06/07/08: **117** historical matches and **32**
 differences, reproduced by **34** exact frozen controls. All nine historical

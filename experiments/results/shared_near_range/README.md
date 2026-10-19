@@ -565,7 +565,15 @@ actual results into one audit-completion PR after every terminal gate passes.
 
 ## Checkpoint integration while the frozen replay continues
 
-The [07 regeneration, regression and preservation checks](checks/saved07/docs/),
+The [08 regeneration, regression and preservation checks](checks/saved08/docs/),
+committed at `ffca75b8`, retain exact commands, actual exits and full lossless
+logs. All required generators, full Python and documentation checks exit **0**;
+the **5** built-evaluator skips remain explicit. Preservation confirms every
+historical aggregate, all original native08 files, published table/paper bytes,
+prior method README content and the primary's frozen source/sealed files/binaries.
+Final-head native/ROS CI will run for the completed integration PR.
+
+The earlier [07 regeneration, regression and preservation checks](checks/saved07/docs/),
 committed at `88c21dd9`, retain exact commands and actual exits, including the
 corrected private-driver reference failure. All required generators, full
 Python and documentation checks pass. Existing aggregate/publication bytes,

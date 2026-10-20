@@ -36,7 +36,7 @@ triangle, Jacobian, Huber weights and class H/g. No raw scan is committed.
 | 02 | 192 | 192 | 34340 / 192000 | 87452 / 226140 |
 | 10 | 13 | 12 | 3107 / 13000 | 7515 / 16690 |
 
-All native evaluations exit 0. For every selected pair, the final S2S output,
+Every native process exits 0. For every selected pair, the final S2S output,
 feature counts and all initial class H/g/counts are **exactly** equal to the
 parent oracle execution. Reconstructing plane equations from recorded geometry
 has maximum absolute error `5.456968e-12` in H and `3.730349e-14` in g;
@@ -180,6 +180,12 @@ The required generators, Python discovery, showcase, leaderboard, paper-ready
 and preservation commands are recorded under `checks/`. Preservation compares
 against the actual parent `eee61c7f`, including historical aggregate/publication
 hashes, all earlier evidence, native source, manifests and pinned binaries.
+
+Validation evidence `e059cae1` records 344 Python tests, five existing
+built-evaluator skips and exit 0. All three required generators, showcase,
+leaderboard, paper-ready, preservation and whitespace checks exit 0. All 688
+historical aggregate hashes, publication files, parent evidence and pinned
+binaries remain unchanged; the 11 generated-file changes contain timestamps only.
 
 This completes actual plane geometry, fixed-first-system and query-support
 diagnosis. It does not complete an accuracy fix. Next, evaluate a uniformly

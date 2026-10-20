@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "exit_code": 0,
+  "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+  "trace_sha256": "57579ce003cb37ab98c516a962ec0a0777de5cef4a8f0e1b972a7e91e9c7c409",
+  "summary_sha256": "6634622341c9ae8b3abdae04c6af0bcbd15689ceb39dd4dbe661309fe086970f",
+  "receipt_sha256": "df9fe1fe188debaa4f068bcb883f346a83c18be888bf0e54bbc0388235b7b623",
+  "records": 1103,
+  "input_frames": 1101,
+  "processed_frames": 1101,
+  "skipped_frames": 0,
+  "nonfinite_values": 0,
+  "stages": {
+    "s2s": {
+      "calls": 1100,
+      "iterations": 9855,
+      "stops": {
+        "not_run": 1,
+        "iteration_limit": 633,
+        "converged": 467
+      }
+    },
+    "s2m": {
+      "calls": 1100,
+      "iterations": 10727,
+      "stops": {
+        "not_run": 1,
+        "iteration_limit": 933,
+        "converged": 167
+      }
+    }
+  }
+}

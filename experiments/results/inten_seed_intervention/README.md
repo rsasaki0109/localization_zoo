@@ -193,6 +193,19 @@ the pinned resolved CMake metadata, preserving linker options and redirecting
 source includes to the checked worktree. These failures are not silently
 relabelled as successful tests.
 
+## Validation and preservation
+
+Committed evidence `f14b1644` records Python discovery of 344 tests with
+5 existing built-evaluator skips and exit 0. The three required generators,
+showcase, leaderboard and paper-ready checks also exit 0. Outcome and entry
+tables are checked against the committed machine report.
+
+[Preservation checks](checks/final/preservation.json) verify all 688 historical
+aggregate hashes, root README, HTML, Table 6, full-variant CSV and paper-number
+JSON against parent `68c23290`. Native code, manifests, existing tools, parent
+natural evidence and the pinned libraries/executables are unchanged. Generator
+changes are timestamps only. Full native/ROS CI is tracked in the result PR.
+
 ## Remaining work
 
 The fixed-pair intervention milestone is complete. The next causal question is

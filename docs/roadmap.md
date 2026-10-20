@@ -471,6 +471,26 @@ independent. Each item says what "done" means.
     the actual iterative trajectory, not physical-ring correctness.
     Numerical evidence `a9603c00` precedes this interpretation.
 
+    The [full iterative facade-PCA comparison](../experiments/results/inten_facade_pca/README.md)
+    uses one fixed setting on every full KITTI00-10 sequence. Only the
+    normals of already accepted S2S facade triangles change, using the
+    same gated ten neighbours and original closest-point plane anchor.
+    PCA degeneracy retains the triangle. Mapped-motion prediction, soft
+    translation prior0.03, ground PCA and acceleration are on in both arms; row
+    completion remains off. This outside-paper extension is default off.
+    Geometric mean candidate/reference RTE is 0.971379x:
+    8 lower, 3 higher and 0 unchanged sequences.
+    Failure-sequence RTE: 01 5.276027% to 4.481189%; 02 0.761893% to 0.756938%; 10 1.134467% to 1.093310%.
+    Sequences above twice the cited paper RTE: 01, 10.
+    All adverse metrics, new local bad frames and error-growth blocks
+    are retained. No per-sequence winner is adopted or default promoted.
+    Committed current01 onset controls motivated this intervention;
+    all prior outcomes are development evidence, with no independent
+    held-out claim. Profile chosen on07,00 informed diagnosis; the
+    inherited prior fraction came from DiLO KITTI01 tuning. This tests
+    the actual iterative trajectory, not physical-ring correctness.
+    Numerical evidence `f6e023be` precedes this interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

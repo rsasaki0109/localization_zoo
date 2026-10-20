@@ -971,6 +971,116 @@ The complete report retains every step and all motion-error blocks. The option
 remains outside the paper and default off; earlier results are preserved.
 <!-- /INTEN_GROUND_PCA -->
 
+<!-- INTEN_FACADE_PCA -->
+## Optional S2S facade PCA normals
+
+`--inten-loam-paper-set s2s_facade_pca=1` enables an outside-paper, default-off
+extension. For already accepted facade triangles only, use the existing
+ground-PCA normal construction on exactly the same gated ten neighbours.
+Keep the original nearest-point anchor; insufficient or numerically
+degenerate PCA keeps the native triangle normal. No support, acceptance,
+gate, feature, iteration-budget, S2M or update rule changes. At a fixed pose,
+only facade data equations change. The unchanged adaptive soft-prior rule
+can change its information immediately; later associations/maps diverge.
+Ground PCA, mapped-motion seed, soft prior0.03 and acceleration are on in
+both full arms; row completion stays off. Uniform elevation bins remain
+unchanged and are not measured physical rings.
+
+The original profile was chosen on07;00 informed diagnosis. Prior fraction
+came from DiLO KITTI01 tuning. This candidate was selected after committed
+current01 onset controls reproduced the continuous native S2S output and
+showed facade backward first-update contributions with inactive prior.
+Oracle initialization changed the onset result. These observations motivate
+a hypothesis, not a proof of wrong wall normals or an isolated S2M cause.
+The PCA construction/tolerance is inherited unchanged; no new numeric
+parameter was fitted. Current01 and every earlier KITTI outcome are
+development data; no independent held-out claim. One setting is frozen
+before all full runs and every outcome is retained without retuning.
+
+[Full study and execution commands](../../experiments/results/inten_facade_pca/README.md);
+[complete numerical report](../../experiments/results/inten_facade_pca/report/summary.json).
+
+Geometric mean of option / reference official RTE: **0.971379x** across all sequences.
+Lower RTE: 00, 01, 02, 03, 06, 07, 08, 10. Higher RTE: 04, 05, 09. Unchanged RTE: none.
+This is a fixed experimental comparison; no per-sequence default is adopted.
+Bad-length labels use the inherited local 20% threshold for GT motion at least 0.1 m,
+separate from official KITTI 100–800 m RTE. Raw paired timing is not an FPS benchmark.
+
+Numerical sources committed before prose: `f6e023be5786c20eabaffbe35cfc9781a4bd55d0`.
+
+| Sequence | Reference RTE [%] | Option RTE [%] | Reference ATE [m] | Option ATE [m] | Bad-length steps, reference / option |
+|---|---:|---:|---:|---:|---:|
+| 00 | 0.698468 | 0.683293 | 17.664608 | 17.051301 | 13 / 13 |
+| 01 | 5.276027 | 4.481189 | 103.447496 | 88.786456 | 50 / 44 |
+| 02 | 0.761893 | 0.756938 | 42.445818 | 40.602835 | 2 / 2 |
+| 03 | 0.912470 | 0.884094 | 6.441482 | 6.251484 | 2 / 1 |
+| 04 | 0.676872 | 0.692176 | 1.550584 | 1.563220 | 0 / 0 |
+| 05 | 0.458453 | 0.477296 | 9.416840 | 9.639439 | 0 / 0 |
+| 06 | 0.353991 | 0.350792 | 1.906228 | 1.952842 | 0 / 0 |
+| 07 | 0.388674 | 0.348742 | 1.571423 | 1.391385 | 0 / 0 |
+| 08 | 0.961094 | 0.955307 | 28.631257 | 29.422940 | 19 / 19 |
+| 09 | 0.671125 | 0.672321 | 11.037572 | 11.508132 | 0 / 0 |
+| 10 | 1.134467 | 1.093310 | 8.884908 | 8.851550 | 0 / 0 |
+
+Every adverse comparison (reference → option):
+
+- 00: bad-vector steps 41 → 42.
+- 01: rotation [deg/100 m] 0.287500 → 0.289430.
+- 02: RPE [%] 0.808386 → 0.813418; bad-vector steps 7 → 8.
+- 03: RPE [%] 0.578998 → 0.586278.
+- 04: official RTE [%] 0.676872 → 0.692176; ATE [m] 1.550584 → 1.563220; RPE [%] 0.700809 → 0.715182.
+- 05: official RTE [%] 0.458453 → 0.477296; rotation [deg/100 m] 0.291415 → 0.302184; ATE [m] 9.416840 → 9.639439.
+- 06: rotation [deg/100 m] 0.140748 → 0.143796; ATE [m] 1.906228 → 1.952842.
+- 07: RPE [%] 0.426869 → 0.432137.
+- 08: rotation [deg/100 m] 0.337706 → 0.342667; ATE [m] 28.631257 → 29.422940; bad-vector steps 98 → 99.
+- 09: official RTE [%] 0.671125 → 0.672321; rotation [deg/100 m] 0.238239 → 0.261265; ATE [m] 11.037572 → 11.508132.
+
+New local bad labels in the candidate relative to the reference (all frames):
+
+| Sequence | Newly bad length steps | Reference-only bad length steps | Newly bad vector steps | Reference-only bad vector steps |
+|---|---:|---:|---:|---:|
+| 00 | 0 | 0 | 1 | 0 |
+| 01 | 0 | 6 | 0 | 6 |
+| 02 | 0 | 0 | 1 | 0 |
+| 03 | 0 | 1 | 1 | 1 |
+| 04 | 0 | 0 | 0 | 0 |
+| 05 | 0 | 0 | 0 | 0 |
+| 06 | 0 | 0 | 0 | 0 |
+| 07 | 0 | 0 | 0 | 0 |
+| 08 | 0 | 0 | 1 | 0 |
+| 09 | 0 | 0 | 0 | 0 |
+| 10 | 0 | 0 | 0 | 0 |
+
+Each pair uses the same input frame and GT labels but different realized
+trajectories. These are outcome differences, not matched-seed interventions.
+Every affected frame index is retained in the numerical report.
+
+Failure-sequence observations along each realized trajectory:
+
+- 01: final bad-length frames 204–252, 433 → 204–247; raw S2S bad-length outputs 50 → 48; S2S fallbacks 0 → 0; final rejected S2M 0 → 0.
+- 02: final bad-length frames 1787, 3308 → 1787, 3308; raw S2S bad-length outputs 2 → 2; S2S fallbacks 0 → 0; final rejected S2M 0 → 0.
+- 10: final bad-length frames none → none; raw S2S bad-length outputs 0 → 0; S2S fallbacks 0 → 0; final rejected S2M 0 → 0.
+
+Candidate sequences exceeding twice the cited paper RTE:
+
+| Sequence | Option RTE [%] | Paper RTE [%] | Option / paper | Largest position-error growth block | Position error start → end [m] | Local block error [%] |
+|---|---:|---:|---:|---|---:|---:|
+| 01 | 4.481189 | 0.640000 | 7.001858 | 200–300 | 2.343195 → 85.894160 | 31.650624 |
+| 01 | 4.481189 | 0.640000 | 7.001858 | 600–700 | 97.526384 → 102.790044 | 0.868889 |
+| 01 | 4.481189 | 0.640000 | 7.001858 | 400–500 | 88.288483 → 93.216990 | 0.701984 |
+| 10 | 1.093310 | 0.450000 | 2.429578 | 700–800 | 8.398529 → 13.327142 | 0.948694 |
+| 10 | 1.093310 | 0.450000 | 2.429578 | 600–700 | 6.086614 → 8.398529 | 2.125897 |
+| 10 | 1.093310 | 0.450000 | 2.429578 | 800–900 | 13.327142 → 15.558974 | 0.526846 |
+
+These fixed-size motion blocks locate error growth; their relative errors are
+not official distance-segment RTE and do not establish the solver-level cause.
+Paper values are cited context; this extension is not the paper algorithm.
+
+These are natural full-run observations, not matched-seed causal interventions.
+The complete report retains every step and all motion-error blocks. The option
+remains outside the paper and default off; earlier results are preserved.
+<!-- /INTEN_FACADE_PCA -->
+
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):

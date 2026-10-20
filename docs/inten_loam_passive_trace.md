@@ -90,6 +90,14 @@ ground equations without changing accepted counts. Later poses and
 support may diverge. This repository extension is outside the paper.
 [Full iterative comparison](../experiments/results/inten_ground_pca/README.md).
 
+The optional default-off `s2s_facade_pca` flag is recorded only when
+enabled. It replaces accepted S2S facade triangle normals with PCA
+normals of the same gated neighbours through the original nearest
+point; degenerate PCA retains the triangle. At a fixed pose it changes
+facade equations without changing accepted counts. Later poses and
+support may diverge. This repository extension is outside the paper.
+[Full iterative comparison](../experiments/results/inten_facade_pca/README.md).
+
 The stop enum distinguishes no call, a zero iteration budget, insufficient
 pairs, a nonfinite step, convergence and exhausted iteration budget. It
 reports the branch taken; convergence and high support alone do not

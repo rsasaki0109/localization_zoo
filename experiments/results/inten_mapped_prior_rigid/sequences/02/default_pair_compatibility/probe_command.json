@@ -1,0 +1,40 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-mapped-prior-rigid/staging/02/default_pair_compatibility",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-mapped-prior-rigid/compatibility_probe"
+  ],
+  "cwd": "/workspace/localization-env/inten-mapped-prior-rigid/worktree",
+  "source_commit": "d6b4fa95041b1c6434ee1c54d844d989a772b43e",
+  "native_source_commit": "71ca25cf4c36b3b0206f45ea3a05c1fd26998b90",
+  "started_unix": 1792484883.7596273,
+  "finished_unix": 1792484906.3280518,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "stdin_sha256": "f04f377b0b591ab00215c6123f12da7437fbb930d2ef3a5c62f64f3202388580"
+}

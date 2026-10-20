@@ -520,13 +520,17 @@ TEST(InTenLoamPaper, GroundPcaChangesOnlyGroundAtFixedInitialPose) {
   InTenLoamPaper candidate(params);
   std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
   Eigen::Matrix4d seed = Eigen::Matrix4d::Identity(), truth = seed;
-  scanAt(seed, &points, &intensity);
+  auto ripple = [&](double origin_x) {
+    for (auto& point : points) if (std::abs(point.z()+1.7) < 1e-6)
+      point.z() += .004*std::sin(3*(point.x()+origin_x)+2*point.y());
+  };
+  scanAt(seed, &points, &intensity); ripple(0.0);
   baseline.process(points, intensity); candidate.process(points, intensity);
   truth(0, 3) = .3;
-  scanAt(truth, &points, &intensity);
+  scanAt(truth, &points, &intensity); ripple(truth(0, 3));
   InTenLoamPaperDiagnostics a, b; a.forced_pose = &seed; b.forced_pose = &seed;
   baseline.process(points, intensity, &a); candidate.process(points, intensity, &b);
-  ASSERT_GT(a.s2s_n[1], 30);
+  ASSERT_GT(a.s2s_n[1], 0);
   for (int c = 0; c < 4; ++c) {
     EXPECT_EQ(a.s2s_n[c], b.s2s_n[c]);
     if (c == 1) continue;

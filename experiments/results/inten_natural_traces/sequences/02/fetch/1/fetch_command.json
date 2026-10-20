@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--output-root",
+    "/workspace/localization-env/inten-natural-traces/kitti",
+    "--sequence",
+    "02",
+    "--workers",
+    "4"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "source_commit": "04417e46ca458a6b176091a279205814dbfa5f63",
+  "native_source_commit": "ad7d2081d2349fe4f0ec241b975723e4180cde7a",
+  "started_unix": 1792455886.0956943,
+  "finished_unix": 1792456015.5476162,
+  "exit_code": 1,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

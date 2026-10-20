@@ -10,5 +10,11 @@
   "groups": "All selected moving; inherited natural-bad and other; oracle-bad-length and other. Retain every oracle length/vector failure and S2S entry. No successful subset.",
   "control_reporting": "First-order forward correction and reconstructed finite first-update vector error, plus improvement/adverse counts across every moving case. These are fixed-association first updates from GT, not repeated solver/trajectory results.",
   "figure": "Every moving pair retained, two scatter panels for the two predeclared ground-PCA controls. Native-equation forward correction versus control, in percent GT step.",
-  "limits": "No estimate of a population success rate, no full-trajectory score, no causal isolation of GT/calibration errors, no new estimator. Normal disagreement does not establish that PCA is correct."
+  "limits": "No estimate of a population success rate, no full-trajectory score, no causal isolation of GT/calibration errors, no new estimator. Normal disagreement does not establish that PCA is correct.",
+  "analysis_runtime": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "MKL_NUM_THREADS": null,
+    "meaning": "Collection Python inherited unset selectors (library default); reproduce that policy. The protocol environment of1 was applied to native subprocesses, not retroactively to the already-started NumPy controller. This metadata correction does not change native parameters/data or the exact offline equality check."
+  }
 }

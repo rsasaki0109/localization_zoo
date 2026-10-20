@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-plane-correspondences/worktree/experiments/results/inten_plane_correspondences/report.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-plane-correspondences/worktree/experiments/results/inten_plane_correspondences/report"
+  ],
+  "cwd": "/workspace/localization-env/inten-plane-correspondences/worktree",
+  "source_commit": "f415fa51d92d2a903b84764e1277ec22a2b77f9f",
+  "started_unix": 1792469626.1055129,
+  "finished_unix": 1792469634.170385,
+  "exit_code": 1,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-plane-correspondences/matplotlib"
+  }
+}

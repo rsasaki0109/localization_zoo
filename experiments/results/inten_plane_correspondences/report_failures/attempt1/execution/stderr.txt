@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/inten-plane-correspondences/worktree/experiments/results/inten_plane_correspondences/report.py", line 183, in <module>
+    main()
+  File "/workspace/localization-env/inten-plane-correspondences/worktree/experiments/results/inten_plane_correspondences/report.py", line 100, in main
+    geometry.require(reproduced == stored, 'offline geometry differs: ' + seq)
+  File "/workspace/localization-env/inten-plane-correspondences/worktree/experiments/results/inten_plane_correspondences/geometry.py", line 10, in require
+    raise ValueError(message)
+ValueError: offline geometry differs: 01

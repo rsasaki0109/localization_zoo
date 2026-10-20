@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/inten-mapped-prior-rigid/worktree/experiments/results/inten_mapped_prior_rigid/collect.py", line 277, in <module>
+    try:main()
+        ^^^^^^
+  File "/workspace/localization-env/inten-mapped-prior-rigid/worktree/experiments/results/inten_mapped_prior_rigid/collect.py", line 225, in main
+    backup('source');preflight();canonical=None
+    ^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/inten-mapped-prior-rigid/worktree/experiments/results/inten_mapped_prior_rigid/collect.py", line 108, in backup
+    raise RuntimeError('Normal backup failed; stop before deletion/next acquisition')
+RuntimeError: Normal backup failed; stop before deletion/next acquisition

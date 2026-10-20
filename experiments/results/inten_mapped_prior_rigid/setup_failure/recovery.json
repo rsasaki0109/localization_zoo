@@ -1,0 +1,5 @@
+{
+  "issue": "Plain git lacked a credential helper despite an authenticated existing gh CLI. No dataset was acquired.",
+  "resolution": "Set repository-local credential.https://github.com.helper to !gh auth git-credential. Normal git push of42584892965f4588478e87944b6e8397e87a888f to the new branch then exited0. No credential values were read or printed.",
+  "native_configuration_unchanged": true
+}

@@ -1,0 +1,12 @@
+{
+  "source_commit": "4b53eab0c1ef4648baf00032eec775f12b714436",
+  "generated_file": "experiments/results/index.json",
+  "before_generated_at": "2026-10-20T12:17:00+00:00",
+  "after_generated_at": "2026-10-20T12:17:01+00:00",
+  "generated_sha256": "a24436409d8058485b5aad688846008ac7d6731e3de8bc38584dc5c02e5401b2",
+  "retained_sha256": "c79e6925bb2b169dfe3fbdad328aa8b7780482e3376fdde40459926a5a151825",
+  "substantive_json_equal": true,
+  "disposition": "refresh_study_docs changed only generated_at by one second after the numerical import. Retain the already committed timestamp and every substantive byte; no result, row or setting changes.",
+  "actual_action": "Assert JSON equality after removing generated_at, then restore the exact previously committed index bytes.",
+  "exit_code": 0
+}

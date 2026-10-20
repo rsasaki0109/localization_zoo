@@ -507,9 +507,12 @@ TEST(InTenLoamPaper, TranslationPriorAppearsInTraceButNotFeatureCounts) {
   const Eigen::Matrix3d information = detail::translationPriorInformation(H, Eigen::Vector3d::Zero(), 1.0);
   EXPECT_GT(information.norm(), 1.0);
   detail::addTranslationPrior(information, Eigen::Vector3d::Zero(), Eigen::Vector3d::Zero(), &H, &g);
-  EXPECT_LT((H-first.H).norm(), 1e-12);
+  // Class-wise accumulation changes summation order relative to the serial
+  // per-feature total; compare at double-precision relative roundoff.
+  EXPECT_LT((H-first.H).norm(), 1e-13*H.norm());
   EXPECT_EQ(n, first.pairs);
-  EXPECT_EQ((g-first.g).norm(), 0.0);
+  EXPECT_LT((g-first.g).norm(), 1e-13*g.norm());
+  EXPECT_LT((trace.s2s.translation_prior_information-information).norm(), 1e-10);
   EXPECT_EQ((trace.s2s.output-diagnostic.s2s_estimate).norm(), 0.0);
 }
 

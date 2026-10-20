@@ -77,6 +77,10 @@ inline void solver(std::ostream& out, const PaperSolverTrace& value) {
   out << ",\"output\":"; matrix(out, value.output);
   out << ",\"returned_pairs\":" << value.returned_pairs << ",\"stop\":";
   string(out, stopName(value.stop));
+  if (value.translation_prior_information.cwiseAbs().maxCoeff() > 0.0) {
+    out << ",\"translation_prior_information\":";
+    matrix(out, value.translation_prior_information);
+  }
   out << ",\"iterations\":[";
   for (size_t i = 0; i < value.iterations.size(); ++i) {
     if (i) out << ',';

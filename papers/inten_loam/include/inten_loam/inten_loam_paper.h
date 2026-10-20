@@ -203,6 +203,8 @@ struct PaperSolverTrace {
   Eigen::Matrix4d output = Eigen::Matrix4d::Identity();
   int returned_pairs = 0;  // includes the existing nonfinite-step return of zero
   PaperSolverStop stop = PaperSolverStop::NotRun;
+  // Fixed position-prior information in target axes; zero when disabled/inactive.
+  Eigen::Matrix3d translation_prior_information = Eigen::Matrix3d::Zero();
   std::vector<PaperIterationTrace> iterations;
 };
 

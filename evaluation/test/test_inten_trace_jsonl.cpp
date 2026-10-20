@@ -16,6 +16,7 @@ TEST(InTenTraceJsonl, PreservesFailedStepValuesAndMatrixOrder) {
   InTenLoamPaperTrace t;
   t.s2s.called = true;
   t.s2s.stop = PaperSolverStop::NonFiniteStep;
+  t.s2s.translation_prior_information(0, 0) = 2;
   t.s2s.iterations.emplace_back();
   auto& step = t.s2s.iterations.back();
   step.step_attempted = true;
@@ -25,6 +26,8 @@ TEST(InTenTraceJsonl, PreservesFailedStepValuesAndMatrixOrder) {
   const auto line = trace::frame(7, "scan\"\\\n\t\r\x01/cloud.pcd", t, {}, Eigen::Matrix4d::Identity());
   EXPECT_NE(line.find("\"delta\":[\"NaN\",\"+Infinity\",\"-Infinity\",0.12345678901234568,0,0]"), std::string::npos);
   EXPECT_NE(line.find("\"stop\":\"nonfinite_step\""), std::string::npos);
+  EXPECT_NE(line.find("\"translation_prior_information\":[2,0,0,0,0,0,0,0,0]"), std::string::npos);
+  EXPECT_EQ(line.find("\"translation_prior_information\""), line.rfind("\"translation_prior_information\""));
   EXPECT_NE(line.find("\"step_attempted\":true,\"step_finite\":false,\"update_applied\":false"), std::string::npos);
   EXPECT_NE(line.find("scan\\\"\\\\\\n\\t\\r\\u0001/cloud.pcd"), std::string::npos);
   EXPECT_EQ(line.find('\n'), std::string::npos);

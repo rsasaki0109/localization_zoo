@@ -605,8 +605,10 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
     pairs = sys.n;
     counts[3] = sys.n - before_intensity;
     if (params_.s2s_translation_prior_ratio > 0.0 && sys.n >= 30) {
-      if (it == 0)
+      if (it == 0) {
         prior_information = detail::translationPriorInformation(sys.H, t, params_.s2s_translation_prior_ratio);
+        if (trace) trace->translation_prior_information = prior_information;
+      }
       const double cost = detail::addTranslationPrior(prior_information, prediction, t, &sys.H, &sys.g);
       if (sys.track_residual) sys.weighted_squared_residual += cost;
     }

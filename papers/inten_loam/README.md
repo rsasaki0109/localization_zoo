@@ -402,21 +402,76 @@ code keeps the returned S2S transform without low-count replacement and the
 S2M pose passes its count-based acceptance test. The low-count branches do
 not explain those individual steps; this does not establish solver convergence.
 
-This is a negative check of the low-count hypothesis, not a cause or fix for
-the paper gap. There are still 122 unlogged bad steps
-in 01 and 119 in 02. Their branch decisions and the
-effect of earlier fallback remain unknown. High pair counts also do not
-establish geometric conditioning or correct associations. The solver-level
-cause remains open; settings and stored results are unchanged.
+This historical negative check leaves 122 bad steps unlogged in 01 and 119
+in 02. Their decisions were unavailable in these sparse logs. The subsequent
+complete natural-trace study below fills that coverage and excludes low-count
+fallback throughout those executions. High pair counts do not establish
+geometric conditioning or correct associations; the causal explanation of the
+paper gap remains open.
 
 [Protocol, all sequence counts, CSVs, commands and limits](../../experiments/results/inten_support_diagnostics/README.md)
 derive from evidence committed at `283bc86fa939062d80b36057ccca2ce42a891f9c`. No native replay or new
 accuracy measurement is performed.
 For continuous solver observations, use the opt-in
-[passive trace workflow](../../docs/inten_loam_passive_trace.md). Its availability
-does not fill the unlogged frames in this historical analysis; full failure
-tracing and cause attribution remain pending.
+[passive trace workflow](../../docs/inten_loam_passive_trace.md). Complete
+failure-sequence observations are reported below; they do not alter these
+historical records or establish a causal fix.
 <!-- /INTEN_SUPPORT_DIAGNOSTICS -->
+
+<!-- INTEN_NATURAL_FAILURE_TRACES -->
+#### Continuous natural failure diagnosis
+
+Full continuous KITTI01/02/10 trace-off/on pairs complete with all 6 native
+exits 0, no skipped inputs, matching accuracy/frame fields and byte-identical
+saved poses within each pair. The unchanged `paper_odometry_plane_check`
+setting was selected on 07; 00 influenced the earlier diagnosis and is not
+held out. Acceleration is off. Raw commits `04417e46` / `e117e876` / `1fe4bc54`
+and offline result `2a65d382` precede these numbers.
+
+The inherited bad-length label is a step error above 20% with GT motion at
+least 0.1 m. Indices are zero-based destination frames, inclusive. The table
+compares the realized S2S output with the final S2M-corrected local motion;
+these are not independently integrated trajectories.
+
+| Sequence / bad-length range | Steps | Median S2S length / GT | Median final length / GT |
+|---|---:|---:|---:|
+| 01: 217–253 | 37 | 0.236199 | 0.258888 |
+| 01: 420–518 | 99 | 0.089893 | 0.104688 |
+| 02: 1787 | 1 | 1.161876 | 1.216550 |
+| 02: 1878–1943 | 66 | 0.047178 | 0.056479 |
+| 02: 3308 | 1 | 1.276501 | 1.283396 |
+| 02: 4460–4524 | 65 | 0.044211 | 0.037301 |
+| 10 | 0 | — | — |
+
+All 136 final bad-length steps in 01 and 132 of 133 in 02 are already bad at
+S2S output. S2M crosses the criterion at 02 frame 1787 and brings 3/4 other
+S2S-bad steps in 01/02 within it, but does not recover the sustained collapse
+runs. Across all 6960 non-initialization steps, S2S fallback occurs 0 times
+and S2M acceptance occurs every time. Minimum returned S2S/S2M support at bad
+steps is 633/1336 in 01 and 724/1358 in 02, above the existing cutoff of 30.
+This excludes an earlier low-count fallback as well as rejection of S2M in
+these executions.
+
+All 126966 stored systems have numerical rank 6 and finite applied updates
+at the inherited sensor-centred `L=1 m`, `rank_rtol=1e-9` convention. Full rank
+does not prove correct associations or sufficient observability. Last-H
+condition medians at bad versus other moving steps are 510.42/383.04 (01 S2S),
+2602.98/1341.87 (01 S2M), 1017.85/185.38 (02 S2S) and 998.52/420.94 (02 S2M);
+the ranges overlap. S2S also marks 50/19 bad steps in 01/02 as converged, while
+S2M reaches the iteration limit at 738/2350 other moving steps. Neither rank,
+support nor the stop label supplies a demonstrated rejection rule or fix.
+
+KITTI10 has 0 bad-length or bad-vector steps among 1153 moving steps;
+47 shorter steps are excluded from relative labels. Its median S2S/final
+length ratios are 0.988111/0.995839. Its largest inherited 100-step block error
+is 2.027488% over frames 600–700, illustrating accumulated smaller errors;
+this diagnostic is not official KITTI distance-segment RTE.
+
+[Protocol, all frames/iterations, commands, timelines and limits](../../experiments/results/inten_natural_traces/README.md)
+document the complete observation milestone. Correspondence-level cause,
+the relevance of origin dependence and an accuracy-improving change remain
+unproven. Estimator defaults, settings and historical paper results are unchanged.
+<!-- /INTEN_NATURAL_FAILURE_TRACES -->
 
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
@@ -559,8 +614,9 @@ attempt exits 1 because its builder omitted timestamps; the corrected builder
 copies the committed timestamps without relaxing association. Evidence was
 committed at `4f235364` / `086d70d0` before these results.
 
-Full failure-sequence tracing and the solver-level cause remain open;
-this export capability is not an accuracy result.
+The later [natural-trace study](../../experiments/results/inten_natural_traces/README.md)
+completes failure-sequence tracing; the causal solver explanation remains open.
+This export validation is not an accuracy result.
 The separate fresh Release full build and all 126 CTest entries also
 exit 0. [Native evidence](../../experiments/results/inten_trace_export/evidence/full_native/summary.json)
 was committed at `c679dde4837dc097b697f18654c6cc51da0ffa0f` before this statement. The postprocessor's
@@ -582,7 +638,8 @@ validate with exit 0; all 7 explicit synthetic corruptions return exit 1
 and create no report. Evidence was committed at `e27ff091` before these
 numbers. [Results, negative cases and exact commands](../../experiments/results/inten_trace_validation/README.md)
 retain the scope: accuracy, GT indexing, conditioning and solver cause
-require separate evidence. The full failure diagnosis remains open.
+require separate evidence. The later natural-trace study localizes failures by
+stage; the causal explanation remains open.
 <!-- /INTEN_TRACE_VALIDATION -->
 ## Optional execution acceleration
 
@@ -726,8 +783,9 @@ or the cause of the saved KITTI failures.
 Singular, zero, nonfinite, asymmetric and indefinite systems retain explicit
 results or unavailable markers; failed deltas are not zero-filled.
 [Coordinates, spectra, commands and limits](../../docs/inten_loam_passive_trace.md#analyze-normal-equation-conditioning)
-describe the first-order convention. Full continuous failure-sequence collection
-remains pending. No scans were read, estimator rerun or registration setting
+describe the first-order convention. The later natural-trace study completes
+continuous failure-sequence collection. In this short-fixture analysis, no scans
+were read, estimator rerun or registration setting
 selected; stored accuracy and opt-in defaults are preserved.
 <!-- INTEN-CONDITIONING:END -->
 
@@ -753,8 +811,9 @@ are retained in the linked experiment.
 
 This negative result establishes an origin-dependent implementation property.
 It does not explain KITTI 01/02/10 or demonstrate that an alternative update
-improves accuracy. Continuous natural failure traces remain required before
-selecting an opt-in candidate. No scans or estimator are rerun, no setting is
+improves accuracy. The later natural-trace study completes observation but does
+not establish origin dependence as the KITTI cause or select an opt-in candidate.
+In this fixed-equation experiment no scans or estimator are rerun, no setting is
 selected, and existing defaults and published results are preserved.
 <!-- INTEN-ORIGIN-INVARIANCE:END -->
 

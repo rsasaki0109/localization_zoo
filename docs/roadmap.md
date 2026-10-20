@@ -346,7 +346,8 @@ independent. Each item says what "done" means.
     the normal S2S/S2M stages, fallback and acceptance decisions, normal
     equations and residuals without a forced pose. Moving synthetic parity
     and short-fixture compatibility checks preserve the existing behavior;
-    full failure-sequence tracing and the solver-level cause remain open.
+    continuous failure-sequence tracing is now complete (below), while the
+    causal solver explanation remains open.
     [Validation evidence and commands](../experiments/results/inten_passive_trace/README.md).
     An [offline conditioning analyzer](../experiments/results/inten_conditioning/README.md)
     now specifies sensor-centred tangent coordinates and a required rotation
@@ -364,8 +365,23 @@ independent. Each item says what "done" means.
     establishes origin dependence in the native finite update and coordinate
     damping, with exact-exponential and transported-penalty controls. The
     method README retains the measured differences. No estimator is changed;
-    connecting this property to the KITTI failures still requires continuous
-    natural failure traces after the frozen replay releases input ownership.
+    its causal relevance to KITTI failures is not established by the subsequent
+    natural traces.
+    **Continuous natural collection and stage diagnosis are complete:** full
+    KITTI01/02/10 trace-off/on pairs use the unchanged 07-selected setting
+    (00 influenced the earlier diagnosis). All 6 native calls exit 0, with
+    byte-identical paired poses and no skipped inputs. Every one of 126966
+    systems has numerical rank 6 at the declared sensor-centred convention.
+    All 136 bad-length steps in 01 and 132 of 133 in 02 are already bad at
+    S2S output; S2M does not recover the sustained collapse intervals. No
+    low-count fallback occurs anywhere in these executions. KITTI10 has
+    no 20% step event and retains gradual drift. Commands, all frames/iterations,
+    negative findings and verified scan cleanup are in the
+    [completed study](../experiments/results/inten_natural_traces/README.md).
+    The remaining task is a correspondence-level causal explanation and a
+    separately evaluated opt-in improvement, including KITTI10's distinct
+    behavior. Additional exporter/preparation-only work does not close that
+    task. Defaults, historical results and Table 6 are preserved.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "parent_commit": "87fc51aa8fd4b6a1af7016ad03158787ec0b3ef7",
+  "parent_pr": 159,
+  "sequence_order": [
+    "01",
+    "07",
+    "00",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_map_plane_spread_matrix.json",
+      "sha256": "3979c3c9f47d0d298d7b0231c2ad2c7c3f311559ae813c5ce0721f629d44dc4f"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_map_plane_spread_matrix.json",
+      "sha256": "afcc6fbe75aa8f1906b56982fe03179ce1c1f215db44407d216fb929fe90d3b8"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_map_plane_spread_matrix.json",
+      "sha256": "e8667ea4621ca2b9f627b0e1ccf4d95842a1e9c31d9b4a488a9fda04d376544c"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_map_plane_spread_matrix.json",
+      "sha256": "ea0805ae5593dd1787c5a7934405e9f5374b0e2df27f5137449a4e12e0cffcec"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_map_plane_spread_matrix.json",
+      "sha256": "4dcbe477e309f5879d64faf2aeeef377b45a2d1ebc19c6c258957c7a76450428"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_map_plane_spread_matrix.json",
+      "sha256": "41e48c1a88389f06f6a96bb8a08c5cb830246c4cc7ce900271fafc9c0478ead5"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_map_plane_spread_matrix.json",
+      "sha256": "c5294a31a58adf217b60fc74c8921f72b730180138cb047ca994d39915d76b06"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_map_plane_spread_matrix.json",
+      "sha256": "ff9892749816ff03334cd249279ebc29e438a813e3d83a4a1501594a6e043f88"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_map_plane_spread_matrix.json",
+      "sha256": "f975c9f89e6c51434894afdbac682456f915790d24dc2ee5a65f9ba2bcb7727d"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_map_plane_spread_matrix.json",
+      "sha256": "5bb460922d97c6faf7a329d2fbc8eaedb1bdc0c1c56176e8665e6a8ebd068671"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_map_plane_spread_matrix.json",
+      "sha256": "3c68a07893a00626012272b16a499e2f7edce97163adb6fd50e6dc83c9d6dcdc"
+    }
+  },
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_source_commit": "9a01528b05128794df962b52ace59e727e834417",
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "selection": "The sole candidate value0.2 is inherited unchanged from the existing PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods synthetic mechanism test. Earlier07 exploratory exposure is disclosed. Actual current01 normal-prefix S2M onset controlscdb5262d motivate examining accepted map-plane geometry; they do not prove wrong physical surfaces. A hypothetical existing-ratio0.03 prior is inactive at onset, so no stronger prior is tuned or evaluated. Spread hypothesis drafted before complete first controls; final actual-map matched protocol committed5f076e5b after those controls. All current01/previousKITTI outcomes are development, not independent held-out; value fixed before all full runs with no sweep, retuning or per-sequence adoption. Original profile chosen07;00 informed diagnosis; inherited S2S ratio came from DiLO01 tuning.",
+  "change": "Only existing s2m_plane_min_spread0 vs0.2. No production source changes. Both arms use the exact same immutable159 runner, mapped prediction, S2S soft prior0.03, groundPCA/facadePCA/acceleration on, row completion off,120m/.17deg/.05m S2M planarity. Fixed input/prediction changes only accepted S2M ground/facade plane support, with nearest-neighbour queries/normals for remaining matches unchanged. Later solver reassociation/map/predictor feedback may change all classes and S2S. Not a pure normal change or physical correspondence-truth claim.",
+  "compatibility": "Every fresh baseline all trace numeric bytes after declared scan-root-only byte substitution, pose/GT bytes and accuracy fields must exactly equal the prior159 candidate on every sequence. Entire production source is unchanged from immutable binary source9a. All743 inherited aggregate hashes and all other scientific results are preserved. Terminal matched actual-map controls use a separate explicitly transformed diagnostic producer and never contribute accuracy scores.",
+  "diagnostic_producer": "spread_protocol.json documents the one-expression transformed native copy. Its zero-spread prefixes and base endpoints must reproduce all immutable native controls exactly. Value0.2 only at terminal matched candidate S2M, separate from real CLI full runs.",
+  "acceleration": "Same opt-in acceleration andOMP1/BLAS1 throughout. Two full arms may share twoCPUs; timing retained raw, unavailable in aggregate FPS/proxy ranking.",
+  "data": "Official fetch script only, one owned full raw sequence at a time, up to4 attempts with all receipts. Reuse owned01 initial acquisition after exact input hash equality. Commit/normalpush lossless roundtrip evidence before deleting only owned scans; cleanup commit/push before next acquisition. Retain failures and stop on native failure.",
+  "archival": "Ordered32MiB uncompressed gzip shards, SHA256/bytes, exact roundtrip before deletion. Historical checkout immutable copies may be byte/mode-verified hardlinked for storage; never change old logical files or binaries.",
+  "completion": "All11 full paired native calls exit0 and no skipped input; one fixed candidate acrossallsequences. Commit numerical results before numerical prose, include all adverse metrics/newbadlabels/above2paper growthblocks. Import unscored/nondefault allvariants and regenerate three required derivatives; preserve canonicalTable6/paperJSON/defaults. All checks and exact-final-head fullNative+ROS2CI beforeReady. One actual-resultsPR, no merge."
+}

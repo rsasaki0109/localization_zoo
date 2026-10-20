@@ -39,6 +39,7 @@ TEST(InTenTraceJsonl, RecordsEffectiveSettingsAndSkippedInput) {
   p.use_mapping = false;
   p.accelerated = true;
   p.s2s_row_support = true;
+  p.s2s_ground_pca = true;
   p.s2s_mapped_prior = true;
   p.s2s_translation_prior_ratio = 0.03;
   const auto line = trace::header(p, {"runner", "space and \"quote\""}, 3, 5, 80, 0.2,
@@ -46,10 +47,12 @@ TEST(InTenTraceJsonl, RecordsEffectiveSettingsAndSkippedInput) {
   EXPECT_NE(line.find("\"use_mapping\":false"), std::string::npos);
   EXPECT_NE(line.find("\"accelerated\":true"), std::string::npos);
   EXPECT_NE(line.find("\"s2s_row_support\":true"), std::string::npos);
+  EXPECT_NE(line.find("\"s2s_ground_pca\":true"), std::string::npos);
   const auto defaults = trace::header(InTenLoamPaperParams{}, {}, 0, 0, 0, 0,
                                       Eigen::Matrix4d::Identity(), Eigen::Matrix4d::Identity());
   EXPECT_NE(defaults.find("\"accelerated\":false"), std::string::npos);
   EXPECT_EQ(defaults.find("s2s_row_support"), std::string::npos);
+  EXPECT_EQ(defaults.find("s2s_ground_pca"), std::string::npos);
   EXPECT_EQ(defaults.find("s2s_mapped_prior"), std::string::npos);
   EXPECT_EQ(defaults.find("s2s_translation_prior_ratio"), std::string::npos);
   EXPECT_NE(line.find("\"s2s_translation_prior_ratio\":0.029999999999999999"), std::string::npos);

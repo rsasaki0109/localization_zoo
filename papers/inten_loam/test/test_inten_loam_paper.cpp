@@ -1,5 +1,6 @@
 #include "inten_loam/inten_loam_paper.h"
 #include "inten_loam/detail/feature_tree.h"
+#include "inten_loam/detail/ground_pca.h"
 #include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
 #include "inten_loam/detail/translation_prior.h"
@@ -478,6 +479,63 @@ TEST(InTenLoamPaper, TranslationPriorCentersRotationAndAnchorsActualPosition) {
   EXPECT_GT(eig.eigenvalues().minCoeff(), -1e-10);
 }
 
+TEST(InTenLoamPaper, GroundPcaFitsSlopedSurfaceWithOriginalOrientation) {
+  std::vector<PaperFeature> points;
+  std::vector<int> ids;
+  std::vector<float> distances;
+  for (double x : {-0.4, 0.0, 0.4}) for (double y : {-0.3, 0.0, 0.3}) {
+    PaperFeature f; f.p = Eigen::Vector3d(x, y, 0.2*x - 0.1*y - 1.7);
+    ids.push_back(static_cast<int>(points.size())); points.push_back(f);
+    distances.push_back(0.5f);
+  }
+  Eigen::Vector3d normal(0, 0, -1);
+  ASSERT_TRUE(detail::groundPcaNormal(points, ids, distances, 1.0, &normal));
+  EXPECT_LT((normal-Eigen::Vector3d(0.2, -0.1, -1).normalized()).norm(), 1e-12);
+  // An out-of-gate point must not turn a road surface towards a wall.
+  PaperFeature outlier; outlier.p = Eigen::Vector3d(100, 100, 100);
+  ids.push_back(static_cast<int>(points.size())); points.push_back(outlier);
+  distances.push_back(1.01f);
+  Eigen::Vector3d with_outlier(0, 0, -1);
+  ASSERT_TRUE(detail::groundPcaNormal(points, ids, distances, 1.0, &with_outlier));
+  EXPECT_EQ((normal-with_outlier).norm(), 0.0);
+}
+
+TEST(InTenLoamPaper, GroundPcaRetainsTriangleOnLineOrInsufficientSupport) {
+  std::vector<PaperFeature> points(4);
+  for (int i = 0; i < 4; ++i) points[i].p = Eigen::Vector3d(i, 2*i, -i);
+  const Eigen::Vector3d original = Eigen::Vector3d(1, 2, 3).normalized();
+  Eigen::Vector3d normal = original;
+  EXPECT_FALSE(detail::groundPcaNormal(points, {0, 1, 2, 3}, {0.f, .1f, .2f, .3f}, 1., &normal));
+  EXPECT_EQ((normal-original).norm(), 0.0);
+  points[2].p.y() += 1.0;
+  EXPECT_FALSE(detail::groundPcaNormal(points, {0, 1, 2, 3}, {0.f, .1f, 1.1f, 1.2f}, 1., &normal));
+  EXPECT_EQ((normal-original).norm(), 0.0);
+}
+
+TEST(InTenLoamPaper, GroundPcaChangesOnlyGroundAtFixedInitialPose) {
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2s_ground_pca);
+  InTenLoamPaperParams params; params.use_mapping = false;
+  InTenLoamPaper baseline(params);
+  params.s2s_ground_pca = true;
+  InTenLoamPaper candidate(params);
+  std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+  Eigen::Matrix4d seed = Eigen::Matrix4d::Identity(), truth = seed;
+  scanAt(seed, &points, &intensity);
+  baseline.process(points, intensity); candidate.process(points, intensity);
+  truth(0, 3) = .3;
+  scanAt(truth, &points, &intensity);
+  InTenLoamPaperDiagnostics a, b; a.forced_pose = &seed; b.forced_pose = &seed;
+  baseline.process(points, intensity, &a); candidate.process(points, intensity, &b);
+  ASSERT_GT(a.s2s_n[1], 30);
+  for (int c = 0; c < 4; ++c) {
+    EXPECT_EQ(a.s2s_n[c], b.s2s_n[c]);
+    if (c == 1) continue;
+    EXPECT_EQ((a.s2s_H[c]-b.s2s_H[c]).norm(), 0.0);
+    EXPECT_EQ((a.s2s_g[c]-b.s2s_g[c]).norm(), 0.0);
+  }
+  EXPECT_GT((a.s2s_H[1]-b.s2s_H[1]).norm(), 1e-6);
+}
+
 TEST(InTenLoamPaper, TranslationPriorIsDefaultOffAndValidatesItsRange) {
   EXPECT_EQ(InTenLoamPaperParams{}.s2s_translation_prior_ratio, 0.0);
   for (double invalid : {-1.0, 1.01, std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN()}) {
@@ -517,11 +575,12 @@ TEST(InTenLoamPaper, TranslationPriorAppearsInTraceButNotFeatureCounts) {
 }
 
 TEST_P(InTenLoamPassiveTrace, PreservesMovingPosesAndFutureMapState) {
-  for (int options = 0; options < 8; ++options) {
+  for (int options = 0; options < 16; ++options) {
     InTenLoamPaperParams params;
     params.s2s_row_support = options & 1;
     params.s2s_mapped_prior = options & 2;
     params.s2s_translation_prior_ratio = options & 4 ? .03 : 0.0;
+    params.s2s_ground_pca = options & 8;
     params.accelerated = GetParam();
     InTenLoamPaper plain(params), observed(params);
     std::vector<Eigen::Vector3d> pts;

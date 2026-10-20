@@ -2,6 +2,7 @@
 
 #include <Eigen/Dense>
 #include "inten_loam/detail/feature_tree.h"
+#include "inten_loam/detail/ground_pca.h"
 #include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
 #include "inten_loam/detail/translation_prior.h"
@@ -580,6 +581,8 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
                     .cross(qj.p - tree.pts[static_cast<size_t>(same)].p);
         if (nrm.norm() < 1e-6) return false;
         nrm.normalize();
+        if (cls == 0 && params_.s2s_ground_pca)
+          detail::groundPcaNormal(tree.pts, ids, ds, gate, &nrm);
         *a = nrm;
         *residual = nrm.dot(x - qj.p);
         return true;

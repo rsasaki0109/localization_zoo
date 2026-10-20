@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "parent_commit": "e4c1adf3762f7c844846b93464044d2c80d47141",
+  "parent_pr": 157,
+  "sequence_order": [
+    "07",
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_ground_pca_matrix.json",
+      "sha256": "e3e9bcd7091c7d3294a6feccfe636815b5e5d0d63633a99926ec1afadbb77e44"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_ground_pca_matrix.json",
+      "sha256": "a91cb898803b2a3e20a372cd257b6afa4ffce435fa5151dd169563d3d8a81283"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_ground_pca_matrix.json",
+      "sha256": "5109717be7c05d7afe4442864714bed8a233ebc19074e005a686ace17da5e574"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_ground_pca_matrix.json",
+      "sha256": "a0b78be182d83d7fea43067203920417170fa4f48829b9e1716c3d29031383f4"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_ground_pca_matrix.json",
+      "sha256": "3471643dbd0793c21c4be8fa00058a719238e3e72ea046872e736143dedd3b38"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_ground_pca_matrix.json",
+      "sha256": "28242ae6ba13aa4147d6aad597f42491f79bb28e030db3cf37b69f897c8f6819"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_ground_pca_matrix.json",
+      "sha256": "aeb6b60ecb3af83c4ded376422a3d724990c915820cfa71223ae554ca3aba96d"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_ground_pca_matrix.json",
+      "sha256": "58407abbd677c3b2aa4edabc5556e5b044c5f54640bfca068ccc712f48e0b53c"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_ground_pca_matrix.json",
+      "sha256": "f9cb2d70970cbc8bd2d2220e1bef427afe65555ee48427fd69b74ecef260d16f"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_ground_pca_matrix.json",
+      "sha256": "7b6e80feb4c97bf93d2107a7474d8351c8d4f5b7357455faecc07e14496d715c"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_ground_pca_matrix.json",
+      "sha256": "c831aa240748c6ec28750a8973c3ace586ebf4c725ff1b1aa81cbda8121ce569"
+    }
+  },
+  "selection": "Inherited range/elevation/plane/edge profile selected on07;00 informed diagnosis. Both arms use PR156 mapped-motion seed and PR157 soft translation prior0.03 (fraction borrowed from DiLO KITTI01 tuning). No newly fitted numeric parameter. Choose nearest-anchor ground PCA from the already committed full360-pair first-system development diagnostic: it reduced initial backward update at both original02 entries, but had adverse pairs on every sequence. This is a frozen actual-iteration intervention, not another fixed-system claim. All prior KITTI results including01/02/10 are development data, no independent held-out claim. All11 runs proceed without retuning even if07 is negative.",
+  "change": "Only s2s_ground_pca false versus true. Preserve native10-NN query order, float distance gate, same-row/adjacent-row selection, triangle norm acceptance and every correspondence acceptance at a fixed pose. For accepted ground only, compute covariance about mean of exactly those queried target points with distance<=native gate. Use smallest-eigenvalue normal, orient against native triangle, plane passes through native closest point (not covariance mean). If fewer than3 in-gate points or lambda_middle<=1e-12*lambda_largest or eigensolver fails retain native normal. Degeneracy constant copied from previous frozen PCA diagnostic, no new gate optimization. Facade/edge/intensity extraction and equations untouched; all association repeated every native iteration. Support can diverge later because poses diverge. No change to mapping, iteration budgets, priors or update rule. Outside-paper default-off.",
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "acceleration": "Use existing --paper-pipeline-accelerated identically in both arms on every sequence, one native thread per process. Paired processes may run concurrently on the two available CPUs. No standalone FPS/speed claim.",
+  "compatibility": "Full07 fresh ground-PCA-off baseline matches immutable PR157 enabled runner in frames, accuracy, saved pose bytes and passive trace body. All360 inherited default-off natural-pair controls exact. Meaningful native tests: known sloped surface plus out-of-gate outlier, degenerate line/insufficient support preserving old normal, first joint class systems retaining counts and all non-ground equations, trace/future-state parity across16option combinations and both acceleration settings.",
+  "trace": "Both full arms passive trace with mapped seed and soft translation prior0.03 on, row support off, acceleration on; ground PCA alone differs. Default-off new key omitted preserves old header/trace bodies. Retain all systems and trajectory errors; independently check native damped equation solves, recursive mapped seeds, fixed prior information and new option effectiveness.",
+  "completion": "All11 paired full sequences plus parent07 control exit0 with complete unskipped traversal. Official inputs verified against the committed shared-range audit, evidence archived/committed/backed up before deleting owned scans and advancing. Retain every negative case and command; update README tables and docs/checks, one actual-results PR, no prep-only PR.",
+  "data": "Official fetch script only, one full sequence at a time, at most4 acquisition attempts with retained receipts. Never delete other worktrees/scans. No raw scan commit.",
+  "analysis": "Official KITTI100-800m RTE from native summaries, full pose step diagnostics and passive stage transitions. Fixed0.1m/20% local labels inherited, not fitted. No representative-accuracy claim from selected pairs; all-sequence paired RTE is reported separately from GT-fed diagnostics.",
+  "parent_binary": {
+    "path": "/workspace/localization-env/inten-translation-prior/pcd_dogfooding",
+    "sha256": "a378d01f31ac2292d31df45cbe24ede122df0636581935411c75f41ade263900",
+    "source_commit": "888492232ab1fc6b837780469b20de31cbf46357"
+  },
+  "archival": "Lossless ordered32MiB-uncompressed gzip shards of JSONL plus original sizes/SHA256; fully round-trip before scan removal. Commit raw results before numerical prose. Preserve all older aggregates and publication files.",
+  "prior_aborted_trial_commit": "1e5099b3",
+  "prior_aborted_trial": "experiments/results/inten_mapped_prior"
+}

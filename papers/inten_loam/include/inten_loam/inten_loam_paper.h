@@ -115,6 +115,10 @@ struct InTenLoamPaperParams {
   // S2S plane query lacks same/adjacent-row support, search the required rows
   // under the existing distance gate. Existing selected points are retained.
   bool s2s_row_support = false;
+  // Opt-in repository extension, not in the paper: for accepted S2S ground
+  // triangles only, use the same gated ten-neighbour PCA normal through the
+  // original nearest point. Degenerate PCA retains the triangle normal.
+  bool s2s_ground_pca = false;
   // Opt-in repository extension, not in the paper: seed the next S2S solve
   // with the preceding final mapped relative pose (normalized quaternion
   // rotation to prevent recursive non-rigid roundoff). Fallback and deskew still

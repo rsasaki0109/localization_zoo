@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_05_full_ground_pca",
+    "title": "InTEn-LOAM KITTI 05: ground PCA normals",
+    "question": "Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Mapped-motion plus weak-translation prior reference",
+      "design_style": "reference",
+      "intent": "Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=0"
+      ]
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in ground PCA normals",
+      "design_style": "experimental",
+      "intent": "Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1"
+      ]
+    }
+  ]
+}

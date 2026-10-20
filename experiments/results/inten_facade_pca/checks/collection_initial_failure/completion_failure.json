@@ -1,0 +1,5 @@
+{
+  "exit_code": 1,
+  "error": "Collector failed; no automatic restart",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/localization-env/inten-facade-pca/complete_study.py\", line 63, in <module>\n    try:main()\n        ^^^^^^\n  File \"/workspace/localization-env/inten-facade-pca/complete_study.py\", line 43, in main\n    if record['exit_code']!=0:raise RuntimeError('Collector failed; no automatic restart')\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Collector failed; no automatic restart\n"
+}

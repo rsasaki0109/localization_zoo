@@ -8,6 +8,7 @@ import os
 import shutil
 import subprocess
 import tempfile
+import sys
 import time
 import traceback
 
@@ -171,11 +172,17 @@ def default_pair_compatibility(seq, stage, raw):
         scope='Default-off, unaccelerated natural-seed fixed-pair controls against parent native execution, not full-sequence accuracy scores'))
 
 
-def analyze(seq, stage, expected_inputs):
+def analyze(seq, stage, expected_inputs, reuse=False):
+    def analysis_run(label, command, folder):
+        if not reuse:
+            return run(label, command, folder)
+        receipt=read(folder/(label+"_command.json"))
+        require(receipt["command"]==command and receipt["exit_code"]==0,"cannot reuse failed/different analysis")
+        return receipt["exit_code"]
     configurations={}
     for mode in ('baseline','candidate'):
         folder=stage/mode
-        run('validate',[PY,'evaluation/scripts/check_inten_trace.py','--trace',str(folder/'trace.jsonl'),
+        analysis_run('validate',[PY,'evaluation/scripts/check_inten_trace.py','--trace',str(folder/'trace.jsonl'),
             '--summary',str(folder/'summary.json'),'--receipt',str(folder/'native_command.json'),
             '--output',str(folder/'trace_validation.json')],folder/'analysis')
         validation=read(folder/'trace_validation.json')
@@ -191,12 +198,12 @@ def analyze(seq, stage, expected_inputs):
         configurations[mode]=dict(params=header['params'],loader=header['loader'])
         summary=read(folder/'summary.json');evaluated=Path(summary['artifacts']['evaluated_gt_path'])
         evaluated=evaluated if evaluated.is_absolute() else folder/evaluated
-        run('steps',[PY,'evaluation/scripts/diagnose_kitti_steps.py','--estimate',str(folder/'dogfooding_results/InTEn_LOAM.txt'),
+        analysis_run('steps',[PY,'evaluation/scripts/diagnose_kitti_steps.py','--estimate',str(folder/'dogfooding_results/InTEn_LOAM.txt'),
             '--gt',str(evaluated),'--summary',str(folder/'summary.json'),'--method','InTEn-LOAM',
             '--output',str(folder/'motion_steps.json')],folder/'analysis')
     a,b=configurations['baseline'],configurations['candidate']
-    baseline=dict(a['params']);candidate=dict(b['params']);baseline.pop('s2s_ground_pca',None);candidate.pop('s2s_ground_pca',None)
-    require(baseline==candidate and a['loader']==b['loader'],'comparison changes more than ground PCA')
+    baseline=dict(a['params']);candidate=dict(b['params']);baseline.pop('s2s_facade_pca',None);candidate.pop('s2s_facade_pca',None)
+    require(baseline==candidate and a['loader']==b['loader'],'comparison changes more than facade PCA')
     write(stage/'effective_configuration.json',configurations)
     return configurations
 
@@ -253,13 +260,32 @@ def current_boundary_intervention(stage,raw):
 
 
 def main():
-    require(not (E/'sequences').exists() and not (R/'staging').exists(),'fresh collection required; inspect any earlier attempt')
+    require(sys.argv[1:] in ([],['--resume-validated01']),'unexpected collector arguments')
+    resuming=sys.argv[1:]==['--resume-validated01']
+    if resuming:
+        recovery=E/'collection_recovery.json'
+        require(subprocess.check_output(['git','show','HEAD:'+str(recovery.relative_to(W))],cwd=W)==recovery.read_bytes(),'recovery protocol must be committed')
+        plan=read(recovery)
+        require(read(R/'attempts/initial/collector_command.json')['exit_code']==1,'missing original failed invocation')
+        require(not (E/'sequences').exists() and sorted(p.name for p in (R/'staging').iterdir())==['01'],'resume only initial completed01')
+        require(all(sha(R/path)==digest for path,digest in plan['sealed_files'].items()),'sealed completed evidence changed')
+        for arm in ('baseline','candidate'):
+            receipt=read(R/'staging/01'/arm/'native_command.json')
+            require(receipt['exit_code']==0 and receipt['binary_sha256']==PINS['runner']['sha256'] and receipt['native_source_commit']==P['native_source_commit'],'native result not reusable')
+        require(read(E/'checks/cli_preflight/parity.json')['exit_code']==0,'original CLI parity missing')
+    else:
+        require(not (E/'sequences').exists() and not (R/'staging').exists(),'fresh collection required; inspect any earlier attempt')
     invariant();state=dict(status='starting',completed=[],source_commit=git('rev-parse','HEAD'));write(R/'active.json',state)
-    backup('source');preflight();canonical=None
+    backup('source_resume' if resuming else 'source')
+    if not resuming:preflight()
+    canonical=None
     for seq in P['sequence_order']:
-        invariant();stage=R/'staging'/seq;stage.mkdir(parents=True)
+        invariant();stage=R/'staging'/seq;reuse=resuming and seq=='01'
+        if not reuse:stage.mkdir(parents=True)
         state.update(status='fetching',sequence=seq);write(R/'active.json',state)
-        if seq == '01':
+        if reuse:
+            require((R/'kitti/dataset/sequences/01/velodyne').is_dir(),'held01 scans absent')
+        elif seq == '01':
             require(read(R/'boundary_complete.json')['exit_code']==0,'initial01 diagnosis incomplete')
             require((R/'kitti/dataset/sequences/01/velodyne').is_dir(),'initial owned01 absent')
             shutil.copytree(R/'boundary_fetch',stage/'fetch')
@@ -273,12 +299,14 @@ def main():
         previous=read(W/'experiments/results/shared_near_range/sequences'/seq/'inputs.json')
         inputs={p.name:dict(sha256=sha(p),bytes=p.stat().st_size) for p in sorted(raw.iterdir()) if p.is_file()}
         require(inputs==previous['files'] and sha(gt)==previous['gt_csv_sha256'],'official scan/GT hashes changed')
-        write(stage/'inputs.json',dict(sequence=seq,files=inputs,gt_csv_sha256=sha(gt),scan_frames=previous['scan_frames'],
+        if not reuse:write(stage/'inputs.json',dict(sequence=seq,files=inputs,gt_csv_sha256=sha(gt),scan_frames=previous['scan_frames'],
             owned_input_dir=str(raw),matches_previous_official_inputs=True))
         manifest=read(W/P['manifests'][seq]['path']);args={v['id']:v['args'] for v in manifest['variants']}
-        if seq=='01':current_boundary_intervention(stage,raw)
+        if seq=='01' and not reuse:current_boundary_intervention(stage,raw)
         state.update(status='native');write(R/'active.json',state)
-        if seq=='07':
+        if reuse:
+            write(stage/'reused_execution.json',dict(exit_code=0,initial_collector_source=plan['initial_source_commit'],sealed_completed_files=len(plan['sealed_files']),settings_validation_corrected_only=True,native_and_analysis_calls_reused_without_rerun=True))
+        elif seq=='07':
             parent_args=args['baseline'][:-2]  # Parent has no new override key.
             with ThreadPoolExecutor(max_workers=2) as pool:
                 a=pool.submit(native,'baseline',stage,raw,gt,args['baseline'],PINS['runner']['path'])
@@ -291,7 +319,7 @@ def main():
                 futures=[pool.submit(native,mode,stage,raw,gt,args[mode],PINS['runner']['path']) for mode in ('baseline','candidate')]
                 for future in futures:future.result()
         state.update(status='validating');write(R/'active.json',state)
-        configurations=analyze(seq,stage,previous)
+        configurations=analyze(seq,stage,previous,reuse=reuse)
         if canonical is None:canonical=configurations
         else:require(canonical==configurations,'effective configuration changed between sequences')
         default_pair_compatibility(seq,stage,raw)

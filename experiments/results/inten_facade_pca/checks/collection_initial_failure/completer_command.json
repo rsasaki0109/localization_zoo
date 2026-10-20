@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-pca/complete_study.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-pca/worktree",
+  "exit_code": 1,
+  "started_unix": 1792529233.6118326,
+  "finished_unix": 1792529293.645776
+}

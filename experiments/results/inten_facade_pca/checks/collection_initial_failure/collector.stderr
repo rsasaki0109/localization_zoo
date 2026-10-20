@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/collect.py", line 317, in <module>
+    try:main()
+        ^^^^^^
+  File "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/collect.py", line 294, in main
+    configurations=analyze(seq,stage,previous)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/collect.py", line 199, in analyze
+    require(baseline==candidate and a['loader']==b['loader'],'comparison changes more than ground PCA')
+  File "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/collect.py", line 56, in require
+    raise ValueError(reason)
+ValueError: comparison changes more than ground PCA

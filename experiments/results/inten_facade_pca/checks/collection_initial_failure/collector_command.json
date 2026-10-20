@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/collect.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-pca/worktree",
+  "source_commit": "7a6be879168902e601a69c5b2c20d961ecfb6b82",
+  "exit_code": 1,
+  "started_unix": 1792529134.551502,
+  "finished_unix": 1792529284.6484683
+}

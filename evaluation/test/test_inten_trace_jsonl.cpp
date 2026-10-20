@@ -36,6 +36,7 @@ TEST(InTenTraceJsonl, RecordsEffectiveSettingsAndSkippedInput) {
   p.use_mapping = false;
   p.accelerated = true;
   p.s2s_row_support = true;
+  p.s2s_mapped_prior = true;
   const auto line = trace::header(p, {"runner", "space and \"quote\""}, 3, 5, 80, 0.2,
                                   Eigen::Matrix4d::Identity(), Eigen::Matrix4d::Identity());
   EXPECT_NE(line.find("\"use_mapping\":false"), std::string::npos);
@@ -45,6 +46,8 @@ TEST(InTenTraceJsonl, RecordsEffectiveSettingsAndSkippedInput) {
                                       Eigen::Matrix4d::Identity(), Eigen::Matrix4d::Identity());
   EXPECT_NE(defaults.find("\"accelerated\":false"), std::string::npos);
   EXPECT_EQ(defaults.find("s2s_row_support"), std::string::npos);
+  EXPECT_EQ(defaults.find("s2s_mapped_prior"), std::string::npos);
+  EXPECT_NE(line.find("\"s2s_mapped_prior\":true"), std::string::npos);
   EXPECT_NE(line.find("\"min_range_m\":5"), std::string::npos);
   EXPECT_NE(line.find("space and \\\"quote\\\""), std::string::npos);
   EXPECT_NE(trace::skipped(2, "empty/cloud.pcd").find("\"reason\":\"empty_cloud\""), std::string::npos);

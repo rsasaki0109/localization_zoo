@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "parent_commit": "dec360f5193a060ae1a6a9c5d72232f9485f83d5",
+  "parent_pr": 155,
+  "sequence_order": [
+    "07",
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_mapped_prior_matrix.json",
+      "sha256": "32b9a98c6b87fe3005dce7ffacb88d53b4c7939ea432722f8d2a1466163b3172"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_mapped_prior_matrix.json",
+      "sha256": "14b15ff0cb5a76979630ad67de6257f65b93dfe2ed1568b5cd06fdfc792519a7"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_mapped_prior_matrix.json",
+      "sha256": "76665120451fa219202202ecbd0b9457fa0800fb49a5046b54d928f931087b71"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_mapped_prior_matrix.json",
+      "sha256": "2fab9790b0ae2ddfb2270504feb0b3602ecf0ee5a566006120f92d62b882da5e"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_mapped_prior_matrix.json",
+      "sha256": "c07d125636fb63be832d996b188d156adf4794e9e2ad77df024b7da881661ef2"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_mapped_prior_matrix.json",
+      "sha256": "95eb9007ccac9250fe3ce68e58d34af16c41d424ae46e47719a42f6d0cea2dfa"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_mapped_prior_matrix.json",
+      "sha256": "ccba4698402edfd554c8f38209f02ee2213f1611d0253eb7a5b91a4aabce7d8e"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_mapped_prior_matrix.json",
+      "sha256": "4e14b85d34c45193e61813213f551d75981f88cb3b740cffab3eea0c4ddae66b"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_mapped_prior_matrix.json",
+      "sha256": "1b30bf1a680e73b64f52b84a4009775cb5ab341ea19a2083a30e62843b3d71ff"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_mapped_prior_matrix.json",
+      "sha256": "49a5bb9fbfc8941cd9149f021b69214a49d0dbfdca0f01d95f7f3dd3212871cb"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_mapped_prior_matrix.json",
+      "sha256": "b08d17ce453fb7a21aef46358e6e8379f6141b65ca8762ebc437469e3837db7a"
+    }
+  },
+  "selection": "Inherited elevation correction, range, S2M plane gate and edge settings were chosen on KITTI07;00 informed prior diagnosis. The parameter-free mapped-motion seed boolean is motivated by already inspected01/02 collapse and10 drift. No independent held-out claim. Evaluate07 first then all00-10 without retuning, including negative outcomes. Row completion stays off in BOTH arms.",
+  "change": "Default-off s2s_mapped_prior changes only the normal S2S initial value to previous final pose inverse times current final pose, recursively maintained across all mapping-enabled frames including skipped/rejected S2M. Identity on startup. Keep original last_rel_ for low-count fallback and deskew. Mapping-off and forced-pose diagnostics retain old behavior. No new gate, damping, association, solver budget, residual or S2M change.",
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "acceleration": "Use existing --paper-pipeline-accelerated identically in both arms on every sequence, one native thread per process. Paired processes may run concurrently on the two available CPUs. No standalone FPS/speed claim.",
+  "compatibility": "Full07 fresh baseline matches immutable PR155 accelerated runner in accuracy/frame fields, saved pose bytes and passive trace body. All inherited360 natural-seed pair controls on01/02/10 compare default-off systems/counts/outputs. Mechanism tests exercise actual recursive seed, rejection/fallback, mapping-off/forced compatibility, and passive trace parity.",
+  "trace": "Both full accuracy arms use passive trace, no forced seed or window restart. Only s2s_mapped_prior may differ. Assert baseline seeds are previous accepted S2S motion; candidate seeds are previous final mapped relative motion. All other settings identical across arms and sequences.",
+  "completion": "All11 paired full sequences plus parent07 control exit0 with complete unskipped traversal. Official inputs verified against the committed shared-range audit, evidence archived/committed/backed up before deleting owned scans and advancing. Retain every negative case and command; update README tables and docs/checks, one actual-results PR, no prep-only PR.",
+  "data": "Official fetch script only, one full sequence at a time, at most4 acquisition attempts with retained receipts. Never delete other worktrees/scans. No raw scan commit.",
+  "analysis": "Official KITTI100-800m RTE from native summaries, full pose step diagnostics and passive stage transitions. Fixed0.1m/20% local labels inherited, not fitted. No representative-accuracy claim from selected pairs; all-sequence paired RTE is reported separately from GT-fed diagnostics.",
+  "parent_binary": {
+    "path": "/workspace/localization-env/inten-row-support/pcd_dogfooding",
+    "sha256": "ab0883c93b9deb2d7fdcd8b5775f7d71205297d74f0b68a357f2f88ebb38958a",
+    "source_commit": "20c09c463292147e8deafa1525abc6deb5e8fc2d"
+  },
+  "archival": "Lossless ordered32MiB-uncompressed gzip shards of JSONL plus original sizes/SHA256; fully round-trip before scan removal. Commit raw results before numerical prose. Preserve all older aggregates and publication files."
+}

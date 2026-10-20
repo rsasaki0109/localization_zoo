@@ -403,9 +403,10 @@ TEST(InTenLoamPaper, PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods)
 class InTenLoamPassiveTrace : public ::testing::TestWithParam<bool> {};
 
 TEST_P(InTenLoamPassiveTrace, PreservesMovingPosesAndFutureMapState) {
-  for (bool row_support : {false, true}) {
+  for (int options = 0; options < 4; ++options) {
     InTenLoamPaperParams params;
-    params.s2s_row_support = row_support;
+    params.s2s_row_support = options & 1;
+    params.s2s_mapped_prior = options & 2;
     params.accelerated = GetParam();
     InTenLoamPaper plain(params), observed(params);
     std::vector<Eigen::Vector3d> pts;
@@ -458,6 +459,89 @@ TEST_P(InTenLoamPassiveTrace, PreservesMovingPosesAndFutureMapState) {
               (it.H + 1e-6 * PaperIterationTrace::Mat6::Identity()).ldlt().solve(-it.g);
           EXPECT_LT((recomputed - it.delta).norm(), 1e-12);
         }
+      }
+    }
+  }
+}
+
+TEST_P(InTenLoamPassiveTrace, MappedPriorIsRecursiveAndPreservesS2SFallback) {
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2s_mapped_prior);
+  for (bool mapped : {false, true}) {
+    InTenLoamPaperParams params;
+    params.accelerated = GetParam();
+    params.s2s_mapped_prior = mapped;
+    InTenLoamPaper odo(params);
+    Eigen::Matrix4d previous = Eigen::Matrix4d::Identity();
+    Eigen::Matrix4d expected_seed = Eigen::Matrix4d::Identity();
+    Eigen::Matrix4d accepted = Eigen::Matrix4d::Identity();
+    std::vector<Eigen::Vector3d> pts;
+    std::vector<float> intensity;
+    double correction = 0.0;
+    for (int k = 0; k < 5; ++k) {
+      Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+      truth(0, 3) = k;
+      scanAt(truth, &pts, &intensity);
+      InTenLoamPaperTrace trace;
+      const auto result = odo.process(pts, intensity, nullptr, &trace);
+      if (k) {
+        EXPECT_EQ((trace.s2s.input - expected_seed).norm(), 0.0);
+        ASSERT_TRUE(trace.s2m_accepted);
+        ASSERT_FALSE(trace.s2s_fallback);
+        const Eigen::Matrix4d final_rel = previous.inverse() * result.pose;
+        correction = std::max(correction, (final_rel - trace.accepted_relative).norm());
+        expected_seed = mapped ? final_rel : trace.accepted_relative;
+        accepted = trace.accepted_relative;
+      }
+      previous = result.pose;
+    }
+    // This fixture must actually distinguish mapped and S2S motion.
+    EXPECT_GT(correction, 1e-5);
+    InTenLoamPaperTrace empty;
+    const auto rejected = odo.process({}, {}, nullptr, &empty);
+    EXPECT_EQ((empty.s2s.input - expected_seed).norm(), 0.0);
+    EXPECT_TRUE(empty.s2s_fallback);
+    EXPECT_FALSE(empty.s2m_accepted);
+    EXPECT_EQ((empty.accepted_relative - accepted).norm(), 0.0);
+    // After rejection, the recursive seed follows the actual final poses.
+    const Eigen::Matrix4d next_seed = mapped ? (previous.inverse() * rejected.pose).eval() : accepted;
+    odo.process({}, {}, nullptr, &empty);
+    EXPECT_EQ((empty.s2s.input - next_seed).norm(), 0.0);
+    InTenLoamPaper fresh(params);
+    fresh.process(pts, intensity);
+    fresh.process(pts, intensity, nullptr, &empty);
+    EXPECT_EQ((empty.s2s.input - Eigen::Matrix4d::Identity()).norm(), 0.0);
+  }
+}
+
+TEST_P(InTenLoamPassiveTrace, MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics) {
+  for (bool forced : {false, true}) {
+    InTenLoamPaperParams params;
+    params.accelerated = GetParam();
+    params.use_mapping = forced;
+    InTenLoamPaper baseline(params);
+    params.s2s_mapped_prior = true;
+    InTenLoamPaper candidate(params);
+    std::vector<Eigen::Vector3d> pts;
+    std::vector<float> intensity;
+    for (int k = 0; k < 4; ++k) {
+      Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+      truth(0, 3) = k;
+      scanAt(truth, &pts, &intensity);
+      InTenLoamPaperDiagnostics da, db;
+      if (forced) da.forced_pose = db.forced_pose = &truth;
+      const auto a = baseline.process(pts, intensity, &da);
+      const auto b = candidate.process(pts, intensity, &db);
+      EXPECT_EQ((a.pose - b.pose).norm(), 0.0);
+      EXPECT_EQ(a.s2s_pairs, b.s2s_pairs);
+      EXPECT_EQ(a.s2m_pairs, b.s2m_pairs);
+      if (!forced || !k) continue;
+      EXPECT_EQ((da.s2s_estimate - db.s2s_estimate).norm(), 0.0);
+      EXPECT_EQ((da.s2m_estimate - db.s2m_estimate).norm(), 0.0);
+      for (int c = 0; c < 4; ++c) {
+        EXPECT_EQ((da.s2s_H[c] - db.s2s_H[c]).norm(), 0.0);
+        EXPECT_EQ((da.s2s_g[c] - db.s2s_g[c]).norm(), 0.0);
+        EXPECT_EQ((da.s2m_H[c] - db.s2m_H[c]).norm(), 0.0);
+        EXPECT_EQ((da.s2m_g[c] - db.s2m_g[c]).norm(), 0.0);
       }
     }
   }

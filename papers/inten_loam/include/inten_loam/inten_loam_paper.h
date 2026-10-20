@@ -115,6 +115,10 @@ struct InTenLoamPaperParams {
   // S2S plane query lacks same/adjacent-row support, search the required rows
   // under the existing distance gate. Existing selected points are retained.
   bool s2s_row_support = false;
+  // Opt-in repository extension, not in the paper: seed the next S2S solve
+  // with the preceding final mapped relative pose. Fallback and deskew still
+  // use last accepted S2S motion; mapping-off/forced diagnostics are unchanged.
+  bool s2s_mapped_prior = false;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).
@@ -263,6 +267,7 @@ private:
   Eigen::Matrix4d odom_ = Eigen::Matrix4d::Identity();    // T_w'k (S2S chain)
   Eigen::Matrix4d drift_ = Eigen::Matrix4d::Identity();   // dT
   Eigen::Matrix4d last_rel_ = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d last_mapped_rel_ = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d pose_ = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d prev_pose_ = Eigen::Matrix4d::Identity();
   int frame_ = 0;

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_07_full_mapped_prior",
+    "title": "InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed",
+    "question": "Does recursively feeding previous final mapped motion into S2S reduce sustained motion loss with one fixed setting?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed accelerated reference",
+      "design_style": "reference",
+      "intent": "Inherited07-selected profile, acceleration and row-completion off are identical in both arms. Only the recursive mapped-motion S2S seed differs. Repository extension, default off.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=0"
+      ]
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in recursive mapped-motion seed",
+      "design_style": "experimental",
+      "intent": "Inherited07-selected profile, acceleration and row-completion off are identical in both arms. Only the recursive mapped-motion S2S seed differs. Repository extension, default off.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1"
+      ]
+    }
+  ]
+}

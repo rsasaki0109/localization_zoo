@@ -911,7 +911,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     return result;
   }
 
-  Eigen::Matrix4d rel = last_rel_;
+  Eigen::Matrix4d rel = params_.s2s_mapped_prior && params_.use_mapping ? last_mapped_rel_ : last_rel_;
   if (forced) {
     // S2S from the forced relative motion; its normal equations there.
     rel = prev_pose_.inverse() * *diag->forced_pose;
@@ -993,6 +993,12 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     drift_ = pose_ * odom_.inverse();
   }
   prev_ = index(frame);
+  // Only the next normal S2S seed changes. Keep the accepted S2S cache for
+  // the existing low-count fallback and deskew, including after rejection.
+  if (params_.s2s_mapped_prior && params_.use_mapping && !forced)
+    last_mapped_rel_ = prev_pose_.inverse() * pose_;
+  else
+    last_mapped_rel_ = last_rel_;
   prev_pose_ = pose_;
   ++frame_;
   result.pose = pose_;

@@ -4944,6 +4944,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "huber") pp.huber = v;
       else if (k == "s2m_gate_sq") pp.s2m_gate_sq = v;
       else if (k == "s2s_gate_sq") pp.s2s_gate_sq = v;
+      else if (k == "s2s_mapped_prior") pp.s2s_mapped_prior = v != 0.0;
       else if (k == "s2s_row_support") pp.s2s_row_support = v != 0.0;
       else if (k == "max_ground") pp.max_ground = static_cast<int>(v);
       else if (k == "facades_per_sector") pp.facades_per_sector = static_cast<int>(v);
@@ -5031,6 +5032,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
                " mean pairs s2s=" + std::to_string(s2s / d) + " s2m=" + std::to_string(s2m / d) +
                " dor points/frame=" + std::to_string(dor / d);
     if (options.paper_accelerated) res.note += "; repository acceleration enabled (opt-in, not in the paper)";
+    if (pp.s2s_mapped_prior) res.note += "; S2S previous mapped-motion seed enabled (repository extension, opt-in)";
     if (pp.s2s_row_support) res.note += "; S2S missing-row completion enabled (repository extension, opt-in)";
     return res;
   }

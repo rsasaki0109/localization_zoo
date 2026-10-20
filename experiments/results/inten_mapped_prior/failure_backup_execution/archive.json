@@ -1,0 +1,54 @@
+{
+  "files": {
+    "failed00_cleanup/1/push.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/failure_backup_record/failed00_cleanup/1/push.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "failed00_cleanup/1/push.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "failed00_cleanup/1/push_command.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/failure_backup_record/failed00_cleanup/1/push_command.json",
+      "bytes": 487,
+      "sha256": "64a5ec4094d4e668a7b5ea7c94dfe9cb26e4d31065831da63497eabb6133147a",
+      "storage": "verbatim",
+      "path": "failed00_cleanup/1/push_command.json",
+      "stored_sha256": "64a5ec4094d4e668a7b5ea7c94dfe9cb26e4d31065831da63497eabb6133147a"
+    },
+    "failed00_cleanup/1/push_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/failure_backup_record/failed00_cleanup/1/push_stderr.log",
+      "bytes": 111,
+      "sha256": "9ffa6f8a29dc4bf0f00dba29283919f4b524dd32df2ec5e10e9e4605ad4c0532",
+      "storage": "gzip",
+      "path": "failed00_cleanup/1/push_stderr.log.gz",
+      "stored_sha256": "ffff579b03f4abc8795c063a9a3a01ab3a2bc2ddb059a1bc2700a54923ce2c69"
+    },
+    "failed00_raw/1/push.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/failure_backup_record/failed00_raw/1/push.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "failed00_raw/1/push.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "failed00_raw/1/push_command.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/failure_backup_record/failed00_raw/1/push_command.json",
+      "bytes": 486,
+      "sha256": "b57fbe532717e9cc78ca07e1e82a7f86d7dab81453c2cfab765dfefc34b4a2c0",
+      "storage": "verbatim",
+      "path": "failed00_raw/1/push_command.json",
+      "stored_sha256": "b57fbe532717e9cc78ca07e1e82a7f86d7dab81453c2cfab765dfefc34b4a2c0"
+    },
+    "failed00_raw/1/push_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/failure_backup_record/failed00_raw/1/push_stderr.log",
+      "bytes": 111,
+      "sha256": "3b06d6a09796b7e4490f13ec566cb5bb5762c2c23ffb16f5a30a0d2674abd587",
+      "storage": "gzip",
+      "path": "failed00_raw/1/push_stderr.log.gz",
+      "stored_sha256": "d4d34da3980ba1766f79ba4d61c65c99afeffbe918d7a5ad8f18a4ef2620fdff"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

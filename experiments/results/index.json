@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T04:21:00+00:00",
+  "generated_at": "2026-10-20T06:39:14+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2144,6 +2144,15 @@
       "current_default": "paper_odometry_no_intensity"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_00_full_row_support",
+      "title": "InTEn-LOAM KITTI 00: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_01_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2151,6 +2160,15 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_row_support",
+      "title": "InTEn-LOAM KITTI 01: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_02_full_paper_comp",
@@ -2162,6 +2180,15 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_02_full_row_support",
+      "title": "InTEn-LOAM KITTI 02: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_03_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2169,6 +2196,15 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_row_support",
+      "title": "InTEn-LOAM KITTI 03: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_04_full_paper_comp",
@@ -2180,6 +2216,15 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_04_full_row_support",
+      "title": "InTEn-LOAM KITTI 04: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_05_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2187,6 +2232,15 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_row_support",
+      "title": "InTEn-LOAM KITTI 05: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_06_full_paper_comp",
@@ -2198,6 +2252,15 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_06_full_row_support",
+      "title": "InTEn-LOAM KITTI 06: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_07_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2205,6 +2268,15 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_no_intensity"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_row_support",
+      "title": "InTEn-LOAM KITTI 07: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_08_full_paper_comp",
@@ -2216,6 +2288,15 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_08_full_row_support",
+      "title": "InTEn-LOAM KITTI 08: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_09_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2225,6 +2306,15 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_09_full_row_support",
+      "title": "InTEn-LOAM KITTI 09: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_10_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2232,6 +2322,15 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_row_support",
+      "title": "InTEn-LOAM KITTI 10: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_row_support_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "isc_loam_hdl_400_reference",

@@ -1,0 +1,54 @@
+{
+  "files": {
+    "command.json": {
+      "original_path": "/workspace/localization-env/inten-row-support/import_execution_uncompressed/command.json",
+      "bytes": 486,
+      "sha256": "af3fdb532e4ecfc355991cabf0f847b5047a9afd09a4520384d17cca138f7bb5",
+      "storage": "verbatim",
+      "path": "command.json",
+      "stored_sha256": "af3fdb532e4ecfc355991cabf0f847b5047a9afd09a4520384d17cca138f7bb5"
+    },
+    "index.log": {
+      "original_path": "/workspace/localization-env/inten-row-support/import_execution_uncompressed/index.log",
+      "bytes": 44271,
+      "sha256": "d04e1da4a92723ae59aabdc9ac6a37f08c805cf6d38a5947f96cbc84fa61c816",
+      "storage": "gzip",
+      "path": "index.log.gz",
+      "stored_sha256": "d20e242a2733e51531aeabe0645d6681b50b042474a8c6cdf828fcfea2e7ebc4"
+    },
+    "index_command.json": {
+      "original_path": "/workspace/localization-env/inten-row-support/import_execution_uncompressed/index_command.json",
+      "bytes": 1554,
+      "sha256": "8b9bd5879f95001115f90f21b2f6eaa2ef9e04ce3b4c05665caf76df2bf2b98f",
+      "storage": "verbatim",
+      "path": "index_command.json",
+      "stored_sha256": "8b9bd5879f95001115f90f21b2f6eaa2ef9e04ce3b4c05665caf76df2bf2b98f"
+    },
+    "result.json": {
+      "original_path": "/workspace/localization-env/inten-row-support/import_execution_uncompressed/result.json",
+      "bytes": 1258,
+      "sha256": "0c3b620e7f389f7d47dba892f11e3e61998b2d781f49c4df2ffae6fd37223a23",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "0c3b620e7f389f7d47dba892f11e3e61998b2d781f49c4df2ffae6fd37223a23"
+    },
+    "stderr.log": {
+      "original_path": "/workspace/localization-env/inten-row-support/import_execution_uncompressed/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "stdout.log": {
+      "original_path": "/workspace/localization-env/inten-row-support/import_execution_uncompressed/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

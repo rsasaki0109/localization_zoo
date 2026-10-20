@@ -1,0 +1,168 @@
+{
+  "generated_at": "2026-10-20T06:39:13+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_00_full_row_support_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_00_full_row_support",
+    "title": "InTEn-LOAM KITTI 00: fixed missing-row support experiment",
+    "question": "Does completing missing S2S row support under the unchanged gate improve full-sequence odometry?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "Review the uniform full-sequence experiment; repository extension stays default off.",
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed accelerated reference",
+      "design_style": "reference",
+      "intent": "Same inherited07-selected profile and acceleration in both arms; only missing-row completion differs. This repository extension is outside the paper and default off.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_row_support=0"
+      ],
+      "command": "/workspace/localization-env/inten-row-support/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_row_support_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_row_support=0",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_00_full_row_support_matrix/baseline/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_00_full_row_support_matrix/baseline/run.log",
+      "status": "ok",
+      "ate_m": 17.644136,
+      "rpe_trans_pct": 0.80322,
+      "rpe_rot_deg_per_m": 0.005112,
+      "fps": null,
+      "time_ms": null,
+      "frames": 4541,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2290 dor points/frame=128; repository acceleration enabled (opt-in, not in the paper); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.55,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.65,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.69672,
+      "kitti_rte_rot_deg_per_100m": 0.315468,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured during full00, not an individual per-run timestamp.",
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "ab0883c93b9deb2d7fdcd8b5775f7d71205297d74f0b68a357f2f88ebb38958a",
+        "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.074264,
+        "raw_time_ms": 747580.259143,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_row_support/sequences/00/baseline/summary.json",
+        "original_summary_sha256": "0a70e30c61177aca0f37d7b14ac0317b1b54d99283ca46899bc74521e64acb40",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_00_full_row_support_matrix/baseline/native_command.json"
+      }
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in missing-row completion",
+      "design_style": "experimental",
+      "intent": "Same inherited07-selected profile and acceleration in both arms; only missing-row completion differs. This repository extension is outside the paper and default off.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_row_support=1"
+      ],
+      "command": "/workspace/localization-env/inten-row-support/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_row_support_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_row_support=1",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_00_full_row_support_matrix/candidate/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_00_full_row_support_matrix/candidate/run.log",
+      "status": "ok",
+      "ate_m": 17.589408,
+      "rpe_trans_pct": 0.796927,
+      "rpe_rot_deg_per_m": 0.005098,
+      "fps": null,
+      "time_ms": null,
+      "frames": 4541,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1915 s2m=2292 dor points/frame=128; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.55,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.65,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Experimental; default off",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.691005,
+      "kitti_rte_rot_deg_per_100m": 0.316669,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured during full00, not an individual per-run timestamp.",
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "ab0883c93b9deb2d7fdcd8b5775f7d71205297d74f0b68a357f2f88ebb38958a",
+        "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.065406,
+        "raw_time_ms": 748672.060339,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_row_support/sequences/00/candidate/summary.json",
+        "original_summary_sha256": "879e1fcb07921a44de708d4e925f9d261d47fca47e7813e57bda4bfc1ee358f5",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_00_full_row_support_matrix/candidate/native_command.json"
+      }
+    }
+  ]
+}

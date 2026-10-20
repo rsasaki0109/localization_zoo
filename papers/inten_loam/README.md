@@ -571,9 +571,80 @@ or motion recovery; no broader-search solver is evaluated here.
 The study retains actual commands/exits, full geometric evidence, exact offline
 reproduction, all failures and verified official scan deletion. It changes no
 estimator/default, prior score or paper ratio. A uniformly configured opt-in
-row-aware matcher and full-sequence improvement remain to be evaluated.
+row-aware matcher was subsequently evaluated on every full sequence; see
+[the optional missing-row completion results](#optional-s2s-missing-row-completion).
 <!-- /INTEN_PLANE_CORRESPONDENCES -->
 
+
+<!-- INTEN_ROW_SUPPORT -->
+## Optional S2S missing-row completion
+
+`--inten-loam-paper-set s2s_row_support=1` enables a repository extension
+**outside the paper, off by default**. For ground and facade planes, the
+original ten-neighbour query still chooses the closest point and any
+available same-row / adjacent-row support. Only a missing support point is
+completed from the same retained feature cloud, using nearest eligible
+points under the original distance gate and row gaps. Existing choices,
+triangle checks, residuals, solver budgets and S2M remain unchanged.
+Rows are elevation bins inferred by the extractor, not measured laser rings.
+No new points, PCA model or ground-truth feedback are introduced.
+
+The [full fixed-setting experiment](../../experiments/results/inten_row_support/README.md)
+uses the inherited 07-selected profile on every KITTI 00–10 sequence.
+00 influenced earlier diagnosis, and known 01/02 failures motivated this
+boolean option; these are development data. The preceding diagnosis also
+inspected 10; this study makes no independent held-out claim. Full 07 ran first, followed
+by every remaining sequence without retuning. No numerical threshold was
+selected anew. Existing acceleration is enabled identically in both arms;
+both use passive traces, continuous natural prediction and `--no-gt-seed`.
+Committed numerical evidence: `7a000590`, [all metrics and steps](../../experiments/results/inten_row_support/report/summary.json).
+
+| Sequence | Reference RTE [%] | Option RTE [%] | Reference ATE [m] | Option ATE [m] | Bad-length steps, reference / option |
+|---|---:|---:|---:|---:|---:|
+| 00 | 0.696720 | 0.691005 | 17.644136 | 17.589408 | 13 / 14 |
+| 01 | 16.613803 | 16.877996 | 275.593270 | 280.153484 | 136 / 139 |
+| 02 | 3.221230 | 3.405644 | 122.844508 | 129.507562 | 133 / 146 |
+| 03 | 0.890601 | 0.891361 | 6.262153 | 6.255589 | 2 / 1 |
+| 04 | 0.676097 | 0.685563 | 1.539561 | 1.557560 | 0 / 0 |
+| 05 | 0.497289 | 0.515348 | 9.976094 | 9.878900 | 0 / 0 |
+| 06 | 0.358642 | 0.355531 | 1.917879 | 1.928044 | 0 / 0 |
+| 07 | 0.364131 | 0.355810 | 1.461444 | 1.428673 | 0 / 0 |
+| 08 | 0.937938 | 0.939354 | 27.673206 | 28.737019 | 20 / 19 |
+| 09 | 0.661434 | 0.667787 | 11.000039 | 11.454099 | 0 / 0 |
+| 10 | 1.155652 | 1.183674 | 9.669713 | 9.507559 | 0 / 0 |
+
+The geometric mean of option / reference official RTE is **1.010678x** across all sequences.
+This is an experimental paired comparison, not a replacement paper ratio.
+Bad-length labels mean a local step-length error above 20% with GT motion
+at least 0.1 m; they are distinct from official KITTI 100–800 m RTE.
+
+Every adverse comparison is retained (reference → option):
+
+- 00: rotation [deg/100 m] 0.315468 → 0.316669; bad-length steps 13 → 14.
+- 01: official RTE [%] 16.613803 → 16.877996; rotation [deg/100 m] 0.379025 → 0.380166; ATE [m] 275.593270 → 280.153484; bad-length steps 136 → 139; bad-vector steps 136 → 139.
+- 02: official RTE [%] 3.221230 → 3.405644; rotation [deg/100 m] 1.003073 → 1.092187; ATE [m] 122.844508 → 129.507562; bad-length steps 133 → 146; bad-vector steps 139 → 151.
+- 03: official RTE [%] 0.890601 → 0.891361; bad-vector steps 2 → 3.
+- 04: official RTE [%] 0.676097 → 0.685563; ATE [m] 1.539561 → 1.557560.
+- 05: official RTE [%] 0.497289 → 0.515348.
+- 06: ATE [m] 1.917879 → 1.928044.
+- 08: official RTE [%] 0.937938 → 0.939354; rotation [deg/100 m] 0.324577 → 0.326680; ATE [m] 27.673206 → 28.737019; bad-vector steps 99 → 100.
+- 09: official RTE [%] 0.661434 → 0.667787; rotation [deg/100 m] 0.232926 → 0.255413; ATE [m] 11.000039 → 11.454099.
+- 10: official RTE [%] 1.155652 → 1.183674; rotation [deg/100 m] 0.386538 → 0.388731.
+
+Full failure-sequence observations:
+
+- 01: final bad-length frames 217–253, 420–518 → 209, 216–253, 420–519; S2S bad-length outputs 139 → 140. These are each run’s realized trajectory, not matched-seed interventions.
+- 02: final bad-length frames 1787, 1878–1943, 3308, 4460–4524 → 1787, 1789, 1879–1948, 3308, 4461–4533; S2S bad-length outputs 136 → 152. These are each run’s realized trajectory, not matched-seed interventions.
+- 10: final bad-length frames none → none; S2S bad-length outputs 0 → 0. These are each run’s realized trajectory, not matched-seed interventions.
+
+More support does not establish correct surfaces or resolve the highway
+failure. The option remains experimental and is not promoted per sequence.
+All earlier aggregates, published paper values and defaults are preserved.
+Raw timings are retained, but concurrent runners are not a standalone FPS
+benchmark. Full 07 legacy-off compatibility and all inherited default-off
+pair controls, native tests and command/execution records are linked in
+the study. Sensor-transfer behavior and the remaining solver failure are open.
+<!-- /INTEN_ROW_SUPPORT -->
 
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 

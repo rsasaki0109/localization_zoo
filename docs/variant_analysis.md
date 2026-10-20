@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-20T04:21:15+00:00
+> Generated: 2026-10-20T06:41:07+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -1208,6 +1208,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
+| baseline | 44.144 | - | 11 |
+| candidate | 45.273 | - | 11 |
 | dense_profile | 299.762 | 9.2 | 2 |
 | paper_odometry | 8.706 | 2.2 | 2 |
 | paper_odometry_no_correction | 12.150 | 2.3 | 2 |

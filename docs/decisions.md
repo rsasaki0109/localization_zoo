@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2849,6 +2849,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_mapping | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_odometry_plane_check | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI 00: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2857,6 +2868,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 01: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table
 
@@ -2867,6 +2889,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## InTEn-LOAM KITTI 02: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2875,6 +2908,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 03: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table
 
@@ -2885,6 +2929,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## InTEn-LOAM KITTI 04: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2894,6 +2949,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## InTEn-LOAM KITTI 05: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2902,6 +2968,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 06: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -2918,6 +2995,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_mapping | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_plane_check | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI 07: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2926,6 +3014,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 08: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table
 
@@ -2936,6 +3035,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## InTEn-LOAM KITTI 09: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2944,6 +3054,17 @@ _Generated at 2026-10-20T04:21:00+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 10: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## ISC-LOAM on the public HDL-400 reference window
 

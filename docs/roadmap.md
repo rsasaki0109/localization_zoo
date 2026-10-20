@@ -397,11 +397,22 @@ independent. Each item says what "done" means.
     247/260 accepted natively. Many other row-support losses remain even with
     the full gated target. This identifies actual candidate truncation, not a
     proven improvement. All geometry, negative controls and commands are retained.
-    Next: evaluate a uniform opt-in row-aware matcher, select any values on 07,
-    and verify full-sequence behavior before an accuracy claim. Known 01/02
-    remain development data; KITTI10's gradual drift remains open. Additional
-    exporter/preparation-only work does not close the improvement task.
-    Defaults, historical results and Table 6 are preserved.
+    The [uniform opt-in row-support experiment](../experiments/results/inten_row_support/README.md)
+    is complete on full KITTI00-10: one fixed inherited 07-selected profile,
+    the same acceleration in both arms, and no retuning. The candidate only
+    completes missing S2S ground/facade row support under the existing gates;
+    it is outside the paper and default off. Candidate/reference official RTE
+    has geometric mean 1.010678x: 3 sequences improve and 8 worsen. In particular,
+    01 changes 16.613803% to 16.877996% and 02 changes 3.221230% to 3.405644%;
+    sustained collapse remains. This candidate is not adopted as a general fix.
+    Every adverse metric, full error-growth block and execution command is
+    retained. Fresh reference RTE matches every historical primary aggregate;
+    the full 07 parent control and all 360 default-off pair controls agree.
+    Known 01/02 and the previously inspected 10 are development evidence, not
+    an independent held-out evaluation. The remaining full-sequence failure
+    needs a different candidate and a separately frozen full-sequence comparison;
+    additional exporter/preparation-only work does not close the improvement
+    task. Defaults, historical results and Table 6 are preserved.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

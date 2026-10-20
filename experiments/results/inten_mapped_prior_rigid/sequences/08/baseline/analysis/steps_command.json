@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/diagnose_kitti_steps.py",
+    "--estimate",
+    "/workspace/localization-env/inten-mapped-prior-rigid/staging/08/baseline/dogfooding_results/InTEn_LOAM.txt",
+    "--gt",
+    "/workspace/localization-env/inten-mapped-prior-rigid/staging/08/baseline/dogfooding_results/velodyne_evaluated_gt.txt",
+    "--summary",
+    "/workspace/localization-env/inten-mapped-prior-rigid/staging/08/baseline/summary.json",
+    "--method",
+    "InTEn-LOAM",
+    "--output",
+    "/workspace/localization-env/inten-mapped-prior-rigid/staging/08/baseline/motion_steps.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-mapped-prior-rigid/worktree",
+  "source_commit": "a9fd65e7fa0ea126a90038c0691049aac5eb7e49",
+  "native_source_commit": "71ca25cf4c36b3b0206f45ea3a05c1fd26998b90",
+  "started_unix": 1792486941.3830607,
+  "finished_unix": 1792486941.7976754,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-translation-prior/finish_collection.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-prior/worktree",
+  "source_commit": "b4d3d37a98f9af76725d5d194865056ecb2b737c",
+  "started_unix": 1792498557.2931478,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792498621.2017703
+}

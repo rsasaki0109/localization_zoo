@@ -1,0 +1,39 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-collapse-boundaries/worktree",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-collapse-boundaries/probe"
+  ],
+  "cwd": "/workspace/localization-env/inten-collapse-boundaries/worktree",
+  "source_commit": "356eaa8f5813ac65e2cd99b7b08de914cd37c159",
+  "started_unix": 1792462597.273564,
+  "finished_unix": 1792462639.722646,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "stdin_sha256": "c1175c3beb34febf6f13818ca74390a499781587a7633dfab6c2b4766211841f"
+}

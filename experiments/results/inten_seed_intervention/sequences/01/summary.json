@@ -1,0 +1,282 @@
+{
+  "sequence": "01",
+  "case_count": 155,
+  "native_calls": 465,
+  "exit_code": 0,
+  "natural_replay_max_absolute_differences": {
+    "output": 0.0,
+    "H": 4.001776687800884e-11,
+    "g": 2.1316282072803006e-13
+  },
+  "groups": {
+    "all_selected_moving": {
+      "natural": {
+        "cases": 155,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 139,
+        "seed_length_ratio": {
+          "n": 155,
+          "min": 0.0,
+          "p50": 0.10483874511252526,
+          "max": 1.0147712029299818
+        },
+        "output_length_ratio": {
+          "n": 155,
+          "min": 0.004468509803278739,
+          "p50": 0.10519829147850324,
+          "max": 1.0074739560249502
+        },
+        "output_vector_error": {
+          "n": 155,
+          "min": 0.00750717956396364,
+          "p50": 1.038166852102786,
+          "max": 1.1828967553840704
+        },
+        "first_pairs": {
+          "n": 155,
+          "min": 414.0,
+          "p50": 770.0,
+          "max": 1290.0
+        }
+      },
+      "previous_mapped": {
+        "cases": 155,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 136,
+        "seed_length_ratio": {
+          "n": 155,
+          "min": 0.0,
+          "p50": 0.12087305188622656,
+          "max": 1.035342444628799
+        },
+        "output_length_ratio": {
+          "n": 155,
+          "min": 0.004468460240571759,
+          "p50": 0.10542037552450322,
+          "max": 1.0074016681973315
+        },
+        "output_vector_error": {
+          "n": 155,
+          "min": 0.007284523012304388,
+          "p50": 1.0416547547995045,
+          "max": 1.183963285617818
+        },
+        "first_pairs": {
+          "n": 155,
+          "min": 414.0,
+          "p50": 772.0,
+          "max": 1284.0
+        }
+      },
+      "oracle_current_gt": {
+        "cases": 155,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 1,
+        "seed_length_ratio": {
+          "n": 155,
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0
+        },
+        "output_length_ratio": {
+          "n": 155,
+          "min": 0.7122597709484656,
+          "p50": 0.9930683755263005,
+          "max": 1.075259889864162
+        },
+        "output_vector_error": {
+          "n": 155,
+          "min": 0.006826828996053894,
+          "p50": 0.021909441072342817,
+          "max": 0.28802042889721025
+        },
+        "first_pairs": {
+          "n": 155,
+          "min": 582.0,
+          "p50": 743.0,
+          "max": 1281.0
+        }
+      }
+    },
+    "natural_bad_length": {
+      "natural": {
+        "cases": 139,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 139,
+        "seed_length_ratio": {
+          "n": 139,
+          "min": 0.004464975637994278,
+          "p50": 0.09523717108516896,
+          "max": 0.9533019507368962
+        },
+        "output_length_ratio": {
+          "n": 139,
+          "min": 0.004468509803278739,
+          "p50": 0.09519205680583287,
+          "max": 0.7950596347154439
+        },
+        "output_vector_error": {
+          "n": 139,
+          "min": 0.206002193048233,
+          "p50": 1.0533406481392054,
+          "max": 1.1828967553840704
+        },
+        "first_pairs": {
+          "n": 139,
+          "min": 624.0,
+          "p50": 765.0,
+          "max": 1065.0
+        }
+      },
+      "previous_mapped": {
+        "cases": 139,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 136,
+        "seed_length_ratio": {
+          "n": 139,
+          "min": 0.0024602748946938747,
+          "p50": 0.11717519334042457,
+          "max": 1.0076332061248248
+        },
+        "output_length_ratio": {
+          "n": 139,
+          "min": 0.004468460240571759,
+          "p50": 0.09793347028816181,
+          "max": 0.9520776340417582
+        },
+        "output_vector_error": {
+          "n": 139,
+          "min": 0.04852015433273696,
+          "p50": 1.0533390324773015,
+          "max": 1.183963285617818
+        },
+        "first_pairs": {
+          "n": 139,
+          "min": 615.0,
+          "p50": 766.0,
+          "max": 1056.0
+        }
+      },
+      "oracle_current_gt": {
+        "cases": 139,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 1,
+        "seed_length_ratio": {
+          "n": 139,
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0
+        },
+        "output_length_ratio": {
+          "n": 139,
+          "min": 0.7122597709484656,
+          "p50": 0.9938247629283686,
+          "max": 1.075259889864162
+        },
+        "output_vector_error": {
+          "n": 139,
+          "min": 0.006826828996053894,
+          "p50": 0.021909441072342817,
+          "max": 0.28802042889721025
+        },
+        "first_pairs": {
+          "n": 139,
+          "min": 595.0,
+          "p50": 710.0,
+          "max": 1015.0
+        }
+      }
+    },
+    "other_selected_moving": {
+      "natural": {
+        "cases": 16,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 0,
+        "seed_length_ratio": {
+          "n": 16,
+          "min": 0.0,
+          "p50": 0.9844463917500943,
+          "max": 1.0147712029299818
+        },
+        "output_length_ratio": {
+          "n": 16,
+          "min": 0.8020222778096253,
+          "p50": 0.9821633310821086,
+          "max": 1.0074739560249502
+        },
+        "output_vector_error": {
+          "n": 16,
+          "min": 0.00750717956396364,
+          "p50": 0.021927788060634383,
+          "max": 0.1984826257837378
+        },
+        "first_pairs": {
+          "n": 16,
+          "min": 414.0,
+          "p50": 842.5,
+          "max": 1290.0
+        }
+      },
+      "previous_mapped": {
+        "cases": 16,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 0,
+        "seed_length_ratio": {
+          "n": 16,
+          "min": 0.0,
+          "p50": 0.9910688106097634,
+          "max": 1.035342444628799
+        },
+        "output_length_ratio": {
+          "n": 16,
+          "min": 0.8519726699252862,
+          "p50": 0.9821618773298726,
+          "max": 1.0074016681973315
+        },
+        "output_vector_error": {
+          "n": 16,
+          "min": 0.007284523012304388,
+          "p50": 0.021833552048025937,
+          "max": 0.1481450111281712
+        },
+        "first_pairs": {
+          "n": 16,
+          "min": 414.0,
+          "p50": 841.0,
+          "max": 1284.0
+        }
+      },
+      "oracle_current_gt": {
+        "cases": 16,
+        "nonfinite_outputs": 0,
+        "bad_length_outputs": 0,
+        "seed_length_ratio": {
+          "n": 16,
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0
+        },
+        "output_length_ratio": {
+          "n": 16,
+          "min": 0.8597099226493763,
+          "p50": 0.9821572668121672,
+          "max": 1.007398033850384
+        },
+        "output_vector_error": {
+          "n": 16,
+          "min": 0.0070519697915927835,
+          "p50": 0.0218349239237269,
+          "max": 0.14064208354271268
+        },
+        "first_pairs": {
+          "n": 16,
+          "min": 582.0,
+          "p50": 838.5,
+          "max": 1281.0
+        }
+      }
+    }
+  },
+  "limits": "Fixed-pair causal intervention on initialization only. It cannot establish full-trajectory benefit, actual correspondence identities, ground-truth correctness, or complete solver cause. GT oracle is not a proposed estimator. A mixed/negative result is retained. Any later candidate requires opt-in defaultoff and uniform full-sequence evaluation, separately from this study.",
+  "unavailable": "Counterfactual stop reasons and last-iteration counts are not exposed by the existing forced diagnostic API; not inferred."
+}

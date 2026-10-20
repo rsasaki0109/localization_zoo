@@ -168,7 +168,7 @@ def summarize(seq, cases, stage):
                 H=sum(np.asarray(c['H']) for c in result['first_systems'])
                 g=sum(np.asarray(c['g']) for c in result['first_systems'])
                 expected=case['expected_first']
-                for key,a,b in (('output',output,natural_output),('H',H,np.asarray(expected['H'])),('g',g,np.asarray(expected['g'])):
+                for key,a,b in (('output',output,natural_output),('H',H,np.asarray(expected['H'])),('g',g,np.asarray(expected['g']))):
                     maxima[key]=max(maxima[key],float(np.max(np.abs(a-b))))
                     require(np.allclose(a,b,atol=tol['output_atol'] if key=='output' else tol['system_atol'],
                                         rtol=tol['output_rtol'] if key=='output' else tol['system_rtol']), 'natural replay mismatch '+case['id']+' '+key)

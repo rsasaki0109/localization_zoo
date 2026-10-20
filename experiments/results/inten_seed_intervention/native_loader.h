@@ -132,4 +132,3 @@ std::vector<LoadedXYZI> loadPCDXYZI(const std::string& path, double leaf = 0.5) 
   }
   return points;
 }
-

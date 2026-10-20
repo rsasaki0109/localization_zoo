@@ -1,0 +1,4 @@
+  File "/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py", line 171
+    for key,a,b in (('output',output,natural_output),('H',H,np.asarray(expected['H'])),('g',g,np.asarray(expected['g'])):
+                                                                                                                        ^
+SyntaxError: invalid syntax

@@ -1,0 +1,43 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-translation-prior/worktree",
+    "localization-zoo-dev",
+    "ctest",
+    "--test-dir",
+    "/workspace/localization-env/inten-translation-prior/build",
+    "--output-on-failure",
+    "-R",
+    "^(test_inten_loam|test_inten_loam_paper|test_inten_trace_jsonl)$"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-prior/worktree",
+  "source_commit": "658fef4c5a337127c81b0e05db4f0869b1bc3aae",
+  "started_unix": 1792493163.3565323,
+  "finished_unix": 1792493187.3591764,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

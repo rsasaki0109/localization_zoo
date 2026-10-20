@@ -1,0 +1,7 @@
+{
+  "owned_input_dir": "/workspace/localization-env/inten-mapped-prior/kitti/dataset/sequences/00/velodyne",
+  "input_dir_exists_after": false,
+  "hashes_verified_before_removal": true,
+  "removed_files": 4542,
+  "status": "aborted native trial retained before cleanup"
+}

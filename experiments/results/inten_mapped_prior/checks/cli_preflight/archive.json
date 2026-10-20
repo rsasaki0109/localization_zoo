@@ -1,0 +1,157 @@
+{
+  "files": {
+    "parity.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/parity.json",
+      "bytes": 313,
+      "sha256": "343654513d795d6928f3d6583b85ac66be9ad777494e456937385c659f76f3a1",
+      "storage": "verbatim",
+      "path": "parity.json",
+      "stored_sha256": "343654513d795d6928f3d6583b85ac66be9ad777494e456937385c659f76f3a1"
+    },
+    "trace_off/dogfooding_results/InTEn_LOAM.txt": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_off/dogfooding_results/InTEn_LOAM.txt",
+      "bytes": 441,
+      "sha256": "291eaa9389310318a0015650466896e60edb42d8d264bec7072ff4b68824b656",
+      "storage": "verbatim",
+      "path": "trace_off/dogfooding_results/InTEn_LOAM.txt",
+      "stored_sha256": "291eaa9389310318a0015650466896e60edb42d8d264bec7072ff4b68824b656"
+    },
+    "trace_off/dogfooding_results/gt.txt": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_off/dogfooding_results/gt.txt",
+      "bytes": 436,
+      "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "storage": "verbatim",
+      "path": "trace_off/dogfooding_results/gt.txt",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    "trace_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "bytes": 436,
+      "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "storage": "verbatim",
+      "path": "trace_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    "trace_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "bytes": 2962,
+      "sha256": "e7bc136b2ef03227eb18345ffd8f72319603e978035f96d3a20fec22e9102733",
+      "storage": "verbatim",
+      "path": "trace_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored_sha256": "e7bc136b2ef03227eb18345ffd8f72319603e978035f96d3a20fec22e9102733"
+    },
+    "trace_off/native.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_off/native.log",
+      "bytes": 1482,
+      "sha256": "d41e34241849187c230f16dd4e0b83c2e6a0b1ccb18051aadfbc19a9eb01fd63",
+      "storage": "gzip",
+      "path": "trace_off/native.log.gz",
+      "stored_sha256": "23065b50cd8a97c5d735270b339a01371a3713c16907c79f4f6f132d65a5390c"
+    },
+    "trace_off/native_command.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_off/native_command.json",
+      "bytes": 2565,
+      "sha256": "dcbb40355b0fe9cceeada8889b58ee53aa47c2ce5e9abeba5ed77c1f350c68b6",
+      "storage": "verbatim",
+      "path": "trace_off/native_command.json",
+      "stored_sha256": "dcbb40355b0fe9cceeada8889b58ee53aa47c2ce5e9abeba5ed77c1f350c68b6"
+    },
+    "trace_off/native_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_off/native_stderr.log",
+      "bytes": 80,
+      "sha256": "ee743b460928eb424e79db951f94d699d712200f672265be0199d0124d9ae2f4",
+      "storage": "gzip",
+      "path": "trace_off/native_stderr.log.gz",
+      "stored_sha256": "b6e4be8016fb46933f418286b01f0cfeb3aae2f56de86ce50f05ddc86ced491a"
+    },
+    "trace_off/summary.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_off/summary.json",
+      "bytes": 2962,
+      "sha256": "e7bc136b2ef03227eb18345ffd8f72319603e978035f96d3a20fec22e9102733",
+      "storage": "verbatim",
+      "path": "trace_off/summary.json",
+      "stored_sha256": "e7bc136b2ef03227eb18345ffd8f72319603e978035f96d3a20fec22e9102733"
+    },
+    "trace_on/dogfooding_results/InTEn_LOAM.txt": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/dogfooding_results/InTEn_LOAM.txt",
+      "bytes": 441,
+      "sha256": "291eaa9389310318a0015650466896e60edb42d8d264bec7072ff4b68824b656",
+      "storage": "verbatim",
+      "path": "trace_on/dogfooding_results/InTEn_LOAM.txt",
+      "stored_sha256": "291eaa9389310318a0015650466896e60edb42d8d264bec7072ff4b68824b656"
+    },
+    "trace_on/dogfooding_results/gt.txt": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/dogfooding_results/gt.txt",
+      "bytes": 436,
+      "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "storage": "verbatim",
+      "path": "trace_on/dogfooding_results/gt.txt",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    "trace_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "bytes": 436,
+      "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "storage": "verbatim",
+      "path": "trace_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    "trace_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "bytes": 2962,
+      "sha256": "8f338db74e1a77a1d9b2d0c4a4e0e5f215192adb09d34b75523a08cbbd80f83a",
+      "storage": "verbatim",
+      "path": "trace_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored_sha256": "8f338db74e1a77a1d9b2d0c4a4e0e5f215192adb09d34b75523a08cbbd80f83a"
+    },
+    "trace_on/native.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/native.log",
+      "bytes": 1482,
+      "sha256": "a774957ca5ef486b383840fe02fe2ab37cc9b436188da2653bb93f4aaf706a3d",
+      "storage": "gzip",
+      "path": "trace_on/native.log.gz",
+      "stored_sha256": "22347e3a79a34da6905f0e606d17590e3ba40c035c4ea5848fe37fac19cbade0"
+    },
+    "trace_on/native_command.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/native_command.json",
+      "bytes": 2809,
+      "sha256": "87ea71b283e69667dc549e2ff7bfcdc008a52aca9e213b1197b5885c41885d02",
+      "storage": "verbatim",
+      "path": "trace_on/native_command.json",
+      "stored_sha256": "87ea71b283e69667dc549e2ff7bfcdc008a52aca9e213b1197b5885c41885d02"
+    },
+    "trace_on/native_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/native_stderr.log",
+      "bytes": 80,
+      "sha256": "ee743b460928eb424e79db951f94d699d712200f672265be0199d0124d9ae2f4",
+      "storage": "gzip",
+      "path": "trace_on/native_stderr.log.gz",
+      "stored_sha256": "b6e4be8016fb46933f418286b01f0cfeb3aae2f56de86ce50f05ddc86ced491a"
+    },
+    "trace_on/summary.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/summary.json",
+      "bytes": 2962,
+      "sha256": "8f338db74e1a77a1d9b2d0c4a4e0e5f215192adb09d34b75523a08cbbd80f83a",
+      "storage": "verbatim",
+      "path": "trace_on/summary.json",
+      "stored_sha256": "8f338db74e1a77a1d9b2d0c4a4e0e5f215192adb09d34b75523a08cbbd80f83a"
+    },
+    "trace_on/trace.jsonl": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior/preflight/trace_on/trace.jsonl",
+      "bytes": 60343,
+      "sha256": "911392b071e53ecb40d017c719fe6e12a1c60fb5d0a5dbb7f64cdd5b90cf5e75",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "trace_on/trace.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "8215635aeba72725796df51b96c54aae683fdb30fb99b3cf57dc1f54e579613a",
+          "gzip_bytes": 21270,
+          "raw_sha256": "911392b071e53ecb40d017c719fe6e12a1c60fb5d0a5dbb7f64cdd5b90cf5e75",
+          "raw_bytes": 60343
+        }
+      ]
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

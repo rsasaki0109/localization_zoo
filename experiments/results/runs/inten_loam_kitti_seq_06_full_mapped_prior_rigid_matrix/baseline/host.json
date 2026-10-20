@@ -1,0 +1,19 @@
+{
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "logical_cores": 5,
+  "memory_gib": 17.6,
+  "os": "Ubuntu 22.04.5 LTS",
+  "kernel": "6.18.55",
+  "architecture": "x86_64",
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "capture_scope": "Shared Docker runtime captured before acquisition, not an individual per-run timestamp.",
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "native_binary_sha256": "0ad48a3126ac96ab520126e53c0adfc74447c3dadf8c8f706559711422170271",
+  "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+}

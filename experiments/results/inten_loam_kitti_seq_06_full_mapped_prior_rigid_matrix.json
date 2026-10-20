@@ -1,0 +1,168 @@
+{
+  "generated_at": "2026-10-20T09:14:32+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_06_full_mapped_prior_rigid",
+    "title": "InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation)",
+    "question": "Does recursively feeding previous final mapped motion into S2S reduce sustained motion loss with one fixed setting?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "Review the uniform full-sequence experiment; repository extension stays default off.",
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed accelerated reference",
+      "design_style": "reference",
+      "intent": "Inherited07-selected profile, acceleration and row-completion off are identical in both arms. Only the recursive mapped-motion S2S seed differs. Repository extension, default off. Quaternion rotation restoration is fixed in the enabled seed. Prior unprojected00 failure retained; all sequences restarted.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=0"
+      ],
+      "command": "/workspace/localization-env/inten-mapped-prior-rigid/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=0",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix/baseline/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix/baseline/run.log",
+      "status": "ok",
+      "ate_m": 1.917879,
+      "rpe_trans_pct": 0.511128,
+      "rpe_rot_deg_per_m": 0.002331,
+      "fps": null,
+      "time_ms": null,
+      "frames": 1101,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1866 dor points/frame=233; repository acceleration enabled (opt-in, not in the paper); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.55,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.65,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.358642,
+      "kitti_rte_rot_deg_per_100m": 0.143434,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before acquisition, not an individual per-run timestamp.",
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "0ad48a3126ac96ab520126e53c0adfc74447c3dadf8c8f706559711422170271",
+        "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.447162,
+        "raw_time_ms": 170772.826014,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_mapped_prior_rigid/sequences/06/baseline/summary.json",
+        "original_summary_sha256": "c356278b5a9c14a97c3bc1dbf8c909bf7b15ec44a4e658efbc07f9c3c7c3411e",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix/baseline/native_command.json"
+      }
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in recursive mapped-motion seed",
+      "design_style": "experimental",
+      "intent": "Inherited07-selected profile, acceleration and row-completion off are identical in both arms. Only the recursive mapped-motion S2S seed differs. Repository extension, default off. Quaternion rotation restoration is fixed in the enabled seed. Prior unprojected00 failure retained; all sequences restarted.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1"
+      ],
+      "command": "/workspace/localization-env/inten-mapped-prior-rigid/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix/candidate/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix/candidate/run.log",
+      "status": "ok",
+      "ate_m": 1.924468,
+      "rpe_trans_pct": 0.50995,
+      "rpe_rot_deg_per_m": 0.002287,
+      "fps": null,
+      "time_ms": null,
+      "frames": 1101,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1865 dor points/frame=233; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.55,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.65,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Experimental; default off",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.354019,
+      "kitti_rte_rot_deg_per_100m": 0.140441,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before acquisition, not an individual per-run timestamp.",
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "0ad48a3126ac96ab520126e53c0adfc74447c3dadf8c8f706559711422170271",
+        "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.375256,
+        "raw_time_ms": 172698.95661,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_mapped_prior_rigid/sequences/06/candidate/summary.json",
+        "original_summary_sha256": "7d9d6cb50a5bd98288c7bdd7c1b27364441f25184dad657c7d5fad2fc55dbb25",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix/candidate/native_command.json"
+      }
+    }
+  ]
+}

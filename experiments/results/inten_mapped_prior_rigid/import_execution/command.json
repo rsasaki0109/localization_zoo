@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-mapped-prior-rigid/worktree/experiments/results/inten_mapped_prior_rigid/import_results.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-mapped-prior-rigid/worktree",
+  "source_commit": "cf12e8b1dfa8bb4e58bfcd9ff7ad648c6c26e7cd",
+  "started_unix": 1792487672.0317624,
+  "finished_unix": 1792487672.3495255,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

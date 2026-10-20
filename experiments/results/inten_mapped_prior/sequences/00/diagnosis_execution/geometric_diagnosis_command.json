@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-mapped-prior/worktree/experiments/results/inten_mapped_prior/diagnose_failure.py",
+    "--trace",
+    "/workspace/localization-env/inten-mapped-prior/staging/00/candidate/trace.jsonl",
+    "--output-dir",
+    "/workspace/localization-env/inten-mapped-prior/staging/00/geometric_diagnosis"
+  ],
+  "cwd": "/workspace/localization-env/inten-mapped-prior/worktree",
+  "source_commit": "b5bc178637396bb72c5125d332dabfc370ae9fb1",
+  "native_source_commit": "88723d9abc9eabf159502f3de9fd215001821476",
+  "started_unix": 1792481835.2029881,
+  "finished_unix": 1792481836.1960576,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

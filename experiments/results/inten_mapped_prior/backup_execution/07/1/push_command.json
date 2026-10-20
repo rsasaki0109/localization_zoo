@@ -1,0 +1,18 @@
+{
+  "command": [
+    "git",
+    "push",
+    "origin",
+    "HEAD:refs/heads/codex/inten-mapped-prior"
+  ],
+  "cwd": "/workspace/localization-env/inten-mapped-prior/worktree",
+  "source_commit": "d3d30b1b210aa663969ff51194e73eaba975f26f",
+  "native_source_commit": "88723d9abc9eabf159502f3de9fd215001821476",
+  "started_unix": 1792480815.1538546,
+  "finished_unix": 1792480816.2665544,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

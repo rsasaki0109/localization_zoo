@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_mapped_prior/collect.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-mapped-prior/worktree",
+  "source_commit": "b5d53acc79e303ce4113a609f62bc88c082d3abe",
+  "started_unix": 1792480379.855761,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit_code": 1,
+  "finished_unix": 1792481724.9679203
+}

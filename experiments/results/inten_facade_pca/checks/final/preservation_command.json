@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/checks/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-pca/worktree",
+  "source_commit": "5e8afe837921b687538d1336c5d5cc941bb497ef",
+  "started_unix": 1792534504.3101377,
+  "finished_unix": 1792534504.638037,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

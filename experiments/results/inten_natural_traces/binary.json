@@ -1,0 +1,7 @@
+{
+  "binary": "/workspace/localization-env/inten-natural-traces/build/evaluation/pcd_dogfooding",
+  "sha256": "bb9a3a5f8a5f1e55181f76b8766c1d80f07a7dd3ee87964c136eec5f8da79042",
+  "native_source_commit": "ad7d2081d2349fe4f0ec241b975723e4180cde7a",
+  "execution_commit": "7b3958221d680bfd14e74cbcf6875fa88636c247",
+  "ctest_exit_code": 0
+}

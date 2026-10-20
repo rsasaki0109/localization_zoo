@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-ground-pca/worktree/experiments/results/inten_ground_pca/report.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-ground-pca/worktree/experiments/results/inten_ground_pca/report"
+  ],
+  "cwd": "/workspace/localization-env/inten-ground-pca/worktree",
+  "source_commit": "a6bfad07477f9a2078d133c97250e200f629c3d3",
+  "started_unix": 1792513613.8789475,
+  "finished_unix": 1792513686.707162,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

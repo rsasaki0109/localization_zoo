@@ -1,0 +1,188 @@
+{
+  "generated_at": "2026-10-20T16:28:06+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_02_full_ground_pca_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_02_full_ground_pca",
+    "title": "InTEn-LOAM KITTI 02: ground PCA normals",
+    "question": "Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "Review the uniform full-sequence experiment; repository extension stays default off.",
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Mapped-motion plus weak-translation prior reference",
+      "design_style": "reference",
+      "intent": "Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=0"
+      ],
+      "command": "/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/baseline/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/baseline/run.log",
+      "status": "ok",
+      "ate_m": 48.906265,
+      "rpe_trans_pct": 2.116156,
+      "rpe_rot_deg_per_m": 0.007172,
+      "fps": null,
+      "time_ms": null,
+      "frames": 4661,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2031 dor points/frame=55; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.85,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 1.674736,
+      "kitti_rte_rot_deg_per_100m": 0.505213,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before acquisition, not an individual per-run timestamp.",
+        "source_commit": "38222ca97f3066917362d0539e39bbc6cd991e92",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "0a765c7f600a0c2067fee5bd9c28338344ad2bb5251c43c7f9e3823189763650",
+        "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.341031,
+        "raw_time_ms": 735053.922951,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_ground_pca/sequences/02/baseline/summary.json",
+        "original_summary_sha256": "96336b7376daad9b9914cc373d5f0cb138463c361c70d204a8ff16ad6f51ae78",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/baseline/native_command.json"
+      }
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in ground PCA normals",
+      "design_style": "experimental",
+      "intent": "Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1"
+      ],
+      "command": "/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/candidate/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/candidate/run.log",
+      "status": "ok",
+      "ate_m": 42.445818,
+      "rpe_trans_pct": 0.808386,
+      "rpe_rot_deg_per_m": 0.003538,
+      "fps": null,
+      "time_ms": null,
+      "frames": 4661,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2040 dor points/frame=52; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.85,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Experimental; default off",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.761893,
+      "kitti_rte_rot_deg_per_100m": 0.267626,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before acquisition, not an individual per-run timestamp.",
+        "source_commit": "38222ca97f3066917362d0539e39bbc6cd991e92",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "0a765c7f600a0c2067fee5bd9c28338344ad2bb5251c43c7f9e3823189763650",
+        "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.359568,
+        "raw_time_ms": 732911.408153,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_ground_pca/sequences/02/candidate/summary.json",
+        "original_summary_sha256": "e56563e4274039602bff5e3d81ff0d653d4dfd2fb75f9a867d8fe5fe0f084e4a",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/candidate/native_command.json"
+      }
+    }
+  ]
+}

@@ -53,4 +53,3 @@ def flags(folder):
         if line.startswith(('CXX_DEFINES =', 'CXX_INCLUDES =', 'CXX_FLAGS =')):
             result.extend(shlex.split(line.split('=', 1)[1]))
     return result
-

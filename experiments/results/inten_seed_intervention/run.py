@@ -81,6 +81,8 @@ def run(label, command, folder, allowed=(0,), payload=None):
 
 def invariant():
     require(analysis.sha(P['library']['path'])==P['library']['sha256'],'library changed')
+    for path,digest in P['build_metadata'].items():
+        require(analysis.sha(path)==digest,'build metadata changed')
     for name in ('run.py','probe.cpp','native_loader.h','protocol.json'):
         path=E/name
         require(subprocess.check_output(['git','show','HEAD:'+path.relative_to(W).as_posix()],cwd=W)==path.read_bytes(),
@@ -212,11 +214,15 @@ def summarize(seq, cases, stage):
 def main():
     require(not (E/'sequences').exists() and not (R/'probe').exists() and not (R/'staging').exists(),'fresh execution required')
     invariant();state=dict(status='building',completed=[],source_commit=git('rev-parse','HEAD'));write(R/'active.json',state)
-    run('pkg_config',docker()+['pkg-config','--cflags','--libs','pcl_io','pcl_filters','pcl_kdtree'],R/'build')
-    flags=shlex.split((R/'build/pkg_config.stdout').read_text())
-    command=docker()+['c++','-std=c++17','-O3','-DNDEBUG','-fopenmp',
-        '-I'+str(W/'papers/inten_loam/include'),'-I'+str(W/'common/include'),'-I'+str(W/'evaluation/src'),
-        str(E/'probe.cpp'),P['library']['path'],*flags,'-o',str(R/'probe')]
+    build=Path(P['library']['path']).parent
+    flags_text=(build/'CMakeFiles/test_inten_loam_paper.dir/flags.make').read_text()
+    flags=[]
+    for line in flags_text.splitlines():
+        if line.startswith(('CXX_INCLUDES =','CXX_DEFINES =','CXX_FLAGS =')):
+            flags.extend(shlex.split(line.split('=',1)[1]))
+    link=shlex.split((build/'CMakeFiles/test_inten_loam_paper.dir/link.txt').read_text())
+    libs=[str(build/a) if not a.startswith('/') else a for a in link[link.index('libinten_loam.a'):]]
+    command=docker()+['c++',*flags,'-I'+str(W/'evaluation/src'),str(E/'probe.cpp'),*libs,'-o',str(R/'probe')]
     run('compile',command,R/'build');pin=analysis.sha(R/'probe');write(E/'binary.json',dict(path=str(R/'probe'),sha256=pin,library=P['library']))
     archive(R/'build',E/'build');subprocess.run(['git','add','-f',str(E/'binary.json'),str(E/'build')],cwd=W,check=True)
     subprocess.run(['git','commit','-m','Record fixed-pair diagnostic build and immutable library pin'],cwd=W,check=True);backup('build')

@@ -1,0 +1,5 @@
+{
+  "exit_code": 1,
+  "error": "pkg_config failed",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py\", line 251, in <module>\n    try:main()\n        ^^^^^^\n  File \"/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py\", line 215, in main\n    run('pkg_config',docker()+['pkg-config','--cflags','--libs','pcl_io','pcl_filters','pcl_kdtree'],R/'build')\n  File \"/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py\", line 78, in run\n    require(result.returncode in allowed,label+' failed')\n  File \"/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py\", line 57, in require\n    raise ValueError(reason)\nValueError: pkg_config failed\n"
+}

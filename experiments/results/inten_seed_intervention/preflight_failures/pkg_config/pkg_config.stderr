@@ -1,0 +1,12 @@
+Package pcl_io was not found in the pkg-config search path.
+Perhaps you should add the directory containing `pcl_io.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'pcl_io' found
+Package pcl_filters was not found in the pkg-config search path.
+Perhaps you should add the directory containing `pcl_filters.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'pcl_filters' found
+Package pcl_kdtree was not found in the pkg-config search path.
+Perhaps you should add the directory containing `pcl_kdtree.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'pcl_kdtree' found

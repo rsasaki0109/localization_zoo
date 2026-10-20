@@ -61,5 +61,9 @@
   },
   "data": "Official fetch_kitti_odometry_sequences.py, one full sequence at a time. Check all input hashes against committed natural-trace inputs before execution and deletion. Retain failures and stop on control mismatch; delete only owned scans after validated evidence is archived and committed.",
   "report": "Per-case seed/output local length/vector errors, output change, first systems by feature class, count and explicit unavailable values. Compare all selected bad and other moving cases with inherited criterion; no significance test or threshold fitting. Commit native outputs and actual commands/exits before numerical prose.",
-  "limits": "Fixed-pair causal intervention on initialization only. It cannot establish full-trajectory benefit, actual correspondence identities, ground-truth correctness, or complete solver cause. GT oracle is not a proposed estimator. A mixed/negative result is retained. Any later candidate requires opt-in defaultoff and uniform full-sequence evaluation, separately from this study."
+  "limits": "Fixed-pair causal intervention on initialization only. It cannot establish full-trajectory benefit, actual correspondence identities, ground-truth correctness, or complete solver cause. GT oracle is not a proposed estimator. A mixed/negative result is retained. Any later candidate requires opt-in defaultoff and uniform full-sequence evaluation, separately from this study.",
+  "build_metadata": {
+    "/workspace/localization-env/inten-natural-traces/build/papers/inten_loam/CMakeFiles/test_inten_loam_paper.dir/flags.make": "c8ad9baa50e0f8ce6b6326947c5a8ba0a0416a95bdac974d2f9a7c15c158b9b4",
+    "/workspace/localization-env/inten-natural-traces/build/papers/inten_loam/CMakeFiles/test_inten_loam_paper.dir/link.txt": "ae903833a428aef98094b2c759706ba040ecb199ca7adf1b80280d2f9b075140"
+  }
 }

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "compile.stderr": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/build/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile.stdout": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/build/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/build/compile_command.json",
+      "bytes": 7111,
+      "sha256": "0aec54f919d1312209594294d60e9ba156be2a79ec1ade746d3e2422b150f544",
+      "storage": "verbatim",
+      "path": "compile_command.json",
+      "stored_sha256": "0aec54f919d1312209594294d60e9ba156be2a79ec1ade746d3e2422b150f544"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

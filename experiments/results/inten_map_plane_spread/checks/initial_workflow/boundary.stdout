@@ -1,0 +1,25 @@
+compile 0
+fetch 1
+fetch 0
+probe 0
+[codex/inten-s2m-prior cdb5262d] Record current KITTI01 normal-prefix S2M onset controls
+ 18 files changed, 5362 insertions(+)
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/archive.json
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/binary.json
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/compile.stderr
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/compile.stdout
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/compile_command.json
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/input.txt
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/inputs.json
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/probe.stderr
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/probe.stdout
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/probe_command.json
+ create mode 100644 experiments/results/inten_s2m_prior/boundary/report.json
+ create mode 100644 experiments/results/inten_s2m_prior/boundary_fetch/1/fetch.stderr
+ create mode 100644 experiments/results/inten_s2m_prior/boundary_fetch/1/fetch.stdout
+ create mode 100644 experiments/results/inten_s2m_prior/boundary_fetch/1/fetch_command.json
+ create mode 100644 experiments/results/inten_s2m_prior/boundary_fetch/2/fetch.stderr
+ create mode 100644 experiments/results/inten_s2m_prior/boundary_fetch/2/fetch.stdout
+ create mode 100644 experiments/results/inten_s2m_prior/boundary_fetch/2/fetch_command.json
+ create mode 100644 experiments/results/inten_s2m_prior/boundary_fetch/archive.json
+push 0

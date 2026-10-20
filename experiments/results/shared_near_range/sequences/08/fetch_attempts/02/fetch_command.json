@@ -1,0 +1,18 @@
+{
+  "label": "fetch",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--output-root",
+    "/workspace/localization-env/shared-near-range/kitti",
+    "--sequence",
+    "08",
+    "--workers",
+    "4"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792399190.5867727,
+  "finished_unix": 1792399213.0693922,
+  "exit_code": 0
+}

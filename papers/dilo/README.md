@@ -273,30 +273,14 @@ runner に要るフラグ (未実装): `--dilo-paper-min-planarity 0.98`, `--dil
 完全版 (エッジあり) 0.64 / 0.42 % に対して 0.86x / 0.89x、平面のみの ablation 0.84 / 0.58 % に対して
 0.65x / 0.64x。補正角 0.18° は 00 の窓の一部も見て選んだので、00 は厳密な held-out ではない。
 
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader full KITTI replay
 
-<!-- SHARED_NEAR_RANGE -->
-## 共通の近距離点除去（論文外・opt-in）
+All 11 selected stored DiLO full-sequence cells complete with native exits 0. 11 match historical 100 m RPE, ATE and frame count; 0 differ. Each cell uses its original recorded arguments, which may differ by sequence. This audit does not select a new fixed setting or paper value. The optional near-range cut still defaults to zero/off.
 
-runner の既存 `--input-min-range-m` は
-[`common/range_filter.h`](../../common/include/common/range_filter.h) の同一実装を
-ELO と DiLO の XYZ ローダー、強度付きローダーで使用する。
-`--input-sensor-pose` によるセンサー座標への変換後、仰角補正とダウンサンプリング前に
-半径の内側だけを除去する。点順・保持する点の属性と境界判定は従来どおり。
-**論文にない前処理で、既定は 0（無効）**。DiLO 単体ライブラリには自動適用しない。
+The runner's sensor-frame near-range cut is **non-paper preprocessing**, still default zero/off. It is shared by ELO/DiLO and intensity-preserving loaders, after sensor-frame conversion and before elevation correction/downsampling; standalone cores do not apply it automatically.
 
-過去の NCLT 2013-01-10 全区間の保存済み結果は、除去なし RTE 8.533284%、ATE
-54.344593 m、5 m 除去の設定で RTE 7.369821%、ATE 75.832748 m。
-**この組は除去だけの比較ではない**。保存された note は前者が距離画像 192 行、
-後者が 240 行・上端仰角 31 度・最大補間間隔 8 行で、他の設定も異なる。
-RTE の差を近距離点除去だけに帰属できず、後者の ATE は悪化し、回転ドリフトも残る。
-5 m は当該全区間と再発進窓の既存診断から引き継ぎ、新たな値選択は行わない。
+Historical NCLT full-sequence RTE without/with the existing 5 m cut is 8.533284% / 7.369821%; ATE is 54.344593 m / 75.832748 m. DiLO also changes range-image geometry (192 versus 240 rows, top elevation and fill gap); this is not a controlled cutoff-only pair. ATE worsens. The cutoff was selected on that NCLT sequence and restart window, with no new held-out claim. These are historical numbers, not a fresh NCLT rerun. [Committed summaries](../../docs/benchmarks/nclt_paper_paths/) and [recorded commands and limits](../../docs/nclt_paper_paths.md) retain their original missing evaluator-commit/argv provenance. Fresh NCLT validation remains open.
 
-根拠は [`docs/benchmarks/nclt_paper_paths/`](../../docs/benchmarks/nclt_paper_paths/)
-の `dilo.json` / `dilo_m5.json`、記録済みコマンドと限界は
-[`nclt_paper_paths.md`](../../docs/nclt_paper_paths.md)。元の summary には evaluator commit と
-argv がなく、不足する来歴は補完していない。今回の抽出による再測定値ではない。
-[共通化の手順・実行記録](../../experiments/results/shared_near_range/README.md) に回帰確認を分けて残す。
-KITTI 全区間の再実行は進行中。完了済み 04 は保存済み DiLO 指標と一致し、抽出前の凍結バイナリとも
-保存姿勢がバイト単位で一致する。残る系列と NCLT の実データ検証は未完了。
-NCLT は公式ホストの許可リストが未反映。
-<!-- /SHARED_NEAR_RANGE -->
+[Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->

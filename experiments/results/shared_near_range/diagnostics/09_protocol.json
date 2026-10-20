@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "sequence": "09",
+  "status": "awaiting_committed_frozen_comparison_and_cleanup",
+  "inherited_protocol": "experiments/results/shared_near_range/diagnostics/02_protocol.json",
+  "inherited_protocol_commit": "878942285f60f6f4fca4ee700df940f37000c79d",
+  "methods": [
+    "Mesh-LOAM"
+  ],
+  "diagnostic_parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "selection": "Every historical difference in committed candidate09 reports, expected Mesh-LOAM only. Require committed candidate/frozen reports to confirm this exact set before output. Diagnostic parameters transfer unchanged from02/01; no registration setting is selected and no estimator is rerun.",
+  "publication_gate": "Candidate/frozen reports and actual command receipts, matching frozen comparison and input cleanup must be committed and unchanged. Owned scans and alias must be absent before any diagnostic output is created.",
+  "position_error": "First-pose-normalized estimated position versus the same evaluated GT; no fitted alignment or rescaling.",
+  "paired_gap": "Euclidean position difference between first-pose-normalized historical and current estimates. Rank inherited fixed blocks by gap at end minus gap at start; retain every block and every frame.",
+  "limits": "Pair only available committed historical trajectories with byte-identical evaluated GT. Exact-path and reachable-history probes describe this checkout, not global absence. Error-growth blocks cannot establish historical/runtime causality or an extraction effect. Record Mesh historical/current runtime and core identity; differing thread counts are a confound, not a cause. Commit raw diagnostic results before numerical prose; the historical audit's drift exit remains a negative result. These results use the original frozen implementation, not a whole-zoo validation of newly merged acceleration or passive tracing.",
+  "frozen_control_methods": [
+    "Mesh-LOAM"
+  ],
+  "preparation_basis": "The owned candidate09 audit has finished, but its live output is not yet committed and is not publication evidence. This predeclares the expected complete cohort while frozen comparison runs. All actual diagnostic inputs must pass the existing committed-data and cleanup gates before output."
+}

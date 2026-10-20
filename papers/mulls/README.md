@@ -78,3 +78,11 @@ KITTI の HDL-64E 向けの仰角補正は公式プロファイルでは 0.195°
 公式実装のビルドには PCL 1.14 / GCC 13 向けの修正が要る (`run_official_mulls_baseline.py`
 の docstring を参照)。公式コードは乱数のシードを時刻から取り OpenMP を使うので、実行ごとに
 少し揺れる (KITTI 07 で 0.311-0.332 %)。この実装は乱数のシードを固定しており決定的。
+
+<!-- SHARED_NEAR_RANGE_REPLAY -->
+## Shared-loader full KITTI replay
+
+All 11 selected stored MULLS full-sequence cells complete with native exits 0. 11 match historical 100 m RPE, ATE and frame count; 0 differ. Each cell uses its original recorded arguments, which may differ by sequence. This audit does not select a new fixed setting or paper value. The optional near-range cut still defaults to zero/off.
+
+[Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
+<!-- /SHARED_NEAR_RANGE_REPLAY -->

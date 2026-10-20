@@ -162,7 +162,8 @@ class Saved02PublicationGateTests(unittest.TestCase):
         write_json(self.study / f'diagnostics/{sequence}_protocol.json', protocol)
         cohort = (set(self.module.METHODS07) if sequence == '07' else
                   set(self.module.METHODS) if sequence == '05' else
-                  {'CT-ICP', 'Mesh-LOAM'} if sequence in ('04', '06') else {'Mesh-LOAM'})
+                  {'A-LOAM', 'F-LOAM', 'LeGO-LOAM', 'Mesh-LOAM'} if sequence == '08' else
+                  {'CT-ICP', 'Mesh-LOAM'} if sequence in ('04', '06', '10') else {'Mesh-LOAM'})
         recorded_root = Path('/archived/saved-study-checkout')
         for mode in ('audit', 'frozen_baseline'):
             path = target / mode / 'report.json'
@@ -336,7 +337,73 @@ class Saved02PublicationGateTests(unittest.TestCase):
         self.assertEqual(failure.exception.code, 2)
         self.assertFalse(self.output.exists())
 
-    def test_unclosed08_is_not_an_allowed_diagnostic_sequence(self):
+    def test_unknown11_is_not_an_allowed_diagnostic_sequence(self):
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '11')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_closed10_retains_ct_and_mesh_without_extra04_controls(self):
+        self.prepare_relocated03('10')
+        self.invoke('--sequence', '10')
+        result = json.loads((self.output / 'summary.json').read_text())
+        expected = {'CT-ICP', 'Mesh-LOAM'}
+        self.assertEqual({row['method'] for row in result['rows']}, expected)
+        self.assertEqual(set(result['frozen_control_methods']), expected)
+        self.assertTrue(all(result['completion_gate'].values()))
+
+    def test10_rejects_missing_ct_comparison_before_output(self):
+        self.prepare_relocated03('10')
+        path = self.study / 'sequences/10/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'] = [row for row in comparison['checks'] if row['method'] != 'CT-ICP']
+        write_json(path, comparison)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '10')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_closed09_keeps_mesh_without_inheriting_ct(self):
+        self.prepare_relocated03('09')
+        self.invoke('--sequence', '09')
+        result = json.loads((self.output / 'summary.json').read_text())
+        self.assertEqual([row['method'] for row in result['rows']], ['Mesh-LOAM'])
+        self.assertEqual(result['frozen_control_methods'], ['Mesh-LOAM'])
+        self.assertTrue(all(result['completion_gate'].values()))
+
+    def test09_rejects_an_unexpected_ct_control_before_output(self):
+        self.prepare_relocated03('09')
+        path = self.study / 'sequences/09/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'].append(dict(method='CT-ICP', sequence='09',
+                                         metric_abs_delta={'ate_m': 0},
+                                         saved_pose_bytes_equal={'CT_ICP.txt': True}))
+        write_json(path, comparison)
+        self.commit()
+        with self.assertRaises(SystemExit) as failure:
+            self.invoke('--sequence', '09')
+        self.assertEqual(failure.exception.code, 2)
+        self.assertFalse(self.output.exists())
+
+    def test_closed08_keeps_all_four_differences_without_inheriting_ct(self):
+        self.prepare_relocated03('08')
+        self.invoke('--sequence', '08')
+        result = json.loads((self.output / 'summary.json').read_text())
+        expected = {'A-LOAM', 'F-LOAM', 'LeGO-LOAM', 'Mesh-LOAM'}
+        self.assertEqual({row['method'] for row in result['rows']}, expected)
+        self.assertEqual(set(result['frozen_control_methods']), expected)
+        self.assertTrue(all(result['completion_gate'].values()))
+
+    def test08_rejects_an_unexpected_ct_control_before_output(self):
+        self.prepare_relocated03('08')
+        path = self.study / 'sequences/08/frozen_comparison.json'
+        comparison = json.loads(path.read_text())
+        comparison['checks'].append(dict(method='CT-ICP', sequence='08',
+                                         metric_abs_delta={'ate_m': 0},
+                                         saved_pose_bytes_equal={'CT_ICP.txt': True}))
+        write_json(path, comparison)
+        self.commit()
         with self.assertRaises(SystemExit) as failure:
             self.invoke('--sequence', '08')
         self.assertEqual(failure.exception.code, 2)

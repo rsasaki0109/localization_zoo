@@ -1,0 +1,27 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1201
+GT poses: 1201
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 919.4 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running IMLS-SLAM...
+  source_voxel_size=0.5 voxel_size=1.0 imls_h=0.5 sampling=1
+  [IMLS paper] 0/1201 model=121184  [IMLS paper] 20/1201 model=2558640  [IMLS paper] 40/1201 model=4967966  [IMLS paper] 60/1201 model=7436524  [IMLS paper] 80/1201 model=9976438  [IMLS paper] 100/1201 model=12412355  [IMLS paper] 120/1201 model=12525334  [IMLS paper] 140/1201 model=12654384  [IMLS paper] 160/1201 model=12739517  [IMLS paper] 180/1201 model=12758827  [IMLS paper] 200/1201 model=12769689  [IMLS paper] 220/1201 model=12783697  [IMLS paper] 240/1201 model=12774031  [IMLS paper] 260/1201 model=12709655  [IMLS paper] 280/1201 model=12582486  [IMLS paper] 300/1201 model=12374033  [IMLS paper] 320/1201 model=12341879  [IMLS paper] 340/1201 model=12343841  [IMLS paper] 360/1201 model=12351540  [IMLS paper] 380/1201 model=12376744  [IMLS paper] 400/1201 model=12541981  [IMLS paper] 420/1201 model=12453874  [IMLS paper] 440/1201 model=12432811  [IMLS paper] 460/1201 model=12368892  [IMLS paper] 480/1201 model=12434955  [IMLS paper] 500/1201 model=12455430  [IMLS paper] 520/1201 model=12547818  [IMLS paper] 540/1201 model=12577883  [IMLS paper] 560/1201 model=12659273  [IMLS paper] 580/1201 model=12657334  [IMLS paper] 600/1201 model=12668560  [IMLS paper] 620/1201 model=12677495  [IMLS paper] 640/1201 model=12662111  [IMLS paper] 660/1201 model=12667448  [IMLS paper] 680/1201 model=12673268  [IMLS paper] 700/1201 model=12625263  [IMLS paper] 720/1201 model=12606359  [IMLS paper] 740/1201 model=12582194  [IMLS paper] 760/1201 model=12601399  [IMLS paper] 780/1201 model=12579635  [IMLS paper] 800/1201 model=12579026  [IMLS paper] 820/1201 model=12597031  [IMLS paper] 840/1201 model=12633467  [IMLS paper] 860/1201 model=12641464  [IMLS paper] 880/1201 model=12689035  [IMLS paper] 900/1201 model=12733850  [IMLS paper] 920/1201 model=12758209  [IMLS paper] 940/1201 model=12772122  [IMLS paper] 960/1201 model=12754765  [IMLS paper] 980/1201 model=12739539  [IMLS paper] 1000/1201 model=12712876  [IMLS paper] 1020/1201 model=12623629  [IMLS paper] 1040/1201 model=12568679  [IMLS paper] 1060/1201 model=12497168  [IMLS paper] 1080/1201 model=12465673  [IMLS paper] 1100/1201 model=12479559  [IMLS paper] 1120/1201 model=12554948  [IMLS paper] 1140/1201 model=12607028  [IMLS paper] 1160/1201 model=12693720  [IMLS paper] 1180/1201 model=12732934  [IMLS paper] 1200/1201 model=12742716
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+IMLS-SLAM               ok          2.970       0.678          1201        969419.7       1.2         
+
+Notes:
+- IMLS-SLAM: IMLS-SLAM paper odometry (raw scans, window of 100 raw scans, h=0.1 r=0.2, nine lists x 100, 20 iterations); no GT seed. mean samples 900.0; coarse start on the first 1 registrations (r=1.0 h=0.3, not in the paper)
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_10_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_10_full_evaluation_manifest.json)

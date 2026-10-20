@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "status": "declared_before_remaining_sequence_diagnosis_and_final_integration",
+  "integration_base": "a4a0c28a1f1a326cccb9c938364d8ef575e281d2",
+  "native_implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "native_baseline": {
+    "source_commit": "40278ee01ede562a490e4d09d256e435a1b562d6",
+    "binary": "/workspace/localization-env/shared-near-range/baseline_pcd_dogfooding",
+    "sha256": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+    "native_tree_equivalent_base": "e13aab37258ce73c216302c1cc5b61a5d5385ed3",
+    "copied_from": "/workspace/localization-env/shared-coarse-start/candidate_pcd_dogfooding"
+  },
+  "native_candidate": {
+    "source_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+    "binary": "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding",
+    "sha256": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d"
+  },
+  "planned_cell_count": 177,
+  "sequence_order": [
+    "04",
+    "00",
+    "01",
+    "02",
+    "03",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "remaining_sequences": [
+    "08",
+    "09",
+    "10"
+  ],
+  "selected_cell_sha256": "80f595fe0d6a93ffba4c085977b63f2d139ec711ba94ba87c597a81b3e56033e",
+  "sealed_file_sha256": {
+    "finish_when_complete.py": "b85c467064d82799bc8d7e7addbcafb81d62cc538730f3d78b7a8fb375c22dfc",
+    "finish_docs.py": "de1bb0d3a597928593bdc5f1efa2317c924560996e8f06ddfbb6e9255f1c7184",
+    "support.py": "bc04bce97bf2df5cc8912137e0d371efe0e065c5b40f860f1d40ac8e68a7b761",
+    "report.py": "38031996ecaea8df33af9f5167452f2d575767a953b742900329fd35457123d1",
+    "verify_preservation.py": "770f3d24c671d15cdcc60825fdd0d31f7b0d3fe9bcd369eaa7ac08da6d370b3b",
+    "run_all.py": "777ee163bdc72c8571456b21d0906a2beb64076fcc13f272f9d0a72a17211d7e",
+    "protocol.json": "1f00d46f4c0c24ee63cef21bd6fdaefe23a0d714abf92e13f8dc6b1c0294808b",
+    "selection.json": "80f595fe0d6a93ffba4c085977b63f2d139ec711ba94ba87c597a81b3e56033e",
+    "baseline.json": "7d9344421e2ea56776a8fff4fb49dadaf308d2635bd643a1c1ae333c99428fd2",
+    "candidate.json": "2fe936972c2c978af6a25a02dfd24af719ef1898375a02426553ea31c02aea2a",
+    "native_wrapper.py": "14dc7869dfd0452946ccd6996dd04b55851787279aa9c673b9c574d6a3ff03e3"
+  },
+  "scope": "Finish the existing historical per-cell replay audit. No new setting, estimator invocation, fixed-setting accuracy study, current-main whole-zoo validation or NCLT claim.",
+  "terminal_gate": [
+    "Original controller status complete and run_exit.json exit_code0 with the exact sequence order.",
+    "Every selected native run exits0. Every historical difference has matching frozen metrics and byte-identical saved poses; retain original historical audit exits.",
+    "Each sequence cleanup is committed, official hashes verified before deletion, owned scan directory and alias absent.",
+    "Frozen source, binary pins and sealed files remain unchanged; no duplicate controller, native worker or finalizer."
+  ],
+  "completion_driver": {
+    "path": "experiments/results/shared_near_range/finish_when_complete.py",
+    "attempt": "03",
+    "push": false,
+    "launch": "Only after the terminal gate passes. Use the original sealed driver in the primary checkout; do not start another waiting worker."
+  },
+  "import_policy": "Import each closed original sequence commit losslessly into this isolated integration branch. Preserve original command receipts, historical exits and hashes; commit raw full report and diagnostics before numerical prose. Normally push this branch; never force-push an advanced historical branch.",
+  "diagnostics": {
+    "inherited_protocol": "experiments/results/shared_near_range/diagnostics/02_protocol.json",
+    "inherited_protocol_commit": "878942285f60f6f4fca4ee700df940f37000c79d",
+    "parameters": {
+      "block_frames": 100,
+      "min_step_m": 0.1,
+      "relative_step_threshold": 0.2
+    },
+    "cohort": "Every historical-difference cell on each remaining sequence; commit its complete exact cohort protocol and analysis source before offline execution. Require committed native receipts, matching frozen paths and completed input cleanup before output.",
+    "limits": "Read committed saved paths only. Preserve every block/frame and every improving/worsening pair. Missing exact historical paths are local availability limits; current error-growth blocks do not establish causes or historical gaps. No parameter selection or live scan use."
+  },
+  "documentation_policy": "Reconcile the sealed frozen-source completion documents with the current-main documentation. Keep earlier saved-path diagnosis, provenance and negative results accessible. Link the full report, complete numerical pairs and actual commands. Update the roadmap to completed KITTI audit while retaining open causes and the separate NCLT/InTEn scope.",
+  "checks": [
+    "Required refresh_study_docs.py, generate_full_variant_table.py and generate_paper_ratio_table.py; retain timestamp-only disposition.",
+    "Full Python, showcase, leaderboard, paper-ready and whitespace checks by actual exit code.",
+    "Historical aggregate hashes, published README/HTML/Table6/full-variant CSV/paper-number bytes and earlier study evidence remain intact.",
+    "Final-head native CTest, fixture/golden, Python/release-contract and real ROS CI succeed."
+  ],
+  "finish": "One audit-completion PR, following the repository template, with all selected cells and verified cleanup. User review before merge. This is the completion milestone; subsequent InTEn cause investigation is a separate development item."
+}

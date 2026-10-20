@@ -1,0 +1,7 @@
+{
+  "source_commit": "a5145ae9232759a5229564e997dcbd56150d4e52",
+  "scope": "Synthetic publication-gate checks and real incomplete-input refusal only; no native run, live scan read, saved-path diagnosis or coverage increase.",
+  "native10_completion_claim": false,
+  "diagnostic_output_created": false,
+  "checks_exit_code": 0
+}

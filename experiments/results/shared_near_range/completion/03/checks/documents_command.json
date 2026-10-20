@@ -1,0 +1,17 @@
+{
+  "label": "documents",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/finish_docs.py",
+    "--report",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/completion/03/report/summary.json",
+    "--apply",
+    "--manifest",
+    "/workspace/localization_zoo/experiments/results/shared_near_range/completion/03/document_manifest.json"
+  ],
+  "cwd": "/workspace/localization_zoo",
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "started_unix": 1792440318.7201226,
+  "finished_unix": 1792440318.793862,
+  "exit_code": 0
+}

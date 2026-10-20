@@ -1,0 +1,9 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-range-final-audit/run_analysis09.py"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+  "source_commit": "3ca99d81d4f34467676055ede267e63cd2dd3da8",
+  "exit_code": 0
+}

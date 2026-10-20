@@ -1,0 +1,26 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1201
+GT poses: 1201
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 919.4 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running SuMa...
+  [SuMa paper] 0/1201  [SuMa paper] 10/1201  [SuMa paper] 20/1201  [SuMa paper] 30/1201  [SuMa paper] 40/1201  [SuMa paper] 50/1201  [SuMa paper] 60/1201  [SuMa paper] 70/1201  [SuMa paper] 80/1201  [SuMa paper] 90/1201  [SuMa paper] 100/1201  [SuMa paper] 110/1201  [SuMa paper] 120/1201  [SuMa paper] 130/1201  [SuMa paper] 140/1201  [SuMa paper] 150/1201  [SuMa paper] 160/1201  [SuMa paper] 170/1201  [SuMa paper] 180/1201  [SuMa paper] 190/1201  [SuMa paper] 200/1201  [SuMa paper] 210/1201  [SuMa paper] 220/1201  [SuMa paper] 230/1201  [SuMa paper] 240/1201  [SuMa paper] 250/1201  [SuMa paper] 260/1201  [SuMa paper] 270/1201  [SuMa paper] 280/1201  [SuMa paper] 290/1201  [SuMa paper] 300/1201  [SuMa paper] 310/1201  [SuMa paper] 320/1201  [SuMa paper] 330/1201  [SuMa paper] 340/1201  [SuMa paper] 350/1201  [SuMa paper] 360/1201  [SuMa paper] 370/1201  [SuMa paper] 380/1201  [SuMa paper] 390/1201  [SuMa paper] 400/1201  [SuMa paper] 410/1201  [SuMa paper] 420/1201  [SuMa paper] 430/1201  [SuMa paper] 440/1201  [SuMa paper] 450/1201  [SuMa paper] 460/1201  [SuMa paper] 470/1201  [SuMa paper] 480/1201  [SuMa paper] 490/1201  [SuMa paper] 500/1201  [SuMa paper] 510/1201  [SuMa paper] 520/1201  [SuMa paper] 530/1201  [SuMa paper] 540/1201  [SuMa paper] 550/1201  [SuMa paper] 560/1201  [SuMa paper] 570/1201  [SuMa paper] 580/1201  [SuMa paper] 590/1201  [SuMa paper] 600/1201  [SuMa paper] 610/1201  [SuMa paper] 620/1201  [SuMa paper] 630/1201  [SuMa paper] 640/1201  [SuMa paper] 650/1201  [SuMa paper] 660/1201  [SuMa paper] 670/1201  [SuMa paper] 680/1201  [SuMa paper] 690/1201  [SuMa paper] 700/1201  [SuMa paper] 710/1201  [SuMa paper] 720/1201  [SuMa paper] 730/1201  [SuMa paper] 740/1201  [SuMa paper] 750/1201  [SuMa paper] 760/1201  [SuMa paper] 770/1201  [SuMa paper] 780/1201  [SuMa paper] 790/1201  [SuMa paper] 800/1201  [SuMa paper] 810/1201  [SuMa paper] 820/1201  [SuMa paper] 830/1201  [SuMa paper] 840/1201  [SuMa paper] 850/1201  [SuMa paper] 860/1201  [SuMa paper] 870/1201  [SuMa paper] 880/1201  [SuMa paper] 890/1201  [SuMa paper] 900/1201  [SuMa paper] 910/1201  [SuMa paper] 920/1201  [SuMa paper] 930/1201  [SuMa paper] 940/1201  [SuMa paper] 950/1201  [SuMa paper] 960/1201  [SuMa paper] 970/1201  [SuMa paper] 980/1201  [SuMa paper] 990/1201  [SuMa paper] 1000/1201  [SuMa paper] 1010/1201  [SuMa paper] 1020/1201  [SuMa paper] 1030/1201  [SuMa paper] 1040/1201  [SuMa paper] 1050/1201  [SuMa paper] 1060/1201  [SuMa paper] 1070/1201  [SuMa paper] 1080/1201  [SuMa paper] 1090/1201  [SuMa paper] 1100/1201  [SuMa paper] 1110/1201  [SuMa paper] 1120/1201  [SuMa paper] 1130/1201  [SuMa paper] 1140/1201  [SuMa paper] 1150/1201  [SuMa paper] 1160/1201  [SuMa paper] 1170/1201  [SuMa paper] 1180/1201  [SuMa paper] 1190/1201  [SuMa paper] 1200/1201
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+SuMa                    ok          5.253       0.782          1201        223524.4       5.4         
+
+Notes:
+- SuMa: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_10_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_10_full_evaluation_manifest.json)

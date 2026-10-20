@@ -1,0 +1,20 @@
+{
+  "checks": [
+    {
+      "method": "Mesh-LOAM",
+      "sequence": "09",
+      "metric_abs_delta": {
+        "rerun_rpe_trans_pct": 0.0,
+        "rerun_ate_m": 0.0,
+        "frames": 0,
+        "kitti_rte_trans_pct": 0.0,
+        "kitti_rte_rot_deg_per_100m": 0.0
+      },
+      "saved_pose_bytes_equal": {
+        "Mesh_LOAM.txt": true,
+        "gt.txt": true
+      }
+    }
+  ],
+  "exit_code": 0
+}

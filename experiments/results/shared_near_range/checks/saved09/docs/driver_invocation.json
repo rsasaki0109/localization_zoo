@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-range-final-audit/check_docs09.py",
+    "a11683e1b388bda77ca406b7ace1e1af11bc106b"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+  "source_commit": "7f82bc23e58052a00234fdd2f6d3136264ef31e5",
+  "exit_code": 0
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/shared-range-final-audit/verify_start.py"
+  ],
+  "cwd": "/workspace/localization-env/shared-range-final-audit/worktree",
+  "source_commit": "5641d6f4d365ccb3157ecbd8bf3c939ebcd48677",
+  "started_unix": 1792407185.9836497,
+  "finished_unix": 1792407186.114139,
+  "exit_code": 0
+}

@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-ground-pca/worktree/experiments/results/inten_ground_pca/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-ground-pca/worktree/experiments/results/inten_ground_pca/checks/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-ground-pca/worktree",
+  "source_commit": "4c2fce1f5b9b2c5dd8fc68f04352d1a51fe93a81",
+  "started_unix": 1792513715.6941419,
+  "finished_unix": 1792513716.11089,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

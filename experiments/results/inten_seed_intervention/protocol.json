@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "parent_result_commit": "68c2329053dde9d1c9aa27a4521e5328f67eb6e7",
+  "parent_pr": 152,
+  "native_source_commit": "ad7d2081d2349fe4f0ec241b975723e4180cde7a",
+  "sequences": [
+    "01",
+    "02",
+    "10"
+  ],
+  "selection": "Retrospective diagnostic development on the known KITTI01/02 failures. Existing fixed plane/elevation values selected on07;00 influenced prior diagnosis. No held-out or improvement claim.",
+  "cases": "Every final or S2S bad-length step under inherited0.1m/20% labels, plus immediate neighbours. Also first step and every existing100step-block endpoint on all three sequences, including10 with no threshold event. Deduplicate. No hand-selected success subset.",
+  "modes": [
+    "natural",
+    "previous_mapped",
+    "oracle_current_gt"
+  ],
+  "intervention": "For each same raw scan pair, use existing forced-pose diagnostics with a fresh two-scan object, mapping disabled to isolate S2S. Natural seed is the stored passive S2S input. previous_mapped is the previous accepted final-pose increment, reused as the constant-motion seed. Oracle is this pair GT increment and is diagnostic only, outside the paper; not deployable and not an odometry benchmark. Never combine forced and passive trace.",
+  "controls": "Require natural replay output and first H/g/counts to agree with the complete natural trace before interpreting any alternate seed. S2S depends only on previous extracted/indexed scan; no map or trajectory is reconstructed. Source and target, feature extractor, residuals, gates, budget, damping and library binary are identical across modes.",
+  "params": "Existing paper_odometry_plane_check fixed params, acceleratedfalse; only use_mappingfalse for the isolated pair diagnostic, identical in every mode. No estimator/default/runner API changes.",
+  "control_tolerances": {
+    "output_atol": 1e-08,
+    "output_rtol": 1e-10,
+    "system_atol": 1e-08,
+    "system_rtol": 1e-10
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "library": {
+    "path": "/workspace/localization-env/inten-natural-traces/build/papers/inten_loam/libinten_loam.a",
+    "sha256": "f95de52e3197299d44f2d6c258bbda93d93d243b074211b6790b4d5a5265333d",
+    "build_evidence": "experiments/results/inten_natural_traces/checks/build"
+  },
+  "loader": {
+    "source": "evaluation/src/pcd_dogfooding.cpp",
+    "sha256": "4fac55bb8c59abaaf3cd3664f4caec555201bf699a91dabf07ca539ac19eacfa",
+    "fragments": [
+      {
+        "start": "struct LoadedXYZI {",
+        "end": "\n};",
+        "sha256": "3ca1180379ccd25481f2360034ca5d0752d8070d67ab2c3dcd0bcc384f23d9f7"
+      },
+      {
+        "start": "fs::path resolvePointCloudPath(",
+        "end": "\n// Sensor-level elevation",
+        "sha256": "a0dd93f5c7cbaef87c96f7afaa96f794548eb91fe68423dfa9de8b7fb4bb7ed1"
+      },
+      {
+        "start": "template <typename PointT>\nvoid applyInputSensorPose(",
+        "end": "\nstd::vector<Eigen::Vector3d> loadPCD(",
+        "sha256": "5c78d506a0ad5122b558d44ddb2e11f4bbd5559f9740baee084c8ba821c43bdb"
+      },
+      {
+        "start": "std::vector<LoadedXYZI> loadPCDXYZI(",
+        "end": "\nstd::vector<LoadedXYZI> limitLoadedXYZI(",
+        "sha256": "4a854b1feb2d764d20f00391c134521ef07ef2ecacb3c03f010b57d2ea252b54"
+      }
+    ]
+  },
+  "data": "Official fetch_kitti_odometry_sequences.py, one full sequence at a time. Check all input hashes against committed natural-trace inputs before execution and deletion. Retain failures and stop on control mismatch; delete only owned scans after validated evidence is archived and committed.",
+  "report": "Per-case seed/output local length/vector errors, output change, first systems by feature class, count and explicit unavailable values. Compare all selected bad and other moving cases with inherited criterion; no significance test or threshold fitting. Commit native outputs and actual commands/exits before numerical prose.",
+  "limits": "Fixed-pair causal intervention on initialization only. It cannot establish full-trajectory benefit, actual correspondence identities, ground-truth correctness, or complete solver cause. GT oracle is not a proposed estimator. A mixed/negative result is retained. Any later candidate requires opt-in defaultoff and uniform full-sequence evaluation, separately from this study."
+}

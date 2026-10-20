@@ -1,0 +1,9 @@
+{
+  "path": "/workspace/localization-env/inten-collapse-boundaries/probe",
+  "sha256": "91edc368472ea4398ef3702fdc654eb2032c54a2a12dea92a7978a211a22c555",
+  "library": {
+    "path": "/workspace/localization-env/inten-natural-traces/build/papers/inten_loam/libinten_loam.a",
+    "sha256": "f95de52e3197299d44f2d6c258bbda93d93d243b074211b6790b4d5a5265333d",
+    "build_evidence": "experiments/results/inten_natural_traces/checks/build"
+  }
+}

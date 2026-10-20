@@ -1,0 +1,17 @@
+{
+  "exit_code": 0,
+  "identical_fields": [
+    "status",
+    "frames",
+    "ate_m",
+    "rpe_trans_pct",
+    "kitti_rte_trans_pct",
+    "kitti_rte_rot_deg_per_100m"
+  ],
+  "saved_pose_bytes_equal": {
+    "InTEn_LOAM.txt": true,
+    "gt.txt": true,
+    "velodyne_evaluated_gt.txt": true
+  },
+  "runtime_comparison_claim": false
+}

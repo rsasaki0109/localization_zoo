@@ -1,0 +1,14 @@
+{
+  "collection_source_commit": "0d1b7e2da7278ed5f9575f260d4c00fa327d217d",
+  "raw_result_commits": {
+    "01": "2a583b85",
+    "02": "ac28d11f",
+    "10": "d6d157c6"
+  },
+  "reproduction": "Restore lossless archives, repeat all geometry/PCA calculations and require exact equality of the stored geometry results. No scans, native rerun or new setting.",
+  "rejection_analysis": "Reconstruct every stored native query acceptance/rejection from its recorded candidate IDs/distances and row constraints, using the unchanged native gates. Mutually exclusive reason counts. No new threshold.",
+  "groups": "All selected moving; inherited natural-bad and other; oracle-bad-length and other. Retain every oracle length/vector failure and S2S entry. No successful subset.",
+  "control_reporting": "First-order forward correction and reconstructed finite first-update vector error, plus improvement/adverse counts across every moving case. These are fixed-association first updates from GT, not repeated solver/trajectory results.",
+  "figure": "Every moving pair retained, two scatter panels for the two predeclared ground-PCA controls. Native-equation forward correction versus control, in percent GT step.",
+  "limits": "No estimate of a population success rate, no full-trajectory score, no causal isolation of GT/calibration errors, no new estimator. Normal disagreement does not establish that PCA is correct."
+}

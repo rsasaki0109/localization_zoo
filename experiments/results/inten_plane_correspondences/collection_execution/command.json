@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_plane_correspondences/run.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-plane-correspondences/worktree",
+  "source_commit": "0d1b7e2da7278ed5f9575f260d4c00fa327d217d",
+  "started_unix": 1792469197.735136,
+  "exit_code": 0,
+  "finished_unix": 1792469591.014049
+}

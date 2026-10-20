@@ -85,5 +85,6 @@
   "archival": "Lossless ordered32MiB-uncompressed gzip shards of JSONL plus original sizes/SHA256; fully round-trip before scan removal. Commit raw results before numerical prose. Preserve all older aggregates and publication files.",
   "prior_aborted_trial_commit": "1e5099b3",
   "prior_aborted_trial": "experiments/results/inten_mapped_prior",
-  "held_first_sequence": "Initial official01 acquisition was performed by boundary.py with archived fetch/input hashes. Reuse only this owned still-present sequence after exact hash revalidation; archive a receipt and original fetch records in full01 stage. No second concurrent sequence."
+  "held_first_sequence": "Initial official01 acquisition was performed by boundary.py with archived fetch/input hashes. Reuse only this owned still-present sequence after exact hash revalidation; archive a receipt and original fetch records in full01 stage. No second concurrent sequence.",
+  "native_source_commit": "9a01528b05128794df962b52ace59e727e834417"
 }

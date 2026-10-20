@@ -111,6 +111,10 @@ struct InTenLoamPaperParams {
   bool use_dor = true;
   double dor_relative_range = 0.1;  // s_d
   double dor_object_ratio = 0.5;    // Th_N
+  // Opt-in repository extension, not in the paper: when the ten-neighbour
+  // S2S plane query lacks same/adjacent-row support, search the required rows
+  // under the existing distance gate. Existing selected points are retained.
+  bool s2s_row_support = false;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).

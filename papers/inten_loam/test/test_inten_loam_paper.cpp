@@ -1,5 +1,6 @@
 #include "inten_loam/inten_loam_paper.h"
 #include "inten_loam/detail/feature_tree.h"
+#include "inten_loam/detail/plane_row_support.h"
 
 #include <gtest/gtest.h>
 #include <Eigen/Geometry>
@@ -74,6 +75,69 @@ void scanAt(const Eigen::Matrix4d& pose, std::vector<Eigen::Vector3d>* pts, std:
 }
 
 }  // namespace
+
+TEST(InTenLoamPaper, RowSupportRecoversSameLineOutsideTenWithoutReplacingAdjacent) {
+  detail::FeatureTree target;
+  auto add = [&](double x, double y, int row) {
+    PaperFeature p; p.p = Eigen::Vector3d(x, y, 0); p.row = row;
+    target.pts.push_back(p);
+  };
+  add(0, 0, 10);
+  add(0, .1, 11);
+  for (int i = 0; i < 12; ++i) add(.02 * (i + 1), .02, 14);
+  const int outside_ten = static_cast<int>(target.pts.size());
+  add(.8, 0, 10);
+  target.build();
+  std::vector<int> ids; std::vector<float> distances;
+  const Eigen::Vector3d query(0, 0, .04);
+  ASSERT_EQ(target.knn(query, 10, &ids, &distances), 10);
+  ASSERT_EQ(ids.front(), 0);
+  for (int i : ids) ASSERT_NE(i, outside_ten);
+  detail::PlaneRowSupport support; support.build(target.pts);
+  int same = -1, adjacent = 1;
+  support.complete(target.pts, query, 0, 1., &same, &adjacent);
+  EXPECT_EQ(same, outside_ten);
+  EXPECT_EQ(adjacent, 1);
+  const Eigen::Vector3d normal = (target.pts[0].p - target.pts[adjacent].p)
+      .cross(target.pts[0].p - target.pts[same].p).normalized();
+  EXPECT_NEAR(std::abs(normal.dot(query - target.pts[0].p)), .04, 1e-12);
+}
+
+TEST(InTenLoamPaper, RowSupportRecoversAdjacentLineAndUsesNearestEligiblePoint) {
+  std::vector<PaperFeature> points(5);
+  points[0].row = points[1].row = 10;
+  points[1].p.x() = .1;
+  points[2].row = 8; points[2].p.y() = .7;
+  points[3].row = 11; points[3].p.y() = .5;
+  points[4].row = 13; points[4].p.y() = .01;  // closer but outside native row gap
+  detail::PlaneRowSupport support; support.build(points);
+  int same = 1, adjacent = -1;
+  support.complete(points, Eigen::Vector3d::Zero(), 0, 1., &same, &adjacent);
+  EXPECT_EQ(same, 1);
+  EXPECT_EQ(adjacent, 3);
+  // Existing support is never replaced, even by a closer row candidate.
+  same = 1; adjacent = 2;
+  support.complete(points, Eigen::Vector3d::Zero(), 0, 1., &same, &adjacent);
+  EXPECT_EQ(adjacent, 2);
+}
+
+TEST(InTenLoamPaper, RowSupportPreservesDistanceGateExcludesClosestAndClearsOnRebuild) {
+  std::vector<PaperFeature> points(3);
+  points[0].row = points[1].row = 0;
+  points[1].p.x() = 1.01;
+  points[2].row = 2; points[2].p.y() = 1.;
+  detail::PlaneRowSupport support; support.build(points);
+  int same = -1, adjacent = -1;
+  support.complete(points, Eigen::Vector3d::Zero(), 0, 1., &same, &adjacent);
+  EXPECT_EQ(same, -1);  // cannot reuse closest or exceed the distance gate
+  EXPECT_EQ(adjacent, 2);  // inclusive original squared-distance gate
+  points.resize(1); support.build(points);
+  same = adjacent = -1;
+  support.complete(points, Eigen::Vector3d::Zero(), 0, 1., &same, &adjacent);
+  EXPECT_EQ(same, -1);
+  EXPECT_EQ(adjacent, -1);
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2s_row_support);
+}
 
 TEST(InTenLoamPaper, NativeSmallKQueriesMatchPclIncludingTiesAndRebuilds) {
   detail::FeatureTree legacy, native;
@@ -339,58 +403,61 @@ TEST(InTenLoamPaper, PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods)
 class InTenLoamPassiveTrace : public ::testing::TestWithParam<bool> {};
 
 TEST_P(InTenLoamPassiveTrace, PreservesMovingPosesAndFutureMapState) {
-  InTenLoamPaperParams params;
-  params.accelerated = GetParam();
-  InTenLoamPaper plain(params), observed(params);
-  std::vector<Eigen::Vector3d> pts;
-  std::vector<float> inten;
-  Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
-  Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
-  step(0, 3) = 1.0;
-  step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
-  InTenLoamPaperTrace trace;
-  for (int k = 0; k < 6; ++k) {
-    if (k) truth = truth * step;
-    scanAt(truth, &pts, &inten);
-    const auto a = plain.process(pts, inten);
-    // Stop observing before the last frames, checking retained map/prediction.
-    const auto b = observed.process(pts, inten, nullptr, k < 4 ? &trace : nullptr);
-    EXPECT_EQ((a.pose - b.pose).norm(), 0.0);
-    EXPECT_EQ(a.s2s_pairs, b.s2s_pairs);
-    EXPECT_EQ(a.s2m_pairs, b.s2m_pairs);
-    EXPECT_EQ(a.dor_removed, b.dor_removed);
-    for (int c = 0; c < 4; ++c) EXPECT_EQ(a.s2m_class_pairs[c], b.s2m_class_pairs[c]);
-    if (k >= 4) continue;
-    EXPECT_EQ(trace.frame_index, k);
-    EXPECT_EQ((trace.pose - b.pose).norm(), 0.0);
-    if (!k) {
-      EXPECT_TRUE(trace.initialization);
-      EXPECT_FALSE(trace.s2s.called);
-      EXPECT_FALSE(trace.s2m.called);
-      continue;
-    }
-    EXPECT_FALSE(trace.initialization);
-    EXPECT_TRUE(trace.s2s.called);
-    EXPECT_TRUE(trace.s2m.called);
-    EXPECT_FALSE(trace.s2s_fallback);
-    EXPECT_TRUE(trace.s2m_accepted);
-    EXPECT_EQ(trace.s2s.returned_pairs, b.s2s_pairs);
-    EXPECT_EQ(trace.s2m.returned_pairs, b.s2m_pairs);
-    EXPECT_EQ((trace.accepted_relative - trace.s2s.output).norm(), 0.0);
-    EXPECT_EQ((trace.s2m.input - trace.s2m_prediction).norm(), 0.0);
-    EXPECT_EQ((trace.pose - trace.s2m.output).norm(), 0.0);
-    for (const auto* solver : {&trace.s2s, &trace.s2m}) {
-      ASSERT_FALSE(solver->iterations.empty());
-      EXPECT_EQ((solver->input - solver->iterations.front().linearization_pose).norm(), 0.0);
-      for (const auto& it : solver->iterations) {
-        EXPECT_EQ(it.pairs, it.class_pairs[0] + it.class_pairs[1] + it.class_pairs[2] + it.class_pairs[3]);
-        EXPECT_GE(it.weighted_squared_residual, 0.0);
-        EXPECT_TRUE(it.step_attempted);
-        EXPECT_TRUE(it.step_finite);
-        EXPECT_TRUE(it.update_applied);
-        const PaperIterationTrace::Vec6 recomputed =
-            (it.H + 1e-6 * PaperIterationTrace::Mat6::Identity()).ldlt().solve(-it.g);
-        EXPECT_LT((recomputed - it.delta).norm(), 1e-12);
+  for (bool row_support : {false, true}) {
+    InTenLoamPaperParams params;
+    params.s2s_row_support = row_support;
+    params.accelerated = GetParam();
+    InTenLoamPaper plain(params), observed(params);
+    std::vector<Eigen::Vector3d> pts;
+    std::vector<float> inten;
+    Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+    Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+    step(0, 3) = 1.0;
+    step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    InTenLoamPaperTrace trace;
+    for (int k = 0; k < 6; ++k) {
+      if (k) truth = truth * step;
+      scanAt(truth, &pts, &inten);
+      const auto a = plain.process(pts, inten);
+      // Stop observing before the last frames, checking retained map/prediction.
+      const auto b = observed.process(pts, inten, nullptr, k < 4 ? &trace : nullptr);
+      EXPECT_EQ((a.pose - b.pose).norm(), 0.0);
+      EXPECT_EQ(a.s2s_pairs, b.s2s_pairs);
+      EXPECT_EQ(a.s2m_pairs, b.s2m_pairs);
+      EXPECT_EQ(a.dor_removed, b.dor_removed);
+      for (int c = 0; c < 4; ++c) EXPECT_EQ(a.s2m_class_pairs[c], b.s2m_class_pairs[c]);
+      if (k >= 4) continue;
+      EXPECT_EQ(trace.frame_index, k);
+      EXPECT_EQ((trace.pose - b.pose).norm(), 0.0);
+      if (!k) {
+        EXPECT_TRUE(trace.initialization);
+        EXPECT_FALSE(trace.s2s.called);
+        EXPECT_FALSE(trace.s2m.called);
+        continue;
+      }
+      EXPECT_FALSE(trace.initialization);
+      EXPECT_TRUE(trace.s2s.called);
+      EXPECT_TRUE(trace.s2m.called);
+      EXPECT_FALSE(trace.s2s_fallback);
+      EXPECT_TRUE(trace.s2m_accepted);
+      EXPECT_EQ(trace.s2s.returned_pairs, b.s2s_pairs);
+      EXPECT_EQ(trace.s2m.returned_pairs, b.s2m_pairs);
+      EXPECT_EQ((trace.accepted_relative - trace.s2s.output).norm(), 0.0);
+      EXPECT_EQ((trace.s2m.input - trace.s2m_prediction).norm(), 0.0);
+      EXPECT_EQ((trace.pose - trace.s2m.output).norm(), 0.0);
+      for (const auto* solver : {&trace.s2s, &trace.s2m}) {
+        ASSERT_FALSE(solver->iterations.empty());
+        EXPECT_EQ((solver->input - solver->iterations.front().linearization_pose).norm(), 0.0);
+        for (const auto& it : solver->iterations) {
+          EXPECT_EQ(it.pairs, it.class_pairs[0] + it.class_pairs[1] + it.class_pairs[2] + it.class_pairs[3]);
+          EXPECT_GE(it.weighted_squared_residual, 0.0);
+          EXPECT_TRUE(it.step_attempted);
+          EXPECT_TRUE(it.step_finite);
+          EXPECT_TRUE(it.update_applied);
+          const PaperIterationTrace::Vec6 recomputed =
+              (it.H + 1e-6 * PaperIterationTrace::Mat6::Identity()).ldlt().solve(-it.g);
+          EXPECT_LT((recomputed - it.delta).norm(), 1e-12);
+        }
       }
     }
   }

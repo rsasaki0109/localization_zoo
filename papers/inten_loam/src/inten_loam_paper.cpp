@@ -2,6 +2,7 @@
 
 #include <Eigen/Dense>
 #include "inten_loam/detail/feature_tree.h"
+#include "inten_loam/detail/plane_row_support.h"
 
 #include <algorithm>
 #include <cmath>
@@ -155,6 +156,7 @@ struct InTenLoamPaper::ClassSystems {
 struct InTenLoamPaper::Index {
   Tree ground, facade, edge, all;
   IntensityGrid intensity;
+  std::unique_ptr<detail::PlaneRowSupport> ground_rows, facade_rows;
 };
 
 struct InTenLoamPaper::Map {
@@ -561,6 +563,10 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
           if (dr == 0 && same < 0) same = ids[static_cast<size_t>(k)];
           if (dr >= 1 && dr <= 2 && adj < 0) adj = ids[static_cast<size_t>(k)];
         }
+        if (params_.s2s_row_support && (same < 0 || adj < 0)) {
+          const auto& rows = cls == 0 ? prev.ground_rows : prev.facade_rows;
+          rows->complete(tree.pts, x, ids[0], gate, &same, &adj);
+        }
         if (same < 0 || adj < 0) return false;
         Eigen::Vector3d nrm = (qj.p - tree.pts[static_cast<size_t>(adj)].p)
                     .cross(qj.p - tree.pts[static_cast<size_t>(same)].p);
@@ -830,6 +836,12 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     ix->facade.pts = f.facade;
     ix->edge.pts = f.edge;
     ix->all.pts = f.all;
+    if (params_.s2s_row_support) {
+      ix->ground_rows = std::make_unique<detail::PlaneRowSupport>();
+      ix->facade_rows = std::make_unique<detail::PlaneRowSupport>();
+      ix->ground_rows->build(f.ground);
+      ix->facade_rows->build(f.facade);
+    }
     // all.pts is rendered by DOR, never searched. The legacy path also
     // builds its tree; the opt-in path avoids that unused index entirely.
 #pragma omp parallel sections if(params_.accelerated)

@@ -127,6 +127,8 @@ inline void params(std::ostream& out, const InTenLoamPaperParams& p) {
   INTEN_TRACE_PARAM(s2m_plane_min_spread); out << ",\"use_dor\":" << p.use_dor;
   INTEN_TRACE_PARAM(dor_relative_range); INTEN_TRACE_PARAM(dor_object_ratio);
   out << ",\"accelerated\":" << p.accelerated;
+  // Omit the disabled extension to preserve the legacy header bytes.
+  if (p.s2s_row_support) out << ",\"s2s_row_support\":true";
 #undef INTEN_TRACE_PARAM
   out << '}';
 }

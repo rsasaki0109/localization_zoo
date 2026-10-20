@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-mapped-prior-rigid/worktree/experiments/results/inten_mapped_prior_rigid/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-mapped-prior-rigid/worktree/experiments/results/inten_mapped_prior_rigid/checks/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-mapped-prior-rigid/worktree",
+  "source_commit": "5c9a9833dc434cfdb1e7b648f98051653ee2505f",
+  "started_unix": 1792487967.9719443,
+  "finished_unix": 1792487968.226019,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

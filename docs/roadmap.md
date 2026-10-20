@@ -409,10 +409,28 @@ independent. Each item says what "done" means.
     retained. Fresh reference RTE matches every historical primary aggregate;
     the full 07 parent control and all 360 default-off pair controls agree.
     Known 01/02 and the previously inspected 10 are development evidence, not
-    an independent held-out evaluation. The remaining full-sequence failure
-    needs a different candidate and a separately frozen full-sequence comparison;
-    additional exporter/preparation-only work does not close the improvement
-    task. Defaults, historical results and Table 6 are preserved.
+    an independent held-out evaluation.
+    The [recursive mapped-motion seed comparison](../experiments/results/inten_mapped_prior_rigid/README.md)
+    now also covers every full KITTI 00-10 sequence with one fixed setting.
+    It reuses the previous final mapped motion only as the next S2S seed;
+    fallback and deskew still use the original accepted S2S cache. This is
+    outside the paper and default off. An initial unprojected version aborted
+    on 00 with exit 134 as non-rigid roundoff amplified; that failed execution
+    is retained. Restoring the seed rotation through a normalized quaternion
+    gives a complete fresh comparison: geometric mean candidate/reference RTE
+    0.904792x, with 5 lower and 6 higher sequences. 01 improves 16.613803% to
+    5.180428%, but 50 bad-length steps remain; 13 newly bad frames accompany
+    99 reference-only bad frames. 02 changes 3.221230% to 3.073932% with 128 bad
+    steps remaining, including one newly bad frame. 10 worsens 1.155652% to
+    1.183142%; its smaller accumulated errors remain. 01/02/10 still exceed
+    twice the cited paper values. This is partial progress, not a general fix;
+    no per-sequence winner is adopted. All adverse metrics, new local failures,
+    error-growth blocks and commands are retained. The inherited values were
+    chosen on 07; 00 informed diagnosis and the numerical correction. Previously
+    inspected 01/02/10 are development evidence, with no independent held-out
+    claim. All fresh reference RTE values match the historical primary results.
+    The remaining association/solver failure needs further actual improvement
+    work. Defaults, earlier studies, historical results and Table 6 are preserved.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

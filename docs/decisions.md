@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-20T09:18:12+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2833,6 +2833,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 | nhc_zupt | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | accel_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_no_intensity`.
@@ -2860,6 +2871,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2874,6 +2896,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_mapped_prior_rigid_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -2900,6 +2933,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2914,6 +2958,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_mapped_prior_rigid_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -2940,6 +2995,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2960,6 +3026,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2974,6 +3051,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_mapped_prior_rigid_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -3006,6 +3094,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -3026,6 +3125,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -3040,6 +3150,17 @@ _Generated at 2026-10-20T06:40:50+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_mapped_prior_rigid_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|

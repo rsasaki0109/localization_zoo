@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-20T06:40:51+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-20T09:18:13+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.

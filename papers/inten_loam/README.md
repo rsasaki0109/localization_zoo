@@ -646,6 +646,119 @@ pair controls, native tests and command/execution records are linked in
 the study. Sensor-transfer behavior and the remaining solver failure are open.
 <!-- /INTEN_ROW_SUPPORT -->
 
+<!-- INTEN_MAPPED_PRIOR -->
+## Optional recursive mapped-motion S2S seed
+
+`--inten-loam-paper-set s2s_mapped_prior=1` is a repository extension
+**outside the paper, off by default**. It replaces only the normal S2S
+initial value with the previous final mapped relative pose, updated recursively.
+Its rotation uses a normalized quaternion; translation is preserved.
+The initial unprojected trial completed 07 worse and aborted 00; see the
+[preserved failure](../../experiments/results/inten_mapped_prior/README.md).
+00 informed this numerical correction; this fixed revision restarts every sequence.
+The original accepted S2S motion still controls low-count fallback and deskew.
+Startup is identity; mapping-off and forced-pose diagnostics are unchanged.
+Skipped/rejected S2M uses the actual final relative pose for the next seed.
+No association, gate, residual, damping or budget changes; row completion stays off.
+
+The inherited profile was chosen on 07 with 00 influencing diagnosis.
+Known 01/02/10 failures motivated this parameter-free boolean, so no independent
+held-out claim is made. Every KITTI 00–10 sequence uses the same settings,
+acceleration and passive trace, with continuous prediction and no GT seed.
+The earlier one-shot mapped-seed control did not test recursive prevention.
+
+[Full study and commands](../../experiments/results/inten_mapped_prior_rigid/README.md);
+[complete numerical report](../../experiments/results/inten_mapped_prior_rigid/report/summary.json).
+
+The initial unprojected trial is a retained negative result: full 07 official
+RTE 0.364131 → 0.379537%,
+ATE 1.461444 → 1.668590 m;00 aborted with
+exit 134 after 2355 frame records
+(no full 00 RTE). Its non-rigid rotation feedback informed the fixed rotation
+restoration used here. All 11 sequences restart with the revised setting.
+[Original source, commands and diagnosis](../../experiments/results/inten_mapped_prior/README.md).
+
+Geometric mean of option / reference official RTE: **0.904792x** across all sequences.
+Lower RTE: 00, 01, 02, 05, 06. Higher RTE: 03, 04, 07, 08, 09, 10.
+This is a fixed experimental comparison; no per-sequence default is adopted.
+Bad-length labels use the inherited local 20% threshold for GT motion at least 0.1 m,
+separate from official KITTI 100–800 m RTE. Raw paired timing is not an FPS benchmark.
+
+Numerical sources committed before prose: `d62570b78d2707cc9c7d0629592c193986a57a29`.
+
+| Sequence | Reference RTE [%] | Option RTE [%] | Reference ATE [m] | Option ATE [m] | Bad-length steps, reference / option |
+|---|---:|---:|---:|---:|---:|
+| 00 | 0.696720 | 0.691786 | 17.644136 | 17.064446 | 13 / 12 |
+| 01 | 16.613803 | 5.180428 | 275.593270 | 100.875751 | 136 / 50 |
+| 02 | 3.221230 | 3.073932 | 122.844508 | 119.531515 | 133 / 128 |
+| 03 | 0.890601 | 0.917374 | 6.262153 | 6.449763 | 2 / 2 |
+| 04 | 0.676097 | 0.678960 | 1.539561 | 1.543638 | 0 / 0 |
+| 05 | 0.497289 | 0.491912 | 9.976094 | 9.886842 | 0 / 0 |
+| 06 | 0.358642 | 0.354019 | 1.917879 | 1.924468 | 0 / 0 |
+| 07 | 0.364131 | 0.378295 | 1.461444 | 1.660935 | 0 / 0 |
+| 08 | 0.937938 | 0.973072 | 27.673206 | 28.286838 | 20 / 19 |
+| 09 | 0.661434 | 0.668254 | 11.000039 | 11.133601 | 0 / 0 |
+| 10 | 1.155652 | 1.183142 | 9.669713 | 9.901906 | 0 / 0 |
+
+Every adverse comparison (reference → option):
+
+- 03: official RTE [%] 0.890601 → 0.917374; rotation [deg/100 m] 0.627926 → 0.660957; ATE [m] 6.262153 → 6.449763.
+- 04: official RTE [%] 0.676097 → 0.678960; ATE [m] 1.539561 → 1.543638.
+- 06: ATE [m] 1.917879 → 1.924468.
+- 07: official RTE [%] 0.364131 → 0.378295; rotation [deg/100 m] 0.274943 → 0.298015; ATE [m] 1.461444 → 1.660935.
+- 08: official RTE [%] 0.937938 → 0.973072; rotation [deg/100 m] 0.324577 → 0.339552; ATE [m] 27.673206 → 28.286838.
+- 09: official RTE [%] 0.661434 → 0.668254; rotation [deg/100 m] 0.232926 → 0.249751; ATE [m] 11.000039 → 11.133601.
+- 10: official RTE [%] 1.155652 → 1.183142; rotation [deg/100 m] 0.386538 → 0.393581; ATE [m] 9.669713 → 9.901906.
+
+New local bad labels in the candidate relative to the reference (all frames):
+
+| Sequence | Newly bad length steps | Reference-only bad length steps | Newly bad vector steps | Reference-only bad vector steps |
+|---|---:|---:|---:|---:|
+| 00 | 0 | 1 | 0 | 1 |
+| 01 | 13 | 99 | 13 | 99 |
+| 02 | 1 | 6 | 1 | 7 |
+| 03 | 0 | 0 | 0 | 0 |
+| 04 | 0 | 0 | 0 | 0 |
+| 05 | 0 | 0 | 0 | 0 |
+| 06 | 0 | 0 | 0 | 0 |
+| 07 | 0 | 0 | 0 | 0 |
+| 08 | 0 | 1 | 2 | 4 |
+| 09 | 0 | 0 | 0 | 0 |
+| 10 | 0 | 0 | 0 | 0 |
+
+Each pair uses the same input frame and GT labels but different realized
+trajectories. These are outcome differences, not matched-seed interventions.
+Every affected frame index is retained in the numerical report.
+
+Failure-sequence observations along each realized trajectory:
+
+- 01: final bad-length frames 217–253, 420–518 → 204–253; S2S bad-length outputs 139 → 51; final rejected S2M 0 → 0.
+- 02: final bad-length frames 1787, 1878–1943, 3308, 4460–4524 → 1787, 1883–1942, 3308, 4460–4525; S2S bad-length outputs 136 → 131; final rejected S2M 0 → 0.
+- 10: final bad-length frames none → none; S2S bad-length outputs 0 → 0; final rejected S2M 0 → 0.
+
+Candidate sequences exceeding twice the cited paper RTE:
+
+| Sequence | Option RTE [%] | Paper RTE [%] | Option / paper | Largest position-error growth block | Position error start → end [m] | Local block error [%] |
+|---|---:|---:|---:|---|---:|---:|
+| 01 | 5.180428 | 0.640000 | 8.094419 | 200–300 | 2.277764 → 100.942226 | 37.317870 |
+| 01 | 5.180428 | 0.640000 | 8.094419 | 600–700 | 111.147016 → 116.310783 | 0.813662 |
+| 01 | 5.180428 | 0.640000 | 8.094419 | 700–800 | 116.310783 → 120.549185 | 0.371765 |
+| 02 | 3.073932 | 0.540000 | 5.692467 | 1900–2000 | 57.507917 → 117.070449 | 49.417329 |
+| 02 | 3.073932 | 0.540000 | 5.692467 | 4400–4500 | 105.465085 → 164.579579 | 38.262206 |
+| 02 | 3.073932 | 0.540000 | 5.692467 | 2300–2400 | 55.084337 → 113.862431 | 0.460583 |
+| 10 | 1.183142 | 0.450000 | 2.629204 | 700–800 | 9.445875 → 14.984990 | 0.947132 |
+| 10 | 1.183142 | 0.450000 | 2.629204 | 600–700 | 6.908792 → 9.445875 | 1.995964 |
+| 10 | 1.183142 | 0.450000 | 2.629204 | 800–900 | 14.984990 → 17.466513 | 0.485612 |
+
+These fixed-size motion blocks locate error growth; their relative errors are
+not official distance-segment RTE and do not establish the solver-level cause.
+Paper values are cited context; this extension is not the paper algorithm.
+
+These are natural full-run observations, not matched-seed causal interventions.
+The complete report retains every step and all motion-error blocks. The option
+remains outside the paper and default off; earlier results are preserved.
+<!-- /INTEN_MAPPED_PRIOR -->
+
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):

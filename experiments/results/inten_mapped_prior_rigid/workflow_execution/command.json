@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-mapped-prior-rigid/finish_collection.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-mapped-prior-rigid/worktree",
+  "source_commit": "8f0cc1d802099e05e942c747b1a9f40f0e6737d9",
+  "orchestrator_sha256": "574ec4999192e4d8a832f246d96890543a5e8808ef0c483175661ffd74fc0694",
+  "started_unix": 1792487637.2806845,
+  "exit_code": 0,
+  "finished_unix": 1792487672.6868446
+}

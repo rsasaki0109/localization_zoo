@@ -1,0 +1,40 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-ground-pca/staging/01/default_pair_compatibility",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-ground-pca/compatibility_probe"
+  ],
+  "cwd": "/workspace/localization-env/inten-ground-pca/worktree",
+  "source_commit": "28aaf35f433bee52d40075e0225d11f643ddd8bc",
+  "native_source_commit": "3cca310e149925147dc9b1e92af8404f72ff0163",
+  "started_unix": 1792509801.0106244,
+  "finished_unix": 1792509816.4675188,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "stdin_sha256": "babf1599e4a7ac94c4554b8e1d5bb323ebce494e63cd46f806f38d79a6df62eb"
+}

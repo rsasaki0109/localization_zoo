@@ -1,0 +1,335 @@
+{
+  "native_rejection_universe_matches": true,
+  "totals": {
+    "ground": {
+      "native_missing_row_rejections": 9114,
+      "native_same_missing": 9079,
+      "same_still_missing_in_full_target_gate": 6034,
+      "same_available_beyond_ten": 3045,
+      "both_required_rows_available_in_full_target_gate": 3045,
+      "extra_constructible_triangles": 3045,
+      "native_adjacent_missing": 1009,
+      "adjacent_still_missing_in_full_target_gate": 990,
+      "adjacent_available_beyond_ten": 19
+    },
+    "facade": {
+      "native_missing_row_rejections": 8748,
+      "native_same_missing": 8460,
+      "same_still_missing_in_full_target_gate": 4090,
+      "same_available_beyond_ten": 4370,
+      "both_required_rows_available_in_full_target_gate": 4570,
+      "extra_constructible_triangles": 4570,
+      "native_adjacent_missing": 1215,
+      "adjacent_still_missing_in_full_target_gate": 757,
+      "adjacent_available_beyond_ten": 458
+    }
+  },
+  "cases": {
+    "10_1": {
+      "ground": {
+        "native_missing_row_rejections": 831,
+        "native_same_missing": 831,
+        "same_still_missing_in_full_target_gate": 765,
+        "same_available_beyond_ten": 66,
+        "both_required_rows_available_in_full_target_gate": 66,
+        "extra_constructible_triangles": 66,
+        "native_adjacent_missing": 128,
+        "adjacent_still_missing_in_full_target_gate": 128
+      },
+      "facade": {
+        "native_missing_row_rejections": 376,
+        "native_same_missing": 362,
+        "same_still_missing_in_full_target_gate": 346,
+        "same_available_beyond_ten": 16,
+        "both_required_rows_available_in_full_target_gate": 16,
+        "extra_constructible_triangles": 16,
+        "native_adjacent_missing": 112,
+        "adjacent_still_missing_in_full_target_gate": 112
+      }
+    },
+    "10_100": {
+      "ground": {
+        "native_missing_row_rejections": 855,
+        "native_same_missing": 854,
+        "same_still_missing_in_full_target_gate": 670,
+        "same_available_beyond_ten": 184,
+        "both_required_rows_available_in_full_target_gate": 184,
+        "extra_constructible_triangles": 184,
+        "native_adjacent_missing": 126,
+        "adjacent_still_missing_in_full_target_gate": 126
+      },
+      "facade": {
+        "native_missing_row_rejections": 568,
+        "native_same_missing": 544,
+        "same_available_beyond_ten": 232,
+        "both_required_rows_available_in_full_target_gate": 251,
+        "extra_constructible_triangles": 251,
+        "same_still_missing_in_full_target_gate": 312,
+        "native_adjacent_missing": 120,
+        "adjacent_still_missing_in_full_target_gate": 82,
+        "adjacent_available_beyond_ten": 38
+      }
+    },
+    "10_200": {
+      "ground": {
+        "native_missing_row_rejections": 242,
+        "native_same_missing": 232,
+        "same_available_beyond_ten": 125,
+        "both_required_rows_available_in_full_target_gate": 125,
+        "extra_constructible_triangles": 125,
+        "same_still_missing_in_full_target_gate": 107,
+        "native_adjacent_missing": 44,
+        "adjacent_still_missing_in_full_target_gate": 44
+      },
+      "facade": {
+        "native_missing_row_rejections": 1051,
+        "native_same_missing": 1010,
+        "same_available_beyond_ten": 711,
+        "both_required_rows_available_in_full_target_gate": 750,
+        "extra_constructible_triangles": 750,
+        "native_adjacent_missing": 121,
+        "adjacent_available_beyond_ten": 93,
+        "same_still_missing_in_full_target_gate": 299,
+        "adjacent_still_missing_in_full_target_gate": 28
+      }
+    },
+    "10_300": {
+      "ground": {
+        "native_missing_row_rejections": 580,
+        "native_same_missing": 580,
+        "same_available_beyond_ten": 268,
+        "both_required_rows_available_in_full_target_gate": 268,
+        "extra_constructible_triangles": 268,
+        "same_still_missing_in_full_target_gate": 312,
+        "native_adjacent_missing": 66,
+        "adjacent_still_missing_in_full_target_gate": 64,
+        "adjacent_available_beyond_ten": 2
+      },
+      "facade": {
+        "native_missing_row_rejections": 690,
+        "native_same_missing": 672,
+        "same_available_beyond_ten": 341,
+        "both_required_rows_available_in_full_target_gate": 358,
+        "extra_constructible_triangles": 358,
+        "native_adjacent_missing": 106,
+        "adjacent_available_beyond_ten": 44,
+        "same_still_missing_in_full_target_gate": 331,
+        "adjacent_still_missing_in_full_target_gate": 62
+      }
+    },
+    "10_400": {
+      "ground": {
+        "native_missing_row_rejections": 861,
+        "native_same_missing": 859,
+        "same_available_beyond_ten": 251,
+        "both_required_rows_available_in_full_target_gate": 251,
+        "extra_constructible_triangles": 251,
+        "same_still_missing_in_full_target_gate": 608,
+        "native_adjacent_missing": 69,
+        "adjacent_still_missing_in_full_target_gate": 69
+      },
+      "facade": {
+        "native_missing_row_rejections": 533,
+        "native_same_missing": 519,
+        "same_available_beyond_ten": 208,
+        "both_required_rows_available_in_full_target_gate": 217,
+        "extra_constructible_triangles": 217,
+        "native_adjacent_missing": 72,
+        "adjacent_available_beyond_ten": 16,
+        "same_still_missing_in_full_target_gate": 311,
+        "adjacent_still_missing_in_full_target_gate": 56
+      }
+    },
+    "10_500": {
+      "ground": {
+        "native_missing_row_rejections": 432,
+        "native_same_missing": 428,
+        "same_still_missing_in_full_target_gate": 273,
+        "native_adjacent_missing": 64,
+        "adjacent_available_beyond_ten": 3,
+        "same_available_beyond_ten": 155,
+        "both_required_rows_available_in_full_target_gate": 155,
+        "extra_constructible_triangles": 155,
+        "adjacent_still_missing_in_full_target_gate": 61
+      },
+      "facade": {
+        "native_missing_row_rejections": 790,
+        "native_same_missing": 780,
+        "same_available_beyond_ten": 497,
+        "both_required_rows_available_in_full_target_gate": 498,
+        "extra_constructible_triangles": 498,
+        "same_still_missing_in_full_target_gate": 283,
+        "native_adjacent_missing": 79,
+        "adjacent_available_beyond_ten": 35,
+        "adjacent_still_missing_in_full_target_gate": 44
+      }
+    },
+    "10_600": {
+      "ground": {
+        "native_missing_row_rejections": 698,
+        "native_same_missing": 697,
+        "same_still_missing_in_full_target_gate": 385,
+        "native_adjacent_missing": 53,
+        "adjacent_still_missing_in_full_target_gate": 46,
+        "same_available_beyond_ten": 312,
+        "both_required_rows_available_in_full_target_gate": 312,
+        "extra_constructible_triangles": 312,
+        "adjacent_available_beyond_ten": 7
+      },
+      "facade": {
+        "native_missing_row_rejections": 839,
+        "native_same_missing": 810,
+        "same_available_beyond_ten": 559,
+        "both_required_rows_available_in_full_target_gate": 585,
+        "extra_constructible_triangles": 585,
+        "native_adjacent_missing": 93,
+        "adjacent_available_beyond_ten": 57,
+        "same_still_missing_in_full_target_gate": 251,
+        "adjacent_still_missing_in_full_target_gate": 36
+      }
+    },
+    "10_700": {
+      "ground": {
+        "native_missing_row_rejections": 848,
+        "native_same_missing": 847,
+        "same_still_missing_in_full_target_gate": 615,
+        "same_available_beyond_ten": 232,
+        "both_required_rows_available_in_full_target_gate": 232,
+        "extra_constructible_triangles": 232,
+        "native_adjacent_missing": 90,
+        "adjacent_still_missing_in_full_target_gate": 88,
+        "adjacent_available_beyond_ten": 2
+      },
+      "facade": {
+        "native_missing_row_rejections": 530,
+        "native_same_missing": 510,
+        "same_available_beyond_ten": 148,
+        "both_required_rows_available_in_full_target_gate": 152,
+        "extra_constructible_triangles": 152,
+        "same_still_missing_in_full_target_gate": 362,
+        "native_adjacent_missing": 90,
+        "adjacent_available_beyond_ten": 8,
+        "adjacent_still_missing_in_full_target_gate": 82
+      }
+    },
+    "10_800": {
+      "ground": {
+        "native_missing_row_rejections": 901,
+        "native_same_missing": 900,
+        "same_available_beyond_ten": 186,
+        "both_required_rows_available_in_full_target_gate": 186,
+        "extra_constructible_triangles": 186,
+        "same_still_missing_in_full_target_gate": 714,
+        "native_adjacent_missing": 86,
+        "adjacent_still_missing_in_full_target_gate": 84,
+        "adjacent_available_beyond_ten": 2
+      },
+      "facade": {
+        "native_missing_row_rejections": 459,
+        "native_same_missing": 451,
+        "same_available_beyond_ten": 112,
+        "both_required_rows_available_in_full_target_gate": 114,
+        "extra_constructible_triangles": 114,
+        "same_still_missing_in_full_target_gate": 339,
+        "native_adjacent_missing": 59,
+        "adjacent_still_missing_in_full_target_gate": 55,
+        "adjacent_available_beyond_ten": 4
+      }
+    },
+    "10_900": {
+      "ground": {
+        "native_missing_row_rejections": 911,
+        "native_same_missing": 910,
+        "same_still_missing_in_full_target_gate": 571,
+        "same_available_beyond_ten": 339,
+        "both_required_rows_available_in_full_target_gate": 339,
+        "extra_constructible_triangles": 339,
+        "native_adjacent_missing": 85,
+        "adjacent_still_missing_in_full_target_gate": 85
+      },
+      "facade": {
+        "native_missing_row_rejections": 649,
+        "native_same_missing": 629,
+        "same_available_beyond_ten": 373,
+        "both_required_rows_available_in_full_target_gate": 381,
+        "extra_constructible_triangles": 381,
+        "native_adjacent_missing": 82,
+        "adjacent_available_beyond_ten": 21,
+        "same_still_missing_in_full_target_gate": 256,
+        "adjacent_still_missing_in_full_target_gate": 61
+      }
+    },
+    "10_1000": {
+      "ground": {
+        "native_missing_row_rejections": 757,
+        "native_same_missing": 756,
+        "same_still_missing_in_full_target_gate": 401,
+        "same_available_beyond_ten": 355,
+        "both_required_rows_available_in_full_target_gate": 355,
+        "extra_constructible_triangles": 355,
+        "native_adjacent_missing": 59,
+        "adjacent_still_missing_in_full_target_gate": 58,
+        "adjacent_available_beyond_ten": 1
+      },
+      "facade": {
+        "native_missing_row_rejections": 700,
+        "native_adjacent_missing": 55,
+        "adjacent_available_beyond_ten": 13,
+        "both_required_rows_available_in_full_target_gate": 333,
+        "extra_constructible_triangles": 333,
+        "native_same_missing": 692,
+        "same_available_beyond_ten": 329,
+        "adjacent_still_missing_in_full_target_gate": 42,
+        "same_still_missing_in_full_target_gate": 363
+      }
+    },
+    "10_1100": {
+      "ground": {
+        "native_missing_row_rejections": 372,
+        "native_same_missing": 361,
+        "same_available_beyond_ten": 163,
+        "both_required_rows_available_in_full_target_gate": 163,
+        "extra_constructible_triangles": 163,
+        "same_still_missing_in_full_target_gate": 198,
+        "native_adjacent_missing": 84,
+        "adjacent_available_beyond_ten": 1,
+        "adjacent_still_missing_in_full_target_gate": 83
+      },
+      "facade": {
+        "native_missing_row_rejections": 931,
+        "native_same_missing": 867,
+        "same_available_beyond_ten": 552,
+        "both_required_rows_available_in_full_target_gate": 610,
+        "extra_constructible_triangles": 610,
+        "native_adjacent_missing": 135,
+        "adjacent_available_beyond_ten": 88,
+        "same_still_missing_in_full_target_gate": 315,
+        "adjacent_still_missing_in_full_target_gate": 47
+      }
+    },
+    "10_1200": {
+      "ground": {
+        "native_missing_row_rejections": 826,
+        "native_same_missing": 824,
+        "same_available_beyond_ten": 409,
+        "both_required_rows_available_in_full_target_gate": 409,
+        "extra_constructible_triangles": 409,
+        "same_still_missing_in_full_target_gate": 415,
+        "native_adjacent_missing": 55,
+        "adjacent_available_beyond_ten": 1,
+        "adjacent_still_missing_in_full_target_gate": 54
+      },
+      "facade": {
+        "native_missing_row_rejections": 632,
+        "native_same_missing": 614,
+        "same_still_missing_in_full_target_gate": 322,
+        "same_available_beyond_ten": 292,
+        "both_required_rows_available_in_full_target_gate": 305,
+        "extra_constructible_triangles": 305,
+        "native_adjacent_missing": 91,
+        "adjacent_available_beyond_ten": 41,
+        "adjacent_still_missing_in_full_target_gate": 50
+      }
+    }
+  }
+}

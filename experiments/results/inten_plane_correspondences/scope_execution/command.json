@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-plane-correspondences/worktree/experiments/results/inten_plane_correspondences/support_scope.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-plane-correspondences/worktree/experiments/results/inten_plane_correspondences/scope"
+  ],
+  "cwd": "/workspace/localization-env/inten-plane-correspondences/worktree",
+  "source_commit": "52ddb0d252143249d6ae001605560cdccaacf3f9",
+  "started_unix": 1792469907.8631845,
+  "finished_unix": 1792469931.5263212,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "raw_collection_commit": "b4d3d37a98f9af76725d5d194865056ecb2b737c",
+  "native_source_commit": "888492232ab1fc6b837780469b20de31cbf46357",
+  "collection_protocol_commit": "568536f5e78dea5d144398e7e6fe45e2e06f626f",
+  "preservation_base_commit": "e057e74619e870341a9b57ec0b13b0bd0ecd7f29",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "report": "Check every recorded damped solve with relative backward error<=1e-10; retain independent LAPACK/Eigen forward differences as conditioning-sensitive observations, not a drift gate. Reconstruct stored prior information from first data system and verify floor/PSD; retain active frames and all failures. Restore all complete archives. Validate the recursive mapped seed in both arms, identical input features/GT, saved-pose consistency and complete traversal. Official native100-800m RTE and inherited0.1m/20% local labels are distinct. Retain every step, all error-growth blocks, negative metrics, candidate-only bad local frames even when total errors fall, and known-entry natural observations; no causal claims from different trajectories.",
+  "import_policy": "Every arm non-default, unscored; no per-sequence adoption. Native summaries byte-preserved, raw timing retained but uniformly absent from aggregate FPS/time because paired processes share CPUs.",
+  "preservation": "All preexisting710 aggregate hashes, all prior full-variant CSV rows, canonical publication files, older scientific studies and frozen native binaries/dependencies remain intact.",
+  "prior_inspection": "Inherited range/elevation/plane/edge values were selected on07;00 informed prior diagnosis. Both arms enable the fixed PR156 mapped-motion prior. New dimensionless translation-information ratio0.03 is fixed before any new accuracy run, motivated by the existing DiLO degeneracy convention, not selected by optimizing a KITTI score. The full inherited01/02/10 GT-seeded first-system inspection is development evidence;02 shows weak forward information but01/10 often do not. Known failures and all prior full results are development data. No independent held-out claim. Run07 first then every00-10 without retuning, even if negative.",
+  "selection_wording_scope": "The original collection wording about not optimizing a KITTI score refers to this new InTEn experiment. The inherited numerical fraction had previously been selected on KITTI01 for DiLO; this provenance clarification changes no parameter, native source, acquisition or collected execution.",
+  "fraction_provenance": "The fixed fraction0.03 is borrowed from the existing DiLO control explicitly selected on KITTI01 (papers/dilo/README.md at preservation base). This candidate uses a soft floor on sensor-centered Schur translation information rather than DiLO hard remapping of the raw translation block. No native parameter changes or new tuning occurred; this clarifies the inherited value provenance.",
+  "order": "Commit sources before deriving. Commit complete report/import results before writing numerical prose. Regenerate required docs, preserve negatives, run actual-exit checks, require complete native/ROS CI at final PR head. No merge.",
+  "source_sha256": {
+    "report.py": "c58f37ae43451c541dd31dc78b7ae417cd34a4af3aba7cd920e75af6d10acd92",
+    "import_results.py": "1e0624505fb6651816343e014af37b32a710e4198922569a580b45010606359f",
+    "verify.py": "0eeb10f2a5f7f55eaf2bed804063687a230ac6c20502d39c644d70ac0da89c6a",
+    "write_docs.py": "c45da2631b935e638aae5dd359b6e046e7fd00c464665b371139db65616fee10",
+    "readme_template.md": "aa97e1c9e1b13471480255acb2ac2ea3690431e9948831f2aed01c1bf5e9197d",
+    "finalize_docs.py": "9a56155da59a229ba8b4acfb6a90cb6d68adac798dbaea5515ee14d5b5ba5d67"
+  }
+}

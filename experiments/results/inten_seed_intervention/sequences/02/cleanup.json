@@ -1,0 +1,7 @@
+{
+  "sequence": "02",
+  "hashes_verified_before_removal": true,
+  "owned_input_dir": "/workspace/localization-env/inten-collapse-boundaries/kitti/dataset/sequences/02/velodyne",
+  "input_dir_exists_after": false,
+  "removed_files": 4662
+}

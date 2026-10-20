@@ -1,0 +1,11 @@
+{
+  "exit_code": 0,
+  "pairs": 13,
+  "max_absolute_differences": {
+    "output": 0.0,
+    "H": 0.0,
+    "g": 0.0
+  },
+  "class_counts_exact": true,
+  "scope": "Default-off, unaccelerated natural-seed fixed-pair controls against parent native execution, not full-sequence accuracy scores"
+}

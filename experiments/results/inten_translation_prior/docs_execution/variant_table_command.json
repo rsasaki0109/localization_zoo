@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/generate_full_variant_table.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-prior/worktree",
+  "source_commit": "16577120f8e0b525446692d51ac26ea3367fb501",
+  "started_unix": 1792498638.3410053,
+  "finished_unix": 1792498638.455265,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

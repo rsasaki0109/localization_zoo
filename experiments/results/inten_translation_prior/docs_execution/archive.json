@@ -1,0 +1,102 @@
+{
+  "files": {
+    "paper_ratio.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/paper_ratio.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "paper_ratio.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "paper_ratio.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/paper_ratio.stdout.log",
+      "bytes": 750,
+      "sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+      "storage": "gzip",
+      "path": "paper_ratio.stdout.log.gz",
+      "stored_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1"
+    },
+    "paper_ratio_command.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/paper_ratio_command.json",
+      "bytes": 549,
+      "sha256": "498579720c82b43d96949f1f1cd6e7a687d303474407e6a88a29d86c00468e69",
+      "storage": "verbatim",
+      "path": "paper_ratio_command.json",
+      "stored_sha256": "498579720c82b43d96949f1f1cd6e7a687d303474407e6a88a29d86c00468e69"
+    },
+    "study_docs.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/study_docs.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "study_docs.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "study_docs.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/study_docs.stdout.log",
+      "bytes": 48723,
+      "sha256": "2d4b1c6768c2524157d7ad2590cfc397d4b3e189e401a57b5f7d945efc5a62da",
+      "storage": "gzip",
+      "path": "study_docs.stdout.log.gz",
+      "stored_sha256": "808b04bd0276f6baa776f0785856de147d569dbd681db10631b3be852ca40076"
+    },
+    "study_docs_command.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/study_docs_command.json",
+      "bytes": 541,
+      "sha256": "9a0db420f2c9b6715e578713041ab8dbcec24b6388a4ec7fc8399d0e6f64a8b3",
+      "storage": "verbatim",
+      "path": "study_docs_command.json",
+      "stored_sha256": "9a0db420f2c9b6715e578713041ab8dbcec24b6388a4ec7fc8399d0e6f64a8b3"
+    },
+    "variant_table.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/variant_table.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "variant_table.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "variant_table.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/variant_table.stdout.log",
+      "bytes": 151,
+      "sha256": "2ce334a5287e5134b0db0786a36c834200b19e3d2f40d4473e208964713f9eeb",
+      "storage": "gzip",
+      "path": "variant_table.stdout.log.gz",
+      "stored_sha256": "94c7b30294ebc6f88cf5fb95a9caf7107096dd50cee130b2225b2c1621b5f655"
+    },
+    "variant_table_command.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/variant_table_command.json",
+      "bytes": 549,
+      "sha256": "64f0d7f898b001efe45cf61b3a23bf2a5452e7ec41081209d81943c906618c60",
+      "storage": "verbatim",
+      "path": "variant_table_command.json",
+      "stored_sha256": "64f0d7f898b001efe45cf61b3a23bf2a5452e7ec41081209d81943c906618c60"
+    },
+    "write_readmes.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/write_readmes.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "write_readmes.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "write_readmes.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/write_readmes.stdout.log",
+      "bytes": 64,
+      "sha256": "2db57737442123f110e4a8874df1ed21a29930234bf2269f6ccf77f429c738c4",
+      "storage": "gzip",
+      "path": "write_readmes.stdout.log.gz",
+      "stored_sha256": "c2ef5ad382729a1d2722bd6c34107ae2da4b9e82bbac219a6325fdd837130ec2"
+    },
+    "write_readmes_command.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/docs_stage/write_readmes_command.json",
+      "bytes": 617,
+      "sha256": "fc493a32ea27b63c988989615b85f68ba556b502d5e8a1aeddb85206289986bc",
+      "storage": "verbatim",
+      "path": "write_readmes_command.json",
+      "stored_sha256": "fc493a32ea27b63c988989615b85f68ba556b502d5e8a1aeddb85206289986bc"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

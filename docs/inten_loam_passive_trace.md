@@ -31,7 +31,9 @@ this change adds the C++ observation API.
 
 ## Stage and iteration records
 
-For S2S, `input` is the previous accepted relative motion, `output` is the
+For S2S, `input` is the initial relative prediction (normally the previous
+accepted S2S motion, or the previous final mapped motion when the opt-in
+`s2s_mapped_prior` is enabled); `output` is the
 transform actually returned by the solver before caller fallback, and
 `accepted_relative` is the transform retained for the odometry chain.
 `s2s_fallback` records the existing caller decision, including a nonfinite
@@ -67,6 +69,18 @@ or a post-update score. Residual counts, intensity scaling, accepted
 correspondences and coordinate frames matter when comparing it between
 records. `H` permits downstream conditioning analysis, but its mixed
 translation/rotation units require an explicit analysis convention.
+
+The optional, default-off `s2s_translation_prior_ratio` adds a quadratic
+position prior to S2S. When enabled, total `H`, `g` and
+`weighted_squared_residual` include that prior; class/pair counts and
+forced diagnostic class systems remain data-only. Nonzero fixed target-axis
+information is exported as solver `translation_prior_information` (row-major
+3-by-3); zero/disabled information is omitted, preserving legacy bytes. Its
+anchor is S2S `input` translation. At an iteration with translation `t`,
+subtract `J.T * information * J` and `J.T * information * (t-anchor)`
+with `J=[I,-skew(t)]` to obtain data-only normal equations. A well-conditioned
+total system containing a motion prior does not establish geometric
+observability. [Fixed full-sequence experiment](../experiments/results/inten_translation_prior/README.md).
 
 The stop enum distinguishes no call, a zero iteration budget, insufficient
 pairs, a nonfinite step, convergence and exhausted iteration budget. It

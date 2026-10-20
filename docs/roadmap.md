@@ -431,6 +431,26 @@ independent. Each item says what "done" means.
     claim. All fresh reference RTE values match the historical primary results.
     The remaining association/solver failure needs further actual improvement
     work. Defaults, earlier studies, historical results and Table 6 are preserved.
+    The [weak-translation prediction-prior comparison](../experiments/results/inten_translation_prior/README.md)
+    also covers every full KITTI00-10 sequence with a fixed new ratio0.03
+    versus zero, with the preceding mapped-motion seed and acceleration on
+    in both arms. This outside-paper extension remains default off. Its
+    quadratic position anchor adds information only in weak sensor-centered
+    marginal translation directions; S2M and associations are unchanged.
+    Geometric mean candidate/reference official RTE is 0.946172x:
+    2 lower, 0 higher and 9 unchanged sequences.
+    Failure-sequence RTE: 01 5.180428% to 5.173517%; 02 3.073932% to 1.674736%; 10 1.183142% to 1.183142%.
+    Sequences still above twice the cited paper RTE: 01, 02, 10.
+    Every adverse metric, newly bad local step and error-growth block is
+    retained. This comparison alone does not establish correspondence
+    correctness or a general failure remedy; no per-sequence option is
+    adopted. The original profile was chosen on07, with00 informing
+    diagnosis. The fraction was borrowed from the existing DiLO KITTI01-tuned
+    control, fixed before all new InTEn runs and not retuned. Here it is a
+    soft marginal-information floor, not DiLO hard remapping. Known failures
+    remain development data, with no independent held-out claim.
+    Numerical evidence `16577120` precedes this interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

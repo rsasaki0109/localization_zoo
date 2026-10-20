@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-20T09:18:12+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `580` ready, `1` blocked, `14` skipped problems.
+Current coverage: `591` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -250,26 +250,37 @@ Current coverage: `580` ready, `1` blocked, `14` skipped problems.
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `/media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full` |
 | InTEn-LOAM KITTI 00: fixed missing-row support experiment | `ready` | `-` | 17.589 | - | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 17.064 | - | `dogfooding_results/kitti_seq_00_full` |
+| InTEn-LOAM KITTI 00: weak-translation prediction prior | `ready` | `-` | 17.064 | - | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI 01: fixed missing-row support experiment | `ready` | `-` | 275.593 | - | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 100.876 | - | `dogfooding_results/kitti_seq_01_full` |
+| InTEn-LOAM KITTI 01: weak-translation prediction prior | `ready` | `-` | 100.494 | - | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI 02: fixed missing-row support experiment | `ready` | `-` | 122.845 | - | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI 02: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 119.532 | - | `dogfooding_results/kitti_seq_02_full` |
+| InTEn-LOAM KITTI 02: weak-translation prediction prior | `ready` | `-` | 48.906 | - | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI 03: fixed missing-row support experiment | `ready` | `-` | 6.256 | - | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 6.262 | - | `dogfooding_results/kitti_seq_03_full` |
+| InTEn-LOAM KITTI 03: weak-translation prediction prior | `ready` | `-` | 6.450 | - | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI 04: fixed missing-row support experiment | `ready` | `-` | 1.540 | - | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI 04: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.540 | - | `dogfooding_results/kitti_seq_04_full` |
+| InTEn-LOAM KITTI 04: weak-translation prediction prior | `ready` | `-` | 1.544 | - | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI 05: fixed missing-row support experiment | `ready` | `-` | 9.879 | - | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 9.887 | - | `dogfooding_results/kitti_seq_05_full` |
+| InTEn-LOAM KITTI 05: weak-translation prediction prior | `ready` | `-` | 9.887 | - | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI 06: fixed missing-row support experiment | `ready` | `-` | 1.918 | - | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.918 | - | `dogfooding_results/kitti_seq_06_full` |
+| InTEn-LOAM KITTI 06: weak-translation prediction prior | `ready` | `-` | 1.924 | - | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI 07: fixed missing-row support experiment | `ready` | `-` | 1.429 | - | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.461 | - | `dogfooding_results/kitti_seq_07_full` |
+| InTEn-LOAM KITTI 07: weak-translation prediction prior | `ready` | `-` | 1.661 | - | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI 08: fixed missing-row support experiment | `ready` | `-` | 27.673 | - | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 27.673 | - | `dogfooding_results/kitti_seq_08_full` |
+| InTEn-LOAM KITTI 08: weak-translation prediction prior | `ready` | `-` | 28.287 | - | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI 09: fixed missing-row support experiment | `ready` | `-` | 11.000 | - | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 11.000 | - | `dogfooding_results/kitti_seq_09_full` |
+| InTEn-LOAM KITTI 09: weak-translation prediction prior | `ready` | `-` | 11.134 | - | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI 10: fixed missing-row support experiment | `ready` | `-` | 9.508 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI 10: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 9.670 | - | `dogfooding_results/kitti_seq_10_full` |
+| InTEn-LOAM KITTI 10: weak-translation prediction prior | `ready` | `-` | 9.902 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 16.033 | 9.4 | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 275.593 | 1.7 | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 122.845 | 1.8 | `dogfooding_results/kitti_seq_02_full` |
@@ -621,7 +632,7 @@ Current coverage: `580` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 580 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 591 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

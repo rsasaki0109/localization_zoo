@@ -759,6 +759,111 @@ The complete report retains every step and all motion-error blocks. The option
 remains outside the paper and default off; earlier results are preserved.
 <!-- /INTEN_MAPPED_PRIOR -->
 
+<!-- INTEN_TRANSLATION_PRIOR -->
+## Optional weak-translation prediction prior
+
+`--inten-loam-paper-set s2s_translation_prior_ratio=0.03` is a repository
+extension **outside the paper, off by default** (default ratio zero).
+At the first S2S iteration, the data Hessian is expressed at the sensor
+origin and rotation is marginalized. The prior adds only the information
+needed to raise weak translation eigenvalues to the declared fraction
+of the strongest. Its quadratic position residual is anchored to the
+initial predicted translation; its information stays fixed during the solve.
+It may also resist real acceleration or preserve an incorrect prediction.
+Data associations, feature weights, iteration budgets, S2M and the original
+damped solve remain unchanged. Trace systems/cost include the added prior;
+feature counts and forced diagnostic class equations remain data-only.
+
+Both arms enable the preceding rigid mapped-motion seed and acceleration;
+row completion stays off. The new ratio alone differs: zero versus 0.03.
+The range/elevation/plane/edge profile was selected on 07, with 00 informing
+earlier diagnosis. The fraction was borrowed from the existing
+[DiLO KITTI01-tuned control](../dilo/README.md) and fixed before any new
+InTEn accuracy run. Here it is a soft information floor after rotation
+marginalization, whereas DiLO hard-remaps the raw translation block.
+It was not retuned on a new InTEn sequence score. Known 01/02/10 failures
+and prior whole-sequence outcomes are
+development evidence, so there is no independent held-out claim.
+Every sequence uses the same settings, continuous prediction and no GT seed.
+
+[Full study and commands](../../experiments/results/inten_translation_prior/README.md);
+[complete numerical report](../../experiments/results/inten_translation_prior/report/summary.json).
+
+Geometric mean of option / reference official RTE: **0.946172x** across all sequences.
+Lower RTE: 01, 02. Higher RTE: none. Unchanged RTE: 00, 03, 04, 05, 06, 07, 08, 09, 10.
+This is a fixed experimental comparison; no per-sequence default is adopted.
+Bad-length labels use the inherited local 20% threshold for GT motion at least 0.1 m,
+separate from official KITTI 100–800 m RTE. Raw paired timing is not an FPS benchmark.
+
+Numerical sources committed before prose: `16577120f8e0b525446692d51ac26ea3367fb501`.
+
+| Sequence | Reference RTE [%] | Option RTE [%] | Reference ATE [m] | Option ATE [m] | Bad-length steps, reference / option |
+|---|---:|---:|---:|---:|---:|
+| 00 | 0.691786 | 0.691786 | 17.064446 | 17.064446 | 12 / 12 |
+| 01 | 5.180428 | 5.173517 | 100.875751 | 100.493982 | 50 / 50 |
+| 02 | 3.073932 | 1.674736 | 119.531515 | 48.906265 | 128 / 66 |
+| 03 | 0.917374 | 0.917374 | 6.449763 | 6.449763 | 2 / 2 |
+| 04 | 0.678960 | 0.678960 | 1.543638 | 1.543638 | 0 / 0 |
+| 05 | 0.491912 | 0.491912 | 9.886842 | 9.886842 | 0 / 0 |
+| 06 | 0.354019 | 0.354019 | 1.924468 | 1.924468 | 0 / 0 |
+| 07 | 0.378295 | 0.378295 | 1.660935 | 1.660935 | 0 / 0 |
+| 08 | 0.973072 | 0.973072 | 28.286838 | 28.286838 | 19 / 19 |
+| 09 | 0.668254 | 0.668254 | 11.133601 | 11.133601 | 0 / 0 |
+| 10 | 1.183142 | 1.183142 | 9.901906 | 9.901906 | 0 / 0 |
+
+Every adverse comparison (reference → option):
+
+- 01: rotation [deg/100 m] 0.281769 → 0.288675.
+
+New local bad labels in the candidate relative to the reference (all frames):
+
+| Sequence | Newly bad length steps | Reference-only bad length steps | Newly bad vector steps | Reference-only bad vector steps |
+|---|---:|---:|---:|---:|
+| 00 | 0 | 0 | 0 | 0 |
+| 01 | 0 | 0 | 0 | 0 |
+| 02 | 1 | 63 | 2 | 63 |
+| 03 | 0 | 0 | 0 | 0 |
+| 04 | 0 | 0 | 0 | 0 |
+| 05 | 0 | 0 | 0 | 0 |
+| 06 | 0 | 0 | 0 | 0 |
+| 07 | 0 | 0 | 0 | 0 |
+| 08 | 0 | 0 | 0 | 0 |
+| 09 | 0 | 0 | 0 | 0 |
+| 10 | 0 | 0 | 0 | 0 |
+
+Each pair uses the same input frame and GT labels but different realized
+trajectories. These are outcome differences, not matched-seed interventions.
+Every affected frame index is retained in the numerical report.
+
+Failure-sequence observations along each realized trajectory:
+
+- 01: final bad-length frames 204–253 → 204–253; S2S bad-length outputs 51 → 51; final rejected S2M 0 → 0.
+- 02: final bad-length frames 1787, 1883–1942, 3308, 4460–4525 → 1787, 3308, 4463–4526; S2S bad-length outputs 131 → 68; final rejected S2M 0 → 0.
+- 10: final bad-length frames none → none; S2S bad-length outputs 0 → 0; final rejected S2M 0 → 0.
+
+Candidate sequences exceeding twice the cited paper RTE:
+
+| Sequence | Option RTE [%] | Paper RTE [%] | Option / paper | Largest position-error growth block | Position error start → end [m] | Local block error [%] |
+|---|---:|---:|---:|---|---:|---:|
+| 01 | 5.173517 | 0.640000 | 8.083620 | 200–300 | 2.277764 → 100.942226 | 37.317870 |
+| 01 | 5.173517 | 0.640000 | 8.083620 | 600–700 | 111.197578 → 116.048415 | 0.682695 |
+| 01 | 5.173517 | 0.640000 | 8.083620 | 500–600 | 106.987368 → 111.197578 | 1.194564 |
+| 02 | 1.674736 | 0.540000 | 3.101363 | 4500–4600 | 97.187460 → 151.135803 | 29.264134 |
+| 02 | 1.674736 | 0.540000 | 3.101363 | 4400–4500 | 44.569258 → 97.187460 | 35.612773 |
+| 02 | 1.674736 | 0.540000 | 3.101363 | 4600–4660 | 151.135803 → 183.965499 | 0.984333 |
+| 10 | 1.183142 | 0.450000 | 2.629204 | 700–800 | 9.445875 → 14.984990 | 0.947132 |
+| 10 | 1.183142 | 0.450000 | 2.629204 | 600–700 | 6.908792 → 9.445875 | 1.995964 |
+| 10 | 1.183142 | 0.450000 | 2.629204 | 800–900 | 14.984990 → 17.466513 | 0.485612 |
+
+These fixed-size motion blocks locate error growth; their relative errors are
+not official distance-segment RTE and do not establish the solver-level cause.
+Paper values are cited context; this extension is not the paper algorithm.
+
+These are natural full-run observations, not matched-seed causal interventions.
+The complete report retains every step and all motion-error blocks. The option
+remains outside the paper and default off; earlier results are preserved.
+<!-- /INTEN_TRANSLATION_PRIOR -->
+
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):

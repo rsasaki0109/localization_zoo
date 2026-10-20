@@ -1,0 +1,12 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "83f63ebf",
+    "2a65d382"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "exit_code": 2,
+  "scope": "Retained first diagnostic CSV CRLF formatting failure; no scientific values changed."
+}

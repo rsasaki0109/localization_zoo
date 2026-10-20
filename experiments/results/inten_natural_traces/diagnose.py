@@ -254,7 +254,7 @@ def sequence(seq, output, protocol):
         ranges = [dict(first_frame=a, last_frame=b, observations=aggregate([r for r in rows if a <= r['frame'] <= b]))
                   for a,b in motion['bad_length_step_frame_ranges']]
         with (output / (seq + '_frames.csv')).open('w') as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+            writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
             writer.writeheader()
             writer.writerows(rows)
         return dict(sequence=seq, frames=n, native_parity=parity, validation=validation,

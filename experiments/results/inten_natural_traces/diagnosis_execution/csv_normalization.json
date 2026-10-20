@@ -1,0 +1,25 @@
+{
+  "command": "python3: for each diagnosis/*_frames.csv, replace byte sequence CRLF with LF; assert unchanged line count and no remaining CR",
+  "source_result_commit": "2a65d3824f19232220f37e156efd94b7ddab23f4",
+  "exit_code": 0,
+  "files": {
+    "01_frames.csv": {
+      "original_sha256": "745b40de61ca9ca6595759eeb68dc12e67a88195765e196b6a88e7ac0c0c2290",
+      "normalized_sha256": "115178c16e2eb0429a87691df489ee003cea8e1c42853e0a236d0b1d8fb75af1",
+      "rows": 1101,
+      "only_crlf_to_lf": true
+    },
+    "02_frames.csv": {
+      "original_sha256": "c869c1e029f17f3a9db7d7293b419518d7132df572855add5073edb542e63b21",
+      "normalized_sha256": "70eab1e42ae75224e005afbb77a940c5de9ac5637febd815df784b0e188327d6",
+      "rows": 4661,
+      "only_crlf_to_lf": true
+    },
+    "10_frames.csv": {
+      "original_sha256": "4bda0fb2c0409dcc20adf41b2238748f65e83944a5b9c3dd1a9b4a6687bcf293",
+      "normalized_sha256": "54098e02418538c1747713898d8145b77392fce3d17f6d7fbbc2a5963dcc9283",
+      "rows": 1201,
+      "only_crlf_to_lf": true
+    }
+  }
+}

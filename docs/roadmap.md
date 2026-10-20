@@ -451,6 +451,26 @@ independent. Each item says what "done" means.
     remain development data, with no independent held-out claim.
     Numerical evidence `16577120` precedes this interpretation.
 
+    The [full iterative ground-PCA comparison](../experiments/results/inten_ground_pca/README.md)
+    uses one fixed setting on every full KITTI00-10 sequence. Only the
+    normals of already accepted S2S ground triangles change, using the
+    same gated ten neighbours and original closest-point plane anchor.
+    PCA degeneracy retains the triangle. Mapped-motion prediction, soft
+    translation prior0.03 and acceleration are on in both arms; row
+    completion remains off. This outside-paper extension is default off.
+    Geometric mean candidate/reference RTE is 0.924765x:
+    7 lower, 4 higher and 0 unchanged sequences.
+    Failure-sequence RTE: 01 5.173517% to 5.276027%; 02 1.674736% to 0.761893%; 10 1.183142% to 1.134467%.
+    Sequences above twice the cited paper RTE: 01, 10.
+    All adverse metrics, new local bad frames and error-growth blocks
+    are retained. No per-sequence winner is adopted or default promoted.
+    Known-failure first-system controls motivated this intervention;
+    all prior outcomes are development evidence, with no independent
+    held-out claim. Profile chosen on07,00 informed diagnosis; the
+    inherited prior fraction came from DiLO KITTI01 tuning. This tests
+    the actual iterative trajectory, not physical-ring correctness.
+    Numerical evidence `a9603c00` precedes this interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

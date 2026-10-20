@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-20T16:28:07+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -243,46 +243,57 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 201.185 | 1988293.4 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
+| InTEn-LOAM KITTI 00: ground PCA normals | `ready` | `-` | 17.064 | - | `experiments/results/inten_loam_kitti_seq_00_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 17.064 | - | `experiments/results/inten_loam_kitti_seq_00_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 16.033 | 9.4 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 00: fixed missing-row support experiment | `ready` | `-` | 17.589 | - | `experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 00: weak-translation prediction prior | `ready` | `-` | 17.064 | - | `experiments/results/inten_loam_kitti_seq_00_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 01: ground PCA normals | `ready` | `-` | 100.494 | - | `experiments/results/inten_loam_kitti_seq_01_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 100.876 | - | `experiments/results/inten_loam_kitti_seq_01_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 275.593 | 1.7 | `experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 01: fixed missing-row support experiment | `ready` | `-` | 275.593 | - | `experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 01: weak-translation prediction prior | `ready` | `-` | 100.494 | - | `experiments/results/inten_loam_kitti_seq_01_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 02: ground PCA normals | `ready` | `-` | 42.446 | - | `experiments/results/inten_loam_kitti_seq_02_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 02: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 119.532 | - | `experiments/results/inten_loam_kitti_seq_02_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 122.845 | 1.8 | `experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 02: fixed missing-row support experiment | `ready` | `-` | 122.845 | - | `experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 02: weak-translation prediction prior | `ready` | `-` | 48.906 | - | `experiments/results/inten_loam_kitti_seq_02_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 03: ground PCA normals | `ready` | `-` | 6.441 | - | `experiments/results/inten_loam_kitti_seq_03_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 6.262 | - | `experiments/results/inten_loam_kitti_seq_03_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 6.262 | 1.6 | `experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 03: fixed missing-row support experiment | `ready` | `-` | 6.256 | - | `experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 03: weak-translation prediction prior | `ready` | `-` | 6.450 | - | `experiments/results/inten_loam_kitti_seq_03_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 04: ground PCA normals | `ready` | `-` | 1.544 | - | `experiments/results/inten_loam_kitti_seq_04_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 04: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.540 | - | `experiments/results/inten_loam_kitti_seq_04_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.540 | 1.7 | `experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 04: fixed missing-row support experiment | `ready` | `-` | 1.540 | - | `experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 04: weak-translation prediction prior | `ready` | `-` | 1.544 | - | `experiments/results/inten_loam_kitti_seq_04_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 05: ground PCA normals | `ready` | `-` | 9.417 | - | `experiments/results/inten_loam_kitti_seq_05_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 9.887 | - | `experiments/results/inten_loam_kitti_seq_05_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.976 | 1.2 | `experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 05: fixed missing-row support experiment | `ready` | `-` | 9.879 | - | `experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 05: weak-translation prediction prior | `ready` | `-` | 9.887 | - | `experiments/results/inten_loam_kitti_seq_05_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 06: ground PCA normals | `ready` | `-` | 1.906 | - | `experiments/results/inten_loam_kitti_seq_06_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.918 | - | `experiments/results/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.918 | 1.8 | `experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 06: fixed missing-row support experiment | `ready` | `-` | 1.918 | - | `experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 06: weak-translation prediction prior | `ready` | `-` | 1.924 | - | `experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 07: ground PCA normals | `ready` | `-` | 1.571 | - | `experiments/results/inten_loam_kitti_seq_07_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.461 | - | `experiments/results/inten_loam_kitti_seq_07_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 1.193 | 9.2 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 07: fixed missing-row support experiment | `ready` | `-` | 1.429 | - | `experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 07: weak-translation prediction prior | `ready` | `-` | 1.661 | - | `experiments/results/inten_loam_kitti_seq_07_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 08: ground PCA normals | `ready` | `-` | 28.287 | - | `experiments/results/inten_loam_kitti_seq_08_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 27.673 | - | `experiments/results/inten_loam_kitti_seq_08_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 27.673 | 1.3 | `experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 08: fixed missing-row support experiment | `ready` | `-` | 27.673 | - | `experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 08: weak-translation prediction prior | `ready` | `-` | 28.287 | - | `experiments/results/inten_loam_kitti_seq_08_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 09: ground PCA normals | `ready` | `-` | 11.038 | - | `experiments/results/inten_loam_kitti_seq_09_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 11.000 | - | `experiments/results/inten_loam_kitti_seq_09_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 11.000 | 2.1 | `experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 09: fixed missing-row support experiment | `ready` | `-` | 11.000 | - | `experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 09: weak-translation prediction prior | `ready` | `-` | 11.134 | - | `experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 10: ground PCA normals | `ready` | `-` | 8.885 | - | `experiments/results/inten_loam_kitti_seq_10_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 10: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 9.670 | - | `experiments/results/inten_loam_kitti_seq_10_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.670 | 1.8 | `experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json` |
 | InTEn-LOAM KITTI 10: fixed missing-row support experiment | `ready` | `-` | 9.508 | - | `experiments/results/inten_loam_kitti_seq_10_full_row_support_matrix.json` |
@@ -14491,6 +14502,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
 
 
+## InTEn-LOAM KITTI 00: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_00_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_00_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 17.064 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 17.665 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 17.064 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2292 dor points/frame=128; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1383 s2m=2292 dor points/frame=128; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation)
 
 - **Problem ID**: `inten_loam_kitti_seq_00_full_mapped_prior_rigid`
@@ -14731,6 +14790,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2292 dor points/frame=128; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI 01: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_01_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_01_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 100.494 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 103.447 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 100.494 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_01_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_01_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_01_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=844 s2m=1475 dor points/frame=236; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_01_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_01_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_01_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=844 s2m=1474 dor points/frame=239; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation)
 
 - **Problem ID**: `inten_loam_kitti_seq_01_full_mapped_prior_rigid`
@@ -14909,6 +15016,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.25 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=844 s2m=1475 dor points/frame=236; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI 02: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_02_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_02_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 48.906 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 42.446 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 42.446 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2031 dor points/frame=55; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_02_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2040 dor points/frame=52; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 02: recursive mapped-motion S2S seed (rigid rotation)
@@ -15091,6 +15246,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2031 dor points/frame=55; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI 03: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_03_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_03_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 6.450 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 6.441 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 6.441 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_03_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_03_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_03_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=904 s2m=1851 dor points/frame=32; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_03_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_03_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_03_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=904 s2m=1852 dor points/frame=32; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation)
 
 - **Problem ID**: `inten_loam_kitti_seq_03_full_mapped_prior_rigid`
@@ -15269,6 +15472,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.25 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=904 s2m=1851 dor points/frame=32; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI 04: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_04_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_04_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 1.544 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 1.551 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 1.544 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_04_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_04_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1647 dor points/frame=195; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_04_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_04_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1647 dor points/frame=190; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 04: recursive mapped-motion S2S seed (rigid rotation)
@@ -15451,6 +15702,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1647 dor points/frame=195; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI 05: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_05_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_05_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 9.887 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 9.417 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 9.417 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_05_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_05_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1434 s2m=2261 dor points/frame=151; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_05_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_05_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1434 s2m=2262 dor points/frame=152; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation)
 
 - **Problem ID**: `inten_loam_kitti_seq_05_full_mapped_prior_rigid`
@@ -15631,6 +15930,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1434 s2m=2261 dor points/frame=151; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI 06: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_06_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_06_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 1.924 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 1.906 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 1.906 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_06_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_06_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1865 dor points/frame=233; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_06_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_06_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1863 dor points/frame=234; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation)
 
 - **Problem ID**: `inten_loam_kitti_seq_06_full_mapped_prior_rigid`
@@ -15809,6 +16156,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.25 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1865 dor points/frame=233; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI 07: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_07_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_07_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 1.661 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 1.571 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 1.571 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2307 dor points/frame=149; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2306 dor points/frame=151; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed (rigid rotation)
@@ -16051,6 +16446,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2307 dor points/frame=149; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI 08: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_08_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_08_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 28.287 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 28.631 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 28.287 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_08_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_08_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1347 s2m=2160 dor points/frame=151; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_08_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_08_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1347 s2m=2160 dor points/frame=149; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation)
 
 - **Problem ID**: `inten_loam_kitti_seq_08_full_mapped_prior_rigid`
@@ -16231,6 +16674,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1347 s2m=2160 dor points/frame=151; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI 09: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_09_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_09_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 11.134 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 11.038 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 11.038 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_09_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_09_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_09_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1113 s2m=1962 dor points/frame=121; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_09_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_09_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_09_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1113 s2m=1959 dor points/frame=120; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation)
 
 - **Problem ID**: `inten_loam_kitti_seq_09_full_mapped_prior_rigid`
@@ -16409,6 +16900,54 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.25 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1113 s2m=1962 dor points/frame=121; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI 10: ground PCA normals
+
+- **Problem ID**: `inten_loam_kitti_seq_10_full_ground_pca`
+- **Question**: Does changing only accepted S2S ground-plane normals reduce the remaining collapse and drift in full iterative odometry?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_10_full_ground_pca_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Mapped-motion plus weak-translation prior reference | reference | 9.902 | - | 0.0 | 1.00 | 1.85 | Keep as reference variant |
+| Opt-in ground PCA normals | experimental | 8.885 | - | 0.0 | 1.00 | 1.85 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 8.885 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_ground_pca_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_10_full_ground_pca_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_10_full_ground_pca_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2315 dor points/frame=109; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only accepted ground triangle normals differ. Same gated ten neighbours; plane through original nearest point. No new support. Mapped seed and soft prior on, row completion off, acceleration on in both arms. Fixed before all runs; every negative retained.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Command: `/workspace/localization-env/inten-ground-pca/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_ground_pca_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_10_full_ground_pca_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_10_full_ground_pca_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2311 dor points/frame=109; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 10: recursive mapped-motion S2S seed (rigid rotation)

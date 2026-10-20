@@ -864,6 +864,113 @@ The complete report retains every step and all motion-error blocks. The option
 remains outside the paper and default off; earlier results are preserved.
 <!-- /INTEN_TRANSLATION_PRIOR -->
 
+<!-- INTEN_GROUND_PCA -->
+## Optional S2S ground PCA normals
+
+`--inten-loam-paper-set s2s_ground_pca=1` enables a repository extension
+**outside the paper, off by default**. For a ground query that already passes
+all native triangle tests, replace its normal with the smallest-eigenvalue
+PCA normal of the same in-gate ten queried neighbours. Keep the original
+nearest point as the plane anchor; numerically degenerate PCA retains the
+triangle. This changes neither acceptance nor any non-ground equation at a
+fixed pose. The unchanged soft-prior rule recomputes information from these ground equations, including at the first iteration; its ratio and anchor rule stay fixed. Subsequent poses, associations and mapping may diverge.
+No feature, gate, iteration-budget or S2M rule is changed. Rows remain uniform
+elevation bins, not measured laser rings; this does not fix or establish a
+physical-ring assignment error.
+
+Both arms use the preceding rigid mapped-motion seed, soft translation prior
+0.03 and acceleration; row completion stays off. Ground PCA alone differs.
+The fixed inherited profile was chosen on07, with00 informing diagnosis.
+The soft-prior fraction came from DiLO KITTI01 tuning. This normal construction
+was chosen from the previously committed GT-seeded ground-PCA first-system
+development controls on01/02/10, which included adverse cases on every sequence.
+The numerical PCA degeneracy tolerance is inherited from that diagnostic.
+No new score-based tuning occurs; all prior failures/full runs are development
+evidence, with no independent held-out claim. Each full sequence starts from
+an empty map and uses one continuous configuration without GT seeds.
+
+[Full study and execution commands](../../experiments/results/inten_ground_pca/README.md);
+[complete numerical report](../../experiments/results/inten_ground_pca/report/summary.json).
+
+Geometric mean of option / reference official RTE: **0.924765x** across all sequences.
+Lower RTE: 02, 03, 04, 05, 06, 08, 10. Higher RTE: 00, 01, 07, 09. Unchanged RTE: none.
+This is a fixed experimental comparison; no per-sequence default is adopted.
+Bad-length labels use the inherited local 20% threshold for GT motion at least 0.1 m,
+separate from official KITTI 100–800 m RTE. Raw paired timing is not an FPS benchmark.
+
+Numerical sources committed before prose: `a9603c00e7a47700b490e6a91785ca0891c90fb5`.
+
+| Sequence | Reference RTE [%] | Option RTE [%] | Reference ATE [m] | Option ATE [m] | Bad-length steps, reference / option |
+|---|---:|---:|---:|---:|---:|
+| 00 | 0.691786 | 0.698468 | 17.064446 | 17.664608 | 12 / 13 |
+| 01 | 5.173517 | 5.276027 | 100.493982 | 103.447496 | 50 / 50 |
+| 02 | 1.674736 | 0.761893 | 48.906265 | 42.445818 | 66 / 2 |
+| 03 | 0.917374 | 0.912470 | 6.449763 | 6.441482 | 2 / 2 |
+| 04 | 0.678960 | 0.676872 | 1.543638 | 1.550584 | 0 / 0 |
+| 05 | 0.491912 | 0.458453 | 9.886842 | 9.416840 | 0 / 0 |
+| 06 | 0.354019 | 0.353991 | 1.924468 | 1.906228 | 0 / 0 |
+| 07 | 0.378295 | 0.388674 | 1.660935 | 1.571423 | 0 / 0 |
+| 08 | 0.973072 | 0.961094 | 28.286838 | 28.631257 | 19 / 19 |
+| 09 | 0.668254 | 0.671125 | 11.133601 | 11.037572 | 0 / 0 |
+| 10 | 1.183142 | 1.134467 | 9.901906 | 8.884908 | 0 / 0 |
+
+Every adverse comparison (reference → option):
+
+- 00: official RTE [%] 0.691786 → 0.698468; rotation [deg/100 m] 0.310482 → 0.317554; ATE [m] 17.064446 → 17.664608; bad-length steps 12 → 13.
+- 01: official RTE [%] 5.173517 → 5.276027; ATE [m] 100.493982 → 103.447496.
+- 03: bad-vector steps 2 → 3.
+- 04: rotation [deg/100 m] 0.321024 → 0.324937; ATE [m] 1.543638 → 1.550584.
+- 06: rotation [deg/100 m] 0.140441 → 0.140748.
+- 07: official RTE [%] 0.378295 → 0.388674.
+- 08: ATE [m] 28.286838 → 28.631257; bad-vector steps 97 → 98.
+- 09: official RTE [%] 0.668254 → 0.671125.
+
+New local bad labels in the candidate relative to the reference (all frames):
+
+| Sequence | Newly bad length steps | Reference-only bad length steps | Newly bad vector steps | Reference-only bad vector steps |
+|---|---:|---:|---:|---:|
+| 00 | 1 | 0 | 1 | 1 |
+| 01 | 1 | 1 | 1 | 1 |
+| 02 | 0 | 64 | 0 | 65 |
+| 03 | 0 | 0 | 1 | 0 |
+| 04 | 0 | 0 | 0 | 0 |
+| 05 | 0 | 0 | 0 | 0 |
+| 06 | 0 | 0 | 0 | 0 |
+| 07 | 0 | 0 | 0 | 0 |
+| 08 | 0 | 0 | 3 | 2 |
+| 09 | 0 | 0 | 0 | 0 |
+| 10 | 0 | 0 | 0 | 0 |
+
+Each pair uses the same input frame and GT labels but different realized
+trajectories. These are outcome differences, not matched-seed interventions.
+Every affected frame index is retained in the numerical report.
+
+Failure-sequence observations along each realized trajectory:
+
+- 01: final bad-length frames 204–253 → 204–252, 433; raw S2S bad-length outputs 51 → 50; S2S fallbacks 0 → 0; final rejected S2M 0 → 0.
+- 02: final bad-length frames 1787, 3308, 4463–4526 → 1787, 3308; raw S2S bad-length outputs 68 → 2; S2S fallbacks 0 → 0; final rejected S2M 0 → 0.
+- 10: final bad-length frames none → none; raw S2S bad-length outputs 0 → 0; S2S fallbacks 0 → 0; final rejected S2M 0 → 0.
+
+Candidate sequences exceeding twice the cited paper RTE:
+
+| Sequence | Option RTE [%] | Paper RTE [%] | Option / paper | Largest position-error growth block | Position error start → end [m] | Local block error [%] |
+|---|---:|---:|---:|---|---:|---:|
+| 01 | 5.276027 | 0.640000 | 8.243792 | 200–300 | 2.308217 → 102.925821 | 38.058200 |
+| 01 | 5.276027 | 0.640000 | 8.243792 | 400–500 | 105.191008 → 110.615886 | 0.945119 |
+| 01 | 5.276027 | 0.640000 | 8.243792 | 600–700 | 114.737458 → 119.589849 | 0.744108 |
+| 10 | 1.134467 | 0.450000 | 2.521038 | 700–800 | 8.391421 → 13.454283 | 0.902068 |
+| 10 | 1.134467 | 0.450000 | 2.521038 | 600–700 | 6.058322 → 8.391421 | 2.085537 |
+| 10 | 1.134467 | 0.450000 | 2.521038 | 800–900 | 13.454283 → 15.702794 | 0.515080 |
+
+These fixed-size motion blocks locate error growth; their relative errors are
+not official distance-segment RTE and do not establish the solver-level cause.
+Paper values are cited context; this extension is not the paper algorithm.
+
+These are natural full-run observations, not matched-seed causal interventions.
+The complete report retains every step and all motion-error blocks. The option
+remains outside the paper and default off; earlier results are preserved.
+<!-- /INTEN_GROUND_PCA -->
+
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):

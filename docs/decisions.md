@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-20T16:28:07+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2833,6 +2833,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 | nhc_zupt | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | accel_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI 00: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation)
 
 - Current default: `-`.
@@ -2882,6 +2893,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 01: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation)
 
 - Current default: `-`.
@@ -2918,6 +2940,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_ground_pca_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -2966,6 +2999,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 03: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation)
 
 - Current default: `-`.
@@ -3002,6 +3046,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_ground_pca_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -3050,6 +3105,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 05: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation)
 
 - Current default: `-`.
@@ -3092,6 +3158,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 06: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation)
 
 - Current default: `-`.
@@ -3128,6 +3205,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_ground_pca_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -3182,6 +3270,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 08: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation)
 
 - Current default: `-`.
@@ -3224,6 +3323,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 09: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation)
 
 - Current default: `-`.
@@ -3260,6 +3370,17 @@ _Generated at 2026-10-20T12:17:01+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_ground_pca_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "git",
+    "push",
+    "origin",
+    "HEAD:refs/heads/codex/inten-facade-pca"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-pca/worktree",
+  "source_commit": "6f69fcabdcc0fce45c734bc456de65ef0c5698c6",
+  "native_source_commit": "9a01528b05128794df962b52ace59e727e834417",
+  "started_unix": 1792534386.3688164,
+  "finished_unix": 1792534390.8589292,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T16:28:06+00:00",
+  "generated_at": "2026-10-20T22:14:37+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2135,6 +2135,15 @@
       "current_default": "zupt"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_00_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 00: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_00_full_ground_pca",
       "title": "InTEn-LOAM KITTI 00: ground PCA normals",
       "status": "ready",
@@ -2177,6 +2186,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_00_full_translation_prior_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 01: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_facade_pca_matrix.json",
       "current_default": null
     },
     {
@@ -2225,6 +2243,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_02_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 02: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_02_full_ground_pca",
       "title": "InTEn-LOAM KITTI 02: ground PCA normals",
       "status": "ready",
@@ -2267,6 +2294,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_02_full_translation_prior_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 03: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_facade_pca_matrix.json",
       "current_default": null
     },
     {
@@ -2315,6 +2351,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_04_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 04: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_04_full_ground_pca",
       "title": "InTEn-LOAM KITTI 04: ground PCA normals",
       "status": "ready",
@@ -2357,6 +2402,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_04_full_translation_prior_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 05: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_facade_pca_matrix.json",
       "current_default": null
     },
     {
@@ -2405,6 +2459,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_06_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 06: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_06_full_ground_pca",
       "title": "InTEn-LOAM KITTI 06: ground PCA normals",
       "status": "ready",
@@ -2447,6 +2510,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_06_full_translation_prior_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 07: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_facade_pca_matrix.json",
       "current_default": null
     },
     {
@@ -2495,6 +2567,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_08_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 08: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_08_full_ground_pca",
       "title": "InTEn-LOAM KITTI 08: ground PCA normals",
       "status": "ready",
@@ -2540,6 +2621,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_09_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 09: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_09_full_ground_pca",
       "title": "InTEn-LOAM KITTI 09: ground PCA normals",
       "status": "ready",
@@ -2582,6 +2672,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_09_full_translation_prior_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 10: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_facade_pca_matrix.json",
       "current_default": null
     },
     {

@@ -1,0 +1,38 @@
+{
+  "files": {
+    "command.json": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/collection_record/command.json",
+      "bytes": 355,
+      "sha256": "f02b6b4131a57276fd0897a9b4e5eccf75a6df91100ffa10e3174f87564aa7e3",
+      "storage": "verbatim",
+      "path": "command.json",
+      "stored_sha256": "f02b6b4131a57276fd0897a9b4e5eccf75a6df91100ffa10e3174f87564aa7e3"
+    },
+    "exit.json": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/collection_record/exit.json",
+      "bytes": 152,
+      "sha256": "a54be8cb16610dade1efd723196f39444df958d8065737516eed86382b81c936",
+      "storage": "verbatim",
+      "path": "exit.json",
+      "stored_sha256": "a54be8cb16610dade1efd723196f39444df958d8065737516eed86382b81c936"
+    },
+    "stderr.log": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/collection_record/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "stdout.log": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/collection_record/stdout.log",
+      "bytes": 63667,
+      "sha256": "c303619095eb60f0aeea4d2ef7f1e23d15c9c20a53ab3a74d00e629d93edbf66",
+      "storage": "gzip",
+      "path": "stdout.log.gz",
+      "stored_sha256": "eb9c3d3171a28cde09edf1910639035a2b1620243e0e13530cad26eccfd69cd7"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

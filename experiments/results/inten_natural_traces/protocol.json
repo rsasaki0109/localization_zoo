@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "native_source_commit": "ad7d2081d2349fe4f0ec241b975723e4180cde7a",
+  "sequence_order": [
+    "01",
+    "02",
+    "10"
+  ],
+  "variant": "paper_odometry_plane_check",
+  "manifests": {
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "sha256": "cc5ae96b4b8a8162f017c4e9cf319afe2d59af90097b2203d310395a2c4c7a72",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ]
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "sha256": "abebcd8d75ca5a130c8cd6d42cb636e217e544529fdc22a84a9c662f80cb526f",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ]
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "sha256": "4fecd31d8d7264a1b79d3ecc844bd6ae5ec842d5fa3967d48b8474a138dadd02",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ]
+    }
+  },
+  "selection": "Existing KITTI07-selected plane check and elevation correction transferred unchanged;00 influenced the earlier diagnosis and is not held out. No reselection on these failure sequences.",
+  "scope": "Continuous natural full-sequence passive solver observation, with full trace-off/on parity controls. No forced pose, GT-fed solver, diagnostic-window restart, acceleration, retry gate, estimator change, new accuracy improvement claim or NCLT claim.",
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "conditioning": {
+    "rotation_length_m": 1,
+    "rank_rtol": 1e-09,
+    "inherited_protocol": "experiments/results/inten_conditioning/protocol.json"
+  },
+  "motion_diagnostics": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_threshold": 0.2,
+    "inherited_source": "evaluation/scripts/diagnose_kitti_steps.py"
+  },
+  "execution": "Fresh Release runner and existing paper/serializer tests. For each sequence: official fetch, hash against prior committed official inputs, full off then full on using same binary/settings/thread environment, byte-equal saved poses and matching accuracy/frame fields, existing structural checker, conditioning analyzer and saved-step diagnostics; rehash and delete only owned scans before advancing. Failures retain raw files/receipts and block advancement.",
+  "archival": {
+    "format": "Deterministic gzip shards; concatenate decompressed shards in order to recover original bytes. Large JSONL files may split within a line, so parse only the reconstructed stream.",
+    "uncompressed_shard_bytes": 33554432,
+    "validation": "Retain original file SHA256/size, per-shard gzip SHA256/size and uncompressed chunk SHA256; stream-decompress every shard and verify the complete original hash before publication."
+  },
+  "evidence_order": "Commit source and protocol before running. Commit complete raw sequence evidence and commands before numerical prose. One results/diagnosis PR after the collection milestone, not a preparation-only tooling PR.",
+  "completion": "All three full trace tuples and off/on controls exit0, complete validated traversal with no skipped KITTI inputs, all iterations retained, verified owned-input cleanup, committed raw evidence and motion/solver diagnostics with explicit limitations; required generators/regressions/preservation and final-head CI pass.",
+  "limits": "Full rank/high support does not prove correct associations or motion. Origin-dependence controls establish a property, not a KITTI cause. Correlation of failures with stage decisions/spectra does not establish causality. Fixed pose-index block errors are not official KITTI distance-segment RTE. Recording overhead is not a speed result.",
+  "tool_sha256": {
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py": "4e9d1895d2dc135b72287969c2840206078ddeb99e0168f3d71bd4d096a6cd64",
+    "evaluation/scripts/check_inten_trace.py": "166a8e80f5b1927daf5a81f65264c2544c45edb6be86d80c84509816da74a5e1",
+    "evaluation/scripts/analyze_inten_conditioning.py": "7edfd32ed973f5b4f8f4093f21793fbd2c6806519a4d8dcafb885d2bfd4f012c",
+    "evaluation/scripts/diagnose_kitti_steps.py": "31c33e09a25890a9206fea331835f22e6bee7aa86327663b4c6a009dd091825a",
+    "evaluation/scripts/evaluate_external_kitti_odometry.py": "dd7e8c4b332ead68cf5c87dfd67d7eed12851d8256db4ff9f3b6999a7f0170e4"
+  }
+}

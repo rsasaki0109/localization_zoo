@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/validate_showcase.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-collapse-boundaries/worktree",
+  "source_commit": "9c736fb686065bee0b85188a1b5ff78b7ac8dc88",
+  "started_unix": 1792463348.1948261,
+  "finished_unix": 1792463348.2495873,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-collapse-boundaries/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-collapse-boundaries/cache"
+  }
+}

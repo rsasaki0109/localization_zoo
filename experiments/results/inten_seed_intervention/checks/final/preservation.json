@@ -1,0 +1,106 @@
+{
+  "exit_code": 0,
+  "base_commit": "68c2329053dde9d1c9aa27a4521e5328f67eb6e7",
+  "source_commit": "9c736fb686065bee0b85188a1b5ff78b7ac8dc88",
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "publication_sha256": {
+    "README.md": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+    "docs/index.html": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+    "docs/assets/paper/paper_ratio_table.csv": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+    "docs/assets/paper/full_variant_results.csv": "1a0da43abf1f2656556f7fb2ce8f24cf742881d72644669a2ca379525d453885",
+    "evaluation/data/paper_reported_numbers.json": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e"
+  },
+  "binary_sha256": {
+    "/workspace/localization-env/shared-near-range/baseline_pcd_dogfooding": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+    "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+    "/workspace/localization-env/inten-natural-traces/build/evaluation/pcd_dogfooding": "bb9a3a5f8a5f1e55181f76b8766c1d80f07a7dd3ee87964c136eec5f8da79042",
+    "/workspace/localization-env/inten-collapse-boundaries/probe": "91edc368472ea4398ef3702fdc654eb2032c54a2a12dea92a7978a211a22c555"
+  },
+  "pinned_library_sha256": "f95de52e3197299d44f2d6c258bbda93d93d243b074211b6790b4d5a5265333d",
+  "sequences": {
+    "01": {
+      "native_exit_code": 0,
+      "pose_control_max_difference": 0,
+      "official_input_hashes_match": true,
+      "owned_scans_absent": true,
+      "pair_count": 155
+    },
+    "02": {
+      "native_exit_code": 0,
+      "pose_control_max_difference": 0,
+      "official_input_hashes_match": true,
+      "owned_scans_absent": true,
+      "pair_count": 192
+    },
+    "10": {
+      "native_exit_code": 0,
+      "pose_control_max_difference": 0,
+      "official_input_hashes_match": true,
+      "owned_scans_absent": true,
+      "pair_count": 13
+    }
+  },
+  "timestamp_only_changes": {
+    "docs/decisions.md": {
+      "timestamp_only": true,
+      "before_sha256": "184e5a46d46a2ea732ade5ed95b7f35902c1c9e3c581bbe77e6a4d3b790ded63",
+      "after_sha256": "aed275cd5a4da5f0159e90e465f7e7a98f2aea241bd02bc34220936cb67a56a1"
+    },
+    "docs/experiments.md": {
+      "timestamp_only": true,
+      "before_sha256": "d966465aa67734c9e2412deef8af16313b1854bb1b3a74af59e90fbcdda3bba5",
+      "after_sha256": "d2620db6c572cf8d4fb68b5d10cac06571db1582e2841ed02e648b8c27ee29b8"
+    },
+    "docs/interfaces.md": {
+      "timestamp_only": true,
+      "before_sha256": "97c39268828b4d3c3852837fc1823345908fd469ce15c4d65d6c79c95962497b",
+      "after_sha256": "1ef883ffd5b8f14df9774f98951bba5807fddb89d0fda5cacb10ed56b0ad9858"
+    },
+    "docs/paper_assets.md": {
+      "timestamp_only": true,
+      "before_sha256": "c0400559094ccb2358d9bde70eed52e6e09be48106c90dc663f23bd4b793d28f",
+      "after_sha256": "bd95949467e09a56dd7bc849b111bb4349f24b3aa0d9a8749d96793abac57ed1"
+    },
+    "docs/paper_captions.md": {
+      "timestamp_only": true,
+      "before_sha256": "7c6229f9ace55336da57776e328b0591490a6b82974e2395ed618bd1029661f4",
+      "after_sha256": "7cc7b5509450722ebd248f2683c97b1e06de17344e523f686f21ab996c26d7c5"
+    },
+    "docs/paper_comparison.md": {
+      "timestamp_only": true,
+      "before_sha256": "567f2e5b4eabfaf4de30ba017f195c9b13e94c5de09a6756e517e8b36987dd12",
+      "after_sha256": "369b922ab35821a0aee5bfb578c723804113478d96be1f95f01db765f8a3314a"
+    },
+    "docs/paper_roadmap.md": {
+      "timestamp_only": true,
+      "before_sha256": "6039f0fff745d6c47eafb60946d8107db0a055a89a59bd7cf3a814452b0b5206",
+      "after_sha256": "f305b322f2bb58c32819a93b1ae84d6768b3031861aef6c118ea15fd616ee79c"
+    },
+    "docs/paper_tracks.md": {
+      "timestamp_only": true,
+      "before_sha256": "e05a0f89243257b3962d851438dd95e4b3426f37d9e5585c1026a3b0c58aaccf",
+      "after_sha256": "858c5bd2c49696220bb72bdfc8fa984d3ca668c8244ce30d73fcafa37e84c404"
+    },
+    "docs/reproduction_status.md": {
+      "timestamp_only": true,
+      "before_sha256": "62d46f7267904ae965e431d5af60c59ad9eae3f974d440956acae9b3a4878629",
+      "after_sha256": "63d38745e33e885db99b829802d8d7a50ba4fde3e2c63fca3f964549eea806aa"
+    },
+    "docs/variant_analysis.md": {
+      "timestamp_only": true,
+      "before_sha256": "276f97babdb65b2f998dc3df176365ac08e71dd91cab7d9a9535bdf30b3c8257",
+      "after_sha256": "d4d9c8a387511619c9385e7a0de4eb1c77d3a7bd5873afab7c99fc43890bacda"
+    },
+    "experiments/results/index.json": {
+      "timestamp_only": true,
+      "before_sha256": "77265939f410072e58a8c15ca3fa5736a5cda2040b987b2735b009c00e59c737",
+      "after_sha256": "f365245cff418c8fbc846b80f7dc1c9e1d65d58aaa4c085ecfeea2b46f7ce62e"
+    }
+  },
+  "preexisting_other_changes": [
+    "docs/roadmap.md",
+    "papers/inten_loam/README.md"
+  ],
+  "scope": "All pre-existing data/native/manifests/tools preserved against parent152; only current diagnostic docs and generator timestamps differ."
+}

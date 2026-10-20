@@ -1,0 +1,18 @@
+{
+  "command": [
+    "git",
+    "push",
+    "origin",
+    "HEAD:refs/heads/codex/inten-row-support"
+  ],
+  "cwd": "/workspace/localization-env/inten-row-support/worktree",
+  "source_commit": "cd4b53aa5a2bc13a426d8ba6d10798a05ca3a20b",
+  "native_source_commit": "20c09c463292147e8deafa1525abc6deb5e8fc2d",
+  "started_unix": 1792473451.932021,
+  "finished_unix": 1792473456.0912886,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

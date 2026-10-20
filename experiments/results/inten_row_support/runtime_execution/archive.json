@@ -1,0 +1,30 @@
+{
+  "files": {
+    "command.json": {
+      "original_path": "/workspace/localization-env/inten-row-support/original_receipt_export/runtime/command.json",
+      "bytes": 1245,
+      "sha256": "1e59b4f36d8a46a241ec49b3c72a3cb8f2a16b4279d4b1a759d638d57f02fb4a",
+      "storage": "verbatim",
+      "path": "command.json",
+      "stored_sha256": "1e59b4f36d8a46a241ec49b3c72a3cb8f2a16b4279d4b1a759d638d57f02fb4a"
+    },
+    "stderr.log": {
+      "original_path": "/workspace/localization-env/inten-row-support/original_receipt_export/runtime/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "stdout.log": {
+      "original_path": "/workspace/localization-env/inten-row-support/original_receipt_export/runtime/stdout.log",
+      "bytes": 235,
+      "sha256": "b88ed49c263311c8efb457a932ec7ff061e54dfb7f9f183f7c9027b73f417940",
+      "storage": "gzip",
+      "path": "stdout.log.gz",
+      "stored_sha256": "844222a917cfca4c58f4c79f1a72cf29fdec71ff3107cf553bbbd7ae5fb0eef7"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

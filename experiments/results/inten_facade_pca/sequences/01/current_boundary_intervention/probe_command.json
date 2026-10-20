@@ -1,0 +1,40 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-facade-pca/staging/01/current_boundary_intervention",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-facade-pca/intervention_probe"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-pca/worktree",
+  "source_commit": "0d396924fe56924c0fe14d004afd20f6703c57b5",
+  "native_source_commit": "9a01528b05128794df962b52ace59e727e834417",
+  "started_unix": 1792529141.1536775,
+  "finished_unix": 1792529151.5502133,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "stdin_sha256": "b59086b20d25a13ae2714184a6fa61f97f27b4a871194b1de9b039bf86784457"
+}

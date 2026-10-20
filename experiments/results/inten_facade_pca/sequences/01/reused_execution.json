@@ -1,0 +1,7 @@
+{
+  "exit_code": 0,
+  "initial_collector_source": "0d396924fe56924c0fe14d004afd20f6703c57b5",
+  "sealed_completed_files": 47,
+  "settings_validation_corrected_only": true,
+  "native_and_analysis_calls_reused_without_rerun": true
+}

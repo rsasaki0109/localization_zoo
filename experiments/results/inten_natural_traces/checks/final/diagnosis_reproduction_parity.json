@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "scientific_results_equal": true,
+  "all_csv_bytes_equal": true,
+  "csv_sha256": {
+    "01_frames.csv": "115178c16e2eb0429a87691df489ee003cea8e1c42853e0a236d0b1d8fb75af1",
+    "02_frames.csv": "70eab1e42ae75224e005afbb77a940c5de9ac5637febd815df784b0e188327d6",
+    "10_frames.csv": "54098e02418538c1747713898d8145b77392fce3d17f6d7fbbc2a5963dcc9283"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "ad7d2081"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "source_commit": "3eb4a4caa40996dfb8a223d6c65c86a8a32ffbd0",
+  "started_unix": 1792459692.730275,
+  "finished_unix": 1792459692.7983825,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-natural-traces/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-natural-traces/cache"
+  }
+}

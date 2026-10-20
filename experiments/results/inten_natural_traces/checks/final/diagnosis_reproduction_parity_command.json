@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "from pathlib import Path\nimport json,hashlib\nw=Path.cwd();e=w/'experiments/results/inten_natural_traces';out=Path('/workspace/localization-env/inten-natural-traces/diagnosis_reproduction')\na=json.loads((e/'diagnosis/summary.json').read_text());b=json.loads((out/'summary.json').read_text())\nfor key in ('sequences','limits','raw_evidence_commit','protocol_sha256','diagnosis_protocol_sha256'):assert a[key]==b[key],key\nfiles={}\nfor s in ('01','02','10'):\n name=s+'_frames.csv';x=(e/'diagnosis'/name).read_bytes();assert x==(out/name).read_bytes();files[name]=hashlib.sha256(x).hexdigest()\n(e/'checks/final/diagnosis_reproduction_parity.json').write_text(json.dumps(dict(exit_code=0,scientific_results_equal=True,all_csv_bytes_equal=True,csv_sha256=files),indent=2)+'\\n')\n"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "exit_code": 0,
+  "started_unix": 1792459717.9954407,
+  "finished_unix": 1792459718.0361981
+}

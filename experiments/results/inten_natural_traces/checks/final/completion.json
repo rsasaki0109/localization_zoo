@@ -1,0 +1,104 @@
+{
+  "base_commit": "ad7d2081d2349fe4f0ec241b975723e4180cde7a",
+  "source_commit": "3eb4a4caa40996dfb8a223d6c65c86a8a32ffbd0",
+  "exit_code": 0,
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "preserved_publication_sha256": {
+    "README.md": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+    "docs/index.html": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+    "docs/assets/paper/paper_ratio_table.csv": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+    "docs/assets/paper/full_variant_results.csv": "1a0da43abf1f2656556f7fb2ce8f24cf742881d72644669a2ca379525d453885",
+    "evaluation/data/paper_reported_numbers.json": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e"
+  },
+  "binary_sha256": {
+    "/workspace/localization-env/shared-near-range/baseline_pcd_dogfooding": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+    "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d",
+    "/workspace/localization-env/inten-natural-traces/build/evaluation/pcd_dogfooding": "bb9a3a5f8a5f1e55181f76b8766c1d80f07a7dd3ee87964c136eec5f8da79042"
+  },
+  "inputs": {
+    "01": {
+      "hash_matches_previous": true,
+      "owned_scans_absent": true
+    },
+    "02": {
+      "hash_matches_previous": true,
+      "owned_scans_absent": true
+    },
+    "10": {
+      "hash_matches_previous": true,
+      "owned_scans_absent": true
+    }
+  },
+  "native_exits": {
+    "01/off": 0,
+    "01/on": 0,
+    "02/off": 0,
+    "02/on": 0,
+    "10/off": 0,
+    "10/on": 0
+  },
+  "effective_settings_identical": true,
+  "preexisting_timestamp_only_changes": {
+    "docs/decisions.md": {
+      "timestamp_only": true,
+      "before_sha256": "0afeebddfdd05b0d117659e8b87c8ff98db31ac34fa4c8b7859a0c0c6e6a1731",
+      "after_sha256": "184e5a46d46a2ea732ade5ed95b7f35902c1c9e3c581bbe77e6a4d3b790ded63"
+    },
+    "docs/experiments.md": {
+      "timestamp_only": true,
+      "before_sha256": "bbea6d1274037e11af8dec0a0608ce9de614536673c7962dc9da62e419f1d863",
+      "after_sha256": "d966465aa67734c9e2412deef8af16313b1854bb1b3a74af59e90fbcdda3bba5"
+    },
+    "docs/interfaces.md": {
+      "timestamp_only": true,
+      "before_sha256": "cde64ba0745233cfed79049f9e5ee06a918d6063d39b4caffd49ec1875548c7f",
+      "after_sha256": "97c39268828b4d3c3852837fc1823345908fd469ce15c4d65d6c79c95962497b"
+    },
+    "docs/paper_assets.md": {
+      "timestamp_only": true,
+      "before_sha256": "ff589c49d99fbfba7df163c95423fdaa6c6e88d0ea82dc2db578ffd213e783ed",
+      "after_sha256": "c0400559094ccb2358d9bde70eed52e6e09be48106c90dc663f23bd4b793d28f"
+    },
+    "docs/paper_captions.md": {
+      "timestamp_only": true,
+      "before_sha256": "66ee6f1831521443449464503190166b309136090cb82d8ec40a58e40b541b12",
+      "after_sha256": "7c6229f9ace55336da57776e328b0591490a6b82974e2395ed618bd1029661f4"
+    },
+    "docs/paper_comparison.md": {
+      "timestamp_only": true,
+      "before_sha256": "7a94b92a9facf4e72f21416f4aa20274a9fbe1d14f43ce0beb25749360c4e53d",
+      "after_sha256": "567f2e5b4eabfaf4de30ba017f195c9b13e94c5de09a6756e517e8b36987dd12"
+    },
+    "docs/paper_roadmap.md": {
+      "timestamp_only": true,
+      "before_sha256": "91260ee130de6b5dfde567a828bf27d8c7153898d5b6d4409b06239cd377acb5",
+      "after_sha256": "6039f0fff745d6c47eafb60946d8107db0a055a89a59bd7cf3a814452b0b5206"
+    },
+    "docs/paper_tracks.md": {
+      "timestamp_only": true,
+      "before_sha256": "74c1abeb761d00c1c36b9c2577f49bfc7ab353d1be3b909e86e5d3c877882580",
+      "after_sha256": "e05a0f89243257b3962d851438dd95e4b3426f37d9e5585c1026a3b0c58aaccf"
+    },
+    "docs/reproduction_status.md": {
+      "timestamp_only": true,
+      "before_sha256": "5a41a2afa3c49069a247e1de3fe735ab8b9d1a848077c7d6abac99bfad33f242",
+      "after_sha256": "62d46f7267904ae965e431d5af60c59ad9eae3f974d440956acae9b3a4878629"
+    },
+    "docs/variant_analysis.md": {
+      "timestamp_only": true,
+      "before_sha256": "0dc850d47d459f038a0be0ca7bb1b018ce4c3ef48e752c5727895aa7bd13037e",
+      "after_sha256": "276f97babdb65b2f998dc3df176365ac08e71dd91cab7d9a9535bdf30b3c8257"
+    },
+    "experiments/results/index.json": {
+      "timestamp_only": true,
+      "before_sha256": "022f2a00d9b2bf8b5ae880d4f154ed577acd25d331972dd48b47e0ad9e71cbcc",
+      "after_sha256": "77265939f410072e58a8c15ca3fa5736a5cda2040b987b2735b009c00e59c737"
+    }
+  },
+  "preexisting_other_changes": [
+    "docs/roadmap.md",
+    "papers/inten_loam/README.md"
+  ],
+  "scope": "This study against its actual main base; native source/manifests/tools/all prior study files unchanged. Historical checker failure is retained separately because it pins an older development base."
+}

@@ -216,12 +216,13 @@ def main():
     invariant();state=dict(status='building',completed=[],source_commit=git('rev-parse','HEAD'));write(R/'active.json',state)
     build=Path(P['library']['path']).parent
     flags_text=(build/'CMakeFiles/test_inten_loam_paper.dir/flags.make').read_text()
+    flags_text=flags_text.replace(str(build.parents[2]/'worktree'),str(W))
     flags=[]
     for line in flags_text.splitlines():
         if line.startswith(('CXX_INCLUDES =','CXX_DEFINES =','CXX_FLAGS =')):
             flags.extend(shlex.split(line.split('=',1)[1]))
     link=shlex.split((build/'CMakeFiles/test_inten_loam_paper.dir/link.txt').read_text())
-    libs=[str(build/a) if not a.startswith('/') else a for a in link[link.index('libinten_loam.a'):]]
+    libs=[str(build/a) if not a.startswith(('/','-')) else a for a in link[link.index('libinten_loam.a'):]]
     command=docker()+['c++',*flags,'-I'+str(W/'evaluation/src'),str(E/'probe.cpp'),*libs,'-o',str(R/'probe')]
     run('compile',command,R/'build');pin=analysis.sha(R/'probe');write(E/'binary.json',dict(path=str(R/'probe'),sha256=pin,library=P['library']))
     archive(R/'build',E/'build');subprocess.run(['git','add','-f',str(E/'binary.json'),str(E/'build')],cwd=W,check=True)

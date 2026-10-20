@@ -89,6 +89,9 @@ def main():
     require(report['exit_code'] == 0 and report['geometry_reproduced_from_archives'], 'offline geometry not reproduced')
     require(read(E/'report_execution/command.json')['exit_code'] == 0, 'report failed')
     require(read(E/'collection_execution/command.json')['exit_code'] == 0, 'collector failed')
+    require(read(E/'scope_execution/command.json')['exit_code'] == 0 and read(E/'scope/summary.json')['exit_code'] == 0, 'row scope execution failed')
+    for seq in ('01', '02', '10'):
+        require(read(E/'scope'/(seq+'_scope.json'))['native_rejection_universe_matches'], 'row scope universe mismatch')
     result = dict(exit_code=0, base_commit=BASE, historical_aggregate_count=len(expected), historical_aggregate_hashes_match=True,
         publication_sha256=publication, binary_sha256=binaries, sequences=sequences, timestamp_only_changes=timestamps,
         scope='All pre-existing native code, manifests, tools and evidence preserved against parent153. Only new study, method README, roadmap and verified generator timestamps differ.')

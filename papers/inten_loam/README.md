@@ -522,6 +522,59 @@ metric handles rounded GT rotations without altering solver seeds. No default,
 historical accuracy cell, paper ratio or full-trajectory benefit changes.
 <!-- /INTEN_SEED_INTERVENTION -->
 
+<!-- INTEN_PLANE_CORRESPONDENCES -->
+#### Actual plane geometry and query support
+
+The [actual-correspondence study](../../experiments/results/inten_plane_correspondences/README.md)
+replays all 360 inherited pairs at the current-GT diagnostic seed. Native
+outputs and every initial class system/count exactly match the parent study;
+all plane equations are reconstructed from retained feature coordinates and
+ordered queries. Raw commits `2a583b85` / `ac28d11f` / `d6d157c6`, report
+`5373bf0d` and scope result `6218139a` precede these numbers. The original
+07-selected setting is unchanged; 00 influenced earlier diagnosis, and known
+01/02 failures are development data.
+
+Replacing only ground-plane representation in the **fixed first system** gives
+the following joint forward corrections, in percent of GT step. These are
+outside-paper offline diagnostics, not iterative solves or trajectory scores.
+
+| Oracle case | Edge pairs | Native equations [%] | Ground PCA through nearest [%] | Ground PCA through centroid [%] |
+|---|---:|---:|---:|---:|
+| 01 / 420 | 79 | -3.947608 | -3.919565 | -4.022629 |
+| 02 / 1876 | 0 | -5.426342 | -3.815493 | -4.002539 |
+| 02 / 4460 | 0 | -4.777499 | -3.630112 | -3.904649 |
+
+Both 02 entries retain a backward correction after replacement. Across selected
+moving pairs, smaller / larger absolute first-forward corrections are:
+
+| Sequence | Moving pairs | PCA through nearest: smaller / larger | PCA through centroid: smaller / larger |
+|---|---:|---:|---:|
+| 01 | 155 | 74 / 81 | 69 / 86 |
+| 02 | 192 | 121 / 71 | 117 / 75 |
+| 10 | 12 | 10 / 2 | 10 / 2 |
+
+The mixed result does not justify adopting ground PCA; 01 retains its distinct
+edge/facade pattern. All adverse cases and vector errors remain in the report.
+Per-class/per-residual attribution shares the total damped H and is not a
+class-removal experiment.
+
+Actual query inspection also identifies a support loss: the ten-neighbour search
+rejects same/adjacent-row triangles even when the same target has suitable rows
+inside the existing distance gate. At 02 / 1876 and 4460, native ground support
+is 247/260, and 379/337 extra triangles are constructible beyond those ten
+candidates. Across all selected pairs, extra ground/facade triangles total
+15230/6510 (01), 64767/69593 (02), 3045/4570 (10). Many same-row rejections still
+have no support anywhere in the gated target, so truncation is only part of the
+support loss. Constructibility does not establish correspondence correctness
+or motion recovery; no broader-search solver is evaluated here.
+
+The study retains actual commands/exits, full geometric evidence, exact offline
+reproduction, all failures and verified official scan deletion. It changes no
+estimator/default, prior score or paper ratio. A uniformly configured opt-in
+row-aware matcher and full-sequence improvement remain to be evaluated.
+<!-- /INTEN_PLANE_CORRESPONDENCES -->
+
+
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):

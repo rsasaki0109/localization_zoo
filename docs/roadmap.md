@@ -387,10 +387,20 @@ independent. Each item says what "done" means.
     in the initial joint system. Initialization alone is insufficient there.
     These are diagnostic interventions, not new odometry scores or a recursive
     predictor evaluation. All raw outcomes and negative cases are retained.
-    The next causal task is actual correspondence/normal inspection at these
-    entries, including the different edge/facade pattern in 01. A separately
-    evaluated opt-in improvement and KITTI10's gradual drift remain open.
-    Additional exporter/preparation-only work does not close that task.
+    The [actual plane-correspondence study](../experiments/results/inten_plane_correspondences/README.md)
+    completes that inspection on the same 360 GT-seeded pairs, reproducing
+    native outputs and initial systems exactly. Ground-PCA first-system controls
+    reduce the initial backward correction at the 02 entries but leave it
+    backward; adverse cases occur on every sequence. No PCA fix is adopted.
+    Query inspection finds additional in-gate triangles beyond the ten native
+    candidates: at 02 / 1876 and 4460, 379/337 extra ground triangles versus
+    247/260 accepted natively. Many other row-support losses remain even with
+    the full gated target. This identifies actual candidate truncation, not a
+    proven improvement. All geometry, negative controls and commands are retained.
+    Next: evaluate a uniform opt-in row-aware matcher, select any values on 07,
+    and verify full-sequence behavior before an accuracy claim. Known 01/02
+    remain development data; KITTI10's gradual drift remains open. Additional
+    exporter/preparation-only work does not close the improvement task.
     Defaults, historical results and Table 6 are preserved.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is

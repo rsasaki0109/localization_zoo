@@ -1,0 +1,6 @@
+{
+  "parent_result_commit": "5373bf0d",
+  "reason": "The complete rejection report shows frequent missing same-row support. Determine whether this is true absence under the existing distance gate or candidate truncation. This additional analysis is declared after observing that report, and before its own execution; no held-out claim.",
+  "analysis": "For every missing-row rejection, check all retained target features on the required rows under the original squared-distance gate1. Count extra constructible triangles and still-missing support. Keep each native source/target/seed fixed. No alternate native solve, association added to historical results, or accuracy claim.",
+  "settings": "Use original float query/target coordinates and native row/distance/triangle gates. No threshold tuning."
+}

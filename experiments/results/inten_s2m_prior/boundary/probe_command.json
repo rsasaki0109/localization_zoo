@@ -1,0 +1,43 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-s2m-prior/boundary_staging",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-s2m-prior/boundary_probe",
+    "/workspace/localization-env/inten-s2m-prior/kitti/dataset/sequences/01/velodyne"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "3ea4ad886b82dbecdbe13df711e3257b39700e95",
+  "exit_code": 0,
+  "started_unix": 1792538789.1062775,
+  "finished_unix": 1792539208.565897,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": "7ce052a261b4ccb285cdcf299f4dc95e0a63caa72b31e77baf0c1a6ca74be407",
+  "binary_sha256": "50d6cff59ff5903d4493cc90c1167fc80560e83ae1d8d733365c4f676c55a031",
+  "native_source_commit": "9a01528b05128794df962b52ace59e727e834417"
+}

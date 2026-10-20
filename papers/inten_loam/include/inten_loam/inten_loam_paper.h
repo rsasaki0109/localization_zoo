@@ -120,6 +120,12 @@ struct InTenLoamPaperParams {
   // rotation to prevent recursive non-rigid roundoff). Fallback and deskew still
   // use last accepted S2S motion; mapping-off/forced diagnostics are unchanged.
   bool s2s_mapped_prior = false;
+  // Opt-in repository extension, not in the paper. At the first S2S system,
+  // marginalize rotation at the sensor origin. Add a translation prior only
+  // where information is below this fraction of its largest eigenvalue,
+  // raising it to that floor. Anchor at the initial prediction; keep this
+  // information fixed throughout the solve. Zero disables it (legacy path).
+  double s2s_translation_prior_ratio = 0.0;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).
@@ -158,7 +164,8 @@ struct InTenLoamPaperDiagnostics {
   // Classes: 0 edge, 1 ground, 2 facade, 3 intensity. Jacobians are with
   // respect to a left perturbation [t, w] of the S2S relative pose (previous
   // frame) and of the S2M pose (world); the Gauss-Newton step is -H^-1 g
-  // with H, g summed over the classes.
+  // with H, g summed over the classes. These are data terms; an enabled
+  // repository translation prior is additional and is not a feature class.
   Mat6 s2s_H[4], s2m_H[4];
   Vec6 s2s_g[4], s2m_g[4];
   int s2s_n[4] = {0, 0, 0, 0}, s2m_n[4] = {0, 0, 0, 0};
@@ -176,12 +183,13 @@ struct PaperIterationTrace {
   using Mat6 = Eigen::Matrix<double, 6, 6>;
   using Vec6 = Eigen::Matrix<double, 6, 1>;
   Eigen::Matrix4d linearization_pose = Eigen::Matrix4d::Identity();
-  Mat6 H = Mat6::Zero();  // unregularized, left perturbation [t, w]
+  Mat6 H = Mat6::Zero();  // left [t,w]; includes optional translation prior, before 1e-6 I
   Vec6 g = Vec6::Zero();
   Vec6 delta = Vec6::Zero();  // solve uses H + 1e-6 I, as without tracing
   int class_pairs[4] = {0, 0, 0, 0};  // edge, ground, facade, intensity
   int pairs = 0;
   // Sum w*r*r at this linearization; w is the existing Huber IRLS weight.
+  // Includes the quadratic position prior when enabled; pair counts stay data-only.
   // This is not the Huber objective, a post-update score or a quality gate.
   double weighted_squared_residual = 0.0;
   bool step_attempted = false;

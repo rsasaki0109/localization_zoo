@@ -129,6 +129,7 @@ inline void params(std::ostream& out, const InTenLoamPaperParams& p) {
   out << ",\"accelerated\":" << p.accelerated;
   // Omit the disabled extension to preserve the legacy header bytes.
   if (p.s2s_mapped_prior) out << ",\"s2s_mapped_prior\":true";
+  if (p.s2s_translation_prior_ratio > 0.0) out << ",\"s2s_translation_prior_ratio\":" << p.s2s_translation_prior_ratio;
   if (p.s2s_row_support) out << ",\"s2s_row_support\":true";
 #undef INTEN_TRACE_PARAM
   out << '}';

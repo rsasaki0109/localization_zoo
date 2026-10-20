@@ -2,6 +2,7 @@
 #include "inten_loam/detail/feature_tree.h"
 #include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
+#include "inten_loam/detail/translation_prior.h"
 
 #include <gtest/gtest.h>
 #include <Eigen/Geometry>
@@ -429,11 +430,95 @@ TEST(InTenLoamPaper, MappedMotionPriorRejectsNonRigidRoundoffWithoutChangingTran
 
 class InTenLoamPassiveTrace : public ::testing::TestWithParam<bool> {};
 
+TEST(InTenLoamPaper, TranslationPriorRaisesOnlyWeakMarginalInformation) {
+  using Mat6 = PaperIterationTrace::Mat6;
+  using Vec6 = PaperIterationTrace::Vec6;
+  Mat6 H = Mat6::Identity();
+  H.diagonal() << .5, 100, 200, 10, 20, 30;
+  const Eigen::Matrix3d information = detail::translationPriorInformation(H, Eigen::Vector3d::Zero(), .03);
+  Eigen::Matrix3d expected = Eigen::Matrix3d::Zero(); expected(0, 0) = 5.5;
+  EXPECT_LT((information-expected).norm(), 1e-12);
+  Vec6 g; g << 1, 2, 3, 4, 5, 6;
+  const Vec6 before = (H+1e-6*Mat6::Identity()).ldlt().solve(-g);
+  Vec6 adjusted_g = g;
+  Mat6 adjusted_H = H;
+  EXPECT_EQ(detail::addTranslationPrior(information, Eigen::Vector3d::Zero(), Eigen::Vector3d::Zero(), &adjusted_H, &adjusted_g), 0.0);
+  const Vec6 after = (adjusted_H+1e-6*Mat6::Identity()).ldlt().solve(-adjusted_g);
+  EXPECT_NEAR(after[0], -1.0/(6+1e-6), 1e-12);
+  EXPECT_LT(std::abs(after[0]), std::abs(before[0]));
+  EXPECT_EQ((after.tail<5>()-before.tail<5>()).norm(), 0.0);
+  EXPECT_EQ(detail::translationPriorInformation(Mat6::Identity(), Eigen::Vector3d::Zero(), .03).norm(), 0.0);
+}
+
+TEST(InTenLoamPaper, TranslationPriorCentersRotationAndAnchorsActualPosition) {
+  using Mat6 = PaperIterationTrace::Mat6;
+  using Vec6 = PaperIterationTrace::Vec6;
+  const Eigen::Vector3d t(3, -2, 1), prediction(2.8, -1.9, 1);
+  Mat6 B = Mat6::Identity(); B.block<3, 3>(0, 3) = detail::crossMatrix(t);
+  Mat6 centered = Mat6::Identity(); centered.diagonal() << .5, 100, 200, 10, 20, 30;
+  const Mat6 H = B.inverse().transpose()*centered*B.inverse();
+  const Eigen::Matrix3d information = detail::translationPriorInformation(H, t, .03);
+  Eigen::Matrix3d expected = Eigen::Matrix3d::Zero(); expected(0, 0) = 5.5;
+  EXPECT_LT((information-expected).norm(), 1e-10);
+  Mat6 prior_H = Mat6::Zero(); Vec6 prior_g = Vec6::Zero();
+  const double cost = detail::addTranslationPrior(information, prediction, t, &prior_H, &prior_g);
+  EXPECT_NEAR(cost, 5.5*.2*.2, 1e-12);
+  // Independent finite differences of the quadratic residual under native
+  // left rotation-plus-translation increments verify the rotational sign.
+  for (int axis = 0; axis < 6; ++axis) {
+    auto objective = [&](double amount) {
+      Eigen::Vector3d point = t;
+      if (axis < 3) point[axis] += amount;
+      else point = Eigen::AngleAxisd(amount, Eigen::Vector3d::Unit(axis-3))*point;
+      return (point-prediction).dot(information*(point-prediction))*.5;
+    };
+    EXPECT_NEAR((objective(1e-6)-objective(-1e-6))/2e-6, prior_g[axis], 1e-8);
+  }
+  Eigen::SelfAdjointEigenSolver<Mat6> eig(prior_H);
+  EXPECT_GT(eig.eigenvalues().minCoeff(), -1e-10);
+}
+
+TEST(InTenLoamPaper, TranslationPriorIsDefaultOffAndValidatesItsRange) {
+  EXPECT_EQ(InTenLoamPaperParams{}.s2s_translation_prior_ratio, 0.0);
+  for (double invalid : {-1.0, 1.01, std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN()}) {
+    InTenLoamPaperParams p; p.s2s_translation_prior_ratio = invalid;
+    EXPECT_THROW({ InTenLoamPaper odometry(p); }, std::invalid_argument);
+  }
+}
+
+TEST(InTenLoamPaper, TranslationPriorAppearsInTraceButNotFeatureCounts) {
+  InTenLoamPaperParams p; p.use_mapping = false; p.s2s_translation_prior_ratio = 1.0;
+  InTenLoamPaper observed(p), forced(p);
+  std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+  Eigen::Matrix4d origin = Eigen::Matrix4d::Identity(), truth = origin;
+  scanAt(origin, &points, &intensity);
+  observed.process(points, intensity); forced.process(points, intensity);
+  truth(0, 3) = .3;
+  scanAt(truth, &points, &intensity);
+  InTenLoamPaperTrace trace; observed.process(points, intensity, nullptr, &trace);
+  InTenLoamPaperDiagnostics diagnostic; diagnostic.forced_pose = &origin;
+  forced.process(points, intensity, &diagnostic);
+  ASSERT_FALSE(trace.s2s.iterations.empty());
+  const auto& first = trace.s2s.iterations.front();
+  PaperIterationTrace::Mat6 H = PaperIterationTrace::Mat6::Zero();
+  PaperIterationTrace::Vec6 g = PaperIterationTrace::Vec6::Zero();
+  int n = 0;
+  for (int c = 0; c < 4; ++c) { H += diagnostic.s2s_H[c]; g += diagnostic.s2s_g[c]; n += diagnostic.s2s_n[c]; }
+  const Eigen::Matrix3d information = detail::translationPriorInformation(H, Eigen::Vector3d::Zero(), 1.0);
+  EXPECT_GT(information.norm(), 1.0);
+  detail::addTranslationPrior(information, Eigen::Vector3d::Zero(), Eigen::Vector3d::Zero(), &H, &g);
+  EXPECT_LT((H-first.H).norm(), 1e-12);
+  EXPECT_EQ(n, first.pairs);
+  EXPECT_EQ((g-first.g).norm(), 0.0);
+  EXPECT_EQ((trace.s2s.output-diagnostic.s2s_estimate).norm(), 0.0);
+}
+
 TEST_P(InTenLoamPassiveTrace, PreservesMovingPosesAndFutureMapState) {
-  for (int options = 0; options < 4; ++options) {
+  for (int options = 0; options < 8; ++options) {
     InTenLoamPaperParams params;
     params.s2s_row_support = options & 1;
     params.s2s_mapped_prior = options & 2;
+    params.s2s_translation_prior_ratio = options & 4 ? .03 : 0.0;
     params.accelerated = GetParam();
     InTenLoamPaper plain(params), observed(params);
     std::vector<Eigen::Vector3d> pts;

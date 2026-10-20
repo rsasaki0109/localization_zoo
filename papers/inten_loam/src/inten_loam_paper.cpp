@@ -4,6 +4,7 @@
 #include "inten_loam/detail/feature_tree.h"
 #include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
+#include "inten_loam/detail/translation_prior.h"
 
 #include <algorithm>
 #include <cmath>
@@ -169,7 +170,11 @@ struct InTenLoamPaper::Map {
 };
 
 InTenLoamPaper::InTenLoamPaper(const InTenLoamPaperParams& params)
-    : params_(params), map_(std::make_shared<Map>()) {}
+    : params_(params), map_(std::make_shared<Map>()) {
+  if (!std::isfinite(params_.s2s_translation_prior_ratio) ||
+      params_.s2s_translation_prior_ratio < 0.0 || params_.s2s_translation_prior_ratio > 1.0)
+    throw std::invalid_argument("s2s_translation_prior_ratio must be finite and in [0,1]");
+}
 
 // ---------------------------------------------------------------------------
 // FEF
@@ -510,6 +515,8 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
   const Index& prev = *prev_;
   const double gate = params_.s2s_gate_sq;
   const double huber = params_.huber;
+  const Eigen::Vector3d prediction = T->block<3, 1>(0, 3);
+  Eigen::Matrix3d prior_information = Eigen::Matrix3d::Zero();
   std::vector<int> idx;
   std::vector<float> d2;
   int pairs = 0;
@@ -597,6 +604,12 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
     }
     pairs = sys.n;
     counts[3] = sys.n - before_intensity;
+    if (params_.s2s_translation_prior_ratio > 0.0 && sys.n >= 30) {
+      if (it == 0)
+        prior_information = detail::translationPriorInformation(sys.H, t, params_.s2s_translation_prior_ratio);
+      const double cost = detail::addTranslationPrior(prior_information, prediction, t, &sys.H, &sys.g);
+      if (sys.track_residual) sys.weighted_squared_residual += cost;
+    }
     observeSystem(trace, sys, *T, counts);
     if (sys.n < 30) {
       if (trace) trace->stop = PaperSolverStop::InsufficientPairs;

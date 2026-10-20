@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "raw_evidence_commit": "1fe4bc5437abb020ce0b8acf6a02c025dc140ef6",
+  "scope": "Offline join of every continuous natural frame and every stored iteration on KITTI01/02/10; no new native execution, no selection of settings or estimator gates.",
+  "partitions": "All steps, moving, nonmoving, final bad-length, other moving, final bad-vector. Also report every contiguous final bad-length range from the existing motion criterion, including singletons. These retrospective GT partitions are descriptive, not held-out validation or tuning.",
+  "motion_labels": "Reuse diagnose_kitti_steps.py with the parent protocol unchanged: GT translation >=0.1m, relative length/vector error >0.2, blocks of100steps. Step index is its zero-based destination frame. Require exact reproduction of the committed saved-pose diagnostic.",
+  "stage_comparison": "Express the realized S2S output, accepted S2S prediction, and final S2M-corrected pose in the previous accepted sensor frame. Compare local translations with GT only offline. Validate prediction composition and trace/saved-pose agreement at saved precision. S2S input/output observations depend on the realized prior state and are not an independently integrated S2S trajectory.",
+  "spectra": "Reuse every committed conditioning row at L=1m, rank_rtol=1e-9. Verify one-to-one iteration indices and native H/g/delta/pose/class counts. Count all statuses/ranks/update flags; retain unavailable spectra. Summarize first/last/max condition per called stage, last minimum eigenvalue, returned pairs, iterations and stop reasons. Last H/residual precedes its update; associations change between iterations.",
+  "statistics": "Count observations and publish min/median/max, without a condition cutoff, significance test, hand-selected normal baseline or new rejection rule. Export every step to CSV, including nonmoving steps with null relative errors. Inspect every bad range and all inherited100stepblocks, not only historical windows.",
+  "limits": "Correlation and stage localization do not establish causal correspondence correctness, prove convergence, isolate origin dependence or demonstrate that any alternative estimator improves accuracy. No paper ratio or historical benchmark cell is replaced. Timing with recording is not a speed result."
+}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "eee61c7f20dc9223d4a099fe0075c672479fc2ec"
+  ],
+  "cwd": "/workspace/localization-env/inten-plane-correspondences/worktree",
+  "source_commit": "8ec5efaba5ce913cb3353e92b28daba8081d2b62",
+  "started_unix": 1792470085.9476855,
+  "finished_unix": 1792470086.0143893,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-plane-correspondences/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-plane-correspondences/cache"
+  }
+}

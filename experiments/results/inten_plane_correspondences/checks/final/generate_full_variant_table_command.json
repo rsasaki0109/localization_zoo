@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/generate_full_variant_table.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-plane-correspondences/worktree",
+  "source_commit": "8ec5efaba5ce913cb3353e92b28daba8081d2b62",
+  "started_unix": 1792470076.000848,
+  "finished_unix": 1792470076.1027317,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-plane-correspondences/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-plane-correspondences/cache"
+  }
+}

@@ -581,7 +581,7 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
                     .cross(qj.p - tree.pts[static_cast<size_t>(same)].p);
         if (nrm.norm() < 1e-6) return false;
         nrm.normalize();
-        if (cls == 0 && params_.s2s_ground_pca)
+        if ((cls == 0 && params_.s2s_ground_pca) || (cls == 1 && params_.s2s_facade_pca))
           detail::groundPcaNormal(tree.pts, ids, ds, gate, &nrm);
         *a = nrm;
         *residual = nrm.dot(x - qj.p);

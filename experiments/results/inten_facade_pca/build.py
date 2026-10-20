@@ -87,8 +87,11 @@ def main():
     probe_metadata = OLD/'papers/inten_loam/CMakeFiles/test_inten_loam_paper.dir'
     run('probe', docker()+['c++', *flags(probe_metadata), '-I'+str(W/'evaluation/src'),
         str(E/'compatibility_probe.cpp'), *libs, '-o', str(R/'compatibility_probe')], folder)
+    run('intervention_probe', docker()+['c++', *flags(probe_metadata), '-I'+str(W/'evaluation/src'),
+        str(E/'intervention_probe.cpp'), *libs, '-o', str(R/'intervention_probe')], folder)
     write(E/'binaries.json', dict(runner=dict(path=str(R/'pcd_dogfooding'), sha256=sha(R/'pcd_dogfooding')),
         probe=dict(path=str(R/'compatibility_probe'), sha256=sha(R/'compatibility_probe')),
+        intervention_probe=dict(path=str(R/'intervention_probe'), sha256=sha(R/'intervention_probe')),
         linked_static_libraries=library_pins,
         resolved_parent_metadata={str(metadata/name):sha(metadata/name) for name in ('flags.make','link.txt')},
         explanation='Only the changed InTEn library and runner are freshly compiled. Other native libraries are unchanged pinned parent dependencies; no old build file or binary is modified. Full project CI is required before review.'))

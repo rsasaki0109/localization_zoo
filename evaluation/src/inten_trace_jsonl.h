@@ -136,6 +136,7 @@ inline void params(std::ostream& out, const InTenLoamPaperParams& p) {
   if (p.s2s_translation_prior_ratio > 0.0) out << ",\"s2s_translation_prior_ratio\":" << p.s2s_translation_prior_ratio;
   if (p.s2s_row_support) out << ",\"s2s_row_support\":true";
   if (p.s2s_ground_pca) out << ",\"s2s_ground_pca\":true";
+  if (p.s2s_facade_pca) out << ",\"s2s_facade_pca\":true";
 #undef INTEN_TRACE_PARAM
   out << '}';
 }

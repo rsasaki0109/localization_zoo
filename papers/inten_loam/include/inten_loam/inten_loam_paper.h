@@ -119,6 +119,10 @@ struct InTenLoamPaperParams {
   // triangles only, use the same gated ten-neighbour PCA normal through the
   // original nearest point. Degenerate PCA retains the triangle normal.
   bool s2s_ground_pca = false;
+  // Opt-in repository extension, not in the paper: apply the same accepted-
+  // triangle PCA normal construction to S2S facade features only. Keep the
+  // nearest-point anchor and all triangle acceptance tests; default unchanged.
+  bool s2s_facade_pca = false;
   // Opt-in repository extension, not in the paper: seed the next S2S solve
   // with the preceding final mapped relative pose (normalized quaternion
   // rotation to prevent recursive non-rigid roundoff). Fallback and deskew still

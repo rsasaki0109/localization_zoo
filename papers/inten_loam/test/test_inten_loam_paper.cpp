@@ -540,6 +540,47 @@ TEST(InTenLoamPaper, GroundPcaChangesOnlyGroundAtFixedInitialPose) {
   EXPECT_GT((a.s2s_H[1]-b.s2s_H[1]).norm(), 1e-6);
 }
 
+TEST(InTenLoamPaper, FacadePcaChangesOnlyFacadeAtFixedInitialPose) {
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2s_facade_pca);
+  InTenLoamPaperParams params; params.use_mapping = false; params.s2s_ground_pca = true;
+  InTenLoamPaper baseline(params);
+  params.s2s_facade_pca = true;
+  InTenLoamPaper candidate(params);
+  std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+  Eigen::Matrix4d seed = Eigen::Matrix4d::Identity(), truth = seed;
+  auto ripple = [&](double origin_x) {
+    for (auto& point : points) if (std::abs(std::abs(point.y())-8.) < 1e-6)
+      point.y() += .004*std::sin(3*(point.x()+origin_x)+2*point.z());
+  };
+  scanAt(seed, &points, &intensity); ripple(0.0);
+  baseline.process(points, intensity); candidate.process(points, intensity);
+  truth(0, 3) = .3;
+  scanAt(truth, &points, &intensity); ripple(truth(0, 3));
+  InTenLoamPaperDiagnostics a, b; a.forced_pose = &seed; b.forced_pose = &seed;
+  baseline.process(points, intensity, &a); candidate.process(points, intensity, &b);
+  ASSERT_GT(a.s2s_n[2], 0);
+  for (int c = 0; c < 4; ++c) {
+    EXPECT_EQ(a.s2s_n[c], b.s2s_n[c]);
+    if (c == 2) continue;
+    EXPECT_EQ((a.s2s_H[c]-b.s2s_H[c]).norm(), 0.0);
+    EXPECT_EQ((a.s2s_g[c]-b.s2s_g[c]).norm(), 0.0);
+  }
+  EXPECT_GT((a.s2s_H[2]-b.s2s_H[2]).norm(), 1e-6);
+}
+
+TEST(InTenLoamPaper, AcceptedPlanePcaFitsVerticalFacadeAndExcludesOutOfGatePoint) {
+  std::vector<PaperFeature> points(5);
+  points[0].p = Eigen::Vector3d(0, 8, 0);
+  points[1].p = Eigen::Vector3d(.5, 8.1, 0);
+  points[2].p = Eigen::Vector3d(0, 7.95, .5);
+  points[3].p = Eigen::Vector3d(.5, 8.05, .5);
+  points[4].p = Eigen::Vector3d(0, 20, 0);  // outside the unchanged gate
+  const Eigen::Vector3d expected = Eigen::Vector3d(-.2, 1., .1).normalized();
+  Eigen::Vector3d normal = Eigen::Vector3d::UnitY();
+  ASSERT_TRUE(detail::groundPcaNormal(points, {0,1,2,3,4}, {0.f,.3f,.3f,.6f,4.f}, 1., &normal));
+  EXPECT_LT((normal-expected).norm(), 1e-12);
+}
+
 TEST(InTenLoamPaper, TranslationPriorIsDefaultOffAndValidatesItsRange) {
   EXPECT_EQ(InTenLoamPaperParams{}.s2s_translation_prior_ratio, 0.0);
   for (double invalid : {-1.0, 1.01, std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN()}) {
@@ -579,12 +620,13 @@ TEST(InTenLoamPaper, TranslationPriorAppearsInTraceButNotFeatureCounts) {
 }
 
 TEST_P(InTenLoamPassiveTrace, PreservesMovingPosesAndFutureMapState) {
-  for (int options = 0; options < 16; ++options) {
+  for (int options = 0; options < 32; ++options) {
     InTenLoamPaperParams params;
     params.s2s_row_support = options & 1;
     params.s2s_mapped_prior = options & 2;
     params.s2s_translation_prior_ratio = options & 4 ? .03 : 0.0;
     params.s2s_ground_pca = options & 8;
+    params.s2s_facade_pca = options & 16;
     params.accelerated = GetParam();
     InTenLoamPaper plain(params), observed(params);
     std::vector<Eigen::Vector3d> pts;

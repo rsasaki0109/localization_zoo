@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-translation-prior/worktree/experiments/results/inten_translation_prior/collect.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-prior/worktree",
+  "source_commit": "568536f5e78dea5d144398e7e6fe45e2e06f626f",
+  "started_unix": 1792493258.8753543,
+  "exit_code": 0,
+  "finished_unix": 1792498557.2397642
+}

@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "test_source_commit": "9a01528b05128794df962b52ace59e727e834417",
+  "test_binaries": {
+    "inten": {
+      "path": "/workspace/localization-env/inten-facade-pca/build/papers/inten_loam/test_inten_loam",
+      "sha256": "8e839b06394167b07d193e92e61d7826086474432b5fef2e9f571274b907b528"
+    },
+    "paper": {
+      "path": "/workspace/localization-env/inten-facade-pca/build/papers/inten_loam/test_inten_loam_paper",
+      "sha256": "4e547832ffe631aafd42ba105ce45a7783d1e8bf2726c40be25967906c2bb67a"
+    },
+    "trace": {
+      "path": "/workspace/localization-env/inten-facade-pca/build/evaluation/test_inten_trace_jsonl",
+      "sha256": "1998058a79bf770b2a04cd340398f1b875a8e390b29c43bddb30f232cd5e192f"
+    }
+  },
+  "policy": "Direct unchanged native test executables run in the new study directory, preserving all historical build metadata. Final full project CTest and ROS2 CI still required."
+}

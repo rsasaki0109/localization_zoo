@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "parent_commit": "87fc51aa8fd4b6a1af7016ad03158787ec0b3ef7",
+  "parent_pr": 159,
+  "stage": "Current continuous01 S2M onset diagnosis before intervention",
+  "frames": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "profile": "PR159 candidate: mapped seed, softS2Sratio.03, groundPCA, facadePCA, acceleration all enabled; row completion disabled; inherited07-selected profile and00 diagnostics",
+  "scope": "Reproduce identical normal prefix with two independent native instances per selected frame. Reference frame normal with passive trace; second uses existing forced diagnostic at the actual S2M input, same native map history, stops after frame. Require first summed class system/counts and full S2M output to agree with reference, and continuous reference poses/stages to agree with archived PR159. No GT enters estimator; optional GT relative is offline analysis only. Forced endpoint is not accuracy. Do not select an intervention until controls are committed.",
+  "raw_policy": "One owned full01 official fetch; exact old input hash equality. Retain for first full fixed paired study. Commit and normal push native outputs/lossless archive before deletion; cleanup commit/push before next acquisition.",
+  "parent_binary": {
+    "path": "/workspace/localization-env/inten-facade-pca/pcd_dogfooding",
+    "sha256": "5e7a26d91796282a04d57c18ad6a2c412a2e134dee1cd9a0ef4c99936eb03289",
+    "source_commit": "9a01528b05128794df962b52ace59e727e834417"
+  }
+}

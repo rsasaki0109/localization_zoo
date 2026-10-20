@@ -1,0 +1,169 @@
+{
+  "exit_code": 0,
+  "base_matches_immutable_native_controls_exact": true,
+  "max_absolute_differences": {
+    "H": 0.0,
+    "g": 0.0,
+    "output": 0.0
+  },
+  "all_non_plane_initial_class_equations_exact": true,
+  "plane_support_removed": 3540,
+  "lower_absolute_length_error": 4,
+  "higher_absolute_length_error": 4,
+  "equal_absolute_length_error": 0,
+  "cases": [
+    {
+      "frame": 190,
+      "input_length_ratio": 0.9907667691256572,
+      "baseline_length_ratio": 0.9874327178279108,
+      "candidate_length_ratio": 0.986651224548992,
+      "absolute_length_error_change": 0.0007814932789187434,
+      "baseline_class_pairs": [
+        41,
+        700,
+        432,
+        96
+      ],
+      "candidate_class_pairs": [
+        41,
+        497,
+        234,
+        96
+      ]
+    },
+    {
+      "frame": 200,
+      "input_length_ratio": 0.9752412740164733,
+      "baseline_length_ratio": 0.9289451730696631,
+      "candidate_length_ratio": 0.9264704906798125,
+      "absolute_length_error_change": 0.002474682389850602,
+      "baseline_class_pairs": [
+        52,
+        735,
+        626,
+        105
+      ],
+      "candidate_class_pairs": [
+        52,
+        541,
+        334,
+        105
+      ]
+    },
+    {
+      "frame": 202,
+      "input_length_ratio": 0.7485976383192674,
+      "baseline_length_ratio": 0.9493471507134362,
+      "candidate_length_ratio": 0.9664869240147622,
+      "absolute_length_error_change": -0.01713977330132599,
+      "baseline_class_pairs": [
+        75,
+        782,
+        693,
+        114
+      ],
+      "candidate_class_pairs": [
+        75,
+        532,
+        357,
+        114
+      ]
+    },
+    {
+      "frame": 203,
+      "input_length_ratio": 0.9187304412846516,
+      "baseline_length_ratio": 0.9139169004799743,
+      "candidate_length_ratio": 0.9212789728578855,
+      "absolute_length_error_change": -0.0073620723779112,
+      "baseline_class_pairs": [
+        47,
+        785,
+        644,
+        101
+      ],
+      "candidate_class_pairs": [
+        47,
+        543,
+        396,
+        101
+      ]
+    },
+    {
+      "frame": 204,
+      "input_length_ratio": 0.607064436903435,
+      "baseline_length_ratio": 0.42281078791765636,
+      "candidate_length_ratio": 0.41980608624372406,
+      "absolute_length_error_change": 0.0030047016739322974,
+      "baseline_class_pairs": [
+        56,
+        806,
+        681,
+        118
+      ],
+      "candidate_class_pairs": [
+        56,
+        594,
+        417,
+        118
+      ]
+    },
+    {
+      "frame": 205,
+      "input_length_ratio": 0.37244568780238063,
+      "baseline_length_ratio": 0.3737197699829292,
+      "candidate_length_ratio": 0.3751597726096892,
+      "absolute_length_error_change": -0.0014400026267599175,
+      "baseline_class_pairs": [
+        75,
+        811,
+        682,
+        136
+      ],
+      "candidate_class_pairs": [
+        75,
+        590,
+        446,
+        136
+      ]
+    },
+    {
+      "frame": 247,
+      "input_length_ratio": 0.5227273354914126,
+      "baseline_length_ratio": 0.6019109704851646,
+      "candidate_length_ratio": 0.6258588689215244,
+      "absolute_length_error_change": -0.023947898436359805,
+      "baseline_class_pairs": [
+        86,
+        810,
+        414,
+        220
+      ],
+      "candidate_class_pairs": [
+        86,
+        668,
+        289,
+        220
+      ]
+    },
+    {
+      "frame": 433,
+      "input_length_ratio": 0.9264975832609396,
+      "baseline_length_ratio": 0.9262964852875946,
+      "candidate_length_ratio": 0.8846622825669994,
+      "absolute_length_error_change": 0.04163420272059515,
+      "baseline_class_pairs": [
+        79,
+        795,
+        507,
+        134
+      ],
+      "candidate_class_pairs": [
+        79,
+        601,
+        324,
+        134
+      ]
+    }
+  ],
+  "scope": "Matched current S2M input AND map history, repeated native association/solve. Initial plane count reductions are not proof rejected planes were physically incorrect. Candidate terminal forced outputs do not enter future map or odometry scores."
+}

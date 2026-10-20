@@ -2,6 +2,7 @@
 
 #include <Eigen/Dense>
 #include "inten_loam/detail/feature_tree.h"
+#include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
 
 #include <algorithm>
@@ -996,7 +997,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
   // Only the next normal S2S seed changes. Keep the accepted S2S cache for
   // the existing low-count fallback and deskew, including after rejection.
   if (params_.s2s_mapped_prior && params_.use_mapping && !forced)
-    last_mapped_rel_ = prev_pose_.inverse() * pose_;
+    last_mapped_rel_ = detail::mappedMotionPrior(prev_pose_, pose_);
   else
     last_mapped_rel_ = last_rel_;
   prev_pose_ = pose_;

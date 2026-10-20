@@ -116,7 +116,8 @@ struct InTenLoamPaperParams {
   // under the existing distance gate. Existing selected points are retained.
   bool s2s_row_support = false;
   // Opt-in repository extension, not in the paper: seed the next S2S solve
-  // with the preceding final mapped relative pose. Fallback and deskew still
+  // with the preceding final mapped relative pose (normalized quaternion
+  // rotation to prevent recursive non-rigid roundoff). Fallback and deskew still
   // use last accepted S2S motion; mapping-off/forced diagnostics are unchanged.
   bool s2s_mapped_prior = false;
 };

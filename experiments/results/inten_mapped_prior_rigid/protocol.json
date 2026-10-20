@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "parent_commit": "dec360f5193a060ae1a6a9c5d72232f9485f83d5",
+  "parent_pr": 155,
+  "sequence_order": [
+    "07",
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_mapped_prior_rigid_matrix.json",
+      "sha256": "59e429cdf905ce39f0dcfc2de9f2eea1a264231b79aff2bc3b88c01b520028e6"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_mapped_prior_rigid_matrix.json",
+      "sha256": "0490198f6c5f3dd2f59a3f9e3881e1d3637b10e9f30de100cfe5f1dae6572051"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_mapped_prior_rigid_matrix.json",
+      "sha256": "b76d61050c4c16120f2d83ee3b46780a5742887407242428979a83ccb1d32d43"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_mapped_prior_rigid_matrix.json",
+      "sha256": "e3c05f320154a6a4247e6f96d36a3973b61cc166dca76fac3b4f2b7f883b3b4f"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_mapped_prior_rigid_matrix.json",
+      "sha256": "6363943d0d4b3ee84c5d07ecf8fd91f4942e13b7b4d4153eb6ea7e3b04679656"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_mapped_prior_rigid_matrix.json",
+      "sha256": "1680e051c18353b2541b2c91b5b81248a3c830fe18d95d254d20ec21a19e71c6"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix.json",
+      "sha256": "33c9baac6ce2a3f0c9e724e38ba75175d98c438f14b8fd34b61d777213c62799"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_mapped_prior_rigid_matrix.json",
+      "sha256": "a073c9c73dfe506bc15949e60d006480a4d9f5ddea300989ff63adbb44326839"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_mapped_prior_rigid_matrix.json",
+      "sha256": "c1fdedfd260b1db88c3f38ca1642ddcd36c223a1bdb5d32f1a2881897018c134"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_mapped_prior_rigid_matrix.json",
+      "sha256": "3c42c8e4b4eaa940ae1e0d0ef1bb66ced98788864c691b5a5cb9d4a80823a76d"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_mapped_prior_rigid_matrix.json",
+      "sha256": "5cc4c1f692a938e92999740a8102930aa9d5617758ee1603dbaf844055a61c98"
+    }
+  },
+  "selection": "Inherited elevation correction, range, S2M plane gate and edge settings were chosen on KITTI07;00 informed prior diagnosis. The parameter-free mapped-motion seed boolean is motivated by already inspected01/02 collapse and10 drift. No independent held-out claim. Evaluate07 first then all00-10 without retuning, including negative outcomes. Row completion stays off in BOTH arms. The initial unprojected implementation failed numerically on00. That failure informed normalized-quaternion rotation restoration and is fully retained. Restart all00-10 with this fixed revision; no per-sequence tuning.",
+  "change": "Default-off s2s_mapped_prior changes only the normal S2S initial value to previous final pose inverse times current final pose, recursively maintained across all mapping-enabled frames including skipped/rejected S2M. Identity on startup. Keep original last_rel_ for low-count fallback and deskew. Mapping-off and forced-pose diagnostics retain old behavior. No new gate, damping, association, solver budget, residual or S2M change. Before caching, normalize the quaternion constructed from the relative rotation and restore homogeneous bottom row. This parameter-free rigid-pose representation prevents the non-rigid feedback seen on00; translation remains the raw inverse-product value. No gate/clamp is added.",
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "acceleration": "Use existing --paper-pipeline-accelerated identically in both arms on every sequence, one native thread per process. Paired processes may run concurrently on the two available CPUs. No standalone FPS/speed claim.",
+  "compatibility": "Full07 fresh baseline matches immutable PR155 accelerated runner in accuracy/frame fields, saved pose bytes and passive trace body. All inherited360 natural-seed pair controls on01/02/10 compare default-off systems/counts/outputs. Mechanism tests exercise actual recursive seed, rejection/fallback, mapping-off/forced compatibility, and passive trace parity.",
+  "trace": "Both full accuracy arms use passive trace, no forced seed or window restart. Only s2s_mapped_prior may differ. Assert baseline seeds are previous accepted S2S motion; candidate seeds are previous final mapped relative motion. All other settings identical across arms and sequences.",
+  "completion": "All11 paired full sequences plus parent07 control exit0 with complete unskipped traversal. Official inputs verified against the committed shared-range audit, evidence archived/committed/backed up before deleting owned scans and advancing. Retain every negative case and command; update README tables and docs/checks, one actual-results PR, no prep-only PR.",
+  "data": "Official fetch script only, one full sequence at a time, at most4 acquisition attempts with retained receipts. Never delete other worktrees/scans. No raw scan commit.",
+  "analysis": "Official KITTI100-800m RTE from native summaries, full pose step diagnostics and passive stage transitions. Fixed0.1m/20% local labels inherited, not fitted. No representative-accuracy claim from selected pairs; all-sequence paired RTE is reported separately from GT-fed diagnostics.",
+  "parent_binary": {
+    "path": "/workspace/localization-env/inten-row-support/pcd_dogfooding",
+    "sha256": "ab0883c93b9deb2d7fdcd8b5775f7d71205297d74f0b68a357f2f88ebb38958a",
+    "source_commit": "20c09c463292147e8deafa1525abc6deb5e8fc2d"
+  },
+  "archival": "Lossless ordered32MiB-uncompressed gzip shards of JSONL plus original sizes/SHA256; fully round-trip before scan removal. Commit raw results before numerical prose. Preserve all older aggregates and publication files.",
+  "prior_aborted_trial_commit": "1e5099b3",
+  "prior_aborted_trial": "experiments/results/inten_mapped_prior"
+}

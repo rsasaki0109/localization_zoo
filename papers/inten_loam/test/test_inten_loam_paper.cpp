@@ -1,5 +1,6 @@
 #include "inten_loam/inten_loam_paper.h"
 #include "inten_loam/detail/feature_tree.h"
+#include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
 
 #include <gtest/gtest.h>
@@ -400,6 +401,32 @@ TEST(InTenLoamPaper, PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods)
   EXPECT_LT(worst[1], 0.5 * worst[0]);
 }
 
+TEST(InTenLoamPaper, MappedMotionPriorRejectsNonRigidRoundoffWithoutChangingTranslation) {
+  Eigen::Matrix4d previous = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+  step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.071, Eigen::Vector3d(1, 2, 3).normalized()).toRotationMatrix();
+  step.block<3, 1>(0, 3) << 0.6, -0.2, 0.05;
+  for (int i = 0; i < 4096; ++i) {
+    Eigen::Matrix4d current = previous * step;
+    // Controlled non-rigid roundoff, larger than ordinary double precision
+    // so a missing rotation restoration fails reliably in a short test.
+    current(0, 0) += 1e-9;
+    const Eigen::Matrix4d raw = previous.inverse() * current;
+    const Eigen::Matrix4d prior = detail::mappedMotionPrior(previous, current);
+    const Eigen::Matrix3d rotation = prior.block<3, 3>(0, 0);
+    EXPECT_LT((rotation.transpose() * rotation - Eigen::Matrix3d::Identity()).norm(), 2e-15);
+    EXPECT_NEAR(rotation.determinant(), 1.0, 2e-15);
+    EXPECT_EQ((prior.block<3, 1>(0, 3) - raw.block<3, 1>(0, 3)).norm(), 0.0);
+    EXPECT_GT((raw.block<3, 3>(0, 0).transpose() * raw.block<3, 3>(0, 0) -
+               Eigen::Matrix3d::Identity()).norm(), 1e-12);
+    EXPECT_EQ(prior(3, 0), 0.0);
+    EXPECT_EQ(prior(3, 1), 0.0);
+    EXPECT_EQ(prior(3, 2), 0.0);
+    EXPECT_EQ(prior(3, 3), 1.0);
+    previous = current;
+  }
+}
+
 class InTenLoamPassiveTrace : public ::testing::TestWithParam<bool> {};
 
 TEST_P(InTenLoamPassiveTrace, PreservesMovingPosesAndFutureMapState) {
@@ -484,7 +511,7 @@ TEST_P(InTenLoamPassiveTrace, MappedPriorIsRecursiveAndPreservesS2SFallback) {
       InTenLoamPaperTrace trace;
       const auto result = odo.process(pts, intensity, nullptr, &trace);
       if (k) {
-        EXPECT_EQ((trace.s2s.input - expected_seed).norm(), 0.0);
+        EXPECT_LT((trace.s2s.input - expected_seed).norm(), mapped ? 1e-10 : 1e-30);
         ASSERT_TRUE(trace.s2m_accepted);
         ASSERT_FALSE(trace.s2s_fallback);
         const Eigen::Matrix4d final_rel = previous.inverse() * result.pose;
@@ -498,14 +525,14 @@ TEST_P(InTenLoamPassiveTrace, MappedPriorIsRecursiveAndPreservesS2SFallback) {
     EXPECT_GT(correction, 1e-5);
     InTenLoamPaperTrace empty;
     const auto rejected = odo.process({}, {}, nullptr, &empty);
-    EXPECT_EQ((empty.s2s.input - expected_seed).norm(), 0.0);
+    EXPECT_LT((empty.s2s.input - expected_seed).norm(), mapped ? 1e-10 : 1e-30);
     EXPECT_TRUE(empty.s2s_fallback);
     EXPECT_FALSE(empty.s2m_accepted);
     EXPECT_EQ((empty.accepted_relative - accepted).norm(), 0.0);
     // After rejection, the recursive seed follows the actual final poses.
     const Eigen::Matrix4d next_seed = mapped ? (previous.inverse() * rejected.pose).eval() : accepted;
     odo.process({}, {}, nullptr, &empty);
-    EXPECT_EQ((empty.s2s.input - next_seed).norm(), 0.0);
+    EXPECT_LT((empty.s2s.input - next_seed).norm(), mapped ? 1e-10 : 1e-30);
     InTenLoamPaper fresh(params);
     fresh.process(pts, intensity);
     fresh.process(pts, intensity, nullptr, &empty);

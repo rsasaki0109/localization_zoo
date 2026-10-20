@@ -1,0 +1,27 @@
+{
+  "exit_code": 0,
+  "source_commit": "ea681157cb5807b42190ba3ab8aec191202ae9a7",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "checks": [
+    {
+      "label": "python",
+      "exit_code": 0
+    },
+    {
+      "label": "showcase",
+      "exit_code": 0
+    },
+    {
+      "label": "leaderboard",
+      "exit_code": 0
+    },
+    {
+      "label": "paper_ready",
+      "exit_code": 0
+    },
+    {
+      "label": "preservation",
+      "exit_code": 0
+    }
+  ]
+}

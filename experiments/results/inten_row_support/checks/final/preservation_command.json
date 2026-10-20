@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_row_support/verify.py",
+    "--output",
+    "experiments/results/inten_row_support/checks/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-row-support/worktree",
+  "source_commit": "ea681157cb5807b42190ba3ab8aec191202ae9a7",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "started_unix": 1792478690.145858,
+  "exit_code": 0,
+  "finished_unix": 1792478690.4562407
+}

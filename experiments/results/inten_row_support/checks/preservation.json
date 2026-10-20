@@ -1,0 +1,125 @@
+{
+  "exit_code": 0,
+  "base_commit": "5e1b93ce62f21109c8061eca300d5f13f3230297",
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "new_aggregate_count": 11,
+  "old_variant_rows_unchanged": true,
+  "new_variant_rows": 22,
+  "primary_publication_sha256": {
+    "README.md": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+    "docs/index.html": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+    "docs/assets/paper/paper_ratio_table.csv": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+    "evaluation/data/paper_reported_numbers.json": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e"
+  },
+  "binary_sha256": {
+    "/workspace/localization-env/inten-row-support/pcd_dogfooding": "ab0883c93b9deb2d7fdcd8b5775f7d71205297d74f0b68a357f2f88ebb38958a",
+    "/workspace/localization-env/inten-row-support/compatibility_probe": "804b9492452ef7bc4b079e5a60f7ff11fce451831888918fa5091136217a89dd",
+    "/workspace/localization-env/inten-natural-traces/build/evaluation/pcd_dogfooding": "bb9a3a5f8a5f1e55181f76b8766c1d80f07a7dd3ee87964c136eec5f8da79042",
+    "/workspace/localization-env/shared-near-range/baseline_pcd_dogfooding": "ede46d492a31f6dfea95b111bb8941974ad63a903c68e9ee860f7e2f60ca2450",
+    "/workspace/localization-env/shared-near-range/candidate_pcd_dogfooding": "e9ed1f650d42b73d1156e8b3eda3a145ebed4ad382323863f0d89d886d5d166d"
+  },
+  "sequences": {
+    "00": {
+      "frames": 4541,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "01": {
+      "frames": 1101,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "02": {
+      "frames": 4661,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "03": {
+      "frames": 801,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "04": {
+      "frames": 271,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "05": {
+      "frames": 2761,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "06": {
+      "frames": 1101,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "07": {
+      "frames": 1101,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "08": {
+      "frames": 4071,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "09": {
+      "frames": 1591,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    },
+    "10": {
+      "frames": 1201,
+      "native_exits": [
+        0,
+        0
+      ],
+      "owned_scans_absent": true,
+      "official_hashes_match": true
+    }
+  },
+  "default_off_pair_controls": 360,
+  "policy": "Native extension remains default off, no per-sequence winner adoption. Raw timing preserved but uniformly excluded from standalone aggregate FPS. All earlier scientific evidence and publication values are unchanged."
+}

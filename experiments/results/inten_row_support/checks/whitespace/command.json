@@ -1,0 +1,13 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "5e1b93ce62f21109c8061eca300d5f13f3230297"
+  ],
+  "cwd": "/workspace/localization-env/inten-row-support/worktree",
+  "source_commit": "ea681157cb5807b42190ba3ab8aec191202ae9a7",
+  "started_unix": 1792478737.0853617,
+  "exit_code": 0,
+  "finished_unix": 1792478737.2475593
+}

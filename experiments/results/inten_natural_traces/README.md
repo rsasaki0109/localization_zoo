@@ -162,6 +162,30 @@ check to exit 2; its complete failed log is retained compressed. The recorded
 normalization changes only CRLF to LF, preserves row content/counts and fixes
 the writer. Scientific values and the initial execution receipt are unchanged.
 
+## Validation and preservation
+
+Evidence committed at `93095a3e` records Python discovery of 344 tests with
+5 existing built-evaluator skips and exit 0. All three required generators,
+showcase, leaderboard and paper-ready checks exit 0. The final-source offline
+join is also reproduced with exit 0: scientific results and normalized CSV
+bytes are identical. Generator changes outside the study are timestamps only.
+
+[Completion checks](checks/final/completion.json) compare against this study's
+actual main base `ad7d2081`: all 688 historical aggregate hashes, root README,
+HTML, Table 6, the full-variant CSV and paper-number JSON are preserved. Native
+source, manifests, existing tools and prior study files are unchanged; both
+older frozen executables and the new pinned runner retain their hashes.
+
+The earlier historical preservation script exits 1 because it pins an older
+development base, before already-merged exporter/acceleration changes and the
+root README update. Its complete report and exact log bytes are retained; it
+is not treated as a pass. An initial main-base check also exits 1 from a local
+checker variable being reused as a path; the corrected command, including its
+full source, exits 0. Verbatim failed-diff logs contain trailing spaces and are
+stored as round-trip-verified gzip, retaining the failed whitespace exits.
+These bookkeeping failures do not rerun native odometry or alter any scientific
+result. Final PR CI covers the full native/ROS build and regression workflow.
+
 ## Remaining question
 
 The finite collection and stage-localization milestone is complete. A causal

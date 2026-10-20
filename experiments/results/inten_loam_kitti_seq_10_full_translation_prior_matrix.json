@@ -1,0 +1,184 @@
+{
+  "generated_at": "2026-10-20T12:17:00+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_10_full_translation_prior_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_10_full_translation_prior",
+    "title": "InTEn-LOAM KITTI 10: weak-translation prediction prior",
+    "question": "Does a fixed weak-translation prior prevent repeated biased S2S updates when recursive mapped prediction alone does not?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "Review the uniform full-sequence experiment; repository extension stays default off.",
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Mapped-motion reference",
+      "design_style": "reference",
+      "intent": "Mapped seed and acceleration on, row completion off in both arms. Only translation-prior ratio0/0.03 differs. Fixed before all full accuracy runs. Repository extension, default off; retain every negative outcome.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0"
+      ],
+      "command": "/workspace/localization-env/inten-translation-prior/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_translation_prior_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_10_full_translation_prior_matrix/baseline/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_10_full_translation_prior_matrix/baseline/run.log",
+      "status": "ok",
+      "ate_m": 9.901906,
+      "rpe_trans_pct": 0.845091,
+      "rpe_rot_deg_per_m": 0.004712,
+      "fps": null,
+      "time_ms": null,
+      "frames": 1201,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2315 dor points/frame=109; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.25,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 1.183142,
+      "kitti_rte_rot_deg_per_100m": 0.393581,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before acquisition, not an individual per-run timestamp.",
+        "source_commit": "6d9ab15d0ef72af57539253fcd2436a7842f11fd",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "a378d01f31ac2292d31df45cbe24ede122df0636581935411c75f41ade263900",
+        "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.086536,
+        "raw_time_ms": 197320.764233,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_translation_prior/sequences/10/baseline/summary.json",
+        "original_summary_sha256": "60fb61348008bfec4b762917c3157727187dc9340e7bf5388acf3592d167b6f4",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_10_full_translation_prior_matrix/baseline/native_command.json"
+      }
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in weak-translation prediction prior",
+      "design_style": "experimental",
+      "intent": "Mapped seed and acceleration on, row completion off in both arms. Only translation-prior ratio0/0.03 differs. Fixed before all full accuracy runs. Repository extension, default off; retain every negative outcome.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03"
+      ],
+      "command": "/workspace/localization-env/inten-translation-prior/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_translation_prior_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_10_full_translation_prior_matrix/candidate/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_10_full_translation_prior_matrix/candidate/run.log",
+      "status": "ok",
+      "ate_m": 9.901906,
+      "rpe_trans_pct": 0.845091,
+      "rpe_rot_deg_per_m": 0.004712,
+      "fps": null,
+      "time_ms": null,
+      "frames": 1201,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2315 dor points/frame=109; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.25,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Experimental; default off",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 1.183142,
+      "kitti_rte_rot_deg_per_100m": 0.393581,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before acquisition, not an individual per-run timestamp.",
+        "source_commit": "6d9ab15d0ef72af57539253fcd2436a7842f11fd",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "a378d01f31ac2292d31df45cbe24ede122df0636581935411c75f41ade263900",
+        "measurement_context": "Paired runners;07 reference shares CPUs with parent control and07 candidate runs alone. Raw timing retained but no standalone FPS comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.104938,
+        "raw_time_ms": 196726.009448,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_translation_prior/sequences/10/candidate/summary.json",
+        "original_summary_sha256": "15b25c244d53c2a384d5a83a0505a67b35ebe15e01af52d0a2cae450f21f6262",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_10_full_translation_prior_matrix/candidate/native_command.json"
+      }
+    }
+  ]
+}

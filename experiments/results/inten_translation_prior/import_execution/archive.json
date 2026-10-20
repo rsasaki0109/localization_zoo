@@ -1,0 +1,54 @@
+{
+  "files": {
+    "command.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/import_execution/command.json",
+      "bytes": 558,
+      "sha256": "f7fd6de587d18ffc2f24fe2f48ac78e4e065c7788a4f1916fe3a0632584639f4",
+      "storage": "verbatim",
+      "path": "command.json",
+      "stored_sha256": "f7fd6de587d18ffc2f24fe2f48ac78e4e065c7788a4f1916fe3a0632584639f4"
+    },
+    "index.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/import_execution/index.log",
+      "bytes": 46324,
+      "sha256": "d71f7b458f47ff1afea6d811b7737bd53527938335b6b494e91711788d76238b",
+      "storage": "gzip",
+      "path": "index.log.gz",
+      "stored_sha256": "07d6bb6d336b7732d0ab502d83dec63180eb4fb1b9f0a612a45403cc047580b0"
+    },
+    "index_command.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/import_execution/index_command.json",
+      "bytes": 1632,
+      "sha256": "de548b4d38292476fdb2a609b1f80d982b28d82418545d6e75e313616dfe2cbc",
+      "storage": "verbatim",
+      "path": "index_command.json",
+      "stored_sha256": "de548b4d38292476fdb2a609b1f80d982b28d82418545d6e75e313616dfe2cbc"
+    },
+    "result.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/import_execution/result.json",
+      "bytes": 1324,
+      "sha256": "1bd9a137b220790de0c26b961c4602ae15d50cfa6bf80408200bbe503a22c819",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "1bd9a137b220790de0c26b961c4602ae15d50cfa6bf80408200bbe503a22c819"
+    },
+    "stderr.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/import_execution/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "stdout.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/import_execution/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

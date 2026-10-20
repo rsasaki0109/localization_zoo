@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--output-root",
+    "/workspace/localization-env/inten-s2m-prior/kitti",
+    "--sequence",
+    "07",
+    "--workers",
+    "4"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "76d6e1464250f7ea4b4094d313b23ceecfa9e372",
+  "started_unix": 1792540176.3758154,
+  "finished_unix": 1792540200.6685739,
+  "exit_code": 1,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

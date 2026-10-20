@@ -378,10 +378,20 @@ independent. Each item says what "done" means.
     no 20% step event and retains gradual drift. Commands, all frames/iterations,
     negative findings and verified scan cleanup are in the
     [completed study](../experiments/results/inten_natural_traces/README.md).
-    The remaining task is a correspondence-level causal explanation and a
-    separately evaluated opt-in improvement, including KITTI10's distinct
-    behavior. Additional exporter/preparation-only work does not close that
-    task. Defaults, historical results and Table 6 are preserved.
+    The subsequent [same-pair seed interventions](../experiments/results/inten_seed_intervention/README.md)
+    reproduce natural S2S outputs exactly on all 360 selected pairs. Reusing
+    prior mapped motion leaves 136/134 selected S2S bad-length outputs in 01/02, versus
+    139/136 naturally; a current-GT oracle still leaves 1/33. At the 02 collapse
+    entries 1876/4460, the GT-seeded solver shortens the step to 0.785598/0.404926
+    of GT, with zero initial edge support and a backward ground contribution
+    in the initial joint system. Initialization alone is insufficient there.
+    These are diagnostic interventions, not new odometry scores or a recursive
+    predictor evaluation. All raw outcomes and negative cases are retained.
+    The next causal task is actual correspondence/normal inspection at these
+    entries, including the different edge/facade pattern in 01. A separately
+    evaluated opt-in improvement and KITTI10's gradual drift remain open.
+    Additional exporter/preparation-only work does not close that task.
+    Defaults, historical results and Table 6 are preserved.
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

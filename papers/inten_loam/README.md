@@ -473,6 +473,55 @@ the relevance of origin dependence and an accuracy-improving change remain
 unproven. Estimator defaults, settings and historical paper results are unchanged.
 <!-- /INTEN_NATURAL_FAILURE_TRACES -->
 
+<!-- INTEN_SEED_INTERVENTION -->
+#### Same-pair initialization interventions
+
+The next [fixed-pair experiment](../../experiments/results/inten_seed_intervention/README.md)
+uses the existing forced-pose diagnostic API to change only the S2S initial
+transform on the same real scan pair. It replays every S2S/final bad-length
+step and its neighbours, plus predetermined block endpoints on 01/02/10.
+This is an explicit intervention outside the paper, not a trajectory benchmark
+or deployable GT-seeded method. The 07-selected settings are unchanged;
+00 influenced the earlier diagnosis. Raw commits `e30917d1` / `35d3f87b` /
+`fd085cb5` and report `9b4051fd` precede these numbers.
+
+Across 360 selected pairs, the natural-seed control reproduces the original
+continuous S2S output exactly, with matching initial class counts and only
+floating-point reduction differences in summed H/g. The alternate seeds are
+the previous accepted mapped-motion increment from the same baseline and the
+current saved-GT increment. All modes use the same unchanged S2S solver.
+
+Counts below are **bad length / bad vector** outputs among selected moving
+pairs, using the inherited 20% criterion and GT motion of at least 0.1 m.
+
+| Sequence (selected moving pairs) | Natural seed | Previous mapped seed | Current GT oracle |
+|---|---:|---:|---:|
+| 01 (155) | 139 / 139 | 136 / 136 | 1 / 1 |
+| 02 (192) | 136 / 137 | 134 / 135 | 33 / 34 |
+| 10 (12) | 0 / 0 | 0 / 0 | 0 / 0 |
+
+One additional nonmoving 10 pair is retained without relative-error labels.
+Most already-bad baseline pairs do not recover with a one-shot mapped seed;
+the prior mapped increment is often already short. This does not reject a
+recursive predictor that might prevent entry earlier, and no such candidate
+is selected. At 02 frame 1876, the GT-seeded output length ratio is 0.785598;
+at frame 4460 it is 0.404926. At 01 frame 420 it is 0.712260. Wrong initial
+motion alone therefore cannot explain these fixed-pair failures.
+
+At the GT seed in 02 frames 1876/4460, initial edge support is 0 and the
+ground gradient contributes a backward first-order sensor-origin correction
+of 3.724821%/4.308664% of GT step length. Contributions use the same total
+damped H and sum to the joint step; they are not class-removal ablations or
+the final reassociated trajectory. In 01 frame 420, edge/facade contributions
+are -1.536647%/-2.484957%, showing a different pattern. This motivates actual
+association/normal inspection; a general ground-only cause or fix is unproven.
+
+The linked study retains all oracle failures, every boundary, full initial
+class systems, commands/exits and verified scan deletion. Its offline angular
+metric handles rounded GT rotations without altering solver seeds. No default,
+historical accuracy cell, paper ratio or full-trajectory benefit changes.
+<!-- /INTEN_SEED_INTERVENTION -->
+
 ## Result of the simplified pipeline (KITTI Odometry full, `--no-gt-seed`)
 
 Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):

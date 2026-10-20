@@ -1,0 +1,4028 @@
+{
+  "schema_version": 1,
+  "exit_code": 0,
+  "source_commit": "012e95947fe434627c891e669671e680b8cb9ba0",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/report.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/report"
+  ],
+  "cwd": "/workspace/localization-env/inten-collapse-boundaries/worktree",
+  "implementation_sha256": "a093356ce4bf844f4f04ae100f912526124a2014b93f0f8de93160ef69342330",
+  "protocol_sha256": "58d85c47cc379621217a220064d4da36514bff5463f26fff9cf9685cede38a60",
+  "sequences": [
+    {
+      "sequence": "01",
+      "case_count": 155,
+      "native_evaluations": 465,
+      "original_natural_replay_control": {
+        "output": 0.0,
+        "H": 4.001776687800884e-11,
+        "g": 2.1316282072803006e-13
+      },
+      "source_archive_sha256": "e8f1d38e32b4bfd25dbfea7184e7a83013eda504479ce8c262f8cd1cd3fd2431",
+      "archive_files_verified": 14,
+      "groups": {
+        "all_selected_moving": {
+          "natural": {
+            "cases": 155,
+            "bad_length_outputs": 139,
+            "bad_vector_outputs": 139,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 3,
+            "first_step_statuses": {
+              "finite": 155
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 155,
+                "min": 0.0,
+                "p50": 0.10483874511252526,
+                "max": 1.0147712029299818
+              },
+              "output_length_ratio": {
+                "n": 155,
+                "min": 0.004468509803278739,
+                "p50": 0.10519829147850324,
+                "max": 1.0074739560249502
+              },
+              "output_vector_error": {
+                "n": 155,
+                "min": 0.00750717956396364,
+                "p50": 1.038166852102786,
+                "max": 1.1828967553840704
+              },
+              "output_rotation_error_rad": {
+                "n": 155,
+                "min": 0.0004588602741016045,
+                "p50": 0.0022773657580163974,
+                "max": 0.006736876352871347
+              },
+              "first_step_along_gt_fraction": {
+                "n": 155,
+                "min": -0.055528806530639754,
+                "p50": -0.0014736502585062264,
+                "max": 0.15780458866911448
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 155,
+                "min": -0.04145832014625719,
+                "p50": 0.0003479134543791281,
+                "max": 0.08202202738286217
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 155,
+                "min": -0.004488196381286237,
+                "p50": 0.00016494474418365235,
+                "max": 0.009595727057620643
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 155,
+                "min": -0.050728469604880796,
+                "p50": -0.0015335161001772907,
+                "max": 0.09362793888848793
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 155,
+                "min": -0.015985944159643595,
+                "p50": 0.002608256258648075,
+                "max": 0.02949098545101591
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 155,
+            "bad_length_outputs": 136,
+            "bad_vector_outputs": 136,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 3,
+            "first_step_statuses": {
+              "finite": 155
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 155,
+                "min": 0.0,
+                "p50": 0.12087305188622656,
+                "max": 1.035342444628799
+              },
+              "output_length_ratio": {
+                "n": 155,
+                "min": 0.004468460240571759,
+                "p50": 0.10542037552450322,
+                "max": 1.0074016681973315
+              },
+              "output_vector_error": {
+                "n": 155,
+                "min": 0.007284523012304388,
+                "p50": 1.0416547547995045,
+                "max": 1.183963285617818
+              },
+              "output_rotation_error_rad": {
+                "n": 155,
+                "min": 0.00045915243515921226,
+                "p50": 0.002265452682256347,
+                "max": 0.006335692171873153
+              },
+              "first_step_along_gt_fraction": {
+                "n": 155,
+                "min": -0.0596031901041413,
+                "p50": 0.0020580133158582207,
+                "max": 0.15780458866911448
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 155,
+                "min": -0.03386794833197954,
+                "p50": 0.0005648051161257722,
+                "max": 0.07357865985570179
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 155,
+                "min": -0.005214268028757149,
+                "p50": 0.00017042554957871656,
+                "max": 0.006922540568291289
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 155,
+                "min": -0.03542306041435538,
+                "p50": -0.0007579862690708865,
+                "max": 0.09362793888848793
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 155,
+                "min": -0.02088271248622037,
+                "p50": 0.0027461532141908615,
+                "max": 0.028100787143571157
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 155,
+            "bad_length_outputs": 1,
+            "bad_vector_outputs": 1,
+            "good_seed_to_bad_output": 1,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 155
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 155,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 155,
+                "min": 0.7122597709484656,
+                "p50": 0.9930683755263005,
+                "max": 1.075259889864162
+              },
+              "output_vector_error": {
+                "n": 155,
+                "min": 0.006826828996053894,
+                "p50": 0.021909441072342817,
+                "max": 0.28802042889721025
+              },
+              "output_rotation_error_rad": {
+                "n": 155,
+                "min": 0.00028946164430938517,
+                "p50": 0.0020551488529601367,
+                "max": 0.006487765737524338
+              },
+              "first_step_along_gt_fraction": {
+                "n": 155,
+                "min": -0.04394864695387762,
+                "p50": -0.0046360086199612495,
+                "max": 0.045447449081063275
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 155,
+                "min": -0.04090343235188588,
+                "p50": -0.0032506861314916644,
+                "max": 0.021709141919526824
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 155,
+                "min": -0.003507831805198163,
+                "p50": -0.0004378821398414229,
+                "max": 0.0032794160663668845
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 155,
+                "min": -0.034641580606599685,
+                "p50": -0.0007961599842603826,
+                "max": 0.039603922920411545
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 155,
+                "min": -0.008265518057788199,
+                "p50": -0.00021368798471873033,
+                "max": 0.009991104616410606
+              }
+            }
+          }
+        },
+        "natural_bad_length": {
+          "natural": {
+            "cases": 139,
+            "bad_length_outputs": 139,
+            "bad_vector_outputs": 139,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 139
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 139,
+                "min": 0.004464975637994278,
+                "p50": 0.09523717108516896,
+                "max": 0.9533019507368962
+              },
+              "output_length_ratio": {
+                "n": 139,
+                "min": 0.004468509803278739,
+                "p50": 0.09519205680583287,
+                "max": 0.7950596347154439
+              },
+              "output_vector_error": {
+                "n": 139,
+                "min": 0.206002193048233,
+                "p50": 1.0533406481392054,
+                "max": 1.1828967553840704
+              },
+              "output_rotation_error_rad": {
+                "n": 139,
+                "min": 0.0004588602741016045,
+                "p50": 0.0023847552045824097,
+                "max": 0.006736876352871347
+              },
+              "first_step_along_gt_fraction": {
+                "n": 139,
+                "min": -0.055528806530639754,
+                "p50": -0.0011504681057702426,
+                "max": 0.036150564341962586
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 139,
+                "min": -0.04145832014625719,
+                "p50": 8.910786843965526e-05,
+                "max": 0.027117429904348254
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 139,
+                "min": -0.004488196381286237,
+                "p50": 0.0003541847874040024,
+                "max": 0.009595727057620643
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 139,
+                "min": -0.050728469604880796,
+                "p50": -0.002629126474224407,
+                "max": 0.03912169219004895
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 139,
+                "min": -0.015985944159643595,
+                "p50": 0.0031410005943533453,
+                "max": 0.02949098545101591
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 139,
+            "bad_length_outputs": 136,
+            "bad_vector_outputs": 136,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 1,
+            "first_step_statuses": {
+              "finite": 139
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 139,
+                "min": 0.0024602748946938747,
+                "p50": 0.11717519334042457,
+                "max": 1.0076332061248248
+              },
+              "output_length_ratio": {
+                "n": 139,
+                "min": 0.004468460240571759,
+                "p50": 0.09793347028816181,
+                "max": 0.9520776340417582
+              },
+              "output_vector_error": {
+                "n": 139,
+                "min": 0.04852015433273696,
+                "p50": 1.0533390324773015,
+                "max": 1.183963285617818
+              },
+              "output_rotation_error_rad": {
+                "n": 139,
+                "min": 0.00045915243515921226,
+                "p50": 0.002351189975939719,
+                "max": 0.006335692171873153
+              },
+              "first_step_along_gt_fraction": {
+                "n": 139,
+                "min": -0.0596031901041413,
+                "p50": 0.0024031822201186067,
+                "max": 0.04283699374086622
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 139,
+                "min": -0.03386794833197954,
+                "p50": 0.000765170528597462,
+                "max": 0.037065064100745414
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 139,
+                "min": -0.005214268028757149,
+                "p50": 0.0003428368354805106,
+                "max": 0.006922540568291289
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 139,
+                "min": -0.03542306041435538,
+                "p50": -0.0007579862690708865,
+                "max": 0.027869859218037762
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 139,
+                "min": -0.02088271248622037,
+                "p50": 0.0032846959676908756,
+                "max": 0.028100787143571157
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 139,
+            "bad_length_outputs": 1,
+            "bad_vector_outputs": 1,
+            "good_seed_to_bad_output": 1,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 139
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 139,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 139,
+                "min": 0.7122597709484656,
+                "p50": 0.9938247629283686,
+                "max": 1.075259889864162
+              },
+              "output_vector_error": {
+                "n": 139,
+                "min": 0.006826828996053894,
+                "p50": 0.021909441072342817,
+                "max": 0.28802042889721025
+              },
+              "output_rotation_error_rad": {
+                "n": 139,
+                "min": 0.00028946164430938517,
+                "p50": 0.0020522535565916924,
+                "max": 0.006487765737524338
+              },
+              "first_step_along_gt_fraction": {
+                "n": 139,
+                "min": -0.04312763758955061,
+                "p50": -0.004262982131791698,
+                "max": 0.045447449081063275
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 139,
+                "min": -0.04090343235188588,
+                "p50": -0.002640244693529646,
+                "max": 0.021709141919526824
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 139,
+                "min": -0.003507831805198163,
+                "p50": -0.0004711151334439438,
+                "max": 0.0032794160663668845
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 139,
+                "min": -0.034641580606599685,
+                "p50": -0.0004923938848995146,
+                "max": 0.039603922920411545
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 139,
+                "min": -0.008265518057788199,
+                "p50": -0.00020928363155789094,
+                "max": 0.009991104616410606
+              }
+            }
+          }
+        },
+        "other_selected_moving": {
+          "natural": {
+            "cases": 16,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 3,
+            "first_step_statuses": {
+              "finite": 16
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 16,
+                "min": 0.0,
+                "p50": 0.9844463917500943,
+                "max": 1.0147712029299818
+              },
+              "output_length_ratio": {
+                "n": 16,
+                "min": 0.8020222778096253,
+                "p50": 0.9821633310821086,
+                "max": 1.0074739560249502
+              },
+              "output_vector_error": {
+                "n": 16,
+                "min": 0.00750717956396364,
+                "p50": 0.021927788060634383,
+                "max": 0.1984826257837378
+              },
+              "output_rotation_error_rad": {
+                "n": 16,
+                "min": 0.0009291170799542147,
+                "p50": 0.00210411785106694,
+                "max": 0.004797372553698444
+              },
+              "first_step_along_gt_fraction": {
+                "n": 16,
+                "min": -0.028381358861704526,
+                "p50": -0.0022252766537517346,
+                "max": 0.15780458866911448
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 16,
+                "min": -0.013881292734940346,
+                "p50": 0.001861949990117735,
+                "max": 0.08202202738286217
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 16,
+                "min": -0.0027784886419441744,
+                "p50": -0.0003648507373633079,
+                "max": 0.000253931683513084
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 16,
+                "min": -0.03289546228249104,
+                "p50": -0.0003707726709951156,
+                "max": 0.09362793888848793
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 16,
+                "min": -0.0066235214331311024,
+                "p50": -0.0001237701142618942,
+                "max": 0.003412823224554813
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 16,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 2,
+            "first_step_statuses": {
+              "finite": 16
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 16,
+                "min": 0.0,
+                "p50": 0.9910688106097634,
+                "max": 1.035342444628799
+              },
+              "output_length_ratio": {
+                "n": 16,
+                "min": 0.8519726699252862,
+                "p50": 0.9821618773298726,
+                "max": 1.0074016681973315
+              },
+              "output_vector_error": {
+                "n": 16,
+                "min": 0.007284523012304388,
+                "p50": 0.021833552048025937,
+                "max": 0.1481450111281712
+              },
+              "output_rotation_error_rad": {
+                "n": 16,
+                "min": 0.0009285333520091852,
+                "p50": 0.0018131191496980432,
+                "max": 0.005031362194467475
+              },
+              "first_step_along_gt_fraction": {
+                "n": 16,
+                "min": -0.0364651864593666,
+                "p50": -0.0022148356570195807,
+                "max": 0.15780458866911448
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 16,
+                "min": -0.01333699196820281,
+                "p50": -0.0017282664499221815,
+                "max": 0.07357865985570179
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 16,
+                "min": -0.0027784886419441744,
+                "p50": -0.00025450807411481056,
+                "max": 0.00018462913045915236
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 16,
+                "min": -0.030259852963478724,
+                "p50": -0.0007440759715036042,
+                "max": 0.09362793888848793
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 16,
+                "min": -0.0066235214331311024,
+                "p50": -0.00010560024283717782,
+                "max": 0.0029170473228721265
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 16,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 16
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 16,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 16,
+                "min": 0.8597099226493763,
+                "p50": 0.9821572668121672,
+                "max": 1.007398033850384
+              },
+              "output_vector_error": {
+                "n": 16,
+                "min": 0.0070519697915927835,
+                "p50": 0.0218349239237269,
+                "max": 0.14064208354271268
+              },
+              "output_rotation_error_rad": {
+                "n": 16,
+                "min": 0.0009294638074258073,
+                "p50": 0.0022088113262620866,
+                "max": 0.004119304317958681
+              },
+              "first_step_along_gt_fraction": {
+                "n": 16,
+                "min": -0.04394864695387762,
+                "p50": -0.011440544242782232,
+                "max": 0.009506601477998871
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 16,
+                "min": -0.018803136428689127,
+                "p50": -0.005663690182760625,
+                "max": 0.00681347598866826
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 16,
+                "min": -0.0016549666636088603,
+                "p50": -0.00021765361171370044,
+                "max": 0.0002554161278236159
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 16,
+                "min": -0.03454895318281906,
+                "p50": -0.0026832696010284656,
+                "max": 0.006175794074612866
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 16,
+                "min": -0.0014548634212401003,
+                "p50": -0.00029085093749178965,
+                "max": 0.003625709947661171
+              }
+            }
+          }
+        },
+        "s2s_bad_entry": {
+          "natural": {
+            "cases": 3,
+            "bad_length_outputs": 3,
+            "bad_vector_outputs": 3,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 3
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 3,
+                "min": 0.7978177055413812,
+                "p50": 0.857791115410658,
+                "max": 0.9533019507368962
+              },
+              "output_length_ratio": {
+                "n": 3,
+                "min": 0.5331097180457204,
+                "p50": 0.7794347734737632,
+                "max": 0.7928209321572682
+              },
+              "output_vector_error": {
+                "n": 3,
+                "min": 0.2072279630007795,
+                "p50": 0.22117223183807871,
+                "max": 0.4669198794137378
+              },
+              "output_rotation_error_rad": {
+                "n": 3,
+                "min": 0.001297748087696233,
+                "p50": 0.0022590992628558973,
+                "max": 0.006736876352871347
+              },
+              "first_step_along_gt_fraction": {
+                "n": 3,
+                "min": -0.019789805763386303,
+                "p50": -0.009378784909750481,
+                "max": -0.0029436714650235875
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 3,
+                "min": 0.00318193237427368,
+                "p50": 0.006322611197247228,
+                "max": 0.02364161409118046
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 3,
+                "min": -0.0005479403738244007,
+                "p50": 0.0012604585506685478,
+                "max": 0.003401776590884469
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 3,
+                "min": -0.028610711105035425,
+                "p50": -0.021742872615920898,
+                "max": -0.016734816927807837
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 3,
+                "min": -0.001376351042053093,
+                "p50": -0.0006809251479147687,
+                "max": -0.0002270377298584245
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 3,
+            "bad_length_outputs": 1,
+            "bad_vector_outputs": 1,
+            "good_seed_to_bad_output": 1,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 3
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 3,
+                "min": 0.8586964203098717,
+                "p50": 0.9312814878719925,
+                "max": 1.0076332061248248
+              },
+              "output_length_ratio": {
+                "n": 3,
+                "min": 0.7464034474653016,
+                "p50": 0.8955235575432344,
+                "max": 0.9520776340417582
+              },
+              "output_vector_error": {
+                "n": 3,
+                "min": 0.04852015433273696,
+                "p50": 0.10545188321517213,
+                "max": 0.2536373745120256
+              },
+              "output_rotation_error_rad": {
+                "n": 3,
+                "min": 0.002267152448879197,
+                "p50": 0.002672644724386623,
+                "max": 0.0027008654465489916
+              },
+              "first_step_along_gt_fraction": {
+                "n": 3,
+                "min": -0.025746635299312252,
+                "p50": -0.013077415188941708,
+                "max": 0.009045908847645187
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 3,
+                "min": -0.009996708585252891,
+                "p50": 0.008402004343079361,
+                "max": 0.0246222038443169
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 3,
+                "min": -0.001594142784310369,
+                "p50": -0.0010123118181549077,
+                "max": 0.0017455243404473429
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 3,
+                "min": -0.019898859337279286,
+                "p50": -0.015625457442652025,
+                "max": -0.01446298633009348
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 3,
+                "min": -0.0016963618944670633,
+                "p50": -0.0005682483765868766,
+                "max": 0.00030720240034448604
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 3,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 3
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 3,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 3,
+                "min": 0.8201161044837385,
+                "p50": 0.8955775532435336,
+                "max": 0.9543369392875529
+              },
+              "output_vector_error": {
+                "n": 3,
+                "min": 0.04637258954977598,
+                "p50": 0.10538378171673309,
+                "max": 0.17990940725261648
+              },
+              "output_rotation_error_rad": {
+                "n": 3,
+                "min": 0.0019548089334727697,
+                "p50": 0.0027173757089203627,
+                "max": 0.0027196812868508923
+              },
+              "first_step_along_gt_fraction": {
+                "n": 3,
+                "min": -0.04312763758955061,
+                "p50": -0.022079702983313246,
+                "max": -0.018627978915766286
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 3,
+                "min": -0.015444666525058806,
+                "p50": -0.014079317513486173,
+                "max": -0.00880386679148812
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 3,
+                "min": -0.001059441270704487,
+                "p50": -0.00024217815426615504,
+                "max": -0.00014199913036296006
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 3,
+                "min": -0.025998047499227624,
+                "p50": -0.012697739689466548,
+                "max": -0.003726936475931193
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 3,
+                "min": -0.0015429244349012248,
+                "p50": -0.000579546772082762,
+                "max": 0.0004813447683459507
+              }
+            }
+          }
+        },
+        "s2s_bad_interior": {
+          "natural": {
+            "cases": 136,
+            "bad_length_outputs": 136,
+            "bad_vector_outputs": 136,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 136
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 136,
+                "min": 0.004464975637994278,
+                "p50": 0.09387915951339361,
+                "max": 0.7804762469751426
+              },
+              "output_length_ratio": {
+                "n": 136,
+                "min": 0.004468509803278739,
+                "p50": 0.09383824046907746,
+                "max": 0.7950596347154439
+              },
+              "output_vector_error": {
+                "n": 136,
+                "min": 0.206002193048233,
+                "p50": 1.0563904773932649,
+                "max": 1.1828967553840704
+              },
+              "output_rotation_error_rad": {
+                "n": 136,
+                "min": 0.0004588602741016045,
+                "p50": 0.002397180672619299,
+                "max": 0.006276815099049409
+              },
+              "first_step_along_gt_fraction": {
+                "n": 136,
+                "min": -0.055528806530639754,
+                "p50": -0.0008814750912237066,
+                "max": 0.036150564341962586
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 136,
+                "min": -0.04145832014625719,
+                "p50": -0.0004112857543816579,
+                "max": 0.027117429904348254
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 136,
+                "min": -0.004488196381286237,
+                "p50": 0.0003509234940404051,
+                "max": 0.009595727057620643
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 136,
+                "min": -0.050728469604880796,
+                "p50": -0.001669855843714573,
+                "max": 0.03912169219004895
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 136,
+                "min": -0.015985944159643595,
+                "p50": 0.003314180424311402,
+                "max": 0.02949098545101591
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 136,
+            "bad_length_outputs": 135,
+            "bad_vector_outputs": 135,
+            "good_seed_to_bad_output": 1,
+            "bad_seed_to_good_output": 1,
+            "first_step_statuses": {
+              "finite": 136
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 136,
+                "min": 0.0024602748946938747,
+                "p50": 0.11466723361413567,
+                "max": 1.0029844335118165
+              },
+              "output_length_ratio": {
+                "n": 136,
+                "min": 0.004468460240571759,
+                "p50": 0.09735171826900821,
+                "max": 0.840013373370073
+              },
+              "output_vector_error": {
+                "n": 136,
+                "min": 0.16019766428209778,
+                "p50": 1.0555149817372627,
+                "max": 1.183963285617818
+              },
+              "output_rotation_error_rad": {
+                "n": 136,
+                "min": 0.00045915243515921226,
+                "p50": 0.002308321329098033,
+                "max": 0.006335692171873153
+              },
+              "first_step_along_gt_fraction": {
+                "n": 136,
+                "min": -0.0596031901041413,
+                "p50": 0.0029503896740627335,
+                "max": 0.04283699374086622
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 136,
+                "min": -0.03386794833197954,
+                "p50": 0.0006649878223616171,
+                "max": 0.037065064100745414
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 136,
+                "min": -0.005214268028757149,
+                "p50": 0.00035034977714821255,
+                "max": 0.006922540568291289
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 136,
+                "min": -0.03542306041435538,
+                "p50": -0.0006547815918400224,
+                "max": 0.027869859218037762
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 136,
+                "min": -0.02088271248622037,
+                "p50": 0.0033376316751226624,
+                "max": 0.028100787143571157
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 136,
+            "bad_length_outputs": 1,
+            "bad_vector_outputs": 1,
+            "good_seed_to_bad_output": 1,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 136
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 136,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 136,
+                "min": 0.7122597709484656,
+                "p50": 0.9940035027022882,
+                "max": 1.075259889864162
+              },
+              "output_vector_error": {
+                "n": 136,
+                "min": 0.006826828996053894,
+                "p50": 0.021540891918757604,
+                "max": 0.28802042889721025
+              },
+              "output_rotation_error_rad": {
+                "n": 136,
+                "min": 0.00028946164430938517,
+                "p50": 0.0020386591677020076,
+                "max": 0.006487765737524338
+              },
+              "first_step_along_gt_fraction": {
+                "n": 136,
+                "min": -0.04195649389449562,
+                "p50": -0.003946014489127644,
+                "max": 0.045447449081063275
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 136,
+                "min": -0.04090343235188588,
+                "p50": -0.0024519042372283294,
+                "max": 0.021709141919526824
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 136,
+                "min": -0.003507831805198163,
+                "p50": -0.0004801957631180558,
+                "max": 0.0032794160663668845
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 136,
+                "min": -0.034641580606599685,
+                "p50": -0.00043645948551117314,
+                "max": 0.039603922920411545
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 136,
+                "min": -0.008265518057788199,
+                "p50": -0.00019178430026197982,
+                "max": 0.009991104616410606
+              }
+            }
+          }
+        }
+      },
+      "oracle_failure_cases": [
+        {
+          "id": "01_420",
+          "frame": 420,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7122597709484656,
+          "output_vector_error": 0.28802042889721025,
+          "output_rotation_error_rad": 0.006274572341037815,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.039476084859847174,
+          "first_edge_along_gt_fraction": -0.015366470743666049,
+          "first_ground_along_gt_fraction": -0.0010007092259796675,
+          "first_facade_along_gt_fraction": -0.02484957037088573,
+          "first_intensity_along_gt_fraction": 0.001740665480684236
+        }
+      ]
+    },
+    {
+      "sequence": "02",
+      "case_count": 192,
+      "native_evaluations": 576,
+      "original_natural_replay_control": {
+        "output": 0.0,
+        "H": 1.382431946694851e-10,
+        "g": 2.8421709430404007e-13
+      },
+      "source_archive_sha256": "5ccd86aae8d2cde56d0ed875d98bfc67a7739508ea1341729e4566560ae20bb4",
+      "archive_files_verified": 14,
+      "groups": {
+        "all_selected_moving": {
+          "natural": {
+            "cases": 192,
+            "bad_length_outputs": 136,
+            "bad_vector_outputs": 137,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 5,
+            "first_step_statuses": {
+              "finite": 192
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 192,
+                "min": 0.0,
+                "p50": 0.09376211017875112,
+                "max": 1.363725075853428
+              },
+              "output_length_ratio": {
+                "n": 192,
+                "min": 0.003493070331013723,
+                "p50": 0.09535720488465796,
+                "max": 1.2765010330088566
+              },
+              "output_vector_error": {
+                "n": 192,
+                "min": 0.0027212693916640507,
+                "p50": 0.9375777742761627,
+                "max": 1.1876326118351117
+              },
+              "output_rotation_error_rad": {
+                "n": 192,
+                "min": 0.0004531542043644162,
+                "p50": 0.004307244695066589,
+                "max": 0.015563260661353934
+              },
+              "first_step_along_gt_fraction": {
+                "n": 192,
+                "min": -0.10723340674713869,
+                "p50": 0.00017128969307752024,
+                "max": 0.12061333709264954
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 192,
+                "min": -0.06392432105373745,
+                "p50": 0.0,
+                "max": 0.07721059373026065
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 192,
+                "min": -0.04578332931967158,
+                "p50": -0.0005594394877898889,
+                "max": 0.04410271868540261
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 192,
+                "min": -0.04355578020141392,
+                "p50": 0.0050938409419443165,
+                "max": 0.06874368549509033
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 192,
+                "min": -0.04483022941572452,
+                "p50": -0.003160417459787892,
+                "max": 0.021982184331928303
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 192,
+            "bad_length_outputs": 134,
+            "bad_vector_outputs": 135,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 3,
+            "first_step_statuses": {
+              "finite": 192
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 192,
+                "min": 0.0,
+                "p50": 0.09944797830878671,
+                "max": 1.3690832071048227
+              },
+              "output_length_ratio": {
+                "n": 192,
+                "min": 0.004225920001798602,
+                "p50": 0.09740556436030931,
+                "max": 1.276989513961966
+              },
+              "output_vector_error": {
+                "n": 192,
+                "min": 0.0027398670789643316,
+                "p50": 0.9329457335512128,
+                "max": 1.1862824823204494
+              },
+              "output_rotation_error_rad": {
+                "n": 192,
+                "min": 0.0003731957253572339,
+                "p50": 0.004295560677189768,
+                "max": 0.01559045605554793
+              },
+              "first_step_along_gt_fraction": {
+                "n": 192,
+                "min": -0.10896700085979885,
+                "p50": -0.0026956255294966775,
+                "max": 0.11474072259911312
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 192,
+                "min": -0.07180939844839061,
+                "p50": 0.0,
+                "max": 0.06318506438933746
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 192,
+                "min": -0.04725581136834566,
+                "p50": -0.0008222557261150185,
+                "max": 0.04130187769741493
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 192,
+                "min": -0.045884601036356644,
+                "p50": 0.003280117439660374,
+                "max": 0.05560792688025809
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 192,
+                "min": -0.03615475471016781,
+                "p50": -0.003600502048272659,
+                "max": 0.02446475787250286
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 192,
+            "bad_length_outputs": 33,
+            "bad_vector_outputs": 34,
+            "good_seed_to_bad_output": 33,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 192
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 192,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 192,
+                "min": 0.4049260195708172,
+                "p50": 0.9463233299433385,
+                "max": 1.27723789397013
+              },
+              "output_vector_error": {
+                "n": 192,
+                "min": 0.002724822807041583,
+                "p50": 0.07718950881107114,
+                "max": 0.5952339908498533
+              },
+              "output_rotation_error_rad": {
+                "n": 192,
+                "min": 0.0005145301223794969,
+                "p50": 0.0024422429005955134,
+                "max": 0.015636743670332486
+              },
+              "first_step_along_gt_fraction": {
+                "n": 192,
+                "min": -0.10311823963322941,
+                "p50": -0.018849100491120634,
+                "max": 0.21971138578567148
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 192,
+                "min": -0.04536964665240638,
+                "p50": 0.0,
+                "max": 0.18180141930564944
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 192,
+                "min": -0.07747496742281283,
+                "p50": -0.0190615884687032,
+                "max": 0.0009038895790462243
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 192,
+                "min": -0.07930827810436518,
+                "p50": 0.0014490514922406777,
+                "max": 0.09755649066006745
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 192,
+                "min": -0.03342652558292551,
+                "p50": -0.002555180945082821,
+                "max": 0.009696093541821474
+              }
+            }
+          }
+        },
+        "natural_bad_length": {
+          "natural": {
+            "cases": 136,
+            "bad_length_outputs": 136,
+            "bad_vector_outputs": 136,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 136
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 136,
+                "min": 0.003485214784844053,
+                "p50": 0.0477273528754339,
+                "max": 1.363725075853428
+              },
+              "output_length_ratio": {
+                "n": 136,
+                "min": 0.003493070331013723,
+                "p50": 0.04797225632635166,
+                "max": 1.2765010330088566
+              },
+              "output_vector_error": {
+                "n": 136,
+                "min": 0.2177802161477998,
+                "p50": 0.9902799204086654,
+                "max": 1.1876326118351117
+              },
+              "output_rotation_error_rad": {
+                "n": 136,
+                "min": 0.0004531542043644162,
+                "p50": 0.008179688364611937,
+                "max": 0.015563260661353934
+              },
+              "first_step_along_gt_fraction": {
+                "n": 136,
+                "min": -0.10723340674713869,
+                "p50": -2.9904805991437688e-05,
+                "max": 0.07599637435717635
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 136,
+                "min": -0.043623787932886925,
+                "p50": 0.0,
+                "max": 0.029979540312283372
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 136,
+                "min": -0.04578332931967158,
+                "p50": -0.0012188336022194292,
+                "max": 0.04410271868540261
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 136,
+                "min": -0.04355578020141392,
+                "p50": 0.007014834084768192,
+                "max": 0.05165840722716785
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 136,
+                "min": -0.04483022941572452,
+                "p50": -0.005883799322589527,
+                "max": 0.021982184331928303
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 136,
+            "bad_length_outputs": 134,
+            "bad_vector_outputs": 134,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 136
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 136,
+                "min": 0.0035608787980294324,
+                "p50": 0.047186782369328564,
+                "max": 1.3690832071048227
+              },
+              "output_length_ratio": {
+                "n": 136,
+                "min": 0.004225920001798602,
+                "p50": 0.05061890144851136,
+                "max": 1.276989513961966
+              },
+              "output_vector_error": {
+                "n": 136,
+                "min": 0.14859332076859633,
+                "p50": 0.991259672361605,
+                "max": 1.1862824823204494
+              },
+              "output_rotation_error_rad": {
+                "n": 136,
+                "min": 0.000435115249895614,
+                "p50": 0.008346617362475741,
+                "max": 0.01559045605554793
+              },
+              "first_step_along_gt_fraction": {
+                "n": 136,
+                "min": -0.10896700085979885,
+                "p50": -0.0018558722506175852,
+                "max": 0.08165302816051988
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 136,
+                "min": -0.05729289785353169,
+                "p50": 0.0,
+                "max": 0.02389648721822364
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 136,
+                "min": -0.04725581136834566,
+                "p50": -0.002836816837214674,
+                "max": 0.04130187769741493
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 136,
+                "min": -0.045884601036356644,
+                "p50": 0.006899672045267889,
+                "max": 0.04931928858872832
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 136,
+                "min": -0.03615475471016781,
+                "p50": -0.007015282631400117,
+                "max": 0.02446475787250286
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 136,
+            "bad_length_outputs": 33,
+            "bad_vector_outputs": 33,
+            "good_seed_to_bad_output": 33,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 136
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 136,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 136,
+                "min": 0.4049260195708172,
+                "p50": 0.908472599007929,
+                "max": 1.27723789397013
+              },
+              "output_vector_error": {
+                "n": 136,
+                "min": 0.013416704722333783,
+                "p50": 0.10718777317059025,
+                "max": 0.5952339908498533
+              },
+              "output_rotation_error_rad": {
+                "n": 136,
+                "min": 0.0005414533148391669,
+                "p50": 0.0028969936684975963,
+                "max": 0.015636743670332486
+              },
+              "first_step_along_gt_fraction": {
+                "n": 136,
+                "min": -0.08448689890311605,
+                "p50": -0.02961974921841716,
+                "max": 0.21971138578567148
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 136,
+                "min": -0.021490095562553567,
+                "p50": 0.0,
+                "max": 0.18180141930564944
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 136,
+                "min": -0.07747496742281283,
+                "p50": -0.025882071822824333,
+                "max": 0.0009038895790462243
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 136,
+                "min": -0.0316558304324619,
+                "p50": 0.004476359869814279,
+                "max": 0.09382416778260251
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 136,
+                "min": -0.03342652558292551,
+                "p50": -0.0052955839708179065,
+                "max": 0.009696093541821474
+              }
+            }
+          }
+        },
+        "other_selected_moving": {
+          "natural": {
+            "cases": 56,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 1,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 5,
+            "first_step_statuses": {
+              "finite": 56
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 56,
+                "min": 0.0,
+                "p50": 0.9868430288265311,
+                "max": 1.2775616851512568
+              },
+              "output_length_ratio": {
+                "n": 56,
+                "min": 0.8780500605032406,
+                "p50": 0.9889151155136109,
+                "max": 1.1803708373143715
+              },
+              "output_vector_error": {
+                "n": 56,
+                "min": 0.0027212693916640507,
+                "p50": 0.023791640227857756,
+                "max": 0.2394068890278189
+              },
+              "output_rotation_error_rad": {
+                "n": 56,
+                "min": 0.00045561803236658595,
+                "p50": 0.0017579396559135887,
+                "max": 0.010192944887740037
+              },
+              "first_step_along_gt_fraction": {
+                "n": 56,
+                "min": -0.09864589476925986,
+                "p50": 0.0012510561801887888,
+                "max": 0.12061333709264954
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 56,
+                "min": -0.06392432105373745,
+                "p50": -0.001274138317292335,
+                "max": 0.07721059373026065
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 56,
+                "min": -0.017927001829784225,
+                "p50": -0.0004995876512750525,
+                "max": 0.0009335106242487408
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 56,
+                "min": -0.028232073339271243,
+                "p50": 0.0025477551067073128,
+                "max": 0.06874368549509033
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 56,
+                "min": -0.011191130577682989,
+                "p50": -0.0004474287189444465,
+                "max": 0.0018269910142554068
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 56,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 1,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 3,
+            "first_step_statuses": {
+              "finite": 56
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 56,
+                "min": 0.0,
+                "p50": 0.9906128068550208,
+                "max": 1.2844608835062339
+              },
+              "output_length_ratio": {
+                "n": 56,
+                "min": 0.9080845370985754,
+                "p50": 0.9900791182181239,
+                "max": 1.1802249025988987
+              },
+              "output_vector_error": {
+                "n": 56,
+                "min": 0.0027398670789643316,
+                "p50": 0.02370806937292832,
+                "max": 0.23928220751584098
+              },
+              "output_rotation_error_rad": {
+                "n": 56,
+                "min": 0.0003731957253572339,
+                "p50": 0.001765423669040893,
+                "max": 0.010187721420309999
+              },
+              "first_step_along_gt_fraction": {
+                "n": 56,
+                "min": -0.10731798406207566,
+                "p50": -0.00500172384068466,
+                "max": 0.11474072259911312
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 56,
+                "min": -0.07180939844839061,
+                "p50": -0.0034017744798378238,
+                "max": 0.06318506438933746
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 56,
+                "min": -0.02163937210998701,
+                "p50": -0.0004050688610657487,
+                "max": 0.0006519893598565711
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 56,
+                "min": -0.029267404163532417,
+                "p50": 0.0008171986286002323,
+                "max": 0.05560792688025809
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 56,
+                "min": -0.005982040645699851,
+                "p50": -0.00042483759400794164,
+                "max": 0.003140372024776769
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 56,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 1,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 56
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 56,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 56,
+                "min": 0.9080559840293714,
+                "p50": 0.9914734245992678,
+                "max": 1.1807492348045834
+              },
+              "output_vector_error": {
+                "n": 56,
+                "min": 0.002724822807041583,
+                "p50": 0.023090024301130222,
+                "max": 0.23978938032764954
+              },
+              "output_rotation_error_rad": {
+                "n": 56,
+                "min": 0.0005145301223794969,
+                "p50": 0.00170101308192457,
+                "max": 0.010195302351452709
+              },
+              "first_step_along_gt_fraction": {
+                "n": 56,
+                "min": -0.10311823963322941,
+                "p50": -0.009351903450591956,
+                "max": 0.1579053531051099
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 56,
+                "min": -0.04536964665240638,
+                "p50": -0.0076760394982788045,
+                "max": 0.13003556347042072
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 56,
+                "min": -0.04131667980798015,
+                "p50": -0.00047234798547200665,
+                "max": 0.0002701817278772784
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 56,
+                "min": -0.07930827810436518,
+                "p50": -0.0005547155488535487,
+                "max": 0.09755649066006745
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 56,
+                "min": -0.008314282100230087,
+                "p50": -0.00042592440946729346,
+                "max": 0.004320704800230614
+              }
+            }
+          }
+        },
+        "s2s_bad_entry": {
+          "natural": {
+            "cases": 4,
+            "bad_length_outputs": 4,
+            "bad_vector_outputs": 4,
+            "good_seed_to_bad_output": 2,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 4
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 4,
+                "min": 0.9243844769703804,
+                "p50": 1.0842831341237686,
+                "max": 1.363725075853428
+              },
+              "output_length_ratio": {
+                "n": 4,
+                "min": 0.342471308561884,
+                "p50": 0.9942461937225306,
+                "max": 1.2765010330088566
+              },
+              "output_vector_error": {
+                "n": 4,
+                "min": 0.2177802161477998,
+                "p50": 0.293018816069491,
+                "max": 0.6578401529991822
+              },
+              "output_rotation_error_rad": {
+                "n": 4,
+                "min": 0.0007876130964391554,
+                "p50": 0.0011851834148486093,
+                "max": 0.015563260661353934
+              },
+              "first_step_along_gt_fraction": {
+                "n": 4,
+                "min": -0.09297402843406948,
+                "p50": -0.03785441530931259,
+                "max": -0.0026297632916812146
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 4,
+                "min": -0.043623787932886925,
+                "p50": 0.0,
+                "max": 0.029979540312283372
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 4,
+                "min": -0.040219615868682834,
+                "p50": -0.016211564275283037,
+                "max": -0.0003075487674409647
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 4,
+                "min": -0.04355578020141392,
+                "p50": -0.012795206743495146,
+                "max": 0.003555328413780327
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 4,
+                "min": -0.006149566349410051,
+                "p50": -0.005133641933890209,
+                "max": -0.0027103660452680793
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 4,
+            "bad_length_outputs": 3,
+            "bad_vector_outputs": 3,
+            "good_seed_to_bad_output": 1,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 4
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 4,
+                "min": 1.0218512469443146,
+                "p50": 1.157003859953089,
+                "max": 1.3690832071048227
+              },
+              "output_length_ratio": {
+                "n": 4,
+                "min": 0.4034727193822078,
+                "p50": 1.007262202301199,
+                "max": 1.276989513961966
+              },
+              "output_vector_error": {
+                "n": 4,
+                "min": 0.19938159547962397,
+                "p50": 0.28930546484250574,
+                "max": 0.5966896258986388
+              },
+              "output_rotation_error_rad": {
+                "n": 4,
+                "min": 0.0008726336202941823,
+                "p50": 0.001456752403626075,
+                "max": 0.01559045605554793
+              },
+              "first_step_along_gt_fraction": {
+                "n": 4,
+                "min": -0.10896700085979885,
+                "p50": -0.05879319881299288,
+                "max": -0.04859562204908708
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 4,
+                "min": -0.05729289785353169,
+                "p50": -0.001729462086170903,
+                "max": 0.0
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 4,
+                "min": -0.03903441183594901,
+                "p50": -0.019435733954889095,
+                "max": 6.766942750886002e-05
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 4,
+                "min": -0.045884601036356644,
+                "p50": -0.03270925776127609,
+                "max": -0.0038275282640792096
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 4,
+                "min": -0.00658808446095728,
+                "p50": -0.006038469682592171,
+                "max": -0.0027633195416504647
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 4,
+            "bad_length_outputs": 4,
+            "bad_vector_outputs": 4,
+            "good_seed_to_bad_output": 4,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 4
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 4,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 4,
+                "min": 0.4049260195708172,
+                "p50": 0.9994056192297216,
+                "max": 1.27723789397013
+              },
+              "output_vector_error": {
+                "n": 4,
+                "min": 0.2150735724008048,
+                "p50": 0.28951223413752813,
+                "max": 0.5952339908498533
+              },
+              "output_rotation_error_rad": {
+                "n": 4,
+                "min": 0.0009090380675462412,
+                "p50": 0.0014181900170245887,
+                "max": 0.015636743670332486
+              },
+              "first_step_along_gt_fraction": {
+                "n": 4,
+                "min": -0.05426341749811842,
+                "p50": 0.0801363318870827,
+                "max": 0.21971138578567148
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 4,
+                "min": 0.0,
+                "p50": 0.05954863783185338,
+                "max": 0.18180141930564944
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 4,
+                "min": -0.04308664168289433,
+                "p50": -0.0190526758760287,
+                "max": 0.0009038895790462243
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 4,
+                "min": -0.014893798427508287,
+                "p50": 0.02319598623485469,
+                "max": 0.09382416778260251
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 4,
+                "min": -0.006906520912958851,
+                "p50": -0.005592186100912234,
+                "max": -0.0021214077617526662
+              }
+            }
+          }
+        },
+        "s2s_bad_interior": {
+          "natural": {
+            "cases": 132,
+            "bad_length_outputs": 132,
+            "bad_vector_outputs": 132,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 132
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 132,
+                "min": 0.003485214784844053,
+                "p50": 0.04677771273771621,
+                "max": 0.7775437451661636
+              },
+              "output_length_ratio": {
+                "n": 132,
+                "min": 0.003493070331013723,
+                "p50": 0.04688675153327782,
+                "max": 0.6962099320637635
+              },
+              "output_vector_error": {
+                "n": 132,
+                "min": 0.3051124549366055,
+                "p50": 0.9921688792466964,
+                "max": 1.1876326118351117
+              },
+              "output_rotation_error_rad": {
+                "n": 132,
+                "min": 0.0004531542043644162,
+                "p50": 0.008248659215721418,
+                "max": 0.011957466483042046
+              },
+              "first_step_along_gt_fraction": {
+                "n": 132,
+                "min": -0.10723340674713869,
+                "p50": 0.0012527157663714253,
+                "max": 0.07599637435717635
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 132,
+                "min": -0.014245166452864623,
+                "p50": 0.0,
+                "max": 0.02706847451569575
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 132,
+                "min": -0.04578332931967158,
+                "p50": -0.0011316367833355818,
+                "max": 0.04410271868540261
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 132,
+                "min": -0.034725298865275846,
+                "p50": 0.007744100609648367,
+                "max": 0.05165840722716785
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 132,
+                "min": -0.04483022941572452,
+                "p50": -0.005914426195866719,
+                "max": 0.021982184331928303
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 132,
+            "bad_length_outputs": 131,
+            "bad_vector_outputs": 131,
+            "good_seed_to_bad_output": 1,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 132
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 132,
+                "min": 0.0035608787980294324,
+                "p50": 0.045356667292923966,
+                "max": 0.9367306859239924
+              },
+              "output_length_ratio": {
+                "n": 132,
+                "min": 0.004225920001798602,
+                "p50": 0.04716205105170991,
+                "max": 0.8525257293853176
+              },
+              "output_vector_error": {
+                "n": 132,
+                "min": 0.14859332076859633,
+                "p50": 0.9920396710260648,
+                "max": 1.1862824823204494
+              },
+              "output_rotation_error_rad": {
+                "n": 132,
+                "min": 0.000435115249895614,
+                "p50": 0.008363268937380066,
+                "max": 0.012061361848092146
+              },
+              "first_step_along_gt_fraction": {
+                "n": 132,
+                "min": -0.08062639222761732,
+                "p50": -0.0007415700885090387,
+                "max": 0.08165302816051988
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 132,
+                "min": -0.0180446886303878,
+                "p50": 0.0,
+                "max": 0.02389648721822364
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 132,
+                "min": -0.04725581136834566,
+                "p50": -0.002836816837214674,
+                "max": 0.04130187769741493
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 132,
+                "min": -0.031653549534203414,
+                "p50": 0.00702055869233879,
+                "max": 0.04931928858872832
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 132,
+                "min": -0.03615475471016781,
+                "p50": -0.007374032217978891,
+                "max": 0.02446475787250286
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 132,
+            "bad_length_outputs": 29,
+            "bad_vector_outputs": 29,
+            "good_seed_to_bad_output": 29,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 132
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 132,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 132,
+                "min": 0.43039860846348754,
+                "p50": 0.908472599007929,
+                "max": 1.138407359367659
+              },
+              "output_vector_error": {
+                "n": 132,
+                "min": 0.013416704722333783,
+                "p50": 0.10361560749998826,
+                "max": 0.5701445737421232
+              },
+              "output_rotation_error_rad": {
+                "n": 132,
+                "min": 0.0005414533148391669,
+                "p50": 0.002905803392002481,
+                "max": 0.00906664948762919
+              },
+              "first_step_along_gt_fraction": {
+                "n": 132,
+                "min": -0.08448689890311605,
+                "p50": -0.02961974921841716,
+                "max": 0.03183932707092389
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 132,
+                "min": -0.021490095562553567,
+                "p50": 0.0,
+                "max": 0.025549580412813837
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 132,
+                "min": -0.07747496742281283,
+                "p50": -0.025882071822824333,
+                "max": -0.002039880031388883
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 132,
+                "min": -0.0316558304324619,
+                "p50": 0.004476359869814279,
+                "max": 0.05487449174961763
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 132,
+                "min": -0.03342652558292551,
+                "p50": -0.005213873460941707,
+                "max": 0.009696093541821474
+              }
+            }
+          }
+        }
+      },
+      "oracle_failure_cases": [
+        {
+          "id": "02_1789",
+          "frame": 1789,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": true,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": false,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 1.2132129320321803,
+          "output_vector_error": 0.21775487318484452,
+          "output_rotation_error_rad": 0.0014216976028077388,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": 0.2080476521220662,
+          "first_edge_along_gt_fraction": 0.11909727566370676,
+          "first_ground_along_gt_fraction": 0.0009038895790462243,
+          "first_facade_along_gt_fraction": 0.09382416778260251,
+          "first_intensity_along_gt_fraction": -0.005777680903289222
+        },
+        {
+          "id": "02_1876",
+          "frame": 1876,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": true,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": false,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7855983064272629,
+          "output_vector_error": 0.2150735724008048,
+          "output_rotation_error_rad": 0.0014146824312414386,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.05426341749811842,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.03724821130885761,
+          "first_facade_along_gt_fraction": -0.014893798427508287,
+          "first_intensity_along_gt_fraction": -0.0021214077617526662
+        },
+        {
+          "id": "02_1881",
+          "frame": 1881,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.632125577796665,
+          "output_vector_error": 0.3688477426736665,
+          "output_rotation_error_rad": 0.003351829518795179,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.05581193373366707,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.027248419460963735,
+          "first_facade_along_gt_fraction": -0.016882769000581038,
+          "first_intensity_along_gt_fraction": -0.011680745272122366
+        },
+        {
+          "id": "02_1882",
+          "frame": 1882,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7866070092559546,
+          "output_vector_error": 0.2146017933207016,
+          "output_rotation_error_rad": 0.0022584706065001056,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.01885146246105366,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.024771446106079266,
+          "first_facade_along_gt_fraction": 0.014454295772115886,
+          "first_intensity_along_gt_fraction": -0.008534312127090245
+        },
+        {
+          "id": "02_1883",
+          "frame": 1883,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7186826746674873,
+          "output_vector_error": 0.2815573189160856,
+          "output_rotation_error_rad": 0.0012831614463340753,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.01810545679462491,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.028372975430413477,
+          "first_facade_along_gt_fraction": 0.006546236948041613,
+          "first_intensity_along_gt_fraction": 0.0037212816877468377
+        },
+        {
+          "id": "02_1888",
+          "frame": 1888,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6980791921428725,
+          "output_vector_error": 0.3024938216529525,
+          "output_rotation_error_rad": 0.0019882466264915374,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.06533555962733092,
+          "first_edge_along_gt_fraction": -0.013493708643439599,
+          "first_ground_along_gt_fraction": -0.04936530986145095,
+          "first_facade_along_gt_fraction": 0.014753947165293017,
+          "first_intensity_along_gt_fraction": -0.017230488287733506
+        },
+        {
+          "id": "02_1889",
+          "frame": 1889,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7998510364909883,
+          "output_vector_error": 0.20059501736104368,
+          "output_rotation_error_rad": 0.0025893171140216743,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.04398943995719113,
+          "first_edge_along_gt_fraction": 0.019835103419804045,
+          "first_ground_along_gt_fraction": -0.03354710905734957,
+          "first_facade_along_gt_fraction": 0.00314909126327991,
+          "first_intensity_along_gt_fraction": -0.03342652558292551
+        },
+        {
+          "id": "02_1893",
+          "frame": 1893,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6884147789696785,
+          "output_vector_error": 0.3129221976864248,
+          "output_rotation_error_rad": 0.002176723749145577,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.05781776403792062,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.03005341693018624,
+          "first_facade_along_gt_fraction": 0.0018709992469787425,
+          "first_intensity_along_gt_fraction": -0.02963534635471299
+        },
+        {
+          "id": "02_1894",
+          "frame": 1894,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.733309891566162,
+          "output_vector_error": 0.2675375815830692,
+          "output_rotation_error_rad": 0.002134209548071066,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.0630714896914493,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.024378596253348622,
+          "first_facade_along_gt_fraction": -0.012874704786095408,
+          "first_intensity_along_gt_fraction": -0.025818188652005115
+        },
+        {
+          "id": "02_1900",
+          "frame": 1900,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6965944836614217,
+          "output_vector_error": 0.30399178741858535,
+          "output_rotation_error_rad": 0.0035293535888973686,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.06696768617667749,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.04416410279093867,
+          "first_facade_along_gt_fraction": -0.014866414177873336,
+          "first_intensity_along_gt_fraction": -0.007937169207865387
+        },
+        {
+          "id": "02_1904",
+          "frame": 1904,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7569578151207473,
+          "output_vector_error": 0.24425421149333387,
+          "output_rotation_error_rad": 0.004068655299395645,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.07070345954727884,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.04730795863474332,
+          "first_facade_along_gt_fraction": -0.023695089868325497,
+          "first_intensity_along_gt_fraction": 0.00029958895578999955
+        },
+        {
+          "id": "02_1917",
+          "frame": 1917,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.5371236060318815,
+          "output_vector_error": 0.4635379103015645,
+          "output_rotation_error_rad": 0.005079697217221866,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.051243042365258444,
+          "first_edge_along_gt_fraction": -0.0017097013116048724,
+          "first_ground_along_gt_fraction": -0.03101613777989349,
+          "first_facade_along_gt_fraction": 0.0007420125573421742,
+          "first_intensity_along_gt_fraction": -0.019259215831102253
+        },
+        {
+          "id": "02_1919",
+          "frame": 1919,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.5635469223920807,
+          "output_vector_error": 0.436763526793798,
+          "output_rotation_error_rad": 0.005497419242747322,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.058276849855820205,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.045231753752878585,
+          "first_facade_along_gt_fraction": -0.009235078730996259,
+          "first_intensity_along_gt_fraction": -0.003810017371945397
+        },
+        {
+          "id": "02_1922",
+          "frame": 1922,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6227307667259211,
+          "output_vector_error": 0.3779039686082939,
+          "output_rotation_error_rad": 0.004142834225571152,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.008598653652526253,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.02261295474010016,
+          "first_facade_along_gt_fraction": 0.021682607090055237,
+          "first_intensity_along_gt_fraction": -0.007668306002481355
+        },
+        {
+          "id": "02_1925",
+          "frame": 1925,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.719389156505781,
+          "output_vector_error": 0.2816080867246546,
+          "output_rotation_error_rad": 0.006586823338135443,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.039031689252846065,
+          "first_edge_along_gt_fraction": 0.008589638664730247,
+          "first_ground_along_gt_fraction": -0.04391160932040775,
+          "first_facade_along_gt_fraction": -0.00048162453284995377,
+          "first_intensity_along_gt_fraction": -0.003228094064318651
+        },
+        {
+          "id": "02_1927",
+          "frame": 1927,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7644833182872748,
+          "output_vector_error": 0.2358006387446623,
+          "output_rotation_error_rad": 0.003909130897450546,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.05007710766927692,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.03391484955441373,
+          "first_facade_along_gt_fraction": -0.00838809840098104,
+          "first_intensity_along_gt_fraction": -0.007774159713882151
+        },
+        {
+          "id": "02_1930",
+          "frame": 1930,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7528407997430712,
+          "output_vector_error": 0.24843459429298204,
+          "output_rotation_error_rad": 0.005115359538107753,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.08448689890311605,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.07747496742281283,
+          "first_facade_along_gt_fraction": -0.004691695369146245,
+          "first_intensity_along_gt_fraction": -0.0023202361111569407
+        },
+        {
+          "id": "02_1932",
+          "frame": 1932,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6752269310710792,
+          "output_vector_error": 0.3259409615219091,
+          "output_rotation_error_rad": 0.004938206376769087,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.05815706925890217,
+          "first_edge_along_gt_fraction": -0.0014516509453459604,
+          "first_ground_along_gt_fraction": -0.03331209489159911,
+          "first_facade_along_gt_fraction": -0.01976342187326737,
+          "first_intensity_along_gt_fraction": -0.003629901548689705
+        },
+        {
+          "id": "02_3308",
+          "frame": 3308,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": true,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 1.27723789397013,
+          "output_vector_error": 0.3612695950902118,
+          "output_rotation_error_rad": 0.015636743670332486,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": 0.21971138578567148,
+          "first_edge_along_gt_fraction": 0.18180141930564944,
+          "first_ground_along_gt_fraction": -0.000857140443199788,
+          "first_facade_along_gt_fraction": 0.04567362783618057,
+          "first_intensity_along_gt_fraction": -0.006906520912958851
+        },
+        {
+          "id": "02_3309",
+          "frame": 3309,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": true,
+          "natural_bad_length": false,
+          "final_bad_length": false,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 1.1807492348045834,
+          "output_vector_error": 0.23978938032764954,
+          "output_rotation_error_rad": 0.010195302351452709,
+          "output_bad_length": false,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": 0.1579053531051099,
+          "first_edge_along_gt_fraction": 0.13003556347042072,
+          "first_ground_along_gt_fraction": -0.0021494974368054393,
+          "first_facade_along_gt_fraction": 0.03833356917172469,
+          "first_intensity_along_gt_fraction": -0.008314282100230087
+        },
+        {
+          "id": "02_4460",
+          "frame": 4460,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": true,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.4049260195708172,
+          "output_vector_error": 0.5952339908498533,
+          "output_rotation_error_rad": 0.0009090380675462412,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.04777498834790079,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.04308664168289433,
+          "first_facade_along_gt_fraction": 0.00071834463352881,
+          "first_intensity_along_gt_fraction": -0.005406691298535247
+        },
+        {
+          "id": "02_4463",
+          "frame": 4463,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.43039860846348754,
+          "output_vector_error": 0.5701445737421232,
+          "output_rotation_error_rad": 0.00419276492452441,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.0645040812060996,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.025298981630178106,
+          "first_facade_along_gt_fraction": -0.0316558304324619,
+          "first_intensity_along_gt_fraction": -0.007549269143459621
+        },
+        {
+          "id": "02_4466",
+          "frame": 4466,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.734761505513666,
+          "output_vector_error": 0.26552295915550334,
+          "output_rotation_error_rad": 0.0017145778202337298,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.03255110180235041,
+          "first_edge_along_gt_fraction": 0.00022698030507453627,
+          "first_ground_along_gt_fraction": -0.022669219294098743,
+          "first_facade_along_gt_fraction": -0.008609442260221012,
+          "first_intensity_along_gt_fraction": -0.0014994205531051053
+        },
+        {
+          "id": "02_4472",
+          "frame": 4472,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6766271415494247,
+          "output_vector_error": 0.32370195427558845,
+          "output_rotation_error_rad": 0.0016065710480146467,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.018668650221412644,
+          "first_edge_along_gt_fraction": -0.0027413972510407208,
+          "first_ground_along_gt_fraction": -0.011336961749996042,
+          "first_facade_along_gt_fraction": -0.0018685992394564652,
+          "first_intensity_along_gt_fraction": -0.0027216919809194195
+        },
+        {
+          "id": "02_4474",
+          "frame": 4474,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7010530818939751,
+          "output_vector_error": 0.30248231310647716,
+          "output_rotation_error_rad": 0.0032042815071451377,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.04336465336653326,
+          "first_edge_along_gt_fraction": -0.0023635104410037727,
+          "first_ground_along_gt_fraction": -0.02132747029155942,
+          "first_facade_along_gt_fraction": -0.012467285471069055,
+          "first_intensity_along_gt_fraction": -0.007206387162901072
+        },
+        {
+          "id": "02_4475",
+          "frame": 4475,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.527181848743232,
+          "output_vector_error": 0.47422664503584455,
+          "output_rotation_error_rad": 0.0015202736145103436,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.06296410992533462,
+          "first_edge_along_gt_fraction": 0.007434570668436281,
+          "first_ground_along_gt_fraction": -0.05263855313820423,
+          "first_facade_along_gt_fraction": -0.0038778332193518785,
+          "first_intensity_along_gt_fraction": -0.01388229423621487
+        },
+        {
+          "id": "02_4476",
+          "frame": 4476,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7797376271956907,
+          "output_vector_error": 0.2230238613942882,
+          "output_rotation_error_rad": 0.002770133474689737,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.028239686972071812,
+          "first_edge_along_gt_fraction": -0.0006371130927250395,
+          "first_ground_along_gt_fraction": -0.01945105194212702,
+          "first_facade_along_gt_fraction": 0.008117987920095767,
+          "first_intensity_along_gt_fraction": -0.01626950985731544
+        },
+        {
+          "id": "02_4478",
+          "frame": 4478,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.7194250597884352,
+          "output_vector_error": 0.28207473921647763,
+          "output_rotation_error_rad": 0.0017660899087514146,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.034044796007601165,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.02272512899504618,
+          "first_facade_along_gt_fraction": 0.004604962079451064,
+          "first_intensity_along_gt_fraction": -0.015924629092005968
+        },
+        {
+          "id": "02_4480",
+          "frame": 4480,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6638181726369852,
+          "output_vector_error": 0.3372795163555142,
+          "output_rotation_error_rad": 0.0019654389259191976,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.05198155626506701,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.04201828641500662,
+          "first_facade_along_gt_fraction": 0.015774275966129868,
+          "first_intensity_along_gt_fraction": -0.025737545816190203
+        },
+        {
+          "id": "02_4492",
+          "frame": 4492,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.679433968495817,
+          "output_vector_error": 0.32111764158309686,
+          "output_rotation_error_rad": 0.003913568016939912,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.029885540344322448,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.017276774477283034,
+          "first_facade_along_gt_fraction": -0.0073857755123674295,
+          "first_intensity_along_gt_fraction": -0.005222990354671981
+        },
+        {
+          "id": "02_4493",
+          "frame": 4493,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.5989335420700578,
+          "output_vector_error": 0.40156513510855896,
+          "output_rotation_error_rad": 0.0042795240119376755,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.055683145393375245,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.02289524561326721,
+          "first_facade_along_gt_fraction": -0.010818253729030126,
+          "first_intensity_along_gt_fraction": -0.021969646051077884
+        },
+        {
+          "id": "02_4502",
+          "frame": 4502,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.47165159216390556,
+          "output_vector_error": 0.5283843905211414,
+          "output_rotation_error_rad": 0.005034852827558525,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.05787496267536491,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.044838152556280986,
+          "first_facade_along_gt_fraction": -0.003851697475701109,
+          "first_intensity_along_gt_fraction": -0.009185112643382794
+        },
+        {
+          "id": "02_4503",
+          "frame": 4503,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6135820251479771,
+          "output_vector_error": 0.38644519465385535,
+          "output_rotation_error_rad": 0.004852901735649001,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.0554726134111671,
+          "first_edge_along_gt_fraction": -0.005144991492629938,
+          "first_ground_along_gt_fraction": -0.030378392154746435,
+          "first_facade_along_gt_fraction": -0.010087917078761749,
+          "first_intensity_along_gt_fraction": -0.009861312685028977
+        },
+        {
+          "id": "02_4507",
+          "frame": 4507,
+          "mode": "oracle_current_gt",
+          "moving": true,
+          "s2s_bad_entry": false,
+          "s2s_recovery": false,
+          "natural_bad_length": true,
+          "final_bad_length": true,
+          "seed_status": "finite",
+          "seed_length_ratio": 1.0,
+          "seed_vector_error": 0.0,
+          "seed_rotation_error_rad": 0.0,
+          "seed_bad_length": false,
+          "seed_bad_vector": false,
+          "output_status": "finite",
+          "output_length_ratio": 0.6104586140419522,
+          "output_vector_error": 0.3902277003145242,
+          "output_rotation_error_rad": 0.006283629647675801,
+          "output_bad_length": true,
+          "output_bad_vector": true,
+          "first_step_status": "finite",
+          "first_step_along_gt_fraction": -0.02131222989437543,
+          "first_edge_along_gt_fraction": 0.0,
+          "first_ground_along_gt_fraction": -0.041629236943905655,
+          "first_facade_along_gt_fraction": 0.022392269465622644,
+          "first_intensity_along_gt_fraction": -0.002075262416092449
+        }
+      ]
+    },
+    {
+      "sequence": "10",
+      "case_count": 13,
+      "native_evaluations": 39,
+      "original_natural_replay_control": {
+        "output": 0.0,
+        "H": 4.729372449219227e-11,
+        "g": 1.8474111129762605e-13
+      },
+      "source_archive_sha256": "41deca0c1ca48721ff7c2de8f876f9a8f705292b35275f4786a154a2ee502244",
+      "archive_files_verified": 14,
+      "groups": {
+        "all_selected_moving": {
+          "natural": {
+            "cases": 12,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 1,
+            "first_step_statuses": {
+              "finite": 12
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 12,
+                "min": 0.0,
+                "p50": 0.9853936908656871,
+                "max": 1.0525772445484118
+              },
+              "output_length_ratio": {
+                "n": 12,
+                "min": 0.8200343374690181,
+                "p50": 0.9829442643627504,
+                "max": 0.9932965212304316
+              },
+              "output_vector_error": {
+                "n": 12,
+                "min": 0.010492734712317861,
+                "p50": 0.025483466424963276,
+                "max": 0.19206301858279834
+              },
+              "output_rotation_error_rad": {
+                "n": 12,
+                "min": 0.00041577089907185796,
+                "p50": 0.0015212226430765955,
+                "max": 0.0036878844012016043
+              },
+              "first_step_along_gt_fraction": {
+                "n": 12,
+                "min": -0.07287057152462155,
+                "p50": -0.00977768087015302,
+                "max": 0.7680240050822478
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 12,
+                "min": -0.052852713797219716,
+                "p50": -0.005753318989483268,
+                "max": 0.7248162407878492
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 12,
+                "min": -0.011615179824594203,
+                "p50": -0.0018924034158191508,
+                "max": 0.0017322120116989592
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 12,
+                "min": -0.012708077573312588,
+                "p50": 0.002398594433923715,
+                "max": 0.056141697765820106
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 12,
+                "min": -0.014666145483120773,
+                "p50": -0.000947245499113898,
+                "max": 0.00037731908771793105
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 12,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 1,
+            "first_step_statuses": {
+              "finite": 12
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 12,
+                "min": 0.0,
+                "p50": 0.9929407505292216,
+                "max": 1.0736916383046355
+              },
+              "output_length_ratio": {
+                "n": 12,
+                "min": 0.8200343374690181,
+                "p50": 0.983494610441144,
+                "max": 0.9931589340648403
+              },
+              "output_vector_error": {
+                "n": 12,
+                "min": 0.010825203059768371,
+                "p50": 0.025391057873170902,
+                "max": 0.19206301858279834
+              },
+              "output_rotation_error_rad": {
+                "n": 12,
+                "min": 0.0003979097010208731,
+                "p50": 0.001511696706708547,
+                "max": 0.003687436396363237
+              },
+              "first_step_along_gt_fraction": {
+                "n": 12,
+                "min": -0.08720775204332017,
+                "p50": -0.010846845628119849,
+                "max": 0.7680240050822478
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 12,
+                "min": -0.06459635542076599,
+                "p50": -0.007903158882458473,
+                "max": 0.7248162407878492
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 12,
+                "min": -0.01234390124954118,
+                "p50": -0.0016028264164959067,
+                "max": 0.0017322120116989592
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 12,
+                "min": -0.01672047594798193,
+                "p50": 0.0013779574021732092,
+                "max": 0.056141697765820106
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 12,
+                "min": -0.014666145483120773,
+                "p50": -0.0008505823294910613,
+                "max": 0.0003204834620932289
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 12,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 12
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 12,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 12,
+                "min": 0.8201941294773225,
+                "p50": 0.9834610043469543,
+                "max": 0.9933318586220234
+              },
+              "output_vector_error": {
+                "n": 12,
+                "min": 0.010784959289661436,
+                "p50": 0.02549274937521908,
+                "max": 0.19616818454247203
+              },
+              "output_rotation_error_rad": {
+                "n": 12,
+                "min": 0.00040923668673544823,
+                "p50": 0.0013772950222323893,
+                "max": 0.0036785776381741634
+              },
+              "first_step_along_gt_fraction": {
+                "n": 12,
+                "min": -0.2560822141733453,
+                "p50": -0.02067521104521358,
+                "max": -0.006643186380275201
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 12,
+                "min": -0.1772690439714271,
+                "p50": -0.014779279836211544,
+                "max": -0.00547375087072334
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 12,
+                "min": -0.014687054517675359,
+                "p50": -0.001872758316256586,
+                "max": 6.298215930301818e-05
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 12,
+                "min": -0.05757287430840852,
+                "p50": -0.00022553939769734806,
+                "max": 0.014855498473959037
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 12,
+                "min": -0.02052562921538001,
+                "p50": -0.0010279664476865482,
+                "max": 0.00025017402039528847
+              }
+            }
+          }
+        },
+        "natural_bad_length": {
+          "natural": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          }
+        },
+        "other_selected_moving": {
+          "natural": {
+            "cases": 12,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 1,
+            "first_step_statuses": {
+              "finite": 12
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 12,
+                "min": 0.0,
+                "p50": 0.9853936908656871,
+                "max": 1.0525772445484118
+              },
+              "output_length_ratio": {
+                "n": 12,
+                "min": 0.8200343374690181,
+                "p50": 0.9829442643627504,
+                "max": 0.9932965212304316
+              },
+              "output_vector_error": {
+                "n": 12,
+                "min": 0.010492734712317861,
+                "p50": 0.025483466424963276,
+                "max": 0.19206301858279834
+              },
+              "output_rotation_error_rad": {
+                "n": 12,
+                "min": 0.00041577089907185796,
+                "p50": 0.0015212226430765955,
+                "max": 0.0036878844012016043
+              },
+              "first_step_along_gt_fraction": {
+                "n": 12,
+                "min": -0.07287057152462155,
+                "p50": -0.00977768087015302,
+                "max": 0.7680240050822478
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 12,
+                "min": -0.052852713797219716,
+                "p50": -0.005753318989483268,
+                "max": 0.7248162407878492
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 12,
+                "min": -0.011615179824594203,
+                "p50": -0.0018924034158191508,
+                "max": 0.0017322120116989592
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 12,
+                "min": -0.012708077573312588,
+                "p50": 0.002398594433923715,
+                "max": 0.056141697765820106
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 12,
+                "min": -0.014666145483120773,
+                "p50": -0.000947245499113898,
+                "max": 0.00037731908771793105
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 12,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 1,
+            "first_step_statuses": {
+              "finite": 12
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 12,
+                "min": 0.0,
+                "p50": 0.9929407505292216,
+                "max": 1.0736916383046355
+              },
+              "output_length_ratio": {
+                "n": 12,
+                "min": 0.8200343374690181,
+                "p50": 0.983494610441144,
+                "max": 0.9931589340648403
+              },
+              "output_vector_error": {
+                "n": 12,
+                "min": 0.010825203059768371,
+                "p50": 0.025391057873170902,
+                "max": 0.19206301858279834
+              },
+              "output_rotation_error_rad": {
+                "n": 12,
+                "min": 0.0003979097010208731,
+                "p50": 0.001511696706708547,
+                "max": 0.003687436396363237
+              },
+              "first_step_along_gt_fraction": {
+                "n": 12,
+                "min": -0.08720775204332017,
+                "p50": -0.010846845628119849,
+                "max": 0.7680240050822478
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 12,
+                "min": -0.06459635542076599,
+                "p50": -0.007903158882458473,
+                "max": 0.7248162407878492
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 12,
+                "min": -0.01234390124954118,
+                "p50": -0.0016028264164959067,
+                "max": 0.0017322120116989592
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 12,
+                "min": -0.01672047594798193,
+                "p50": 0.0013779574021732092,
+                "max": 0.056141697765820106
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 12,
+                "min": -0.014666145483120773,
+                "p50": -0.0008505823294910613,
+                "max": 0.0003204834620932289
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 12,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {
+              "finite": 12
+            },
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 12,
+                "min": 1.0,
+                "p50": 1.0,
+                "max": 1.0
+              },
+              "output_length_ratio": {
+                "n": 12,
+                "min": 0.8201941294773225,
+                "p50": 0.9834610043469543,
+                "max": 0.9933318586220234
+              },
+              "output_vector_error": {
+                "n": 12,
+                "min": 0.010784959289661436,
+                "p50": 0.02549274937521908,
+                "max": 0.19616818454247203
+              },
+              "output_rotation_error_rad": {
+                "n": 12,
+                "min": 0.00040923668673544823,
+                "p50": 0.0013772950222323893,
+                "max": 0.0036785776381741634
+              },
+              "first_step_along_gt_fraction": {
+                "n": 12,
+                "min": -0.2560822141733453,
+                "p50": -0.02067521104521358,
+                "max": -0.006643186380275201
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 12,
+                "min": -0.1772690439714271,
+                "p50": -0.014779279836211544,
+                "max": -0.00547375087072334
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 12,
+                "min": -0.014687054517675359,
+                "p50": -0.001872758316256586,
+                "max": 6.298215930301818e-05
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 12,
+                "min": -0.05757287430840852,
+                "p50": -0.00022553939769734806,
+                "max": 0.014855498473959037
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 12,
+                "min": -0.02052562921538001,
+                "p50": -0.0010279664476865482,
+                "max": 0.00025017402039528847
+              }
+            }
+          }
+        },
+        "s2s_bad_entry": {
+          "natural": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          }
+        },
+        "s2s_bad_interior": {
+          "natural": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          },
+          "previous_mapped": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          },
+          "oracle_current_gt": {
+            "cases": 0,
+            "bad_length_outputs": 0,
+            "bad_vector_outputs": 0,
+            "good_seed_to_bad_output": 0,
+            "bad_seed_to_good_output": 0,
+            "first_step_statuses": {},
+            "statistics": {
+              "seed_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_length_ratio": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_vector_error": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "output_rotation_error_rad": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_step_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_edge_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_ground_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_facade_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              },
+              "first_intensity_along_gt_fraction": {
+                "n": 0,
+                "min": null,
+                "p50": null,
+                "max": null
+              }
+            }
+          }
+        }
+      },
+      "oracle_failure_cases": []
+    }
+  ],
+  "limits": "Fixed-pair initial-condition intervention and first-system attribution only. Prior-mapped seeds come from the realized failing baseline, often already collapsed; a one-shot substitution cannot reject or validate a recursive predictor policy. Oracle GT is diagnostic, rounded and not guaranteed physically exact. No proposed solver/default/setting change, full-trajectory improvement, new paper ratio or complete correspondence-level cause. Stop reasons/last counts in alternate runs are unavailable from the existing API, not inferred.",
+  "rotation_metric": "For offline angular reporting only, polar-project both stored rotation blocks to SO(3), then use atan2 of relative skew and trace. No projected rotation is fed to the solver or used for length/vector labels. Raw collection CSV angles used the trace formula on rounded GT rotations and can have a small nonzero floor even for an identical oracle seed; retain those original values, interpret the corrected report instead.",
+  "class_decomposition": "At each recorded first linearization, H=sum H_c; g=sum g_c. Solve joint delta=-(H+1e-6I)^-1g and delta_c=-(H+1e-6I)^-1g_c. Verify sum(delta_c)=delta. Report the first-order current-sensor-origin displacement delta_v+delta_omega cross seed_translation, projected onto GT translation and divided by its length on moving cases. Contributions share the same total damped H; they are not independent per-class solves, term-deletion ablations, exact finite updates, post-update costs or repeated-association trajectories."
+}

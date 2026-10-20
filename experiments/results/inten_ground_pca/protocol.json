@@ -85,5 +85,5 @@
   "archival": "Lossless ordered32MiB-uncompressed gzip shards of JSONL plus original sizes/SHA256; fully round-trip before scan removal. Commit raw results before numerical prose. Preserve all older aggregates and publication files.",
   "prior_aborted_trial_commit": "1e5099b3",
   "prior_aborted_trial": "experiments/results/inten_mapped_prior",
-  "native_source_commit": "4b79df957c79f22518cad82017869d46d30fd281"
+  "native_source_commit": "3cca310e149925147dc9b1e92af8404f72ff0163"
 }

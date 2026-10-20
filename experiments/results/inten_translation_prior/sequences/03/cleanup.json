@@ -1,0 +1,7 @@
+{
+  "sequence": "03",
+  "owned_input_dir": "/workspace/localization-env/inten-translation-prior/kitti/dataset/sequences/03/velodyne",
+  "hashes_verified_before_removal": true,
+  "input_dir_exists_after": false,
+  "removed_files": 802
+}

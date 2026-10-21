@@ -1,0 +1,30 @@
+{
+  "files": {
+    "start.stderr": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/start_driver_record/start.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "start.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "start.stdout": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/start_driver_record/start.stdout",
+      "bytes": 1652,
+      "sha256": "a65f4e3fa9ec0646bbe64b293b3f57f556e83e1a28ea180a6cb3d5e69c9cb4c7",
+      "storage": "verbatim",
+      "path": "start.stdout",
+      "stored_sha256": "a65f4e3fa9ec0646bbe64b293b3f57f556e83e1a28ea180a6cb3d5e69c9cb4c7"
+    },
+    "start_driver.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/start_driver_record/start_driver.json",
+      "bytes": 308,
+      "sha256": "6d43f885aed5adbe399787e53baba32b0d2def723ea4e5f5436f17e56aae58ab",
+      "storage": "verbatim",
+      "path": "start_driver.json",
+      "stored_sha256": "6d43f885aed5adbe399787e53baba32b0d2def723ea4e5f5436f17e56aae58ab"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

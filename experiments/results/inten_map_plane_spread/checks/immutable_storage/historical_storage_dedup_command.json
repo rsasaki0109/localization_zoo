@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-s2m-prior/dedup_immutable_storage.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "exit_code": 0,
+  "source_file_sha256": "4c5dfd8dcdc5153f433345ae078bfdec208b46b606b43c25aab943625fb78e7b",
+  "replacement_started_unix": 1792540585.3117023,
+  "finished_unix": 1792540605.1649413,
+  "timing_scope": "Initial full-batch byte validation preceded the recorded replacement-phase timestamp. No performance claim."
+}

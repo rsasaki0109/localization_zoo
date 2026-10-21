@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "raw_collection_commit": "99981079c84ca08e5a5ae4b4cd3191d5297df684",
+  "preservation_base_commit": "87fc51aa8fd4b6a1af7016ad03158787ec0b3ef7",
+  "native_source_commit": "9a01528b05128794df962b52ace59e727e834417",
+  "collection_protocol_commit": "9e0406814aa276aab478cc3f4e10997efba4311c",
+  "source_sha256": {
+    "report.py": "82f5a6662be587e6cc0cd5888f5c0d67ed0fbb816b2944d39e583842045cab19",
+    "import_results.py": "95eeef5ce3160eea6741c79856687d7dea31ebc79c19896211a6da3e231746dc",
+    "verify.py": "7e41e03ce0dacbfb7742290722b832ec88a22a4c2e429647c473a7867817c92e",
+    "write_docs.py": "b92a10f2413d673e32331069eaf1f2e30beac3d309737ed42d5ac93ca1dcd740",
+    "readme_template.md": "b84618202206fb8d55977371cdeb3a08210d5519fb82cd33b76cc9784494d37f",
+    "finalize_docs.py": "665733da07da9caef637e339acf817289d60095884278254012f214aa7bcd3ba"
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "report": "All11 full native outcomes, every local bad label/newfailure and fixed-block error growth. Verify both profiles match inherited settings and only existing S2M spread0 vs0.2 differs; same immutable real native binary. Reconstruct S2S adaptive prior and every finite total damped update with relative backward error<=1e-10, retain conditioning-sensitive forward differences without treating them as drift. Full-run trajectory/seed/map feedback affects later S2S too. Matched actual-map terminal controls remain separate and never enter accuracy.",
+  "preservation": "All743 preexisting aggregate hashes, all other inherited tracked evidence, all historical variant rows and canonical publications remain unchanged; add11 unscored experimental aggregates/22nondefault FPSblank rows. No winner adoption or native source changes. Both freshfullbaseline trace numeric bytes after declared scan-root-only substitution and exact poses/GT/metrics must match preceding159candidate on everysequence.",
+  "timing": "Raw timings retained; concurrent paired processes shareCPUs, so aggregateFPS/time unavailable and benchmarkscore0.",
+  "calibration": "The sole candidate value0.2 is inherited unchanged from the existing PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods synthetic mechanism test. Earlier07 exploratory exposure is disclosed. Actual current01 normal-prefix S2M onset controlscdb5262d motivate examining accepted map-plane geometry; they do not prove wrong physical surfaces. A hypothetical existing-ratio0.03 prior is inactive at onset, so no stronger prior is tuned or evaluated. Spread hypothesis drafted before complete first controls; final actual-map matched protocol committed5f076e5b after those controls. All current01/previousKITTI outcomes are development, not independent held-out; value fixed before all full runs with no sweep, retuning or per-sequence adoption. Original profile chosen07;00 informed diagnosis; inherited S2S ratio came from DiLO01 tuning.",
+  "order": "Sources/protocol committed before numerical derivation. Commit complete report/import numbers before prose. Regenerate three required derivatives; if paperJSON unchanged its two conditional generators are notneeded. Run actualexitchecks and require complete fullNative/ROS2 CI at exact final head beforeReady. No merge."
+}

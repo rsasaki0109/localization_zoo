@@ -1,0 +1,70 @@
+{
+  "files": {
+    "dedup_extra.stderr": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/immutable_storage_record/dedup_extra.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "dedup_extra.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "dedup_extra.stdout": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/immutable_storage_record/dedup_extra.stdout",
+      "bytes": 93,
+      "sha256": "8247c4fa575665d617842802cdc0e1a878252b3e99b4a6519984fee3570c1139",
+      "storage": "verbatim",
+      "path": "dedup_extra.stdout",
+      "stored_sha256": "8247c4fa575665d617842802cdc0e1a878252b3e99b4a6519984fee3570c1139"
+    },
+    "dedup_immutable_storage.py": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/immutable_storage_record/dedup_immutable_storage.py",
+      "bytes": 2670,
+      "sha256": "4c5dfd8dcdc5153f433345ae078bfdec208b46b606b43c25aab943625fb78e7b",
+      "storage": "verbatim",
+      "path": "dedup_immutable_storage.py",
+      "stored_sha256": "4c5dfd8dcdc5153f433345ae078bfdec208b46b606b43c25aab943625fb78e7b"
+    },
+    "dedup_immutable_storage_extra.py": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/immutable_storage_record/dedup_immutable_storage_extra.py",
+      "bytes": 2689,
+      "sha256": "c2028abbdfedfadafaca955a4008ed246798e18c64fe15d4f6f4ee8f8bc7ff0a",
+      "storage": "verbatim",
+      "path": "dedup_immutable_storage_extra.py",
+      "stored_sha256": "c2028abbdfedfadafaca955a4008ed246798e18c64fe15d4f6f4ee8f8bc7ff0a"
+    },
+    "historical_storage_dedup.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/immutable_storage_record/historical_storage_dedup.json",
+      "bytes": 867011,
+      "sha256": "b45b366fab08011f9341b6a9161ffcec8928255d965f25553f036f032aa476d9",
+      "storage": "verbatim",
+      "path": "historical_storage_dedup.json",
+      "stored_sha256": "b45b366fab08011f9341b6a9161ffcec8928255d965f25553f036f032aa476d9"
+    },
+    "historical_storage_dedup_command.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/immutable_storage_record/historical_storage_dedup_command.json",
+      "bytes": 549,
+      "sha256": "c1d1d6c1f897dcd04ca8c113bae92dcc87ad8026ab55c9bd5aab37dc7ebc5d18",
+      "storage": "verbatim",
+      "path": "historical_storage_dedup_command.json",
+      "stored_sha256": "c1d1d6c1f897dcd04ca8c113bae92dcc87ad8026ab55c9bd5aab37dc7ebc5d18"
+    },
+    "historical_storage_dedup_extra.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/immutable_storage_record/historical_storage_dedup_extra.json",
+      "bytes": 817612,
+      "sha256": "9e31f01987ee0ee09a676e925aa66c233e8f9220c9cdfaa13fee8ffad55a82cf",
+      "storage": "verbatim",
+      "path": "historical_storage_dedup_extra.json",
+      "stored_sha256": "9e31f01987ee0ee09a676e925aa66c233e8f9220c9cdfaa13fee8ffad55a82cf"
+    },
+    "historical_storage_dedup_extra_command.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/immutable_storage_record/historical_storage_dedup_extra_command.json",
+      "bytes": 414,
+      "sha256": "48c083b264dd1f5c5967f5b011ea85d2c650622fb0e5d18a385ec3c334124650",
+      "storage": "verbatim",
+      "path": "historical_storage_dedup_extra_command.json",
+      "stored_sha256": "48c083b264dd1f5c5967f5b011ea85d2c650622fb0e5d18a385ec3c334124650"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

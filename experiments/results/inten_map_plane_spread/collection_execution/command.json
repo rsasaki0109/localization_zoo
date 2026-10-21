@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-s2m-prior/worktree/experiments/results/inten_map_plane_spread/collect.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "99981079c84ca08e5a5ae4b4cd3191d5297df684",
+  "started_unix": 1792540021.1032093,
+  "finished_unix": 1792544909.63836,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

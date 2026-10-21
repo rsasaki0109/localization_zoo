@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-fixed-rotation/worktree/experiments/results/inten_fixed_rotation/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-fixed-rotation/portability_checks_corrected/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-fixed-rotation/worktree",
+  "source_commit": "9beb01087c4638c8fae7fd483b07c0ca4f66ac6c",
+  "started_unix": 1792582119.6179173,
+  "finished_unix": 1792582122.1462607,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

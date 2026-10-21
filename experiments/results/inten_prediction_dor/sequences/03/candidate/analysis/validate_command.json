@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/check_inten_trace.py",
+    "--trace",
+    "/workspace/localization-env/inten-prediction-dor/full_staging/03/candidate/trace.jsonl",
+    "--summary",
+    "/workspace/localization-env/inten-prediction-dor/full_staging/03/candidate/summary.json",
+    "--receipt",
+    "/workspace/localization-env/inten-prediction-dor/full_staging/03/candidate/native_command.json",
+    "--output",
+    "/workspace/localization-env/inten-prediction-dor/full_staging/03/candidate/trace_validation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "source_commit": "adf7acd0fe1843357329f7d1f8141d82ee114654",
+  "started_unix": 1792555546.0400527,
+  "finished_unix": 1792555546.5805986,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

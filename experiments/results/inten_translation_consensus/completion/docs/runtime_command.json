@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "import json,sys,numpy,matplotlib;assert numpy.__version__==\"1.26.4\" and matplotlib.__version__==\"3.8.4\";print(json.dumps(dict(python=sys.version,numpy=numpy.__version__,matplotlib=matplotlib.__version__)))"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-consensus/worktree",
+  "source_commit": "554146ea8d6a033f83c6100fcec6f437ac7cf84a",
+  "started_unix": 1792575554.4435902,
+  "finished_unix": 1792575554.619911,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-translation-consensus/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-translation-consensus/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

@@ -1947,3 +1947,53 @@ as a safe remedy. No production option/default or stored accuracy changes. This
 is terminal conditional sensitivity, not recursive01 recovery or10 drift resolution.
 A future mechanism must distinguish shared prediction error from independent
 motion and complete full00–10 fixed-setting evaluation before accuracy claims.
+
+## Shared-translation consensus factorial (outside paper; not adopted)
+
+The [fixed consensus diagnostic](../../experiments/results/inten_translation_consensus/README.md)
+compares original, corrected-seed-only, consensus-mask-only and both, with the
+preceding rejected mask as a fifth control. Every inherited current01 endpoint
+uses one frozen rule, no GT/region in decisions, and no per-case winner. Numerical
+commit `ca5bccf9` precedes interpretation. All40 terminal calls and every
+first-query residual are retained; original and prior negative controls reproduce
+exactly. All prior KITTI is development, not independent held out.
+
+### Translation length / GT
+
+| Endpoint | Original | Seed only | Mask only | Seed + mask | Prior rejected mask |
+|---:|---:|---:|---:|---:|---:|
+| 190 | 0.990767 | 0.990767 | 0.994919 | 0.994919 | 0.991896 |
+| 200 | 0.975241 | 0.976224 | 1.000597 | 0.998189 | 1.004744 |
+| 202 | 0.748598 | 0.804125 | 0.961299 | 0.963182 | 0.914806 |
+| 203 | 0.918730 | 0.918938 | 0.968091 | 0.967792 | 0.954679 |
+| 204 | 0.607064 | 0.907108 | 1.003770 | 1.004613 | 0.971692 |
+| 205 | 0.372446 | 0.936491 | 0.394997 | 0.955054 | 0.375024 |
+| 247 | 0.522727 | 0.522727 | 0.522727 | 0.522727 | 0.046618 |
+| 433 | 0.926498 | 0.926498 | 0.926498 | 0.926498 | 0.983740 |
+
+### Rotation error (mrad)
+
+| Endpoint | Original | Seed only | Mask only | Seed + mask | Prior rejected mask |
+|---:|---:|---:|---:|---:|---:|
+| 190 | 2.320873 | 2.320873 | 2.629751 | 2.629751 | 2.285065 |
+| 200 | 1.717553 | 1.647800 | 0.833664 | 0.966837 | 0.569798 |
+| 202 | 3.270653 | 2.424751 | 2.188376 | 1.882814 | 2.794870 |
+| 203 | 2.359487 | 2.412608 | 2.186429 | 2.208206 | 1.305914 |
+| 204 | 1.716533 | 3.090307 | 2.963199 | 2.958909 | 4.087598 |
+| 205 | 2.419936 | 2.661693 | 3.414474 | 1.798922 | 3.694301 |
+| 247 | 8.113092 | 8.113092 | 8.113092 | 8.113092 | 4.759058 |
+| 433 | 1.232359 | 1.232359 | 1.232359 | 1.232359 | 1.096354 |
+
+At205, seed correction alone reaches0.936491 length/GT, versus0.394997 for mask
+alone and0.955054 combined, from0.372446 original. Combined vector error/GT falls
+0.627582→0.045419. At247 the majority fallback keeps0.522727 rather than the prior
+mask's0.046618, avoiding extra harm without repairing the original failure.
+At433 a boundary optimum falls back. Combined length/vector error counts are
+6 lower/2 equal; rotation4 lower/2 higher/2 equal.
+
+The fixed progression condition fails because204 rotation worsens
+1.716533→2.958909mrad despite length/GT0.607064→1.004613. At190 rotation also
+worsens2.320873→2.629751mrad. No condition is relaxed after output, no production
+option/default is added, and no full-sequence accuracy is claimed. A corrected
+seed also moves the adaptive translation-prior center; this is conditional
+seed/prior/support sensitivity, not recursive01 recovery or10 drift resolution.

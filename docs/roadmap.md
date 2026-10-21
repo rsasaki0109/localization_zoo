@@ -575,6 +575,20 @@ independent. Each item says what "done" means.
     Full01 recovery and10 gradual drift remain open; no production/default change
     or full-sequence accuracy claim follows from these terminal controls.
 
+    The [shared-translation consensus factorial](../experiments/results/inten_translation_consensus/README.md)
+    separates seed correction from support removal at every inherited01 endpoint,
+    with the previous rejected mask as an exact negative control. All40 terminal
+    calls and actual first-query equations are retained. At205 seed-only length/GT
+    is0.936491, mask-only0.394997 and combined0.955054, from0.372446 original.
+    A majority fallback avoids extra247 harm but leaves its original failure.
+    Combined translation errors improve at6 endpoints and tie at2;204 rotation
+    worsens1.716533→2.958909mrad, failing the predeclared progression condition.
+    No gate retuning, production option or full-sequence accuracy claim follows.
+    Seed rescue is conditional on fixed original history and also changes the
+    prior center. Next address the rotation/support tradeoff while retaining this
+    effect. Full01 recovery and10 drift remain open. Numerical `ca5bccf9`
+    precedes interpretation; every prior KITTI observation remains development.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

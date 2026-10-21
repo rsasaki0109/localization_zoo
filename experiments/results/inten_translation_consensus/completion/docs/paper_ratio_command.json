@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/generate_paper_ratio_table.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-consensus/worktree",
+  "source_commit": "554146ea8d6a033f83c6100fcec6f437ac7cf84a",
+  "started_unix": 1792575706.2048464,
+  "finished_unix": 1792575706.2924483,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-translation-consensus/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-translation-consensus/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

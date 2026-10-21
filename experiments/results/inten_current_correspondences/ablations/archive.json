@@ -1,0 +1,102 @@
+{
+  "files": {
+    "binary.json": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/binary.json",
+      "bytes": 14283,
+      "sha256": "1488d4acc9a1d3ec7ea5300cdd08dc73fceb21015f13f5fe672e0ac96e43d7ec",
+      "storage": "verbatim",
+      "path": "binary.json",
+      "stored_sha256": "1488d4acc9a1d3ec7ea5300cdd08dc73fceb21015f13f5fe672e0ac96e43d7ec"
+    },
+    "compile_native.stderr": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/compile_native.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile_native.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_native.stdout": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/compile_native.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile_native.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_native_command.json": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/compile_native_command.json",
+      "bytes": 2851,
+      "sha256": "abb49a581cf157835f749da79e05498b27098b76ccc30b1877359de196bdd45d",
+      "storage": "verbatim",
+      "path": "compile_native_command.json",
+      "stored_sha256": "abb49a581cf157835f749da79e05498b27098b76ccc30b1877359de196bdd45d"
+    },
+    "compile_probe.stderr": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/compile_probe.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile_probe.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_probe.stdout": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/compile_probe.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile_probe.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_probe_command.json": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/compile_probe_command.json",
+      "bytes": 17000,
+      "sha256": "b26e3f3134ec69695113d32b53e51b9547da48920e229779afd91531304e160c",
+      "storage": "verbatim",
+      "path": "compile_probe_command.json",
+      "stored_sha256": "b26e3f3134ec69695113d32b53e51b9547da48920e229779afd91531304e160c"
+    },
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/input.txt",
+      "bytes": 1364048,
+      "sha256": "7a94f05a271305076bdb8031a9e53a513c360f8396bf6b4004b1dd567ee886be",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "7a94f05a271305076bdb8031a9e53a513c360f8396bf6b4004b1dd567ee886be"
+    },
+    "native.stderr": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/native.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "native.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "native.stdout": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/native.stdout",
+      "bytes": 11130589,
+      "sha256": "90a2687b9b92169fbecaa2906a701fdd4b9fcce76febe79011f945e0cd97de6f",
+      "storage": "verbatim",
+      "path": "native.stdout",
+      "stored_sha256": "90a2687b9b92169fbecaa2906a701fdd4b9fcce76febe79011f945e0cd97de6f"
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/native_command.json",
+      "bytes": 1010,
+      "sha256": "9214bac0af2cf80e0f544c3a2f27dda37a0574ff53f4a4a81d7b75343cb54804",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "9214bac0af2cf80e0f544c3a2f27dda37a0574ff53f4a4a81d7b75343cb54804"
+    },
+    "report.json": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/ablations/report.json",
+      "bytes": 1271777,
+      "sha256": "53e65aff9d67d1f2c0d2698ee55dd356f41d7853b8644b995b3d55651f5524f0",
+      "storage": "verbatim",
+      "path": "report.json",
+      "stored_sha256": "53e65aff9d67d1f2c0d2698ee55dd356f41d7853b8644b995b3d55651f5524f0"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -62,6 +62,12 @@ int main() {
         auto out = serial::record();
         out << "{\"frame\":" << frame << ",\"region\":" << region << ",\"previous_points\":" << a->size()
             << ",\"current_points\":" << base->size() << ",\"profile\":[";
+        if (a->empty() || base->empty()) {
+          out << "],\"unavailable\":\"empty fixed region in at least one frame\"}";
+          std::cout << out.str() << '\n' << std::flush;
+          if (!std::cout) throw std::runtime_error("Output failed");
+          continue;
+        }
         for (int step = -60; step <= 60; ++step) {
           if (step > -60) out << ',';
           const double shift = step*.05;

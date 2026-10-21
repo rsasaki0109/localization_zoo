@@ -1,0 +1,42 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-facade-loss/worktree",
+    "localization-zoo-dev",
+    "python3",
+    "/workspace/localization-env/inten-facade-loss/worktree/experiments/results/inten_facade_loss/capture_runtime.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "243b14a3218a5e3691eb596ba2c524b878a88b33",
+  "started_unix": 1792563811.81782,
+  "finished_unix": 1792563811.9162853,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "PATH_prefix": "/workspace/localization-env/host-venv/bin",
+  "stdin_sha256": null
+}

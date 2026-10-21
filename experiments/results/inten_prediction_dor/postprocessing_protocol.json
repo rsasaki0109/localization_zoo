@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "raw_collection_commit": "679f426d280beebf223b57137bde51be3b3b7f5e",
+  "preservation_base_commit": "b603cd20af5a9d9786886f9d3d1a68372802708e",
+  "native_source_commit": "8ab36c3501197d3439a9dd6ac96949c3acace695",
+  "collection_protocol_commit": "29bb1fa9d9c189b107293adc832d18a28996df6f",
+  "source_sha256": {
+    "report.py": "a1344da5c4ae8d18f2307e55ed907aa3a996fc8ac6c00435bb845ba75b0dbc73",
+    "import_results.py": "9ce9be034459adbcfa11d74ef6bcececec60bcbcaabfbe1805e988271964c888",
+    "verify.py": "74a34ed6d36f0b5c1bbcd837944ba482620d4d6ddd94725fd356d3e61e5101ab",
+    "write_docs.py": "a62c60ed2546ed903a356ac718c6a00b8e6c5a01e6c43785ef1df343e9c4ef62",
+    "finalize_docs.py": "e342fe1a573d4667c4d60c01aca792636fd7db16b4656ccb34d37b8f5bb8cf92",
+    "readme_template.md": "a468aa7b4f0bffaf3d9333c657d86dcd75c613e94ad76f1fdfcad3282465455c",
+    "run_postprocessing.py": "3a8c7acac5a9b2a542e99937ec53159a12f7398071866c43a17c382412330d2a"
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "report": "All eleven fixed full-sequence outcomes and every adverse metric, new local bad label, bad-interval boundary and motion-error block. Existing DOR prior-map prediction facade gate false versus true is the only changed setting. Verify all original extraction and loader settings, mapped prediction, adaptive translation prior and recorded damped system relative backward error. Full iterative outcomes include reassociation and future map feedback; terminal mask controls remain separate and supply no accuracy scores.",
+  "preservation": "All 754 old aggregate hashes, other inherited tracked evidence, prior variant rows and canonical publication bytes are preserved. Add eleven unscored experimental aggregates and 22 nondefault blank-FPS rows. All fresh baseline numeric traces match the immutable preceding facade-PCA candidate after declared scan-root-only substitution; saved poses, GT and metrics match exactly. Native producer and every input/configuration stay frozen.",
+  "calibration": "Boolean selected after committed current01 full passive detector evidence 11cc0aa3 and all natural-seed terminal controls fe932b7f, before native implementation and all full runs. DOR thresholds 0.1 and 0.5 unchanged; no hand region, GT input, threshold sweep, retuning or per-sequence adoption. Original profile07 selection,00 diagnosis and inherited DiLO01 prior tuning are disclosed. All prior KITTI exposure is development, with no independent held-out claim.",
+  "timing": "All raw timing bytes retained. Paired runners share CPUs under fixed OMP1/BLAS1, so aggregate timing is unavailable and no speed ranking or proxy score is used.",
+  "order": "Commit sources and protocol before derivation. Commit and push all numerical report/import evidence before interpretation. Regenerate refresh_study_docs, full_variant and paper_ratio. Paper JSON remains unchanged, so its two conditional generators are not required. Actual-exit checks and exact-final-head full Native and ROS2 CI precede Ready. No merge without a new user instruction."
+}

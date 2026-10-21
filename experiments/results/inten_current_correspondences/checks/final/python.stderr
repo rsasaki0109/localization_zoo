@@ -1,0 +1,16 @@
+.......................................................................fixture golden: /tmp/tmpi25k80xt/golden.json does not exist; actual values written to /tmp/tmpi25k80xt/out/actual.json
+.fixture golden: /tmp/tmprsur0r35/golden.json does not exist; actual values written to /tmp/tmprsur0r35/out/actual.json
+fixture drift: kiss_icp/KISS-ICP.ate_m: 0.036234 != golden 0.035614
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmpzam7x7hm/golden.json with /tmp/tmpzam7x7hm/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+fixture golden: no summaries found
+fixture drift: other/X: not in golden file (new method? update the golden file)
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmp2easaz45/golden.json with /tmp/tmp2easaz45/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+.fixture golden: /tmp/tmpjhbef0l8/golden.json does not exist; actual values written to /tmp/tmpjhbef0l8/out/actual.json
+fixture drift: m/M.status: 'ok' != golden 'invalid_metric'
+fixture drift: m/M.ate_m: 0.1 != golden nan
+fixture golden: 2 difference(s). If intentional, replace /tmp/tmp48y7s8jm/golden.json with /tmp/tmp48y7s8jm/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+................................................................................................................................................................................sssss...........................................................................................
+----------------------------------------------------------------------
+Ran 345 tests in 8.501s
+
+OK (skipped=5)

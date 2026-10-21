@@ -1,0 +1,14 @@
+{
+  "exit_code": 0,
+  "checks": {
+    "native_paper": 0,
+    "native_legacy": 0,
+    "python": 0,
+    "showcase": 0,
+    "leaderboard": 0,
+    "paper_ready": 0,
+    "preservation": 0,
+    "whitespace": 0
+  },
+  "scope": "Local Python/docs/regeneration/archive/preservation and unchanged native focused tests. Full fresh Native/CTest and ROS2 build required on exact final PR head before Ready."
+}

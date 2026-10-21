@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "native_collection_exit_code": 0,
+  "retained_original_wrapper_exit_code": 1,
+  "complete_backup_archive": "experiments/results/inten_facade_loss/full_backup_execution",
+  "old_backup_files_unchanged": true,
+  "native_rerun": false,
+  "retuning": false,
+  "policy": "The collector and every fixed full native arm already completed0. Preserve its original wrapper storage failure and all old backup bytes; archive all backup receipts to a fresh target without rerunning acquisition, native processing, validation or cleanup."
+}

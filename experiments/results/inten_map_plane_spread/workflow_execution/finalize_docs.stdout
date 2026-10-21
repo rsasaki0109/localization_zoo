@@ -1,0 +1,50 @@
+write_readmes 0
+study_docs 0
+variant_table 0
+paper_ratio 0
+[codex/inten-map-plane-spread b97ea81c] Report every fixed S2M plane-spread outcome and regenerate study tables
+ 29 files changed, 1288 insertions(+), 15 deletions(-)
+ create mode 100644 experiments/results/inten_map_plane_spread/README.md
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/archive.json
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/index_generation_disposition.json
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/paper_ratio.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/paper_ratio.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/paper_ratio_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/study_docs.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/study_docs.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/study_docs_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/variant_table.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/variant_table.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/variant_table_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/write_readmes.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/write_readmes.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/docs_execution/write_readmes_command.json
+python 0
+showcase 0
+leaderboard 0
+paper_ready 0
+preservation 0
+whitespace 0
+[codex/inten-map-plane-spread fa56a1cd] Verify full S2M plane-spread results and preserve prior published evidence
+ 21 files changed, 410 insertions(+)
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/archive.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/leaderboard.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/leaderboard.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/leaderboard_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/paper_ready.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/paper_ready.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/paper_ready_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/preservation.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/preservation.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/preservation_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/python.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/python.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/python_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/result.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/showcase.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/showcase.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/showcase_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/whitespace.stderr.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/whitespace.stdout.log.gz
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/final/whitespace_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/preservation.json

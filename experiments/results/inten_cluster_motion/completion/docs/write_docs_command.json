@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-cluster-motion/worktree/experiments/results/inten_cluster_motion/write_docs.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-cluster-motion/worktree",
+  "source_commit": "d1aa285f90d699cedc7042e1a6c5fcb16dd9563c",
+  "started_unix": 1792572150.061822,
+  "finished_unix": 1792572150.1158822,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-cluster-motion/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-cluster-motion/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

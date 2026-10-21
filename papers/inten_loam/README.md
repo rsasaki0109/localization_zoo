@@ -1917,3 +1917,33 @@ Every bad-interval boundary and adjacent frame is retained in the numerical repo
 
 Position-error curves normalize the first pose and are distinct from globally aligned ATE. Step ratios include only the declared moving frames; dashed lines show the same local20% label boundaries, not official KITTI distance-segment RTE.
 <!-- /INTEN_FACADE_LOSS -->
+
+## Automatic cluster-geometry feasibility (outside paper; not adopted)
+
+The [fixed cluster-motion diagnostic](../../experiments/results/inten_cluster_motion/README.md)
+tests full-point geometric profiles at every inherited current01 endpoint, using
+the original natural estimated seed and no hand region or GT in mask decisions.
+Numerical evidence `58240931` precedes this interpretation. It profiles1359 clusters
+and completes16 matched-seed terminal registrations, with exact baseline native
+controls and independently reconstructed first equations. Every endpoint follows
+one fixed rule; all prior KITTI is development, not held out.
+
+| Endpoint | Excluded / profiled clusters | Translation length / GT, reference → mask | Translation vector error / GT, reference → mask | Rotation error (mrad), reference → mask |
+|---:|---:|---:|---:|---:|
+| 190 | 48/155 | 0.990767 → 0.991896 | 0.014508 → 0.015141 | 2.320873 → 2.285065 |
+| 200 | 93/201 | 0.975241 → 1.004744 | 0.025618 → 0.010923 | 1.717553 → 0.569798 |
+| 202 | 92/186 | 0.748598 → 0.914806 | 0.251434 → 0.085286 | 3.270653 → 2.794870 |
+| 203 | 86/201 | 0.918730 → 0.954679 | 0.081779 → 0.047482 | 2.359487 → 1.305914 |
+| 204 | 90/185 | 0.607064 → 0.971692 | 0.392957 → 0.030332 | 1.716533 → 4.087598 |
+| 205 | 104/171 | 0.372446 → 0.375024 | 0.627582 → 0.625054 | 2.419936 → 3.694301 |
+| 247 | 51/134 | 0.522727 → 0.046618 | 0.477580 → 0.957949 | 8.113092 → 4.759058 |
+| 433 | 82/126 | 0.926498 → 0.983740 | 0.074390 → 0.019433 | 1.232359 → 1.096354 |
+
+Length error improves at7 endpoints and worsens at1, but204 rotation worsens
+1.716533→4.087598mrad,247 vector error/GT worsens0.477580→0.957949, and205 remains
+collapsed. At190 vector error worsens despite the small length improvement.
+The prediction-centered geometric rule can remove useful support; it is rejected
+as a safe remedy. No production option/default or stored accuracy changes. This
+is terminal conditional sensitivity, not recursive01 recovery or10 drift resolution.
+A future mechanism must distinguish shared prediction error from independent
+motion and complete full00–10 fixed-setting evaluation before accuracy claims.

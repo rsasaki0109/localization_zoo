@@ -1,0 +1,12 @@
+{
+  "exit_code": 0,
+  "base_commit": "761eb92bc172339aa22496275d0d7e9bfc1fec56",
+  "native_calls": 16,
+  "full_baseline_control_exact": true,
+  "all_frozen_profile_decisions_exact": true,
+  "all_archives_byte_roundtrip_verified": true,
+  "history_diff_checked": true,
+  "live_production_pins_checked": true,
+  "archived_production_source_matches_execution": true,
+  "no_raw_scans_acquired": true
+}

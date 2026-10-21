@@ -564,6 +564,17 @@ independent. Each item says what "done" means.
     KITTI is development. No scale sweep, per-sequence adoption or promotion.
     Numerical evidence `c2775241` precedes this interpretation.
 
+    The [automatic cluster-geometry feasibility trial](../experiments/results/inten_cluster_motion/README.md)
+    completes every inherited current01 endpoint with one frozen full-point
+    translation-profile mask, no hand region or GT in its decision. All1359 cluster
+    profiles and16 matched-seed native calls are retained with exact baseline
+    controls. At204 length/GT improves0.607064→0.971692 but rotation worsens;
+    at247 length/GT worsens0.522727→0.046618. The rule is not adopted. Numerical
+    snapshot `58240931` precedes interpretation; all prior KITTI is development.
+    Next, distinguish shared ego-prediction error from independent moving support.
+    Full01 recovery and10 gradual drift remain open; no production/default change
+    or full-sequence accuracy claim follows from these terminal controls.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

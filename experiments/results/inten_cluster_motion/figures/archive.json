@@ -1,0 +1,30 @@
+{
+  "files": {
+    "cluster_minima.png": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/figures/cluster_minima.png",
+      "bytes": 245299,
+      "sha256": "41966bb72f7bc5aecf97156fb39babc34aee4b44e487a17b4eb553f9efe6cc5c",
+      "storage": "verbatim",
+      "path": "cluster_minima.png",
+      "stored_sha256": "41966bb72f7bc5aecf97156fb39babc34aee4b44e487a17b4eb553f9efe6cc5c"
+    },
+    "metadata.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/figures/metadata.json",
+      "bytes": 229,
+      "sha256": "2aee6d839228877da1fd27eaa213e18f0563926e5e0319bcd411a077a6f09b2f",
+      "storage": "verbatim",
+      "path": "metadata.json",
+      "stored_sha256": "2aee6d839228877da1fd27eaa213e18f0563926e5e0319bcd411a077a6f09b2f"
+    },
+    "terminal_errors.png": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/figures/terminal_errors.png",
+      "bytes": 188243,
+      "sha256": "672b50610a1c956bf74c1c12a53977cde3d99926628f8c4e0b786e85512e10ba",
+      "storage": "verbatim",
+      "path": "terminal_errors.png",
+      "stored_sha256": "672b50610a1c956bf74c1c12a53977cde3d99926628f8c4e0b786e85512e10ba"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

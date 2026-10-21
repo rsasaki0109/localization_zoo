@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "import json,sys,numpy,matplotlib;assert numpy.__version__==\"1.26.4\" and matplotlib.__version__==\"3.8.4\";print(json.dumps(dict(python=sys.version,numpy=numpy.__version__,matplotlib=matplotlib.__version__)))"
+  ],
+  "cwd": "/workspace/localization-env/inten-cluster-motion/worktree",
+  "source_commit": "d1aa285f90d699cedc7042e1a6c5fcb16dd9563c",
+  "started_unix": 1792572016.8009148,
+  "finished_unix": 1792572016.9681513,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-cluster-motion/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-cluster-motion/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

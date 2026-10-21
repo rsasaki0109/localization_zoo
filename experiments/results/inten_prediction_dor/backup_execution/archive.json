@@ -532,9 +532,9 @@
       "original_path": "/workspace/localization-env/inten-prediction-dor/backups/baseline/push.stderr",
       "bytes": 330,
       "sha256": "d5c8ddf4fc772b718788e7e2303c253b01c367ee42e483464cc93233fc7a22c6",
-      "storage": "verbatim",
-      "path": "baseline/push.stderr",
-      "stored_sha256": "d5c8ddf4fc772b718788e7e2303c253b01c367ee42e483464cc93233fc7a22c6"
+      "storage": "gzip",
+      "path": "baseline/push.stderr.gz",
+      "stored_sha256": "aab255ed15a522d6f0537705faf81d53fb78447b2c557215e2115114ccb25398"
     },
     "baseline/push.stdout": {
       "original_path": "/workspace/localization-env/inten-prediction-dor/backups/baseline/push.stdout",

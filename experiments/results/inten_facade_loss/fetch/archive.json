@@ -1,0 +1,54 @@
+{
+  "files": {
+    "1/fetch.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/fetch/1/fetch.stderr.log",
+      "bytes": 2174,
+      "sha256": "acdbdae64ad44d4b35b0b8be428f1628b4835b263ad05f3f6497e24c5fdd0d7e",
+      "storage": "gzip",
+      "path": "1/fetch.stderr.log.gz",
+      "stored_sha256": "fa2de920c7760e92947b7c2534d432135965de176eec197c93144af73e073b81"
+    },
+    "1/fetch.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/fetch/1/fetch.stdout.log",
+      "bytes": 137,
+      "sha256": "26bae14362b459df0ac0d24b70a6b58eb44512a9359896cb77f4924002bd3c89",
+      "storage": "gzip",
+      "path": "1/fetch.stdout.log.gz",
+      "stored_sha256": "64bc7a683aa04f359f017eb090136748ac1668eba6aa845d320ab5c2b70c0331"
+    },
+    "1/fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/fetch/1/fetch_command.json",
+      "bytes": 703,
+      "sha256": "3318eea57b3966996fabb74cc80430e24a44879a789bee803bf75b7b89c90a87",
+      "storage": "verbatim",
+      "path": "1/fetch_command.json",
+      "stored_sha256": "3318eea57b3966996fabb74cc80430e24a44879a789bee803bf75b7b89c90a87"
+    },
+    "2/fetch.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/fetch/2/fetch.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "2/fetch.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "2/fetch.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/fetch/2/fetch.stdout.log",
+      "bytes": 261,
+      "sha256": "1584f6c2d6d15313d76a7479509cd8f8d5b49fe86d74aed30b50299338c5ea9d",
+      "storage": "gzip",
+      "path": "2/fetch.stdout.log.gz",
+      "stored_sha256": "9d2e25c77c1c2ed5aed941a44b4bdd16e03ccfa79107d867e4cf68b3b8e39e6b"
+    },
+    "2/fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/fetch/2/fetch_command.json",
+      "bytes": 703,
+      "sha256": "9db66541ffbb918c8e56b41cba87b5ff958ace5683a0043baaae04930a419136",
+      "storage": "verbatim",
+      "path": "2/fetch_command.json",
+      "stored_sha256": "9db66541ffbb918c8e56b41cba87b5ff958ace5683a0043baaae04930a419136"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

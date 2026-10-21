@@ -77,7 +77,7 @@ def main():
         if not path.is_absolute():
             path = (OLD/'evaluation'/path).resolve()
         if path == OLD/'papers/inten_loam/libinten_loam.a':
-            path = R/'build/papers/inten_loam/libinten_loam.a'
+            path = R/'build_corrected/papers/inten_loam/libinten_loam.a'
         if path.suffix == '.a':
             library_pins[str(path)] = sha(path)
         libs.append(str(path))

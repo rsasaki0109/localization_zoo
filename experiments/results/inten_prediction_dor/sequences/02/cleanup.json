@@ -1,0 +1,7 @@
+{
+  "sequence": "02",
+  "owned_input_dir": "/workspace/localization-env/inten-prediction-dor/kitti/dataset/sequences/02/velodyne",
+  "hashes_verified_before_removal": true,
+  "input_dir_exists_after": false,
+  "removed_files": 4662
+}

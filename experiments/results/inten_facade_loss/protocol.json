@@ -37,5 +37,11 @@
     "diagnostic_hooks.h": "36a51d5273da51c9396bd366b30f5b6e632803383e6425116d38f7d1a3b2a6c1",
     "build.py": "0f752f71909fde70d7bb506e0d910cf01304105ef72e4a3c8348c9c0298981c6"
   },
-  "continuation": "Initial8f2600a8 native rejected forced_pose plus public passive trace before any terminal output. Failure645363a6 preserved. Corrected isolated observer uses diagnostic::terminal_trace at internal forced S2S call; public guard and every production file unchanged. Preserve original binary/object, compile distinct v2 producer, same owned official inputs and byte-identical natural-seed commands. Loss formula/scale/arms unchanged; no refetch or silent retry."
+  "continuation": "Initial8f2600a8 native rejected forced_pose plus public passive trace before any terminal output. Failure645363a6 preserved. Corrected isolated observer uses diagnostic::terminal_trace at internal forced S2S call; public guard and every production file unchanged. Preserve original binary/object, compile distinct v2 producer, same owned official inputs and byte-identical natural-seed commands. Loss formula/scale/arms unchanged; no refetch or silent retry.",
+  "analysis_source_sha256": {
+    "analyze.py": "57ca8ac8f4d138da2e8224db5c7a7f6ca34e9fd5d414c6c3d8169a57741c5c21",
+    "archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "seal.py": "fa38a7b87c37c21d9e0595eaaceb2a563f09e2f494e20310593e5fb1f6926078"
+  },
+  "forced_count_convention": "The public forced diagnostic API returns first data-class counts. The internal terminal observer mirrors this convention in solver.returned_pairs, so only this field is excluded from full natural-solver parity, and independently checked against all first class counts. Every iteration H/g/delta/residual/pose, input/output/stop/prior field must be exact for baseline. Last-iteration pairs remain explicitly recorded in solver.iterations; do not treat the forced count as the normal solver return."
 }

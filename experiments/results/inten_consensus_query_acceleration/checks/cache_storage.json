@@ -1,0 +1,132 @@
+{
+  "exit_code": 0,
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree/experiments/results/inten_consensus_query_acceleration/coalesce_cached_features.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree",
+  "source_commit": "fe770f15960fc73869fcb9a9fe2eaf4953bfbeb5",
+  "files": [
+    {
+      "path": "/workspace/localization-env/inten-translation-consensus/features.txt",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/features.txt",
+      "bytes": 91644435,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-translation-consensus/inputs/features.jsonl",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/inputs/features.jsonl",
+      "bytes": 93885472,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-fixed-rotation/features.txt",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/features.txt",
+      "bytes": 91644435,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-fixed-rotation/inputs/features.jsonl",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/inputs/features.jsonl",
+      "bytes": 93885472,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus/parity_features.txt",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/features.txt",
+      "bytes": 91644435,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus/parity_inputs/features.jsonl",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/inputs/features.jsonl",
+      "bytes": 93885472,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_features.txt",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/features.txt",
+      "bytes": 91644435,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_features_corrected.txt",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/features.txt",
+      "bytes": 91644435,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_features_balanced.txt",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/features.txt",
+      "bytes": 91644435,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_inputs/features.jsonl",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/inputs/features.jsonl",
+      "bytes": 93885472,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_inputs_corrected/features.jsonl",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/inputs/features.jsonl",
+      "bytes": 93885472,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    },
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_inputs_balanced/features.jsonl",
+      "canonical": "/workspace/localization-env/inten-cluster-motion/inputs/features.jsonl",
+      "bytes": 93885472,
+      "mode": 384,
+      "uid": 1000,
+      "gid": 1000,
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "all_bytes_modes_and_logical_paths_preserved": true
+    }
+  ],
+  "scope": "Only listed immutable full extracted-feature caches; no raw scans, sources, build objects, libraries, binaries or result files changed/deleted."
+}

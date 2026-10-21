@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T07:50:12+00:00",
+  "generated_at": "2026-10-21T22:13:09+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2198,6 +2198,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_00_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 00: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_00_full_row_support",
       "title": "InTEn-LOAM KITTI 00: fixed missing-row support experiment",
       "status": "ready",
@@ -2276,6 +2285,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 01: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_recursive_consensus_matrix.json",
       "current_default": null
     },
     {
@@ -2360,6 +2378,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_02_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 02: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_02_full_row_support",
       "title": "InTEn-LOAM KITTI 02: fixed missing-row support experiment",
       "status": "ready",
@@ -2438,6 +2465,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 03: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_recursive_consensus_matrix.json",
       "current_default": null
     },
     {
@@ -2522,6 +2558,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_04_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 04: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_04_full_row_support",
       "title": "InTEn-LOAM KITTI 04: fixed missing-row support experiment",
       "status": "ready",
@@ -2600,6 +2645,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 05: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_recursive_consensus_matrix.json",
       "current_default": null
     },
     {
@@ -2684,6 +2738,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_06_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 06: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_06_full_row_support",
       "title": "InTEn-LOAM KITTI 06: fixed missing-row support experiment",
       "status": "ready",
@@ -2762,6 +2825,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 07: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_recursive_consensus_matrix.json",
       "current_default": null
     },
     {
@@ -2846,6 +2918,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_08_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 08: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_08_full_row_support",
       "title": "InTEn-LOAM KITTI 08: fixed missing-row support experiment",
       "status": "ready",
@@ -2927,6 +3008,15 @@
       "current_default": null
     },
     {
+      "problem_id": "inten_loam_kitti_seq_09_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 09: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_09_full_row_support",
       "title": "InTEn-LOAM KITTI 09: fixed missing-row support experiment",
       "status": "ready",
@@ -3005,6 +3095,15 @@
       "blocker": "",
       "manifest_path": "experiments/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 10: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_recursive_consensus_matrix.json",
       "current_default": null
     },
     {

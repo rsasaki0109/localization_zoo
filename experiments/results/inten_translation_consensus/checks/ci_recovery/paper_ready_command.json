@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/generate_paper_ready_evidence.py",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-consensus/worktree",
+  "source_commit": "d1a518d508760bdd2c75b75ceed42cc97eac3a7e",
+  "started_unix": 1792577085.321888,
+  "finished_unix": 1792577085.3541572,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-translation-consensus/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-translation-consensus/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

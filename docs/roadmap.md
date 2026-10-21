@@ -530,6 +530,23 @@ independent. Each item says what "done" means.
     open. Any new accuracy setting requires all full00–10 fixed-arm evidence.
     Numerical commits96197955/59925767 precede this interpretation.
 
+    The [predicted-DOR facade-gate comparison](../experiments/results/inten_prediction_dor/README.md)
+    freezes one new default-off Boolean across every full KITTI 00-10 sequence.
+    Existing DOR thresholds remain unchanged; at the initial prediction with
+    the prior local map, only marked source facade S2S queries are rejected.
+    Extraction, other query classes and S2M/insertion rules keep their original
+    definitions; later trajectory/map feedback changes actual histories.
+    Geometric mean candidate/reference RTE is 1.142753x:
+    3 lower, 8 higher, 0 equal sequences.
+    Failure-sequence RTE: 01 4.481189% to 16.682628%; 02 0.756938% to 0.768594%; 10 1.093310% to 1.208837%.
+    Above twice paper: 01, 10.
+    Every adverse metric, new bad frame and error-growth block is retained.
+    Full01 detector masks and terminal controls were committed before selection;
+    terminal repairs did not establish recursive recovery. All prior KITTI is
+    development, with profile selection on 07 / diagnosis on 00 and inherited DiLO 01 prior tuning
+    disclosed. No per-sequence adoption or default promotion.
+    Numerical evidence `993b539f` precedes this interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-10-21T04:49:27+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `624` ready, `1` blocked, `14` skipped problems.
+Current coverage: `635` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -251,66 +251,77 @@ Current coverage: `624` ready, `1` blocked, `14` skipped problems.
 | InTEn-LOAM KITTI 00: accepted facade PCA normals | `ready` | `-` | 17.051 | - | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI 00: fixed missing-row support experiment | `ready` | `-` | 17.589 | - | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI 00: ground PCA normals | `ready` | `-` | 17.064 | - | `dogfooding_results/kitti_seq_00_full` |
+| InTEn-LOAM KITTI 00: predicted-DOR facade gate | `ready` | `-` | 17.051 | - | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 17.064 | - | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI 00: S2M plane-spread check | `ready` | `-` | 16.463 | - | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI 00: weak-translation prediction prior | `ready` | `-` | 17.064 | - | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI 01: accepted facade PCA normals | `ready` | `-` | 88.786 | - | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI 01: fixed missing-row support experiment | `ready` | `-` | 275.593 | - | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI 01: ground PCA normals | `ready` | `-` | 100.494 | - | `dogfooding_results/kitti_seq_01_full` |
+| InTEn-LOAM KITTI 01: predicted-DOR facade gate | `ready` | `-` | 88.786 | - | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 100.876 | - | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI 01: S2M plane-spread check | `ready` | `-` | 88.786 | - | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI 01: weak-translation prediction prior | `ready` | `-` | 100.494 | - | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI 02: accepted facade PCA normals | `ready` | `-` | 40.603 | - | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI 02: fixed missing-row support experiment | `ready` | `-` | 122.845 | - | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI 02: ground PCA normals | `ready` | `-` | 42.446 | - | `dogfooding_results/kitti_seq_02_full` |
+| InTEn-LOAM KITTI 02: predicted-DOR facade gate | `ready` | `-` | 40.603 | - | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI 02: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 119.532 | - | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI 02: S2M plane-spread check | `ready` | `-` | 40.603 | - | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI 02: weak-translation prediction prior | `ready` | `-` | 48.906 | - | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI 03: accepted facade PCA normals | `ready` | `-` | 6.251 | - | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI 03: fixed missing-row support experiment | `ready` | `-` | 6.256 | - | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI 03: ground PCA normals | `ready` | `-` | 6.441 | - | `dogfooding_results/kitti_seq_03_full` |
+| InTEn-LOAM KITTI 03: predicted-DOR facade gate | `ready` | `-` | 6.207 | - | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 6.262 | - | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI 03: S2M plane-spread check | `ready` | `-` | 6.235 | - | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI 03: weak-translation prediction prior | `ready` | `-` | 6.450 | - | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI 04: accepted facade PCA normals | `ready` | `-` | 1.551 | - | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI 04: fixed missing-row support experiment | `ready` | `-` | 1.540 | - | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI 04: ground PCA normals | `ready` | `-` | 1.544 | - | `dogfooding_results/kitti_seq_04_full` |
+| InTEn-LOAM KITTI 04: predicted-DOR facade gate | `ready` | `-` | 1.563 | - | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI 04: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.540 | - | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI 04: S2M plane-spread check | `ready` | `-` | 1.526 | - | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI 04: weak-translation prediction prior | `ready` | `-` | 1.544 | - | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI 05: accepted facade PCA normals | `ready` | `-` | 9.417 | - | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI 05: fixed missing-row support experiment | `ready` | `-` | 9.879 | - | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI 05: ground PCA normals | `ready` | `-` | 9.417 | - | `dogfooding_results/kitti_seq_05_full` |
+| InTEn-LOAM KITTI 05: predicted-DOR facade gate | `ready` | `-` | 9.639 | - | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 9.887 | - | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI 05: S2M plane-spread check | `ready` | `-` | 9.639 | - | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI 05: weak-translation prediction prior | `ready` | `-` | 9.887 | - | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI 06: accepted facade PCA normals | `ready` | `-` | 1.906 | - | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI 06: fixed missing-row support experiment | `ready` | `-` | 1.918 | - | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI 06: ground PCA normals | `ready` | `-` | 1.906 | - | `dogfooding_results/kitti_seq_06_full` |
+| InTEn-LOAM KITTI 06: predicted-DOR facade gate | `ready` | `-` | 1.931 | - | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.918 | - | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI 06: S2M plane-spread check | `ready` | `-` | 1.830 | - | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI 06: weak-translation prediction prior | `ready` | `-` | 1.924 | - | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI 07: accepted facade PCA normals | `ready` | `-` | 1.391 | - | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI 07: fixed missing-row support experiment | `ready` | `-` | 1.429 | - | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI 07: ground PCA normals | `ready` | `-` | 1.571 | - | `dogfooding_results/kitti_seq_07_full` |
+| InTEn-LOAM KITTI 07: predicted-DOR facade gate | `ready` | `-` | 1.391 | - | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.461 | - | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI 07: S2M plane-spread check | `ready` | `-` | 1.391 | - | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI 07: weak-translation prediction prior | `ready` | `-` | 1.661 | - | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI 08: accepted facade PCA normals | `ready` | `-` | 28.631 | - | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI 08: fixed missing-row support experiment | `ready` | `-` | 27.673 | - | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI 08: ground PCA normals | `ready` | `-` | 28.287 | - | `dogfooding_results/kitti_seq_08_full` |
+| InTEn-LOAM KITTI 08: predicted-DOR facade gate | `ready` | `-` | 28.344 | - | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 27.673 | - | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI 08: S2M plane-spread check | `ready` | `-` | 29.167 | - | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI 08: weak-translation prediction prior | `ready` | `-` | 28.287 | - | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI 09: accepted facade PCA normals | `ready` | `-` | 11.038 | - | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI 09: fixed missing-row support experiment | `ready` | `-` | 11.000 | - | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI 09: ground PCA normals | `ready` | `-` | 11.038 | - | `dogfooding_results/kitti_seq_09_full` |
+| InTEn-LOAM KITTI 09: predicted-DOR facade gate | `ready` | `-` | 10.886 | - | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 11.000 | - | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI 09: S2M plane-spread check | `ready` | `-` | 9.681 | - | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI 09: weak-translation prediction prior | `ready` | `-` | 11.134 | - | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI 10: accepted facade PCA normals | `ready` | `-` | 8.852 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI 10: fixed missing-row support experiment | `ready` | `-` | 9.508 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI 10: ground PCA normals | `ready` | `-` | 8.885 | - | `dogfooding_results/kitti_seq_10_full` |
+| InTEn-LOAM KITTI 10: predicted-DOR facade gate | `ready` | `-` | 8.852 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI 10: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 9.670 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI 10: S2M plane-spread check | `ready` | `-` | 8.852 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI 10: weak-translation prediction prior | `ready` | `-` | 9.902 | - | `dogfooding_results/kitti_seq_10_full` |
@@ -665,7 +676,7 @@ Current coverage: `624` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 624 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 635 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

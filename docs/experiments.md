@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -248,6 +248,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 00: S2M plane-spread check | `ready` | `-` | 16.463 | - | `experiments/results/inten_loam_kitti_seq_00_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 17.064 | - | `experiments/results/inten_loam_kitti_seq_00_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 16.033 | 9.4 | `experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 00: predicted-DOR facade gate | `ready` | `-` | 17.051 | - | `experiments/results/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 00: fixed missing-row support experiment | `ready` | `-` | 17.589 | - | `experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 00: weak-translation prediction prior | `ready` | `-` | 17.064 | - | `experiments/results/inten_loam_kitti_seq_00_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 01: accepted facade PCA normals | `ready` | `-` | 88.786 | - | `experiments/results/inten_loam_kitti_seq_01_full_facade_pca_matrix.json` |
@@ -255,6 +256,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 01: S2M plane-spread check | `ready` | `-` | 88.786 | - | `experiments/results/inten_loam_kitti_seq_01_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 100.876 | - | `experiments/results/inten_loam_kitti_seq_01_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 275.593 | 1.7 | `experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 01: predicted-DOR facade gate | `ready` | `-` | 88.786 | - | `experiments/results/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 01: fixed missing-row support experiment | `ready` | `-` | 275.593 | - | `experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 01: weak-translation prediction prior | `ready` | `-` | 100.494 | - | `experiments/results/inten_loam_kitti_seq_01_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 02: accepted facade PCA normals | `ready` | `-` | 40.603 | - | `experiments/results/inten_loam_kitti_seq_02_full_facade_pca_matrix.json` |
@@ -262,6 +264,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 02: S2M plane-spread check | `ready` | `-` | 40.603 | - | `experiments/results/inten_loam_kitti_seq_02_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 02: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 119.532 | - | `experiments/results/inten_loam_kitti_seq_02_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 122.845 | 1.8 | `experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 02: predicted-DOR facade gate | `ready` | `-` | 40.603 | - | `experiments/results/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 02: fixed missing-row support experiment | `ready` | `-` | 122.845 | - | `experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 02: weak-translation prediction prior | `ready` | `-` | 48.906 | - | `experiments/results/inten_loam_kitti_seq_02_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 03: accepted facade PCA normals | `ready` | `-` | 6.251 | - | `experiments/results/inten_loam_kitti_seq_03_full_facade_pca_matrix.json` |
@@ -269,6 +272,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 03: S2M plane-spread check | `ready` | `-` | 6.235 | - | `experiments/results/inten_loam_kitti_seq_03_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 6.262 | - | `experiments/results/inten_loam_kitti_seq_03_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 6.262 | 1.6 | `experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 03: predicted-DOR facade gate | `ready` | `-` | 6.207 | - | `experiments/results/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 03: fixed missing-row support experiment | `ready` | `-` | 6.256 | - | `experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 03: weak-translation prediction prior | `ready` | `-` | 6.450 | - | `experiments/results/inten_loam_kitti_seq_03_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 04: accepted facade PCA normals | `ready` | `-` | 1.551 | - | `experiments/results/inten_loam_kitti_seq_04_full_facade_pca_matrix.json` |
@@ -276,6 +280,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 04: S2M plane-spread check | `ready` | `-` | 1.526 | - | `experiments/results/inten_loam_kitti_seq_04_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 04: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.540 | - | `experiments/results/inten_loam_kitti_seq_04_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.540 | 1.7 | `experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 04: predicted-DOR facade gate | `ready` | `-` | 1.563 | - | `experiments/results/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 04: fixed missing-row support experiment | `ready` | `-` | 1.540 | - | `experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 04: weak-translation prediction prior | `ready` | `-` | 1.544 | - | `experiments/results/inten_loam_kitti_seq_04_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 05: accepted facade PCA normals | `ready` | `-` | 9.417 | - | `experiments/results/inten_loam_kitti_seq_05_full_facade_pca_matrix.json` |
@@ -283,6 +288,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 05: S2M plane-spread check | `ready` | `-` | 9.639 | - | `experiments/results/inten_loam_kitti_seq_05_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 9.887 | - | `experiments/results/inten_loam_kitti_seq_05_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.976 | 1.2 | `experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 05: predicted-DOR facade gate | `ready` | `-` | 9.639 | - | `experiments/results/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 05: fixed missing-row support experiment | `ready` | `-` | 9.879 | - | `experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 05: weak-translation prediction prior | `ready` | `-` | 9.887 | - | `experiments/results/inten_loam_kitti_seq_05_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 06: accepted facade PCA normals | `ready` | `-` | 1.906 | - | `experiments/results/inten_loam_kitti_seq_06_full_facade_pca_matrix.json` |
@@ -290,6 +296,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 06: S2M plane-spread check | `ready` | `-` | 1.830 | - | `experiments/results/inten_loam_kitti_seq_06_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.918 | - | `experiments/results/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.918 | 1.8 | `experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 06: predicted-DOR facade gate | `ready` | `-` | 1.931 | - | `experiments/results/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 06: fixed missing-row support experiment | `ready` | `-` | 1.918 | - | `experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 06: weak-translation prediction prior | `ready` | `-` | 1.924 | - | `experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 07: accepted facade PCA normals | `ready` | `-` | 1.391 | - | `experiments/results/inten_loam_kitti_seq_07_full_facade_pca_matrix.json` |
@@ -297,6 +304,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 07: S2M plane-spread check | `ready` | `-` | 1.391 | - | `experiments/results/inten_loam_kitti_seq_07_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 1.461 | - | `experiments/results/inten_loam_kitti_seq_07_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 1.193 | 9.2 | `experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 07: predicted-DOR facade gate | `ready` | `-` | 1.391 | - | `experiments/results/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 07: fixed missing-row support experiment | `ready` | `-` | 1.429 | - | `experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 07: weak-translation prediction prior | `ready` | `-` | 1.661 | - | `experiments/results/inten_loam_kitti_seq_07_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 08: accepted facade PCA normals | `ready` | `-` | 28.631 | - | `experiments/results/inten_loam_kitti_seq_08_full_facade_pca_matrix.json` |
@@ -304,6 +312,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 08: S2M plane-spread check | `ready` | `-` | 29.167 | - | `experiments/results/inten_loam_kitti_seq_08_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 27.673 | - | `experiments/results/inten_loam_kitti_seq_08_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 27.673 | 1.3 | `experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 08: predicted-DOR facade gate | `ready` | `-` | 28.344 | - | `experiments/results/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 08: fixed missing-row support experiment | `ready` | `-` | 27.673 | - | `experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 08: weak-translation prediction prior | `ready` | `-` | 28.287 | - | `experiments/results/inten_loam_kitti_seq_08_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 09: accepted facade PCA normals | `ready` | `-` | 11.038 | - | `experiments/results/inten_loam_kitti_seq_09_full_facade_pca_matrix.json` |
@@ -311,6 +320,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 09: S2M plane-spread check | `ready` | `-` | 9.681 | - | `experiments/results/inten_loam_kitti_seq_09_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 11.000 | - | `experiments/results/inten_loam_kitti_seq_09_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 11.000 | 2.1 | `experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 09: predicted-DOR facade gate | `ready` | `-` | 10.886 | - | `experiments/results/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 09: fixed missing-row support experiment | `ready` | `-` | 11.000 | - | `experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 09: weak-translation prediction prior | `ready` | `-` | 11.134 | - | `experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 10: accepted facade PCA normals | `ready` | `-` | 8.852 | - | `experiments/results/inten_loam_kitti_seq_10_full_facade_pca_matrix.json` |
@@ -318,6 +328,7 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 10: S2M plane-spread check | `ready` | `-` | 8.852 | - | `experiments/results/inten_loam_kitti_seq_10_full_map_plane_spread_matrix.json` |
 | InTEn-LOAM KITTI 10: recursive mapped-motion S2S seed (rigid rotation) | `ready` | `-` | 9.670 | - | `experiments/results/inten_loam_kitti_seq_10_full_mapped_prior_rigid_matrix.json` |
 | InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.670 | 1.8 | `experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json` |
+| InTEn-LOAM KITTI 10: predicted-DOR facade gate | `ready` | `-` | 8.852 | - | `experiments/results/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 10: fixed missing-row support experiment | `ready` | `-` | 9.508 | - | `experiments/results/inten_loam_kitti_seq_10_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 10: weak-translation prediction prior | `ready` | `-` | 9.902 | - | `experiments/results/inten_loam_kitti_seq_10_full_translation_prior_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
@@ -14812,6 +14823,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2290 dor points/frame=128
 
 
+## InTEn-LOAM KITTI 00: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_00_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 17.051 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 17.125 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 17.051 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2290 dor points/frame=128; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1380 s2m=2292 dor points/frame=128; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 00: fixed missing-row support experiment
 
 - **Problem ID**: `inten_loam_kitti_seq_00_full_row_support`
@@ -15134,6 +15193,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=850 s2m=1483 dor points/frame=232
+
+
+## InTEn-LOAM KITTI 01: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_01_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 88.786 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 276.607 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 88.786 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_01_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_01_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_01_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=845 s2m=1473 dor points/frame=230; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_01_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_01_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_01_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=848 s2m=1479 dor points/frame=245; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 01: fixed missing-row support experiment
@@ -15460,6 +15567,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2023 dor points/frame=58
 
 
+## InTEn-LOAM KITTI 02: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_02_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 40.603 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 43.012 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 40.603 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_02_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_02_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2041 dor points/frame=52; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_02_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_02_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1038 s2m=2040 dor points/frame=52; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 02: fixed missing-row support experiment
 
 - **Problem ID**: `inten_loam_kitti_seq_02_full_row_support`
@@ -15782,6 +15937,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=904 s2m=1854 dor points/frame=32
+
+
+## InTEn-LOAM KITTI 03: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_03_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 6.251 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 6.207 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 6.207 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_03_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_03_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_03_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=904 s2m=1857 dor points/frame=33; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_03_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_03_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_03_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=903 s2m=1852 dor points/frame=33; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 03: fixed missing-row support experiment
@@ -16108,6 +16311,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1645 dor points/frame=197
 
 
+## InTEn-LOAM KITTI 04: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_04_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 1.563 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 1.566 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 1.563 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1647 dor points/frame=196; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=832 s2m=1644 dor points/frame=196; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 04: fixed missing-row support experiment
 
 - **Problem ID**: `inten_loam_kitti_seq_04_full_row_support`
@@ -16432,6 +16683,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1434 s2m=2265 dor points/frame=150
 
 
+## InTEn-LOAM KITTI 05: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_05_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 9.639 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 9.812 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 9.639 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_05_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_05_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1434 s2m=2263 dor points/frame=152; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_05_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_05_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1432 s2m=2261 dor points/frame=150; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 05: fixed missing-row support experiment
 
 - **Problem ID**: `inten_loam_kitti_seq_05_full_row_support`
@@ -16754,6 +17053,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1866 dor points/frame=233
+
+
+## InTEn-LOAM KITTI 06: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_06_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 1.953 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 1.931 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 1.931 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_06_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_06_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1867 dor points/frame=235; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_06_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_06_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1025 s2m=1865 dor points/frame=235; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 06: fixed missing-row support experiment
@@ -17140,6 +17487,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2306 dor points/frame=151
 
 
+## InTEn-LOAM KITTI 07: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_07_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 1.391 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 1.459 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 1.391 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2306 dor points/frame=148; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2312 dor points/frame=149; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 07: fixed missing-row support experiment
 
 - **Problem ID**: `inten_loam_kitti_seq_07_full_row_support`
@@ -17462,6 +17857,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1347 s2m=2160 dor points/frame=150
+
+
+## InTEn-LOAM KITTI 08: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_08_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 29.423 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 28.344 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 28.344 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_08_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_08_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1347 s2m=2160 dor points/frame=151; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_08_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_08_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1344 s2m=2158 dor points/frame=150; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 08: fixed missing-row support experiment
@@ -17788,6 +18231,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1113 s2m=1963 dor points/frame=120
 
 
+## InTEn-LOAM KITTI 09: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_09_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 11.508 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 10.886 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `candidate` is the most accurate observed variant at 10.886 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_09_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_09_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_09_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1113 s2m=1960 dor points/frame=120; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_09_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_09_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_09_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1111 s2m=1962 dor points/frame=121; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
 ## InTEn-LOAM KITTI 09: fixed missing-row support experiment
 
 - **Problem ID**: `inten_loam_kitti_seq_09_full_row_support`
@@ -18110,6 +18601,54 @@ _Generated at 2026-10-21T01:09:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2310 dor points/frame=110
+
+
+## InTEn-LOAM KITTI 10: predicted-DOR facade gate
+
+- **Problem ID**: `inten_loam_kitti_seq_10_full_prediction_dor`
+- **Question**: Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, kitti_rte_trans_pct, frames
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fixed current reference | reference | 8.852 | - | 0.0 | 1.00 | 1.00 | Keep as reference variant |
+| Opt-in predicted-DOR source facade gate | experimental | 9.861 | - | 0.0 | 1.00 | 1.00 | Experimental; default off |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `-` is the fastest observed variant at - FPS.
+3. `baseline` is the most accurate observed variant at 8.852 m ATE.
+
+### Variant Notes
+
+#### `baseline`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_10_full_prediction_dor_matrix/baseline/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_10_full_prediction_dor_matrix/baseline/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2313 dor points/frame=109; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+#### `candidate`
+
+- Intent: Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Command: `/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_10_full_prediction_dor_matrix/candidate/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_10_full_prediction_dor_matrix/candidate/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.00 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1467 s2m=2309 dor points/frame=110; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
 ## InTEn-LOAM KITTI 10: fixed missing-row support experiment

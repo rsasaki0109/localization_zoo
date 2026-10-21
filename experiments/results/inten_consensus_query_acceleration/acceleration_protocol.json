@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "source_base": "bd3724fd5aa82513c1784d249a7cf6133df5b95b",
+  "accuracy_rule": "EXACTLY frozen original recursive consensus, no new threshold/point sampling/gate/profile setting. All165/166 voting/fixed-R decisions unchanged. Native parameter accelerated remains true as in original full setting.",
+  "reason": "Full01 original committed negative outcome is retained: RTE4.481189 to8.021836. Full07 remains running in original worktree. The original profile uses a PCL wrapper that allocates and enters an OpenMP query loop per point. Reuse the already validated native FeatureTree exact small-k path to remove framework overhead. Performance choice is independent of accuracy; no setting is retuned.",
+  "equivalence": "Same float coordinates and query rounding, FLANN KDTreeSingleIndex(15), exact SearchParams(-1,0,true), KNNSimpleResultSet and point/cost sort/sum order. Serial accelerated=false path retains PCL. Require bitwise every1359 committed profile cost, every inherited endpoint native solver trace/output, both1/4threads, and existing native tests before adoption. If not exact, reject without threshold adjustment.",
+  "full_validation": "If exact, freeze one fresh producer for every complete00-10 sequence. Require full01 numerical trace/pose/GT/metric equality against original slow implementation, retaining its negative result. Preserve any intentionally interrupted original07 trace and actual exit/stop reason, no silent native resume. Reuse only the one already-owned official07 input, verify all hashes, archive/commit/push before cleanup and any next acquisition. No official ratio/accuracy claim before all11. Raw timing unscored, no standaloneFPS claims.",
+  "source_sha256": {
+    "experiments/results/inten_consensus_query_acceleration/build_corrected.py": "c0d9de9851db3a8ac3bf9386948530bbe142353c7e4f7f1f97eea591fd37915d",
+    "experiments/results/inten_consensus_query_acceleration/capture_runtime.py": "008907fd57ae80d26a98ebc124c0bff1ef9bca0accf9a02bc245a2cbede6e565",
+    "experiments/results/inten_consensus_query_acceleration/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_consensus_query_acceleration/build.py": "0f752f71909fde70d7bb506e0d910cf01304105ef72e4a3c8348c9c0298981c6",
+    "experiments/results/inten_consensus_query_acceleration/instrument.py": "9ca3f25470a2550b3179b609ca8f687424ba624b32d7d80e38dbbc87c58cd625",
+    "experiments/results/inten_consensus_query_acceleration/parity.py": "9ebd1ab97a8cd1f940a76eb56e0a38f18f8663423125392d089264fab1044fe0",
+    "experiments/results/inten_consensus_query_acceleration/check_consensus_trace.py": "0512fa2c8dc2143ebb6112d0196ad2cef98a5fc59ee67528718c5371f4b47ec8",
+    "experiments/results/inten_consensus_query_acceleration/common.py": "b6ed6eeb12c7f3feb921e308825a76929f89cdeae76b3bc27b9b6e5a882e0cf2",
+    "experiments/results/inten_consensus_query_acceleration/validate_cached_decisions.py": "19535ba9bcb070ad0aee9cd9f288e8326037f6887103cad5bac89550fe017a71",
+    "experiments/results/inten_consensus_query_acceleration/parity_probe.cpp": "10407056d6c9f7cfd2d49145564b1ef75f169ee3dfc28b91a92a2ae38d0eb6a0",
+    "experiments/results/inten_consensus_query_acceleration/reference_native.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
+    "experiments/results/inten_consensus_query_acceleration/replay_native.cpp": "9ef26958bb4ccb0b24fc0ef0304b7148d03e9b32421818872efd3fc55801f880",
+    "experiments/results/inten_consensus_query_acceleration/replay_hooks.h": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
+    "papers/inten_loam/include/inten_loam/detail/s2s_consensus.h": "a5386dd18dabf80b000fdab93f845665508528838bdcfb01636434b04e688e2a",
+    "papers/inten_loam/include/inten_loam/detail/feature_tree.h": "683300966f4da2c382d71b035d38d6d6e374cea4ca194863d8a09b8461005adf"
+  }
+}

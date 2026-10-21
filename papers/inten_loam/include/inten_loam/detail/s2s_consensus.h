@@ -3,7 +3,7 @@
 // Repository extension, not in the paper. These constants/rules are inherited
 // unchanged from the committed conditional consensus/fixed-rotation studies.
 #include "inten_loam/inten_loam_paper.h"
-#include <pcl/kdtree/kdtree_flann.h>
+#include "inten_loam/detail/feature_tree.h"
 #include <algorithm>
 #include <cmath>
 #include <map>
@@ -34,13 +34,13 @@ inline std::vector<ClusterTranslationProfile> clusterTranslationProfiles(
   Eigen::Vector3d direction = seed.block<3, 1>(0, 3);
   if (direction.norm() == 0.) return result;
   direction.normalize();
-  using Cloud = pcl::PointCloud<pcl::PointXYZ>;
-  Cloud::Ptr cloud(new Cloud);
+  FeatureTree tree;
   for (const auto& p : previous)
-    if (p.cluster >= 2) cloud->emplace_back(p.p.x(), p.p.y(), p.p.z());
-  if (cloud->empty()) return result;
-  pcl::KdTreeFLANN<pcl::PointXYZ> tree;
-  tree.setInputCloud(cloud);
+    if (p.cluster >= 2) tree.pts.push_back(p);
+  if (tree.pts.empty()) return result;
+  // Same float coordinates, KDTreeSingleIndex(15), exact search and result set
+  // as PCL. Avoid a query allocation and OpenMP region for every single point.
+  tree.build(accelerated);
   // Each profile is independent. Keep every point, sort and sum in the exact
   // original order. Concurrent immutable FLANN queries use thread-local buffers.
 #pragma omp parallel for if(accelerated) schedule(static)
@@ -53,7 +53,7 @@ inline std::vector<ClusterTranslationProfile> clusterTranslationProfiles(
     for (int step = -60; step <= 60; ++step) {
       for (size_t k = 0; k < source.size(); ++k) {
         const Eigen::Vector3d p = source[k] + (step * .05) * direction;
-        if (tree.nearestKSearch(pcl::PointXYZ(p.x(), p.y(), p.z()), 1, ids, ds) != 1)
+        if (tree.knn(p, 1, &ids, &ds) != 1)
           throw std::runtime_error("Consensus nearest-neighbour query failed");
         distances[k] = ds[0];
       }

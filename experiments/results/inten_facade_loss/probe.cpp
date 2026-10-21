@@ -33,10 +33,13 @@ int main() {
       params.use_mapping=false;
       if(params.huber!=.1||params.s2s_predicted_dor_facade)throw std::runtime_error("Unexpected inherited profile");
       InTenLoamPaper core(params);diagnostic::mode=mode;
+      diagnostic::terminal_trace=nullptr;
       core.process(previous.points,previous.intensity);
-      InTenLoamPaperDiagnostics d;d.forced_pose=&seed;InTenLoamPaperTrace trace;
-      core.process(current.points,current.intensity,&d,&trace);
-      if(trace.s2s.output!=d.s2s_estimate)throw std::runtime_error("Diagnostic/trace output mismatch");
+      InTenLoamPaperDiagnostics d;d.forced_pose=&seed;PaperSolverTrace solver;
+      diagnostic::terminal_trace=&solver;
+      core.process(current.points,current.intensity,&d);
+      diagnostic::terminal_trace=nullptr;
+      if((solver.output-d.s2s_estimate).norm()!=0.)throw std::runtime_error("Diagnostic/trace output mismatch");
       auto out=serial::record();
       out<<"{\"frame\":"<<frame<<",\"mode\":"<<mode<<",\"output\":";serial::matrix(out,d.s2s_estimate);
       out<<",\"first_systems\":[";
@@ -45,7 +48,7 @@ int main() {
         out<<"{\"n\":"<<d.s2s_n[c]<<",\"H\":";serial::matrix(out,d.s2s_H[c]);
         out<<",\"g\":";serial::matrix(out,d.s2s_g[c]);out<<'}';
       }
-      out<<"],\"solver\":";serial::solver(out,trace.s2s);out<<'}';
+      out<<"],\"solver\":";serial::solver(out,solver);out<<'}';
       std::cout<<out.str()<<'\n'<<std::flush;
       if(!std::cout)throw std::runtime_error("Output failed");
     }

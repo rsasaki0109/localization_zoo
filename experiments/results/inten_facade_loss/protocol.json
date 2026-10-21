@@ -5,7 +5,7 @@
   "native_reference_commit": "8ab36c3501197d3439a9dd6ac96949c3acace695",
   "sequence": "01",
   "native_source_sha256": "447bf2bc7317151684ab4f8889e90aa22206411976e580b8b5d9c1810f3a65c3",
-  "diagnostic_source_sha256": "646aa3ce9a63e2d3a3f84524a7f1ee2486d6c9e5ebb50a89b8cb98c4c60ab308",
+  "diagnostic_source_sha256": "a7bcc891d4f59d779e8f53c1ac195a85361bca6f7f3edc95cba7b0fb84d98aa6",
   "loader_sha256": "cd94435cd79ddf8af4cfa09d3d5e9e58921255971944f5fcdf66f505e6f7603b",
   "hypothesis": "Current01 facade contamination persists despite native Huber0.1 and predicted DOR. Test whether replacing only S2S facade Huber IRLS influence by Cauchy at the same inherited scale changes its first-system cluster influence and full nonlinear terminal registrations. No physical-motion classification follows from a residual or a weight.",
   "scope": "All1100 full01 natural estimated-seed pair registrations, not a recursive trajectory, new accuracy profile, official RTE or paper ratio. A future native candidate requires separately committed selection/implementation and every full00-10 fixed arm before accuracy claims. No production source/API/default change in this diagnostic stage.",
@@ -30,10 +30,12 @@
   "data": "Official fetch script, one owned full01 only. Verify every scan/GT hash against committed official inputs. Archive losslessly with roundtrip, commit and normally push all evidence before owned raw removal; cleanup commit/push before other acquisition. Retain failures and original builds/binaries/logical paths. Stop on substantive mismatch, do not silently rerun.",
   "completion": "Complete both native arms on every full01 pair with actual exits0 and all exact controls; commit numerical evidence before README prose, preserve all existing results/defaults/canonical publications. Full Native+ROS2 CI at final head before Ready. No merge without new user instruction.",
   "source_sha256": {
-    "instrument.py": "aba744ba49a4960c00779d3235fb4a3a1399316dfcac5dbc6dc8c9a394292c34",
-    "probe.cpp": "4c2370e6cff0b7f4f93ff352330b58c948c6a0be59858d2a94fcb6c136f71808",
+    "instrument.py": "f80d081fdce82038f87f6debf046645aff06dfa056796dac0d3aeefa06245b6d",
+    "probe.cpp": "085cc13d2720b9b46092acd5ff477674c89b1f07c4d69946f9df6c0bce988022",
     "run.py": "df4fa1ff63c45195edef8a9307c4187eebb7a6cdc641afdab4a362497cc572af",
-    "diagnostic_hooks.h": "12cb809ac01b5e2336bc9453d1e156cd71673b8317347a127f67c4747bb45760",
+    "resume.py": "ca3b079a8a410932e54e9b746bf8a15e3de190eb9d31b7bb54cddde9c158b3cd",
+    "diagnostic_hooks.h": "36a51d5273da51c9396bd366b30f5b6e632803383e6425116d38f7d1a3b2a6c1",
     "build.py": "0f752f71909fde70d7bb506e0d910cf01304105ef72e4a3c8348c9c0298981c6"
-  }
+  },
+  "continuation": "Initial8f2600a8 native rejected forced_pose plus public passive trace before any terminal output. Failure645363a6 preserved. Corrected isolated observer uses diagnostic::terminal_trace at internal forced S2S call; public guard and every production file unchanged. Preserve original binary/object, compile distinct v2 producer, same owned official inputs and byte-identical natural-seed commands. Loss formula/scale/arms unchanged; no refetch or silent retry."
 }

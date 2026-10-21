@@ -20,5 +20,12 @@ def transformed(source):
     s = s[:a] + s[a:b].replace(needle, 'accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2,\n                         cls == 1 && diagnostic::mode == 1);') + s[b:]
     needle = '    solveS2S(frame, &rel, &cs);'
     assert s.count(needle) == 1
-    s = s.replace(needle, '    if (trace) { trace->s2s.called = true; trace->s2s.input = rel; }\n    solveS2S(frame, &rel, &cs, trace ? &trace->s2s : nullptr);\n    if (trace) {\n      trace->s2s.output = rel;\n      trace->s2s.returned_pairs = cs.cls[0].n + cs.cls[1].n + cs.cls[2].n + cs.cls[3].n;\n    }')
+    s = s.replace(needle, '\n'.join([
+        '    auto* observation = diagnostic::terminal_trace;',
+        '    if (observation) { observation->called = true; observation->input = rel; }',
+        '    solveS2S(frame, &rel, &cs, observation);',
+        '    if (observation) {',
+        '      observation->output = rel;',
+        '      observation->returned_pairs = cs.cls[0].n + cs.cls[1].n + cs.cls[2].n + cs.cls[3].n;',
+        '    }']))
     return s

@@ -952,11 +952,12 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     // S2S from the forced relative motion; its normal equations there.
     rel = prev_pose_.inverse() * *diag->forced_pose;
     ClassSystems cs;
-    if (trace) { trace->s2s.called = true; trace->s2s.input = rel; }
-    solveS2S(frame, &rel, &cs, trace ? &trace->s2s : nullptr);
-    if (trace) {
-      trace->s2s.output = rel;
-      trace->s2s.returned_pairs = cs.cls[0].n + cs.cls[1].n + cs.cls[2].n + cs.cls[3].n;
+    auto* observation = diagnostic::terminal_trace;
+    if (observation) { observation->called = true; observation->input = rel; }
+    solveS2S(frame, &rel, &cs, observation);
+    if (observation) {
+      observation->output = rel;
+      observation->returned_pairs = cs.cls[0].n + cs.cls[1].n + cs.cls[2].n + cs.cls[3].n;
     }
     diag->s2s_estimate = rel;
     for (int c = 0; c < 4; ++c) {

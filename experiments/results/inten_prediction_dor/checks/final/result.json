@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "failed": [
+    "whitespace"
+  ]
+}

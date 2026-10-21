@@ -1,0 +1,17 @@
+{
+  "actual_os_exit_code": null,
+  "outer_tool_result_available": false,
+  "reason": "Original functions.exec monitor 686 and unified exec session 4589 are unavailable after the interrupted turn; no outer OS exit is inferred or fabricated.",
+  "collector_subprocess_exit_code": 0,
+  "collector_receipt_path": "experiments/results/inten_consensus_query_acceleration/collection_execution/command.json",
+  "collector_receipt_sha256": "8546df65193cb66ee31b806add83692afdee004b1d493fc758beaef5890bd599",
+  "completed_collection_commit": "283dddbc0d5e4116d0ad91b2e92ebbfc0174c419",
+  "observed_utc": "2026-10-21T22:11:29.603395+00:00",
+  "recovery_observations": [
+    "functions.wait(686): exec cell 686 not found",
+    "write_stdin(4589): Unknown process id 4589",
+    "Original collector process 198110 no longer exists",
+    "Durable subprocess.run returncode receipt is 0; wrapper final archive commit exists; clean worktree; all 11 cleanup commits exist"
+  ],
+  "policy": "Use the retained actual collector and per-native subprocess exits; external tool-session exit is unavailable, not a scientific check."
+}

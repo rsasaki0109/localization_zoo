@@ -1,0 +1,12 @@
+{
+  "command": [
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/coalesce_closed_evidence.py"
+  ],
+  "cwd": "/workspace",
+  "actual_os_exit_code": 0,
+  "stdout": "Candidate groups 1350\nCoalesced paths 4706 with every byte and mode preserved\n",
+  "source_script_sha256": "7a1b65c14921f207b6b996ef59b662898fa535781eb4c22ca25e43f185b7c253",
+  "evidence": "Unified execution session79692 completed with exit_code0; result receipt verifies byte/hash/mode/owner preservation for every replacement. No active producer path was a target."
+}

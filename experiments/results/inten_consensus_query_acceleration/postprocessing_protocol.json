@@ -1,0 +1,26 @@
+{
+  "raw_collection_commit": "283dddbc0d5e4116d0ad91b2e92ebbfc0174c419",
+  "source_sha256": {
+    "report.py": "d935e337ea50e620c6fe0e7cdc2b8bd7091a83fe73de6609ff0b425e7fe8dab7",
+    "import_results.py": "5350f1c000e296a48928cd227c05af26206b10309e7088091843e78f90c9a485",
+    "verify.py": "4f7f512f2399ad4adc176fdce2099ca4d800f71551db9d9faaa1ffcd80698846",
+    "write_docs.py": "3556b2e5f45690ffe401baf6027569b9266fc2533e9e68bf1f0d32227f6e5c7b",
+    "run_postprocessing.py": "ed290b02296b5eac1f734067e2dbfb95cf14ae086d1e2b524678f068dd83a179",
+    "finalize_docs.py": "5729ed1c6368d62075e494714854262016d16f61e19dfafb6190c45d8e4297b7",
+    "../../../tests/test_inten_consensus_query_acceleration_study.py": "6c899abf306240d402859460ee83598bfe8996439e941e2325be308f615cb1eb"
+  },
+  "paper_values": {
+    "kitti_00": 0.52,
+    "kitti_01": 0.64,
+    "kitti_02": 0.54,
+    "kitti_03": 0.63,
+    "kitti_04": 0.37,
+    "kitti_05": 0.36,
+    "kitti_06": 0.24,
+    "kitti_07": 0.34,
+    "kitti_08": 0.71,
+    "kitti_09": 0.48,
+    "kitti_10": 0.45
+  },
+  "policy": "All complete fixed-setting outcomes are reported and imported before any README interpretation; no native rerun, retuning, per-sequence adoption or standalone timing claim. Exact original full01 negative and interrupted07-prefix controls remain mandatory."
+}

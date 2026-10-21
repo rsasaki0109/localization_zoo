@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-fixed-rotation/worktree/experiments/results/inten_fixed_rotation/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-fixed-rotation/completion_stage/precommit_preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-fixed-rotation/worktree",
+  "source_commit": "926ce325c1501fbeb1cec56d45924a1cfda4d240",
+  "started_unix": 1792581968.4166002,
+  "finished_unix": 1792581971.2190049,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-fixed-rotation/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-fixed-rotation/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

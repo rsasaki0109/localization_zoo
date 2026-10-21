@@ -589,6 +589,19 @@ independent. Each item says what "done" means.
     effect. Full01 recovery and10 drift remain open. Numerical `ca5bccf9`
     precedes interpretation; every prior KITTI observation remains development.
 
+
+    The [fixed estimated-rotation factorial](../experiments/results/inten_fixed_rotation/README.md)
+    retains all48 calls, including exact original/preceding joint controls and a
+    complete translation-only seed×mask factorial. At204 length/GT improves
+    0.607064→1.002040 with original1.716533mrad rotation;205 reaches0.954865.
+    The fixed local gate passes:6 translation improvements,2 fallback ties,
+    rotation bit-for-bit original. Negatives remain: raw247 worsens0.522727→0.420339,
+    and holding original205 rotation forfeits the prior joint1.798922mrad gain.
+    No full trajectory, production option or accuracy claim. Next freeze recursive
+    estimated-rotation/consensus behavior and run one setting across all full00-10;
+    retain unresolved247 and10 drift. Numerical `0e2ab939` precedes prose;
+    every prior KITTI observation remains development.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

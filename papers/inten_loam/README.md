@@ -1997,3 +1997,44 @@ worsens2.320873→2.629751mrad. No condition is relaxed after output, no product
 option/default is added, and no full-sequence accuracy is claimed. A corrected
 seed also moves the adaptive translation-prior center; this is conditional
 seed/prior/support sensitivity, not recursive01 recovery or10 drift resolution.
+
+
+## Fixed estimated rotation: conditional translation factorial
+
+Numerical snapshot `0e2ab939` precedes interpretation. The
+[complete study](../../experiments/results/inten_fixed_rotation/README.md) retains all
+48 terminal calls and first-query equations at every inherited01 endpoint.
+Outside-paper diagnostic only: no production/default/profile change or full-sequence
+accuracy claim. GT is used only for offline errors; original estimated rotation is
+held fixed while translation actually re-associates and solves. Seed also changes
+the adaptive-prior center. Original07/00/DiLO01 provenance is inherited, and every
+previous KITTI observation remains development.
+
+| Endpoint | Original length/GT | Previous joint length/GT | Candidate length/GT | Original vector/GT | Candidate vector/GT | Original / previous / candidate rotation mrad | Candidate arm |
+|---:|---:|---:|---:|---:|---:|---|---|
+| 190 | 0.990767 | 0.994919 | 0.995748 | 0.014508 | 0.006534 | 2.320873 / 2.629751 / 2.320873 | combined fixed rotation |
+| 200 | 0.975241 | 0.998189 | 1.002987 | 0.025618 | 0.008546 | 1.717553 / 0.966837 / 1.717553 | combined fixed rotation |
+| 202 | 0.748598 | 0.963182 | 0.952965 | 0.251434 | 0.047452 | 3.270653 / 1.882814 / 3.270653 | combined fixed rotation |
+| 203 | 0.918730 | 0.967792 | 0.965060 | 0.081779 | 0.037781 | 2.359487 / 2.208206 / 2.359487 | combined fixed rotation |
+| 204 | 0.607064 | 1.004613 | 1.002040 | 0.392957 | 0.007531 | 1.716533 / 2.958909 / 1.716533 | combined fixed rotation |
+| 205 | 0.372446 | 0.955054 | 0.954865 | 0.627582 | 0.045511 | 2.419936 / 1.798922 / 2.419936 | combined fixed rotation |
+| 247 | 0.522727 | 0.522727 | 0.522727 | 0.477580 | 0.477580 | 8.113092 / 8.113092 / 8.113092 | original fallback |
+| 433 | 0.926498 | 0.926498 | 0.926498 | 0.074390 | 0.074390 | 1.232359 / 1.232359 / 1.232359 | original fallback |
+
+The fixed necessary local gate passes: translation improves at6 endpoints, ties
+at2, with original rotation bit-for-bit. At204 length/GT0.607064→1.002040
+without the prior joint rotation worsening1.716533→2.958909mrad. At205
+seed-only0.927375, mask-only0.387723 and combined0.954865 retain seed/prior-center
+rescue, but forfeit the previous joint rotation gain2.419936→1.798922mrad
+and slightly worsen its vector error0.045419→0.045511. This does not dominate
+the previous joint solution.
+
+Negative controls remain material: uncorrected translation-only worsens length
+and vector errors at4 endpoints; seed-only at2. At247 the raw combined arm
+worsens length/GT0.522727→0.420339 and vector0.477580→0.579843. The inherited
+majority fallback avoids this extra harm but leaves the original failure. At433
+boundary fallback forfeits the raw slight length improvement0.926498→0.926734.
+All six arms and errors are in the study table. Cluster consensus is not static
+object truth; fixed estimated rotation retains its original bias. Full01 recovery
+and10 drift remain open. Next is a separately frozen recursive all00-10 experiment
+with one setting; no RTE or paper-ratio claim follows from these local controls.

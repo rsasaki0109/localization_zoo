@@ -1,0 +1,14 @@
+{
+  "files": {
+    "all_endpoints.png": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/figures/all_endpoints.png",
+      "bytes": 307350,
+      "sha256": "0b5c0045257cf4fee3efd566b1158dbb20948f00c28dc1c036fc824f3e10fc0e",
+      "storage": "verbatim",
+      "path": "all_endpoints.png",
+      "stored_sha256": "0b5c0045257cf4fee3efd566b1158dbb20948f00c28dc1c036fc824f3e10fc0e"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

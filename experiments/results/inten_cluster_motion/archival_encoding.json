@@ -1,0 +1,21 @@
+{
+  "exit_code": 0,
+  "command": "python experiments/results/inten_cluster_motion/archive_encoding.py",
+  "initial_check": {
+    "command": [
+      "git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout": "experiments/results/inten_cluster_motion/controls/compiler.stdout:5: new blank line at EOF.\n"
+  },
+  "file": "compiler.stdout",
+  "decoded_sha256": "8d6e704227c739386853b14c98257428d8ffbffd817517db0b2e088d28c773f6",
+  "encoded_sha256": "37e4f0862510fd29c94d8be8d2235d9cebc816785d39305567fb71fb4e07970d",
+  "original_stage_file_unchanged": true,
+  "numerical_output_unchanged": true,
+  "native_rerun": false,
+  "reason": "Compiler --version intentionally emits a final blank line. Preserve it in gzip rather than editing the recorded output."
+}

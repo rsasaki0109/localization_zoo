@@ -1,0 +1,189 @@
+{
+  "files": {
+    "binary.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/binary.json",
+      "bytes": 14563,
+      "sha256": "5980b775b7cddc251a702d5e2982ac78f164bbafd1ff7bf4c9b9e649b067cf26",
+      "storage": "verbatim",
+      "path": "binary.json",
+      "stored_sha256": "5980b775b7cddc251a702d5e2982ac78f164bbafd1ff7bf4c9b9e649b067cf26"
+    },
+    "compile_native.stderr": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compile_native.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile_native.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_native.stdout": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compile_native.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile_native.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_native_command.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compile_native_command.json",
+      "bytes": 2761,
+      "sha256": "333c43bc58053e72bf198932141110dfaacfd43068ef3acfa048d8b4a581c60c",
+      "storage": "verbatim",
+      "path": "compile_native_command.json",
+      "stored_sha256": "333c43bc58053e72bf198932141110dfaacfd43068ef3acfa048d8b4a581c60c"
+    },
+    "compile_probe.stderr": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compile_probe.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile_probe.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_probe.stdout": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compile_probe.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile_probe.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_probe_command.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compile_probe_command.json",
+      "bytes": 16881,
+      "sha256": "80999a45a020563d05b901c6507ab4ce6e3481e5b63ce9a9e67a880c2693cf01",
+      "storage": "verbatim",
+      "path": "compile_probe_command.json",
+      "stored_sha256": "80999a45a020563d05b901c6507ab4ce6e3481e5b63ce9a9e67a880c2693cf01"
+    },
+    "compiler.stderr": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compiler.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compiler.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compiler.stdout": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compiler.stdout",
+      "bytes": 246,
+      "sha256": "8d6e704227c739386853b14c98257428d8ffbffd817517db0b2e088d28c773f6",
+      "storage": "gzip",
+      "path": "compiler.stdout.gz",
+      "stored_sha256": "37e4f0862510fd29c94d8be8d2235d9cebc816785d39305567fb71fb4e07970d"
+    },
+    "compiler_command.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/compiler_command.json",
+      "bytes": 878,
+      "sha256": "94288368c2e242137d11d263fbca04168182246938224d8093da11c3d830d7c7",
+      "storage": "verbatim",
+      "path": "compiler_command.json",
+      "stored_sha256": "94288368c2e242137d11d263fbca04168182246938224d8093da11c3d830d7c7"
+    },
+    "generated_features.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/generated_features.json",
+      "bytes": 368,
+      "sha256": "ae2a3ea531d926398e1799ecc72b8cff3db448eb18edbe7d96d0baeb196354aa",
+      "storage": "verbatim",
+      "path": "generated_features.json",
+      "stored_sha256": "ae2a3ea531d926398e1799ecc72b8cff3db448eb18edbe7d96d0baeb196354aa"
+    },
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/input.txt",
+      "bytes": 2149,
+      "sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680"
+    },
+    "input_sources.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/input_sources.json",
+      "bytes": 2567,
+      "sha256": "d39b4a6eb3a206b0b03ce889896bb6ad21c92e22135f06fd9a6e57080408934e",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "d39b4a6eb3a206b0b03ce889896bb6ad21c92e22135f06fd9a6e57080408934e"
+    },
+    "linked_libraries.stderr": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/linked_libraries.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "linked_libraries.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "linked_libraries.stdout": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/linked_libraries.stdout",
+      "bytes": 850,
+      "sha256": "4025175fa7390bca850e584442839dd6fe0dc1b663ae91c8843ade69f65c9759",
+      "storage": "verbatim",
+      "path": "linked_libraries.stdout",
+      "stored_sha256": "4025175fa7390bca850e584442839dd6fe0dc1b663ae91c8843ade69f65c9759"
+    },
+    "linked_libraries_command.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/linked_libraries_command.json",
+      "bytes": 923,
+      "sha256": "322dbd79bb82f4e9a21f561a4c812c96b36da5771f07917ae4e3bad509054f86",
+      "storage": "verbatim",
+      "path": "linked_libraries_command.json",
+      "stored_sha256": "322dbd79bb82f4e9a21f561a4c812c96b36da5771f07917ae4e3bad509054f86"
+    },
+    "mechanism_tests.stderr": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/mechanism_tests.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "mechanism_tests.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mechanism_tests.stdout": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/mechanism_tests.stdout",
+      "bytes": 107,
+      "sha256": "3f847dc0e8c9a854ad82d5f9066c328b62a807f777a9ec85994c07c9dc74594a",
+      "storage": "verbatim",
+      "path": "mechanism_tests.stdout",
+      "stored_sha256": "3f847dc0e8c9a854ad82d5f9066c328b62a807f777a9ec85994c07c9dc74594a"
+    },
+    "mechanism_tests_command.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/mechanism_tests_command.json",
+      "bytes": 930,
+      "sha256": "33ad141f466afde6e0723a0fd391ed1075100d23e11e796e9af1e6c9e392d6e1",
+      "storage": "verbatim",
+      "path": "mechanism_tests_command.json",
+      "stored_sha256": "33ad141f466afde6e0723a0fd391ed1075100d23e11e796e9af1e6c9e392d6e1"
+    },
+    "native.stderr": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/native.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "native.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/native.stdout.jsonl",
+      "bytes": 3954947,
+      "sha256": "dd9fcdec9569005f2eb699388640e545912d9c513e58c041567b773c336d8300",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "67e852cdc507f4a0704476168429158ee7023c996a2b66e59e3f9ed2b22ea331",
+          "gzip_bytes": 1664594,
+          "raw_sha256": "dd9fcdec9569005f2eb699388640e545912d9c513e58c041567b773c336d8300",
+          "raw_bytes": 3954947
+        }
+      ]
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/stage/native_command.json",
+      "bytes": 1041,
+      "sha256": "359cbdb965fef24b10dd6190da202966f4b5b1adb9b42b39cfbc6d77d9f980e9",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "359cbdb965fef24b10dd6190da202966f4b5b1adb9b42b39cfbc6d77d9f980e9"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

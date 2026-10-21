@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-cluster-motion/worktree/experiments/results/inten_cluster_motion/analyze.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-cluster-motion/worktree",
+  "source_commit": "be3b5bdcffd43f6dfba9ed1ec842f9bab71c06af",
+  "started_unix": 1792571554.1477287,
+  "finished_unix": 1792571558.757885,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

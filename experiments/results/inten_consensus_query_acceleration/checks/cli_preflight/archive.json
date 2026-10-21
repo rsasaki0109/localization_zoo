@@ -1,0 +1,157 @@
+{
+  "files": {
+    "parity.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/parity.json",
+      "bytes": 313,
+      "sha256": "343654513d795d6928f3d6583b85ac66be9ad777494e456937385c659f76f3a1",
+      "storage": "verbatim",
+      "path": "parity.json",
+      "stored_sha256": "343654513d795d6928f3d6583b85ac66be9ad777494e456937385c659f76f3a1"
+    },
+    "trace_off/dogfooding_results/InTEn_LOAM.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_off/dogfooding_results/InTEn_LOAM.txt",
+      "bytes": 439,
+      "sha256": "d92c00ebe07ce1e77679057a1710310b3322c543662e37d7c45d96c39c93d32a",
+      "storage": "verbatim",
+      "path": "trace_off/dogfooding_results/InTEn_LOAM.txt",
+      "stored_sha256": "d92c00ebe07ce1e77679057a1710310b3322c543662e37d7c45d96c39c93d32a"
+    },
+    "trace_off/dogfooding_results/gt.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_off/dogfooding_results/gt.txt",
+      "bytes": 436,
+      "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "storage": "verbatim",
+      "path": "trace_off/dogfooding_results/gt.txt",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    "trace_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "bytes": 436,
+      "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "storage": "verbatim",
+      "path": "trace_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    "trace_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "bytes": 3313,
+      "sha256": "59792e2d66458cda3d4922f5dbad36b7289eab668c673a1c7248efbcde3c1d78",
+      "storage": "verbatim",
+      "path": "trace_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored_sha256": "59792e2d66458cda3d4922f5dbad36b7289eab668c673a1c7248efbcde3c1d78"
+    },
+    "trace_off/native.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_off/native.log",
+      "bytes": 1777,
+      "sha256": "96ac4e9733c53ab073d1821a0116b8c565ec17209f5961937c9a6932820da473",
+      "storage": "gzip",
+      "path": "trace_off/native.log.gz",
+      "stored_sha256": "2df218dc4c5bcc2d6d65e67f1304e45a55825f545468592725d0fefe9c1dc764"
+    },
+    "trace_off/native_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_off/native_command.json",
+      "bytes": 3566,
+      "sha256": "d2fdcd62aa27e8049f1a318ff1abaf6a30b1326581f0cb5487faf60301c6a579",
+      "storage": "verbatim",
+      "path": "trace_off/native_command.json",
+      "stored_sha256": "d2fdcd62aa27e8049f1a318ff1abaf6a30b1326581f0cb5487faf60301c6a579"
+    },
+    "trace_off/native_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_off/native_stderr.log",
+      "bytes": 80,
+      "sha256": "ee743b460928eb424e79db951f94d699d712200f672265be0199d0124d9ae2f4",
+      "storage": "gzip",
+      "path": "trace_off/native_stderr.log.gz",
+      "stored_sha256": "b6e4be8016fb46933f418286b01f0cfeb3aae2f56de86ce50f05ddc86ced491a"
+    },
+    "trace_off/summary.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_off/summary.json",
+      "bytes": 3313,
+      "sha256": "59792e2d66458cda3d4922f5dbad36b7289eab668c673a1c7248efbcde3c1d78",
+      "storage": "verbatim",
+      "path": "trace_off/summary.json",
+      "stored_sha256": "59792e2d66458cda3d4922f5dbad36b7289eab668c673a1c7248efbcde3c1d78"
+    },
+    "trace_on/dogfooding_results/InTEn_LOAM.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/dogfooding_results/InTEn_LOAM.txt",
+      "bytes": 439,
+      "sha256": "d92c00ebe07ce1e77679057a1710310b3322c543662e37d7c45d96c39c93d32a",
+      "storage": "verbatim",
+      "path": "trace_on/dogfooding_results/InTEn_LOAM.txt",
+      "stored_sha256": "d92c00ebe07ce1e77679057a1710310b3322c543662e37d7c45d96c39c93d32a"
+    },
+    "trace_on/dogfooding_results/gt.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/dogfooding_results/gt.txt",
+      "bytes": 436,
+      "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "storage": "verbatim",
+      "path": "trace_on/dogfooding_results/gt.txt",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    "trace_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "bytes": 436,
+      "sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab",
+      "storage": "verbatim",
+      "path": "trace_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt",
+      "stored_sha256": "bb57f3356dae520c9d791d0ab22bd2c33ca4783772684105a3939517d35b06ab"
+    },
+    "trace_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "bytes": 3313,
+      "sha256": "877ae69dbe22580781d1c6f6b91c2c57923580ebda18ee239811ec3d39086450",
+      "storage": "verbatim",
+      "path": "trace_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json",
+      "stored_sha256": "877ae69dbe22580781d1c6f6b91c2c57923580ebda18ee239811ec3d39086450"
+    },
+    "trace_on/native.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/native.log",
+      "bytes": 1777,
+      "sha256": "700d90e7d900b2ebff60ab48131e3b3efbabc15b5d96cbaf9476306f96938b21",
+      "storage": "gzip",
+      "path": "trace_on/native.log.gz",
+      "stored_sha256": "6a27040d957c98378dd0cd60295bc8a78905d6ec78be6edd2b951409879fec14"
+    },
+    "trace_on/native_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/native_command.json",
+      "bytes": 3843,
+      "sha256": "058e6c0e74ca9b5debecb0f8037367cefd2e1643b6a793a469ffcca701620a99",
+      "storage": "verbatim",
+      "path": "trace_on/native_command.json",
+      "stored_sha256": "058e6c0e74ca9b5debecb0f8037367cefd2e1643b6a793a469ffcca701620a99"
+    },
+    "trace_on/native_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/native_stderr.log",
+      "bytes": 80,
+      "sha256": "ee743b460928eb424e79db951f94d699d712200f672265be0199d0124d9ae2f4",
+      "storage": "gzip",
+      "path": "trace_on/native_stderr.log.gz",
+      "stored_sha256": "b6e4be8016fb46933f418286b01f0cfeb3aae2f56de86ce50f05ddc86ced491a"
+    },
+    "trace_on/summary.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/summary.json",
+      "bytes": 3313,
+      "sha256": "877ae69dbe22580781d1c6f6b91c2c57923580ebda18ee239811ec3d39086450",
+      "storage": "verbatim",
+      "path": "trace_on/summary.json",
+      "stored_sha256": "877ae69dbe22580781d1c6f6b91c2c57923580ebda18ee239811ec3d39086450"
+    },
+    "trace_on/trace.jsonl": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/preflight/trace_on/trace.jsonl",
+      "bytes": 63415,
+      "sha256": "fca98b2ed7406b2b2db11a2b8d6443625ecd41424c842a8fa0db0a4b972d6df6",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "trace_on/trace.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "64cd5a08f6fccb596ccf78c5d49ea6fbc298a22e330d6c5e505198d678254883",
+          "gzip_bytes": 21619,
+          "raw_sha256": "fca98b2ed7406b2b2db11a2b8d6443625ecd41424c842a8fa0db0a4b972d6df6",
+          "raw_bytes": 63415
+        }
+      ]
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -82,7 +82,7 @@ def main():
     archive(stage, E/'completion/docs')
     subprocess.run(['git', 'add', '-f', str(E), 'papers/inten_loam/README.md', 'docs/roadmap.md'], cwd=W, check=True)
     subprocess.run(['git', 'diff', '--cached', '--check'], cwd=W, check=True)
-    subprocess.run(['git', 'commit', '-m', 'Report fixed_rotation seed rescue and predeclared rotation failure'], cwd=W, check=True)
+    subprocess.run(['git', 'commit', '-m', 'Report fixed estimated rotation rescue and retained negatives'], cwd=W, check=True)
     checks = R/'final_checks'
     commands = [('python', [PY, '-m', 'unittest', 'discover', '-s', 'tests']),
                 ('showcase', [PY, 'evaluation/scripts/validate_showcase.py']),
@@ -96,7 +96,7 @@ def main():
     assert not any(codes.values()), 'Checks failed; actual exits and all output retained'
     subprocess.run(['git', 'add', '-f', str(E/'checks'), str(E/'completion')], cwd=W, check=True)
     subprocess.run(['git', 'diff', '--cached', '--check'], cwd=W, check=True)
-    subprocess.run(['git', 'commit', '-m', 'Verify translation fixed_rotation and preserve inherited evidence'], cwd=W, check=True)
+    subprocess.run(['git', 'commit', '-m', 'Verify fixed estimated rotation and preserve inherited evidence'], cwd=W, check=True)
     print('Feasibility results, docs and actual-exit checks complete; push and exact-head CI remain', flush=True)
 
 

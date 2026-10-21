@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "numerical_commit": "0e2ab939e7b0164729294131e70020c4096b7d10",
+  "numerical_producer_commit": "99d0f0fc0d70c200fed953816c309d86c47ca8ba",
+  "scope": "Postprocessing and portable validation of already committed fixed-rotation results; no producer/native/data/gate changes. Full completion checks retain actual exits before PR/CI.",
+  "source_sha256": {
+    "complete.py": "1e449567035212f4f4665d045193191ca006bbbf32e3a6f4b02b931a180b7a41",
+    "figures.py": "df22f85d74a0c8a4bf372b840931e3145a2759ca11935abb5216524b783c15e8",
+    "verify.py": "1a8ed41db5ec97754a5d6f72aefc4a3c2b47f04aa912902b72047012e1f097b2",
+    "write_docs.py": "f1d8cd65e3dc140c9792266fec913ca34d83e2c9d1ea44f8372a1f7811f38199"
+  },
+  "additional_source_sha256": {
+    "tests/test_inten_fixed_rotation_study.py": "994bc2ebf1639cf24b8842f8c188f5b4f126c02db92649db004ee0dca1a1775d"
+  }
+}

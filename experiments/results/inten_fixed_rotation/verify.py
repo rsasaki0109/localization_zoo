@@ -46,7 +46,12 @@ def validate(history=True):
         assert type(a)==type(b),(type(a),type(b))
         if isinstance(a,dict):
             assert set(a)==set(b)
-            for k in a:compare(a[k],b[k])
+            for k in a:
+                if k=='rotation_error_mrad':
+                    # acos near identity amplifies last-bit matrix-product drift.
+                    # Native rotations remain bitwise checked in evaluate().
+                    assert np.isclose(a[k],b[k],rtol=1e-8,atol=1e-6),(a[k],b[k])
+                else:compare(a[k],b[k])
         elif isinstance(a,list):
             assert len(a)==len(b)
             for x,y in zip(a,b):compare(x,y)

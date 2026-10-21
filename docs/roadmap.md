@@ -491,6 +491,30 @@ independent. Each item says what "done" means.
     the actual iterative trajectory, not physical-ring correctness.
     Numerical evidence `f6e023be` precedes this interpretation.
 
+    The [existing S2M plane-spread comparison](../experiments/results/inten_map_plane_spread/README.md)
+    runs the same immutable native binary on every full KITTI00-10
+    sequence, changing only the existing minimum plane-spread ratio
+    from zero to0.2. This outside-paper option remains default off.
+    The value comes unchanged from the existing synthetic street test;
+    earlier07 exploratory exposure is disclosed. Both arms retain
+    mapped prediction, S2S prior0.03, ground/facade PCA and acceleration;
+    row completion stays off. No production source is changed.
+    Geometric mean candidate/reference RTE is 1.036694x:
+    2 lower, 9 higher and 0 equal sequences.
+    Failure-sequence RTE: 01 4.481189% to 5.161510%; 02 0.756938% to 0.784905%; 10 1.093310% to 1.187067%.
+    Sequences above twice the cited paper RTE: 01, 10.
+    All adverse metrics, new local failures and error-growth blocks
+    are retained. Every fresh baseline numeric trace and saved pose/GT
+    exactly matches the preceding candidate. Current01 normal-prefix
+    controls reproduce the actual S2M map history and output, and
+    terminal matched spread controls retain positive and negative
+    endpoints. Their diagnostic producer never supplies accuracy scores.
+    Rejected support is not proof of physical correspondence truth.
+    All prior KITTI outcomes are development evidence, without an
+    independent held-out claim or per-sequence adoption. Profile07,
+    diagnosis00 and inherited DiLO01 prior tuning are disclosed.
+    Numerical evidence `da4c325b` precedes this interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

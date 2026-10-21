@@ -1,0 +1,8 @@
+{
+  "exit_code": 0,
+  "owned_input_dir": "/workspace/localization-env/inten-facade-loss/kitti/dataset/sequences/01/velodyne",
+  "hashes_verified_before_removal": true,
+  "input_dir_exists_after": false,
+  "backup_before_removal_commit": "f52b84a0b977bc84d6cce086c0a5478756b740c3",
+  "removed_files": 1102
+}

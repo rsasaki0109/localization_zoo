@@ -99,6 +99,60 @@ void movingWall(double wall_x, std::vector<Eigen::Vector3d>* pts, std::vector<fl
 
 }  // namespace
 
+TEST(InTenLoamPaper, CauchyFacadeDownweightsMovingSurfaceWithoutChangingOtherDataSystems) {
+  InTenLoamPaperParams p;
+  EXPECT_FALSE(p.s2s_facade_cauchy);
+  p.accelerated=true;p.use_mapping=false;
+  InTenLoamPaper reference(p);p.s2s_facade_cauchy=true;InTenLoamPaper candidate(p);
+  std::vector<Eigen::Vector3d> points;std::vector<float> intensity;
+  movingWall(6.,&points,&intensity);
+  reference.process(points,intensity);candidate.process(points,intensity);
+  movingWall(6.8,&points,&intensity);
+  const Eigen::Matrix4d seed=Eigen::Matrix4d::Identity();
+  InTenLoamPaperDiagnostics a,b;a.forced_pose=b.forced_pose=&seed;
+  const auto x=reference.process(points,intensity,&a);
+  const auto y=candidate.process(points,intensity,&b);
+  EXPECT_EQ(x.num_ground,y.num_ground);EXPECT_EQ(x.num_facade,y.num_facade);
+  EXPECT_EQ(x.num_edge,y.num_edge);EXPECT_EQ(x.num_reflector,y.num_reflector);
+  for(int c=0;c<4;++c)EXPECT_EQ(a.s2s_n[c],b.s2s_n[c]);
+  for(int c:{0,1,3}) {
+    EXPECT_EQ((a.s2s_H[c]-b.s2s_H[c]).norm(),0.);
+    EXPECT_EQ((a.s2s_g[c]-b.s2s_g[c]).norm(),0.);
+  }
+  EXPECT_GT(a.s2s_g[2].norm(),b.s2s_g[2].norm());
+  EXPECT_GT((a.s2s_H[2]-b.s2s_H[2]).norm(),0.);
+  EXPECT_TRUE(b.s2s_estimate.allFinite());
+}
+
+TEST(InTenLoamPaper, CauchyFacadeTracePreservesTheIterativeTrajectory) {
+  InTenLoamPaperParams p;p.accelerated=true;p.s2s_facade_cauchy=true;
+  InTenLoamPaper plain(p),observed(p);
+  std::vector<Eigen::Vector3d> points;std::vector<float> intensity;
+  for(int i=0;i<3;++i) {
+    movingWall(6.+.8*i,&points,&intensity);InTenLoamPaperTrace trace;
+    const auto a=plain.process(points,intensity);
+    const auto b=observed.process(points,intensity,nullptr,&trace);
+    EXPECT_EQ((a.pose-b.pose).norm(),0.);EXPECT_EQ(a.s2s_pairs,b.s2s_pairs);EXPECT_EQ(a.s2m_pairs,b.s2m_pairs);
+    EXPECT_EQ(a.dor_removed,b.dor_removed);
+  }
+}
+
+TEST(InTenLoamPaper, CauchyFacadeBufferedReductionPreservesSerialResults) {
+  InTenLoamPaperParams p;p.s2s_facade_cauchy=true;p.use_mapping=false;
+  InTenLoamPaper serial(p);p.accelerated=true;InTenLoamPaper buffered(p);
+  std::vector<Eigen::Vector3d> points;std::vector<float> intensity;
+  for(int i=0;i<3;++i) {
+    movingWall(6.+.8*i,&points,&intensity);InTenLoamPaperTrace a,b;
+    const auto x=serial.process(points,intensity,nullptr,&a);
+    const auto y=buffered.process(points,intensity,nullptr,&b);
+    EXPECT_EQ((x.pose-y.pose).norm(),0.);ASSERT_EQ(a.s2s.iterations.size(),b.s2s.iterations.size());
+    for(size_t k=0;k<a.s2s.iterations.size();++k) {
+      EXPECT_EQ((a.s2s.iterations[k].H-b.s2s.iterations[k].H).norm(),0.);
+      EXPECT_EQ((a.s2s.iterations[k].g-b.s2s.iterations[k].g).norm(),0.);
+    }
+  }
+}
+
 TEST(InTenLoamPaper, PredictedDorGatesFacadeQueriesWithoutRemovingExtractedFeatures) {
   InTenLoamPaperParams p;
   EXPECT_FALSE(p.s2s_predicted_dor_facade);

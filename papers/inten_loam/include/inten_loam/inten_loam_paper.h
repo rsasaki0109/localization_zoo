@@ -140,6 +140,10 @@ struct InTenLoamPaperParams {
   // feature classes and post-S2M map insertion keep their existing rules.
   // Requires mapping and DOR; forced diagnostics remain unchanged.
   bool s2s_predicted_dor_facade = false;
+  // Repository extension, not in the paper and default off. Use Cauchy IRLS
+  // influence at the existing Huber scale only for S2S facade residuals.
+  // No association gate changes; other classes and S2M keep Huber weighting.
+  bool s2s_facade_cauchy = false;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).

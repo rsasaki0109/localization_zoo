@@ -39,11 +39,13 @@ struct System {
   int n = 0;
   bool track_residual = false;
   double weighted_squared_residual = 0.0;
-  void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr) {
+  void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr,
+           bool cauchy = false) {
     Vec6 J;
     J.head<3>() = a;
     J.tail<3>() = x.cross(a);
-    const double w = std::abs(r) <= huber ? 1.0 : huber / std::abs(r);
+    const double w = cauchy ? 1.0 / (1.0 + (r / huber) * (r / huber))
+                            : (std::abs(r) <= huber ? 1.0 : huber / std::abs(r));
     H += w * J * J.transpose();
     g += w * J * r;
     ++n;
@@ -86,14 +88,14 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
                         const Eigen::Matrix3d& R, const Eigen::Vector3d& t,
                         const Query& query, double huber, bool accelerated,
                         System* system, System* also,
-                        std::vector<int>* indices, std::vector<float>* distances) {
+                        std::vector<int>* indices, std::vector<float>* distances, bool cauchy = false) {
   if (!accelerated) {
     for (const auto& f : features) {
       const Eigen::Vector3d x = R * f.p + t;
       Eigen::Vector3d gradient;
       double residual;
       if (query(f, x, &gradient, &residual, indices, distances))
-        system->add(x, gradient, residual, huber, also);
+        system->add(x, gradient, residual, huber, also, cauchy);
     }
     return;
   }
@@ -115,7 +117,7 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
     }
   }
   for (const auto& value : values)
-    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also);
+    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also, cauchy);
 }
 
 void bspline(double t, double B[4], double dB[4]) {
@@ -172,6 +174,8 @@ struct InTenLoamPaper::Map {
 
 InTenLoamPaper::InTenLoamPaper(const InTenLoamPaperParams& params)
     : params_(params), map_(std::make_shared<Map>()) {
+  if (params_.s2s_facade_cauchy && (!std::isfinite(params_.huber) || params_.huber <= 0.0))
+    throw std::invalid_argument("Cauchy facade influence requires a finite positive Huber scale");
   if (!std::isfinite(params_.s2s_translation_prior_ratio) ||
       params_.s2s_translation_prior_ratio < 0.0 || params_.s2s_translation_prior_ratio > 1.0)
     throw std::invalid_argument("s2s_translation_prior_ratio must be finite and in [0,1]");
@@ -590,7 +594,8 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
         *residual = nrm.dot(x - qj.p);
         return true;
       };
-      accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2);
+      accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2,
+                         cls == 1 && params_.s2s_facade_cauchy);
       counts[1 + cls] = sys.n - before;
     }
     // Reflectors (eq. 7) against the previous scan intensity field.

@@ -137,6 +137,7 @@ inline void params(std::ostream& out, const InTenLoamPaperParams& p) {
   if (p.s2s_row_support) out << ",\"s2s_row_support\":true";
   if (p.s2s_ground_pca) out << ",\"s2s_ground_pca\":true";
   if (p.s2s_facade_pca) out << ",\"s2s_facade_pca\":true";
+  if (p.s2s_facade_cauchy) out << ",\"s2s_facade_cauchy\":true";
   if (p.s2s_predicted_dor_facade) out << ",\"s2s_predicted_dor_facade\":true";
 #undef INTEN_TRACE_PARAM
   out << '}';

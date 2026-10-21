@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "numerical_controls_commit": "f52b84a0b977bc84d6cce086c0a5478756b740c3",
+  "choice": "One default-off native Boolean s2s_facade_cauchy, same Cauchy formula and native Huber0.1 scale frozen before all terminal controls. No new loss, scale fit, detector gate, hand ROI, GT input or sweep.",
+  "motivation": "204 natural-seed length/GT improves0.6070644369->0.9924811426. This could prevent the recursive collapse only if actual histories remain stable, which terminal controls do not establish.",
+  "negative": "Allmoving length500lower/600higher; baselinebad48 has12lower/36higher,44remainbad.247 worsens0.5227273355->0.0466921654, and204 rotation worsens1.71653->3.14248mrad. No claim this is a remedy, no per-sequence winner/default adoption.",
+  "next": "Freeze producer and one setting for both full arms across00-10. Same fresh binary for OFF/ON, defaultOFF wholetrace/poses/metrics exact against PR162 baseline. PredictedDOR/spread/rowcompletion off; mapped seed/prior.03/ground-facadePCA/acceleration on. All priorKITTIdevelopment, original07/00 and inheritedDiLO01 selection disclosed. Commit all full results before ratios/prose, preserve all765 old aggregates/canonical defaults, full exact-final-head Native+ROS2 CI beforeReady; no merge."
+}

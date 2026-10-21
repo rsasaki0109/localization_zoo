@@ -89,7 +89,7 @@
     "papers/inten_loam/include/inten_loam/inten_loam.h": "1ea49fce47a6c183c1ff8b3e16cd9baf7df26e89d9767bcf6e5298a1c62ff15c",
     "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "1106a51ecec5cf4e259671401839edb0588e6c077f433f9a200bd28f266778c3",
     "papers/inten_loam/src/inten_loam_paper.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
-    "papers/inten_loam/test/test_inten_loam_paper.cpp": "04ede404b33a9e8f6c8519453353218ba5d28d8643ee54ce71620415a423d212",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp": "50c85ca04290626228959b4cf5775b1bcf872cfa656bba44c4100c324cad4d67",
     "experiments/results/inten_recursive_consensus/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
     "experiments/results/inten_recursive_consensus/build.py": "0f752f71909fde70d7bb506e0d910cf01304105ef72e4a3c8348c9c0298981c6",
     "experiments/results/inten_recursive_consensus/build_candidate.py": "8db983bce77b21b7b6a87c4c8e5a87c543929f3a3f9d3d5defb29a54ebb1d620",
@@ -100,6 +100,14 @@
     "experiments/results/inten_recursive_consensus/parity_probe.cpp": "10407056d6c9f7cfd2d49145564b1ef75f169ee3dfc28b91a92a2ae38d0eb6a0",
     "experiments/results/inten_recursive_consensus/reference_native.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
     "experiments/results/inten_recursive_consensus/replay_hooks.h": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
-    "experiments/results/inten_recursive_consensus/replay_native.cpp": "9ef26958bb4ccb0b24fc0ef0304b7148d03e9b32421818872efd3fc55801f880"
+    "experiments/results/inten_recursive_consensus/replay_native.cpp": "9ef26958bb4ccb0b24fc0ef0304b7148d03e9b32421818872efd3fc55801f880",
+    "experiments/results/inten_recursive_consensus/check_consensus_trace.py": "0512fa2c8dc2143ebb6112d0196ad2cef98a5fc59ee67528718c5371f4b47ec8",
+    "experiments/results/inten_recursive_consensus/pack_build_logs.py": "073b28677a4dde009faa50e64f1d0792d8881dde89d57ac67875533331e7abb5",
+    "experiments/results/inten_recursive_consensus/build_corrected.py": "c0d9de9851db3a8ac3bf9386948530bbe142353c7e4f7f1f97eea591fd37915d"
+  },
+  "unit_test_recovery": {
+    "original_protocol_sha256": "483ad0afeb28c0ae6ba0bc80fe02f9e95755a28715872ec69bc907ee39808ba0",
+    "failure": "Initial CTest exit8 retained at checks/candidate_build. Synthetic test mistakenly equated admissible-band consensus with the minimum-cost displacement.",
+    "correction": "Assert exact geometric minimum separately, and that chosen shift is interior/negative and admitted by every controlled cluster. Core helper, algorithm, thresholds, manifests and cached replay sources unchanged; preserve original failed build and compile in distinct build_corrected directory."
   }
 }

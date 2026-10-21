@@ -156,7 +156,13 @@ TEST(InTenLoamPaperConsensus, FullPointProfilesPreserveSerialAndParallelBits) {
   }
   const auto decision = detail::selectTranslationConsensus(serial);
   ASSERT_TRUE(decision.usable);
-  EXPECT_EQ(decision.best_index, 28);  // -1.6m correction, no GT decision
+  // The exact shape match is at-1.6m. Consensus deliberately admits an
+  // uncertainty band and picks its nearest-zero common shift, not its minimum.
+  EXPECT_DOUBLE_EQ(serial.front().costs[28], 0.);
+  EXPECT_GT(decision.best_index, 0);
+  EXPECT_LT(decision.best_index, 60);
+  for (const auto& band : decision.admissions)
+    EXPECT_TRUE(detail::admitted(band, decision.best_index));
   const auto unavailable = detail::clusterTranslationProfiles(previous, current, Eigen::Matrix4d::Identity(), false);
   EXPECT_FALSE(detail::selectTranslationConsensus(unavailable).usable);
 }

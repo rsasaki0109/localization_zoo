@@ -1,0 +1,128 @@
+Internal ctest changing into directory: /workspace/localization-env/inten-recursive-consensus/build
+Test project /workspace/localization-env/inten-recursive-consensus/build
+    Start  65: test_inten_loam
+1/3 Test  #65: test_inten_loam ..................   Passed    0.02 sec
+    Start  66: test_inten_loam_paper
+2/3 Test  #66: test_inten_loam_paper ............***Failed   76.00 sec
+Running main() from ./googletest/src/gtest_main.cc
+[==========] Running 44 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from InTenLoamPaperConsensus
+[ RUN      ] InTenLoamPaperConsensus.AmbiguityTieMajorityAndBoundaryFallback
+[       OK ] InTenLoamPaperConsensus.AmbiguityTieMajorityAndBoundaryFallback (0 ms)
+[ RUN      ] InTenLoamPaperConsensus.FullPointProfilesPreserveSerialAndParallelBits
+/workspace/localization-env/inten-recursive-consensus/worktree/papers/inten_loam/test/test_inten_loam_paper.cpp:159: Failure
+Expected equality of these values:
+  decision.best_index
+    Which is: 32
+  28
+[  FAILED  ] InTenLoamPaperConsensus.FullPointProfilesPreserveSerialAndParallelBits (17 ms)
+[ RUN      ] InTenLoamPaperConsensus.PassiveTraceAndFixedRotationDuringNaturalTraversal
+[       OK ] InTenLoamPaperConsensus.PassiveTraceAndFixedRotationDuringNaturalTraversal (6855 ms)
+[----------] 3 tests from InTenLoamPaperConsensus (6872 ms total)
+
+[----------] 27 tests from InTenLoamPaper
+[ RUN      ] InTenLoamPaper.CauchyFacadeDownweightsMovingSurfaceWithoutChangingOtherDataSystems
+[       OK ] InTenLoamPaper.CauchyFacadeDownweightsMovingSurfaceWithoutChangingOtherDataSystems (181 ms)
+[ RUN      ] InTenLoamPaper.CauchyFacadeTracePreservesTheIterativeTrajectory
+[       OK ] InTenLoamPaper.CauchyFacadeTracePreservesTheIterativeTrajectory (388 ms)
+[ RUN      ] InTenLoamPaper.CauchyFacadeBufferedReductionPreservesSerialResults
+[       OK ] InTenLoamPaper.CauchyFacadeBufferedReductionPreservesSerialResults (343 ms)
+[ RUN      ] InTenLoamPaper.PredictedDorGatesFacadeQueriesWithoutRemovingExtractedFeatures
+[       OK ] InTenLoamPaper.PredictedDorGatesFacadeQueriesWithoutRemovingExtractedFeatures (194 ms)
+[ RUN      ] InTenLoamPaper.PredictedDorIsInactiveWithoutMappingOrDor
+[       OK ] InTenLoamPaper.PredictedDorIsInactiveWithoutMappingOrDor (553 ms)
+[ RUN      ] InTenLoamPaper.PredictedDorKeepsForcedDiagnosticEquationsAndOutputs
+[       OK ] InTenLoamPaper.PredictedDorKeepsForcedDiagnosticEquationsAndOutputs (211 ms)
+[ RUN      ] InTenLoamPaper.RowSupportRecoversSameLineOutsideTenWithoutReplacingAdjacent
+[       OK ] InTenLoamPaper.RowSupportRecoversSameLineOutsideTenWithoutReplacingAdjacent (0 ms)
+[ RUN      ] InTenLoamPaper.RowSupportRecoversAdjacentLineAndUsesNearestEligiblePoint
+[       OK ] InTenLoamPaper.RowSupportRecoversAdjacentLineAndUsesNearestEligiblePoint (0 ms)
+[ RUN      ] InTenLoamPaper.RowSupportPreservesDistanceGateExcludesClosestAndClearsOnRebuild
+[       OK ] InTenLoamPaper.RowSupportPreservesDistanceGateExcludesClosestAndClearsOnRebuild (0 ms)
+[ RUN      ] InTenLoamPaper.NativeSmallKQueriesMatchPclIncludingTiesAndRebuilds
+[       OK ] InTenLoamPaper.NativeSmallKQueriesMatchPclIncludingTiesAndRebuilds (1 ms)
+[ RUN      ] InTenLoamPaper.AcceleratedQueriesKeepNormalEquationsCountsAndPoses
+[       OK ] InTenLoamPaper.AcceleratedQueriesKeepNormalEquationsCountsAndPoses (2412 ms)
+[ RUN      ] InTenLoamPaper.SegmentsGroundAndFindsPlanarFeatures
+[       OK ] InTenLoamPaper.SegmentsGroundAndFindsPlanarFeatures (33 ms)
+[ RUN      ] InTenLoamPaper.BsplineIntensityFieldFollowsALinearRamp
+[       OK ] InTenLoamPaper.BsplineIntensityFieldFollowsALinearRamp (1 ms)
+[ RUN      ] InTenLoamPaper.TracksForwardMotionAtFullScale
+[       OK ] InTenLoamPaper.TracksForwardMotionAtFullScale (776 ms)
+[ RUN      ] InTenLoamPaper.StricterPlaneCheckStillTracks
+[       OK ] InTenLoamPaper.StricterPlaneCheckStillTracks (806 ms)
+[ RUN      ] InTenLoamPaper.ForcedPoseDiagnosticsStayAtTruthOnExactScans
+[       OK ] InTenLoamPaper.ForcedPoseDiagnosticsStayAtTruthOnExactScans (426 ms)
+[ RUN      ] InTenLoamPaper.PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods
+[       OK ] InTenLoamPaper.PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods (882 ms)
+[ RUN      ] InTenLoamPaper.MappedMotionPriorRejectsNonRigidRoundoffWithoutChangingTranslation
+[       OK ] InTenLoamPaper.MappedMotionPriorRejectsNonRigidRoundoffWithoutChangingTranslation (0 ms)
+[ RUN      ] InTenLoamPaper.TranslationPriorRaisesOnlyWeakMarginalInformation
+[       OK ] InTenLoamPaper.TranslationPriorRaisesOnlyWeakMarginalInformation (0 ms)
+[ RUN      ] InTenLoamPaper.TranslationPriorCentersRotationAndAnchorsActualPosition
+[       OK ] InTenLoamPaper.TranslationPriorCentersRotationAndAnchorsActualPosition (0 ms)
+[ RUN      ] InTenLoamPaper.GroundPcaFitsSlopedSurfaceWithOriginalOrientation
+[       OK ] InTenLoamPaper.GroundPcaFitsSlopedSurfaceWithOriginalOrientation (0 ms)
+[ RUN      ] InTenLoamPaper.GroundPcaRetainsTriangleOnLineOrInsufficientSupport
+[       OK ] InTenLoamPaper.GroundPcaRetainsTriangleOnLineOrInsufficientSupport (0 ms)
+[ RUN      ] InTenLoamPaper.GroundPcaChangesOnlyGroundAtFixedInitialPose
+[       OK ] InTenLoamPaper.GroundPcaChangesOnlyGroundAtFixedInitialPose (225 ms)
+[ RUN      ] InTenLoamPaper.FacadePcaChangesOnlyFacadeAtFixedInitialPose
+[       OK ] InTenLoamPaper.FacadePcaChangesOnlyFacadeAtFixedInitialPose (227 ms)
+[ RUN      ] InTenLoamPaper.AcceptedPlanePcaFitsVerticalFacadeAndExcludesOutOfGatePoint
+[       OK ] InTenLoamPaper.AcceptedPlanePcaFitsVerticalFacadeAndExcludesOutOfGatePoint (0 ms)
+[ RUN      ] InTenLoamPaper.TranslationPriorIsDefaultOffAndValidatesItsRange
+[       OK ] InTenLoamPaper.TranslationPriorIsDefaultOffAndValidatesItsRange (0 ms)
+[ RUN      ] InTenLoamPaper.TranslationPriorAppearsInTraceButNotFeatureCounts
+[       OK ] InTenLoamPaper.TranslationPriorAppearsInTraceButNotFeatureCounts (219 ms)
+[----------] 27 tests from InTenLoamPaper (7887 ms total)
+
+[----------] 14 tests from AccelerationModes/InTenLoamPassiveTrace
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.PreservesMovingPosesAndFutureMapState/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.PreservesMovingPosesAndFutureMapState/0 (32362 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.PreservesMovingPosesAndFutureMapState/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.PreservesMovingPosesAndFutureMapState/1 (23914 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorIsRecursiveAndPreservesS2SFallback/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorIsRecursiveAndPreservesS2SFallback/0 (1100 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorIsRecursiveAndPreservesS2SFallback/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorIsRecursiveAndPreservesS2SFallback/1 (811 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics/0 (1050 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics/1 (761 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.ShowsFallbackAndMappingRejectionWithoutStaleIterations/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.ShowsFallbackAndMappingRejectionWithoutStaleIterations/0 (441 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.ShowsFallbackAndMappingRejectionWithoutStaleIterations/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.ShowsFallbackAndMappingRejectionWithoutStaleIterations/1 (328 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.DistinguishesSkippedMappingAndZeroIterationBudget/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.DistinguishesSkippedMappingAndZeroIterationBudget/0 (27 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.DistinguishesSkippedMappingAndZeroIterationBudget/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.DistinguishesSkippedMappingAndZeroIterationBudget/1 (28 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.ReportsIterationBudgetAndConvergenceSeparately/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.ReportsIterationBudgetAndConvergenceSeparately/0 (221 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.ReportsIterationBudgetAndConvergenceSeparately/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.ReportsIterationBudgetAndConvergenceSeparately/1 (165 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.RejectsForcedPoseBeforeChangingEstimatorState/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.RejectsForcedPoseBeforeChangingEstimatorState/0 (8 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.RejectsForcedPoseBeforeChangingEstimatorState/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.RejectsForcedPoseBeforeChangingEstimatorState/1 (7 ms)
+[----------] 14 tests from AccelerationModes/InTenLoamPassiveTrace (61231 ms total)
+
+[----------] Global test environment tear-down
+[==========] 44 tests from 3 test suites ran. (75990 ms total)
+[  PASSED  ] 43 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] InTenLoamPaperConsensus.FullPointProfilesPreserveSerialAndParallelBits
+
+ 1 FAILED TEST
+
+    Start 126: test_inten_trace_jsonl
+3/3 Test #126: test_inten_trace_jsonl ...........   Passed    0.00 sec
+
+67% tests passed, 1 tests failed out of 3
+
+Total Test time (real) =  76.02 sec
+
+The following tests FAILED:
+	 66 - test_inten_loam_paper (Failed)

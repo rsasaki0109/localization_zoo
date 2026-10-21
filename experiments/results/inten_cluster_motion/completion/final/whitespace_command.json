@@ -1,0 +1,21 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "761eb92bc172339aa22496275d0d7e9bfc1fec56",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-cluster-motion/worktree",
+  "source_commit": "60d8525ea072d6a1a02c4e5ef160766ba9a9713a",
+  "started_unix": 1792572185.4718635,
+  "finished_unix": 1792572185.5178077,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-cluster-motion/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-cluster-motion/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

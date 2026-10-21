@@ -1,0 +1,57 @@
+{
+  "exit_code": 0,
+  "sequence": "01",
+  "checks": {
+    "baseline": {
+      "complete_original_frames_compared": 1101,
+      "records": 1103,
+      "partial_prefix_only": false,
+      "ignored_truncated_terminal_bytes": 0,
+      "numerical_trace_body_exact": true,
+      "header_exact_except_argv": true,
+      "scan_root_substitution": {
+        "original": "/workspace/localization-env/inten-recursive-consensus/kitti/dataset/sequences/01/velodyne/",
+        "current": "/workspace/localization-env/inten-recursive-consensus-accelerated/kitti/dataset/sequences/01/velodyne/"
+      },
+      "metrics_exact": [
+        "status",
+        "frames",
+        "ate_m",
+        "rpe_trans_pct",
+        "kitti_rte_trans_pct",
+        "kitti_rte_rot_deg_per_100m"
+      ],
+      "saved_pose_gt_bytes_equal": [
+        "InTEn_LOAM.txt",
+        "gt.txt",
+        "velodyne_evaluated_gt.txt"
+      ]
+    },
+    "candidate": {
+      "complete_original_frames_compared": 1101,
+      "records": 1103,
+      "partial_prefix_only": false,
+      "ignored_truncated_terminal_bytes": 0,
+      "numerical_trace_body_exact": true,
+      "header_exact_except_argv": true,
+      "scan_root_substitution": {
+        "original": "/workspace/localization-env/inten-recursive-consensus/kitti/dataset/sequences/01/velodyne/",
+        "current": "/workspace/localization-env/inten-recursive-consensus-accelerated/kitti/dataset/sequences/01/velodyne/"
+      },
+      "metrics_exact": [
+        "status",
+        "frames",
+        "ate_m",
+        "rpe_trans_pct",
+        "kitti_rte_trans_pct",
+        "kitti_rte_rot_deg_per_100m"
+      ],
+      "saved_pose_gt_bytes_equal": [
+        "InTEn_LOAM.txt",
+        "gt.txt",
+        "velodyne_evaluated_gt.txt"
+      ]
+    }
+  },
+  "scope": "Exact implementation-equivalence control; original full01 negative retained, interrupted07 prefix is not a complete accuracy result. No tuning, GT decision or native resume."
+}

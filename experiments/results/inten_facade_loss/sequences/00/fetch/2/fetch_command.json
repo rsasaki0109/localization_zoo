@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--output-root",
+    "/workspace/localization-env/inten-facade-loss/kitti",
+    "--sequence",
+    "00",
+    "--workers",
+    "4"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "9c590c7c41e5c1898d16d5ea920480e607e3f715",
+  "started_unix": 1792564395.1326048,
+  "finished_unix": 1792564406.6210105,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

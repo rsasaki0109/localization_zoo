@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "baseline_evidence_commit": "11cc0aa394b9ada2f9bf61d5a0abe5b0b1d57084",
+  "scope": "Every full01 relative registration as a terminal matched-seed S2S control, not a recursive trajectory or accuracy setting. Baseline must exactly reproduce original continuous S2S output/counts for every frame. No GT or hand ROI in native input except the inherited estimator seed (which is never GT).",
+  "arms": [
+    "unchanged baseline",
+    "source facade query gate using actual prediction/prior-local current DOR cluster mask",
+    "previous target facade tree filtered using actual native final DOR cluster mask from previous frame"
+  ],
+  "parameters": "Existing native dor_relative_range0.1, dor_object_ratio0.5 and all original profile fields unchanged. No denominator correction, threshold sweep, new numeric fit or per-frame winner. Detector masks frozen from identical unmodified actual-prefix histories.",
+  "producer": "Verbatim original native source plus two declared isolated gates: source facade query early return, and initial previous facade tree filtering. No non-facade equation change at the same seed; inherited adaptive prior information can change immediately with facade H. Only terminal output, no future history/map. Production code/API/defaults untouched at this stage.",
+  "selection": "Both arms chosen after committed full01 detector coverage/support evidence. All1100 registrations, including normal, bad and neutral cases, same rules; prior KITTI development exposure, no held out. The right hand box only labels offline retrospective contribution in preceding report and is not used by either arm.",
+  "analysis": "Retain every mode/frame, baseline exact-control result, output matrix, first class equations, length/vector error vs GT offline, lower/higher/equal on all moving/bad/other subsets. New recursive candidate only after this controlled evidence; it must be default-off/outside-paper, fixed across all full00-10 before ratios.",
+  "native_source_sha256": "95b08aa61f6eaa1e3b75b34caf5e66067bcab1bc359eb4e5f95b7a2705c0ef34"
+}

@@ -47,6 +47,8 @@ def backup(label):
 
 def invariant():
     require(git('branch','--show-current')==BRANCH,'Wrong branch')
+    require(read(E/'checks/cached_parity/result.json')['exit_code']==0 and read(E/'checks/cached_parity/result.json')['bitwise_worker_count_parity'],'Cached native worker-count parity missing')
+    require(read(E/'checks/cached_parity/decision_verification.json')['exit_code']==0,'Cached decision/equation checker preflight missing')
     require(not git('diff','--name-only',P['native_source_commit'],'--','common','evaluation','python',':(glob)papers/*/src/**',':(glob)papers/*/include/**',':(glob)papers/*/test/**','CMakeLists.txt'),'Frozen native source changed')
     for name in ('collect.py','full_protocol.json','binaries.json','build_corrected.py','check_consensus_trace.py'):
         path=E/name;require(subprocess.check_output(['git','show','HEAD:'+path.relative_to(W).as_posix()],cwd=W)==path.read_bytes(),'Uncommitted collector source '+name)

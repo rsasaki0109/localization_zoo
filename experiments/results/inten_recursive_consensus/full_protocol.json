@@ -104,10 +104,11 @@
     "experiments/results/inten_recursive_consensus/check_consensus_trace.py": "0512fa2c8dc2143ebb6112d0196ad2cef98a5fc59ee67528718c5371f4b47ec8",
     "experiments/results/inten_recursive_consensus/pack_build_logs.py": "073b28677a4dde009faa50e64f1d0792d8881dde89d57ac67875533331e7abb5",
     "experiments/results/inten_recursive_consensus/build_corrected.py": "c0d9de9851db3a8ac3bf9386948530bbe142353c7e4f7f1f97eea591fd37915d",
-    "experiments/results/inten_recursive_consensus/collect.py": "1e71e6feace9420e1e0c6f3866b779c58c89e216e032e893da6f41cc892969cb",
+    "experiments/results/inten_recursive_consensus/collect.py": "2cd526eee000b04f6cf857bdc254513f7a6d0475187061b89e44b4b3f941fa38",
     "experiments/results/inten_recursive_consensus/run_collection.py": "1e8dc815d2f27bf1a23de63ac3dbf32be94870e0dda5504f901fb6bc5bb43773",
     "experiments/results/inten_recursive_consensus/protocol.json": "8fb85446be6df14fcd3908e99b42f1e16af5d9efb6c68eb2ca1e27df5d17e3bb",
-    "experiments/results/inten_recursive_consensus/historical_aggregate_sha256.json": "21eb92bf082ceee794a926cc334382490502588dfa197853c74662d29a0d7a75"
+    "experiments/results/inten_recursive_consensus/historical_aggregate_sha256.json": "21eb92bf082ceee794a926cc334382490502588dfa197853c74662d29a0d7a75",
+    "experiments/results/inten_recursive_consensus/validate_cached_decisions.py": "19535ba9bcb070ad0aee9cd9f288e8326037f6887103cad5bac89550fe017a71"
   },
   "unit_test_recovery": {
     "original_protocol_sha256": "483ad0afeb28c0ae6ba0bc80fe02f9e95755a28715872ec69bc907ee39808ba0",

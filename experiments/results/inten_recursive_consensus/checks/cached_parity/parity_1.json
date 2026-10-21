@@ -1,0 +1,8 @@
+{
+  "exit_code": 0,
+  "threads": 1,
+  "profile_count": 1359,
+  "native_calls": 16,
+  "all_profile_costs_bitwise_original": true,
+  "all_original_and_candidate_solver_traces_exact_except_declared_forced_count": true
+}

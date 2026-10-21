@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/check_inten_trace.py",
+    "--trace",
+    "/workspace/localization-env/inten-s2m-prior/staging/04/baseline/trace.jsonl",
+    "--summary",
+    "/workspace/localization-env/inten-s2m-prior/staging/04/baseline/summary.json",
+    "--receipt",
+    "/workspace/localization-env/inten-s2m-prior/staging/04/baseline/native_command.json",
+    "--output",
+    "/workspace/localization-env/inten-s2m-prior/staging/04/baseline/trace_validation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "06feb2ed9c9469ab1d27d081a67decec1cac5d3c",
+  "started_unix": 1792542533.4774969,
+  "finished_unix": 1792542533.7051234,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

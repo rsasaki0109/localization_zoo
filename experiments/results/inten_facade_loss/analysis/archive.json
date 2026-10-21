@@ -1,0 +1,51 @@
+{
+  "files": {
+    "cluster_influence.jsonl": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/analysis/cluster_influence.jsonl",
+      "bytes": 51719395,
+      "sha256": "f30621fbb61de9a12879118ee1819ed244b365eac794276fa997460d9840edf4",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "cluster_influence.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "85147ab73c6d5829a964f4973f060decdb544a1146e5735fced19de2a0818bc8",
+          "gzip_bytes": 9744026,
+          "raw_sha256": "da1d25fe39d21ab90d3177f24eddd8ea478234ed7dcf005dd84101d9d436163a",
+          "raw_bytes": 33554432
+        },
+        {
+          "path": "cluster_influence.jsonl.parts/part-00001.gz",
+          "gzip_sha256": "014402d0e67f96aa7aae639e2c6eebce3703880df9f7a00d46560ce298729601",
+          "gzip_bytes": 5260326,
+          "raw_sha256": "4cd318a57cd047aa64536dcb3c831479dbb21cf6bbb0584fcb442d2e7352de3f",
+          "raw_bytes": 18164963
+        }
+      ]
+    },
+    "metrics.jsonl": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/analysis/metrics.jsonl",
+      "bytes": 1211898,
+      "sha256": "7d3ea7bdf3bff3d82aea73564f7114e3544acc346bed1b421c490ce5af05b432",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "metrics.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "16cb3ef5133eb59be027dd7a13f2c3da2361ce4faec1b99636b4010d4c9b6796",
+          "gzip_bytes": 224504,
+          "raw_sha256": "7d3ea7bdf3bff3d82aea73564f7114e3544acc346bed1b421c490ce5af05b432",
+          "raw_bytes": 1211898
+        }
+      ]
+    },
+    "report.json": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/analysis/report.json",
+      "bytes": 23589,
+      "sha256": "708e6176807f74744e3e6825718f07e4adeb7a9c5259ac0971227a22f0ecef9a",
+      "storage": "verbatim",
+      "path": "report.json",
+      "stored_sha256": "708e6176807f74744e3e6825718f07e4adeb7a9c5259ac0971227a22f0ecef9a"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -32,15 +32,15 @@ def validate(rows,previous,profiles):
 
 def main():
     assert not git('status','--porcelain')
-    stage=R/'parity_stage';stage.mkdir()
+    stage=R/'parity_stage_corrected';stage.mkdir()
     previous=E.parent/'inten_fixed_rotation';frames=read(previous/'protocol.json')['frames']
     files=[]
     for folder,name,target in [(E.parent/'inten_current_correspondences/baseline','features.jsonl','features.jsonl'),(previous/'controls','native.stdout.jsonl','previous.jsonl'),(E.parent/'inten_cluster_motion/controls','native.stdout.jsonl','profiles.jsonl')]:
-        files.append(restore(folder,name,R/'parity_inputs'/target))
+        files.append(restore(folder,name,R/'parity_inputs_corrected'/target))
     write(stage/'input_sources.json',dict(files=files,no_gt=True))
-    old=list(map(json.loads,(R/'parity_inputs/previous.jsonl').read_text().splitlines()));profiles=list(map(json.loads,(R/'parity_inputs/profiles.jsonl').read_text().splitlines()))
-    text=R/'parity_features.txt'
-    with text.open('x') as out,(R/'parity_inputs/features.jsonl').open() as source:
+    old=list(map(json.loads,(R/'parity_inputs_corrected/previous.jsonl').read_text().splitlines()));profiles=list(map(json.loads,(R/'parity_inputs_corrected/profiles.jsonl').read_text().splitlines()))
+    text=R/'parity_features_corrected.txt'
+    with text.open('x') as out,(R/'parity_inputs_corrected/features.jsonl').open() as source:
         for line in source:
             f=json.loads(line);out.write(str(f['frame'])+'\n')
             for features in f['features']:
@@ -50,7 +50,7 @@ def main():
     write(stage/'features.json',dict(path=str(text),sha256=sha(text)))
     payload=('\n'.join(str(frame)+' '+' '.join(format(v,'.17g') for v in next(p for p in old if p['frame']==frame and p['mode']==0)['solver']['input']) for frame in frames)+'\n').encode()
     (stage/'input.txt').write_bytes(payload)
-    build=module('recursive_parity_build',E/'build_candidate.py');flags=build.flags(build.OLD/'papers/inten_loam/CMakeFiles/test_inten_loam_paper.dir')
+    build=module('recursive_parity_build',E/'build_corrected.py');flags=build.flags(build.OLD/'papers/inten_loam/CMakeFiles/test_inten_loam_paper.dir')
     flags+=['-I'+str(E),'-I'+str(W/'evaluation/src')]
     obj,binary=R/'replay.o',R/'parity_probe'
     assert run('compile_replay',build.docker()+['c++',*flags,'-c',str(E/'replay_native.cpp'),'-o',str(obj)],stage)==0

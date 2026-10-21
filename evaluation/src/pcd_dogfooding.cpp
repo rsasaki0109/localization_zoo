@@ -4971,6 +4971,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "sectors_per_row") pp.sectors_per_row = static_cast<int>(v);
       else if (k == "map_intensity_voxel") pp.map_intensity_voxel = v;
       else if (k == "use_dor") pp.use_dor = v != 0.0;
+      else if (k == "s2s_predicted_dor_facade") pp.s2s_predicted_dor_facade = v != 0.0;
       else if (k == "use_intensity") pp.use_intensity = v != 0.0;
       else if (k == "s2m_plane_max_dist") pp.s2m_plane_max_dist = v;
       else if (k == "s2m_plane_min_spread") pp.s2m_plane_min_spread = v;
@@ -5037,6 +5038,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
     if (options.paper_accelerated) res.note += "; repository acceleration enabled (opt-in, not in the paper)";
     if (pp.s2s_mapped_prior) res.note += "; S2S previous mapped-motion seed enabled (repository extension, opt-in)";
     if (pp.s2s_translation_prior_ratio > 0.0) res.note += "; S2S weak-translation prediction prior enabled (repository extension, opt-in)";
+    if (pp.s2s_predicted_dor_facade) res.note += "; predicted-DOR S2S facade gate enabled (repository extension, opt-in)";
     if (pp.s2s_row_support) res.note += "; S2S missing-row completion enabled (repository extension, opt-in)";
     if (pp.s2s_ground_pca) res.note += "; S2S ground PCA normals enabled (repository extension, opt-in)";
     if (pp.s2s_facade_pca) res.note += "; S2S facade PCA normals enabled (repository extension, opt-in)";

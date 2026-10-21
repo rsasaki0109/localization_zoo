@@ -137,6 +137,7 @@ inline void params(std::ostream& out, const InTenLoamPaperParams& p) {
   if (p.s2s_row_support) out << ",\"s2s_row_support\":true";
   if (p.s2s_ground_pca) out << ",\"s2s_ground_pca\":true";
   if (p.s2s_facade_pca) out << ",\"s2s_facade_pca\":true";
+  if (p.s2s_predicted_dor_facade) out << ",\"s2s_predicted_dor_facade\":true";
 #undef INTEN_TRACE_PARAM
   out << '}';
 }
@@ -175,7 +176,10 @@ inline std::string frame(size_t input_index, const std::string& scan_path,
   out << ",\"frame_index\":" << value.frame_index << ",\"initialization\":" << value.initialization
       << ",\"features\":{\"edge\":" << result.num_edge << ",\"ground\":" << result.num_ground
       << ",\"facade\":" << result.num_facade << ",\"reflector\":" << result.num_reflector
-      << "},\"dor_removed\":" << result.dor_removed << ",\"s2s\":";
+      << "},\"dor_removed\":" << result.dor_removed;
+  if (value.s2s_dor_called)
+    out << ",\"s2s_prediction_dor\":{\"masked_facade_features\":" << value.s2s_dor_masked_facades << '}';
+  out << ",\"s2s\":";
   solver(out, value.s2s);
   out << ",\"s2s_fallback\":" << value.s2s_fallback << ",\"accepted_relative\":";
   matrix(out, value.accepted_relative);

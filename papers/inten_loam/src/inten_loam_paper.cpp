@@ -512,7 +512,7 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
 // ---------------------------------------------------------------------------
 
 int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first,
-                             PaperSolverTrace* trace) const {
+                             PaperSolverTrace* trace, const std::vector<char>* facade_dynamic) const {
   const Index& prev = *prev_;
   const double gate = params_.s2s_gate_sq;
   const double huber = params_.huber;
@@ -559,8 +559,11 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
       const int before = sys.n;
       const auto& src = cls == 0 ? curr.ground : curr.facade;
       const Tree& tree = cls == 0 ? prev.ground : prev.facade;
-      auto plane = [&](const PaperFeature&, const Eigen::Vector3d& x, Eigen::Vector3d* a,
+      auto plane = [&](const PaperFeature& source, const Eigen::Vector3d& x, Eigen::Vector3d* a,
                        double* residual, std::vector<int>* indices, std::vector<float>* distances) {
+        if (cls == 1 && facade_dynamic && source.cluster >= 0 &&
+            static_cast<size_t>(source.cluster) < facade_dynamic->size() &&
+            (*facade_dynamic)[static_cast<size_t>(source.cluster)]) return false;
         const int n = tree.knn(x, 10, indices, distances);
         const auto& ids = *indices;
         const auto& ds = *distances;
@@ -931,6 +934,17 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
   }
 
   Eigen::Matrix4d rel = params_.s2s_mapped_prior && params_.use_mapping ? last_mapped_rel_ : last_rel_;
+  std::vector<char> facade_dynamic;
+  if (params_.s2s_predicted_dor_facade && params_.use_mapping && params_.use_dor && !forced) {
+    const Eigen::Matrix4d prediction = drift_ * (odom_ * rel);
+    facade_dynamic = dynamicMask(frame, prediction);
+    if (trace) {
+      trace->s2s_dor_called = true;
+      for (const auto& f : frame.facade)
+        if (f.cluster >= 0 && static_cast<size_t>(f.cluster) < facade_dynamic.size() &&
+            facade_dynamic[static_cast<size_t>(f.cluster)]) ++trace->s2s_dor_masked_facades;
+    }
+  }
   if (forced) {
     // S2S from the forced relative motion; its normal equations there.
     rel = prev_pose_.inverse() * *diag->forced_pose;
@@ -947,7 +961,8 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
       trace->s2s.called = true;
       trace->s2s.input = rel;
     }
-    result.s2s_pairs = solveS2S(frame, &rel, nullptr, trace ? &trace->s2s : nullptr);
+    result.s2s_pairs = solveS2S(frame, &rel, nullptr, trace ? &trace->s2s : nullptr,
+                              facade_dynamic.empty() ? nullptr : &facade_dynamic);
     if (trace) {
       trace->s2s.output = rel;
       trace->s2s.returned_pairs = result.s2s_pairs;

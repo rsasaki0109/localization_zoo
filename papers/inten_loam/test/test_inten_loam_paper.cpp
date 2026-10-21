@@ -77,7 +77,100 @@ void scanAt(const Eigen::Matrix4d& pose, std::vector<Eigen::Vector3d>* pts, std:
   }
 }
 
+// Stationary sensor and static street, with one independently moving wall.
+// Its radial motion passes existing DOR while remaining inside the S2S gate.
+void movingWall(double wall_x, std::vector<Eigen::Vector3d>* pts, std::vector<float>* inten) {
+  pts->clear(); inten->clear();
+  for (int beam = 0; beam < 64; ++beam) {
+    const double el = (2.0-beam*26.8/63.0)*M_PI/180.;
+    for (int k = 0; k < 2000; ++k) {
+      const double az = -M_PI+2.*M_PI*k/2000.;
+      const Eigen::Vector3d d(std::cos(el)*std::cos(az),std::cos(el)*std::sin(az),std::sin(el));
+      double t = castRay(Eigen::Vector3d::Zero(),d);
+      if (d.x() > 0.) {
+        const double candidate = wall_x/d.x();
+        const Eigen::Vector3d p = candidate*d;
+        if (std::abs(p.y()) < 3. && p.z() > -1.6 && p.z() < 2. && (t < 0. || candidate < t)) t = candidate;
+      }
+      if (t > 0.) { pts->push_back(t*d); inten->push_back(intensityAt(t*d)); }
+    }
+  }
+}
+
 }  // namespace
+
+TEST(InTenLoamPaper, PredictedDorGatesFacadeQueriesWithoutRemovingExtractedFeatures) {
+  InTenLoamPaperParams p;
+  EXPECT_FALSE(p.s2s_predicted_dor_facade);
+  p.accelerated = true;
+  InTenLoamPaper reference(p);
+  p.s2s_predicted_dor_facade = true;
+  InTenLoamPaper candidate(p);
+  std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+  movingWall(6.,&points,&intensity);
+  reference.process(points,intensity); candidate.process(points,intensity);
+  movingWall(6.8,&points,&intensity);
+  InTenLoamPaperTrace a,b;
+  const auto x = reference.process(points,intensity,nullptr,&a);
+  const auto y = candidate.process(points,intensity,nullptr,&b);
+  ASSERT_TRUE(b.s2s_dor_called);
+  ASSERT_GT(b.s2s_dor_masked_facades,0u);
+  EXPECT_FALSE(a.s2s_dor_called);
+  EXPECT_EQ(x.num_ground,y.num_ground); EXPECT_EQ(x.num_facade,y.num_facade);
+  EXPECT_EQ(x.num_edge,y.num_edge); EXPECT_EQ(x.num_reflector,y.num_reflector);
+  EXPECT_EQ((a.s2s.input-b.s2s.input).norm(),0.);
+  ASSERT_FALSE(a.s2s.iterations.empty()); ASSERT_FALSE(b.s2s.iterations.empty());
+  for (int c : {0,1,3}) EXPECT_EQ(a.s2s.iterations.front().class_pairs[c],b.s2s.iterations.front().class_pairs[c]);
+  EXPECT_GT(a.s2s.iterations.front().class_pairs[2],b.s2s.iterations.front().class_pairs[2]);
+  EXPECT_TRUE(b.s2s.output.allFinite()); EXPECT_TRUE(y.pose.allFinite());
+}
+
+TEST(InTenLoamPaper, PredictedDorIsInactiveWithoutMappingOrDor) {
+  for (bool mapping : {false,true}) {
+    InTenLoamPaperParams p;
+    p.accelerated = true;
+    p.use_mapping = mapping; p.use_dor = !mapping;
+    InTenLoamPaper reference(p);
+    p.s2s_predicted_dor_facade = true;
+    InTenLoamPaper candidate(p);
+    std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+    for (int i = 0; i < 3; ++i) {
+      movingWall(6.+.8*i,&points,&intensity);
+      InTenLoamPaperTrace a,b;
+      const auto x=reference.process(points,intensity,nullptr,&a);
+      const auto y=candidate.process(points,intensity,nullptr,&b);
+      EXPECT_FALSE(b.s2s_dor_called); EXPECT_EQ(b.s2s_dor_masked_facades,0u);
+      EXPECT_EQ((x.pose-y.pose).norm(),0.);
+      EXPECT_EQ(x.s2s_pairs,y.s2s_pairs); EXPECT_EQ(x.s2m_pairs,y.s2m_pairs);
+      EXPECT_EQ(x.dor_removed,y.dor_removed);
+      ASSERT_EQ(a.s2s.iterations.size(),b.s2s.iterations.size());
+      for (size_t k=0;k<a.s2s.iterations.size();++k) {
+        EXPECT_EQ((a.s2s.iterations[k].H-b.s2s.iterations[k].H).norm(),0.);
+        EXPECT_EQ((a.s2s.iterations[k].g-b.s2s.iterations[k].g).norm(),0.);
+      }
+    }
+  }
+}
+
+TEST(InTenLoamPaper, PredictedDorKeepsForcedDiagnosticEquationsAndOutputs) {
+  InTenLoamPaperParams p; p.accelerated=true;
+  InTenLoamPaper reference(p); p.s2s_predicted_dor_facade=true;
+  InTenLoamPaper candidate(p);
+  std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+  movingWall(6.,&points,&intensity);
+  reference.process(points,intensity); candidate.process(points,intensity);
+  movingWall(6.8,&points,&intensity);
+  const Eigen::Matrix4d seed=Eigen::Matrix4d::Identity();
+  InTenLoamPaperDiagnostics a,b; a.forced_pose=b.forced_pose=&seed;
+  reference.process(points,intensity,&a); candidate.process(points,intensity,&b);
+  for(int c=0;c<4;++c) {
+    EXPECT_EQ((a.s2s_H[c]-b.s2s_H[c]).norm(),0.); EXPECT_EQ((a.s2s_g[c]-b.s2s_g[c]).norm(),0.);
+    EXPECT_EQ((a.s2m_H[c]-b.s2m_H[c]).norm(),0.); EXPECT_EQ((a.s2m_g[c]-b.s2m_g[c]).norm(),0.);
+    EXPECT_EQ(a.s2s_n[c],b.s2s_n[c]); EXPECT_EQ(a.s2m_n[c],b.s2m_n[c]);
+  }
+  EXPECT_EQ((a.s2s_estimate-b.s2s_estimate).norm(),0.);
+  EXPECT_EQ((a.s2m_estimate-b.s2m_estimate).norm(),0.);
+}
 
 TEST(InTenLoamPaper, RowSupportRecoversSameLineOutsideTenWithoutReplacingAdjacent) {
   detail::FeatureTree target;

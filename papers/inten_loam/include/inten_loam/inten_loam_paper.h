@@ -134,6 +134,12 @@ struct InTenLoamPaperParams {
   // raising it to that floor. Anchor at the initial prediction; keep this
   // information fixed throughout the solve. Zero disables it (legacy path).
   double s2s_translation_prior_ratio = 0.0;
+  // Opt-in repository extension, not in the paper. Before normal S2S, run
+  // existing DOR at the initial motion prediction using the prior local map.
+  // Reject only source facade queries in marked clusters. Extraction, other
+  // feature classes and post-S2M map insertion keep their existing rules.
+  // Requires mapping and DOR; forced diagnostics remain unchanged.
+  bool s2s_predicted_dor_facade = false;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).
@@ -221,6 +227,8 @@ struct InTenLoamPaperTrace {
   bool initialization = false;
   PaperSolverTrace s2s, s2m;
   bool s2s_fallback = false;
+  bool s2s_dor_called = false;
+  size_t s2s_dor_masked_facades = 0;
   Eigen::Matrix4d accepted_relative = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d s2m_prediction = Eigen::Matrix4d::Identity();  // drift * odom
   bool s2m_accepted = false;
@@ -274,7 +282,7 @@ private:
 
   // Gauss-Newton on se(3) with re-association; T maps source into target.
   int solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first = nullptr,
-               PaperSolverTrace* trace = nullptr) const;
+               PaperSolverTrace* trace = nullptr, const std::vector<char>* facade_dynamic = nullptr) const;
   int solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4] = nullptr,
                ClassSystems* first = nullptr, PaperSolverTrace* trace = nullptr) const;
   std::vector<char> dynamicMask(const PaperFrame& curr, const Eigen::Matrix4d& T_w) const;

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-s2m-prior/worktree/experiments/results/inten_map_plane_spread/import_results.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "a904d6594d383dddb48488ccd79236fec03ba621",
+  "started_unix": 1792544976.410466,
+  "finished_unix": 1792544976.7472267,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

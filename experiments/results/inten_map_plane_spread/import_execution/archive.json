@@ -1,0 +1,54 @@
+{
+  "files": {
+    "command.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/import_execution/command.json",
+      "bytes": 541,
+      "sha256": "96d5cb9f3a5e0b925ea30db662a21e44a27334ba65b0e855d6d2664d029bca1d",
+      "storage": "verbatim",
+      "path": "command.json",
+      "stored_sha256": "96d5cb9f3a5e0b925ea30db662a21e44a27334ba65b0e855d6d2664d029bca1d"
+    },
+    "index.log": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/import_execution/index.log",
+      "bytes": 49171,
+      "sha256": "9e334216c8d6c95e27a799ec04d85034b60272095f7433b83129bdc258b11b87",
+      "storage": "gzip",
+      "path": "index.log.gz",
+      "stored_sha256": "63a4696eb635cf5e6b5562f2771eb8b2c6eabe88c90d4fc1742e0bd2a913b4b5"
+    },
+    "index_command.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/import_execution/index_command.json",
+      "bytes": 1605,
+      "sha256": "1217cbbf62db33c9ca7215f49d2da9675da4fdae591d35d2c08e3708f8b07d90",
+      "storage": "verbatim",
+      "path": "index_command.json",
+      "stored_sha256": "1217cbbf62db33c9ca7215f49d2da9675da4fdae591d35d2c08e3708f8b07d90"
+    },
+    "result.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/import_execution/result.json",
+      "bytes": 1313,
+      "sha256": "29e45e1c04513da55bfeac02b38bfeb94133333017c4ebf740d9e6f3a959b7c4",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "29e45e1c04513da55bfeac02b38bfeb94133333017c4ebf740d9e6f3a959b7c4"
+    },
+    "stderr.log": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/import_execution/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "stdout.log": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/import_execution/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

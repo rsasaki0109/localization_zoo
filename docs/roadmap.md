@@ -602,6 +602,21 @@ independent. Each item says what "done" means.
     retain unresolved247 and10 drift. Numerical `0e2ab939` precedes prose;
     every prior KITTI observation remains development.
 
+    The [recursive fixed-rotation consensus comparison](../experiments/results/inten_consensus_query_acceleration/README.md)
+    evaluates one default-off Boolean on every full KITTI 00-10 sequence.
+    The unchanged consensus seed/support rule re-solves translation at the
+    original estimated rotation; realized map/prediction feedback can change.
+    Geometric mean candidate/reference RTE: 1.106697x;
+    4 lower, 7 higher, 0 equal sequences.
+    Failure-sequence RTE: 01 4.481189% to 8.021836%; 02 0.756938% to 1.143779%; 10 1.093310% to 1.172497%.
+    Above twice paper: 01, 02, 10.
+    Every adverse metric, new bad frame and error-growth block is retained.
+    Cached local feasibility was conditional; this full experiment includes
+    changed history. Local fixedR does not guarantee global mapped rotation.
+    Original 07/00/DiLO 01 provenance and all past KITTI development disclosed.
+    No GT input, threshold sweep, retuning or per-sequence adoption.
+    Numerical `b64bbf82` precedes interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

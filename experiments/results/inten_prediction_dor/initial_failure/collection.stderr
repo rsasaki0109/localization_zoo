@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/inten-prediction-dor/worktree/experiments/results/inten_prediction_dor/run.py", line 107, in <module>
+    main()
+  File "/workspace/localization-env/inten-prediction-dor/worktree/experiments/results/inten_prediction_dor/run.py", line 98, in main
+    payload = ('\n'.join(map(str, [max(int(k[:-4]) for k in inputs),*p['detailed_frames']]))+'\n').encode()
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/inten-prediction-dor/worktree/experiments/results/inten_prediction_dor/run.py", line 98, in <genexpr>
+    payload = ('\n'.join(map(str, [max(int(k[:-4]) for k in inputs),*p['detailed_frames']]))+'\n').encode()
+                                       ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'frame_timestamps'

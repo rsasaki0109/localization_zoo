@@ -95,7 +95,7 @@ def main():
     assert inputs == read(W/'experiments/results/shared_near_range/sequences/01/inputs.json')['files']
     write(stage/'inputs.json', dict(sequence='01', owned_input_dir=str(raw), files=inputs,
           exact_previous_official_hashes=True))
-    payload = ('\n'.join(map(str, [max(int(k[:-4]) for k in inputs),*p['detailed_frames']]))+'\n').encode()
+    payload = ('\n'.join(map(str, [max(int(k[:-4]) for k in inputs if k.endswith(".bin")),*p['detailed_frames']]))+'\n').encode()
     (stage/'input.txt').write_bytes(payload)
     assert run('native', build.docker()+[str(binary), str(raw), str(stage/'correspondences.jsonl'),
                str(stage/'masks.jsonl'),str(stage/'ranges.jsonl')], stage, payload) == 0

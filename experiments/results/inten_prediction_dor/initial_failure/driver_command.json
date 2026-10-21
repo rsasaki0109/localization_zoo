@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-prediction-dor/worktree/experiments/results/inten_prediction_dor/run.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "source_commit": "91f00e56f3d3a0d3f08921c803b76d3ee05eb7a8",
+  "exit_code": 1,
+  "reason": "Before native execution, last-frame parser attempted int(frame_timestamps). No native output exists. Keep successful compilation/acquisition and exact-hash owned inputs; explicit verified resume avoids compile/fetch reruns."
+}

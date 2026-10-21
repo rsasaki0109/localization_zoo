@@ -1,0 +1,22 @@
+{
+  "exit_code": 0,
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus/worktree/experiments/results/inten_recursive_consensus/archive_interruption.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus/worktree",
+  "source_commit": "b10b0a4789f15ef2024b91eeccabda03bd780119",
+  "observed_unix": 1792588365.3977077,
+  "scope": "Archival only; intentional performance interruption is not a completed scientific07 result.",
+  "original_wrapper_actual_exit": 1,
+  "original_candidate_actual_exit": 130,
+  "original_baseline_actual_exit": 0,
+  "all_original_bytes_roundtripped": true,
+  "owned_raw": "/workspace/localization-env/inten-recursive-consensus/kitti/dataset/sequences/07/velodyne",
+  "owned_raw_hashes_verified": true,
+  "raw_deleted": false,
+  "no_native_rerun": true,
+  "no_accuracy_setting_change": true,
+  "slow_full01_negative_preserved": true,
+  "next": "Transfer the same officially fetched07 input to a frozen exact accelerated producer; require every full01 numerical trace/pose/GT/metric identical. Archive/commit/push new07 before raw deletion and any other acquisition."
+}

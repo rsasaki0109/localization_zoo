@@ -1,0 +1,17 @@
+{
+  "command": [
+    "git",
+    "push",
+    "origin",
+    "HEAD:refs/heads/codex/inten-recursive-consensus"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus/worktree",
+  "source_commit": "bd3724fd5aa82513c1784d249a7cf6133df5b95b",
+  "started_unix": 1792586442.0634325,
+  "finished_unix": 1792586443.6630156,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

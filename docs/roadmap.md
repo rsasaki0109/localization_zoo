@@ -515,6 +515,21 @@ independent. Each item says what "done" means.
     diagnosis00 and inherited DiLO01 prior tuning are disclosed.
     Numerical evidence `da4c325b` precedes this interpretation.
 
+    The [current01 scene-motion diagnosis](../experiments/results/inten_current_correspondences/README.md)
+    reproduces all434 normal-prefix poses and solver traces exactly and retains
+    all2766 terminal matched-seed cluster controls. At204, removing one inspected
+    right-side facade region changes S2S length/GT0.607064→1.004733. Independent
+    full-point profiles require an additional-1.60m right-side shift after GT,
+    while the opposite side is near zero; this supports local moving-surface
+    correspondence contamination. The same region worsens247,
+    0.522727→0.039218, and does not undo the already collapsed205 seed.
+    All adverse/neutral/oracle cases and empty-region failures are retained.
+    This region was selected on committed204 development geometry, is not a
+    proposed estimator, and changes no production default or full-sequence score.
+    Automatic static-support selection, full01 recovery and10 gradual drift remain
+    open. Any new accuracy setting requires all full00–10 fixed-arm evidence.
+    Numerical commits96197955/59925767 precede this interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

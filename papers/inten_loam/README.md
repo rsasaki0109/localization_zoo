@@ -1582,3 +1582,28 @@ All 11 selected stored InTEn-LOAM full-sequence cells complete with native exits
 
 [Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
 <!-- /SHARED_NEAR_RANGE_REPLAY -->
+
+### Current01 scene-motion diagnosis (terminal controls; no new accuracy setting)
+
+[Actual-prefix correspondence evidence](../../experiments/results/inten_current_correspondences/README.md)
+reproduces every pose and S2S/S2M trace over434 normal-prefix frames exactly.
+The inherited fixed eight endpoints retain all2766 terminal matched-seed calls.
+At204, removing facade sources in one inspected right-side box changes S2S
+length/GT0.607064→1.004733 and vector error/GT0.392957→0.008495. Independent
+full-point GT-aligned profiles require an additional-1.60m x shift on the
+right (MSE0.631819→0.007759m²), versus+0.05m on the opposite side (trimmed0m).
+This supports moving right-side surface correspondences as a local cause of
+this onset; it does not certify a semantic object or resolve the whole trajectory.
+
+The same box **worsens247**, length/GT0.522727→0.039218 and vector
+error0.477580→0.967765. It barely repairs the already collapsed natural205
+seed,0.372446→0.383909; all-facade removal also worsens202,
+0.748598→0.417119. Every natural/oracle endpoint, individual-cluster adverse
+result, empty-region failure and all full-point profiles are retained in the
+linked report. The box was chosen after inspecting committed204 geometry;
+all endpoints are development, not held out. It is a terminal diagnostic,
+not a deployable filter or proposed parameter, and no full-sequence or
+paper-ratio improvement is claimed. Production code/defaults and all stored
+full00–10 results stay unchanged. Numerical commits96197955/59925767 precede
+this interpretation. Next: infer static registration support automatically;
+any outside-paper change stays opt-in/default-off and needs full00–10 evidence.

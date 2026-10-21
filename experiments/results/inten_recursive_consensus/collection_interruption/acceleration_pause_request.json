@@ -1,0 +1,17 @@
+{
+  "observed_unix": 1792588211.1642532,
+  "command": [
+    "python",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree/experiments/results/inten_consensus_query_acceleration/pause_original.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree",
+  "acceleration_source_commit": "1bc3b13d59ab504ef72aa3b64733aa798cfd93d4",
+  "reason": "Engineering exact-query acceleration after native tests and bitwise full cached profile/solver controls; no accuracy setting, threshold or rule changes. Preserve slow full01 negative and require its full numerical equality in the fresh uniform producer.",
+  "owned_candidate_pid": 194553,
+  "matched_summary": "/workspace/localization-env/inten-recursive-consensus/full_staging/07/candidate/summary.json",
+  "matched_raw": "/workspace/localization-env/inten-recursive-consensus/kitti/dataset/sequences/07/velodyne",
+  "signal": "SIGINT",
+  "preserve_all_partial_outputs_and_actual_nonzero_exit": true,
+  "no_raw_deletion": true,
+  "original_full01_commit": "bd3724fd5aa82513c1784d249a7cf6133df5b95b"
+}

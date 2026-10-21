@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "parent_commit": "b603cd20af5a9d9786886f9d3d1a68372802708e",
+  "parent_pr": 161,
+  "sequence_order": [
+    "01",
+    "07",
+    "00",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json",
+      "sha256": "c600521bbd97bad20ccb060c43a0994466bbacdca5b414102fbd4b07c3679ddf"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json",
+      "sha256": "dd075017b0544bd8186c70839c94f533ec2c4208cceaae07b1d5f05dd450d13c"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json",
+      "sha256": "3de02837320905ad968bad9472142b2dbacafde125d697f0a88be5a23b13e75c"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json",
+      "sha256": "e382b642cf226eba33b9aaef6bada73488ee9a68008ec08e92f7793528eec713"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json",
+      "sha256": "c66a0dc204af8f6b0ea77e1a301a2ff99519565edc7f0af955c2d5dec9d614d7"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json",
+      "sha256": "363ec387a6d06e23e578ca968b7900a8160c08fa77f98af78d7c8b5c5d68a792"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json",
+      "sha256": "5451cbdc0442351f5aaa25b34c5b30f1c17a2fcb2176a11d6f6e64a77414b949"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json",
+      "sha256": "c36be1498a93911f7c3bbdfdd6c22d73760f8e7c2733ac536dee32e608f1458e"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json",
+      "sha256": "0440d50614f3051b9d7378b76d360ecae21e215f57544198923ab14d26e7b277"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json",
+      "sha256": "fd02c01a9a2aa1b2f739c352e78365d9dac5ec3c5f5e04bfe102582f2ce1b72f"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json",
+      "sha256": "667bd82e45beb95f574d074cda0547f5530514a63c8a8e3923a3b827e59da0f5"
+    }
+  },
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_source_commit": "8ab36c3501197d3439a9dd6ac96949c3acace695",
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "selection": "One new Boolean option chosen after committed full01 detector evidence11cc0aa3 and all3300 matched natural-seed terminal callsfe932b7f. Source gate204 length/GT0.607064->0.921199; terminal allmoving194lower/199higher/707equal length errors and185lower/208higher/707equal vector errors, all adverse cases retained. No threshold fit: existing DOR0.1/0.5 unchanged. This is development on01; original profile selected07,00 diagnosis and inheritedDiLO01 prior fraction; every priorKITTI exposure disclosed, none independent held out. Freeze before every full arm, no retuning or per-sequence adoption even if actual trajectories worsen.",
+  "change": "Only default-off outside-paper s2s_predicted_dor_facade0 vs1. Existing DOR evaluates current extracted frame at drift_*(odom_*initial_relative), with actual prior local map/previous full scan. Its marked clusters reject only S2S source facade queries before native association. No extraction removal, ground/edge/intensity query change, S2M gate or post-S2M insertion change at fixed history. Adaptive S2S prior information can change immediately with facadeH, later reassociation/map/prediction and all classes follow changed trajectory. No GT or hand ROI used.",
+  "compatibility": "Fresh same candidate-native binary for both full arms. Every default-off full baseline must exactly reproduce preceding immutable159 candidate metrics, saved pose/GT bytes and numeric trace body after declared scan-root-only substitution. OFF trace header/frame bytes omit new optional fields. All754 old aggregates and other historical evidence preserved; new option remains off and new rows experimental/nondefault/unscored.",
+  "diagnostic_producer": "protocol.json/instrument.py full passive native clone91f00e56, analysis99b681d4 and terminal_protocol.json/terminal_native.cpp producer782d6b06 predate new production ABI. Reproduce those stages from their pinned source checkouts; binaries are preserved and are never used as accuracy producers. Numerical commits11cc0aa3/fe932b7f precede candidate selection; all no-op controls exact.",
+  "acceleration": "Same opt-in acceleration andOMP1/BLAS1 throughout. Two full arms may share twoCPUs; timing retained raw, unavailable in aggregate FPS/proxy ranking.",
+  "data": "Official fetch one owned full sequence at a time; reuse exact-hash owned01 acquisition from passive full run. Up to4 attempts retain all receipts. Lossless archive+roundtrip+commit+normalpush before owned raw deletion; cleanup commit/push before next acquisition. Stop on errors; preserve old/new builds/binaries/logical evidence. Temporary full staging is removable only after its complete bytes survive in committed/pushed verified archive.",
+  "archival": "Ordered32MiB uncompressed gzip shards, SHA256/bytes, exact roundtrip before deletion. Historical checkout immutable copies may be byte/mode-verified hardlinked for storage; never change old logical files or binaries.",
+  "completion": "All11 fixed full pairs exit0, unskipped/nonfinite-free; compare all metrics and new bad frames, diagnose every candidate sequence above2paper. Commit numbers before prose, import both arms nondefault/unscored/FPSblank, regenerate3 required derivatives, preserve canonical scores/defaults/paperJSON and all old scientific evidence. Full exact-final-head Native/ROS2 CI before Ready; actual-results PR, no merge."
+}

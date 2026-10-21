@@ -1,0 +1,78 @@
+{
+  "exit_code": 0,
+  "files": {
+    "build.stderr": {
+      "storage": "build.stderr.gz",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "stored_bytes": 20,
+      "original_retained_at": "/workspace/localization-env/inten-prediction-dor/native_build_logs/build.stderr",
+      "byte_roundtrip_verified": true
+    },
+    "build.stdout": {
+      "storage": "build.stdout.gz",
+      "raw_sha256": "f273b1ef5d30ca2efb2585747bc350070fbc442b70ed7d2a955edb227da88435",
+      "raw_bytes": 1519,
+      "stored_sha256": "79cc4dfbd7ed3c5d2b01a1d05ec0c0489bded3d323490118c3aa585e663b620d",
+      "stored_bytes": 336,
+      "original_retained_at": "/workspace/localization-env/inten-prediction-dor/native_build_logs/build.stdout",
+      "byte_roundtrip_verified": true
+    },
+    "configure.stderr": {
+      "storage": "configure.stderr.gz",
+      "raw_sha256": "3d77c38fbd07367aba026154ecd13e60c46398c8c198c7b121d292585cdfa791",
+      "raw_bytes": 117,
+      "stored_sha256": "a671a1145f984d7d986bac32f296f71f1e3374c46fe5c768ef00b0fb30288b8f",
+      "stored_bytes": 86,
+      "original_retained_at": "/workspace/localization-env/inten-prediction-dor/native_build_logs/configure.stderr",
+      "byte_roundtrip_verified": true
+    },
+    "configure.stdout": {
+      "storage": "configure.stdout.gz",
+      "raw_sha256": "895deb2fbf1dc43f91a07a2993758d1bae0d68d61f32dd4a0e13aa6850a96a35",
+      "raw_bytes": 14139,
+      "stored_sha256": "0132d5621ebef6923f206fbe4b4461a7445b2ae10b750deb8cfd1ffc7fc54297",
+      "stored_bytes": 1791,
+      "original_retained_at": "/workspace/localization-env/inten-prediction-dor/native_build_logs/configure.stdout",
+      "byte_roundtrip_verified": true
+    },
+    "ctest.stderr": {
+      "storage": "ctest.stderr.gz",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "stored_bytes": 20,
+      "original_retained_at": "/workspace/localization-env/inten-prediction-dor/native_build_logs/ctest.stderr",
+      "byte_roundtrip_verified": true
+    },
+    "ctest.stdout": {
+      "storage": "ctest.stdout.gz",
+      "raw_sha256": "ea97602e8875423860f0e3390442e104844675343b7ae50493fb4b48add32186",
+      "raw_bytes": 563,
+      "stored_sha256": "b6975bf8b8faccdb9dfaea4b91bbe35a70b048f9d99a2000911072c912d286ba",
+      "stored_bytes": 263,
+      "original_retained_at": "/workspace/localization-env/inten-prediction-dor/native_build_logs/ctest.stdout",
+      "byte_roundtrip_verified": true
+    },
+    "runner.stderr": {
+      "storage": "runner.stderr.gz",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "stored_bytes": 20,
+      "original_retained_at": "/workspace/localization-env/inten-prediction-dor/native_build_logs/runner.stderr",
+      "byte_roundtrip_verified": true
+    },
+    "runner.stdout": {
+      "storage": "runner.stdout.gz",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "stored_bytes": 20,
+      "original_retained_at": "/workspace/localization-env/inten-prediction-dor/native_build_logs/runner.stdout",
+      "byte_roundtrip_verified": true
+    }
+  },
+  "policy": "Raw CMake stdout contains generator trailing whitespace. Preserve every byte with lossless gzip plus private original, rather than altering execution evidence."
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_08_full_prediction_dor",
+    "title": "InTEn-LOAM KITTI 08: predicted-DOR facade gate",
+    "question": "Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed current reference",
+      "design_style": "reference",
+      "intent": "Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0"
+      ]
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in predicted-DOR source facade gate",
+      "design_style": "experimental",
+      "intent": "Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=1"
+      ]
+    }
+  ]
+}

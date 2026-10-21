@@ -1,0 +1,42 @@
+{
+  "wrapper_source_sha256": "2bb9c87e06a84e8cacf51a8f6e51a9ec62aea0308cb0a2654d0b4a560c5f5b2d",
+  "archive_source_sha256": "c57d796bfa2053f9207b95cf825bd941cebf0c4b6b18858536b11893135601c1",
+  "old_backup_files": {
+    "experiments/results/inten_facade_loss/backup_execution/archive.json": {
+      "sha256": "34119faa9fa1193043e00d2e8f0aaaef74023f90c13f26d183c11f2f21c94710",
+      "bytes": 2572,
+      "mode": 384
+    },
+    "experiments/results/inten_facade_loss/backup_execution/cleanup/push.stderr.log.gz": {
+      "sha256": "da6395b63e7db30b1dff5821e84997cedc7a25552be432db8f83809cbc8ef237",
+      "bytes": 126,
+      "mode": 384
+    },
+    "experiments/results/inten_facade_loss/backup_execution/cleanup/push.stdout.log.gz": {
+      "sha256": "f482a4fa4a7ea6c96984dc3599ab47323847ec16187aa2d7f9a9192a26212f8a",
+      "bytes": 81,
+      "mode": 384
+    },
+    "experiments/results/inten_facade_loss/backup_execution/cleanup/push_command.json": {
+      "sha256": "be5d1e014200ed0da03bb7a0e620089cae70020098f4d1e40a9d7dd6870e5ab2",
+      "bytes": 546,
+      "mode": 384
+    },
+    "experiments/results/inten_facade_loss/backup_execution/raw_controls/push.stderr.log.gz": {
+      "sha256": "581305a07023a632a4a6e75f195e6f7ac2331d554048e2770a588475a6353ecf",
+      "bytes": 192,
+      "mode": 384
+    },
+    "experiments/results/inten_facade_loss/backup_execution/raw_controls/push.stdout.log.gz": {
+      "sha256": "f482a4fa4a7ea6c96984dc3599ab47323847ec16187aa2d7f9a9192a26212f8a",
+      "bytes": 81,
+      "mode": 384
+    },
+    "experiments/results/inten_facade_loss/backup_execution/raw_controls/push_command.json": {
+      "sha256": "21bf1fe445246ddda0114b61ae29c13699af085e2d16998a8bae57925303f974",
+      "bytes": 547,
+      "mode": 384
+    }
+  },
+  "policy": "Archive-only recovery after actual complete collection; preserve original backup archive bytes and use a distinct new target. Do not rerun native processing or acquisition."
+}

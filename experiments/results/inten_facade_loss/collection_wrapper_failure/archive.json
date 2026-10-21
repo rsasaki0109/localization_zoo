@@ -1,0 +1,38 @@
+{
+  "files": {
+    "command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/wrapper_failure_record/command.json",
+      "bytes": 1549,
+      "sha256": "12e0e9cd33c4215874e14fb30b3cd240a4380e21af5c7a6fadbfa68dea63ecf6",
+      "storage": "verbatim",
+      "path": "command.json",
+      "stored_sha256": "12e0e9cd33c4215874e14fb30b3cd240a4380e21af5c7a6fadbfa68dea63ecf6"
+    },
+    "start_full.py": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/wrapper_failure_record/start_full.py",
+      "bytes": 2964,
+      "sha256": "f57e85a8523e0d2b111cab6007c85eb000cfe72698bdcc1abfe57566bcdcef76",
+      "storage": "verbatim",
+      "path": "start_full.py",
+      "stored_sha256": "f57e85a8523e0d2b111cab6007c85eb000cfe72698bdcc1abfe57566bcdcef76"
+    },
+    "stderr.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/wrapper_failure_record/stderr.log",
+      "bytes": 926,
+      "sha256": "a3216b8562bc60f1b2f1d78f7ebce77fc5c2d426be24f6252a5cf17be9cdb698",
+      "storage": "gzip",
+      "path": "stderr.log.gz",
+      "stored_sha256": "7ba4bf5196c61ba94fc0eea16584c634737c4ddb1e98c341d877df473475ac6a"
+    },
+    "stdout.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/wrapper_failure_record/stdout.log",
+      "bytes": 2701,
+      "sha256": "c648eec5688a5ff49e58ae56c5611dec22f94e0ecbf990ef0e3a5fdfb64dfcc7",
+      "storage": "gzip",
+      "path": "stdout.log.gz",
+      "stored_sha256": "50a92ea23c3cf7a50fe9916535a8d525b0b686aad95e645927e28a24c447191e"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

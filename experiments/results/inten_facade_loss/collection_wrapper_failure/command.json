@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-loss/worktree/experiments/results/inten_facade_loss/run_collection.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "8923e50dfd9d962baa47256639805e8fbd592506",
+  "exit_code": 1,
+  "observed_at_utc": "2026-10-21 07:48:59 UTC",
+  "actual_exit_observation": {
+    "tool": "exec_command/write_stdin",
+    "session_id": 31452,
+    "result": {
+      "chunk_id": "bfcf4b",
+      "wall_time_seconds": 3.8552e-05,
+      "exit_code": 1,
+      "original_token_count": 0,
+      "output": ""
+    }
+  },
+  "outer_driver_command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-loss/start_full.py"
+  ],
+  "outer_invocation": "PYTHONDONTWRITEBYTECODE=1 /workspace/localization-env/host-venv/bin/python /workspace/localization-env/inten-facade-loss/start_full.py > ../full_start.stdout 2> ../full_start.stderr",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  },
+  "scope": "Original collection-wrapper subprocess failed on an existing backup archive target after the underlying collector and all native arms completed successfully. Its exit is propagated by the unchanged outer driver. Retain original bytes and use a separate committed archive-only recovery; do not rerun acquisition or native processing."
+}

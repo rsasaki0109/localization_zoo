@@ -1,0 +1,43 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-current-correspondences/worktree",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-current-correspondences/probe",
+    "/workspace/localization-env/inten-current-correspondences/kitti/dataset/sequences/01/velodyne",
+    "/workspace/localization-env/inten-current-correspondences/staging/geometry.jsonl",
+    "/workspace/localization-env/inten-current-correspondences/staging/features.jsonl"
+  ],
+  "cwd": "/workspace/localization-env/inten-current-correspondences/worktree",
+  "source_commit": "bbb7cdd8e7cf48ad79a99675f11ee12de459793c",
+  "started_unix": 1792548109.4207692,
+  "finished_unix": 1792548159.4627304,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": "7ce052a261b4ccb285cdcf299f4dc95e0a63caa72b31e77baf0c1a6ca74be407"
+}

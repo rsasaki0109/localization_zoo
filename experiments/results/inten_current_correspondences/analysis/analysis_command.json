@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-current-correspondences/worktree/experiments/results/inten_current_correspondences/analyze.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-current-correspondences/worktree",
+  "source_commit": "bbb7cdd8e7cf48ad79a99675f11ee12de459793c",
+  "started_unix": 1792548171.818775,
+  "finished_unix": 1792548181.8203251,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

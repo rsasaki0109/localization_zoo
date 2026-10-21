@@ -4,6 +4,7 @@
 #include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
 #include "inten_loam/detail/translation_prior.h"
+#include "inten_loam/detail/s2s_consensus.h"
 
 #include <gtest/gtest.h>
 #include <Eigen/Geometry>
@@ -98,6 +99,100 @@ void movingWall(double wall_x, std::vector<Eigen::Vector3d>* pts, std::vector<fl
 }
 
 }  // namespace
+
+TEST(InTenLoamPaperConsensus, AmbiguityTieMajorityAndBoundaryFallback) {
+  using detail::ClusterTranslationProfile;
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2s_geometry_consensus);
+  auto profile = [](int id, const std::vector<int>& allowed) {
+    ClusterTranslationProfile p{id, std::vector<double>(121, 1.)};
+    for (int k : allowed) p.costs[k] = 0.;
+    return p;
+  };
+  auto selected = detail::selectTranslationConsensus({profile(2, {40, 60}), profile(3, {40}), profile(4, {40})});
+  ASSERT_TRUE(selected.usable);
+  EXPECT_EQ(selected.best_index, 40);
+  EXPECT_TRUE(selected.excluded_clusters.empty());
+  selected = detail::selectTranslationConsensus({profile(2, {40}), profile(3, {80})});
+  EXPECT_FALSE(selected.usable);
+  EXPECT_EQ(selected.best_index, 40);  // nearest zero tie, then negative
+  selected = detail::selectTranslationConsensus({profile(2, {0}), profile(3, {0})});
+  EXPECT_FALSE(selected.usable);
+  EXPECT_TRUE(selected.excluded_clusters.empty());
+  selected = detail::selectTranslationConsensus({profile(2, {50}), profile(3, {50}), profile(4, {80})});
+  ASSERT_TRUE(selected.usable);
+  EXPECT_EQ(selected.excluded_clusters, std::vector<int>({4}));
+  EXPECT_FALSE(detail::selectTranslationConsensus({}).usable);
+}
+
+TEST(InTenLoamPaperConsensus, FullPointProfilesPreserveSerialAndParallelBits) {
+  PaperFrame current;
+  std::vector<PaperFeature> previous;
+  for (int c = 2; c < 7; ++c) {
+    for (int k = 0; k < 35; ++k) {
+      PaperFeature p;
+      p.cluster = c;
+      p.p = Eigen::Vector3d(.3 * std::sin(k * .71) + c * 4., .2 * std::cos(k * .47), .15 * std::sin(k * .19));
+      previous.push_back(p);
+      p.p.x() += 1.;
+      current.all.push_back(p);
+      if (k == 0) current.facade.push_back(p);
+    }
+  }
+  Eigen::Matrix4d seed = Eigen::Matrix4d::Identity();
+  seed(0, 3) = .6;
+  const auto serial = detail::clusterTranslationProfiles(previous, current, seed, false);
+#ifdef _OPENMP
+  const int threads = omp_get_max_threads();
+  omp_set_num_threads(4);
+#endif
+  const auto parallel = detail::clusterTranslationProfiles(previous, current, seed, true);
+#ifdef _OPENMP
+  omp_set_num_threads(threads);
+#endif
+  ASSERT_EQ(serial.size(), parallel.size());
+  for (size_t c = 0; c < serial.size(); ++c) {
+    EXPECT_EQ(serial[c].cluster, parallel[c].cluster);
+    EXPECT_EQ(serial[c].costs, parallel[c].costs);
+  }
+  const auto decision = detail::selectTranslationConsensus(serial);
+  ASSERT_TRUE(decision.usable);
+  EXPECT_EQ(decision.best_index, 28);  // -1.6m correction, no GT decision
+  const auto unavailable = detail::clusterTranslationProfiles(previous, current, Eigen::Matrix4d::Identity(), false);
+  EXPECT_FALSE(detail::selectTranslationConsensus(unavailable).usable);
+}
+
+TEST(InTenLoamPaperConsensus, PassiveTraceAndFixedRotationDuringNaturalTraversal) {
+  InTenLoamPaperParams params;
+  params.accelerated = true;
+  params.s2s_geometry_consensus = true;
+  params.s2s_ground_pca = params.s2s_facade_pca = true;
+  params.s2s_translation_prior_ratio = .03;
+  params.use_mapping = false;
+  InTenLoamPaper passive(params), ordinary(params);
+  std::vector<Eigen::Vector3d> points;
+  std::vector<float> intensity;
+  int applied = 0;
+  for (int i = 0; i < 3; ++i) {
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose(0, 3) = i * .6;
+    scanAt(pose, &points, &intensity);
+    InTenLoamPaperTrace trace;
+    const auto a = passive.process(points, intensity, nullptr, &trace);
+    const auto b = ordinary.process(points, intensity);
+    EXPECT_TRUE(a.pose == b.pose);
+    if (trace.consensus.applied) {
+      ++applied;
+      EXPECT_TRUE((trace.accepted_relative.block<3, 3>(0, 0) == trace.s2s.output.block<3, 3>(0, 0)));
+      for (const auto& it : trace.consensus.refinement.iterations) {
+        EXPECT_TRUE((it.linearization_pose.block<3, 3>(0, 0) == trace.s2s.output.block<3, 3>(0, 0)));
+        EXPECT_TRUE(it.delta.tail<3>().isZero(0.));
+      }
+    } else if (!trace.initialization && !trace.s2s_fallback) {
+      EXPECT_TRUE(trace.accepted_relative == trace.s2s.output);
+    }
+  }
+  EXPECT_GT(applied, 0);
+}
 
 TEST(InTenLoamPaper, CauchyFacadeDownweightsMovingSurfaceWithoutChangingOtherDataSystems) {
   InTenLoamPaperParams p;

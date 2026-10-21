@@ -29,6 +29,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
+#include <array>
 #include <cstdint>
 #include <deque>
 #include <memory>
@@ -144,6 +145,12 @@ struct InTenLoamPaperParams {
   // influence at the existing Huber scale only for S2S facade residuals.
   // No association gate changes; other classes and S2M keep Huber weighting.
   bool s2s_facade_cauchy = false;
+  // Repository extension, not in the paper; default off. Geometric cluster
+  // consensus corrects the predicted translation and facade support, then
+  // re-solves translation with the unmasked native estimated rotation fixed.
+  // Strict-majority/interior consensus and successful refinement are required;
+  // otherwise keep the original solve. No GT, hand region or motion semantics.
+  bool s2s_geometry_consensus = false;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).
@@ -226,10 +233,27 @@ struct PaperSolverTrace {
   std::vector<PaperIterationTrace> iterations;
 };
 
+struct PaperClusterAdmission {
+  int cluster = 0;
+  std::array<uint64_t, 2> bits{};  // profile indices0..120, low word first
+};
+
+struct PaperConsensusTrace {
+  bool evaluated = false, usable = false, applied = false;
+  int best_index = 60, valid_clusters = 0;
+  std::array<int, 121> votes{};
+  std::vector<PaperClusterAdmission> admissions;
+  std::vector<int> excluded_clusters;
+  Eigen::Matrix4d seed = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d original_estimate = Eigen::Matrix4d::Identity();
+  PaperSolverTrace refinement;  // conditional Htt, zero angular delta
+};
+
 struct InTenLoamPaperTrace {
   int frame_index = 0;
   bool initialization = false;
   PaperSolverTrace s2s, s2m;
+  PaperConsensusTrace consensus;
   bool s2s_fallback = false;
   bool s2s_dor_called = false;
   size_t s2s_dor_masked_facades = 0;
@@ -286,7 +310,8 @@ private:
 
   // Gauss-Newton on se(3) with re-association; T maps source into target.
   int solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first = nullptr,
-               PaperSolverTrace* trace = nullptr, const std::vector<char>* facade_dynamic = nullptr) const;
+               PaperSolverTrace* trace = nullptr, const std::vector<char>* facade_dynamic = nullptr,
+               bool translation_only = false) const;
   int solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4] = nullptr,
                ClassSystems* first = nullptr, PaperSolverTrace* trace = nullptr) const;
   std::vector<char> dynamicMask(const PaperFrame& curr, const Eigen::Matrix4d& T_w) const;

@@ -6,6 +6,7 @@
 #include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
 #include "inten_loam/detail/translation_prior.h"
+#include "inten_loam/detail/s2s_consensus.h"
 
 #include <algorithm>
 #include <cmath>
@@ -516,7 +517,8 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
 // ---------------------------------------------------------------------------
 
 int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first,
-                             PaperSolverTrace* trace, const std::vector<char>* facade_dynamic) const {
+                             PaperSolverTrace* trace, const std::vector<char>* facade_dynamic,
+                             bool translation_only) const {
   const Index& prev = *prev_;
   const double gate = params_.s2s_gate_sq;
   const double huber = params_.huber;
@@ -627,6 +629,22 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
     if (sys.n < 30) {
       if (trace) trace->stop = PaperSolverStop::InsufficientPairs;
       return sys.n;
+    }
+    if (translation_only) {
+      Vec6 delta = Vec6::Zero();
+      delta.head<3>() = (sys.H.topLeftCorner<3, 3>() +
+          1e-6 * Eigen::Matrix3d::Identity()).ldlt().solve(-sys.g.head<3>());
+      observeStep(trace, delta);
+      if (!delta.allFinite()) {
+        if (trace) trace->stop = PaperSolverStop::NonFiniteStep;
+        return 0;
+      }
+      T->block<3, 1>(0, 3) += delta.head<3>();
+      if (delta.norm() < params_.convergence) {
+        if (trace) trace->stop = PaperSolverStop::Converged;
+        break;
+      }
+      continue;
     }
     const Vec6 delta = (sys.H + 1e-6 * Mat6::Identity()).ldlt().solve(-sys.g);
     observeStep(trace, delta);
@@ -966,12 +984,49 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
       trace->s2s.called = true;
       trace->s2s.input = rel;
     }
+    // Preserve the original joint solve, including its unmasked estimated R.
+    const Eigen::Matrix4d consensus_seed = rel;
     result.s2s_pairs = solveS2S(frame, &rel, nullptr, trace ? &trace->s2s : nullptr,
                               facade_dynamic.empty() ? nullptr : &facade_dynamic);
     if (trace) {
       trace->s2s.output = rel;
       trace->s2s.returned_pairs = result.s2s_pairs;
       trace->s2s_fallback = result.s2s_pairs < 30;
+    }
+    if (params_.s2s_geometry_consensus && result.s2s_pairs >= 30 && rel.allFinite()) {
+      auto consensus = detail::selectTranslationConsensus(detail::clusterTranslationProfiles(
+          prev_->all.pts, frame, consensus_seed, params_.accelerated));
+      consensus.seed = consensus_seed;
+      consensus.original_estimate = rel;
+      if (consensus.usable) {
+        Eigen::Matrix4d refined = consensus_seed;
+        Eigen::Vector3d direction = consensus_seed.block<3, 1>(0, 3);
+        if (direction.norm() > 0.) direction.normalize();
+        refined.block<3, 1>(0, 3) += ((consensus.best_index - 60) * .05) * direction;
+        refined.block<3, 3>(0, 0) = rel.block<3, 3>(0, 0);
+        std::vector<char> mask = facade_dynamic;
+        for (int cluster : consensus.excluded_clusters) {
+          if (static_cast<size_t>(cluster) >= mask.size()) mask.resize(cluster + 1, false);
+          mask[cluster] = true;
+        }
+        auto* observation = trace ? &consensus.refinement : nullptr;
+        if (observation) {
+          observation->called = true;
+          observation->input = refined;
+        }
+        const int count = solveS2S(frame, &refined, nullptr, observation,
+                                  mask.empty() ? nullptr : &mask, true);
+        if (observation) {
+          observation->output = refined;
+          observation->returned_pairs = count;
+        }
+        if (count >= 30 && refined.allFinite()) {
+          rel = refined;
+          result.s2s_pairs = count;
+          consensus.applied = true;
+        }
+      }
+      if (trace) trace->consensus = std::move(consensus);
     }
     if (result.s2s_pairs < 30) rel = last_rel_;
   }

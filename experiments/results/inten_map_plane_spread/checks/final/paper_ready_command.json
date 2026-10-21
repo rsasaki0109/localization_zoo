@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/generate_paper_ready_evidence.py",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "b97ea81c0123dfb0297855878ea7e692233f1f11",
+  "started_unix": 1792545002.8532825,
+  "finished_unix": 1792545002.8900714,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

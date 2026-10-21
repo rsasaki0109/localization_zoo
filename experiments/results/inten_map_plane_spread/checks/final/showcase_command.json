@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/validate_showcase.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "b97ea81c0123dfb0297855878ea7e692233f1f11",
+  "started_unix": 1792545002.7156253,
+  "finished_unix": 1792545002.7640152,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

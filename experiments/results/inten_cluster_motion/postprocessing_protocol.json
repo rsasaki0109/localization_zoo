@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "numerical_commit": "58240931bbe1dbd9696a9dea3604708e980467d3",
+  "producer_commit": "be3b5bdc",
+  "native_and_analysis_sources_unchanged": true,
+  "source_sha256": {
+    "figures.py": "af4a759cf02c41eb34c64e892753798996ad20a9ba75550212567615902494c2",
+    "write_docs.py": "3247044e124cd45b22f029d4ae96cf67a94c5ccc149ba716aa595c6a0a71e740",
+    "complete.py": "710ed955b4490e03acfbdc85b77a9f94c5cddca43e2acec4355370a4304abe56",
+    "verify.py": "3ed43e1967c753b1d87310a8b34e23c19807f83ec793642a10af2ccec1b20b25",
+    "reference_native.cpp": "809eef8c113281851755e79105ab1c94126ed4f0cf57c7c2d4f738d3e3900142"
+  },
+  "verification_source_updates": {
+    "experiments/results/inten_cluster_motion/verify.py": {
+      "original_sha256": "26b719a8e8bb01834563517e0a587c909f93bef9478eceb979f7c377097c6715",
+      "sha256": "3ed43e1967c753b1d87310a8b34e23c19807f83ec793642a10af2ccec1b20b25",
+      "reason": "Portable regressions validate the exact archived native source and frozen study sources, rather than preventing future production-source changes. Full local preservation additionally checks live original production pins and historical diff. No native output, equation analysis or decision changes."
+    }
+  },
+  "order": "Commit these postprocessing sources before derivation. Numerical58240931 already contains every result. Same frozen single mask is rejected due adverse247 and204 rotation. No retuning, default option or full-sequence claim. Regenerate study_docs/full_variant/paper_ratio without substantive changes; retain only proved generation clocks. Actual-exit local checks and exact-final-head full Native+ROS2 CI before Ready; no merge.",
+  "figures": "Every inherited endpoint and every cluster minimum, not favorable cases only. No new numerical measurement.",
+  "preservation": "All original result files, production source/API/defaults, Table6, paper JSON, root README and index bytes unchanged. Method README append only. Original source snapshot hash equals the pre-execution production pin."
+}

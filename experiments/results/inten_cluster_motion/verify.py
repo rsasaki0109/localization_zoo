@@ -38,8 +38,11 @@ def restored(folder, name):
 
 def validate(history=True):
     protocol = read(E/'protocol.json')
+    post = read(E/'postprocessing_protocol.json')
     for path, digest in protocol['source_sha256'].items():
-        assert hashlib.sha256((W/path).read_bytes()).hexdigest() == digest, path
+        digest = post['verification_source_updates'].get(path, {}).get('sha256', digest)
+        if history or path.startswith(str(E.relative_to(W))+'/') or path == 'tests/test_inten_cluster_motion_study.py':
+            assert hashlib.sha256((W/path).read_bytes()).hexdigest() == digest, path
     for folder in ('controls', 'analysis', 'collection_execution', 'analysis_execution'):
         manifest = read(E/folder/'archive.json')
         assert manifest['byte_roundtrip_verified'] and manifest['exit_code'] == 0
@@ -48,7 +51,8 @@ def validate(history=True):
         assert read(E/'controls'/(name+'_command.json'))['exit_code'] == 0
     for folder, name in (('collection_execution', 'collection'), ('analysis_execution', 'analysis')):
         assert read(E/folder/(name+'_command.json'))['exit_code'] == 0
-    original = (W/'papers/inten_loam/src/inten_loam_paper.cpp').read_text()
+    original = (E/'reference_native.cpp').read_text()
+    assert hashlib.sha256(original.encode()).hexdigest() == protocol['source_sha256']['papers/inten_loam/src/inten_loam_paper.cpp']
     spec = importlib.util.spec_from_file_location('cluster_instrument', E/'instrument.py')
     instrument = importlib.util.module_from_spec(spec); spec.loader.exec_module(instrument)
     assert instrument.transformed(original) == (E/'diagnostic_native.cpp').read_text()
@@ -105,7 +109,8 @@ def validate(history=True):
         assert (W/'papers/inten_loam/README.md').read_bytes().startswith(previous)
     return dict(exit_code=0, base_commit=BASE, native_calls=len(terminals), full_baseline_control_exact=True,
                 all_frozen_profile_decisions_exact=True, all_archives_byte_roundtrip_verified=True,
-                history_diff_checked=history, all_pinned_production_files_unchanged=True, no_raw_scans_acquired=True)
+                history_diff_checked=history, live_production_pins_checked=history,
+                archived_production_source_matches_execution=True, no_raw_scans_acquired=True)
 
 
 if __name__ == '__main__':

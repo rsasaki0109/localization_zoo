@@ -11,7 +11,8 @@
   "original_test_sha256": "4c5a7fbe965f1926cff840fd3688e52e2172c3ba0d4f7c2c4f93d96cc9332a5f",
   "source_sha256": {
     "tests/test_shared_range_saved02_gate.py": "157fb8a6ac4290e6e7730d740fbd2b5573baaa54753bbfb29432152bd1f66391",
-    "experiments/results/inten_translation_consensus/verify.py": "9f8e5bad8f42f7e2499be932169b18ed7c84fb7257f0564048e54590550cbb97"
+    "experiments/results/inten_translation_consensus/verify.py": "9f8e5bad8f42f7e2499be932169b18ed7c84fb7257f0564048e54590550cbb97",
+    "experiments/results/inten_translation_consensus/check_ci_recovery.py": "04b5fdb18885debc87d86cefd17e40b1be5831a2f7bf97155a14e2cec6ea6176"
   },
   "correction": "Disable maintenance.auto and gc.auto only in each disposable saved-path test repository before its first commit. Prevent detached Git maintenance writers from racing TemporaryDirectory cleanup. Keep every publication-gate assertion and production Git configuration unchanged.",
   "scientific_data_unchanged": true,

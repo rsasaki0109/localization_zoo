@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "parent_commit": "0385832c725a19da1001f703897d232c02849929",
+  "parent_pr": 162,
+  "native_source_commit": "bf0d44cc4e59e2cdf05a53161010b99688a6d060",
+  "sequence_order": [
+    "01",
+    "07",
+    "00",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_facade_loss_matrix.json",
+      "sha256": "be0535a35b4da9d07651d43ad922c0d21c3744b4226e3414a3d3134c63e1b00a"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_facade_loss_matrix.json",
+      "sha256": "4f75cbd8e556c828d31034181642dc65314b6983490e898fb0aad6e39858070a"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_facade_loss_matrix.json",
+      "sha256": "782ea8fe4f9d547fcf9c993c99ac64175f181d2436e52b27f3af87dc6d061a16"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_facade_loss_matrix.json",
+      "sha256": "4235d6fac9c4368069a50c1831a91861be1ee1f321f8be824e0e5f85f259b771"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_facade_loss_matrix.json",
+      "sha256": "2d7868892b0c4f20fa295ed1bf9789d81a4bf6e59b5989b5c36c7ff12ab884ff"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_facade_loss_matrix.json",
+      "sha256": "fa8b345ac967c85641503047f10c4acc603bb4a4e3c8345e3301f93e3c5c4168"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_facade_loss_matrix.json",
+      "sha256": "808add483b2027a7c7ffdce6e52e835f8301d6fb01177e2b792f8e7cb1611643"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_facade_loss_matrix.json",
+      "sha256": "f293cb76291ae448b167a50635458f43fbc327f1e6d5a41d0889590b2f6e85fa"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_facade_loss_matrix.json",
+      "sha256": "11f0ac9d83d4dd15c8de2a120377248f2d2384c7835f45973bf2ee4515d5691a"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_facade_loss_matrix.json",
+      "sha256": "cd203191f1267a7276ff64e176c1e3bf8db3dda9456c858f5a831b236707baba"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_facade_loss_matrix.json",
+      "sha256": "cf37d3cfacff1adcf65cc2dcbbac86c0991a3ad2f0b0536b62f81acb09b285f0"
+    }
+  },
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "selection": "One fixed new Boolean s2s_facade_cauchy at the unchanged native Huber scale0.1. Chosen after committed full01 natural-seed controlsf52b84a0:204 length/GT0.607064->0.992481 but2470.522727->0.046692 andbad12lower/36higher,44remainbad. Every adverse case retained. No scale fitting/sweep, GT input, DOR/ROI gate, retuning or per-sequence winner. All priorKITTIdevelopment, originalprofile07/00 diagnosis and inheritedDiLO01 prior tuning disclosed.",
+  "change": "Only s2s_facade_cauchy false versus true. Same native existing Huber0.1 scale, change IRLS influence only for S2S facade residuals, no correspondence gate or extraction change. Other first data-class equations unchanged at the same seed; adaptive prior information and later reassociation/map/trajectory may change. S2M and insertion definitions unchanged at fixed history. PredictedDOR, rowcompletion and spread remain off; mappedseed/prior.03/ground-facadePCA/acceleration on. No GT seed or input.",
+  "compatibility": "Same freshly compiled real native runner for both full arms. Every OFF full baseline must exactly match immutable PR159 candidate (also PR162 OFF reference): all accuracy metrics, saved pose/GT bytes, and numeric trace body after declared scan-root-only substitution. Header argv differs; no original trace is rewritten. Preserve all765 preexisting aggregates/canonical defaults; all new rows experimental/nondefault/unscored with unavailable aggregate timing.",
+  "diagnostic_producer": "protocol.json/instrument.py diagnostic clone compiled at0686c89f and analysis98b9bd5a precede new native parameter ABI. Numerical controlsf52b84a0 precede selection. Reproduce diagnostic phases from their matching source checkouts, never compile old clones against changed final headers. Original rejected and corrected binaries/objects and all failures retained. Diagnostic observer keeps the public passive/forced guard intact, mirrors forced first-count semantics explicitly, and never supplies accuracy scores.",
+  "acceleration": "Both fixed arms OMP1/BLAS1, may share CPUs; preserve raw times without standalone FPS or proxy/default ranking.",
+  "data": "Official fetch one owned full sequence at a time, all scan/GT hashes exact against committed inputs. Up to4 acquisition attempts retained, no silent native rerun. Lossless archive+roundtrip+commit+normalpush before owned raw deletion; cleanup commit/push before next fetch. No old build/binary/logical scientific evidence removal. Temporary full staging removable only after complete archived/pushed exact bytes.",
+  "archival": "Ordered32MiB uncompressed gzip shards, SHA/bytes and exact roundtrip. Mode/hash/byte-identical historical immutable evidence may share storage; every logical path retained, no native/build/binary/index/aggregate changes.",
+  "completion": "All11 fixed full pairs actual0, every frame and finite. Compare every metric/new bad label/error-growth block; diagnose every candidate seq above2paper. Commit numbers before prose; import experimental/unscored/nondefault22rows and regenerate3 derivatives. Preserve old canonical scores and paperJSON. Full exact-final-head Native+ROS2 CI beforeReady, actual-resultsPR, no merge."
+}

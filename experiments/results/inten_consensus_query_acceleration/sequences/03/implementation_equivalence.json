@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "sequence": "03",
+  "checks": {},
+  "scope": "Exact implementation-equivalence control; original full01 negative retained, interrupted07 prefix is not a complete accuracy result. No tuning, GT decision or native resume."
+}

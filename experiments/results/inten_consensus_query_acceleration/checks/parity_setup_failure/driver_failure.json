@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree/experiments/results/inten_consensus_query_acceleration/parity.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree",
+  "source_commit": "ab708e8f03b95613760c888355013991b4aec2f1",
+  "exit_code": 1,
+  "reported_by": "exec session55667",
+  "error": "Missing build_candidate.py helper import after cached input restoration, before compilation/native output. Use existing build_corrected.py in a fresh corrected stage; retain old restored inputs and failed stage."
+}

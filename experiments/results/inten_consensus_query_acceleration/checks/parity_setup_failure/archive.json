@@ -1,0 +1,30 @@
+{
+  "files": {
+    "features.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage/features.json",
+      "bytes": 182,
+      "sha256": "330086353285fbaff39715da3f434cb963177569e42c27fa0465876fc85a26ff",
+      "storage": "verbatim",
+      "path": "features.json",
+      "stored_sha256": "330086353285fbaff39715da3f434cb963177569e42c27fa0465876fc85a26ff"
+    },
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage/input.txt",
+      "bytes": 2149,
+      "sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680"
+    },
+    "input_sources.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage/input_sources.json",
+      "bytes": 1454,
+      "sha256": "3a0efa3eae009d192cbaf432b481571af5402d0a590584207deb0c6cd810454b",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "3a0efa3eae009d192cbaf432b481571af5402d0a590584207deb0c6cd810454b"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

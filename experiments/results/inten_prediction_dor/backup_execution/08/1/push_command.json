@@ -1,0 +1,17 @@
+{
+  "command": [
+    "git",
+    "push",
+    "origin",
+    "HEAD:refs/heads/codex/inten-prediction-dor"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "source_commit": "819a890f656ba53a18569619e175ae91b3a451b1",
+  "started_unix": 1792557457.7085354,
+  "finished_unix": 1792557458.8028727,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

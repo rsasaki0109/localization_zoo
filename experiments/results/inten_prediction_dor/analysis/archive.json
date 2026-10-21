@@ -1,0 +1,30 @@
+{
+  "files": {
+    "analysis.stderr": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/analysis/analysis.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "analysis.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "analysis.stdout": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/analysis/analysis.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "analysis.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "analysis_command.json": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/analysis/analysis_command.json",
+      "bytes": 566,
+      "sha256": "fa721850db1f4ad15b61d3af351a04f0bbed97a3c28aff1cf9619af2690d443b",
+      "storage": "verbatim",
+      "path": "analysis_command.json",
+      "stored_sha256": "fa721850db1f4ad15b61d3af351a04f0bbed97a3c28aff1cf9619af2690d443b"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

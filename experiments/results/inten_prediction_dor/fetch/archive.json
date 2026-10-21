@@ -1,0 +1,54 @@
+{
+  "files": {
+    "1/fetch.stderr": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/fetch/1/fetch.stderr",
+      "bytes": 2189,
+      "sha256": "97fbee68e5e7fdfec548a9a336dbcb4c12d5c8c044f3f45d270e0d474c17c9e2",
+      "storage": "verbatim",
+      "path": "1/fetch.stderr",
+      "stored_sha256": "97fbee68e5e7fdfec548a9a336dbcb4c12d5c8c044f3f45d270e0d474c17c9e2"
+    },
+    "1/fetch.stdout": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/fetch/1/fetch.stdout",
+      "bytes": 137,
+      "sha256": "26bae14362b459df0ac0d24b70a6b58eb44512a9359896cb77f4924002bd3c89",
+      "storage": "verbatim",
+      "path": "1/fetch.stdout",
+      "stored_sha256": "26bae14362b459df0ac0d24b70a6b58eb44512a9359896cb77f4924002bd3c89"
+    },
+    "1/fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/fetch/1/fetch_command.json",
+      "bytes": 646,
+      "sha256": "596a95c8fe38dfc4b68d4bc8ebd8b8c3ea3ec9ac635fd05891e09522bce4812c",
+      "storage": "verbatim",
+      "path": "1/fetch_command.json",
+      "stored_sha256": "596a95c8fe38dfc4b68d4bc8ebd8b8c3ea3ec9ac635fd05891e09522bce4812c"
+    },
+    "2/fetch.stderr": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/fetch/2/fetch.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "2/fetch.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "2/fetch.stdout": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/fetch/2/fetch.stdout",
+      "bytes": 264,
+      "sha256": "b8d304f8728acba8cdfaea9a486d33c975c0c0f4e0367662b5706899c8078fbc",
+      "storage": "verbatim",
+      "path": "2/fetch.stdout",
+      "stored_sha256": "b8d304f8728acba8cdfaea9a486d33c975c0c0f4e0367662b5706899c8078fbc"
+    },
+    "2/fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-prediction-dor/fetch/2/fetch_command.json",
+      "bytes": 647,
+      "sha256": "e2904a0f3c9759c22553fc0d84dd86739bb921ac5d4f862cec35f84f133a71fb",
+      "storage": "verbatim",
+      "path": "2/fetch_command.json",
+      "stored_sha256": "e2904a0f3c9759c22553fc0d84dd86739bb921ac5d4f862cec35f84f133a71fb"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

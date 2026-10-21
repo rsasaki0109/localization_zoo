@@ -1,0 +1,30 @@
+{
+  "files": {
+    "balanced_decisions.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/balanced_decision_check/balanced_decisions.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "balanced_decisions.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "balanced_decisions.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/balanced_decision_check/balanced_decisions.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "balanced_decisions.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "balanced_decisions_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/balanced_decision_check/balanced_decisions_command.json",
+      "bytes": 635,
+      "sha256": "f6c27137f186b34c4cef80ef688640035dd0dfd9f3ecffdda22e10b5b95d4f9d",
+      "storage": "verbatim",
+      "path": "balanced_decisions_command.json",
+      "stored_sha256": "f6c27137f186b34c4cef80ef688640035dd0dfd9f3ecffdda22e10b5b95d4f9d"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

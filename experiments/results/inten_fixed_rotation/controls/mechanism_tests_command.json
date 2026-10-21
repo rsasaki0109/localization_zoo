@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "/workspace/localization-env/inten-fixed-rotation/worktree/experiments/results/inten_fixed_rotation",
+    "-p",
+    "test_*.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-fixed-rotation/worktree",
+  "source_commit": "99d0f0fc0d70c200fed953816c309d86c47ca8ba",
+  "started_unix": 1792581600.6263049,
+  "finished_unix": 1792581600.778989,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

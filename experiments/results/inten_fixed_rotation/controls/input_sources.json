@@ -1,0 +1,43 @@
+{
+  "files": [
+    {
+      "archive_manifest": "experiments/results/inten_current_correspondences/baseline/archive.json",
+      "archive_manifest_sha256": "b915f9cacca6208839afce6ad7924ca6ccc699ccb7336b7605a629ce94a54a75",
+      "name": "features.jsonl",
+      "restored_path": "/workspace/localization-env/inten-fixed-rotation/inputs/features.jsonl",
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "bytes": 93885472,
+      "label": "features"
+    },
+    {
+      "archive_manifest": "experiments/results/inten_current_correspondences/baseline/archive.json",
+      "archive_manifest_sha256": "b915f9cacca6208839afce6ad7924ca6ccc699ccb7336b7605a629ce94a54a75",
+      "name": "report.json",
+      "restored_path": "/workspace/localization-env/inten-fixed-rotation/inputs/report.json",
+      "sha256": "fa64a1ee29fb9e535f1a320a7a6d0a96230bc5e3209553762fe39305980e61ea",
+      "bytes": 12597170,
+      "label": "offline_truth"
+    },
+    {
+      "archive_manifest": "experiments/results/inten_cluster_motion/controls/archive.json",
+      "archive_manifest_sha256": "c5f66d77908557028299db8383c1bde133ece5425a4ef3b3e8bd3a32c4b1a3e4",
+      "name": "native.stdout.jsonl",
+      "restored_path": "/workspace/localization-env/inten-fixed-rotation/inputs/profiles.jsonl",
+      "sha256": "dd9fcdec9569005f2eb699388640e545912d9c513e58c041567b773c336d8300",
+      "bytes": 3954947,
+      "label": "profiles"
+    },
+    {
+      "archive_manifest": "experiments/results/inten_translation_consensus/controls/archive.json",
+      "archive_manifest_sha256": "9e2c7bd84d61e4b779d1dcac6c44ba45b116fcab01eaeca2b4abc81f93f79cc6",
+      "name": "native.stdout.jsonl",
+      "restored_path": "/workspace/localization-env/inten-fixed-rotation/inputs/previous.jsonl",
+      "sha256": "1bc79d7c293f2e7e771a409737cae47cf7f2706d7d26fc876ce36909f4d99dd7",
+      "bytes": 727936,
+      "label": "previous_native"
+    }
+  ],
+  "no_raw_scans_acquired": true,
+  "no_gt_in_native_input": true,
+  "rotation_source": "Only preceding committed estimated native output, live exact control required"
+}

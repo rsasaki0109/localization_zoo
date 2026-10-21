@@ -1,0 +1,14 @@
+{
+  "files": {
+    "report.json": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/analysis/report.json",
+      "bytes": 44607,
+      "sha256": "f1779cf2914debed04a167738d940867216f1881ca7a19816daa1478da69b038",
+      "storage": "verbatim",
+      "path": "report.json",
+      "stored_sha256": "f1779cf2914debed04a167738d940867216f1881ca7a19816daa1478da69b038"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

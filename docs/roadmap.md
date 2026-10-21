@@ -547,6 +547,23 @@ independent. Each item says what "done" means.
     disclosed. No per-sequence adoption or default promotion.
     Numerical evidence `993b539f` precedes this interpretation.
 
+    The [facade Cauchy influence comparison](../experiments/results/inten_facade_loss/README.md)
+    freezes one default-off Boolean on every full KITTI00-10 sequence.
+    Only S2S facade IRLS influence changes from Huber to Cauchy at the same
+    inherited native scale0.1; association gates and S2M definitions stay fixed.
+    Adaptive-prior information and later trajectory/map feedback can change.
+    Geometric mean candidate/reference RTE is 1.231530x:
+    3 lower, 8 higher, 0 equal sequences.
+    Failure-sequence RTE: 01 4.481189% to 38.696732%; 02 0.756938% to 0.776016%; 10 1.093310% to 1.182742%.
+    Above twice paper: 01, 10.
+    Every adverse metric, new bad frame and error-growth block is retained.
+    Full01 matched-seed controls preceded selection:204 improved locally,
+    while247 worsened and36 of48 bad baseline pairs worsened in length.
+    These terminal results did not establish recursive recovery. Profile07,
+    diagnosis00 and inherited DiLO01 prior tuning are disclosed; all prior
+    KITTI is development. No scale sweep, per-sequence adoption or promotion.
+    Numerical evidence `c2775241` precedes this interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

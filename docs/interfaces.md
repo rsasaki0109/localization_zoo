@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-21T07:50:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -318,6 +318,7 @@ The runner is responsible for:
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json` | `imu_dead_reckoning` | `zupt_kitti_0009` | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` | `imu_dead_reckoning` | `nhc_zupt_full` | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json` | `imu_dead_reckoning` | `zupt` | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
+| InTEn-LOAM KITTI 00: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_00_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_00_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 00: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_00_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_00_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 00: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_00_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_00_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 00: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_00_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_00_full_map_plane_spread_matrix.json` |
@@ -326,6 +327,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 00: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 00: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_00_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 00: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_00_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_00_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 01: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_01_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_01_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 01: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_01_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_01_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 01: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_01_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_01_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 01: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_01_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_01_full_map_plane_spread_matrix.json` |
@@ -334,6 +336,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 01: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 01: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_01_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 01: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_01_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_01_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 02: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_02_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_02_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 02: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_02_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_02_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 02: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_02_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_02_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 02: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_02_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_02_full_map_plane_spread_matrix.json` |
@@ -342,6 +345,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 02: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 02: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_02_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 02: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_02_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_02_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 03: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_03_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_03_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 03: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_03_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_03_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 03: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_03_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_03_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 03: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_03_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_03_full_map_plane_spread_matrix.json` |
@@ -350,6 +354,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 03: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 03: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_03_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 03: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_03_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_03_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 04: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_04_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_04_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 04: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_04_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_04_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 04: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_04_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_04_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 04: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_04_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_04_full_map_plane_spread_matrix.json` |
@@ -358,6 +363,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 04: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 04: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_04_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 04: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_04_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_04_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 05: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_05_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_05_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 05: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_05_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_05_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 05: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_05_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_05_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 05: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_05_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_05_full_map_plane_spread_matrix.json` |
@@ -366,6 +372,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 05: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 05: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_05_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 05: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_05_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_05_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 06: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_06_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_06_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 06: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_06_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_06_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 06: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_06_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_06_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 06: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_06_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_06_full_map_plane_spread_matrix.json` |
@@ -374,6 +381,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 06: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 06: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_06_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 06: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_06_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 07: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_07_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_07_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 07: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_07_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_07_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 07: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_07_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_07_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 07: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_07_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_07_full_map_plane_spread_matrix.json` |
@@ -382,6 +390,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 07: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 07: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_07_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 07: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_07_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_07_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 08: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_08_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_08_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 08: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_08_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_08_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 08: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_08_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_08_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 08: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_08_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_08_full_map_plane_spread_matrix.json` |
@@ -390,6 +399,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 08: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 08: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_08_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 08: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_08_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_08_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 09: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_09_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_09_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 09: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_09_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_09_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 09: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_09_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_09_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 09: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_09_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_09_full_map_plane_spread_matrix.json` |
@@ -398,6 +408,7 @@ The runner is responsible for:
 | InTEn-LOAM KITTI 09: predicted-DOR facade gate | `ready` | `experiments/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 09: fixed missing-row support experiment | `ready` | `experiments/inten_loam_kitti_seq_09_full_row_support_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json` |
 | InTEn-LOAM KITTI 09: weak-translation prediction prior | `ready` | `experiments/inten_loam_kitti_seq_09_full_translation_prior_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json` |
+| InTEn-LOAM KITTI 10: S2S facade Cauchy influence | `ready` | `experiments/inten_loam_kitti_seq_10_full_facade_loss_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_10_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 10: accepted facade PCA normals | `ready` | `experiments/inten_loam_kitti_seq_10_full_facade_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_10_full_facade_pca_matrix.json` |
 | InTEn-LOAM KITTI 10: ground PCA normals | `ready` | `experiments/inten_loam_kitti_seq_10_full_ground_pca_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_10_full_ground_pca_matrix.json` |
 | InTEn-LOAM KITTI 10: S2M plane-spread check | `ready` | `experiments/inten_loam_kitti_seq_10_full_map_plane_spread_matrix.json` | `inten_loam` | `-` | `experiments/results/inten_loam_kitti_seq_10_full_map_plane_spread_matrix.json` |

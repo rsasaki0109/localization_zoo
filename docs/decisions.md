@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-21T07:50:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2833,6 +2833,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 | nhc_zupt | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | accel_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI 00: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 00: accepted facade PCA normals
 
 - Current default: `-`.
@@ -2926,6 +2937,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 01: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 01: accepted facade PCA normals
 
 - Current default: `-`.
@@ -3006,6 +3028,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_facade_loss_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -3098,6 +3131,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 03: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 03: accepted facade PCA normals
 
 - Current default: `-`.
@@ -3178,6 +3222,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_facade_loss_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -3270,6 +3325,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 05: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 05: accepted facade PCA normals
 
 - Current default: `-`.
@@ -3356,6 +3422,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 06: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 06: accepted facade PCA normals
 
 - Current default: `-`.
@@ -3436,6 +3513,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_facade_loss_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -3534,6 +3622,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 08: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 08: accepted facade PCA normals
 
 - Current default: `-`.
@@ -3620,6 +3719,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 | candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
+## InTEn-LOAM KITTI 09: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI 09: accepted facade PCA normals
 
 - Current default: `-`.
@@ -3700,6 +3810,17 @@ _Generated at 2026-10-21T04:49:26+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Reference variants: `baseline`.
 - Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_facade_loss_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|

@@ -1,0 +1,8 @@
+{
+  "sequence": "07",
+  "official_fetch_source": "experiments/results/inten_recursive_consensus/collection_interruption/partial_seq_07/archive.json",
+  "original_archive_sha256": "1939aa091102ef6688881b3c1d2706b6f34a46f43dd26f19e1997ae9a90e5e6e",
+  "owned_raw": "/workspace/localization-env/inten-recursive-consensus/kitti/dataset/sequences/07/velodyne",
+  "no_new_acquisition": true,
+  "reason": "Reuse only the currently owned official07 input after preserved intentional interruption; every scan hash is checked below."
+}

@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/check_inten_trace.py",
+    "--trace",
+    "/workspace/localization-env/inten-facade-loss/full_staging/10/baseline/trace.jsonl",
+    "--summary",
+    "/workspace/localization-env/inten-facade-loss/full_staging/10/baseline/summary.json",
+    "--receipt",
+    "/workspace/localization-env/inten-facade-loss/full_staging/10/baseline/native_command.json",
+    "--output",
+    "/workspace/localization-env/inten-facade-loss/full_staging/10/baseline/trace_validation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "20e2b4891b4dea67241644fbdd5e80236a7850ff",
+  "started_unix": 1792568834.7977884,
+  "finished_unix": 1792568835.6023026,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

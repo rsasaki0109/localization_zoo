@@ -1,0 +1,20 @@
+{
+  "files": {
+    "cluster_influence.jsonl": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/analysis/cluster_influence.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "ordered_gzip_shards",
+      "parts": []
+    },
+    "metrics.jsonl": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/analysis/metrics.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "ordered_gzip_shards",
+      "parts": []
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

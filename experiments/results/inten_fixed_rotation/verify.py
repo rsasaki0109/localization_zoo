@@ -47,7 +47,7 @@ def validate(history=True):
         if isinstance(a,dict):
             assert set(a)==set(b)
             for k in a:
-                if k=='rotation_error_mrad':
+                if k=='rotation_error_mrad' and isinstance(a[k],float):
                     # acos near identity amplifies last-bit matrix-product drift.
                     # Native rotations remain bitwise checked in evaluate().
                     assert np.isclose(a[k],b[k],rtol=1e-8,atol=1e-6),(a[k],b[k])

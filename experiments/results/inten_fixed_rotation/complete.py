@@ -80,7 +80,8 @@ def main():
         archive(stage, E/'completion_failure')
         raise
     archive(stage, E/'completion/docs')
-    subprocess.run(['git', 'add', '-f', str(E), 'papers/inten_loam/README.md', 'docs/roadmap.md'], cwd=W, check=True)
+    subprocess.run(['git', 'add', '-f', str(E), 'papers/inten_loam/README.md', 'docs/roadmap.md',
+                    ':(exclude)experiments/results/inten_fixed_rotation/__pycache__/**'], cwd=W, check=True)
     subprocess.run(['git', 'diff', '--cached', '--check'], cwd=W, check=True)
     subprocess.run(['git', 'commit', '-m', 'Report fixed estimated rotation rescue and retained negatives'], cwd=W, check=True)
     checks = R/'final_checks'

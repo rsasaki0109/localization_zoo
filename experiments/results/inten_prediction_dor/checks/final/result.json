@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "failed": [],
+  "first_attempt": "checks/final_attempt1",
+  "storage_proof": "checks/push_log_storage/result.json"
+}

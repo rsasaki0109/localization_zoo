@@ -39,9 +39,10 @@
   },
   "continuation": "Initial8f2600a8 native rejected forced_pose plus public passive trace before any terminal output. Failure645363a6 preserved. Corrected isolated observer uses diagnostic::terminal_trace at internal forced S2S call; public guard and every production file unchanged. Preserve original binary/object, compile distinct v2 producer, same owned official inputs and byte-identical natural-seed commands. Loss formula/scale/arms unchanged; no refetch or silent retry.",
   "analysis_source_sha256": {
-    "analyze.py": "57ca8ac8f4d138da2e8224db5c7a7f6ca34e9fd5d414c6c3d8169a57741c5c21",
+    "analyze.py": "c60911f8433174ae690e13ab4a335cdac7c33b5bb1d6f943784810faa0b3d0ea",
     "archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
     "seal.py": "fa38a7b87c37c21d9e0595eaaceb2a563f09e2f494e20310593e5fb1f6926078"
   },
-  "forced_count_convention": "The public forced diagnostic API returns first data-class counts. The internal terminal observer mirrors this convention in solver.returned_pairs, so only this field is excluded from full natural-solver parity, and independently checked against all first class counts. Every iteration H/g/delta/residual/pose, input/output/stop/prior field must be exact for baseline. Last-iteration pairs remain explicitly recorded in solver.iterations; do not treat the forced count as the normal solver return."
+  "forced_count_convention": "The public forced diagnostic API returns first data-class counts. The internal terminal observer mirrors this convention in solver.returned_pairs, so only this field is excluded from full natural-solver parity, and independently checked against all first class counts. Every iteration H/g/delta/residual/pose, input/output/stop/prior field must be exact for baseline. Last-iteration pairs remain explicitly recorded in solver.iterations; do not treat the forced count as the normal solver return.",
+  "analysis_continuation": "First analysis stopped at the first solver because the serializer legitimately omits an all-zero translation_prior_information field. Failure and empty partial outputs retained before correcting the parser to the existing zero convention. Reuse only byte-verified committed query restoration; all native outputs, seeds, binaries, loss modes and raw inputs remain unchanged. No native rerun."
 }

@@ -18,7 +18,10 @@ def distribution(values):
 def same_numeric(a,b):return np.allclose(a,b,atol=1e-8,rtol=1e-12)
 def restore_queries():
     folder=W/'experiments/results/inten_prediction_dor/baseline';entry=read(folder/'archive.json')['files']['correspondences.jsonl']
-    target=R/'accepted_facades.jsonl';require(not target.exists(),'Existing restored query file')
+    target=R/'accepted_facades.jsonl'
+    if target.exists():
+        require(sha(target)==entry['sha256'],'Existing restored queries differ from committed archive')
+        return target
     h=hashlib.sha256()
     with target.open('xb') as out:
         for part in entry['parts']:
@@ -38,7 +41,7 @@ def inspect_solver(row,reference,classes):
         a={k:v for k,v in s.items() if k!='returned_pairs'}
         b={k:v for k,v in reference['s2s'].items() if k!='returned_pairs'}
         require(a==b,'Unchanged terminal solver differs from full natural solver')
-    info=np.asarray(s['translation_prior_information']).reshape(3,3)
+    info=np.asarray(s.get('translation_prior_information',[0.]*9)).reshape(3,3)
     first=s['iterations'][0];t=mat(s['input'])[:3,3];J=np.c_[np.eye(3),-skew(t)]
     dataH=sum(np.asarray(c['H']).reshape(6,6) for c in classes)
     datag=sum(np.asarray(c['g']) for c in classes)

@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_recursive_consensus/parity.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus/worktree",
+  "source_commit": "60a8c943c0d9721217cd6e566b4a0e1e6082d68d",
+  "exit_code": 1,
+  "reason": "Clean-tree precondition rejected untracked packaging and collection artifacts; no replay/native stage was created. Stage explicit files and retain this rejected start before retry."
+}

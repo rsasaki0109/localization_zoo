@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "parent_commit": "13ab2f8f0871707060f4923ff3362317280f8af4",
+  "parent_pr": 166,
+  "sequence_order": [
+    "01",
+    "07",
+    "00",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_recursive_consensus_matrix.json",
+      "sha256": "1eab944eee89a01c276e9b7e95eb80d957114e5b35ea9d2159080231a2ecff28"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_recursive_consensus_matrix.json",
+      "sha256": "e9f7c32e5bfa570bb7312f51243c8ec3e59de0497a56635cb25f5ea920f6d59d"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_recursive_consensus_matrix.json",
+      "sha256": "0f1f7d29434b63b0594292e93c2a0bfeb72cef1591ec63f0aaa4f54b9c85f2ea"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_recursive_consensus_matrix.json",
+      "sha256": "3d1febcbd5a45de271770ca92b6e108ae1486824d8bb5fbbe1be77f0ffde4003"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_recursive_consensus_matrix.json",
+      "sha256": "2892f06765fc73b319fee7986b169125b85d283375519fc113f76b0a9c845e55"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_recursive_consensus_matrix.json",
+      "sha256": "f5b0e06b639314f194454b62a5b5b7e948fa7af9107902e3a2ca91e3063b44b6"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_recursive_consensus_matrix.json",
+      "sha256": "cbaf62dfb7ccaecca02357faf6c404b6f79e98e402a57304660103e71b964764"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_recursive_consensus_matrix.json",
+      "sha256": "d19c159ba89d835f24e44a13df69fa82cbd5f50f08e1b298eb8726f2467db145"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_recursive_consensus_matrix.json",
+      "sha256": "4cc2f63496f25894e681de2105ad34f3c5e5d2efd55b4997cd38ae70278d426a"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_recursive_consensus_matrix.json",
+      "sha256": "70a5881b73faa9ba7cef89d3d2dba2a89a779b770d62dccc5e3acfc79ac2e6b5"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_recursive_consensus_matrix.json",
+      "sha256": "b7ea78bc4a21b374bae0cb308ef2afa8dd09f40a7061799d6dc90bf6fca3b672"
+    }
+  },
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "selection": "One new default-off Boolean s2s_geometry_consensus. Rule/parameters inherited unchanged from committed166 local factorial0e2ab939, which passes a necessary local gate. No new thresholds, per-sequence winner, GT/ROI input or retuning. Original profile07, diagnosis00, inherited DiLO01 prior0.03, and all past KITTI observations are development; no independent held-out claim.",
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "change": "Natural normal S2S: retain original joint solve; profiles use its original estimated input seed and previous/current full extracted non-ground scans. Unchanged strict-majority/interior votes and full-point trimmed NN profiles. If usable, correct seed translation and mask facade clusters, fix rotation to the original joint output, actually solve conditional3DOF translation with re-association and native prior-information rule. Accept successful finite >=30pair refinement, else retain original. Baseline<30 or nonfinite never enters refinement. Every S2M, insertion/DOR and mapped prediction definition unchanged, but realized history can change. Mapping-off natural calls supported; forced diagnostics ignore new option and public guard remains.",
+  "trace": "Original joint S2S remains in s2s; additional s2s_consensus carries seed,original estimate,all121 votes,percluster admission bits/excluded IDs and actual refinement full equations. All candidate decisions, fixed-R/projected steps and accepted chain independently checked. Do not treat original s2s output as corrected accepted relative motion. Admission bits are two sixteen-hex-digit low/high64 words, low word first, profile index is bit position0..120.",
+  "profile": "Reference PR159 accepted profile: mappedseed,prior.03,ground/facadePCA,accelerated on; facadeCauchy/predictedDOR/rowcompletion/spread off. All no-GT-seed,maxrange120,vertical.17deg,planecheck.05m. Only new consensus Boolean differs.",
+  "compatibility": "Fresh native binary both arms; all OFF baseline accuracy/savedpose/GT/numerictracebody exact preceding PR159 accepted reference, scan-root-only trace substitution. Original frozen8endpoint native profiles and estimated terminal outputs must exactly match committed166/164 at both1and4threads before full collection. Forced diagnostic API remains unchanged. Baseline1/candidate4 threads fixed acrossallseq; profile reductions identical ordered results and verified bitwise. Raw times kept, no standaloneFPS/ranking.",
+  "data": "Official fetch one owned full sequence at a time; exact raw/GT hashes. Lossless roundtrip archive+commit+normalpush BEFORE deleting owned scans; cleanupcommit/push before next acquisition. Every failed attempt retained; never silently retry native. Old sources/builds/binaries/results preserved. Staging removable only after verified archive/push.",
+  "completion": "All11 full baseline/candidate pairs actual0 and everyfiniteframe; all adverse metrics/newbadlabels retained; >2paper sequences error-growth diagnosed. Commit complete numeric evidence before prose; import22 experimental/nondefault/unscored rows, regenerate3 derivatives preserving canonicaloldresults/paperJSON. Full exact-final-head Native+ROS2 CI beforeReady. PRtemplate against166/attach, no merge.",
+  "source_sha256": {
+    "evaluation/src/inten_trace_jsonl.h": "89475fada4ebd4b85e5e0646e83dac315ebe0f1471cb0842c9b5189927ed05cb",
+    "evaluation/src/pcd_dogfooding.cpp": "2bd0454cfa80de0504768a71856a382a003bc824d8864104e4896a42347845f2",
+    "papers/inten_loam/include/inten_loam/detail/feature_tree.h": "683300966f4da2c382d71b035d38d6d6e374cea4ca194863d8a09b8461005adf",
+    "papers/inten_loam/include/inten_loam/detail/ground_pca.h": "f1794a780519da35d97288866a9e19a704af6ce1d7bfb2402f80f11debf30b74",
+    "papers/inten_loam/include/inten_loam/detail/mapped_motion_prior.h": "f89c16af7ca78c88e4b8362d32da6c8cd33f0de8d9455ebcafea90bb734d3bd7",
+    "papers/inten_loam/include/inten_loam/detail/plane_row_support.h": "2d12bd84cbd7bb428a4f3e5c557c3d1b37d82573dbcad6a882c18b0e3b143e24",
+    "papers/inten_loam/include/inten_loam/detail/s2s_consensus.h": "3be9f31d87f69f09d223f0fa4ae7c3a59567dbe2884803a7781825bac6e3c28f",
+    "papers/inten_loam/include/inten_loam/detail/translation_prior.h": "7eaf6e049f6a0b99d67c81b7525b83a998d40737c88d019789138889da2cc649",
+    "papers/inten_loam/include/inten_loam/factors.h": "44ee28a9e7679ef2c7ccad2990ceffec5eb8c8fb3401eca8af16470a7fbbe1ce",
+    "papers/inten_loam/include/inten_loam/inten_loam.h": "1ea49fce47a6c183c1ff8b3e16cd9baf7df26e89d9767bcf6e5298a1c62ff15c",
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "1106a51ecec5cf4e259671401839edb0588e6c077f433f9a200bd28f266778c3",
+    "papers/inten_loam/src/inten_loam_paper.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp": "50c85ca04290626228959b4cf5775b1bcf872cfa656bba44c4100c324cad4d67",
+    "experiments/results/inten_recursive_consensus/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_recursive_consensus/build.py": "0f752f71909fde70d7bb506e0d910cf01304105ef72e4a3c8348c9c0298981c6",
+    "experiments/results/inten_recursive_consensus/build_candidate.py": "8db983bce77b21b7b6a87c4c8e5a87c543929f3a3f9d3d5defb29a54ebb1d620",
+    "experiments/results/inten_recursive_consensus/capture_runtime.py": "008907fd57ae80d26a98ebc124c0bff1ef9bca0accf9a02bc245a2cbede6e565",
+    "experiments/results/inten_recursive_consensus/common.py": "b6ed6eeb12c7f3feb921e308825a76929f89cdeae76b3bc27b9b6e5a882e0cf2",
+    "experiments/results/inten_recursive_consensus/instrument.py": "9ca3f25470a2550b3179b609ca8f687424ba624b32d7d80e38dbbc87c58cd625",
+    "experiments/results/inten_recursive_consensus/parity.py": "9ebd1ab97a8cd1f940a76eb56e0a38f18f8663423125392d089264fab1044fe0",
+    "experiments/results/inten_recursive_consensus/parity_probe.cpp": "10407056d6c9f7cfd2d49145564b1ef75f169ee3dfc28b91a92a2ae38d0eb6a0",
+    "experiments/results/inten_recursive_consensus/reference_native.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
+    "experiments/results/inten_recursive_consensus/replay_hooks.h": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
+    "experiments/results/inten_recursive_consensus/replay_native.cpp": "9ef26958bb4ccb0b24fc0ef0304b7148d03e9b32421818872efd3fc55801f880",
+    "experiments/results/inten_recursive_consensus/check_consensus_trace.py": "0512fa2c8dc2143ebb6112d0196ad2cef98a5fc59ee67528718c5371f4b47ec8",
+    "experiments/results/inten_recursive_consensus/pack_build_logs.py": "073b28677a4dde009faa50e64f1d0792d8881dde89d57ac67875533331e7abb5",
+    "experiments/results/inten_recursive_consensus/build_corrected.py": "c0d9de9851db3a8ac3bf9386948530bbe142353c7e4f7f1f97eea591fd37915d",
+    "experiments/results/inten_recursive_consensus/collect.py": "1e71e6feace9420e1e0c6f3866b779c58c89e216e032e893da6f41cc892969cb",
+    "experiments/results/inten_recursive_consensus/run_collection.py": "1e8dc815d2f27bf1a23de63ac3dbf32be94870e0dda5504f901fb6bc5bb43773",
+    "experiments/results/inten_recursive_consensus/protocol.json": "8fb85446be6df14fcd3908e99b42f1e16af5d9efb6c68eb2ca1e27df5d17e3bb",
+    "experiments/results/inten_recursive_consensus/historical_aggregate_sha256.json": "21eb92bf082ceee794a926cc334382490502588dfa197853c74662d29a0d7a75"
+  },
+  "unit_test_recovery": {
+    "original_protocol_sha256": "483ad0afeb28c0ae6ba0bc80fe02f9e95755a28715872ec69bc907ee39808ba0",
+    "failure": "Initial CTest exit8 retained at checks/candidate_build. Synthetic test mistakenly equated admissible-band consensus with the minimum-cost displacement.",
+    "correction": "Assert exact geometric minimum separately, and that chosen shift is interior/negative and admitted by every controlled cluster. Core helper, algorithm, thresholds, manifests and cached replay sources unchanged; preserve original failed build and compile in distinct build_corrected directory."
+  },
+  "native_source_commit": "d03f5db61e20d418de64ac3faf7aa1afba6b73be",
+  "native_arm_workers": {
+    "baseline": 1,
+    "candidate": 4
+  }
+}

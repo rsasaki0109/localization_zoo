@@ -1,0 +1,222 @@
+{
+  "files": {
+    "00_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/00_baseline_steps.csv",
+      "bytes": 1442306,
+      "sha256": "7cbe063d21f3596044569842e137e468c998bb5e295f9589fd878761aee8b679",
+      "storage": "verbatim",
+      "path": "00_baseline_steps.csv",
+      "stored_sha256": "7cbe063d21f3596044569842e137e468c998bb5e295f9589fd878761aee8b679"
+    },
+    "00_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/00_candidate_steps.csv",
+      "bytes": 1440407,
+      "sha256": "048a4c44d06fa67a08fd6765f41f46aee6cb8645f3a3c648a9640e3d440cef76",
+      "storage": "verbatim",
+      "path": "00_candidate_steps.csv",
+      "stored_sha256": "048a4c44d06fa67a08fd6765f41f46aee6cb8645f3a3c648a9640e3d440cef76"
+    },
+    "01_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/01_baseline_steps.csv",
+      "bytes": 346224,
+      "sha256": "b9c1dbc9a6a7e81f88cdd1694705c274ca16b687dd625a36e9764e841a70a621",
+      "storage": "verbatim",
+      "path": "01_baseline_steps.csv",
+      "stored_sha256": "b9c1dbc9a6a7e81f88cdd1694705c274ca16b687dd625a36e9764e841a70a621"
+    },
+    "01_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/01_candidate_steps.csv",
+      "bytes": 345121,
+      "sha256": "a045739c8a3d7b3e54f2f133f12fbcb77d6bdd668ecb127b10e62e930349db68",
+      "storage": "verbatim",
+      "path": "01_candidate_steps.csv",
+      "stored_sha256": "a045739c8a3d7b3e54f2f133f12fbcb77d6bdd668ecb127b10e62e930349db68"
+    },
+    "02_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/02_baseline_steps.csv",
+      "bytes": 1478985,
+      "sha256": "21df02024612e2ae9ebf5484267089087db916cda2b4bae6f492474e764f9dd3",
+      "storage": "verbatim",
+      "path": "02_baseline_steps.csv",
+      "stored_sha256": "21df02024612e2ae9ebf5484267089087db916cda2b4bae6f492474e764f9dd3"
+    },
+    "02_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/02_candidate_steps.csv",
+      "bytes": 1476845,
+      "sha256": "c5f7b18f9c85adee9edaacd0943fa9749ddea0621c3dc3fc3993ce7fccf86134",
+      "storage": "verbatim",
+      "path": "02_candidate_steps.csv",
+      "stored_sha256": "c5f7b18f9c85adee9edaacd0943fa9749ddea0621c3dc3fc3993ce7fccf86134"
+    },
+    "03_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/03_baseline_steps.csv",
+      "bytes": 251308,
+      "sha256": "20695ee0ce5443a7556a17d2870140c760507d499aff227f28bf3b4f3072406f",
+      "storage": "verbatim",
+      "path": "03_baseline_steps.csv",
+      "stored_sha256": "20695ee0ce5443a7556a17d2870140c760507d499aff227f28bf3b4f3072406f"
+    },
+    "03_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/03_candidate_steps.csv",
+      "bytes": 251248,
+      "sha256": "0cddfa97177a580d397bfa8bd97680b0e7a4f4ef51610ac35c95508063fbc5b7",
+      "storage": "verbatim",
+      "path": "03_candidate_steps.csv",
+      "stored_sha256": "0cddfa97177a580d397bfa8bd97680b0e7a4f4ef51610ac35c95508063fbc5b7"
+    },
+    "04_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/04_baseline_steps.csv",
+      "bytes": 86019,
+      "sha256": "626c96d4cd49214be2ed27b10f0ff3f2a4179024058af5bb802cb2c6378e79c7",
+      "storage": "verbatim",
+      "path": "04_baseline_steps.csv",
+      "stored_sha256": "626c96d4cd49214be2ed27b10f0ff3f2a4179024058af5bb802cb2c6378e79c7"
+    },
+    "04_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/04_candidate_steps.csv",
+      "bytes": 85880,
+      "sha256": "89d06bdc6b1532c68a70ffb1538d02f8ee6ba5293f2b1c213c000045fe5774ef",
+      "storage": "verbatim",
+      "path": "04_candidate_steps.csv",
+      "stored_sha256": "89d06bdc6b1532c68a70ffb1538d02f8ee6ba5293f2b1c213c000045fe5774ef"
+    },
+    "05_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/05_baseline_steps.csv",
+      "bytes": 870514,
+      "sha256": "356f38ee8bb33a1f766ac523d42b22b014b74a261dfbfcb20707a9ea2efa54be",
+      "storage": "verbatim",
+      "path": "05_baseline_steps.csv",
+      "stored_sha256": "356f38ee8bb33a1f766ac523d42b22b014b74a261dfbfcb20707a9ea2efa54be"
+    },
+    "05_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/05_candidate_steps.csv",
+      "bytes": 869118,
+      "sha256": "50d5e448b033e67595232f2b67954b12d1eebe90c506384b57786ece752065c5",
+      "storage": "verbatim",
+      "path": "05_candidate_steps.csv",
+      "stored_sha256": "50d5e448b033e67595232f2b67954b12d1eebe90c506384b57786ece752065c5"
+    },
+    "06_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/06_baseline_steps.csv",
+      "bytes": 349385,
+      "sha256": "214dca612051a0e209d6252fae855bbe43fa145e71c6236c4e899b3a8b5fdf81",
+      "storage": "verbatim",
+      "path": "06_baseline_steps.csv",
+      "stored_sha256": "214dca612051a0e209d6252fae855bbe43fa145e71c6236c4e899b3a8b5fdf81"
+    },
+    "06_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/06_candidate_steps.csv",
+      "bytes": 349154,
+      "sha256": "c54e7b76eb64f64499a43c2b39adfa8e3cb86c2ae6602f916e6ad3c816c61c09",
+      "storage": "verbatim",
+      "path": "06_candidate_steps.csv",
+      "stored_sha256": "c54e7b76eb64f64499a43c2b39adfa8e3cb86c2ae6602f916e6ad3c816c61c09"
+    },
+    "07_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/07_baseline_steps.csv",
+      "bytes": 339877,
+      "sha256": "958951b82441fb018c470661108c7af00e4eb3dc0e1dca91038fb0e89457be87",
+      "storage": "verbatim",
+      "path": "07_baseline_steps.csv",
+      "stored_sha256": "958951b82441fb018c470661108c7af00e4eb3dc0e1dca91038fb0e89457be87"
+    },
+    "07_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/07_candidate_steps.csv",
+      "bytes": 339481,
+      "sha256": "1424d6c385c1fa9cd3897aaff69f19a775d42f9124972beae6bf21431669e2be",
+      "storage": "verbatim",
+      "path": "07_candidate_steps.csv",
+      "stored_sha256": "1424d6c385c1fa9cd3897aaff69f19a775d42f9124972beae6bf21431669e2be"
+    },
+    "08_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/08_baseline_steps.csv",
+      "bytes": 1290474,
+      "sha256": "da621aa385ec912b51fe6cdf215454954f83ef8e59d08571d9f72c981ef51d04",
+      "storage": "verbatim",
+      "path": "08_baseline_steps.csv",
+      "stored_sha256": "da621aa385ec912b51fe6cdf215454954f83ef8e59d08571d9f72c981ef51d04"
+    },
+    "08_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/08_candidate_steps.csv",
+      "bytes": 1289296,
+      "sha256": "74f578938b38140aaabacb6ea45df3576bca3c08efb91ff8d99b855e44afd2fd",
+      "storage": "verbatim",
+      "path": "08_candidate_steps.csv",
+      "stored_sha256": "74f578938b38140aaabacb6ea45df3576bca3c08efb91ff8d99b855e44afd2fd"
+    },
+    "09_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/09_baseline_steps.csv",
+      "bytes": 504356,
+      "sha256": "07d02cd29d00c6d93b6485d2b5ecb2f12487a2e61d27d315a8743d14d7ef74ea",
+      "storage": "verbatim",
+      "path": "09_baseline_steps.csv",
+      "stored_sha256": "07d02cd29d00c6d93b6485d2b5ecb2f12487a2e61d27d315a8743d14d7ef74ea"
+    },
+    "09_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/09_candidate_steps.csv",
+      "bytes": 503786,
+      "sha256": "23b1fe40a8385bb8b8a88fc882431c07b60fa7afbcf0a6222b25c741963deacc",
+      "storage": "verbatim",
+      "path": "09_candidate_steps.csv",
+      "stored_sha256": "23b1fe40a8385bb8b8a88fc882431c07b60fa7afbcf0a6222b25c741963deacc"
+    },
+    "10_baseline_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/10_baseline_steps.csv",
+      "bytes": 376843,
+      "sha256": "00a54396eb9cb13463bdb607da5319588e8ddfb6ec76206d6a357f934e920c3e",
+      "storage": "verbatim",
+      "path": "10_baseline_steps.csv",
+      "stored_sha256": "00a54396eb9cb13463bdb607da5319588e8ddfb6ec76206d6a357f934e920c3e"
+    },
+    "10_candidate_steps.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/10_candidate_steps.csv",
+      "bytes": 376054,
+      "sha256": "c041621330ecb2aa1575d25e70253c09c29db759356a5412d90057c77db777a8",
+      "storage": "verbatim",
+      "path": "10_candidate_steps.csv",
+      "stored_sha256": "c041621330ecb2aa1575d25e70253c09c29db759356a5412d90057c77db777a8"
+    },
+    "comparison.csv": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/comparison.csv",
+      "bytes": 2669,
+      "sha256": "bd4c882d0df25d6480e0ac0debbad18fbbad4c9b1c1b44ee6f1030c4cf97e0f6",
+      "storage": "verbatim",
+      "path": "comparison.csv",
+      "stored_sha256": "bd4c882d0df25d6480e0ac0debbad18fbbad4c9b1c1b44ee6f1030c4cf97e0f6"
+    },
+    "official_rte.png": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/official_rte.png",
+      "bytes": 87120,
+      "sha256": "ad6269bf30234878b38b6d7bb46646f477d2bb43a28e68d1288eaf1e3feda352",
+      "storage": "verbatim",
+      "path": "official_rte.png",
+      "stored_sha256": "ad6269bf30234878b38b6d7bb46646f477d2bb43a28e68d1288eaf1e3feda352"
+    },
+    "seq_01_error_growth.png": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/seq_01_error_growth.png",
+      "bytes": 150772,
+      "sha256": "2acd4de6bf50f208d4576b219e75088df7658dd2eb9880832f11bb4ad95af272",
+      "storage": "verbatim",
+      "path": "seq_01_error_growth.png",
+      "stored_sha256": "2acd4de6bf50f208d4576b219e75088df7658dd2eb9880832f11bb4ad95af272"
+    },
+    "seq_10_error_growth.png": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/seq_10_error_growth.png",
+      "bytes": 191784,
+      "sha256": "bf8d54b508b41288a2d3e4d15fc1c1c4dc1393d5d2d4fdb439b75fc5c49412df",
+      "storage": "verbatim",
+      "path": "seq_10_error_growth.png",
+      "stored_sha256": "bf8d54b508b41288a2d3e4d15fc1c1c4dc1393d5d2d4fdb439b75fc5c49412df"
+    },
+    "summary.json": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/full_report/summary.json",
+      "bytes": 676408,
+      "sha256": "7cda7d5dcfd666bd497bbd01c74f20280a23d514f0dddb43c97c01f80303d610",
+      "storage": "verbatim",
+      "path": "summary.json",
+      "stored_sha256": "7cda7d5dcfd666bd497bbd01c74f20280a23d514f0dddb43c97c01f80303d610"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

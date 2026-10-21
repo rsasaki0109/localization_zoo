@@ -1,0 +1,91 @@
+{
+  "exit_code": 0,
+  "source_commit": "741e89cfd2149e0e15251c30a5373fd460d3f246",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree/experiments/results/inten_consensus_query_acceleration/pack_build_logs.py",
+    "candidate_build_balanced"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree",
+  "files": [
+    {
+      "original_relative_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/build.stderr",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus-accelerated/original_build_logs/candidate_build_balanced/build.stderr",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "gzip_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/build.stderr.gz",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/build.stdout",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus-accelerated/original_build_logs/candidate_build_balanced/build.stdout",
+      "raw_sha256": "f273b1ef5d30ca2efb2585747bc350070fbc442b70ed7d2a955edb227da88435",
+      "raw_bytes": 1519,
+      "gzip_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/build.stdout.gz",
+      "gzip_sha256": "79cc4dfbd7ed3c5d2b01a1d05ec0c0489bded3d323490118c3aa585e663b620d",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/configure.stderr",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus-accelerated/original_build_logs/candidate_build_balanced/configure.stderr",
+      "raw_sha256": "3d77c38fbd07367aba026154ecd13e60c46398c8c198c7b121d292585cdfa791",
+      "raw_bytes": 117,
+      "gzip_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/configure.stderr.gz",
+      "gzip_sha256": "a671a1145f984d7d986bac32f296f71f1e3374c46fe5c768ef00b0fb30288b8f",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/configure.stdout",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus-accelerated/original_build_logs/candidate_build_balanced/configure.stdout",
+      "raw_sha256": "16c9cb062fcbcdf9e2931f5b68f6478312942bcd6f42ef12c9aafe99df13aeab",
+      "raw_bytes": 14165,
+      "gzip_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/configure.stdout.gz",
+      "gzip_sha256": "fe0fd9aa51aeb0a41db017796368d3fe2b0d76eed94f0c3e91bf1024de666955",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/ctest.stderr",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus-accelerated/original_build_logs/candidate_build_balanced/ctest.stderr",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "gzip_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/ctest.stderr.gz",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/ctest.stdout",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus-accelerated/original_build_logs/candidate_build_balanced/ctest.stdout",
+      "raw_sha256": "9f2f5d634dfe62b2c50de0d166f456cda71247a850c95c39ebf1c8d1f1535ed9",
+      "raw_bytes": 615,
+      "gzip_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/ctest.stdout.gz",
+      "gzip_sha256": "c7154a5775ec3044bf12e2697be1c5bcf09072379e1779d042f45708250d43f3",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/runner.stderr",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus-accelerated/original_build_logs/candidate_build_balanced/runner.stderr",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "gzip_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/runner.stderr.gz",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/runner.stdout",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus-accelerated/original_build_logs/candidate_build_balanced/runner.stdout",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "gzip_path": "experiments/results/inten_consensus_query_acceleration/checks/candidate_build_balanced/runner.stdout.gz",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "byte_roundtrip_equal": true
+    }
+  ],
+  "actual_build_exit_codes": {
+    "build_command.json": 0,
+    "configure_command.json": 0,
+    "ctest_command.json": 0,
+    "runner_command.json": 0
+  },
+  "policy": "Keep exact raw bytes privately and lossless gzip+mapping in repository; failed exits remain failed, no log sanitation."
+}

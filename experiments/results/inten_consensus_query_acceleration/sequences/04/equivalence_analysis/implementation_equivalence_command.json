@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree/experiments/results/inten_consensus_query_acceleration/implementation_equivalence.py",
+    "--sequence",
+    "04",
+    "--stage",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/04",
+    "--output",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/04/implementation_equivalence.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree",
+  "source_commit": "98c85bff7c0bfaf49f266afd10fe30a998535bb2",
+  "started_unix": 1792604085.293179,
+  "finished_unix": 1792604085.3277102,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

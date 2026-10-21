@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree/experiments/results/inten_consensus_query_acceleration/check_consensus_trace.py",
+    "--trace",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/04/candidate/trace.jsonl",
+    "--output",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/04/candidate/consensus_validation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree",
+  "source_commit": "98c85bff7c0bfaf49f266afd10fe30a998535bb2",
+  "started_unix": 1792604084.3405364,
+  "finished_unix": 1792604084.9945986,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

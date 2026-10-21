@@ -19,12 +19,17 @@
     "experiments/results/inten_consensus_query_acceleration/reference_native.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
     "experiments/results/inten_consensus_query_acceleration/replay_native.cpp": "9ef26958bb4ccb0b24fc0ef0304b7148d03e9b32421818872efd3fc55801f880",
     "experiments/results/inten_consensus_query_acceleration/replay_hooks.h": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
-    "papers/inten_loam/include/inten_loam/detail/s2s_consensus.h": "a5386dd18dabf80b000fdab93f845665508528838bdcfb01636434b04e688e2a",
+    "papers/inten_loam/include/inten_loam/detail/s2s_consensus.h": "b843a01d99481c857efb4bc7fc60c213bf2db35f25d56b0c905f6d5e27ca0319",
     "papers/inten_loam/include/inten_loam/detail/feature_tree.h": "683300966f4da2c382d71b035d38d6d6e374cea4ca194863d8a09b8461005adf",
     "experiments/results/inten_consensus_query_acceleration/build_corrected_initial.py": "c0d9de9851db3a8ac3bf9386948530bbe142353c7e4f7f1f97eea591fd37915d",
     "experiments/results/inten_consensus_query_acceleration/link_runner.py": "b4c9a36f8581ab5a808d740b6e47bddd353958c0ef8496ffedd950801fcf8386",
-    "experiments/results/inten_consensus_query_acceleration/pack_build_logs.py": "073b28677a4dde009faa50e64f1d0792d8881dde89d57ac67875533331e7abb5"
+    "experiments/results/inten_consensus_query_acceleration/pack_build_logs.py": "073b28677a4dde009faa50e64f1d0792d8881dde89d57ac67875533331e7abb5",
+    "experiments/results/inten_consensus_query_acceleration/build_balanced.py": "2fbee0319106b4185b77f019c78995c494375631606b1c2fc097d373abb47732",
+    "experiments/results/inten_consensus_query_acceleration/parity_balanced.py": "2b520913b37bd62f78f488f89b49a7c44ee2f69febd1b15d7267b7eaac6cd39f",
+    "experiments/results/inten_consensus_query_acceleration/validate_balanced_decisions.py": "4628b25c0b62bc1a150ec618992afe9bd852319b79e4c3f329ade400383b47ec"
   },
   "link_recovery": "Actual build/test0, driver1 before runner: stale build/lib path. Correct only link path; preserve initial script and receipt, reuse native library without rebuilding. Production helper/accuracy rule unchanged.",
-  "parity_setup_recovery": "Initial module-path failure retained before any compile/native output. Use existing build_corrected helper and distinct corrected cached stage/input paths; no algorithm/rule change or native retry."
+  "parity_setup_recovery": "Initial module-path failure retained before any compile/native output. Use existing build_corrected helper and distinct corrected cached stage/input paths; no algorithm/rule change or native retry.",
+  "balanced_scheduling": "Independent (cluster,shift) cells scheduled dynamically; largest clusters can use every worker. Every source point, float NN result, sort and serial sum order stays fixed. Preallocate indexed121costs; no parallel reduction or parameter/rule change. Preserve prior FeatureTree producer/binary/test/cached outputs and all original negative/interrupted evidence. New balanced build/object/binary/stage paths, same1/4worker bitwise controls required before full validation.",
+  "original_interruption_commit": "95d4258ce7d75d016dbd58eadeaf190d84cc6f2a"
 }

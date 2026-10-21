@@ -41,16 +41,22 @@ inline std::vector<ClusterTranslationProfile> clusterTranslationProfiles(
   // Same float coordinates, KDTreeSingleIndex(15), exact search and result set
   // as PCL. Avoid a query allocation and OpenMP region for every single point.
   tree.build(accelerated);
-  // Each profile is independent. Keep every point, sort and sum in the exact
-  // original order. Concurrent immutable FLANN queries use thread-local buffers.
-#pragma omp parallel for if(accelerated) schedule(static)
-  for (long c = 0; c < static_cast<long>(result.size()); ++c) {
-    const auto& source = *sources[c];
-    if (source.empty()) continue;
-    auto& costs = result[c].costs;
-    std::vector<float> distances(source.size()), ds(1);
+  for (size_t c = 0; c < result.size(); ++c)
+    if (!sources[c]->empty()) result[c].costs.resize(121);
+  // Each (cluster, shift) cost is independent, including the largest cluster.
+  // Keep every point, sort and sum in exactly the original order, and store
+  // into its fixed index. Scheduling changes no reduction or admission rule.
+#pragma omp parallel if(accelerated)
+  {
+    std::vector<float> distances, ds(1);
     std::vector<int> ids(1);
-    for (int step = -60; step <= 60; ++step) {
+#pragma omp for schedule(dynamic)
+    for (long job = 0; job < static_cast<long>(result.size()) * 121; ++job) {
+      const size_t c = static_cast<size_t>(job / 121);
+      const int step = static_cast<int>(job % 121) - 60;
+      const auto& source = *sources[c];
+      if (source.empty()) continue;
+      distances.resize(source.size());
       for (size_t k = 0; k < source.size(); ++k) {
         const Eigen::Vector3d p = source[k] + (step * .05) * direction;
         if (tree.knn(p, 1, &ids, &ds) != 1)
@@ -61,7 +67,7 @@ inline std::vector<ClusterTranslationProfile> clusterTranslationProfiles(
       const size_t kept = std::max<size_t>(1, distances.size() * 4 / 5);
       double sum = 0.;
       for (size_t k = 0; k < kept; ++k) sum += distances[k];
-      costs.push_back(sum / kept);
+      result[c].costs[step + 60] = sum / kept;
     }
   }
   return result;

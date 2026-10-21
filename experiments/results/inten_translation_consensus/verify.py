@@ -24,6 +24,8 @@ def validate(history=True):
             assert sha(W/name)==digest,name
     for name,digest in post['source_sha256'].items(): assert sha(E/name)==digest,name
     for name,digest in post['additional_source_sha256'].items(): assert sha(W/name)==digest,name
+    recovery=read(E/'ci_recovery_protocol.json')
+    for name,digest in recovery['source_sha256'].items():assert sha(W/name)==digest,name
     for folder in ('controls','analysis','collection_execution','analysis_execution'):
         manifest=read(E/folder/'archive.json');assert manifest['exit_code']==0 and manifest['byte_roundtrip_verified']
         for name in manifest['files']:restored(E/folder,name)
@@ -109,7 +111,8 @@ def validate(history=True):
     assert bool(progression)==report['candidate_progression_condition_passed']
     if history:
         changed=subprocess.check_output(['git','diff','--name-only',BASE,'--'],cwd=W,text=True).splitlines()
-        allowed=('experiments/results/inten_translation_consensus/','tests/test_inten_translation_consensus_study.py')
+        allowed=('experiments/results/inten_translation_consensus/','tests/test_inten_translation_consensus_study.py',
+                 'tests/test_shared_range_saved02_gate.py')
         for name in changed:assert name.startswith(allowed) or name in ('docs/roadmap.md','papers/inten_loam/README.md'),name
         previous=subprocess.check_output(['git','show',BASE+':papers/inten_loam/README.md'],cwd=W)
         assert (W/'papers/inten_loam/README.md').read_bytes().startswith(previous)

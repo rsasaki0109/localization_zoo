@@ -1,0 +1,6 @@
+{
+  "actual_exit_code": 1,
+  "native_case_processes_started": 0,
+  "cause": "CLI evidence was still uncommitted when run.py enforced its clean-tree guard.",
+  "recovery": "Commit the complete CLI evidence and this stopped invocation first, then run unchanged producer. No source, setting, gate or case-set change."
+}

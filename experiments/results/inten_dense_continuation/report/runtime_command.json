@@ -1,0 +1,20 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-c",
+    "import sys,numpy,scipy,scipy.spatial._ckdtree,hashlib,json; print(json.dumps(dict(python=sys.executable,numpy=numpy.__version__,scipy=scipy.__version__,kdtree_sha256=hashlib.sha256(open(scipy.spatial._ckdtree.__file__,\"rb\").read()).hexdigest())))"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "863906117144f97fa332080c623069c3de77d4bf",
+  "started_unix": 1792675612.0287948,
+  "finished_unix": 1792675612.4188507,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

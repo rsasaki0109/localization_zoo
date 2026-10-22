@@ -670,6 +670,141 @@ TEST(InTenLoamPaper, NormalizedIntensityCancelsVanishingCommonFactorBeforeDivisi
   }
 }
 
+TEST(InTenLoamPaper, ConsistentIntensityDenseRampMatchesLegacy) {
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2s_intensity_consistent);
+  std::vector<PaperFeature> cloud;
+  for (int i = -3; i <= 3; ++i)
+    for (int j = -3; j <= 3; ++j)
+      for (int k = -3; k <= 3; ++k) {
+        PaperFeature f; f.p = .3 * Eigen::Vector3d(i, j, k);
+        f.intensity = static_cast<float>(.4 + .03*i - .02*j + .01*k);
+        cloud.push_back(f);
+      }
+  InTenLoamPaper::IntensityGrid legacy, fixed;
+  legacy.build(cloud, .3); fixed.build(cloud, .3, false, true);
+  for (const auto& x : {Eigen::Vector3d(.07, -.12, .21), Eigen::Vector3d(-.11, .02, -.09)}) {
+    double a,b; Eigen::Vector3d ga,gb;
+    ASSERT_TRUE(legacy.eval(x,&a,&ga)); ASSERT_TRUE(fixed.eval(x,&b,&gb));
+    EXPECT_EQ(a,b); EXPECT_TRUE((ga.array()==gb.array()).all());
+    EXPECT_NEAR(b,.4+.1*x.x()-(.02/.3)*x.y()+(.01/.3)*x.z(),2e-8);
+    EXPECT_LT((gb-Eigen::Vector3d(.1,-.02/.3,.01/.3)).norm(),1e-7);
+  }
+}
+
+TEST(InTenLoamPaper, ConsistentSparseFacesAndGradientsAcrossEveryAxis) {
+  for (int axis=0;axis<3;++axis) for (int face : {-1,1}) {
+    std::vector<PaperFeature> cloud;
+    for (int i=face-2;i<=face+2;++i) for (int j : {0,1}) {
+      PaperFeature f; f.p=Eigen::Vector3d::Zero();
+      f.p[axis]=.3*i; f.p[(axis+1)%3]=.3*j;
+      f.intensity=static_cast<float>(.3+.04*i+.02*j); cloud.push_back(f);
+    }
+    InTenLoamPaper::IntensityGrid fixed; fixed.build(cloud,.3,false,true);
+    Eigen::Vector3d x=Eigen::Vector3d::Constant(.3*.375); x[axis]=.3*face;
+    auto left=x, right=x; left[axis]-=1e-9; right[axis]+=1e-9;
+    double a,b; Eigen::Vector3d ga,gb;
+    ASSERT_TRUE(fixed.eval(left,&a,&ga)); ASSERT_TRUE(fixed.eval(right,&b,&gb));
+    EXPECT_NEAR(a,b,1e-8); EXPECT_LT((ga-gb).norm(),1e-7);
+    x[axis]-=.3*.375; ASSERT_TRUE(fixed.eval(x,&a,&ga));
+    for (int d=0;d<3;++d) {
+      left=right=x; left[d]-=3e-6; right[d]+=3e-6;
+      double lo,hi; ASSERT_TRUE(fixed.eval(left,&lo,&gb)); ASSERT_TRUE(fixed.eval(right,&hi,&gb));
+      EXPECT_NEAR(ga[d],(hi-lo)/6e-6,1e-8);
+    }
+    for (auto& f:cloud) f.intensity=.4f;
+    fixed.build(cloud,.3,false,true); ASSERT_TRUE(fixed.eval(x,&a,&ga));
+    EXPECT_NEAR(a,.4f,1e-14); EXPECT_LT(ga.norm(),1e-12);
+  }
+}
+
+TEST(InTenLoamPaper, ConsistentIntensityBridgesZeroWeightHole) {
+  // Two occupied slabs have no positive basis weight at the shared face.
+  // A fixed completed field must still have one value and gradient there.
+  for (int axis=0;axis<3;++axis) {
+    std::vector<PaperFeature> cloud;
+    for (int slab : {-1,3}) for (int j : {0,1}) for (int k : {0,1}) {
+      PaperFeature f; f.p=Eigen::Vector3d::Zero();
+      f.p[axis]=.3*slab; f.p[(axis+1)%3]=.3*j; f.p[(axis+2)%3]=.3*k;
+      f.intensity=static_cast<float>(.2+.1*slab+.03*j+.01*k); cloud.push_back(f);
+    }
+    InTenLoamPaper::IntensityGrid fixed; fixed.build(cloud,.3,false,true);
+    Eigen::Vector3d x=Eigen::Vector3d::Constant(.3*.375); x[axis]=.3;
+    double center; Eigen::Vector3d g;
+    ASSERT_TRUE(fixed.eval(x,&center,&g));
+    for (double coordinate : {.3-1e-9,.3+1e-9}) {
+      x[axis]=coordinate; double v; Eigen::Vector3d grad;
+      ASSERT_TRUE(fixed.eval(x,&v,&grad)); EXPECT_NEAR(v,center,1e-8);
+      EXPECT_LT((grad-g).norm(),1e-7);
+    }
+  }
+}
+
+TEST(InTenLoamPaper, ConsistentIntensityRetainsObservedCountCoverage) {
+  std::vector<PaperFeature> cloud;
+  for (int j : {0,1}) for (int k : {0,1}) {
+    PaperFeature f; f.p=.3*Eigen::Vector3d(2,j,k); f.intensity=.4f; cloud.push_back(f);
+  }
+  InTenLoamPaper::IntensityGrid fixed; fixed.build(cloud,.3,false,true);
+  double v; Eigen::Vector3d g;
+  ASSERT_TRUE(fixed.eval(Eigen::Vector3d(0,.1,.1),&v,&g));
+  EXPECT_NEAR(v,.4f,1e-14);
+  cloud.pop_back(); fixed.build(cloud,.3,false,true);
+  EXPECT_FALSE(fixed.eval(Eigen::Vector3d(0,.1,.1),&v,&g));
+  EXPECT_FALSE(fixed.eval(Eigen::Vector3d(10,10,10),&v,&g));
+}
+
+TEST(InTenLoamPaper, ConsistentIntensityCacheCopyAndRebuildAreIndependent) {
+  std::vector<PaperFeature> cloud;
+  for (int i=-1;i<=2;++i) for (int j : {0,1}) {
+    PaperFeature f; f.p=.3*Eigen::Vector3d(i,j,0); f.intensity=.25f; cloud.push_back(f);
+  }
+  InTenLoamPaper::IntensityGrid fixed; fixed.build(cloud,.3,false,true);
+  auto copied=fixed;  // Share the initially empty cache, not future builds.
+  double a,b; Eigen::Vector3d ga,gb; const Eigen::Vector3d x(.1,.1,.1);
+  ASSERT_TRUE(fixed.eval(x,&a,&ga));
+  for (auto& f:cloud) f.intensity=.75f;
+  fixed.build(cloud,.3,false,true);
+  ASSERT_TRUE(fixed.eval(x,&a,&ga)); ASSERT_TRUE(copied.eval(x,&b,&gb));
+  EXPECT_NEAR(a,.75,1e-14); EXPECT_NEAR(b,.25,1e-14);
+  fixed.build(cloud,.3); InTenLoamPaper::IntensityGrid legacy; legacy.build(cloud,.3);
+  ASSERT_TRUE(fixed.eval(x,&a,&ga)); ASSERT_TRUE(legacy.eval(x,&b,&gb));
+  EXPECT_EQ(a,b); EXPECT_TRUE((ga.array()==gb.array()).all());
+}
+
+TEST(InTenLoamPaper, ConsistentIntensityParallelAndReverseQueriesAreIdentical) {
+  std::vector<PaperFeature> cloud;
+  for (int i=-3;i<=3;++i) for (int j=-2;j<=2;++j) {
+    PaperFeature f; f.p=.3*Eigen::Vector3d(i,j,0);
+    f.intensity=static_cast<float>(.4+.03*i+.02*j); cloud.push_back(f);
+  }
+  InTenLoamPaper::IntensityGrid serial, parallel;
+  serial.build(cloud,.3,false,true); parallel.build(cloud,.3,false,true);
+  constexpr int n=256;
+  std::vector<double> values(n),other(n); std::vector<Eigen::Vector3d> gradients(n),gother(n);
+  for (int i=0;i<n;++i) {
+    const Eigen::Vector3d x(.7*(i/255.-.5),.5*((i%17)/16.-.5),.1);
+    ASSERT_TRUE(serial.eval(x,&values[i],&gradients[i]));
+  }
+  std::vector<int> valid(n);
+#pragma omp parallel for num_threads(4)
+  for (int j=0;j<n;++j) {
+    const int i=n-1-j;
+    const Eigen::Vector3d x(.7*(i/255.-.5),.5*((i%17)/16.-.5),.1);
+    valid[i]=parallel.eval(x,&other[i],&gother[i]);
+  }
+  for (int i=0;i<n;++i) {
+    EXPECT_EQ(valid[i],1); EXPECT_EQ(values[i],other[i]);
+    EXPECT_TRUE((gradients[i].array()==gother[i].array()).all());
+  }
+}
+
+TEST(InTenLoamPaper, ConflictingIntensityExtensionsFailBeforeUpdates) {
+  InTenLoamPaperParams p; p.s2s_intensity_normalized=p.s2s_intensity_consistent=true;
+  EXPECT_THROW(InTenLoamPaper core(p),std::invalid_argument);
+  InTenLoamPaper::IntensityGrid grid;
+  EXPECT_THROW(grid.build({},.3,true,true),std::invalid_argument);
+}
+
 TEST(InTenLoamPaper, TracksForwardMotionAtFullScale) {
   InTenLoamPaper odo;
   std::vector<Eigen::Vector3d> pts;

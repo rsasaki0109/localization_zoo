@@ -9,9 +9,12 @@
 #include "inten_loam/detail/s2s_consensus.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <limits>
 #include <numeric>
+#include <mutex>
+#include <shared_mutex>
 #include <stdexcept>
 
 namespace localization_zoo {
@@ -175,6 +178,8 @@ struct InTenLoamPaper::Map {
 
 InTenLoamPaper::InTenLoamPaper(const InTenLoamPaperParams& params)
     : params_(params), map_(std::make_shared<Map>()) {
+  if (params_.s2s_intensity_normalized && params_.s2s_intensity_consistent)
+    throw std::invalid_argument("S2S normalized and consistent intensity modes are mutually exclusive");
   if (params_.s2s_facade_cauchy && (!std::isfinite(params_.huber) || params_.huber <= 0.0))
     throw std::invalid_argument("Cauchy facade influence requires a finite positive Huber scale");
   if (!std::isfinite(params_.s2s_translation_prior_ratio) ||
@@ -456,10 +461,26 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
 // Intensity field (eq. 6)
 // ---------------------------------------------------------------------------
 
+struct InTenLoamPaper::IntensityGrid::CompletionCache {
+  struct Controls {
+    std::array<double, 64> values{};
+    bool valid = false;
+  };
+  std::shared_mutex mutex;
+  std::unordered_map<Key, Controls, KeyHash> cells;
+};
+
 void InTenLoamPaper::IntensityGrid::build(const std::vector<PaperFeature>& cloud, double knot,
-                                         bool normalized) {
+                                         bool normalized, bool consistent) {
+  if (normalized && consistent)
+    throw std::invalid_argument("S2S normalized and consistent intensity modes are mutually exclusive");
   knot_ = knot;
   normalized_ = normalized;
+  consistent_ = consistent;
+  // Copies can share the old immutable field's cache, but rebuilding either
+  // grid must create a new identity. Concurrent eval is supported after build;
+  // concurrent build/eval on the same object is not.
+  completion_cache_ = consistent ? std::make_shared<CompletionCache>() : nullptr;
   nodes_.clear();
   nodes_.reserve(cloud.size());
   for (const auto& f : cloud) {
@@ -471,8 +492,81 @@ void InTenLoamPaper::IntensityGrid::build(const std::vector<PaperFeature>& cloud
   }
 }
 
+bool InTenLoamPaper::IntensityGrid::evalConsistent(const Eigen::Vector3d& x, double* value,
+                                                  Eigen::Vector3d* gradient) const {
+  const Eigen::Vector3d s = x / knot_;
+  const Key cell{static_cast<int>(std::floor(s.x())), static_cast<int>(std::floor(s.y())),
+                 static_cast<int>(std::floor(s.z()))};
+  CompletionCache::Controls controls;
+  bool cached = false;
+  {
+    std::shared_lock<std::shared_mutex> lock(completion_cache_->mutex);
+    const auto it = completion_cache_->cells.find(cell);
+    if (it != completion_cache_->cells.end()) {
+      controls = it->second;
+      cached = true;
+    }
+  }
+  if (!cached) {
+    int observed = 0;
+    for (int i = 0; i < 4; ++i)
+      for (int j = 0; j < 4; ++j)
+        for (int k = 0; k < 4; ++k)
+          observed += nodes_.count(Key{cell.x+i-1, cell.y+j-1, cell.z+k-1});
+    controls.valid = observed >= 4;  // Preserve the original coverage rule.
+    if (controls.valid)
+      for (int i = 0; i < 4; ++i)
+        for (int j = 0; j < 4; ++j)
+          for (int k = 0; k < 4; ++k) {
+            const Key node{cell.x+i-1, cell.y+j-1, cell.z+k-1};
+            const auto it = nodes_.find(node);
+            double mean;
+            if (it != nodes_.end()) {
+              mean = it->second.first / it->second.second;
+            } else {
+              double sum = 0;
+              int count = 0;
+              // Original observations only; no recursively filled controls.
+              // Radius three follows from the four-control cubic support.
+              for (int a = -3; a <= 3; ++a)
+                for (int b = -3; b <= 3; ++b)
+                  for (int c = -3; c <= 3; ++c) {
+                    const auto neighbor = nodes_.find(Key{node.x+a, node.y+b, node.z+c});
+                    if (neighbor != nodes_.end()) {
+                      sum += neighbor->second.first / neighbor->second.second;
+                      ++count;
+                    }
+                  }
+              // Every original support node is in this neighborhood, so an
+              // accepted cell guarantees at least four observed neighbors.
+              mean = sum / count;
+            }
+            controls.values[(i*4+j)*4+k] = mean;
+          }
+    std::unique_lock<std::shared_mutex> lock(completion_cache_->mutex);
+    controls = completion_cache_->cells.emplace(cell, controls).first->second;
+  }
+  if (!controls.valid) return false;
+  const Eigen::Vector3d t = s - Eigen::Vector3d(cell.x, cell.y, cell.z);
+  double Bx[4], By[4], Bz[4], dBx[4], dBy[4], dBz[4];
+  bspline(t.x(), Bx, dBx); bspline(t.y(), By, dBy); bspline(t.z(), Bz, dBz);
+  double val = 0;
+  Eigen::Vector3d grad = Eigen::Vector3d::Zero();
+  for (int i = 0; i < 4; ++i)
+    for (int j = 0; j < 4; ++j)
+      for (int k = 0; k < 4; ++k) {
+        const double cv = controls.values[(i*4+j)*4+k];
+        val += Bx[i]*By[j]*Bz[k]*cv;
+        grad += cv * Eigen::Vector3d(dBx[i]*By[j]*Bz[k], Bx[i]*dBy[j]*Bz[k], Bx[i]*By[j]*dBz[k]);
+      }
+  *value = val;
+  *gradient = grad / knot_;
+  return std::isfinite(*value) && gradient->allFinite();
+}
+
 bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value,
                                          Eigen::Vector3d* gradient) const {
+  if (consistent_) return evalConsistent(x, value, gradient);
   const Eigen::Vector3d s = x / knot_;
   const Eigen::Vector3i c0(static_cast<int>(std::floor(s.x())), static_cast<int>(std::floor(s.y())),
                            static_cast<int>(std::floor(s.z())));
@@ -947,7 +1041,8 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
       {
         if (!params_.accelerated) ix->all.build();
         if (params_.use_intensity)
-          ix->intensity.build(f.all, params_.intensity_knot, params_.s2s_intensity_normalized);
+          ix->intensity.build(f.all, params_.intensity_knot, params_.s2s_intensity_normalized,
+                              params_.s2s_intensity_consistent);
       }
     }
       return ix;

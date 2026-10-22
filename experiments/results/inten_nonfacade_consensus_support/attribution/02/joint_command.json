@@ -1,0 +1,42 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=4",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-nonfacade-consensus-support/worktree",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-nonfacade-consensus-support/query_probe",
+    "/workspace/localization-env/inten-zero-consensus-control/features_02.txt",
+    "/workspace/localization-env/inten-nonfacade-consensus-support/attribution_stage/02/joint_primitives.jsonl"
+  ],
+  "cwd": "/workspace/localization-env/inten-nonfacade-consensus-support/worktree",
+  "source_commit": "071077a0cb0bd4ef8ab284c79cb1b6ccaecd7a3c",
+  "started_unix": 1792642373.6906555,
+  "finished_unix": 1792642374.857029,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": "5536209bc9641a89baeaf2757c86401d630c21deecd7fca9b08cfc33b00e00c4"
+}

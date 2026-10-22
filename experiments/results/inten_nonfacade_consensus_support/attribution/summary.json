@@ -1,0 +1,7 @@
+{
+  "exit_code": 0,
+  "native_calls": 62,
+  "all31_endpoints_both_roles_retained": true,
+  "no_optimizer_no_gt_no_guard_amendment": true,
+  "source_commit": "071077a0cb0bd4ef8ab284c79cb1b6ccaecd7a3c"
+}

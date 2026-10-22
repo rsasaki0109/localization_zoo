@@ -1,0 +1,6 @@
+{
+  "source": "experiments/results/inten_consensus_failure_origin/checks/finalize_driver.py",
+  "sha256": "b3c4b8b605478649c9a84d81d8330ec3e82a0529f9922bf1162fe4e6b74c7f92",
+  "numerical_commit": "05dad67704bdf56e00fe68136bd672c17a634ad8",
+  "policy": "Commit interpretation only after complete numerical evidence; retain actual final exits; preserve parent code, results and publications."
+}

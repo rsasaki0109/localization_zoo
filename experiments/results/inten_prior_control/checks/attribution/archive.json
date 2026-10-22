@@ -1,0 +1,46 @@
+{
+  "files": {
+    "attribution.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/attribution_stage/attribution.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "attribution.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "attribution.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/attribution_stage/attribution.stdout.log",
+      "bytes": 510,
+      "sha256": "6936b3a76899367b6c1fc45ee2d621fd06b44d5967a24f55a84ffcaa0229d55d",
+      "storage": "gzip",
+      "path": "attribution.stdout.log.gz",
+      "stored_sha256": "339317d97fad6c3b65405d1610e76095106661d82e06d0b36bc62363afc1c988"
+    },
+    "attribution_audit.py": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/attribution_stage/attribution_audit.py",
+      "bytes": 3286,
+      "sha256": "f1db83311de416c6caec13099f9e29b1960201f44be858e946ee43b0fc053591",
+      "storage": "verbatim",
+      "path": "attribution_audit.py",
+      "stored_sha256": "f1db83311de416c6caec13099f9e29b1960201f44be858e946ee43b0fc053591"
+    },
+    "attribution_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/attribution_stage/attribution_command.json",
+      "bytes": 658,
+      "sha256": "8a0637e41b3639f2f9a25b8334a6083efc273c262b81f6d1e0facf92a8968613",
+      "storage": "verbatim",
+      "path": "attribution_command.json",
+      "stored_sha256": "8a0637e41b3639f2f9a25b8334a6083efc273c262b81f6d1e0facf92a8968613"
+    },
+    "result.json": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/attribution_stage/result.json",
+      "bytes": 21192,
+      "sha256": "8f5e8ce6cade0e5cbf4936b24c270fb73f0da553716cea22306f33efe9b4f2b6",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "8f5e8ce6cade0e5cbf4936b24c270fb73f0da553716cea22306f33efe9b4f2b6"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

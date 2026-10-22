@@ -2606,3 +2606,8 @@ exit0. The initial verifier's missing-zero-field failure is retained before a
 decoder-only recovery; frozen source, mathematics and thresholds stay intact.
 Full commands, source/binary/library hashes, complete XZ logs and actual exits
 are in the study. All raw logs and frozen input caches remain privately preserved.
+
+Full local Python410 tests exit0 with five existing environment skips; CPU
+reconstructions under Haswell/Sandybridge match the committed report at original
+tolerances. Derived-table regeneration and canonical source/result preservation
+checks all exit0. Complete receipts `9d20f6a8` precede this validation note.

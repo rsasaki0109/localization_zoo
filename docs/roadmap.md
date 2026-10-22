@@ -771,6 +771,9 @@ independent. Each item says what "done" means.
     full candidate trial, paper-table change or SOTA claim follows. The canonical
     omitted-zero-field failure remains before decoder-only recovery; native
     measurements, frozen mathematics and all original inputs stay unchanged.
+    Full local Python410 tests exit0 (five existing environment skips), both CPU
+    reconstructions match at original tolerances, and canonical source/results
+    and regenerated tables stay byte-preserved (`9d20f6a8`).
     Next isolate which lost/retained geometric support drives247/08 adverse
     behavior, retaining all rescue/adverse controls; do not tune the prior to
     repair cases where its information is already zero. All KITTI is development.

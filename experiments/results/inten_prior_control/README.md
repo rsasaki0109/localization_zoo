@@ -101,3 +101,23 @@ No native rerun, numerical/tolerance change or guard relaxation follows.
 retained complete failure. The portable reconstruction and additional
 cross-arm/full-trace audit both exit0. The latter's complete script, command
 and report are retained under `checks/attribution/`.
+
+## Final local validation
+
+Complete receipts `9d20f6a8` precede this validation note. Full Python410 tests
+exit0 with five existing environment skips; every new prior-control regression
+runs. Haswell/Sandybridge reconstructions each exit0 and match the committed
+report with original rtol1e-10/atol1e-12. No identity witness is relaxed.
+Showcase, leaderboard, paper-ready, complete case regeneration and whitespace
+checks exit0. Full-variant/paper-ratio regeneration is byte-identical. Production
+core/header/runner/tests/feature tree, fixture golden, paper metadata, site,
+root README and every older experimental result remain byte-preserved from
+`b76bf2e2`. Full commands/scripts/runtime fingerprints and reports are in
+`checks/final/`. The standalone comparison plot's source, actual exit0 and
+artifact hashes are in `checks/plot/`; it was visually inspected.
+
+Native CI dependency installation now has a timeout, noninteractive package
+configuration and bounded transport retries to make prolonged stalls end with
+collectable logs. All required build/test/fixture steps remain required. Final
+GitHub CI evidence belongs to its exact workflow head and is recorded in the PR;
+local or older-head success does not substitute for it.

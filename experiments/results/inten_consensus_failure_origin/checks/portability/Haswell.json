@@ -1,0 +1,202 @@
+{
+  "exit_code": 0,
+  "kernel_override": "Haswell",
+  "numpy": "1.26.4",
+  "python": "3.12.14",
+  "ratio_comparisons": 137424,
+  "max_absolute_difference": 2.4272805987379797e-12,
+  "strict_failures": [
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 968,
+      "metric": "final_length_ratio",
+      "committed": 0.9785977361619626,
+      "reconstructed": 0.9785977361630003,
+      "absolute_difference": 1.0377254611171338e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 974,
+      "metric": "final_length_ratio",
+      "committed": 1.0187565698949173,
+      "reconstructed": 1.018756569893793,
+      "absolute_difference": 1.1242118347354335e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 990,
+      "metric": "final_length_ratio",
+      "committed": 0.9710836320097783,
+      "reconstructed": 0.9710836320074259,
+      "absolute_difference": 2.352451566878244e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 990,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 0.9904322170705271,
+      "reconstructed": 0.9904322170689428,
+      "absolute_difference": 1.5842882561400984e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 990,
+      "metric": "s2s_length_ratio",
+      "committed": 0.9904322170705271,
+      "reconstructed": 0.9904322170689428,
+      "absolute_difference": 1.5842882561400984e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 993,
+      "metric": "final_length_ratio",
+      "committed": 0.9665648551027466,
+      "reconstructed": 0.9665648551050438,
+      "absolute_difference": 2.2971624602519114e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 993,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 0.9691340279998079,
+      "reconstructed": 0.9691340280013249,
+      "absolute_difference": 1.5170087408478139e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 993,
+      "metric": "s2s_length_ratio",
+      "committed": 0.9691340279998079,
+      "reconstructed": 0.9691340280013249,
+      "absolute_difference": 1.5170087408478139e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 1188,
+      "metric": "final_length_ratio",
+      "committed": 0.9773780753031003,
+      "reconstructed": 0.9773780753011266,
+      "absolute_difference": 1.9736434708761408e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 968,
+      "metric": "final_length_ratio",
+      "committed": 0.9888843789355948,
+      "reconstructed": 0.9888843789366377,
+      "absolute_difference": 1.042943509332872e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 986,
+      "metric": "final_length_ratio",
+      "committed": 0.9725465734422712,
+      "reconstructed": 0.9725465734437211,
+      "absolute_difference": 1.449840247857992e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 990,
+      "metric": "final_length_ratio",
+      "committed": 0.9653738025946289,
+      "reconstructed": 0.9653738025930846,
+      "absolute_difference": 1.5443202272535927e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 990,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 0.9903771928269114,
+      "reconstructed": 0.9903771928253273,
+      "absolute_difference": 1.5840662115351734e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 990,
+      "metric": "s2s_length_ratio",
+      "committed": 0.9959203528597738,
+      "reconstructed": 0.9959203528581808,
+      "absolute_difference": 1.5929479957321746e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 993,
+      "metric": "final_length_ratio",
+      "committed": 0.9904361385606301,
+      "reconstructed": 0.9904361385621805,
+      "absolute_difference": 1.5504264538890311e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 993,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 0.9684397361310063,
+      "reconstructed": 0.9684397361325222,
+      "absolute_difference": 1.5158985178231887e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 993,
+      "metric": "s2s_length_ratio",
+      "committed": 0.9660971996045263,
+      "reconstructed": 0.9660971996060387,
+      "absolute_difference": 1.5123458041443882e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1000,
+      "metric": "final_length_ratio",
+      "committed": 0.9618877901810711,
+      "reconstructed": 0.9618877901795578,
+      "absolute_difference": 1.5132339825640884e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1136,
+      "metric": "final_length_ratio",
+      "committed": 0.9926722886509253,
+      "reconstructed": 0.9926722886521228,
+      "absolute_difference": 1.1974865543606938e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1140,
+      "metric": "final_length_ratio",
+      "committed": 1.0088650811144408,
+      "reconstructed": 1.0088650811133733,
+      "absolute_difference": 1.0675904604795505e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1188,
+      "metric": "final_length_ratio",
+      "committed": 0.9315375034749562,
+      "reconstructed": 0.931537503472529,
+      "absolute_difference": 2.4272805987379797e-12
+    }
+  ],
+  "all_labels_counts_and_native_metrics_exact": true,
+  "all_differences_within_documented_relative_1e_minus10_absolute_1e_minus12": true,
+  "scope": "Offline portability probe only. No estimator, result, threshold or classification is modified."
+}

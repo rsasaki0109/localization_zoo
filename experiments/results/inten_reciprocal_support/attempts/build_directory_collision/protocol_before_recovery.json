@@ -1,0 +1,94 @@
+{
+  "parent_commit": "eacaa7b9",
+  "hypothesis": "Reciprocal geometric anchors may reject many-to-one sparse matches that make uniform continuation harmful. This is not a static-object classifier and may itself reject useful support.",
+  "construction": "Only candidate modes12/13 use the backward nearest-point check after the unchanged forward float-tree gate. Backward query R^T*(q_anchor-t) uses a double tree of the current feature class. Accept when original-source squared distance <= minimum squared distance +1e-12+1e-10*abs(minimum). This is the inherited numerical tolerance; no new spatial threshold. Coincident source coordinates tie by distance without input-order bias. Original geometry constructors and intensity are unchanged.",
+  "arms": "Every inherited31 endpoint retains exact all12 parent traces. Add legacy joint100 mode12 primary and legacy consensus100 mode13 paired control. Compare to0/1 for progression;6/7 isolate the new association change. Normalized/fixed-node controls remain secondary and are not candidate choices.",
+  "selection": "One new Boolean filter, fixed cap100 inherited from the original01 continuation trial. No new tunable radius/count/loss/damping/prior/voxel scale. Ground/facade PCA, prior0.03, acceleration and original estimated seeds remain. Every prior KITTI observation is development, with original07/00 and DiLO01 provenance disclosed.",
+  "native_inputs": "Only the original private cached features and original estimated seeds. No GT file, label, hand region, offline score or dense-selector choice enters native input or masking.",
+  "verification": "Retain every sparse feature observation and every geometric source query, including legacy forward-gate failures and masked consensus facades. Verify forward float-tree nearest anchors at the explicitly derived rounding bound in verify.py (coordinate two-ULP uncertainty and16 float eps accumulation); this certifies original float results without changing the native gate. Independently verify every new double backward distance/mask at original rtol1e-10/atol1e-12, every solver backward equation/update/stop, all original full traces/profiles, and immutable source/input/binary/library hashes. Source transform is bounded to cached frame/seed hooks and the new gated reciprocal checks; production files remain unchanged.",
+  "progression_gate": [
+    "All provenance, mechanism tests, exact controls, complete query populations, masks and solver checks pass.",
+    "No newly bad length/vector labels at inherited20% threshold for12 versus0 and13 versus1.",
+    "All original consensus rescues remain non-bad.",
+    "Original247 remains non-bad in both length/vector.",
+    "Primary12 strictly reduces complete conditional length and vector totals and does not increase rotation total.",
+    "All native attempted steps are finite."
+  ],
+  "failure_policy": "Preserve complete positive/negative results and stop this candidate on gate failure. No scale, mask rule, budget, field, case or guard retuning. No production integration/full candidate trial after failure. On pass, integrate this exact filter opt-in/default-off, prove native parity on all inherited controls, then freeze one setting across fresh full00-10 before any trajectory/paper/SOTA claim.",
+  "input_pins": {
+    "old": {
+      "archive_sha256": "b9547def59a91a6aea546d26eb428a21e2de9017b60a592c18bbf5b9d50e02d3",
+      "input_sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680",
+      "frames": [
+        190,
+        200,
+        202,
+        203,
+        204,
+        205,
+        247,
+        433
+      ],
+      "truth_sha256": "0209d551d6daf8565c947ee29affe84a8c731b28bfbe39adf716c7901095cb2d"
+    },
+    "01": {
+      "archive_sha256": "3694cbbab84dc89dffde5894d9272c547606e5adad9b035015495654263dcef3",
+      "input_sha256": "b299c0f733e3b8d502612fe6757f118a4da24d1958e8df9fbe23639f9c5f03ed",
+      "frames": [
+        425,
+        426,
+        810,
+        811,
+        837,
+        838
+      ],
+      "truth_sha256": "a67528d7a4ce2afbc9cdb8228538b2c343ba9e9390080f43dd45c6d402deec9f"
+    },
+    "02": {
+      "archive_sha256": "ba51c687705418d68381d2108fed362f6f1f751aa1bf403b359f127615dfab4a",
+      "input_sha256": "142ed3f7249cb1b105bfbee6066911278a080bfe6343c3b7e96f3a70738852a7",
+      "frames": [
+        1889,
+        1890,
+        1891,
+        1892,
+        1898,
+        1899,
+        4472,
+        4473
+      ],
+      "truth_sha256": "24c23d4dafa5899f6b94abad049a91d94acc76cd6a0ad1c646769eecb2817dd1"
+    },
+    "08": {
+      "archive_sha256": "2f4210e00663e95f7a3f427633098981e39e9014e7bd1c618a36e1d87e550549",
+      "input_sha256": "9cda69a4106ac9ef64bb9ad6041a8c5f8aa14c6bfd3473bee58adba74bce5f52",
+      "frames": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "truth_sha256": "d6717ede9af94abf386cd3a675b92afc80826e7e6212c10a8b4b473186e56320"
+    }
+  },
+  "source_sha256": {
+    "experiments/results/inten_reciprocal_support/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_reciprocal_support/build.py": "6b72e0c77f12a1ea34e425e89b4e6a1fc3e3a35d80eefeee1ac7bcbb1bc6ef11",
+    "experiments/results/inten_reciprocal_support/common.py": "96f155e7d73ddd79b0af4ad2381bafa38a5573fdb43872c254594f047d51c700",
+    "experiments/results/inten_reciprocal_support/run.py": "c0dfb3efc477ad4f11f6d9c6572c59c3590dd756212780da143c67f827250ae7",
+    "experiments/results/inten_reciprocal_support/transform.py": "e138b521b088a1b38b449d59896050f268e4e5df63aaaefa2e9450dffdbdb8ad",
+    "experiments/results/inten_reciprocal_support/verify.py": "dccedd086fc8e9a43fc7a99c2b922871ee30931b49ca1fdf68bfec06f066b025",
+    "experiments/results/inten_reciprocal_support/mutual.h": "cfb229851980f0d4775b5428ff30f3e9708a0168ec7fdf23910b8fba6c37b6e4",
+    "experiments/results/inten_reciprocal_support/replay_hooks.h": "17d71abf28b3b693c5e28eb316b31b25986f2974f5880d31f2844b96a2eed4c0",
+    "experiments/results/inten_reciprocal_support/probe.cpp": "cbe3e75af85896f10799136fcdb6879a893d486c10e079c380c0d9f4b7277e0d",
+    "experiments/results/inten_reciprocal_support/unit.cpp": "bcb4af1061998af5c7e545390856c7793fa30dbe356f729e156cb46542dd5053",
+    "papers/inten_loam/src/inten_loam_paper.cpp": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d",
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b",
+    "papers/inten_loam/include/inten_loam/detail/feature_tree.h": "683300966f4da2c382d71b035d38d6d6e374cea4ca194863d8a09b8461005adf"
+  }
+}

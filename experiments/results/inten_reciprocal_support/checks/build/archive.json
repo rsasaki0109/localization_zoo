@@ -1,0 +1,278 @@
+{
+  "files": {
+    "binaries.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/binaries.json",
+      "bytes": 16422,
+      "sha256": "90340588c8f31566b0099c68ef20378e687f1b3ce15b85eca1c3aa467faebc86",
+      "storage": "verbatim",
+      "path": "binaries.json",
+      "stored_sha256": "90340588c8f31566b0099c68ef20378e687f1b3ce15b85eca1c3aa467faebc86"
+    },
+    "compiler.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/compiler.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compiler.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compiler.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/compiler.stdout.log",
+      "bytes": 246,
+      "sha256": "8d6e704227c739386853b14c98257428d8ffbffd817517db0b2e088d28c773f6",
+      "storage": "gzip",
+      "path": "compiler.stdout.log.gz",
+      "stored_sha256": "37e4f0862510fd29c94d8be8d2235d9cebc816785d39305567fb71fb4e07970d"
+    },
+    "compiler_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/compiler_command.json",
+      "bytes": 883,
+      "sha256": "a833303f376a0d2a8637f07489bd05de0519cb94da5904f26c08a995012b4e01",
+      "storage": "verbatim",
+      "path": "compiler_command.json",
+      "stored_sha256": "a833303f376a0d2a8637f07489bd05de0519cb94da5904f26c08a995012b4e01"
+    },
+    "ldd.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/ldd.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "ldd.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "ldd.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/ldd.stdout.log",
+      "bytes": 850,
+      "sha256": "08a7de17253af4804c0a182ef7378faf0285b512c59c40e47384d6d2547d722b",
+      "storage": "gzip",
+      "path": "ldd.stdout.log.gz",
+      "stored_sha256": "394f5dc59796d410e2e5514f77c9932bb38ace8fd8f5cc736d58266cd8687844"
+    },
+    "ldd_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/ldd_command.json",
+      "bytes": 942,
+      "sha256": "985ee7e8cb61b3ba280af2c14ac0caca66ed490b19f71dcc17e60fea020649b9",
+      "storage": "verbatim",
+      "path": "ldd_command.json",
+      "stored_sha256": "985ee7e8cb61b3ba280af2c14ac0caca66ed490b19f71dcc17e60fea020649b9"
+    },
+    "probe_compile.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/probe_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "probe_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "probe_compile.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/probe_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "probe_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "probe_compile_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/probe_compile_command.json",
+      "bytes": 17172,
+      "sha256": "0a0660c9609b7a524470b71178d66ae82e4d7f9dd13040d819a07c06bfd9747d",
+      "storage": "verbatim",
+      "path": "probe_compile_command.json",
+      "stored_sha256": "0a0660c9609b7a524470b71178d66ae82e4d7f9dd13040d819a07c06bfd9747d"
+    },
+    "replay_compile.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/replay_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "replay_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "replay_compile.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/replay_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "replay_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "replay_compile_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/replay_compile_command.json",
+      "bytes": 2991,
+      "sha256": "ede9c41f25d52ecf08af6538db8f78312bfd0ea27ab368dd5d4383f169a6ceff",
+      "storage": "verbatim",
+      "path": "replay_compile_command.json",
+      "stored_sha256": "ede9c41f25d52ecf08af6538db8f78312bfd0ea27ab368dd5d4383f169a6ceff"
+    },
+    "replay_native.cpp": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/replay_native.cpp",
+      "bytes": 53428,
+      "sha256": "5b8785405190f93ca6b81023bdf047c17abe61efda7139caa0bc37b93cc2569b",
+      "storage": "verbatim",
+      "path": "replay_native.cpp",
+      "stored_sha256": "5b8785405190f93ca6b81023bdf047c17abe61efda7139caa0bc37b93cc2569b"
+    },
+    "source_manifest.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/source_manifest.json",
+      "bytes": 2972,
+      "sha256": "e853ec6b6caf80e01f3ca2eb3da7c5e8019776bf072355b29bfd699b5893849a",
+      "storage": "verbatim",
+      "path": "source_manifest.json",
+      "stored_sha256": "e853ec6b6caf80e01f3ca2eb3da7c5e8019776bf072355b29bfd699b5893849a"
+    },
+    "sources/experiments/results/inten_reciprocal_support/archive.py.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/archive.py.gz",
+      "bytes": 1049,
+      "sha256": "f7a69f862655cc4a50bfe91aad1833b671f3fe4d149ccaa11b18f1aa0aaccaf5",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/archive.py.gz",
+      "stored_sha256": "f7a69f862655cc4a50bfe91aad1833b671f3fe4d149ccaa11b18f1aa0aaccaf5"
+    },
+    "sources/experiments/results/inten_reciprocal_support/build.py.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/build.py.gz",
+      "bytes": 1106,
+      "sha256": "a2eae4149bb66e0a3e87abb26be42c09e62dfc75214041e0a05ac907c612f5f7",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/build.py.gz",
+      "stored_sha256": "a2eae4149bb66e0a3e87abb26be42c09e62dfc75214041e0a05ac907c612f5f7"
+    },
+    "sources/experiments/results/inten_reciprocal_support/common.py.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/common.py.gz",
+      "bytes": 1305,
+      "sha256": "cfbdaa4bc0b70c86035ddb6e01e8d685401a17279160ddd16904180c34962e68",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/common.py.gz",
+      "stored_sha256": "cfbdaa4bc0b70c86035ddb6e01e8d685401a17279160ddd16904180c34962e68"
+    },
+    "sources/experiments/results/inten_reciprocal_support/mutual.h.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/mutual.h.gz",
+      "bytes": 1574,
+      "sha256": "42770174dc066168a4aea88bc54eec17a5d13f6bece44ad844c5f20593cf57f6",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/mutual.h.gz",
+      "stored_sha256": "42770174dc066168a4aea88bc54eec17a5d13f6bece44ad844c5f20593cf57f6"
+    },
+    "sources/experiments/results/inten_reciprocal_support/probe.cpp.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/probe.cpp.gz",
+      "bytes": 1493,
+      "sha256": "ff226125c0a7008204f499c22911d722e2b4a283ba2dca6c8bb0a9191cb0c5fa",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/probe.cpp.gz",
+      "stored_sha256": "ff226125c0a7008204f499c22911d722e2b4a283ba2dca6c8bb0a9191cb0c5fa"
+    },
+    "sources/experiments/results/inten_reciprocal_support/replay_hooks.h.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/replay_hooks.h.gz",
+      "bytes": 189,
+      "sha256": "78b0050f11ad12ffecbf80681ca410cbc57c27b2ee6fb358d8cc7656987e3fb7",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/replay_hooks.h.gz",
+      "stored_sha256": "78b0050f11ad12ffecbf80681ca410cbc57c27b2ee6fb358d8cc7656987e3fb7"
+    },
+    "sources/experiments/results/inten_reciprocal_support/run.py.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/run.py.gz",
+      "bytes": 570,
+      "sha256": "6b5629a4e7c83dca5fdfbe926030b79b54948dad489eef344c5bf8c5fd69ed08",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/run.py.gz",
+      "stored_sha256": "6b5629a4e7c83dca5fdfbe926030b79b54948dad489eef344c5bf8c5fd69ed08"
+    },
+    "sources/experiments/results/inten_reciprocal_support/transform.py.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/transform.py.gz",
+      "bytes": 755,
+      "sha256": "490f8627f28d43ed3f8ca58bb836372cb2e5f7906a3a52624c600fc575a25d96",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/transform.py.gz",
+      "stored_sha256": "490f8627f28d43ed3f8ca58bb836372cb2e5f7906a3a52624c600fc575a25d96"
+    },
+    "sources/experiments/results/inten_reciprocal_support/unit.cpp.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/unit.cpp.gz",
+      "bytes": 617,
+      "sha256": "6eb513e1845ac3f1903c2d5eadb08bca3461ecc11405849846d575029fb1f33d",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/unit.cpp.gz",
+      "stored_sha256": "6eb513e1845ac3f1903c2d5eadb08bca3461ecc11405849846d575029fb1f33d"
+    },
+    "sources/experiments/results/inten_reciprocal_support/verify.py.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/experiments/results/inten_reciprocal_support/verify.py.gz",
+      "bytes": 4298,
+      "sha256": "0c786978271d17452209f0a88b887d97229f99fd72407c5f6303fef89da32cc4",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_reciprocal_support/verify.py.gz",
+      "stored_sha256": "0c786978271d17452209f0a88b887d97229f99fd72407c5f6303fef89da32cc4"
+    },
+    "sources/papers/inten_loam/include/inten_loam/detail/feature_tree.h.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/papers/inten_loam/include/inten_loam/detail/feature_tree.h.gz",
+      "bytes": 1463,
+      "sha256": "3a8e8ca03e86aef842f7a2176b990961c037679e6979041e1a5eaf0e3c83eaaf",
+      "storage": "verbatim",
+      "path": "sources/papers/inten_loam/include/inten_loam/detail/feature_tree.h.gz",
+      "stored_sha256": "3a8e8ca03e86aef842f7a2176b990961c037679e6979041e1a5eaf0e3c83eaaf"
+    },
+    "sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz",
+      "bytes": 6039,
+      "sha256": "b4457fd7ae0ad562f4061304a64ccc17d8f5facd14e997ad94c133c99d94ab27",
+      "storage": "verbatim",
+      "path": "sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz",
+      "stored_sha256": "b4457fd7ae0ad562f4061304a64ccc17d8f5facd14e997ad94c133c99d94ab27"
+    },
+    "sources/papers/inten_loam/src/inten_loam_paper.cpp.gz": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/sources/papers/inten_loam/src/inten_loam_paper.cpp.gz",
+      "bytes": 12968,
+      "sha256": "6d201534e901cdbd07940989125c8250b2b51d421d52227cbf5d37d651ecd2c7",
+      "storage": "verbatim",
+      "path": "sources/papers/inten_loam/src/inten_loam_paper.cpp.gz",
+      "stored_sha256": "6d201534e901cdbd07940989125c8250b2b51d421d52227cbf5d37d651ecd2c7"
+    },
+    "unit.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/unit.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "unit.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "unit.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/unit.stdout.log",
+      "bytes": 952,
+      "sha256": "ddb0f56187473706cb6117ebdfe9fdced34a54e8ff5d8e07b416e9ad4282e87c",
+      "storage": "gzip",
+      "path": "unit.stdout.log.gz",
+      "stored_sha256": "388bf0d94cedc4b05efd91f27178a3d1a02d0578dd41122c0748e1f9eb8fcef5"
+    },
+    "unit_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/unit_command.json",
+      "bytes": 930,
+      "sha256": "3f73dc2abf6de074c9897ce15be20a8cf31c4ce7af5ca0700a9e562aa602fa22",
+      "storage": "verbatim",
+      "path": "unit_command.json",
+      "stored_sha256": "3f73dc2abf6de074c9897ce15be20a8cf31c4ce7af5ca0700a9e562aa602fa22"
+    },
+    "unit_compile.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/unit_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "unit_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "unit_compile.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/unit_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "unit_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "unit_compile_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/build_stage/unit_compile_command.json",
+      "bytes": 17127,
+      "sha256": "ee9b60f62422b8847ede3ac32deb279d9d2bb9e8ae2bc088abc1f1a2296a93d4",
+      "storage": "verbatim",
+      "path": "unit_compile_command.json",
+      "stored_sha256": "ee9b60f62422b8847ede3ac32deb279d9d2bb9e8ae2bc088abc1f1a2296a93d4"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

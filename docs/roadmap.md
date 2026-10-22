@@ -733,6 +733,14 @@ independent. Each item says what "done" means.
     Native outputs stay unchanged through the archived missing-SciPy import
     failure and existing-runtime reconstruction recovery. All KITTI is development.
 
+    The [official GT input audit](../experiments/results/inten_gt_input_audit/README.md)
+    rules out the suspected08 camera/LiDAR frame conversion defect: all11
+    official pose/calibration regenerations exit0 and every numeric CSV field
+    matches exactly;06/09 differ only in signed-zero formatting. Four portable
+    input-integrity tests exit0. Numerical `4c3d972b`/`6802c1e0` precedes this
+    interpretation. The08 vertical motion component is already present in the
+    official source. No GT correction or reinterpretation of failed gates follows.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

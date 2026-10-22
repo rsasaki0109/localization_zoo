@@ -2502,3 +2502,20 @@ explicit. New SciPy dependency is declared/pinned for independent verification;
 old numerical evidence, default10, native solver, S2M and published tables stay
 unchanged. Further work must retain08/39 and unresolved202/204 rather than
 adjusting this guard after outcomes.
+
+### Official ground-truth input audit: suspected frame defect ruled out
+
+The [official metadata audit](../../experiments/results/inten_gt_input_audit/README.md)
+regenerates every00–10 GT CSV from the official pose/calibration ZIPs with the
+unchanged converter and LiDAR-to-camera `Tr` applied on the right. All11
+commands exit0; all numeric fields match exactly, with maximum translation and
+reconstructed-rotation differences0. Nine CSVs are byte-identical;06/09 differ
+only in signed-zero formatting. Numerical `4c3d972b` precedes interpretation;
+four portable corruption/regeneration tests exit0 in `6802c1e0`.
+
+The suspected08 camera/LiDAR axis defect is not supported. The large vertical
+component in its inspected relative motions already comes from the official
+source after proper LiDAR-frame conversion. No erroneous-GT claim, component
+removal or change to the old08/39 failure label follows. Lower geometric cost
+does not certify motion accuracy; the rejected dense-selector gate stays failed.
+All prior outcomes, official paper comparisons, defaults and data stay fixed.

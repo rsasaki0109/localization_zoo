@@ -1,0 +1,10 @@
+{
+  "run_id": 39697430033,
+  "source_commit": "1c50f5cf2ab9a7ca1a10876c3f9d5de0691f5171",
+  "native_job": 119558120396,
+  "ros2_job": 119558120565,
+  "failed_step": "Python script regressions",
+  "actual_python_exit": 1,
+  "error": "ValueError: Existing step ratio differs",
+  "policy": "Complete failing Native and successful ROS2 decoded logs plus run/jobs metadata retained before correction; no scientific result overwritten."
+}

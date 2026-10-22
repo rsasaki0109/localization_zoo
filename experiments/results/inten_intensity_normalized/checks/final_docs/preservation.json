@@ -1,0 +1,18 @@
+{
+  "exit_code": 0,
+  "base": "75fd23744089c044226605c85c411146ea0a8508",
+  "all_canonical_bytes_preserved": {
+    "README.md": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+    "docs/index.html": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+    "evaluation/data/paper_reported_numbers.json": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+    "experiments/results/index.json": "4dec02ce41e85c54efb8ce548ece8571b7e35e5444534660c383ee1586860df2",
+    "docs/assets/paper/full_variant_results.csv": "50b22b8f892dc19dff686132e59334bc05c72b8a39644a9e72faa40620fbb7e2",
+    "docs/assets/paper/full_variant_results.tex": "c3021a055390ce48ac758f45f9b09d4fcd0aa6c4af17466a66f9490e09aaba6d",
+    "docs/assets/paper/paper_ratio_table.csv": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+    "docs/assets/paper/paper_ratio_table.tex": "382e912455aedb2dc5fc1a7bd59bc3de68894e84dde6f2c64e39162001c242d8"
+  },
+  "all_existing_numerical_results_and_benchmarks_unchanged": true,
+  "older_verification_only_uses_exact_pinned_source_snapshots": true,
+  "regenerated_tables_byte_identical": true,
+  "main_unchanged": true
+}

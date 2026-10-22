@@ -1,0 +1,30 @@
+{
+  "files": {
+    "all_python_final.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/final_checks_stage/all_python_final.stderr.log",
+      "bytes": 98631,
+      "sha256": "480cb0ea2c71de5a21431d4ea52f1624c13a9202d3b212121d9a4e018386d4a7",
+      "storage": "gzip",
+      "path": "all_python_final.stderr.log.gz",
+      "stored_sha256": "a7fbc17f7ea88fa9c1eceabaa6d25c1051ca06d72a8b2918f355f0b7b768aa1f"
+    },
+    "all_python_final.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/final_checks_stage/all_python_final.stdout.log",
+      "bytes": 1458,
+      "sha256": "cb894959e883e0c78e5e68a09faf80102b84c7878e60108636d8df7826344d6d",
+      "storage": "gzip",
+      "path": "all_python_final.stdout.log.gz",
+      "stored_sha256": "36c0ac0d3fb370209736badc1a1878542530e31cebb8ad6d8ef5cd978de7f11f"
+    },
+    "all_python_final_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/final_checks_stage/all_python_final_command.json",
+      "bytes": 528,
+      "sha256": "23f6f0f70bd0c66a5b236fd7e724c6b0727a500d7e27cfe95f8d253ca8853225",
+      "storage": "verbatim",
+      "path": "all_python_final_command.json",
+      "stored_sha256": "23f6f0f70bd0c66a5b236fd7e724c6b0727a500d7e27cfe95f8d253ca8853225"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

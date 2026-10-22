@@ -670,6 +670,23 @@ independent. Each item says what "done" means.
     another full fixed-setting run. Numerical `63951376` precedes interpretation;
     all prior KITTI observations are development. Defaults and Table6 are unchanged.
 
+    The [normalized S2S intensity candidate](../experiments/results/inten_intensity_normalized/README.md)
+    is implemented opt-in/default-off and rejected by its fixed motion gate.
+    Every31 inherited endpoint runs all4 joint/consensus × legacy/normalized
+    arms:124 native calls exit0,62 legacy traces match exactly. The rational
+    occupied-weight field is continuous at15758 positive-weight both-valid faces,
+    but5 zero-weight holes still have different neighboring limits, up to
+    0.169819977. No global-continuity claim. Joint bad-length cases increase7→8;
+    total conditional length error4.741213404→5.121149401 and vector error
+    14.083975645→14.443564156 worsen. Actual08/39 becomes newly bad, and original
+    247 worsens length/GT0.522727335→0.105443532. All cases, initial numerical
+    failure, stable full rerun and exact commands remain. No threshold retuning,
+    full trajectory trial, accuracy claim or paper-table change follows.
+    Numerical `3055bb2e` precedes interpretation; all prior KITTI is development.
+    Next evaluate a query-independent node completion that explicitly addresses
+    the zero-weight holes and retains every rescue/adverse case. Smooth covered
+    interpolation alone has not remedied the motion failures.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

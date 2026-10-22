@@ -2318,3 +2318,53 @@ old result or paper-table value changes. The next candidate must define consiste
 controls and an explicit coverage policy, remain opt-in/default-off, and pass
 native invariants plus every inherited rescue/adverse control before any fresh
 fixed-setting full KITTI00-10 trial. The rejected consensus gates stay rejected.
+
+### Normalized S2S intensity: covered-field continuity, negative motion result
+
+The [complete normalized-intensity trial](../../experiments/results/inten_intensity_normalized/README.md)
+adds `--inten-loam-paper-set s2s_intensity_normalized=1`, default off, for the
+paper pipeline. This repository extension normalizes cubic weights over observed
+nodes and uses the quotient-rule gradient. It is a rational field, not the
+paper's unchanged cubic construction. S2M keeps the legacy field. The existing
+observed-node count rule remains; zero occupied weight is invalid, with no
+epsilon or extrapolation. Common positive basis factors cancel before division
+to keep gradients stable near a vanishing factor. The initial execution and
+independent reconstruction failure remain archived, followed by a complete rerun.
+
+Numerical `3055bb2e` precedes this interpretation. All31 inherited rescue/adverse/
+fallback endpoints run all four legacy/normalized joint/consensus arms; all124
+native calls exit0 and all62 legacy traces reproduce the parent exactly.
+Every208565 real query on8829 inherited reflector paths reconstructs, as do all
+26487 interior derivative controls. At15758 both-valid positive-weight faces,
+no intensity jump exceeds1e-8 (maximum1.110223e-16). Coverage holes remain:
+155 faces have zero limiting weight, including5 with two valid neighbors but
+different limits (maximum0.169819977). This is not global continuity through
+invalid points. Every zero/mixed/invalid outcome remains in the linked report.
+
+| Complete conditional joint comparison | Legacy | Normalized |
+|---|---:|---:|
+| Bad length / bad vector endpoints | 7 / 14 | 8 / 14 |
+| Sum absolute length-ratio error | 4.741213404 | 5.121149401 |
+| Sum normalized vector error | 14.083975645 | 14.443564156 |
+| Sum rotation error [rad] | 0.059478496 | 0.059793620 |
+| actual candidate08 /39 length/GT | 0.801801894 | 0.796756084 |
+| original01 /247 length/GT | 0.522727335 | 0.105443532 |
+| original01 /204 length/GT | 0.607064437 | 0.649309578 |
+| original01 /205 length/GT | 0.372445688 | 0.373229196 |
+
+These are same-history feasibility controls, not full-run scores. The new08/39
+bad-length label and worse total length/vector/rotation errors fail the frozen
+progression gate. Original247 vector error worsens0.477580491→0.895198356 and
+rotation8.113069873→12.688331673mrad. Original rescues remain non-bad under the
+normalized consensus control, but actual02/1892 consensus still collapses:
+length/GT0.125854888→0.117134244. This candidate is not adopted as a motion remedy;
+no full KITTI trial, new RTE, paper ratio or default promotion follows.
+The [all-endpoint table](../../experiments/results/inten_intensity_normalized/cases.md)
+retains every sequence/frame/arm, including improved and adverse cases.
+
+The construction was chosen analytically from the committed representation
+defect, without a new sequence sweep. Profile07, diagnosis00, inherited DiLO01
+prior0.03 and every later KITTI observation remain development; no held-out
+claim. Default-off compatibility, existing full results and Table6 are preserved.
+Next test a query-independent node completion with an explicit coverage policy,
+retaining these adverse cases before another full fixed-setting00–10 evaluation.

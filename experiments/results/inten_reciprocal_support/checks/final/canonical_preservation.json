@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "base": "bab6ec9e5833fd6f59c1dba2bfa19f358b02129a",
+  "sha256": {
+    "docs/assets/paper/full_variant_results.csv": "50b22b8f892dc19dff686132e59334bc05c72b8a39644a9e72faa40620fbb7e2",
+    "docs/assets/paper/full_variant_results.tex": "c3021a055390ce48ac758f45f9b09d4fcd0aa6c4af17466a66f9490e09aaba6d",
+    "docs/assets/paper/paper_ratio_table.csv": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+    "docs/assets/paper/paper_ratio_table.tex": "382e912455aedb2dc5fc1a7bd59bc3de68894e84dde6f2c64e39162001c242d8",
+    "evaluation/data/paper_reported_numbers.json": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+    "evaluation/fixtures/mcd_kth_smoke_golden.json": "e98b70c593fc7be75cc5ad8397a98e147e2cdd0673e588381be6bb7213d71c81",
+    "docs/index.html": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+    "README.md": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+    "evaluation/src/pcd_dogfooding.cpp": "7f9077c16a3856772d150383210ffffe47abb879c50de8139ba50d331c9eb546",
+    "papers/inten_loam/src/inten_loam_paper.cpp": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d",
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp": "8f3b65cf7879e424e0ccedecf22a59ffe1d99217e517c700344af6da05c1a3ec",
+    "papers/inten_loam/include/inten_loam/detail/feature_tree.h": "683300966f4da2c382d71b035d38d6d6e374cea4ca194863d8a09b8461005adf"
+  },
+  "old_experiment_changes": ""
+}

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "cd90a8e0befa4084cbd605f34c64f5994afa7765",
+  "started_unix": 1792685102.5907488,
+  "finished_unix": 1792685102.6987035,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

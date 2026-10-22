@@ -1,0 +1,21 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "evaluation/scripts/generate_full_variant_table.py",
+    "--output-dir",
+    "/tmp/localization-zoo-inten-reciprocal-support-20261022/derived"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "cd90a8e0befa4084cbd605f34c64f5994afa7765",
+  "started_unix": 1792685102.4354386,
+  "finished_unix": 1792685102.5905037,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

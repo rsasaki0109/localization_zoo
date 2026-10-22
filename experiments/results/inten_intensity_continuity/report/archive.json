@@ -1,0 +1,46 @@
+{
+  "files": {
+    "boundaries.json.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-continuity/analysis_stage_2/boundaries.json.gz",
+      "bytes": 930395,
+      "sha256": "693965807967c934c1ab69c2f9b4b599fcecac9423cc0ef42554b46fb745c5b9",
+      "storage": "verbatim",
+      "path": "boundaries.json.gz",
+      "stored_sha256": "693965807967c934c1ab69c2f9b4b599fcecac9423cc0ef42554b46fb745c5b9"
+    },
+    "reconstruct.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-continuity/analysis_stage_2/reconstruct.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "reconstruct.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "reconstruct.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-continuity/analysis_stage_2/reconstruct.stdout.log",
+      "bytes": 361,
+      "sha256": "75ab86734350b5e651f2f61111997fd4f35f4b60a2a2091258b30cedc5281043",
+      "storage": "gzip",
+      "path": "reconstruct.stdout.log.gz",
+      "stored_sha256": "99223b8b4b2dddaf4c642b854c0ec7a8281b8a0b22e4c264c1f1b6f28aba970b"
+    },
+    "reconstruct_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-continuity/analysis_stage_2/reconstruct_command.json",
+      "bytes": 807,
+      "sha256": "8219ae8b3356c08ec2a5c919afc16de1433b6eec6ae2dcf4477a078aedc1215d",
+      "storage": "verbatim",
+      "path": "reconstruct_command.json",
+      "stored_sha256": "8219ae8b3356c08ec2a5c919afc16de1433b6eec6ae2dcf4477a078aedc1215d"
+    },
+    "summary.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-continuity/analysis_stage_2/summary.json",
+      "bytes": 40835,
+      "sha256": "570081fca55d9f4023d730fbb6356560e76aef18d67130812242273ef262fba3",
+      "storage": "verbatim",
+      "path": "summary.json",
+      "stored_sha256": "570081fca55d9f4023d730fbb6356560e76aef18d67130812242273ef262fba3"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

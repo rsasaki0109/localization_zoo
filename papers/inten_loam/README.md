@@ -2520,3 +2520,48 @@ source after proper LiDAR-frame conversion. No erroneous-GT claim, component
 removal or change to the old08/39 failure label follows. Lower geometric cost
 does not certify motion accuracy; the rejected dense-selector gate stays failed.
 All prior outcomes, official paper comparisons, defaults and data stay fixed.
+
+### Reciprocal geometric support:202/204 recover, local progression fails
+
+The [fixed reciprocal trial](../../experiments/results/inten_reciprocal_support/README.md)
+adds a reverse nearest-point check to geometric S2S anchors in a native
+feasibility harness. The inherited cap100 remains fixed. No production filter
+option is added. There is no GT, hand region or moving/static label in the
+native check; intensity, geometry constructors, losses, prior and solver keep
+their definitions. All31 endpoints/all14 arms produce434 outcomes in four exit0
+processes. All372 inherited traces and original-seed profiles are exact.
+Every11,709,443 backward query/decision independently reconstructs with maximum
+squared-distance error1.110223025e-16; every new update/stop passes the unchanged
+backward-equation check, maximum1.081547925e-16. Numerical `f22127ab` precedes
+this interpretation. The four native mechanism tests exit0 in `b792964e`.
+
+| Complete conditional primary comparison | Legacy10 | Uniform100 | Reciprocal100 |
+|---|---:|---:|---:|
+| Bad length / vector endpoints | 7 /14 | 7 /13 | 12 /12 |
+| Sum length-ratio error | 4.741213404 | 4.865650571 | 5.053685504 |
+| Sum vector error /GT step | 14.083975645 | 14.175508759 | 12.126070193 |
+| Sum rotation error [rad] | 0.059478496 | 0.054831082 | 0.054763356 |
+| original202 length/GT | 0.748597638 | 0.399223855 | 0.973614185 |
+| original204 length/GT | 0.607064437 | 0.398534369 | 0.985996689 |
+| original205 length/GT | 0.372445688 | 0.372447045 | 0.360704919 |
+| original247 length/GT | 0.522727335 | 1.023840306 | 0.459890548 |
+| actual08/39 length/GT | 0.801801894 | 0.797852053 | 0.682142975 |
+
+At202/204 vector errors improve0.251434259→0.027002860 and
+0.392956634→0.016413378. The complete vector and rotation totals improve, but
+**the fixed gate fails**:247 loses the demonstrated uniform100 recovery,
+08/39,41–46 become newly bad in length, and total length error increases.
+The bad-length count rises7→12 despite recovering202/204;205 worsens too.
+Despite its translation recovery,204's rotation error also increases
+1.716942161→2.687383815mrad.
+Paired consensus retains all original rescues. Every favorable/adverse endpoint
+and every field/consensus control is in the [complete table](../../experiments/results/inten_reciprocal_support/cases.md).
+Reciprocity does not prove static support and cannot be adopted as a general
+collapse remedy here. No sequence/field winner, new scale, gate change, GT
+component removal, recursive/full candidate run, RTE/paper ratio or SOTA claim.
+
+The native source/rules/inputs were frozen before execution. The pre-build
+directory collision is preserved before its directory-only recovery. All raw
+measurement hashes restore exactly through lossless XZ; original gzip archives
+remain private and the prospectively frozen verifier is unchanged. All existing
+sensor inputs, libraries, defaults, historical results and paper tables remain.

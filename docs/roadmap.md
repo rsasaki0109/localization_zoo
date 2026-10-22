@@ -741,6 +741,19 @@ independent. Each item says what "done" means.
     interpretation. The08 vertical motion component is already present in the
     official source. No GT correction or reinterpretation of failed gates follows.
 
+    The [reciprocal S2S support trial](../experiments/results/inten_reciprocal_support/README.md)
+    fixes original202/204 conditionally (length/GT0.748597638→0.973614185 and
+    0.607064437→0.985996689), but fails its frozen progression gate. Every31
+    endpoint/all14 arms remains (434 outcomes); all372 inherited full traces
+    are exact. All11,709,443 backward checks and every new update reconstruct.
+    Vector total14.083975645→12.126070193 and rotation improve, but length total
+    4.741213404→5.053685504 worsens.247 loses its uniform100 recovery;08/39,41–46
+    become newly bad in length. Paired consensus retains original rescues.
+    Numerical `f22127ab` precedes interpretation. No production integration,
+    retuning, full candidate trial, official-GT change or paper-table change.
+    Source, all raw measurement hashes and the frozen verifier survive lossless
+    XZ transport; original gzip archives and initial build-directory failure remain.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

@@ -1,6 +1,7 @@
 from pathlib import Path
 import copy,importlib.util,unittest
 import numpy as np
+from unittest.mock import patch
 E=Path(__file__).resolve().parents[1]/'experiments/results/inten_reciprocal_support'
 s=importlib.util.spec_from_file_location('reciprocal_support_check',E/'verify_portable.py');v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
 class ReciprocalSupportTest(unittest.TestCase):
@@ -27,3 +28,9 @@ class ReciprocalSupportTest(unittest.TestCase):
     def test_invented_forward_gate_rejection_is_rejected(self):
         r,s,t=self.example();r['classes'][0][0]=[0,-1,-1,False]
         with self.assertRaisesRegex(ValueError,'Dropped valid'):v.masks(r,s,t,set())
+    def test_changed_xz_measurement_is_rejected_before_decoding(self):
+        path=E/'groups/old/native.stdout.jsonl.xz';original=Path.read_bytes
+        raw=bytearray(original(path));raw[len(raw)//2]^=1
+        def changed(p):return bytes(raw) if p==path else original(p)
+        with patch.object(Path,'read_bytes',changed):
+            with self.assertRaisesRegex(ValueError,'XZ hash'):v.decode(E/'groups/old','native.stdout.jsonl')

@@ -1,0 +1,21 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_prior_control/verify_portable.py",
+    "--output",
+    "/tmp/localization-zoo-inten-prior-control-20261023/reconstruct_stage/summary.json"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "be418ff583c2f7a8e6f88a95652ab04ef562b02a",
+  "started_unix": 1792692707.6982977,
+  "finished_unix": 1792692772.491119,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

@@ -1,0 +1,53 @@
+{
+  "files": {
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/native_01/input.txt",
+      "bytes": 18939,
+      "sha256": "6c633cc80d51144883ee3ca66dde86654a00cadd92b1d8a3422914056316ada5",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "6c633cc80d51144883ee3ca66dde86654a00cadd92b1d8a3422914056316ada5"
+    },
+    "input_sources.json": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/native_01/input_sources.json",
+      "bytes": 501,
+      "sha256": "0ec2ada9907fa55085accd04598626fe218bcda48505383571f80ef1871d6dfa",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "0ec2ada9907fa55085accd04598626fe218bcda48505383571f80ef1871d6dfa"
+    },
+    "native.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/native_01/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/native_01/native.stdout.jsonl",
+      "bytes": 11603122,
+      "sha256": "128b21d05b7c0ec5da2efa5f4750ec7218d414ea177e50b0511e4c6d3a09c2c4",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "9ddfb8c82a4223a9ce4f4924b4afaca7b7809c8e77c13923545502bdc041f361",
+          "gzip_bytes": 4811149,
+          "raw_sha256": "128b21d05b7c0ec5da2efa5f4750ec7218d414ea177e50b0511e4c6d3a09c2c4",
+          "raw_bytes": 11603122
+        }
+      ]
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/native_01/native_command.json",
+      "bytes": 1072,
+      "sha256": "f0f258164dae587dca653ef6a0bb8ddf8ce37549558f21efb5e990c41be98b13",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "f0f258164dae587dca653ef6a0bb8ddf8ce37549558f21efb5e990c41be98b13"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,41 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=4",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-zero-consensus-control/worktree",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-zero-consensus-control/probe",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_features_balanced.txt"
+  ],
+  "cwd": "/workspace/localization-env/inten-zero-consensus-control/worktree",
+  "source_commit": "19bb2510bfef2d2a391ab5b63008fbdb067b59a1",
+  "started_unix": 1792636859.5358384,
+  "finished_unix": 1792636865.8788252,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680"
+}

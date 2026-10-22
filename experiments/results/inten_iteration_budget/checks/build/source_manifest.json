@@ -1,0 +1,58 @@
+{
+  "evaluation/src/inten_trace_jsonl.h": {
+    "path": "sources/evaluation/src/inten_trace_jsonl.h.gz",
+    "sha256": "89475fada4ebd4b85e5e0646e83dac315ebe0f1471cb0842c9b5189927ed05cb"
+  },
+  "evaluation/src/pcd_dogfooding.cpp": {
+    "path": "sources/evaluation/src/pcd_dogfooding.cpp.gz",
+    "sha256": "7f9077c16a3856772d150383210ffffe47abb879c50de8139ba50d331c9eb546"
+  },
+  "experiments/results/inten_iteration_budget/archive.py": {
+    "path": "sources/experiments/results/inten_iteration_budget/archive.py.gz",
+    "sha256": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc"
+  },
+  "experiments/results/inten_iteration_budget/assess.py": {
+    "path": "sources/experiments/results/inten_iteration_budget/assess.py.gz",
+    "sha256": "f6a701fc35cb6959cc40d74116ea2b01281c082567260c347f3396ada6790e83"
+  },
+  "experiments/results/inten_iteration_budget/build.py": {
+    "path": "sources/experiments/results/inten_iteration_budget/build.py.gz",
+    "sha256": "76c0a07e04f1ac7febe789f39741149be7e5943e6a8db9684a7dc60658496721"
+  },
+  "experiments/results/inten_iteration_budget/cli.py": {
+    "path": "sources/experiments/results/inten_iteration_budget/cli.py.gz",
+    "sha256": "f18bcc5d6e9a50ee7f8f50731a227b2346bf7e6ed83be7f324f6a16d150dbf32"
+  },
+  "experiments/results/inten_iteration_budget/common.py": {
+    "path": "sources/experiments/results/inten_iteration_budget/common.py.gz",
+    "sha256": "650724cf927559c552ca05c5fff22330e645bd7371737be2453f17a71ebb840f"
+  },
+  "experiments/results/inten_iteration_budget/probe.cpp": {
+    "path": "sources/experiments/results/inten_iteration_budget/probe.cpp.gz",
+    "sha256": "81baddc4c00300f83b145b0c68b12cc266ca7f2f3e7e4d075d497a83a41d55bc"
+  },
+  "experiments/results/inten_iteration_budget/replay_hooks.h": {
+    "path": "sources/experiments/results/inten_iteration_budget/replay_hooks.h.gz",
+    "sha256": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9"
+  },
+  "experiments/results/inten_iteration_budget/run.py": {
+    "path": "sources/experiments/results/inten_iteration_budget/run.py.gz",
+    "sha256": "d77c48d073f4eea95c644ed9626cc794512f5587eb699006ec721744a010c7cf"
+  },
+  "experiments/results/inten_iteration_budget/verify.py": {
+    "path": "sources/experiments/results/inten_iteration_budget/verify.py.gz",
+    "sha256": "17d133ea925c0370040848797f60bac593cd01cfabad5f664caf006744306f4f"
+  },
+  "papers/inten_loam/include/inten_loam/inten_loam_paper.h": {
+    "path": "sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz",
+    "sha256": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b"
+  },
+  "papers/inten_loam/src/inten_loam_paper.cpp": {
+    "path": "sources/papers/inten_loam/src/inten_loam_paper.cpp.gz",
+    "sha256": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d"
+  },
+  "papers/inten_loam/test/test_inten_loam_paper.cpp": {
+    "path": "sources/papers/inten_loam/test/test_inten_loam_paper.cpp.gz",
+    "sha256": "8f3b65cf7879e424e0ccedecf22a59ffe1d99217e517c700344af6da05c1a3ec"
+  }
+}

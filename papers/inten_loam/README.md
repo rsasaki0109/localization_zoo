@@ -2369,3 +2369,10 @@ prior0.03 and every later KITTI observation remain development; no held-out
 claim. Default-off compatibility, existing full results and Table6 are preserved.
 Next test a query-independent node completion with an explicit coverage policy,
 retaining these adverse cases before another full fixed-setting00–10 evaluation.
+
+The initial final-head CI exposed CPU-dependent selection among roundoff-sized
+maximum-jump witnesses. The complete failure and both CPU reproductions are
+retained. Recorded-report comparison now verifies both face witnesses against
+the independently reconstructed boundaries and the same original maximum bound.
+Metrics, stored evidence, numeric tolerances and the failed motion gate are
+unchanged; invented witnesses and real non-maxima remain errors.

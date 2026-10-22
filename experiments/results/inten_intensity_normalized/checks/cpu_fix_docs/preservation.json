@@ -1,0 +1,8 @@
+{
+  "exit_code": 0,
+  "all_original_scientific_results_and_negative_gate_unchanged": true,
+  "all_original_numeric_tolerances_unchanged": true,
+  "all_primary_publication_bytes_unchanged": true,
+  "only_recorded_witness_comparison_changed": true,
+  "complete_failed_ci_and_cpu_reproductions_preserved": true
+}

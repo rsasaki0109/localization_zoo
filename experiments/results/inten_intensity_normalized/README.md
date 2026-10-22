@@ -118,6 +118,7 @@ previous producers. Portable reconstruction/tests use committed evidence alone:
 
 ```bash
 python3 experiments/results/inten_intensity_normalized/verify.py --output /tmp/inten-normalized-check.json --details /tmp/inten-normalized-details.json.gz
+python3 experiments/results/inten_intensity_normalized/check_recorded.py --output /tmp/inten-normalized-recorded.json
 python3 -m unittest discover -s tests -p test_inten_intensity_normalized.py -v
 ```
 
@@ -128,3 +129,22 @@ Frozen source/header snapshots also keep older audits reproducible as production
 evolves, without changing their recorded numbers or weakening their byte checks.
 No accuracy aggregate is imported; Table6, paper metadata and existing full-run
 tables remain unchanged. Full Native/ROS2 CI must pass at the final PR head.
+
+### Portable maximum-witness comparison
+
+The first final-head Native CI exposed a report-comparison error: different CPU
+kernels can select different face identities as the maximum of roundoff-sized
+continuity differences. All native reconstructions, numeric metrics, counts and
+motion-gate decisions agreed within the original tolerances. Complete failed CI
+logs and Haswell/Sandybridge reproductions were retained in `39472eee` before
+the comparison fix in `56665256`.
+
+`check_recorded.py` now reconstructs **both** the current and recorded witnesses
+at their respective actual faces and verifies both attain the maximum within
+the original comparison bound. Only then does it align the witness identity
+for report comparison. It still checks every support, position, value, gradient,
+coverage label, metric, count and decision. Invented witnesses, changed values,
+changed motion labels and a real face that is not a maximum are rejected by
+regression tests. No numeric tolerance, producer, stored result, configuration or
+progression gate changes. Both CPU reconstructions use the original bounds;
+the negative motion conclusion remains unchanged.

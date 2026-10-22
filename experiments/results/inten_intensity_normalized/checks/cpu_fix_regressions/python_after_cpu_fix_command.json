@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "56665256119135d1b135a06ee6fb6035c9c7eb7d",
+  "started_unix": 1792662594.6224704,
+  "finished_unix": 1792662751.232895,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

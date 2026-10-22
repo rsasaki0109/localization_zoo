@@ -5,7 +5,9 @@ def docker():
 from transform import transformed
 def main():
     assert not git('status','--porcelain')
-    R.mkdir();S.mkdir();stage=S/'build_stage';stage.mkdir()
+    R.mkdir(exist_ok=True);S.mkdir(exist_ok=True)
+    assert not any(R.iterdir()),'Refuse stale native outputs'
+    stage=S/'build_stage';stage.mkdir()
     protocol=read(E/'protocol.json');sources={}
     for name,digest in protocol['source_sha256'].items():
         assert sha(W/name)==digest,name

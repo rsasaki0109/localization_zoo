@@ -19,7 +19,7 @@ def main():
     assert run('native_compile',docker()+['c++',*flags,'-c',str(E/'diagnostic_native.cpp'),'-o',str(R/'replay.o')],stage)==0
     for name in ('probe',):
         assert run(name+'_compile',docker()+['c++',*flags,str(E/(name+'.cpp')),str(R/'replay.o'),*libs,'-o',str(R/name)],stage)==0
-    assert run('ldd',docker()+['ldd',str(R/'probe'),str(R/'extract')],stage)==0
+    assert run('ldd',docker()+['ldd',str(R/'probe')],stage)==0
     write(stage/'binaries.json',dict(source_commit=git('rev-parse','HEAD'),binaries={p.name:dict(path=str(p),sha256=sha(p)) for p in [R/'probe',R/'policy_test',R/'replay.o']},linked_static_libraries={p:sha(p) for p in libs if p.endswith('.a')},source_sha256=read(E/'protocol.json')['source_sha256']))
     module('archive_zero',E/'archive.py').archive(stage,E/'checks/build')
 if __name__=='__main__':main()

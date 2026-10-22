@@ -1,0 +1,318 @@
+{
+  "files": {
+    "binaries.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/binaries.json",
+      "bytes": 17031,
+      "sha256": "3bd43c793c621410d9e22472873364f2b1fd8793b2f59426cb98254945ec4f31",
+      "storage": "verbatim",
+      "path": "binaries.json",
+      "stored_sha256": "3bd43c793c621410d9e22472873364f2b1fd8793b2f59426cb98254945ec4f31"
+    },
+    "compiler.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/compiler.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compiler.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compiler.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/compiler.stdout.log",
+      "bytes": 246,
+      "sha256": "8d6e704227c739386853b14c98257428d8ffbffd817517db0b2e088d28c773f6",
+      "storage": "gzip",
+      "path": "compiler.stdout.log.gz",
+      "stored_sha256": "37e4f0862510fd29c94d8be8d2235d9cebc816785d39305567fb71fb4e07970d"
+    },
+    "compiler_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/compiler_command.json",
+      "bytes": 884,
+      "sha256": "30d437baa7169804b814051b4eb938f3dbb46482daaa7ae0a551ce5fd2a684e7",
+      "storage": "verbatim",
+      "path": "compiler_command.json",
+      "stored_sha256": "30d437baa7169804b814051b4eb938f3dbb46482daaa7ae0a551ce5fd2a684e7"
+    },
+    "field_probe_compile.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/field_probe_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "field_probe_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "field_probe_compile.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/field_probe_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "field_probe_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "field_probe_compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/field_probe_compile_command.json",
+      "bytes": 17080,
+      "sha256": "121f6460de8a2d16e2e18edc7e6ce30c8e909d434853b3aa72e460059747262b",
+      "storage": "verbatim",
+      "path": "field_probe_compile_command.json",
+      "stored_sha256": "121f6460de8a2d16e2e18edc7e6ce30c8e909d434853b3aa72e460059747262b"
+    },
+    "ldd.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/ldd.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "ldd.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "ldd.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/ldd.stdout.log",
+      "bytes": 850,
+      "sha256": "42aa63f7e6878e7f95741fb987ab8c106d6422b1023d5fdb543be518c4455797",
+      "storage": "gzip",
+      "path": "ldd.stdout.log.gz",
+      "stored_sha256": "321bc2f457639373a8f4824f4ca8d69ac974837532f46255778947c83ff71122"
+    },
+    "ldd_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/ldd_command.json",
+      "bytes": 944,
+      "sha256": "904b91eda0071731ec244f652a3b987b68b61e775c16c27ba65656d3e9309530",
+      "storage": "verbatim",
+      "path": "ldd_command.json",
+      "stored_sha256": "904b91eda0071731ec244f652a3b987b68b61e775c16c27ba65656d3e9309530"
+    },
+    "native_compile.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/native_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native_compile.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/native_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native_compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/native_compile_command.json",
+      "bytes": 2907,
+      "sha256": "164b2accaf66e4a443abeb8204c3497118354a0737eb2e96069d5ec996bf1652",
+      "storage": "verbatim",
+      "path": "native_compile_command.json",
+      "stored_sha256": "164b2accaf66e4a443abeb8204c3497118354a0737eb2e96069d5ec996bf1652"
+    },
+    "probe_compile.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/probe_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "probe_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "probe_compile.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/probe_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "probe_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "probe_compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/probe_compile_command.json",
+      "bytes": 17066,
+      "sha256": "3a7891a6a627b0b7c16a249070d01854659d06ed5664992b553b9957f4db5dba",
+      "storage": "verbatim",
+      "path": "probe_compile_command.json",
+      "stored_sha256": "3a7891a6a627b0b7c16a249070d01854659d06ed5664992b553b9957f4db5dba"
+    },
+    "replay_compile.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/replay_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "replay_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "replay_compile.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/replay_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "replay_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "replay_compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/replay_compile_command.json",
+      "bytes": 2884,
+      "sha256": "e767b0247cf5a9f3c8b5c579f02839be7dd510a4d54e8256dab70b647fc22a3c",
+      "storage": "verbatim",
+      "path": "replay_compile_command.json",
+      "stored_sha256": "e767b0247cf5a9f3c8b5c579f02839be7dd510a4d54e8256dab70b647fc22a3c"
+    },
+    "source_manifest.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/source_manifest.json",
+      "bytes": 2972,
+      "sha256": "a949ce479a583127c7621995abd549532ec71a03686891ca01ecb7f04431ee36",
+      "storage": "verbatim",
+      "path": "source_manifest.json",
+      "stored_sha256": "a949ce479a583127c7621995abd549532ec71a03686891ca01ecb7f04431ee36"
+    },
+    "sources/evaluation/src/pcd_dogfooding.cpp.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/evaluation/src/pcd_dogfooding.cpp.gz",
+      "bytes": 111452,
+      "sha256": "e203e95c6cf0e13c2a3aa18aecf7761c2c7c2df78f2aecffec9372184c3ef8b8",
+      "storage": "verbatim",
+      "path": "sources/evaluation/src/pcd_dogfooding.cpp.gz",
+      "stored_sha256": "e203e95c6cf0e13c2a3aa18aecf7761c2c7c2df78f2aecffec9372184c3ef8b8"
+    },
+    "sources/experiments/results/inten_intensity_consistent/archive.py.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/archive.py.gz",
+      "bytes": 1049,
+      "sha256": "f7a69f862655cc4a50bfe91aad1833b671f3fe4d149ccaa11b18f1aa0aaccaf5",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/archive.py.gz",
+      "stored_sha256": "f7a69f862655cc4a50bfe91aad1833b671f3fe4d149ccaa11b18f1aa0aaccaf5"
+    },
+    "sources/experiments/results/inten_intensity_consistent/build.py.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/build.py.gz",
+      "bytes": 1517,
+      "sha256": "4284a60b41743e3fe6a01d5794cdf2c7f872eeabb8dea320ba6828a55a19fe4d",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/build.py.gz",
+      "stored_sha256": "4284a60b41743e3fe6a01d5794cdf2c7f872eeabb8dea320ba6828a55a19fe4d"
+    },
+    "sources/experiments/results/inten_intensity_consistent/check_recorded.py.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/check_recorded.py.gz",
+      "bytes": 1162,
+      "sha256": "57a570a5d7ba894e2c3ff388a2fccd9c9f00360542286fb1146b8ec1a2456d14",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/check_recorded.py.gz",
+      "stored_sha256": "57a570a5d7ba894e2c3ff388a2fccd9c9f00360542286fb1146b8ec1a2456d14"
+    },
+    "sources/experiments/results/inten_intensity_consistent/common.py.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/common.py.gz",
+      "bytes": 1319,
+      "sha256": "9c8eec9a669f721d4bda16d67df67d992207671856ec92bd649dfb52c0c2c3d1",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/common.py.gz",
+      "stored_sha256": "9c8eec9a669f721d4bda16d67df67d992207671856ec92bd649dfb52c0c2c3d1"
+    },
+    "sources/experiments/results/inten_intensity_consistent/field_probe.cpp.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/field_probe.cpp.gz",
+      "bytes": 2445,
+      "sha256": "a9332f6da68f1a603886a0b0a15fc46963ee57736430edcac91e16f5ff8a61c1",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/field_probe.cpp.gz",
+      "stored_sha256": "a9332f6da68f1a603886a0b0a15fc46963ee57736430edcac91e16f5ff8a61c1"
+    },
+    "sources/experiments/results/inten_intensity_consistent/probe.cpp.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/probe.cpp.gz",
+      "bytes": 1233,
+      "sha256": "a770f8323beea10dea76e7e7408792609ee331fdcb7028fa6411d8d9f6a0ed4b",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/probe.cpp.gz",
+      "stored_sha256": "a770f8323beea10dea76e7e7408792609ee331fdcb7028fa6411d8d9f6a0ed4b"
+    },
+    "sources/experiments/results/inten_intensity_consistent/replay_hooks.h.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/replay_hooks.h.gz",
+      "bytes": 155,
+      "sha256": "b2ffa9961d1683e653db5c46b0c823723c52321604d7f4859093d2517e4297fe",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/replay_hooks.h.gz",
+      "stored_sha256": "b2ffa9961d1683e653db5c46b0c823723c52321604d7f4859093d2517e4297fe"
+    },
+    "sources/experiments/results/inten_intensity_consistent/run.py.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/run.py.gz",
+      "bytes": 851,
+      "sha256": "5853cbe76606a55e0c3fc8449d162146dc0e0992b382adc442c01df160e47a5a",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/run.py.gz",
+      "stored_sha256": "5853cbe76606a55e0c3fc8449d162146dc0e0992b382adc442c01df160e47a5a"
+    },
+    "sources/experiments/results/inten_intensity_consistent/verify.py.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/experiments/results/inten_intensity_consistent/verify.py.gz",
+      "bytes": 3781,
+      "sha256": "8dd33a2a0277f929c0576482843a5200d027791d09fff3e6c3d41c0a243db8e5",
+      "storage": "verbatim",
+      "path": "sources/experiments/results/inten_intensity_consistent/verify.py.gz",
+      "stored_sha256": "8dd33a2a0277f929c0576482843a5200d027791d09fff3e6c3d41c0a243db8e5"
+    },
+    "sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz",
+      "bytes": 6039,
+      "sha256": "b4457fd7ae0ad562f4061304a64ccc17d8f5facd14e997ad94c133c99d94ab27",
+      "storage": "verbatim",
+      "path": "sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz",
+      "stored_sha256": "b4457fd7ae0ad562f4061304a64ccc17d8f5facd14e997ad94c133c99d94ab27"
+    },
+    "sources/papers/inten_loam/src/inten_loam_paper.cpp.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/papers/inten_loam/src/inten_loam_paper.cpp.gz",
+      "bytes": 12968,
+      "sha256": "6d201534e901cdbd07940989125c8250b2b51d421d52227cbf5d37d651ecd2c7",
+      "storage": "verbatim",
+      "path": "sources/papers/inten_loam/src/inten_loam_paper.cpp.gz",
+      "stored_sha256": "6d201534e901cdbd07940989125c8250b2b51d421d52227cbf5d37d651ecd2c7"
+    },
+    "sources/papers/inten_loam/test/test_inten_loam_paper.cpp.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/sources/papers/inten_loam/test/test_inten_loam_paper.cpp.gz",
+      "bytes": 13774,
+      "sha256": "d7ba6624cbec5565964fd5ee478ec2cc6c0fe0784b6d40182287e40e2ab6e831",
+      "storage": "verbatim",
+      "path": "sources/papers/inten_loam/test/test_inten_loam_paper.cpp.gz",
+      "stored_sha256": "d7ba6624cbec5565964fd5ee478ec2cc6c0fe0784b6d40182287e40e2ab6e831"
+    },
+    "unit_compile.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/unit_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "unit_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "unit_compile.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/unit_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "unit_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "unit_compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/unit_compile_command.json",
+      "bytes": 17099,
+      "sha256": "a777441db104e085815cc29fff1a4cbd08034d049895c248876fbe4f3926ff49",
+      "storage": "verbatim",
+      "path": "unit_compile_command.json",
+      "stored_sha256": "a777441db104e085815cc29fff1a4cbd08034d049895c248876fbe4f3926ff49"
+    },
+    "unit_tests.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/unit_tests.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "unit_tests.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "unit_tests.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/unit_tests.stdout.log",
+      "bytes": 10491,
+      "sha256": "7da4eca66cb1744142411d6358aa524c2b7f8c83cd813e294ad83eb55b58601a",
+      "storage": "gzip",
+      "path": "unit_tests.stdout.log.gz",
+      "stored_sha256": "482821f2ff9886b7ef834c02e5594801f08771286176261af8952292d3a7b506"
+    },
+    "unit_tests_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/build_stage/unit_tests_command.json",
+      "bytes": 937,
+      "sha256": "d077f87ac00992ee456fede61c6d845ad8fbcb6b308e8a9d13a447df0d5a705c",
+      "storage": "verbatim",
+      "path": "unit_tests_command.json",
+      "stored_sha256": "d077f87ac00992ee456fede61c6d845ad8fbcb6b308e8a9d13a447df0d5a705c"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "semantic.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-gt-audit-20261022/semantic_stage/semantic.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "semantic.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "semantic.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-gt-audit-20261022/semantic_stage/semantic.stdout.log",
+      "bytes": 2168,
+      "sha256": "ddcf9b608e2ca26e80e2445d40bdeab1df49de6055b7d7a08ed6d0072fc9fb4c",
+      "storage": "gzip",
+      "path": "semantic.stdout.log.gz",
+      "stored_sha256": "669cb3f436963c2e35739d38f596cc936a67489976f6415729077130fc0c2a00"
+    },
+    "semantic_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-gt-audit-20261022/semantic_stage/semantic_command.json",
+      "bytes": 517,
+      "sha256": "bbf048164895856618704b86742dbd28ad008ed65ea5b7a10fb74a7ac26d3dfb",
+      "storage": "verbatim",
+      "path": "semantic_command.json",
+      "stored_sha256": "bbf048164895856618704b86742dbd28ad008ed65ea5b7a10fb74a7ac26d3dfb"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

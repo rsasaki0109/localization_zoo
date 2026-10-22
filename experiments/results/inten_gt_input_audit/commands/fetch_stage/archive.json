@@ -1,0 +1,30 @@
+{
+  "files": {
+    "download_metadata.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-gt-audit-20261022/fetch_stage/download_metadata.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "download_metadata.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "download_metadata.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-gt-audit-20261022/fetch_stage/download_metadata.stdout.log",
+      "bytes": 84,
+      "sha256": "dba4e866e48a07b32d1c2d629c4d14abddbf04315266b84e0c5e87aa9f9a041d",
+      "storage": "gzip",
+      "path": "download_metadata.stdout.log.gz",
+      "stored_sha256": "867b5d74c85641124be8161e644aa5d5e39e6cefdaf868f0d6d1af8d992c564b"
+    },
+    "download_metadata_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-gt-audit-20261022/fetch_stage/download_metadata_command.json",
+      "bytes": 527,
+      "sha256": "3f1dcf0836b1ccaa6991b35af570b391403aa4bc3934ad39d5a23f9f28123392",
+      "storage": "verbatim",
+      "path": "download_metadata_command.json",
+      "stored_sha256": "3f1dcf0836b1ccaa6991b35af570b391403aa4bc3934ad39d5a23f9f28123392"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

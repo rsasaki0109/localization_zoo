@@ -1,0 +1,9 @@
+{
+  "numerical_commit": "6eec3472",
+  "source": "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_intensity_consistent/report/summary.json",
+  "source_sha256": "a40d1b5fe52339e5c16aee8580ba7b1224f4217c0a4a220834b52b783253fb50",
+  "artifacts": {
+    "/workspace/localization-env/inten-intensity-consistent-20261022/comparison.png": "8eb22edf47316c8519fdab0d47b175f9d6cf03b9f0087f21a241e88b8392e25a",
+    "/workspace/localization-env/inten-intensity-consistent-20261022/comparison.svg": "1e843db1d0d090e48897ea5d93f6d81150190a25c8745fa118612f23c9939d4e"
+  }
+}

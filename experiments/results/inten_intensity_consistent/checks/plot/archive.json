@@ -1,0 +1,46 @@
+{
+  "files": {
+    "manifest.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/plot_stage/manifest.json",
+      "bytes": 596,
+      "sha256": "2804d2399caf7c8353ee5ed976950be1372e6eb9f9f218bf2dfc743d88ac0ed3",
+      "storage": "verbatim",
+      "path": "manifest.json",
+      "stored_sha256": "2804d2399caf7c8353ee5ed976950be1372e6eb9f9f218bf2dfc743d88ac0ed3"
+    },
+    "plot.py": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/plot_stage/plot.py",
+      "bytes": 1997,
+      "sha256": "92ed36c45934fa422d5141016fe934c652f0f6531a5e458b19cc70df477a7c4c",
+      "storage": "verbatim",
+      "path": "plot.py",
+      "stored_sha256": "92ed36c45934fa422d5141016fe934c652f0f6531a5e458b19cc70df477a7c4c"
+    },
+    "plot.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/plot_stage/plot.stderr.log",
+      "bytes": 1739,
+      "sha256": "c79db31446cbd034827cb2216cfc947ec866cb18adbad0e4c9f843e7d593ea37",
+      "storage": "gzip",
+      "path": "plot.stderr.log.gz",
+      "stored_sha256": "4a863f253f9ef93032420769412a229ce5b80caf61ac160320cec4346158ae40"
+    },
+    "plot.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/plot_stage/plot.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "plot.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "plot_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/plot_stage/plot_command.json",
+      "bytes": 532,
+      "sha256": "57d51b78a9b05cdfd20ec00b0c5175a1e5bb6586f77f2356c3ef10ff25402435",
+      "storage": "verbatim",
+      "path": "plot_command.json",
+      "stored_sha256": "57d51b78a9b05cdfd20ec00b0c5175a1e5bb6586f77f2356c3ef10ff25402435"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

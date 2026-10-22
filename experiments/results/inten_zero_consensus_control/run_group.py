@@ -11,7 +11,7 @@ CHECK=module('zero_check',E/'check.py')
 def evaluate(rows, inputs, truths, frames, entries):
     terminals={(r['frame'],r['mode']):r['trace'] for r in rows if r['type']=='terminal'}
     assert len(terminals)==len(frames)*8
-    original={(r['frame'],r['mode']):r for r in inputs if r['type']=='terminal'}
+    original={(r['frame'],r['mode']):r for r in (inputs if isinstance(inputs,list) else []) if r['type']=='terminal'}
     old_history=bool(original)
     findings=[];checks=[]
     for frame in frames:

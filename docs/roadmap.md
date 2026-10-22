@@ -673,7 +673,8 @@ independent. Each item says what "done" means.
     The [normalized S2S intensity candidate](../experiments/results/inten_intensity_normalized/README.md)
     is implemented opt-in/default-off and rejected by its fixed motion gate.
     Every31 inherited endpoint runs all4 joint/consensus × legacy/normalized
-    arms:124 native calls exit0,62 legacy traces match exactly. The rational
+    arms:124 outcomes, all4 replay and5 field-probe subprocesses exit0, and62
+    legacy traces match exactly. The rational
     occupied-weight field is continuous at15758 positive-weight both-valid faces,
     but5 zero-weight holes still have different neighboring limits, up to
     0.169819977. No global-continuity claim. Joint bad-length cases increase7→8;

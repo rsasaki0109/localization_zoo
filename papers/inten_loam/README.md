@@ -2332,8 +2332,9 @@ to keep gradients stable near a vanishing factor. The initial execution and
 independent reconstruction failure remain archived, followed by a complete rerun.
 
 Numerical `3055bb2e` precedes this interpretation. All31 inherited rescue/adverse/
-fallback endpoints run all four legacy/normalized joint/consensus arms; all124
-native calls exit0 and all62 legacy traces reproduce the parent exactly.
+fallback endpoints produce all124 legacy/normalized joint/consensus outcomes.
+All4 replay and5 field-probe subprocesses exit0; all62 legacy traces reproduce
+the parent exactly.
 Every208565 real query on8829 inherited reflector paths reconstructs, as do all
 26487 interior derivative controls. At15758 both-valid positive-weight faces,
 no intensity jump exceeds1e-8 (maximum1.110223e-16). Coverage holes remain:

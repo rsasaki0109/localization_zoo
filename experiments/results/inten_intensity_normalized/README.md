@@ -43,7 +43,8 @@ Every case and query was rerun; no favorable subset or new intensity scale.
 All 31 inherited endpoints remain: eight original conditional reference
 histories and 23 actual rejected recursive-candidate histories from 01/02/08.
 All four native arms run at every endpoint: legacy/normalized joint and
-legacy/normalized consensus. All 124 calls exit 0; all 62 legacy whole traces,
+legacy/normalized consensus. All 124 endpoint/arm outcomes complete; the four batched replay subprocesses
+and five field-probe subprocesses exit 0. All 62 legacy whole traces,
 profiles, masks, votes and outputs reproduce the parent exactly.
 
 The same 8829 reflector paths retain all 208565 real native queries. Every value,

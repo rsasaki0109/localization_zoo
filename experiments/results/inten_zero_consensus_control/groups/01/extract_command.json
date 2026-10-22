@@ -1,0 +1,42 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=4",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-zero-consensus-control/worktree",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-zero-consensus-control/extract",
+    "/workspace/localization-env/inten-zero-consensus-control/raw_01/dataset/sequences/01/velodyne",
+    "/workspace/localization-env/inten-zero-consensus-control/features_01.txt"
+  ],
+  "cwd": "/workspace/localization-env/inten-zero-consensus-control/worktree",
+  "source_commit": "250433023811fc28dad9bb71e0eb928fcfc0c1fa",
+  "started_unix": 1792636913.1506355,
+  "finished_unix": 1792636914.1987386,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": "667dfd8d8925b38d247f132fb78f19b1738103992c583d7c0858a3564fd04205"
+}

@@ -1,0 +1,41 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-zero-consensus-control/worktree/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--output-root",
+    "/workspace/localization-env/inten-zero-consensus-control/raw_01",
+    "--sequence",
+    "01",
+    "--workers",
+    "4",
+    "--frame",
+    "424",
+    "--frame",
+    "425",
+    "--frame",
+    "426",
+    "--frame",
+    "809",
+    "--frame",
+    "810",
+    "--frame",
+    "811",
+    "--frame",
+    "836",
+    "--frame",
+    "837",
+    "--frame",
+    "838"
+  ],
+  "cwd": "/workspace/localization-env/inten-zero-consensus-control/worktree",
+  "source_commit": "250433023811fc28dad9bb71e0eb928fcfc0c1fa",
+  "started_unix": 1792636907.635984,
+  "finished_unix": 1792636913.1373725,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

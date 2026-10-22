@@ -1,0 +1,141 @@
+{
+  "files": {
+    "extract.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/extract.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "extract.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "extract.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/extract.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "extract.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "extract_command.json": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/extract_command.json",
+      "bytes": 1181,
+      "sha256": "07368aa7c646bda0ed1122d0d728ade0a41d88dc604497e129427b503b122990",
+      "storage": "verbatim",
+      "path": "extract_command.json",
+      "stored_sha256": "07368aa7c646bda0ed1122d0d728ade0a41d88dc604497e129427b503b122990"
+    },
+    "extract_input.txt": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/extract_input.txt",
+      "bytes": 36,
+      "sha256": "667dfd8d8925b38d247f132fb78f19b1738103992c583d7c0858a3564fd04205",
+      "storage": "verbatim",
+      "path": "extract_input.txt",
+      "stored_sha256": "667dfd8d8925b38d247f132fb78f19b1738103992c583d7c0858a3564fd04205"
+    },
+    "fetch.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/fetch.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "fetch.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "fetch.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/fetch.stdout.log",
+      "bytes": 266,
+      "sha256": "0f4ea8548ef8f220c6246444f86f656bc6f2dc05349e65ee62742cab4a2ee3e1",
+      "storage": "gzip",
+      "path": "fetch.stdout.log.gz",
+      "stored_sha256": "614f5768310b43aa7e432eafa9a762cd153701f927937ae5f85957efcac655dd"
+    },
+    "fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/fetch_command.json",
+      "bytes": 963,
+      "sha256": "434b423bd639a36c85653137bfbf5e7fe3356cb6555b29568dace007988fa200",
+      "storage": "verbatim",
+      "path": "fetch_command.json",
+      "stored_sha256": "434b423bd639a36c85653137bfbf5e7fe3356cb6555b29568dace007988fa200"
+    },
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/input.txt",
+      "bytes": 1616,
+      "sha256": "b299c0f733e3b8d502612fe6757f118a4da24d1958e8df9fbe23639f9c5f03ed",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "b299c0f733e3b8d502612fe6757f118a4da24d1958e8df9fbe23639f9c5f03ed"
+    },
+    "input_sources.json": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/input_sources.json",
+      "bytes": 782,
+      "sha256": "55f547a85def0e15cd702da9693189c76826a74d60b3cc9eb9a609243b8a5c5a",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "55f547a85def0e15cd702da9693189c76826a74d60b3cc9eb9a609243b8a5c5a"
+    },
+    "native.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/native.stdout.jsonl",
+      "bytes": 3008799,
+      "sha256": "ec374421dc3899c27a31cc87da7b5cd6958bf57152abcc49a0f992f7788823c0",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "b2c9d531efe9447613187fa620546c7a3962870a72c6dd89ff10b2909bb5788f",
+          "gzip_bytes": 995407,
+          "raw_sha256": "ec374421dc3899c27a31cc87da7b5cd6958bf57152abcc49a0f992f7788823c0",
+          "raw_bytes": 3008799
+        }
+      ]
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/native_command.json",
+      "bytes": 1078,
+      "sha256": "db1cdfc0136df9c45304f03a772446a0d02cda4c36e7d263bcce050f7276f996",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "db1cdfc0136df9c45304f03a772446a0d02cda4c36e7d263bcce050f7276f996"
+    },
+    "offline_truth.json": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/offline_truth.json",
+      "bytes": 2184,
+      "sha256": "a67528d7a4ce2afbc9cdb8228538b2c343ba9e9390080f43dd45c6d402deec9f",
+      "storage": "verbatim",
+      "path": "offline_truth.json",
+      "stored_sha256": "a67528d7a4ce2afbc9cdb8228538b2c343ba9e9390080f43dd45c6d402deec9f"
+    },
+    "original_history.json": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/original_history.json",
+      "bytes": 502350,
+      "sha256": "4942b9010cc0f198b35e6a89f04ec20075f26c2a9226f84f5e9aac29fcfcfbe7",
+      "storage": "verbatim",
+      "path": "original_history.json",
+      "stored_sha256": "4942b9010cc0f198b35e6a89f04ec20075f26c2a9226f84f5e9aac29fcfcfbe7"
+    },
+    "raw_inputs.json": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/raw_inputs.json",
+      "bytes": 1368,
+      "sha256": "07b81b61cb9a13c3d558f1ed338163ffe0e52c51472d35509d61c9f123fd0609",
+      "storage": "verbatim",
+      "path": "raw_inputs.json",
+      "stored_sha256": "07b81b61cb9a13c3d558f1ed338163ffe0e52c51472d35509d61c9f123fd0609"
+    },
+    "result.json": {
+      "original_path": "/workspace/localization-env/inten-zero-consensus-control/stage_01/result.json",
+      "bytes": 33535,
+      "sha256": "91af2392a063a15ec38a4aeb8aa49045824d8f5abde8836188207bfe480fb486",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "91af2392a063a15ec38a4aeb8aa49045824d8f5abde8836188207bfe480fb486"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

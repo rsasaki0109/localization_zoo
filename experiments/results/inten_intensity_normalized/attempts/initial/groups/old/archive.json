@@ -1,0 +1,53 @@
+{
+  "files": {
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/replay_old/input.txt",
+      "bytes": 2149,
+      "sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680"
+    },
+    "input_sources.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/replay_old/input_sources.json",
+      "bytes": 553,
+      "sha256": "0cf6cd9a8ed6221d15d71186bec0f15d9e1963c0001cb6f3fb1ba0916dddb913",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "0cf6cd9a8ed6221d15d71186bec0f15d9e1963c0001cb6f3fb1ba0916dddb913"
+    },
+    "native.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/replay_old/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/replay_old/native.stdout.jsonl",
+      "bytes": 4396880,
+      "sha256": "82778d76050a9b6186c96cc33b81df81ad2865fd4b0fdd40df66e0074090c62a",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "17efa70b27a9c4f59cac9af36c09bec61affd64ac41d198b36c8863953dcd75c",
+          "gzip_bytes": 1790006,
+          "raw_sha256": "82778d76050a9b6186c96cc33b81df81ad2865fd4b0fdd40df66e0074090c62a",
+          "raw_bytes": 4396880
+        }
+      ]
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/replay_old/native_command.json",
+      "bytes": 1097,
+      "sha256": "edea4a6d8260a5810f0be1b53652177f5d92db1c5edf01ea1ad98606a1e777b0",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "edea4a6d8260a5810f0be1b53652177f5d92db1c5edf01ea1ad98606a1e777b0"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

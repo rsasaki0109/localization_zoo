@@ -1,0 +1,47 @@
+{
+  "parent_commit": "75fd23744089c044226605c85c411146ea0a8508",
+  "hypothesis": "Query-local empty-node mean fill is discontinuous. Normalizing cubic weights over occupied nodes should remove valid-region discontinuities; motion improvement is unknown.",
+  "construction": "I(x)=sum(B_i(x)*occupied_i*node_mean_i)/sum(B_i(x)*occupied_i). Occupancy and node means are fixed at build time. Quotient-rule gradient includes the denominator derivative and inverse knot. This is a rational field, not an unchanged cubic B-spline or paper-specified sparse completion.",
+  "coverage": "Retain the original at-least-four observed control count. Additionally require strictly positive occupied basis weight and finite value/gradient; otherwise no residual. No epsilon, extrapolation, new spatial/intensity scale, or per-sequence decision. Discrete count coverage boundaries remain; continuity claimed only for both-valid limits with positive denominator.",
+  "scope": "One new default-false s2s_intensity_normalized Boolean changes S2S field only. S2M field, extraction, gates, losses, weight, knot0.3 and prior parameters unchanged. CLI key is opt-in. No promotion of previously rejected consensus.",
+  "arms": {
+    "0": "legacy joint",
+    "1": "legacy consensus",
+    "2": "normalized joint",
+    "3": "normalized consensus"
+  },
+  "configuration": "All inherited settings: plane check0.05, acceleration, mapped prediction, translation prior0.03, ground/facade PCA. In same-history probes only use_mapping=false after injecting prior extracted frame and original estimated initial seed. Never native GT input. Consensus profiles use the same source/previous cloud and seed for all four arms.",
+  "primary": "Compare normalized joint2 to legacy joint0, the accepted fixed recipe. Also compare normalized consensus3 to legacy consensus1 as rescue/adverse controls; do not select among arms after outcomes.",
+  "case_set": "Every inherited old/01/02/08 endpoint, exact previous all/features, current features and estimated seed, including fallback controls. All 31 cases, all four arms; no filtering by new outcomes. Original8 are conditional reference histories, other23 are actual rejected-recursive-candidate histories.",
+  "field_set": "Reuse every old continuity-audit synthetic and real path and query location. All original-valid reflector paths and all crossed faces, negative coordinates, within-cell differences and ULP-side samples. Reconstruct every native value/gradient and exact two-sided limits independently.",
+  "progression_gate": [
+    "All native mechanism tests and exact legacy whole traces pass; every field sample reconstructed; no both-valid jump >1e-8 and gradient jump >1e-8.",
+    "No newly bad length or vector label in either paired arm on any inherited endpoint, using the inherited20% threshold.",
+    "Every original legacy-consensus rescue from a bad joint to non-bad length/vector remains non-bad with normalized consensus.",
+    "Normalized joint strictly reduces both sums of absolute length-ratio error and vector error across the complete case set, and does not increase total rotation error. These conditional sums are feasibility controls, not trajectory scores."
+  ],
+  "failure_policy": "Retain all outcomes and negative numeric cases, do not retune construction/thresholds, do not run a new full candidate if the frozen progression gate fails. If it passes, freeze one normalized joint setting and fresh paired full00-10 runs before any accuracy or paper-ratio claim.",
+  "history": "Inherited profile07, diagnosis00, DiLO01-selected prior fraction0.03, and all subsequent KITTI studies informed development. New construction selected analytically from sparse representation defect, without new sequence tuning. Every prior KITTI observation is development; no held-out claim.",
+  "old_evidence": "Exact legacy source/header snapshots copied from parent75fd, matching the previous protocol hashes, allow reconstruction after production evolves. No old result bytes or protocol hashes change. Historical-only verifier paths use the frozen source; history-preservation modes still require current-tree equality.",
+  "tolerances": {
+    "reconstruction_rtol": 1e-10,
+    "reconstruction_atol": 1e-12,
+    "finite_difference_atol": 1e-08,
+    "both_valid_limit_jump_atol": 1e-08,
+    "both_valid_limit_gradient_jump_atol": 1e-08
+  },
+  "source_sha256": {
+    "evaluation/src/pcd_dogfooding.cpp": "257df2a5948d72b39713ba8770307c27b217be740df5f5f4c4178c28e22fc302",
+    "experiments/results/inten_intensity_normalized/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_intensity_normalized/build.py": "e45b0325bdd380d2c94d7023ebd0fb157b56cb7adce85a487ba01cd0029c490a",
+    "experiments/results/inten_intensity_normalized/common.py": "d4fbec7b4482a782684e33eb650f60ba43804b1980daa12b59d755f0411d7500",
+    "experiments/results/inten_intensity_normalized/field_probe.cpp": "40c7cabc45cb15ac14702cae1c32b5a0e41233712043433b3563d77554989ed3",
+    "experiments/results/inten_intensity_normalized/probe.cpp": "c7cf5e347244596455e6ca549b9787ad9ec48ae09622f39bbd57256c37dee589",
+    "experiments/results/inten_intensity_normalized/replay_hooks.h": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
+    "experiments/results/inten_intensity_normalized/run.py": "d92cdea784b9b4923d5c00336a4591fa5452995d3aaa9dd2d7cbdafd09ef4572",
+    "experiments/results/inten_intensity_normalized/verify.py": "de2709a089e0852787bc11cd1b8e8ad64695506abcbe2320db064f7ab1ffc950",
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "bfa6cc1927499da52f0c7ca4e205bd84300e0498f0f6abe5c0c8f4be126fca3f",
+    "papers/inten_loam/src/inten_loam_paper.cpp": "831dc8c0abf9db9f04ffcff013dbec7624f0c0d6cdd849c99d4170115ce9f5ad",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp": "15d7e5430d6ca300b6b36d6cf69cd4d4fcc78fb72a9b2a71a2ea7347cd51a9e2"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "files": {
+    "evaluation/src/pcd_dogfooding.cpp": {
+      "path": "source/evaluation/src/pcd_dogfooding.cpp.gz",
+      "sha256": "257df2a5948d72b39713ba8770307c27b217be740df5f5f4c4178c28e22fc302",
+      "bytes": 754423,
+      "gzip_sha256": "668fd920176572fc29bedfc0924fb95a0f57c9a18b569c2bf28bec017dcea301"
+    },
+    "experiments/results/inten_intensity_normalized/archive.py": {
+      "path": "source/experiments/results/inten_intensity_normalized/archive.py.gz",
+      "sha256": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+      "bytes": 2960,
+      "gzip_sha256": "f7a69f862655cc4a50bfe91aad1833b671f3fe4d149ccaa11b18f1aa0aaccaf5"
+    },
+    "experiments/results/inten_intensity_normalized/build.py": {
+      "path": "source/experiments/results/inten_intensity_normalized/build.py.gz",
+      "sha256": "e45b0325bdd380d2c94d7023ebd0fb157b56cb7adce85a487ba01cd0029c490a",
+      "bytes": 3492,
+      "gzip_sha256": "3df024bebec1446ef581377237bd41f5ac02486dcce1ce1762b18d2009aa46d1"
+    },
+    "experiments/results/inten_intensity_normalized/common.py": {
+      "path": "source/experiments/results/inten_intensity_normalized/common.py.gz",
+      "sha256": "d4fbec7b4482a782684e33eb650f60ba43804b1980daa12b59d755f0411d7500",
+      "bytes": 3200,
+      "gzip_sha256": "3d66db7d01e6c1b786852dd2cec23f704ad68efa793b3c450d67c9992e79fa4e"
+    },
+    "experiments/results/inten_intensity_normalized/field_probe.cpp": {
+      "path": "source/experiments/results/inten_intensity_normalized/field_probe.cpp.gz",
+      "sha256": "40c7cabc45cb15ac14702cae1c32b5a0e41233712043433b3563d77554989ed3",
+      "bytes": 6798,
+      "gzip_sha256": "a285691e5486e0e3ff5aaeaceaee0aeea2a44469c6abae10f4007ce57003bc4d"
+    },
+    "experiments/results/inten_intensity_normalized/probe.cpp": {
+      "path": "source/experiments/results/inten_intensity_normalized/probe.cpp.gz",
+      "sha256": "c7cf5e347244596455e6ca549b9787ad9ec48ae09622f39bbd57256c37dee589",
+      "bytes": 3047,
+      "gzip_sha256": "c7f2985ae4707dbc426e093c1e8b15b0d5a088f92b4075a88c4207d0e6083cd4"
+    },
+    "experiments/results/inten_intensity_normalized/replay_hooks.h": {
+      "path": "source/experiments/results/inten_intensity_normalized/replay_hooks.h.gz",
+      "sha256": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
+      "bytes": 193,
+      "gzip_sha256": "b2ffa9961d1683e653db5c46b0c823723c52321604d7f4859093d2517e4297fe"
+    },
+    "experiments/results/inten_intensity_normalized/run.py": {
+      "path": "source/experiments/results/inten_intensity_normalized/run.py.gz",
+      "sha256": "d92cdea784b9b4923d5c00336a4591fa5452995d3aaa9dd2d7cbdafd09ef4572",
+      "bytes": 2239,
+      "gzip_sha256": "5853cbe76606a55e0c3fc8449d162146dc0e0992b382adc442c01df160e47a5a"
+    },
+    "experiments/results/inten_intensity_normalized/verify.py": {
+      "path": "source/experiments/results/inten_intensity_normalized/verify.py.gz",
+      "sha256": "de2709a089e0852787bc11cd1b8e8ad64695506abcbe2320db064f7ab1ffc950",
+      "bytes": 10072,
+      "gzip_sha256": "8683c8b0c8260e7649e9848d1a3fc9cf91932d528812354dcd78cee94fa829c4"
+    },
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": {
+      "path": "source/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz",
+      "sha256": "bfa6cc1927499da52f0c7ca4e205bd84300e0498f0f6abe5c0c8f4be126fca3f",
+      "bytes": 16253,
+      "gzip_sha256": "f287193e1ff0ac5b02da923c63b4677568dbe503aef51234c01adad18387a6c3"
+    },
+    "papers/inten_loam/src/inten_loam_paper.cpp": {
+      "path": "source/papers/inten_loam/src/inten_loam_paper.cpp.gz",
+      "sha256": "831dc8c0abf9db9f04ffcff013dbec7624f0c0d6cdd849c99d4170115ce9f5ad",
+      "bytes": 47517,
+      "gzip_sha256": "41fe3e8851bf1d829f1aa8f14c0fecbaad2494c65c99063322f931beba73f359"
+    },
+    "papers/inten_loam/test/test_inten_loam_paper.cpp": {
+      "path": "source/papers/inten_loam/test/test_inten_loam_paper.cpp.gz",
+      "sha256": "15d7e5430d6ca300b6b36d6cf69cd4d4fcc78fb72a9b2a71a2ea7347cd51a9e2",
+      "bytes": 54376,
+      "gzip_sha256": "b00ef9b88548625ef8f44499955aac468b4dfeeb280c585bf724166ea7fe7597"
+    }
+  },
+  "source_commit": "c0da32e0",
+  "all_bytes_verified": true
+}

@@ -1,0 +1,61 @@
+{
+  "files": {
+    "expected.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_old/expected.json",
+      "bytes": 1031641,
+      "sha256": "48d0210bc315e63af7545f7c516abc26535cc67c622f0fd6e8e1c92d0afa869b",
+      "storage": "verbatim",
+      "path": "expected.json",
+      "stored_sha256": "48d0210bc315e63af7545f7c516abc26535cc67c622f0fd6e8e1c92d0afa869b"
+    },
+    "input_sources.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_old/input_sources.json",
+      "bytes": 688,
+      "sha256": "1f7e6546c97c5a7313dd14e29fa21daa90befc221ae17e4e3b8d75f5b02934ee",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "1f7e6546c97c5a7313dd14e29fa21daa90befc221ae17e4e3b8d75f5b02934ee"
+    },
+    "native.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_old/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_old/native.stdout.jsonl",
+      "bytes": 13008434,
+      "sha256": "0908f30a3f2c49c8645be4889b34c1761be8335503a50958e5cfc217358df672",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "62bbdf610bf793d4fc81b558aea50036013172cfaf71dc74332acdc1d112fc2d",
+          "gzip_bytes": 2987980,
+          "raw_sha256": "0908f30a3f2c49c8645be4889b34c1761be8335503a50958e5cfc217358df672",
+          "raw_bytes": 13008434
+        }
+      ]
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_old/native_command.json",
+      "bytes": 1132,
+      "sha256": "a3822df05214dfb4e2d8196b53726419c197cbf234f03dad897cd8d644b515e8",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "a3822df05214dfb4e2d8196b53726419c197cbf234f03dad897cd8d644b515e8"
+    },
+    "paths.txt": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_old/paths.txt",
+      "bytes": 254933,
+      "sha256": "11d103677c97c3666dbb8523e20841f46e4bf2a42172fd7b041f84ea319ff59b",
+      "storage": "verbatim",
+      "path": "paths.txt",
+      "stored_sha256": "11d103677c97c3666dbb8523e20841f46e4bf2a42172fd7b041f84ea319ff59b"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

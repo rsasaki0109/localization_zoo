@@ -1,0 +1,37 @@
+{
+  "files": {
+    "native.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_synthetic/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_synthetic/native.stdout.jsonl",
+      "bytes": 47421,
+      "sha256": "cf1196c7122b23f5012df420959e5b40363b32e17ae53b1d010ac07a5950e57a",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "defee47b2df3301fe4010ac627865fd00a9f239d1f480cada18abbf648f7e0de",
+          "gzip_bytes": 6522,
+          "raw_sha256": "cf1196c7122b23f5012df420959e5b40363b32e17ae53b1d010ac07a5950e57a",
+          "raw_bytes": 47421
+        }
+      ]
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/field_synthetic/native_command.json",
+      "bytes": 937,
+      "sha256": "8bad112bf092723fca6eb4915b3c97b0c8cc03fbb557cffe9bdb4e8c5111f4ce",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "8bad112bf092723fca6eb4915b3c97b0c8cc03fbb557cffe9bdb4e8c5111f4ce"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

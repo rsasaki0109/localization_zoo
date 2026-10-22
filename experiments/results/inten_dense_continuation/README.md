@@ -36,6 +36,10 @@ The independent double SciPy reconstruction checks every directional cost and
 native decision; maximum absolute cost discrepancy2.498001805e-15.
 All source/cache/pose input hashes, fixed populations, unmatched penalties,
 centroid observations and coverage counts are preserved.
+The portable checker reconstructs costs from those native centroid observations;
+it checks cell bounds, population totals and coverage, but does not independently
+recompute centroids from the uncommitted full sensor cache. Native voxelization
+has separate mechanism tests; input-cache hashes and build provenance are retained.
 
 | Complete conditional primary comparison | Legacy budget10 | Dense-selected10/100 |
 |---|---:|---:|

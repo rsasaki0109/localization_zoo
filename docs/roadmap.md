@@ -720,8 +720,9 @@ independent. Each item says what "done" means.
 
     The [independent dense witness](../experiments/results/inten_dense_continuation/README.md)
     tests one fixed bidirectional full-cloud selector on all31 endpoints/all12
-    frozen poses:372 scores in four exit0 processes. Every centroid/score/choice
-    reconstructs independently. It rejects202/204's worse continuation, retains
+    frozen poses:372 scores in four exit0 processes. Every cost/choice
+    reconstructs independently from archived native centroids; cell bounds,
+    population totals and coverage are checked. It rejects202/204's worse continuation, retains
     247's0.522727335→1.023840306 recovery and improves conditional totals:
     length4.741213404→4.308546562, vector14.083975645→13.618380519,
     rotation0.059478496→0.053191638rad. The frozen gate still fails because08/39

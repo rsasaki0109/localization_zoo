@@ -1,0 +1,55 @@
+{
+  "sequence": "01",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-zero-consensus-control/worktree/experiments/results/inten_zero_consensus_control/cleanup.py",
+    "--sequence",
+    "01"
+  ],
+  "cwd": "/workspace/localization-env/inten-zero-consensus-control/worktree",
+  "source_commit": "d2c40347a44046a51e42e1d2943c0d4c3b748da0",
+  "numerical_push_verified_head": "d2c40347a44046a51e42e1d2943c0d4c3b748da0",
+  "remote_ref": "codex/inten-zero-consensus-control",
+  "archive_manifest_sha256": "fa9233208c395b69765e23c3bd5f461b34e858f9902caf48975f4b4157211e71",
+  "all_archive_bytes_roundtrip_rechecked": true,
+  "only_owned_raw_removed": "/workspace/localization-env/inten-zero-consensus-control/raw_01",
+  "raw_files": {
+    "000424.bin": {
+      "sha256": "31c6f57b4fdf23d1d43ff93eac87a444d6e13314e8a87d8d2e902cfcac23a346",
+      "bytes": 1333904
+    },
+    "000425.bin": {
+      "sha256": "352e0d4924195aac101e432ec75d2121e52ae1cdf66d34466055f277139c196a",
+      "bytes": 1332192
+    },
+    "000426.bin": {
+      "sha256": "4e661f0588c17fae61f65a8533784ae5211f4318db1c1674b06baa28104eec37",
+      "bytes": 1330416
+    },
+    "000809.bin": {
+      "sha256": "94839763dbcf6c9dfa42d1301af24f709dda6b841736caf40ef3aa3301e8057c",
+      "bytes": 1398704
+    },
+    "000810.bin": {
+      "sha256": "c1dc17b7d025f11c42fbdf410acd1324e48958f65b987c4817efdd832f1e4cb6",
+      "bytes": 1398608
+    },
+    "000811.bin": {
+      "sha256": "04dff3964a22c5f742eb0db027398c1209490fb9d6c884106508bba2a7ca52f1",
+      "bytes": 1395456
+    },
+    "000836.bin": {
+      "sha256": "9f366caf7cfc7cea693bbf66ad92fa3eb22a417371bcaa15d227f0413c18152f",
+      "bytes": 1408096
+    },
+    "000837.bin": {
+      "sha256": "452d2919a9d8e5b8d2f5a664958fecac2037d220a187bfea5853541f31d1cd2c",
+      "bytes": 1412896
+    },
+    "000838.bin": {
+      "sha256": "d010c9207278ff057608faf6b7016fc523211cc21eaa382717135e0d44b6c2de",
+      "bytes": 1421536
+    }
+  },
+  "exit_code": 0
+}

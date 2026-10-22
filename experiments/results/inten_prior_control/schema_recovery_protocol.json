@@ -1,0 +1,12 @@
+{
+  "frozen_protocol_sha256": "adbd06e8ed6c009ceae97c0c0e64de08e7fa65b0136e7da8d98e84b4d10795f1",
+  "source_sha256": {
+    "verify.py": "89f9fc8e5cc14ff1b50f81af445085733cda2d92039fa44b73500dab94a0b1b3",
+    "verify_portable.py": "167eae51e4aad841f545a4fc70eb3b01ac62b8f5323bcb7808ea9c6e2964c235"
+  },
+  "original_failure_commit": "a0b5575f",
+  "original_failure_command": "checks/original_verifier/frozen_verify_command.json",
+  "canonical_serializer": "evaluation/src/inten_trace_jsonl.h:80-83",
+  "correction": "Only missing translation_prior_information on solver records decodes as zero, matching the existing serializer. No keys are inserted; stored-record identity remains exact.",
+  "unchanged": "All native source/binaries/inputs/outputs, frozen verifier source, prior/mask/update mathematics, tolerances, scoring and progression gate. No native rerun."
+}

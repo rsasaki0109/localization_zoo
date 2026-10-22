@@ -655,6 +655,21 @@ independent. Each item says what "done" means.
     option, relaxed gate, recursive trial or paper-table change. Numerical
     `82c98752` precedes interpretation; every prior KITTI observation is development.
 
+    The [native intensity continuity audit](../experiments/results/inten_intensity_continuity/README.md)
+    identifies a concrete representation defect: query-local mean fill changes
+    shared missing cubic controls across valid cell faces. Dense-ramp and
+    sparse-constant controls are continuous, while the sparse nonconstant native
+    control jumps0.023746193. All31 inherited endpoints/8829 reflector paths and
+    208565 passive real native queries are retained;17658 endpoint controls
+    reproduce the parent. Of15763 both-valid crossed faces,15428 exceed a1e-8
+    intensity jump, maximum0.163630951. Within-cell derivatives pass; missing
+    gradient scaling is not the cause. Mixed/invalid and zero-crossing controls
+    remain. This does not establish trajectory causation or a better estimator.
+    Next freeze a consistent-control construction and coverage policy, keep it
+    opt-in/default-off, and check every inherited rescue/adverse case before
+    another full fixed-setting run. Numerical `63951376` precedes interpretation;
+    all prior KITTI observations are development. Defaults and Table6 are unchanged.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

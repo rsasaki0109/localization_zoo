@@ -126,7 +126,7 @@ def check_field(field,paths,expected=None):
             both=bool(lv.all());jump=float(lvalue[1]-lvalue[0]) if both else None
             boundaries.append(dict(index=p['index'],axis=axis,face=face,t=t,both_valid=both,left_valid=bool(lv[0]),right_valid=bool(lv[1]),support=count.tolist(),mean=mean.tolist(),jump=jump,gradient_jump=float(np.linalg.norm(lgrad[1]-lgrad[0])) if both else None,ulp_jump=actual[1]['value']-actual[0]['value'] if both else None))
     supported=[b for b in boundaries if b['both_valid']];jumps=[b for b in supported if abs(b['jump'])>1e-8]
-    result=dict(field=field['field'],features=field['features'],nodes=len(nodes),paths=len(paths),queries=len(samples) if not paths else sum(len(all_samples(p)) for p in paths),endpoint_controls=endpoint_count,interior_derivative_controls=fd_count,max_interior_derivative_abs_error=fd_max,boundaries=len(boundaries),both_valid=len(supported),mixed=sum(b['left_valid']!=b['right_valid'] for b in boundaries),neither_valid=sum(not b['left_valid'] and not b['right_valid'] for b in boundaries),jumps_above_1e_8=len(jumps),max_abs_jump=max((abs(b['jump']) for b in supported),default=0.),max_gradient_jump=max((b['gradient_jump'] for b in supported),default=0.),largest=max(supported,key=lambda b:abs(b['jump']),default=None))
+    result=dict(field=field['field'],features=field['features'],nodes=len(nodes),paths=len(paths),queries=sum(len(all_samples(p)) for p in paths),endpoint_controls=endpoint_count,interior_derivative_controls=fd_count,max_interior_derivative_abs_error=fd_max,boundaries=len(boundaries),both_valid=len(supported),mixed=sum(b['left_valid']!=b['right_valid'] for b in boundaries),neither_valid=sum(not b['left_valid'] and not b['right_valid'] for b in boundaries),jumps_above_1e_8=len(jumps),max_abs_jump=max((abs(b['jump']) for b in supported),default=0.),max_gradient_jump=max((b['gradient_jump'] for b in supported),default=0.),largest=max(supported,key=lambda b:abs(b['jump']),default=None))
     return result,boundaries
 
 def validate_group(group,folder):
@@ -197,9 +197,24 @@ def validate():
     totals.update(fields=len(actual),max_abs_jump=max(r['max_abs_jump'] for r in actual),max_gradient_jump=max(r['max_gradient_jump'] for r in actual),max_interior_derivative_abs_error=max(r['max_interior_derivative_abs_error'] for r in actual))
     summary=dict(exit_code=0,all_native_values_gradients_and_one_sided_limits_reconstructed=True,all_parent_field_endpoint_and_gradient_controls_passed=True,synthetic=reports['synthetic'],groups={g:rs for g,rs in reports.items() if g!='synthetic'},totals=totals)
     return summary,details
+
+def equivalent(actual,recorded):
+    if isinstance(actual,dict):
+        require(isinstance(recorded,dict) and actual.keys()==recorded.keys(),'Recorded report keys differ')
+        for key in actual:equivalent(actual[key],recorded[key])
+    elif isinstance(actual,list):
+        require(isinstance(recorded,list) and len(actual)==len(recorded),'Recorded report length differs')
+        for a,b in zip(actual,recorded):equivalent(a,b)
+    elif isinstance(actual,float):require(close(actual,recorded),'Recorded report number differs')
+    else:require(actual==recorded,'Recorded report value differs')
+
+def check_recorded(summary,details):
+    for name in read(E/'report/archive.json')['files']:decode(E/'report',name)
+    equivalent(summary,read(E/'report/summary.json'))
+    equivalent(details,json.loads(gzip.decompress((E/'report/boundaries.json.gz').read_bytes())))
 if __name__=='__main__':
     import argparse
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--details',type=Path)
-    args=parser.parse_args();summary,details=validate();args.output.write_text(json.dumps(summary,indent=2,allow_nan=False)+'\n')
+    args=parser.parse_args();summary,details=validate();check_recorded(summary,details);args.output.write_text(json.dumps(summary,indent=2,allow_nan=False)+'\n')
     if args.details:args.details.write_bytes(gzip.compress((json.dumps(details,allow_nan=False)+'\n').encode(),mtime=0))
     print(json.dumps(summary['totals']))

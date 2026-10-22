@@ -1,0 +1,158 @@
+{
+  "files": {
+    "binaries.json": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/binaries.json",
+      "bytes": 16405,
+      "sha256": "8f00b59b8e078e6fda2f7783b9eb8147d04365a51862e99e2b36248c4551d1eb",
+      "storage": "verbatim",
+      "path": "binaries.json",
+      "stored_sha256": "8f00b59b8e078e6fda2f7783b9eb8147d04365a51862e99e2b36248c4551d1eb"
+    },
+    "compiler.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/compiler.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compiler.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compiler.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/compiler.stdout.log",
+      "bytes": 246,
+      "sha256": "8d6e704227c739386853b14c98257428d8ffbffd817517db0b2e088d28c773f6",
+      "storage": "gzip",
+      "path": "compiler.stdout.log.gz",
+      "stored_sha256": "37e4f0862510fd29c94d8be8d2235d9cebc816785d39305567fb71fb4e07970d"
+    },
+    "compiler_command.json": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/compiler_command.json",
+      "bytes": 903,
+      "sha256": "8fe7e637612a5e91093b9f7a29dec1c620744e953c3c66e04e65371e701fe91a",
+      "storage": "verbatim",
+      "path": "compiler_command.json",
+      "stored_sha256": "8fe7e637612a5e91093b9f7a29dec1c620744e953c3c66e04e65371e701fe91a"
+    },
+    "ldd.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/ldd.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "ldd.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "ldd.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/ldd.stdout.log",
+      "bytes": 850,
+      "sha256": "ab5f73821224e4963cf088fb9952fac5dceea13957376ddeb5673270ab3c26b4",
+      "storage": "gzip",
+      "path": "ldd.stdout.log.gz",
+      "stored_sha256": "63310f4286a88e64272cc965a4ef385186c44db5eee50d958e41d727ec199b2e"
+    },
+    "ldd_command.json": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/ldd_command.json",
+      "bytes": 961,
+      "sha256": "9898f962926a7053bc31e1bee5ae43cbc914b95f00456960bb7f7d453f23ea60",
+      "storage": "verbatim",
+      "path": "ldd_command.json",
+      "stored_sha256": "9898f962926a7053bc31e1bee5ae43cbc914b95f00456960bb7f7d453f23ea60"
+    },
+    "native_compile.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/native_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native_compile.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/native_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native_compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/native_compile_command.json",
+      "bytes": 2889,
+      "sha256": "9a6b3565b633154f0555da21cc015a8cd372191c51a7f7ad6951fea84dbd5b77",
+      "storage": "verbatim",
+      "path": "native_compile_command.json",
+      "stored_sha256": "9a6b3565b633154f0555da21cc015a8cd372191c51a7f7ad6951fea84dbd5b77"
+    },
+    "policy_compile.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/policy_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "policy_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "policy_compile.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/policy_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "policy_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "policy_compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/policy_compile_command.json",
+      "bytes": 2878,
+      "sha256": "44e7ba46f6546a0465ce5d4b9299658af178f55661af9074787bcc3eb72977bd",
+      "storage": "verbatim",
+      "path": "policy_compile_command.json",
+      "stored_sha256": "44e7ba46f6546a0465ce5d4b9299658af178f55661af9074787bcc3eb72977bd"
+    },
+    "policy_test.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/policy_test.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "policy_test.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "policy_test.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/policy_test.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "policy_test.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "policy_test_command.json": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/policy_test_command.json",
+      "bytes": 956,
+      "sha256": "1b803e64c84e625d6dac91d2f4092feafeff34e5a8175cf42219669f436c82ee",
+      "storage": "verbatim",
+      "path": "policy_test_command.json",
+      "stored_sha256": "1b803e64c84e625d6dac91d2f4092feafeff34e5a8175cf42219669f436c82ee"
+    },
+    "probe_compile.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/probe_compile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "probe_compile.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "probe_compile.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/probe_compile.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "probe_compile.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "probe_compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-nonfacade-consensus-support/build_stage/probe_compile_command.json",
+      "bytes": 17023,
+      "sha256": "99f34e9efb49cd27249364a253a5e131c454cf0601081a75ad7fe6172e06c912",
+      "storage": "verbatim",
+      "path": "probe_compile_command.json",
+      "stored_sha256": "99f34e9efb49cd27249364a253a5e131c454cf0601081a75ad7fe6172e06c912"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -62,7 +62,9 @@ def check_support(row,primitives):
     require(all(close(a,b) for a,b in zip(original,report['original_costs'])),'Original robust cost changed')
     require(all(close(a,b) for a,b in zip(candidate,report['candidate_costs'])),'Candidate robust cost changed')
     require(report['complete']==complete,'Missing support hidden')
-    allowed=complete and sum(counts[c] for c in (0,1,3))>0 and sum(candidate[c] for c in (0,1,3))<sum(original[c] for c in (0,1,3))
+    # Independently reconstructed costs agree above. Branch on exact serialized
+    # native sums so tiny portable reconstruction roundoff cannot flip a tie.
+    allowed=complete and sum(counts[c] for c in (0,1,3))>0 and sum(report['candidate_costs'][c] for c in (0,1,3))<sum(report['original_costs'][c] for c in (0,1,3))
     require(report['allowed']==allowed,'Native guard decision changed')
     query=report['query'];require(query['called'] and query['input']==query['output']==trace['s2s']['output'],'Passive query moved pose')
     require(query['stop']=='no_iterations' and len(query['iterations'])==1,'Observer took solver step')

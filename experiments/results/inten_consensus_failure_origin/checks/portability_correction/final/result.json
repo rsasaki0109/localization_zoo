@@ -1,0 +1,13 @@
+{
+  "exit_code": 0,
+  "actual_command_exits": {
+    "Haswell": 0,
+    "Sandybridge": 0,
+    "python": 0,
+    "showcase": 0,
+    "leaderboard": 0,
+    "paper_ready": 0,
+    "whitespace": 0
+  },
+  "original_scientific_report_bytes_and_all_labels_preserved": true
+}

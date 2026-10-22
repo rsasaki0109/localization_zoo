@@ -1,0 +1,18 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "ed57c87ff2c128ac8d683d5e20938a3141cba7aa",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-consensus-failure-origin/worktree",
+  "source_commit": "02c93acf1d14ecd54695d6e0603115ae8acfcada",
+  "started_unix": 1792629312.6339262,
+  "finished_unix": 1792629312.6898024,
+  "exit_code": 0,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

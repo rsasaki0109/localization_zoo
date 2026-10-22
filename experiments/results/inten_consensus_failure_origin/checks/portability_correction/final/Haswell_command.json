@@ -1,0 +1,20 @@
+{
+  "command": [
+    "env",
+    "OPENBLAS_CORETYPE=Haswell",
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-consensus-failure-origin/worktree/experiments/results/inten_consensus_failure_origin/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-consensus-failure-origin/worktree/experiments/results/inten_consensus_failure_origin/checks/portability_correction/Haswell_verification.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-consensus-failure-origin/worktree",
+  "source_commit": "02c93acf1d14ecd54695d6e0603115ae8acfcada",
+  "started_unix": 1792629145.3457005,
+  "finished_unix": 1792629222.5395446,
+  "exit_code": 0,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

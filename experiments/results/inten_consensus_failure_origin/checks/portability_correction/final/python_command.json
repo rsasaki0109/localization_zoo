@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests"
+  ],
+  "cwd": "/workspace/localization-env/inten-consensus-failure-origin/worktree",
+  "source_commit": "02c93acf1d14ecd54695d6e0603115ae8acfcada",
+  "started_unix": 1792629222.6205137,
+  "finished_unix": 1792629312.48695,
+  "exit_code": 0,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

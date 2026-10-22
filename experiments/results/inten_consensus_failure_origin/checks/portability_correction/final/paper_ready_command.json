@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/generate_paper_ready_evidence.py",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-consensus-failure-origin/worktree",
+  "source_commit": "02c93acf1d14ecd54695d6e0603115ae8acfcada",
+  "started_unix": 1792629312.6028385,
+  "finished_unix": 1792629312.633727,
+  "exit_code": 0,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

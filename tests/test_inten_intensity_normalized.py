@@ -7,6 +7,22 @@ spec=importlib.util.spec_from_file_location('normalized_evidence_verify',E/'veri
 v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
 
 class NormalizedIntensityTest(unittest.TestCase):
+    def test_initial_execution_failure_and_frozen_sources_remain_byte_verified(self):
+        import gzip,hashlib
+        initial=E/'attempts/initial'
+        for manifest in initial.rglob('archive.json'):
+            for name in v.read(manifest)['files']:v.V.decode(manifest.parent,name)
+        pins=v.read(initial/'protocol.json')['source_sha256']
+        sources=v.read(initial/'source_manifest.json')['files']
+        self.assertEqual(set(pins),set(sources))
+        for name,entry in sources.items():
+            data=(initial/entry['path']).read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(),entry['gzip_sha256'])
+            self.assertEqual(hashlib.sha256(gzip.decompress(data)).hexdigest(),pins[name])
+        failure=initial/'checks/initial_reconstruction_failure'
+        self.assertEqual(v.read(failure/'reconstruct_command.json')['exit_code'],1)
+        self.assertIn(b'Native support validity differs',v.V.decode(failure,'reconstruct.stderr.log'))
+
     def test_complete_native_evidence_reconstructs_and_matches_recorded_report(self):
         actual,details=v.validate()
         v.V.equivalent(actual,v.read(E/'report/summary.json'))

@@ -1,0 +1,1263 @@
+{
+  "exit_code": 0,
+  "group": "02",
+  "source_commit": "836bed43acd57b63c85cce2ec7bb12ce3d5fe726",
+  "cases": [
+    {
+      "frame": 1889,
+      "entry": false,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.9665420767088609,
+          "vector_error": 0.037944091026306914,
+          "forward_ratio": 0.9663819160024324,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.8721366273925231,
+          "vector_error": 0.12907954072914812,
+          "forward_ratio": 0.8719803845023784,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.9667966923943455,
+          "vector_error": 0.03730108816034052,
+          "forward_ratio": 0.9666522366233505,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "3": {
+          "length_ratio": 0.8718924060431815,
+          "vector_error": 0.12940291358860617,
+          "forward_ratio": 0.8717256268352741,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "4": {
+          "length_ratio": 0.9667881918298225,
+          "vector_error": 0.03724574416678238,
+          "forward_ratio": 0.9666460812015202,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "5": {
+          "length_ratio": 0.9664720076108415,
+          "vector_error": 0.03800530113084163,
+          "forward_ratio": 0.9663118692906423,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "6": {
+          "length_ratio": 0.9667966923943455,
+          "vector_error": 0.03730108816034052,
+          "forward_ratio": 0.9666522366233505,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "7": {
+          "length_ratio": 0.9664720076108415,
+          "vector_error": 0.03800530113084163,
+          "forward_ratio": 0.9663118692906423,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "original_joint_stop": "converged",
+      "modes": {
+        "1": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 57,
+          "zero_votes": 53,
+          "valid_clusters": 57,
+          "excluded_clusters": [
+            18,
+            19,
+            768
+          ]
+        },
+        "2": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 53,
+          "valid_clusters": 57,
+          "excluded_clusters": [
+            18,
+            19,
+            142,
+            768
+          ]
+        },
+        "3": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 57,
+          "zero_votes": 53,
+          "valid_clusters": 57,
+          "excluded_clusters": []
+        },
+        "4": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 57,
+          "zero_votes": 53,
+          "valid_clusters": 57,
+          "excluded_clusters": [
+            18,
+            19,
+            768
+          ]
+        },
+        "5": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 53,
+          "valid_clusters": 57,
+          "excluded_clusters": []
+        },
+        "6": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 53,
+          "valid_clusters": 57,
+          "excluded_clusters": [
+            18,
+            19,
+            142,
+            768
+          ]
+        },
+        "7": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 57,
+          "zero_votes": 53,
+          "valid_clusters": 57,
+          "excluded_clusters": []
+        }
+      }
+    },
+    {
+      "frame": 1890,
+      "entry": true,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.9973206424305701,
+          "vector_error": 0.019089357849504312,
+          "forward_ratio": 0.9971420301175095,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.16558844962488878,
+          "vector_error": 0.8345717386575691,
+          "forward_ratio": 0.16545477384162835,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 0.9975230095355213,
+          "vector_error": 0.018590032957068504,
+          "forward_ratio": 0.9973532826137294,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "3": {
+          "length_ratio": 0.16558844962488878,
+          "vector_error": 0.8345717386575691,
+          "forward_ratio": 0.16545477384162835,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "4": {
+          "length_ratio": 0.99739660919424,
+          "vector_error": 0.019091915458312347,
+          "forward_ratio": 0.9972177473981503,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "5": {
+          "length_ratio": 0.99739660919424,
+          "vector_error": 0.019091915458312347,
+          "forward_ratio": 0.9972177473981503,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "6": {
+          "length_ratio": 0.9975230095355213,
+          "vector_error": 0.018590032957068504,
+          "forward_ratio": 0.9973532826137294,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "7": {
+          "length_ratio": 0.99739660919424,
+          "vector_error": 0.019091915458312347,
+          "forward_ratio": 0.9972177473981503,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "original_joint_stop": "converged",
+      "modes": {
+        "1": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 38,
+          "zero_votes": 55,
+          "valid_clusters": 61,
+          "excluded_clusters": [
+            319,
+            328,
+            487,
+            610
+          ]
+        },
+        "2": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 55,
+          "valid_clusters": 61,
+          "excluded_clusters": [
+            11,
+            20,
+            25,
+            59,
+            141,
+            610
+          ]
+        },
+        "3": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 38,
+          "zero_votes": 55,
+          "valid_clusters": 61,
+          "excluded_clusters": []
+        },
+        "4": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 38,
+          "zero_votes": 55,
+          "valid_clusters": 61,
+          "excluded_clusters": [
+            319,
+            328,
+            487,
+            610
+          ]
+        },
+        "5": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 55,
+          "valid_clusters": 61,
+          "excluded_clusters": []
+        },
+        "6": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 55,
+          "valid_clusters": 61,
+          "excluded_clusters": [
+            11,
+            20,
+            25,
+            59,
+            141,
+            610
+          ]
+        },
+        "7": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 38,
+          "zero_votes": 55,
+          "valid_clusters": 61,
+          "excluded_clusters": []
+        }
+      }
+    },
+    {
+      "frame": 1891,
+      "entry": false,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.19949917799724284,
+          "vector_error": 0.8005279798719415,
+          "forward_ratio": 0.1994774377318619,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "1": {
+          "length_ratio": 0.9809226317853137,
+          "vector_error": 0.026097380630289563,
+          "forward_ratio": 0.9807640681364318,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.19611093427706938,
+          "vector_error": 0.803916884208403,
+          "forward_ratio": 0.19608857091383905,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "3": {
+          "length_ratio": 0.9815513101779159,
+          "vector_error": 0.02582139954590169,
+          "forward_ratio": 0.9813881149187371,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "4": {
+          "length_ratio": 0.19815867776435944,
+          "vector_error": 0.8018720949310718,
+          "forward_ratio": 0.19813400247208662,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "5": {
+          "length_ratio": 0.1962424364702684,
+          "vector_error": 0.8037825995020459,
+          "forward_ratio": 0.19622231330476056,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "6": {
+          "length_ratio": 0.19611093427706938,
+          "vector_error": 0.803916884208403,
+          "forward_ratio": 0.19608857091383905,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "7": {
+          "length_ratio": 0.1962424364702684,
+          "vector_error": 0.8037825995020459,
+          "forward_ratio": 0.19622231330476056,
+          "bad_length": true,
+          "bad_vector": true
+        }
+      },
+      "original_joint_stop": "iteration_limit",
+      "modes": {
+        "1": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 81,
+          "zero_votes": 52,
+          "valid_clusters": 58,
+          "excluded_clusters": [
+            14,
+            51
+          ]
+        },
+        "2": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 52,
+          "valid_clusters": 58,
+          "excluded_clusters": [
+            55,
+            321,
+            328,
+            425,
+            441,
+            633
+          ]
+        },
+        "3": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 81,
+          "zero_votes": 52,
+          "valid_clusters": 58,
+          "excluded_clusters": []
+        },
+        "4": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 81,
+          "zero_votes": 52,
+          "valid_clusters": 58,
+          "excluded_clusters": [
+            14,
+            51
+          ]
+        },
+        "5": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 52,
+          "valid_clusters": 58,
+          "excluded_clusters": []
+        },
+        "6": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 52,
+          "valid_clusters": 58,
+          "excluded_clusters": [
+            55,
+            321,
+            328,
+            425,
+            441,
+            633
+          ]
+        },
+        "7": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 81,
+          "zero_votes": 52,
+          "valid_clusters": 58,
+          "excluded_clusters": []
+        }
+      }
+    },
+    {
+      "frame": 1892,
+      "entry": true,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0151287860819806,
+          "vector_error": 0.02242809155848235,
+          "forward_ratio": 1.0149917165206601,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.12585488810790377,
+          "vector_error": 0.8743052235341499,
+          "forward_ratio": 0.12571491448077657,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 1.0156268230934882,
+          "vector_error": 0.022222846244797607,
+          "forward_ratio": 1.0155019944458756,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "3": {
+          "length_ratio": 0.12585488810790377,
+          "vector_error": 0.8743052235341499,
+          "forward_ratio": 0.12571491448077657,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "4": {
+          "length_ratio": 1.0154206470752811,
+          "vector_error": 0.02235429051675098,
+          "forward_ratio": 1.0152896881011375,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "5": {
+          "length_ratio": 1.0154206470752811,
+          "vector_error": 0.02235429051675098,
+          "forward_ratio": 1.0152896881011375,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "6": {
+          "length_ratio": 1.0156268230934882,
+          "vector_error": 0.022222846244797607,
+          "forward_ratio": 1.0155019944458756,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "7": {
+          "length_ratio": 1.0154206470752811,
+          "vector_error": 0.02235429051675098,
+          "forward_ratio": 1.0152896881011375,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "original_joint_stop": "iteration_limit",
+      "modes": {
+        "1": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 36,
+          "zero_votes": 41,
+          "valid_clusters": 50,
+          "excluded_clusters": [
+            480,
+            620,
+            735
+          ]
+        },
+        "2": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 41,
+          "valid_clusters": 50,
+          "excluded_clusters": [
+            13,
+            17,
+            66,
+            67,
+            69,
+            70,
+            158,
+            620,
+            735
+          ]
+        },
+        "3": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 36,
+          "zero_votes": 41,
+          "valid_clusters": 50,
+          "excluded_clusters": []
+        },
+        "4": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 36,
+          "zero_votes": 41,
+          "valid_clusters": 50,
+          "excluded_clusters": [
+            480,
+            620,
+            735
+          ]
+        },
+        "5": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 41,
+          "valid_clusters": 50,
+          "excluded_clusters": []
+        },
+        "6": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 41,
+          "valid_clusters": 50,
+          "excluded_clusters": [
+            13,
+            17,
+            66,
+            67,
+            69,
+            70,
+            158,
+            620,
+            735
+          ]
+        },
+        "7": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 36,
+          "zero_votes": 41,
+          "valid_clusters": 50,
+          "excluded_clusters": []
+        }
+      }
+    },
+    {
+      "frame": 1898,
+      "entry": false,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0639152208976692,
+          "vector_error": 0.07002119128821939,
+          "forward_ratio": 1.0635063150141573,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 1.0632273432147505,
+          "vector_error": 0.06859500454230058,
+          "forward_ratio": 1.0628735543556695,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 1.0632273432147505,
+          "vector_error": 0.06859500454230058,
+          "forward_ratio": 1.0628735543556695,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "3": {
+          "length_ratio": 1.063769781026192,
+          "vector_error": 0.06975481031890478,
+          "forward_ratio": 1.0633702067309432,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "4": {
+          "length_ratio": 1.0632273432147505,
+          "vector_error": 0.06859500454230058,
+          "forward_ratio": 1.0628735543556695,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "5": {
+          "length_ratio": 1.063769781026192,
+          "vector_error": 0.06975481031890478,
+          "forward_ratio": 1.0633702067309432,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "6": {
+          "length_ratio": 1.0632273432147505,
+          "vector_error": 0.06859500454230058,
+          "forward_ratio": 1.0628735543556695,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "7": {
+          "length_ratio": 1.063769781026192,
+          "vector_error": 0.06975481031890478,
+          "forward_ratio": 1.0633702067309432,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "original_joint_stop": "iteration_limit",
+      "modes": {
+        "1": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 58,
+          "valid_clusters": 61,
+          "excluded_clusters": [
+            16,
+            22,
+            31
+          ]
+        },
+        "2": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 58,
+          "valid_clusters": 61,
+          "excluded_clusters": [
+            16,
+            22,
+            31
+          ]
+        },
+        "3": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 58,
+          "valid_clusters": 61,
+          "excluded_clusters": []
+        },
+        "4": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 58,
+          "valid_clusters": 61,
+          "excluded_clusters": [
+            16,
+            22,
+            31
+          ]
+        },
+        "5": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 58,
+          "valid_clusters": 61,
+          "excluded_clusters": []
+        },
+        "6": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 58,
+          "valid_clusters": 61,
+          "excluded_clusters": [
+            16,
+            22,
+            31
+          ]
+        },
+        "7": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 58,
+          "valid_clusters": 61,
+          "excluded_clusters": []
+        }
+      }
+    },
+    {
+      "frame": 1899,
+      "entry": true,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0169344535990272,
+          "vector_error": 0.028416623118472397,
+          "forward_ratio": 1.0166740892236477,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.14292660235184065,
+          "vector_error": 0.8574932921238836,
+          "forward_ratio": 0.1425666338111928,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 1.016210435138153,
+          "vector_error": 0.025187646500608975,
+          "forward_ratio": 1.0160246154737171,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "3": {
+          "length_ratio": 0.14292660235184065,
+          "vector_error": 0.8574932921238836,
+          "forward_ratio": 0.1425666338111928,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "4": {
+          "length_ratio": 1.0154036932901884,
+          "vector_error": 0.027450818702637342,
+          "forward_ratio": 1.015145556449955,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "5": {
+          "length_ratio": 1.0154794121549142,
+          "vector_error": 0.02732431264811171,
+          "forward_ratio": 1.0152259092243994,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "6": {
+          "length_ratio": 1.016210435138153,
+          "vector_error": 0.025187646500608975,
+          "forward_ratio": 1.0160246154737171,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "7": {
+          "length_ratio": 1.0154794121549142,
+          "vector_error": 0.02732431264811171,
+          "forward_ratio": 1.0152259092243994,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "original_joint_stop": "iteration_limit",
+      "modes": {
+        "1": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 37,
+          "zero_votes": 68,
+          "valid_clusters": 74,
+          "excluded_clusters": [
+            167,
+            499,
+            524,
+            679
+          ]
+        },
+        "2": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 68,
+          "valid_clusters": 74,
+          "excluded_clusters": [
+            10,
+            61,
+            88,
+            130,
+            452,
+            679
+          ]
+        },
+        "3": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 37,
+          "zero_votes": 68,
+          "valid_clusters": 74,
+          "excluded_clusters": []
+        },
+        "4": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 37,
+          "zero_votes": 68,
+          "valid_clusters": 74,
+          "excluded_clusters": [
+            167,
+            499,
+            524,
+            679
+          ]
+        },
+        "5": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 68,
+          "valid_clusters": 74,
+          "excluded_clusters": []
+        },
+        "6": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 68,
+          "valid_clusters": 74,
+          "excluded_clusters": [
+            10,
+            61,
+            88,
+            130,
+            452,
+            679
+          ]
+        },
+        "7": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 37,
+          "zero_votes": 68,
+          "valid_clusters": 74,
+          "excluded_clusters": []
+        }
+      }
+    },
+    {
+      "frame": 4472,
+      "entry": false,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0020655285328353,
+          "vector_error": 0.012808717754050708,
+          "forward_ratio": 1.0019856301116439,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 1.063796194383441,
+          "vector_error": 0.0649996663507601,
+          "forward_ratio": 1.0637186932794909,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 1.0024262449077133,
+          "vector_error": 0.013133366168324811,
+          "forward_ratio": 1.0023429455864339,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "3": {
+          "length_ratio": 1.0635146185342077,
+          "vector_error": 0.06472479296651558,
+          "forward_ratio": 1.0634370225057017,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "4": {
+          "length_ratio": 1.0022174208449521,
+          "vector_error": 0.01319945859898763,
+          "forward_ratio": 1.002132766468901,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "5": {
+          "length_ratio": 1.0023827988108516,
+          "vector_error": 0.01308209879461561,
+          "forward_ratio": 1.0023000670215019,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "6": {
+          "length_ratio": 1.0024262449077133,
+          "vector_error": 0.013133366168324811,
+          "forward_ratio": 1.0023429455864339,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "7": {
+          "length_ratio": 1.0023827988108516,
+          "vector_error": 0.01308209879461561,
+          "forward_ratio": 1.0023000670215019,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "original_joint_stop": "converged",
+      "modes": {
+        "1": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 62,
+          "zero_votes": 82,
+          "valid_clusters": 90,
+          "excluded_clusters": [
+            4,
+            60,
+            107,
+            158,
+            284,
+            776,
+            997
+          ]
+        },
+        "2": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 82,
+          "valid_clusters": 90,
+          "excluded_clusters": [
+            4,
+            60,
+            106,
+            107,
+            158,
+            284,
+            776,
+            997
+          ]
+        },
+        "3": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 62,
+          "zero_votes": 82,
+          "valid_clusters": 90,
+          "excluded_clusters": []
+        },
+        "4": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 62,
+          "zero_votes": 82,
+          "valid_clusters": 90,
+          "excluded_clusters": [
+            4,
+            60,
+            107,
+            158,
+            284,
+            776,
+            997
+          ]
+        },
+        "5": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 82,
+          "valid_clusters": 90,
+          "excluded_clusters": []
+        },
+        "6": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 82,
+          "valid_clusters": 90,
+          "excluded_clusters": [
+            4,
+            60,
+            106,
+            107,
+            158,
+            284,
+            776,
+            997
+          ]
+        },
+        "7": {
+          "stop": "iteration_limit",
+          "applied": true,
+          "usable": true,
+          "best_index": 62,
+          "zero_votes": 82,
+          "valid_clusters": 90,
+          "excluded_clusters": []
+        }
+      }
+    },
+    {
+      "frame": 4473,
+      "entry": true,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0479698921429768,
+          "vector_error": 0.06312637792191222,
+          "forward_ratio": 1.0471279776243108,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.08781806448703511,
+          "vector_error": 0.9155917322658088,
+          "forward_ratio": 0.08470189612837219,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 1.0472996526547658,
+          "vector_error": 0.06243942636011367,
+          "forward_ratio": 1.0464689402433065,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "3": {
+          "length_ratio": 0.08781806448703511,
+          "vector_error": 0.9155917322658088,
+          "forward_ratio": 0.08470189612837219,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "4": {
+          "length_ratio": 1.0477436566038316,
+          "vector_error": 0.06301401980549222,
+          "forward_ratio": 1.0468980016307603,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "5": {
+          "length_ratio": 1.0477436566038316,
+          "vector_error": 0.06301401980549222,
+          "forward_ratio": 1.0468980016307603,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "6": {
+          "length_ratio": 1.0472996526547658,
+          "vector_error": 0.06243942636011367,
+          "forward_ratio": 1.0464689402433065,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "7": {
+          "length_ratio": 1.0477436566038316,
+          "vector_error": 0.06301401980549222,
+          "forward_ratio": 1.0468980016307603,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "original_joint_stop": "iteration_limit",
+      "modes": {
+        "1": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 33,
+          "zero_votes": 60,
+          "valid_clusters": 67,
+          "excluded_clusters": [
+            396,
+            905
+          ]
+        },
+        "2": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 60,
+          "valid_clusters": 67,
+          "excluded_clusters": [
+            7,
+            71,
+            92,
+            112,
+            140,
+            163,
+            905
+          ]
+        },
+        "3": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 33,
+          "zero_votes": 60,
+          "valid_clusters": 67,
+          "excluded_clusters": []
+        },
+        "4": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 33,
+          "zero_votes": 60,
+          "valid_clusters": 67,
+          "excluded_clusters": [
+            396,
+            905
+          ]
+        },
+        "5": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 60,
+          "valid_clusters": 67,
+          "excluded_clusters": []
+        },
+        "6": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 60,
+          "zero_votes": 60,
+          "valid_clusters": 67,
+          "excluded_clusters": [
+            7,
+            71,
+            92,
+            112,
+            140,
+            163,
+            905
+          ]
+        },
+        "7": {
+          "stop": "converged",
+          "applied": true,
+          "usable": true,
+          "best_index": 33,
+          "zero_votes": 60,
+          "valid_clusters": 67,
+          "excluded_clusters": []
+        }
+      }
+    }
+  ],
+  "gate_checks": [
+    {
+      "frame": 1889,
+      "criterion": "preceding control no newly bad length",
+      "passed": true
+    },
+    {
+      "frame": 1890,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": true
+    },
+    {
+      "frame": 1891,
+      "criterion": "preceding control no newly bad length",
+      "passed": false
+    },
+    {
+      "frame": 1892,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": true
+    },
+    {
+      "frame": 1898,
+      "criterion": "preceding control no newly bad length",
+      "passed": true
+    },
+    {
+      "frame": 1899,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": true
+    },
+    {
+      "frame": 4472,
+      "criterion": "preceding control no newly bad length",
+      "passed": true
+    },
+    {
+      "frame": 4473,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": true
+    }
+  ],
+  "local_gate_passed": false,
+  "exact_original_and_old_consensus_solver_trace_verified": true,
+  "all_eight_modes_retained": true,
+  "projected_updates_rotation_and_votes_verified": true
+}

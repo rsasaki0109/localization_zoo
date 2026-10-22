@@ -1,0 +1,26 @@
+{
+  "exit_code": 0,
+  "files": {
+    "docs/assets/paper/full_variant_results.csv": {
+      "sha256": "50b22b8f892dc19dff686132e59334bc05c72b8a39644a9e72faa40620fbb7e2",
+      "bytes": 499142,
+      "byte_identical": true
+    },
+    "docs/assets/paper/full_variant_results.tex": {
+      "sha256": "c3021a055390ce48ac758f45f9b09d4fcd0aa6c4af17466a66f9490e09aaba6d",
+      "bytes": 164200,
+      "byte_identical": true
+    },
+    "docs/assets/paper/paper_ratio_table.tex": {
+      "sha256": "382e912455aedb2dc5fc1a7bd59bc3de68894e84dde6f2c64e39162001c242d8",
+      "bytes": 9582,
+      "byte_identical": true
+    },
+    "docs/assets/paper/paper_ratio_table.csv": {
+      "sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+      "bytes": 29553,
+      "byte_identical": true
+    }
+  },
+  "scope": "No accuracy aggregate import. Regenerated to private output paths only. Every publication byte identical."
+}

@@ -2162,3 +2162,50 @@ These blocks locate error growth, including gradual drift without a local label 
 
 ![KITTI 10 error growth](../../experiments/results/inten_consensus_query_acceleration/report/seq_10_error_growth.png)
 <!-- /INTEN_RECURSIVE_CONSENSUS -->
+
+
+<!-- INTEN_CONSENSUS_FAILURE_ORIGIN -->
+## Where recursive consensus introduces short steps
+
+These are **observed stage crossings on the candidate's own realized history**.
+The original joint solve is retained in the same frame. A good original joint
+output followed by a bad accepted output localizes an immediate intervention
+failure. It does not reconstruct what later mapping would have done without the
+intervention. A bad corrected seed that remains bad after refinement distinguishes
+an unsafe seed selection from a new crossing after an initially good corrected
+seed; it does not prove which physical surface or correspondence caused it.
+
+Local labels keep the inherited threshold: translation length/vector error above
+20% for GT steps at least 0.1 m. Signed forward ratios are also retained, so a
+reversed vector is not mistaken for correct motion just because its length agrees.
+GT is used only offline. There is no estimator change, native rerun, new trajectory,
+accuracy score, parameter sweep, per-sequence adoption or held-out claim. Original
+07 calibration, 00 diagnosis, inherited DiLO 01 prior and all earlier KITTI exposure
+remain development. Inspecting the previous committed 01/426 and 02/4473 records
+motivated this diagnosis; coverage is every frame of both fixed arms on 00–10.
+
+| Sequence | Moving applied | Length crossing already at corrected seed | Length crossing after good corrected seed | Vector crossings | Joint bad to accepted good (length) | New final bad length vs reference |
+|---|---:|---:|---:|---:|---:|---:|
+| 00 | 4513 | 0 | 0 | 0 | 1 | 0 |
+| 01 | 1094 | 3 | 0 | 3 | 11 | 69 |
+| 02 | 4655 | 4 | 0 | 4 | 4 | 29 |
+| 03 | 784 | 0 | 0 | 0 | 0 | 0 |
+| 04 | 269 | 0 | 0 | 0 | 0 | 0 |
+| 05 | 2682 | 0 | 0 | 0 | 0 | 0 |
+| 06 | 1099 | 0 | 0 | 0 | 0 | 0 |
+| 07 | 1009 | 0 | 0 | 0 | 0 | 0 |
+| 08 | 4039 | 7 | 0 | 0 | 0 | 0 |
+| 09 | 1582 | 0 | 0 | 0 | 0 | 0 |
+| 10 | 1152 | 0 | 0 | 0 | 0 | 0 |
+
+| Sequence | Final bad-length interval | Prediction / GT | Joint / GT | Corrected seed / GT | Accepted / GT | Final / GT | Chosen shift [m] | Chosen / zero / valid clusters | Refinement stop |
+|---|---|---:|---:|---:|---:|---:|---:|---|---|
+| 01 | 426–457 | 1.025837 | 0.966919 | 0.095879 | 0.054142 | 0.071003 | -2.950000 | 56 / 51 / 91 | converged |
+| 01 | 811–834 | 1.022060 | 0.963182 | 0.066643 | 0.044600 | 0.049303 | -2.400000 | 69 / 66 / 97 | converged |
+| 01 | 838–850 | 0.999113 | 0.975336 | 0.039713 | 0.013883 | 0.129892 | -2.200000 | 75 / 73 / 111 | iteration_limit |
+| 02 | 1890–1890 | 1.014227 | 0.997321 | 0.178329 | 0.165588 | 0.209606 | -1.100000 | 57 / 55 / 61 | converged |
+| 02 | 1892–1896 | 1.034645 | 1.015129 | 0.125218 | 0.125855 | 0.192460 | -1.200000 | 47 / 41 / 50 | iteration_limit |
+| 02 | 1899–1900 | 1.010196 | 1.016934 | 0.149338 | 0.142927 | 0.217370 | -1.150000 | 70 / 68 / 74 | converged |
+| 02 | 4473–4492 | 1.061591 | 1.047970 | 0.092329 | 0.087818 | 0.084815 | -1.350000 | 65 / 60 / 67 | converged |
+
+Commands, every adverse/neutral/rescue event, complete stage traces and limits: [full diagnosis](../../experiments/results/inten_consensus_failure_origin/README.md). Numerical `f391d551` precedes this interpretation. The option remains default off; this diagnosis does not remedy full-sequence accuracy.

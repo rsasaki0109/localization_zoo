@@ -617,6 +617,17 @@ independent. Each item says what "done" means.
     No GT input, threshold sweep, retuning or per-sequence adoption.
     Numerical `b64bbf82` precedes interpretation.
 
+    The [archived consensus stage diagnosis](../experiments/results/inten_consensus_failure_origin/README.md)
+    checks every frame of both fixed full00–10 arms. It separates the actual
+    corrected seed from the original joint output and accepted refinement,
+    retaining all same-frame damage, rescues and remaining bad cases.
+    Some new collapse entries already follow a good joint estimate, so
+    changed mapping history alone is insufficient to explain them.
+    No safeguard is adopted or new accuracy score claimed; native
+    same-history rescue and newly adverse controls must precede another
+    recursive trial. GT remains offline diagnostic only.
+    Numerical `f391d551` precedes interpretation.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

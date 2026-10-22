@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-consensus-failure-origin/worktree/experiments/results/inten_consensus_failure_origin/write_docs.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-consensus-failure-origin/worktree",
+  "source_commit": "f391d551482ecffd78dfb2fea910e7c4ee5886e0",
+  "started_unix": 1792627260.933825,
+  "finished_unix": 1792627260.979333,
+  "exit_code": 0,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

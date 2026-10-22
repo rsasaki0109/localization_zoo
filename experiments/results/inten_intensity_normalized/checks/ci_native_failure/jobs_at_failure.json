@@ -1,0 +1,301 @@
+{
+  "total_count": 2,
+  "jobs": [
+    {
+      "id": 119743805986,
+      "run_id": 39754746673,
+      "workflow_name": "CI",
+      "head_branch": "codex/inten-nonfacade-consensus-support",
+      "run_url": "https://api.github.com/repos/rsasaki0109/localization_zoo/actions/runs/39754746673",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORuBOHM8AAAAb4Ul6Ig",
+      "head_sha": "bb8b46cc3e02371322eb86e4adbc1901ade8e2b0",
+      "url": "https://api.github.com/repos/rsasaki0109/localization_zoo/actions/jobs/119743805986",
+      "html_url": "https://github.com/rsasaki0109/localization_zoo/actions/runs/39754746673/job/119743805986",
+      "status": "in_progress",
+      "conclusion": null,
+      "created_at": "2026-10-22T09:21:09Z",
+      "started_at": "2026-10-22T09:21:12Z",
+      "completed_at": null,
+      "name": "ros2-colcon-build",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-22T09:21:13Z",
+          "completed_at": "2026-10-22T09:21:14Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-22T09:21:14Z",
+          "completed_at": "2026-10-22T09:21:32Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-22T09:21:32Z",
+          "completed_at": "2026-10-22T09:32:48Z"
+        },
+        {
+          "name": "Install ROS2 build dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-22T09:32:48Z",
+          "completed_at": "2026-10-22T09:43:58Z"
+        },
+        {
+          "name": "Build ROS2 package",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 5,
+          "started_at": "2026-10-22T09:43:58Z",
+          "completed_at": null
+        },
+        {
+          "name": "Paper odometry nodes (native fixture parity, odometry and TF)",
+          "status": "pending",
+          "conclusion": null,
+          "number": 6,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Upload paper ROS fixture parity",
+          "status": "pending",
+          "conclusion": null,
+          "number": 7,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 13,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Stop containers",
+          "status": "pending",
+          "conclusion": null,
+          "number": 14,
+          "started_at": null,
+          "completed_at": null
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/rsasaki0109/localization_zoo/check-runs/119743805986",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000210680,
+      "runner_name": "GitHub Actions 1000210680",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 119743806247,
+      "run_id": 39754746673,
+      "workflow_name": "CI",
+      "head_branch": "codex/inten-nonfacade-consensus-support",
+      "run_url": "https://api.github.com/repos/rsasaki0109/localization_zoo/actions/runs/39754746673",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORuBOHM8AAAAb4Ul7Jw",
+      "head_sha": "bb8b46cc3e02371322eb86e4adbc1901ade8e2b0",
+      "url": "https://api.github.com/repos/rsasaki0109/localization_zoo/actions/jobs/119743806247",
+      "html_url": "https://github.com/rsasaki0109/localization_zoo/actions/runs/39754746673/job/119743806247",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-22T09:21:09Z",
+      "started_at": "2026-10-22T09:21:11Z",
+      "completed_at": "2026-10-22T09:42:22Z",
+      "name": "build-and-test",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-22T09:21:12Z",
+          "completed_at": "2026-10-22T09:21:13Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-22T09:21:13Z",
+          "completed_at": "2026-10-22T09:26:26Z"
+        },
+        {
+          "name": "Install dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-22T09:26:26Z",
+          "completed_at": "2026-10-22T09:28:00Z"
+        },
+        {
+          "name": "Install Python dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-22T09:28:00Z",
+          "completed_at": "2026-10-22T09:28:07Z"
+        },
+        {
+          "name": "Configure",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-22T09:28:07Z",
+          "completed_at": "2026-10-22T09:28:13Z"
+        },
+        {
+          "name": "Build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-22T09:28:13Z",
+          "completed_at": "2026-10-22T09:36:15Z"
+        },
+        {
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-22T09:36:15Z",
+          "completed_at": "2026-10-22T09:38:25Z"
+        },
+        {
+          "name": "Python bindings smoke",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-22T09:38:25Z",
+          "completed_at": "2026-10-22T09:38:26Z"
+        },
+        {
+          "name": "Upload paper Python fixture parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-22T09:38:26Z",
+          "completed_at": "2026-10-22T09:38:27Z"
+        },
+        {
+          "name": "Dogfooding smoke (committed 3-frame MCD fixture ~3MB)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-22T09:38:27Z",
+          "completed_at": "2026-10-22T09:38:32Z"
+        },
+        {
+          "name": "Fixture result drift check (golden metrics)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-22T09:38:32Z",
+          "completed_at": "2026-10-22T09:38:32Z"
+        },
+        {
+          "name": "Upload fixture golden actual values",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-22T09:38:32Z",
+          "completed_at": "2026-10-22T09:38:33Z"
+        },
+        {
+          "name": "Multimodal smoke (committed 3-frame MCD fixture + visual CSVs)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-22T09:38:33Z",
+          "completed_at": "2026-10-22T09:38:33Z"
+        },
+        {
+          "name": "2D scan smoke (committed Intel Lab val slice, 20 frames)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-22T09:38:33Z",
+          "completed_at": "2026-10-22T09:38:34Z"
+        },
+        {
+          "name": "2D scan long smoke (committed MIT/Intel train slices, 20 frames)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-22T09:38:34Z",
+          "completed_at": "2026-10-22T09:38:39Z"
+        },
+        {
+          "name": "One-command demo report",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-22T09:38:39Z",
+          "completed_at": "2026-10-22T09:38:46Z"
+        },
+        {
+          "name": "Upload demo report artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-22T09:38:46Z",
+          "completed_at": "2026-10-22T09:38:47Z"
+        },
+        {
+          "name": "Python script regressions",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 18,
+          "started_at": "2026-10-22T09:38:47Z",
+          "completed_at": "2026-10-22T09:42:20Z"
+        },
+        {
+          "name": "LiDAR v10 release contract",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 19,
+          "started_at": "2026-10-22T09:42:20Z",
+          "completed_at": "2026-10-22T09:42:20Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-10-22T09:42:20Z",
+          "completed_at": "2026-10-22T09:42:20Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-10-22T09:42:20Z",
+          "completed_at": "2026-10-22T09:42:20Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/rsasaki0109/localization_zoo/check-runs/119743806247",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000210681,
+      "runner_name": "GitHub Actions 1000210681",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

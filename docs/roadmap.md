@@ -705,6 +705,19 @@ independent. Each item says what "done" means.
     change. Next isolate the remaining motion/geometry failure with all controls;
     consistent sparse interpolation alone has not resolved it.
 
+    The [fixed S2S budget trial](../experiments/results/inten_iteration_budget/README.md)
+    tests10→100 using only the existing iteration cap, chosen on original01
+    traces. All31 endpoints/all12 arms produce372 outcomes, four replay exits0.
+    All186 inherited traces and all original joint prefixes are exact. Original247
+    recovers length/GT0.522727335→1.023840306;202 and204 worsen to0.399223855
+    and0.398534369.204 converges after23 iterations to that worse motion;
+    convergence alone is not an accuracy witness. Actual08/39 becomes newly bad
+    (0.801801894→0.797852053). Totals length4.741213404→4.865650571 and vector
+    14.083975645→14.175508759 worsen; fixed gate fails. Numerical `c6832c2a`
+    precedes interpretation. Default10/native solver/S2M/paper tables unchanged;
+    no budget sweep or full candidate trial. All KITTI is development. Next test
+    independent full-cloud evidence before selecting extended motion.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

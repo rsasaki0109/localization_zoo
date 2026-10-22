@@ -2418,3 +2418,41 @@ no new full KITTI, RTE, paper ratio or default promotion follows. Original07/00,
 DiLO01 prior0.03 and all later KITTI are development. Existing results and Table6
 stay unchanged. Next isolate the motion/geometry failure on original247 while
 retaining every other control; interpolation continuity alone was insufficient.
+
+### Extended S2S budget: local247 recovery, unsafe uniform continuation
+
+The [fixed-budget trial](../../experiments/results/inten_iteration_budget/README.md)
+exposes the existing `s2s_iterations` CLI key, default10 unchanged. One cap100,
+chosen from original01 traces, is an opt-in/outside-paper configuration; native
+solver, convergence1e-4, damping1e-6, losses, gates, prior and S2M stay unchanged.
+All prior KITTI is development. Numerical `c6832c2a` precedes interpretation.
+
+All31 endpoints run12 fixed arms,372 outcomes in four exit0 replay processes.
+All186 old complete traces reproduce exactly; extended joint traces preserve
+the original prefixes and every update/stop is independently checked.57 native
+tests pass. Actual CLI verifies default/explicit10 parity and parsed100; the
+intentional fractional control exits2. A pre-measurement clean-tree stop and its
+unchanged-producer resume are preserved with every command and raw output.
+
+| Complete conditional joint comparison | Budget10 | Budget100 |
+|---|---:|---:|
+| Bad length / bad vector endpoints | 7 /14 | 7 /13 |
+| Sum absolute length-ratio error | 4.741213404 | 4.865650571 |
+| Sum vector error /GT step | 14.083975645 | 14.175508759 |
+| Sum rotation error [rad] | 0.059478496 | 0.054831082 |
+| original247 length/GT | 0.522727335 | 1.023840306 |
+| original202 length/GT | 0.748597638 | 0.399223855 |
+| original204 length/GT | 0.607064437 | 0.398534369 |
+| actual08/39 length/GT | 0.801801894 | 0.797852053 |
+
+Original247 vector error improves0.477580491→0.025894853 and rotation
+8.113069873→2.517761485mrad, but both budgets remain iteration-limited there.
+Original204 converges after23 iterations to a worse motion;202 is still
+iteration-limited at100. Uniform continuation is rejected: both translation
+totals worsen and08/39 becomes newly bad in length, offsetting247's recovery
+in the unchanged bad-length count. Original consensus rescues remain non-bad,
+but actual02/1892 rejected consensus remains collapsed0.125854888→0.126206011.
+Every field/arm/outcome remains in the complete table; no alternative is adopted
+post hoc. No full trial, accuracy/paper-ratio claim, retuning or default promotion.
+Next test an independent full-cloud witness for choosing extended motion while
+retaining every rescue/adverse case. More iterations alone are not a safe remedy.

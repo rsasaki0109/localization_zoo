@@ -81,3 +81,12 @@ DiLO01-selected prior0.03. `s2s_iterations=100` is opt-in/outside the paper;
 default10, native solver/header, all old results, S2M and paper tables stay fixed.
 An independent full-cloud comparison is needed before selecting extended motion;
 a longer solve or lower fitted residual alone does not establish its correctness.
+
+Final local verification is committed in `9806d093`, under the sibling
+`inten_dense_continuation/checks/`: Python389 tests exit0 (five existing
+environment skips), all required documentation checks exit0, and both budget
+and dense reports reconstruct and match their committed references under
+Haswell and Sandybridge with the original tolerances. Published tables, paper
+metadata, fixture golden and every older result are preserved byte-for-byte.
+See that study's `checks/final/` and `checks/cpu_report_compare/` for complete
+commands, logs, source hashes, reports and actual exit codes.

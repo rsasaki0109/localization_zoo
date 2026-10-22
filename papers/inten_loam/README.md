@@ -2456,3 +2456,49 @@ Every field/arm/outcome remains in the complete table; no alternative is adopted
 post hoc. No full trial, accuracy/paper-ratio claim, retuning or default promotion.
 Next test an independent full-cloud witness for choosing extended motion while
 retaining every rescue/adverse case. More iterations alone are not a safe remedy.
+
+### Independent full-cloud continuation witness: conditional gains, guard failure
+
+The [bidirectional full-cloud trial](../../experiments/results/inten_dense_continuation/README.md)
+uses full cached clouds voxelized at inherited0.2m. Each fixed centroid population
+is scored by double nearest-neighbor squared distance capped at inherited1m²,
+including all unmatched points in its denominator. Extend only when both mean
+costs improve beyond the unchanged numerical tolerances. No GT, hand region,
+sparse fitted residual or prior enters selection. All12 frozen estimated poses
+at every31 endpoint are retained; no optimizer/seed/prior is rerun.
+
+Numerical `7b398407` precedes interpretation. Four scorer processes exit0;
+all372 pose scores and choices reconstruct with independent SciPy cKDTree,
+maximum cost discrepancy2.498001805e-15. Every native centroid/coverage/input
+hash and both initial missing-dependency failure and unchanged-verifier recovery
+remain archived. All prior KITTI is development, including07 voxel calibration,
+00 diagnosis,01 prior and budget choices; there is no held-out accuracy claim.
+
+| Complete conditional primary comparison | Legacy10 | Dense-selected10/100 |
+|---|---:|---:|
+| Bad length / bad vector endpoints | 7 /14 | 7 /13 |
+| Sum absolute length-ratio error | 4.741213404 | 4.308546562 |
+| Sum vector error /GT step | 14.083975645 | 13.618380519 |
+| Sum rotation error [rad] | 0.059478496 | 0.053191638 |
+| original247 length/GT | 0.522727335 | 1.023840306 |
+| original202 length/GT | 0.748597638 | 0.748597638 |
+| original204 length/GT | 0.607064437 | 0.607064437 |
+| actual08/39 length/GT | 0.801801894 | 0.797852053 |
+
+The witness rejects202/204's harmful continuation, retains247's recovery and
+improves all three aggregate errors. The prospective gate nevertheless fails
+on08/39's new length label. Its vector error was already bad in both arms and
+improves1.122368673→1.121973252; the guard is not waived. The unchanged bad-length
+total includes both247's recovery and08/39's crossing. Existing202/204 failures
+remain. Already-bad08/38 and08/40 vector errors worsen1.193941208→1.194021004
+and1.114352283→1.114893126;08/45 worsens1.185768262→1.186855700 despite lower
+cloud costs. The [complete outcome/score table](../../experiments/results/inten_dense_continuation/cases.md)
+keeps every negative and secondary arm. A dense fit is not an accuracy certificate.
+
+This selector is not integrated or adopted in production; no recursive full run,
+new RTE/paper ratio/SOTA claim, score/voxel/margin retuning or default promotion.
+The conditional gains remain documented, with the strict local guard failure
+explicit. New SciPy dependency is declared/pinned for independent verification;
+old numerical evidence, default10, native solver, S2M and published tables stay
+unchanged. Further work must retain08/39 and unresolved202/204 rather than
+adjusting this guard after outcomes.

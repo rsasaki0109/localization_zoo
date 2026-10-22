@@ -718,6 +718,20 @@ independent. Each item says what "done" means.
     no budget sweep or full candidate trial. All KITTI is development. Next test
     independent full-cloud evidence before selecting extended motion.
 
+    The [independent dense witness](../experiments/results/inten_dense_continuation/README.md)
+    tests one fixed bidirectional full-cloud selector on all31 endpoints/all12
+    frozen poses:372 scores in four exit0 processes. Every centroid/score/choice
+    reconstructs independently. It rejects202/204's worse continuation, retains
+    247's0.522727335→1.023840306 recovery and improves conditional totals:
+    length4.741213404→4.308546562, vector14.083975645→13.618380519,
+    rotation0.059478496→0.053191638rad. The frozen gate still fails because08/39
+    newly crosses the length threshold0.801801894→0.797852053; it already had
+    bad vector error, but the guard is not waived. All other adverse cases and
+    secondary arms remain. Numerical `7b398407` precedes interpretation. No
+    production selector/full trial/accuracy/SOTA claim or post-hoc retuning.
+    Native outputs stay unchanged through the archived missing-SciPy import
+    failure and existing-runtime reconstruction recovery. All KITTI is development.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

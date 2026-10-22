@@ -1,0 +1,51 @@
+{
+  "parent_commit": "f92788742ef6935cc932c0edca3e1ff86a790f33",
+  "hypothesis": "Original01/247 is still making a substantial forward correction at its iteration-limit stop. Test whether the inherited ten-step cap truncates recovery of a short estimated seed. This is not a claim that every iteration-limit stop is inaccurate or that more iterations are safe.",
+  "construction": "Only change the existing S2S iteration cap from10 to100, one tenfold computational budget selected using the committed original01 trace. Native convergence1e-4, damping1e-6, association, prior, losses, S2M and solver updates remain unchanged. No adaptive quality gate, parameter sweep or GT in the estimator.",
+  "scope": "Expose the existing s2s_iterations parameter via an explicit integer CLI override. Default10 is unchanged. Increased budget is an outside-paper experimental configuration, opt-in; no default promotion. Native solver source/header are unchanged from parent. Two native regression tests cover exact joint-prefix and early-convergence preservation.",
+  "selection": "Budget100 chosen on original KITTI01 failure traces, before new native outcomes; it is a single tenfold cap rather than a tuned optimum. Profile07, diagnosis00, DiLO01 prior0.03 and all later KITTI observations are development. No independent held-out claim.",
+  "arms": {
+    "0": "legacy joint budget10",
+    "1": "legacy consensus control budget10",
+    "2": "normalized joint budget10",
+    "3": "normalized consensus control budget10",
+    "4": "fixed-node joint budget10",
+    "5": "fixed-node consensus control budget10",
+    "6": "legacy joint budget100",
+    "7": "legacy consensus control budget100",
+    "8": "normalized joint budget100",
+    "9": "normalized consensus control budget100",
+    "10": "fixed-node joint budget100",
+    "11": "fixed-node consensus control budget100"
+  },
+  "primary": "Legacy joint100 arm6 versus accepted legacy joint10 arm0. Legacy consensus100 arm7 versus arm1 retains rescue/adverse controls. All normalized/fixed-node arms are immutable negative/field controls. Never pick a winner among fields after outcomes.",
+  "configuration": "All inherited parameters: accelerated=true, plane check0.05, mapped prediction, translation prior0.03, ground/facade PCA. Only in same-history probes use_mapping=false after cached frame and original estimated initial seed injection. Original seed also anchors the prior. No native GT input.",
+  "case_set": "All31 old/01/02/08 inherited rescue/adverse/fallback endpoints, exact estimated seeds and feature caches. All12 arms at every endpoint, including original247 and actual08/39. Original8 histories are reference histories; other23 are rejected-recursive-candidate histories.",
+  "compatibility": "All186 inherited complete frame traces and original-seed profiles must exactly match parent. Every extended joint trace preserves the complete old joint prefix; previously converged joints stop identically. Original consensus voting/admission/masks remain unchanged; new joint rotation and longer conditional refinement can change results.",
+  "verification": "Reconstruct every applied damped joint or conditional-Htt step with relative backward error<=1e-10. Verify every pose update, budget bound and convergence label at original1e-4; compare matrices with rtol1e-10/atol1e-12. Actual production CLI fixture verifies default10, explicit10 and100 headers, exact default frame parity and rejection of fractional override. Every subprocess exit is retained, including intentional malformed-input failure.",
+  "progression_gate": [
+    "All source/input pins, native tests, exact controls, complete joint prefixes, CLI and update-equation checks pass.",
+    "No newly bad length/vector label in primary0/6 or paired consensus1/7 at any inherited endpoint, at unchanged20% threshold.",
+    "Every original consensus rescue stays non-bad under extended consensus7.",
+    "Primary arm6 strictly reduces both total absolute length-ratio error and total vector error; total rotation error must not increase.",
+    "All attempted native steps remain finite."
+  ],
+  "failure_policy": "Preserve every endpoint/arm and all negative numbers in method README. Do not retune cap, convergence, gates, cases or fields after outcomes. A failed primary gate forbids a full candidate trial. If it passes, freeze one legacy-joint100 configuration for fresh full00-10 before any trajectory accuracy or paper-ratio claim.",
+  "resources": "Reuse hash-checked retained feature caches, with no new raw acquisition. Original sources, raw outputs, binaries, libraries and builds are immutable. Actual binary/library/source hashes and commands are retained. Full final-head Native and ROS2 CI before Ready.",
+  "source_sha256": {
+    "evaluation/src/inten_trace_jsonl.h": "89475fada4ebd4b85e5e0646e83dac315ebe0f1471cb0842c9b5189927ed05cb",
+    "evaluation/src/pcd_dogfooding.cpp": "7f9077c16a3856772d150383210ffffe47abb879c50de8139ba50d331c9eb546",
+    "experiments/results/inten_iteration_budget/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_iteration_budget/assess.py": "f6a701fc35cb6959cc40d74116ea2b01281c082567260c347f3396ada6790e83",
+    "experiments/results/inten_iteration_budget/build.py": "76c0a07e04f1ac7febe789f39741149be7e5943e6a8db9684a7dc60658496721",
+    "experiments/results/inten_iteration_budget/cli.py": "f18bcc5d6e9a50ee7f8f50731a227b2346bf7e6ed83be7f324f6a16d150dbf32",
+    "experiments/results/inten_iteration_budget/common.py": "650724cf927559c552ca05c5fff22330e645bd7371737be2453f17a71ebb840f",
+    "experiments/results/inten_iteration_budget/probe.cpp": "81baddc4c00300f83b145b0c68b12cc266ca7f2f3e7e4d075d497a83a41d55bc",
+    "experiments/results/inten_iteration_budget/replay_hooks.h": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
+    "experiments/results/inten_iteration_budget/run.py": "d77c48d073f4eea95c644ed9626cc794512f5587eb699006ec721744a010c7cf",
+    "experiments/results/inten_iteration_budget/verify.py": "17d133ea925c0370040848797f60bac593cd01cfabad5f664caf006744306f4f",
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b",
+    "papers/inten_loam/src/inten_loam_paper.cpp": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp": "8f3b65cf7879e424e0ccedecf22a59ffe1d99217e517c700344af6da05c1a3ec"
+  }
+}

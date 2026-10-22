@@ -4960,6 +4960,11 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "facade_threshold") pp.facade_threshold = v;
       else if (k == "map_radius") pp.map_radius = v;
       else if (k == "intensity_weight") pp.intensity_weight = v;
+      else if (k == "s2s_iterations") {
+        if (!std::isfinite(v) || v < 0.0 || v > std::numeric_limits<int>::max() || std::floor(v) != v)
+          throw std::invalid_argument("s2s_iterations must be a non-negative integer within int range");
+        pp.s2s_iterations = static_cast<int>(v);
+      }
       else if (k == "s2m_iterations") pp.s2m_iterations = static_cast<int>(v);
       else if (k == "ground_threshold") pp.ground_threshold = v;
       else if (k == "deskew") pp.deskew = static_cast<int>(v);

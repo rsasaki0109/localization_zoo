@@ -805,6 +805,44 @@ TEST(InTenLoamPaper, ConflictingIntensityExtensionsFailBeforeUpdates) {
   EXPECT_THROW(grid.build({},.3,true,true),std::invalid_argument);
 }
 
+TEST(InTenLoamPaper, LargerS2SBudgetPreservesTheEntireFirstIteration) {
+  EXPECT_EQ(InTenLoamPaperParams{}.s2s_iterations,10);
+  InTenLoamPaperParams short_params; short_params.use_mapping=false;
+  short_params.s2s_iterations=1;
+  auto long_params=short_params; long_params.s2s_iterations=100;
+  InTenLoamPaper short_core(short_params), long_core(long_params);
+  std::vector<Eigen::Vector3d> pts; std::vector<float> intensity;
+  scanAt(Eigen::Matrix4d::Identity(),&pts,&intensity);
+  short_core.process(pts,intensity); long_core.process(pts,intensity);
+  Eigen::Matrix4d step=Eigen::Matrix4d::Identity(); step(0,3)=.5;
+  scanAt(step,&pts,&intensity);
+  InTenLoamPaperTrace a,b;
+  short_core.process(pts,intensity,nullptr,&a); long_core.process(pts,intensity,nullptr,&b);
+  ASSERT_EQ(a.s2s.iterations.size(),1u); ASSERT_GT(b.s2s.iterations.size(),1u);
+  EXPECT_LE(b.s2s.iterations.size(),100u);
+  const auto& x=a.s2s.iterations.front(); const auto& y=b.s2s.iterations.front();
+  EXPECT_TRUE((x.H.array()==y.H.array()).all());
+  EXPECT_TRUE((x.g.array()==y.g.array()).all());
+  EXPECT_TRUE((x.delta.array()==y.delta.array()).all());
+  EXPECT_EQ(x.pairs,y.pairs);
+}
+
+TEST(InTenLoamPaper, LargerS2SBudgetStillHonorsEarlyConvergenceExactly) {
+  InTenLoamPaperParams p; p.use_mapping=false; p.convergence=1e9; p.s2s_iterations=10;
+  auto q=p; q.s2s_iterations=100;
+  InTenLoamPaper a(p),b(q);
+  std::vector<Eigen::Vector3d> pts; std::vector<float> intensity;
+  scanAt(Eigen::Matrix4d::Identity(),&pts,&intensity);
+  a.process(pts,intensity); b.process(pts,intensity);
+  Eigen::Matrix4d step=Eigen::Matrix4d::Identity(); step(0,3)=.5;
+  scanAt(step,&pts,&intensity); InTenLoamPaperTrace ta,tb;
+  const auto ra=a.process(pts,intensity,nullptr,&ta), rb=b.process(pts,intensity,nullptr,&tb);
+  ASSERT_EQ(ta.s2s.iterations.size(),1u); ASSERT_EQ(tb.s2s.iterations.size(),1u);
+  EXPECT_EQ(ta.s2s.stop,PaperSolverStop::Converged);
+  EXPECT_EQ(tb.s2s.stop,PaperSolverStop::Converged);
+  EXPECT_TRUE((ra.pose.array()==rb.pose.array()).all());
+}
+
 TEST(InTenLoamPaper, TracksForwardMotionAtFullScale) {
   InTenLoamPaper odo;
   std::vector<Eigen::Vector3d> pts;

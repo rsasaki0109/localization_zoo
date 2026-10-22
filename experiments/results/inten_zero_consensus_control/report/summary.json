@@ -1,0 +1,153 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-zero-consensus-control/worktree/experiments/results/inten_zero_consensus_control/report.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-zero-consensus-control/worktree",
+  "source_commit": "4e8d9224a51e9b65b64264779381d72c080aeaf3",
+  "exit_code": 0,
+  "total_endpoints": 31,
+  "native_calls": 248,
+  "new_immediate_entries": 14,
+  "new_immediate_entries_no_longer_bad_length": 7,
+  "failed_gate_checks": [
+    {
+      "group": "old",
+      "frame": 200,
+      "criterion": "old endpoint no higher length/vector error than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 202,
+      "criterion": "old endpoint no higher length/vector error than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 203,
+      "criterion": "old endpoint no higher length/vector error than old consensus",
+      "passed": false
+    },
+    {
+      "group": "02",
+      "frame": 1891,
+      "criterion": "preceding control no newly bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 39,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 41,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 42,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 43,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 44,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 45,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 46,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    }
+  ],
+  "gate_passed": false,
+  "no_recursive_candidate_adopted": true,
+  "groups": {
+    "old": {
+      "endpoints": 8,
+      "entry_frames": [
+        190,
+        200,
+        202,
+        203,
+        204,
+        205,
+        247,
+        433
+      ],
+      "gate_passed": false
+    },
+    "01": {
+      "endpoints": 6,
+      "entry_frames": [
+        426,
+        811,
+        838
+      ],
+      "gate_passed": true
+    },
+    "02": {
+      "endpoints": 8,
+      "entry_frames": [
+        1890,
+        1892,
+        1899,
+        4473
+      ],
+      "gate_passed": false
+    },
+    "08": {
+      "endpoints": 9,
+      "entry_frames": [
+        39,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "gate_passed": false
+    }
+  },
+  "sources": {
+    "old": {
+      "result_sha256": "8d30fcf5cfe9faa7ceaa7dace2e98de63cce950969b3951c16a9f524f5c5fef3",
+      "archive_sha256": "44bd7831bd15745ca057c49c3a668c1e680ef76fd2013b48130d87d1f4775260",
+      "source_commit": "19bb2510bfef2d2a391ab5b63008fbdb067b59a1"
+    },
+    "01": {
+      "result_sha256": "91af2392a063a15ec38a4aeb8aa49045824d8f5abde8836188207bfe480fb486",
+      "archive_sha256": "fa9233208c395b69765e23c3bd5f461b34e858f9902caf48975f4b4157211e71",
+      "source_commit": "250433023811fc28dad9bb71e0eb928fcfc0c1fa"
+    },
+    "02": {
+      "result_sha256": "ed5371dc87713d710f4f259e16273a631c80811f0496a6563e7d7bf9bd99f1e0",
+      "archive_sha256": "5631b982937d88fba08926f492a4451fa486084c5e6e72ffbc4b5a38591e01fb",
+      "source_commit": "836bed43acd57b63c85cce2ec7bb12ce3d5fe726"
+    },
+    "08": {
+      "result_sha256": "aca8699aa2b6fc30d021ce9bf1206a6eefb234daa02d391d113563578c30c1b0",
+      "archive_sha256": "757b38840b5bf439a018ed49a4b412e7fce50807ece19642e5d05a0524f6b8b5",
+      "source_commit": "c59095a5e2345f5859a8910d11ef61a1392e85bd"
+    }
+  }
+}

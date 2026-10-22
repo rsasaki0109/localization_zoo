@@ -1,0 +1,163 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-nonfacade-consensus-support/worktree/experiments/results/inten_nonfacade_consensus_support/report.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-nonfacade-consensus-support/worktree",
+  "source_commit": "3e90a147c2a75d4342b3c27dd9c8eed068626563",
+  "exit_code": 0,
+  "endpoints": 31,
+  "native_terminal_calls": 93,
+  "passive_attribution_queries": 62,
+  "gate_passed": false,
+  "failed_gate_checks": [
+    {
+      "group": "old",
+      "frame": 200,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 202,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 203,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 204,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 205,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "01",
+      "frame": 810,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "02",
+      "frame": 1889,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "02",
+      "frame": 1892,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "02",
+      "frame": 1892,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 38,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 39,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 39,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 40,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 41,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 41,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 44,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 44,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 45,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 45,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 46,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 46,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    }
+  ],
+  "guard_allowed": 13,
+  "guard_rejected": 15,
+  "fallback_no_query": 3,
+  "no_production_promotion": true,
+  "sources": {
+    "old": {
+      "result_sha256": "dbbb6d0763e0f2705317a6d78a21f6ee81d00070c3d4f8cfd40a2ca02b847a80",
+      "archive_sha256": "1c51e6195ec5ea72fd62e06be9517f964acc2d04bc7f0dee1e5a430cbba54de2"
+    },
+    "01": {
+      "result_sha256": "75fc1001d9eaae0414875ddc549b4737b5e3aaec08536ffb504fdc5ebda24dda",
+      "archive_sha256": "284a9fdd81560059002cd9f4ebace320ddc40e6286ce7558c58e8d1c6c02e1af"
+    },
+    "02": {
+      "result_sha256": "b6d212a25acdebaab11e2387824c1bf6bed1eafedc3618467b61841160d2428b",
+      "archive_sha256": "abaa31874c1f30a959b62d08a3a2129bfce41f3253a7b68981c64c9faf008af2"
+    },
+    "08": {
+      "result_sha256": "c1ab80a96a33a142b9dafae286e0660a78e026a84465b15eb95154cfca73b372",
+      "archive_sha256": "4ecee2ba56c27e76e6ca239d15ccaa341d747aec3963eed5e85397f8a38c16e1"
+    }
+  }
+}

@@ -2,7 +2,7 @@ from pathlib import Path
 import copy,importlib.util,unittest
 import numpy as np
 E=Path(__file__).resolve().parents[1]/'experiments/results/inten_reciprocal_support'
-s=importlib.util.spec_from_file_location('reciprocal_support_check',E/'verify.py');v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
+s=importlib.util.spec_from_file_location('reciprocal_support_check',E/'verify_portable.py');v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
 class ReciprocalSupportTest(unittest.TestCase):
     def test_complete_native_controls_masks_updates_and_recorded_report(self):
         actual=v.validate();v.V.V.V.equivalent(actual,v.read(E/'report/summary.json'))

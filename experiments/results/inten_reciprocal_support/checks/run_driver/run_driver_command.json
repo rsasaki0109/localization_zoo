@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_reciprocal_support/run.py"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "b792964e9530fbb507d014dd21cc9ee93cc940b9",
+  "started_unix": 1792683654.4265318,
+  "finished_unix": 1792683813.8728275,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

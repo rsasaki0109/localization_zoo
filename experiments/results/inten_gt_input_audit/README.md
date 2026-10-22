@@ -9,7 +9,7 @@ The unchanged converter, applying `T_world_lidar = T_world_cam * Tr`, was run
 on every official00–10 sequence: all11 conversion commands exit0. All11
 committed GT CSVs have exactly the same numeric fields as regeneration;
 maximum translation and reconstructed-rotation differences are0 in every
-sequence. Nine are byte-identical;06/09 differ only in signed-zero formatting.
+sequence. Nine are byte-identical;06/09 differ only in LF versus CRLF line endings.
 The full official metadata ZIPs, CRC/member manifest, SHA256 hashes, actual
 commands, complete logs and source commit are retained here. They contain GT,
 calibration and timing metadata, **no raw scans**.
@@ -21,6 +21,11 @@ this pipeline. No claim of erroneous official GT follows, and no GT component
 is removed. Earlier motion metrics, thresholds and rejected candidate gates
 remain unchanged. Official-GT error and geometric registration cost measure
 different things; a lower geometric cost does not certify motion accuracy.
+
+Byte-level follow-up `formatting_report.json` corrects the initial signed-zero
+explanation: all text is identical after only CRLF-to-LF normalization. The
+original regeneration/semantic measurements stay unchanged; numeric agreement
+alone had not justified naming the formatting cause.
 
 Actual historical invocations are retained in `commands/*/*_command.json`;
 the copied measurement scripts preserve their original private working paths.

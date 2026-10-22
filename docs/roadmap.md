@@ -754,6 +754,27 @@ independent. Each item says what "done" means.
     Source, all raw measurement hashes and the frozen verifier survive lossless
     XZ transport; original gzip archives and initial build-directory failure remain.
 
+    The [fixed-reference prior control](../experiments/results/inten_prior_control/README.md)
+    separates reciprocal associations from first-system prior feedback. All31
+    endpoints/all18 arms remain (558 outcomes); every434 inherited terminal trace
+    and every old feature/profile/mask record is exact. Unfiltered common-prior
+    negative controls are exact. All10,748 prior contributions/centers and every
+    new mask/update reconstruct. Numerical `a358a572` and full-trace audit
+    `2eca2585` precede interpretation. All23 old/01/08 endpoints have zero own/
+    reference information and identical complete own/common-prior traces.
+    Therefore202/204 recovery and247/08 worsening are not prior-strength feedback
+    in these histories. Only eight02 endpoints change, with both signs retained.
+    Primary length/vector totals5.053685504/12.126070193→5.027384128/12.098923936
+    slightly improve, but length exceeds original10's4.741213404.247 recovery is
+    still lost and08/39,41–46 stay newly bad length; the unchanged gate fails.
+    No production integration, reference/fraction/mask/budget/gate retuning,
+    full candidate trial, paper-table change or SOTA claim follows. The canonical
+    omitted-zero-field failure remains before decoder-only recovery; native
+    measurements, frozen mathematics and all original inputs stay unchanged.
+    Next isolate which lost/retained geometric support drives247/08 adverse
+    behavior, retaining all rescue/adverse controls; do not tune the prior to
+    repair cases where its information is already zero. All KITTI is development.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

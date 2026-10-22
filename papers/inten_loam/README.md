@@ -2565,3 +2565,44 @@ directory collision is preserved before its directory-only recovery. All raw
 measurement hashes restore exactly through lossless XZ; original gzip archives
 remain private and the prospectively frozen verifier is unchanged. All existing
 sensor inputs, libraries, defaults, historical results and paper tables remain.
+
+## Fixed-reference prior control: remaining failures are not prior feedback
+
+The [controlled prior study](../../experiments/results/inten_prior_control/README.md)
+freezes the information matrices from unfiltered100 at the same original
+estimated inputs, separately for joint and translation-refinement phases.
+It preserves the estimated prior centers, reruns all14 prior arms and adds
+common-prior reciprocal/negative controls:558 outcomes over all31 endpoints.
+Every434 inherited complete trace and all earlier profile/feature/mask records
+are exact; the unfiltered common-prior negative controls are exact. Numerical
+`a358a572` and full-trace/center audit `2eca2585` precede this interpretation.
+This is an outside-paper native feasibility harness, not a production option.
+Cap100 comes from original01, prior0.03 from DiLO01, with original07/00 geometry
+unchanged. Every prior KITTI observation is development, never held out.
+
+All23 old/01/08 history endpoints have zero own/reference information, including
+refinement, and identical complete joint/consensus traces after commonization.
+Thus202/204 recovery and247/08 worsening cannot be attributed to prior-strength
+feedback in these conditional histories. All10,748 cross-arm estimated centers
+are exact. Only eight02 endpoints change; both signs remain.02/1891 length/GT
+0.170649278→0.195253604 remains collapsed, while02/1892 vector error
+0.015290418→0.026109597 and02/4473's0.045810877→0.059228565 worsen.
+
+Common information slightly improves own-prior length/vector totals
+5.053685504/12.126070193→5.027384128/12.098923936. The frozen gate still fails:
+length is worse than original10's4.741213404, bad-length/vector counts stay12/12
+versus original7/14,247 remains0.459890548 (unfiltered100 recovered1.023840306),
+and08/39,41–46 remain newly bad length.202/204 retain0.973614185/0.985996689
+recovery;204 rotation and original205's motion remain adverse. Paired consensus
+retains original rescues but length total9.970430585→10.145380296 worsens.
+[All18 arms, both contrast signs and every failed condition](../../experiments/results/inten_prior_control/cases.md)
+remain. Stop this candidate: no reference/fraction/mask/budget/field/gate retuning,
+production/full candidate trial, official-GT change, RTE/paper ratio or SOTA claim.
+The fixed-prior control rules out a confound; it does not establish which
+geometric support causes the remaining failures. Defaults/older scores stay fixed.
+
+Eight native mechanism tests and independent prior/mask/update reconstruction
+exit0. The initial verifier's missing-zero-field failure is retained before a
+decoder-only recovery; frozen source, mathematics and thresholds stay intact.
+Full commands, source/binary/library hashes, complete XZ logs and actual exits
+are in the study. All raw logs and frozen input caches remain privately preserved.

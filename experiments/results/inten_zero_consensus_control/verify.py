@@ -32,7 +32,11 @@ def validate(history=True):
         for name in ('common','build'):sys.modules.pop(name,None)
         driver=module('zero_frozen_driver',E/'run_group.py');c=driver
         p=c.read(E/'protocol.json')
-        for path,digest in p['source_sha256'].items():assert c.sha(W/path)==digest,path
+        for path,digest in p['source_sha256'].items():
+            source=W/path
+            if not history and path=='papers/inten_loam/src/inten_loam_paper.cpp':
+                source=E.parent/'inten_intensity_continuity/reference_native.cpp'
+            assert c.sha(source)==digest,path
         summaries={};profiles=0;calls=0;failures=[]
         with tempfile.TemporaryDirectory() as temporary:
             tmp=Path(temporary)

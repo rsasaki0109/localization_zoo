@@ -4949,6 +4949,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "s2s_row_support") pp.s2s_row_support = v != 0.0;
       else if (k == "s2s_ground_pca") pp.s2s_ground_pca = v != 0.0;
       else if (k == "s2s_facade_pca") pp.s2s_facade_pca = v != 0.0;
+      else if (k == "s2s_intensity_normalized") pp.s2s_intensity_normalized = v != 0.0;
       else if (k == "s2s_facade_cauchy") pp.s2s_facade_cauchy = v != 0.0;
       else if (k == "s2s_geometry_consensus") pp.s2s_geometry_consensus = v != 0.0;
       else if (k == "max_ground") pp.max_ground = static_cast<int>(v);
@@ -5044,6 +5045,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
     if (pp.s2s_row_support) res.note += "; S2S missing-row completion enabled (repository extension, opt-in)";
     if (pp.s2s_ground_pca) res.note += "; S2S ground PCA normals enabled (repository extension, opt-in)";
     if (pp.s2s_facade_pca) res.note += "; S2S facade PCA normals enabled (repository extension, opt-in)";
+    if (pp.s2s_intensity_normalized) res.note += "; S2S normalized occupied intensity weights enabled (repository extension, opt-in)";
     if (pp.s2s_facade_cauchy) res.note += "; S2S facade Cauchy influence enabled (repository extension, opt-in)";
     if (pp.s2s_geometry_consensus) res.note += "; S2S fixed-rotation geometric translation consensus enabled (repository extension, opt-in)";
     return res;

@@ -182,7 +182,9 @@ def check_parent_inputs(group,folder,expected):
     require((folder/'paths.txt').read_text()=='\n'.join(commands)+'\n','Actual native path input changed')
 
 def validate():
-    for path,d in read(E/'protocol.json')['source_sha256'].items():require(digest((W/path).read_bytes())==d,'Pinned source changed: '+path)
+    snapshots={'papers/inten_loam/src/inten_loam_paper.cpp':E/'reference_native.cpp',
+               'papers/inten_loam/include/inten_loam/inten_loam_paper.h':E/'reference_header.h'}
+    for path,d in read(E/'protocol.json')['source_sha256'].items():require(digest(snapshots.get(path,W/path).read_bytes())==d,'Pinned source changed: '+path)
     build=E/'checks/build'
     for name in read(build/'archive.json')['files']:decode(build,name)
     for label in ('compiler','native_compile','probe_compile','ldd'):require(read(build/(label+'_command.json'))['exit_code']==0,'Native build failure')

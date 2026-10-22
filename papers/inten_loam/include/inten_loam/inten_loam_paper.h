@@ -83,6 +83,10 @@ struct InTenLoamPaperParams {
   // Registration.
   bool use_intensity = true;
   double intensity_knot = 0.3;      // kappa [m]
+  // Repository extension, not in the paper: normalize cubic weights over
+  // occupied S2S lattice nodes instead of query-local mean filling. This is
+  // a rational field, with its quotient-rule gradient. S2M stays unchanged.
+  bool s2s_intensity_normalized = false;
   double intensity_weight = 1.0;
   double huber = 0.1;
   double s2s_gate_sq = 1.0;         // squared distance to the closest point [m^2]
@@ -283,8 +287,9 @@ public:
   // empty ones take the mean of the 4 x 4 x 4 support.
   class IntensityGrid {
   public:
-    void build(const std::vector<PaperFeature>& cloud, double knot);
-    // False when fewer than 4 control points of the support are observed.
+    void build(const std::vector<PaperFeature>& cloud, double knot, bool normalized = false);
+    // False when fewer than 4 controls are observed; normalized mode also
+    // requires positive occupied basis weight. No extrapolation at zero weight.
     bool eval(const Eigen::Vector3d& x, double* value, Eigen::Vector3d* gradient) const;
 
   private:
@@ -300,6 +305,7 @@ public:
       }
     };
     double knot_ = 0.3;
+    bool normalized_ = false;
     std::unordered_map<Key, std::pair<double, int>, KeyHash> nodes_;
   };
 

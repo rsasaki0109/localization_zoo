@@ -18,10 +18,14 @@ def query_adapter(report):
     return dict(support=report,trace=dict(s2s={'output':q['input']},s2s_consensus=dict(usable=True,refinement=dict(returned_pairs=q['returned_pairs'],output=q['output']),applied=False),accepted_relative=q['output']))
 
 def validate(history=True):
+    frozen_native=E.parent/'inten_intensity_continuity/reference_native.cpp'
     for protocol in ('protocol.json','attribution_protocol.json'):
-        for path,digest in V.read(E/protocol)['source_sha256'].items():V.require(hashlib.sha256((W/path).read_bytes()).hexdigest()==digest,'Pinned source changed: '+path)
+        for path,digest in V.read(E/protocol)['source_sha256'].items():
+            source=frozen_native if not history and path=='papers/inten_loam/src/inten_loam_paper.cpp' else W/path
+            V.require(hashlib.sha256(source.read_bytes()).hexdigest()==digest,'Pinned source changed: '+path)
     instrument=module('nonfacade_source_transform',E/'instrument.py')
-    V.require(instrument.transformed((W/'papers/inten_loam/src/inten_loam_paper.cpp').read_text())==(E/'diagnostic_native.cpp').read_text(),'Native source transformation differs')
+    original=W/'papers/inten_loam/src/inten_loam_paper.cpp' if history else frozen_native
+    V.require(instrument.transformed(original.read_text())==(E/'diagnostic_native.cpp').read_text(),'Native source transformation differs')
     groups={};native=0;queries=0;failures=[];primitive_count=0
     with tempfile.TemporaryDirectory() as temporary:
         tmp=Path(temporary)

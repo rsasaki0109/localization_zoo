@@ -456,8 +456,10 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
 // Intensity field (eq. 6)
 // ---------------------------------------------------------------------------
 
-void InTenLoamPaper::IntensityGrid::build(const std::vector<PaperFeature>& cloud, double knot) {
+void InTenLoamPaper::IntensityGrid::build(const std::vector<PaperFeature>& cloud, double knot,
+                                         bool normalized) {
   knot_ = knot;
+  normalized_ = normalized;
   nodes_.clear();
   nodes_.reserve(cloud.size());
   for (const auto& f : cloud) {
@@ -497,6 +499,28 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
   bspline(t.x(), Bx, dBx);
   bspline(t.y(), By, dBy);
   bspline(t.z(), Bz, dBz);
+  if (normalized_) {
+    double numerator = 0.0, weight = 0.0;
+    Eigen::Vector3d numerator_gradient = Eigen::Vector3d::Zero();
+    Eigen::Vector3d weight_gradient = Eigen::Vector3d::Zero();
+    for (int i = 0; i < 4; ++i)
+      for (int j = 0; j < 4; ++j)
+        for (int k = 0; k < 4; ++k) {
+          const int n = (i * 4 + j) * 4 + k;
+          if (!seen[n]) continue;
+          const double w = Bx[i] * By[j] * Bz[k];
+          const Eigen::Vector3d dw(dBx[i] * By[j] * Bz[k],
+                                   Bx[i] * dBy[j] * Bz[k], Bx[i] * By[j] * dBz[k]);
+          numerator += w * c[n];
+          weight += w;
+          numerator_gradient += dw * c[n];
+          weight_gradient += dw;
+        }
+    if (!(weight > 0.0)) return false;
+    *value = numerator / weight;
+    *gradient = (numerator_gradient - *value * weight_gradient) / (weight * knot_);
+    return std::isfinite(*value) && gradient->allFinite();
+  }
   double val = 0;
   Eigen::Vector3d grad = Eigen::Vector3d::Zero();
   for (int i = 0; i < 4; ++i)
@@ -900,7 +924,8 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
 #pragma omp section
       {
         if (!params_.accelerated) ix->all.build();
-        if (params_.use_intensity) ix->intensity.build(f.all, params_.intensity_knot);
+        if (params_.use_intensity)
+          ix->intensity.build(f.all, params_.intensity_knot, params_.s2s_intensity_normalized);
       }
     }
       return ix;

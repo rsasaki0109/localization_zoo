@@ -1,0 +1,14 @@
+{
+  "numerical_commits": [
+    "c6832c2a",
+    "7b398407"
+  ],
+  "sources": {
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_iteration_budget/report/summary.json": "7b8012a211e4f7b3686b183b791ca0e120ce7c9cf190a56af3ab602123935543",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_dense_continuation/report/summary.json": "a2cdc21c259dd6dd4cf6964e60daf22c2f59c6deb1538770b807fdec9f02ae53"
+  },
+  "artifacts": {
+    "/workspace/localization-env/inten-dense-continuation-20261022/comparison.png": "5df18124f31ec814727a9e63ed34507bf650717750da57f8baf76c3f7b83affd",
+    "/workspace/localization-env/inten-dense-continuation-20261022/comparison.svg": "a91c0f0365c6df52d638cd53433bcd6287a3db68f66955f64692f060e6897a3e"
+  }
+}

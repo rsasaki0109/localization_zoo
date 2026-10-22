@@ -1,0 +1,46 @@
+{
+  "files": {
+    "manifest.json": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/plot_stage/manifest.json",
+      "bytes": 808,
+      "sha256": "4bd2edd246ed7396a098baaba3cfda3dd09c46f4db463552bbb4759e4bbe6dae",
+      "storage": "verbatim",
+      "path": "manifest.json",
+      "stored_sha256": "4bd2edd246ed7396a098baaba3cfda3dd09c46f4db463552bbb4759e4bbe6dae"
+    },
+    "plot.py": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/plot_stage/plot.py",
+      "bytes": 3108,
+      "sha256": "ed8bf8a35847da497aa585ecb26485634243bd99f139bc85e1c320586cab3e9d",
+      "storage": "verbatim",
+      "path": "plot.py",
+      "stored_sha256": "ed8bf8a35847da497aa585ecb26485634243bd99f139bc85e1c320586cab3e9d"
+    },
+    "plot.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/plot_stage/plot.stderr.log",
+      "bytes": 1739,
+      "sha256": "b7a35b6295ad2d993c79802f4a3bbae2eb3aeae72e0adbffc323b9d7781f4e17",
+      "storage": "gzip",
+      "path": "plot.stderr.log.gz",
+      "stored_sha256": "d94819259fb5c22244cfe6dc90b05c83c0e7c3af5e19bbac93e8c3a3c57562fa"
+    },
+    "plot.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/plot_stage/plot.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "plot.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "plot_command.json": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/plot_stage/plot_command.json",
+      "bytes": 650,
+      "sha256": "1a04178357e858b293c483da1764a95a88fcc8bbee238d674dfb5da39373a9d4",
+      "storage": "verbatim",
+      "path": "plot_command.json",
+      "stored_sha256": "1a04178357e858b293c483da1764a95a88fcc8bbee238d674dfb5da39373a9d4"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

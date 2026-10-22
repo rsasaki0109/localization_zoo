@@ -1,0 +1,21 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "evaluation/scripts/generate_full_variant_table.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-dense-continuation-20261022/derived"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "7b39840765814549c97ee3bd76aeaa57d2d2b2b1",
+  "started_unix": 1792676075.2494648,
+  "finished_unix": 1792676075.418823,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

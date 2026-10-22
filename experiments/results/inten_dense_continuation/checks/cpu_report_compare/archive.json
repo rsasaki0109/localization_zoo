@@ -1,0 +1,46 @@
+{
+  "files": {
+    "compare.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/cpu_compare_stage/compare.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compare.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compare.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/cpu_compare_stage/compare.stdout.log",
+      "bytes": 90,
+      "sha256": "ed950f572238c5443ef6d403ae214da0103ec776753ce5a8db2fee1fb5c73ffe",
+      "storage": "gzip",
+      "path": "compare.stdout.log.gz",
+      "stored_sha256": "f0e037a3318605548edaef568640ee55eef618a4e4781327d59028aede2cac0a"
+    },
+    "compare_command.json": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/cpu_compare_stage/compare_command.json",
+      "bytes": 666,
+      "sha256": "d7f2ef3d875261e9a42419a838aa60fd5b330f6c79af83b18a2ca13e6d46f31b",
+      "storage": "verbatim",
+      "path": "compare_command.json",
+      "stored_sha256": "d7f2ef3d875261e9a42419a838aa60fd5b330f6c79af83b18a2ca13e6d46f31b"
+    },
+    "compare_cpu_reports.py": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/cpu_compare_stage/compare_cpu_reports.py",
+      "bytes": 904,
+      "sha256": "9c4c18fe6f363dc34ab12f5fc04a9f221a23d58f7dc83e7bdf27398393576bc9",
+      "storage": "verbatim",
+      "path": "compare_cpu_reports.py",
+      "stored_sha256": "9c4c18fe6f363dc34ab12f5fc04a9f221a23d58f7dc83e7bdf27398393576bc9"
+    },
+    "result.json": {
+      "original_path": "/workspace/localization-env/inten-dense-continuation-20261022/cpu_compare_stage/result.json",
+      "bytes": 1143,
+      "sha256": "b8d33caf5f13a623d72453edd83cd0b3deb2a4c1dbd20dc436483c78ad545bcc",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "b8d33caf5f13a623d72453edd83cd0b3deb2a4c1dbd20dc436483c78ad545bcc"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

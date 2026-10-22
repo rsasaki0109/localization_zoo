@@ -1,0 +1,27 @@
+{
+  "exit_code": 0,
+  "original_relative_tolerance": 1e-10,
+  "original_absolute_tolerance": 1e-12,
+  "checks": {
+    "inten_iteration_budget_Haswell": {
+      "exit_code": 0,
+      "report_sha256": "34d9dffdd80512b5893fb7e1b8bfe8a079e28df4ea05fb329e077beecf5bb607",
+      "reference_sha256": "7b8012a211e4f7b3686b183b791ca0e120ce7c9cf190a56af3ab602123935543"
+    },
+    "inten_iteration_budget_Sandybridge": {
+      "exit_code": 0,
+      "report_sha256": "2798b5784ce10df39da3d0fde29a03f0de1a85abc56f563f1092efe4956264f0",
+      "reference_sha256": "7b8012a211e4f7b3686b183b791ca0e120ce7c9cf190a56af3ab602123935543"
+    },
+    "inten_dense_continuation_Haswell": {
+      "exit_code": 0,
+      "report_sha256": "a2cdc21c259dd6dd4cf6964e60daf22c2f59c6deb1538770b807fdec9f02ae53",
+      "reference_sha256": "a2cdc21c259dd6dd4cf6964e60daf22c2f59c6deb1538770b807fdec9f02ae53"
+    },
+    "inten_dense_continuation_Sandybridge": {
+      "exit_code": 0,
+      "report_sha256": "fb9d601391d28b817dbf96dcc228fc6a989c5c389303d0dc17224cb6e3f59fb8",
+      "reference_sha256": "a2cdc21c259dd6dd4cf6964e60daf22c2f59c6deb1538770b807fdec9f02ae53"
+    }
+  }
+}

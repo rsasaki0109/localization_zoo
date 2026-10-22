@@ -1,0 +1,46 @@
+{
+  "files": {
+    "manifest.json": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/plot_stage/manifest.json",
+      "bytes": 598,
+      "sha256": "1dc4d5f38e57a2a0f293a45e43a7aa6b9dfa901f411d8aa36b0945fca9df706c",
+      "storage": "verbatim",
+      "path": "manifest.json",
+      "stored_sha256": "1dc4d5f38e57a2a0f293a45e43a7aa6b9dfa901f411d8aa36b0945fca9df706c"
+    },
+    "plot.py": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/plot_stage/plot.py",
+      "bytes": 2746,
+      "sha256": "966e7acee3f43f809033cb64441d0b0c6ca21ff2d42ec707fb6ac21ff90ce7bb",
+      "storage": "verbatim",
+      "path": "plot.py",
+      "stored_sha256": "966e7acee3f43f809033cb64441d0b0c6ca21ff2d42ec707fb6ac21ff90ce7bb"
+    },
+    "plot.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/plot_stage/plot.stderr.log",
+      "bytes": 1739,
+      "sha256": "0b9c6ae4de61b90269be2eb0f0f58f36280f9ad616eab55bf10e12efa990ed0b",
+      "storage": "gzip",
+      "path": "plot.stderr.log.gz",
+      "stored_sha256": "61b87c550ab6e51bcf5a6e8013f959a3792f0722068b580300dd827ca7cb06e1"
+    },
+    "plot.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/plot_stage/plot.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "plot.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "plot_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/plot_stage/plot_command.json",
+      "bytes": 644,
+      "sha256": "3bf25a3be2c991568f40b787801996a765d50d198815017d1ce2cc293ce22ed7",
+      "storage": "verbatim",
+      "path": "plot_command.json",
+      "stored_sha256": "3bf25a3be2c991568f40b787801996a765d50d198815017d1ce2cc293ce22ed7"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

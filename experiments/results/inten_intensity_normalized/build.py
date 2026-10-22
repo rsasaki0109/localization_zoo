@@ -23,6 +23,12 @@ def main():
     assert not git('status','--porcelain')
     for name,digest in read(E/'protocol.json')['source_sha256'].items():assert sha(W/name)==digest,name
     stage=R/'build_stage';stage.mkdir()
+    sources={}
+    for name,digest in read(E/'protocol.json')['source_sha256'].items():
+        target=stage/'sources'/(name+'.gz');target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_bytes(gzip.compress((W/name).read_bytes(),mtime=0))
+        sources[name]=dict(path=str(target.relative_to(stage)),sha256=digest)
+    write(stage/'source_manifest.json',sources)
     prior=E.parent/'inten_intensity_continuity/checks/build'
     command=read(prior/'native_compile_command.json')['command']
     flags=[v.replace('/workspace/localization-env/inten-intensity-continuity/worktree',str(W))

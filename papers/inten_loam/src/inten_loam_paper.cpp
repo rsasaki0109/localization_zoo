@@ -500,6 +500,28 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
   bspline(t.y(), By, dBy);
   bspline(t.z(), Bz, dBz);
   if (normalized_) {
+    // If every occupied node shares an axis index, that basis factor
+    // cancels exactly in numerator and denominator. Cancel before dividing:
+    // near its zero, a quotient of tiny numbers loses gradient precision.
+    int lower[3] = {4, 4, 4}, upper[3] = {-1, -1, -1};
+    for (int i = 0; i < 4; ++i)
+      for (int j = 0; j < 4; ++j)
+        for (int k = 0; k < 4; ++k)
+          if (seen[(i * 4 + j) * 4 + k]) {
+            const int index[3] = {i, j, k};
+            for (int a = 0; a < 3; ++a) {
+              lower[a] = std::min(lower[a], index[a]);
+              upper[a] = std::max(upper[a], index[a]);
+            }
+          }
+    double* basis[3] = {Bx, By, Bz};
+    double* derivative[3] = {dBx, dBy, dBz};
+    for (int a = 0; a < 3; ++a)
+      if (lower[a] == upper[a]) {
+        if (!(basis[a][lower[a]] > 0.0)) return false;
+        basis[a][lower[a]] = 1.0;
+        derivative[a][lower[a]] = 0.0;
+      }
     double numerator = 0.0, weight = 0.0;
     Eigen::Vector3d numerator_gradient = Eigen::Vector3d::Zero();
     Eigen::Vector3d weight_gradient = Eigen::Vector3d::Zero();

@@ -10,7 +10,7 @@ import time
 
 E = Path(__file__).resolve().parent
 W = E.parents[2]
-R = Path('/workspace/localization-env/inten-intensity-normalized-20261022')
+R = Path('/workspace/localization-env/inten-intensity-normalized-20261022/stable')
 BASE = '75fd23744089c044226605c85c411146ea0a8508'
 PY = '/workspace/localization-env/host-venv/bin/python'
 ENV = dict(os.environ, OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',

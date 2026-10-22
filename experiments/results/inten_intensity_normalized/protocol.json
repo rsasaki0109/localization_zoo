@@ -33,15 +33,17 @@
   "source_sha256": {
     "evaluation/src/pcd_dogfooding.cpp": "257df2a5948d72b39713ba8770307c27b217be740df5f5f4c4178c28e22fc302",
     "experiments/results/inten_intensity_normalized/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
-    "experiments/results/inten_intensity_normalized/build.py": "e45b0325bdd380d2c94d7023ebd0fb157b56cb7adce85a487ba01cd0029c490a",
-    "experiments/results/inten_intensity_normalized/common.py": "d4fbec7b4482a782684e33eb650f60ba43804b1980daa12b59d755f0411d7500",
+    "experiments/results/inten_intensity_normalized/build.py": "55365154ec8ca97d391f938be49b1d35ac84784515742016bfec10559f118df1",
+    "experiments/results/inten_intensity_normalized/common.py": "802fb57033ad150ee36a0d54e8e6aafc130b0d39185c9b4e307794220e937890",
     "experiments/results/inten_intensity_normalized/field_probe.cpp": "40c7cabc45cb15ac14702cae1c32b5a0e41233712043433b3563d77554989ed3",
     "experiments/results/inten_intensity_normalized/probe.cpp": "c7cf5e347244596455e6ca549b9787ad9ec48ae09622f39bbd57256c37dee589",
     "experiments/results/inten_intensity_normalized/replay_hooks.h": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
     "experiments/results/inten_intensity_normalized/run.py": "d92cdea784b9b4923d5c00336a4591fa5452995d3aaa9dd2d7cbdafd09ef4572",
-    "experiments/results/inten_intensity_normalized/verify.py": "de2709a089e0852787bc11cd1b8e8ad64695506abcbe2320db064f7ab1ffc950",
+    "experiments/results/inten_intensity_normalized/verify.py": "93df3a0e0bdd9083860b46edb594504446469093ca33d3603aff5ccf6316fec3",
     "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "bfa6cc1927499da52f0c7ca4e205bd84300e0498f0f6abe5c0c8f4be126fca3f",
-    "papers/inten_loam/src/inten_loam_paper.cpp": "831dc8c0abf9db9f04ffcff013dbec7624f0c0d6cdd849c99d4170115ce9f5ad",
-    "papers/inten_loam/test/test_inten_loam_paper.cpp": "15d7e5430d6ca300b6b36d6cf69cd4d4fcc78fb72a9b2a71a2ea7347cd51a9e2"
-  }
+    "papers/inten_loam/src/inten_loam_paper.cpp": "ec5d795b4f677fb34861d67951e95aa9c8462fbc669cc8c58c5828b87d4f00c4",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp": "d2b263e5c80d61b7a028a66cb2c511624c5a18bdc6fc6002bb88ecf1d855f783"
+  },
+  "initial_attempt_commit": "84c92573",
+  "numerical_correction": "Analytically cancel basis factors shared by all occupied controls on an axis, only when strictly positive. Zero factor remains invalid. The field, occupied count rule and gate are unchanged. Independent reconstruction uses nonnegative Bernstein polynomials. At zero-weight faces record removable one-sided limits separately; the originally declared continuity domain requires positive limit denominator. No tolerance, geometry setting, intensity scale, gate or case-set retuning."
 }

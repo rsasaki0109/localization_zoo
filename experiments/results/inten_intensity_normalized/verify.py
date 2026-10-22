@@ -20,12 +20,28 @@ def evaluate(nodes,positions,knot,cells=None):
     occupied=np.isfinite(observed);counts=occupied.sum(axis=1)[inverse]
     controls=np.where(occupied,observed,0.)[inverse];mask=occupied[inverse]
     t=s-cells
-    basis=(t[:,:,None]**np.arange(4))@V.COEFFICIENTS.T
-    dbasis=(t[:,:,None]**np.arange(3))@(V.COEFFICIENTS[:,1:]*np.arange(1,4)).T
+    # Independent nonnegative Bernstein representation avoids cancellation of
+    # (1-t)^3 at ULP neighbors. Common positive factors cancel analytically.
+    bernstein=np.stack(((1-t)**3,3*t*(1-t)**2,3*t*t*(1-t),t**3),axis=2)
+    coefficients=np.array([[1,0,0,0],[4,4,2,1],[1,2,4,4],[0,0,0,1]],dtype=float)/6
+    basis=bernstein@coefficients.T
+    quadratic=np.stack(((1-t)**2,2*t*(1-t),t*t),axis=2)
+    dbasis=quadratic@(3*np.diff(coefficients,axis=1)).T
     indexes=V.OFFSETS+1
+    factor=np.ones(len(x))
+    for axis in range(3):
+        lower=np.min(np.where(occupied,indexes[:,axis],4),axis=1)[inverse]
+        upper=np.max(np.where(occupied,indexes[:,axis],-1),axis=1)[inverse]
+        rows=np.flatnonzero(lower==upper);index=lower[rows]
+        factor[rows]*=basis[rows,axis,index]
+        basis[rows,axis,index]=1.
+        dbasis[rows,axis,index]=0.
     weights=np.prod(basis[:,np.arange(3)[None,:],indexes],axis=2)
     denominator=np.sum(weights*mask,axis=1);numerator=np.sum(weights*controls,axis=1)
-    valid=(counts>=4)&(denominator>0)
+    # At an exact face, a removable common zero can have a finite one-sided
+    # limit while eval(face) is invalid. Keep that limit and flag zero weight;
+    # continuity claims require positive occupied weight at the face itself.
+    valid=(counts>=4)&(denominator>0)&((factor>0) if cells is None else True)
     value=np.divide(numerator,denominator,out=np.zeros(len(x)),where=denominator>0)
     gradient=[]
     for axis in range(3):
@@ -33,7 +49,7 @@ def evaluate(nodes,positions,knot,cells=None):
         dw=np.prod(b[:,np.arange(3)[None,:],indexes],axis=2)
         dn=np.sum(dw*controls,axis=1);dd=np.sum(dw*mask,axis=1)
         gradient.append(np.divide(dn-value*dd,denominator*knot,out=np.zeros(len(x)),where=denominator>0))
-    return valid,value,np.array(gradient).T,counts,denominator
+    return valid,value,np.array(gradient).T,counts,denominator*factor
 
 def check_field(field,paths):
     previous=V.evaluate;V.evaluate=evaluate
@@ -63,7 +79,18 @@ def field_group(group):
     reports=[];details={}
     for key,field in fields.items():
         current=[p for p in paths if p['field']==key]
-        r,bs=check_field(field,current);reports.append(r);details[key]=bs
+        r,bs=check_field(field,current)
+        for b in bs:
+            b['limit_occupied_weight']=b.pop('mean')
+            b['zero_weight_limit']=any(w<=0 for w in b['limit_occupied_weight'])
+        supported=[b for b in bs if b['both_valid'] and not b['zero_weight_limit']]
+        r['zero_weight_limits']=sum(b['zero_weight_limit'] for b in bs)
+        r['zero_weight_neighbor_both_valid']=sum(b['zero_weight_limit'] and b['both_valid'] for b in bs)
+        r['positive_weight_both_valid']=len(supported)
+        r['jumps_above_1e_8']=sum(abs(b['jump'])>1e-8 for b in supported)
+        r['max_abs_jump']=max((abs(b['jump']) for b in supported),default=0.)
+        r['max_gradient_jump']=max((b['gradient_jump'] for b in supported),default=0.)
+        reports.append(r);details[key]=bs
         require(r['jumps_above_1e_8']==0,'Normalized field has a both-valid intensity jump')
         require(r['max_gradient_jump']<=1e-8,'Normalized field gradient has a both-valid jump')
         if group=='synthetic':
@@ -104,9 +131,16 @@ def motion_group(group):
 
 def validate():
     protocol=read(E/'protocol.json')
-    for name,digest in protocol['source_sha256'].items():require(sha(W/name)==digest,'Frozen source changed: '+name)
     build=E/'checks/build'
     for name in read(build/'archive.json')['files']:V.decode(build,name)
+    measured=read(build/'source_manifest.json')
+    import gzip
+    for name,digest in protocol['source_sha256'].items():
+        require(measured[name]['sha256']==digest,'Measured source pin changed')
+        raw=gzip.decompress(V.decode(build,measured[name]['path']))
+        require(hashlib.sha256(raw).hexdigest()==digest,'Measured source bytes changed')
+        if name.startswith(str(E.relative_to(W))+'/'):
+            require(sha(W/name)==digest,'Frozen harness changed: '+name)
     for label in ('compiler','native_compile','replay_compile','probe_compile','field_probe_compile','unit_compile','unit_tests','ldd'):
         require(read(build/(label+'_command.json'))['exit_code']==0,'Build/test failure')
     require(read(build/'binaries.json')['source_sha256']==protocol['source_sha256'],'Build hashes changed')
@@ -130,7 +164,7 @@ def validate():
         checks.append(dict(criterion='normalized joint reduces total '+key,passed=totals['2'][key]<totals['0'][key]))
     checks.append(dict(criterion='normalized joint does not increase total rotation error',passed=totals['2']['rotation_error_rad']<=totals['0']['rotation_error_rad']))
     actual=[r for g,rs in fields.items() if g!='synthetic' for r in rs]
-    ft={key:sum(r[key] for r in actual) for key in ('paths','queries','boundaries','both_valid','mixed','neither_valid','jumps_above_1e_8','interior_derivative_controls')}
+    ft={key:sum(r[key] for r in actual) for key in ('paths','queries','boundaries','both_valid','mixed','neither_valid','jumps_above_1e_8','interior_derivative_controls','positive_weight_both_valid','zero_weight_limits','zero_weight_neighbor_both_valid')}
     ft.update(fields=len(actual),max_abs_jump=max(r['max_abs_jump'] for r in actual),max_gradient_jump=max(r['max_gradient_jump'] for r in actual))
     return dict(exit_code=0,groups=groups,motion_totals=totals,gate_checks=checks,
         progression_gate_passed=all(c['passed'] for c in checks),fields=fields,field_totals=ft,

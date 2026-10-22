@@ -634,6 +634,42 @@ TEST(InTenLoamPaper, NormalizedIntensityRejectsLowCountAndZeroBasisWeight) {
   EXPECT_FALSE(normalized.eval(Eigen::Vector3d(10, 10, 10), &value, &gradient));
 }
 
+TEST(InTenLoamPaper, NormalizedIntensityCancelsVanishingCommonFactorBeforeDivision) {
+  for (int axis = 0; axis < 3; ++axis) {
+    std::vector<PaperFeature> cloud;
+    for (int j : {0, 1})
+      for (int k : {0, 1}) {
+        PaperFeature f;
+        f.p = Eigen::Vector3d::Zero();
+        f.p[axis] = -.3;
+        f.p[(axis + 1) % 3] = .3 * j;
+        f.p[(axis + 2) % 3] = .3 * k;
+        f.intensity = static_cast<float>(.2 + .1 * j + .03 * k);
+        cloud.push_back(f);
+      }
+    InTenLoamPaper::IntensityGrid grid;
+    grid.build(cloud, .3, true);
+    auto x = Eigen::Vector3d::Constant(.3 * .375).eval();
+    x[axis] = .3 * .5;
+    double reference;
+    Eigen::Vector3d reference_gradient;
+    ASSERT_TRUE(grid.eval(x, &reference, &reference_gradient));
+    for (double coordinate : {.3 * (1 - 1e-9), std::nextafter(.3, 0.0)}) {
+      x[axis] = coordinate;
+      double value;
+      Eigen::Vector3d gradient;
+      ASSERT_TRUE(grid.eval(x, &value, &gradient));
+      EXPECT_EQ(value, reference);
+      EXPECT_EQ(gradient[axis], 0.0);
+      EXPECT_TRUE((gradient.array() == reference_gradient.array()).all());
+    }
+    x[axis] = .3;
+    double value;
+    Eigen::Vector3d gradient;
+    EXPECT_FALSE(grid.eval(x, &value, &gradient));
+  }
+}
+
 TEST(InTenLoamPaper, TracksForwardMotionAtFullScale) {
   InTenLoamPaper odo;
   std::vector<Eigen::Vector3d> pts;

@@ -1,0 +1,41 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree",
+    "localization-zoo-dev",
+    "ldd",
+    "/workspace/localization-env/inten-dense-continuation-20261022/probe"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "bb998483e594b589fee8290ed7921a6570b20703",
+  "started_unix": 1792674807.9142542,
+  "finished_unix": 1792674807.9989307,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

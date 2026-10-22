@@ -1,0 +1,12 @@
+{
+  "failed_head": "bb8b46cc3e02371322eb86e4adbc1901ade8e2b0",
+  "failed_run": 39754746673,
+  "failed_job": 119743806247,
+  "failure_preserved_before_fix": "39472eeee9d8e6757227576036e6130bda8c651b",
+  "scope": "Recorded report equivalence only. Native producer, raw evidence, reported numbers, metric definitions, gate, reconstruction and original numeric tolerances remain unchanged.",
+  "fix": "Allow CPU-dependent selection among maxima only after independently validating BOTH witnesses against their actual reconstructed faces and confirming BOTH attain the maximum within the original frozen tolerance. Compare every other report field unchanged. Reject invented witnesses, changed values/labels and real non-maxima.",
+  "source_sha256": {
+    "experiments/results/inten_intensity_normalized/check_recorded.py": "278fe9250e3c113550e0c1a6a52a5fc515db25052898ce7657e192913f0ee85c",
+    "tests/test_inten_intensity_normalized.py": "b8de379ef8a47597322b6de52708c5c30971de479b60fd5ed5a1c7b9db346052"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "feature_cache_private": "/workspace/localization-env/inten-zero-consensus-control/features_08.txt",
+      "sha256": "73eb65e3b8644a0d2b9300f1d9a62bbb646a3c73dad72925621016e294f7f4dc",
+      "bytes": 80595122,
+      "no_feature_cache_committed": true
+    },
+    {
+      "offline_gt": "experiments/results/inten_consensus_query_acceleration/sequences/08/candidate/dogfooding_results/velodyne_evaluated_gt.txt",
+      "sha256": "da57c9ef11c7478f5e86f72b0762a071bf0c57e11d5c998fdb2be02c7336e379"
+    }
+  ],
+  "frames": [
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "entry_frames": [
+    39,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "truth_is_offline_only": true,
+  "feature_cache_sha256": "73eb65e3b8644a0d2b9300f1d9a62bbb646a3c73dad72925621016e294f7f4dc"
+}

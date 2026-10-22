@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-nonfacade-consensus-support/worktree/experiments/results/inten_nonfacade_consensus_support/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-nonfacade-consensus-support/validation_stage/reconstructed.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-nonfacade-consensus-support/worktree",
+  "source_commit": "82c98752164812446621bb868504a39a2bf0f069",
+  "started_unix": 1792642538.5934255,
+  "finished_unix": 1792642543.549065,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

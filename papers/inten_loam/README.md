@@ -2251,3 +2251,33 @@ length alone understated the inherited direction error. The frozen gate fails;
 no new recursive trial, trajectory/RTE/paper-ratio claim or default change.
 Every native command exited0; raw scans were fetched/deleted one sequence at a
 time only after complete archival, round-trip checks, numerical commit and push.
+
+### Native non-facade common-support veto: rejected
+
+The [native common-support study](../../experiments/results/inten_nonfacade_consensus_support/README.md)
+compares unchanged consensus proposals against the original joint estimate using
+fixed original line/plane support and the previous intensity field. It requires
+lower non-facade Huber loss and complete original reflector coverage. All31
+inherited endpoints,93 terminal calls and62 separately frozen passive attribution
+queries are retained. Original/old controls are exact. This outside-paper diagnostic
+adds no production option; its frozen gate fails. Numerical `82c98752` precedes
+interpretation. All past KITTI observations remain development.
+
+| Conditional history / endpoint | Original length/GT | Old consensus length/GT | Guard length/GT | Outcome |
+|---|---:|---:|---:|---|
+| original01 / 204 | 0.607064 | 1.002040 | 0.607064 | necessary rescue vetoed |
+| original01 / 205 | 0.372446 | 0.954865 | 0.372446 | necessary rescue vetoed |
+| actual candidate01 / 426 | 0.966919 | 0.054142 | 0.966919 | harmful proposal vetoed |
+| actual candidate02 / 1891 | 0.199499 | 0.980923 | 0.199499 | necessary rescue vetoed |
+| actual candidate02 / 1892 | 1.015129 | 0.125855 | 0.125855 | collapse accepted with complete support |
+| actual candidate08 / 39 | 0.801802 | 0.704652 | 0.704652 | length damage remains |
+
+At02/1892, edge Huber loss rises0.037364→0.367419 and ground0.300246→0.350088,
+but reflector loss falls2.806192→2.396195, so total3.143803→3.113702 accepts a
+wrong motion; vector error/GT worsens0.022428→0.874305. Non-facade features are
+not verified static evidence. Passive re-association also exposes fixed-support
+bias:204 proposal edge loss6.685981 becomes1.810439 with counts66→59;205
+9.323254 becomes1.251646 with counts88→64. Changed supports prevent interpreting
+raw sums as an accuracy winner. Even fresh204 mean edge loss worsens despite
+its true-motion rescue. Next examine longitudinal information, intensity ambiguity
+and support changes; no further full recursive run or new accuracy claim follows.

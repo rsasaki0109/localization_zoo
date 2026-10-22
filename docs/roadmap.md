@@ -642,6 +642,19 @@ independent. Each item says what "done" means.
     full-score claim, threshold retuning or paper-table change. Numerical
     `883aa3d6` precedes interpretation; every prior KITTI observation is development.
 
+
+    The [native non-facade support veto](../experiments/results/inten_nonfacade_consensus_support/README.md)
+    also fails its prospective gate: all31 endpoints/93 terminal calls and62
+    passive attribution queries remain. It loses204/205 and02/1891 rescues,
+    yet accepts02/1892 length/GT1.015129→0.125855 with complete support because
+    reflector-loss improvement outweighs worsening edge/ground losses.
+    Passive fresh association exposes original-support bias and changed counts;
+    raw loss decrease is not a motion-accuracy witness. Next inspect longitudinal
+    information, intensity ambiguity and support changes in accepted-reference
+    failures rather than promote another aggregate-loss safeguard. No production
+    option, relaxed gate, recursive trial or paper-table change. Numerical
+    `82c98752` precedes interpretation; every prior KITTI observation is development.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

@@ -1,0 +1,159 @@
+{
+  "exit_code": 0,
+  "groups": {
+    "old": {
+      "cases": 8,
+      "gate_passed": false
+    },
+    "01": {
+      "cases": 6,
+      "gate_passed": false
+    },
+    "02": {
+      "cases": 8,
+      "gate_passed": false
+    },
+    "08": {
+      "cases": 9,
+      "gate_passed": false
+    }
+  },
+  "native_terminal_calls": 93,
+  "passive_attribution_queries": 62,
+  "primitives_verified": 89460,
+  "gate_passed": false,
+  "failed_gate_checks": [
+    {
+      "group": "old",
+      "frame": 200,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 202,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 203,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 204,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 205,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "group": "01",
+      "frame": 810,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "02",
+      "frame": 1889,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "02",
+      "frame": 1892,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "02",
+      "frame": 1892,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 38,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 39,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 39,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 40,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 41,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 41,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 44,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 44,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 45,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 45,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 46,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 46,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    }
+  ],
+  "all_controls_exact": true,
+  "all_geometry_hg_robust_losses_and_native_decisions_reconstructed": true,
+  "all_archives_byte_verified": true,
+  "all_passive_queries_no_pose_update": true,
+  "original_query_parity_bitwise": true,
+  "production_and_history_preserved": true
+}

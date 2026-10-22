@@ -93,3 +93,15 @@ that same verifier. `transport_recovery_protocol.json` pins the adapter, packer,
 unchanged scientific protocol and original raw hashes. No query, outcome, failed
 case or validation condition was dropped. All original inputs, binaries and
 libraries remain, with no new sensor scans or package installation.
+
+Final local verification is committed `3a5b7b4d`: Python400 tests return0 with
+five existing environment skips. Haswell/Sandybridge reconstructions both exit0
+and match the committed report with the original1e-10 relative/1e-12 absolute
+tolerances. Showcase, leaderboard, paper-ready and complete case regeneration
+checks return0. Full-variant/paper-ratio regeneration is byte-identical;
+production core/header/runner/tests, fixture golden, paper metadata, site,
+root README and every older experiment remain byte-identical to `bab6ec9e`.
+Complete commands/logs/reports are in `checks/final/` and `checks/final_driver/`.
+The standalone comparison figure uses only committed `f22127ab`/`7b398407`
+reports and retains all31 endpoints; its generator, actual exit0 and artifact
+hashes are in `checks/plot/`. Both candidates' failed guards remain explicit.

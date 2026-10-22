@@ -42,3 +42,9 @@ frame IDs. The portable guard allows one printed decimal quantum plus eight
 floating-point ULPs, declared from the converter's10-decimal serialization.
 This changes no motion-error gate, sensor configuration or numerical tolerance
 in any historical study. All KITTI observations remain development evidence.
+
+The subsequent full local Python400-test run exits0 with five existing
+environment skips, including this audit's four tests; complete evidence is
+committed `3a5b7b4d` under sibling `inten_reciprocal_support/checks/final/`.
+Its preservation check also confirms all committed GT data and older results
+remain unchanged. No calibration or motion correction is introduced.

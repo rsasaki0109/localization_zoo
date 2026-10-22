@@ -54,6 +54,8 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Re-download frames even when their size matches the ZIP metadata.",
     )
+    parser.add_argument("--frame", action="append", type=int,
+                        help="Fetch only this original frame index; repeatable, one sequence only.")
     return parser.parse_args()
 
 
@@ -86,6 +88,28 @@ def select_sequence_infos(infos: Iterable[ZipInfo], sequence: str) -> list[ZipIn
             "the selective range extractor must be updated."
         )
     return selected
+
+
+def select_frame_infos(infos: Sequence[ZipInfo], frames: Sequence[int]) -> list[ZipInfo]:
+    """Validate every requested index before any scan is downloaded."""
+    if not frames or any(frame < 0 or frame > 999999 for frame in frames):
+        raise ValueError("--frame must be between 0 and 999999")
+    wanted = {f"{frame:06d}.bin" for frame in frames}
+    selected = [info for info in infos if Path(info.filename).name in wanted]
+    found = {Path(info.filename).name for info in selected}
+    if found != wanted:
+        raise ValueError("Requested frames missing from sequence: " + ", ".join(sorted(wanted - found)))
+    return selected
+
+
+def contiguous_frame_runs(infos: Sequence[ZipInfo]) -> list[list[ZipInfo]]:
+    """Separate sparse selections so a Range stream never spans unrequested frames."""
+    runs: list[list[ZipInfo]] = []
+    for info in infos:
+        if not runs or int(Path(info.filename).stem) != int(Path(runs[-1][-1].filename).stem) + 1:
+            runs.append([])
+        runs[-1].append(info)
+    return runs
 
 
 def partition_infos(infos: Sequence[ZipInfo], workers: int) -> list[list[ZipInfo]]:
@@ -132,13 +156,13 @@ def copy_exact_with_crc(stream: BinaryIO, output: BinaryIO, byte_count: int) -> 
     return checksum & 0xFFFFFFFF
 
 
-def write_index_timestamps(velodyne_dir: Path, frame_count: int) -> None:
+def write_index_timestamps(velodyne_dir: Path, frame_count: int, frames: Sequence[int] | None = None) -> None:
     path = velodyne_dir / "frame_timestamps.csv"
     temporary = path.with_suffix(".csv.part")
     with temporary.open("w", newline="") as handle:
         writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(["frame", "timestamp"])
-        writer.writerows((index, index) for index in range(frame_count))
+        writer.writerows((index, index) for index in (range(frame_count) if frames is None else frames))
     os.replace(temporary, path)
 
 
@@ -161,7 +185,7 @@ def extract_sequence_range(
     first_offset = needed[0].header_offset
     last = needed[-1]
     estimated_end = last.header_offset + 30 + len(last.filename.encode()) + len(last.extra)
-    estimated_end += last.compress_size + 4096
+    estimated_end += last.compress_size
     request = urllib.request.Request(
         url,
         headers={"Range": f"bytes={first_offset}-{estimated_end - 1}"},
@@ -251,6 +275,8 @@ def main() -> int:
         sequences = normalize_sequences(args.sequence)
     except ValueError as error:
         raise SystemExit(str(error)) from error
+    if args.frame is not None and len(sequences) != 1:
+        raise SystemExit("--frame requires exactly one --sequence")
     if args.workers < 1:
         raise SystemExit("--workers must be at least 1")
 
@@ -262,13 +288,16 @@ def main() -> int:
 
     for sequence in sequences:
         infos = select_sequence_infos(all_infos, sequence)
+        if args.frame is not None:
+            infos = select_frame_infos(infos, args.frame)
         total_gib = sum(info.file_size for info in infos) / (1024**3)
         print(
             f"KITTI {sequence}: {len(infos)} frames, {total_gib:.2f} GiB",
             flush=True,
         )
-        chunks = partition_infos(infos, args.workers)
-        with ThreadPoolExecutor(max_workers=len(chunks)) as executor:
+        chunks = (partition_infos(infos, args.workers) if args.frame is None else
+                  [chunk for run in contiguous_frame_runs(infos) for chunk in partition_infos(run, args.workers)])
+        with ThreadPoolExecutor(max_workers=min(args.workers, len(chunks))) as executor:
             counts = list(
                 executor.map(
                     lambda chunk: extract_sequence_range(
@@ -282,7 +311,8 @@ def main() -> int:
         velodyne_dir = (
             output_root / "dataset" / "sequences" / sequence / "velodyne"
         )
-        write_index_timestamps(velodyne_dir, len(infos))
+        write_index_timestamps(velodyne_dir, len(infos), None if args.frame is None else
+                               sorted(int(Path(info.filename).stem) for info in infos))
         print(
             f"KITTI {sequence}: extracted={extracted}, reused={skipped}, "
             f"path={velodyne_dir}",

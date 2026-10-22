@@ -2281,3 +2281,40 @@ bias:204 proposal edge loss6.685981 becomes1.810439 with counts66→59;205
 raw sums as an accuracy winner. Even fresh204 mean edge loss worsens despite
 its true-motion rescue. Next examine longitudinal information, intensity ambiguity
 and support changes; no further full recursive run or new accuracy claim follows.
+
+### Native intensity-field continuity defect (passive audit)
+
+The [native continuity audit](../../experiments/results/inten_intensity_continuity/README.md)
+confirms that query-stencil mean fill does not define a continuous cubic field
+across valid sparse cells. The unmodified public native grid reproduces all
+17658 inherited endpoint values/coverage and original reflector gradients.
+All31 endpoints and8829 original-valid reflector paths remain, including rescues,
+adverse proposals and zero-displacement fallbacks. Numerical `63951376` precedes
+this interpretation; the original profile07, diagnosis00, borrowed DiLO01 prior
+and every later KITTI observation remain development evidence.
+
+| Native control / conditional history | Both-valid crossed faces | Jumps above1e-8 | Largest absolute intensity jump |
+|---|---:|---:|---:|
+| sparse nonconstant synthetic, each axis | 1 | 1 | 0.023746193 |
+| dense ramp synthetic, each axis | 1 | 0 | 0.000000000 |
+| sparse constant synthetic, each axis | 1 | 0 | <1e-12 |
+| original01 / 204 | 993 | 985 | 0.134201627 |
+| original01 / 205 | 1430 | 1404 | 0.163630951 |
+| actual candidate02 / 1892 | 1142 | 1141 | 0.072155544 |
+| all inherited real fields | 15763 | 15428 | 0.163630951 |
+
+All208565 real native queries reconstruct independently. All26487 within-cell
+derivative controls pass, with maximum absolute error2.912435e-10. Cell-interior
+gradients are correct; discontinuity occurs when shared empty control points
+receive different means after the stencil changes. Of16138 crossed faces,
+184 have only one valid side and191 neither; these negative support controls
+are retained. All three-node synthetic supports remain invalid. The complete
+[sequence/endpoint table](../../experiments/results/inten_intensity_continuity/cases.md)
+retains every result.
+
+This establishes a representation defect, not how much it caused trajectory
+collapse or that a remedy improves motion. No production source, option, default,
+old result or paper-table value changes. The next candidate must define consistent
+controls and an explicit coverage policy, remain opt-in/default-off, and pass
+native invariants plus every inherited rescue/adverse control before any fresh
+fixed-setting full KITTI00-10 trial. The rejected consensus gates stay rejected.

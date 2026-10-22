@@ -1,0 +1,8 @@
+{
+  "recorded_commit": "63951376",
+  "note": "Native science ran at a clean frozen commit. During initial local analysis/regressions these verifier/test files were working-tree additions/edits; exact contents are identified here. No source edits occurred during these checks.",
+  "sha256": {
+    "experiments/results/inten_intensity_continuity/verify.py": "6863e7db6f549132402639ea4bacd10bb453310ffb4d3323da589f19683f301e",
+    "tests/test_inten_intensity_continuity.py": "1fc873a78b93c2eaedbf23d25fc2335c9f30ebacde8c3240d909e8162f23e98f"
+  }
+}

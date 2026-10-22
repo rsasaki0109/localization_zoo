@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/generate_paper_ready_evidence.py",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-intensity-continuity/worktree",
+  "source_commit": "65ea954c68af0333d66e76583d6cbc9cb4f87e02",
+  "started_unix": 1792647809.5020144,
+  "finished_unix": 1792647809.5313182,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

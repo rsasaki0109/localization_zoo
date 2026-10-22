@@ -1,0 +1,27 @@
+{
+  "parent_commit": "d06da85afdebaac6287b2bd251e27b168edf98bd",
+  "hypothesis": "Legacy query-stencil mean fill may assign inconsistent missing cubic control values across adjacent cells, causing C0 and derivative discontinuities. This is an untested hypothesis, not yet an observed defect.",
+  "scope": "Passive public native IntensityGrid only; exact production source compiled unmodified. No optimizer/GT/pose update, option or default change, accuracy/paper/speed claim.",
+  "inputs": "All31 inherited PR170 endpoints including untouched fallbacks. Same previous-frame PaperFrame.all cloud, original order, intensity and unchanged native intensity_knot0.3. Paths cover ALL originally valid reflector source primitives at joint pose translated by old proposal minus joint. Invalid-at-origin reflectors are outside this conditional support; no subset chosen by new outcomes.",
+  "history": "Original profile07, diagnosis00, inherited DiLO01 prior0.03 and ALL subsequent KITTI development. Original8 are conditional reference histories; new01/02/08 are rejected recursive candidate histories. No held-out/generalization claim.",
+  "synthetic": "For each axis: dense ramp, sparse nonconstant ramp, sparse constant, invalid support under4 controls. No synthetic GT input; fixed synthetic lattice and queries declared in probe.cpp.",
+  "queries": "Every integer cell face strictly crossed by every path, including negative coordinates and all axes. At each face use lattice epsilon1e-3,1e-6,1e-9 and nextafter neighbors adjusted up to16ULP to ensure distinct adjacent cells. Fixed interior position fractional0.375 with central difference step1e-5*knot. Equal endpoints/fallbacks retained with zero crossings.",
+  "verification": "Independently reconstruct every observed native value and analytic gradient from all lattice node sums/counts. Reconstruct one-sided exact cell-polynomial limits at every crossed face. Native nearest-neighbor-side difference must agree with reconstructed limit difference. Native original/candidate endpoint values must reproduce prior observations; gradient scale is explicit. Dense ramp and sparse constant controls continuous; within-cell gradients agree with finite differences. Preserve all invalid/mixed/valid/zero-jump outcomes.",
+  "tolerances": {
+    "reconstruction_rtol": 1e-10,
+    "reconstruction_atol": 1e-12,
+    "finite_difference_atol": 1e-08,
+    "jump_classification_abs": 1e-08,
+    "control_continuity_abs": 1e-12
+  },
+  "interpretation": "A positive native sparse limit jump with passing dense/constant/within-cell controls establishes a representation discontinuity, not causation of trajectory collapse or superiority of a remedy. No new candidate/gate, no full run triggered by this audit alone.",
+  "source_sha256": {
+    "experiments/results/inten_intensity_continuity/probe.cpp": "5daf5f5883e868137d369b25983de83b78a628d6c1336c3395a4a1659c12fc5e",
+    "experiments/results/inten_intensity_continuity/common.py": "9821b369fe1d06160a7905248fcad7c8c4e7cc3b6953a99073d2d8ebbef739dc",
+    "experiments/results/inten_intensity_continuity/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_intensity_continuity/build.py": "7f434c50b02acc590e3f6996a18ad8e247846dd886580168fa0e7fe823280c52",
+    "experiments/results/inten_intensity_continuity/run.py": "b8929e55c7e88c2632038d7c0aec0b9164f7584052249bc0768fa6eac1b35e1e",
+    "papers/inten_loam/src/inten_loam_paper.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "1106a51ecec5cf4e259671401839edb0588e6c077f433f9a200bd28f266778c3"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_prior_control/verify.py",
+    "--output",
+    "/tmp/localization-zoo-inten-prior-control-20261023/original_summary.json"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "7024571f9ecac94a5f588729cade07aae18ec809",
+  "started_unix": 1792692629.3679936,
+  "finished_unix": 1792692643.9598906,
+  "exit_code": 1,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

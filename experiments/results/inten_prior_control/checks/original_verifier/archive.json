@@ -1,0 +1,30 @@
+{
+  "files": {
+    "frozen_verify.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/original_verifier/frozen_verify.stderr.log",
+      "bytes": 1454,
+      "sha256": "517363a5f1955e24a428b290c5a3d468ec5ebcc58469a46da172dec5475d48eb",
+      "storage": "gzip",
+      "path": "frozen_verify.stderr.log.gz",
+      "stored_sha256": "9996386b2aa641ad02bd226e8e348d5c35a81cab60fdb6602fcf70d3520c50af"
+    },
+    "frozen_verify.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/original_verifier/frozen_verify.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "frozen_verify.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "frozen_verify_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/original_verifier/frozen_verify_command.json",
+      "bytes": 788,
+      "sha256": "ebd26b3bf9779ed19e8e46e8360d134f11b5a71406f521b38b39e63506234860",
+      "storage": "verbatim",
+      "path": "frozen_verify_command.json",
+      "stored_sha256": "ebd26b3bf9779ed19e8e46e8360d134f11b5a71406f521b38b39e63506234860"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -688,6 +688,23 @@ independent. Each item says what "done" means.
     the zero-weight holes and retains every rescue/adverse case. Smooth covered
     interpolation alone has not remedied the motion failures.
 
+
+    The [fixed-node completion trial](../experiments/results/inten_intensity_consistent/README.md)
+    now addresses the remaining zero-weight holes, S2S-only/default-off and
+    outside the paper. Radius three follows from cubic support; observed means
+    are unchanged, missing values use original observations without cascading.
+    Every31 endpoint runs all6 arms (186 outcomes); four replay and five field
+    processes exit0. All124 inherited legacy/normalized traces match exactly.
+    All208565 queries reconstruct; all15763 both-valid faces, including the
+    previous five holes, have no intensity/gradient jump above1e-8. Mixed184
+    and neither-valid191 count-coverage faces remain. Motion gate still fails:
+    joint length error4.741213404→4.804046127 and vector error
+    14.083975645→14.133971193 worsen; bad labels stay7/14. Original247
+    length/GT worsens0.522727335→0.464794342. Numerical `6eec3472` precedes
+    interpretation. All prior KITTI is development. No full run or paper-table
+    change. Next isolate the remaining motion/geometry failure with all controls;
+    consistent sparse interpolation alone has not resolved it.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

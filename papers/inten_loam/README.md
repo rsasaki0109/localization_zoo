@@ -2376,3 +2376,45 @@ retained. Recorded-report comparison now verifies both face witnesses against
 the independently reconstructed boundaries and the same original maximum bound.
 Metrics, stored evidence, numeric tolerances and the failed motion gate are
 unchanged; invented witnesses and real non-maxima remain errors.
+
+### Fixed-node S2S completion: continuous field, negative motion result
+
+The [fixed-node trial](../../experiments/results/inten_intensity_consistent/README.md)
+adds `--inten-loam-paper-set s2s_intensity_consistent=1`, opt-in/default-off and
+S2S-only, outside the paper. Observed node means stay unchanged. Missing nodes
+average original observed-node means within three lattice steps per axis; this
+radius follows from cubic support, with no recursive filling or sequence tuning.
+The ordinary cubic gradient is used. A thread-safe per-cell cache preserves the
+query-independent definition, copy semantics and rebuild reset. Conflicting
+normalized/consistent flags throw before estimator updates. S2M stays legacy.
+
+Numerical `6eec3472` precedes interpretation. All31 inherited endpoints run all6
+arms (186 outcomes in four exit0 replay processes); five field processes exit0.
+Every124 legacy/normalized complete control trace is identical to the parent.
+All208565 real queries reconstruct independently. All15763 both-valid faces
+have no value or gradient limit jump above1e-8, including the five former
+zero-weight holes; maximum jumps1.110223025e-16 and1.942890293e-16. All184 mixed
+and191 neither-valid count-coverage faces remain recorded. This is continuous
+on the covered neighboring cells, not a claim of validity everywhere.
+
+| Complete conditional joint comparison | Legacy | Fixed-node |
+|---|---:|---:|
+| Bad length / bad vector endpoints | 7 /14 | 7 /14 |
+| Sum absolute length-ratio error | 4.741213404 | 4.804046127 |
+| Sum vector error /GT step | 14.083975645 | 14.133971193 |
+| Sum rotation error [rad] | 0.059478496 | 0.058919262 |
+| original01/247 length/GT | 0.522727335 | 0.464794342 |
+| original01/204 length/GT | 0.607064437 | 0.606566380 |
+| original01/205 length/GT | 0.372445688 | 0.371744129 |
+| actual08/39 length/GT | 0.801801894 | 0.801362892 |
+
+No new bad labels appear and original consensus rescues stay non-bad. Total
+length and vector errors still worsen, failing the frozen gate. Original247
+worsens despite the smoother field. Actual02/1892 rejected consensus still
+collapses (length/GT0.125854888→0.124100291). All favorable, adverse and fallback
+outcomes are retained in the [complete table](../../experiments/results/inten_intensity_consistent/cases.md).
+This fixes the covered-field inconsistency, but is rejected as a collapse remedy;
+no new full KITTI, RTE, paper ratio or default promotion follows. Original07/00,
+DiLO01 prior0.03 and all later KITTI are development. Existing results and Table6
+stay unchanged. Next isolate the motion/geometry failure on original247 while
+retaining every other control; interpolation continuity alone was insufficient.

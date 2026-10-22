@@ -2218,3 +2218,36 @@ The initial Native CI passed its build, CTest and fixture checks, then the new P
 Forced Haswell/Sandybridge kernels reproduced 21/32 strict differences among 137424 comparisons each; maximum absolute differences were 2.42728059873798e-12/2.352229522273319e-12. Every original label, stage count and native metric remained exactly equal. These measured probes were committed before the correction.
 
 The internal comparison now uses the same already documented portable bound as the complete-report verifier: relative 1e-10, absolute 1e-12. This is a verification tolerance, not a motion-label threshold or estimator parameter. All original scientific report bytes are SHA-256 pinned and retained unchanged; original diagnostic/test source bytes and the original protocol are preserved. `../../experiments/results/inten_consensus_failure_origin/portability_source_update.json` records the explicit source amendment and measured evidence. Regression tests accept the reproduced roundoff and reject a substantially different ratio. Actual corrected kernel/full-suite command exits are retained under `../../experiments/results/inten_consensus_failure_origin/checks/portability_correction/`. The original probe commands reproduce at their recorded source commit; the current diagnostic uses the bounded correction.
+
+### Native zero-majority safeguard: rejected
+
+The [prospective native controls](../../experiments/results/inten_zero_consensus_control/README.md)
+test keeping zero shift whenever it already has strict-majority cluster support,
+then recomputing the facade mask and really refining translation at the original
+estimated rotation. This is a diagnostic outside-paper intervention; it adds no
+production option. All31 endpoints/248 calls,8 factorial modes, original-history
+rescues/fallbacks, every new immediate-damage entry and preceding controls remain
+available. Exact original/old-consensus same-history solver parity is required.
+Numerical `883aa3d6` precedes this interpretation; all prior KITTI observations
+remain development (original07/00/DiLO01 provenance included).
+
+| Conditional history | Endpoint | Old length/GT | New length/GT | Old vector error/GT | New vector error/GT |
+|---|---:|---:|---:|---:|---:|
+| original01 | 200 | 1.002987 | 1.005762 | 0.008546 | 0.010444 |
+| original01 | 202 | 0.952965 | 0.934458 | 0.047452 | 0.065800 |
+| original01 | 203 | 0.965060 | 0.961275 | 0.037781 | 0.041354 |
+| original01 | 204 | 1.002040 | 0.999256 | 0.007531 | 0.007153 |
+| actual candidate01 | 426 | 0.054142 | 0.990705 | 1.052997 | 0.013023 |
+| actual candidate02 | 1891 (preceding control) | 0.980923 | 0.196111 | 0.026097 | 0.803917 |
+| actual candidate08 | 39 | 0.704652 | 0.704652 | 1.029104 | 1.029104 |
+
+All7 immediate01/02 length collapses become non-bad, and204/205 rescues plus247/433
+fallbacks remain. However200/202/203 worsen versus old consensus,02/1891 becomes
+newly bad, and none of7 immediate08 length-damage entries is fixed. At02/1891,
+old seed-only reaches0.981551 while old mask-only reaches0.198159: the correction
+is necessary there despite zero-majority support. At08/39 zero was already the
+old chosen shift; original joint length/GT0.801802 had vector error1.122369, so
+length alone understated the inherited direction error. The frozen gate fails;
+no new recursive trial, trajectory/RTE/paper-ratio claim or default change.
+Every native command exited0; raw scans were fetched/deleted one sequence at a
+time only after complete archival, round-trip checks, numerical commit and push.

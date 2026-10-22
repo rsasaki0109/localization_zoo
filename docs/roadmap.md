@@ -628,6 +628,20 @@ independent. Each item says what "done" means.
     recursive trial. GT remains offline diagnostic only.
     Numerical `f391d551` precedes interpretation.
 
+
+    The [native zero-majority safeguard](../experiments/results/inten_zero_consensus_control/README.md)
+    is rejected by its frozen gate. All31 conditional endpoints/248 native calls
+    preserve exact original/old-consensus same-history controls and every outcome.
+    All7 immediate01/02 length collapses improve to non-bad, but original200/202/203
+    worsen, actual02/1891 newly collapses0.980923→0.196111 length/GT, and none of7
+    immediate08 entries is fixed. At02/1891 the old seed-only correction rescues
+    the already-short joint estimate, despite zero-majority support. At08 zero
+    can already be selected while direction/history is poor. Next distinguish
+    harmful cancellation from necessary correction using estimated inputs; retain
+    these adverse controls before any new recursive trial. No production option,
+    full-score claim, threshold retuning or paper-table change. Numerical
+    `883aa3d6` precedes interpretation; every prior KITTI observation is development.
+
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is
     found that upstream also lacks.

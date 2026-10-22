@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_gt_input_audit/verify.py",
+    "--output",
+    "/tmp/localization-zoo-inten-gt-audit-20261022/portable_summary.json"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "4c3d972bf6838d29b76f84169e7681ac328141e1",
+  "started_unix": 1792682346.262007,
+  "finished_unix": 1792682347.8968284,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

@@ -1,0 +1,97 @@
+{
+  "exit_code": 0,
+  "sequences": [
+    {
+      "sequence": "00",
+      "converter_exit_code": 0,
+      "poses": 4541,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    },
+    {
+      "sequence": "01",
+      "converter_exit_code": 0,
+      "poses": 1101,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    },
+    {
+      "sequence": "02",
+      "converter_exit_code": 0,
+      "poses": 4661,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    },
+    {
+      "sequence": "03",
+      "converter_exit_code": 0,
+      "poses": 801,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    },
+    {
+      "sequence": "04",
+      "converter_exit_code": 0,
+      "poses": 271,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    },
+    {
+      "sequence": "05",
+      "converter_exit_code": 0,
+      "poses": 2761,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    },
+    {
+      "sequence": "06",
+      "converter_exit_code": 0,
+      "poses": 1101,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": false
+    },
+    {
+      "sequence": "07",
+      "converter_exit_code": 0,
+      "poses": 1101,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    },
+    {
+      "sequence": "08",
+      "converter_exit_code": 0,
+      "poses": 4071,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    },
+    {
+      "sequence": "09",
+      "converter_exit_code": 0,
+      "poses": 1591,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": false
+    },
+    {
+      "sequence": "10",
+      "converter_exit_code": 0,
+      "poses": 1201,
+      "numeric_exact": true,
+      "max_numeric_difference": 0.0,
+      "byte_identical": true
+    }
+  ],
+  "source": "Official pose/calibration archives, unchanged converter with Tr applied on the right",
+  "no_gt_correction": true,
+  "no_estimator_execution": true,
+  "no_sensor_scans": true
+}

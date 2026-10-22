@@ -1,0 +1,29 @@
+{
+  "parent_commit": "a4bb9bf1f09adefcc9ea80c631b56c3ead68fc0c",
+  "hypothesis": "A native consensus proposal must decrease exact robust common-support loss of non-facade feature classes at the original joint estimated rotation. Native original queries freeze line/plane associations; compare exact residuals at the proposed translation. Reflectors use the same original source features and unchanged previous-frame intensity field. A missing candidate field sample vetoes; no sample can disappear to lower cost.",
+  "decision": "After unchanged old consensus refinement, before accepting it inside native process: require original non-facade support nonempty, all its candidate residuals finite/evaluable, and sum of exact Huber rho over edge/ground/reflector classes strictly smaller than at original joint. Existing huber and intensity scale only; facades/prior never decide veto. Equal cost returns original. Old finite>=30/usable/interior/majority fallbacks remain.",
+  "scope": "Diagnostic native executable only, explicitly enabled by replay mode2. No production/API/default/old-option change, no new full trajectory/RTE/paper claim. Original and old consensus controls mode0/1 must reproduce exactly. No GT in executable or decision.",
+  "history": "All31 PR169 endpoints, same previous/current complete feature caches and ACTUAL estimated input seeds. Old original8 plus all new candidate01/02/08 damage entries and deterministic preceding controls, no cases dropped. Original profile07, diagnosis00, borrowed DiLO01 prior0.03; ALL prior KITTI development disclosed. No held-out claim.",
+  "gate": "NEW hypothesis and reference, frozen before measurements; PR169 remains rejected under its original gate. Require no higher absolute length error OR vector error than original JOINT at ANY31 endpoints (rel1e-10/abs1e-12 portable offline comparison). Retain all old six rescues versus joint and no worse than OLD consensus at every original8 endpoint; both old fallbacks remain bitwise joint. No newly bad length/vector label relative original joint anywhere. Every control/trace/geometry/primitive/cost/decision/rotation must validate before interpretation. Do not relax after results. Failure rejects promotion/full recursive run. Even passing local feasibility does not establish recursive improvement; separate fixed full00\u201310 required. All08 length/vector tradeoffs explicitly retained, not relabeled good.",
+  "intervention": "Passive native query at original final joint pose: same tree/native queries, original associations/normal/line/field, no adaptive prior, no optimizer step. Serialize rows in original feature order; serial observer uses the same built trees while normal controls retain their acceleration path. Query cannot change pose. Freeze exact original line/plane geometry; evaluate nonlinear point-to-line norm and signed plane residual at proposal. Full all-class H/g and IRLS residual reconstruct from observer rows; true Huber loss is a distinct reported guard objective. Full unchanged native cluster profiles computed once per pair and reused identically in both consensus arms; costs, native original/old full traces must match parent exactly.",
+  "acquisition": "No raw acquisition; reuse retained private caches only after verifying committed source/hash receipts. Do not delete/overwrite any old path, cache, build, binary or evidence. If caches unavailable, reacquire solely via official fetcher, one sequence at a time with numerical-push-before-delete lifecycle.",
+  "modes": {
+    "0": "original native joint",
+    "1": "unchanged old native consensus",
+    "2": "same native proposal with native common-support veto before acceptance"
+  },
+  "source_sha256": {
+    "papers/inten_loam/src/inten_loam_paper.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
+    "experiments/results/inten_nonfacade_consensus_support/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_nonfacade_consensus_support/build.py": "a440186d8c449594e1096cf16718c0164cfe1252735e5fe3fcd859897182320d",
+    "experiments/results/inten_nonfacade_consensus_support/instrument.py": "ef41080bd1647f62c54b03b3b81c1aac4179a6c85b59166c1065acc2e6335809",
+    "experiments/results/inten_nonfacade_consensus_support/common.py": "e535980502b591656abc5458955edf9c59da5547e6ae3922f035e244befc89b0",
+    "experiments/results/inten_nonfacade_consensus_support/probe.cpp": "c1c1255082d8fe7545b74a3019b5267431122bf7e5d0af8826103acd92100ca9",
+    "experiments/results/inten_nonfacade_consensus_support/policy_test.cpp": "08706ab64756894efff3ed1c93549322ff4c8125c77ae17057e172800b45676b",
+    "experiments/results/inten_nonfacade_consensus_support/diagnostic_native.cpp": "400dcd22671c8bfc406410156016be2c596b9f090924bb11cd2c2b18a863e1c4",
+    "experiments/results/inten_nonfacade_consensus_support/support_hooks.h": "9b7e59588b29895a3bba977d9a6f28a8d564bcda7427fd1664dd420f41d39620",
+    "experiments/results/inten_nonfacade_consensus_support/replay_hooks.h": "14488d537a2b88f6bf9a3cae6aa78927eba49c06d811e007670c83d261e4c427",
+    "experiments/results/inten_nonfacade_consensus_support/run.py": "91ab9847d0f655cf516e00aec5cc41dcbfc46955252af071cef09b4baecf38d5",
+    "experiments/results/inten_nonfacade_consensus_support/validate.py": "35aa30868b3c5a5f3a1cf5889a4bc7afc8d05cd8554833c8024baa1e595dde34"
+  }
+}

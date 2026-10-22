@@ -35,6 +35,17 @@ class FailureOriginTest(unittest.TestCase):
         self.assertEqual(m.crossing(True, True, True), 'joint_already_bad')
         self.assertEqual(m.crossing(True, True, False), 'joint_bad_to_accepted_good')
 
+    def test_measured_kernel_roundoff_accepted_but_real_drift_rejected(self):
+        import json, math
+        m = module('origin_portable_ratios', E/'analyze.py')
+        for kernel in ('Haswell', 'Sandybridge'):
+            probe = json.loads((E/'checks/portability'/(kernel+'.json')).read_text())
+            self.assertTrue(probe['strict_failures'])
+            for r in probe['strict_failures']:
+                self.assertFalse(math.isclose(r['committed'], r['reconstructed'], rel_tol=1e-12, abs_tol=1e-12))
+                self.assertTrue(m.ratio_agrees(r['committed'], r['reconstructed']))
+        self.assertFalse(m.ratio_agrees(1., 1.000001))
+
     def test_all_frozen_full_traces_reconstruct_report(self):
         m = module('origin_verification', E/'verify.py')
         self.assertEqual(m.validate(history=False)['exit_code'], 0)

@@ -29,6 +29,9 @@ def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def require(ok, reason):
     if not ok: raise ValueError(reason)
 def matrix(value): return np.asarray(value, dtype=float).reshape(4, 4)
+def ratio_agrees(left, right):
+    # Same portable bound as the complete-report verifier, not an accuracy gate.
+    return math.isclose(left, right, rel_tol=1e-10, abs_tol=1e-12)
 def write(path, value): path.write_text(json.dumps(value, indent=2, allow_nan=False)+'\n')
 
 
@@ -118,7 +121,7 @@ def analyze_mode(seq, mode, check_frame):
         for key in ('final_length_ratio', 'joint_s2s_length_ratio', 's2s_length_ratio'):
             target = {'joint_s2s_length_ratio': 'joint_length_ratio', 's2s_length_ratio': 'accepted_length_ratio'}.get(key, key)
             previous = old[i][key]
-            require((previous == '' and row[target] is None) or (previous != '' and math.isclose(float(previous), row[target], rel_tol=1e-12, abs_tol=1e-12)), 'Existing step ratio differs')
+            require((previous == '' and row[target] is None) or (previous != '' and ratio_agrees(float(previous), row[target])), f'Existing step ratio differs: {seq}/{mode}/{i} {key}: {previous} versus {row[target]}')
         n = c['valid_clusters'] if c else 0
         row.update(valid_clusters=n, chosen_index=c['best_index'] if c else None,
                    chosen_shift_m=(c['best_index']-60)*.05 if c else None,
@@ -152,7 +155,16 @@ def analyze_mode(seq, mode, check_frame):
 
 def build(output):
     protocol = read(E/'protocol.json')
-    for name, digest in protocol['source_sha256'].items(): require(sha(W/name) == digest, 'Frozen source changed: '+name)
+    update_path = E/'portability_source_update.json'
+    updates = read(update_path) if update_path.exists() else {}
+    for name, digest in protocol['source_sha256'].items():
+        amendment = updates.get('source_updates', {}).get(name)
+        if amendment:
+            require(amendment['original_sha256'] == digest and sha(W/amendment['original_copy']) == digest, 'Original frozen source not preserved: '+name)
+            digest = amendment['sha256']
+        require(sha(W/name) == digest, 'Frozen source changed: '+name)
+    for group in ('evidence_sha256', 'scientific_report_sha256'):
+        for name, digest in updates.get(group, {}).items(): require(sha(W/name) == digest, 'Portability evidence/result changed: '+name)
     for name, digest in protocol['input_sha256'].items(): require(sha(W/name) == digest, 'Frozen input changed: '+name)
     spec = importlib.util.spec_from_file_location('original_consensus_check', PARENT/'check_consensus_trace.py')
     checker = importlib.util.module_from_spec(spec); spec.loader.exec_module(checker)

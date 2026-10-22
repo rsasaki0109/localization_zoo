@@ -83,3 +83,12 @@ comparisons allow relative 1e-10 / absolute 1e-12 roundoff. Actual argv, cwd,
 source/environment and subprocess exits are archived in `analysis_execution/`
 and `checks/`. No test success is inferred from a log suffix. Native code,
 historical results, published defaults, Table 6 and paper metadata stay unchanged.
+
+
+## Portability correction after the initial CI failure
+
+The initial Native CI passed its build, CTest and fixture checks, then the new Python diagnostic failed an internal ratio comparison at relative/absolute 1e-12. The complete failure and successful ROS2 logs remain in `checks/ci_initial_failure/`.
+
+Forced Haswell/Sandybridge kernels reproduced 21/32 strict differences among 137424 comparisons each; maximum absolute differences were 2.42728059873798e-12/2.352229522273319e-12. Every original label, stage count and native metric remained exactly equal. These measured probes were committed before the correction.
+
+The internal comparison now uses the same already documented portable bound as the complete-report verifier: relative 1e-10, absolute 1e-12. This is a verification tolerance, not a motion-label threshold or estimator parameter. All original scientific report bytes are SHA-256 pinned and retained unchanged; original diagnostic/test source bytes and the original protocol are preserved. `portability_source_update.json` records the explicit source amendment and measured evidence. Regression tests accept the reproduced roundoff and reject a substantially different ratio. Actual corrected kernel/full-suite command exits are retained under `checks/portability_correction/`. The original probe commands reproduce at their recorded source commit; the current diagnostic uses the bounded correction.

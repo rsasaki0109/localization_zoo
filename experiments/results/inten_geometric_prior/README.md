@@ -6,7 +6,7 @@ yet established.** KITTI 01 attempts were interrupted by acquisition HTTP 503
 failures after 768, 128, 832 and 960 frames. Every nonempty disabled/reference
 prefix matches the archived full-precision facade-PCA trajectory exactly
 (maximum matrix difference 0). The latest independent
-[prefix audit](interrupted_audit_after_verified_batch.json) verifies every retained
+[prefix audit](interrupted_audit_after_tail_recovery.json) verifies every retained
 attempt's raw hashes, ordering and pose exports. The acquisition-only retries
 processed no frames and establish no estimator parity or accuracy. Every
 incomplete candidate output and failed command remains; none establishes a
@@ -158,14 +158,39 @@ No complete sequence is available. Even a successful real-batch preflight does
 not guarantee sustained transport; avoid repeated estimator restarts while
 the recorded acquisition failure remains unresolved.
 
-## Python validation: executed reconstruction and post-run audit
+The latest [attempt](commands/full_trial_after_tail_recovery.json) (`c960a788`)
+first acquires and hash-verifies all remaining 01 tail scans, frames 960–1100
+(`622b4bd2`), then restarts the frozen estimator from zero. Transport fails
+earlier this time: the run stops after 832 frames while fetching 832–895.
+Its [independent audit](interrupted_audit_after_tail_recovery.json) and
+[predeclared cases](adverse_cases_after_tail_recovery.json) (`b375dfbb`) retain
+exact reference parity and the same adverse-case diagnostics. The native exit
+is -9 because the controller stops the waiting process after acquisition fails.
+The next 01 restart must wait until the entire sequence's inputs are locally
+available and hash-verified; retain the already verified tail. This acquisition
+change does not change estimator settings or allow a mid-sequence state reset.
 
-The complete discovery in the recorded runtime runs 445 tests with one final
+## Python validation: complete fresh discovery
+
+The [fresh complete discovery](publication_final_discovery/) succeeds with
+**448 tests, five skipped, exit 0** (`a9f2991b`). It runs in the recorded
+Python/NumPy/SciPy environment, including the corrected nested source binding
+and every original numerical worker. All six documentation generation/check
+commands also exit 0; regenerated historical tables are byte-identical.
+The [independent artifact audit](fresh_discovery_audit.json) (`73edf50f`)
+checks command/log hashes, complete worker payloads and unchanged tested
+production/test sources. Worker outputs were captured during this execution,
+not recovered from historical expected answers. All four match the earlier
+executed payloads exactly. Full native/ROS2 CI is not claimed.
+
+### Earlier failures and separate post-run checks
+
+The earlier recorded-runtime discovery runs 445 tests with one final
 source-binding failure and five skips. Every numerical reconstruction worker
-passes. After fixing the remaining nested source binding, all 13 binding
-regressions and the original global audit pass separately, using exact outputs
-produced by that discovery. This is **not a fresh all-green discovery**, and
-full native/ROS2 CI is not claimed. Details and earlier failures follow.
+passes. After fixing the nested binding, all 13 binding regressions and the
+original global audit pass separately. Those checks alone did not establish
+a fresh all-green discovery; the complete execution above now supplies it.
+All earlier failures remain unchanged.
 
 The full discovery and all failures are preserved in
 [publication_retry/](publication_retry/). The isolated checkout initially lacked
@@ -250,6 +275,27 @@ nor replaces numerical reconstruction with an assumed answer. See
 The failed discovery remains unchanged; these separate passing checks do not
 rewrite its exit code or establish portability to the system NumPy/SciPy stack.
 
+### Same-version numerical build control
+
+The [CI-locked library witness](runtime_witness/ci_locked_libraries.json)
+(`576b6f1d`) also passes with Python 3.12.14, NumPy 1.26.4 and SciPy 1.15.3.
+This is a single-query control, not a second complete discovery in CI's environment.
+
+A further controlled comparison (`23ebd429`) keeps the same Python executable
+and Python 3.13.5 / NumPy 2.2.4 / SciPy 1.15.3 versions. The
+[system NumPy installation still fails](runtime_witness/system_control_repeat.json),
+while the [isolated PyPI NumPy wheel passes](runtime_witness/numpy2_same_versions.json).
+The SciPy installation stays at the same path. The saved
+[system build inventory](commands/system_build_inventory.stdout) and
+[wheel build inventory](commands/wheel_same_versions_build_inventory.stdout)
+show different numerical builds and BLAS/LAPACK dependencies. Changing the
+NumPy installation is sufficient to change this witness's verdict; version
+numbers alone do not explain it. This does not isolate the responsible compiler,
+BLAS, instruction path or operation. The Python 3.12 NumPy 2.2.4 wheel
+[also passes](runtime_witness/numpy2_control.json). Preserve original tolerances
+and build provenance rather than treating this as a NumPy-version-only failure.
+No trajectory improvement follows from these runtime controls.
+
 ## Reproduction and resumption
 
 Exact commands, working directories, commits and exits live in [commands/](commands/).
@@ -267,10 +313,13 @@ once for a given output directory. On a transport failure, preserve that entire
 attempt under `preflight_failures/`, then restart the affected sequence from
 frame zero with the unchanged binary/settings. Do not resume an estimator from
 an arbitrary scan with empty map/history.
-Before restarting after an outage, use the official fetch script to obtain a
-real input batch and check its archived hashes; a tiny range probe alone is not
-enough. Existing valid raw files can be reused, but estimator history still
-starts at frame zero and the controller verifies every input again.
+For the next 01 attempt, use the official fetch script to acquire the complete
+sequence before starting, after the memory-heavy checks finish. Verify every
+raw hash against the archived input manifest. A small range or successful batch
+has repeatedly failed to establish sustained transport. Other sequences still
+use bounded acquisition when a full sequence does not fit. Existing valid raw
+files can be reused; estimator history starts at zero, and every input is
+verified again and removed after processing.
 
 The controller's source checkout must contain the existing `inten_facade_pca`
 input manifests and trace shards and the reference GT CSVs. The normal per-sequence

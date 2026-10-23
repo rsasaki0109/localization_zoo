@@ -25,6 +25,10 @@ checks pass, but acquisition failed after 768 frames of the first 01 attempt.
 A later recovery attempt stopped after 128 frames; further attempts reached
 832 and 960 frames before acquisition failed again. Another retry after a
 successful real-batch fetch also stops at 960 frames when transport fails.
+The latest attempt verifies the remaining tail first but stops after 832 frames
+when earlier scans cannot be fetched. Its [audit and retained failure](../../experiments/results/inten_geometric_prior/interrupted_audit_after_tail_recovery.json)
+confirm the same controls and adverse cases. Acquire and verify the complete 01
+input before the next restart.
 The disabled reference
 exactly matches the archived trajectory through every nonempty prefix
 (maximum matrix difference 0). The interrupted candidate poses and
@@ -54,11 +58,13 @@ partial evidence does not establish an all-sequence improvement or pass the
 retention gate. Historical verification now restores the archived production
 sources against the unchanged frozen hashes, retaining all original numerical
 and corruption checks. The later [960-frame case report](../../experiments/results/inten_geometric_prior/adverse_cases_after_approval.json)
-retains the same diagnosis and displayed ratios. Recorded-runtime discovery
-passes all numerical workers, then fails at a nested final source audit. After
-correcting that binding, the regressions and original global audit on the exact
-executed output bytes pass separately; a fresh all-green discovery and full
-native/ROS2 CI are not claimed. Commands and retained failures are in the study.
+retains the same diagnosis and displayed ratios. The corrected source binding
+now passes a [fresh complete Python discovery](../../experiments/results/inten_geometric_prior/publication_final_discovery/):
+448 tests, five skipped, exit 0 (`a9f2991b`). All numerical workers and the final
+source audit run together. Earlier failures remain recorded; full native/ROS2
+CI is not claimed. A same-version runtime control isolates the earlier witness
+failure to the numerical installation/build, not version numbers alone; see
+[the build comparison](../../experiments/results/inten_geometric_prior/README.md#same-version-numerical-build-control).
 
 ## Independent initialization diagnosis (2026-10-23)
 

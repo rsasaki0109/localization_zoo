@@ -16,33 +16,36 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 The default-off hybrid geometric initializer/prior is now implemented; see
 [the fixed full-sequence trial](../experiments/results/inten_geometric_prior/README.md).
 Focused native tests, normal CLI build and disabled-path fixture parity pass.
-Full evaluation remains blocked by recurring HTTP 503 tunnel failures. The
-first 01 attempt stopped after 768 frames; subsequent attempts stopped after
-128, 832 and 960 frames. All nonempty prefixes have exact disabled reference parity,
-independently checked against the archived traces and raw input hashes. None is a full accuracy result. A later attempt after a successful real-batch
-preflight also stops at 960 frames; the ZIP-directory transport fails again.
-Normal Git publication has recovered intermittently. Keep all failed attempts;
-resume the same binary/configuration from frame zero, then finish 00–10 before
-any acceptance decision. Acquisition backoff changes transport only.
+Full evaluation remains blocked by recurring HTTP 503 tunnel failures.
+The latest attempt first acquires and verifies the remaining 01 tail but stops
+after 832 frames when earlier scans cannot be fetched. All nonempty prefixes
+retain exact disabled reference parity, independently checked against archived
+traces and raw input hashes. None is a full accuracy result. Before the next
+01 restart, fetch and hash-verify its complete input; retain the available tail,
+start the unchanged estimator from zero, then finish 00–10 before deciding
+whether to retain the option. Keep all failed attempts and fixed settings.
+Normal Git push has also failed again; original local history is preserved.
 
 The predeclared 215 case remains a negative: hybrid step length / GT length is
 1.003769 at S2S input, 0.780277 after S2S, and 0.373955 after accepted mapping.
 An accurate initializer alone does not remove that failure. The retained
-[stage diagnostics](../experiments/results/inten_geometric_prior/adverse_cases.json)
-also include 202 and 420. Do not tune from these partial results; finish the
-frozen trial after stable transport recovery. Before leaving
-[Draft PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174), retain
-the fixed all-sequence requirement. An adapter restores archived sources for support,
-prior-control and local-rigidity checks while retaining current historical
-verifier/data checks; its corruption regressions and all source preflights
-pass. Original support worker commands execute serially after a retained
-parallel worker failure. System-runtime discovery retains a strict numerical
-mismatch. In the recorded Python/NumPy/SciPy environment, all numerical workers
-pass; discovery then fails at a nested final source audit. The binding is fixed,
-and the added regressions plus original global checks on the byte-identical
-executed worker outputs pass. This is a post-run recheck, not a fresh all-green
-discovery or full native/ROS2 CI. Git publication preserved
-the original source-commit history alongside the API transport aliases.
+[stage diagnostics](../experiments/results/inten_geometric_prior/adverse_cases_after_tail_recovery.json)
+also include 202 and 420. Do not tune from partial results. After the frozen
+trial, investigate the accepted mapping correction with the same map history.
+Keep [PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) draft
+until the fixed all-sequence requirement is met.
+
+A [fresh complete Python discovery](../experiments/results/inten_geometric_prior/publication_final_discovery/)
+now succeeds: 448 tests, five skipped, exit 0 (`a9f2991b`). The adapter restores
+archived production sources against unchanged hashes, runs the original workers
+serially, and binds nested recovery checks. Worker outputs and the final global
+audit pass in the same execution; regenerated historical tables are byte-identical.
+Earlier failures are retained. Full native/ROS2 CI is not claimed. A controlled
+same-version comparison shows that the earlier numerical witness depends on the
+NumPy installation/build: the system build fails and a PyPI wheel passes with
+the same Python/NumPy/SciPy versions. Preserve build provenance and tolerances;
+this runtime control is not a trajectory improvement.
+
 
 
 The independent initialization comparison is complete; see

@@ -42,7 +42,7 @@ def main():
     method=next(m for m in ref['methods'] if m['name']=='InTEn_LOAM')
     assert abs(report['trajectories']['inten_fixed']['official_metrics_from_saved_poses']['kitti_rte_trans_pct']-method['kitti_rte_trans_pct'])<.001
     receipts={}
-    for name in ['fetch_missing','preprocess_build','input_tests','kiss','probe','analysis']:
+    for name in ['fetch_missing','preprocess_build','input_tests','kiss','probe_retry','analysis']:
         receipt=json.loads((root/'commands'/f'{name}.json').read_text())
         assert receipt['exit_code']==0 and receipt['tracked_dirty']==[],name
         for suffix,digest in receipt['logs'].items():
@@ -51,7 +51,7 @@ def main():
     save(a.output,{'exit_code':0,'frames_verified':len(rows),'fixed_pairs_verified':len(pairs),
         'max_native_replay_error':max(r['native_replay_max_abs_error'] for r in replay),
         'successful_receipt_sources':receipts,
-        'known_acquisition_failures_retained':['fetch.json','fetch_resume.json']})
+        'known_acquisition_failures_retained':['fetch.json','fetch_resume.json','probe.json']})
 
 
 if __name__=='__main__':

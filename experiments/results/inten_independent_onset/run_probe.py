@@ -54,7 +54,15 @@ def main():
             source=a.scans/f'{index:06d}.bin'
             assert sha(source)==pins[source.name]['sha256']
             target=a.container_scratch+'/'+name
-            run(docker+['cp',str(source),a.container+':'+target])
+            transfer = docker+['exec','-i',a.container,'python3','-c',
+                'import pathlib,sys; pathlib.Path(sys.argv[1]).write_bytes(sys.stdin.buffer.read())',target]
+            data=source.read_bytes()
+            result=subprocess.run(transfer,input=data,capture_output=True)
+            commands.append({'argv':transfer,'stdin_bytes':len(data),'stdin_sha256':sha(source),
+                'exit_code':result.returncode,'stdout':result.stdout.decode(),'stderr':result.stderr.decode()})
+            save(a.output/'commands.json',commands)
+            if result.returncode:
+                raise RuntimeError('scan transfer failed')
             actual=run(docker+['exec',a.container,'sha256sum',target]).split()[0]
             assert actual==pins[source.name]['sha256']
             targets.append(target)

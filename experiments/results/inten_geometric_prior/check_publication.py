@@ -39,10 +39,11 @@ def main():
         else: target.symlink_to(source,target_is_directory=True)
     # Some legacy corruption tests compare paths to the verifier's resolved
     # directory. Copy this small study instead of linking its entire directory.
-    budget=dst/'experiments/results/inten_iteration_budget'
-    budget.unlink()
-    shutil.copytree(src/'experiments/results/inten_iteration_budget',budget,
-                    ignore=shutil.ignore_patterns('__pycache__'))
+    for study_name in ['inten_iteration_budget','inten_dense_continuation']:
+        folder=dst/'experiments/results'/study_name
+        folder.unlink()
+        shutil.copytree(src/'experiments/results'/study_name,folder,
+                        ignore=shutil.ignore_patterns('__pycache__'))
     for child in (src/'evaluation').iterdir():
         dest=dst/'evaluation'/child.name
         if not dest.exists(): dest.symlink_to(child,target_is_directory=child.is_dir())

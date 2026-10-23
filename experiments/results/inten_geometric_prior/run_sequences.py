@@ -31,8 +31,12 @@ def main():
     p.add_argument('--scratch',type=Path,required=True)
     p.add_argument('--sequence',action='append')
     p.add_argument('--fetch-script',type=Path,help='Explicit transport-only override; estimator settings stay frozen.')
+    p.add_argument('--fetch-attempts',type=int,default=20,
+                   help='Acquisition attempts per batch; larger opt-in budgets preserve the live native state during outages.')
     p.add_argument('--commit-results',action='store_true')
-    a=p.parse_args();study=Path(__file__).resolve().parent
+    a=p.parse_args()
+    if a.fetch_attempts<1:p.error('--fetch-attempts must be positive')
+    study=Path(__file__).resolve().parent
     sys.path.insert(0,str(a.source_root/'evaluation/scripts'))
     import numpy as np
     from evaluate_external_kitti_odometry import load_kitti_poses,load_reference_csv
@@ -55,7 +59,7 @@ def main():
         rawroot=a.scratch/seq;scanroot=rawroot/'dataset/sequences'/seq/'velodyne'
         batches=[list(range(start,min(start+64,len(names)))) for start in range(0,len(names),64)]
         def fetch(indices):
-            for attempt in range(20):
+            for attempt in range(a.fetch_attempts):
                 missing=[i for i in indices if not (scanroot/names[i]).exists() or sha(scanroot/names[i])!=pins[names[i]]['sha256']]
                 if not missing:return
                 argv=[sys.executable,str(fetch_script),

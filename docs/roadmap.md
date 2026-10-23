@@ -30,7 +30,13 @@ fields are 28 bytes while the central directory reports 24 (`73ca5f08`).
 The extractor now reads the final local header; CRC and frozen input SHA checks
 remain mandatory. The estimator and settings are unchanged. Preserve completed
 01; restarted controllers must select only remaining sequences and explicitly
-use the corrected fetch script.
+use the corrected fetch script. The corrected 00 attempt then processed 384
+frames with exact reference parity before renewed HTTP 503 acquisition failures
+exhausted its retries (`1049b182`). The response names `cloudflare_https_tunnel`;
+this is distinct from the repaired ZIP-length defect. Its native exit -9 records
+controller termination after failed acquisition. All interrupted evidence and
+its independent audit are retained; no full 00 metric or gate verdict follows.
+Resume only after actual scan acquisition recovers, preserving the completed 01.
 Keep [PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) draft
 until the fixed all-sequence requirement and prospective retention gate finish.
 

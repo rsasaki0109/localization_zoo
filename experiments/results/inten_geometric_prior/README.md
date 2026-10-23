@@ -121,6 +121,24 @@ fix while retaining the original input manifests, native binary and settings.
 All failed fetch commands and actual process exits remain archived. This is
 an input-acquisition fix, not an estimator accuracy change.
 
+The [real corrected-fetch retry](preflight_failures/fixed_zip_range_interrupted_00/)
+then processes 384 frames before HTTP 503 acquisition errors exhaust the original
+retries. Its [independent prefix audit](interrupted_audit_after_zip_fix.json)
+passes: all input hashes, ordering and pose exports agree, and maximum reference
+matrix difference is zero (`1049b182`). The [bounded connection probe](commands/range_probe_after_zip_fix.stdout)
+identifies `cloudflare_https_tunnel` in the error response. Native exit -9 is the
+controller terminating the waiting estimator after acquisition fails. This
+prefix is not a completed 00 accuracy result; 00 and 02–10 remain pending.
+
+The corrected fetch/tooling tests exit 0, including local/central extra-field
+length differences and rejected truncated/corrupt payloads. The first recovered
+batch matches all frozen scan hashes; [its committed replay command](commands/fetch_00_first_batch_hash_replay.json)
+records the executable helper and actual exit. Documentation regeneration and
+publication checks also [pass](docs_after_complete_01/summary.json), with historical
+tables byte-identical. Keep the estimator configuration fixed when restarting
+00 from frame zero after acquisition recovers.
+
+
 ## Evidence and current blocker
 
 - [Passing build/test commands](build_retry_commands.json): actual production

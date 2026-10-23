@@ -1,0 +1,30 @@
+{
+  "summary.json": {
+    "sha256": "bc5e8fbfeee03e6f51fe4f40a01366b4aeef0138eb5e4c126383e6d6bf3f06ab",
+    "bytes": 17826
+  },
+  "candidate.txt": {
+    "sha256": "ee891ee6d1c744e23268d595ebf47c39847521e9872d12f9274f50ed51fdb6e3",
+    "bytes": 273794
+  },
+  "reference.txt": {
+    "sha256": "0389758b08eee949266568cdd10347b672facea5a241f385ff4b5d14bbd33bbf",
+    "bytes": 273528
+  },
+  "inputs.jsonl": {
+    "sha256": "afe33217b3a2040db4b39bd955ad510c697f596f87c2562c8a53fcb928a7e45d",
+    "bytes": 156333
+  },
+  "native.jsonl.gz": {
+    "sha256": "4d1e879836ded40ffe25b4e8da05b5cc04ecd276a35777f92f3f100fff8961c8",
+    "bytes": 801507
+  },
+  "native.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "native_command.json": {
+    "sha256": "aea65304e8948d59d524ef615f2ed1ffa3e16b870bc56a87e6adf8d3063e968a",
+    "bytes": 820
+  }
+}

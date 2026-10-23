@@ -2,16 +2,15 @@
 
 The default-off `s2s_geometric_prior` option is implemented and the focused
 native tests and normal CLI integration pass. **Full-sequence accuracy is not
-yet established.** The first KITTI 01 run was interrupted by acquisition HTTP
-503 failures after 768 frames. Its disabled/reference path matches the archived
-full-precision facade-PCA trajectory exactly through that prefix (maximum
-matrix difference 0). The incomplete candidate output is retained, not presented
-as a full KITTI result or an adoption decision. After a brief connection
-recovery, a fresh unchanged run stopped after 128 frames when HTTP 503 returned.
-The independent [prefix audit](interrupted_audit.json) verifies raw hashes,
-order, pose exports and exact reference parity for both nonempty attempts.
-The intervening acquisition-only retry processed no frames; it establishes no
-estimator parity or accuracy.
+yet established.** KITTI 01 attempts were interrupted by acquisition HTTP 503
+failures after 768, 128, 832 and 960 frames. Every nonempty disabled/reference
+prefix matches the archived full-precision facade-PCA trajectory exactly
+(maximum matrix difference 0). The latest independent
+[prefix audit](interrupted_audit_after_approval.json) verifies every retained
+attempt's raw hashes, ordering and pose exports. The acquisition-only retry
+processed no frames and establishes no estimator parity or accuracy. Every
+incomplete candidate output and failed command remains; none establishes a
+full KITTI result or an adoption decision.
 
 ## What the option does
 
@@ -98,7 +97,7 @@ retained. This correction does not change any estimator output.
 
 ## Predeclared adverse cases in the incomplete continuous trial
 
-The latest acquisition-interrupted attempt contains 832 continuous frames
+The earlier acquisition-interrupted attempt analyzed below contains 832 continuous frames
 from frame zero. The [complete prefix audit](interrupted_audit_final.json)
 verifies every retained raw hash, order and pose export, and reference matrix
 error remains 0. No full-sequence RTE/ATE or retention verdict is inferred.
@@ -126,6 +125,15 @@ none is used to tune a new setting. A next causal diagnosis should distinguish
 S2S distortion from the accepted mapping correction and map-history effects.
 This does not replace completing the frozen all-sequence trial after transport
 recovers.
+
+The later 960-frame attempt (`5984759a`) also restarts from zero with the
+[same frozen binary](commands/frozen_binary_recovery_check.json). Its
+[predeclared cases](adverse_cases_after_approval.json) retain the same negative
+diagnosis and displayed ratios. Acquisition exhausts the original retries;
+native exit -9 is the controller stopping the waiting estimator after that
+failure. Small data probes and Git push briefly recover, then the saved
+[range probes](commands/active_retry_range_probe.stdout) again identify
+`cloudflare_https_tunnel` HTTP 503. No estimator setting or accuracy gate changes.
 
 ## Full Python validation is not yet green
 
@@ -155,12 +163,23 @@ tolerances remain active. The current estimator stays covered by its separate
 native/CLI checks. The adapter does not assert that today's production source
 matches the historical build.
 
-All seven [source-binding regressions](commands/historical_binding_regressions.json)
-pass: development changes are allowed, but changed/missing archived source,
-changed manifests and changed historical verification code are rejected. Module
-state is restored after a verification failure. These results are committed in
-`19b9c862`. Complete Python discovery is being rerun; the adapter's focused
-checks alone do not establish a full-suite pass.
+The subsequent [complete discovery](publication_historical_binding/) retains
+its source-binding failures in prior-control and local-rigidity checks and the
+support worker's exit -9, including saved worker receipts and memory-event
+snapshot. The adapter now covers all affected studies. The passive rigidity
+study uses its parent's production archive; its corrected historical test
+source is preserved byte-for-byte in [historical_sources/](historical_sources/)
+against the unchanged protocol hash before adding the current test wrapper.
+
+All ten [source-binding/scheduling regressions](commands/historical_all_sources_preflight.json)
+pass (`1d99e284`). Changed/missing archived source, changed manifests, changed
+historical verification code and a changed historical test snapshot are still
+rejected. Every affected source binding passes a preflight before expensive
+reconstruction. Frozen worker commands, group order, populations and arithmetic
+remain unchanged; the adapter runs one worker at a time to bound memory and
+restores module state after errors. Complete Python discovery is being rerun;
+these focused checks alone do not establish a full-suite pass. The earlier
+failures and deliberately stopped incomplete retry remain archived.
 
 ## Reproduction and resumption
 

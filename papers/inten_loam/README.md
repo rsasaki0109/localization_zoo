@@ -22,8 +22,9 @@ Its hypothesis was selected on 01; range/elevation and the improved reference
 profile are inherited, and geometric settings use upstream-mechanics defaults.
 All KITTI data are development data. Native mechanism tests and normal CLI
 checks pass, but acquisition failed after 768 frames of the first 01 attempt.
-A later recovery attempt stopped after 128 frames. The disabled reference
-exactly matches the archived trajectory through both nonempty prefixes
+A later recovery attempt stopped after 128 frames; further attempts reached
+832 and 960 frames before acquisition failed again. The disabled reference
+exactly matches the archived trajectory through every nonempty prefix
 (maximum matrix difference 0). The interrupted candidate poses and
 negative acquisition outcome are retained. **No complete-sequence improvement
 or acceptance is claimed yet.** Resume with the fixed settings after the
@@ -33,7 +34,7 @@ from the partial run or change the published paper scores.
 
 ### Retained negative result: good seed, shortened final step
 
-The latest interrupted continuous 01 attempt covers 832 frames. The
+The interrupted continuous 01 attempt used in this table covers 832 frames. The
 [predeclared case report](../../experiments/results/inten_geometric_prior/adverse_cases.json)
 uses local translation length / GT length (not full-sequence accuracy):
 
@@ -50,8 +51,10 @@ final step. Frame 202 remains borderline in S2S. Preserve these negatives; the
 partial evidence does not establish an all-sequence improvement or pass the
 retention gate. Historical verification now restores the archived production
 sources against the unchanged frozen hashes, retaining all original numerical
-and corruption checks. The complete Python suite is being rerun; focused
-source-binding regressions alone do not establish a full CI pass.
+and corruption checks. The later [960-frame case report](../../experiments/results/inten_geometric_prior/adverse_cases_after_approval.json)
+retains the same diagnosis and displayed ratios. The complete Python suite is
+being rerun with memory-bounded historical workers; focused source-binding
+regressions alone do not establish a full CI pass.
 
 ## Independent initialization diagnosis (2026-10-23)
 

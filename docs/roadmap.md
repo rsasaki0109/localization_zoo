@@ -18,7 +18,7 @@ The default-off hybrid geometric initializer/prior is now implemented; see
 Focused native tests, normal CLI build and disabled-path fixture parity pass.
 Full evaluation remains blocked by recurring HTTP 503 tunnel failures. The
 first 01 attempt stopped after 768 frames; subsequent attempts stopped after
-128 and 832 frames. All nonempty prefixes have exact disabled reference parity,
+128, 832 and 960 frames. All nonempty prefixes have exact disabled reference parity,
 independently checked against the archived traces and raw input hashes. Neither is a full accuracy result. The implementation was pushed
 successfully once, but subsequent pushes failed again. Keep all failed attempts;
 resume the same binary/configuration from frame zero, then finish 00–10 before
@@ -32,9 +32,13 @@ also include 202 and 420. Do not tune from these partial results; finish the
 frozen trial after stable transport recovery. Before leaving
 [Draft PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174), resolve
 historical-source verification without changing frozen hashes or weakening the
-archive checks. An adapter now restores the archived production sources while
-retaining current historical-verifier/data checks; its corruption regressions
-pass. Complete Python discovery is being rerun, so full CI is not yet claimed.
+archive checks. An adapter now restores the archived sources for support,
+prior-control and local-rigidity checks while retaining current historical
+verifier/data checks; its corruption regressions and all source preflights
+pass. Original support worker commands execute serially after a retained
+parallel worker failure. Complete Python discovery is being rerun, so full CI
+is not yet claimed. Normal Git publication briefly recovered and preserved
+the original source-commit history alongside the API transport aliases.
 
 
 The independent initialization comparison is complete; see

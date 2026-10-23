@@ -1,0 +1,25 @@
+{
+  "fixed_pairs": [
+    [
+      "old",
+      "01"
+    ],
+    [
+      "08",
+      "02"
+    ]
+  ],
+  "source_sha256": {
+    "experiments/results/inten_support_information/verify_parallel.py": "bc63f1f7618ff5e44ebc9843cc392b57d839d23f00978d13ee59d8f56e115ca9",
+    "experiments/results/inten_support_information/verify_ordered.py": "19c9c8350ab026997007aa706ca2d13e9008d586ed78c91f6fd752d2713d0ac5",
+    "experiments/results/inten_support_information/arithmetic_recovery_protocol.json": "ac314d6ce515b961b920dc2c54cab6f43aa9e2513eec7a8a3649fa3b914747e4",
+    "experiments/results/inten_support_information/verify_full_field.py": "7dbb35a823b6ad910ae48d40ac4259dd53e5975939957dbb4deda674f01dd689",
+    "experiments/results/inten_support_information/field_source_recovery_protocol.json": "dc173c9d2bbab17a23d2df8a80eab94eb8c47a8d2d7be459895b6f203fa7298b",
+    "experiments/results/inten_support_information/verify.py": "a73e787d175de1bac406d2a6bc2e4def306cead5cf8fe053becb45ac21dadff8"
+  },
+  "scope": "Performance-only scheduling: every unchanged full group_result runs in its own process, then all original global source/audit/build checks and exact roll-up run. Fixed pairs limit memory; no case/row sampling, shortcuts, changed equations/tolerances or candidate decision. Original sequential verify_ordered.py remains available.",
+  "worker_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  }
+}

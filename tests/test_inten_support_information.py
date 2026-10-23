@@ -6,7 +6,7 @@ import numpy as np
 E=Path(__file__).resolve().parents[1]/'experiments/results/inten_support_information'
 def module(name,path):
     s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
-v=module('support_checked_ordered_field',E/'verify_ordered.py')
+v=module('support_checked_parallel_field',E/'verify_parallel.py')
 io=module('support_report_reader',E/'report_io.py')
 
 class SupportInformationTest(unittest.TestCase):

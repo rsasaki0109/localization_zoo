@@ -1,0 +1,156 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "numpy": {
+    "version": "1.26.4",
+    "path": "/workspace/localization-env/host-venv/lib/python3.12/site-packages/numpy/__init__.py"
+  },
+  "scipy": {
+    "version": "1.17.0",
+    "path": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy/__init__.py"
+  }
+}
+Build Dependencies:
+  blas:
+    detection method: pkgconfig
+    found: true
+    include directory: /usr/local/include
+    lib directory: /usr/local/lib
+    name: openblas64
+    openblas configuration: USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS=
+      NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2
+    pc file directory: /usr/local/lib/pkgconfig
+    version: 0.3.23.dev
+  lapack:
+    detection method: internal
+    found: true
+    include directory: unknown
+    lib directory: unknown
+    name: dep140551260102944
+    openblas configuration: unknown
+    pc file directory: unknown
+    version: 1.26.4
+Compilers:
+  c:
+    args: -fno-strict-aliasing
+    commands: cc
+    linker: ld.bfd
+    linker args: -Wl,--strip-debug, -fno-strict-aliasing
+    name: gcc
+    version: 10.2.1
+  c++:
+    commands: c++
+    linker: ld.bfd
+    linker args: -Wl,--strip-debug
+    name: gcc
+    version: 10.2.1
+  cython:
+    commands: cython
+    linker: cython
+    name: cython
+    version: 3.0.8
+Machine Information:
+  build:
+    cpu: x86_64
+    endian: little
+    family: x86_64
+    system: linux
+  host:
+    cpu: x86_64
+    endian: little
+    family: x86_64
+    system: linux
+Python Information:
+  path: /opt/python/cp312-cp312/bin/python
+  version: '3.12'
+SIMD Extensions:
+  baseline:
+  - SSE
+  - SSE2
+  - SSE3
+  found:
+  - SSSE3
+  - SSE41
+  - POPCNT
+  - SSE42
+  - AVX
+  - F16C
+  - FMA3
+  - AVX2
+  - AVX512F
+  - AVX512CD
+  - AVX512_SKX
+  - AVX512_CLX
+  - AVX512_CNL
+  - AVX512_ICL
+  not found:
+  - AVX512_KNL
+  - AVX512_KNM
+
+Build Dependencies:
+  blas:
+    detection method: pkgconfig
+    found: true
+    has ilp64: false
+    include directory: /opt/_internal/cpython-3.12.11/lib/python3.12/site-packages/scipy_openblas32/include
+    lib directory: /opt/_internal/cpython-3.12.11/lib/python3.12/site-packages/scipy_openblas32/lib
+    name: scipy-openblas
+    openblas configuration: OpenBLAS 0.3.30 DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=64
+    pc file directory: /project/
+    version: 0.3.30
+  lapack:
+    detection method: pkgconfig
+    found: true
+    has ilp64: false
+    include directory: /opt/_internal/cpython-3.12.11/lib/python3.12/site-packages/scipy_openblas32/include
+    lib directory: /opt/_internal/cpython-3.12.11/lib/python3.12/site-packages/scipy_openblas32/lib
+    name: scipy-openblas
+    openblas configuration: OpenBLAS 0.3.30 DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=64
+    pc file directory: /project/
+    version: 0.3.30
+  pybind11:
+    detection method: config-tool
+    include directory: unknown
+    name: pybind11
+    version: 3.0.1
+Compilers:
+  c:
+    commands: cc
+    linker: ld.bfd
+    name: gcc
+    version: 14.2.1
+  c++:
+    commands: c++
+    linker: ld.bfd
+    name: gcc
+    version: 14.2.1
+  cython:
+    commands: cython
+    linker: cython
+    name: cython
+    version: 3.2.4
+  fortran:
+    commands: gfortran
+    linker: ld.bfd
+    name: gcc
+    version: 14.2.1
+  pythran:
+    include directory: ../../tmp/build-env-h6rtuvfe/lib/python3.12/site-packages/pythran
+    version: 0.18.1
+Machine Information:
+  build:
+    cpu: x86_64
+    endian: little
+    family: x86_64
+    system: linux
+  cross-compiled: false
+  host:
+    cpu: x86_64
+    endian: little
+    family: x86_64
+    system: linux
+Python Information:
+  path: /tmp/build-env-h6rtuvfe/bin/python
+  version: '3.12'
+

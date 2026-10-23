@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-c",
+    "import hashlib,json,subprocess\nfrom pathlib import Path\nr=Path('experiments/results/inten_geometric_prior');root=Path('/tmp/localization-zoo-inten-geometric-prior-20261023')\nsource=root/'recovery_raw/01/dataset/sequences/01/velodyne';target=root/'raw/01/dataset/sequences/01/velodyne'\nmanifest=Path('/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_facade_pca/sequences/01/inputs.json')\npins=json.loads(manifest.read_text())['files'];count=sum(n.endswith('.bin') for n in pins)\nrows=[]\nfor i in range(960,count):\n    name=f'{i:06d}.bin';data=(source/name).read_bytes();digest=hashlib.sha256(data).hexdigest()\n    assert digest==pins[name]['sha256'] and len(data)==pins[name]['bytes'],name\n    rows.append(dict(name=name,sha256=digest,bytes=len(data)))\nbinary=json.loads((r/'binaries.json').read_text())\nactual=subprocess.check_output(['docker','exec','localization-zoo-dev','sha256sum',binary['runner_container_path']],text=True).split()[0]\nassert actual==binary['runner_sha256']\ntarget.mkdir(parents=True,exist_ok=True)\nfor row in rows:\n    (source/row['name']).replace(target/row['name'])\n    assert hashlib.sha256((target/row['name']).read_bytes()).hexdigest()==row['sha256']\nprint(json.dumps(dict(all_inputs_valid=True,manifest_sha256=hashlib.sha256(manifest.read_bytes()).hexdigest(),binary_sha256=actual,staged_inputs=rows),indent=2))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "7af034eb141436e296d303584cd323d4b6380f53",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792758944.6385968,
+  "exit_code": 0,
+  "wall_seconds": 0.5710674820002168,
+  "logs": {
+    ".stdout": "5a003ae75300d9fe512e97b68b1940397a84c25712ac7f2920c0d9d0a80444da",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

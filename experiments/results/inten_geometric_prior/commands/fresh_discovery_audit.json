@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-c",
+    "from pathlib import Path\nimport gzip,hashlib,json,re,subprocess\nr=Path('experiments/results/inten_geometric_prior');out=r/'publication_final_discovery'\nsha=lambda b:hashlib.sha256(b).hexdigest()\nfor name in ['publication_final_discovery','capture_final_discovery_workers']:\n p=r/'commands'/name;receipt=json.loads(p.with_suffix('.json').read_text());assert receipt['exit_code']==0\n for suffix,digest in receipt['logs'].items():assert sha(p.with_suffix(suffix).read_bytes())==digest\ncommands=json.loads((out/'commands.json').read_text());assert len(commands)==7 and all(x['exit_code']==0 for x in commands)\nassert commands[-1]['argv'][-5:]==['-m','unittest','discover','-s','tests']\nlog=(out/'06.stderr').read_text();count=int(re.search(r'^Ran (\\d+) tests in ',log,re.M)[1]);skips=int(re.search(r'^OK \\(skipped=(\\d+)\\)$',log,re.M)[1])\nsummary=json.loads((out/'summary.json').read_text());assert summary['commands_all_passed'] and summary['historical_source_unchanged'] and all(summary['regenerated_tables_byte_equal'].values())\ncapture=json.loads((out/'worker_receipts/capture.json').read_text());assert set(capture['groups'])=={'old','01','08','02'}\nworkers={}\nfor group,entry in capture['groups'].items():\n assert entry['exit_code']==0\n for name,digest in entry['files_sha256'].items():assert sha((out/'worker_receipts'/name).read_bytes())==digest\n raw=gzip.decompress((out/'worker_receipts'/f'{group}.json.gz').read_bytes());assert sha(raw)==entry['output_sha256']\n old=json.loads((r/'publication_recorded_runtime/worker_receipts'/f'{group}_command.json').read_text());assert old['exit_code']==0 and old['output_sha256']==entry['output_sha256']\n workers[group]=entry['output_sha256']\nvalidated=json.loads((r/'commands/publication_final_discovery.json').read_text())['source_commit']\nchanged=subprocess.check_output(['git','diff','--name-only',validated,'HEAD'],text=True).splitlines();assert all(p.startswith(str(r)+'/') for p in changed)\nreport=dict(full_discovery_exit_code=0,tests_run=count,tests_skipped=skips,all_worker_outputs_match_prior_executed_outputs=workers,validated_source_commit=validated,current_production_and_tests_match_validated_commit=True,all_checks_passed=True)\n(r/'fresh_discovery_audit.json').write_text(json.dumps(report,indent=2)+chr(10))\nprint(json.dumps(report))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "a9f2991bb38ceab2126cca31e37ea303cc2663d9",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792761343.3921468,
+  "exit_code": 0,
+  "wall_seconds": 0.10222092201001942,
+  "logs": {
+    ".stdout": "b7c5fd01dba8fdf5643ab8b1b8e127a6a0c82bcc8d860cc6b5c14efc21fc05bb",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

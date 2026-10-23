@@ -1,0 +1,14 @@
+{
+  "full_discovery_exit_code": 0,
+  "tests_run": 448,
+  "tests_skipped": 5,
+  "all_worker_outputs_match_prior_executed_outputs": {
+    "old": "03606d04af5db48f67719a3f81ecfd96a0b3ed4503c2c6d97c6ed572b07e8149",
+    "01": "121ebf92981a7f14bc869f4111000414e19992ba38356a833943efecb575ba82",
+    "08": "deee239df9f5b8ed10768960293c7ed546a566e3abbb07fd43665fcbe1461211",
+    "02": "90c6177307ddb5efddce1229a3fe14466fba3cf93eeb29403002bc2dff8731d2"
+  },
+  "validated_source_commit": "7af034eb141436e296d303584cd323d4b6380f53",
+  "current_production_and_tests_match_validated_commit": true,
+  "all_checks_passed": true
+}

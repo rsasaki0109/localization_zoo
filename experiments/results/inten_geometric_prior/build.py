@@ -22,7 +22,7 @@ with tarfile.open(fileobj=archive,mode='w') as tar:
                  'experiments/results/inten_geometric_prior/stream_runner.cpp','experiments/results/inten_geometric_prior/preprocess.cpp']:
         tar.add(root/file,arcname=file)
 run(['docker','exec','-i',container,'tar','xf','-','-C',target],archive.getvalue())
-base=['docker','exec','-e','OMP_NUM_THREADS=1','-e','OPENBLAS_NUM_THREADS=1',container]
+base=['docker','exec','-e','OMP_NUM_THREADS=1','-e','OPENBLAS_NUM_THREADS=1','-e','TMPDIR='+target,container]
 run(base+['cmake','-S',target+'/experiments/results/inten_geometric_prior','-B',target+'/build',
           '-DCMAKE_BUILD_TYPE=Release','-DSOURCE_ROOT='+target,
           '-DFROZEN_COMMON_LIBRARY=/workspace/localization-env/inten-natural-traces/build/common/liblocalization_common.a'])

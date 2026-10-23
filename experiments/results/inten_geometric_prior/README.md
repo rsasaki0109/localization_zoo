@@ -146,14 +146,30 @@ failed ([stop receipt](commands/stop_invalid_source_verification.json)); this
 is not a successful full Python/CI run. An earlier worker also terminated
 abnormally during the full discovery, whose failure is retained.
 
-Before leaving draft, separate the historical build's immutable source binding
-from current-source checks while retaining every archive/control check, then
-rerun the unresolved checks. Focused current native/CLI tests and historical
-source verification serve different purposes; neither substitutes for the other.
+The [historical-source adapter](../../../evaluation/scripts/verify_inten_support_history.py)
+now restores production sources from the study's existing build archive and
+checks them against the unchanged protocol and manifest hashes. Experimental
+sources and data still resolve to the current checkout, so the original frozen
+verifier, recovery-source checks, full group reconstruction and strict numerical
+tolerances remain active. The current estimator stays covered by its separate
+native/CLI checks. The adapter does not assert that today's production source
+matches the historical build.
+
+All seven [source-binding regressions](commands/historical_binding_regressions.json)
+pass: development changes are allowed, but changed/missing archived source,
+changed manifests and changed historical verification code are rejected. Module
+state is restored after a verification failure. These results are committed in
+`19b9c862`. Complete Python discovery is being rerun; the adapter's focused
+checks alone do not establish a full-suite pass.
 
 ## Reproduction and resumption
 
 Exact commands, working directories, commits and exits live in [commands/](commands/).
+Normal Git publication recovered after the API upload. The verified history
+merge `0f34cb25` preserves both API and original local commits; the recorded
+[push](commands/push_source_binding.json) succeeded. Original source IDs are
+now ancestors of the PR branch, with the older
+[transport aliases](transport_commit_mapping.json) retained for provenance.
 The frozen runner/source hashes are in [binaries.json](binaries.json).
 `build.py` stages a dedicated temporary source/build tree in the existing
 container; `build_harness.py` independently compiles the normal CLI.

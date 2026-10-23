@@ -31,8 +31,10 @@ An accurate initializer alone does not remove that failure. The retained
 also include 202 and 420. Do not tune from these partial results; finish the
 frozen trial after stable transport recovery. Before leaving
 [Draft PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174), resolve
-historical-source verification compatibility without changing frozen hashes
-or weakening the archive checks; full Python CI is not currently green.
+historical-source verification without changing frozen hashes or weakening the
+archive checks. An adapter now restores the archived production sources while
+retaining current historical-verifier/data checks; its corruption regressions
+pass. Complete Python discovery is being rerun, so full CI is not yet claimed.
 
 
 The independent initialization comparison is complete; see

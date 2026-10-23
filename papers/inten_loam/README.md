@@ -48,9 +48,10 @@ by S2S and then by the accepted mapping stage. Frame 420 has worse S2S length
 than the reference (0.589326 versus 0.606071), even though mapping recovers the
 final step. Frame 202 remains borderline in S2S. Preserve these negatives; the
 partial evidence does not establish an all-sequence improvement or pass the
-retention gate. Full Python CI also remains unresolved because historical
-verification currently binds production-source hashes to the working tree;
-those historical pins have not been changed to accept this extension.
+retention gate. Historical verification now restores the archived production
+sources against the unchanged frozen hashes, retaining all original numerical
+and corruption checks. The complete Python suite is being rerun; focused
+source-binding regressions alone do not establish a full CI pass.
 
 ## Independent initialization diagnosis (2026-10-23)
 

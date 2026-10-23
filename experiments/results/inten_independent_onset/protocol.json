@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "purpose": "Distinguish history/initialization failure from a scan-to-scan objective that rejects an independent geometric estimate.",
+  "scope": "KITTI 01 development diagnosis, not an all-sequence candidate, paper ratio, held-out or SOTA result.",
+  "base_commit": "6d1023fe3d3d4bdbca94bf6d28064eb396a3ae01",
+  "reference": "inten_facade_pca/sequences/01/candidate",
+  "reference_selection": "Freeze the previously measured mapped prior + translation prior 0.03 + ground PCA + facade PCA profile. Its parameters already used KITTI development sequences; no new parameter selection here.",
+  "independent": {
+    "distribution": "kiss-icp", "version": "1.3.0",
+    "config": "Load upstream defaults, retain the default 1.0 m voxel, set max_range=120, deskew=false, max_num_threads=1; no other changes.",
+    "input": "Identical raw hashes to reference; preserve point order, float32 vertical correction 0.17 deg, finite XYZI, native strict 1 < range < 120 m. No pose or GT input. Internal upstream voxelization/registration remains upstream.",
+    "selection": "Elevation and range inherited from frozen InTEn (historically 07/00); voxel/defaults inherited upstream, no 01 tuning.",
+    "sequence": "01", "frames": 1101, "start": 0
+  },
+  "diagnostic": {
+    "frame_range_inclusive": [190, 260], "additional_frames": [420, 433],
+    "selection": "Previously observed onset/recovery interval, plus prior healthy/failure controls; chosen before this experiment, development only.",
+    "seeds": ["native", "kiss_current", "kiss_previous"],
+    "native": "Actual reference full-run S2S input; must reproduce its S2S output within max absolute matrix error 1e-8, otherwise intervention interpretation is invalid.",
+    "kiss_current": "inv(K[i-1])*K[i], an independently computed current-frame estimate (requires extra registration, not a free predictor).",
+    "kiss_previous": "inv(K[i-2])*K[i-1], previous local increment as constant-velocity prediction.",
+    "probe": "Reuse frozen inten_facade_pca intervention_probe; candidate mode, fresh scan pair, mapping disabled; no source/binary/parameter changes.",
+    "probe_sha256": "3035da5f1ed45d8428673361e934e69f65ab449443a104eb2e24ecd4d44cf5b0",
+    "step_bad_threshold": 0.2, "min_gt_step_m": 0.1,
+    "interpretation": "Compare seed and output local translation error and length. Improved seeds retained: investigate history/basin; improved seeds pulled off: investigate feature associations/objective. Mixed outcomes retained, not forced into one diagnosis. No hybrid production claim."
+  },
+  "historical_kiss": "Saved shared_near_range replay upstream_mechanics_elevation, 80 m / 0.205 deg: context only, not controlled comparison.",
+  "stopping_rule": "One independent run, all declared controls and failures retained. No parameter sweep or production edit in this study. Commit executed evidence before numerical prose."
+}

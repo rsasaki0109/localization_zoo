@@ -1,0 +1,46 @@
+{
+  "files": {
+    "counter_audit.py": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/counter_audit/counter_audit.py",
+      "bytes": 3128,
+      "sha256": "1e664c63ea04284ec7185ae020b3b77e4a2e2bce9c2d77167f9756c45a20aada",
+      "storage": "verbatim",
+      "path": "counter_audit.py",
+      "stored_sha256": "1e664c63ea04284ec7185ae020b3b77e4a2e2bce9c2d77167f9756c45a20aada"
+    },
+    "counter_audit.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/counter_audit/counter_audit.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "counter_audit.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "counter_audit.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/counter_audit/counter_audit.stdout.log",
+      "bytes": 101,
+      "sha256": "5e45b6b77c5016279d286e9dc8356e0ef64a0d3f5caa4044fd9bf5a9edfc7032",
+      "storage": "gzip",
+      "path": "counter_audit.stdout.log.gz",
+      "stored_sha256": "bcc366564c44dd13ee2bb4fe67598d135713056700c0436bdbbf910b367269b4"
+    },
+    "counter_audit_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/counter_audit/counter_audit_command.json",
+      "bytes": 691,
+      "sha256": "7d7f538b0350ef67b7ca566d7af6a9fcfc7ddb81dcaf417caf5bfcd4a11dab62",
+      "storage": "verbatim",
+      "path": "counter_audit_command.json",
+      "stored_sha256": "7d7f538b0350ef67b7ca566d7af6a9fcfc7ddb81dcaf417caf5bfcd4a11dab62"
+    },
+    "summary.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/counter_audit/summary.json",
+      "bytes": 6182,
+      "sha256": "aace193c160cb30a4f21341d8088414a9903f700eda783cdd04a48af0f111909",
+      "storage": "verbatim",
+      "path": "summary.json",
+      "stored_sha256": "aace193c160cb30a4f21341d8088414a9903f700eda783cdd04a48af0f111909"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,197 @@
+{
+  "exit_code": 0,
+  "groups": {
+    "old": {
+      "counts": {
+        "source_rows": 8273947,
+        "valid_kept": 1765896,
+        "valid_removed": 1042453,
+        "invalid_kept": 2404368,
+        "invalid_tested_reject": 2839658,
+        "invalid_without_backward_test": 221572
+      },
+      "classes": [
+        {
+          "source_rows": 517249,
+          "valid_kept": 120648,
+          "valid_removed": 122080,
+          "invalid_kept": 69206,
+          "invalid_tested_reject": 205315,
+          "invalid_without_backward_test": 0
+        },
+        {
+          "source_rows": 3264000,
+          "valid_kept": 44338,
+          "valid_removed": 132678,
+          "invalid_kept": 1571888,
+          "invalid_tested_reject": 1515096,
+          "invalid_without_backward_test": 0
+        },
+        {
+          "source_rows": 3513498,
+          "valid_kept": 698482,
+          "valid_removed": 787695,
+          "invalid_kept": 686502,
+          "invalid_tested_reject": 1119247,
+          "invalid_without_backward_test": 221572
+        },
+        {
+          "source_rows": 979200,
+          "valid_kept": 902428,
+          "valid_removed": 0,
+          "invalid_kept": 76772,
+          "invalid_tested_reject": 0,
+          "invalid_without_backward_test": 0
+        }
+      ],
+      "archive_sha256": "46b05ae4f29e92a8e252fdbe36f488c859b5b1376225fbe251c5f966a3f9e438"
+    },
+    "01": {
+      "counts": {
+        "source_rows": 4445378,
+        "valid_kept": 1001559,
+        "valid_removed": 626661,
+        "invalid_kept": 1383792,
+        "invalid_tested_reject": 1394486,
+        "invalid_without_backward_test": 38880
+      },
+      "classes": [
+        {
+          "source_rows": 375103,
+          "valid_kept": 78508,
+          "valid_removed": 138651,
+          "invalid_kept": 66452,
+          "invalid_tested_reject": 91492,
+          "invalid_without_backward_test": 0
+        },
+        {
+          "source_rows": 2033000,
+          "valid_kept": 46178,
+          "valid_removed": 126123,
+          "invalid_kept": 978090,
+          "invalid_tested_reject": 882609,
+          "invalid_without_backward_test": 0
+        },
+        {
+          "source_rows": 1427375,
+          "valid_kept": 315146,
+          "valid_removed": 361887,
+          "invalid_kept": 291077,
+          "invalid_tested_reject": 420385,
+          "invalid_without_backward_test": 38880
+        },
+        {
+          "source_rows": 609900,
+          "valid_kept": 561727,
+          "valid_removed": 0,
+          "invalid_kept": 48173,
+          "invalid_tested_reject": 0,
+          "invalid_without_backward_test": 0
+        }
+      ],
+      "archive_sha256": "383ba6314e2959da358aa9c48a451043d39d722f67141b8745cf0ead05e337ff"
+    },
+    "02": {
+      "counts": {
+        "source_rows": 5777112,
+        "valid_kept": 1381030,
+        "valid_removed": 802907,
+        "invalid_kept": 1850439,
+        "invalid_tested_reject": 1735979,
+        "invalid_without_backward_test": 6757
+      },
+      "classes": [
+        {
+          "source_rows": 15053,
+          "valid_kept": 2503,
+          "valid_removed": 105,
+          "invalid_kept": 6790,
+          "invalid_tested_reject": 5655,
+          "invalid_without_backward_test": 0
+        },
+        {
+          "source_rows": 2267000,
+          "valid_kept": 204827,
+          "valid_removed": 276264,
+          "invalid_kept": 1004116,
+          "invalid_tested_reject": 781793,
+          "invalid_without_backward_test": 0
+        },
+        {
+          "source_rows": 2814959,
+          "valid_kept": 506345,
+          "valid_removed": 526538,
+          "invalid_kept": 826788,
+          "invalid_tested_reject": 948531,
+          "invalid_without_backward_test": 6757
+        },
+        {
+          "source_rows": 680100,
+          "valid_kept": 667355,
+          "valid_removed": 0,
+          "invalid_kept": 12745,
+          "invalid_tested_reject": 0,
+          "invalid_without_backward_test": 0
+        }
+      ],
+      "archive_sha256": "4dd7292f258746b30f00d7b5b262d9081362c1c946713d7eca367689d9c9b5e3"
+    },
+    "08": {
+      "counts": {
+        "source_rows": 8863818,
+        "valid_kept": 2610894,
+        "valid_removed": 1165636,
+        "invalid_kept": 2795148,
+        "invalid_tested_reject": 2215716,
+        "invalid_without_backward_test": 76424
+      },
+      "classes": [
+        {
+          "source_rows": 1832000,
+          "valid_kept": 999666,
+          "valid_removed": 530508,
+          "invalid_kept": 112286,
+          "invalid_tested_reject": 189540,
+          "invalid_without_backward_test": 0
+        },
+        {
+          "source_rows": 3184000,
+          "valid_kept": 19589,
+          "valid_removed": 23424,
+          "invalid_kept": 1872434,
+          "invalid_tested_reject": 1268553,
+          "invalid_without_backward_test": 0
+        },
+        {
+          "source_rows": 2892618,
+          "valid_kept": 669501,
+          "valid_removed": 611704,
+          "invalid_kept": 777366,
+          "invalid_tested_reject": 757623,
+          "invalid_without_backward_test": 76424
+        },
+        {
+          "source_rows": 955200,
+          "valid_kept": 922138,
+          "valid_removed": 0,
+          "invalid_kept": 33062,
+          "invalid_tested_reject": 0,
+          "invalid_without_backward_test": 0
+        }
+      ],
+      "archive_sha256": "7556025bade38f6eb18c8b4dc8d4923d8560a35e09de0c7e3e2867c024db54eb"
+    }
+  },
+  "counts": {
+    "source_rows": 27360255,
+    "valid_kept": 6759379,
+    "valid_removed": 3637657,
+    "invalid_kept": 8433747,
+    "invalid_tested_reject": 8185839,
+    "invalid_without_backward_test": 343633
+  },
+  "producer_sha256": "1e664c63ea04284ec7185ae020b3b77e4a2e2bce9c2d77167f9756c45a20aada",
+  "observer_sha256": "9a30602c94dab41079002ecdbb22cfc28481bf0f2d0988db2193557966787711",
+  "verified_report_manifest_sha256": "b5882335f8a669b4fbac7b292547152d22894722359a59510cabf9616c154d2f",
+  "semantics": "The frozen invalid_reciprocal_rejections label is invalid AND not-kept; it includes empty-neighbor rows where no backward predicate ran. Split these from tested rejection without changing any native observation or frozen verifier result."
+}

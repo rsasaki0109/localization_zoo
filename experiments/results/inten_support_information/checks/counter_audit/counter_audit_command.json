@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/counter_audit.py",
+    "--output",
+    "/tmp/localization-zoo-inten-support-information-20261023/counter_audit/summary.json"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "01726b97d2406e830ab770413ae551be0277d6fc",
+  "started_unix": 1792723710.7696886,
+  "finished_unix": 1792723747.6099296,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

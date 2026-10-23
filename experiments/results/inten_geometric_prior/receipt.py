@@ -38,7 +38,7 @@ def main():
         ['git', 'rev-parse', 'HEAD'], text=True).strip(),
         'tracked_dirty': subprocess.check_output(['git', 'diff', 'HEAD', '--name-only'], text=True).splitlines(),
         'platform': platform.platform(), 'python': sys.version,
-        'environment': {k: os.environ.get(k) for k in ['OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','PYTHONDONTWRITEBYTECODE']},
+        'environment': {k: os.environ.get(k) for k in ['OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','PYTHONDONTWRITEBYTECODE','PYTHONPATH']},
         'start_unix': time.time(), 'exit_code': None}
     save(a.output, row)
     start = time.monotonic()

@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "experiments/results/inten_geometric_prior/diagnose_runtime_witness.py",
+    "--source-root",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree",
+    "--fixture",
+    "experiments/results/inten_geometric_prior/runtime_witness",
+    "--output",
+    "experiments/results/inten_geometric_prior/runtime_witness/recorded.json"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "57db1bebcc340329f886ccebf917ffbbf3834b7d",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/workspace/localization-env/host-venv/lib/python3.12/site-packages"
+  },
+  "start_unix": 1792754596.2563922,
+  "exit_code": 0,
+  "wall_seconds": 0.3821970680146478,
+  "logs": {
+    ".stdout": "fb780d9241fdd9894cbf727281adf20cdf0ab2cb4789c84d509229d74646fd89",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "environment_record_note": "Recorded explicitly after execution: this PYTHONPATH was supplied in the executed shell command. Earlier receipt helper did not collect that key."
+}

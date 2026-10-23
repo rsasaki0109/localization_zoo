@@ -25,8 +25,12 @@ retain all preceding interruptions. Normal Git publication has also recovered.
 
 This hypothesis was selected on 01; every KITTI sequence is development data.
 00 and 02–10 remain pending and are run with the same frozen binary/settings.
-Acquisition for 00 is retrying after renewed transport failures. Preserve the
-completed 01 result; a restarted controller must select only remaining sequences.
+The 00 acquisition failure is a bounded-range extractor defect: local ZIP extra
+fields are 28 bytes while the central directory reports 24 (`73ca5f08`).
+The extractor now reads the final local header; CRC and frozen input SHA checks
+remain mandatory. The estimator and settings are unchanged. Preserve completed
+01; restarted controllers must select only remaining sequences and explicitly
+use the corrected fetch script.
 Keep [PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) draft
 until the fixed all-sequence requirement and prospective retention gate finish.
 

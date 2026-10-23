@@ -100,7 +100,26 @@ requires lower geometric-mean official RTE and no sequence exceeding
 `max(1.10 * reference RTE, reference RTE + 0.05 percentage points)`.
 All outcomes, including regressions and onset adverse cases, must be reported.
 This gate does not change any historical failed gate, paper-variant eligibility
-or Table 6. No gate verdict is available from the interrupted prefix.
+or Table 6. No gate verdict is available until all full sequences complete.
+
+## Acquisition correction after completing 01
+
+The first 00 attempt processed no estimator frames and is retained in
+[complete_input_followup_00](preflight_failures/complete_input_followup_00/).
+Unlike the earlier HTTP 503 interruptions, its repeated EOF is caused by the
+extractor assuming that central-directory and local ZIP extra fields have equal
+lengths. The [official header probe](kitti_00_range_probe.json), committed in
+`73ca5f08`, observes 24 central versus 28 local extra bytes for frame 43; the old
+request therefore stops four bytes before the payload ends. Frames are stored
+out of timestamp order, so sparse selection frequently produces single-entry
+ranges. This explains why the batch could not publish its first scan.
+
+The corrected extractor reads the last selected entry's local header before
+forming the exact payload range. It preserves CRC, atomic writes and frozen
+input SHA verification. `--fetch-script` explicitly selects this transport-only
+fix while retaining the original input manifests, native binary and settings.
+All failed fetch commands and actual process exits remain archived. This is
+an input-acquisition fix, not an estimator accuracy change.
 
 ## Evidence and current blocker
 

@@ -1,0 +1,54 @@
+{
+  "scope": "GitHub API publication only; no new accuracy result",
+  "reason": "Normal Git HTTPS push fails through cloudflare_https_tunnel. An equivalent-content commit was appended through the GitHub connector without force.",
+  "local_source_commits": [
+    "6cd3398d4e28df5d270814804ebf98d47e0eec60",
+    "8bbc65fbd313691bd402973a900a15bcb09aa813",
+    "92f48bffee262d02cd3872cfb5afe18741efc38e",
+    "b14b7bc7cbbbd2689324907ebc2adfb20b645e98"
+  ],
+  "local_snapshot": "b14b7bc7cbbbd2689324907ebc2adfb20b645e98",
+  "published_snapshot": "8a68a14decd26d514fd23b2324c9d773e20c2912",
+  "verified_tree": "c09d48def38c9d971cdb9aa7d6da02212b7436ae",
+  "remote_parent": "c3f95819ebd4c63ee833922a4ba57082b204a5d4",
+  "remote_commit": {
+    "sha": "8a68a14decd26d514fd23b2324c9d773e20c2912",
+    "node_id": "C_kwDORuBOHNoAKDhhNjhhMTRkZWNkMjZkNTE0ZmQyM2IyMzI0YzlkNzczZTIwYzI5MTI",
+    "url": "https://api.github.com/repos/rsasaki0109/localization_zoo/git/commits/8a68a14decd26d514fd23b2324c9d773e20c2912",
+    "html_url": "https://github.com/rsasaki0109/localization_zoo/commit/8a68a14decd26d514fd23b2324c9d773e20c2912",
+    "author": {
+      "name": "Ryohei Sasaki",
+      "email": "rsasaki0109@gmail.com",
+      "date": "2026-10-23T16:53:01Z"
+    },
+    "committer": {
+      "name": "Ryohei Sasaki",
+      "email": "rsasaki0109@gmail.com",
+      "date": "2026-10-23T16:53:01Z"
+    },
+    "tree": {
+      "sha": "c09d48def38c9d971cdb9aa7d6da02212b7436ae",
+      "url": "https://api.github.com/repos/rsasaki0109/localization_zoo/git/trees/c09d48def38c9d971cdb9aa7d6da02212b7436ae"
+    },
+    "message": "Publish extended acquisition wait and validated handoff\n\nTransport alias for local b14b7bc7cbbbd2689324907ebc2adfb20b645e98; tree c09d48def38c9d971cdb9aa7d6da02212b7436ae is byte-identical. Git HTTPS push is blocked by the environment tunnel. Original local commits are retained without rebasing:\n6cd3398d4e28df5d270814804ebf98d47e0eec60\n8bbc65fbd313691bd402973a900a15bcb09aa813\n92f48bffee262d02cd3872cfb5afe18741efc38e\nb14b7bc7cbbbd2689324907ebc2adfb20b645e98\n\nOnly acquisition retries are extended opt-in; the native binary and estimator settings stay frozen. The ongoing trial is not a completed accuracy result. Documentation and focused checks are archived. Keep PR #174 draft.",
+    "parents": [
+      {
+        "sha": "c3f95819ebd4c63ee833922a4ba57082b204a5d4",
+        "url": "https://api.github.com/repos/rsasaki0109/localization_zoo/git/commits/c3f95819ebd4c63ee833922a4ba57082b204a5d4",
+        "html_url": "https://github.com/rsasaki0109/localization_zoo/commit/c3f95819ebd4c63ee833922a4ba57082b204a5d4"
+      }
+    ],
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "local_history_join": "26ba2339dec17b06ae686fa8109481434695ec27",
+  "source_and_alias_histories_preserved_locally": true,
+  "publication_scope": "The original local source commit objects will be included by the next successful normal Git push. Snapshot contents are already available at the published alias.",
+  "native_estimator_unchanged": true,
+  "trial_status": "The existing extended acquisition controller remains active; 00 and 02–10 are not full results."
+}

@@ -13,6 +13,12 @@ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 number=lambda v:'undefined' if v is None else format(float(v),'.9g')
 CLASSES=('edge','ground','facade')
 
+def boundary_points(point_groups,boundary):
+ key=tuple(boundary[k] for k in ('frame','mode','translation_only','iteration','feature_class'))
+ rows=point_groups.get(key,[])
+ assert len(rows)==sum(g['count'] for g in boundary['groups'] if g['partition']=='all'),'Missing native-valid boundary points'
+ return rows
+
 def metrics(rows):
  scores=[float(r['mean_absolute_length_error_m']) for r in rows if r['mean_absolute_length_error_m']!='']
  g=[float(r['axis_g']) for r in rows if r['axis_g']!='']
@@ -32,7 +38,7 @@ def main():
    key=f,m,bool(tr),it,c;point_groups.setdefault(key,[]).append(row)
   bycase={r['frame']:r for r in parent['groups'][group]['cases']}
   for b in result['boundaries']:
-   key=tuple(b[k] for k in ('frame','mode','translation_only','iteration','feature_class'));rows=point_groups[key]
+   rows=boundary_points(point_groups,b)
    parts={name:metrics([r for r in rows if name=='all' or bool(int(r['kept']))==(name=='kept')]) for name in ('all','kept','removed')}
    item=dict(group=group,**{k:b[k] for k in ('frame','mode','translation_only','iteration','feature_class','axis')},partitions=parts)
    boundaries.append(item)

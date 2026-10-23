@@ -35,7 +35,7 @@ def main():
    assert subprocess.check_output(['git','show',BASE+':'+name],cwd=W)==(W/name).read_bytes(),name
    preserved[name]=sha(W/name)
   scopes=('papers/inten_loam','evaluation/src','evaluation/data','tests','experiments/results')
-  excludes=(':(exclude)papers/inten_loam/README.md',':(exclude)tests/test_inten_local_rigidity.py',':(exclude)experiments/results/inten_local_rigidity')
+  excludes=(':(exclude)papers/inten_loam/README.md',':(exclude)tests/test_inten_local_rigidity.py',':(exclude)tests/test_inten_local_rigidity_tables.py',':(exclude)experiments/results/inten_local_rigidity')
   changed=git('diff','--name-only',BASE,'--',*scopes,*excludes);assert not changed,changed
   for name,digest in before.items():assert sha(E/name)==digest,name
   write(stage/'preservation.json',dict(exit_code=0,base=BASE,sha256=preserved,older_source_result_changes=changed,case_regeneration=before))

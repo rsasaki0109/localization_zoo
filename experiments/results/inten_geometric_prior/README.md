@@ -158,7 +158,14 @@ No complete sequence is available. Even a successful real-batch preflight does
 not guarantee sustained transport; avoid repeated estimator restarts while
 the recorded acquisition failure remains unresolved.
 
-## Full Python validation is not yet green
+## Python validation: executed reconstruction and post-run audit
+
+The complete discovery in the recorded runtime runs 445 tests with one final
+source-binding failure and five skips. Every numerical reconstruction worker
+passes. After fixing the remaining nested source binding, all 13 binding
+regressions and the original global audit pass separately, using exact outputs
+produced by that discovery. This is **not a fresh all-green discovery**, and
+full native/ROS2 CI is not claimed. Details and earlier failures follow.
 
 The full discovery and all failures are preserved in
 [publication_retry/](publication_retry/). The isolated checkout initially lacked
@@ -197,16 +204,16 @@ against the unchanged protocol hash before adding the current test wrapper.
 All ten [source-binding/scheduling regressions](commands/historical_all_sources_preflight.json)
 pass (`1d99e284`). Changed/missing archived source, changed manifests, changed
 historical verification code and a changed historical test snapshot are still
-rejected. Every affected source binding passes a preflight before expensive
-reconstruction. Frozen worker commands, group order, populations and arithmetic
+rejected. Those preflights did not cover the nested recovery verifier's final
+source audit; the additional regression below covers it. Frozen worker commands,
+group order, populations and arithmetic
 remain unchanged; the adapter runs one worker at a time to bound memory and
-restores module state after errors. Complete Python discovery is being rerun;
-these focused checks alone do not establish a full-suite pass. The earlier
+restores module state after errors. These focused checks alone did not establish
+a full-suite pass. The earlier
 failures and deliberately stopped incomplete retry remain archived.
 
 The completed [serial discovery](publication_all_bindings_serial/) (`1f973bd8`)
-runs 445 tests with one failure and five existing skips. Source bindings now
-pass; the remaining failure is the unchanged native Hessian reconstruction
+runs 445 tests with one failure and five skips. It reaches the unchanged native Hessian reconstruction
 check for query `(08, 46, 14, false, 1, 2)`. All documentation commands pass
 and regenerated historical tables remain byte-identical.
 
@@ -217,10 +224,31 @@ NumPy 2.2.4 and SciPy 1.15.3 fail the original check; Python 3.12.14, NumPy
 pass it. This identifies a runtime-dependent numerical difference, without
 isolating a single library as its cause. The witness uses the same frozen
 reconstruction and unchanged `rtol=1e-10, atol=1e-12`; it does not establish a
-full-suite pass. Complete discovery is now running in the recorded runtime.
+full-suite pass. The subsequent complete discovery uses the recorded runtime.
 The command explicitly sets `PYTHONPATH` to select its NumPy installation,
 while using the original base interpreter's SciPy. No archived result, hash,
 numerical tolerance or estimator setting is changed.
+
+That [recorded-runtime discovery](publication_recorded_runtime/) (`b3c22c0b`)
+passes every original numerical worker, including 08, then fails at the nested
+full-field recovery verifier's final production-source hash check. The adapter
+previously rebound only the main checker. It now binds every nested recovery
+module and restores each root on exit, while preserving the scheduler's original
+worker commands and working directory.
+
+All 13 [final binding regressions](commands/nested_source_binding_final.json)
+pass, including the real nested global-source path, corrupted recovery-source
+rejection and restoration after failure. The [post-run global audit](global_audit_final.json)
+also passes. Each executed worker's committed receipt has exit 0 and an output
+SHA-256 identical to the corresponding lossless historical worker payload.
+The recheck requires that exact equality before recovering the temporary output
+bytes, then runs the original scheduler bindings, global recovery/source/build
+checks, report comparison and original test result assertions. It neither reruns
+nor replaces numerical reconstruction with an assumed answer. See
+[the executed command](commands/global_audit_final.json) and
+[runtime inventory](commands/recorded_runtime_inventory.stdout).
+The failed discovery remains unchanged; these separate passing checks do not
+rewrite its exit code or establish portability to the system NumPy/SciPy stack.
 
 ## Reproduction and resumption
 

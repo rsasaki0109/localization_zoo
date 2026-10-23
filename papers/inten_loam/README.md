@@ -54,9 +54,11 @@ partial evidence does not establish an all-sequence improvement or pass the
 retention gate. Historical verification now restores the archived production
 sources against the unchanged frozen hashes, retaining all original numerical
 and corruption checks. The later [960-frame case report](../../experiments/results/inten_geometric_prior/adverse_cases_after_approval.json)
-retains the same diagnosis and displayed ratios. The complete Python suite is
-being rerun with memory-bounded historical workers; focused source-binding
-regressions alone do not establish a full CI pass.
+retains the same diagnosis and displayed ratios. Recorded-runtime discovery
+passes all numerical workers, then fails at a nested final source audit. After
+correcting that binding, the regressions and original global audit on the exact
+executed output bytes pass separately; a fresh all-green discovery and full
+native/ROS2 CI are not claimed. Commands and retained failures are in the study.
 
 ## Independent initialization diagnosis (2026-10-23)
 

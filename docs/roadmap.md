@@ -31,16 +31,17 @@ An accurate initializer alone does not remove that failure. The retained
 [stage diagnostics](../experiments/results/inten_geometric_prior/adverse_cases.json)
 also include 202 and 420. Do not tune from these partial results; finish the
 frozen trial after stable transport recovery. Before leaving
-[Draft PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174), resolve
-historical-source verification without changing frozen hashes or weakening the
-archive checks. An adapter now restores the archived sources for support,
+[Draft PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174), retain
+the fixed all-sequence requirement. An adapter restores archived sources for support,
 prior-control and local-rigidity checks while retaining current historical
 verifier/data checks; its corruption regressions and all source preflights
 pass. Original support worker commands execute serially after a retained
-parallel worker failure. Serial discovery leaves a runtime-dependent strict
-numerical mismatch. The exact failing query passes in the original recorded
-Python/NumPy/SciPy environment with unchanged tolerances; complete discovery
-is being rerun there, so full CI is not yet claimed. Git publication preserved
+parallel worker failure. System-runtime discovery retains a strict numerical
+mismatch. In the recorded Python/NumPy/SciPy environment, all numerical workers
+pass; discovery then fails at a nested final source audit. The binding is fixed,
+and the added regressions plus original global checks on the byte-identical
+executed worker outputs pass. This is a post-run recheck, not a fresh all-green
+discovery or full native/ROS2 CI. Git publication preserved
 the original source-commit history alongside the API transport aliases.
 
 

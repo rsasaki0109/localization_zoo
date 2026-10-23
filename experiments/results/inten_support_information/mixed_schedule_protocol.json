@@ -1,0 +1,27 @@
+{
+  "fixed_pairs": [
+    [
+      "old",
+      "01"
+    ],
+    [
+      "08",
+      "02"
+    ]
+  ],
+  "source_sha256": {
+    "experiments/results/inten_support_information/verify_mixed_parallel.py": "1fec42b678e9c7de0c88e65844d2f0aeb7e51d06a7d783b3b45bf170f5ab859c",
+    "experiments/results/inten_support_information/verify_mixed.py": "624625ca6e52aececa95bec888f227c1a93fec137fee573f35345def2e22ad5b",
+    "experiments/results/inten_support_information/packet_tail_recovery_protocol.json": "6bb3622c284ed4e7b9f89c72ef21f2023a304ecba9f2e2118a387e5ef6d19e08",
+    "experiments/results/inten_support_information/verify_ordered.py": "19c9c8350ab026997007aa706ca2d13e9008d586ed78c91f6fd752d2713d0ac5",
+    "experiments/results/inten_support_information/arithmetic_recovery_protocol.json": "ac314d6ce515b961b920dc2c54cab6f43aa9e2513eec7a8a3649fa3b914747e4",
+    "experiments/results/inten_support_information/verify_full_field.py": "7dbb35a823b6ad910ae48d40ac4259dd53e5975939957dbb4deda674f01dd689",
+    "experiments/results/inten_support_information/field_source_recovery_protocol.json": "dc173c9d2bbab17a23d2df8a80eab94eb8c47a8d2d7be459895b6f203fa7298b",
+    "experiments/results/inten_support_information/verify.py": "a73e787d175de1bac406d2a6bc2e4def306cead5cf8fe053becb45ac21dadff8"
+  },
+  "scope": "Same complete per-group checker and original global checks, fixed memory-bounded pairs; contextual errors only, no case/row sampling or changed numerical criteria.",
+  "worker_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  }
+}

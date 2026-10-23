@@ -1,12 +1,12 @@
 from pathlib import Path
-import copy,importlib.util,json,tempfile,unittest
+import copy,importlib.util,json,sys,tempfile,unittest
 from unittest.mock import patch
 import numpy as np
 
 E=Path(__file__).resolve().parents[1]/'experiments/results/inten_support_information'
 def module(name,path):
     s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
-v=module('support_checked_parallel_field',E/'verify_parallel.py')
+v=module('support_checked_mixed_parallel_field',E/'verify_mixed_parallel.py')
 io=module('support_report_reader',E/'report_io.py')
 
 class SupportInformationTest(unittest.TestCase):
@@ -24,7 +24,13 @@ class SupportInformationTest(unittest.TestCase):
         record['class']=record.pop('feature_class')
         return record,clouds
     def test_complete_histories_native_queries_and_information_report(self):
-        actual=v.validate();v.inputs.F.equivalent(actual,io.read_report())
+        with tempfile.TemporaryDirectory(prefix='support_complete_check_') as folder:
+            try:actual=v.validate_in(Path(folder))
+            except Exception:
+                for path in Path(folder).glob('*.stderr.log'):
+                    print(path.name+'\n'+path.read_text(),file=sys.stderr)
+                raise
+        v.inputs.F.equivalent(actual,io.read_report())
         self.assertTrue(actual['all_558_historical_native_outcomes_exact'])
         self.assertEqual(sum(g['native_outcomes'] for g in actual['groups'].values()),31*18)
         self.assertEqual(set(actual['groups']),{'old','01','02','08'})
@@ -36,12 +42,13 @@ class SupportInformationTest(unittest.TestCase):
         self.assertAlmostEqual(rebuilt['all']['H'][0,0],.5)
         self.assertAlmostEqual(rebuilt['all']['g'][4],.01)
     def test_native_edge_arithmetic_witness_passes_original_thresholds(self):
-        folder=E/'checks/equation_diagnosis';stem='old_247_6_0_16_0'
-        record=json.loads((folder/(stem+'.query.json')).read_text())
-        data=np.load(folder/(stem+'.clouds.npz'));blank=np.empty((0,6))
-        clouds={record['frame']:[data['source'],blank,blank,blank],record['frame']-1:[data['target'],blank,blank,blank]}
-        actual,_=v.checker.reconstruct(record,clouds,set(),{},{} )
-        np.testing.assert_allclose(actual['kept']['H'],np.array(record['kept']['H']).reshape(6,6),rtol=1e-10,atol=1e-12)
+        for directory,stem in (('equation_diagnosis','old_247_6_0_16_0'),('ordered_equation_diagnosis','08_45_15_1_3_0')):
+            folder=E/'checks'/directory
+            record=json.loads((folder/(stem+'.query.json')).read_text())
+            data=np.load(folder/(stem+'.clouds.npz'));blank=np.empty((0,6))
+            clouds={record['frame']:[data['source'],blank,blank,blank],record['frame']-1:[data['target'],blank,blank,blank]}
+            actual,_=v.checker.reconstruct(record,clouds,set(),{},{} )
+            np.testing.assert_allclose(actual['kept']['H'],np.array(record['kept']['H']).reshape(6,6),rtol=1e-10,atol=1e-12)
         self.assertEqual(v.sum3(np.array([1e16,-1e16,1.])),1.)
     def test_invalid_reciprocal_reject_is_not_a_lost_valid_residual(self):
         record,clouds=self.line_fixture()

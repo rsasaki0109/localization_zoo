@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "import json,subprocess,sys; from pathlib import Path; r=Path(\"experiments/results/inten_geometric_prior\"); b=json.loads((r/\"binaries.json\").read_text()); actual=subprocess.check_output([\"docker\",\"exec\",\"localization-zoo-dev\",\"sha256sum\",b[\"runner_container_path\"]],text=True).split()[0]; assert actual==b[\"runner_sha256\"]; cmd=[sys.executable,str(r/\"run_sequences.py\"),\"--source-root\",\"/workspace/localization-env/branch-cleanup-20261022/worktree\",\"--scratch\",\"/tmp/localization-zoo-inten-geometric-prior-20261023/raw\"]; bad=subprocess.run(cmd+[\"--fetch-attempts\",\"0\"],capture_output=True,text=True); assert bad.returncode==2 and \"must be positive\" in bad.stderr; print(json.dumps(dict(binary_sha256=actual,invalid_attempts_exit=bad.returncode,default_attempts_unchanged=20))); help_result=subprocess.run(cmd+[\"--help\"],check=True)"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "6cd3398d4e28df5d270814804ebf98d47e0eec60",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792772496.7456865,
+  "exit_code": 0,
+  "wall_seconds": 0.24050643399823457,
+  "logs": {
+    ".stdout": "360545a4ec8e46b2fbde4b4eb2a3fb551148cb8c6592f325f20668ee88c614a0",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

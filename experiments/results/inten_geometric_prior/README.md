@@ -411,3 +411,21 @@ input manifests and trace shards and the reference GT CSVs. The normal per-seque
 manifests also support reproducing through `run_experiment_matrix.py` when a
 complete sequence fits on disk. The continuous runner exists to avoid that
 storage requirement, not to change input selection or evaluator conventions.
+
+## Continued acquisition with native state retained
+
+The next invocation is recorded in [extended_acquisition_launch.json](extended_acquisition_launch.json).
+It uses the same frozen binary and settings, explicitly selecting only 00 and
+02–10, with `--fetch-attempts 120`. The new transport-only option leaves the
+original default of 20 unchanged. Each unsuccessful acquisition waits with the
+existing bounded backoff while the same native process retains its state.
+Neither failed fetches nor batch boundaries advance or reset estimator state.
+The run still requires every original scan hash and exact reference control.
+
+The [binary/CLI preflight](commands/next_binary_and_cli_preflight.json) exits 0;
+small range probes succeed, but [real scan acquisition](commands/next_fetch_00_first_batch.json)
+again returns HTTP 503. The launch record is an immutable start record, not a
+completion report. Check the live `commands/full_trial_extended_acquisition_wait.json`
+and controller before launching another job. New full sequence results are
+committed only after native completion and all original controls. Completed 01
+and every previous interruption remain intact.

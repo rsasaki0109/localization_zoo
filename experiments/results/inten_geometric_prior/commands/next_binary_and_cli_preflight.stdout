@@ -1,0 +1,18 @@
+usage: Fetch bounded batches from one sequence, preserve native state, archive all outcomes.
+       [-h] --source-root SOURCE_ROOT --scratch SCRATCH [--sequence SEQUENCE]
+       [--fetch-script FETCH_SCRIPT] [--fetch-attempts FETCH_ATTEMPTS]
+       [--commit-results]
+
+options:
+  -h, --help            show this help message and exit
+  --source-root SOURCE_ROOT
+  --scratch SCRATCH
+  --sequence SEQUENCE
+  --fetch-script FETCH_SCRIPT
+                        Explicit transport-only override; estimator settings
+                        stay frozen.
+  --fetch-attempts FETCH_ATTEMPTS
+                        Acquisition attempts per batch; larger opt-in budgets
+                        preserve the live native state during outages.
+  --commit-results
+{"binary_sha256": "404c4dca7cf4277665106f3102f4a5ac180164bf968de0760911da055078774d", "invalid_attempts_exit": 2, "default_attempts_unchanged": 20}

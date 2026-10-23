@@ -1,0 +1,12 @@
+{
+  "evidence_type": "Verbatim failed-phase outputs from execution tools; original composite shell continued into the separately recorded full check driver. No inner exit status was captured, so an outer shell exit must not be treated as archive success.",
+  "archive_failure": {
+    "tool_session_id": 17395,
+    "observed_output": "Traceback (most recent call last):\n  File \"<stdin>\", line 4, in <module>\n  File \"/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/archive.py\", line 11, in archive\n    _p.archive(source,target);return\n    ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_prior_control/archive.py\", line 6, in archive\n    target.mkdir(parents=True,exist_ok=False);files={}\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1311, in mkdir\n    os.mkdir(self, mode)\nOSError: [Errno 28] No space left on device: '/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_local_rigidity/checks/tables'\n"
+  },
+  "temporary_reference_failures": [
+    "OSError: [Errno 28] No space left on device: '/tmp/localization-zoo-inten-local-rigidity-20261023/complete_tables/cases.summary.json' -> '/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_local_rigidity/cases.summary.json'",
+    "OSError: [Errno 28] No space left on device: '/tmp/localization-zoo-inten-local-rigidity-20261023/complete_tables/cases.summary.json' -> '/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_local_rigidity/cases.summary.json'"
+  ],
+  "recovery": "Complete raw derived JSON and location Markdown were copied to private storage and SHA256-verified before removing duplicate uncommitted workspace bytes. Temporary links restored both paths until the old check driver completed. Complete compressed regular files and an independently verified original-byte manifest replace these temporary links before review. All native and older committed evidence is unchanged."
+}

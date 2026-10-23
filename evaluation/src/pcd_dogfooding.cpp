@@ -4945,6 +4945,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "s2m_gate_sq") pp.s2m_gate_sq = v;
       else if (k == "s2s_gate_sq") pp.s2s_gate_sq = v;
       else if (k == "s2s_mapped_prior") pp.s2s_mapped_prior = v != 0.0;
+      else if (k == "s2s_geometric_prior") pp.s2s_geometric_prior = v != 0.0;
       else if (k == "s2s_translation_prior_ratio") pp.s2s_translation_prior_ratio = v;
       else if (k == "s2s_row_support") pp.s2s_row_support = v != 0.0;
       else if (k == "s2s_ground_pca") pp.s2s_ground_pca = v != 0.0;
@@ -5045,6 +5046,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
                " mean pairs s2s=" + std::to_string(s2s / d) + " s2m=" + std::to_string(s2m / d) +
                " dor points/frame=" + std::to_string(dor / d);
     if (options.paper_accelerated) res.note += "; repository acceleration enabled (opt-in, not in the paper)";
+    if (pp.s2s_geometric_prior) res.note += "; independent KISS-ICP S2S seed/prior enabled (repository hybrid, NOT in paper, opt-in)";
     if (pp.s2s_mapped_prior) res.note += "; S2S previous mapped-motion seed enabled (repository extension, opt-in)";
     if (pp.s2s_translation_prior_ratio > 0.0) res.note += "; S2S weak-translation prediction prior enabled (repository extension, opt-in)";
     if (pp.s2s_predicted_dor_facade) res.note += "; predicted-DOR S2S facade gate enabled (repository extension, opt-in)";

@@ -1,6 +1,7 @@
 #include "inten_loam/inten_loam_paper.h"
 #include "inten_loam/detail/feature_tree.h"
 #include "inten_loam/detail/ground_pca.h"
+#include "inten_loam/detail/geometric_prior.h"
 #include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
 #include "inten_loam/detail/translation_prior.h"
@@ -1425,3 +1426,68 @@ TEST_P(InTenLoamPassiveTrace, RejectsForcedPoseBeforeChangingEstimatorState) {
 
 INSTANTIATE_TEST_SUITE_P(AccelerationModes, InTenLoamPassiveTrace,
                          ::testing::Values(false, true));
+
+// The independent backend must retain its own history, including when InTEn's
+// feature solver produces a different motion. No GT is supplied to process().
+TEST(InTenLoamPaper, GeometricPriorTracksIndependentBackend) {
+  InTenLoamPaperParams p;
+  p.s2s_geometric_prior = true;
+  p.accelerated = true;
+  p.use_mapping = false;
+  p.s2s_translation_prior_ratio = .03;
+  InTenLoamPaper with_intensity(p);
+  p.use_intensity = false;
+  InTenLoamPaper without_intensity(p);
+  localization_zoo::kiss_icp::KISSICPPipeline independent(
+      detail::geometricPriorParams(p.max_range));
+  std::vector<Eigen::Vector3d> points;
+  std::vector<float> intensities;
+  for (int i = 0; i < 4; ++i) {
+    Eigen::Matrix4d sensor = Eigen::Matrix4d::Identity();
+    sensor(0, 3) = .4 * i;
+    sensor.block<3,3>(0,0) = Eigen::AngleAxisd(.01*i, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    scanAt(sensor, &points, &intensities);
+    independent.registerFrame(points);
+    InTenLoamPaperTrace a, b;
+    with_intensity.process(points, intensities, nullptr, &a);
+    without_intensity.process(points, intensities, nullptr, &b);
+    EXPECT_EQ(a.geometric_prior_used, i > 0);
+    EXPECT_EQ(b.geometric_prior_used, i > 0);
+    EXPECT_EQ((a.geometric_relative - independent.lastDelta()).cwiseAbs().maxCoeff(), 0.0);
+    EXPECT_EQ((b.geometric_relative - independent.lastDelta()).cwiseAbs().maxCoeff(), 0.0);
+    if (i > 0) {
+      EXPECT_EQ((a.s2s.input - independent.lastDelta()).cwiseAbs().maxCoeff(), 0.0);
+      EXPECT_EQ((b.s2s.input - independent.lastDelta()).cwiseAbs().maxCoeff(), 0.0);
+      EXPECT_GT(a.s2s.translation_prior_information.norm(), 0.0);
+    }
+  }
+}
+
+TEST(InTenLoamPaper, GeometricPriorIsOptInAndRejectsForcedPoseBeforeUpdating) {
+  InTenLoamPaperParams p;
+  EXPECT_FALSE(p.s2s_geometric_prior);
+  p.s2s_geometric_prior = true;
+  p.deskew = 1;
+  EXPECT_THROW(InTenLoamPaper{p}, std::invalid_argument);
+  p.deskew = 0;
+  p.accelerated = true;
+  InTenLoamPaper rejected(p), clean(p);
+  Eigen::Matrix4d identity = Eigen::Matrix4d::Identity();
+  InTenLoamPaperDiagnostics diagnostic;
+  diagnostic.forced_pose = &identity;
+  std::vector<Eigen::Vector3d> points;
+  std::vector<float> intensities;
+  scanAt(identity, &points, &intensities);
+  EXPECT_THROW(rejected.process(points, intensities, &diagnostic), std::invalid_argument);
+  InTenLoamPaperTrace a, b;
+  rejected.process(points, intensities, nullptr, &a);
+  clean.process(points, intensities, nullptr, &b);
+  EXPECT_EQ(a.frame_index, 0);
+  EXPECT_EQ((a.pose-b.pose).cwiseAbs().maxCoeff(), 0.0);
+  identity(0,3) = .4;
+  scanAt(identity, &points, &intensities);
+  rejected.process(points, intensities, nullptr, &a);
+  clean.process(points, intensities, nullptr, &b);
+  EXPECT_EQ((a.geometric_relative-b.geometric_relative).cwiseAbs().maxCoeff(), 0.0);
+  EXPECT_EQ((a.pose-b.pose).cwiseAbs().maxCoeff(), 0.0);
+}

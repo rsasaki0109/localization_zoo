@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/run_sequences.py", line 144, in <module>
+    main()
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/run_sequences.py", line 84, in main
+    future.result()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/run_sequences.py", line 68, in fetch
+    if missing:raise RuntimeError(f'incomplete batch {seq}: {missing}')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: incomplete batch 01: [964, 967, 968, 969, 970, 971, 973, 976, 977, 978, 982, 983, 984, 985, 986, 988, 989, 993, 994, 995, 996, 999, 1000, 1003, 1004, 1006, 1007, 1008, 1011, 1012, 1013, 1015, 1018, 1022, 1023]

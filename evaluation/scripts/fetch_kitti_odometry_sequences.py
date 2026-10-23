@@ -184,8 +184,21 @@ def extract_sequence_range(
 
     first_offset = needed[0].header_offset
     last = needed[-1]
-    estimated_end = last.header_offset + 30 + len(last.filename.encode()) + len(last.extra)
-    estimated_end += last.compress_size
+    # Central-directory extra fields need not have the same length as local
+    # extra fields (KITTI 00 differs). Read the final local header so the
+    # bounded response includes its entire payload and no following scan.
+    header_request = urllib.request.Request(
+        url, headers={"Range": f"bytes={last.header_offset}-{last.header_offset + LOCAL_FILE_HEADER.size - 1}"},
+    )
+    with urllib.request.urlopen(header_request, timeout=120) as response:
+        if getattr(response, "status", None) != 206:
+            raise RuntimeError("Server ignored local-header HTTP Range request")
+        fields = LOCAL_FILE_HEADER.unpack(read_exact(response, LOCAL_FILE_HEADER.size))
+    if fields[0] != LOCAL_FILE_SIGNATURE or fields[3] != ZIP_STORED:
+        raise RuntimeError(f"Unexpected local ZIP header for {last.filename}")
+    filename_length, extra_length = fields[-2:]
+    estimated_end = (last.header_offset + LOCAL_FILE_HEADER.size
+                     + filename_length + extra_length + last.compress_size)
     request = urllib.request.Request(
         url,
         headers={"Range": f"bytes={first_offset}-{estimated_end - 1}"},

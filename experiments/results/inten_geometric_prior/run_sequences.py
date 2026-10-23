@@ -30,6 +30,7 @@ def main():
     p.add_argument('--source-root',type=Path,required=True)
     p.add_argument('--scratch',type=Path,required=True)
     p.add_argument('--sequence',action='append')
+    p.add_argument('--fetch-script',type=Path,help='Explicit transport-only override; estimator settings stay frozen.')
     p.add_argument('--commit-results',action='store_true')
     a=p.parse_args();study=Path(__file__).resolve().parent
     sys.path.insert(0,str(a.source_root/'evaluation/scripts'))
@@ -38,6 +39,8 @@ def main():
     from diagnose_kitti_steps import diagnose
     protocol=json.loads((study/'protocol.json').read_text())
     binary=json.loads((study/'binaries.json').read_text())
+    fetch_script=(a.fetch_script or a.source_root/'evaluation/scripts/fetch_kitti_odometry_sequences.py').resolve()
+    fetch_sha=sha(fetch_script)
     source_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
     sequences=a.sequence or protocol['sequence_order']
     for seq in sequences:
@@ -55,12 +58,12 @@ def main():
             for attempt in range(20):
                 missing=[i for i in indices if not (scanroot/names[i]).exists() or sha(scanroot/names[i])!=pins[names[i]]['sha256']]
                 if not missing:return
-                argv=[sys.executable,str(a.source_root/'evaluation/scripts/fetch_kitti_odometry_sequences.py'),
+                argv=[sys.executable,str(fetch_script),
                       '--output-root',str(rawroot),'--sequence',seq,'--workers','4']
                 for i in missing:argv+=['--frame',str(i)]
                 r=subprocess.run(argv,capture_output=True,text=True)
                 save(out/f'fetch_{indices[0]:06d}_{attempt}.json',{'argv':argv,'cwd':str(Path.cwd()),
-                    'source_commit':source_commit,'exit_code':r.returncode,'stdout':r.stdout,'stderr':r.stderr})
+                    'source_commit':source_commit,'fetch_script_sha256':fetch_sha,'exit_code':r.returncode,'stdout':r.stdout,'stderr':r.stderr})
                 if r.returncode:
                     print(f'sequence {seq}: acquisition retry {attempt+1} after failure',flush=True)
                     time.sleep(min(30,2**min(attempt,5)))

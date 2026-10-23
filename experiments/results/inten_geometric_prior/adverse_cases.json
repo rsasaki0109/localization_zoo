@@ -1,0 +1,79 @@
+{
+  "scope": "Predeclared 01 adverse cases in an incomplete continuous trial. No full-sequence RTE, ATE, all-sequence or retention-gate claim.",
+  "selection": "Frames 202, 215 and 420 named in protocol.json before the candidate was run. No post-result retuning.",
+  "attempt": "experiments/results/inten_geometric_prior/preflight_failures/recovery_again_interrupted_01",
+  "frames_available": 832,
+  "native_exit_code": -9,
+  "definition": "Ratio is norm of local translation / norm of GT local translation; destination-frame index.",
+  "protocol_sha256": "d51b22d7f8636a691d278b4386ca709c4b51549f7b498ae372d31cb235ec32ae",
+  "native_sha256": "aa73a6f8400c7fd84feee44f095a19554d95e60e46dad4284fc6d1a93b81013a",
+  "gt_sha256": "5b0099d9adb6bdb0a39ce905068645c911bb24e6bd4e2f303ce88aec9aae1d27",
+  "cases": [
+    {
+      "frame": 202,
+      "gt_step_m": 2.7159547559366057,
+      "reference": {
+        "s2s_input_ratio": 0.9363260895050981,
+        "s2s_output_ratio": 0.7485977208504655,
+        "final_step_ratio": 0.949347255376862,
+        "final_length_error_over_20_percent": false,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false
+      },
+      "candidate": {
+        "s2s_input_ratio": 1.0063577894070848,
+        "s2s_output_ratio": 0.7993733732349515,
+        "final_step_ratio": 0.9684000457508886,
+        "final_length_error_over_20_percent": false,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true
+      }
+    },
+    {
+      "frame": 215,
+      "gt_step_m": 2.720216745470262,
+      "reference": {
+        "s2s_input_ratio": 0.3706971672765579,
+        "s2s_output_ratio": 0.28691040446419724,
+        "final_step_ratio": 0.3061164920178279,
+        "final_length_error_over_20_percent": true,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false
+      },
+      "candidate": {
+        "s2s_input_ratio": 1.003768767428609,
+        "s2s_output_ratio": 0.7802771430176871,
+        "final_step_ratio": 0.37395530206957606,
+        "final_length_error_over_20_percent": true,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true
+      }
+    },
+    {
+      "frame": 420,
+      "gt_step_m": 2.6382457186976573,
+      "reference": {
+        "s2s_input_ratio": 1.0130166896532986,
+        "s2s_output_ratio": 0.6060712640248377,
+        "final_step_ratio": 0.999430249711699,
+        "final_length_error_over_20_percent": false,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false
+      },
+      "candidate": {
+        "s2s_input_ratio": 1.0047846626152084,
+        "s2s_output_ratio": 0.589325610550948,
+        "final_step_ratio": 0.986408841679206,
+        "final_length_error_over_20_percent": false,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true
+      }
+    }
+  ]
+}

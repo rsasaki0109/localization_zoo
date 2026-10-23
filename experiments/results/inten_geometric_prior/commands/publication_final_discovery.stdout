@@ -1,0 +1,7 @@
+['evaluation/scripts/refresh_study_docs.py']: 0
+['evaluation/scripts/generate_full_variant_table.py']: 0
+['evaluation/scripts/generate_paper_ratio_table.py']: 0
+['evaluation/scripts/validate_showcase.py']: 0
+['evaluation/scripts/generate_leaderboard.py', '--check']: 0
+['evaluation/scripts/generate_paper_ready_evidence.py', '--check']: 0
+['-m', 'unittest', 'discover', '-s', 'tests']: 0

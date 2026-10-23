@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-c",
+    "from pathlib import Path\nimport gzip,hashlib,json,time\nr=Path('experiments/results/inten_geometric_prior');parent=r/'commands/publication_final_discovery.json';out=r/'publication_final_discovery/worker_receipts';out.mkdir(exist_ok=False)\nexpected='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_final_discovery'\nseen={};end=time.monotonic()+7200\nwhile time.monotonic()<end:\n    for folder in Path('/tmp').glob('support_complete_check_*'):\n        for p in folder.glob('*_command.json'):\n            group=p.name.removesuffix('_command.json')\n            if group in seen:continue\n            try:row=json.loads(p.read_text())\n            except (FileNotFoundError,json.JSONDecodeError):continue\n            if row.get('cwd')!=expected or row.get('exit_code') is None:continue\n            try:\n                artifacts={n:(folder/n).read_bytes() for n in [p.name,group+'.stdout.log',group+'.stderr.log']}\n                raw=(folder/(group+'.json')).read_bytes() if row.get('output_sha256') else None\n            except FileNotFoundError:continue\n            if raw is not None:\n                assert hashlib.sha256(raw).hexdigest()==row['output_sha256']\n                artifacts[group+'.json.gz']=gzip.compress(raw,mtime=0)\n            for n,data in artifacts.items():(out/n).write_bytes(data)\n            seen[group]=dict(exit_code=row['exit_code'],output_sha256=row.get('output_sha256'),files_sha256={n:hashlib.sha256(b).hexdigest() for n,b in artifacts.items()})\n            print(group,row['exit_code'],flush=True)\n    try:done=json.loads(parent.read_text()).get('exit_code') is not None\n    except json.JSONDecodeError:done=False\n    if done:break\n    time.sleep(.1)\nelse:raise RuntimeError('Discovery receipt did not finish')\n(out/'capture.json').write_text(json.dumps(dict(scope='Exact temporary outputs of the fresh discovery, captured after each completed worker receipt.',groups=seen),indent=2)+'\\n')\nassert set(seen)=={'old','01','02','08'},'Not every worker output was captured'\n"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "622b4bd2b91ff33b3739ab79c5bde2cfa6b468ba",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792759212.560572,
+  "exit_code": 0,
+  "wall_seconds": 2069.8188891309546,
+  "logs": {
+    ".stdout": "16046621e5572f6d70ef836c194d7a0ce8dff7d92b11bad99bf1b7622f2e81f1",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

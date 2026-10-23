@@ -1,6 +1,6 @@
 """Render every inherited case and native cluster from complete committed evidence."""
 from pathlib import Path
-import csv,hashlib,importlib.util,io,json
+import csv,hashlib,importlib.util,io,json,tempfile
 import numpy as np
 E=Path(__file__).resolve().parent
 # Installed copy lives alongside the committed report reader and analyzer.
@@ -28,7 +28,7 @@ def metrics(rows):
   maximum_center_absolute=max(scores) if scores else None,axis_g=sum(g) if g else None,positive_axis_g=sum(x for x in g if x>0) if g else None,
   negative_axis_g=sum(x for x in g if x<0) if g else None,axis_H=sum(h) if h else None)
 
-def main():
+def render(output):
  report=reader.read_report();analyzer.bindings();parent=read(E.parent/'inten_prior_control/report/summary.json')
  primary=[];locations=[];boundaries=[];tables=[]
  for group,result in report['groups'].items():
@@ -58,7 +58,7 @@ def main():
  summary=dict(exit_code=0,report_manifest_sha256=sha(E/'report/manifest.json'),unchanged_parent_metrics_sha256=sha(E.parent/'inten_prior_control/report/summary.json'),primary=primary,boundaries=boundaries,locations=locations,
   counts={key:sum(g['counts'][key] for g in report['groups'].values()) for key in next(iter(report['groups'].values()))['counts']},
   points=sum(b['partitions']['all']['count'] for b in boundaries),histories=sum(len(g['histories']) for g in report['groups'].values()))
- (E/'cases.summary.json').write_text(json.dumps(summary,indent=2,allow_nan=False)+'\n')
+ (output/'cases.summary.json').write_text(json.dumps(summary,indent=2,allow_nan=False)+'\n')
  text=['# Local rigidity: every inherited case','',
   'This is a passive two-frame pair-distance equation conditional on the native assigned anchors, not static-object truth. Rigid moving objects can pass. Sampling, occlusion and cross-object neighbors can fail. Every intermediate iteration enters the complete history aggregates; signed contributions and spatial groups refer to the first and last recorded pre-update linearizations. Repeated centers/relations are not independent observations.','',
   'All source neighborhoods use the same fixed fanout and all-valid neighbor population. Kept/removed partitions split centers only. A center without an eligible neighbor has an undefined score. Native class point indices, full-precision g/H, eligible counts and discrepancy scores remain in the complete point CSVs; join pinned parent features for xyz/row/native cluster. H/g are raw axis partial derivatives with rotation fixed, not solved motion or physical covariance.','',
@@ -72,7 +72,7 @@ def main():
   'Mean absolute errors weight directed relations. Medians use per-center mean absolute errors over all iterations, and therefore have a different weighting. Neither is a motion-accuracy score or a new acceptance threshold. Complete counts/moments/quantiles and unexecuted phases remain in the lossless report.','',
   '| Case | Arm | Phase | Class | Iterations | All centers | Kept relations | Removed relations | Kept relation MAE (m) | Removed relation MAE (m) | Kept center median (m) | Removed center median (m) |',
   '|---|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|',*tables])
- (E/'cases.md').write_text('\n'.join(text)+'\n')
+ (output/'cases.md').write_text('\n'.join(text)+'\n')
  text=['# Source regions of retained and removed contributions','',
   'Every native source-cluster partition at every first/last pre-update boundary of every case and passive phase is retained. Cluster IDs are frame-local source labels, not tracked physical object IDs. Bounds/centroids are source-frame meters. Edge/ground labels may be a single cluster; exact point locations are obtained by joining full point CSV source_index to the pinned parent support_features record. Empty groups and undefined axes stay explicit.','',
   '| Case | Arm | Phase | Iteration | Class | Cluster | Partition | Count | Source centroid xyz | Source min xyz | Source max xyz | gt | Htt | Center median discrepancy (m) |',
@@ -80,6 +80,11 @@ def main():
  vector=lambda v:'undefined' if v is None else ', '.join(number(x) for x in v)
  for row in locations:
   text.append('| '+' | '.join(map(str,[row['group']+'/'+str(row['frame']),row['mode'],'refinement' if row['translation_only'] else 'joint',row['iteration'],CLASSES[row['feature_class']],row['cluster'],row['partition'],row['count'],vector(row['centroid']),vector(row['minimum']),vector(row['maximum']),number(row['axis_g']),number(row['axis_H']),number(row['witness']['median_center_absolute'])]))+' |')
- (E/'locations.md').write_text('\n'.join(text)+'\n')
+ (output/'locations.md').write_text('\n'.join(text)+'\n')
  print('All cases, histories, source regions and opposing signed contributions rendered without a selector.')
+def main():
+ packer=module('rigidity_table_regeneration_pack',E/'pack_tables.py')
+ with tempfile.TemporaryDirectory(prefix='rigidity_complete_tables_') as folder:
+  render(Path(folder));packer.pack(Path(folder),E)
+
 if __name__=='__main__':main()

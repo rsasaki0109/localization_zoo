@@ -2655,12 +2655,61 @@ original componentwise rtol1e-10/atol1e-12, without native reruns or changed dat
 These passive observations improve diagnosis, not trajectory accuracy. Earlier
 motion gates remain failed; no new threshold, candidate, production option,
 full trial, paper-table update or SOTA claim follows. Defaults and all older
-scores stay unchanged. Next localize the signed lost/retained neighborhoods
-and test temporal correspondence consistency with an independent witness,
-retaining all rescue/adverse controls before proposing any selection rule.
+scores stay unchanged. The subsequent local rigidity study below localizes
+these regions and tests a pose-free equation conditional on native anchors;
+it does not establish independent static truth.
 
 Full local Python421 tests exit0 with five existing environment skips; all11 new
 support-information regressions run. Complete receipts `8fa02101`/`88738af2`
 precede this note. Showcase/leaderboard/paper-ready/case checks pass, table
 regeneration is byte-identical, and every older production/source/result,
 fixture golden and paper-metadata witness is preserved from `c09faacb`.
+
+
+## Local rigidity does not separate rescue from adverse support
+
+The [complete spatial/rigidity study](../../experiments/results/inten_local_rigidity/README.md)
+reuses every inherited endpoint/arm without another native solve. Prospective
+`8af883ce`, complete measurements `7e8ef2ec` and every-case/region tables
+`d86b9c01` precede interpretation. All540 geometric class histories/all four
+predeclared passive arms and every executed iteration remain. There are
+50,776,466 eligible directed pair-distance relations, and247,032 valid point
+rows at first/last pre-update boundaries. Original strict native H/g arithmetic
+still reconstructs; source/anchor indices link every signed contribution to
+original source coordinates and native cluster bounds.
+
+The same source-neighbor fanout10, inherited prospectively from native forward
+matching, is used everywhere. The difference between target-anchor distance
+and source-feature distance uses no pose or GT, but assignments remain native
+pose-dependent. A rigid moving object can pass; sampling, occlusion and
+cross-object neighborhoods can fail. This is not static truth or an independent
+ego-motion witness. Intensity remains an unchanged control. Kept/removed
+partitions split centers while retaining the same all-valid neighbors.
+
+| Primary initial facade control | Kept center median discrepancy (m) | Removed center median (m) | Removed positive gt | Removed negative gt |
+|---|---:|---:|---:|---:|
+| old/202, rescue |0.0938321054|0.136805516|1.72176970|-0.613969519|
+| old/204, rescue |0.113406176|0.162087936|2.14568195|-1.07127335|
+| old/247, lost recovery |0.0913314139|0.146574777|1.54384628|-0.318560579|
+| 08/39, newly bad length |0.0778109345|0.177262541|0.564135901|-6.31435090|
+| 08/45, newly bad length |0.0628724483|0.0955789368|1.07639760|-5.25493393|
+
+Removed points are more inconsistent in both rescue and adverse examples;
+this scalar does not distinguish safe support removal. At08/45 the largest
+absolute removed facade-cluster gt is-1.65775595 at source centroid
+(-0.110326560,2.34552087,-0.921694983)m, with median discrepancy0.0789391984m.
+At rescued202 the corresponding descriptive largest-g region has gt0.284267071
+at(-3.63376045,-3.56820554,-1.11650306)m and discrepancy0.0858749218m.
+These overlapping discrepancies locate opposing signed losses, not object
+identity or solved trajectory causality. Complete every-cluster/point evidence,
+all other classes, iterations and negative cases remain; this descriptive
+ranking is not a selector. Raw fixed-axis g/H hold rotation fixed and do not
+partition Schur information or calibrated physical covariance.
+
+The empty-valid-class rendering exit1 and workspace ENOSPC failures remain
+before renderer/transport-only recovery. Complete JSON/Markdown/CSV bytes
+restore exactly from the committed lossless archives. Native measurements,
+thresholds, old results, defaults and paper tables do not change. No new
+candidate, rigidity gate, parameter retuning, full trial, accuracy improvement
+or SOTA claim follows. Earlier failed progression gates remain failed; a
+background/static-motion witness is still required before a support selector.

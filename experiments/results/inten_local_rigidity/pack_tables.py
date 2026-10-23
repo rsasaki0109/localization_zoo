@@ -22,9 +22,10 @@ def pack(source,target=E):
         path=name+'.xz' if compressed else name
         payload[path]=data
         files[name]=dict(path=path,storage='xz' if compressed else 'plain',bytes=len(raw),sha256=digest(raw),stored_sha256=digest(data))
-    assert shutil.disk_usage(target.parent).free>2*sum(map(len,payload.values()))+1024*1024,'Insufficient space for complete tables plus Git objects and reserve'
+    changed={name:data for name,data in payload.items() if not (target/name).is_file() or (target/name).read_bytes()!=data}
+    assert shutil.disk_usage(target.parent).free>2*sum(map(len,changed.values()))+1024*1024,'Insufficient space for complete tables plus Git objects and reserve'
     target.mkdir(parents=True,exist_ok=True)
-    for name,data in payload.items():(target/name).write_bytes(data)
+    for name,data in changed.items():(target/name).write_bytes(data)
     (target/'tables_manifest.json').write_text(json.dumps(dict(files=files,
         compression='XZ CRC64 preset9 EXTREME, complete original bytes; no row omission, precision change or numerical normalization',
         pack_source_sha256=digest(Path(__file__).read_bytes())),indent=2)+'\n')

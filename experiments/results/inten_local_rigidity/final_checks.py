@@ -21,7 +21,7 @@ def main():
   'whitespace':['git','diff','--check'],
   'runtime':prefix+[str(P/'local_runtime_info.py')],
  }
- before={str(p.relative_to(E)):sha(p) for p in (E/'cases.md',E/'locations.md',E/'cases.summary.json')}
+ before={str(p.relative_to(E)):sha(p) for p in (E/'cases.md',E/'locations.md.xz',E/'cases.summary.json.xz',E/'tables_manifest.json')}
  with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
   futures={pool.submit(run,label,cmd,stage):label for label,cmd in commands.items()}
   codes={futures[f]:f.result() for f in concurrent.futures.as_completed(futures)}

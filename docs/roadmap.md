@@ -799,9 +799,33 @@ independent. Each item says what "done" means.
     regressions run. Canonical preservation and table/case regeneration pass
     (`8fa02101`/`88738af2`).
     Earlier candidate gates stay failed: no retuning, production/full trial or
-    paper-table change. Next localize signed lost/retained neighborhoods and test
-    temporal correspondence consistency with an independent witness before any
-    selection rule, retaining all rescue/adverse controls. All KITTI is development.
+    paper-table change. The following local rigidity study localizes those
+    neighborhoods and tests a pose-free conditional equation. All KITTI is development.
+
+    The [local rigidity/spatial study](../experiments/results/inten_local_rigidity/README.md)
+    retains every inherited case/arm, all540 geometric histories,50,776,466
+    eligible directed relations and247,032 first/last valid point rows. Numerical
+    `7e8ef2ec` and complete every-case/region tables `d86b9c01` precede prose.
+    One prospectively fixed source fanout10 applies everywhere. Primary initial
+    facade kept/removed center medians are0.0938321054/0.136805516m at rescued202,
+    but0.0778109345/0.177262541m at adverse08/39 and0.0628724483/0.0955789368m
+    at08/45. Larger removed discrepancy appears with both signs of motion
+    outcome; it does not supply a safe selector. At08/45 the largest-absolute-g
+    removed source-facade region has gt-1.65775595 and discrepancy0.0789391984m,
+    overlapping rescued202's0.0858749218m region with gt0.284267071. This
+    descriptive location ranking retains every other source cluster/point.
+    Rigid moving objects can preserve distances; assignments are still native
+    pose-dependent and source clusters are not tracked object IDs. Therefore
+    this is not independent static truth or proof of solved trajectory causality.
+    All raw point contributions, empty classes, unexecuted phases, opposing
+    signs and earlier failures remain. Renderer-empty-class and ENOSPC failures
+    survive before renderer/complete-lossless-transport recovery; no native
+    value or threshold changes. Earlier candidate gates remain failed. No
+    rigidity threshold, retuning, production/default change, new full candidate
+    trial, trajectory/paper-table improvement or SOTA claim follows. Before
+    another selector, obtain evidence separating common background motion from
+    other rigid motion across every rescue/adverse control; this conditional
+    two-frame distance witness alone is insufficient.
 
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is

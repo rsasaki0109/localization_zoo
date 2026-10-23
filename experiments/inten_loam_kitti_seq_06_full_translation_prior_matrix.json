@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_06_full_translation_prior",
+    "title": "InTEn-LOAM KITTI 06: weak-translation prediction prior",
+    "question": "Does a fixed weak-translation prior prevent repeated biased S2S updates when recursive mapped prediction alone does not?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Mapped-motion reference",
+      "design_style": "reference",
+      "intent": "Mapped seed and acceleration on, row completion off in both arms. Only translation-prior ratio0/0.03 differs. Fixed before all full accuracy runs. Repository extension, default off; retain every negative outcome.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0"
+      ]
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in weak-translation prediction prior",
+      "design_style": "experimental",
+      "intent": "Mapped seed and acceleration on, row completion off in both arms. Only translation-prior ratio0/0.03 differs. Fixed before all full accuracy runs. Repository extension, default off; retain every negative outcome.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/pack_report.py",
+    "--source",
+    "/tmp/localization-zoo-inten-support-information-20261023/verification_compact"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "e02b208b8114411175dae608c0edd7c07caf5e26",
+  "started_unix": 1792721930.1876945,
+  "finished_unix": 1792721941.0554314,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

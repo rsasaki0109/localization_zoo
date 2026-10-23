@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_s2m_prior/boundary.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "started_unix": 1792538745.5297024,
+  "finished_unix": 1792539212.4216702,
+  "exit_code": 0
+}

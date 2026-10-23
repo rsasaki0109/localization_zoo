@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "raw_collection_commit": "faafd0ef3ea7911cf37fe5e258e2b123b2fdc0e5",
+  "native_source_commit": "3cca310e149925147dc9b1e92af8404f72ff0163",
+  "collection_protocol_commit": "fc4744926a42122c383a92ebca834b8a6a823378",
+  "preservation_base_commit": "e4c1adf3762f7c844846b93464044d2c80d47141",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "report": "Verify both arms use fixed mapped seed and soft prior0.03, with only ground PCA different. Restore all complete archives; validate recursive mapped seed, identical extraction/GT, saved pose consistency and complete traversal. Independently reconstruct fixed prior information in BOTH arms, check every finite recorded damped solve with relative backward error<=1e-10 and retain conditioning-sensitive forward differences. Retain official RTE/rotation/ATE, every step and every bad local frame including candidate-only failures, all error-growth blocks and current/historical diagnostic entries. Later associations condition on each realized trajectory; do not claim causal surface correctness from different paths.",
+  "import_policy": "Every arm non-default, unscored; no per-sequence adoption. Native summaries byte-preserved, raw timing retained but uniformly absent from aggregate FPS/time because paired processes share CPUs.",
+  "preservation": "All preexisting721 aggregate hashes, all prior full-variant CSV rows, canonical publication files, older scientific studies and frozen native binaries/dependencies remain intact.",
+  "prior_inspection": "Inherited range/elevation/plane/edge profile selected on07;00 informed diagnosis. Both arms use PR156 mapped-motion seed and PR157 soft translation prior0.03 (fraction borrowed from DiLO KITTI01 tuning). No newly fitted numeric parameter. Choose nearest-anchor ground PCA from the already committed full360-pair first-system development diagnostic: it reduced initial backward update at both original02 entries, but had adverse pairs on every sequence. This is a frozen actual-iteration intervention, not another fixed-system claim. All prior KITTI results including01/02/10 are development data, no independent held-out claim. All11 runs proceed without retuning even if07 is negative.",
+  "forward_information_diagnostic": "For every moving frame, retain first sensor-centered data Schur min/max and data/prior information projected along the GT motion direction. GT is offline diagnosis only, never a native seed or input. Selected original/current entry frames are descriptive observations along different trajectories, not matched-seed causal contrasts. This additional descriptive analysis is motivated by logical data-adaptive-prior feedback. The original collection settings remain frozen. Code and protocol are committed before numerical postprocessing; no pre-acquisition registration claim for this extra diagnostic.",
+  "prior_feedback": "Both arms keep soft-prior parameters and anchor rule fixed, not its numerical information matrix. Changing the ground Hessian can change this data-adaptive information at the very first system. Reconstruct and verify it independently in both arms. Full-run effects include this intended downstream consequence; no pure-normal or correspondence-truth causal claim.",
+  "intervention_origin": "Nearest-anchor ground PCA was chosen from the already committed360-pair known-failure first-system study, which had adverse cases on every sequence. Native numerical degeneracy criterion inherited unchanged; no new numeric parameter fitted. Physical ring assignment is not tested by this intervention. No independent held-out claim.",
+  "order": "Commit sources before deriving. Commit complete report/import results before writing numerical prose. Regenerate required docs, preserve negatives, run actual-exit checks, require complete native/ROS CI at final PR head. No merge.",
+  "source_sha256": {
+    "report.py": "8d9aa373bd0b1d5e5c8ffd52b1da90d064a83f0ca89e134a72588b097a8a324d",
+    "import_results.py": "1e0624505fb6651816343e014af37b32a710e4198922569a580b45010606359f",
+    "verify.py": "5566062a2593099921ce616f9ff14c0ac74557dae1cdcb5e6971c7bdcb8c3727",
+    "write_docs.py": "359a960c3294221c5801481b0b99eda7168e0e628e4a4173789f4a8c7f3f873b",
+    "readme_template.md": "2efe72d4659ecd4e8a172edb2876a149cf5e4af2c0a7086ef374dc1aac528d55",
+    "finalize_docs.py": "38221d63949601f0003ea01797436b92cc2991cbaba1677d9e79ae1505fb3556"
+  }
+}

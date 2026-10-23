@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-fixed-rotation/worktree/experiments/results/inten_fixed_rotation/write_docs.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-fixed-rotation/worktree",
+  "source_commit": "926ce325c1501fbeb1cec56d45924a1cfda4d240",
+  "started_unix": 1792581949.7810585,
+  "finished_unix": 1792581949.8220065,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-fixed-rotation/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-fixed-rotation/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

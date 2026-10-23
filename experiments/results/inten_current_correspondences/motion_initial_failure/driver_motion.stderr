@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/inten-current-correspondences/worktree/experiments/results/inten_current_correspondences/motion.py", line 41, in <module>
+    main()
+  File "/workspace/localization-env/inten-current-correspondences/worktree/experiments/results/inten_current_correspondences/motion.py", line 22, in main
+    assert run('native', build.docker()+[str(R/'motion_probe')], stage, payload) == 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

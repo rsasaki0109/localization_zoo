@@ -1,0 +1,13 @@
+{
+  "exit_code": 0,
+  "owned_directory": "/workspace/localization-env/inten-current-correspondences/kitti/dataset/sequences/01/velodyne",
+  "deleted_owned_scan_files": 1102,
+  "deleted_owned_bytes": 1861700550,
+  "input_manifest_sha256": "c9e9716c70dfab20c1d46f4d1983ce659850c4986c81d1b1281643df21b90633",
+  "all_hashes_reverified_before_deletion": true,
+  "archives_byte_roundtrip_verified": true,
+  "evidence_backup_commit": "c56c6fa855c0de54ec9e6cec6f1788d333682336",
+  "evidence_normal_push_exit": 0,
+  "no_other_sequence_acquired": true,
+  "historical_sources_builds_binaries_and_logical_evidence_preserved": true
+}

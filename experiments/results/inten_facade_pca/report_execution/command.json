@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/report.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/report"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-pca/worktree",
+  "source_commit": "1a978a0d76074ff82a52f99fe18f2076388fc4f4",
+  "started_unix": 1792534404.9159546,
+  "finished_unix": 1792534477.28554,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

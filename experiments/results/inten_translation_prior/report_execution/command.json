@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-translation-prior/worktree/experiments/results/inten_translation_prior/report.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-translation-prior/worktree/experiments/results/inten_translation_prior/report"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-prior/worktree",
+  "source_commit": "6fb00f28809b6437f96c606be2781ca47db3b860",
+  "started_unix": 1792498557.6627333,
+  "finished_unix": 1792498620.4434125,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

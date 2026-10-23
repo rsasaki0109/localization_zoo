@@ -1,0 +1,172 @@
+{
+  "files": {
+    "binary.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/binary.json",
+      "bytes": 14260,
+      "sha256": "909cd4be5aff6b6189a2bf0cb18ddc8089537e57733b48750acb505121c65297",
+      "storage": "verbatim",
+      "path": "binary.json",
+      "stored_sha256": "909cd4be5aff6b6189a2bf0cb18ddc8089537e57733b48750acb505121c65297"
+    },
+    "compile_probe.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/compile_probe.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compile_probe.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compile_probe.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/compile_probe.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compile_probe.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compile_probe_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/compile_probe_command.json",
+      "bytes": 17074,
+      "sha256": "997f8962d9693d8cd0d8dd70ee7243de9b395295ec7b8219a93f173acf5e50ca",
+      "storage": "verbatim",
+      "path": "compile_probe_command.json",
+      "stored_sha256": "997f8962d9693d8cd0d8dd70ee7243de9b395295ec7b8219a93f173acf5e50ca"
+    },
+    "compile_replay.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/compile_replay.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compile_replay.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compile_replay.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/compile_replay.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compile_replay.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compile_replay_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/compile_replay_command.json",
+      "bytes": 2920,
+      "sha256": "e2b3730069718a828000ad46b4f8dd809def2b48404324d51cce2c1dbdecb917",
+      "storage": "verbatim",
+      "path": "compile_replay_command.json",
+      "stored_sha256": "e2b3730069718a828000ad46b4f8dd809def2b48404324d51cce2c1dbdecb917"
+    },
+    "features.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/features.json",
+      "bytes": 192,
+      "sha256": "538f1eccf7acbf8e817f3285bc1b6225bbdb995d63ef7cac90a62878721424d2",
+      "storage": "verbatim",
+      "path": "features.json",
+      "stored_sha256": "538f1eccf7acbf8e817f3285bc1b6225bbdb995d63ef7cac90a62878721424d2"
+    },
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/input.txt",
+      "bytes": 2149,
+      "sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680"
+    },
+    "input_sources.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/input_sources.json",
+      "bytes": 1484,
+      "sha256": "2eeb6a6067b5cda96370defcadda74d9f22498a8aea730f890c3aa81aef2ea7b",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "2eeb6a6067b5cda96370defcadda74d9f22498a8aea730f890c3aa81aef2ea7b"
+    },
+    "native_1.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/native_1.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native_1.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native_1.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/native_1.stdout.jsonl",
+      "bytes": 3948516,
+      "sha256": "98093a04c8478b6dcf83a8459d61d79dd73ed34568b659a779881b6e6247140e",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native_1.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "4430be1b6f80e8c4bd3d00e95e0ddfa0802e3a244927191afa36bf98e1f7546e",
+          "gzip_bytes": 1673692,
+          "raw_sha256": "98093a04c8478b6dcf83a8459d61d79dd73ed34568b659a779881b6e6247140e",
+          "raw_bytes": 3948516
+        }
+      ]
+    },
+    "native_1_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/native_1_command.json",
+      "bytes": 1135,
+      "sha256": "39dd676224a398ccb0acffa56d8820547097be2e22494069c2af7a61b41bfa28",
+      "storage": "verbatim",
+      "path": "native_1_command.json",
+      "stored_sha256": "39dd676224a398ccb0acffa56d8820547097be2e22494069c2af7a61b41bfa28"
+    },
+    "native_4.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/native_4.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native_4.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native_4.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/native_4.stdout.jsonl",
+      "bytes": 3948516,
+      "sha256": "98093a04c8478b6dcf83a8459d61d79dd73ed34568b659a779881b6e6247140e",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native_4.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "4430be1b6f80e8c4bd3d00e95e0ddfa0802e3a244927191afa36bf98e1f7546e",
+          "gzip_bytes": 1673692,
+          "raw_sha256": "98093a04c8478b6dcf83a8459d61d79dd73ed34568b659a779881b6e6247140e",
+          "raw_bytes": 3948516
+        }
+      ]
+    },
+    "native_4_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/native_4_command.json",
+      "bytes": 1135,
+      "sha256": "f915463807a35ca83c2b15333e9239252c68d418d1e034efa41955b3bd6f7583",
+      "storage": "verbatim",
+      "path": "native_4_command.json",
+      "stored_sha256": "f915463807a35ca83c2b15333e9239252c68d418d1e034efa41955b3bd6f7583"
+    },
+    "parity_1.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/parity_1.json",
+      "bytes": 217,
+      "sha256": "aae30085bcdcf053e3ef8758464d930f1f5957b8813b6f5c8c78025a375d854f",
+      "storage": "verbatim",
+      "path": "parity_1.json",
+      "stored_sha256": "aae30085bcdcf053e3ef8758464d930f1f5957b8813b6f5c8c78025a375d854f"
+    },
+    "parity_4.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/parity_4.json",
+      "bytes": 217,
+      "sha256": "51a9e5e0a164a05d357266c305499c959fc487491759312aa7fdfecbf007f363",
+      "storage": "verbatim",
+      "path": "parity_4.json",
+      "stored_sha256": "51a9e5e0a164a05d357266c305499c959fc487491759312aa7fdfecbf007f363"
+    },
+    "result.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_stage_corrected/result.json",
+      "bytes": 146,
+      "sha256": "d3682040a5456423702f183f0f2c2ea72933529b91855e6c49e65824092e1781",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "d3682040a5456423702f183f0f2c2ea72933529b91855e6c49e65824092e1781"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

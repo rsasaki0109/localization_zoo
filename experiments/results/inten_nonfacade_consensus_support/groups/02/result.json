@@ -1,0 +1,382 @@
+{
+  "exit_code": 0,
+  "source_commit": "edd402b671643dbdc3d6631b9078ba4f0f4a73da",
+  "group": "02",
+  "cases": [
+    {
+      "frame": 1889,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.9665420767088609,
+          "length_error": 0.03345792329113906,
+          "vector_error": 0.037944091026306914,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.8721366273925231,
+          "length_error": 0.12786337260747693,
+          "vector_error": 0.12907954072914812,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.8721366273925231,
+          "length_error": 0.12786337260747693,
+          "vector_error": 0.12907954072914812,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": true,
+        "missing_field": 0,
+        "primitives": 1000,
+        "original_cost": 3.231527846821497,
+        "candidate_cost": 3.1782247275624846
+      },
+      "old_applied": true,
+      "guard_applied": true
+    },
+    {
+      "frame": 1890,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.9973206424305701,
+          "length_error": 0.002679357569429941,
+          "vector_error": 0.019089357849504312,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.16558844962488878,
+          "length_error": 0.8344115503751113,
+          "vector_error": 0.8345717386575691,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 0.9973206424305701,
+          "length_error": 0.002679357569429941,
+          "vector_error": 0.019089357849504312,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 2,
+        "primitives": 957,
+        "original_cost": 2.9704800856246276,
+        "candidate_cost": 2.80458661330135
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 1891,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.19949917799724284,
+          "length_error": 0.8005008220027572,
+          "vector_error": 0.8005279798719415,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "1": {
+          "length_ratio": 0.9809226317853137,
+          "length_error": 0.019077368214686308,
+          "vector_error": 0.026097380630289563,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.19949917799724284,
+          "length_error": 0.8005008220027572,
+          "vector_error": 0.8005279798719415,
+          "bad_length": true,
+          "bad_vector": true
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 4,
+        "primitives": 915,
+        "original_cost": 2.49496751635962,
+        "candidate_cost": 2.9338688173384537
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 1892,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0151287860819806,
+          "length_error": 0.01512878608198065,
+          "vector_error": 0.02242809155848235,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.12585488810790377,
+          "length_error": 0.8741451118920962,
+          "vector_error": 0.8743052235341499,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 0.12585488810790377,
+          "length_error": 0.8741451118920962,
+          "vector_error": 0.8743052235341499,
+          "bad_length": true,
+          "bad_vector": true
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": true,
+        "missing_field": 0,
+        "primitives": 946,
+        "original_cost": 3.1438026462018427,
+        "candidate_cost": 3.1137020071410673
+      },
+      "old_applied": true,
+      "guard_applied": true
+    },
+    {
+      "frame": 1898,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0639152208976692,
+          "length_error": 0.06391522089766921,
+          "vector_error": 0.07002119128821939,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 1.0632273432147505,
+          "length_error": 0.06322734321475054,
+          "vector_error": 0.06859500454230058,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 1.0632273432147505,
+          "length_error": 0.06322734321475054,
+          "vector_error": 0.06859500454230058,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": true,
+        "missing_field": 0,
+        "primitives": 956,
+        "original_cost": 3.1628609279244513,
+        "candidate_cost": 3.1572425823951833
+      },
+      "old_applied": true,
+      "guard_applied": true
+    },
+    {
+      "frame": 1899,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0169344535990272,
+          "length_error": 0.016934453599027233,
+          "vector_error": 0.028416623118472397,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.14292660235184065,
+          "length_error": 0.8570733976481594,
+          "vector_error": 0.8574932921238836,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 1.0169344535990272,
+          "length_error": 0.016934453599027233,
+          "vector_error": 0.028416623118472397,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 1,
+        "primitives": 982,
+        "original_cost": 2.8476923671368786,
+        "candidate_cost": 2.6144200574622385
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 4472,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0020655285328353,
+          "length_error": 0.002065528532835259,
+          "vector_error": 0.012808717754050708,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 1.063796194383441,
+          "length_error": 0.06379619438344108,
+          "vector_error": 0.0649996663507601,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 1.0020655285328353,
+          "length_error": 0.002065528532835259,
+          "vector_error": 0.012808717754050708,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 0,
+        "primitives": 1029,
+        "original_cost": 3.5221040231292213,
+        "candidate_cost": 3.5544837226503083
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 4473,
+      "metrics": {
+        "0": {
+          "length_ratio": 1.0479698921429768,
+          "length_error": 0.047969892142976756,
+          "vector_error": 0.06312637792191222,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.08781806448703511,
+          "length_error": 0.9121819355129649,
+          "vector_error": 0.9155917322658088,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 1.0479698921429768,
+          "length_error": 0.047969892142976756,
+          "vector_error": 0.06312637792191222,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 0,
+        "primitives": 997,
+        "original_cost": 3.147915696389584,
+        "candidate_cost": 3.3184255792647592
+      },
+      "old_applied": true,
+      "guard_applied": false
+    }
+  ],
+  "gate_checks": [
+    {
+      "frame": 1889,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "frame": 1889,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 1890,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 1890,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 1891,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 1891,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 1892,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": false
+    },
+    {
+      "frame": 1892,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": false
+    },
+    {
+      "frame": 1898,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 1898,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 1899,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 1899,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 4472,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 4472,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 4473,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 4473,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    }
+  ],
+  "gate_passed": false,
+  "native_calls": 24,
+  "profiles": 518,
+  "all_original_old_and_proposal_controls_exact": true,
+  "all_native_primitive_geometry_loss_equations_and_decisions_reconstructed": true
+}

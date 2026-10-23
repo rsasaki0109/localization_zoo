@@ -1,0 +1,135 @@
+{
+  "exit_code": 0,
+  "base_commit": "0385832c725a19da1001f703897d232c02849929",
+  "historical_aggregate_count": 765,
+  "historical_aggregate_hashes_match": true,
+  "all_other_tracked_result_files_unchanged": true,
+  "new_aggregate_count": 11,
+  "old_variant_rows_unchanged": true,
+  "new_variant_rows": 22,
+  "primary_publication_sha256": {
+    "README.md": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+    "docs/index.html": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+    "docs/assets/paper/paper_ratio_table.csv": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+    "evaluation/data/paper_reported_numbers.json": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e"
+  },
+  "binary_sha256": {
+    "/workspace/localization-env/inten-facade-loss/pcd_dogfooding": "94aae2380f3331cea3920244f3566ac6070ac0d4f8d0bfe25f539e1a7e235726"
+  },
+  "sequences": {
+    "00": {
+      "frames": 4541,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "01": {
+      "frames": 1101,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "02": {
+      "frames": 4661,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "03": {
+      "frames": 801,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "04": {
+      "frames": 271,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "05": {
+      "frames": 2761,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "06": {
+      "frames": 1101,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "07": {
+      "frames": 1101,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "08": {
+      "frames": 4071,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "09": {
+      "frames": 1591,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    },
+    "10": {
+      "frames": 1201,
+      "native_exits": [
+        0,
+        0
+      ],
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true,
+      "owned_raw_absent": true
+    }
+  },
+  "native_source_frozen_since_producer": true,
+  "reference_trace_numeric_bytes_after_scan_root_substitution_and_pose_gt_exact_all_sequences": true,
+  "matched_loss_terminal_controls_exact": true,
+  "policy": "New outside-paper option stays default off, no per-sequence adoption. Same freshly compiled native binary used in both full arms; diagnostic copies never contribute accuracy. All old scientific values preserved; raw paired timing unscored."
+}

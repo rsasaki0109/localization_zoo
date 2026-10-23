@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "sequence": "07",
+  "checks": {
+    "candidate_prefix": {
+      "complete_original_frames_compared": 390,
+      "records": 391,
+      "partial_prefix_only": true,
+      "ignored_truncated_terminal_bytes": 0,
+      "numerical_trace_body_exact": true,
+      "header_exact_except_argv": true,
+      "scan_root_substitution": {
+        "original": "/workspace/localization-env/inten-recursive-consensus/kitti/dataset/sequences/07/velodyne/",
+        "current": "/workspace/localization-env/inten-recursive-consensus/kitti/dataset/sequences/07/velodyne/"
+      }
+    }
+  },
+  "scope": "Exact implementation-equivalence control; original full01 negative retained, interrupted07 prefix is not a complete accuracy result. No tuning, GT decision or native resume."
+}

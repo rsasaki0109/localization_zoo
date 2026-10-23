@@ -1,0 +1,21 @@
+{
+  "command": [
+    "env",
+    "OPENBLAS_CORETYPE=Haswell",
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_intensity_normalized/check_recorded.py",
+    "--output",
+    "/workspace/localization-env/inten-intensity-normalized-20261022/stable/portability_corrected_Haswell/verification.json"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "56665256119135d1b135a06ee6fb6035c9c7eb7d",
+  "started_unix": 1792662567.006624,
+  "finished_unix": 1792662594.6215358,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

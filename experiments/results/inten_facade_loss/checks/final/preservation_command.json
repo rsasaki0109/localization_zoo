@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-loss/worktree/experiments/results/inten_facade_loss/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-facade-loss/worktree/experiments/results/inten_facade_loss/checks/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "073ecb7d0301dc0f1da09dd09f9f6dc9316650ef",
+  "started_unix": 1792569044.8168051,
+  "finished_unix": 1792569045.5221498,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

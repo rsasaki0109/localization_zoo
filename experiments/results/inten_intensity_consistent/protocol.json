@@ -1,0 +1,50 @@
+{
+  "parent_commit": "c9fb225bcbb7e72fc66c368798ed51c44094aed1",
+  "hypothesis": "Fix query-dependent sparse controls and rational zero-weight holes with one query-independent value at each lattice node. Motion improvement is unknown.",
+  "construction": "Preserve each original observed-node mean. Each missing node is the unweighted mean of original observed-node means within Chebyshev radius three lattice steps, lexicographic neighbor order, with no cascading. Radius three follows from the four-control cubic support, rather than sequence outcomes. Evaluate ordinary tensor cubic basis and its analytic gradient. Thread-safe immutable-entry per-cell cache changes cost only.",
+  "coverage": "Retain at least four original observed controls in the queried cubic support. Any missing control then has at least those four observations in its radius-three neighborhood. No quotient, weight-zero exclusion or epsilon. Count validity boundaries remain explicit; continuity claims apply only to both-valid neighboring cells, not global coverage.",
+  "scope": "New default-false S2S-only s2s_intensity_consistent option. Mutually exclusive normalized/consistent options throw before estimator updates. Legacy, normalized and S2M definitions remain unchanged. Cache copy identity is preserved until either copy rebuilds; each build resets its own identity. Concurrent queries after build supported; concurrent build/eval of the same grid unsupported.",
+  "arms": {
+    "0": "legacy joint",
+    "1": "legacy consensus",
+    "2": "normalized joint negative control",
+    "3": "normalized consensus negative control",
+    "4": "fixed-node joint primary candidate",
+    "5": "fixed-node consensus control"
+  },
+  "configuration": "All inherited settings: plane check0.05, acceleration, mapped prediction, translation prior0.03, ground/facade PCA. In same-history probes only use_mapping=false after injecting prior extracted frame and original estimated initial seed. Never native GT input. Consensus profiles use the same source/previous cloud and seed for all six arms.",
+  "primary": "Compare fixed-node joint4 to legacy joint0. Fixed-node consensus5 versus legacy consensus1 retains rescue/adverse controls only. Normalized2/3 are exact inherited negative controls; never choose arms after outcomes.",
+  "case_set": "Every inherited old/01/02/08 endpoint, exact previous all/features, current features and estimated seed, including fallback controls. All 31 cases, all six arms; no filtering by new outcomes. Original8 are conditional reference histories, other23 are actual rejected-recursive-candidate histories.",
+  "field_set": "Reuse every old continuity-audit synthetic and real path and query location. All original-valid reflector paths and all crossed faces, negative coordinates, within-cell differences and ULP-side samples. Reconstruct every native value/gradient and exact two-sided limits independently.",
+  "progression_gate": [
+    "All native mechanism tests and exact four inherited whole traces pass. Every inherited field sample reconstructed; no both-valid intensity or gradient limit jump greater than1e-8, including all five previous zero-weight holes.",
+    "No newly bad length or vector label in either paired arm0/4 or1/5 on any inherited endpoint, using the inherited20% threshold.",
+    "Every original legacy-consensus rescue from a bad joint to non-bad length/vector remains non-bad with fixed-node consensus5.",
+    "Fixed-node joint4 strictly reduces both sums of absolute length-ratio error and vector error across the complete case set, and does not increase total rotation error. These conditional sums are feasibility controls, not trajectory scores."
+  ],
+  "failure_policy": "Retain every outcome and all negative numeric cases; do not retune construction, thresholds, case set or gate. A failed progression gate prohibits a new full candidate run. If the gate passes, freeze one fixed-node joint setting and fresh paired full00-10 runs before any accuracy or paper-ratio claim.",
+  "history": "Inherited profile07, diagnosis00, DiLO01-selected prior fraction0.03, and all subsequent KITTI studies informed development. New construction selected analytically from sparse representation defect, without new sequence tuning. Every prior KITTI observation is development; no held-out claim. Fixed-node radius is derived from cubic support; no new scale/threshold sweep.",
+  "old_evidence": "All old raw archives, failures, numbers, source snapshots and independent verifiers remain unchanged. New measured sources are archived separately; inherited normalized and legacy traces must match exactly.",
+  "tolerances": {
+    "reconstruction_rtol": 1e-10,
+    "reconstruction_atol": 1e-12,
+    "finite_difference_atol": 1e-08,
+    "both_valid_limit_jump_atol": 1e-08,
+    "both_valid_limit_gradient_jump_atol": 1e-08
+  },
+  "source_sha256": {
+    "evaluation/src/pcd_dogfooding.cpp": "ff4bac64beb2cc9890450d565d564fd1dcd8f3c40da1186d01c1eab87a05fb7a",
+    "experiments/results/inten_intensity_consistent/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_intensity_consistent/build.py": "55365154ec8ca97d391f938be49b1d35ac84784515742016bfec10559f118df1",
+    "experiments/results/inten_intensity_consistent/check_recorded.py": "278fe9250e3c113550e0c1a6a52a5fc515db25052898ce7657e192913f0ee85c",
+    "experiments/results/inten_intensity_consistent/common.py": "c3f4eea795695ed85710ecdf0d5d0668a0e56b742c0265e606bbdc9a7a86cfcc",
+    "experiments/results/inten_intensity_consistent/field_probe.cpp": "2fa0bb3383bf838c472651d900189e55aac72a2bf52c18c17d9d00877afe9140",
+    "experiments/results/inten_intensity_consistent/probe.cpp": "3b32069bdc911b9542a02fba57ef4927f3f786073515c91b5e08538f4f02d213",
+    "experiments/results/inten_intensity_consistent/replay_hooks.h": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9",
+    "experiments/results/inten_intensity_consistent/run.py": "d92cdea784b9b4923d5c00336a4591fa5452995d3aaa9dd2d7cbdafd09ef4572",
+    "experiments/results/inten_intensity_consistent/verify.py": "ba74f949af84213eea6b96fe1a993e10534869c0e69a4f8466a8a98e0da2350c",
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b",
+    "papers/inten_loam/src/inten_loam_paper.cpp": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d",
+    "papers/inten_loam/test/test_inten_loam_paper.cpp": "51deb1ce49852b57292d7dda7d9782daa478fc62e6a65d3d4959e5e4f9ee7e06"
+  }
+}

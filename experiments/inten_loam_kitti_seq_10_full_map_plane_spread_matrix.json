@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_10_full_map_plane_spread",
+    "title": "InTEn-LOAM KITTI 10: S2M plane-spread check",
+    "question": "Does the preexisting synthetic-test plane-spread setting change remaining collapse/drift under uniform full iterative odometry?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Current fixed reference",
+      "design_style": "reference",
+      "intent": "Only existing S2M plane-spread acceptance differs:0 vs0.2 copied unchanged from the existing synthetic street test. Same native runner, mapped seed, S2S prior0.03, ground/facadePCA, acceleration; row completion off. No per-sequence adoption or threshold sweep.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0"
+      ]
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in S2M plane spread 0.2",
+      "design_style": "experimental",
+      "intent": "Only existing S2M plane-spread acceptance differs:0 vs0.2 copied unchanged from the existing synthetic street test. Same native runner, mapped seed, S2S prior0.03, ground/facadePCA, acceleration; row completion off. No per-sequence adoption or threshold sweep.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0.2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,817 @@
+{
+  "classes": [
+    "edge",
+    "ground",
+    "facade_excluded_from_guard",
+    "reflector"
+  ],
+  "cost": "Exact Huber rho. Candidate available sum is partial when field coverage is missing and MUST NOT be treated as a complete comparison.",
+  "cases": [
+    {
+      "group": "old",
+      "frame": 190,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        67,
+        7,
+        298,
+        279
+      ],
+      "original_costs": [
+        1.7992574002413584,
+        0.004668248491852902,
+        3.4708706007174603,
+        2.593982500239231
+      ],
+      "candidate_available_costs": [
+        1.7773991849135393,
+        0.0018746987892061622,
+        3.542778841912747,
+        2.5944848799280256
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "old",
+      "frame": 200,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        51,
+        38,
+        450,
+        287
+      ],
+      "original_costs": [
+        1.2804269593127615,
+        0.1095262391107933,
+        4.827073981025213,
+        2.7568012365802046
+      ],
+      "candidate_available_costs": [
+        1.269750333652353,
+        0.1111109716366271,
+        4.94954276544729,
+        2.7444015513507245
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "old",
+      "frame": 202,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        87,
+        58,
+        529,
+        281
+      ],
+      "original_costs": [
+        4.097349110587647,
+        0.34839692103705566,
+        10.035984822608265,
+        2.8539307064183146
+      ],
+      "candidate_available_costs": [
+        5.9161180525616635,
+        0.429171761834448,
+        12.561755765396311,
+        2.752088687964887
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "old",
+      "frame": 203,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        63,
+        50,
+        581,
+        278
+      ],
+      "original_costs": [
+        1.760404189169547,
+        0.5578730379751141,
+        9.575005607216834,
+        2.7184024543209655
+      ],
+      "candidate_available_costs": [
+        1.8349741877722308,
+        0.5734933816198661,
+        9.755468450560578,
+        2.623372586169818
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "old",
+      "frame": 204,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        66,
+        35,
+        583,
+        278
+      ],
+      "original_costs": [
+        1.6947754627498448,
+        0.11417871402942033,
+        8.846073194771412,
+        2.553692519078794
+      ],
+      "candidate_available_costs": [
+        6.685980516322964,
+        0.24029476811901357,
+        25.275900978314976,
+        2.425161935543592
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "old",
+      "frame": 205,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        88,
+        38,
+        601,
+        282
+      ],
+      "original_costs": [
+        1.0463807573867059,
+        0.19989720815148707,
+        4.062535674379324,
+        2.738217859234012
+      ],
+      "candidate_available_costs": [
+        9.323253657436416,
+        0.5491292607219542,
+        29.979042105913507,
+        2.9155743005209254
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "old",
+      "frame": 247,
+      "evaluated": false,
+      "complete": true,
+      "allowed": false,
+      "counts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "original_costs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "candidate_available_costs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "old",
+      "frame": 433,
+      "evaluated": false,
+      "complete": true,
+      "allowed": false,
+      "counts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "original_costs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "candidate_available_costs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "01",
+      "frame": 425,
+      "evaluated": false,
+      "complete": true,
+      "allowed": false,
+      "counts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "original_costs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "candidate_available_costs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "01",
+      "frame": 426,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        96,
+        143,
+        386,
+        262
+      ],
+      "original_costs": [
+        2.4053358735598906,
+        0.4828580956250008,
+        2.826848938850769,
+        2.655082439568098
+      ],
+      "candidate_available_costs": [
+        22.583052035352978,
+        0.7331318546333252,
+        16.760837402753772,
+        1.7862686035973865
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "01",
+      "frame": 810,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        96,
+        53,
+        335,
+        286
+      ],
+      "original_costs": [
+        3.1926574817272897,
+        0.03533310313878958,
+        1.4276246257254368,
+        2.6682947630639635
+      ],
+      "candidate_available_costs": [
+        3.1928968620895173,
+        0.03416683053435031,
+        1.4353050063773445,
+        2.669011117065452
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "01",
+      "frame": 811,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        73,
+        56,
+        300,
+        278
+      ],
+      "original_costs": [
+        2.9336805025342643,
+        0.08086435913931453,
+        0.9193009216255598,
+        2.869158686762707
+      ],
+      "candidate_available_costs": [
+        13.225605117458276,
+        0.052849260135774755,
+        5.79523373064623,
+        1.9054679847563207
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "01",
+      "frame": 837,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        191,
+        65,
+        281,
+        285
+      ],
+      "original_costs": [
+        3.480421492351128,
+        0.3294411356467168,
+        1.5826873666866186,
+        2.724108181864768
+      ],
+      "candidate_available_costs": [
+        3.480353095734271,
+        0.3296528609969811,
+        1.5873791963151034,
+        2.720190055345648
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "01",
+      "frame": 838,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        179,
+        57,
+        340,
+        284
+      ],
+      "original_costs": [
+        3.9720520334089073,
+        0.04251669687907526,
+        1.4947793611977176,
+        2.676501657231711
+      ],
+      "candidate_available_costs": [
+        39.04151184663061,
+        0.03680751167659596,
+        9.061822074007463,
+        2.0646700716546476
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "02",
+      "frame": 1889,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        6,
+        191,
+        505,
+        298
+      ],
+      "original_costs": [
+        0.13923378101079312,
+        0.33541770917056346,
+        0.8607363349114413,
+        2.7568763566401406
+      ],
+      "candidate_available_costs": [
+        0.21103613355006856,
+        0.300881696556967,
+        0.9107844147198513,
+        2.666306897455449
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "02",
+      "frame": 1890,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        1,
+        216,
+        447,
+        293
+      ],
+      "original_costs": [
+        0.0011465693074275496,
+        0.17005769027232648,
+        0.5775555789156812,
+        2.7992758260448736
+      ],
+      "candidate_available_costs": [
+        0.1992522978640437,
+        0.2481186215542186,
+        2.4457104101669285,
+        2.357215693883088
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "02",
+      "frame": 1891,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        0,
+        160,
+        457,
+        298
+      ],
+      "original_costs": [
+        0,
+        0.09736774908617961,
+        0.9044920663660915,
+        2.3975997672734404
+      ],
+      "candidate_available_costs": [
+        0,
+        0.3027672060934969,
+        2.717215455640807,
+        2.631101611244957
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "02",
+      "frame": 1892,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        2,
+        189,
+        466,
+        289
+      ],
+      "original_costs": [
+        0.03736421778189029,
+        0.3002463436644667,
+        0.8938021346602696,
+        2.8061920847554855
+      ],
+      "candidate_available_costs": [
+        0.3674187093437966,
+        0.3500882045878078,
+        3.5850710497346907,
+        2.396195093209463
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "02",
+      "frame": 1898,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        0,
+        236,
+        424,
+        296
+      ],
+      "original_costs": [
+        0,
+        0.5191848730164813,
+        1.0906693036231374,
+        2.64367605490797
+      ],
+      "candidate_available_costs": [
+        0,
+        0.5183814587093964,
+        1.0951330548925315,
+        2.638861123685787
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "02",
+      "frame": 1899,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        0,
+        221,
+        466,
+        295
+      ],
+      "original_costs": [
+        0,
+        0.22120525148395556,
+        0.9150567881788427,
+        2.626487115652923
+      ],
+      "candidate_available_costs": [
+        0,
+        0.3727160189948752,
+        4.35640140744523,
+        2.2417040384673634
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "02",
+      "frame": 4472,
+      "evaluated": true,
+      "complete": true,
+      "allowed": false,
+      "counts": [
+        5,
+        241,
+        489,
+        294
+      ],
+      "original_costs": [
+        0.13902727686348806,
+        0.5161498958401279,
+        0.8270333482300736,
+        2.8669268504256054
+      ],
+      "candidate_available_costs": [
+        0.15216285212447841,
+        0.5375891562746162,
+        0.841829238796586,
+        2.8647317142512136
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "02",
+      "frame": 4473,
+      "evaluated": true,
+      "complete": true,
+      "allowed": false,
+      "counts": [
+        3,
+        236,
+        464,
+        294
+      ],
+      "original_costs": [
+        0.030181348324135618,
+        0.2204896423793811,
+        0.7910454347931215,
+        2.8972447056860675
+      ],
+      "candidate_available_costs": [
+        0.5705587824941996,
+        0.3376042432587319,
+        3.6656387074411625,
+        2.410262553511828
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "08",
+      "frame": 38,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        482,
+        3,
+        344,
+        295
+      ],
+      "original_costs": [
+        7.753805128473101,
+        0.002134053475672184,
+        5.638614700896587,
+        1.8668376117504037
+      ],
+      "candidate_available_costs": [
+        7.717913537408626,
+        0.0011719454161089155,
+        5.727911739728801,
+        1.8636739970812515
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "08",
+      "frame": 39,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        467,
+        12,
+        369,
+        295
+      ],
+      "original_costs": [
+        8.308978954461248,
+        0.004256679712301462,
+        9.22022649656057,
+        1.9833023971650212
+      ],
+      "candidate_available_costs": [
+        8.208339517476327,
+        0.005134137003820588,
+        9.46641009908171,
+        1.9706990075956372
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "08",
+      "frame": 40,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        482,
+        8,
+        392,
+        289
+      ],
+      "original_costs": [
+        6.875214719950074,
+        0.0015649790387657285,
+        7.688437840515382,
+        1.8528757362449122
+      ],
+      "candidate_available_costs": [
+        6.783609392032471,
+        0.0007470244337583061,
+        7.89486882856745,
+        1.8452216142697944
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "08",
+      "frame": 41,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        468,
+        8,
+        412,
+        295
+      ],
+      "original_costs": [
+        8.12487173871384,
+        0.00657625662634884,
+        12.393436263395182,
+        1.844431397655409
+      ],
+      "candidate_available_costs": [
+        7.976127764239676,
+        0.007074279850831318,
+        12.95094641576717,
+        1.8134321043945927
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "08",
+      "frame": 42,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        475,
+        20,
+        489,
+        287
+      ],
+      "original_costs": [
+        9.318799286890913,
+        0.17838416163932755,
+        15.175514553405092,
+        1.841740641355794
+      ],
+      "candidate_available_costs": [
+        8.984196726921343,
+        0.1575965733160336,
+        16.281280372659584,
+        1.817521238594985
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "08",
+      "frame": 43,
+      "evaluated": true,
+      "complete": false,
+      "allowed": false,
+      "counts": [
+        492,
+        20,
+        459,
+        290
+      ],
+      "original_costs": [
+        8.586783904241369,
+        0.25902172704983883,
+        6.072814005119022,
+        1.9342691598646378
+      ],
+      "candidate_available_costs": [
+        8.45228071094007,
+        0.2616292064370056,
+        6.521312430889016,
+        1.9146365362984252
+      ],
+      "candidate_cost_is_partial": true
+    },
+    {
+      "group": "08",
+      "frame": 44,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        501,
+        15,
+        482,
+        287
+      ],
+      "original_costs": [
+        9.701044644287313,
+        0.02824471475048482,
+        5.825779733682213,
+        2.4078027521739758
+      ],
+      "candidate_available_costs": [
+        9.443661001550002,
+        0.032850098560083404,
+        6.673376648910001,
+        2.3917544501968893
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "08",
+      "frame": 45,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        470,
+        19,
+        459,
+        282
+      ],
+      "original_costs": [
+        8.099147076253331,
+        0.029652449014479998,
+        4.348590647886086,
+        2.2157985364385944
+      ],
+      "candidate_available_costs": [
+        7.991460648813077,
+        0.006511890181066522,
+        4.73584462530112,
+        2.2078017443386133
+      ],
+      "candidate_cost_is_partial": false
+    },
+    {
+      "group": "08",
+      "frame": 46,
+      "evaluated": true,
+      "complete": true,
+      "allowed": true,
+      "counts": [
+        486,
+        25,
+        431,
+        281
+      ],
+      "original_costs": [
+        9.026420765972963,
+        0.023212615597035267,
+        4.192638019555829,
+        2.4758384449065356
+      ],
+      "candidate_available_costs": [
+        8.988230125200083,
+        0.01097879591533343,
+        4.497828471417335,
+        2.483489576797586
+      ],
+      "candidate_cost_is_partial": false
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "coordinates": {
+    "left": {
+      "exact": false,
+      "mismatches_by_axis": [
+        0,
+        0,
+        57
+      ],
+      "maximum_error": 2.220446049250313e-16
+    },
+    "right": {
+      "exact": false,
+      "mismatches_by_axis": [
+        45,
+        0,
+        0
+      ],
+      "maximum_error": 7.105427357601002e-15
+    },
+    "mixed": {
+      "exact": true,
+      "mismatches_by_axis": [
+        0,
+        0,
+        0
+      ],
+      "maximum_error": 0.0
+    }
+  },
+  "H": {
+    "scaled_vector_first": {
+      "exact": true,
+      "max_error": 0.0
+    },
+    "weight_after_outer": {
+      "exact": false,
+      "max_error": 4.547473508864641e-13
+    }
+  },
+  "g": {
+    "scaled_vector_first": {
+      "exact": true,
+      "max_error": 0.0
+    },
+    "combined_scalar_first": {
+      "exact": false,
+      "max_error": 4.440892098500626e-16
+    }
+  }
+}

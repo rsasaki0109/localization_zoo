@@ -1,0 +1,46 @@
+{
+  "files": {
+    "input.txt": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/native_02/input.txt",
+      "bytes": 2176,
+      "sha256": "142ed3f7249cb1b105bfbee6066911278a080bfe6343c3b7e96f3a70738852a7",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "142ed3f7249cb1b105bfbee6066911278a080bfe6343c3b7e96f3a70738852a7"
+    },
+    "input_sources.json": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/native_02/input_sources.json",
+      "bytes": 527,
+      "sha256": "d562abb21dd6e8009aa06a5dd9f2b6869271afedd64bb050740800155f70dfbc",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "d562abb21dd6e8009aa06a5dd9f2b6869271afedd64bb050740800155f70dfbc"
+    },
+    "native.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/native_02/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/native_02/native.stdout.jsonl",
+      "bytes": 124212212,
+      "sha256": "5f48391508a5ccfa19c5791f4d1115b9721ae0985527000646c78f261e251251",
+      "storage": "xz",
+      "path": "native.stdout.jsonl.xz",
+      "stored_sha256": "6a45e9fd5ca67b9fc2341a26ea594febbb3ae0ef0e37b45440f139da09696f9b"
+    },
+    "native_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-prior-control-20261023/native_02/native_command.json",
+      "bytes": 1067,
+      "sha256": "6c9e6f0904bddaf44756d4ce7f1d03627242460ed8080d864a7376377a23828f",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "6c9e6f0904bddaf44756d4ce7f1d03627242460ed8080d864a7376377a23828f"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

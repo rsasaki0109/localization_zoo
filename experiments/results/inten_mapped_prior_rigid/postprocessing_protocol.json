@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "raw_collection_commit": "8f0cc1d802099e05e942c747b1a9f40f0e6737d9",
+  "native_source_commit": "71ca25cf4c36b3b0206f45ea3a05c1fd26998b90",
+  "collection_protocol_commit": "71982d649d7e7ca96c5e47da2967b394fe1bbdfd",
+  "preservation_base_commit": "dec360f5193a060ae1a6a9c5d72232f9485f83d5",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "report": "Restore all complete archives. Validate default S2S cache and candidate recursive final-pose prior separately, identical input features/GT, saved-pose consistency and complete traversal. Official native100-800m RTE and inherited0.1m/20% local labels are distinct. Retain every step, all error-growth blocks, negative metrics, candidate-only bad local frames even when total errors fall, and known-entry natural observations; no causal claims from different trajectories.",
+  "import_policy": "Every arm non-default, unscored; no per-sequence adoption. Native summaries byte-preserved, raw timing retained but uniformly absent from aggregate FPS/time because paired processes share CPUs.",
+  "preservation": "All preexisting699 aggregate hashes, all prior full-variant CSV rows, canonical publication files, older scientific studies and frozen native binaries/dependencies remain intact.",
+  "prior_inspection": "Inherited numerical settings chosen on07;00 informed diagnosis and the normalized-quaternion stability correction after the preserved unprojected failure. Known01/02/10 failures motivated the new parameter-free boolean. No independent held-out claim. Row-support option off in both arms.",
+  "order": "Commit sources before deriving. Commit complete report/import results before writing numerical prose. Regenerate required docs, preserve negatives, run actual-exit checks, require complete native/ROS CI at final PR head. No merge.",
+  "source_sha256": {
+    "report.py": "f860dde692b77d6d0f99380f1f31fe57f83308361ae5402f48c1a4c32985e795",
+    "import_results.py": "1e0624505fb6651816343e014af37b32a710e4198922569a580b45010606359f",
+    "verify.py": "a517b663131a79b2897bc359aa29ae10000415bec8e60ef335f77918dd42e3e9",
+    "write_docs.py": "13aebd055b61187791a041dd962fb90f47a09ff0b30832dc97a2f8029ce5e36f",
+    "readme_template.md": "3225b1bcf751c6349359be29fbcd0e40256e1e8cf0783ee8de4bc3dc816f2377"
+  }
+}

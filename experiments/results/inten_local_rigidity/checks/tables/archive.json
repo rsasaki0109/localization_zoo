@@ -1,0 +1,30 @@
+{
+  "files": {
+    "case_docs.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/tables_recovery_execution/case_docs.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "case_docs.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "case_docs.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/tables_recovery_execution/case_docs.stdout.log",
+      "bytes": 100,
+      "sha256": "91603666ba74f9d2b9a1ebef8229e30a8092c34d654a6f6c164aef5248bfafaa",
+      "storage": "gzip",
+      "path": "case_docs.stdout.log.gz",
+      "stored_sha256": "527529fd25fc631389584706e15dc6ddda0070f70773ea6b4cc47be074b65ff1"
+    },
+    "case_docs_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/tables_recovery_execution/case_docs_command.json",
+      "bytes": 815,
+      "sha256": "85e3567b6496e212b831cb7f6e27ed6ff1faf73083ffd0fc674528b201c20d93",
+      "storage": "verbatim",
+      "path": "case_docs_command.json",
+      "stored_sha256": "85e3567b6496e212b831cb7f6e27ed6ff1faf73083ffd0fc674528b201c20d93"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

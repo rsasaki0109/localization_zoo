@@ -1,0 +1,13 @@
+{
+  "scientific_evidence": [
+    "7e8ef2ec",
+    "d86b9c01",
+    "1d4e2a9e",
+    "6100e04e"
+  ],
+  "serial_code_freeze": "fa1740a7",
+  "source_policy": "After serial-code freeze, final source changes only documentation and this closure metadata. Verify every mathematical/native/test source is identical. Local commands record both start/end heads honestly. Full final CI must run on the exact final source head.",
+  "execution": "Continue isolated serial full local discovery and all required checks. Run final CI remotely in parallel; no heavy auxiliary local process. Preserve complete local command/stdout/stderr/resource/exit archive privately alongside full exact-head CI metadata and both complete decoded logs. Do not create another source commit just to attach final validation metadata and invalidate the tested head.",
+  "readiness": "All isolated local command exits must pass. Full exact-final-head Native and ROS2 jobs, every essential step, every new regression and complete log/ROS-array verification must pass. Store final actual API Ready/unmerged/head state. No merge without a fresh user instruction.",
+  "honesty": "All scientific numeric evidence and earlier failures already committed before interpretation. No metric, dataset, population, mathematical equation, original tolerance, selector, candidate, production behavior, default, old result or paper-table value changes. Private final validation is not new benchmark performance."
+}

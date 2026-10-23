@@ -1,0 +1,30 @@
+{
+  "files": {
+    "python_after_cpu_fix.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/cpu_fix_regressions_stage/python_after_cpu_fix.stderr.log",
+      "bytes": 99206,
+      "sha256": "7da286870d9adfb7a34c5090b41f4f01c728dae8ddfff078f782881d8186cb79",
+      "storage": "gzip",
+      "path": "python_after_cpu_fix.stderr.log.gz",
+      "stored_sha256": "901920dfe668d9e43707fecc051afef9e45e2158d3f3772df3de3b634e4e955b"
+    },
+    "python_after_cpu_fix.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/cpu_fix_regressions_stage/python_after_cpu_fix.stdout.log",
+      "bytes": 1458,
+      "sha256": "f41a37982d1af554e0492ca07ab83a4f431c133b2d813ac66e4b12702fb92bbd",
+      "storage": "gzip",
+      "path": "python_after_cpu_fix.stdout.log.gz",
+      "stored_sha256": "0bec0bf3423d8cc4b919fec6e542d28b83d5ae1755c4c20c0f82f1e8553bf0be"
+    },
+    "python_after_cpu_fix_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/cpu_fix_regressions_stage/python_after_cpu_fix_command.json",
+      "bytes": 527,
+      "sha256": "85ce09318f0ba7379c6ac67468dab806189864b47b439d675d205d41b72de9fa",
+      "storage": "verbatim",
+      "path": "python_after_cpu_fix_command.json",
+      "stored_sha256": "85ce09318f0ba7379c6ac67468dab806189864b47b439d675d205d41b72de9fa"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

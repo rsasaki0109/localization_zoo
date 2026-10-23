@@ -1,0 +1,25 @@
+{
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "logical_cores": 5,
+  "affinity_cores": 5,
+  "memory_gib": 17.6,
+  "os": "Ubuntu 22.04.5 LTS",
+  "kernel": "6.18.55",
+  "architecture": "x86_64",
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "capture_scope": "Shared Docker runtime captured before full paired runs, not an individual per-run timestamp.",
+  "source_commit": "422c674331f612809a5f492c8d86705fa7a14c5e",
+  "versions": {
+    "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "python": "Python 3.10.12"
+  },
+  "native_environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "native_binary_sha256": "fdc9ff7aae137e63a59c128c3c658a593fed61a48400c55d47a8158a846195bc",
+  "measurement_context": "Both fixed arms use the shared host with fixed baselineOMP1/candidateOMP4 and BLAS1. Raw timings retained; no standalone throughput comparison."
+}

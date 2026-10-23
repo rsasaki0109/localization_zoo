@@ -1,0 +1,47 @@
+{
+  "sequence": "08",
+  "files": {
+    "000037.bin": {
+      "sha256": "78b04993bf5e9b8a18b0390c8e58f5d3706b71c2dd8e747efe2e87c522468617",
+      "bytes": 1964496
+    },
+    "000038.bin": {
+      "sha256": "8942493839193e553064dec3d329943e087026097442a3ce5a3c55198237b1aa",
+      "bytes": 1963056
+    },
+    "000039.bin": {
+      "sha256": "18a4f1b8e5b407835f67be1e5c53e34a12a72d31ef6fd11b25f7ef2bdbd65030",
+      "bytes": 1959472
+    },
+    "000040.bin": {
+      "sha256": "94f05b3ac11dfc009fd880cc813e49a9e67be97d65aa2ea676438e9bc7dede69",
+      "bytes": 1952416
+    },
+    "000041.bin": {
+      "sha256": "6e52d8c261d1828615f09f04880a70d40d2afe4b6fc8f7b931aaee0c32e053a3",
+      "bytes": 1949728
+    },
+    "000042.bin": {
+      "sha256": "bc842932f6ffa1bdc7cae60c318d096e3709ddcb4193c1ac9c9a8aa188819c90",
+      "bytes": 1945248
+    },
+    "000043.bin": {
+      "sha256": "6ebfc3b31f814693eeae20e6fb0ffc1b65120ec737f0585ae7f2329dbe0d0e88",
+      "bytes": 1941040
+    },
+    "000044.bin": {
+      "sha256": "953f8b9226d3361bb025f49a6914d952e291673290d8402793c0cbe2c6c7421d",
+      "bytes": 1928896
+    },
+    "000045.bin": {
+      "sha256": "9b3fdf0f4d8abc492cdff914f8475c028df488677b2ee51da7e419fd4de4ba47",
+      "bytes": 1918608
+    },
+    "000046.bin": {
+      "sha256": "fb5e331ece85977c78088d086a3b56beafa5d53b4654e8de794529d54f89de2c",
+      "bytes": 1917904
+    }
+  },
+  "all_match_parent_inputs": true,
+  "parent_sha256": "753c464b7866cc9ec7a4bfb26dc48eb67cf53d67b482ac697f6c1a5f539f730f"
+}

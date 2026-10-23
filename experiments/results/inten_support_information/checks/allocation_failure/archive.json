@@ -1,0 +1,118 @@
+{
+  "files": {
+    "allocation_stop.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/allocation_stop.json",
+      "bytes": 654,
+      "sha256": "da3cf215ed99ecc2950d60ef89f279624efaff70ac1d42d73fcfa173e971390c",
+      "storage": "verbatim",
+      "path": "allocation_stop.json",
+      "stored_sha256": "da3cf215ed99ecc2950d60ef89f279624efaff70ac1d42d73fcfa173e971390c"
+    },
+    "before_mixed_schedule_protocol.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/before_mixed_schedule_protocol.json",
+      "bytes": 1556,
+      "sha256": "62d3f990c93931ecaf3aad5b7c03077bff5047f55622b0900000c5faed5adbf1",
+      "storage": "verbatim",
+      "path": "before_mixed_schedule_protocol.json",
+      "stored_sha256": "62d3f990c93931ecaf3aad5b7c03077bff5047f55622b0900000c5faed5adbf1"
+    },
+    "before_packet_tail_recovery_protocol.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/before_packet_tail_recovery_protocol.json",
+      "bytes": 1880,
+      "sha256": "6bb3622c284ed4e7b9f89c72ef21f2023a304ecba9f2e2118a387e5ef6d19e08",
+      "storage": "verbatim",
+      "path": "before_packet_tail_recovery_protocol.json",
+      "stored_sha256": "6bb3622c284ed4e7b9f89c72ef21f2023a304ecba9f2e2118a387e5ef6d19e08"
+    },
+    "before_verify_mixed.py": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/before_verify_mixed.py",
+      "bytes": 3054,
+      "sha256": "624625ca6e52aececa95bec888f227c1a93fec137fee573f35345def2e22ad5b",
+      "storage": "verbatim",
+      "path": "before_verify_mixed.py",
+      "stored_sha256": "624625ca6e52aececa95bec888f227c1a93fec137fee573f35345def2e22ad5b"
+    },
+    "retained_intermediates.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/retained_intermediates.json",
+      "bytes": 233,
+      "sha256": "a8cc2d831f70210434513f50d73dda415af8dede20ddf870e99f1b3a0cf7ca65",
+      "storage": "verbatim",
+      "path": "retained_intermediates.json",
+      "stored_sha256": "a8cc2d831f70210434513f50d73dda415af8dede20ddf870e99f1b3a0cf7ca65"
+    },
+    "verify_mixed.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/verify_mixed.stderr.log",
+      "bytes": 785,
+      "sha256": "d2c80f8872197568b667f7c5db1ccd9c97cb35c986475d9107613b3908606579",
+      "storage": "gzip",
+      "path": "verify_mixed.stderr.log.gz",
+      "stored_sha256": "6f3dc019c00617ab79889bb0f129b3e9ee8fc4e3cc87692814e7b9d76d288188"
+    },
+    "verify_mixed.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/verify_mixed.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "verify_mixed.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "verify_mixed_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/verify_mixed_command.json",
+      "bytes": 825,
+      "sha256": "3adee66a35eb298f23f632deaddc914f1f8abe76d8af53881ae507aa3c15b6db",
+      "storage": "verbatim",
+      "path": "verify_mixed_command.json",
+      "stored_sha256": "3adee66a35eb298f23f632deaddc914f1f8abe76d8af53881ae507aa3c15b6db"
+    },
+    "workers/01.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/workers/01.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "workers/01.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "workers/01.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/workers/01.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "workers/01.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "workers/01_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/workers/01_command.json",
+      "bytes": 810,
+      "sha256": "abc5a4b22da8601c177367bdb24d35a034230ed20209d1eba21d3dc10737def4",
+      "storage": "verbatim",
+      "path": "workers/01_command.json",
+      "stored_sha256": "abc5a4b22da8601c177367bdb24d35a034230ed20209d1eba21d3dc10737def4"
+    },
+    "workers/old.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/workers/old.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "workers/old.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "workers/old.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/workers/old.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "workers/old.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "workers/old_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/allocation_failure_archive/workers/old_command.json",
+      "bytes": 750,
+      "sha256": "167280d270269dab54344e5a2243a2ed47e02803dbc1cd546e38ca52673b4441",
+      "storage": "verbatim",
+      "path": "workers/old_command.json",
+      "stored_sha256": "167280d270269dab54344e5a2243a2ed47e02803dbc1cd546e38ca52673b4441"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

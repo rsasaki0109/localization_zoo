@@ -1,0 +1,38 @@
+{
+  "files": {
+    "119558120396.source.json": {
+      "original_path": "/workspace/localization-env/inten-consensus-failure-origin/ci/119558120396.source.json",
+      "bytes": 656087,
+      "sha256": "cf8ddac31ff6688738c66de46da28bad2636ebeb1c6bb753ca2ea316cc332173",
+      "storage": "verbatim",
+      "path": "119558120396.source.json",
+      "stored_sha256": "cf8ddac31ff6688738c66de46da28bad2636ebeb1c6bb753ca2ea316cc332173"
+    },
+    "119558120565.source.json": {
+      "original_path": "/workspace/localization-env/inten-consensus-failure-origin/ci/119558120565.source.json",
+      "bytes": 514688,
+      "sha256": "37669f04eb06ee5ede646deea6fa3c791c11929061e4a04611d38b7ae614856c",
+      "storage": "verbatim",
+      "path": "119558120565.source.json",
+      "stored_sha256": "37669f04eb06ee5ede646deea6fa3c791c11929061e4a04611d38b7ae614856c"
+    },
+    "jobs_failed.json": {
+      "original_path": "/workspace/localization-env/inten-consensus-failure-origin/ci/jobs_failed.json",
+      "bytes": 10407,
+      "sha256": "3fba8492d2281125409a1e5a106fec9e34a5fd0a10ab1a6614516c235405a011",
+      "storage": "verbatim",
+      "path": "jobs_failed.json",
+      "stored_sha256": "3fba8492d2281125409a1e5a106fec9e34a5fd0a10ab1a6614516c235405a011"
+    },
+    "run_failed.json": {
+      "original_path": "/workspace/localization-env/inten-consensus-failure-origin/ci/run_failed.json",
+      "bytes": 15316,
+      "sha256": "724dacf8fcbcb10246c2867d8694f86c2f394e2ae27001b80ab9f9bbc695f778",
+      "storage": "verbatim",
+      "path": "run_failed.json",
+      "stored_sha256": "724dacf8fcbcb10246c2867d8694f86c2f394e2ae27001b80ab9f9bbc695f778"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

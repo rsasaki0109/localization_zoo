@@ -1,0 +1,54 @@
+{
+  "files": {
+    "diagnose_portability.py": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/ci_native_failure_stage/diagnose_portability.py",
+      "bytes": 1036,
+      "sha256": "76957e4e4f546bb78033680a2ba10bef10bb62f0502b09220e1bae9550218446",
+      "storage": "verbatim",
+      "path": "diagnose_portability.py",
+      "stored_sha256": "76957e4e4f546bb78033680a2ba10bef10bb62f0502b09220e1bae9550218446"
+    },
+    "failure.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/ci_native_failure_stage/failure.json",
+      "bytes": 763,
+      "sha256": "b21bcfbcfe255c35af7044cafb8b4668f2ce6120afc44658e5d55e90e6babb53",
+      "storage": "verbatim",
+      "path": "failure.json",
+      "stored_sha256": "b21bcfbcfe255c35af7044cafb8b4668f2ce6120afc44658e5d55e90e6babb53"
+    },
+    "jobs_at_failure.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/ci_native_failure_stage/jobs_at_failure.json",
+      "bytes": 9955,
+      "sha256": "d1f50a9e347f22c547dc539a00b698f1c5dfc4624c037f1d91d5fa5a89e27eb2",
+      "storage": "verbatim",
+      "path": "jobs_at_failure.json",
+      "stored_sha256": "d1f50a9e347f22c547dc539a00b698f1c5dfc4624c037f1d91d5fa5a89e27eb2"
+    },
+    "native_complete.log.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/ci_native_failure_stage/native_complete.log.gz",
+      "bytes": 113312,
+      "sha256": "9bc310556868c0a75969d9f1efb8f9676f914ff79b86fd0c1fdb6fea44c3d444",
+      "storage": "verbatim",
+      "path": "native_complete.log.gz",
+      "stored_sha256": "9bc310556868c0a75969d9f1efb8f9676f914ff79b86fd0c1fdb6fea44c3d444"
+    },
+    "native_complete.source.json.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/ci_native_failure_stage/native_complete.source.json.gz",
+      "bytes": 113584,
+      "sha256": "102b0b72b59df3ca8edb010f709f59f8edc255e24907d2c661b99b8c8605a673",
+      "storage": "verbatim",
+      "path": "native_complete.source.json.gz",
+      "stored_sha256": "102b0b72b59df3ca8edb010f709f59f8edc255e24907d2c661b99b8c8605a673"
+    },
+    "run_at_failure.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/ci_native_failure_stage/run_at_failure.json",
+      "bytes": 15271,
+      "sha256": "8fc23eb6320efbf3e916b17d06f580967db0c96f464f391ff429e5afa5399af9",
+      "storage": "verbatim",
+      "path": "run_at_failure.json",
+      "stored_sha256": "8fc23eb6320efbf3e916b17d06f580967db0c96f464f391ff429e5afa5399af9"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

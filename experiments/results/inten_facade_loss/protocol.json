@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "parent_commit": "0385832c725a19da1001f703897d232c02849929",
+  "parent_pr": 162,
+  "native_reference_commit": "8ab36c3501197d3439a9dd6ac96949c3acace695",
+  "sequence": "01",
+  "native_source_sha256": "447bf2bc7317151684ab4f8889e90aa22206411976e580b8b5d9c1810f3a65c3",
+  "diagnostic_source_sha256": "a7bcc891d4f59d779e8f53c1ac195a85361bca6f7f3edc95cba7b0fb84d98aa6",
+  "loader_sha256": "cd94435cd79ddf8af4cfa09d3d5e9e58921255971944f5fcdf66f505e6f7603b",
+  "hypothesis": "Current01 facade contamination persists despite native Huber0.1 and predicted DOR. Test whether replacing only S2S facade Huber IRLS influence by Cauchy at the same inherited scale changes its first-system cluster influence and full nonlinear terminal registrations. No physical-motion classification follows from a residual or a weight.",
+  "scope": "All1100 full01 natural estimated-seed pair registrations, not a recursive trajectory, new accuracy profile, official RTE or paper ratio. A future native candidate requires separately committed selection/implementation and every full00-10 fixed arm before accuracy claims. No production source/API/default change in this diagnostic stage.",
+  "modes": {
+    "0": "Unchanged native Huber influence w=1 if abs(r)<=h else h/abs(r)",
+    "1": "Only S2S facade Cauchy influence w=1/(1+(r/h)^2), h=existing params.huber=0.1"
+  },
+  "calibration": "One alternative loss and unchanged inherited native scale, fixed before all new numerical analysis and terminal calls; no sweep, threshold fitting, hand region, GT input or per-frame winner. Chosen on known current01 development contamination and committed rejected DOR experiment. Original profile07,00 diagnosis and inherited DiLO01 prior fraction are disclosed; all prior KITTI is development, no independent held out.",
+  "profile": "Reference PR159 candidate / PR162 OFF baseline: mapped seed, S2S prior0.03, ground/facade PCA, acceleration on; predictedDOR, row completion and S2M spread off; range120m, correction0.17deg and S2M maxplane0.05m. Terminal mapping off and forced pose supplies the original estimated relative seed only, never GT; prior computation remains on.",
+  "controls": "Every mode0 output and all first data-class H/g/counts must exactly match the committed preceding terminal unchanged arm. All mode0 outputs/counts must also exactly match the full natural trace. At the initial seed, all candidate class counts and non-facade H/g must be exact. Independently reconstruct every first facade H/g from archived actual accepted queries under both losses, adaptive-prior information and all finite damped native updates. Later re-association, class equations and adaptive-prior information may change. Weighted SSE is the native IRLS surrogate, not a comparable robust loss energy.",
+  "analysis": "All pairs, every first facade residual/normal/source cluster, Huber and Cauchy weights, per-cluster conditional initial forward contributions through the joint damped native system, every nonlinear terminal output, first systems, solver trace, local length/vector labels, every adverse/neutral case and all new bad labels. GT only offline for errors/direction; the inherited right region only as an explicitly retrospective label, never native input or loss selection. Require invariants before interpretation.",
+  "selected_endpoints": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "data": "Official fetch script, one owned full01 only. Verify every scan/GT hash against committed official inputs. Archive losslessly with roundtrip, commit and normally push all evidence before owned raw removal; cleanup commit/push before other acquisition. Retain failures and original builds/binaries/logical paths. Stop on substantive mismatch, do not silently rerun.",
+  "completion": "Complete both native arms on every full01 pair with actual exits0 and all exact controls; commit numerical evidence before README prose, preserve all existing results/defaults/canonical publications. Full Native+ROS2 CI at final head before Ready. No merge without new user instruction.",
+  "source_sha256": {
+    "instrument.py": "f80d081fdce82038f87f6debf046645aff06dfa056796dac0d3aeefa06245b6d",
+    "probe.cpp": "085cc13d2720b9b46092acd5ff477674c89b1f07c4d69946f9df6c0bce988022",
+    "run.py": "df4fa1ff63c45195edef8a9307c4187eebb7a6cdc641afdab4a362497cc572af",
+    "resume.py": "ca3b079a8a410932e54e9b746bf8a15e3de190eb9d31b7bb54cddde9c158b3cd",
+    "diagnostic_hooks.h": "36a51d5273da51c9396bd366b30f5b6e632803383e6425116d38f7d1a3b2a6c1",
+    "build.py": "0f752f71909fde70d7bb506e0d910cf01304105ef72e4a3c8348c9c0298981c6"
+  },
+  "continuation": "Initial8f2600a8 native rejected forced_pose plus public passive trace before any terminal output. Failure645363a6 preserved. Corrected isolated observer uses diagnostic::terminal_trace at internal forced S2S call; public guard and every production file unchanged. Preserve original binary/object, compile distinct v2 producer, same owned official inputs and byte-identical natural-seed commands. Loss formula/scale/arms unchanged; no refetch or silent retry.",
+  "analysis_source_sha256": {
+    "analyze.py": "c60911f8433174ae690e13ab4a335cdac7c33b5bb1d6f943784810faa0b3d0ea",
+    "archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "seal.py": "fa38a7b87c37c21d9e0595eaaceb2a563f09e2f494e20310593e5fb1f6926078"
+  },
+  "forced_count_convention": "The public forced diagnostic API returns first data-class counts. The internal terminal observer mirrors this convention in solver.returned_pairs, so only this field is excluded from full natural-solver parity, and independently checked against all first class counts. Every iteration H/g/delta/residual/pose, input/output/stop/prior field must be exact for baseline. Last-iteration pairs remain explicitly recorded in solver.iterations; do not treat the forced count as the normal solver return.",
+  "analysis_continuation": "First analysis stopped at the first solver because the serializer legitimately omits an all-zero translation_prior_information field. Failure and empty partial outputs retained before correcting the parser to the existing zero convention. Reuse only byte-verified committed query restoration; all native outputs, seeds, binaries, loss modes and raw inputs remain unchanged. No native rerun."
+}

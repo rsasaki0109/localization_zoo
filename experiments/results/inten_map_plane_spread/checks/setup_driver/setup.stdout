@@ -1,0 +1,20 @@
+inten 0
+paper 0
+trace 0
+runtime 0
+[codex/inten-map-plane-spread 70e35a58] Record pinned native mechanism tests and actual runtime before full comparison
+ 14 files changed, 330 insertions(+)
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/inten.stderr
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/inten.stdout
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/inten_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/paper.stderr
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/paper.stdout
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/paper_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/result.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/runtime.stderr
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/runtime.stdout
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/runtime_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/trace.stderr
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/trace.stdout
+ create mode 100644 experiments/results/inten_map_plane_spread/checks/frozen_native_tests/trace_command.json
+ create mode 100644 experiments/results/inten_map_plane_spread/runtime.json

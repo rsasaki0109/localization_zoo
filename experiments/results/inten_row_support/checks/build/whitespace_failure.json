@@ -1,0 +1,12 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-row-support/worktree",
+  "exit_code": 2,
+  "reason": "Raw configure output contains upstream trailing spaces. Preserve its exact bytes with lossless gzip rather than editing execution output.",
+  "output_gzip": "whitespace_failure.log.gz"
+}

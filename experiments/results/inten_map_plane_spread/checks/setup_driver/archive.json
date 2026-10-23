@@ -1,0 +1,30 @@
+{
+  "files": {
+    "setup.stderr": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/setup_driver_record/setup.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "setup.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup.stdout": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/setup_driver_record/setup.stdout",
+      "bytes": 1634,
+      "sha256": "3affb1f283a3cf2a5981998752b66a3efee64543333ef34ea7ff543f069cef65",
+      "storage": "verbatim",
+      "path": "setup.stdout",
+      "stored_sha256": "3affb1f283a3cf2a5981998752b66a3efee64543333ef34ea7ff543f069cef65"
+    },
+    "setup_command.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/setup_driver_record/setup_command.json",
+      "bytes": 542,
+      "sha256": "bf4adf2b4017c567d3d91d6f882c3985990f2242878defebeb4057c98b782852",
+      "storage": "verbatim",
+      "path": "setup_command.json",
+      "stored_sha256": "bf4adf2b4017c567d3d91d6f882c3985990f2242878defebeb4057c98b782852"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

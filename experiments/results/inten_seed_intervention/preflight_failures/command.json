@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_seed_intervention/run.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-collapse-boundaries/worktree",
+  "source_commit": "8a6aef7b",
+  "exit_code": 1,
+  "scope": "Python parse failure before any collector/compile/fetch/native operation. Source corrected before actual experiment."
+}

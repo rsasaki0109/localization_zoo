@@ -1,0 +1,23 @@
+{
+  "exit_code": 0,
+  "scope": "Every fresh baseline uses the freshly compiled default-off candidate binary and reproduces its prior candidate all trace numeric bytes after the declared scan-root-only byte substitution, saved poses/GT and accuracy metrics exactly. Header argv paths differ; original traces are retained unchanged.",
+  "frames_and_end_records": 2762,
+  "trace_body_exact_after_scan_root_substitution": true,
+  "scan_root_substitution": {
+    "historical": "/workspace/localization-env/inten-facade-pca/kitti/dataset/sequences/05/velodyne/",
+    "current": "/workspace/localization-env/inten-prediction-dor/kitti/dataset/sequences/05/velodyne/"
+  },
+  "saved_pose_gt_bytes_equal": [
+    "InTEn_LOAM.txt",
+    "gt.txt",
+    "velodyne_evaluated_gt.txt"
+  ],
+  "accuracy_fields_equal": [
+    "status",
+    "frames",
+    "ate_m",
+    "rpe_trans_pct",
+    "kitti_rte_trans_pct",
+    "kitti_rte_rot_deg_per_100m"
+  ]
+}

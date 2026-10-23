@@ -29,6 +29,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
+#include <array>
 #include <cstdint>
 #include <deque>
 #include <memory>
@@ -82,6 +83,15 @@ struct InTenLoamPaperParams {
   // Registration.
   bool use_intensity = true;
   double intensity_knot = 0.3;      // kappa [m]
+  // Repository extension, not in the paper: normalize cubic weights over
+  // occupied S2S lattice nodes instead of query-local mean filling. This is
+  // a rational field, with its quotient-rule gradient. S2M stays unchanged.
+  bool s2s_intensity_normalized = false;
+  // Repository extension: complete missing controls from original observed
+  // node means within three lattice steps per axis, independently of the
+  // querying cell. Ordinary cubic field/gradient; S2S only, default off.
+  // Mutually exclusive with s2s_intensity_normalized.
+  bool s2s_intensity_consistent = false;
   double intensity_weight = 1.0;
   double huber = 0.1;
   double s2s_gate_sq = 1.0;         // squared distance to the closest point [m^2]
@@ -111,6 +121,45 @@ struct InTenLoamPaperParams {
   bool use_dor = true;
   double dor_relative_range = 0.1;  // s_d
   double dor_object_ratio = 0.5;    // Th_N
+  // Opt-in repository extension, not in the paper: when the ten-neighbour
+  // S2S plane query lacks same/adjacent-row support, search the required rows
+  // under the existing distance gate. Existing selected points are retained.
+  bool s2s_row_support = false;
+  // Opt-in repository extension, not in the paper: for accepted S2S ground
+  // triangles only, use the same gated ten-neighbour PCA normal through the
+  // original nearest point. Degenerate PCA retains the triangle normal.
+  bool s2s_ground_pca = false;
+  // Opt-in repository extension, not in the paper: apply the same accepted-
+  // triangle PCA normal construction to S2S facade features only. Keep the
+  // nearest-point anchor and all triangle acceptance tests; default unchanged.
+  bool s2s_facade_pca = false;
+  // Opt-in repository extension, not in the paper: seed the next S2S solve
+  // with the preceding final mapped relative pose (normalized quaternion
+  // rotation to prevent recursive non-rigid roundoff). Fallback and deskew still
+  // use last accepted S2S motion; mapping-off/forced diagnostics are unchanged.
+  bool s2s_mapped_prior = false;
+  // Opt-in repository extension, not in the paper. At the first S2S system,
+  // marginalize rotation at the sensor origin. Add a translation prior only
+  // where information is below this fraction of its largest eigenvalue,
+  // raising it to that floor. Anchor at the initial prediction; keep this
+  // information fixed throughout the solve. Zero disables it (legacy path).
+  double s2s_translation_prior_ratio = 0.0;
+  // Opt-in repository extension, not in the paper. Before normal S2S, run
+  // existing DOR at the initial motion prediction using the prior local map.
+  // Reject only source facade queries in marked clusters. Extraction, other
+  // feature classes and post-S2M map insertion keep their existing rules.
+  // Requires mapping and DOR; forced diagnostics remain unchanged.
+  bool s2s_predicted_dor_facade = false;
+  // Repository extension, not in the paper and default off. Use Cauchy IRLS
+  // influence at the existing Huber scale only for S2S facade residuals.
+  // No association gate changes; other classes and S2M keep Huber weighting.
+  bool s2s_facade_cauchy = false;
+  // Repository extension, not in the paper; default off. Geometric cluster
+  // consensus corrects the predicted translation and facade support, then
+  // re-solves translation with the unmasked native estimated rotation fixed.
+  // Strict-majority/interior consensus and successful refinement are required;
+  // otherwise keep the original solve. No GT, hand region or motion semantics.
+  bool s2s_geometry_consensus = false;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).
@@ -149,7 +198,8 @@ struct InTenLoamPaperDiagnostics {
   // Classes: 0 edge, 1 ground, 2 facade, 3 intensity. Jacobians are with
   // respect to a left perturbation [t, w] of the S2S relative pose (previous
   // frame) and of the S2M pose (world); the Gauss-Newton step is -H^-1 g
-  // with H, g summed over the classes.
+  // with H, g summed over the classes. These are data terms; an enabled
+  // repository translation prior is additional and is not a feature class.
   Mat6 s2s_H[4], s2m_H[4];
   Vec6 s2s_g[4], s2m_g[4];
   int s2s_n[4] = {0, 0, 0, 0}, s2m_n[4] = {0, 0, 0, 0};
@@ -167,12 +217,13 @@ struct PaperIterationTrace {
   using Mat6 = Eigen::Matrix<double, 6, 6>;
   using Vec6 = Eigen::Matrix<double, 6, 1>;
   Eigen::Matrix4d linearization_pose = Eigen::Matrix4d::Identity();
-  Mat6 H = Mat6::Zero();  // unregularized, left perturbation [t, w]
+  Mat6 H = Mat6::Zero();  // left [t,w]; includes optional translation prior, before 1e-6 I
   Vec6 g = Vec6::Zero();
   Vec6 delta = Vec6::Zero();  // solve uses H + 1e-6 I, as without tracing
   int class_pairs[4] = {0, 0, 0, 0};  // edge, ground, facade, intensity
   int pairs = 0;
   // Sum w*r*r at this linearization; w is the existing Huber IRLS weight.
+  // Includes the quadratic position prior when enabled; pair counts stay data-only.
   // This is not the Huber objective, a post-update score or a quality gate.
   double weighted_squared_residual = 0.0;
   bool step_attempted = false;
@@ -186,14 +237,35 @@ struct PaperSolverTrace {
   Eigen::Matrix4d output = Eigen::Matrix4d::Identity();
   int returned_pairs = 0;  // includes the existing nonfinite-step return of zero
   PaperSolverStop stop = PaperSolverStop::NotRun;
+  // Fixed position-prior information in target axes; zero when disabled/inactive.
+  Eigen::Matrix3d translation_prior_information = Eigen::Matrix3d::Zero();
   std::vector<PaperIterationTrace> iterations;
+};
+
+struct PaperClusterAdmission {
+  int cluster = 0;
+  std::array<uint64_t, 2> bits{};  // profile indices0..120, low word first
+};
+
+struct PaperConsensusTrace {
+  bool evaluated = false, usable = false, applied = false;
+  int best_index = 60, valid_clusters = 0;
+  std::array<int, 121> votes{};
+  std::vector<PaperClusterAdmission> admissions;
+  std::vector<int> excluded_clusters;
+  Eigen::Matrix4d seed = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d original_estimate = Eigen::Matrix4d::Identity();
+  PaperSolverTrace refinement;  // conditional Htt, zero angular delta
 };
 
 struct InTenLoamPaperTrace {
   int frame_index = 0;
   bool initialization = false;
   PaperSolverTrace s2s, s2m;
+  PaperConsensusTrace consensus;
   bool s2s_fallback = false;
+  bool s2s_dor_called = false;
+  size_t s2s_dor_masked_facades = 0;
   Eigen::Matrix4d accepted_relative = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d s2m_prediction = Eigen::Matrix4d::Identity();  // drift * odom
   bool s2m_accepted = false;
@@ -220,8 +292,10 @@ public:
   // empty ones take the mean of the 4 x 4 x 4 support.
   class IntensityGrid {
   public:
-    void build(const std::vector<PaperFeature>& cloud, double knot);
-    // False when fewer than 4 control points of the support are observed.
+    void build(const std::vector<PaperFeature>& cloud, double knot, bool normalized = false,
+               bool consistent = false);
+    // False when fewer than 4 controls are observed; normalized mode also
+    // requires positive occupied basis weight. No extrapolation at zero weight.
     bool eval(const Eigen::Vector3d& x, double* value, Eigen::Vector3d* gradient) const;
 
   private:
@@ -237,7 +311,12 @@ public:
       }
     };
     double knot_ = 0.3;
+    bool normalized_ = false;
+    bool consistent_ = false;
     std::unordered_map<Key, std::pair<double, int>, KeyHash> nodes_;
+    struct CompletionCache;
+    std::shared_ptr<CompletionCache> completion_cache_;
+    bool evalConsistent(const Eigen::Vector3d& x, double* value, Eigen::Vector3d* gradient) const;
   };
 
 private:
@@ -247,7 +326,8 @@ private:
 
   // Gauss-Newton on se(3) with re-association; T maps source into target.
   int solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first = nullptr,
-               PaperSolverTrace* trace = nullptr) const;
+               PaperSolverTrace* trace = nullptr, const std::vector<char>* facade_dynamic = nullptr,
+               bool translation_only = false) const;
   int solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int class_pairs[4] = nullptr,
                ClassSystems* first = nullptr, PaperSolverTrace* trace = nullptr) const;
   std::vector<char> dynamicMask(const PaperFrame& curr, const Eigen::Matrix4d& T_w) const;
@@ -259,6 +339,7 @@ private:
   Eigen::Matrix4d odom_ = Eigen::Matrix4d::Identity();    // T_w'k (S2S chain)
   Eigen::Matrix4d drift_ = Eigen::Matrix4d::Identity();   // dT
   Eigen::Matrix4d last_rel_ = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d last_mapped_rel_ = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d pose_ = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d prev_pose_ = Eigen::Matrix4d::Identity();
   int frame_ = 0;

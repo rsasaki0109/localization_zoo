@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "from pathlib import Path\nimport json,csv\nw=Path.cwd();e=w/'experiments/results/inten_plane_correspondences'\ns=(e/'README.md').read_text();m=(w/'papers/inten_loam/README.md').read_text();report=json.loads((e/'report/summary.json').read_text());scope=json.loads((e/'scope/summary.json').read_text())\nfor seq,v in report['sequences'].items():\n g=v['groups']['all_selected_moving'];a=g['controls']['pca_through_nearest'];b=g['controls']['pca_through_centroid']\n row=f\"| {seq} | {v['moving_pairs']} | {a['smaller_absolute_first_forward_count']} / {a['larger_absolute_first_forward_count']} | {b['smaller_absolute_first_forward_count']} / {b['larger_absolute_first_forward_count']} |\"\n assert row in s and row in m\n with (e/'report'/(seq+'_cases.csv')).open() as stream:\n  rows=list(csv.DictReader(stream))\n for r in rows:\n  if r['id'] in ('01_420','02_1876','02_4460'):\n   row=f\"| {r['id'].replace('_',' / ')} | {r['edge_pairs']} | {100*float(r['native_first_forward_fraction']):+.6f} | {100*float(r['pca_through_nearest_first_forward_fraction']):+.6f} | {100*float(r['pca_through_centroid_first_forward_fraction']):+.6f} |\"\n   assert row in s and row in m\n for name,c in scope['sequences'][seq].items():\n  row=f\"| {seq} / {name} | {c['native_missing_row_rejections']} | {c['extra_constructible_triangles']} | {c['same_still_missing_in_full_target_gate']} |\"\n  assert row in s\n  assert str(c['extra_constructible_triangles']) in m\nprint('Documented result tables match committed evidence')\n"
+  ],
+  "cwd": "/workspace/localization-env/inten-plane-correspondences/worktree",
+  "source_commit": "1507228edc5d90c6e6b47d8556283627cb76c196",
+  "started_unix": 1792470138.6510794,
+  "finished_unix": 1792470138.680478,
+  "exit_code": 0
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_ground_pca/build.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-ground-pca/worktree",
+  "source_commit": "33648c51815cb49f2ad693aa9b92026b53b836a8",
+  "exit_code": 1,
+  "started_unix": 1792507711.786511,
+  "finished_unix": 1792507811.1290126
+}

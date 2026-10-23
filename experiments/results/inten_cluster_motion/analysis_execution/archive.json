@@ -1,0 +1,30 @@
+{
+  "files": {
+    "analysis.stderr": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/analysis_record/analysis.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "analysis.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "analysis.stdout": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/analysis_record/analysis.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "analysis.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "analysis_command.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/analysis_record/analysis_command.json",
+      "bytes": 566,
+      "sha256": "67d6aae63d197367f5458a89e7d8d551acbcc2436e5f73f1eddd1a25bb67a654",
+      "storage": "verbatim",
+      "path": "analysis_command.json",
+      "stored_sha256": "67d6aae63d197367f5458a89e7d8d551acbcc2436e5f73f1eddd1a25bb67a654"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,19 @@
+{
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "logical_cores": 5,
+  "affinity_cores": 5,
+  "memory_gib": 17.6,
+  "os": "Ubuntu 22.04.5 LTS",
+  "kernel": "6.18.55",
+  "architecture": "x86_64",
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "capture_scope": "Shared native container before acquisition; no standalone FPS claim.",
+  "source_commit": "6d9ab15d0ef72af57539253fcd2436a7842f11fd",
+  "versions": {
+    "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "python": "Python 3.10.12"
+  }
+}

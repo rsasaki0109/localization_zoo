@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_row_support/import_results.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-row-support/worktree",
+  "source_commit": "cce9a5ae85ed8e82fbe5d3db75a66a9ed16e86b1",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_unix": 1792478353.8232381,
+  "exit_code": 0,
+  "finished_unix": 1792478354.1789699
+}

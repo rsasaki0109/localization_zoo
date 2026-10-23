@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python3",
+    "/workspace/localization-env/inten-nonfacade-consensus-support/create_worktree.py"
+  ],
+  "cwd": "/workspace",
+  "exit_code": 0,
+  "proof_sha256": "72d74d0025b2a49265728e29f731ea8b74b9649f1185d9c1705002b84182a7e7",
+  "scope": "Hash/byte/mode/ownership/device-verified closed immutable committed evidence hardlinked into new worktree. All old logical paths retained; no source/build/index/library/binary coalescing."
+}

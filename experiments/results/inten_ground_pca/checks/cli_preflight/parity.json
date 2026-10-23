@@ -1,0 +1,17 @@
+{
+  "exit_code": 0,
+  "fields_equal": [
+    "status",
+    "frames",
+    "ate_m",
+    "rpe_trans_pct",
+    "kitti_rte_trans_pct",
+    "kitti_rte_rot_deg_per_100m"
+  ],
+  "saved_pose_gt_bytes_equal": [
+    "InTEn_LOAM.txt",
+    "gt.txt",
+    "mcd_kth_smoke_evaluated_gt.txt"
+  ],
+  "enabled_flag_effective": true
+}

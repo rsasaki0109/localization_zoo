@@ -1,0 +1,19 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "0385832c725a19da1001f703897d232c02849929",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "073ecb7d0301dc0f1da09dd09f9f6dc9316650ef",
+  "started_unix": 1792569045.5225642,
+  "finished_unix": 1792569045.7699327,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

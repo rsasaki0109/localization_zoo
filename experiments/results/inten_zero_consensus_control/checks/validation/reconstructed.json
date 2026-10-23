@@ -1,0 +1,100 @@
+{
+  "exit_code": 0,
+  "groups": {
+    "old": {
+      "cases": 8,
+      "local_gate_passed": false
+    },
+    "01": {
+      "cases": 6,
+      "local_gate_passed": true
+    },
+    "02": {
+      "cases": 8,
+      "local_gate_passed": false
+    },
+    "08": {
+      "cases": 9,
+      "local_gate_passed": false
+    }
+  },
+  "native_calls": 248,
+  "profiles": 3872,
+  "gate_passed": false,
+  "failed_gate_checks": [
+    {
+      "group": "old",
+      "frame": 200,
+      "criterion": "old endpoint no higher length/vector error than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 202,
+      "criterion": "old endpoint no higher length/vector error than old consensus",
+      "passed": false
+    },
+    {
+      "group": "old",
+      "frame": 203,
+      "criterion": "old endpoint no higher length/vector error than old consensus",
+      "passed": false
+    },
+    {
+      "group": "02",
+      "frame": 1891,
+      "criterion": "preceding control no newly bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 39,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 41,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 42,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 43,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 44,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 45,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    },
+    {
+      "group": "08",
+      "frame": 46,
+      "criterion": "immediate damage lower length AND vector, no longer bad length",
+      "passed": false
+    }
+  ],
+  "all_commands_exit_zero": true,
+  "all_archives_roundtrip_verified": true,
+  "all_original_same_history_controls_exact": true,
+  "all_profiles_votes_masks_projected_steps_and_rotations_verified": true,
+  "all_results_reconstructed": true,
+  "production_and_existing_results_preserved": true,
+  "float_relative_tolerance": 1e-10,
+  "float_absolute_tolerance": 1e-12
+}

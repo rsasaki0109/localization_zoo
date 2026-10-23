@@ -1,0 +1,19 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "cd7471b76435b580ed583dac8b165b357848424e",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-fixed-rotation/worktree",
+  "source_commit": "9beb01087c4638c8fae7fd483b07c0ca4f66ac6c",
+  "started_unix": 1792582122.1467032,
+  "finished_unix": 1792582122.194445,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

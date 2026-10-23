@@ -1,0 +1,20 @@
+{
+  "command": [
+    "env",
+    "TMPDIR=/tmp/localization-zoo-inten-support-information-20261023",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/tmp/localization-zoo-inten-support-information-20261023/runtime_info.py"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "8b426b94a38c91c919b3fdc9991d0de18b20dac0",
+  "started_unix": 1792722201.6937027,
+  "finished_unix": 1792722201.7892373,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

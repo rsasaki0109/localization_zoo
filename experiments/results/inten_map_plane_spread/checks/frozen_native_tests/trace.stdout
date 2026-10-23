@@ -1,0 +1,15 @@
+Running main() from ./googletest/src/gtest_main.cc
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from InTenTraceJsonl
+[ RUN      ] InTenTraceJsonl.PreservesFailedStepValuesAndMatrixOrder
+[       OK ] InTenTraceJsonl.PreservesFailedStepValuesAndMatrixOrder (0 ms)
+[ RUN      ] InTenTraceJsonl.RecordsEffectiveSettingsAndSkippedInput
+[       OK ] InTenTraceJsonl.RecordsEffectiveSettingsAndSkippedInput (0 ms)
+[ RUN      ] InTenTraceJsonl.NeverOverwritesAndMarksTraversalCompletion
+[       OK ] InTenTraceJsonl.NeverOverwritesAndMarksTraversalCompletion (0 ms)
+[----------] 3 tests from InTenTraceJsonl (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 3 tests.

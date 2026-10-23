@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "baseline_evidence_commit": "96197955",
+  "frames": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "scope": "Terminal S2S only, matched same initial seed and previous scan. Not accuracy or deployable moving-object removal. No feedback into future history/map. All selected frames retain identical rules.",
+  "seeds": [
+    "actual continuous S2S input",
+    "offline GT relative oracle, explicitly diagnostic only"
+  ],
+  "arms": [
+    "unchanged native baseline",
+    "exclude each individual source facade cluster present in extracted source facade features, including neutral/positive/no accepted support",
+    "exclude all source facades, diagnostic class-ablation control",
+    "exclude source facades in one fixed right-side region x[-12,15], y[-5,-2], z[-1.6,0.5]m"
+  ],
+  "selection": "Retrospective actual01 known-failure development. Region chosen by visual inspection of full points and associations in committed204 record; same box used for all selected endpoints, no parameter sweep or held-out claim. Box is a diagnostic region, not an estimator proposal; it can contain static points too. Cluster IDs are local segmentation labels, not persistent objects.",
+  "producer": "Verbatim passive diagnostic native source plus a single early-return gate in the S2S facade query. Disabled control must reproduce every archived natural S2S output and first-system class counts/H/g+prior. Fresh public native pair process, mapping off only for isolated S2S; forced diagnostic overrides seed. Ground/edge/intensity construction unchanged. Every modified output is terminal. No production API/default/source change.",
+  "analysis": "Retain every seed/cluster output, counts and first class equations. Measure matched output/GT length and relative vector error, report every better/worse/equal result without selecting a winner. A cluster first-gradient is conditional; only iterative removals test conditional sensitivity. Removing a region does not prove physical motion; independently inspect GT-transformed full-cloud geometric shifts and static controls before attributing to moving surfaces.",
+  "ablation_native_sha256": "893a944bbe0d04aa16e18a05a2be5df35af3846be20e9468e98f26ded08dc0e8"
+}

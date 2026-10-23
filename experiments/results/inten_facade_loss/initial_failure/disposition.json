@@ -1,0 +1,6 @@
+{
+  "source_commit": "8f2600a8f2f6a4c6a494ed6ba26b22a7ff2f38db",
+  "native_exit_code": 1,
+  "output_records": 0,
+  "reason": "Public passive trace cannot be combined with forced_pose. Native threw before the first terminal solve. Preserve binary/object/commands/inputs and every fetch attempt. Use a separately frozen diagnostic-only internal solver observer; keep production guard unchanged, no refetch or silent retry."
+}

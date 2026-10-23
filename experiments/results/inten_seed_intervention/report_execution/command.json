@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/report.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/report"
+  ],
+  "cwd": "/workspace/localization-env/inten-collapse-boundaries/worktree",
+  "source_commit": "012e95947fe434627c891e669671e680b8cb9ba0",
+  "exit_code": 0,
+  "started_unix": 1792462996.8285275,
+  "finished_unix": 1792462997.7192578
+}

@@ -1,0 +1,1 @@
+{"cpu": "AMD EPYC 9V74 80-Core Processor", "logical_cores": 5, "memory_gib": 17.6, "os": "Ubuntu 22.04.5 LTS", "kernel": "6.18.55", "architecture": "x86_64", "thread_environment": {"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1"}}

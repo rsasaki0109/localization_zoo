@@ -1,0 +1,20 @@
+{
+  "command": [
+    "env",
+    "OPENBLAS_CORETYPE=Sandybridge",
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-consensus-failure-origin/worktree/experiments/results/inten_consensus_failure_origin/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-consensus-failure-origin/worktree/experiments/results/inten_consensus_failure_origin/checks/portability_correction/Sandybridge_verification.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-consensus-failure-origin/worktree",
+  "source_commit": "02c93acf1d14ecd54695d6e0603115ae8acfcada",
+  "started_unix": 1792629145.3458405,
+  "finished_unix": 1792629222.6196373,
+  "exit_code": 0,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-translation-prior/worktree/experiments/results/inten_translation_prior/inspect_information.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-prior/worktree",
+  "exit_code": 0,
+  "started_unix": 1792492796.1733758,
+  "finished_unix": 1792492796.542665,
+  "source_commit": "80de2dd53ff6ace0f8ee460ecbfddb3b7a570b20"
+}

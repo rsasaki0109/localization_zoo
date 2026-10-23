@@ -1,0 +1,22 @@
+{
+  "files": {
+    "boundaries.json.gz": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/analysis_stage/boundaries.json.gz",
+      "bytes": 569340,
+      "sha256": "274476b77b5f324c0fbe9cdd5b7570cfe4b91f8e78a84b24294abcd8ee452a94",
+      "storage": "verbatim",
+      "path": "boundaries.json.gz",
+      "stored_sha256": "274476b77b5f324c0fbe9cdd5b7570cfe4b91f8e78a84b24294abcd8ee452a94"
+    },
+    "summary.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/analysis_stage/summary.json",
+      "bytes": 102310,
+      "sha256": "dda66123ca15d66629862dc3f6a13a382768e29569b85deb74b6cdceb65f05bc",
+      "storage": "verbatim",
+      "path": "summary.json",
+      "stored_sha256": "dda66123ca15d66629862dc3f6a13a382768e29569b85deb74b6cdceb65f05bc"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "substantive_fields_equal": true,
+  "original_clock": "2026-10-21T07:50:12+00:00",
+  "regenerated_clock": "2026-10-21T11:25:49+00:00",
+  "original_sha256": "95ebd5633d1637ff408a893e833cae80bc657e9bd77b2f17a401ee09633715f5",
+  "regenerated_sha256": "0d3701ce58b492becd5db321dc071513ecabfca39c047d7cbfd68af44889e93b",
+  "retained_committed_index_bytes": true
+}

@@ -107,6 +107,9 @@ class Saved02PublicationGateTests(unittest.TestCase):
                    dict(sequence='02', hashes_verified_before_removal=True,
                         input_dir_exists_after=False, owned_input_dir=str(self.repo / 'removed_scans')))
         self.git('init', '-q')
+        # This disposable repository must have no detached writer at cleanup.
+        self.git('config', 'maintenance.auto', 'false')
+        self.git('config', 'gc.auto', '0')
         self.commit()
         self.output = self.repo / 'diagnostic_output'
 

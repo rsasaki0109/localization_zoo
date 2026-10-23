@@ -1,0 +1,30 @@
+{
+  "files": {
+    "render_case_tables.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/docs_generation_stage/render_case_tables.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "render_case_tables.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "render_case_tables.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/docs_generation_stage/render_case_tables.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "render_case_tables.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "render_case_tables_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/stable/docs_generation_stage/render_case_tables_command.json",
+      "bytes": 582,
+      "sha256": "205b7c6ce7f7025d11e454b2e8802663cf94391c9cd101d0670a58ada34171b9",
+      "storage": "verbatim",
+      "path": "render_case_tables_command.json",
+      "stored_sha256": "205b7c6ce7f7025d11e454b2e8802663cf94391c9cd101d0670a58ada34171b9"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

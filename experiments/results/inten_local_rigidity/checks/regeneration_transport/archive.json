@@ -1,0 +1,94 @@
+{
+  "files": {
+    "complete_regeneration.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/complete_regeneration.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "complete_regeneration.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "complete_regeneration.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/complete_regeneration.stdout.log",
+      "bytes": 162,
+      "sha256": "ac3dced4ec0cbdb5ee57716b6d6d905e2abb6b2f43a5238a76009a47b2852428",
+      "storage": "gzip",
+      "path": "complete_regeneration.stdout.log.gz",
+      "stored_sha256": "f44060527639fe2fc1acab5a56356b75b8f2c41623888e03275dae3c4fc5e309"
+    },
+    "complete_regeneration_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/complete_regeneration_command.json",
+      "bytes": 812,
+      "sha256": "afe2c9ee1349aa2fcf9f6bf088b1b1ccef34db85cac2bec6efb58dd1fe3cbf5b",
+      "storage": "verbatim",
+      "path": "complete_regeneration_command.json",
+      "stored_sha256": "afe2c9ee1349aa2fcf9f6bf088b1b1ccef34db85cac2bec6efb58dd1fe3cbf5b"
+    },
+    "result.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/result.json",
+      "bytes": 137,
+      "sha256": "789770f20536bd633f84ed97fd2fb07a3371fbde3db8b8592b884ddcea84036f",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "789770f20536bd633f84ed97fd2fb07a3371fbde3db8b8592b884ddcea84036f"
+    },
+    "roundtrip.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/roundtrip.json",
+      "bytes": 556,
+      "sha256": "b85af5f96e3e8dde59349dc177944d4b162275309e0da462c3644c9a6bd60318",
+      "storage": "verbatim",
+      "path": "roundtrip.json",
+      "stored_sha256": "b85af5f96e3e8dde59349dc177944d4b162275309e0da462c3644c9a6bd60318"
+    },
+    "table_guards.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/table_guards.stderr.log",
+      "bytes": 418,
+      "sha256": "f71599b26411ad98213a45bbc73818308663301a6d01d955bdd94a76fc787cbe",
+      "storage": "gzip",
+      "path": "table_guards.stderr.log.gz",
+      "stored_sha256": "70d4b55f21f88ada973e1c69fe3052d02940f07d20e28b1c5b99db14f24666dc"
+    },
+    "table_guards.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/table_guards.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "table_guards.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "table_guards_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/table_guards_command.json",
+      "bytes": 819,
+      "sha256": "a79dc709c5cb3b5957a738cce5f0210985f1c1fb79d3df23f58b62cd4a5e807e",
+      "storage": "verbatim",
+      "path": "table_guards_command.json",
+      "stored_sha256": "a79dc709c5cb3b5957a738cce5f0210985f1c1fb79d3df23f58b62cd4a5e807e"
+    },
+    "whitespace.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/whitespace.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "whitespace.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "whitespace.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/whitespace.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "whitespace.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "whitespace_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/transport_checks/whitespace_command.json",
+      "bytes": 551,
+      "sha256": "47f8b48ee52de509a57e95929fe60e1ba33d171a2a8475dfbac8a1de22d1af6b",
+      "storage": "verbatim",
+      "path": "whitespace_command.json",
+      "stored_sha256": "47f8b48ee52de509a57e95929fe60e1ba33d171a2a8475dfbac8a1de22d1af6b"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "original_tolerances_pass": true,
+  "errors": {
+    "all": 4.547473508864641e-13,
+    "kept": 9.094947017729282e-13,
+    "removed": 2.5579538487363607e-13
+  },
+  "scope": "Fixed-size left reductions and point product, same frozen fixture and strict thresholds; no estimator change."
+}

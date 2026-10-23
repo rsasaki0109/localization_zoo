@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-loss/worktree/experiments/results/inten_facade_loss/import_results.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "6d115f324de3925fa99118ceb03b837a4357ab6a",
+  "exit_code": 0,
+  "started_unix": 1792569012.4175136,
+  "finished_unix": 1792569012.7212803,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

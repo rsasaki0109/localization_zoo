@@ -1,0 +1,20 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "68c23290"
+  ],
+  "cwd": "/workspace/localization-env/inten-collapse-boundaries/worktree",
+  "source_commit": "f14b164426a8c11e16eb7023a8c741dcf686cd24",
+  "started_unix": 1792463525.8289464,
+  "finished_unix": 1792463525.9013968,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-collapse-boundaries/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-collapse-boundaries/cache"
+  }
+}

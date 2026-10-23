@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "parent_commit": "9028e44cfe6241c2e20b22f2039d42c69bd8594b",
+  "reference_native_commit": "9a01528b05128794df962b52ace59e727e834417",
+  "frames": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "profile": "Unchanged PR159 candidate, PR160 rejected spread remains zero. Mapped prediction, soft prior0.03, ground/facade PCA and acceleration ON; row completion OFF; max range120m, elevation0.17deg, S2Mmaxdist0.05m. Parameters selected07,00 diagnosis; prior fraction inherited DiLO01 tuning. All KITTI is development.",
+  "scope": "Actual normal-prefix S2S geometry at the exact inherited current01 onset controls; no fitted setting, accuracy score, held-out claim or default change. Moving objects and scan-row bias are unproven hypotheses.",
+  "producer": "Isolated full native source copy with passive stage/iteration/class markers, plane-neighbour geometry calls and a serial residual callback before the original reduction. No arithmetic, association, class order, stopping or pipeline changes. OMP1. No production file changed. Require every continuous pose and all S2S/S2M trace numeric fields exact against archived PR159 candidate, all selected geometry consistent with extracted feature indices, and reconstructed total equations/Huber weights consistent with passive native traces before interpreting.",
+  "native_source_sha256": "49b87dcdfe4c29ec584022aff5ae8611d7d319bcee4fe91e2af857e6e1ff4bb4",
+  "diagnostic_source_sha256": "138e52cd3b790555d388c2def8ca79c142f9b09f60025e85e7dad149992ff1ec",
+  "analysis": "Retain every accepted plane at every iteration, every class residual and all extracted source/target point clusters for all selected cases. Use offline GT relative transform only for static-consistency residuals and geometry, never feed GT to continuous reference. Sum class and cluster first-system gradients through the same total damped Hessian (conditional contribution, not independent nonlinear cause). Group IDs are per frame, not tracked semantic objects. Disagreement can include visibility, calibration, segmentation and wrong associations, not proof of a moving car.",
+  "data": "Official fetch one owned full01; exact all-file hashes against committed official inputs; archive losslessly, validate roundtrip, commit and normal push before deletion. Preserve every command, hash, exit and old result.",
+  "next_stage": "Any terminal matched-seed cluster ablation is separately frozen before execution after baseline evidence; not a full odometry candidate. No threshold sweep or per-sequence winner; a proposed new accuracy setting would need all full00-10 before ratios."
+}

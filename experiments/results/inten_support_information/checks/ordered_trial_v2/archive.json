@@ -1,0 +1,46 @@
+{
+  "files": {
+    "ordered_trial.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_trial_v2/ordered_trial.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "ordered_trial.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "ordered_trial.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_trial_v2/ordered_trial.stdout.log",
+      "bytes": 281,
+      "sha256": "05287eb2a7e3ecb49cbb569ea0db048dcce62f0ecd6562546fb6a19540a2df2d",
+      "storage": "gzip",
+      "path": "ordered_trial.stdout.log.gz",
+      "stored_sha256": "ebb14a400d92c4eb7f8d1d879f4432276cf6427f8907998b1e45953fd7a5718f"
+    },
+    "ordered_trial_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_trial_v2/ordered_trial_command.json",
+      "bytes": 660,
+      "sha256": "78da95b3aa02f2d3ac6bce9a3e5b5e897c8128129b3065222d21e69d44a5d918",
+      "storage": "verbatim",
+      "path": "ordered_trial_command.json",
+      "stored_sha256": "78da95b3aa02f2d3ac6bce9a3e5b5e897c8128129b3065222d21e69d44a5d918"
+    },
+    "result.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_trial_v2/result.json",
+      "bytes": 307,
+      "sha256": "ce94899c4fa2a36b643ea736b0a6986f634191a40b37a89a43917373f3422b81",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "ce94899c4fa2a36b643ea736b0a6986f634191a40b37a89a43917373f3422b81"
+    },
+    "source.py": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_trial_v2/source.py",
+      "bytes": 2491,
+      "sha256": "9c97fbd8ce5c60e516189facdd7f3adc68f40bf1bea73e99e2a55f873da5c46a",
+      "storage": "verbatim",
+      "path": "source.py",
+      "stored_sha256": "9c97fbd8ce5c60e516189facdd7f3adc68f40bf1bea73e99e2a55f873da5c46a"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

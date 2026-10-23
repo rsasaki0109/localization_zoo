@@ -1,0 +1,95 @@
+{
+  "files": {
+    "Haswell/summary.json": {
+      "path": "Haswell/summary.json.xz",
+      "bytes": 64768016,
+      "sha256": "98b7380b412327378ff3e44790f9cb2b128f367f9b19a6472bf423ed90d99bb4",
+      "stored_sha256": "220b2b413b2cc232ce3e9d709f098bf5073f0c4b3706e3e2890cd899eb44239b",
+      "payload_sha256": "98b7380b412327378ff3e44790f9cb2b128f367f9b19a6472bf423ed90d99bb4",
+      "storage": "complete_xz"
+    },
+    "Haswell/old/points.csv": {
+      "path": "Haswell/old/points.csv.edits.json.xz",
+      "bytes": 5429070,
+      "sha256": "b826a1836fe3f52ae2654327e23c7a08d10251182e6fe4818b3abfbe71671d21",
+      "stored_sha256": "8b1e5e0306ffc7c2d405d67b6da113430b287518c67c1eb5e472d79e908ad26a",
+      "payload_sha256": "10fdd0f432ddb6a3bb2d494d8997c7969500a5ad5acc139053874a175ec8e7d8",
+      "storage": "original_csv_line_edits_xz",
+      "base_sha256": "573d7c7470277a0010e7fd786e1643e3e5caebc544cda554173ce9627511b2da"
+    },
+    "Haswell/01/points.csv": {
+      "path": "Haswell/01/points.csv.edits.json.xz",
+      "bytes": 3936385,
+      "sha256": "9371cc42657addf3cdb8f03a927ce10d79971074e62b58e604389b440471c5e1",
+      "stored_sha256": "7b276b25089f459676d079f6fb201710c818d29787eae1adf499c5282a9a593c",
+      "payload_sha256": "292d3689c169262378ca0b45dbba7c585fbaf1d99e62480b38930bfbd230e8a7",
+      "storage": "original_csv_line_edits_xz",
+      "base_sha256": "b28c1a4602ff2516725a145bf4dc69f7aa6142c72a67fe376b349835b640f4be"
+    },
+    "Haswell/02/points.csv": {
+      "path": "Haswell/02/points.csv.edits.json.xz",
+      "bytes": 7226711,
+      "sha256": "21873ab31f8bdb9d958921911f8392381776c8348fc719d0f9960e53a916c234",
+      "stored_sha256": "cde086a3a7f489500a74a023332b7238661d40f5dc7aea104ba98efce67c12e0",
+      "payload_sha256": "4639476148e32784a4e4303b82bd9a66215c0d702c444d4f40b7ccace48c1788",
+      "storage": "original_csv_line_edits_xz",
+      "base_sha256": "abf6f9aeeb022a0b3156b5ae487c95295c5d5a6fda5c65261876774f67096b8a"
+    },
+    "Haswell/08/points.csv": {
+      "path": "Haswell/08/points.csv.edits.json.xz",
+      "bytes": 10156278,
+      "sha256": "825e2464d0cb3d4522d3a47cc8d008499107dcb5985a94f83cd4513e63a34aae",
+      "stored_sha256": "862bcf93eb31d23e3b896095e4d132d2730496f76c5373b38bcc847d0ffb6edf",
+      "payload_sha256": "8ed57b91e702269006ffd321a7bc33786817eccdd124f58cc85f9f380c308905",
+      "storage": "original_csv_line_edits_xz",
+      "base_sha256": "6326097e2825d255b6620867f5fd34a5d3ef0e02586b2ba1905f560463c2e30e"
+    },
+    "Sandybridge/summary.json": {
+      "path": "Sandybridge/summary.json.xz",
+      "bytes": 64767640,
+      "sha256": "2f60fb105c7216da0ebc5171a2c9e40b5ee534988c8e6d35dec72fca5a7db144",
+      "stored_sha256": "af426d073cda3cbe6da125ba458c53f23e1ce48741d0efc3fe8dd55c3b63b535",
+      "payload_sha256": "2f60fb105c7216da0ebc5171a2c9e40b5ee534988c8e6d35dec72fca5a7db144",
+      "storage": "complete_xz"
+    },
+    "Sandybridge/old/points.csv": {
+      "path": "Sandybridge/old/points.csv.edits.json.xz",
+      "bytes": 5429133,
+      "sha256": "762942f7a0926a3929a7d0b63cf3ed3bdf7f6d587cf1500fef6a478d4e87d5ef",
+      "stored_sha256": "6f679b1bff9ae83bf05cd0e57ba10626ccbd61feab8e629db1cb8c23eac6238e",
+      "payload_sha256": "68f82ec4b267cbcd91c123dfd11596331462084bd0308be1882f3d0bc33080ac",
+      "storage": "original_csv_line_edits_xz",
+      "base_sha256": "573d7c7470277a0010e7fd786e1643e3e5caebc544cda554173ce9627511b2da"
+    },
+    "Sandybridge/01/points.csv": {
+      "path": "Sandybridge/01/points.csv.edits.json.xz",
+      "bytes": 3936489,
+      "sha256": "9cf7acbb9e6d8b43707fd90c54b3bf6dc4bea4eaf30db4cf246a01317b3b1a55",
+      "stored_sha256": "688bd8824b0136314b9bd194763a6961693f7bf216bafde7fd96aac7dfc98ded",
+      "payload_sha256": "d92470cbb20786897c82133489c1e10f06c0959748d7bc9d5976a3ad4263e8fc",
+      "storage": "original_csv_line_edits_xz",
+      "base_sha256": "b28c1a4602ff2516725a145bf4dc69f7aa6142c72a67fe376b349835b640f4be"
+    },
+    "Sandybridge/02/points.csv": {
+      "path": "Sandybridge/02/points.csv.edits.json.xz",
+      "bytes": 7225922,
+      "sha256": "b1e2283ec3a6358daa738b13fc50557c96cb6423fe16e97c29443008dc0cafbf",
+      "stored_sha256": "c69b1a7715ca6729b24a3240b6f960ae3c0200b9d4b63bf712b752e19e4f38c4",
+      "payload_sha256": "158cb68dd5c206fb11c429003109d5642e5cc25f1169fc01f39dcde21cb48378",
+      "storage": "original_csv_line_edits_xz",
+      "base_sha256": "abf6f9aeeb022a0b3156b5ae487c95295c5d5a6fda5c65261876774f67096b8a"
+    },
+    "Sandybridge/08/points.csv": {
+      "path": "Sandybridge/08/points.csv.edits.json.xz",
+      "bytes": 10156732,
+      "sha256": "cd01dd073f44913fc949930d8e0996ee1535d9cae2e56acae79ef261d89f90a2",
+      "stored_sha256": "35ace9ef653be87ae2dcca5dcb0a037a0d9dcb5b215de59e2c64526041570098",
+      "payload_sha256": "d88bb2a8b5702d0bb6c78751a7f450cf13d6a4fedc7aea3fb9d40e5ad1f0995b",
+      "storage": "original_csv_line_edits_xz",
+      "base_sha256": "6326097e2825d255b6620867f5fd34a5d3ef0e02586b2ba1905f560463c2e30e"
+    }
+  },
+  "source_sha256": "34e1c6e9645779de8f22226f6a2e4f10ba533964bb55de706e95b74cd2f4714e",
+  "original_failure_sha256": "2dd39a6965c5ddb3d6ebfee5c3114f76df0887863627e147e42cc38c295f7055",
+  "policy": "Complete original CPU-control bytes retained. Per-line prefix/suffix edits have no numeric normalization, row omission or precision reduction; full stored/payload/base/rebuilt hashes and roundtrip verified."
+}

@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_dense_continuation/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-dense-continuation-20261022/report_stage/summary.json"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "179d65291e5387bc1bf80b5560d51363826c2a9a",
+  "started_unix": 1792675202.1649213,
+  "finished_unix": 1792675202.270414,
+  "exit_code": 1,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

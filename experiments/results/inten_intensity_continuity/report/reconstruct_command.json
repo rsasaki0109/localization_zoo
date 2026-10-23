@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-intensity-continuity/worktree/experiments/results/inten_intensity_continuity/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-intensity-continuity/analysis_stage_2/summary.json",
+    "--details",
+    "/workspace/localization-env/inten-intensity-continuity/analysis_stage_2/boundaries.json.gz"
+  ],
+  "cwd": "/workspace/localization-env/inten-intensity-continuity/worktree",
+  "source_commit": "49840c6c9789b3e61069335af2b75bbc12ba52a7",
+  "started_unix": 1792647412.6601262,
+  "finished_unix": 1792647432.9433973,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

@@ -1,0 +1,32 @@
+push 1 0
+native trace_off 0
+native trace_on 0
+[codex/inten-facade-pca 0d396924] Record candidate CLI trace parity before KITTI acquisition
+ 19 files changed, 690 insertions(+)
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/archive.json
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/parity.json
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_off/dogfooding_results/InTEn_LOAM.txt
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_off/dogfooding_results/gt.txt
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_off/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_off/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_off/native.log.gz
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_off/native_command.json
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_off/native_stderr.log.gz
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_off/summary.json
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/dogfooding_results/InTEn_LOAM.txt
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/dogfooding_results/gt.txt
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/dogfooding_results/mcd_kth_smoke_evaluated_gt.txt
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/dogfooding_results/mcd_kth_smoke_evaluation_manifest.json
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/native.log.gz
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/native_command.json
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/native_stderr.log.gz
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/summary.json
+ create mode 100644 experiments/results/inten_facade_pca/checks/cli_preflight/trace_on/trace.jsonl.parts/part-00000.gz
+push 1 0
+probe current_boundary_intervention 0
+native baseline 0
+native candidate 0
+validate analysis 0
+steps analysis 0
+validate analysis 0
+steps analysis 0

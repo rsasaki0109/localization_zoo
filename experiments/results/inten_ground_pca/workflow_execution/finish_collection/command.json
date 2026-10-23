@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-ground-pca/finish_collection.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-ground-pca/worktree",
+  "source_commit": "faafd0ef3ea7911cf37fe5e258e2b123b2fdc0e5",
+  "started_unix": 1792513613.4059393,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  },
+  "exit_code": 0,
+  "finished_unix": 1792513687.6307197
+}

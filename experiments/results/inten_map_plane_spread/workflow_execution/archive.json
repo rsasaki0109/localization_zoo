@@ -1,0 +1,54 @@
+{
+  "files": {
+    "finalize_docs.stderr": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/workflow_record/finalize_docs.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "finalize_docs.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "finalize_docs.stdout": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/workflow_record/finalize_docs.stdout",
+      "bytes": 4054,
+      "sha256": "158a2602905c02e5d0069ccb0aff0f6d9932a5f65aadfe259beb97cf662f91ef",
+      "storage": "verbatim",
+      "path": "finalize_docs.stdout",
+      "stored_sha256": "158a2602905c02e5d0069ccb0aff0f6d9932a5f65aadfe259beb97cf662f91ef"
+    },
+    "finalize_docs_command.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/workflow_record/finalize_docs_command.json",
+      "bytes": 420,
+      "sha256": "77eb54790765c98e3c8233ad550a44061ca4a6833c05594b0797d7940f60f6d2",
+      "storage": "verbatim",
+      "path": "finalize_docs_command.json",
+      "stored_sha256": "77eb54790765c98e3c8233ad550a44061ca4a6833c05594b0797d7940f60f6d2"
+    },
+    "finish_collection.stderr": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/workflow_record/finish_collection.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "finish_collection.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "finish_collection.stdout": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/workflow_record/finish_collection.stdout",
+      "bytes": 39155,
+      "sha256": "cd84202ae19c23ae3e36034fb279f4f4cfb833abd8a56a2e4fff40df692141cd",
+      "storage": "verbatim",
+      "path": "finish_collection.stdout",
+      "stored_sha256": "cd84202ae19c23ae3e36034fb279f4f4cfb833abd8a56a2e4fff40df692141cd"
+    },
+    "finish_collection_command.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/workflow_record/finish_collection_command.json",
+      "bytes": 373,
+      "sha256": "27f601d895096156d74dda4e13d492f000ba0199378a3bd4109689fbffbca8f7",
+      "storage": "verbatim",
+      "path": "finish_collection_command.json",
+      "stored_sha256": "27f601d895096156d74dda4e13d492f000ba0199378a3bd4109689fbffbca8f7"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

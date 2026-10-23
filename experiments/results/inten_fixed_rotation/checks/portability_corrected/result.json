@@ -1,0 +1,12 @@
+{
+  "exit_code": 0,
+  "codes": {
+    "python": 0,
+    "preservation": 0,
+    "whitespace": 0
+  },
+  "native_equations_metrics_gate_unchanged": true,
+  "bytecode_untracked_only": true,
+  "native_bitwise_rotation_checks_unchanged": true,
+  "offline_angle_tolerance_reason": "acos near identity amplifies last-bit platform matrix multiplication differences; match inherited absolute1e-6mrad tolerance, retain exact native rotation and gate decisions"
+}

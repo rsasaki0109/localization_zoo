@@ -1,0 +1,67 @@
+{
+  "parent_commit": "887e3222bed4f56934a0c44ad11dd83369186c02",
+  "scope": "Diagnostic only, outside paper. No production/default change, no new trajectory/RTE/paper claim. No GT input to either executable. Every prior KITTI observation is development; profile07, diagnosis00, borrowed DiLO01 prior0.03.",
+  "hypothesis": "Retain zero shift whenever its existing strict-majority support suffices; recompute facade mask and actually refine translation at original estimated rotation. Otherwise unchanged max-vote and interior/majority fallback.",
+  "old_original_history": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "new_actual_candidate_history": {
+    "01": [
+      426,
+      811,
+      838
+    ],
+    "02": [
+      1890,
+      1892,
+      1899,
+      4473
+    ],
+    "08": [
+      39,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46
+    ]
+  },
+  "controls": "Every immediate damage event in parent introduced_events, plus entry-1 for each, deduplicated within sequence. Old endpoints use archived original-history cached features/seeds. New endpoints use actual candidate estimated seeds, raw pair extraction only; require exact full original/old-consensus solver trace, pose, votes, admissions and masks before interpreting interventions.",
+  "modes": {
+    "0": "original joint",
+    "1": "old maximum combined",
+    "2": "zero-if-majority combined, predeclared candidate",
+    "3": "old seed only",
+    "4": "old mask only",
+    "5": "new seed only",
+    "6": "new mask only",
+    "7": "neither seed nor mask"
+  },
+  "native": "Original pinned current solver. For modes1-7 retain original estimated R, native translation-only reassociation/prior/finite>=30 acceptance and iteration limits. Profiles computed once per pair by unchanged native helper and reused identically in all arms. Selection/mask recomputed per arm. Fallback remains exactly joint when consensus unusable.",
+  "gate": "All immediate-damage endpoints must reduce absolute length error AND vector error versus old consensus and no longer be bad under inherited20percent length criterion. Every old rescue must retain improvements versus original joint and not worsen length/vector versus old consensus (rel1e-10,abs1e-12 comparison only). Every old fallback remains bitwise joint. No new bad-length event among preceding controls. Estimated rotations bitwise original at every refined iteration/output. ALL cases retained, including negatives; do not relax after measurement. Any failure rejects production promotion and full recursive trial.",
+  "acquisition": "Official fetcher --frame, one owned sequence at a time. Validate raw SHA against parent inputs. Archive+roundtrip+numerical commit+normal push before owned raw deletion; cleanup commit+push before next sequence. No raw scans or feature caches committed.",
+  "source_sha256": {
+    "papers/inten_loam/src/inten_loam_paper.cpp": "a301760c245a46a6ea722e643dbb381bd47791dc5ea42655c94541a1aea765c6",
+    "experiments/results/inten_zero_consensus_control/instrument.py": "16e2020d5d3fec781e730acca7c19f051d527955106152f0f0c86d50fc6d9007",
+    "experiments/results/inten_zero_consensus_control/replay_native.cpp": "d536780a46b5aa586b171875056b0b94b6ee9afe28e6de6ddf3b14217c2d7800",
+    "experiments/results/inten_zero_consensus_control/probe.cpp": "a761e66e1500e9a6a0ed06f1d341a6640492986a0fcaab18852c28658d4ab290",
+    "experiments/results/inten_zero_consensus_control/extract.cpp": "e1f0056bf2020cd8f83c070ab1bb0f60f023d6d0b44b1cfabd2e139f7b94b79e",
+    "experiments/results/inten_zero_consensus_control/native_loader.h": "cd94435cd79ddf8af4cfa09d3d5e9e58921255971944f5fcdf66f505e6f7603b",
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py": "d5bbc75cf74d63c5f6ca1d446c03455a2e475b33d75497bf5793853d79a3e1d4",
+    "experiments/results/inten_zero_consensus_control/policy_test.cpp": "00f2bae7b281ba350bea154f57de2417b587e3a2d8b388aefa7adf39b472903b",
+    "experiments/results/inten_zero_consensus_control/build.py": "e348cbb8f932c1ddaef99bb2c13806dc10f8ed45e83a869b78aa8f9f11095900",
+    "experiments/results/inten_zero_consensus_control/common.py": "d952cd583bd1b938cd24861cefb96936ba779b7270121dc2bc32349e843c7111",
+    "experiments/results/inten_zero_consensus_control/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "tests/test_lidar_sota_tools.py": "e934acf8c9fb49aa6b37c734ae47e0ad1e94deda3e27cd6a153881a94975c499",
+    "experiments/results/inten_zero_consensus_control/run_group.py": "d884450064ab9c902d75cfa5e86c0d20ef30f05af8047388d2ebd656babd5698",
+    "experiments/results/inten_zero_consensus_control/check.py": "3fda8a5fcb1e2df9777f95934805afa038caea80e117e788e435bcfa77bc88bd"
+  }
+}

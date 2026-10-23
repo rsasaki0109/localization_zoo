@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-consensus-failure-origin/worktree/experiments/results/inten_consensus_failure_origin/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-consensus-failure-origin/worktree/experiments/results/inten_consensus_failure_origin/checks/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-consensus-failure-origin/worktree",
+  "source_commit": "8c2388df5ac6120e044cc59cfb1a1d28ffe2d978",
+  "started_unix": 1792627350.9345798,
+  "finished_unix": 1792627423.1131926,
+  "exit_code": 0,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

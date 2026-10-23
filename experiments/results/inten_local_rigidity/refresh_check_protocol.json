@@ -1,0 +1,7 @@
+{
+  "scope": "Execute the roadmap canonical refresh_study_docs pipeline and full-variant/paper-ratio generators in a private source/data copy. Reuse indexed aggregates only; no scans, native binary, registration or measurements are rerun. Every original canonical file remains untouched.",
+  "criteria": "All commands actual exit0; every generated numeric paper CSV byte-identical, every indexed aggregate exact, root README exact and canonical index equal except generated_at. Keep full command/stdout/stderr receipts and actual failure if any. Generated timestamps/plot metadata remain private.",
+  "source_sha256": {
+    "experiments/results/inten_local_rigidity/refresh_check.py": "3aac30e345d3b7167dcfb1f9ec2e89f1db7efab31b8a389560f5d6f26f486827"
+  }
+}

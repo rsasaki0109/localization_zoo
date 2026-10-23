@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "baseline_evidence_commit": "96197955",
+  "scope": "Offline geometric motion-consistency diagnosis only. GT never enters normal estimator. Full extracted range-image points, independent of facade selection/normals/native correspondence. Not a new estimator, threshold or proposed setting.",
+  "frames": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "regions": [
+    "right x[-12,15] y[-5,-2] z[-1.6,0.5]",
+    "right front x[3,15], other right bounds unchanged",
+    "right rear x[-12,-2], other right bounds unchanged",
+    "opposite-side comparison x[-30,30] y[2,25] z[-1.6,2]"
+  ],
+  "selection": "Right box and front/rear subdivisions selected by visual inspection of committed204 full-cloud geometry. Opposite-side box is a geometric comparison region, not certified static or semantic ground truth. Same boxes for all eight endpoints; no exclusion of adverse profiles.",
+  "method": "Transform current full extracted .all points by offline GT relative pose; crop previous and transformed current points to each fixed region. Evaluate symmetric nearest-point mean squared distance against previous full points for x translations from -3m to3m inclusive at0.05m spacing, plus mean of lowest80percent of pooled distances. All points retained; every profile recorded, not just minimum. Existing PCL float KDTree; original immutable PR159 feature extraction library. Translation optimum is diagnostic scene coherence, not a recovered odometry pose.",
+  "limits": "Range-image sampling, cropping, partial visibility, ground leaks and GT timing/calibration can affect minima. Repeated structures can alias. A coherent profile plus terminal ablation can support a local scene-motion explanation, but cannot certify individual semantic objects or establish all remaining failure intervals/10 drift. No paper accuracy ratio or general recovery claim."
+}

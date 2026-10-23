@@ -77,6 +77,10 @@ inline void solver(std::ostream& out, const PaperSolverTrace& value) {
   out << ",\"output\":"; matrix(out, value.output);
   out << ",\"returned_pairs\":" << value.returned_pairs << ",\"stop\":";
   string(out, stopName(value.stop));
+  if (value.translation_prior_information.cwiseAbs().maxCoeff() > 0.0) {
+    out << ",\"translation_prior_information\":";
+    matrix(out, value.translation_prior_information);
+  }
   out << ",\"iterations\":[";
   for (size_t i = 0; i < value.iterations.size(); ++i) {
     if (i) out << ',';
@@ -127,6 +131,15 @@ inline void params(std::ostream& out, const InTenLoamPaperParams& p) {
   INTEN_TRACE_PARAM(s2m_plane_min_spread); out << ",\"use_dor\":" << p.use_dor;
   INTEN_TRACE_PARAM(dor_relative_range); INTEN_TRACE_PARAM(dor_object_ratio);
   out << ",\"accelerated\":" << p.accelerated;
+  // Omit the disabled extension to preserve the legacy header bytes.
+  if (p.s2s_mapped_prior) out << ",\"s2s_mapped_prior\":true";
+  if (p.s2s_translation_prior_ratio > 0.0) out << ",\"s2s_translation_prior_ratio\":" << p.s2s_translation_prior_ratio;
+  if (p.s2s_row_support) out << ",\"s2s_row_support\":true";
+  if (p.s2s_ground_pca) out << ",\"s2s_ground_pca\":true";
+  if (p.s2s_facade_pca) out << ",\"s2s_facade_pca\":true";
+  if (p.s2s_facade_cauchy) out << ",\"s2s_facade_cauchy\":true";
+  if (p.s2s_geometry_consensus) out << ",\"s2s_geometry_consensus\":true";
+  if (p.s2s_predicted_dor_facade) out << ",\"s2s_predicted_dor_facade\":true";
 #undef INTEN_TRACE_PARAM
   out << '}';
 }
@@ -165,7 +178,33 @@ inline std::string frame(size_t input_index, const std::string& scan_path,
   out << ",\"frame_index\":" << value.frame_index << ",\"initialization\":" << value.initialization
       << ",\"features\":{\"edge\":" << result.num_edge << ",\"ground\":" << result.num_ground
       << ",\"facade\":" << result.num_facade << ",\"reflector\":" << result.num_reflector
-      << "},\"dor_removed\":" << result.dor_removed << ",\"s2s\":";
+      << "},\"dor_removed\":" << result.dor_removed;
+  if (value.s2s_dor_called)
+    out << ",\"s2s_prediction_dor\":{\"masked_facade_features\":" << value.s2s_dor_masked_facades << '}';
+  if (value.consensus.evaluated) {
+    const auto& c = value.consensus;
+    out << ",\"s2s_consensus\":{\"usable\":" << c.usable << ",\"applied\":" << c.applied
+        << ",\"best_index\":" << c.best_index << ",\"valid_clusters\":" << c.valid_clusters
+        << ",\"seed\":";
+    matrix(out, c.seed);
+    out << ",\"original_estimate\":"; matrix(out, c.original_estimate);
+    out << ",\"votes\":[";
+    for (size_t k = 0; k < c.votes.size(); ++k) { if (k) out << ','; out << c.votes[k]; }
+    out << "],\"admissions\":[";
+    for (size_t k = 0; k < c.admissions.size(); ++k) {
+      if (k) out << ',';
+      const auto& band = c.admissions[k];
+      out << "{\"cluster\":" << band.cluster << ",\"bits_low_high_hex\":\"";
+      for (uint64_t word : band.bits)
+        for (int nibble = 15; nibble >= 0; --nibble)
+          out << "0123456789abcdef"[(word >> (4 * nibble)) & 15ULL];
+      out << "\"}";
+    }
+    out << "],\"excluded_clusters\":[";
+    for (size_t k = 0; k < c.excluded_clusters.size(); ++k) { if (k) out << ','; out << c.excluded_clusters[k]; }
+    out << "],\"refinement\":"; solver(out, c.refinement); out << '}';
+  }
+  out << ",\"s2s\":";
   solver(out, value.s2s);
   out << ",\"s2s_fallback\":" << value.s2s_fallback << ",\"accepted_relative\":";
   matrix(out, value.accepted_relative);

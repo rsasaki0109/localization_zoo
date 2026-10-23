@@ -1,0 +1,19 @@
+{
+  "verifier_sha256": "470fc1637820be2f6450acbfcc40c489797483f724967e635d6ab86f1d42a5fc",
+  "command_prefix": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  ],
+  "purpose": "Use the existing interpreter with the unchanged old NumPy/Matplotlib package root first, and its already installed SciPy as fallback. No package installation or old environment modification.",
+  "unchanged": [
+    "all native archives",
+    "all source hashes",
+    "all estimated pose inputs",
+    "cost construction",
+    "numerical tolerances",
+    "selection",
+    "progression gate"
+  ],
+  "ci_dependency": "Declare SciPy in requirements; pinned1.15.3 supports Ubuntu22 Python3.10 and locked NumPy1.26.4."
+}

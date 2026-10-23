@@ -1,0 +1,70 @@
+{
+  "files": {
+    "complete_study.py": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/workflow_record/complete_study.py",
+      "bytes": 3218,
+      "sha256": "dc87291b19dcb1cdae0b07b90c5a0bbd42ab689284c1c33abc1146d495048a96",
+      "storage": "verbatim",
+      "path": "complete_study.py",
+      "stored_sha256": "dc87291b19dcb1cdae0b07b90c5a0bbd42ab689284c1c33abc1146d495048a96"
+    },
+    "finalize_docs/command.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/workflow_record/finalize_docs/command.json",
+      "bytes": 620,
+      "sha256": "e439cb2640d892ac975671ca82477d172642a6f45e8026d2934a5f72c4bee637",
+      "storage": "verbatim",
+      "path": "finalize_docs/command.json",
+      "stored_sha256": "e439cb2640d892ac975671ca82477d172642a6f45e8026d2934a5f72c4bee637"
+    },
+    "finalize_docs/stderr.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/workflow_record/finalize_docs/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "finalize_docs/stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "finalize_docs/stdout.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/workflow_record/finalize_docs/stdout.log",
+      "bytes": 3981,
+      "sha256": "a968aca3e69d9bc27bbcc0611055566fa1451e4408eb19e7023c512779da8e7a",
+      "storage": "gzip",
+      "path": "finalize_docs/stdout.log.gz",
+      "stored_sha256": "fabb01f35417c36b8fae33edbafda9050e191fce8fcc5d281e78e1fa09579f93"
+    },
+    "finish_collection/command.json": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/workflow_record/finish_collection/command.json",
+      "bytes": 573,
+      "sha256": "a0df766edb7c519bbeced9d6b4d8d0b0e0c224d9045311333f086124b8fa826e",
+      "storage": "verbatim",
+      "path": "finish_collection/command.json",
+      "stored_sha256": "a0df766edb7c519bbeced9d6b4d8d0b0e0c224d9045311333f086124b8fa826e"
+    },
+    "finish_collection/stderr.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/workflow_record/finish_collection/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "finish_collection/stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "finish_collection/stdout.log": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/workflow_record/finish_collection/stdout.log",
+      "bytes": 37582,
+      "sha256": "e88115af51e280c461c21502994e979708c462589056c68e361d4e8b99fe2087",
+      "storage": "gzip",
+      "path": "finish_collection/stdout.log.gz",
+      "stored_sha256": "e74fd2dfbd05ae0f030563a5c49729534544f0cdf540484ab408e85557592b90"
+    },
+    "finish_collection.py": {
+      "original_path": "/workspace/localization-env/inten-translation-prior/workflow_record/finish_collection.py",
+      "bytes": 7648,
+      "sha256": "f32a46a5e2c90a7c4487f6daf345a164c32a31713ca93124b5547507da0a0e63",
+      "storage": "verbatim",
+      "path": "finish_collection.py",
+      "stored_sha256": "f32a46a5e2c90a7c4487f6daf345a164c32a31713ca93124b5547507da0a0e63"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

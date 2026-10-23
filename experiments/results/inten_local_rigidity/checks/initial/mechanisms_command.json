@@ -1,0 +1,30 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/branch-cleanup-20261022/worktree/tests:/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_inten_local_rigidity.LocalRigidityTest.test_independent_rigid_frame_changes_preserve_equation",
+    "test_inten_local_rigidity.LocalRigidityTest.test_rigid_moving_object_passes_and_is_not_static_truth",
+    "test_inten_local_rigidity.LocalRigidityTest.test_nonrigid_stretch_and_anchor_collision_are_visible",
+    "test_inten_local_rigidity.LocalRigidityTest.test_invalid_nearest_neighbor_has_no_farther_fallback",
+    "test_inten_local_rigidity.LocalRigidityTest.test_center_partition_does_not_refilter_neighbors",
+    "test_inten_local_rigidity.LocalRigidityTest.test_ties_empty_and_zero_length_are_explicit",
+    "test_inten_local_rigidity.LocalRigidityTest.test_native_boundary_point_projection_and_missing_axis",
+    "test_inten_local_rigidity.LocalRigidityTest.test_changed_archive_is_rejected_before_decode"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "8af883ceb1cbbcaa59fd205b31b1915cef4ee044",
+  "finished_source_commit": "8af883ceb1cbbcaa59fd205b31b1915cef4ee044",
+  "exit_code": 0,
+  "started_unix": 1792730435.3683407,
+  "finished_unix": 1792730435.983756,
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "TMPDIR": "/tmp/localization-zoo-inten-local-rigidity-20261023"
+  }
+}

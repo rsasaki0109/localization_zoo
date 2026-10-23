@@ -1,0 +1,8 @@
+{
+  "reason": "New whole-report regression asks for byte-exact regenerated floating-point CSV/summary, while native geometry uses NumPy/LAPACK. Check known Haswell/Sandybridge OpenBLAS dispatch controls before final CI to avoid assuming portable equality.",
+  "scope": "Reexecute only the same passive postprocessor on every inherited case/arm/iteration. No new native solve, input, correspondence, gate, threshold, score or model. All raw output remains private; complete command receipts and full equality/numeric audit commit before interpretation.",
+  "criteria": "Frozen test criterion: whole summary and every point CSV byte exact. Also independently compare every numeric field at original inherited rtol1e-10/atol1e-12 and all discrete identities/missing masks exactly; remove only CSV transport hashes/lengths for numerical summary comparison. Any actual failure remains before repair; never widen thresholds.",
+  "source_sha256": {
+    "experiments/results/inten_local_rigidity/cpu_audit.py": "a33de986b41742247d772eecd7e89fca0d30b3c600e9a802a5be51b6c9ffcdd8"
+  }
+}

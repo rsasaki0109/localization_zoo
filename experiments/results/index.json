@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T03:14:37+00:00",
+  "generated_at": "2026-10-21T22:13:09+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2135,6 +2135,51 @@
       "current_default": "zupt"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_00_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 00: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 00: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 00: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 00: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_00_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2142,6 +2187,87 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_no_intensity"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 00: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 00: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_row_support",
+      "title": "InTEn-LOAM KITTI 00: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_00_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 00: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_00_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_00_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 01: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 01: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 01: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 01: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_01_full_paper_comp",
@@ -2153,6 +2279,87 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_01_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 01: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 01: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_row_support",
+      "title": "InTEn-LOAM KITTI 01: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_01_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 01: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_01_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_01_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 02: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 02: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 02: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 02: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 02: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_02_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2160,6 +2367,87 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 02: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 02: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_row_support",
+      "title": "InTEn-LOAM KITTI 02: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_02_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 02: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_02_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_02_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 03: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 03: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 03: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 03: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_03_full_paper_comp",
@@ -2171,6 +2459,87 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_03_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 03: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 03: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_row_support",
+      "title": "InTEn-LOAM KITTI 03: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_03_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 03: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_03_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_03_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 04: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 04: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 04: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 04: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 04: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_04_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2178,6 +2547,87 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 04: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 04: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_row_support",
+      "title": "InTEn-LOAM KITTI 04: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_04_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 04: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_04_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_04_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 05: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 05: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 05: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 05: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_05_full_paper_comp",
@@ -2189,6 +2639,87 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_05_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 05: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 05: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_row_support",
+      "title": "InTEn-LOAM KITTI 05: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_05_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 05: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_05_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_05_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 06: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 06: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 06: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 06: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_06_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2196,6 +2727,87 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 06: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 06: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_row_support",
+      "title": "InTEn-LOAM KITTI 06: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_06_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 06: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_06_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 07: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 07: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 07: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 07: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_07_full_paper_comp",
@@ -2207,6 +2819,87 @@
       "current_default": "paper_odometry_no_intensity"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_07_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 07: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 07: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_row_support",
+      "title": "InTEn-LOAM KITTI 07: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_07_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 07: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_07_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_07_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 08: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 08: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 08: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 08: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_08_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2214,6 +2907,87 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 08: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 08: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_row_support",
+      "title": "InTEn-LOAM KITTI 08: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_08_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 08: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_08_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_08_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_09_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 09: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_09_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 09: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_09_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 09: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_09_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 09: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_09_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "inten_loam_kitti_seq_09_full_paper_comp",
@@ -2225,6 +2999,87 @@
       "current_default": "paper_odometry_plane_check"
     },
     {
+      "problem_id": "inten_loam_kitti_seq_09_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 09: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_09_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 09: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_09_full_row_support",
+      "title": "InTEn-LOAM KITTI 09: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_09_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 09: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_09_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_facade_loss",
+      "title": "InTEn-LOAM KITTI 10: S2S facade Cauchy influence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_facade_loss_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_facade_loss_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_facade_pca",
+      "title": "InTEn-LOAM KITTI 10: accepted facade PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_facade_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_facade_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_ground_pca",
+      "title": "InTEn-LOAM KITTI 10: ground PCA normals",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_ground_pca_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_ground_pca_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_map_plane_spread",
+      "title": "InTEn-LOAM KITTI 10: S2M plane-spread check",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_map_plane_spread_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_map_plane_spread_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_mapped_prior_rigid",
+      "title": "InTEn-LOAM KITTI 10: recursive mapped-motion S2S seed (rigid rotation)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_mapped_prior_rigid_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_mapped_prior_rigid_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "inten_loam_kitti_seq_10_full_paper_comp",
       "title": "InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -2232,6 +3087,42 @@
       "manifest_path": "experiments/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
       "current_default": "paper_odometry_plane_check"
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_prediction_dor",
+      "title": "InTEn-LOAM KITTI 10: predicted-DOR facade gate",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_recursive_consensus",
+      "title": "InTEn-LOAM KITTI 10: recursive fixed-rotation geometry consensus",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_recursive_consensus_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_recursive_consensus_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_row_support",
+      "title": "InTEn-LOAM KITTI 10: fixed missing-row support experiment",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_row_support_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_row_support_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "inten_loam_kitti_seq_10_full_translation_prior",
+      "title": "InTEn-LOAM KITTI 10: weak-translation prediction prior",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/inten_loam_kitti_seq_10_full_translation_prior_matrix.json",
+      "aggregate_path": "experiments/results/inten_loam_kitti_seq_10_full_translation_prior_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "isc_loam_hdl_400_reference",

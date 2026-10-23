@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_features_balanced.txt",
+      "sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+      "original_metadata_sha256": "a596ef793f8817163d4df0a109b390f31665ff543f400d07e8397520986e8c77"
+    },
+    {
+      "archive_manifest": "experiments/results/inten_consensus_query_acceleration/checks/cached_parity_balanced/archive.json",
+      "archive_manifest_sha256": "c7646604e3dfb15ff4ec4f83303cf08bf83ec1f5e21c46811802d99c2046bcbb",
+      "name": "native_4.stdout.jsonl",
+      "restored_path": "/workspace/localization-env/inten-zero-consensus-control/old_native.jsonl",
+      "sha256": "98093a04c8478b6dcf83a8459d61d79dd73ed34568b659a779881b6e6247140e",
+      "bytes": 3948516
+    }
+  ],
+  "frames": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "entry_frames": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "truth_is_offline_only": true,
+  "feature_cache_sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002"
+}

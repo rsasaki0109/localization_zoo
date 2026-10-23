@@ -1,0 +1,16 @@
+{
+  "scope": "Controlled stop of one task verifier worker, not a numerical verdict",
+  "stopped": {
+    "pid": 302650,
+    "group": "old",
+    "signal": "SIGTERM",
+    "actual_returncode": -15
+  },
+  "other_worker": "PID302651 had already exited; no signal was sent to it",
+  "actual_worker_exits": {
+    "old": -15,
+    "01": 0
+  },
+  "reason": "Batched reduction returned matrix views retaining full cumulative buffers; restore compact owned matrices before full rerun. Native observations unchanged.",
+  "controller_note": "First controller script stopped old then encountered the already-exited second PID; this record resolves that process race."
+}

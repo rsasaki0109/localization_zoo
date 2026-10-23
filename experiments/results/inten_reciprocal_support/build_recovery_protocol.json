@@ -1,0 +1,16 @@
+{
+  "failure_commit": "ee8019fb",
+  "original_protocol_sha256": "4548e6615a01cd63cb28796dfbbd0a93fc4d372907e69b03f357e85eb60fe9bd",
+  "recovery": "Allow pre-created empty binary root and existing logging root; refuse stale binary outputs and existing build stage.",
+  "unchanged": [
+    "native core",
+    "mutual filter",
+    "source transform",
+    "probe",
+    "verifier",
+    "input and GT pins",
+    "arms",
+    "settings",
+    "progression gate"
+  ]
+}

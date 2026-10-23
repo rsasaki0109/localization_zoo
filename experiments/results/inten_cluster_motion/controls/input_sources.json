@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "archive_manifest": "experiments/results/inten_current_correspondences/baseline/archive.json",
+      "archive_manifest_sha256": "b915f9cacca6208839afce6ad7924ca6ccc699ccb7336b7605a629ce94a54a75",
+      "name": "features.jsonl",
+      "restored_path": "/workspace/localization-env/inten-cluster-motion/inputs/features.jsonl",
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "bytes": 93885472
+    },
+    {
+      "archive_manifest": "experiments/results/inten_current_correspondences/baseline/archive.json",
+      "archive_manifest_sha256": "b915f9cacca6208839afce6ad7924ca6ccc699ccb7336b7605a629ce94a54a75",
+      "name": "native.stdout",
+      "restored_path": "/workspace/localization-env/inten-cluster-motion/inputs/native.stdout",
+      "sha256": "b6a77d18ccc990d891bcc3da0b50ce2a7e29b572404029287db5cc1a442233f7",
+      "bytes": 12266348
+    },
+    {
+      "archive_manifest": "experiments/results/inten_current_correspondences/baseline/archive.json",
+      "archive_manifest_sha256": "b915f9cacca6208839afce6ad7924ca6ccc699ccb7336b7605a629ce94a54a75",
+      "name": "report.json",
+      "restored_path": "/workspace/localization-env/inten-cluster-motion/inputs/report.json",
+      "sha256": "fa64a1ee29fb9e535f1a320a7a6d0a96230bc5e3209553762fe39305980e61ea",
+      "bytes": 12597170
+    },
+    {
+      "archive_manifest": "experiments/results/inten_current_correspondences/baseline/archive.json",
+      "archive_manifest_sha256": "b915f9cacca6208839afce6ad7924ca6ccc699ccb7336b7605a629ce94a54a75",
+      "name": "geometry.jsonl",
+      "restored_path": "/workspace/localization-env/inten-cluster-motion/inputs/geometry.jsonl",
+      "sha256": "4a71e7c130c1046eaaf2e45fdd6a441602bdea51b664dfbb79654e1aa69db455",
+      "bytes": 83937656
+    },
+    {
+      "archive_manifest": "experiments/results/inten_facade_loss/controls/archive.json",
+      "archive_manifest_sha256": "37bad95f02bc7648f2168a82a4b399e6f146399560a1e68488ead03cf481b7b6",
+      "name": "native.stdout.log",
+      "restored_path": "/workspace/localization-env/inten-cluster-motion/inputs/first_systems.jsonl",
+      "sha256": "f9fdb2f6cb17451ba080ac411b3299806428cc19e5a86135d0064ee0a41f01b9",
+      "bytes": 37442721
+    }
+  ],
+  "no_raw_scans_acquired": true,
+  "no_gt_in_native_input": true,
+  "original_official_scan_hash_manifest": "experiments/results/inten_current_correspondences/baseline/inputs.json",
+  "original_official_scan_hash_manifest_sha256": "c9e9716c70dfab20c1d46f4d1983ce659850c4986c81d1b1281643df21b90633"
+}

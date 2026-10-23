@@ -1,0 +1,52 @@
+{
+  "runner.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "gzip": "runner.stdout.gz"
+  },
+  "build.stdout": {
+    "sha256": "d1e6afaabc24fce7d46da323dfd1ac980d801780f41fa5a02e603fb341ea525d",
+    "bytes": 1519,
+    "gzip": "build.stdout.gz"
+  },
+  "probe.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "gzip": "probe.stdout.gz"
+  },
+  "ctest.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "gzip": "ctest.stderr.gz"
+  },
+  "ctest.stdout": {
+    "sha256": "6987343a5ff9777ae0ac03e28aa9c27b56a8053fdf422ffa91933e208796d22c",
+    "bytes": 571,
+    "gzip": "ctest.stdout.gz"
+  },
+  "probe.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "gzip": "probe.stderr.gz"
+  },
+  "configure.stdout": {
+    "sha256": "2500c5202d939165b5998d95d63b4adce38e9509b317032f0f94357d6f7815a7",
+    "bytes": 14143,
+    "gzip": "configure.stdout.gz"
+  },
+  "configure.stderr": {
+    "sha256": "3d77c38fbd07367aba026154ecd13e60c46398c8c198c7b121d292585cdfa791",
+    "bytes": 117,
+    "gzip": "configure.stderr.gz"
+  },
+  "runner.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "gzip": "runner.stderr.gz"
+  },
+  "build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "gzip": "build.stderr.gz"
+  }
+}

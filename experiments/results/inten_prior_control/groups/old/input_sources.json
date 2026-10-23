@@ -1,0 +1,18 @@
+{
+  "parent_group": "experiments/results/inten_iteration_budget/groups/old",
+  "parent_archive_sha256": "b9547def59a91a6aea546d26eb428a21e2de9017b60a592c18bbf5b9d50e02d3",
+  "feature_cache_private": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_features_balanced.txt",
+  "feature_cache_sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+  "frames": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "no_raw_acquired": true,
+  "no_gt_in_native_input": true
+}

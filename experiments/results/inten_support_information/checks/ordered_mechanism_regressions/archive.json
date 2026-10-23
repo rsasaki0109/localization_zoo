@@ -1,0 +1,30 @@
+{
+  "files": {
+    "ordered_mechanism_regressions.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_mechanism_regressions/ordered_mechanism_regressions.stderr.log",
+      "bytes": 1831,
+      "sha256": "ccc054f202d1fbc3905c8bc201a1bb14648c0036e2916b567e1bd395cbad4a0d",
+      "storage": "gzip",
+      "path": "ordered_mechanism_regressions.stderr.log.gz",
+      "stored_sha256": "c15b0ca965dc0f7479db710212e245a91584b2b6d46b5aa1f4d72b891d99d1db"
+    },
+    "ordered_mechanism_regressions.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_mechanism_regressions/ordered_mechanism_regressions.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "ordered_mechanism_regressions.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "ordered_mechanism_regressions_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_mechanism_regressions/ordered_mechanism_regressions_command.json",
+      "bytes": 1838,
+      "sha256": "775c96579dad7915cf706d9f322fdb9c2177011d4dbf701789d549fe22bc0c7b",
+      "storage": "verbatim",
+      "path": "ordered_mechanism_regressions_command.json",
+      "stored_sha256": "775c96579dad7915cf706d9f322fdb9c2177011d4dbf701789d549fe22bc0c7b"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

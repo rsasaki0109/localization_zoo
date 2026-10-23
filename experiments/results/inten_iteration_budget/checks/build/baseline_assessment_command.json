@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_iteration_budget/assess.py",
+    "/workspace/localization-env/inten-iteration-budget-20261022/build_stage/baseline_assessment.json"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "cafc1497f4a35201445b8bdfed950c8292f061db",
+  "started_unix": 1792673162.5213656,
+  "finished_unix": 1792673162.937384,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

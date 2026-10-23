@@ -1,0 +1,41 @@
+{
+  "exit_code": 0,
+  "scientific_protocol_sha256": "10bbf3b31c3abdae3018343a0c79aa3b1f13e34a0ce1f9286850ebf7214b129e",
+  "groups": {
+    "old": {
+      "raw_sha256": "2f07a47f93e79d35b2392061ffc146845091975ec37ca1da846070c41fede7f4",
+      "raw_bytes": 95607229,
+      "xz_sha256": "98ac3f0c7e708c8d8cce82dd65efffcac1bfed9eefe974dee0d086bd327e9417",
+      "xz_bytes": 3260896,
+      "original_manifest_sha256": "501a708faa35c7f5b3ae0a9123b2e921c5a9da26c8e3b236962020e0e26beb97"
+    },
+    "01": {
+      "raw_sha256": "84c64d9ce24f0ee5fa041bf7fb456d8518f3b10ee7f670e78992ee53ef85066c",
+      "raw_bytes": 42343409,
+      "xz_sha256": "88dbdfa6bd1fc03b6574849b054803a20a1763684dd178dd9ee778ae2349fa61",
+      "xz_bytes": 1519244,
+      "original_manifest_sha256": "e742c300ce1096d152fe6b0d6ca14d4c6ffb84db9b86f0bc4ad7f9570cf39c4e"
+    },
+    "02": {
+      "raw_sha256": "e97895652105426382de96d24590c2fdfdb4a9c044a06154d51d1a5eba187f9c",
+      "raw_bytes": 69611049,
+      "xz_sha256": "cf022163b7b0daf165e5a6556afd30ab3d8964dffefc01de994b5d94d1e9a5fc",
+      "xz_bytes": 1974608,
+      "original_manifest_sha256": "922551e6148d26dac5b23ebe1b80400183dfa1288b0f89249fa88577af5c5d01"
+    },
+    "08": {
+      "raw_sha256": "69b212a0d37357e69b8881cf13a2018d2e9b783b81c153d8b310c03ac5a283ab",
+      "raw_bytes": 96628498,
+      "xz_sha256": "4f2b096b9a52e872a7cdd658861ed41661b236f2ed98ca83a97673f9ce3f9460",
+      "xz_bytes": 3516004,
+      "original_manifest_sha256": "0068497b9e99179eef23de28ea211c31c275287081ad831c051ebbe642ccc371"
+    }
+  },
+  "source_sha256": {
+    "verify_portable.py": "d8322611e785f259f80f9247f21aefa76ff8ac0dc8da88c3d3a87bd8288e15bf",
+    "transport/pack_transport.py": "86ce3d81082d10031d45f1bd09a9d9aa66a1abf04d64325e36657b39482b4587"
+  },
+  "original_gzip_archives_retained_private": "/tmp/localization-zoo-inten-reciprocal-support-20261022/original_gzip_archives",
+  "all_raw_bytes_restore_exactly": true,
+  "reason": "New gzip logs exceed remaining overlay capacity when also stored as Git objects. XZ changes transport only; scientific native source, outputs, inputs, solver/mask verifier and gate are unchanged."
+}

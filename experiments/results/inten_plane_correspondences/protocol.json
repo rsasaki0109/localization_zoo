@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "parent_result_commit": "eee61c7f20dc9223d4a099fe0075c672479fc2ec",
+  "parent_pr": 153,
+  "native_source_commit": "ad7d2081d2349fe4f0ec241b975723e4180cde7a",
+  "sequences": [
+    "01",
+    "02",
+    "10"
+  ],
+  "selection": "Retrospective diagnostic development on the known KITTI01/02 failures. Existing fixed plane/elevation values selected on07;00 influenced prior diagnosis. No held-out or improvement claim.",
+  "cases": "Exactly every pair in committed inten_seed_intervention cases.json, same order, including every inherited bad S2S/final length step and neighbours, plus first and 100-step block endpoints. No new case/threshold selection.",
+  "modes": [
+    "oracle_current_gt"
+  ],
+  "intervention": "Actual target/source feature coordinates and every ground/facade nearest-neighbour query at the unchanged current-GT seed. Use the verbatim native plane lambda, public feature extractor and unchanged feature tree; verify all class counts/H/g and final S2S outputs against the parent oracle before analysis. No native API or estimator change.",
+  "controls": "Offline fixed-association first-system controls: replace ground normals with the PCA normal of the SAME in-gate 10-NN set, (1) through original nearest point, (2) through neighbourhood centroid. Recompute H/g/Huber weights with identical support; edge, facade and intensity stay unchanged. Numerical PCA degeneracy lambda_middle <= 1e-12*lambda_largest keeps original residual. These are outside-paper diagnostic interventions, not full iterative solves or a proposed estimator.",
+  "params": "Existing paper_odometry_plane_check fixed params, acceleratedfalse; only use_mappingfalse for the isolated pair diagnostic, identical in every mode. No estimator/default/runner API changes.",
+  "control_tolerances": {
+    "output_atol": 1e-08,
+    "output_rtol": 1e-10,
+    "system_atol": 1e-08,
+    "system_rtol": 1e-10
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "library": {
+    "path": "/workspace/localization-env/inten-natural-traces/build/papers/inten_loam/libinten_loam.a",
+    "sha256": "f95de52e3197299d44f2d6c258bbda93d93d243b074211b6790b4d5a5265333d",
+    "build_evidence": "experiments/results/inten_natural_traces/checks/build"
+  },
+  "loader": {
+    "source": "evaluation/src/pcd_dogfooding.cpp",
+    "sha256": "4fac55bb8c59abaaf3cd3664f4caec555201bf699a91dabf07ca539ac19eacfa",
+    "fragments": [
+      {
+        "start": "struct LoadedXYZI {",
+        "end": "\n};",
+        "sha256": "3ca1180379ccd25481f2360034ca5d0752d8070d67ab2c3dcd0bcc384f23d9f7"
+      },
+      {
+        "start": "fs::path resolvePointCloudPath(",
+        "end": "\n// Sensor-level elevation",
+        "sha256": "a0dd93f5c7cbaef87c96f7afaa96f794548eb91fe68423dfa9de8b7fb4bb7ed1"
+      },
+      {
+        "start": "template <typename PointT>\nvoid applyInputSensorPose(",
+        "end": "\nstd::vector<Eigen::Vector3d> loadPCD(",
+        "sha256": "5c78d506a0ad5122b558d44ddb2e11f4bbd5559f9740baee084c8ba821c43bdb"
+      },
+      {
+        "start": "std::vector<LoadedXYZI> loadPCDXYZI(",
+        "end": "\nstd::vector<LoadedXYZI> limitLoadedXYZI(",
+        "sha256": "4a854b1feb2d764d20f00391c134521ef07ef2ecacb3c03f010b57d2ea252b54"
+      }
+    ]
+  },
+  "data": "Official fetch_kitti_odometry_sequences.py, one full sequence at a time. Check all input hashes against committed natural-trace inputs before execution and deletion. Retain failures and stop on control mismatch; delete only owned scans after validated evidence is archived and committed.",
+  "report": "Compare all selected pairs, inherited natural-bad vs other moving groups, and every parent oracle failure/entry. Report fixed first-update changes under both controls, including adverse cases. Do not equate a first-step change with recovery or full-trajectory accuracy.",
+  "limits": "Retrospective diagnostic development on known failures, not held out. GT may have timing/calibration errors. Conditional attribution is not a class-removal experiment. PCA controls change local plane representation only in an offline fixed-system diagnostic; no reassociation or recursive trajectory. A separately validated opt-in candidate and KITTI10 drift remain open.",
+  "build_metadata": {
+    "/workspace/localization-env/inten-natural-traces/build/papers/inten_loam/CMakeFiles/test_inten_loam_paper.dir/flags.make": "c8ad9baa50e0f8ce6b6326947c5a8ba0a0416a95bdac974d2f9a7c15c158b9b4",
+    "/workspace/localization-env/inten-natural-traces/build/papers/inten_loam/CMakeFiles/test_inten_loam_paper.dir/link.txt": "ae903833a428aef98094b2c759706ba040ecb199ca7adf1b80280d2f9b075140"
+  },
+  "geometry_report": "Every correspondence retained. Reconstruct the native triangle from same/adjacent-row selections. Continuous distributions only: triangle sine, triangle/PCA normal angle, PCA eigenvalue ratios, oriented-up ground normal radial tilt, residual, and each residual contribution to first sensor-origin motion through the same total damped H. No fitted gate or significance test.",
+  "plane_matcher": {
+    "source": "papers/inten_loam/src/inten_loam_paper.cpp",
+    "source_sha256": "2834bf16569f5ddaca8bd5d1d8b327f11140bf1e63e67b136b2ccd4e9896d272",
+    "fragment_sha256": "183309c69ef1a797d876c452ad9625fcb18153918db16e9023df7ec258bd960a"
+  }
+}

@@ -1,0 +1,853 @@
+{
+  "exit_code": 0,
+  "sequences": {
+    "00": {
+      "baseline": {
+        "frames": 4541,
+        "steps": 4540,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 1
+        },
+        "s2m_removes": {
+          "length": 1,
+          "vector": 2
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.683293,
+          "kitti_rte_rot_deg_per_100m": 0.317055,
+          "ate_m": 17.051301,
+          "rpe_trans_pct": 0.794246
+        }
+      },
+      "candidate": {
+        "frames": 4541,
+        "steps": 4540,
+        "native_exit_code": 0,
+        "moving_applied": 4513,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 4500,
+            "joint_already_bad": 12,
+            "joint_bad_to_accepted_good": 1
+          },
+          "vector": {
+            "joint_already_bad": 41,
+            "joint_good_to_accepted_good": 4471,
+            "joint_bad_to_accepted_good": 1
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 2
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.690181,
+          "kitti_rte_rot_deg_per_100m": 0.316955,
+          "ate_m": 17.306201,
+          "rpe_trans_pct": 0.799513
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": []
+      }
+    },
+    "01": {
+      "baseline": {
+        "frames": 1101,
+        "steps": 1100,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 4,
+          "vector": 4
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 4.481189,
+          "kitti_rte_rot_deg_per_100m": 0.28943,
+          "ate_m": 88.786456,
+          "rpe_trans_pct": 3.760742
+        }
+      },
+      "candidate": {
+        "frames": 1101,
+        "steps": 1100,
+        "native_exit_code": 0,
+        "moving_applied": 1094,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 1018,
+            "joint_bad_to_accepted_good": 11,
+            "joint_good_seed_bad_accepted_bad": 3,
+            "joint_already_bad": 62
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 1018,
+            "joint_bad_to_accepted_good": 11,
+            "joint_good_seed_bad_accepted_bad": 3,
+            "joint_already_bad": 62
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 8.021836,
+          "kitti_rte_rot_deg_per_100m": 0.258104,
+          "ate_m": 110.696528,
+          "rpe_trans_pct": 7.68117
+        },
+        "new_final_bad_length_frames": [
+          426,
+          427,
+          428,
+          429,
+          430,
+          431,
+          432,
+          433,
+          434,
+          435,
+          436,
+          437,
+          438,
+          439,
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          811,
+          812,
+          813,
+          814,
+          815,
+          816,
+          817,
+          818,
+          819,
+          820,
+          821,
+          822,
+          823,
+          824,
+          825,
+          826,
+          827,
+          828,
+          829,
+          830,
+          831,
+          832,
+          833,
+          834,
+          838,
+          839,
+          840,
+          841,
+          842,
+          843,
+          844,
+          845,
+          846,
+          847,
+          848,
+          849,
+          850
+        ],
+        "new_final_bad_vector_frames": [
+          426,
+          427,
+          428,
+          429,
+          430,
+          431,
+          432,
+          433,
+          434,
+          435,
+          436,
+          437,
+          438,
+          439,
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          811,
+          812,
+          813,
+          814,
+          815,
+          816,
+          817,
+          818,
+          819,
+          820,
+          821,
+          822,
+          823,
+          824,
+          825,
+          826,
+          827,
+          828,
+          829,
+          830,
+          831,
+          832,
+          833,
+          834,
+          838,
+          839,
+          840,
+          841,
+          842,
+          843,
+          844,
+          845,
+          846,
+          847,
+          848,
+          849,
+          850
+        ]
+      }
+    },
+    "02": {
+      "baseline": {
+        "frames": 4661,
+        "steps": 4660,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 1,
+          "vector": 1
+        },
+        "s2m_removes": {
+          "length": 1,
+          "vector": 6
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.756938,
+          "kitti_rte_rot_deg_per_100m": 0.262615,
+          "ate_m": 40.602835,
+          "rpe_trans_pct": 0.813418
+        }
+      },
+      "candidate": {
+        "frames": 4661,
+        "steps": 4660,
+        "native_exit_code": 0,
+        "moving_applied": 4655,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 4621,
+            "joint_already_bad": 26,
+            "joint_good_seed_bad_accepted_bad": 4,
+            "joint_bad_to_accepted_good": 4
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 4610,
+            "joint_already_bad": 36,
+            "joint_bad_to_accepted_good": 5,
+            "joint_good_seed_bad_accepted_bad": 4
+          }
+        },
+        "s2m_introduces": {
+          "length": 1,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 1,
+          "vector": 6
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 1.143779,
+          "kitti_rte_rot_deg_per_100m": 0.347104,
+          "ate_m": 46.557283,
+          "rpe_trans_pct": 1.302706
+        },
+        "new_final_bad_length_frames": [
+          1890,
+          1892,
+          1893,
+          1894,
+          1895,
+          1896,
+          1899,
+          1900,
+          3309,
+          4473,
+          4474,
+          4475,
+          4476,
+          4477,
+          4478,
+          4479,
+          4480,
+          4481,
+          4482,
+          4483,
+          4484,
+          4485,
+          4486,
+          4487,
+          4488,
+          4489,
+          4490,
+          4491,
+          4492
+        ],
+        "new_final_bad_vector_frames": [
+          1890,
+          1892,
+          1893,
+          1894,
+          1895,
+          1896,
+          1899,
+          1900,
+          4473,
+          4474,
+          4475,
+          4476,
+          4477,
+          4478,
+          4479,
+          4480,
+          4481,
+          4482,
+          4483,
+          4484,
+          4485,
+          4486,
+          4487,
+          4488,
+          4489,
+          4490,
+          4491,
+          4492
+        ]
+      }
+    },
+    "03": {
+      "baseline": {
+        "frames": 801,
+        "steps": 800,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 1
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 4
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.884094,
+          "kitti_rte_rot_deg_per_100m": 0.632477,
+          "ate_m": 6.251484,
+          "rpe_trans_pct": 0.586278
+        }
+      },
+      "candidate": {
+        "frames": 801,
+        "steps": 800,
+        "native_exit_code": 0,
+        "moving_applied": 784,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 783,
+            "joint_already_bad": 1
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 778,
+            "joint_already_bad": 6
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 1
+        },
+        "s2m_removes": {
+          "length": 1,
+          "vector": 4
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.905656,
+          "kitti_rte_rot_deg_per_100m": 0.649018,
+          "ate_m": 6.415721,
+          "rpe_trans_pct": 0.585667
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": [
+          784
+        ]
+      }
+    },
+    "04": {
+      "baseline": {
+        "frames": 271,
+        "steps": 270,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.692176,
+          "kitti_rte_rot_deg_per_100m": 0.295843,
+          "ate_m": 1.56322,
+          "rpe_trans_pct": 0.715182
+        }
+      },
+      "candidate": {
+        "frames": 271,
+        "steps": 270,
+        "native_exit_code": 0,
+        "moving_applied": 269,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 269
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 269
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.67622,
+          "kitti_rte_rot_deg_per_100m": 0.329046,
+          "ate_m": 1.541896,
+          "rpe_trans_pct": 0.70047
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": []
+      }
+    },
+    "05": {
+      "baseline": {
+        "frames": 2761,
+        "steps": 2760,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.477296,
+          "kitti_rte_rot_deg_per_100m": 0.302184,
+          "ate_m": 9.639439,
+          "rpe_trans_pct": 0.424881
+        }
+      },
+      "candidate": {
+        "frames": 2761,
+        "steps": 2760,
+        "native_exit_code": 0,
+        "moving_applied": 2682,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 2682
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 2682
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.503103,
+          "kitti_rte_rot_deg_per_100m": 0.309691,
+          "ate_m": 10.076314,
+          "rpe_trans_pct": 0.413982
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": []
+      }
+    },
+    "06": {
+      "baseline": {
+        "frames": 1101,
+        "steps": 1100,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.350792,
+          "kitti_rte_rot_deg_per_100m": 0.143796,
+          "ate_m": 1.952842,
+          "rpe_trans_pct": 0.506118
+        }
+      },
+      "candidate": {
+        "frames": 1101,
+        "steps": 1100,
+        "native_exit_code": 0,
+        "moving_applied": 1099,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 1099
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 1099
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.347652,
+          "kitti_rte_rot_deg_per_100m": 0.137419,
+          "ate_m": 1.88195,
+          "rpe_trans_pct": 0.505452
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": []
+      }
+    },
+    "07": {
+      "baseline": {
+        "frames": 1101,
+        "steps": 1100,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 1,
+          "vector": 1
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.348742,
+          "kitti_rte_rot_deg_per_100m": 0.254061,
+          "ate_m": 1.391385,
+          "rpe_trans_pct": 0.432137
+        }
+      },
+      "candidate": {
+        "frames": 1101,
+        "steps": 1100,
+        "native_exit_code": 0,
+        "moving_applied": 1009,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 1008,
+            "joint_already_bad": 1
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 1008,
+            "joint_already_bad": 1
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 1,
+          "vector": 1
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.368622,
+          "kitti_rte_rot_deg_per_100m": 0.273701,
+          "ate_m": 1.434512,
+          "rpe_trans_pct": 0.430667
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": []
+      }
+    },
+    "08": {
+      "baseline": {
+        "frames": 4071,
+        "steps": 4070,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 8,
+          "vector": 5
+        },
+        "s2m_removes": {
+          "length": 2,
+          "vector": 6
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.955307,
+          "kitti_rte_rot_deg_per_100m": 0.342667,
+          "ate_m": 29.42294,
+          "rpe_trans_pct": 1.301395
+        }
+      },
+      "candidate": {
+        "frames": 4071,
+        "steps": 4070,
+        "native_exit_code": 0,
+        "moving_applied": 4039,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 4019,
+            "joint_already_bad": 13,
+            "joint_good_seed_bad_accepted_bad": 7
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 3940,
+            "joint_already_bad": 97,
+            "joint_bad_to_accepted_good": 2
+          }
+        },
+        "s2m_introduces": {
+          "length": 1,
+          "vector": 5
+        },
+        "s2m_removes": {
+          "length": 2,
+          "vector": 5
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.950314,
+          "kitti_rte_rot_deg_per_100m": 0.334579,
+          "ate_m": 28.896896,
+          "rpe_trans_pct": 1.30543
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": []
+      }
+    },
+    "09": {
+      "baseline": {
+        "frames": 1591,
+        "steps": 1590,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.672321,
+          "kitti_rte_rot_deg_per_100m": 0.261265,
+          "ate_m": 11.508132,
+          "rpe_trans_pct": 0.690141
+        }
+      },
+      "candidate": {
+        "frames": 1591,
+        "steps": 1590,
+        "native_exit_code": 0,
+        "moving_applied": 1582,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 1582
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 1582
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 0
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 0.636656,
+          "kitti_rte_rot_deg_per_100m": 0.243284,
+          "ate_m": 10.404056,
+          "rpe_trans_pct": 0.696794
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": []
+      }
+    },
+    "10": {
+      "baseline": {
+        "frames": 1201,
+        "steps": 1200,
+        "native_exit_code": 0,
+        "moving_applied": 0,
+        "transitions": {
+          "length": {},
+          "vector": {}
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 1
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 1.09331,
+          "kitti_rte_rot_deg_per_100m": 0.352714,
+          "ate_m": 8.85155,
+          "rpe_trans_pct": 0.825808
+        }
+      },
+      "candidate": {
+        "frames": 1201,
+        "steps": 1200,
+        "native_exit_code": 0,
+        "moving_applied": 1152,
+        "transitions": {
+          "length": {
+            "joint_good_to_accepted_good": 1152
+          },
+          "vector": {
+            "joint_good_to_accepted_good": 1152
+          }
+        },
+        "s2m_introduces": {
+          "length": 0,
+          "vector": 0
+        },
+        "s2m_removes": {
+          "length": 0,
+          "vector": 1
+        },
+        "native_metrics": {
+          "kitti_rte_trans_pct": 1.172497,
+          "kitti_rte_rot_deg_per_100m": 0.388468,
+          "ate_m": 9.812784,
+          "rpe_trans_pct": 0.834861
+        },
+        "new_final_bad_length_frames": [],
+        "new_final_bad_vector_frames": []
+      }
+    }
+  },
+  "sequence_count": 11,
+  "native_reruns": 0,
+  "raw_scans_acquired": false,
+  "settings_changed": false,
+  "all_archived_decisions_projected_steps_and_labels_verified": true,
+  "all_original_native_metrics_preserved": true,
+  "scope": "Observed within-frame stage crossings on each realized history. Corrected-seed error uses the actual refinement input, not a newly solved counterfactual trajectory. GT is offline diagnostic only. Counts do not establish physical surface motion, continuous profile support at refined R, or an accuracy improvement."
+}

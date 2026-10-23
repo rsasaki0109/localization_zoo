@@ -1,0 +1,18 @@
+{
+  "exit_code": 0,
+  "fields_equal": [
+    "status",
+    "frames",
+    "ate_m",
+    "rpe_trans_pct",
+    "kitti_rte_trans_pct",
+    "kitti_rte_rot_deg_per_100m"
+  ],
+  "saved_pose_gt_bytes_equal": [
+    "InTEn_LOAM.txt",
+    "gt.txt",
+    "velodyne_evaluated_gt.txt"
+  ],
+  "trace_body_lines_byte_equal": 1102,
+  "scope": "Full07 accelerated default-off behavior against immutable parent runner"
+}

@@ -1,0 +1,46 @@
+{
+  "files": {
+    "input.txt": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_old/input.txt",
+      "bytes": 2149,
+      "sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680"
+    },
+    "input_sources.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_old/input_sources.json",
+      "bytes": 542,
+      "sha256": "1f14565a5f1abdaca0e2a5d6f3c6f45c16e722a9883916303adef97342aba774",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "1f14565a5f1abdaca0e2a5d6f3c6f45c16e722a9883916303adef97342aba774"
+    },
+    "native.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_old/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_old/native.stdout.jsonl",
+      "bytes": 95607229,
+      "sha256": "2f07a47f93e79d35b2392061ffc146845091975ec37ca1da846070c41fede7f4",
+      "storage": "xz",
+      "path": "native.stdout.jsonl.xz",
+      "stored_sha256": "98ac3f0c7e708c8d8cce82dd65efffcac1bfed9eefe974dee0d086bd327e9417"
+    },
+    "native_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_old/native_command.json",
+      "bytes": 1094,
+      "sha256": "c8e57065ac007b8d1263319d5d706fd77e087fcbde0bf91c9628386ed66d1b4b",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "c8e57065ac007b8d1263319d5d706fd77e087fcbde0bf91c9628386ed66d1b4b"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "numerical_commit": "ca5bccf94960f2cdf2a1b24dd40139193b0aa5dd",
+  "producer_commit": "99062a08",
+  "source_sha256": {
+    "verify.py": "9f8e5bad8f42f7e2499be932169b18ed7c84fb7257f0564048e54590550cbb97",
+    "figures.py": "c0857a0fd0df8c26069a546ed5a69fbddbcddf8cb5c79ea19a129df91fff7829",
+    "write_docs.py": "709e35a991899a39c3e48ad239678304d8a2775d51e906cb58fb9fa9caf52f26",
+    "complete.py": "a7c39b5580d72cb36517c371f42493587f4e4c3b1835f8b612b82b023ffcf263"
+  },
+  "scientific_sources_and_decisions_unchanged": true,
+  "order": "Commit postprocessing sources before figures/docs. Original numerical snapshot precedes prose. Retain every factorial arm, negative rotation and failed predeclared gate; no retuning or accuracy adoption. Regenerate all3 roadmap generators and retain only proved clock differences. Actual-exit local checks and exact-final-head full Native+ROS2 CI before Ready; no merge without explicit instruction.",
+  "outcome": "Shared seed correction rescues205 conditionally and fallback avoids extra247 harm, but combined204 rotation worsens and the predeclared gate fails. No production API/default/canonical score changes.",
+  "preservation": "All historical evidence, production source/defaults, index, rootREADME, Table6 and paperJSON unchanged; methodREADME append only. Portable regressions use archived production source, full local checks additionally inspect live production pins and diff.",
+  "additional_source_sha256": {
+    "tests/test_inten_translation_consensus_study.py": "024042d005738beedce9fc695c32c72b0e53df43f57461e51c91cb037af6ba87"
+  },
+  "ci_verification_continuation": {
+    "previous_verify_sha256": "68a63c74df1ccbe580e47fd00c7cc922d9722a0e78f5a07474e9db79fb7f4b84",
+    "current_verify_sha256": "9f8e5bad8f42f7e2499be932169b18ed7c84fb7257f0564048e54590550cbb97",
+    "reason": "Permit only the hash-pinned temporary-Git fixture stabilization needed after original full CI failed during cleanup. Scientific, equation, decision and progression checks stay intact."
+  }
+}

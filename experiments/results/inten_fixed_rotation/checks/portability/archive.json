@@ -1,0 +1,86 @@
+{
+  "files": {
+    "preservation.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/preservation.stderr.log",
+      "bytes": 1491,
+      "sha256": "62a648816d21b920eda5f2648d6287a223e880809cc1fb47ca33ce9a5b5b8291",
+      "storage": "gzip",
+      "path": "preservation.stderr.log.gz",
+      "stored_sha256": "55ccb8b8cd381b3c00821252e4164d7aa85f0b06c77679b11fe183e7ea7ad723"
+    },
+    "preservation.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/preservation.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "preservation.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "preservation_command.json": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/preservation_command.json",
+      "bytes": 674,
+      "sha256": "9bc701b1a70d10db82a79cff18118b81f59da41fb20ecfcf7dc67e02d59fd1e9",
+      "storage": "verbatim",
+      "path": "preservation_command.json",
+      "stored_sha256": "9bc701b1a70d10db82a79cff18118b81f59da41fb20ecfcf7dc67e02d59fd1e9"
+    },
+    "result.json": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/result.json",
+      "bytes": 449,
+      "sha256": "59997ab1243936039feb574eba99dc26329e42375e2fee87278b6f4ee7020fdf",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "59997ab1243936039feb574eba99dc26329e42375e2fee87278b6f4ee7020fdf"
+    },
+    "study.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/study.stderr.log",
+      "bytes": 1942,
+      "sha256": "ffcd38282bff45342c5c29261940d15ee23cbba259929705dbb93987bb6809ba",
+      "storage": "gzip",
+      "path": "study.stderr.log.gz",
+      "stored_sha256": "55a6106e4cb8de2a8e448b190db3d35d85946ccbdd3299870755924e94cfeae9"
+    },
+    "study.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/study.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "study.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "study_command.json": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/study_command.json",
+      "bytes": 567,
+      "sha256": "ffbe0592861e0b7dbb8d9b97bbd7c679f2b977855c107409a315f11f97f987de",
+      "storage": "verbatim",
+      "path": "study_command.json",
+      "stored_sha256": "ffbe0592861e0b7dbb8d9b97bbd7c679f2b977855c107409a315f11f97f987de"
+    },
+    "whitespace.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/whitespace.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "whitespace.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "whitespace.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/whitespace.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "whitespace.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "whitespace_command.json": {
+      "original_path": "/workspace/localization-env/inten-fixed-rotation/portability_checks/whitespace_command.json",
+      "bytes": 480,
+      "sha256": "35a6de95f89851a311c19906adcf91ec5a309e8bdd4fc309e874bf37ddb39f02",
+      "storage": "verbatim",
+      "path": "whitespace_command.json",
+      "stored_sha256": "35a6de95f89851a311c19906adcf91ec5a309e8bdd4fc309e874bf37ddb39f02"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

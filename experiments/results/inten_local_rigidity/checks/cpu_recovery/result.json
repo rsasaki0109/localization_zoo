@@ -1,0 +1,76 @@
+{
+  "exit_code": 0,
+  "complete_controls_lossless": true,
+  "controls": {
+    "Haswell": {
+      "exit_code": 0,
+      "all_discrete_identities_counts_and_missing_masks_exact": true,
+      "complete_archive_bytes_hash_verified": true,
+      "all_numeric_values_at_original_tolerance": true,
+      "original_rtol": 1e-10,
+      "original_atol": 1e-12,
+      "maximum_absolute_point_delta": {
+        "old": {
+          "axis_g": 6.106226635438361e-16,
+          "axis_H": 3.6637359812630166e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "01": {
+          "axis_g": 4.3021142204224816e-16,
+          "axis_H": 2.9976021664879227e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "02": {
+          "axis_g": 2.1510571102112408e-16,
+          "axis_H": 1.942890293094024e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "08": {
+          "axis_g": 3.608224830031759e-16,
+          "axis_H": 1.2545520178264269e-14,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        }
+      }
+    },
+    "Sandybridge": {
+      "exit_code": 0,
+      "all_discrete_identities_counts_and_missing_masks_exact": true,
+      "complete_archive_bytes_hash_verified": true,
+      "all_numeric_values_at_original_tolerance": true,
+      "original_rtol": 1e-10,
+      "original_atol": 1e-12,
+      "maximum_absolute_point_delta": {
+        "old": {
+          "axis_g": 1.0234868508263162e-15,
+          "axis_H": 5.717648576819556e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "01": {
+          "axis_g": 4.649058915617843e-16,
+          "axis_H": 2.7478019859472624e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "02": {
+          "axis_g": 2.1510571102112408e-16,
+          "axis_H": 1.942890293094024e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "08": {
+          "axis_g": 2.929947950924827e-15,
+          "axis_H": 1.1657341758564144e-14,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        }
+      }
+    }
+  },
+  "original_bit_equality_failure_retained": true,
+  "all_native_data_equations_settings_and_original_tolerances_unchanged": true
+}

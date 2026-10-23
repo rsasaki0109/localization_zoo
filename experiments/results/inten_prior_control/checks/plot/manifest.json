@@ -1,0 +1,15 @@
+{
+  "numerical_source_commit": "a358a572",
+  "attribution_source_commit": "2eca2585",
+  "input_sha256": "0940c20fca134c39bebe1b746318d9bf31584a570cb11398195faea0c7c6173b",
+  "outputs": {
+    "comparison.png": {
+      "path": "/workspace/localization-env/inten-prior-control-20261023/comparison.png",
+      "sha256": "2f21357bd98a71ac577c552387a4c7d40e743007391e5229f3ec5517da203323"
+    },
+    "comparison.svg": {
+      "path": "/workspace/localization-env/inten-prior-control-20261023/comparison.svg",
+      "sha256": "5eea4a67ba44e4adc279b7ad92079a82b05cf9da4f1f6fcdaacda83c705a32a8"
+    }
+  }
+}

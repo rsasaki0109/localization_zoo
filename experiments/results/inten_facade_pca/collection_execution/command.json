@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/collect.py",
+    "--resume-validated01"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-pca/worktree",
+  "source_commit": "133241ef1be24b588e768e10e55745b2fcb682ab",
+  "exit_code": 0,
+  "started_unix": 1792529418.3278139,
+  "finished_unix": 1792534394.2450628,
+  "resumes": "initial complete01, sealed in collection_recovery.json; initial invocation retained"
+}

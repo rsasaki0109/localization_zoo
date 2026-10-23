@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/tmp/localization-zoo-inten-reciprocal-support-20261022/pack_transport.py"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "e755ece17a207a9ca3c18efc2c5a97b8861a4334",
+  "started_unix": 1792684208.4832222,
+  "finished_unix": 1792684248.8651497,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

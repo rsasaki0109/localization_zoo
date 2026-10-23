@@ -1,0 +1,13 @@
+{
+  "cause": "The pinned older host venv does not contain scipy. Native scorer and all four processes had already completed successfully; reconstruction failed on import before any score interpretation.",
+  "recovery": "Run the identical frozen verifier with the already installed system interpreter and SciPy. No package installation, old runtime modification, native rerun, score/rule/gate/source change or tolerance change.",
+  "original_interpreter": "/workspace/localization-env/host-venv/bin/python",
+  "new_interpreter": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "verifier_sha256": "470fc1637820be2f6450acbfcc40c489797483f724967e635d6ab86f1d42a5fc",
+  "native_archives_sha256": {
+    "old": "61f20072aaa8495af4b4d7aac6d29de8eb4dc763cf87387045b1f5b0117d426c",
+    "01": "1c5b93c92ba0d3e8acc89e3b623ae1aa08f2a75cbeaef09a3f08ae0571fd8f3b",
+    "02": "ee7d9434d352edc93e64a205fe9f3f49e4a1b1a49696909426027e1628fffac4",
+    "08": "dc2cebd159444054a166ccf66c52577858ac057d22e5ea4e4bdb7da91c52da65"
+  }
+}

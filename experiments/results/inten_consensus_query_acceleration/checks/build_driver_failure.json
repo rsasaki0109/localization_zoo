@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree/experiments/results/inten_consensus_query_acceleration/build_corrected.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree",
+  "source_commit": "c1e50035082555e803e9ea03a26973350a090c51",
+  "exit_code": 1,
+  "reported_by": "exec session55574",
+  "error": "FileNotFoundError: accelerated/build/papers/inten_loam/libinten_loam.a; actual successful configure/build/CTest used build_corrected; failure happened before runner compilation or accuracy execution.",
+  "recovery": "Keep native objects/test binaries and successful actual exits; correct link path and run separate link-only continuation, no native rebuild."
+}

@@ -1,0 +1,118 @@
+{
+  "files": {
+    "generated_docs_disposition.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/generated_docs_disposition.json",
+      "bytes": 1173,
+      "sha256": "27de5dbcfdfbdb1ce1a42d9f8b1e5047500abf2e4c42afcccd0b04009ef9ed4d",
+      "storage": "verbatim",
+      "path": "generated_docs_disposition.json",
+      "stored_sha256": "27de5dbcfdfbdb1ce1a42d9f8b1e5047500abf2e4c42afcccd0b04009ef9ed4d"
+    },
+    "index_generation_disposition.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/index_generation_disposition.json",
+      "bytes": 449,
+      "sha256": "c760dcf46932c3772be8969c2bbd08447e6f520fbcd6a3c85106ebe5594ab493",
+      "storage": "verbatim",
+      "path": "index_generation_disposition.json",
+      "stored_sha256": "c760dcf46932c3772be8969c2bbd08447e6f520fbcd6a3c85106ebe5594ab493"
+    },
+    "paper_ratio.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/paper_ratio.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "paper_ratio.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "paper_ratio.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/paper_ratio.stdout.log",
+      "bytes": 750,
+      "sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+      "storage": "gzip",
+      "path": "paper_ratio.stdout.log.gz",
+      "stored_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1"
+    },
+    "paper_ratio_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/paper_ratio_command.json",
+      "bytes": 562,
+      "sha256": "14a8adc720edc74995f75cbb436fceb572dda5fd7b7729e0854f05d15f9f1771",
+      "storage": "verbatim",
+      "path": "paper_ratio_command.json",
+      "stored_sha256": "14a8adc720edc74995f75cbb436fceb572dda5fd7b7729e0854f05d15f9f1771"
+    },
+    "study_docs.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/study_docs.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "study_docs.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "study_docs.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/study_docs.stdout.log",
+      "bytes": 54609,
+      "sha256": "da7235c964a0930306e81f701538066789686c5a247891497fcd5fd63180e0c8",
+      "storage": "gzip",
+      "path": "study_docs.stdout.log.gz",
+      "stored_sha256": "e26c729b1d306c91b4be980ca8a34352c2b021b8e1b9b6fefc79e6c857ae1f32"
+    },
+    "study_docs_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/study_docs_command.json",
+      "bytes": 554,
+      "sha256": "16ab9db88ada8c109498ced1fcd76c6f3794a6784a3e0a4a710fe822c2d62802",
+      "storage": "verbatim",
+      "path": "study_docs_command.json",
+      "stored_sha256": "16ab9db88ada8c109498ced1fcd76c6f3794a6784a3e0a4a710fe822c2d62802"
+    },
+    "variant_table.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/variant_table.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "variant_table.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "variant_table.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/variant_table.stdout.log",
+      "bytes": 151,
+      "sha256": "772c201b3bd68e5756d26cf2d4e467101a653a9ad6dec86ae80bf5b7c86df45b",
+      "storage": "gzip",
+      "path": "variant_table.stdout.log.gz",
+      "stored_sha256": "dd57cc989aa4f1f9296a975eb8b01d0b47aa0d5a0f4eb9559213354b5bdf3ef6"
+    },
+    "variant_table_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/variant_table_command.json",
+      "bytes": 564,
+      "sha256": "7d0bf2f8dfcf87d1115ddcdb9d1b8892f95ec14eeeb99b0e8e81c7963d208987",
+      "storage": "verbatim",
+      "path": "variant_table_command.json",
+      "stored_sha256": "7d0bf2f8dfcf87d1115ddcdb9d1b8892f95ec14eeeb99b0e8e81c7963d208987"
+    },
+    "write_readmes.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/write_readmes.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "write_readmes.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "write_readmes.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/write_readmes.stdout.log",
+      "bytes": 80,
+      "sha256": "4083091af877b1a98f32c2fd82767e949b67cc3fd3c7f118b2fe5c9ed874491e",
+      "storage": "gzip",
+      "path": "write_readmes.stdout.log.gz",
+      "stored_sha256": "9116d1d4a6ed3fcd68657d05fad2c0e01598455d41117f97dbae939b890877f3"
+    },
+    "write_readmes_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/docs_stage/write_readmes_command.json",
+      "bytes": 658,
+      "sha256": "76dfcd58316490ac8b571999eb942d77643186d0d67a67ee33bd53aea910b9fe",
+      "storage": "verbatim",
+      "path": "write_readmes_command.json",
+      "stored_sha256": "76dfcd58316490ac8b571999eb942d77643186d0d67a67ee33bd53aea910b9fe"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

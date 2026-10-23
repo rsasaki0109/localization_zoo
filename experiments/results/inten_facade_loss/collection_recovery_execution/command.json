@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-loss/worktree/experiments/results/inten_facade_loss/recovery_collection_backups.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "1f6dc7f3c8146e5dbf5504a71efc58dc2b1b8aa7",
+  "exit_code": 0,
+  "started_unix": 1792568940.7873433,
+  "finished_unix": 1792568940.862875,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

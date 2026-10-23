@@ -1,0 +1,85 @@
+{
+  "frames": 271,
+  "official_metrics_from_saved_poses": {
+    "frames": 271,
+    "reference_frames": 271,
+    "tracking_success_rate": 1.0,
+    "ate_m": 1.5505839359174698,
+    "rpe_trans_pct": 0.7008086847112085,
+    "rpe_rot_deg_per_m": 0.003401985877106393,
+    "rpe_segments": 208,
+    "kitti_rte_trans_pct": 0.6768715879192196,
+    "kitti_rte_rot_deg_per_100m": 0.3249383558112219,
+    "kitti_rte_segments": 43,
+    "trajectory_length_m": 393.64527707635335
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 0.9945146064332854,
+  "moving_step_count": 270,
+  "step_length_ratio_median": 0.9955936013839917,
+  "steps_length_off_over_threshold": 0,
+  "steps_vector_off_over_threshold": 0,
+  "bad_length_step_frame_ranges": [],
+  "bad_vector_step_frame_ranges": [],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 137.18298063486523,
+      "path_length_ratio": 0.9944151442927895,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9957313670724608,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 0.9923026540292995,
+      "block_relative_translation_error_pct": 0.7233423923476542,
+      "block_relative_rotation_error_deg_per_100m": 0.18102006115152008
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 144.36863004693618,
+      "path_length_ratio": 0.9956151549028697,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9949559618496877,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.9923026540292995,
+      "position_error_end_m": 1.9642786133497965,
+      "block_relative_translation_error_pct": 0.6419319169021765,
+      "block_relative_rotation_error_deg_per_100m": 0.39783515255461227
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 270,
+      "gt_distance_m": 112.09366640246202,
+      "path_length_ratio": 0.9932189028790883,
+      "moving_step_count": 70,
+      "step_length_ratio_median": 0.9956485740605237,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 1.9642786133497965,
+      "position_error_end_m": 2.763831757150301,
+      "block_relative_translation_error_pct": 0.6905241910768576,
+      "block_relative_rotation_error_deg_per_100m": 0.6063063838597554
+    }
+  ],
+  "benchmark_summary": "/workspace/localization-env/inten-facade-pca/staging/04/baseline/summary.json",
+  "benchmark_method": "InTEn-LOAM",
+  "schema_version": 1,
+  "command": "python3 evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization-env/inten-facade-pca/staging/04/baseline/dogfooding_results/InTEn_LOAM.txt --gt /workspace/localization-env/inten-facade-pca/staging/04/baseline/dogfooding_results/velodyne_evaluated_gt.txt --summary /workspace/localization-env/inten-facade-pca/staging/04/baseline/summary.json --method InTEn-LOAM --output /workspace/localization-env/inten-facade-pca/staging/04/baseline/motion_steps.json",
+  "estimate_path": "/workspace/localization-env/inten-facade-pca/staging/04/baseline/dogfooding_results/InTEn_LOAM.txt",
+  "gt_path": "/workspace/localization-env/inten-facade-pca/staging/04/baseline/dogfooding_results/velodyne_evaluated_gt.txt"
+}

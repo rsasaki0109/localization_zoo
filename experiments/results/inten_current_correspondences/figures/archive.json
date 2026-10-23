@@ -1,0 +1,30 @@
+{
+  "files": {
+    "motion204.png": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/figures/motion204.png",
+      "bytes": 125633,
+      "sha256": "e1ae3c032b263317453e99760c13c22bac1fc32a52b176c4b419ef2b0982e4b6",
+      "storage": "verbatim",
+      "path": "motion204.png",
+      "stored_sha256": "e1ae3c032b263317453e99760c13c22bac1fc32a52b176c4b419ef2b0982e4b6"
+    },
+    "provenance.json": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/figures/provenance.json",
+      "bytes": 703,
+      "sha256": "9be825798fd6f1c5c8231a6d74dd0309848e8f12162784f352b7b24cd42d7eec",
+      "storage": "verbatim",
+      "path": "provenance.json",
+      "stored_sha256": "9be825798fd6f1c5c8231a6d74dd0309848e8f12162784f352b7b24cd42d7eec"
+    },
+    "scene204.png": {
+      "original_path": "/workspace/localization-env/inten-current-correspondences/figures/scene204.png",
+      "bytes": 530131,
+      "sha256": "44ecf67aec53c285700487738bd55053f47511438d59e2869a46af71ea5fe952",
+      "storage": "verbatim",
+      "path": "scene204.png",
+      "stored_sha256": "44ecf67aec53c285700487738bd55053f47511438d59e2869a46af71ea5fe952"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

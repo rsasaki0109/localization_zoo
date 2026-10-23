@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-loss/dedup_large_historical.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+  "source_commit": "2862122a763f8b7ef4a4c4e2f8831f7ef75aa04c",
+  "started_unix": 1792563629.6644168,
+  "finished_unix": 1792563796.7970705,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "PATH_prefix": "/workspace/localization-env/host-venv/bin",
+  "stdin_sha256": null
+}

@@ -1,0 +1,204 @@
+{
+  "generated_at": "2026-10-21T07:50:12+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_06_full_facade_loss_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_06_full_facade_loss",
+    "title": "InTEn-LOAM KITTI 06: S2S facade Cauchy influence",
+    "question": "Does one fixed Cauchy facade influence at the inherited Huber scale improve the full recursive trajectory?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_06_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "Review the uniform full-sequence experiment; repository extension stays default off.",
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed current reference",
+      "design_style": "reference",
+      "intent": "One fixed new Boolean s2s_facade_cauchy at the unchanged native Huber scale0.1. Chosen after committed full01 natural-seed controlsf52b84a0:204 length/GT0.607064->0.992481 but2470.522727->0.046692 andbad12lower/36higher,44remainbad. Every adverse case retained. No scale fitting/sweep, GT input, DOR/ROI gate, retuning or per-sequence winner. All priorKITTIdevelopment, originalprofile07/00 diagnosis and inheritedDiLO01 prior tuning disclosed.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0",
+        "--inten-loam-paper-set",
+        "s2s_facade_cauchy=0"
+      ],
+      "command": "/workspace/localization-env/inten-facade-loss/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_facade_loss_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0 --inten-loam-paper-set s2s_facade_cauchy=0",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_facade_loss_matrix/baseline/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_facade_loss_matrix/baseline/run.log",
+      "status": "ok",
+      "ate_m": 1.952842,
+      "rpe_trans_pct": 0.506118,
+      "rpe_rot_deg_per_m": 0.002309,
+      "fps": null,
+      "time_ms": null,
+      "frames": 1101,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1867 dor points/frame=235; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.0,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.350792,
+      "kitti_rte_rot_deg_per_100m": 0.143796,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before full paired runs, not an individual per-run timestamp.",
+        "source_commit": "243b14a3218a5e3691eb596ba2c524b878a88b33",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "94aae2380f3331cea3920244f3566ac6070ac0d4f8d0bfe25f539e1a7e235726",
+        "measurement_context": "Both fixed arms share CPUs under OMP1/BLAS1. Raw timings retained; no standalone throughput comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.412572,
+        "raw_time_ms": 171693.984228,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_facade_loss/sequences/06/baseline/summary.json",
+        "original_summary_sha256": "4a64146e563fc4f761c6bd912de380e5ec0bb60b9f8e00055ed5a594d9180dc4",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_facade_loss_matrix/baseline/native_command.json"
+      }
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in S2S facade Cauchy influence",
+      "design_style": "experimental",
+      "intent": "One fixed new Boolean s2s_facade_cauchy at the unchanged native Huber scale0.1. Chosen after committed full01 natural-seed controlsf52b84a0:204 length/GT0.607064->0.992481 but2470.522727->0.046692 andbad12lower/36higher,44remainbad. Every adverse case retained. No scale fitting/sweep, GT input, DOR/ROI gate, retuning or per-sequence winner. All priorKITTIdevelopment, originalprofile07/00 diagnosis and inheritedDiLO01 prior tuning disclosed.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0",
+        "--inten-loam-paper-set",
+        "s2s_facade_cauchy=1"
+      ],
+      "command": "/workspace/localization-env/inten-facade-loss/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_facade_loss_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0 --inten-loam-paper-set s2s_facade_cauchy=1",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_facade_loss_matrix/candidate/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_facade_loss_matrix/candidate/run.log",
+      "status": "ok",
+      "ate_m": 1.97379,
+      "rpe_trans_pct": 0.501496,
+      "rpe_rot_deg_per_m": 0.00231,
+      "fps": null,
+      "time_ms": null,
+      "frames": 1101,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1865 dor points/frame=235; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); S2S facade Cauchy influence enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.0,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Experimental; default off",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.347947,
+      "kitti_rte_rot_deg_per_100m": 0.142868,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before full paired runs, not an individual per-run timestamp.",
+        "source_commit": "243b14a3218a5e3691eb596ba2c524b878a88b33",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "94aae2380f3331cea3920244f3566ac6070ac0d4f8d0bfe25f539e1a7e235726",
+        "measurement_context": "Both fixed arms share CPUs under OMP1/BLAS1. Raw timings retained; no standalone throughput comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 6.48912,
+        "raw_time_ms": 169668.603726,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_facade_loss/sequences/06/candidate/summary.json",
+        "original_summary_sha256": "c14c22aac0052afa181e41bb0ac4da3925be19467e84d77a77447f7ef0b20806",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_06_full_facade_loss_matrix/candidate/native_command.json"
+      }
+    }
+  ]
+}

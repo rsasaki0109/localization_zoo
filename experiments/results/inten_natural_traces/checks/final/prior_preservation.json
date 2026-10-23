@@ -1,0 +1,48 @@
+{
+  "implementation_commit": "0b079dbbcb7c6f58c1d8367ade881c15f003e525",
+  "base_commit": "e13aab37258ce73c216302c1cc5b61a5d5385ed3",
+  "historical_aggregate_count": 688,
+  "historical_aggregate_hashes_match": true,
+  "published_files": {
+    "README.md": {
+      "base_sha256": "e4856f5f9868afda8964907ef442d05c8b3c791533c16385bf630e01b25d0a15",
+      "current_sha256": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+      "identical": false
+    },
+    "docs/index.html": {
+      "base_sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+      "current_sha256": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+      "identical": true
+    },
+    "docs/assets/paper/paper_ratio_table.csv": {
+      "base_sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+      "current_sha256": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+      "identical": true
+    },
+    "evaluation/data/paper_reported_numbers.json": {
+      "base_sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+      "current_sha256": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+      "identical": true
+    }
+  },
+  "prior_studies_identity_command": [
+    "git",
+    "diff",
+    "--exit-code",
+    "e13aab37258ce73c216302c1cc5b61a5d5385ed3",
+    "--",
+    "experiments/results/shared_coarse_start",
+    "experiments/results/shared_degeneracy_remap"
+  ],
+  "prior_studies_identity_exit_code": 0,
+  "failures": [
+    {
+      "changed_publication": "README.md"
+    },
+    {
+      "native_identity": "Command '['git', 'diff', '--exit-code', '0b079dbbcb7c6f58c1d8367ade881c15f003e525', '--', 'common', 'evaluation/src', 'evaluation/CMakeLists.txt', 'papers/*/src', 'papers/*/include', 'papers/*/test', 'papers/*/CMakeLists.txt', 'CMakeLists.txt']' returned non-zero exit status 1."
+    }
+  ],
+  "exit_code": 1,
+  "scope": "Source, frozen executables and immutable results, not replay completion."
+}

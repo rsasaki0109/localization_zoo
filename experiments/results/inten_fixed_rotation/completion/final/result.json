@@ -1,0 +1,11 @@
+{
+  "exit_code": 0,
+  "codes": {
+    "python": 0,
+    "showcase": 0,
+    "leaderboard": 0,
+    "paper_ready": 0,
+    "preservation": 0,
+    "whitespace": 0
+  }
+}

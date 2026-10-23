@@ -1,0 +1,12 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "ad7d2081",
+    "93095a3e"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "exit_code": 2,
+  "reason": "Verbatim historical diff in prior_preservation.log contains trailing spaces; preserve its exact bytes as gzip."
+}

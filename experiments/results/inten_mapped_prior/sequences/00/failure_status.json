@@ -1,0 +1,12 @@
+{
+  "status": "aborted",
+  "native_source_commit": "88723d9abc9eabf159502f3de9fd215001821476",
+  "candidate_exit_code": 134,
+  "baseline_exit_code": 0,
+  "completed_sequences": [
+    "07"
+  ],
+  "aborted_sequence": "00",
+  "remaining_sequences_not_run": true,
+  "reason": "Non-rigid roundoff amplified by unprojected full-matrix recursive seed; PCL aborts on nonfinite query. Original completion target was not met. Preserve this trial; a projected rigid-motion revision requires a new protocol and all11 sequences afresh. No partial official RTE."
+}

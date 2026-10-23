@@ -1,0 +1,14 @@
+{
+  "files": {
+    "report.json": {
+      "original_path": "/workspace/localization-env/inten-cluster-motion/analysis/report.json",
+      "bytes": 16076,
+      "sha256": "49c80d0b089987dec3e1b921665e274820052f58c472d58430ed848e822105b6",
+      "storage": "verbatim",
+      "path": "report.json",
+      "stored_sha256": "49c80d0b089987dec3e1b921665e274820052f58c472d58430ed848e822105b6"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

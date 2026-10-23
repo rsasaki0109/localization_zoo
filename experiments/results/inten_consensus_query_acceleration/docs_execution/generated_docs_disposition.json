@@ -1,0 +1,29 @@
+{
+  "exit_code": 0,
+  "clock_only_restored": [
+    {
+      "path": "docs/paper_assets.md",
+      "only_generation_clock_differs": true,
+      "old_sha256": "3b4fd41da7ea12de9f99fc8d33fbbbc0fbe9cb60406ed6e1d2fdfdb3f200aced",
+      "generated_sha256": "4da1ea7ad3d3ce0ee47ff9a5030d494ef0c94751649bcf51e0b38b7a343b16e0"
+    },
+    {
+      "path": "docs/paper_captions.md",
+      "only_generation_clock_differs": true,
+      "old_sha256": "93a4eb21b397a56863b4e3f194374870a4fdd5f718780d09da561f9b34b01344",
+      "generated_sha256": "834f4543ffa03ecc40050b6f0cb9c0909a7b4e2515abfa31659f8965b4ec09ab"
+    },
+    {
+      "path": "docs/paper_comparison.md",
+      "only_generation_clock_differs": true,
+      "old_sha256": "a2e0c72612962424558409e3487fdc5b8d05bcde2cf41269d36f35537a80cf69",
+      "generated_sha256": "75b87724cadb5b1864a7219a1e27dc635eec0784ec6ec3189408814b4b686201"
+    },
+    {
+      "path": "docs/reproduction_status.md",
+      "only_generation_clock_differs": true,
+      "old_sha256": "112c780c146d6f18144c9d7ad18144f8255c3bd95b38d440a4e752c429061473",
+      "generated_sha256": "8953777ee9b9e654a1b16ae8990d47eae437b8f2aec831d8411367be4b4c9d1c"
+    }
+  ]
+}

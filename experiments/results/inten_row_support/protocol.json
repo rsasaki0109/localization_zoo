@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "parent_commit": "5e1b93ce62f21109c8061eca300d5f13f3230297",
+  "parent_pr": 154,
+  "sequence_order": [
+    "07",
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_row_support_matrix.json",
+      "sha256": "6c44e65ccc09b85725d97fc3d507b8516cf57387d65b4ff69656f6e17a4b1301"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_row_support_matrix.json",
+      "sha256": "ad1932b6435bcf202b870619a148c16967be29e7ecf18706dc613cf7436072ac"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_row_support_matrix.json",
+      "sha256": "ccd84a28a8a1d761d7f5a16ae2d326680b7bac4b716716bcbaa837a42dad82b2"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_row_support_matrix.json",
+      "sha256": "4056a9bdc51139bfa464046e93f443bcf935e0221d1e85fc83b0867b808ae158"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_row_support_matrix.json",
+      "sha256": "3f9c8f78452c0096978cc0d060b5b7275e14b9349b508a018abeb12a6d92ab9f"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_row_support_matrix.json",
+      "sha256": "b76c82479e8fdf0c9e3ad5e0af8bca250bfff79e9578befa9464cd5d6384e968"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_row_support_matrix.json",
+      "sha256": "b112d7e0d61e1b5d3cf4a1c344d19db367ce1623f90d24eec15d5774e2a9c40a"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_row_support_matrix.json",
+      "sha256": "14877d5ac1cff9d13daeaedadc7e8e67ef3008b12357fcc2fe716ca0fa40a22a"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_row_support_matrix.json",
+      "sha256": "aace1b80c0b224ba7f8fef145395c04253944d27dacbf611c7da27ef8e8f199b"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_row_support_matrix.json",
+      "sha256": "7f71036d610a38039cfef4068ae6f8c97311ea670808e1fad78e545d7d69a6a9"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_row_support_matrix.json",
+      "sha256": "42ef8b119b8aa2ef8530c6cb6258715c5093e6fbc9538026b379637075e4a314"
+    }
+  },
+  "selection": "The old0.17deg elevation,0.05m S2M gate and edge settings were selected on07;00 influenced diagnosis. Row completion is a single boolean motivated by known01/02 development failures, so those are not held out. First evaluate full07, then all00-10 with NO retuning, even for negative results. No new distance/row/normal/budget threshold is chosen.",
+  "change": "Only fill a missing same/adjacent-row selection beyond the native10 candidates. Preserve original closest/any existing support, float query/target coordinates,1m squared-distance gate,row gaps1..2,triangle threshold and all residuals/solver/mapping settings. No PCA change. Opt-in s2s_row_support defaultfalse.",
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "acceleration": "Use existing --paper-pipeline-accelerated identically in both arms on every sequence, one native thread per process. Paired processes may run concurrently on the two available CPUs. No standalone FPS/speed claim.",
+  "compatibility": "Full07 fresh baseline with row completionoff must match the pinned parent accelerated runner in accuracy/frame fields and saved pose bytes. On01/02/10, replay all inherited360 natural-seed fixed pairs with fresh defaultoff library and compare parent outputs/first class systems/counts before accepting the native behavior preservation. Candidate trace-on/off moving synthetic parity and mechanism tests precede acquisition.",
+  "trace": "Both full accuracy arms use passive trace, no forced seed or window restart. Record effective params; only s2s_row_support may differ. Input07-first order is a diagnostic/calibration order, not per-sequence parameter selection.",
+  "completion": "All11 paired full sequences plus parent07 control exit0 with complete unskipped traversal. Official inputs verified against the committed shared-range audit, evidence archived/committed/backed up before deleting owned scans and advancing. Retain every negative case and command; update README tables and docs/checks, one actual-results PR, no prep-only PR.",
+  "data": "Official fetch script only, one full sequence at a time, at most4 acquisition attempts with retained receipts. Never delete other worktrees/scans. No raw scan commit.",
+  "analysis": "Official KITTI100-800m RTE from native summaries, full pose step diagnostics and passive stage transitions. Fixed0.1m/20% local labels inherited, not fitted. No representative-accuracy claim from selected pairs; all-sequence paired RTE is reported separately from GT-fed diagnostics.",
+  "parent_binary": {
+    "path": "/workspace/localization-env/inten-natural-traces/build/evaluation/pcd_dogfooding",
+    "sha256": "bb9a3a5f8a5f1e55181f76b8766c1d80f07a7dd3ee87964c136eec5f8da79042"
+  },
+  "archival": "Lossless ordered32MiB-uncompressed gzip shards of JSONL plus original sizes/SHA256; fully round-trip before scan removal. Commit raw results before numerical prose. Preserve all older aggregates and publication files."
+}

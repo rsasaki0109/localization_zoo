@@ -1,0 +1,83 @@
+{
+  "diagnostic_exit_code": 0,
+  "trace_complete": false,
+  "completed_frame_records": 2355,
+  "last_completed_frame": 2354,
+  "first_nonfinite_matrix": {
+    "frame": 2189,
+    "field": "s2s_input"
+  },
+  "checkpoints": [
+    {
+      "frame": 0,
+      "pose_finite": true,
+      "pose_orthogonality_error": 0.0
+    },
+    {
+      "frame": 500,
+      "pose_finite": true,
+      "pose_orthogonality_error": 4.2210923259947286e-10,
+      "s2s_input_finite": true,
+      "s2s_input_orthogonality_error": 9.12930295841653e-12,
+      "s2s_output_finite": true,
+      "s2s_output_orthogonality_error": 9.129513154329478e-12,
+      "s2m_input_finite": true,
+      "s2m_input_orthogonality_error": 4.221094510198706e-10,
+      "s2m_output_finite": true,
+      "s2m_output_orthogonality_error": 4.2210923259947286e-10
+    },
+    {
+      "frame": 1000,
+      "pose_finite": true,
+      "pose_orthogonality_error": 6.625101314906827e-06,
+      "s2s_input_finite": true,
+      "s2s_input_orthogonality_error": 1.4028156034688808e-07,
+      "s2s_output_finite": true,
+      "s2s_output_orthogonality_error": 1.4028156026914832e-07,
+      "s2m_input_finite": true,
+      "s2m_input_orthogonality_error": 6.625101314819213e-06,
+      "s2m_output_finite": true,
+      "s2m_output_orthogonality_error": 6.625101314906827e-06
+    },
+    {
+      "frame": 1500,
+      "pose_finite": true,
+      "pose_orthogonality_error": 0.039863228729860326,
+      "s2s_input_finite": true,
+      "s2s_input_orthogonality_error": 0.0018830743458132795,
+      "s2s_output_finite": true,
+      "s2s_output_orthogonality_error": 0.0018830743458138094,
+      "s2m_input_finite": true,
+      "s2m_input_orthogonality_error": 0.039863228729860437,
+      "s2m_output_finite": true,
+      "s2m_output_orthogonality_error": 0.039863228729860326
+    },
+    {
+      "frame": 2000,
+      "pose_finite": true,
+      "pose_orthogonality_error": 200.19191477571476,
+      "s2s_input_finite": true,
+      "s2s_input_orthogonality_error": 0.08506782688851103,
+      "s2s_output_finite": true,
+      "s2s_output_orthogonality_error": 0.08506782688851101,
+      "s2m_input_finite": true,
+      "s2m_input_orthogonality_error": 200.1919147757148,
+      "s2m_output_finite": true,
+      "s2m_output_orthogonality_error": 200.19191477571476
+    },
+    {
+      "frame": 2354,
+      "pose_finite": true,
+      "pose_orthogonality_error": null,
+      "s2s_input_finite": false,
+      "s2s_input_orthogonality_error": null,
+      "s2s_output_finite": false,
+      "s2s_output_orthogonality_error": null,
+      "s2m_input_finite": true,
+      "s2m_input_orthogonality_error": null,
+      "s2m_output_finite": true,
+      "s2m_output_orthogonality_error": null
+    }
+  ],
+  "convention": "Frobenius norm of R.T R - I; raw full-matrix SE3 feedback can propagate non-rigid roundoff that left rigid updates do not remove. No accuracy score is estimated from this partial traversal."
+}

@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "parent_commit": "327c5b0a3ce38dcefc7e554d6ccaecadb3aea20c",
+  "parent_pr": 158,
+  "sequence_order": [
+    "01",
+    "07",
+    "00",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_facade_pca_matrix.json",
+      "sha256": "c1aae2d4096438de7610661c92c98baa012b8e38f84fc06a1c0c17e7d8d612c4"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_facade_pca_matrix.json",
+      "sha256": "7ef4a496f52eb1422a73a7db691316924a99d0fd5be310c714ff50f4608987bb"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_facade_pca_matrix.json",
+      "sha256": "39ad542ff40ca7256912a8ba40279c2aaba80cb0d43dfdafda315e74eed8daf3"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_facade_pca_matrix.json",
+      "sha256": "8ce67a545da49ddbacf7d595369a9e23775f6b6b70b2a15e2a2cc7a23ad94546"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_facade_pca_matrix.json",
+      "sha256": "dc9e73319229f27b67ed6b366ab9ddd3b485adf3519cbcd9d8016bb070d88b39"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_facade_pca_matrix.json",
+      "sha256": "9f86a9da82c29fc4370f55b84af9220c8680e3529f6af16941284d8b3387a2a7"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_facade_pca_matrix.json",
+      "sha256": "1977a38f32cbce92c531c2ff337c1f5b952df9baae49eff59892abf3f819e468"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_facade_pca_matrix.json",
+      "sha256": "4d085f6d0584e12437c1a947a994132024cf90b8184ca75aebd388524246388a"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_facade_pca_matrix.json",
+      "sha256": "d8a8b13312e3a1f293447243990668a3691663a785669dd2ecd8350c08e31b19"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_facade_pca_matrix.json",
+      "sha256": "c86f3c139e3bbd8cdd749d8281e029728dca1c73eae523700531913daeb3df2b"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_facade_pca_matrix.json",
+      "sha256": "46a7a29bcd3b0aa0e223ce4efa2ea2f8a5e06583a9c7fabbe12436074f9f6a7e"
+    }
+  },
+  "selection": "Original profile chosen on07;00 informed diagnosis; soft prior fraction borrowed from DiLO01 tuning. Ground PCA retained from PR158. Facade PCA selected after committed current01 onset controls54732c2d: actual current seeds reproduce native full01 output exactly; facade contributes backward first updates at early entry while prior is inactive, and oracle initialization changes the failed output. This motivates a hypothesis, does not prove plane-normal correctness or isolate S2M. Same normal construction and1e-12 numerical degeneracy tolerance inherited unchanged from ground PCA; no new numeric tuning. Current01 is development data and acquired first for diagnosis. All prior KITTI outcomes development; no independent held-out claim. Every full sequence runs the same candidate even if first outcomes are adverse.",
+  "change": "Only s2s_facade_pca false vs true. Both arms s2s_ground_pca true, mapped prior true, translation-prior ratio0.03, acceleration true, row completion false. Apply existing ground-PCA helper to already accepted facade triangles, using exactly the same in-gate10-NN covariance, nearest anchor, degeneracy fallback, orientation. No new support, gates, feature counts, iteration budgets, S2M or update rule. At fixed pose only facade data equations change; unchanged adaptive prior rule can immediately change its information. Later poses, associations and map diverge. This tests an outside-paper extension, default off.",
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "acceleration": "Use existing --paper-pipeline-accelerated identically in both arms on every sequence, one native thread per process. Paired processes may run concurrently on the two available CPUs. No standalone FPS/speed claim.",
+  "compatibility": "All360 inherited old default-off natural-pair controls exact. Full07 new-facade-off trace body and saved poses/GT exact immutable PR158 enabled runner. All11 fresh facade-off poses/metrics must exactly match PR158 candidate. Native mechanism tests validate accepted facade-only class equations and counts, a vertical known plane, existing degeneracy fallbacks, and32 option combinations with trace/future-state parity under both acceleration modes.",
+  "trace": "Both full arms mapped seed, soft translation prior0.03, ground PCA and acceleration on; row support off; facade PCA alone differs. Default-off key omitted preserves old traces. Retain all systems and negative/adverse frames. Reconstruct both arms adaptive prior and all native damped solves.",
+  "completion": "All11 paired full sequences plus immutable parent07 full control exit0 and unskipped, one fixed configuration per arm, no tuning/adoption. Record matched-seed current01 intervention controls too. Commit/normal push lossless archives before owned raw deletion; cleanup commit+push before next acquisition. Generate full numerical report before prose, all checks and exact-final-head complete Native/ROS2 CI before Ready. One actual-results PR; no merge.",
+  "data": "Official fetch script only, one full sequence at a time, at most4 acquisition attempts with retained receipts. Never delete other worktrees/scans. No raw scan commit.",
+  "analysis": "Official KITTI100-800m RTE from native summaries, full pose step diagnostics and passive stage transitions. Fixed0.1m/20% local labels inherited, not fitted. No representative-accuracy claim from selected pairs; all-sequence paired RTE is reported separately from GT-fed diagnostics.",
+  "parent_binary": {
+    "path": "/workspace/localization-env/inten-ground-pca/pcd_dogfooding",
+    "sha256": "0a765c7f600a0c2067fee5bd9c28338344ad2bb5251c43c7f9e3823189763650",
+    "source_commit": "3cca310e149925147dc9b1e92af8404f72ff0163"
+  },
+  "archival": "Lossless ordered32MiB-uncompressed gzip shards of JSONL plus original sizes/SHA256; fully round-trip before scan removal. Commit raw results before numerical prose. Preserve all older aggregates and publication files.",
+  "prior_aborted_trial_commit": "1e5099b3",
+  "prior_aborted_trial": "experiments/results/inten_mapped_prior",
+  "held_first_sequence": "Initial official01 acquisition was performed by boundary.py with archived fetch/input hashes. Reuse only this owned still-present sequence after exact hash revalidation; archive a receipt and original fetch records in full01 stage. No second concurrent sequence.",
+  "native_source_commit": "9a01528b05128794df962b52ace59e727e834417"
+}

@@ -1,0 +1,62 @@
+{
+  "files": {
+    "cpu_controls.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/cpu_recovery/cpu_controls.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "cpu_controls.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "cpu_controls.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/cpu_recovery/cpu_controls.stdout.log",
+      "bytes": 97,
+      "sha256": "3395c0dc7c693658cc7118de097ab0da85413249915e65d3d74f171a9d56075d",
+      "storage": "gzip",
+      "path": "cpu_controls.stdout.log.gz",
+      "stored_sha256": "01c44d26bac1c7833009523193fc87bc7a33218f2c8f632a32d41db6c6dd5175"
+    },
+    "cpu_controls_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/cpu_recovery/cpu_controls_command.json",
+      "bytes": 815,
+      "sha256": "3f493b0d34cc8edc48b41d081e2b4de8f744a94d9aee4127be6c6aa5e2816043",
+      "storage": "verbatim",
+      "path": "cpu_controls_command.json",
+      "stored_sha256": "3f493b0d34cc8edc48b41d081e2b4de8f744a94d9aee4127be6c6aa5e2816043"
+    },
+    "portable_regressions.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/cpu_recovery/portable_regressions.stderr.log",
+      "bytes": 1864,
+      "sha256": "9d186eeaeccefc5797aff6fdd3cae337f83030f85d608d3f6a60767948d73350",
+      "storage": "gzip",
+      "path": "portable_regressions.stderr.log.gz",
+      "stored_sha256": "1b161085a23a1b9e914dafe9c169621f0d74a235fa1d9fe8cba6a9f842e60231"
+    },
+    "portable_regressions.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/cpu_recovery/portable_regressions.stdout.log",
+      "bytes": 139,
+      "sha256": "1c53a0429740604a511605a0f743c867bec2692451d85b7024f3a87acf60162e",
+      "storage": "gzip",
+      "path": "portable_regressions.stdout.log.gz",
+      "stored_sha256": "c392d8f9ca61a691ab46fa72bb630efd485f7529e299529de9588475d61aff61"
+    },
+    "portable_regressions_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/cpu_recovery/portable_regressions_command.json",
+      "bytes": 813,
+      "sha256": "4fdc10b7de9d5bb89d1193e3e74dab44b0d2396f4be1811c9067c08fc7cd6412",
+      "storage": "verbatim",
+      "path": "portable_regressions_command.json",
+      "stored_sha256": "4fdc10b7de9d5bb89d1193e3e74dab44b0d2396f4be1811c9067c08fc7cd6412"
+    },
+    "result.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/cpu_recovery/result.json",
+      "bytes": 2558,
+      "sha256": "55c1ae5536869743f6ba9ca98dca564d8fcdf81581232709fad747360bcc639e",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "55c1ae5536869743f6ba9ca98dca564d8fcdf81581232709fad747360bcc639e"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

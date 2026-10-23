@@ -1,0 +1,30 @@
+{
+  "files": {
+    "compact_mechanism_regressions.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/compact_mechanism_regressions/compact_mechanism_regressions.stderr.log",
+      "bytes": 1831,
+      "sha256": "76abc0de166b63bc4d6e641e256a1979d19a12446e4a3be5106ef5f978bf5ab1",
+      "storage": "gzip",
+      "path": "compact_mechanism_regressions.stderr.log.gz",
+      "stored_sha256": "23dd232b242f3857abfe0919f468db9c3f942b9ad56ff0925b389af188583e17"
+    },
+    "compact_mechanism_regressions.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/compact_mechanism_regressions/compact_mechanism_regressions.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "compact_mechanism_regressions.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "compact_mechanism_regressions_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/compact_mechanism_regressions/compact_mechanism_regressions_command.json",
+      "bytes": 1838,
+      "sha256": "07b0dd1a44d7d9c79e41695647a81c9d0b5f2d0e3fc7d5a248752c188b7a1d53",
+      "storage": "verbatim",
+      "path": "compact_mechanism_regressions_command.json",
+      "stored_sha256": "07b0dd1a44d7d9c79e41695647a81c9d0b5f2d0e3fc7d5a248752c188b7a1d53"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

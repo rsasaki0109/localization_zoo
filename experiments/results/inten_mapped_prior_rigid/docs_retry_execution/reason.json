@@ -1,0 +1,81 @@
+{
+  "reason": "The initial refresh used python3 children without the venv PATH prefix. All four historical plots had identical pixels but different Matplotlib Software metadata. Repeat the required generators with the intended interpreter in PATH; original successful execution logs are retained.",
+  "plots": {
+    "default_variant_instability.png": {
+      "pixels_equal": true,
+      "original_sha256": "58ffa5c79485cad6c253bae3ce7b1831f693e545a063915d830deb686e3ecac9",
+      "initial_generated_sha256": "d6ede4b22b29f35be0fdd0fb7554896ae3a2b4c819625db6b249d476c4d9b670",
+      "original_metadata": {
+        "Software": "Matplotlib version3.8.4, https://matplotlib.org/",
+        "dpi": [
+          159.9946,
+          159.9946
+        ]
+      },
+      "initial_metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": [
+          159.9946,
+          159.9946
+        ]
+      }
+    },
+    "kitti07_pareto.png": {
+      "pixels_equal": true,
+      "original_sha256": "ec49a6e502fdcfb4faa8512e1566a7f165d0573ac52a7f460ae0afad8a1928a6",
+      "initial_generated_sha256": "f2f2dc2b95407e7afcd004c5d407340d3d00aa1d6140376607f67114663c6da4",
+      "original_metadata": {
+        "Software": "Matplotlib version3.8.4, https://matplotlib.org/",
+        "dpi": [
+          199.9996,
+          199.9996
+        ]
+      },
+      "initial_metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": [
+          199.9996,
+          199.9996
+        ]
+      }
+    },
+    "manuscript_core_methods.png": {
+      "pixels_equal": true,
+      "original_sha256": "f825b2ec44bbe3f27c800205b061207b3e22e005df065155c6afc1295959aaa7",
+      "initial_generated_sha256": "1a319609d0a858c5706a4ae43351605a48fd6169ffc1c15df4a2395dfd045041",
+      "original_metadata": {
+        "Software": "Matplotlib version3.8.4, https://matplotlib.org/",
+        "dpi": [
+          180.00979999999998,
+          180.00979999999998
+        ]
+      },
+      "initial_metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": [
+          180.00979999999998,
+          180.00979999999998
+        ]
+      }
+    },
+    "variant_fronts_by_selector.png": {
+      "pixels_equal": true,
+      "original_sha256": "18460822b9a81545a58471361ac8d195700e68335172142e537c2a90be81eb72",
+      "initial_generated_sha256": "4f85fb56c85f325916e5072786c509e75980f1c71a49273c1cd2c5236356f06f",
+      "original_metadata": {
+        "Software": "Matplotlib version3.8.4, https://matplotlib.org/",
+        "dpi": [
+          180.00979999999998,
+          180.00979999999998
+        ]
+      },
+      "initial_metadata": {
+        "Software": "Matplotlib version3.10.8, https://matplotlib.org/",
+        "dpi": [
+          180.00979999999998,
+          180.00979999999998
+        ]
+      }
+    }
+  }
+}

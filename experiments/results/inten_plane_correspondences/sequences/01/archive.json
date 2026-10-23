@@ -1,0 +1,138 @@
+{
+  "files": {
+    "cases.json": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/cases.json",
+      "bytes": 1046082,
+      "sha256": "7f661bc0813265ba79fa63c9763c074df7547bb8db978d0cacf39e6f619ea1af",
+      "storage": "verbatim",
+      "path": "cases.json",
+      "stored_sha256": "7f661bc0813265ba79fa63c9763c074df7547bb8db978d0cacf39e6f619ea1af"
+    },
+    "fetch/1/fetch.stderr": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/fetch/1/fetch.stderr",
+      "bytes": 2223,
+      "sha256": "725834f8fee37f34368108d8fa321d4dbabb918e607a936b2d6abaed399505cb",
+      "storage": "verbatim",
+      "path": "fetch/1/fetch.stderr",
+      "stored_sha256": "725834f8fee37f34368108d8fa321d4dbabb918e607a936b2d6abaed399505cb"
+    },
+    "fetch/1/fetch.stdout": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/fetch/1/fetch.stdout",
+      "bytes": 137,
+      "sha256": "26bae14362b459df0ac0d24b70a6b58eb44512a9359896cb77f4924002bd3c89",
+      "storage": "verbatim",
+      "path": "fetch/1/fetch.stdout",
+      "stored_sha256": "26bae14362b459df0ac0d24b70a6b58eb44512a9359896cb77f4924002bd3c89"
+    },
+    "fetch/1/fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/fetch/1/fetch_command.json",
+      "bytes": 625,
+      "sha256": "b7d00908e2c11c9be52958ad2aa3fac72ab0be310e21a18f6ac5d02147b0f773",
+      "storage": "verbatim",
+      "path": "fetch/1/fetch_command.json",
+      "stored_sha256": "b7d00908e2c11c9be52958ad2aa3fac72ab0be310e21a18f6ac5d02147b0f773"
+    },
+    "fetch/2/fetch.stderr": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/fetch/2/fetch.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "fetch/2/fetch.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fetch/2/fetch.stdout": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/fetch/2/fetch.stdout",
+      "bytes": 271,
+      "sha256": "4c725cd5f971b1be2a5ffcd87da1587c382a7ff41c8245c32ece1639478f7de6",
+      "storage": "verbatim",
+      "path": "fetch/2/fetch.stdout",
+      "stored_sha256": "4c725cd5f971b1be2a5ffcd87da1587c382a7ff41c8245c32ece1639478f7de6"
+    },
+    "fetch/2/fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/fetch/2/fetch_command.json",
+      "bytes": 624,
+      "sha256": "f94a164f5645afe240692eb5a0608b5f06a4505ff5272af0b9207368c8b50344",
+      "storage": "verbatim",
+      "path": "fetch/2/fetch_command.json",
+      "stored_sha256": "f94a164f5645afe240692eb5a0608b5f06a4505ff5272af0b9207368c8b50344"
+    },
+    "geometry.json": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/geometry.json",
+      "bytes": 1176518,
+      "sha256": "6f0764ae698087a794392cb9896616ac46fcccafb4b229ba95f08d82f642bc4e",
+      "storage": "verbatim",
+      "path": "geometry.json",
+      "stored_sha256": "6f0764ae698087a794392cb9896616ac46fcccafb4b229ba95f08d82f642bc4e"
+    },
+    "inputs.json": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/inputs.json",
+      "bytes": 147875,
+      "sha256": "3ae2a0dc78e8ffc92661e16356a06f6fb4dc314c19c3153a2c73a22d6847acfb",
+      "storage": "verbatim",
+      "path": "inputs.json",
+      "stored_sha256": "3ae2a0dc78e8ffc92661e16356a06f6fb4dc314c19c3153a2c73a22d6847acfb"
+    },
+    "native.jsonl": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/native.jsonl",
+      "bytes": 111171734,
+      "sha256": "8ae0abbc54fa885f0167d9feef417d8a4805b4bacb9059446e6ecf52400aa468",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "eb52ba22195ed25a21674a2ceea6e687b1f1cc5f5394ac28e3b62d7908a482b9",
+          "gzip_bytes": 14398488,
+          "raw_sha256": "5cd9031213955bbc8fcd5c59d399966d2694d847bb2b4841f47a92f8c9e63e0e",
+          "raw_bytes": 33554432
+        },
+        {
+          "path": "native.jsonl.parts/part-00001.gz",
+          "gzip_sha256": "48c73e55ebc68586df3f4e096ea48841fa89d1284c0dd1db29627d17f5920218",
+          "gzip_bytes": 14394591,
+          "raw_sha256": "c8500dfc6d937b59f5315afd245850ce6166eb27fb7129c7caee61f9ac292fde",
+          "raw_bytes": 33554432
+        },
+        {
+          "path": "native.jsonl.parts/part-00002.gz",
+          "gzip_sha256": "1243a86a4d83df07eed7732ecd3b3c3ac4be5199d649ed4f63bd02503f9bb3ff",
+          "gzip_bytes": 14445622,
+          "raw_sha256": "704c997b7fd29254e0e5beac20067eec542f28eb4c81a4d343d9fa22db82a443",
+          "raw_bytes": 33554432
+        },
+        {
+          "path": "native.jsonl.parts/part-00003.gz",
+          "gzip_sha256": "a636f30a0a923ac03460c5e2317fcbe4a66db2fad13f8cfad4a110268086fa55",
+          "gzip_bytes": 4512531,
+          "raw_sha256": "1c30bf06bb5c0a3407f577439d927b2f83fd76fa45e519c2d4ddda7f2f301209",
+          "raw_bytes": 10508438
+        }
+      ]
+    },
+    "native.stderr": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/native.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "native.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/native_command.json",
+      "bytes": 959,
+      "sha256": "6424d106c97f824c821effdfcde7bf83834324ddfdbdf2ac865635ef87fda247",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "6424d106c97f824c821effdfcde7bf83834324ddfdbdf2ac865635ef87fda247"
+    },
+    "native_input.txt": {
+      "original_path": "/workspace/localization-env/inten-plane-correspondences/staging/01/native_input.txt",
+      "bytes": 77208,
+      "sha256": "6ba7a41a5bc4853d161ac8a8006fbda40ec5f0557a49b3c565ca753a9dbd7748",
+      "storage": "verbatim",
+      "path": "native_input.txt",
+      "stored_sha256": "6ba7a41a5bc4853d161ac8a8006fbda40ec5f0557a49b3c565ca753a9dbd7748"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

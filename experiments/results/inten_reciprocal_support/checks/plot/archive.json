@@ -1,0 +1,46 @@
+{
+  "files": {
+    "manifest.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/plot_stage/manifest.json",
+      "bytes": 810,
+      "sha256": "8d67ee04b75308adf547bef65c684307df9ad3427d9347dff8f99b65f54e470e",
+      "storage": "verbatim",
+      "path": "manifest.json",
+      "stored_sha256": "8d67ee04b75308adf547bef65c684307df9ad3427d9347dff8f99b65f54e470e"
+    },
+    "plot.py": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/plot_stage/plot.py",
+      "bytes": 3697,
+      "sha256": "01ecf5679d3e71b94427f5a0797a5f4070f8b7bc6e74af6a560e67c903b9ff21",
+      "storage": "verbatim",
+      "path": "plot.py",
+      "stored_sha256": "01ecf5679d3e71b94427f5a0797a5f4070f8b7bc6e74af6a560e67c903b9ff21"
+    },
+    "plot.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/plot_stage/plot.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "plot.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "plot.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/plot_stage/plot.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "plot.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "plot_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/plot_stage/plot_command.json",
+      "bytes": 820,
+      "sha256": "a09f521aaf8360fe43c473c524fa6271200ae8ce0f871ef91d10cc750d694404",
+      "storage": "verbatim",
+      "path": "plot_command.json",
+      "stored_sha256": "a09f521aaf8360fe43c473c524fa6271200ae8ce0f871ef91d10cc750d694404"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

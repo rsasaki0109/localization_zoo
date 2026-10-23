@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "parent_commit": "e057e74619e870341a9b57ec0b13b0bd0ecd7f29",
+  "parent_pr": 156,
+  "sequence_order": [
+    "07",
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10"
+  ],
+  "manifests": {
+    "00": {
+      "path": "experiments/inten_loam_kitti_seq_00_full_translation_prior_matrix.json",
+      "sha256": "cf5dbd11c55a600fa0ed93c419ff7c9f9b304978442ce40802bb7315cbfbe889"
+    },
+    "01": {
+      "path": "experiments/inten_loam_kitti_seq_01_full_translation_prior_matrix.json",
+      "sha256": "823fb71b5c5a66eea7cefb6351bc2397738618d93316b7270875d4ed56255122"
+    },
+    "02": {
+      "path": "experiments/inten_loam_kitti_seq_02_full_translation_prior_matrix.json",
+      "sha256": "851cdd56b44bff971ac87a303f4487e363ba5a29b5d8369b1222731029001308"
+    },
+    "03": {
+      "path": "experiments/inten_loam_kitti_seq_03_full_translation_prior_matrix.json",
+      "sha256": "f9cae61862133ff9ee59049994a6ec33665ae5cb32309d943a955bdd9a14533a"
+    },
+    "04": {
+      "path": "experiments/inten_loam_kitti_seq_04_full_translation_prior_matrix.json",
+      "sha256": "bfba6fffb774fcb656448fa222cb63f856ab7ae215b0cab4570946000cfd0d74"
+    },
+    "05": {
+      "path": "experiments/inten_loam_kitti_seq_05_full_translation_prior_matrix.json",
+      "sha256": "75a5328a955d01d23e20e1dd82fc752691347e83b1da3010309bd10672772a14"
+    },
+    "06": {
+      "path": "experiments/inten_loam_kitti_seq_06_full_translation_prior_matrix.json",
+      "sha256": "8087b2a20962fb2c4ec31d14282573200138e9f60845f63df5c1b9d80da8a02b"
+    },
+    "07": {
+      "path": "experiments/inten_loam_kitti_seq_07_full_translation_prior_matrix.json",
+      "sha256": "a4c83ef1fffcad39d75e13323b94874353045a6d24bcb2cd4de5cf2bffe5e0de"
+    },
+    "08": {
+      "path": "experiments/inten_loam_kitti_seq_08_full_translation_prior_matrix.json",
+      "sha256": "1ae4c5c94fa1d8593cecae6b2ed87df8b4a419bb89ae2e9912ff446e8fa0e83c"
+    },
+    "09": {
+      "path": "experiments/inten_loam_kitti_seq_09_full_translation_prior_matrix.json",
+      "sha256": "6d654f6f6f178a61ccf27e93b756f61a37b2863f58ee08a47c6e106c59c02ae2"
+    },
+    "10": {
+      "path": "experiments/inten_loam_kitti_seq_10_full_translation_prior_matrix.json",
+      "sha256": "3b13363a0febbb72b9eff588a1bb2312306c43a59c24e034a76cf47ee162c313"
+    }
+  },
+  "selection": "Inherited range/elevation/plane/edge values were selected on07;00 informed prior diagnosis. Both arms enable the fixed PR156 mapped-motion prior. New dimensionless translation-information ratio0.03 is fixed before any new accuracy run, motivated by the existing DiLO degeneracy convention, not selected by optimizing a KITTI score. The full inherited01/02/10 GT-seeded first-system inspection is development evidence;02 shows weak forward information but01/10 often do not. Known failures and all prior full results are development data. No independent held-out claim. Run07 first then every00-10 without retuning, even if negative.",
+  "change": "Only s2s_translation_prior_ratio differs:0 versus0.03. From the first Huber-weighted S2S data Hessian, re-center the left tangent at the sensor position, marginalize rotation using1e-6 diagonal rotation regularization, eigendecompose the3x3 translation Schur complement, and add information max(0,ratio*lambda_max-lambda_i) along each direction. Keep this information matrix fixed during that solve. Quadratic residual is current target-frame sensor translation minus the initial S2S predicted translation, with native left-increment Jacobian[I,-skew(t)]. Add its H/g and quadratic cost before the original1e-6I solve; trace includes total systems and cost, feature counts/data-only forced class systems exclude this prior. No pair thresholds, associations, iterations, S2M or finite retraction change. Ratio0 retains original arithmetic path. This soft prior does not establish correct matches or guarantee recovery, and may resist real acceleration.",
+  "modes": [
+    "baseline",
+    "candidate"
+  ],
+  "native_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "acceleration": "Use existing --paper-pipeline-accelerated identically in both arms on every sequence, one native thread per process. Paired processes may run concurrently on the two available CPUs. No standalone FPS/speed claim.",
+  "compatibility": "Full07 fresh baseline (mapped prior on, new ratio0) matches immutable PR156 enabled runner in accuracy/frame fields, saved pose bytes and passive trace body. All360 inherited default-off natural-pair controls unchanged. Mechanism tests check weak-only information, sensor-centered rotation coupling, actual position anchor, default/range checks, trace equations and future map parity across every option combination.",
+  "trace": "Both full arms use passive trace, no forced seed/restart. Mapped seed on, row support off, acceleration on in both. Ratio alone differs. Verify recursive mapped seed and candidate position-prior equations offline; retain data class counts separately. The optional per-solver information matrix is retained when nonzero; zero/default omits it and preserves legacy trace bytes.",
+  "completion": "All11 paired full sequences plus parent07 control exit0 with complete unskipped traversal. Official inputs verified against the committed shared-range audit, evidence archived/committed/backed up before deleting owned scans and advancing. Retain every negative case and command; update README tables and docs/checks, one actual-results PR, no prep-only PR.",
+  "data": "Official fetch script only, one full sequence at a time, at most4 acquisition attempts with retained receipts. Never delete other worktrees/scans. No raw scan commit.",
+  "analysis": "Official KITTI100-800m RTE from native summaries, full pose step diagnostics and passive stage transitions. Fixed0.1m/20% local labels inherited, not fitted. No representative-accuracy claim from selected pairs; all-sequence paired RTE is reported separately from GT-fed diagnostics.",
+  "parent_binary": {
+    "path": "/workspace/localization-env/inten-mapped-prior-rigid/pcd_dogfooding",
+    "sha256": "0ad48a3126ac96ab520126e53c0adfc74447c3dadf8c8f706559711422170271",
+    "source_commit": "71ca25cf4c36b3b0206f45ea3a05c1fd26998b90"
+  },
+  "archival": "Lossless ordered32MiB-uncompressed gzip shards of JSONL plus original sizes/SHA256; fully round-trip before scan removal. Commit raw results before numerical prose. Preserve all older aggregates and publication files.",
+  "prior_aborted_trial_commit": "1e5099b3",
+  "prior_aborted_trial": "experiments/results/inten_mapped_prior",
+  "native_source_commit": "888492232ab1fc6b837780469b20de31cbf46357"
+}

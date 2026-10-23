@@ -1,0 +1,21 @@
+{
+  "parent_group": "experiments/results/inten_nonfacade_consensus_support/groups/08",
+  "feature_cache_private": "/workspace/localization-env/inten-zero-consensus-control/features_08.txt",
+  "feature_cache_sha256": "73eb65e3b8644a0d2b9300f1d9a62bbb646a3c73dad72925621016e294f7f4dc",
+  "feature_cache_bytes": 80595122,
+  "frames": [
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "parent_archive_sha256": "4ecee2ba56c27e76e6ca239d15ccaa341d747aec3963eed5e85397f8a38c16e1",
+  "attribution_archive_sha256": "c5ecf2059800e45c87fe88ca71fc1ca7a18647293681d4772fb9da0b96b13b8f",
+  "no_raw_acquired": true,
+  "no_gt_in_native_input": true
+}

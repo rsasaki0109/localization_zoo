@@ -1,0 +1,19 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "13ab2f8f0871707060f4923ff3362317280f8af4",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus-accelerated/worktree",
+  "source_commit": "939c5751e869b006f0bdf07f814df0ea26f5f25e",
+  "started_unix": 1792620840.2078261,
+  "finished_unix": 1792620840.3815212,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

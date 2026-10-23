@@ -1,0 +1,19 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "6404d6bca694a166953ba2806d5b59ec3a24d49f",
+  "finished_source_commit": "6404d6bca694a166953ba2806d5b59ec3a24d49f",
+  "exit_code": 0,
+  "started_unix": 1792730843.0083296,
+  "finished_unix": 1792730843.0439723,
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "TMPDIR": "/tmp/localization-zoo-inten-local-rigidity-20261023"
+  }
+}

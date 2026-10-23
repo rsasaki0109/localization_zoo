@@ -1,0 +1,82 @@
+Running main() from ./googletest/src/gtest_main.cc
+[==========] Running 35 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 21 tests from InTenLoamPaper
+[ RUN      ] InTenLoamPaper.RowSupportRecoversSameLineOutsideTenWithoutReplacingAdjacent
+[       OK ] InTenLoamPaper.RowSupportRecoversSameLineOutsideTenWithoutReplacingAdjacent (0 ms)
+[ RUN      ] InTenLoamPaper.RowSupportRecoversAdjacentLineAndUsesNearestEligiblePoint
+[       OK ] InTenLoamPaper.RowSupportRecoversAdjacentLineAndUsesNearestEligiblePoint (0 ms)
+[ RUN      ] InTenLoamPaper.RowSupportPreservesDistanceGateExcludesClosestAndClearsOnRebuild
+[       OK ] InTenLoamPaper.RowSupportPreservesDistanceGateExcludesClosestAndClearsOnRebuild (0 ms)
+[ RUN      ] InTenLoamPaper.NativeSmallKQueriesMatchPclIncludingTiesAndRebuilds
+[       OK ] InTenLoamPaper.NativeSmallKQueriesMatchPclIncludingTiesAndRebuilds (1 ms)
+[ RUN      ] InTenLoamPaper.AcceleratedQueriesKeepNormalEquationsCountsAndPoses
+[       OK ] InTenLoamPaper.AcceleratedQueriesKeepNormalEquationsCountsAndPoses (2229 ms)
+[ RUN      ] InTenLoamPaper.SegmentsGroundAndFindsPlanarFeatures
+[       OK ] InTenLoamPaper.SegmentsGroundAndFindsPlanarFeatures (29 ms)
+[ RUN      ] InTenLoamPaper.BsplineIntensityFieldFollowsALinearRamp
+[       OK ] InTenLoamPaper.BsplineIntensityFieldFollowsALinearRamp (1 ms)
+[ RUN      ] InTenLoamPaper.TracksForwardMotionAtFullScale
+[       OK ] InTenLoamPaper.TracksForwardMotionAtFullScale (680 ms)
+[ RUN      ] InTenLoamPaper.StricterPlaneCheckStillTracks
+[       OK ] InTenLoamPaper.StricterPlaneCheckStillTracks (701 ms)
+[ RUN      ] InTenLoamPaper.ForcedPoseDiagnosticsStayAtTruthOnExactScans
+[       OK ] InTenLoamPaper.ForcedPoseDiagnosticsStayAtTruthOnExactScans (390 ms)
+[ RUN      ] InTenLoamPaper.PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods
+[       OK ] InTenLoamPaper.PlaneSpreadCheckRemovesTheBackwardPullOfLineNeighbourhoods (796 ms)
+[ RUN      ] InTenLoamPaper.MappedMotionPriorRejectsNonRigidRoundoffWithoutChangingTranslation
+[       OK ] InTenLoamPaper.MappedMotionPriorRejectsNonRigidRoundoffWithoutChangingTranslation (0 ms)
+[ RUN      ] InTenLoamPaper.TranslationPriorRaisesOnlyWeakMarginalInformation
+[       OK ] InTenLoamPaper.TranslationPriorRaisesOnlyWeakMarginalInformation (0 ms)
+[ RUN      ] InTenLoamPaper.TranslationPriorCentersRotationAndAnchorsActualPosition
+[       OK ] InTenLoamPaper.TranslationPriorCentersRotationAndAnchorsActualPosition (0 ms)
+[ RUN      ] InTenLoamPaper.GroundPcaFitsSlopedSurfaceWithOriginalOrientation
+[       OK ] InTenLoamPaper.GroundPcaFitsSlopedSurfaceWithOriginalOrientation (0 ms)
+[ RUN      ] InTenLoamPaper.GroundPcaRetainsTriangleOnLineOrInsufficientSupport
+[       OK ] InTenLoamPaper.GroundPcaRetainsTriangleOnLineOrInsufficientSupport (0 ms)
+[ RUN      ] InTenLoamPaper.GroundPcaChangesOnlyGroundAtFixedInitialPose
+[       OK ] InTenLoamPaper.GroundPcaChangesOnlyGroundAtFixedInitialPose (214 ms)
+[ RUN      ] InTenLoamPaper.FacadePcaChangesOnlyFacadeAtFixedInitialPose
+[       OK ] InTenLoamPaper.FacadePcaChangesOnlyFacadeAtFixedInitialPose (238 ms)
+[ RUN      ] InTenLoamPaper.AcceptedPlanePcaFitsVerticalFacadeAndExcludesOutOfGatePoint
+[       OK ] InTenLoamPaper.AcceptedPlanePcaFitsVerticalFacadeAndExcludesOutOfGatePoint (0 ms)
+[ RUN      ] InTenLoamPaper.TranslationPriorIsDefaultOffAndValidatesItsRange
+[       OK ] InTenLoamPaper.TranslationPriorIsDefaultOffAndValidatesItsRange (0 ms)
+[ RUN      ] InTenLoamPaper.TranslationPriorAppearsInTraceButNotFeatureCounts
+[       OK ] InTenLoamPaper.TranslationPriorAppearsInTraceButNotFeatureCounts (232 ms)
+[----------] 21 tests from InTenLoamPaper (5517 ms total)
+
+[----------] 14 tests from AccelerationModes/InTenLoamPassiveTrace
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.PreservesMovingPosesAndFutureMapState/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.PreservesMovingPosesAndFutureMapState/0 (31699 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.PreservesMovingPosesAndFutureMapState/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.PreservesMovingPosesAndFutureMapState/1 (23326 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorIsRecursiveAndPreservesS2SFallback/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorIsRecursiveAndPreservesS2SFallback/0 (1091 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorIsRecursiveAndPreservesS2SFallback/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorIsRecursiveAndPreservesS2SFallback/1 (786 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics/0 (1157 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.MappedPriorDoesNotAffectMappingOffOrForcedDiagnostics/1 (877 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.ShowsFallbackAndMappingRejectionWithoutStaleIterations/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.ShowsFallbackAndMappingRejectionWithoutStaleIterations/0 (494 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.ShowsFallbackAndMappingRejectionWithoutStaleIterations/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.ShowsFallbackAndMappingRejectionWithoutStaleIterations/1 (346 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.DistinguishesSkippedMappingAndZeroIterationBudget/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.DistinguishesSkippedMappingAndZeroIterationBudget/0 (26 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.DistinguishesSkippedMappingAndZeroIterationBudget/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.DistinguishesSkippedMappingAndZeroIterationBudget/1 (27 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.ReportsIterationBudgetAndConvergenceSeparately/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.ReportsIterationBudgetAndConvergenceSeparately/0 (215 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.ReportsIterationBudgetAndConvergenceSeparately/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.ReportsIterationBudgetAndConvergenceSeparately/1 (163 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.RejectsForcedPoseBeforeChangingEstimatorState/0
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.RejectsForcedPoseBeforeChangingEstimatorState/0 (9 ms)
+[ RUN      ] AccelerationModes/InTenLoamPassiveTrace.RejectsForcedPoseBeforeChangingEstimatorState/1
+[       OK ] AccelerationModes/InTenLoamPassiveTrace.RejectsForcedPoseBeforeChangingEstimatorState/1 (8 ms)
+[----------] 14 tests from AccelerationModes/InTenLoamPassiveTrace (60233 ms total)
+
+[----------] Global test environment tear-down
+[==========] 35 tests from 2 test suites ran. (65751 ms total)
+[  PASSED  ] 35 tests.

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/refresh_study_docs.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "source_commit": "3eb4a4caa40996dfb8a223d6c65c86a8a32ffbd0",
+  "started_unix": 1792459586.6937115,
+  "finished_unix": 1792459602.4053376,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-natural-traces/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-natural-traces/cache"
+  }
+}

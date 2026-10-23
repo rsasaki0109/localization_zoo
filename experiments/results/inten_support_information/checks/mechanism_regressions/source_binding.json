@@ -1,0 +1,5 @@
+{
+  "test_source": "tests/test_inten_support_information.py",
+  "sha256": "089fad50fa60b2457cf426833492703748ad2bc212a42a764c96c7a91feb79e9",
+  "note": "Test source was developed after measurement, before full-study interpretation; this exact content will accompany the result commit."
+}

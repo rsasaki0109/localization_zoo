@@ -28,3 +28,7 @@ experiments/results/paper_pipeline_bindings/ci/021534d5_ros_humble_api_failed/jo
 experiments/results/paper_pipeline_speed/runs/*/run.log -whitespace
 experiments/results/paper_pipeline_speed/release_verification/1b51db69/*/run.log -whitespace
 experiments/results/paper_pipeline_speed/install_profiler.log -whitespace
+# Preserve the actual ground-PCA CMake/CTest transcripts, including tool padding.
+experiments/results/inten_ground_pca/checks/**/*.stdout -whitespace
+
+experiments/results/inten_facade_pca/checks/**/*.stdout -whitespace

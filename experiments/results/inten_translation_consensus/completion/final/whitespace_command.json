@@ -1,0 +1,21 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "ca767ad6050b2e2ef95e07d61ad98fd1ef8f0636",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-consensus/worktree",
+  "source_commit": "73fa07ee87d26cedae4d61d55f3f0c6aa6ab3c71",
+  "started_unix": 1792575724.909197,
+  "finished_unix": 1792575724.9475021,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-translation-consensus/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-translation-consensus/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

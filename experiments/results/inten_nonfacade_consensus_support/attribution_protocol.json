@@ -1,0 +1,14 @@
+{
+  "parent_numerical_commit": "61ca47d2",
+  "purpose": "Explain the already rejected fixed-support gate, not a new candidate or relaxed adoption gate. Observe native fresh associations at original joint and unchanged old refined poses. Same object/library/tree/parameters, no optimizer/prior/GT and no altered accepted output.",
+  "cases": "ALL31 inherited endpoints, BOTH joint/refined query roles, including fallback ties. Do not select only favorable examples.",
+  "checks": "Original fresh-query class costs/counts must be bitwise the existing original-query guard observation wherever it ran. Every query pose bitwise unchanged, no optimizer step/prior. Reconstruct every H/g/class count/Huber cost from primitives. Re-associated costs have changed supports/counts; never compare their raw sums as an accuracy winner. Report per-class counts, mean losses, common frozen costs, all outcomes.",
+  "limits": "Associations at different poses are not physical object identities. An improved fresh-query objective is not proof of correct motion. GT remains offline only; this attribution cannot authorize promotion or a full recursive run. Original gate remains failed without amendment.",
+  "source_sha256": {
+    "experiments/results/inten_nonfacade_consensus_support/query_probe.cpp": "5404311800b6ddb9cb39ba9f4c65da3fc50de9cc121154cfdba6e123a553d698",
+    "experiments/results/inten_nonfacade_consensus_support/diagnostic_native.cpp": "400dcd22671c8bfc406410156016be2c596b9f090924bb11cd2c2b18a863e1c4",
+    "experiments/results/inten_nonfacade_consensus_support/support_hooks.h": "9b7e59588b29895a3bba977d9a6f28a8d564bcda7427fd1664dd420f41d39620",
+    "experiments/results/inten_nonfacade_consensus_support/run_attribution.py": "51eabf5fd585ce27f0bebfd9ba6708f4b8e7dcc7bc83f6722fb3f20481beba1e",
+    "experiments/results/inten_nonfacade_consensus_support/common.py": "e535980502b591656abc5458955edf9c59da5547e6ae3922f035e244befc89b0"
+  }
+}

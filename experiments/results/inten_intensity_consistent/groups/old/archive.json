@@ -1,0 +1,53 @@
+{
+  "files": {
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/replay_old/input.txt",
+      "bytes": 2149,
+      "sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "2b24069b75de6985c167fb56e5ab79f2271d67e37f14f903839de02f26cb1680"
+    },
+    "input_sources.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/replay_old/input_sources.json",
+      "bytes": 553,
+      "sha256": "0cf6cd9a8ed6221d15d71186bec0f15d9e1963c0001cb6f3fb1ba0916dddb913",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "0cf6cd9a8ed6221d15d71186bec0f15d9e1963c0001cb6f3fb1ba0916dddb913"
+    },
+    "native.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/replay_old/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/replay_old/native.stdout.jsonl",
+      "bytes": 4840137,
+      "sha256": "9a0e4e6eda3f42f27bfe84316eaf7d9a23a47f88569147b91f840ecdad36fe1a",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "c23bf180133511ae397cd5e7197754129287fffda702358f10d9e15ab06f8563",
+          "gzip_bytes": 1903112,
+          "raw_sha256": "9a0e4e6eda3f42f27bfe84316eaf7d9a23a47f88569147b91f840ecdad36fe1a",
+          "raw_bytes": 4840137
+        }
+      ]
+    },
+    "native_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-consistent-20261022/replay_old/native_command.json",
+      "bytes": 1096,
+      "sha256": "2bdb1b62ad99bac04a4647500942a451092e6e547180f6eeca36d1c478eaafce",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "2bdb1b62ad99bac04a4647500942a451092e6e547180f6eeca36d1c478eaafce"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

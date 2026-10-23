@@ -1,0 +1,11 @@
+{
+  "run_id": 39754746673,
+  "job_id": 119743806247,
+  "head_sha": "bb8b46cc3e02371322eb86e4adbc1901ade8e2b0",
+  "test": "test_complete_native_evidence_reconstructs_and_matches_recorded_report",
+  "complete_decoded_log_chars": 676561,
+  "complete_source_json_sha256": "db383155be4a8c677f7b653050c79737bce0bcd5bbb63bbc410ca9cdee1e1848",
+  "complete_decoded_log_sha256": "0998543599ac14a9892e22ef9b2e6eb824c58a8530ee99af0e4e2342b70b3582",
+  "cpu_reproduction": "Haswell pass0, Sandybridge fail1; every discrepancy is below /fields/*/*/largest/. Every metric/count/gate and every reconstructed native value passes unchanged tolerances.",
+  "other_job_status": "ROS2 still running; its complete final log is collected separately in the private original CI record."
+}

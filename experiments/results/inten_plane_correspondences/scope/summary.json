@@ -1,0 +1,81 @@
+{
+  "exit_code": 0,
+  "source_commit": "52ddb0d252143249d6ae001605560cdccaacf3f9",
+  "scope": "Only native in-gate queries rejected for missing same/adjacent scan-line support. Counts of support on the SAME target features beyond the recorded ten candidates; no new solver result.",
+  "distance": "Float target/query coordinates, squared Euclidean distance <=1, original nearest point excluded from same-line candidates. Native row gaps1..2 and triangle norm>=1e-6. No fitted threshold.",
+  "limits": "A constructible extra triangle does not establish a correct surface or an improved solve. Retrospective development diagnosis; native outputs remain unchanged.",
+  "sequences": {
+    "01": {
+      "ground": {
+        "native_missing_row_rejections": 120629,
+        "native_same_missing": 120557,
+        "same_still_missing_in_full_target_gate": 105327,
+        "same_available_beyond_ten": 15230,
+        "both_required_rows_available_in_full_target_gate": 15230,
+        "extra_constructible_triangles": 15230,
+        "native_adjacent_missing": 15969,
+        "adjacent_still_missing_in_full_target_gate": 15919,
+        "adjacent_available_beyond_ten": 50
+      },
+      "facade": {
+        "native_missing_row_rejections": 48427,
+        "native_same_missing": 45895,
+        "same_still_missing_in_full_target_gate": 39634,
+        "native_adjacent_missing": 15325,
+        "adjacent_still_missing_in_full_target_gate": 14876,
+        "same_available_beyond_ten": 6261,
+        "both_required_rows_available_in_full_target_gate": 6510,
+        "extra_constructible_triangles": 6510,
+        "adjacent_available_beyond_ten": 449
+      }
+    },
+    "02": {
+      "ground": {
+        "native_missing_row_rejections": 147296,
+        "native_same_missing": 147145,
+        "same_available_beyond_ten": 64763,
+        "both_required_rows_available_in_full_target_gate": 64767,
+        "extra_constructible_triangles": 64767,
+        "same_still_missing_in_full_target_gate": 82382,
+        "native_adjacent_missing": 11167,
+        "adjacent_still_missing_in_full_target_gate": 10950,
+        "adjacent_available_beyond_ten": 217
+      },
+      "facade": {
+        "native_missing_row_rejections": 132953,
+        "native_same_missing": 127730,
+        "same_still_missing_in_full_target_gate": 61932,
+        "same_available_beyond_ten": 65798,
+        "both_required_rows_available_in_full_target_gate": 69593,
+        "extra_constructible_triangles": 69593,
+        "native_adjacent_missing": 20818,
+        "adjacent_still_missing_in_full_target_gate": 11939,
+        "adjacent_available_beyond_ten": 8879
+      }
+    },
+    "10": {
+      "ground": {
+        "native_missing_row_rejections": 9114,
+        "native_same_missing": 9079,
+        "same_still_missing_in_full_target_gate": 6034,
+        "same_available_beyond_ten": 3045,
+        "both_required_rows_available_in_full_target_gate": 3045,
+        "extra_constructible_triangles": 3045,
+        "native_adjacent_missing": 1009,
+        "adjacent_still_missing_in_full_target_gate": 990,
+        "adjacent_available_beyond_ten": 19
+      },
+      "facade": {
+        "native_missing_row_rejections": 8748,
+        "native_same_missing": 8460,
+        "same_still_missing_in_full_target_gate": 4090,
+        "same_available_beyond_ten": 4370,
+        "both_required_rows_available_in_full_target_gate": 4570,
+        "extra_constructible_triangles": 4570,
+        "native_adjacent_missing": 1215,
+        "adjacent_still_missing_in_full_target_gate": 757,
+        "adjacent_available_beyond_ten": 458
+      }
+    }
+  }
+}

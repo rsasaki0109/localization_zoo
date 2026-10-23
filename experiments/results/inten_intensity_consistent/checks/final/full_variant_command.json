@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/generate_full_variant_table.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-intensity-consistent-20261022/derived"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "6eec347234da057d3ff3062b76e6d793e7fb6400",
+  "started_unix": 1792668766.2796152,
+  "finished_unix": 1792668766.442135,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

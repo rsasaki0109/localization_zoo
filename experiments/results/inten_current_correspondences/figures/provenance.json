@@ -1,0 +1,14 @@
+{
+  "exit_code": 0,
+  "numerical_evidence_commit": "59925767",
+  "inputs": {
+    "experiments/results/inten_current_correspondences/baseline/archive.json": "b915f9cacca6208839afce6ad7924ca6ccc699ccb7336b7605a629ce94a54a75",
+    "experiments/results/inten_current_correspondences/motion/native.stdout": "892a99f99822b23e841027dc62468ba5705e28e5b8327553223c6208115cdd2f"
+  },
+  "matplotlib": "3.8.4",
+  "outputs": {
+    "scene204.png": "44ecf67aec53c285700487738bd55053f47511438d59e2869a46af71ea5fe952",
+    "motion204.png": "e1ae3c032b263317453e99760c13c22bac1fc32a52b176c4b419ef2b0982e4b6"
+  },
+  "scope": "Offline diagnostic plots, not estimator outputs, object annotations or full-sequence scores."
+}

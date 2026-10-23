@@ -1,0 +1,36 @@
+{
+  "path": "summary.json.xz",
+  "bytes": 25107672,
+  "sha256": "377cde9e0ea0d490a6dfce4b8e696a1198644982eab0aa15535020516cb290c5",
+  "stored_sha256": "e14f425da813db58b9d91a5c838c453472cac79e20e2c445f55af8284c1e4957",
+  "compression": "XZ/CRC64 preset9 EXTREME; complete original JSON bytes, no numerical normalization",
+  "worker_reports": {
+    "old": {
+      "bytes": 7075513,
+      "sha256": "03606d04af5db48f67719a3f81ecfd96a0b3ed4503c2c6d97c6ed572b07e8149",
+      "producer_sha256": "1fec42b678e9c7de0c88e65844d2f0aeb7e51d06a7d783b3b45bf170f5ab859c",
+      "native_archive_sha256": "46b05ae4f29e92a8e252fdbe36f488c859b5b1376225fbe251c5f966a3f9e438"
+    },
+    "01": {
+      "bytes": 4415818,
+      "sha256": "121ebf92981a7f14bc869f4111000414e19992ba38356a833943efecb575ba82",
+      "producer_sha256": "1fec42b678e9c7de0c88e65844d2f0aeb7e51d06a7d783b3b45bf170f5ab859c",
+      "native_archive_sha256": "383ba6314e2959da358aa9c48a451043d39d722f67141b8745cf0ead05e337ff"
+    },
+    "02": {
+      "bytes": 4852490,
+      "sha256": "90c6177307ddb5efddce1229a3fe14466fba3cf93eeb29403002bc2dff8731d2",
+      "producer_sha256": "1fec42b678e9c7de0c88e65844d2f0aeb7e51d06a7d783b3b45bf170f5ab859c",
+      "native_archive_sha256": "4dd7292f258746b30f00d7b5b262d9081362c1c946713d7eca367689d9c9b5e3"
+    },
+    "08": {
+      "bytes": 6915444,
+      "sha256": "deee239df9f5b8ed10768960293c7ed546a566e3abbb07fd43665fcbe1461211",
+      "producer_sha256": "1fec42b678e9c7de0c88e65844d2f0aeb7e51d06a7d783b3b45bf170f5ab859c",
+      "native_archive_sha256": "7556025bade38f6eb18c8b4dc8d4923d8560a35e09de0c7e3e2867c024db54eb"
+    }
+  },
+  "worker_roundtrip": "json.dumps(dict(group=group,result=report['groups'][group],producer_sha256=header['producer_sha256'],native_archive_sha256=header['native_archive_sha256']),indent=2,allow_nan=False).encode()+b'\\n'",
+  "pack_source_sha256": "b3de9110ce1fae0620738da4563abbffee95f39da3d071334d428614e93bc5e4",
+  "report_reader_sha256": "ae240690799665048cc76d020564a27d40428bcfff5455fa63accce26e1ccdf9"
+}

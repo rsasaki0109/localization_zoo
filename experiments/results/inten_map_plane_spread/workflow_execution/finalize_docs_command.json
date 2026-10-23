@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-s2m-prior/worktree/experiments/results/inten_map_plane_spread/finalize_docs.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "da4c325bfef98f313c9b713373ad5ba1f05d0aa4",
+  "started_unix": 1792544977.152538,
+  "finished_unix": 1792545003.7169907,
+  "exit_code": 0
+}

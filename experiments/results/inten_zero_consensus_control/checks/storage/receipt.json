@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python3",
+    "/workspace/localization-env/inten-zero-consensus-control/create_worktree.py"
+  ],
+  "cwd": "/workspace",
+  "exit_code": 0,
+  "proof_sha256": "94a3d77d319a8625ef77c402a3aa2ffdb82bf7b8bdd1530ab3e5a795789a3577",
+  "scope": "Every old logical path retained. Only hash-verified committed immutable evidence hardlinked into the new worktree; every source/build/index/library/executable kept separate."
+}

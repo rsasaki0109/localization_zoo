@@ -1,0 +1,21 @@
+[codex/inten-map-plane-spread 9e040681] Freeze uniform full KITTI plane-spread comparison and exact original native producer
+ 17 files changed, 1262 insertions(+)
+ create mode 100644 experiments/inten_loam_kitti_seq_00_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_01_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_02_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_03_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_04_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_05_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_06_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_07_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_08_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_09_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/inten_loam_kitti_seq_10_full_map_plane_spread_matrix.json
+ create mode 100644 experiments/results/inten_map_plane_spread/binaries.json
+ create mode 100644 experiments/results/inten_map_plane_spread/capture_runtime.py
+ create mode 100644 experiments/results/inten_map_plane_spread/collect.py
+ create mode 100644 experiments/results/inten_map_plane_spread/producer_provenance.json
+ create mode 100644 experiments/results/inten_map_plane_spread/protocol.json
+ create mode 100644 experiments/results/inten_map_plane_spread/validate_setup.py
+setup 0
+collector 0

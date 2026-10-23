@@ -1,0 +1,284 @@
+{
+  "exit_code": 0,
+  "scope": "Reproduce identical normal prefix with two independent native instances per selected frame. Reference frame normal with passive trace; second uses existing forced diagnostic at the actual S2M input, same native map history, stops after frame. Require first summed class system/counts and full S2M output to agree with reference, and continuous reference poses/stages to agree with archived PR159. No GT enters estimator; optional GT relative is offline analysis only. Forced endpoint is not accuracy. Do not select an intervention until controls are committed.",
+  "trace_max_absolute_differences": {
+    "H": 5.066394805908203e-07,
+    "g": 7.275957614183426e-12,
+    "output": 0.0,
+    "continuous": 0.0
+  },
+  "cases": [
+    {
+      "frame": 190,
+      "classes": [
+        "edge",
+        "ground",
+        "facade",
+        "intensity"
+      ],
+      "class_pairs": [
+        41,
+        700,
+        432,
+        96
+      ],
+      "class_first_forward_percent": [
+        0.05530931425706772,
+        -0.2799651359116854,
+        0.4669672726565144,
+        -0.01767085795749825
+      ],
+      "first_forward_percent": 0.22464059304439843,
+      "data_translation_eigenvalues": [
+        51.818113804465604,
+        196.97009890300623,
+        798.6342474971837
+      ],
+      "data_min_over_max": 0.0648834106061152,
+      "hypothetical_ratio03_prior_norm": 0.0,
+      "hypothetical_ratio03_prior_forward_information": 0.0,
+      "input_length_ratio": 0.9907667691256572,
+      "output_length_ratio": 0.9874327178279108,
+      "s2s_input_length_ratio": 1.0011581809830188,
+      "s2s_output_length_ratio": 0.9907667691256579
+    },
+    {
+      "frame": 200,
+      "classes": [
+        "edge",
+        "ground",
+        "facade",
+        "intensity"
+      ],
+      "class_pairs": [
+        52,
+        735,
+        626,
+        105
+      ],
+      "class_first_forward_percent": [
+        -0.21815993623954202,
+        -0.14074003894854406,
+        -0.9045415355378817,
+        -0.004095933272247483
+      ],
+      "first_forward_percent": -1.2675374439982152,
+      "data_translation_eigenvalues": [
+        48.0177491296873,
+        394.1064793816633,
+        736.2115002178707
+      ],
+      "data_min_over_max": 0.06522276426743832,
+      "hypothetical_ratio03_prior_norm": 0.0,
+      "hypothetical_ratio03_prior_forward_information": 0.0,
+      "input_length_ratio": 0.9752412740164733,
+      "output_length_ratio": 0.9289451730696631,
+      "s2s_input_length_ratio": 1.0202456499755115,
+      "s2s_output_length_ratio": 0.9752412740164208
+    },
+    {
+      "frame": 202,
+      "classes": [
+        "edge",
+        "ground",
+        "facade",
+        "intensity"
+      ],
+      "class_pairs": [
+        75,
+        782,
+        693,
+        114
+      ],
+      "class_first_forward_percent": [
+        -0.5850336226988807,
+        0.2634672742607496,
+        1.1287133097569095,
+        -0.028682680252408718
+      ],
+      "first_forward_percent": 0.7784642810663698,
+      "data_translation_eigenvalues": [
+        34.09699534022671,
+        492.4740302401148,
+        792.4329861354751
+      ],
+      "data_min_over_max": 0.04302823826972475,
+      "hypothetical_ratio03_prior_norm": 0.0,
+      "hypothetical_ratio03_prior_forward_information": 0.0,
+      "input_length_ratio": 0.7485976383192674,
+      "output_length_ratio": 0.9493471507134362,
+      "s2s_input_length_ratio": 0.9363259862772478,
+      "s2s_output_length_ratio": 0.7485976383192466
+    },
+    {
+      "frame": 203,
+      "classes": [
+        "edge",
+        "ground",
+        "facade",
+        "intensity"
+      ],
+      "class_pairs": [
+        47,
+        785,
+        644,
+        101
+      ],
+      "class_first_forward_percent": [
+        0.16263487051641806,
+        -0.04341412654995951,
+        -0.39955201525518996,
+        0.01024839759065395
+      ],
+      "first_forward_percent": -0.2700828736980775,
+      "data_translation_eigenvalues": [
+        65.87312084511274,
+        428.3720278813503,
+        759.3970222757725
+      ],
+      "data_min_over_max": 0.08674398096492816,
+      "hypothetical_ratio03_prior_norm": 0.0,
+      "hypothetical_ratio03_prior_forward_information": 0.0,
+      "input_length_ratio": 0.9187304412846516,
+      "output_length_ratio": 0.9139169004799743,
+      "s2s_input_length_ratio": 0.9479419253899355,
+      "s2s_output_length_ratio": 0.9187304412846722
+    },
+    {
+      "frame": 204,
+      "classes": [
+        "edge",
+        "ground",
+        "facade",
+        "intensity"
+      ],
+      "class_pairs": [
+        56,
+        806,
+        681,
+        118
+      ],
+      "class_first_forward_percent": [
+        -0.6069501280184992,
+        -0.24487042036952356,
+        -5.10696227804645,
+        -0.036492106732315524
+      ],
+      "first_forward_percent": -5.9952749331667885,
+      "data_translation_eigenvalues": [
+        38.55207152606381,
+        466.5679563491812,
+        796.8848927616729
+      ],
+      "data_min_over_max": 0.048378469558455685,
+      "hypothetical_ratio03_prior_norm": 0.0,
+      "hypothetical_ratio03_prior_forward_information": 0.0,
+      "input_length_ratio": 0.607064436903435,
+      "output_length_ratio": 0.42281078791765636,
+      "s2s_input_length_ratio": 0.9153582246641794,
+      "s2s_output_length_ratio": 0.6070644369033714
+    },
+    {
+      "frame": 205,
+      "classes": [
+        "edge",
+        "ground",
+        "facade",
+        "intensity"
+      ],
+      "class_pairs": [
+        75,
+        811,
+        682,
+        136
+      ],
+      "class_first_forward_percent": [
+        0.0444735136946876,
+        0.012636825765562713,
+        -0.15898606921084973,
+        -0.0010621910392962011
+      ],
+      "first_forward_percent": -0.10293792078989562,
+      "data_translation_eigenvalues": [
+        75.7239418562861,
+        484.64225212497206,
+        822.7695534338081
+      ],
+      "data_min_over_max": 0.09203542053817394,
+      "hypothetical_ratio03_prior_norm": 0.0,
+      "hypothetical_ratio03_prior_forward_information": 0.0,
+      "input_length_ratio": 0.37244568780238063,
+      "output_length_ratio": 0.3737197699829292,
+      "s2s_input_length_ratio": 0.4207404393686173,
+      "s2s_output_length_ratio": 0.37244568780235565
+    },
+    {
+      "frame": 247,
+      "classes": [
+        "edge",
+        "ground",
+        "facade",
+        "intensity"
+      ],
+      "class_pairs": [
+        86,
+        810,
+        414,
+        220
+      ],
+      "class_first_forward_percent": [
+        0.4178597717604047,
+        0.07652245883855685,
+        0.7494626630395682,
+        -0.09821843828363491
+      ],
+      "first_forward_percent": 1.1456264553548947,
+      "data_translation_eigenvalues": [
+        20.286546402507593,
+        317.2396158006675,
+        786.383796804141
+      ],
+      "data_min_over_max": 0.02579725890201705,
+      "hypothetical_ratio03_prior_norm": 3.304967501616634,
+      "hypothetical_ratio03_prior_forward_information": 3.3007203312635407,
+      "input_length_ratio": 0.5227273354914126,
+      "output_length_ratio": 0.6019109704851646,
+      "s2s_input_length_ratio": 0.13833175803071188,
+      "s2s_output_length_ratio": 0.5227273354914462
+    },
+    {
+      "frame": 433,
+      "classes": [
+        "edge",
+        "ground",
+        "facade",
+        "intensity"
+      ],
+      "class_pairs": [
+        79,
+        795,
+        507,
+        134
+      ],
+      "class_first_forward_percent": [
+        0.6309151561129709,
+        -0.31699311563916993,
+        -0.3735599440502767,
+        0.002701482851560397
+      ],
+      "first_forward_percent": -0.05693642072491535,
+      "data_translation_eigenvalues": [
+        24.65054357885947,
+        424.25981373427436,
+        814.6887169275044
+      ],
+      "data_min_over_max": 0.030257622410466027,
+      "hypothetical_ratio03_prior_norm": 0.0,
+      "hypothetical_ratio03_prior_forward_information": 0.0,
+      "input_length_ratio": 0.9264975832609396,
+      "output_length_ratio": 0.9262964852875946,
+      "s2s_input_length_ratio": 0.9775132088518002,
+      "s2s_output_length_ratio": 0.9264975832609665
+    }
+  ]
+}

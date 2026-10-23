@@ -1,0 +1,42 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "DOCKER_HOST",
+    "-u",
+    "DOCKER_CONTEXT",
+    "-u",
+    "DOCKER_TLS",
+    "-u",
+    "DOCKER_TLS_VERIFY",
+    "-u",
+    "DOCKER_CERT_PATH",
+    "docker",
+    "--host=unix:///var/run/docker.sock",
+    "exec",
+    "-i",
+    "--user",
+    "1000:1000",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "-w",
+    "/workspace/localization-env/inten-fixed-rotation/worktree",
+    "localization-zoo-dev",
+    "/workspace/localization-env/inten-fixed-rotation/probe",
+    "/workspace/localization-env/inten-fixed-rotation/features.txt",
+    "/workspace/localization-env/inten-fixed-rotation/stage/residuals.jsonl"
+  ],
+  "cwd": "/workspace/localization-env/inten-fixed-rotation/worktree",
+  "source_commit": "99d0f0fc0d70c200fed953816c309d86c47ca8ba",
+  "started_unix": 1792581624.9947608,
+  "finished_unix": 1792581627.6818547,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": "d5a7ca50bc4fc508fadaef01b9216c29aa5265dbded05aed521fe295d3fce736"
+}

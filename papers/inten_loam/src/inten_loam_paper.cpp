@@ -2,11 +2,19 @@
 
 #include <Eigen/Dense>
 #include "inten_loam/detail/feature_tree.h"
+#include "inten_loam/detail/ground_pca.h"
+#include "inten_loam/detail/mapped_motion_prior.h"
+#include "inten_loam/detail/plane_row_support.h"
+#include "inten_loam/detail/translation_prior.h"
+#include "inten_loam/detail/s2s_consensus.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <limits>
 #include <numeric>
+#include <mutex>
+#include <shared_mutex>
 #include <stdexcept>
 
 namespace localization_zoo {
@@ -35,11 +43,13 @@ struct System {
   int n = 0;
   bool track_residual = false;
   double weighted_squared_residual = 0.0;
-  void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr) {
+  void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr,
+           bool cauchy = false) {
     Vec6 J;
     J.head<3>() = a;
     J.tail<3>() = x.cross(a);
-    const double w = std::abs(r) <= huber ? 1.0 : huber / std::abs(r);
+    const double w = cauchy ? 1.0 / (1.0 + (r / huber) * (r / huber))
+                            : (std::abs(r) <= huber ? 1.0 : huber / std::abs(r));
     H += w * J * J.transpose();
     g += w * J * r;
     ++n;
@@ -82,14 +92,14 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
                         const Eigen::Matrix3d& R, const Eigen::Vector3d& t,
                         const Query& query, double huber, bool accelerated,
                         System* system, System* also,
-                        std::vector<int>* indices, std::vector<float>* distances) {
+                        std::vector<int>* indices, std::vector<float>* distances, bool cauchy = false) {
   if (!accelerated) {
     for (const auto& f : features) {
       const Eigen::Vector3d x = R * f.p + t;
       Eigen::Vector3d gradient;
       double residual;
       if (query(f, x, &gradient, &residual, indices, distances))
-        system->add(x, gradient, residual, huber, also);
+        system->add(x, gradient, residual, huber, also, cauchy);
     }
     return;
   }
@@ -111,7 +121,7 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
     }
   }
   for (const auto& value : values)
-    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also);
+    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also, cauchy);
 }
 
 void bspline(double t, double B[4], double dB[4]) {
@@ -155,6 +165,7 @@ struct InTenLoamPaper::ClassSystems {
 struct InTenLoamPaper::Index {
   Tree ground, facade, edge, all;
   IntensityGrid intensity;
+  std::unique_ptr<detail::PlaneRowSupport> ground_rows, facade_rows;
 };
 
 struct InTenLoamPaper::Map {
@@ -166,7 +177,15 @@ struct InTenLoamPaper::Map {
 };
 
 InTenLoamPaper::InTenLoamPaper(const InTenLoamPaperParams& params)
-    : params_(params), map_(std::make_shared<Map>()) {}
+    : params_(params), map_(std::make_shared<Map>()) {
+  if (params_.s2s_intensity_normalized && params_.s2s_intensity_consistent)
+    throw std::invalid_argument("S2S normalized and consistent intensity modes are mutually exclusive");
+  if (params_.s2s_facade_cauchy && (!std::isfinite(params_.huber) || params_.huber <= 0.0))
+    throw std::invalid_argument("Cauchy facade influence requires a finite positive Huber scale");
+  if (!std::isfinite(params_.s2s_translation_prior_ratio) ||
+      params_.s2s_translation_prior_ratio < 0.0 || params_.s2s_translation_prior_ratio > 1.0)
+    throw std::invalid_argument("s2s_translation_prior_ratio must be finite and in [0,1]");
+}
 
 // ---------------------------------------------------------------------------
 // FEF
@@ -442,8 +461,26 @@ PaperFrame InTenLoamPaper::extractFeatures(const std::vector<Eigen::Vector3d>& p
 // Intensity field (eq. 6)
 // ---------------------------------------------------------------------------
 
-void InTenLoamPaper::IntensityGrid::build(const std::vector<PaperFeature>& cloud, double knot) {
+struct InTenLoamPaper::IntensityGrid::CompletionCache {
+  struct Controls {
+    std::array<double, 64> values{};
+    bool valid = false;
+  };
+  std::shared_mutex mutex;
+  std::unordered_map<Key, Controls, KeyHash> cells;
+};
+
+void InTenLoamPaper::IntensityGrid::build(const std::vector<PaperFeature>& cloud, double knot,
+                                         bool normalized, bool consistent) {
+  if (normalized && consistent)
+    throw std::invalid_argument("S2S normalized and consistent intensity modes are mutually exclusive");
   knot_ = knot;
+  normalized_ = normalized;
+  consistent_ = consistent;
+  // Copies can share the old immutable field's cache, but rebuilding either
+  // grid must create a new identity. Concurrent eval is supported after build;
+  // concurrent build/eval on the same object is not.
+  completion_cache_ = consistent ? std::make_shared<CompletionCache>() : nullptr;
   nodes_.clear();
   nodes_.reserve(cloud.size());
   for (const auto& f : cloud) {
@@ -455,8 +492,81 @@ void InTenLoamPaper::IntensityGrid::build(const std::vector<PaperFeature>& cloud
   }
 }
 
+bool InTenLoamPaper::IntensityGrid::evalConsistent(const Eigen::Vector3d& x, double* value,
+                                                  Eigen::Vector3d* gradient) const {
+  const Eigen::Vector3d s = x / knot_;
+  const Key cell{static_cast<int>(std::floor(s.x())), static_cast<int>(std::floor(s.y())),
+                 static_cast<int>(std::floor(s.z()))};
+  CompletionCache::Controls controls;
+  bool cached = false;
+  {
+    std::shared_lock<std::shared_mutex> lock(completion_cache_->mutex);
+    const auto it = completion_cache_->cells.find(cell);
+    if (it != completion_cache_->cells.end()) {
+      controls = it->second;
+      cached = true;
+    }
+  }
+  if (!cached) {
+    int observed = 0;
+    for (int i = 0; i < 4; ++i)
+      for (int j = 0; j < 4; ++j)
+        for (int k = 0; k < 4; ++k)
+          observed += nodes_.count(Key{cell.x+i-1, cell.y+j-1, cell.z+k-1});
+    controls.valid = observed >= 4;  // Preserve the original coverage rule.
+    if (controls.valid)
+      for (int i = 0; i < 4; ++i)
+        for (int j = 0; j < 4; ++j)
+          for (int k = 0; k < 4; ++k) {
+            const Key node{cell.x+i-1, cell.y+j-1, cell.z+k-1};
+            const auto it = nodes_.find(node);
+            double mean;
+            if (it != nodes_.end()) {
+              mean = it->second.first / it->second.second;
+            } else {
+              double sum = 0;
+              int count = 0;
+              // Original observations only; no recursively filled controls.
+              // Radius three follows from the four-control cubic support.
+              for (int a = -3; a <= 3; ++a)
+                for (int b = -3; b <= 3; ++b)
+                  for (int c = -3; c <= 3; ++c) {
+                    const auto neighbor = nodes_.find(Key{node.x+a, node.y+b, node.z+c});
+                    if (neighbor != nodes_.end()) {
+                      sum += neighbor->second.first / neighbor->second.second;
+                      ++count;
+                    }
+                  }
+              // Every original support node is in this neighborhood, so an
+              // accepted cell guarantees at least four observed neighbors.
+              mean = sum / count;
+            }
+            controls.values[(i*4+j)*4+k] = mean;
+          }
+    std::unique_lock<std::shared_mutex> lock(completion_cache_->mutex);
+    controls = completion_cache_->cells.emplace(cell, controls).first->second;
+  }
+  if (!controls.valid) return false;
+  const Eigen::Vector3d t = s - Eigen::Vector3d(cell.x, cell.y, cell.z);
+  double Bx[4], By[4], Bz[4], dBx[4], dBy[4], dBz[4];
+  bspline(t.x(), Bx, dBx); bspline(t.y(), By, dBy); bspline(t.z(), Bz, dBz);
+  double val = 0;
+  Eigen::Vector3d grad = Eigen::Vector3d::Zero();
+  for (int i = 0; i < 4; ++i)
+    for (int j = 0; j < 4; ++j)
+      for (int k = 0; k < 4; ++k) {
+        const double cv = controls.values[(i*4+j)*4+k];
+        val += Bx[i]*By[j]*Bz[k]*cv;
+        grad += cv * Eigen::Vector3d(dBx[i]*By[j]*Bz[k], Bx[i]*dBy[j]*Bz[k], Bx[i]*By[j]*dBz[k]);
+      }
+  *value = val;
+  *gradient = grad / knot_;
+  return std::isfinite(*value) && gradient->allFinite();
+}
+
 bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value,
                                          Eigen::Vector3d* gradient) const {
+  if (consistent_) return evalConsistent(x, value, gradient);
   const Eigen::Vector3d s = x / knot_;
   const Eigen::Vector3i c0(static_cast<int>(std::floor(s.x())), static_cast<int>(std::floor(s.y())),
                            static_cast<int>(std::floor(s.z())));
@@ -483,6 +593,50 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
   bspline(t.x(), Bx, dBx);
   bspline(t.y(), By, dBy);
   bspline(t.z(), Bz, dBz);
+  if (normalized_) {
+    // If every occupied node shares an axis index, that basis factor
+    // cancels exactly in numerator and denominator. Cancel before dividing:
+    // near its zero, a quotient of tiny numbers loses gradient precision.
+    int lower[3] = {4, 4, 4}, upper[3] = {-1, -1, -1};
+    for (int i = 0; i < 4; ++i)
+      for (int j = 0; j < 4; ++j)
+        for (int k = 0; k < 4; ++k)
+          if (seen[(i * 4 + j) * 4 + k]) {
+            const int index[3] = {i, j, k};
+            for (int a = 0; a < 3; ++a) {
+              lower[a] = std::min(lower[a], index[a]);
+              upper[a] = std::max(upper[a], index[a]);
+            }
+          }
+    double* basis[3] = {Bx, By, Bz};
+    double* derivative[3] = {dBx, dBy, dBz};
+    for (int a = 0; a < 3; ++a)
+      if (lower[a] == upper[a]) {
+        if (!(basis[a][lower[a]] > 0.0)) return false;
+        basis[a][lower[a]] = 1.0;
+        derivative[a][lower[a]] = 0.0;
+      }
+    double numerator = 0.0, weight = 0.0;
+    Eigen::Vector3d numerator_gradient = Eigen::Vector3d::Zero();
+    Eigen::Vector3d weight_gradient = Eigen::Vector3d::Zero();
+    for (int i = 0; i < 4; ++i)
+      for (int j = 0; j < 4; ++j)
+        for (int k = 0; k < 4; ++k) {
+          const int n = (i * 4 + j) * 4 + k;
+          if (!seen[n]) continue;
+          const double w = Bx[i] * By[j] * Bz[k];
+          const Eigen::Vector3d dw(dBx[i] * By[j] * Bz[k],
+                                   Bx[i] * dBy[j] * Bz[k], Bx[i] * By[j] * dBz[k]);
+          numerator += w * c[n];
+          weight += w;
+          numerator_gradient += dw * c[n];
+          weight_gradient += dw;
+        }
+    if (!(weight > 0.0)) return false;
+    *value = numerator / weight;
+    *gradient = (numerator_gradient - *value * weight_gradient) / (weight * knot_);
+    return std::isfinite(*value) && gradient->allFinite();
+  }
   double val = 0;
   Eigen::Vector3d grad = Eigen::Vector3d::Zero();
   for (int i = 0; i < 4; ++i)
@@ -503,10 +657,13 @@ bool InTenLoamPaper::IntensityGrid::eval(const Eigen::Vector3d& x, double* value
 // ---------------------------------------------------------------------------
 
 int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSystems* first,
-                             PaperSolverTrace* trace) const {
+                             PaperSolverTrace* trace, const std::vector<char>* facade_dynamic,
+                             bool translation_only) const {
   const Index& prev = *prev_;
   const double gate = params_.s2s_gate_sq;
   const double huber = params_.huber;
+  const Eigen::Vector3d prediction = T->block<3, 1>(0, 3);
+  Eigen::Matrix3d prior_information = Eigen::Matrix3d::Zero();
   std::vector<int> idx;
   std::vector<float> d2;
   int pairs = 0;
@@ -548,8 +705,11 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
       const int before = sys.n;
       const auto& src = cls == 0 ? curr.ground : curr.facade;
       const Tree& tree = cls == 0 ? prev.ground : prev.facade;
-      auto plane = [&](const PaperFeature&, const Eigen::Vector3d& x, Eigen::Vector3d* a,
+      auto plane = [&](const PaperFeature& source, const Eigen::Vector3d& x, Eigen::Vector3d* a,
                        double* residual, std::vector<int>* indices, std::vector<float>* distances) {
+        if (cls == 1 && facade_dynamic && source.cluster >= 0 &&
+            static_cast<size_t>(source.cluster) < facade_dynamic->size() &&
+            (*facade_dynamic)[static_cast<size_t>(source.cluster)]) return false;
         const int n = tree.knn(x, 10, indices, distances);
         const auto& ids = *indices;
         const auto& ds = *distances;
@@ -561,16 +721,23 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
           if (dr == 0 && same < 0) same = ids[static_cast<size_t>(k)];
           if (dr >= 1 && dr <= 2 && adj < 0) adj = ids[static_cast<size_t>(k)];
         }
+        if (params_.s2s_row_support && (same < 0 || adj < 0)) {
+          const auto& rows = cls == 0 ? prev.ground_rows : prev.facade_rows;
+          rows->complete(tree.pts, x, ids[0], gate, &same, &adj);
+        }
         if (same < 0 || adj < 0) return false;
         Eigen::Vector3d nrm = (qj.p - tree.pts[static_cast<size_t>(adj)].p)
                     .cross(qj.p - tree.pts[static_cast<size_t>(same)].p);
         if (nrm.norm() < 1e-6) return false;
         nrm.normalize();
+        if ((cls == 0 && params_.s2s_ground_pca) || (cls == 1 && params_.s2s_facade_pca))
+          detail::groundPcaNormal(tree.pts, ids, ds, gate, &nrm);
         *a = nrm;
         *residual = nrm.dot(x - qj.p);
         return true;
       };
-      accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2);
+      accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2,
+                         cls == 1 && params_.s2s_facade_cauchy);
       counts[1 + cls] = sys.n - before;
     }
     // Reflectors (eq. 7) against the previous scan intensity field.
@@ -590,10 +757,34 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
     }
     pairs = sys.n;
     counts[3] = sys.n - before_intensity;
+    if (params_.s2s_translation_prior_ratio > 0.0 && sys.n >= 30) {
+      if (it == 0) {
+        prior_information = detail::translationPriorInformation(sys.H, t, params_.s2s_translation_prior_ratio);
+        if (trace) trace->translation_prior_information = prior_information;
+      }
+      const double cost = detail::addTranslationPrior(prior_information, prediction, t, &sys.H, &sys.g);
+      if (sys.track_residual) sys.weighted_squared_residual += cost;
+    }
     observeSystem(trace, sys, *T, counts);
     if (sys.n < 30) {
       if (trace) trace->stop = PaperSolverStop::InsufficientPairs;
       return sys.n;
+    }
+    if (translation_only) {
+      Vec6 delta = Vec6::Zero();
+      delta.head<3>() = (sys.H.topLeftCorner<3, 3>() +
+          1e-6 * Eigen::Matrix3d::Identity()).ldlt().solve(-sys.g.head<3>());
+      observeStep(trace, delta);
+      if (!delta.allFinite()) {
+        if (trace) trace->stop = PaperSolverStop::NonFiniteStep;
+        return 0;
+      }
+      T->block<3, 1>(0, 3) += delta.head<3>();
+      if (delta.norm() < params_.convergence) {
+        if (trace) trace->stop = PaperSolverStop::Converged;
+        break;
+      }
+      continue;
     }
     const Vec6 delta = (sys.H + 1e-6 * Mat6::Identity()).ldlt().solve(-sys.g);
     observeStep(trace, delta);
@@ -830,6 +1021,12 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     ix->facade.pts = f.facade;
     ix->edge.pts = f.edge;
     ix->all.pts = f.all;
+    if (params_.s2s_row_support) {
+      ix->ground_rows = std::make_unique<detail::PlaneRowSupport>();
+      ix->facade_rows = std::make_unique<detail::PlaneRowSupport>();
+      ix->ground_rows->build(f.ground);
+      ix->facade_rows->build(f.facade);
+    }
     // all.pts is rendered by DOR, never searched. The legacy path also
     // builds its tree; the opt-in path avoids that unused index entirely.
 #pragma omp parallel sections if(params_.accelerated)
@@ -843,7 +1040,9 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
 #pragma omp section
       {
         if (!params_.accelerated) ix->all.build();
-        if (params_.use_intensity) ix->intensity.build(f.all, params_.intensity_knot);
+        if (params_.use_intensity)
+          ix->intensity.build(f.all, params_.intensity_knot, params_.s2s_intensity_normalized,
+                              params_.s2s_intensity_consistent);
       }
     }
       return ix;
@@ -899,7 +1098,18 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     return result;
   }
 
-  Eigen::Matrix4d rel = last_rel_;
+  Eigen::Matrix4d rel = params_.s2s_mapped_prior && params_.use_mapping ? last_mapped_rel_ : last_rel_;
+  std::vector<char> facade_dynamic;
+  if (params_.s2s_predicted_dor_facade && params_.use_mapping && params_.use_dor && !forced) {
+    const Eigen::Matrix4d prediction = drift_ * (odom_ * rel);
+    facade_dynamic = dynamicMask(frame, prediction);
+    if (trace) {
+      trace->s2s_dor_called = true;
+      for (const auto& f : frame.facade)
+        if (f.cluster >= 0 && static_cast<size_t>(f.cluster) < facade_dynamic.size() &&
+            facade_dynamic[static_cast<size_t>(f.cluster)]) ++trace->s2s_dor_masked_facades;
+    }
+  }
   if (forced) {
     // S2S from the forced relative motion; its normal equations there.
     rel = prev_pose_.inverse() * *diag->forced_pose;
@@ -916,11 +1126,49 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
       trace->s2s.called = true;
       trace->s2s.input = rel;
     }
-    result.s2s_pairs = solveS2S(frame, &rel, nullptr, trace ? &trace->s2s : nullptr);
+    // Preserve the original joint solve, including its unmasked estimated R.
+    const Eigen::Matrix4d consensus_seed = rel;
+    result.s2s_pairs = solveS2S(frame, &rel, nullptr, trace ? &trace->s2s : nullptr,
+                              facade_dynamic.empty() ? nullptr : &facade_dynamic);
     if (trace) {
       trace->s2s.output = rel;
       trace->s2s.returned_pairs = result.s2s_pairs;
       trace->s2s_fallback = result.s2s_pairs < 30;
+    }
+    if (params_.s2s_geometry_consensus && result.s2s_pairs >= 30 && rel.allFinite()) {
+      auto consensus = detail::selectTranslationConsensus(detail::clusterTranslationProfiles(
+          prev_->all.pts, frame, consensus_seed, params_.accelerated));
+      consensus.seed = consensus_seed;
+      consensus.original_estimate = rel;
+      if (consensus.usable) {
+        Eigen::Matrix4d refined = consensus_seed;
+        Eigen::Vector3d direction = consensus_seed.block<3, 1>(0, 3);
+        if (direction.norm() > 0.) direction.normalize();
+        refined.block<3, 1>(0, 3) += ((consensus.best_index - 60) * .05) * direction;
+        refined.block<3, 3>(0, 0) = rel.block<3, 3>(0, 0);
+        std::vector<char> mask = facade_dynamic;
+        for (int cluster : consensus.excluded_clusters) {
+          if (static_cast<size_t>(cluster) >= mask.size()) mask.resize(cluster + 1, false);
+          mask[cluster] = true;
+        }
+        auto* observation = trace ? &consensus.refinement : nullptr;
+        if (observation) {
+          observation->called = true;
+          observation->input = refined;
+        }
+        const int count = solveS2S(frame, &refined, nullptr, observation,
+                                  mask.empty() ? nullptr : &mask, true);
+        if (observation) {
+          observation->output = refined;
+          observation->returned_pairs = count;
+        }
+        if (count >= 30 && refined.allFinite()) {
+          rel = refined;
+          result.s2s_pairs = count;
+          consensus.applied = true;
+        }
+      }
+      if (trace) trace->consensus = std::move(consensus);
     }
     if (result.s2s_pairs < 30) rel = last_rel_;
   }
@@ -981,6 +1229,12 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     drift_ = pose_ * odom_.inverse();
   }
   prev_ = index(frame);
+  // Only the next normal S2S seed changes. Keep the accepted S2S cache for
+  // the existing low-count fallback and deskew, including after rejection.
+  if (params_.s2s_mapped_prior && params_.use_mapping && !forced)
+    last_mapped_rel_ = detail::mappedMotionPrior(prev_pose_, pose_);
+  else
+    last_mapped_rel_ = last_rel_;
   prev_pose_ = pose_;
   ++frame_;
   result.pose = pose_;

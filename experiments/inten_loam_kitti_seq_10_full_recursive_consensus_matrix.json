@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_10_full_recursive_consensus",
+    "title": "InTEn-LOAM KITTI 10: recursive fixed-rotation geometry consensus",
+    "question": "Does the frozen consensus/fixed-estimated-rotation mechanism improve complete recursive trajectories?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed current reference",
+      "design_style": "reference",
+      "intent": "One new default-off Boolean s2s_geometry_consensus. Rule/parameters inherited unchanged from committed166 local factorial0e2ab939, which passes a necessary local gate. No new thresholds, per-sequence winner, GT/ROI input or retuning. Original profile07, diagnosis00, inherited DiLO01 prior0.03, and all past KITTI observations are development; no independent held-out claim.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0",
+        "--inten-loam-paper-set",
+        "s2s_facade_cauchy=0",
+        "--inten-loam-paper-set",
+        "s2s_geometry_consensus=0"
+      ]
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in fixed-estimated-rotation geometric translation consensus",
+      "design_style": "experimental",
+      "intent": "One new default-off Boolean s2s_geometry_consensus. Rule/parameters inherited unchanged from committed166 local factorial0e2ab939, which passes a necessary local gate. No new thresholds, per-sequence winner, GT/ROI input or retuning. Original profile07, diagnosis00, inherited DiLO01 prior0.03, and all past KITTI observations are development; no independent held-out claim.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0",
+        "--inten-loam-paper-set",
+        "s2s_facade_cauchy=0",
+        "--inten-loam-paper-set",
+        "s2s_geometry_consensus=1"
+      ]
+    }
+  ]
+}

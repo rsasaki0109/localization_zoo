@@ -1,0 +1,14 @@
+{
+  "files": {
+    "report.json": {
+      "original_path": "/workspace/localization-env/inten-translation-consensus/analysis/report.json",
+      "bytes": 42861,
+      "sha256": "2b089874ea7f0150f2fb13da34939641f797f31f02494072d4398126f3ecd5eb",
+      "storage": "verbatim",
+      "path": "report.json",
+      "stored_sha256": "2b089874ea7f0150f2fb13da34939641f797f31f02494072d4398126f3ecd5eb"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

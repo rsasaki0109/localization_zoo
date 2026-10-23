@@ -1,0 +1,19 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "e4c1adf3762f7c844846b93464044d2c80d47141",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-ground-pca/worktree",
+  "source_commit": "4c2fce1f5b9b2c5dd8fc68f04352d1a51fe93a81",
+  "started_unix": 1792513716.1113236,
+  "finished_unix": 1792513716.3086243,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

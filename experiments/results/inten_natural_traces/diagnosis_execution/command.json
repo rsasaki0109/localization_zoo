@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-natural-traces/worktree/experiments/results/inten_natural_traces/diagnose.py",
+    "--output-dir",
+    "/workspace/localization-env/inten-natural-traces/worktree/experiments/results/inten_natural_traces/diagnosis"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "source_commit": "83f63ebf0b372c5e75f986e62fa893a799289fb2",
+  "started_unix": 1792459291.5075746,
+  "finished_unix": 1792459306.769585,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-prediction-dor/worktree/experiments/results/inten_prediction_dor/recover_final_checks.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "source_commit": "16a802939cb526c88ebf096e91b3a3b3b1276f51",
+  "original_relative_path": "baseline/push.stderr",
+  "original_private_path": "/workspace/localization-env/inten-prediction-dor/backups/baseline/push.stderr",
+  "original_sha256": "d5c8ddf4fc772b718788e7e2303c253b01c367ee42e483464cc93233fc7a22c6",
+  "original_bytes": 330,
+  "gzip_path": "experiments/results/inten_prediction_dor/backup_execution/baseline/push.stderr.gz",
+  "gzip_sha256": "aab255ed15a522d6f0537705faf81d53fb78447b2c557215e2115114ccb25398",
+  "byte_roundtrip_equal": true,
+  "original_private_bytes_preserved": true,
+  "previous_archive_sha256": "c2fd818ab0656b3810c49096328ce8e70b75ef750ea99537e1176c10200923bf",
+  "new_archive_sha256": "1696b0872eff5d732c59416e055ac352d6a6dd44eb09d1d1b7f635bf732666d3",
+  "policy": "Change only the storage representation of the original GitHub push stderr. Preserve every trailing space and the original failure. No native run, accuracy result, input, manifest, configuration or numerical report changes."
+}

@@ -1,0 +1,65 @@
+{
+  "exit_code": 0,
+  "clock_only_restored": [
+    {
+      "path": "docs/decisions.md",
+      "original_sha256": "0923ec935aa32e5b1549ab54900a211efdf42809786cbcd672e0b60891c49364",
+      "regenerated_sha256": "c9992a480224d40e659532f95af17491141beaedf0f5fe1067ed8ecd69402e31",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/experiments.md",
+      "original_sha256": "3777c5a9d37a4e2ae73873197a79c9491a2f7a88ee96c6372413770ef7a4236f",
+      "regenerated_sha256": "b6ebb08f426d3349e0edf05054c4794a85721b1c1316a7808d37e8f81c209636",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/interfaces.md",
+      "original_sha256": "b69efa41046b8175e332c5e8404cd3cbe7fb314338459110a1d2717b6dbe19aa",
+      "regenerated_sha256": "94c1e5faa6d000d97440fe65dba2176aa5a42e1ef2cfa051bc7b4e2a42d6da7d",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/paper_assets.md",
+      "original_sha256": "3b4fd41da7ea12de9f99fc8d33fbbbc0fbe9cb60406ed6e1d2fdfdb3f200aced",
+      "regenerated_sha256": "d577e91fdedcc833a7587ef8f3822fb8832234f16121e599e36880c23c7a8de0",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/paper_captions.md",
+      "original_sha256": "93a4eb21b397a56863b4e3f194374870a4fdd5f718780d09da561f9b34b01344",
+      "regenerated_sha256": "fbce53cbdf39d7a1ac283eb676614ffe3e1f922c4d93e3b49756c3027ebd970f",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/paper_comparison.md",
+      "original_sha256": "a2e0c72612962424558409e3487fdc5b8d05bcde2cf41269d36f35537a80cf69",
+      "regenerated_sha256": "abe7150a2657796bb69b478f4c050b1e8e589c6eb57eaf8126719e7cd0802740",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/paper_roadmap.md",
+      "original_sha256": "0de2d3f90ea88cd73097627eca49d1f2486174e1d27eea022fb6fb97fa3076c7",
+      "regenerated_sha256": "b860476f3a7347b1748d02728dbc02f79a1f435baf27c9f78fb7ef94482140d5",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/paper_tracks.md",
+      "original_sha256": "20d2a997ed762436de83a4ebf1666cc71ac80ab15f6845ca08c64128c7a3866d",
+      "regenerated_sha256": "c97a31ed529172d5517c5133dcf5e175647ab65092a4512d88f3010bfea7d154",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/reproduction_status.md",
+      "original_sha256": "112c780c146d6f18144c9d7ad18144f8255c3bd95b38d440a4e752c429061473",
+      "regenerated_sha256": "d362caa7ff7586fd22d5aa8e8826a840addf548fdfb4feb4fec77e8a63a389c3",
+      "only_generation_clock_changed": true
+    },
+    {
+      "path": "docs/variant_analysis.md",
+      "original_sha256": "a4243d59caa31e28bacdcab0578bfe3f18ea48e9239b8e9a9508229adc707d49",
+      "regenerated_sha256": "7cfdfc1f7517a4e39f78986e1dd29237354f1ce5418606898237b3166d01757d",
+      "only_generation_clock_changed": true
+    }
+  ]
+}

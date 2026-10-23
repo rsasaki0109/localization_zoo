@@ -1,0 +1,19 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "b603cd20af5a9d9786886f9d3d1a68372802708e",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "source_commit": "05aa1c93d13dbac2e4aedf5dd7df755818a40496",
+  "started_unix": 1792558193.2883685,
+  "finished_unix": 1792558193.491152,
+  "exit_code": 2,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

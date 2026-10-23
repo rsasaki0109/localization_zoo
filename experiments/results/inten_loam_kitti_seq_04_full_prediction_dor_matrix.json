@@ -1,0 +1,200 @@
+{
+  "generated_at": "2026-10-21T04:49:14+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_04_full_prediction_dor",
+    "title": "InTEn-LOAM KITTI 04: predicted-DOR facade gate",
+    "question": "Does the fixed native prediction-DOR source facade gate improve the complete recursive trajectory?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_04_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_04_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_04_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_04_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "Review the uniform full-sequence experiment; repository extension stays default off.",
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed current reference",
+      "design_style": "reference",
+      "intent": "Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0"
+      ],
+      "command": "/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/baseline/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/baseline/run.log",
+      "status": "ok",
+      "ate_m": 1.56322,
+      "rpe_trans_pct": 0.715182,
+      "rpe_rot_deg_per_m": 0.003131,
+      "fps": null,
+      "time_ms": null,
+      "frames": 271,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1647 dor points/frame=196; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.0,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.692176,
+      "kitti_rte_rot_deg_per_100m": 0.295843,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before full paired runs, not an individual per-run timestamp.",
+        "source_commit": "8ab36c3501197d3439a9dd6ac96949c3acace695",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "92d600e773b17ecbd9db003e5b1355d5e633dae7305c8a3cf3daa871993a67fc",
+        "measurement_context": "Both fixed arms share CPUs under OMP1/BLAS1. Raw timings retained; no standalone throughput comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 8.143439,
+        "raw_time_ms": 33278.323931,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_prediction_dor/sequences/04/baseline/summary.json",
+        "original_summary_sha256": "ce3cb2c7e264744d6e9e51d637707e21e2d05bc348cc6c4150efa91053f5b8a5",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/baseline/native_command.json"
+      }
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in predicted-DOR source facade gate",
+      "design_style": "experimental",
+      "intent": "Only s2s_predicted_dor_facade differs. Reuse native DOR thresholds0.1/0.5 at initial prediction/prior local map; reject source facade queries only. Mapped seed, S2S prior0.03, ground/facadePCA, acceleration on; spread/rowcompletion off. All priorKITTI development; no sweep or per-sequence adoption.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=1"
+      ],
+      "command": "/workspace/localization-env/inten-prediction-dor/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=1",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/candidate/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/candidate/run.log",
+      "status": "ok",
+      "ate_m": 1.565672,
+      "rpe_trans_pct": 0.716071,
+      "rpe_rot_deg_per_m": 0.003279,
+      "fps": null,
+      "time_ms": null,
+      "frames": 271,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=832 s2m=1644 dor points/frame=196; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); predicted-DOR S2S facade gate enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.0,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Experimental; default off",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.691799,
+      "kitti_rte_rot_deg_per_100m": 0.308928,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before full paired runs, not an individual per-run timestamp.",
+        "source_commit": "8ab36c3501197d3439a9dd6ac96949c3acace695",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "92d600e773b17ecbd9db003e5b1355d5e633dae7305c8a3cf3daa871993a67fc",
+        "measurement_context": "Both fixed arms share CPUs under OMP1/BLAS1. Raw timings retained; no standalone throughput comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 7.692827,
+        "raw_time_ms": 35227.620408,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_prediction_dor/sequences/04/candidate/summary.json",
+        "original_summary_sha256": "98cc08d971d6701c69ba73bc91a1729a923b9fde6323bca456e80db1d6940a52",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_04_full_prediction_dor_matrix/candidate/native_command.json"
+      }
+    }
+  ]
+}

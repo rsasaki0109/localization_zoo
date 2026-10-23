@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-zero-consensus-control/worktree/experiments/results/inten_zero_consensus_control/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-zero-consensus-control/validation_stage/reconstructed.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-zero-consensus-control/worktree",
+  "source_commit": "4e8d9224a51e9b65b64264779381d72c080aeaf3",
+  "started_unix": 1792637264.6313524,
+  "finished_unix": 1792637273.4849575,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

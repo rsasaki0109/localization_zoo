@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-prediction-dor/worktree/experiments/results/inten_prediction_dor/verify.py",
+    "--output",
+    "/workspace/localization-env/inten-prediction-dor/worktree/experiments/results/inten_prediction_dor/checks/preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "source_commit": "05aa1c93d13dbac2e4aedf5dd7df755818a40496",
+  "started_unix": 1792558192.640115,
+  "finished_unix": 1792558193.288039,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

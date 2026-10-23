@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "raw_collection_commit": "802cb4063b027706775acaedbd7a10befbf39844",
+  "preservation_base_commit": "0385832c725a19da1001f703897d232c02849929",
+  "native_source_commit": "bf0d44cc4e59e2cdf05a53161010b99688a6d060",
+  "collection_protocol_commit": "243b14a3218a5e3691eb596ba2c524b878a88b33",
+  "source_sha256": {
+    "report.py": "bc09fca360df531430fd42c14082fd237dc794270393971adea607726e5d3782",
+    "import_results.py": "9ce9be034459adbcfa11d74ef6bcececec60bcbcaabfbe1805e988271964c888",
+    "verify.py": "7923e675031ad59c12177ed89c8399d2198748f7aa860146acf74f972c2c5c1d",
+    "write_docs.py": "864f7e3fca9774f191e9dd07059b488f6e5588e68ffd9753144c381948b63dbd",
+    "finalize_docs.py": "9647e866172a40bd75ec68906bc89f09c78656b7aaf95df6d9de0c48e6348504",
+    "readme_template.md": "10c82f5c43dc9625b3f23d90c846220687fa017fd4c7c001675dbca7f0bf640b",
+    "run_postprocessing.py": "f0546acb40223736cd12472ca276ef8c02aa384136f2665a84e16e75179156da"
+  },
+  "collection_completion": {
+    "underlying_collector_exit_code": 0,
+    "original_wrapper_exit_code": 1,
+    "backup_recovery_exit_code": 0,
+    "original_backup_archive": "backup_execution",
+    "complete_backup_archive": "full_backup_execution",
+    "recovery_source_sha256": "dbf0845cfbc24233b592ac6413ddfc8516e24800a2f0bd24e81c0f9921f23b0a"
+  },
+  "analysis_runtime": {
+    "command": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-c",
+      "import json,sys,numpy,matplotlib;print(json.dumps(dict(python=sys.version.split()[0],numpy=numpy.__version__,matplotlib=matplotlib.__version__)))"
+    ],
+    "cwd": "/workspace/localization-env/inten-facade-loss/worktree",
+    "source_commit": "802cb4063b027706775acaedbd7a10befbf39844",
+    "exit_code": 0,
+    "versions": {
+      "python": "3.12.14",
+      "numpy": "1.26.4",
+      "matplotlib": "3.8.4"
+    }
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "report": "All eleven fixed full-sequence outcomes and every adverse metric, new local bad label, bad-interval boundary and error-growth block. For every candidate above2paper, plot first-pose-normalized position error and final step/GT; prove every block endpoint matches the committed motion diagnostic. These are not aligned ATE or matched-history interventions. Only S2S facade IRLS Huber versus Cauchy influence differs, same native scale0.1. Verify data/prior systems and every finite native damped update. Terminal controls are separate and provide no recursive accuracy score.",
+  "preservation": "All765 old aggregate hashes, other inherited evidence, prior variant rows, method README prefix and canonical publication bytes preserved. Add eleven unscored experimental aggregates/22 nondefault blank-FPS rows. All fresh OFF trace numerical bytes after declared scan-root-only substitution and saved poses/GT/metrics match immutable159 candidate, also162 OFF reference.",
+  "calibration": "Single Cauchy formula and existing native Huber scale0.1 frozen before terminal controls; Boolean selected after committed full01 matched-seed numerical evidencef52b84a0, before implementation/all full runs. Positive204, adverse247/204rotation and36of48bad length worsenings retained. No scale fit, threshold sweep, GT seed/input, handROI/DOR mask, retuning or per-sequence adoption. Profile07/00 diagnosis, inheritedDiLO01 prior tuning and all priorKITTI development exposure disclosed; no independent heldout.",
+  "timing": "All raw timing bytes retained. Paired runners share CPUs under fixed OMP1/BLAS1, so aggregate timing is unavailable and no speed ranking or proxy score is used.",
+  "order": "Commit sources and protocol before derivation. Commit and push all numerical report/import evidence before interpretation. Regenerate refresh_study_docs, full_variant and paper_ratio. Paper JSON remains unchanged, so its two conditional generators are not required. Actual-exit checks and exact-final-head full Native and ROS2 CI precede Ready. No merge without a new user instruction."
+}

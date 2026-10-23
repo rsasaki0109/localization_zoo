@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/inten-facade-pca/complete_study.py", line 63, in <module>
+    try:main()
+        ^^^^^^
+  File "/workspace/localization-env/inten-facade-pca/complete_study.py", line 43, in main
+    if record['exit_code']!=0:raise RuntimeError('Collector failed; no automatic restart')
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Collector failed; no automatic restart

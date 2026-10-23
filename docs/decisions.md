@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2833,6 +2833,61 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 | nhc_zupt | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | accel_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI 00: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 00: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 00: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 00: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 00: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_no_intensity`.
@@ -2849,6 +2904,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_mapping | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_odometry_plane_check | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI 00: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 00: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 00: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 00: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_00_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 01: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 01: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 01: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 01: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 01: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2857,6 +3011,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 01: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 01: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 01: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 01: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_01_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table
 
@@ -2867,6 +3120,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## InTEn-LOAM KITTI 02: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 02: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_02_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 03: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 03: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 03: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 03: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 03: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2875,6 +3227,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 03: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 03: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 03: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 03: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_03_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table
 
@@ -2885,6 +3336,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## InTEn-LOAM KITTI 04: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 04: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_04_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 05: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 05: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 05: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 05: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 05: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2894,6 +3444,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## InTEn-LOAM KITTI 05: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 05: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 05: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 05: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_05_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 06: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 06: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 06: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 06: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 06: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2902,6 +3551,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 06: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 06: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 06: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 06: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -2918,6 +3666,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry_no_mapping | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_plane_check | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## InTEn-LOAM KITTI 07: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 07: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_07_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 08: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 08: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 08: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 08: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 08: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2926,6 +3773,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 08: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 08: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 08: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 08: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_08_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 09: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 09: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 09: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 09: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 09: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table
 
@@ -2936,6 +3882,105 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## InTEn-LOAM KITTI 09: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 09: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 09: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 09: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: S2S facade Cauchy influence
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_facade_loss_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: accepted facade PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_facade_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: ground PCA normals
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_ground_pca_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: S2M plane-spread check
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_map_plane_spread_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: recursive mapped-motion S2S seed (rigid rotation)
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_mapped_prior_rigid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
 ## InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table
 
 - Current default: `paper_odometry_plane_check`.
@@ -2944,6 +3989,50 @@ _Generated at 2026-10-19T03:14:37+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_odometry_plane_check | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## InTEn-LOAM KITTI 10: predicted-DOR facade gate
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: recursive fixed-rotation geometry consensus
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_recursive_consensus_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: fixed missing-row support experiment
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_row_support_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+
+## InTEn-LOAM KITTI 10: weak-translation prediction prior
+
+- Current default: `-`.
+- Reference variants: `baseline`.
+- Aggregate result: `experiments/results/inten_loam_kitti_seq_10_full_translation_prior_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline | Keep as reference variant | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
+| candidate | Experimental; default off | One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off. |
 
 ## ISC-LOAM on the public HDL-400 reference window
 

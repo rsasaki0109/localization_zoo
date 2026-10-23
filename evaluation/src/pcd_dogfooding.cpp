@@ -4944,6 +4944,15 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "huber") pp.huber = v;
       else if (k == "s2m_gate_sq") pp.s2m_gate_sq = v;
       else if (k == "s2s_gate_sq") pp.s2s_gate_sq = v;
+      else if (k == "s2s_mapped_prior") pp.s2s_mapped_prior = v != 0.0;
+      else if (k == "s2s_translation_prior_ratio") pp.s2s_translation_prior_ratio = v;
+      else if (k == "s2s_row_support") pp.s2s_row_support = v != 0.0;
+      else if (k == "s2s_ground_pca") pp.s2s_ground_pca = v != 0.0;
+      else if (k == "s2s_facade_pca") pp.s2s_facade_pca = v != 0.0;
+      else if (k == "s2s_intensity_normalized") pp.s2s_intensity_normalized = v != 0.0;
+      else if (k == "s2s_intensity_consistent") pp.s2s_intensity_consistent = v != 0.0;
+      else if (k == "s2s_facade_cauchy") pp.s2s_facade_cauchy = v != 0.0;
+      else if (k == "s2s_geometry_consensus") pp.s2s_geometry_consensus = v != 0.0;
       else if (k == "max_ground") pp.max_ground = static_cast<int>(v);
       else if (k == "facades_per_sector") pp.facades_per_sector = static_cast<int>(v);
       else if (k == "edges_per_sector") pp.edges_per_sector = static_cast<int>(v);
@@ -4951,6 +4960,11 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "facade_threshold") pp.facade_threshold = v;
       else if (k == "map_radius") pp.map_radius = v;
       else if (k == "intensity_weight") pp.intensity_weight = v;
+      else if (k == "s2s_iterations") {
+        if (!std::isfinite(v) || v < 0.0 || v > std::numeric_limits<int>::max() || std::floor(v) != v)
+          throw std::invalid_argument("s2s_iterations must be a non-negative integer within int range");
+        pp.s2s_iterations = static_cast<int>(v);
+      }
       else if (k == "s2m_iterations") pp.s2m_iterations = static_cast<int>(v);
       else if (k == "ground_threshold") pp.ground_threshold = v;
       else if (k == "deskew") pp.deskew = static_cast<int>(v);
@@ -4966,6 +4980,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "sectors_per_row") pp.sectors_per_row = static_cast<int>(v);
       else if (k == "map_intensity_voxel") pp.map_intensity_voxel = v;
       else if (k == "use_dor") pp.use_dor = v != 0.0;
+      else if (k == "s2s_predicted_dor_facade") pp.s2s_predicted_dor_facade = v != 0.0;
       else if (k == "use_intensity") pp.use_intensity = v != 0.0;
       else if (k == "s2m_plane_max_dist") pp.s2m_plane_max_dist = v;
       else if (k == "s2m_plane_min_spread") pp.s2m_plane_min_spread = v;
@@ -5030,6 +5045,16 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
                " mean pairs s2s=" + std::to_string(s2s / d) + " s2m=" + std::to_string(s2m / d) +
                " dor points/frame=" + std::to_string(dor / d);
     if (options.paper_accelerated) res.note += "; repository acceleration enabled (opt-in, not in the paper)";
+    if (pp.s2s_mapped_prior) res.note += "; S2S previous mapped-motion seed enabled (repository extension, opt-in)";
+    if (pp.s2s_translation_prior_ratio > 0.0) res.note += "; S2S weak-translation prediction prior enabled (repository extension, opt-in)";
+    if (pp.s2s_predicted_dor_facade) res.note += "; predicted-DOR S2S facade gate enabled (repository extension, opt-in)";
+    if (pp.s2s_row_support) res.note += "; S2S missing-row completion enabled (repository extension, opt-in)";
+    if (pp.s2s_ground_pca) res.note += "; S2S ground PCA normals enabled (repository extension, opt-in)";
+    if (pp.s2s_facade_pca) res.note += "; S2S facade PCA normals enabled (repository extension, opt-in)";
+    if (pp.s2s_intensity_normalized) res.note += "; S2S normalized occupied intensity weights enabled (repository extension, opt-in)";
+    if (pp.s2s_intensity_consistent) res.note += "; S2S fixed-node intensity completion enabled (repository extension, opt-in)";
+    if (pp.s2s_facade_cauchy) res.note += "; S2S facade Cauchy influence enabled (repository extension, opt-in)";
+    if (pp.s2s_geometry_consensus) res.note += "; S2S fixed-rotation geometric translation consensus enabled (repository extension, opt-in)";
     return res;
   }
 

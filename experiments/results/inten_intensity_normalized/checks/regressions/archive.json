@@ -1,0 +1,126 @@
+{
+  "files": {
+    "leaderboard.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/leaderboard.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "leaderboard.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "leaderboard.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/leaderboard.stdout.log",
+      "bytes": 31,
+      "sha256": "9fd61a8c8f3a67c7e249b302ff2317169a5116b14243d07bd140216fd1545e74",
+      "storage": "gzip",
+      "path": "leaderboard.stdout.log.gz",
+      "stored_sha256": "b60713daa74f7aadab7e1b19a65f6d0af89d28ba92949f03b0ebaf93b2ae0053"
+    },
+    "leaderboard_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/leaderboard_command.json",
+      "bytes": 517,
+      "sha256": "aff7223879c8f4fddf7ecfa399f9b93a7909ab69101d6947163c90133915ccbe",
+      "storage": "verbatim",
+      "path": "leaderboard_command.json",
+      "stored_sha256": "aff7223879c8f4fddf7ecfa399f9b93a7909ab69101d6947163c90133915ccbe"
+    },
+    "paper_ready.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/paper_ready.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "paper_ready.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "paper_ready.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/paper_ready.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "paper_ready.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "paper_ready_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/paper_ready_command.json",
+      "bytes": 527,
+      "sha256": "56434656ad6e86dd2a1370d8b7c2db49ffe3bf91254f6f8aca615758b0183efb",
+      "storage": "verbatim",
+      "path": "paper_ready_command.json",
+      "stored_sha256": "56434656ad6e86dd2a1370d8b7c2db49ffe3bf91254f6f8aca615758b0183efb"
+    },
+    "python_regressions.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/python_regressions.stderr.log",
+      "bytes": 97809,
+      "sha256": "e43f0866144d13f7f89b0fd1d19c2b146bd83bbf63f98055280923bb15d41bc2",
+      "storage": "gzip",
+      "path": "python_regressions.stderr.log.gz",
+      "stored_sha256": "d800564979ab7d66b30c537fabe82fa73e9acdc578a7f78388ec5ee18293ee47"
+    },
+    "python_regressions.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/python_regressions.stdout.log",
+      "bytes": 1458,
+      "sha256": "98e0f59f9218a76e31bf4d72c047d2d0dc28d1d56da91d02cd1c06bb4d09c8db",
+      "storage": "gzip",
+      "path": "python_regressions.stdout.log.gz",
+      "stored_sha256": "8d62ac51d4cae7f465d10303c0a7703b29c86b77234ba643c369b14026d7fd91"
+    },
+    "python_regressions_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/python_regressions_command.json",
+      "bytes": 528,
+      "sha256": "5fc694ea45ff52425d52a351d23349eb6eb6b581aaa57924409409aa79ccd2bd",
+      "storage": "verbatim",
+      "path": "python_regressions_command.json",
+      "stored_sha256": "5fc694ea45ff52425d52a351d23349eb6eb6b581aaa57924409409aa79ccd2bd"
+    },
+    "showcase.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/showcase.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "showcase.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "showcase.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/showcase.stdout.log",
+      "bytes": 15,
+      "sha256": "92ef28612194976fe29134c8d2c1e5e2c3c870458855beccff62e5a8829b5b1f",
+      "storage": "gzip",
+      "path": "showcase.stdout.log.gz",
+      "stored_sha256": "4cfb9f4d86f3c3a9e4af4bd648958559c2a7df8e094d77202c7345ec0d241466"
+    },
+    "showcase_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/showcase_command.json",
+      "bytes": 500,
+      "sha256": "7f924c34c221578636d4b124ae5ce26c8a30084cc2fbed2547d9856b167cc6a4",
+      "storage": "verbatim",
+      "path": "showcase_command.json",
+      "stored_sha256": "7f924c34c221578636d4b124ae5ce26c8a30084cc2fbed2547d9856b167cc6a4"
+    },
+    "whitespace.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/whitespace.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "whitespace.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "whitespace.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/whitespace.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "whitespace.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "whitespace_command.json": {
+      "original_path": "/workspace/localization-env/inten-intensity-normalized-20261022/regressions_stage/whitespace_command.json",
+      "bytes": 434,
+      "sha256": "153f56a32d293f59d4200c8623cf78dda8d97de9a5458aa69b2527381b8710d2",
+      "storage": "verbatim",
+      "path": "whitespace_command.json",
+      "stored_sha256": "153f56a32d293f59d4200c8623cf78dda8d97de9a5458aa69b2527381b8710d2"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

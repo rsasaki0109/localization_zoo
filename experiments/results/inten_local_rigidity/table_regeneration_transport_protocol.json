@@ -1,0 +1,15 @@
+{
+  "supersedes_storage_only": [
+    "derived_checks_protocol.json",
+    "empty_boundary_recovery_protocol.json",
+    "table_transport_protocol.json"
+  ],
+  "change": "Render complete original tables in a fresh private temporary directory, then commit only complete lossless compressed regular files and readable overview. All original raw file hashes from table_transport_protocol must match exactly. Skip rewriting already byte-identical compressed files; disk guard covers new bytes plus Git objects/reserve. The existing full local suite may complete from its recorded source; no frozen mathematical/test source is changed, and final full Native/ROS2 CI must cover exact final head.",
+  "validation": "Run both real empty/missing-boundary guards and complete generator, verify every original raw table byte binding and unchanged mathematical source. Preserve all earlier failures/receipts; no data, neighborhood, equation or acceptance-tolerance change.",
+  "source_sha256": {
+    "experiments/results/inten_local_rigidity/report_docs.py": "3595c5bc54b33ef3f011d53e9d64d1cffeb924a1acdb2d51abe06e5575390f63",
+    "experiments/results/inten_local_rigidity/pack_tables.py": "eaa6eec6de49b7ffd46de5c5d778b1de93df6e98286ab77db5c4627dfd3fdadc",
+    "experiments/results/inten_local_rigidity/final_checks.py": "bad604d9346440d3ff7a24bc0af3d70fbfe3ed47b11f7a2675f31610f6e4ad4b",
+    "experiments/results/inten_local_rigidity/transport_checks.py": "c434a6726e85835008c1b2940f7cebcfbfea7a13ef7c64b4707ca7181b95ebd6"
+  }
+}

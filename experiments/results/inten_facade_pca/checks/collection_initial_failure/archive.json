@@ -1,0 +1,86 @@
+{
+  "files": {
+    "active.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/active.json",
+      "bytes": 131,
+      "sha256": "9898e423a017c2254087189a1d53ed7d3825928d9148e781e942c22766d6d4c9",
+      "storage": "verbatim",
+      "path": "active.json",
+      "stored_sha256": "9898e423a017c2254087189a1d53ed7d3825928d9148e781e942c22766d6d4c9"
+    },
+    "collect.py": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/collect.py",
+      "bytes": 21529,
+      "sha256": "39fbea07ac73c87e60786b9bd4fbb90bd9896ea584d2690bc784bdb75e417f69",
+      "storage": "verbatim",
+      "path": "collect.py",
+      "stored_sha256": "39fbea07ac73c87e60786b9bd4fbb90bd9896ea584d2690bc784bdb75e417f69"
+    },
+    "collector.stderr": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/collector.stderr",
+      "bytes": 873,
+      "sha256": "09328dfd189fed2f1b67e4a988d542c0a55e9114c7b49ed8341df0342c3d6078",
+      "storage": "verbatim",
+      "path": "collector.stderr",
+      "stored_sha256": "09328dfd189fed2f1b67e4a988d542c0a55e9114c7b49ed8341df0342c3d6078"
+    },
+    "collector.stdout": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/collector.stdout",
+      "bytes": 2506,
+      "sha256": "4576b2923af857a77ff7dd0fdbbfceb780f1d85966ba309e01a1a69daaf33cff",
+      "storage": "verbatim",
+      "path": "collector.stdout",
+      "stored_sha256": "4576b2923af857a77ff7dd0fdbbfceb780f1d85966ba309e01a1a69daaf33cff"
+    },
+    "collector_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/collector_command.json",
+      "bytes": 410,
+      "sha256": "6df0d244992aa162e07bf3e41c0360102c7cf407e33609a8c907bf81ada8642d",
+      "storage": "verbatim",
+      "path": "collector_command.json",
+      "stored_sha256": "6df0d244992aa162e07bf3e41c0360102c7cf407e33609a8c907bf81ada8642d"
+    },
+    "completer.stderr": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/completer.stderr",
+      "bytes": 484,
+      "sha256": "2811a77f4b50f60298d54ea07a31801c17ea1de119ee81c6a185a96de4f219c7",
+      "storage": "verbatim",
+      "path": "completer.stderr",
+      "stored_sha256": "2811a77f4b50f60298d54ea07a31801c17ea1de119ee81c6a185a96de4f219c7"
+    },
+    "completer.stdout": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/completer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "completer.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "completer_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/completer_command.json",
+      "bytes": 308,
+      "sha256": "3d171610aac561ec9522a7721c55c4b90ab5e00a105110ba797232be38a33d69",
+      "storage": "verbatim",
+      "path": "completer_command.json",
+      "stored_sha256": "3d171610aac561ec9522a7721c55c4b90ab5e00a105110ba797232be38a33d69"
+    },
+    "completion_failure.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/completion_failure.json",
+      "bytes": 589,
+      "sha256": "a9f00bdf2cb5005e116bf1d70483da114bced38d0dc04574b367d2c10cbe47e1",
+      "storage": "verbatim",
+      "path": "completion_failure.json",
+      "stored_sha256": "a9f00bdf2cb5005e116bf1d70483da114bced38d0dc04574b367d2c10cbe47e1"
+    },
+    "failure.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/attempts/initial/failure.json",
+      "bytes": 987,
+      "sha256": "1cca03143ce7cbc97dde5cf493b9540e48fede2c9766ac58f500682453fcffe0",
+      "storage": "verbatim",
+      "path": "failure.json",
+      "stored_sha256": "1cca03143ce7cbc97dde5cf493b9540e48fede2c9766ac58f500682453fcffe0"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

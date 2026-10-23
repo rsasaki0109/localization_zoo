@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "commands": {
+    "table_guards": 0,
+    "complete_regeneration": 0,
+    "whitespace": 0,
+    "roundtrip": 0
+  }
+}

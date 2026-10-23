@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-natural-traces/worktree/experiments/results/inten_natural_traces/plot_diagnosis.py",
+    "/workspace/localization-env/inten-natural-traces/worktree/experiments/results/inten_natural_traces/diagnosis/timelines.png"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "source_commit": "4a610ffd7eba567142b6b33bbaf7168a192e8c24",
+  "exit_code": 0,
+  "started_unix": 1792459394.0758305,
+  "finished_unix": 1792459396.7876995
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-prediction-dor/worktree/experiments/results/inten_prediction_dor/import_results.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "source_commit": "b8e2b8921d9d1c5e86796427dc172fa1a8769404",
+  "exit_code": 0,
+  "started_unix": 1792558154.054585,
+  "finished_unix": 1792558154.3590505,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

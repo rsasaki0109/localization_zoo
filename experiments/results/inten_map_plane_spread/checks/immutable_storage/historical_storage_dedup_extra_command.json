@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-s2m-prior/dedup_immutable_storage_extra.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "started_unix": 1792540769.0013475,
+  "finished_unix": 1792540802.6369607,
+  "exit_code": 0,
+  "source_file_sha256": "c2028abbdfedfadafaca955a4008ed246798e18c64fe15d4f6f4ee8f8bc7ff0a"
+}

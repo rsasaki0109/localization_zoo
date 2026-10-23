@@ -1,0 +1,244 @@
+{
+  "exit_code": 0,
+  "no_sensor_scans": true,
+  "archives": [
+    {
+      "request_url": "https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_poses.zip",
+      "final_url": "https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_poses.zip",
+      "path": "/tmp/localization-zoo-inten-gt-audit-20261022/official/data_odometry_poses.zip",
+      "bytes": 1309620,
+      "sha256": "a969190799bb3fc4a15f5f0675b1ee6b7067292599b3269bdafc1e5ba883b9e1",
+      "members": {
+        "dataset/poses/08.txt": {
+          "bytes": 652483,
+          "crc32": 3176402794
+        },
+        "dataset/poses/09.txt": {
+          "bytes": 255831,
+          "crc32": 3597228145
+        },
+        "dataset/poses/05.txt": {
+          "bytes": 442908,
+          "crc32": 2998943484
+        },
+        "dataset/poses/04.txt": {
+          "bytes": 43589,
+          "crc32": 3881148120
+        },
+        "dataset/poses/10.txt": {
+          "bytes": 194102,
+          "crc32": 341538294
+        },
+        "dataset/poses/07.txt": {
+          "bytes": 176684,
+          "crc32": 2639653022
+        },
+        "dataset/poses/02.txt": {
+          "bytes": 748734,
+          "crc32": 3412446612
+        },
+        "dataset/poses/06.txt": {
+          "bytes": 177105,
+          "crc32": 3389816636
+        },
+        "dataset/poses/03.txt": {
+          "bytes": 128052,
+          "crc32": 3761553834
+        },
+        "dataset/poses/01.txt": {
+          "bytes": 176939,
+          "crc32": 3555971578
+        },
+        "dataset/poses/00.txt": {
+          "bytes": 728871,
+          "crc32": 776941003
+        }
+      }
+    },
+    {
+      "request_url": "https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_calib.zip",
+      "final_url": "https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_calib.zip",
+      "path": "/tmp/localization-zoo-inten-gt-audit-20261022/official/data_odometry_calib.zip",
+      "bytes": 600238,
+      "sha256": "fa45d2bbff828776e6df689b161415fb7cd719345454b6d3567c2ff81fa4d075",
+      "members": {
+        "dataset/sequences/00/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/01/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/02/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/03/calib.txt": {
+          "bytes": 1168,
+          "crc32": 1678049246
+        },
+        "dataset/sequences/04/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/05/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/06/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/07/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/08/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/09/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/10/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/11/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/12/calib.txt": {
+          "bytes": 1172,
+          "crc32": 488158548
+        },
+        "dataset/sequences/13/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/14/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/15/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/16/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/17/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/18/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/19/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/20/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/21/calib.txt": {
+          "bytes": 1171,
+          "crc32": 1041448373
+        },
+        "dataset/sequences/00/times.txt": {
+          "bytes": 59033,
+          "crc32": 934990873
+        },
+        "dataset/sequences/01/times.txt": {
+          "bytes": 14313,
+          "crc32": 2810440360
+        },
+        "dataset/sequences/02/times.txt": {
+          "bytes": 60593,
+          "crc32": 2937547651
+        },
+        "dataset/sequences/03/times.txt": {
+          "bytes": 10413,
+          "crc32": 1070621426
+        },
+        "dataset/sequences/04/times.txt": {
+          "bytes": 3523,
+          "crc32": 2680026843
+        },
+        "dataset/sequences/05/times.txt": {
+          "bytes": 35893,
+          "crc32": 2216349038
+        },
+        "dataset/sequences/06/times.txt": {
+          "bytes": 14313,
+          "crc32": 66684223
+        },
+        "dataset/sequences/07/times.txt": {
+          "bytes": 14313,
+          "crc32": 4079847454
+        },
+        "dataset/sequences/08/times.txt": {
+          "bytes": 52923,
+          "crc32": 1052177461
+        },
+        "dataset/sequences/09/times.txt": {
+          "bytes": 20683,
+          "crc32": 698012315
+        },
+        "dataset/sequences/10/times.txt": {
+          "bytes": 15613,
+          "crc32": 1901496109
+        },
+        "dataset/sequences/11/times.txt": {
+          "bytes": 11973,
+          "crc32": 3291176556
+        },
+        "dataset/sequences/12/times.txt": {
+          "bytes": 13793,
+          "crc32": 4242571022
+        },
+        "dataset/sequences/13/times.txt": {
+          "bytes": 42653,
+          "crc32": 2624220308
+        },
+        "dataset/sequences/14/times.txt": {
+          "bytes": 8203,
+          "crc32": 1362687805
+        },
+        "dataset/sequences/15/times.txt": {
+          "bytes": 24713,
+          "crc32": 2077325022
+        },
+        "dataset/sequences/16/times.txt": {
+          "bytes": 22503,
+          "crc32": 4050296508
+        },
+        "dataset/sequences/17/times.txt": {
+          "bytes": 6383,
+          "crc32": 2068840932
+        },
+        "dataset/sequences/18/times.txt": {
+          "bytes": 23413,
+          "crc32": 3236804850
+        },
+        "dataset/sequences/19/times.txt": {
+          "bytes": 64753,
+          "crc32": 873897795
+        },
+        "dataset/sequences/20/times.txt": {
+          "bytes": 10803,
+          "crc32": 2114937019
+        },
+        "dataset/sequences/21/times.txt": {
+          "bytes": 35373,
+          "crc32": 4105024035
+        }
+      }
+    }
+  ]
+}

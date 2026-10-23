@@ -1,0 +1,12 @@
+{
+  "failure_commit": "b6ed01f7",
+  "original_table_source_commit": "6a8da68c",
+  "recovery": "Renderer only: a class boundary with no native-valid point has no CSV row key and must remain an explicit zero/undefined observation. Default to empty rows but assert exact original all-partition native-valid counts; a missing nonempty class remains a failure. No raw measurement, witness, neighborhood, arithmetic, threshold or old result changes.",
+  "checks": "Two regressions cover real archived empty boundaries and rejection of missing nonempty rows. Full local check scope allows only this additional test file. All original source/output hashes remain bound by original protocol.",
+  "source_sha256": {
+    "experiments/results/inten_local_rigidity/report_docs.py": "3adc0fc475b1658bf775358c230b7aec3d55f3066b18f81d436f4ae0052b6077",
+    "experiments/results/inten_local_rigidity/final_checks.py": "96e70e7acf453a02ca991a93f4a24bd40b40df87fb502c94c7c1f5975cd99abd",
+    "tests/test_inten_local_rigidity_tables.py": "938e03c30d51b050d49f764072bc4b99113250c8bd21b6a2e0a64355f980ca9f",
+    "experiments/results/inten_local_rigidity/derived_checks_protocol.json": "4c28e1201cacfdcaf39cee36f67dc9dc760ec62cae72aa0f6e3a89ba7c3ece8a"
+  }
+}

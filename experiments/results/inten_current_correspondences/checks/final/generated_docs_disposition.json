@@ -1,0 +1,66 @@
+{
+  "exit_code": 0,
+  "files": [
+    {
+      "path": "docs/decisions.md",
+      "old_sha256": "ad778c187aa889c8bbbb37f322b0bbcb89c6db756aa7a4e8259733417ec69a75",
+      "generated_sha256": "3db2f1bdc4cf36a691f199f2562875dc81c7d48d29bd426cdd1cc7268d9ee486",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/experiments.md",
+      "old_sha256": "ac6b8afa07f879ee8d5e434c8bb66bd19a68f0bad660eb255333e96e0c10becd",
+      "generated_sha256": "e70570c4dc3a78abb6fd1dd95ebb2407c7aa59b2e7d8c7d3a7d93b7fbd58d29f",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/interfaces.md",
+      "old_sha256": "82fac0a53c8619c3d5654e75e0ffadd61c2645d34f9364438d094391608e6f7f",
+      "generated_sha256": "23b6650abcbf7522258dc9824c7c7205a67d10f977f649a5c287cae348b04627",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/paper_assets.md",
+      "old_sha256": "3b4fd41da7ea12de9f99fc8d33fbbbc0fbe9cb60406ed6e1d2fdfdb3f200aced",
+      "generated_sha256": "56cc79152c72cf26a85e50e1be9f1d621da15d50634a70f51e9e47a9db4bb7b4",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/paper_captions.md",
+      "old_sha256": "93a4eb21b397a56863b4e3f194374870a4fdd5f718780d09da561f9b34b01344",
+      "generated_sha256": "6dec2e1b7c5b939ece5ebebb053fc3cbfb45d63570bbcad29b2bab3d9512fcfe",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/paper_comparison.md",
+      "old_sha256": "a2e0c72612962424558409e3487fdc5b8d05bcde2cf41269d36f35537a80cf69",
+      "generated_sha256": "6997bc0a0a698a305a3fa3fb0cfec94c2ac9db4c20f16586b52f69e870f705ab",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/paper_roadmap.md",
+      "old_sha256": "766cf715aef3aa2689d8f1a4ac26816e5eb318cb67ffebf2c4ff60b12bda2180",
+      "generated_sha256": "0b682e99a62aa862d4ef6a9537011008419dc62fa62804f909f25172a37b36a7",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/paper_tracks.md",
+      "old_sha256": "9db1cf64e2ab3cc2aa098687608c76eb119981a2cfbe71913350f078ab13cfa9",
+      "generated_sha256": "41c1e6c38f8b70cae67ad4bfbc5490d2bd198218e8e062370d0bb084ddf24a0b",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/reproduction_status.md",
+      "old_sha256": "112c780c146d6f18144c9d7ad18144f8255c3bd95b38d440a4e752c429061473",
+      "generated_sha256": "4312fcd3eedeb6c7d2474b84613fae78442855332aae2ddba0775e500247d67f",
+      "only_generated_clock_differs": true
+    },
+    {
+      "path": "docs/variant_analysis.md",
+      "old_sha256": "f37c6533482ca8831dfd67d9231cd860dfadce80bc1bd58df4c07f251caef744",
+      "generated_sha256": "07a866a9193cffc4fbb17ef3278657eb2e2161f774aee5a88ec5fabd1e796fff",
+      "only_generated_clock_differs": true
+    }
+  ],
+  "policy": "All required generators ran0. No numerical input changed; retain historical bytes after verifying only generation clock differs."
+}

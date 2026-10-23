@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "native_calls": 40,
+  "profile_decisions_reconstructed": true,
+  "original_and_old_negative_controls_exact": true,
+  "all_first_equations_reconstructed": true,
+  "no_raw_scans_acquired": true,
+  "history_and_live_production_pins_checked": true
+}

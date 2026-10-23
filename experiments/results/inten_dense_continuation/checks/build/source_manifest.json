@@ -1,0 +1,38 @@
+{
+  "experiments/results/inten_dense_continuation/archive.py": {
+    "path": "sources/experiments/results/inten_dense_continuation/archive.py.gz",
+    "sha256": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc"
+  },
+  "experiments/results/inten_dense_continuation/build.py": {
+    "path": "sources/experiments/results/inten_dense_continuation/build.py.gz",
+    "sha256": "592ef9dff2c956a084d2c13b3527c9c75288b37b0d3a3c3d43fdb75d39815737"
+  },
+  "experiments/results/inten_dense_continuation/common.py": {
+    "path": "sources/experiments/results/inten_dense_continuation/common.py.gz",
+    "sha256": "b55810097d1affb0f27bcddfbb99f443d76ebefa0d8240e78f6804d27530b5ce"
+  },
+  "experiments/results/inten_dense_continuation/probe.cpp": {
+    "path": "sources/experiments/results/inten_dense_continuation/probe.cpp.gz",
+    "sha256": "eeb8e2f96051dfe4a34305d43b433a72f95477ee923996fad7d0bac43958b523"
+  },
+  "experiments/results/inten_dense_continuation/run.py": {
+    "path": "sources/experiments/results/inten_dense_continuation/run.py.gz",
+    "sha256": "b12a3d5961a5671fdb9d5d64ff9e2a9a259b3213bd6aebfcb78aa38b4df53392"
+  },
+  "experiments/results/inten_dense_continuation/scorer.h": {
+    "path": "sources/experiments/results/inten_dense_continuation/scorer.h.gz",
+    "sha256": "e978d367a4ff5032dc7adda20ef567f4f7fd545f19871ea1e0b336ccb2307c4f"
+  },
+  "experiments/results/inten_dense_continuation/unit.cpp": {
+    "path": "sources/experiments/results/inten_dense_continuation/unit.cpp.gz",
+    "sha256": "05316eed278d3f69a3f652bb04f704f78247e2a9df856d96d5e7b349fc1ed2b7"
+  },
+  "experiments/results/inten_dense_continuation/verify.py": {
+    "path": "sources/experiments/results/inten_dense_continuation/verify.py.gz",
+    "sha256": "470fc1637820be2f6450acbfcc40c489797483f724967e635d6ab86f1d42a5fc"
+  },
+  "papers/inten_loam/include/inten_loam/inten_loam_paper.h": {
+    "path": "sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz",
+    "sha256": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b"
+  }
+}

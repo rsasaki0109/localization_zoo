@@ -1,0 +1,54 @@
+{
+  "files": {
+    "1/fetch.stderr": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_fetch/1/fetch.stderr",
+      "bytes": 2168,
+      "sha256": "f824ea1cadd0001d32348fa17465f391bb1123de0ca3f53387829b70099bf177",
+      "storage": "verbatim",
+      "path": "1/fetch.stderr",
+      "stored_sha256": "f824ea1cadd0001d32348fa17465f391bb1123de0ca3f53387829b70099bf177"
+    },
+    "1/fetch.stdout": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_fetch/1/fetch.stdout",
+      "bytes": 137,
+      "sha256": "26bae14362b459df0ac0d24b70a6b58eb44512a9359896cb77f4924002bd3c89",
+      "storage": "verbatim",
+      "path": "1/fetch.stdout",
+      "stored_sha256": "26bae14362b459df0ac0d24b70a6b58eb44512a9359896cb77f4924002bd3c89"
+    },
+    "1/fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_fetch/1/fetch_command.json",
+      "bytes": 615,
+      "sha256": "be1d9f98d20587d5c0fb966c916820738585c545aa6763e84181d4ddf5391d5f",
+      "storage": "verbatim",
+      "path": "1/fetch_command.json",
+      "stored_sha256": "be1d9f98d20587d5c0fb966c916820738585c545aa6763e84181d4ddf5391d5f"
+    },
+    "2/fetch.stderr": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_fetch/2/fetch.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "2/fetch.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "2/fetch.stdout": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_fetch/2/fetch.stdout",
+      "bytes": 260,
+      "sha256": "4576cf2ae9f87f684f07fee897c1d43573fdbe15351c28adb58c0447bb6c7d4d",
+      "storage": "verbatim",
+      "path": "2/fetch.stdout",
+      "stored_sha256": "4576cf2ae9f87f684f07fee897c1d43573fdbe15351c28adb58c0447bb6c7d4d"
+    },
+    "2/fetch_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_fetch/2/fetch_command.json",
+      "bytes": 614,
+      "sha256": "83db2425eb1e377e69f6b451dabe9cf0e32239e10f53a376af7ecdd415a99f50",
+      "storage": "verbatim",
+      "path": "2/fetch_command.json",
+      "stored_sha256": "83db2425eb1e377e69f6b451dabe9cf0e32239e10f53a376af7ecdd415a99f50"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

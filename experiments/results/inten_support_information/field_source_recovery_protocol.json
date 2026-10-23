@@ -1,0 +1,33 @@
+{
+  "frozen_protocol_sha256": "e9b4a236db41d59cb82a0454a8d7af274b92fc6071f705ac9c1a0c188f528b28",
+  "reason": "The preserved exit1 used reflector-only build inputs. Original native Index builds its intensity grid from previous-frame all points. Use prior committed native all-point lattice exports with identical cache hashes/knot, independently audit every all-point input sum/population, then reconstruct every new query and system at unchanged tolerances. No native output rerun, case/mask/pose/equation/gate change.",
+  "source_sha256": {
+    "experiments/results/inten_support_information/verify.py": "a73e787d175de1bac406d2a6bc2e4def306cead5cf8fe053becb45ac21dadff8",
+    "experiments/results/inten_support_information/field_inputs.py": "25cd4b1cfa5d7dc19b7ba7e87f25f2f8c7f125594232b711d7ebf2707f508253",
+    "experiments/results/inten_support_information/verify_full_field.py": "7dbb35a823b6ad910ae48d40ac4259dd53e5975939957dbb4deda674f01dd689",
+    "experiments/results/inten_intensity_continuity/verify.py": "a8eedf2e83f49284985699a2ab0e044b25499de556dbf3cc952d52c74abd597d",
+    "papers/inten_loam/src/inten_loam_paper.cpp": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d"
+  },
+  "field_groups": {
+    "old": {
+      "archive.json": "603afa0fc3ed42320c7d84f5eaf0979e2806ed892a509c271f1efb28e2d8339b",
+      "input_sources.json": "1f7e6546c97c5a7313dd14e29fa21daa90befc221ae17e4e3b8d75f5b02934ee",
+      "feature_cache_sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002"
+    },
+    "01": {
+      "archive.json": "7bc5e0c9b21414ee8052ad8ed50b36abf88bab5c178ad113e5bc61b71e9dd30b",
+      "input_sources.json": "dc62aa330a41a22e6db886f84b539169b01d8018fbce73c8d6b5a873e652fff9",
+      "feature_cache_sha256": "255b53c95e2bef45ff46f82aa75812cada2c422de561961618c1f24fddae1633"
+    },
+    "02": {
+      "archive.json": "a8d3ff2fffbb680c9e1db870c5d1f842596eefd81b6394a80fb3146a82c1a9b9",
+      "input_sources.json": "0729abf11ced157b51c3d51961432f22ed5385dc86971bc7ec4691e4d508cce9",
+      "feature_cache_sha256": "b347382312df7e22e3e59c07ff3962a5919c5e0d957b70a39600ec16e3e37bb8"
+    },
+    "08": {
+      "archive.json": "811e30aa07bf77931f127c86ea86676babe61f1aab7adb2642aa205618d8d190",
+      "input_sources.json": "c8c2b7025f9bf80ac567871d9499ff001bc4523b81bd89c2f1a450f7e04d73a7",
+      "feature_cache_sha256": "73eb65e3b8644a0d2b9300f1d9a62bbb646a3c73dad72925621016e294f7f4dc"
+    }
+  }
+}

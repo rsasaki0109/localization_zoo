@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "failed_ci_run_id": 39579140314,
+  "failed_ci_head": "428585a16191dfea5001acb783e20ba5caa9ab16",
+  "failed_native_job_id": 119152084458,
+  "failed_step": "Python script regressions",
+  "failed_test": "test04_rejects_a_missing_additional_control_before_output",
+  "observed_error": "OSError: [Errno 39] Directory not empty: '.git'",
+  "full_ci_log_private_path": "/workspace/localization-env/inten-translation-consensus/ci/119152084458.source.json",
+  "full_decoded_log_sha256": "f93a61490f69c6e71d3ddf6f6ef6c34dbbd929d7d925f0626f9deb57c2c59477",
+  "original_test_sha256": "4c5a7fbe965f1926cff840fd3688e52e2172c3ba0d4f7c2c4f93d96cc9332a5f",
+  "source_sha256": {
+    "tests/test_shared_range_saved02_gate.py": "157fb8a6ac4290e6e7730d740fbd2b5573baaa54753bbfb29432152bd1f66391",
+    "experiments/results/inten_translation_consensus/verify.py": "9f8e5bad8f42f7e2499be932169b18ed7c84fb7257f0564048e54590550cbb97",
+    "experiments/results/inten_translation_consensus/check_ci_recovery.py": "04b5fdb18885debc87d86cefd17e40b1be5831a2f7bf97155a14e2cec6ea6176"
+  },
+  "correction": "Disable maintenance.auto and gc.auto only in each disposable saved-path test repository before its first commit. Prevent detached Git maintenance writers from racing TemporaryDirectory cleanup. Keep every publication-gate assertion and production Git configuration unchanged.",
+  "scientific_data_unchanged": true,
+  "native_or_dataset_rerun": false,
+  "progression_gate_unchanged": true,
+  "completion": "Retain original failed CI metadata/log excerpt and actual recovery exits. Run offending fixture suite and complete Python/preservation/publication checks, push new final source and require a NEW full Native+ROS2 CI on that exact head before Ready. No merge."
+}

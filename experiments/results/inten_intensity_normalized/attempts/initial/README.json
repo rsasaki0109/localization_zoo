@@ -1,0 +1,7 @@
+{
+  "status": "All native calls exited zero; independent field reconstruction failed and is retained.",
+  "failure": "Expanded polynomial cancellation misclassifies tiny positive occupied weights near a cell face. Native quotient gradient also cancels badly when all occupied controls share one vanishing basis factor. No motion result was selected or used to tune the correction.",
+  "correction": "Cancel common positive axis basis factors analytically before division, and reconstruct independently using nonnegative Bernstein basis. Preserve count and strictly-positive-weight coverage and the exact same rational field.",
+  "all_native_outputs_retained": true,
+  "raw_binaries_and_stages_retained_at": "/workspace/localization-env/inten-intensity-normalized-20261022"
+}

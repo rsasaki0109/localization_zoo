@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-facade-pca/worktree/experiments/results/inten_facade_pca/boundary.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-facade-pca/worktree",
+  "exit_code": 0,
+  "started_unix": 1792528755.0504797,
+  "finished_unix": 1792528807.8774946
+}

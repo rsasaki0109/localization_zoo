@@ -1,0 +1,17 @@
+{
+  "exit_code": 0,
+  "relative_tolerance": 1e-10,
+  "absolute_tolerance": 1e-12,
+  "checks": {
+    "Haswell": {
+      "report_sha256": "2a08d5b61c8fdfa22b740f088e5b58b2aaf584f66d08ebb0b94f92dec0cbfd4e",
+      "reference_sha256": "fec18f749851a67ebd7b074f929803af4389f0c69bab9fc444c38567a66bdf5d",
+      "exit_code": 0
+    },
+    "Sandybridge": {
+      "report_sha256": "46826fe8545e8afdfba5efce72f1fbcf70aadd38714b6c088ee70491da5a4ebe",
+      "reference_sha256": "fec18f749851a67ebd7b074f929803af4389f0c69bab9fc444c38567a66bdf5d",
+      "exit_code": 0
+    }
+  }
+}

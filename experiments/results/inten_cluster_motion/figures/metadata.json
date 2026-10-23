@@ -1,0 +1,6 @@
+{
+  "numerical_commit": "58240931bbe1dbd9696a9dea3604708e980467d3",
+  "matplotlib_version": "3.8.4",
+  "source": "Every case in analysis/report.json and every controls/native.stdout.jsonl profile",
+  "no_new_measurement": true
+}

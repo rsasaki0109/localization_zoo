@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "full_sequences": 11,
+  "all_report_decisions_and_counts_reconstructed_exactly": true,
+  "float_comparison_relative_tolerance": 1e-10,
+  "float_comparison_absolute_tolerance": 1e-12,
+  "native_source_and_historical_results_unchanged": true,
+  "no_native_rerun_or_new_accuracy_setting": true
+}

@@ -1,0 +1,91 @@
+{
+  "exit_code": 0,
+  "source_commit": "d03f5db61e20d418de64ac3faf7aa1afba6b73be",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-recursive-consensus/worktree/experiments/results/inten_recursive_consensus/pack_build_logs.py",
+    "candidate_build_corrected"
+  ],
+  "cwd": "/workspace/localization-env/inten-recursive-consensus/worktree",
+  "files": [
+    {
+      "original_relative_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/build.stderr",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus/original_build_logs/candidate_build_corrected/build.stderr",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "gzip_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/build.stderr.gz",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/build.stdout",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus/original_build_logs/candidate_build_corrected/build.stdout",
+      "raw_sha256": "449c5ed01d66ed6c849457db3f7bb4a405c35260ae7aa62f18f054f6d733358b",
+      "raw_bytes": 1519,
+      "gzip_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/build.stdout.gz",
+      "gzip_sha256": "f5c52b000917c3bf77aaa13f5e137f3e8bafb28caec765052f9af77e9661b2dd",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/configure.stderr",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus/original_build_logs/candidate_build_corrected/configure.stderr",
+      "raw_sha256": "3d77c38fbd07367aba026154ecd13e60c46398c8c198c7b121d292585cdfa791",
+      "raw_bytes": 117,
+      "gzip_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/configure.stderr.gz",
+      "gzip_sha256": "a671a1145f984d7d986bac32f296f71f1e3374c46fe5c768ef00b0fb30288b8f",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/configure.stdout",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus/original_build_logs/candidate_build_corrected/configure.stdout",
+      "raw_sha256": "6a4c3558c646894cfdc1a4d53668f02a2b0e21842e221fd9ce0b367714725fc4",
+      "raw_bytes": 14154,
+      "gzip_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/configure.stdout.gz",
+      "gzip_sha256": "532da85931ea87e353660a5130bfacd56d332f4e6910c90aa6a0fecb4f22377e",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/ctest.stderr",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus/original_build_logs/candidate_build_corrected/ctest.stderr",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "gzip_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/ctest.stderr.gz",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/ctest.stdout",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus/original_build_logs/candidate_build_corrected/ctest.stdout",
+      "raw_sha256": "63ef0fe084f0c877cffc786d42723fb31fc7618d4571d0e9278b7e8b3eacf2cc",
+      "raw_bytes": 593,
+      "gzip_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/ctest.stdout.gz",
+      "gzip_sha256": "dd07ea450032873b89a16cd777146dd9264289a5676ccd8ea711305f5c0b94c3",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/runner.stderr",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus/original_build_logs/candidate_build_corrected/runner.stderr",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "gzip_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/runner.stderr.gz",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "byte_roundtrip_equal": true
+    },
+    {
+      "original_relative_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/runner.stdout",
+      "private_original": "/workspace/localization-env/inten-recursive-consensus/original_build_logs/candidate_build_corrected/runner.stdout",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "gzip_path": "experiments/results/inten_recursive_consensus/checks/candidate_build_corrected/runner.stdout.gz",
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "byte_roundtrip_equal": true
+    }
+  ],
+  "actual_build_exit_codes": {
+    "build_command.json": 0,
+    "configure_command.json": 0,
+    "ctest_command.json": 0,
+    "runner_command.json": 0
+  },
+  "policy": "Keep exact raw bytes privately and lossless gzip+mapping in repository; failed exits remain failed, no log sanitation."
+}

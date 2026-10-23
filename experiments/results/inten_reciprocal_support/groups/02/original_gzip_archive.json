@@ -1,0 +1,67 @@
+{
+  "files": {
+    "input.txt": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_02/input.txt",
+      "bytes": 2176,
+      "sha256": "142ed3f7249cb1b105bfbee6066911278a080bfe6343c3b7e96f3a70738852a7",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "142ed3f7249cb1b105bfbee6066911278a080bfe6343c3b7e96f3a70738852a7"
+    },
+    "input_sources.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_02/input_sources.json",
+      "bytes": 527,
+      "sha256": "d562abb21dd6e8009aa06a5dd9f2b6869271afedd64bb050740800155f70dfbc",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "d562abb21dd6e8009aa06a5dd9f2b6869271afedd64bb050740800155f70dfbc"
+    },
+    "native.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_02/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.jsonl": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_02/native.stdout.jsonl",
+      "bytes": 69611049,
+      "sha256": "e97895652105426382de96d24590c2fdfdb4a9c044a06154d51d1a5eba187f9c",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "native.stdout.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "0a2744ff15aacf3368aec24ab419ccb5e919504d7aaa1b53a95ab4f9a141371e",
+          "gzip_bytes": 9116734,
+          "raw_sha256": "dc5392c7ecdeced227e95b9c9136bbd74cacb77c654ab02cdea1c290a7656f83",
+          "raw_bytes": 33554432
+        },
+        {
+          "path": "native.stdout.jsonl.parts/part-00001.gz",
+          "gzip_sha256": "b6797c78af93d6bf925f4e934b0a2e3f681c46cb8da932f6fa1d84327672806a",
+          "gzip_bytes": 9120501,
+          "raw_sha256": "a64d117120f0d9c9d19227f22451e15d2122cb4e9153a46cf5824586362b0482",
+          "raw_bytes": 33554432
+        },
+        {
+          "path": "native.stdout.jsonl.parts/part-00002.gz",
+          "gzip_sha256": "38fa84eb7541be7b4237a46faf1a9da5c8a299230008ee153b54ede08cb0911b",
+          "gzip_bytes": 676160,
+          "raw_sha256": "fb78fe7e0da79d5618e33e26a8ef4fad51d0b8fb85ea57edf47666dfda41ea4b",
+          "raw_bytes": 2502185
+        }
+      ]
+    },
+    "native_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-reciprocal-support-20261022/native_02/native_command.json",
+      "bytes": 1072,
+      "sha256": "38449680078f5e53a37c8811e7aed57cb726f9a97805ce8b9c52b5590fd84b93",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "38449680078f5e53a37c8811e7aed57cb726f9a97805ce8b9c52b5590fd84b93"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

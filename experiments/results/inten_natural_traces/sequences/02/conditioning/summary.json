@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "exit_code": 0,
+  "scope": "Offline normal-equation analysis only. No estimator gate, accuracy, correspondence correctness or solver-cause finding.",
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/analyze_inten_conditioning.py",
+    "--trace",
+    "/workspace/localization-env/inten-natural-traces/staging/02/on/trace.jsonl",
+    "--summary",
+    "/workspace/localization-env/inten-natural-traces/staging/02/on/summary.json",
+    "--receipt",
+    "/workspace/localization-env/inten-natural-traces/staging/02/on/native_command.json",
+    "--rotation-length-m",
+    "1",
+    "--rank-rtol",
+    "1e-09",
+    "--output-dir",
+    "/workspace/localization-env/inten-natural-traces/staging/02/conditioning"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "implementation_sha256": {
+    "analyze_inten_conditioning.py": "7edfd32ed973f5b4f8f4093f21793fbd2c6806519a4d8dcafb885d2bfd4f012c",
+    "check_inten_trace.py": "166a8e80f5b1927daf5a81f65264c2544c45edb6be86d80c84509816da74a5e1"
+  },
+  "inputs": {
+    "trace": "/workspace/localization-env/inten-natural-traces/staging/02/on/trace.jsonl",
+    "summary": "/workspace/localization-env/inten-natural-traces/staging/02/on/summary.json",
+    "receipt": "/workspace/localization-env/inten-natural-traces/staging/02/on/native_command.json"
+  },
+  "validation": {
+    "schema_version": 1,
+    "exit_code": 0,
+    "scope": "Structural/run-receipt validation only; accuracy, GT indexing, binary/input hashes and solver cause are not validated.",
+    "trace_sha256": "8c77951dec2b34045c0ab1e065ff274f020ad26290f2631b76925fc7638d605a",
+    "summary_sha256": "4fd728638796d93b203c6f370b2fe4bbe07c0a5472111cdaf2f537081f6ecba0",
+    "receipt_sha256": "1cd29e4ab5998fff031142bd87cf54ee2b5b70e68ad0111ae49c66976c470790",
+    "records": 4663,
+    "input_frames": 4661,
+    "processed_frames": 4661,
+    "skipped_frames": 0,
+    "nonfinite_values": 0,
+    "stages": {
+      "s2s": {
+        "calls": 4660,
+        "iterations": 44669,
+        "stops": {
+          "not_run": 1,
+          "iteration_limit": 3668,
+          "converged": 992
+        }
+      },
+      "s2m": {
+        "calls": 4660,
+        "iterations": 40502,
+        "stops": {
+          "not_run": 1,
+          "converged": 2181,
+          "iteration_limit": 2479
+        }
+      }
+    }
+  },
+  "convention": {
+    "coordinates": "current_sensor_center_and_axes_at_linearization",
+    "q_order": "translation_m_then_rotation_length_m_times_rotation_rad",
+    "rotation_length_m": 1.0,
+    "tangent_map": "A=Ad(linearization_pose)*diag(I,I/L); native_delta=A*q",
+    "normal_matrix": "Hq=A.T*H*A; gq=A.T*g; no damping",
+    "rank_rtol": 1e-09,
+    "rank_cutoff": "rank_rtol*max(abs(eigenvalues))",
+    "symmetry_rtol": 1e-10,
+    "rigid_pose_atol": 1e-08,
+    "condition_number": "lambda_max/lambda_min only for PSD numerical rank 6; otherwise null"
+  },
+  "stages": {
+    "s2s": {
+      "iterations": 44669,
+      "statuses": {
+        "ok": 44669
+      },
+      "numerical_ranks": {
+        "6": 44669
+      }
+    },
+    "s2m": {
+      "iterations": 40502,
+      "statuses": {
+        "ok": 40502
+      },
+      "numerical_ranks": {
+        "6": 40502
+      }
+    }
+  },
+  "iterations_sha256": "141477d46c9c5f5e28c9c3e661b54b262b9d14bc96ce51472fa7edb03171c92f"
+}

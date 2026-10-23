@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "created_aggregates": [
+    "experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json",
+    "experiments/results/inten_loam_kitti_seq_10_full_row_support_matrix.json"
+  ],
+  "historical_aggregates_unchanged": true,
+  "default_policy": "All new variants remain non-default; no per-sequence winner is adopted.",
+  "timing_policy": "Native summaries and raw times are byte-preserved. Aggregate timing fields are unavailable in every arm because concurrent runs are not standalone speed measurements."
+}

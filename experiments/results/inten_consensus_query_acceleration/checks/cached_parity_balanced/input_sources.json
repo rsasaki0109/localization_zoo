@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "archive_manifest": "experiments/results/inten_current_correspondences/baseline/archive.json",
+      "archive_manifest_sha256": "b915f9cacca6208839afce6ad7924ca6ccc699ccb7336b7605a629ce94a54a75",
+      "name": "features.jsonl",
+      "restored_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_inputs_balanced/features.jsonl",
+      "sha256": "cc9021877c105fbd4af199c0c8643935c41b6de590c5a3d6c7f5dede7c14b90e",
+      "bytes": 93885472
+    },
+    {
+      "archive_manifest": "experiments/results/inten_fixed_rotation/controls/archive.json",
+      "archive_manifest_sha256": "d17ff38eea488877093624f4838118d6ebb13f86f6590d1180385e47fbab66b4",
+      "name": "native.stdout.jsonl",
+      "restored_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_inputs_balanced/previous.jsonl",
+      "sha256": "99fde6668f7bbf767d12bbf0099fdb389775b77e039bbd69184d28690a948468",
+      "bytes": 840869
+    },
+    {
+      "archive_manifest": "experiments/results/inten_cluster_motion/controls/archive.json",
+      "archive_manifest_sha256": "c5f66d77908557028299db8383c1bde133ece5425a4ef3b3e8bd3a32c4b1a3e4",
+      "name": "native.stdout.jsonl",
+      "restored_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/parity_inputs_balanced/profiles.jsonl",
+      "sha256": "dd9fcdec9569005f2eb699388640e545912d9c513e58c041567b773c336d8300",
+      "bytes": 3954947
+    }
+  ],
+  "no_gt": true
+}

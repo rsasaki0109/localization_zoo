@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "native_calls": 48,
+  "all_equations_and_original_controls_reconstructed": true,
+  "all_translation_only_rotations_bitwise_original": true,
+  "candidate_gate_passed": true,
+  "no_raw_acquisition": true,
+  "history_and_live_production_pins_checked": true
+}

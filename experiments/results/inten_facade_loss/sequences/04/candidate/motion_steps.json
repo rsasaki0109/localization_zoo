@@ -1,0 +1,85 @@
+{
+  "frames": 271,
+  "official_metrics_from_saved_poses": {
+    "frames": 271,
+    "reference_frames": 271,
+    "tracking_success_rate": 1.0,
+    "ate_m": 1.5519193826191895,
+    "rpe_trans_pct": 0.7070188934949156,
+    "rpe_rot_deg_per_m": 0.003330209632351604,
+    "rpe_segments": 208,
+    "kitti_rte_trans_pct": 0.6816596870960501,
+    "kitti_rte_rot_deg_per_100m": 0.3203290983622238,
+    "kitti_rte_segments": 43,
+    "trajectory_length_m": 393.64527707635335
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 0.9944196946105917,
+  "moving_step_count": 270,
+  "step_length_ratio_median": 0.9948308409233891,
+  "steps_length_off_over_threshold": 0,
+  "steps_vector_off_over_threshold": 0,
+  "bad_length_step_frame_ranges": [],
+  "bad_vector_step_frame_ranges": [],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 137.18298063486523,
+      "path_length_ratio": 0.9944522900355248,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9967686170354619,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 0.9860488179018929,
+      "block_relative_translation_error_pct": 0.7187836374198558,
+      "block_relative_rotation_error_deg_per_100m": 0.17968326420416797
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 144.36863004693618,
+      "path_length_ratio": 0.9956064643332391,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9956191705519503,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.9860488179018929,
+      "position_error_end_m": 1.9552816102439605,
+      "block_relative_translation_error_pct": 0.6439792390858006,
+      "block_relative_rotation_error_deg_per_100m": 0.39638648536220394
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 270,
+      "gt_distance_m": 112.09366640246202,
+      "path_length_ratio": 0.9928513289550689,
+      "moving_step_count": 70,
+      "step_length_ratio_median": 0.9939087954640236,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 1.9552816102439605,
+      "position_error_end_m": 2.7886619211131958,
+      "block_relative_translation_error_pct": 0.7273223529257103,
+      "block_relative_rotation_error_deg_per_100m": 0.6020180559232543
+    }
+  ],
+  "benchmark_summary": "/workspace/localization-env/inten-facade-loss/full_staging/04/candidate/summary.json",
+  "benchmark_method": "InTEn-LOAM",
+  "schema_version": 1,
+  "command": "python3 evaluation/scripts/diagnose_kitti_steps.py --estimate /workspace/localization-env/inten-facade-loss/full_staging/04/candidate/dogfooding_results/InTEn_LOAM.txt --gt /workspace/localization-env/inten-facade-loss/full_staging/04/candidate/dogfooding_results/velodyne_evaluated_gt.txt --summary /workspace/localization-env/inten-facade-loss/full_staging/04/candidate/summary.json --method InTEn-LOAM --output /workspace/localization-env/inten-facade-loss/full_staging/04/candidate/motion_steps.json",
+  "estimate_path": "/workspace/localization-env/inten-facade-loss/full_staging/04/candidate/dogfooding_results/InTEn_LOAM.txt",
+  "gt_path": "/workspace/localization-env/inten-facade-loss/full_staging/04/candidate/dogfooding_results/velodyne_evaluated_gt.txt"
+}

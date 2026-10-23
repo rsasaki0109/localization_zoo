@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-s2m-prior/finish_collection.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "source_commit": "99981079c84ca08e5a5ae4b4cd3191d5297df684",
+  "started_unix": 1792544910.9758954,
+  "finished_unix": 1792544977.1518407,
+  "exit_code": 0
+}

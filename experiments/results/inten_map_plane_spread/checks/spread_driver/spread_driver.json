@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_map_plane_spread/spread.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-s2m-prior/worktree",
+  "started_unix": 1792539310.268431,
+  "finished_unix": 1792539954.2442207,
+  "exit_code": 0
+}

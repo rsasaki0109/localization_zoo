@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "raw_collection_commit": "cf1c52ea51e342c305e32b0fdbda0dead211a771",
+  "native_source_commit": "20c09c463292147e8deafa1525abc6deb5e8fc2d",
+  "collection_protocol_commit": "498941245bf87fd7497858fa9da01e58e6fbf21d",
+  "preservation_base_commit": "5e1b93ce62f21109c8061eca300d5f13f3230297",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "report": "Restore all committed11 archives, validate saved poses/GT/prediction flow/features and completion. Use existing native official100-800m RTE, inherited0.1m/20% step labels, complete local-step CSVs and every motion-error block. Known-entry observations at01/420 and02/1876,4460 are natural-trajectory observations, not same-seed causal interventions. No new threshold or spectral gate.",
+  "import_policy": "Import all22 paired outputs with byte-preserved native summaries and original commands/poses. All remain non-default and unscored; no per-sequence adoption or ATE/FPS proxy ranking. Uniformly suppress aggregate timing in both arms because collection processes share CPUs, retain original timing in native summaries and measurement_context.",
+  "negative_policy": "Report all higher RTE, rotation,ATE,bad-length and bad-vector outcomes with numerical values. No sequence removal, retuning, new native execution or favorable-arm selection during derivation.",
+  "preservation": "Verify historical aggregate SHA map, existing full-variant rows, canonical publication files, parent scientific studies, source/binary/dependency pins, full07 parent control and inherited360 default-off pair controls.",
+  "order": "Commit all original collection/runtime evidence. Commit postprocessing sources/protocol before executing them. Commit full report/import results before numerical README prose. Regenerate required derived docs, run checks with actual exit codes, create one actual-implementation/full-results PR and require full native/ROS CI. No merge.",
+  "prior_inspection": "07 selected the inherited numerical values;00 informed earlier diagnosis. Known01/02 motivated row completion, and prior geometry diagnosis also inspected10. No independent held-out claim.",
+  "source_sha256": {
+    "report.py": "b2234da3325a3e6597a063c74149be7f982166db5acc229ea78ccaa42be2386f",
+    "import_results.py": "2058ceb70a8f8a5905afaf1b985885f0b5744a6a71f2c62264db5a74ab523461",
+    "verify.py": "b5a71c307b7935f19938f1d4727986969a848b8a96657f450f5976788ec284ac",
+    "write_docs.py": "cd8c0549705ee8a9c2cfa83751ba03cb591bf9925827d7c2919073c3f9040cb2",
+    "readme_template.md": "41853f1254b366ab63b96cdd871cf0efc705793f0702bdac75c1ff46f16b5337"
+  }
+}

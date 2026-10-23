@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "reason": "First frozen region has no points; no data-independent profile exists. Preserve all failed outputs and binary. Add explicit unavailable records only, retaining every fixed region, frame and cost rule; compile and execute as separate v2 binary/stage.",
+  "initial_binary_path": "/workspace/localization-env/inten-current-correspondences/motion_probe",
+  "initial_binary_sha256": "f9c3f5f144a3ed325e536de21ce32197b872aab0d06efc4dae016562e744d8fd"
+}

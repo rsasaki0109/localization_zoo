@@ -1,0 +1,21 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "cd7471b76435b580ed583dac8b165b357848424e",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-fixed-rotation/worktree",
+  "source_commit": "bbc011d4c5c3e6a57d5085dfcc4d79b85ffc304a",
+  "started_unix": 1792581991.9090574,
+  "finished_unix": 1792581991.9615927,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-fixed-rotation/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-fixed-rotation/cache",
+    "PATH_prefix": "/workspace/localization-env/host-venv/bin"
+  }
+}

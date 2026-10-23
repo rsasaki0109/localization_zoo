@@ -1,0 +1,309 @@
+{
+  "total_count": 2,
+  "jobs": [
+    {
+      "id": 119558120396,
+      "run_id": 39697430033,
+      "workflow_name": "CI",
+      "head_branch": "codex/inten-consensus-failure-origin",
+      "run_url": "https://api.github.com/repos/rsasaki0109/localization_zoo/actions/runs/39697430033",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORuBOHM8AAAAb1jgjzA",
+      "head_sha": "1c50f5cf2ab9a7ca1a10876c3f9d5de0691f5171",
+      "url": "https://api.github.com/repos/rsasaki0109/localization_zoo/actions/jobs/119558120396",
+      "html_url": "https://github.com/rsasaki0109/localization_zoo/actions/runs/39697430033/job/119558120396",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-22T00:04:26Z",
+      "started_at": "2026-10-22T00:04:29Z",
+      "completed_at": "2026-10-22T00:25:59Z",
+      "name": "build-and-test",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-22T00:04:30Z",
+          "completed_at": "2026-10-22T00:04:30Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-22T00:04:30Z",
+          "completed_at": "2026-10-22T00:09:44Z"
+        },
+        {
+          "name": "Install dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-22T00:09:44Z",
+          "completed_at": "2026-10-22T00:11:10Z"
+        },
+        {
+          "name": "Install Python dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-22T00:11:10Z",
+          "completed_at": "2026-10-22T00:11:18Z"
+        },
+        {
+          "name": "Configure",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-22T00:11:18Z",
+          "completed_at": "2026-10-22T00:11:27Z"
+        },
+        {
+          "name": "Build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-22T00:11:27Z",
+          "completed_at": "2026-10-22T00:20:27Z"
+        },
+        {
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-22T00:20:27Z",
+          "completed_at": "2026-10-22T00:23:03Z"
+        },
+        {
+          "name": "Python bindings smoke",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-22T00:23:03Z",
+          "completed_at": "2026-10-22T00:23:03Z"
+        },
+        {
+          "name": "Upload paper Python fixture parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-22T00:23:03Z",
+          "completed_at": "2026-10-22T00:23:04Z"
+        },
+        {
+          "name": "Dogfooding smoke (committed 3-frame MCD fixture ~3MB)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-22T00:23:04Z",
+          "completed_at": "2026-10-22T00:23:11Z"
+        },
+        {
+          "name": "Fixture result drift check (golden metrics)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-22T00:23:11Z",
+          "completed_at": "2026-10-22T00:23:11Z"
+        },
+        {
+          "name": "Upload fixture golden actual values",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-22T00:23:11Z",
+          "completed_at": "2026-10-22T00:23:12Z"
+        },
+        {
+          "name": "Multimodal smoke (committed 3-frame MCD fixture + visual CSVs)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-22T00:23:12Z",
+          "completed_at": "2026-10-22T00:23:12Z"
+        },
+        {
+          "name": "2D scan smoke (committed Intel Lab val slice, 20 frames)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-22T00:23:12Z",
+          "completed_at": "2026-10-22T00:23:13Z"
+        },
+        {
+          "name": "2D scan long smoke (committed MIT/Intel train slices, 20 frames)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-22T00:23:13Z",
+          "completed_at": "2026-10-22T00:23:19Z"
+        },
+        {
+          "name": "One-command demo report",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-22T00:23:19Z",
+          "completed_at": "2026-10-22T00:23:27Z"
+        },
+        {
+          "name": "Upload demo report artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-22T00:23:27Z",
+          "completed_at": "2026-10-22T00:23:28Z"
+        },
+        {
+          "name": "Python script regressions",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 18,
+          "started_at": "2026-10-22T00:23:28Z",
+          "completed_at": "2026-10-22T00:25:57Z"
+        },
+        {
+          "name": "LiDAR v10 release contract",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 19,
+          "started_at": "2026-10-22T00:25:57Z",
+          "completed_at": "2026-10-22T00:25:57Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-10-22T00:25:57Z",
+          "completed_at": "2026-10-22T00:25:57Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-10-22T00:25:57Z",
+          "completed_at": "2026-10-22T00:25:57Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/rsasaki0109/localization_zoo/check-runs/119558120396",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000208933,
+      "runner_name": "GitHub Actions 1000208933",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 119558120565,
+      "run_id": 39697430033,
+      "workflow_name": "CI",
+      "head_branch": "codex/inten-consensus-failure-origin",
+      "run_url": "https://api.github.com/repos/rsasaki0109/localization_zoo/actions/runs/39697430033",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORuBOHM8AAAAb1jgkdQ",
+      "head_sha": "1c50f5cf2ab9a7ca1a10876c3f9d5de0691f5171",
+      "url": "https://api.github.com/repos/rsasaki0109/localization_zoo/actions/jobs/119558120565",
+      "html_url": "https://github.com/rsasaki0109/localization_zoo/actions/runs/39697430033/job/119558120565",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-22T00:04:27Z",
+      "started_at": "2026-10-22T00:04:29Z",
+      "completed_at": "2026-10-22T00:18:03Z",
+      "name": "ros2-colcon-build",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-22T00:04:30Z",
+          "completed_at": "2026-10-22T00:04:30Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-22T00:04:30Z",
+          "completed_at": "2026-10-22T00:04:48Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-22T00:04:48Z",
+          "completed_at": "2026-10-22T00:09:51Z"
+        },
+        {
+          "name": "Install ROS2 build dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-22T00:09:51Z",
+          "completed_at": "2026-10-22T00:12:31Z"
+        },
+        {
+          "name": "Build ROS2 package",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-22T00:12:31Z",
+          "completed_at": "2026-10-22T00:15:22Z"
+        },
+        {
+          "name": "Paper odometry nodes (native fixture parity, odometry and TF)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-22T00:15:22Z",
+          "completed_at": "2026-10-22T00:17:55Z"
+        },
+        {
+          "name": "Upload paper ROS fixture parity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-22T00:17:55Z",
+          "completed_at": "2026-10-22T00:17:57Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-22T00:17:57Z",
+          "completed_at": "2026-10-22T00:17:57Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-22T00:17:57Z",
+          "completed_at": "2026-10-22T00:18:02Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-22T00:18:02Z",
+          "completed_at": "2026-10-22T00:18:02Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/rsasaki0109/localization_zoo/check-runs/119558120565",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000208932,
+      "runner_name": "GitHub Actions 1000208932",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "commands": {
+    "paper_ready": 0,
+    "showcase": 0,
+    "leaderboard": 0,
+    "full_variant": 0,
+    "paper_ratio": 0,
+    "whitespace": 0,
+    "report_docs": 0,
+    "portable_Haswell": 0,
+    "portable_Sandybridge": 0,
+    "all_python": 0
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "sequence": "05",
+  "owned_input_dir": "/workspace/localization-env/inten-facade-pca/kitti/dataset/sequences/05/velodyne",
+  "hashes_verified_before_removal": true,
+  "input_dir_exists_after": false,
+  "removed_files": 2762
+}

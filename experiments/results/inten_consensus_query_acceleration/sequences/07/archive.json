@@ -1,0 +1,427 @@
+{
+  "files": {
+    "acquisition_reuse.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/acquisition_reuse.json",
+      "bytes": 525,
+      "sha256": "a483ed41ad7d22db917d6982d41f891fc6c8281271fcd084107b0ddfcd7e2fc5",
+      "storage": "verbatim",
+      "path": "acquisition_reuse.json",
+      "stored_sha256": "a483ed41ad7d22db917d6982d41f891fc6c8281271fcd084107b0ddfcd7e2fc5"
+    },
+    "baseline/analysis/consensus_validate.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/consensus_validate.log",
+      "bytes": 81,
+      "sha256": "e5fd0c11c7e6eaf3859decabb2e37f27946174bd1acb0d4439eabca3c880720e",
+      "storage": "gzip",
+      "path": "baseline/analysis/consensus_validate.log.gz",
+      "stored_sha256": "64e7f9111c131dd8f468b4846a4b7eace1332d194470e71565746f7b99a4976d"
+    },
+    "baseline/analysis/consensus_validate_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/consensus_validate_command.json",
+      "bytes": 834,
+      "sha256": "0421b6e442e02c380ff94966aa7f205c10f55e756842c9988642b55906b78ec9",
+      "storage": "verbatim",
+      "path": "baseline/analysis/consensus_validate_command.json",
+      "stored_sha256": "0421b6e442e02c380ff94966aa7f205c10f55e756842c9988642b55906b78ec9"
+    },
+    "baseline/analysis/consensus_validate_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/consensus_validate_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "baseline/analysis/consensus_validate_stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "baseline/analysis/steps.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/steps.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "baseline/analysis/steps.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "baseline/analysis/steps_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/steps_command.json",
+      "bytes": 1056,
+      "sha256": "24440f5448091286681f2b38112a824837f991c6813599f70ab31dd0f6283338",
+      "storage": "verbatim",
+      "path": "baseline/analysis/steps_command.json",
+      "stored_sha256": "24440f5448091286681f2b38112a824837f991c6813599f70ab31dd0f6283338"
+    },
+    "baseline/analysis/steps_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/steps_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "baseline/analysis/steps_stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "baseline/analysis/validate.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/validate.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "baseline/analysis/validate.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "baseline/analysis/validate_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/validate_command.json",
+      "bytes": 978,
+      "sha256": "3017ef93a2413e5dbcd0a695b6dce0eb5250b98335e61e717e30369829833454",
+      "storage": "verbatim",
+      "path": "baseline/analysis/validate_command.json",
+      "stored_sha256": "3017ef93a2413e5dbcd0a695b6dce0eb5250b98335e61e717e30369829833454"
+    },
+    "baseline/analysis/validate_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/analysis/validate_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "baseline/analysis/validate_stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "baseline/consensus_validation.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/consensus_validation.json",
+      "bytes": 668,
+      "sha256": "e680046372685606b6d4e470fd32afd7cc9dae1b6a8fed4643d7bf9d37fcbf3f",
+      "storage": "verbatim",
+      "path": "baseline/consensus_validation.json",
+      "stored_sha256": "e680046372685606b6d4e470fd32afd7cc9dae1b6a8fed4643d7bf9d37fcbf3f"
+    },
+    "baseline/dogfooding_results/InTEn_LOAM.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/dogfooding_results/InTEn_LOAM.txt",
+      "bytes": 167929,
+      "sha256": "6e8619e1bf49964111e253f7f60f25c580ed9101cf78f589c90e16d61792a84b",
+      "storage": "verbatim",
+      "path": "baseline/dogfooding_results/InTEn_LOAM.txt",
+      "stored_sha256": "6e8619e1bf49964111e253f7f60f25c580ed9101cf78f589c90e16d61792a84b"
+    },
+    "baseline/dogfooding_results/gt.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/dogfooding_results/gt.txt",
+      "bytes": 167873,
+      "sha256": "61d3ca7aee72d39b4f12cad6755ae69e46601d718f814ba3595989fd0adf45dc",
+      "storage": "verbatim",
+      "path": "baseline/dogfooding_results/gt.txt",
+      "stored_sha256": "61d3ca7aee72d39b4f12cad6755ae69e46601d718f814ba3595989fd0adf45dc"
+    },
+    "baseline/dogfooding_results/velodyne_evaluated_gt.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/dogfooding_results/velodyne_evaluated_gt.txt",
+      "bytes": 167873,
+      "sha256": "61d3ca7aee72d39b4f12cad6755ae69e46601d718f814ba3595989fd0adf45dc",
+      "storage": "verbatim",
+      "path": "baseline/dogfooding_results/velodyne_evaluated_gt.txt",
+      "stored_sha256": "61d3ca7aee72d39b4f12cad6755ae69e46601d718f814ba3595989fd0adf45dc"
+    },
+    "baseline/dogfooding_results/velodyne_evaluation_manifest.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/dogfooding_results/velodyne_evaluation_manifest.json",
+      "bytes": 3222,
+      "sha256": "c09521bac471d6567abe070173255beee83388d37e2e7ebb278723f5e50c602e",
+      "storage": "verbatim",
+      "path": "baseline/dogfooding_results/velodyne_evaluation_manifest.json",
+      "stored_sha256": "c09521bac471d6567abe070173255beee83388d37e2e7ebb278723f5e50c602e"
+    },
+    "baseline/motion_steps.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/motion_steps.json",
+      "bytes": 8801,
+      "sha256": "49896cc6b7b37730261de91673ef04bee6c44494a43af9b0c6ee849a3cfe8a4e",
+      "storage": "verbatim",
+      "path": "baseline/motion_steps.json",
+      "stored_sha256": "49896cc6b7b37730261de91673ef04bee6c44494a43af9b0c6ee849a3cfe8a4e"
+    },
+    "baseline/native.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/native.log",
+      "bytes": 1693,
+      "sha256": "ce81317f36646e91672d94a51e86727db0dcd00e398b118d3f602b190170d10f",
+      "storage": "gzip",
+      "path": "baseline/native.log.gz",
+      "stored_sha256": "108ac1c21fe00065b4f9b03e25a58cfa72c47928eea76ade3b6d4577237fa87d"
+    },
+    "baseline/native_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/native_command.json",
+      "bytes": 3865,
+      "sha256": "88e9402fe6da78301b10c2bb98c3f153b15b2f6b29721a3b150af5dbe2528660",
+      "storage": "verbatim",
+      "path": "baseline/native_command.json",
+      "stored_sha256": "88e9402fe6da78301b10c2bb98c3f153b15b2f6b29721a3b150af5dbe2528660"
+    },
+    "baseline/native_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/native_stderr.log",
+      "bytes": 11418,
+      "sha256": "cd968f6660932920943b548f0b4fb8d802ce7d4dc9e5efd7e261c7b8db1e61ab",
+      "storage": "gzip",
+      "path": "baseline/native_stderr.log.gz",
+      "stored_sha256": "2fe3d83372307df5b38045b139ad679396b77c3f943c2d607cf1adb4739703dc"
+    },
+    "baseline/summary.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/summary.json",
+      "bytes": 3222,
+      "sha256": "c09521bac471d6567abe070173255beee83388d37e2e7ebb278723f5e50c602e",
+      "storage": "verbatim",
+      "path": "baseline/summary.json",
+      "stored_sha256": "c09521bac471d6567abe070173255beee83388d37e2e7ebb278723f5e50c602e"
+    },
+    "baseline/trace.jsonl": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/trace.jsonl",
+      "bytes": 29738438,
+      "sha256": "f39e6a1253bace96cf24bfdbbe725a760d4abee66aefce103a45916826208664",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "baseline/trace.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "69e87f4c2530104eed4451069c6f6a9712e4caebc77e16ccacffbe473717d219",
+          "gzip_bytes": 10073461,
+          "raw_sha256": "f39e6a1253bace96cf24bfdbbe725a760d4abee66aefce103a45916826208664",
+          "raw_bytes": 29738438
+        }
+      ]
+    },
+    "baseline/trace_validation.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/baseline/trace_validation.json",
+      "bytes": 919,
+      "sha256": "9f23b5d1f64406d53014aff276114266c8de51b1b00b77b733be02761b33dd8b",
+      "storage": "verbatim",
+      "path": "baseline/trace_validation.json",
+      "stored_sha256": "9f23b5d1f64406d53014aff276114266c8de51b1b00b77b733be02761b33dd8b"
+    },
+    "candidate/analysis/consensus_validate.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/consensus_validate.log",
+      "bytes": 81,
+      "sha256": "e5fd0c11c7e6eaf3859decabb2e37f27946174bd1acb0d4439eabca3c880720e",
+      "storage": "gzip",
+      "path": "candidate/analysis/consensus_validate.log.gz",
+      "stored_sha256": "64e7f9111c131dd8f468b4846a4b7eace1332d194470e71565746f7b99a4976d"
+    },
+    "candidate/analysis/consensus_validate_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/consensus_validate_command.json",
+      "bytes": 834,
+      "sha256": "e1b99abbadd83a8451b6140628b515f5dfd4f2bc3a31511b0f34779767e6ac78",
+      "storage": "verbatim",
+      "path": "candidate/analysis/consensus_validate_command.json",
+      "stored_sha256": "e1b99abbadd83a8451b6140628b515f5dfd4f2bc3a31511b0f34779767e6ac78"
+    },
+    "candidate/analysis/consensus_validate_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/consensus_validate_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "candidate/analysis/consensus_validate_stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "candidate/analysis/steps.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/steps.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "candidate/analysis/steps.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "candidate/analysis/steps_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/steps_command.json",
+      "bytes": 1060,
+      "sha256": "666b34836d12542d4acd1dddf2f903b51d651b18b65f9c65ad51039e5d2edbed",
+      "storage": "verbatim",
+      "path": "candidate/analysis/steps_command.json",
+      "stored_sha256": "666b34836d12542d4acd1dddf2f903b51d651b18b65f9c65ad51039e5d2edbed"
+    },
+    "candidate/analysis/steps_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/steps_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "candidate/analysis/steps_stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "candidate/analysis/validate.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/validate.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "candidate/analysis/validate.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "candidate/analysis/validate_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/validate_command.json",
+      "bytes": 981,
+      "sha256": "6dbaa0617151802571f868da14c1f650f682ee8bb0e40ef4adcb95e3bd87258a",
+      "storage": "verbatim",
+      "path": "candidate/analysis/validate_command.json",
+      "stored_sha256": "6dbaa0617151802571f868da14c1f650f682ee8bb0e40ef4adcb95e3bd87258a"
+    },
+    "candidate/analysis/validate_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/analysis/validate_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "candidate/analysis/validate_stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "candidate/consensus_validation.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/consensus_validation.json",
+      "bytes": 707,
+      "sha256": "8df381270b8f8958ada80c3f6af274d305f04e9b20569dba77340fc316b8df4f",
+      "storage": "verbatim",
+      "path": "candidate/consensus_validation.json",
+      "stored_sha256": "8df381270b8f8958ada80c3f6af274d305f04e9b20569dba77340fc316b8df4f"
+    },
+    "candidate/dogfooding_results/InTEn_LOAM.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/dogfooding_results/InTEn_LOAM.txt",
+      "bytes": 168025,
+      "sha256": "dfc1714db448b677df1dfccec6c3ca6109abe97577140e112a1b04d06639082c",
+      "storage": "verbatim",
+      "path": "candidate/dogfooding_results/InTEn_LOAM.txt",
+      "stored_sha256": "dfc1714db448b677df1dfccec6c3ca6109abe97577140e112a1b04d06639082c"
+    },
+    "candidate/dogfooding_results/gt.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/dogfooding_results/gt.txt",
+      "bytes": 167873,
+      "sha256": "61d3ca7aee72d39b4f12cad6755ae69e46601d718f814ba3595989fd0adf45dc",
+      "storage": "verbatim",
+      "path": "candidate/dogfooding_results/gt.txt",
+      "stored_sha256": "61d3ca7aee72d39b4f12cad6755ae69e46601d718f814ba3595989fd0adf45dc"
+    },
+    "candidate/dogfooding_results/velodyne_evaluated_gt.txt": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/dogfooding_results/velodyne_evaluated_gt.txt",
+      "bytes": 167873,
+      "sha256": "61d3ca7aee72d39b4f12cad6755ae69e46601d718f814ba3595989fd0adf45dc",
+      "storage": "verbatim",
+      "path": "candidate/dogfooding_results/velodyne_evaluated_gt.txt",
+      "stored_sha256": "61d3ca7aee72d39b4f12cad6755ae69e46601d718f814ba3595989fd0adf45dc"
+    },
+    "candidate/dogfooding_results/velodyne_evaluation_manifest.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/dogfooding_results/velodyne_evaluation_manifest.json",
+      "bytes": 3314,
+      "sha256": "ddfacec7d43fd417cc4f908293e12a5aacfa2526270fe2aa50c2aeb5fcb2078f",
+      "storage": "verbatim",
+      "path": "candidate/dogfooding_results/velodyne_evaluation_manifest.json",
+      "stored_sha256": "ddfacec7d43fd417cc4f908293e12a5aacfa2526270fe2aa50c2aeb5fcb2078f"
+    },
+    "candidate/motion_steps.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/motion_steps.json",
+      "bytes": 8816,
+      "sha256": "989b37e826a16969fa3735e44c583d1053048f04865a02136c221a2ca3784b75",
+      "storage": "verbatim",
+      "path": "candidate/motion_steps.json",
+      "stored_sha256": "989b37e826a16969fa3735e44c583d1053048f04865a02136c221a2ca3784b75"
+    },
+    "candidate/native.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/native.log",
+      "bytes": 1784,
+      "sha256": "7bd935b69eb0a7d0ad7ad061b347b8d9b7f927395457a5133f19216838557c9c",
+      "storage": "gzip",
+      "path": "candidate/native.log.gz",
+      "stored_sha256": "ff1547c3964ddd307b9f97ff62301f612c26a785eba8a97254368367e30b39d3"
+    },
+    "candidate/native_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/native_command.json",
+      "bytes": 3872,
+      "sha256": "0a566782f35ca2fe20615df083e02674a25b4f215593bce1b06dfd82dcbe4d04",
+      "storage": "verbatim",
+      "path": "candidate/native_command.json",
+      "stored_sha256": "0a566782f35ca2fe20615df083e02674a25b4f215593bce1b06dfd82dcbe4d04"
+    },
+    "candidate/native_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/native_stderr.log",
+      "bytes": 11418,
+      "sha256": "a343bff4ed07c1c16cb4ab6c74aa713000a96f6a1e4c41107f37dd2f94896257",
+      "storage": "gzip",
+      "path": "candidate/native_stderr.log.gz",
+      "stored_sha256": "a2222af0e048cb8e792143999d1bed19fd0d333e5c15a88e5461476752091bcb"
+    },
+    "candidate/summary.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/summary.json",
+      "bytes": 3314,
+      "sha256": "ddfacec7d43fd417cc4f908293e12a5aacfa2526270fe2aa50c2aeb5fcb2078f",
+      "storage": "verbatim",
+      "path": "candidate/summary.json",
+      "stored_sha256": "ddfacec7d43fd417cc4f908293e12a5aacfa2526270fe2aa50c2aeb5fcb2078f"
+    },
+    "candidate/trace.jsonl": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/trace.jsonl",
+      "bytes": 51418252,
+      "sha256": "d8860a56a28628182623e6bd6b16aea38802879135e1e9851af6db50f408660e",
+      "storage": "ordered_gzip_shards",
+      "parts": [
+        {
+          "path": "candidate/trace.jsonl.parts/part-00000.gz",
+          "gzip_sha256": "a59984c8bd6543d49cf8c6fa4bd4f96812f6ee8c7d7ea6b5cb6880afcef1c771",
+          "gzip_bytes": 9935560,
+          "raw_sha256": "3192dda3de5e90256525809f73ada5c78e0f1bfd231730ea558ad3143c914578",
+          "raw_bytes": 33554432
+        },
+        {
+          "path": "candidate/trace.jsonl.parts/part-00001.gz",
+          "gzip_sha256": "57a826130d8e6a0391f9eb13e649355446051b9803433b6a9d38b87405894928",
+          "gzip_bytes": 5303967,
+          "raw_sha256": "ef2a3b5eeb3ba35e5869295359f4bcadaee47d23ffd29ca2a03032741eeb5ae6",
+          "raw_bytes": 17863820
+        }
+      ]
+    },
+    "candidate/trace_validation.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/candidate/trace_validation.json",
+      "bytes": 919,
+      "sha256": "8398e76d8535e340723a748a0fad1e391902909f2bb9d780e4880d40983ceac2",
+      "storage": "verbatim",
+      "path": "candidate/trace_validation.json",
+      "stored_sha256": "8398e76d8535e340723a748a0fad1e391902909f2bb9d780e4880d40983ceac2"
+    },
+    "effective_configuration.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/effective_configuration.json",
+      "bytes": 3826,
+      "sha256": "388831e23b0ffe5c33fb2991633dc573db35e06781a07f5f2d010bbe923e9578",
+      "storage": "verbatim",
+      "path": "effective_configuration.json",
+      "stored_sha256": "388831e23b0ffe5c33fb2991633dc573db35e06781a07f5f2d010bbe923e9578"
+    },
+    "equivalence_analysis/implementation_equivalence.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/equivalence_analysis/implementation_equivalence.log",
+      "bytes": 60,
+      "sha256": "b3e6ee1d79b15d6ffb68f64483ba1b266e261c813f342bbb5c6f032baf134e3a",
+      "storage": "gzip",
+      "path": "equivalence_analysis/implementation_equivalence.log.gz",
+      "stored_sha256": "53ffe0f0c603d8969c2d915be34d254a4797c89207b273848408d949933f74b0"
+    },
+    "equivalence_analysis/implementation_equivalence_command.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/equivalence_analysis/implementation_equivalence_command.json",
+      "bytes": 843,
+      "sha256": "46066b2c7b8618ecf3c712d2965c34dfa16018d4020b82dfb7e40f5aa9ad0130",
+      "storage": "verbatim",
+      "path": "equivalence_analysis/implementation_equivalence_command.json",
+      "stored_sha256": "46066b2c7b8618ecf3c712d2965c34dfa16018d4020b82dfb7e40f5aa9ad0130"
+    },
+    "equivalence_analysis/implementation_equivalence_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/equivalence_analysis/implementation_equivalence_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "equivalence_analysis/implementation_equivalence_stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "implementation_equivalence.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/implementation_equivalence.json",
+      "bytes": 780,
+      "sha256": "00437b9fee54c129e9dd2fb2e5434242bbad4820f66aa110d8cefb812ed05dd6",
+      "storage": "verbatim",
+      "path": "implementation_equivalence.json",
+      "stored_sha256": "00437b9fee54c129e9dd2fb2e5434242bbad4820f66aa110d8cefb812ed05dd6"
+    },
+    "inputs.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/inputs.json",
+      "bytes": 147983,
+      "sha256": "df3d2cd2410435c9da4cf879ec377fe999a1ecf90f6a5db89c9c1378eb4ebb08",
+      "storage": "verbatim",
+      "path": "inputs.json",
+      "stored_sha256": "df3d2cd2410435c9da4cf879ec377fe999a1ecf90f6a5db89c9c1378eb4ebb08"
+    },
+    "legacy_compatibility.json": {
+      "original_path": "/workspace/localization-env/inten-recursive-consensus-accelerated/full_staging/07/legacy_compatibility.json",
+      "bytes": 933,
+      "sha256": "da3f6fd2e508631fc104de4efc09ee569c44748e358e9637d910548466a3f4f2",
+      "storage": "verbatim",
+      "path": "legacy_compatibility.json",
+      "stored_sha256": "da3f6fd2e508631fc104de4efc09ee569c44748e358e9637d910548466a3f4f2"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

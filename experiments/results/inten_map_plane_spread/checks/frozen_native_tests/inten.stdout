@@ -1,0 +1,23 @@
+Running main() from ./googletest/src/gtest_main.cc
+[==========] Running 7 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 7 tests from InTenLoam
+[ RUN      ] InTenLoam.CylindricalProjectionStoresRange
+[       OK ] InTenLoam.CylindricalProjectionStoresRange (0 ms)
+[ RUN      ] InTenLoam.ReflectorLabelOnHighIntensity
+[       OK ] InTenLoam.ReflectorLabelOnHighIntensity (0 ms)
+[ RUN      ] InTenLoam.IntensityResidualScalesWithSigma
+[       OK ] InTenLoam.IntensityResidualScalesWithSigma (0 ms)
+[ RUN      ] InTenLoam.FactorsUseEigenQuaternionLayout
+[       OK ] InTenLoam.FactorsUseEigenQuaternionLayout (0 ms)
+[ RUN      ] InTenLoam.EdgeFactorIsThePointToLineDistance
+[       OK ] InTenLoam.EdgeFactorIsThePointToLineDistance (0 ms)
+[ RUN      ] InTenLoam.TracksShortSequence
+[       OK ] InTenLoam.TracksShortSequence (8 ms)
+[ RUN      ] InTenLoam.ClearResetsState
+[       OK ] InTenLoam.ClearResetsState (1 ms)
+[----------] 7 tests from InTenLoam (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 1 test suite ran. (10 ms total)
+[  PASSED  ] 7 tests.

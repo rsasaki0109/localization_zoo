@@ -111,6 +111,25 @@ class KittiSelectiveFetchTests(unittest.TestCase):
         self.assertEqual([len(chunk) for chunk in chunks], [3, 3, 3, 1])
         self.assertEqual([item for chunk in chunks for item in chunk], infos)
 
+    def test_sparse_frames_validate_and_do_not_span_unrequested_frames(self) -> None:
+        infos = [ZipInfo(f"dataset/sequences/01/velodyne/{i:06d}.bin") for i in range(9)]
+        selected = self.module.select_frame_infos(infos, [1, 2, 7, 7])
+        self.assertEqual(selected, [infos[1], infos[2], infos[7]])
+        self.assertEqual(self.module.contiguous_frame_runs(selected), [[infos[1], infos[2]], [infos[7]]])
+        for frames in ([], [-1], [1000000], [9]):
+            with self.assertRaises(ValueError):
+                self.module.select_frame_infos(infos, frames)
+
+    def test_sparse_range_request_ends_at_selected_payload(self) -> None:
+        info, encoded = self.make_entry("dataset/sequences/01/velodyne/000007.bin", b"selected", 100)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with mock.patch.object(self.module.urllib.request, "urlopen", return_value=FakeRangeResponse(encoded)) as opened:
+                self.assertEqual(self.module.extract_sequence_range("https://example.invalid/kitti.zip", [info], Path(tmpdir)), (1, 0))
+            self.assertEqual(opened.call_args.args[0].get_header("Range"), f"bytes=100-{100+len(encoded)-1}")
+            velodyne = Path(tmpdir)/"dataset/sequences/01/velodyne"
+            self.module.write_index_timestamps(velodyne, 1, [7])
+            self.assertEqual((velodyne/"frame_timestamps.csv").read_text(), "frame,timestamp\n7,7\n")
+
 
 class LidarSotaVerifierTests(unittest.TestCase):
     @classmethod

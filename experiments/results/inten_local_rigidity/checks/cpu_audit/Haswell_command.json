@@ -1,0 +1,23 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "OPENBLAS_CORETYPE=Haswell",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_local_rigidity/analyze.py",
+    "--output-dir",
+    "/tmp/localization-zoo-inten-local-rigidity-20261023/cpu_Haswell"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "8771a7bddefc527765dcddd1393bf83dd4c6a076",
+  "finished_source_commit": "8771a7bddefc527765dcddd1393bf83dd4c6a076",
+  "exit_code": 0,
+  "started_unix": 1792731935.3687162,
+  "finished_unix": 1792732088.4260774,
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "TMPDIR": "/tmp/localization-zoo-inten-local-rigidity-20261023"
+  }
+}

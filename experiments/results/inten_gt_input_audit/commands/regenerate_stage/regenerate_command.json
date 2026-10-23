@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/tmp/localization-zoo-inten-gt-audit-20261022/regenerate.py"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "bab6ec9e5833fd6f59c1dba2bfa19f358b02129a",
+  "started_unix": 1792681715.151558,
+  "finished_unix": 1792681715.7568905,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

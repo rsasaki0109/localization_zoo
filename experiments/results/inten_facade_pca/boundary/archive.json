@@ -1,0 +1,94 @@
+{
+  "files": {
+    "binary.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/binary.json",
+      "bytes": 14413,
+      "sha256": "523ae8b06bddbb6838fabfb0f634288c3d9b2da234aa0002a7924d531ff04975",
+      "storage": "verbatim",
+      "path": "binary.json",
+      "stored_sha256": "523ae8b06bddbb6838fabfb0f634288c3d9b2da234aa0002a7924d531ff04975"
+    },
+    "cases.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/cases.json",
+      "bytes": 66141,
+      "sha256": "f29218c2e73ceb9ac104b941545b00c50018198a52c86265af64cc00fd291d1e",
+      "storage": "verbatim",
+      "path": "cases.json",
+      "stored_sha256": "f29218c2e73ceb9ac104b941545b00c50018198a52c86265af64cc00fd291d1e"
+    },
+    "compile.stderr": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile.stdout": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/compile_command.json",
+      "bytes": 16761,
+      "sha256": "624021335b7ad587d0b1e5246485e19fc16d4d19f9e2d12a59e123d87279b01f",
+      "storage": "verbatim",
+      "path": "compile_command.json",
+      "stored_sha256": "624021335b7ad587d0b1e5246485e19fc16d4d19f9e2d12a59e123d87279b01f"
+    },
+    "input.txt": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/input.txt",
+      "bytes": 32710,
+      "sha256": "508a7d409311150089d95335d0852cd7edbfcaf327b5bd3309d6c4f0076b2c91",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "508a7d409311150089d95335d0852cd7edbfcaf327b5bd3309d6c4f0076b2c91"
+    },
+    "inputs.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/inputs.json",
+      "bytes": 147864,
+      "sha256": "c1d942e26360f38fc398863063f0ef74726349af6849145e95018d62c79ccc48",
+      "storage": "verbatim",
+      "path": "inputs.json",
+      "stored_sha256": "c1d942e26360f38fc398863063f0ef74726349af6849145e95018d62c79ccc48"
+    },
+    "probe.stderr": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/probe.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "probe.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe.stdout": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/probe.stdout",
+      "bytes": 278051,
+      "sha256": "0edc8b848b2cdd9b0b2cffc2d368d74a3a9998d8d4e03dd1941c094c41dd8d16",
+      "storage": "verbatim",
+      "path": "probe.stdout",
+      "stored_sha256": "0edc8b848b2cdd9b0b2cffc2d368d74a3a9998d8d4e03dd1941c094c41dd8d16"
+    },
+    "probe_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/probe_command.json",
+      "bytes": 1136,
+      "sha256": "d6aa824024163d0e4fd1e3e6830ddc72a558676be441dbbbed7f48bd7e75e8f1",
+      "storage": "verbatim",
+      "path": "probe_command.json",
+      "stored_sha256": "d6aa824024163d0e4fd1e3e6830ddc72a558676be441dbbbed7f48bd7e75e8f1"
+    },
+    "report.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/boundary_staging/report.json",
+      "bytes": 38293,
+      "sha256": "f62b46cc6e6ac5ac5fc23b96a22b17b2bcac94726d2cc9dfb7366166d781acfc",
+      "storage": "verbatim",
+      "path": "report.json",
+      "stored_sha256": "f62b46cc6e6ac5ac5fc23b96a22b17b2bcac94726d2cc9dfb7366166d781acfc"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

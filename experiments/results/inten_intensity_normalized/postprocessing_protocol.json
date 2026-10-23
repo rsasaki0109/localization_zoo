@@ -1,0 +1,8 @@
+{
+  "numerical_commit": "3055bb2e57435b4604b0eb120c968c1e7ecdb7e4",
+  "source_sha256": {
+    "report_docs.py": "5e8a524358b03438bfc1f791569e3327a1cf6ac85518e072e4070a58ba8c6bd9"
+  },
+  "input_archive_sha256": "35e396b21d3145b4e8b9eb54d69b5d25f6b4fcae83b4ed0041bf0a7ffc702a7e",
+  "purpose": "Render every measured endpoint and every zero-weight two-neighbor face, without changing metrics, gate, settings, measurements or support."
+}

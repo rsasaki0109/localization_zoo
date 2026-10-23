@@ -1,0 +1,713 @@
+{
+  "exit_code": 0,
+  "normal_full_frames": 1101,
+  "all_unanchored_reference_frame_fields_exact": true,
+  "excluded_fields": [
+    "scan_path (declared validated conventions)",
+    "anchored_pose (probe relative, harness GT display anchor)"
+  ],
+  "old_scan_root": "/workspace/localization-env/inten-facade-pca/kitti/dataset/sequences/01/velodyne",
+  "native_masks_and_dor_removed_exact": true,
+  "detailed_range_counts_exact": true,
+  "summary": {
+    "all_moving": {
+      "frames": 1100,
+      "stages": [
+        {
+          "stage": 0,
+          "source_masked_pairs": 1583,
+          "accepted_facade_pairs": 395497,
+          "cannot_reach_threshold_facade_features": 154882
+        },
+        {
+          "stage": 1,
+          "source_masked_pairs": 1581,
+          "accepted_facade_pairs": 395497,
+          "cannot_reach_threshold_facade_features": 154468
+        },
+        {
+          "stage": 2,
+          "source_masked_pairs": 1476,
+          "accepted_facade_pairs": 395497,
+          "cannot_reach_threshold_facade_features": 152868
+        }
+      ]
+    },
+    "s2s_bad_length": {
+      "frames": 48,
+      "stages": [
+        {
+          "stage": 0,
+          "source_masked_pairs": 459,
+          "accepted_facade_pairs": 21795,
+          "cannot_reach_threshold_facade_features": 5831
+        },
+        {
+          "stage": 1,
+          "source_masked_pairs": 459,
+          "accepted_facade_pairs": 21795,
+          "cannot_reach_threshold_facade_features": 5805
+        },
+        {
+          "stage": 2,
+          "source_masked_pairs": 360,
+          "accepted_facade_pairs": 21795,
+          "cannot_reach_threshold_facade_features": 5311
+        }
+      ]
+    },
+    "final_bad_length": {
+      "frames": 44,
+      "stages": [
+        {
+          "stage": 0,
+          "source_masked_pairs": 351,
+          "accepted_facade_pairs": 20204,
+          "cannot_reach_threshold_facade_features": 5318
+        },
+        {
+          "stage": 1,
+          "source_masked_pairs": 351,
+          "accepted_facade_pairs": 20204,
+          "cannot_reach_threshold_facade_features": 5292
+        },
+        {
+          "stage": 2,
+          "source_masked_pairs": 253,
+          "accepted_facade_pairs": 20204,
+          "cannot_reach_threshold_facade_features": 4802
+        }
+      ]
+    },
+    "other_moving": {
+      "frames": 1052,
+      "stages": [
+        {
+          "stage": 0,
+          "source_masked_pairs": 1124,
+          "accepted_facade_pairs": 373702,
+          "cannot_reach_threshold_facade_features": 149051
+        },
+        {
+          "stage": 1,
+          "source_masked_pairs": 1122,
+          "accepted_facade_pairs": 373702,
+          "cannot_reach_threshold_facade_features": 148663
+        },
+        {
+          "stage": 2,
+          "source_masked_pairs": 1116,
+          "accepted_facade_pairs": 373702,
+          "cannot_reach_threshold_facade_features": 147557
+        }
+      ]
+    }
+  },
+  "endpoints": [
+    {
+      "frame": 190,
+      "gt_step_m": 2.6789533861420343,
+      "moving": true,
+      "s2s_bad_length": false,
+      "final_bad_length": false,
+      "s2s_input_length_ratio": 1.0011581809830188,
+      "s2s_output_length_ratio": 0.9907667691256579,
+      "final_length_ratio": 0.9874327178279108,
+      "detector_stages": [
+        {
+          "stage": 0,
+          "clusters": 199,
+          "dynamic_clusters": 2,
+          "all_non_ground_points": 19646,
+          "covered_points": 13550,
+          "flagged_points": 1197,
+          "native_masked_facade_features": 5,
+          "cannot_reach_object_threshold_clusters": 61,
+          "cannot_reach_object_threshold_facade_features": 168
+        },
+        {
+          "stage": 1,
+          "clusters": 199,
+          "dynamic_clusters": 2,
+          "all_non_ground_points": 19646,
+          "covered_points": 13549,
+          "flagged_points": 1201,
+          "native_masked_facade_features": 5,
+          "cannot_reach_object_threshold_clusters": 61,
+          "cannot_reach_object_threshold_facade_features": 168
+        },
+        {
+          "stage": 2,
+          "clusters": 199,
+          "dynamic_clusters": 4,
+          "all_non_ground_points": 19646,
+          "covered_points": 13662,
+          "flagged_points": 1193,
+          "native_masked_facade_features": 6,
+          "cannot_reach_object_threshold_clusters": 61,
+          "cannot_reach_object_threshold_facade_features": 171
+        }
+      ],
+      "accepted_facade_groups": {
+        "all": {
+          "pairs": 296,
+          "first_forward_percent": -0.9724567428634366
+        },
+        "target_previous_final_any_support": {
+          "pairs": 5,
+          "first_forward_percent": -0.01204768709147796
+        }
+      }
+    },
+    {
+      "frame": 200,
+      "gt_step_m": 2.7158637011245568,
+      "moving": true,
+      "s2s_bad_length": false,
+      "final_bad_length": false,
+      "s2s_input_length_ratio": 1.0202456499755115,
+      "s2s_output_length_ratio": 0.9752412740164208,
+      "final_length_ratio": 0.9289451730696631,
+      "detector_stages": [
+        {
+          "stage": 0,
+          "clusters": 261,
+          "dynamic_clusters": 4,
+          "all_non_ground_points": 25519,
+          "covered_points": 14702,
+          "flagged_points": 1594,
+          "native_masked_facade_features": 13,
+          "cannot_reach_object_threshold_clusters": 98,
+          "cannot_reach_object_threshold_facade_features": 365
+        },
+        {
+          "stage": 1,
+          "clusters": 261,
+          "dynamic_clusters": 4,
+          "all_non_ground_points": 25519,
+          "covered_points": 14709,
+          "flagged_points": 1596,
+          "native_masked_facade_features": 13,
+          "cannot_reach_object_threshold_clusters": 97,
+          "cannot_reach_object_threshold_facade_features": 363
+        },
+        {
+          "stage": 2,
+          "clusters": 261,
+          "dynamic_clusters": 3,
+          "all_non_ground_points": 25519,
+          "covered_points": 15020,
+          "flagged_points": 1693,
+          "native_masked_facade_features": 11,
+          "cannot_reach_object_threshold_clusters": 86,
+          "cannot_reach_object_threshold_facade_features": 332
+        }
+      ],
+      "accepted_facade_groups": {
+        "all": {
+          "pairs": 465,
+          "first_forward_percent": -2.0048353025442407
+        },
+        "inherited_roi": {
+          "pairs": 50,
+          "first_forward_percent": -1.9303918721999889
+        },
+        "source_final": {
+          "pairs": 4,
+          "first_forward_percent": -0.45251874718948043
+        },
+        "source_prediction_prior_local": {
+          "pairs": 4,
+          "first_forward_percent": -0.08171030952529816
+        },
+        "source_prediction_current_local": {
+          "pairs": 4,
+          "first_forward_percent": -0.08171030952529816
+        },
+        "inherited_roi_source_prediction": {
+          "pairs": 4,
+          "first_forward_percent": -0.08171030952529816
+        },
+        "target_previous_final_nearest": {
+          "pairs": 15,
+          "first_forward_percent": 0.0021194870139425374
+        },
+        "target_previous_final_any_support": {
+          "pairs": 20,
+          "first_forward_percent": 0.03070175879759445
+        },
+        "target_previous_final_all_support": {
+          "pairs": 13,
+          "first_forward_percent": -0.009302974212393436
+        }
+      }
+    },
+    {
+      "frame": 202,
+      "gt_step_m": 2.715955055364556,
+      "moving": true,
+      "s2s_bad_length": true,
+      "final_bad_length": false,
+      "s2s_input_length_ratio": 0.9363259862772478,
+      "s2s_output_length_ratio": 0.7485976383192466,
+      "final_length_ratio": 0.9493471507134362,
+      "detector_stages": [
+        {
+          "stage": 0,
+          "clusters": 235,
+          "dynamic_clusters": 11,
+          "all_non_ground_points": 25525,
+          "covered_points": 15879,
+          "flagged_points": 1996,
+          "native_masked_facade_features": 42,
+          "cannot_reach_object_threshold_clusters": 74,
+          "cannot_reach_object_threshold_facade_features": 263
+        },
+        {
+          "stage": 1,
+          "clusters": 235,
+          "dynamic_clusters": 11,
+          "all_non_ground_points": 25525,
+          "covered_points": 15880,
+          "flagged_points": 2001,
+          "native_masked_facade_features": 42,
+          "cannot_reach_object_threshold_clusters": 74,
+          "cannot_reach_object_threshold_facade_features": 263
+        },
+        {
+          "stage": 2,
+          "clusters": 235,
+          "dynamic_clusters": 12,
+          "all_non_ground_points": 25525,
+          "covered_points": 15900,
+          "flagged_points": 1835,
+          "native_masked_facade_features": 43,
+          "cannot_reach_object_threshold_clusters": 73,
+          "cannot_reach_object_threshold_facade_features": 273
+        }
+      ],
+      "accepted_facade_groups": {
+        "all": {
+          "pairs": 499,
+          "first_forward_percent": -1.1544850063671188
+        },
+        "target_previous_final_nearest": {
+          "pairs": 15,
+          "first_forward_percent": -1.5569538306218946
+        },
+        "target_previous_final_any_support": {
+          "pairs": 22,
+          "first_forward_percent": -1.908002946436237
+        },
+        "target_previous_final_all_support": {
+          "pairs": 9,
+          "first_forward_percent": -1.1010451584278877
+        },
+        "inherited_roi": {
+          "pairs": 62,
+          "first_forward_percent": -2.3701911728240166
+        },
+        "source_final": {
+          "pairs": 5,
+          "first_forward_percent": -0.32806665839654575
+        },
+        "source_prediction_prior_local": {
+          "pairs": 4,
+          "first_forward_percent": -0.19955926671683105
+        },
+        "source_prediction_current_local": {
+          "pairs": 4,
+          "first_forward_percent": -0.19955926671683105
+        },
+        "inherited_roi_source_prediction": {
+          "pairs": 4,
+          "first_forward_percent": -0.19955926671683105
+        }
+      }
+    },
+    {
+      "frame": 203,
+      "gt_step_m": 2.719981176289396,
+      "moving": true,
+      "s2s_bad_length": false,
+      "final_bad_length": false,
+      "s2s_input_length_ratio": 0.9479419253899355,
+      "s2s_output_length_ratio": 0.9187304412846722,
+      "final_length_ratio": 0.9139169004799743,
+      "detector_stages": [
+        {
+          "stage": 0,
+          "clusters": 256,
+          "dynamic_clusters": 13,
+          "all_non_ground_points": 26909,
+          "covered_points": 16595,
+          "flagged_points": 1725,
+          "native_masked_facade_features": 45,
+          "cannot_reach_object_threshold_clusters": 88,
+          "cannot_reach_object_threshold_facade_features": 360
+        },
+        {
+          "stage": 1,
+          "clusters": 256,
+          "dynamic_clusters": 13,
+          "all_non_ground_points": 26909,
+          "covered_points": 16607,
+          "flagged_points": 1724,
+          "native_masked_facade_features": 45,
+          "cannot_reach_object_threshold_clusters": 88,
+          "cannot_reach_object_threshold_facade_features": 360
+        },
+        {
+          "stage": 2,
+          "clusters": 256,
+          "dynamic_clusters": 14,
+          "all_non_ground_points": 26909,
+          "covered_points": 16725,
+          "flagged_points": 1845,
+          "native_masked_facade_features": 44,
+          "cannot_reach_object_threshold_clusters": 87,
+          "cannot_reach_object_threshold_facade_features": 323
+        }
+      ],
+      "accepted_facade_groups": {
+        "all": {
+          "pairs": 579,
+          "first_forward_percent": -0.5722348086660656
+        },
+        "source_final": {
+          "pairs": 7,
+          "first_forward_percent": -0.47918034943897914
+        },
+        "target_previous_final_nearest": {
+          "pairs": 24,
+          "first_forward_percent": -1.8763371107132674
+        },
+        "target_previous_final_any_support": {
+          "pairs": 31,
+          "first_forward_percent": -1.956348309760793
+        },
+        "target_previous_final_all_support": {
+          "pairs": 15,
+          "first_forward_percent": -1.196334118656612
+        },
+        "inherited_roi": {
+          "pairs": 72,
+          "first_forward_percent": -2.2789473329420886
+        },
+        "source_prediction_prior_local": {
+          "pairs": 6,
+          "first_forward_percent": -0.48372081320899796
+        },
+        "source_prediction_current_local": {
+          "pairs": 6,
+          "first_forward_percent": -0.48372081320899796
+        },
+        "inherited_roi_source_prediction": {
+          "pairs": 5,
+          "first_forward_percent": -0.5195339868562857
+        }
+      }
+    },
+    {
+      "frame": 204,
+      "gt_step_m": 2.7156982905903573,
+      "moving": true,
+      "s2s_bad_length": true,
+      "final_bad_length": true,
+      "s2s_input_length_ratio": 0.9153582246641794,
+      "s2s_output_length_ratio": 0.6070644369033714,
+      "final_length_ratio": 0.42281078791765636,
+      "detector_stages": [
+        {
+          "stage": 0,
+          "clusters": 224,
+          "dynamic_clusters": 15,
+          "all_non_ground_points": 26790,
+          "covered_points": 16653,
+          "flagged_points": 1984,
+          "native_masked_facade_features": 47,
+          "cannot_reach_object_threshold_clusters": 84,
+          "cannot_reach_object_threshold_facade_features": 350
+        },
+        {
+          "stage": 1,
+          "clusters": 224,
+          "dynamic_clusters": 15,
+          "all_non_ground_points": 26790,
+          "covered_points": 16653,
+          "flagged_points": 1982,
+          "native_masked_facade_features": 47,
+          "cannot_reach_object_threshold_clusters": 84,
+          "cannot_reach_object_threshold_facade_features": 350
+        },
+        {
+          "stage": 2,
+          "clusters": 224,
+          "dynamic_clusters": 11,
+          "all_non_ground_points": 26790,
+          "covered_points": 18612,
+          "flagged_points": 2066,
+          "native_masked_facade_features": 24,
+          "cannot_reach_object_threshold_clusters": 46,
+          "cannot_reach_object_threshold_facade_features": 117
+        }
+      ],
+      "accepted_facade_groups": {
+        "all": {
+          "pairs": 548,
+          "first_forward_percent": -1.3712242291557661
+        },
+        "inherited_roi": {
+          "pairs": 76,
+          "first_forward_percent": -3.223538633902238
+        },
+        "target_previous_final_nearest": {
+          "pairs": 11,
+          "first_forward_percent": -1.3041352389683243
+        },
+        "target_previous_final_any_support": {
+          "pairs": 42,
+          "first_forward_percent": -2.8007639833023683
+        },
+        "source_prediction_prior_local": {
+          "pairs": 11,
+          "first_forward_percent": -0.9463864293092609
+        },
+        "source_prediction_current_local": {
+          "pairs": 11,
+          "first_forward_percent": -0.9463864293092609
+        },
+        "inherited_roi_source_prediction": {
+          "pairs": 10,
+          "first_forward_percent": -0.9274877924883581
+        },
+        "target_previous_final_all_support": {
+          "pairs": 1,
+          "first_forward_percent": -0.17927346033520217
+        },
+        "source_final": {
+          "pairs": 10,
+          "first_forward_percent": -0.10510201957469964
+        }
+      }
+    },
+    {
+      "frame": 205,
+      "gt_step_m": 2.7290614986146013,
+      "moving": true,
+      "s2s_bad_length": true,
+      "final_bad_length": true,
+      "s2s_input_length_ratio": 0.4207404393686173,
+      "s2s_output_length_ratio": 0.37244568780235565,
+      "final_length_ratio": 0.3737197699829292,
+      "detector_stages": [
+        {
+          "stage": 0,
+          "clusters": 234,
+          "dynamic_clusters": 18,
+          "all_non_ground_points": 27482,
+          "covered_points": 18944,
+          "flagged_points": 2447,
+          "native_masked_facade_features": 30,
+          "cannot_reach_object_threshold_clusters": 42,
+          "cannot_reach_object_threshold_facade_features": 128
+        },
+        {
+          "stage": 1,
+          "clusters": 234,
+          "dynamic_clusters": 18,
+          "all_non_ground_points": 27482,
+          "covered_points": 18948,
+          "flagged_points": 2451,
+          "native_masked_facade_features": 30,
+          "cannot_reach_object_threshold_clusters": 43,
+          "cannot_reach_object_threshold_facade_features": 135
+        },
+        {
+          "stage": 2,
+          "clusters": 234,
+          "dynamic_clusters": 15,
+          "all_non_ground_points": 27482,
+          "covered_points": 19431,
+          "flagged_points": 2473,
+          "native_masked_facade_features": 28,
+          "cannot_reach_object_threshold_clusters": 40,
+          "cannot_reach_object_threshold_facade_features": 128
+        }
+      ],
+      "accepted_facade_groups": {
+        "all": {
+          "pairs": 614,
+          "first_forward_percent": -2.668078444749214
+        },
+        "inherited_roi": {
+          "pairs": 142,
+          "first_forward_percent": -2.6853287147386906
+        },
+        "target_previous_final_any_support": {
+          "pairs": 7,
+          "first_forward_percent": -0.021097760673916742
+        },
+        "source_prediction_prior_local": {
+          "pairs": 2,
+          "first_forward_percent": -0.005275095024544213
+        },
+        "source_prediction_current_local": {
+          "pairs": 2,
+          "first_forward_percent": -0.005275095024544213
+        },
+        "target_previous_final_nearest": {
+          "pairs": 3,
+          "first_forward_percent": 0.008651872057175498
+        },
+        "target_previous_final_all_support": {
+          "pairs": 1,
+          "first_forward_percent": -0.0065242880861925805
+        },
+        "inherited_roi_source_prediction": {
+          "pairs": 1,
+          "first_forward_percent": -0.0065242880861925805
+        }
+      }
+    },
+    {
+      "frame": 247,
+      "gt_step_m": 2.6612235079675766,
+      "moving": true,
+      "s2s_bad_length": true,
+      "final_bad_length": true,
+      "s2s_input_length_ratio": 0.13833175803071188,
+      "s2s_output_length_ratio": 0.5227273354914462,
+      "final_length_ratio": 0.6019109704851646,
+      "detector_stages": [
+        {
+          "stage": 0,
+          "clusters": 183,
+          "dynamic_clusters": 50,
+          "all_non_ground_points": 18455,
+          "covered_points": 14194,
+          "flagged_points": 4321,
+          "native_masked_facade_features": 120,
+          "cannot_reach_object_threshold_clusters": 21,
+          "cannot_reach_object_threshold_facade_features": 79
+        },
+        {
+          "stage": 1,
+          "clusters": 183,
+          "dynamic_clusters": 50,
+          "all_non_ground_points": 18455,
+          "covered_points": 14190,
+          "flagged_points": 4320,
+          "native_masked_facade_features": 120,
+          "cannot_reach_object_threshold_clusters": 21,
+          "cannot_reach_object_threshold_facade_features": 79
+        },
+        {
+          "stage": 2,
+          "clusters": 183,
+          "dynamic_clusters": 37,
+          "all_non_ground_points": 18455,
+          "covered_points": 13802,
+          "flagged_points": 3554,
+          "native_masked_facade_features": 98,
+          "cannot_reach_object_threshold_clusters": 28,
+          "cannot_reach_object_threshold_facade_features": 99
+        }
+      ],
+      "accepted_facade_groups": {
+        "all": {
+          "pairs": 371,
+          "first_forward_percent": 2.649646682396345
+        },
+        "inherited_roi": {
+          "pairs": 154,
+          "first_forward_percent": 1.8327805263129024
+        },
+        "source_prediction_prior_local": {
+          "pairs": 11,
+          "first_forward_percent": -0.09518983614840423
+        },
+        "source_prediction_current_local": {
+          "pairs": 11,
+          "first_forward_percent": -0.09518983614840423
+        },
+        "inherited_roi_source_prediction": {
+          "pairs": 3,
+          "first_forward_percent": -0.08716380151216127
+        },
+        "source_final": {
+          "pairs": 5,
+          "first_forward_percent": 0.052618949388026984
+        },
+        "target_previous_final_any_support": {
+          "pairs": 12,
+          "first_forward_percent": -0.01866773032071324
+        }
+      }
+    },
+    {
+      "frame": 433,
+      "gt_step_m": 2.6389297703740415,
+      "moving": true,
+      "s2s_bad_length": false,
+      "final_bad_length": false,
+      "s2s_input_length_ratio": 0.9775132088518002,
+      "s2s_output_length_ratio": 0.9264975832609665,
+      "final_length_ratio": 0.9262964852875946,
+      "detector_stages": [
+        {
+          "stage": 0,
+          "clusters": 165,
+          "dynamic_clusters": 15,
+          "all_non_ground_points": 16817,
+          "covered_points": 8784,
+          "flagged_points": 1917,
+          "native_masked_facade_features": 16,
+          "cannot_reach_object_threshold_clusters": 76,
+          "cannot_reach_object_threshold_facade_features": 336
+        },
+        {
+          "stage": 1,
+          "clusters": 165,
+          "dynamic_clusters": 15,
+          "all_non_ground_points": 16817,
+          "covered_points": 8784,
+          "flagged_points": 1916,
+          "native_masked_facade_features": 16,
+          "cannot_reach_object_threshold_clusters": 76,
+          "cannot_reach_object_threshold_facade_features": 336
+        },
+        {
+          "stage": 2,
+          "clusters": 165,
+          "dynamic_clusters": 14,
+          "all_non_ground_points": 16817,
+          "covered_points": 8966,
+          "flagged_points": 1908,
+          "native_masked_facade_features": 24,
+          "cannot_reach_object_threshold_clusters": 76,
+          "cannot_reach_object_threshold_facade_features": 329
+        }
+      ],
+      "accepted_facade_groups": {
+        "all": {
+          "pairs": 352,
+          "first_forward_percent": -2.5456909149643416
+        },
+        "target_previous_final_any_support": {
+          "pairs": 39,
+          "first_forward_percent": -0.3215535627695095
+        },
+        "inherited_roi": {
+          "pairs": 154,
+          "first_forward_percent": -0.12096292410396499
+        },
+        "target_previous_final_nearest": {
+          "pairs": 10,
+          "first_forward_percent": -0.09405416328229617
+        }
+      }
+    }
+  ],
+  "limits": "For every moving step retain GT-relative motion errors offline, initial facade gradients through full damped native H, current prediction masks, previous final masks for all original neighbour supports, coverage/range discrepancies and native cluster decisions. Aggregate all full01 moving/bad/not-bad steps under inherited0.1m/20percent labels, not just favorable204. Detailed original range-image samples for every non-ground point at all inherited endpoints and previous frames. No GT in an automatic decision and no semantic-object truth inferred from a cluster."
+}

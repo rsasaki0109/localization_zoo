@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_10_full_facade_loss",
+    "title": "InTEn-LOAM KITTI 10: S2S facade Cauchy influence",
+    "question": "Does one fixed Cauchy facade influence at the inherited Huber scale improve the full recursive trajectory?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_10_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed current reference",
+      "design_style": "reference",
+      "intent": "One fixed new Boolean s2s_facade_cauchy at the unchanged native Huber scale0.1. Chosen after committed full01 natural-seed controlsf52b84a0:204 length/GT0.607064->0.992481 but2470.522727->0.046692 andbad12lower/36higher,44remainbad. Every adverse case retained. No scale fitting/sweep, GT input, DOR/ROI gate, retuning or per-sequence winner. All priorKITTIdevelopment, originalprofile07/00 diagnosis and inheritedDiLO01 prior tuning disclosed.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0",
+        "--inten-loam-paper-set",
+        "s2s_facade_cauchy=0"
+      ]
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in S2S facade Cauchy influence",
+      "design_style": "experimental",
+      "intent": "One fixed new Boolean s2s_facade_cauchy at the unchanged native Huber scale0.1. Chosen after committed full01 natural-seed controlsf52b84a0:204 length/GT0.607064->0.992481 but2470.522727->0.046692 andbad12lower/36higher,44remainbad. Every adverse case retained. No scale fitting/sweep, GT input, DOR/ROI gate, retuning or per-sequence winner. All priorKITTIdevelopment, originalprofile07/00 diagnosis and inheritedDiLO01 prior tuning disclosed.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0",
+        "--inten-loam-paper-set",
+        "s2s_facade_cauchy=1"
+      ]
+    }
+  ]
+}

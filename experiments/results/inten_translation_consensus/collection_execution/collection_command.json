@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/inten-translation-consensus/worktree/experiments/results/inten_translation_consensus/run.py"
+  ],
+  "cwd": "/workspace/localization-env/inten-translation-consensus/worktree",
+  "source_commit": "99062a08f6141cbef07a8c2e7f762968c51d44c0",
+  "started_unix": 1792575121.643437,
+  "finished_unix": 1792575146.0232527,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "git",
+    "push",
+    "-u",
+    "origin",
+    "HEAD:refs/heads/codex/inten-prediction-dor"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "source_commit": "11cc0aa394b9ada2f9bf61d5a0abe5b0b1d57084",
+  "started_unix": 1792551293.2960138,
+  "finished_unix": 1792551315.5938795,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

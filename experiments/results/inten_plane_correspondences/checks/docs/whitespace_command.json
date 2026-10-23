@@ -1,0 +1,13 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "eee61c7f"
+  ],
+  "cwd": "/workspace/localization-env/inten-plane-correspondences/worktree",
+  "source_commit": "1507228edc5d90c6e6b47d8556283627cb76c196",
+  "started_unix": 1792470138.6806648,
+  "finished_unix": 1792470138.7476366,
+  "exit_code": 0
+}

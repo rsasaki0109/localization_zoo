@@ -1,0 +1,52 @@
+{
+  "reason": "Initial CI failed an internal1e-12 ratio check. Forced BLAS kernels reproduced tiny differences while all exact labels/counts/native metrics stayed equal. Use the already documented complete-report portable bound; no estimator setting, label threshold or report value changes.",
+  "initial_ci_run": 39697430033,
+  "source_updates": {
+    "experiments/results/inten_consensus_failure_origin/analyze.py": {
+      "original_sha256": "d0123bcb64d18f394f2103d7237a26d51f614148ca189fdbf9539ba1bd9d4cf0",
+      "original_copy": "experiments/results/inten_consensus_failure_origin/checks/portability_correction/analyze_before.py",
+      "sha256": "0995b59622ac09aed06298ca24e218bc1e04b9f58023e8d54f418edfd38529fc"
+    },
+    "tests/test_inten_consensus_failure_origin.py": {
+      "original_sha256": "60d79af1344400b8081cfc2b1e0268dbe129e07400cb959ed3fba6a6826c0b84",
+      "original_copy": "experiments/results/inten_consensus_failure_origin/checks/portability_correction/test_before.py",
+      "sha256": "fb2d2143005e9629e18716e398fa56d5676214c64277d451ad749a39114247b4"
+    }
+  },
+  "evidence_sha256": {
+    "experiments/results/inten_consensus_failure_origin/checks/portability_probe.py": "7a1b69a2c54548388bb533af50e1b3a71f21522ebffb719c61d9822e2fc06e6d",
+    "experiments/results/inten_consensus_failure_origin/checks/portability/Haswell.json": "c6b16efa4c66a453513ec2f2899765eadf51a99f7cd1c01d601aa2d6056a0af4",
+    "experiments/results/inten_consensus_failure_origin/checks/portability/Sandybridge.json": "1b8d6906e28421f92d07865b9e328777695e65e01bf0c5f85d96ee94fbce702f",
+    "experiments/results/inten_consensus_failure_origin/checks/ci_initial_failure/archive.json": "216122a42f34ebd633d4cd0a9b42dd41123c1f933c0d4228b2ef7b02e30b0cb1"
+  },
+  "scientific_report_sha256": {
+    "experiments/results/inten_consensus_failure_origin/report/06_candidate_steps.csv": "7d28fc1ac38af51c5666deb4ca6c3c7be7350209d87cd13f9d165bad8bb8e85d",
+    "experiments/results/inten_consensus_failure_origin/report/entries.json": "92a3b4226901b7151ea48fa32b05d1b1792b58b91420a54ecc24f886e3b84da7",
+    "experiments/results/inten_consensus_failure_origin/report/03_baseline_steps.csv": "81a9a493691959f87582032845e8b47a0884566b58d55fb00c647738aab3ea96",
+    "experiments/results/inten_consensus_failure_origin/report/04_baseline_steps.csv": "05d334f973dbfcf437ba5d1b50bb1d551654f51583b8e56e8281c2c4188810b9",
+    "experiments/results/inten_consensus_failure_origin/report/01_candidate_steps.csv": "b6c6f5885138661c66493b3a11c49ea79ece077b8bf60dc0130d1edc58dc7c8c",
+    "experiments/results/inten_consensus_failure_origin/report/04_candidate_steps.csv": "5fdd0c3e229b742591fcd0bac87a7db91d05baff7abc7ae5c3bbcae69cc9699c",
+    "experiments/results/inten_consensus_failure_origin/report/03_candidate_steps.csv": "5e441fab043f62b931313b55cdcc76d9180cbf0834ebec2a7146152214c397ab",
+    "experiments/results/inten_consensus_failure_origin/report/09_baseline_steps.csv": "0d87b5a496348fa8cd161bed442da07fce635f21cbe8773c7dbbc09fc5839452",
+    "experiments/results/inten_consensus_failure_origin/report/introduced_events.json": "5bcbc70ab3a563bda222e188c27ba6971aa5c6afdaf172c21ffb4166d5801c25",
+    "experiments/results/inten_consensus_failure_origin/report/10_candidate_steps.csv": "f32b30ce1c8a5309691d60fe427bd7bf3de82f32219d809eaf1bbd6db3260ec6",
+    "experiments/results/inten_consensus_failure_origin/report/00_candidate_steps.csv": "6308de00d41b5afb368057399751dc4497388bc810d760aa051ba86c3f809695",
+    "experiments/results/inten_consensus_failure_origin/report/09_candidate_steps.csv": "a99f9398dc318ce5430e3e305d6a88bb57dda360e5f3bf69c3f4db7e4bfcd32d",
+    "experiments/results/inten_consensus_failure_origin/report/summary.json": "31fd87ad049dac41c10fb58ad18d9ad893560276408322fa34333304ec115651",
+    "experiments/results/inten_consensus_failure_origin/report/02_candidate_steps.csv": "ce5110d4ed80e4a24c65a07e5e321b7be3ac8d4a32815904e0c32061fd7c79b6",
+    "experiments/results/inten_consensus_failure_origin/report/08_candidate_steps.csv": "af9452e886c3b80f1880fa235c49e5893492198a2666ce7f3653e5ca2f0a61d7",
+    "experiments/results/inten_consensus_failure_origin/report/08_baseline_steps.csv": "55cd9b166ca994505314eeb73843c599be32628a5d1efcb4e1ebcea82a698362",
+    "experiments/results/inten_consensus_failure_origin/report/01_baseline_steps.csv": "3ab86bdd82b8fd2a94330f2efc0de5c06a3b9117c0a98dc7a8bb7d4ec2a7988b",
+    "experiments/results/inten_consensus_failure_origin/report/07_baseline_steps.csv": "5e3a12a631490ddfaeee9ce7c0b7dadfb9fc44a327dffd9667342ad6601b5409",
+    "experiments/results/inten_consensus_failure_origin/report/05_baseline_steps.csv": "031306b907ed81fc07209914528ebf37d1675838d0c1b06d0e341288c74525fc",
+    "experiments/results/inten_consensus_failure_origin/report/10_baseline_steps.csv": "ff3b4a0a8ea385e59919f5ea1e05473df6cd160327d43f2eba9f80cd74232630",
+    "experiments/results/inten_consensus_failure_origin/report/02_baseline_steps.csv": "1d1181d83f286b22c328d9acfdf1fbcec166a6d05ee1cb4e42ff6bc7706b4674",
+    "experiments/results/inten_consensus_failure_origin/report/07_candidate_steps.csv": "36e6dfdf17ef92c32955dcd42bc69d4818c4dc291d188dc7c30b7792270d966f",
+    "experiments/results/inten_consensus_failure_origin/report/05_candidate_steps.csv": "03b85f6537f4779d20d0f2835b920705a25024e2930bf15b62e6b601e9b47ec1",
+    "experiments/results/inten_consensus_failure_origin/report/00_baseline_steps.csv": "340a135d073a85c6d853be2dfa8269a8c0d0fca7201eb1840e854f8c83759afe",
+    "experiments/results/inten_consensus_failure_origin/report/06_baseline_steps.csv": "f444456290ab6c83a32b3429324008d54fa1ad11d6ef7b29f9bbf765fd940d49"
+  },
+  "ratio_comparison_relative_tolerance": 1e-10,
+  "ratio_comparison_absolute_tolerance": 1e-12,
+  "native_accuracy_settings_and_classifications_unchanged": true
+}

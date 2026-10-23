@@ -1,0 +1,208 @@
+{
+  "generated_at": "2026-10-21T22:13:09+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_08_full_recursive_consensus_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_08_full_recursive_consensus",
+    "title": "InTEn-LOAM KITTI 08: recursive fixed-rotation geometry consensus",
+    "question": "Does the frozen consensus/fixed-estimated-rotation mechanism improve complete recursive trajectories?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "frames"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "Review the uniform full-sequence experiment; repository extension stays default off.",
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Fixed current reference",
+      "design_style": "reference",
+      "intent": "One new default-off Boolean s2s_geometry_consensus. Rule/parameters inherited unchanged from committed166 local factorial0e2ab939, which passes a necessary local gate. No new thresholds, per-sequence winner, GT/ROI input or retuning. Original profile07, diagnosis00, inherited DiLO01 prior0.03, and all past KITTI observations are development; no independent held-out claim.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0",
+        "--inten-loam-paper-set",
+        "s2s_facade_cauchy=0",
+        "--inten-loam-paper-set",
+        "s2s_geometry_consensus=0"
+      ],
+      "command": "/workspace/localization-env/inten-recursive-consensus-accelerated/pcd_dogfooding_balanced dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_recursive_consensus_matrix/baseline/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0 --inten-loam-paper-set s2s_facade_cauchy=0 --inten-loam-paper-set s2s_geometry_consensus=0",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_08_full_recursive_consensus_matrix/baseline/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_08_full_recursive_consensus_matrix/baseline/run.log",
+      "status": "ok",
+      "ate_m": 29.42294,
+      "rpe_trans_pct": 1.301395,
+      "rpe_rot_deg_per_m": 0.004678,
+      "fps": null,
+      "time_ms": null,
+      "frames": 4071,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1347 s2m=2160 dor points/frame=151; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.0,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.955307,
+      "kitti_rte_rot_deg_per_100m": 0.342667,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before full paired runs, not an individual per-run timestamp.",
+        "source_commit": "422c674331f612809a5f492c8d86705fa7a14c5e",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "fdc9ff7aae137e63a59c128c3c658a593fed61a48400c55d47a8158a846195bc",
+        "measurement_context": "Both fixed arms use the shared host with fixed baselineOMP1/candidateOMP4 and BLAS1. Raw timings retained; no standalone throughput comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 4.04378,
+        "raw_time_ms": 1006731.285163,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_consensus_query_acceleration/sequences/08/baseline/summary.json",
+        "original_summary_sha256": "f1ac52fe3a73d952ac489dfe2c0e45d2b26200d5aef6fba88326bde8130ca100",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_08_full_recursive_consensus_matrix/baseline/native_command.json"
+      }
+    },
+    {
+      "id": "candidate",
+      "label": "Opt-in fixed-estimated-rotation geometric translation consensus",
+      "design_style": "experimental",
+      "intent": "One new default-off Boolean s2s_geometry_consensus. Rule/parameters inherited unchanged from committed166 local factorial0e2ab939, which passes a necessary local gate. No new thresholds, per-sequence winner, GT/ROI input or retuning. Original profile07, diagnosis00, inherited DiLO01 prior0.03, and all past KITTI observations are development; no independent held-out claim.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2m_plane_min_spread=0",
+        "--inten-loam-paper-set",
+        "s2s_predicted_dor_facade=0",
+        "--inten-loam-paper-set",
+        "s2s_facade_cauchy=0",
+        "--inten-loam-paper-set",
+        "s2s_geometry_consensus=1"
+      ],
+      "command": "/workspace/localization-env/inten-recursive-consensus-accelerated/pcd_dogfooding_balanced dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_recursive_consensus_matrix/candidate/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --paper-pipeline-accelerated --inten-loam-paper-set s2s_mapped_prior=1 --inten-loam-paper-set s2s_translation_prior_ratio=0.03 --inten-loam-paper-set s2s_ground_pca=1 --inten-loam-paper-set s2s_facade_pca=1 --inten-loam-paper-set s2m_plane_min_spread=0 --inten-loam-paper-set s2s_predicted_dor_facade=0 --inten-loam-paper-set s2s_facade_cauchy=0 --inten-loam-paper-set s2s_geometry_consensus=1",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_08_full_recursive_consensus_matrix/candidate/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_08_full_recursive_consensus_matrix/candidate/run.log",
+      "status": "ok",
+      "ate_m": 28.896896,
+      "rpe_trans_pct": 1.30543,
+      "rpe_rot_deg_per_m": 0.004528,
+      "fps": null,
+      "time_ms": null,
+      "frames": 4071,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1326 s2m=2161 dor points/frame=150; repository acceleration enabled (opt-in, not in the paper); S2S previous mapped-motion seed enabled (repository extension, opt-in); S2S weak-translation prediction prior enabled (repository extension, opt-in); S2S ground PCA normals enabled (repository extension, opt-in); S2S facade PCA normals enabled (repository extension, opt-in); S2S fixed-rotation geometric translation consensus enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json",
+      "benchmark_score": 0.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.0,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Experimental; default off",
+      "decision_reason": "One candidate setting is evaluated across all sequences. No per-sequence adoption or default selection; the native option remains off.",
+      "kitti_rte_trans_pct": 0.950314,
+      "kitti_rte_rot_deg_per_100m": 0.334579,
+      "host": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cores": 5,
+        "affinity_cores": 5,
+        "memory_gib": 17.6,
+        "os": "Ubuntu 22.04.5 LTS",
+        "kernel": "6.18.55",
+        "architecture": "x86_64",
+        "thread_environment": {
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "capture_scope": "Shared Docker runtime captured before full paired runs, not an individual per-run timestamp.",
+        "source_commit": "422c674331f612809a5f492c8d86705fa7a14c5e",
+        "versions": {
+          "compiler": "c++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "python": "Python 3.10.12"
+        },
+        "native_environment": {
+          "OMP_NUM_THREADS": "4",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "native_binary_sha256": "fdc9ff7aae137e63a59c128c3c658a593fed61a48400c55d47a8158a846195bc",
+        "measurement_context": "Both fixed arms use the shared host with fixed baselineOMP1/candidateOMP4 and BLAS1. Raw timings retained; no standalone throughput comparison."
+      },
+      "measurement_context": {
+        "raw_fps": 1.047873,
+        "raw_time_ms": 3885013.577318,
+        "standalone_timing_comparable": false,
+        "proxy_score_policy": "Unscored, no FPS-based ranking or per-sequence default selection",
+        "original_summary_path": "experiments/results/inten_consensus_query_acceleration/sequences/08/candidate/summary.json",
+        "original_summary_sha256": "55aedddf45c78ba65d6cec020c3a4db98df65d6a042f4d3739a196aabbcef1bd",
+        "native_command_path": "experiments/results/runs/inten_loam_kitti_seq_08_full_recursive_consensus_matrix/candidate/native_command.json"
+      }
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "parent_commit": "a02bd6a93edc9cdf0cb4e0fa9318b537c74ff9a9",
+  "estimator_numerical_commit": "c6832c2a",
+  "hypothesis": "The longer solver repairs original247 but optimizes misleading sparse correspondences at202/204. Independent dense full-cloud alignment, checked in both directions with fixed populations, may select useful continuation without accepting those failures. This is a prospective native feasibility selector, not a proof of static geometry or trajectory improvement.",
+  "construction": "Voxelize each original previous/current all-point cloud at the inherited map-plane spacing0.2m. Original input-order sums, lexicographic integer floor keys and one centroid per occupied cell; no semantic/GT filtering. For each frozen estimated pose, compute exact double-precision nearest-neighbor squared distance for every current centroid transformed into previous, and every previous centroid transformed into current. Cap every squared distance at inherited S2S gate1m^2; unmatched points retain capped penalty and both denominators remain the full fixed source populations. No fitted-residual, sparse normal/intensity, selected cluster or prediction-prior term enters this witness.",
+  "selection": "Choose extended motion only if each directional mean cost improves by more than1e-12+1e-10*abs(baseline cost), the existing numerical comparison tolerances. Otherwise return baseline exactly. Empty/nonfinite scores fall back. One global rule, no threshold/voxel/cap sweep and no per-sequence selection.",
+  "parameters": "Voxel0.2 inherits map-plane calibration on07, gate1m^2 inherits the existing S2S gate. Cap100 was chosen from original01 before its trial. No new sensor/spatial/robust-loss scale. Full-cloud bidirectionality is chosen after the committed uniform-budget negative result; every earlier KITTI observation is development, with original07/00 and DiLO01 prior0.03 disclosed.",
+  "arms": "Score all12 committed estimator outputs at every31 inherited endpoint. Primary pair legacy joint0/6. Paired consensus1/7 preserves original rescue/adverse controls. Normalized2/8,3/9 and fixed-node4/10,5/11 are explicit secondary negative/field controls, never post-hoc candidate alternatives.",
+  "native_input": "Only original cached sensor features and frozen estimated poses from c6832c2a native traces. No GT file, truth pose, label, hand region or report metric in the native scorer input or decision. Estimator poses are reused exactly; no optimizer rerun or changed seed/prior.",
+  "verification": "Archive every native centroid with original voxel key/population, every directional cost/coverage and every decision. Independently rebuild all nearest-neighbor costs with SciPy double cKDTree, including inverse transforms and fixed denominator penalties, at rtol1e-10/atol1e-12; recompute every decision. Bind actual stdin poses and cache hashes to the committed parent outputs. Native unit tests cover negative voxel keys/counts, unmatched penalties, invalid/one-sided/tied rejection and rigid-transform geometry.",
+  "progression_gate": [
+    "All source/input pins, native unit checks, complete pose sets, independent costs and decisions pass.",
+    "No newly bad length/vector labels for primary selected0/6 versus0, or paired selected1/7 versus1 at unchanged20% threshold.",
+    "All original consensus rescues remain non-bad.",
+    "Original247 retains its demonstrated non-bad length/vector recovery.",
+    "Primary selector strictly reduces both complete conditional translation-error totals and does not increase rotation total."
+  ],
+  "failure_policy": "Retain every score/choice/outcome and every negative in method README, without retuning scale, rule, threshold, budget or cases. A failed local gate forbids production adoption/full candidate trial. If it passes, integrate this exact selector opt-in/default-off, prove native parity on every inherited endpoint and freeze one recursive configuration for all full00-10 before any accuracy/paper/SOTA claim.",
+  "input_pins": {
+    "old": {
+      "parent_archive_sha256": "b9547def59a91a6aea546d26eb428a21e2de9017b60a592c18bbf5b9d50e02d3",
+      "frames": [
+        190,
+        200,
+        202,
+        203,
+        204,
+        205,
+        247,
+        433
+      ]
+    },
+    "01": {
+      "parent_archive_sha256": "3694cbbab84dc89dffde5894d9272c547606e5adad9b035015495654263dcef3",
+      "frames": [
+        425,
+        426,
+        810,
+        811,
+        837,
+        838
+      ]
+    },
+    "02": {
+      "parent_archive_sha256": "ba51c687705418d68381d2108fed362f6f1f751aa1bf403b359f127615dfab4a",
+      "frames": [
+        1889,
+        1890,
+        1891,
+        1892,
+        1898,
+        1899,
+        4472,
+        4473
+      ]
+    },
+    "08": {
+      "parent_archive_sha256": "2f4210e00663e95f7a3f427633098981e39e9014e7bd1c618a36e1d87e550549",
+      "frames": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ]
+    }
+  },
+  "source_sha256": {
+    "experiments/results/inten_dense_continuation/archive.py": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc",
+    "experiments/results/inten_dense_continuation/build.py": "592ef9dff2c956a084d2c13b3527c9c75288b37b0d3a3c3d43fdb75d39815737",
+    "experiments/results/inten_dense_continuation/common.py": "b55810097d1affb0f27bcddfbb99f443d76ebefa0d8240e78f6804d27530b5ce",
+    "experiments/results/inten_dense_continuation/probe.cpp": "eeb8e2f96051dfe4a34305d43b433a72f95477ee923996fad7d0bac43958b523",
+    "experiments/results/inten_dense_continuation/run.py": "b12a3d5961a5671fdb9d5d64ff9e2a9a259b3213bd6aebfcb78aa38b4df53392",
+    "experiments/results/inten_dense_continuation/scorer.h": "e978d367a4ff5032dc7adda20ef567f4f7fd545f19871ea1e0b336ccb2307c4f",
+    "experiments/results/inten_dense_continuation/unit.cpp": "05316eed278d3f69a3f652bb04f704f78247e2a9df856d96d5e7b349fc1ed2b7",
+    "experiments/results/inten_dense_continuation/verify.py": "470fc1637820be2f6450acbfcc40c489797483f724967e635d6ab86f1d42a5fc",
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b"
+  }
+}

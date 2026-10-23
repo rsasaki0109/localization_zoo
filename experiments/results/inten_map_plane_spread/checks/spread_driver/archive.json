@@ -1,0 +1,30 @@
+{
+  "files": {
+    "spread.stderr": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/spread_driver_record/spread.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "spread.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spread.stdout": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/spread_driver_record/spread.stdout",
+      "bytes": 1019,
+      "sha256": "7487cdaaca5a2edb053862fd2199ac0ab98ea68af15e21029d2cf870a040671d",
+      "storage": "verbatim",
+      "path": "spread.stdout",
+      "stored_sha256": "7487cdaaca5a2edb053862fd2199ac0ab98ea68af15e21029d2cf870a040671d"
+    },
+    "spread_driver.json": {
+      "original_path": "/workspace/localization-env/inten-s2m-prior/spread_driver_record/spread_driver.json",
+      "bytes": 297,
+      "sha256": "656c0a19f2b31de9ecf399a8dfc498a0f4b9c3337c30ab1f2f8c1800e64d32f6",
+      "storage": "verbatim",
+      "path": "spread_driver.json",
+      "stored_sha256": "656c0a19f2b31de9ecf399a8dfc498a0f4b9c3337c30ab1f2f8c1800e64d32f6"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

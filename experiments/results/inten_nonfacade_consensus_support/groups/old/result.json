@@ -1,0 +1,418 @@
+{
+  "exit_code": 0,
+  "source_commit": "edd402b671643dbdc3d6631b9078ba4f0f4a73da",
+  "group": "old",
+  "cases": [
+    {
+      "frame": 190,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.9907667691256579,
+          "length_error": 0.009233230874342135,
+          "vector_error": 0.014508028379833886,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.9957476145455152,
+          "length_error": 0.004252385454484808,
+          "vector_error": 0.00653373870645051,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.9957476145455152,
+          "length_error": 0.004252385454484808,
+          "vector_error": 0.00653373870645051,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": true,
+        "missing_field": 0,
+        "primitives": 651,
+        "original_cost": 4.3979081489724425,
+        "candidate_cost": 4.373758763630771
+      },
+      "old_applied": true,
+      "guard_applied": true
+    },
+    {
+      "frame": 200,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.9752412740164208,
+          "length_error": 0.0247587259835792,
+          "vector_error": 0.025618215094512578,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 1.0029870107284318,
+          "length_error": 0.0029870107284317715,
+          "vector_error": 0.008545507054299222,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.9752412740164208,
+          "length_error": 0.0247587259835792,
+          "vector_error": 0.025618215094512578,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 1,
+        "primitives": 826,
+        "original_cost": 4.14675443500376,
+        "candidate_cost": 4.125262856639704
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 202,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.7485976383192466,
+          "length_error": 0.25140236168075336,
+          "vector_error": 0.2514342593698898,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "1": {
+          "length_ratio": 0.9529650176091483,
+          "length_error": 0.04703498239085169,
+          "vector_error": 0.04745153472899088,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.7485976383192466,
+          "length_error": 0.25140236168075336,
+          "vector_error": 0.2514342593698898,
+          "bad_length": true,
+          "bad_vector": true
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 8,
+        "primitives": 955,
+        "original_cost": 7.299676738043017,
+        "candidate_cost": 9.097378502360998
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 203,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.9187304412846722,
+          "length_error": 0.08126955871532782,
+          "vector_error": 0.08177854059030099,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.9650599132691495,
+          "length_error": 0.03494008673085047,
+          "vector_error": 0.03778113251645918,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.9187304412846722,
+          "length_error": 0.08126955871532782,
+          "vector_error": 0.08177854059030099,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 3,
+        "primitives": 972,
+        "original_cost": 5.0366796814656265,
+        "candidate_cost": 5.031840155561914
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 204,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.6070644369033714,
+          "length_error": 0.3929355630966286,
+          "vector_error": 0.3929566335053577,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "1": {
+          "length_ratio": 1.0020404140942931,
+          "length_error": 0.0020404140942931193,
+          "vector_error": 0.007531276473420087,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.6070644369033714,
+          "length_error": 0.3929355630966286,
+          "vector_error": 0.3929566335053577,
+          "bad_length": true,
+          "bad_vector": true
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 8,
+        "primitives": 962,
+        "original_cost": 4.362646695858059,
+        "candidate_cost": 9.35143721998557
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 205,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.37244568780235565,
+          "length_error": 0.6275543121976443,
+          "vector_error": 0.6275824127372663,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "1": {
+          "length_ratio": 0.9548645778079375,
+          "length_error": 0.04513542219206246,
+          "vector_error": 0.045511390908478076,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.37244568780235565,
+          "length_error": 0.6275543121976443,
+          "vector_error": 0.6275824127372663,
+          "bad_length": true,
+          "bad_vector": true
+        }
+      },
+      "support": {
+        "queried": true,
+        "allowed": false,
+        "missing_field": 19,
+        "primitives": 1009,
+        "original_cost": 3.984495824772205,
+        "candidate_cost": 12.787957218679296
+      },
+      "old_applied": true,
+      "guard_applied": false
+    },
+    {
+      "frame": 247,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.5227273354914462,
+          "length_error": 0.47727266450855377,
+          "vector_error": 0.47758049095278293,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "1": {
+          "length_ratio": 0.5227273354914462,
+          "length_error": 0.47727266450855377,
+          "vector_error": 0.47758049095278293,
+          "bad_length": true,
+          "bad_vector": true
+        },
+        "2": {
+          "length_ratio": 0.5227273354914462,
+          "length_error": 0.47727266450855377,
+          "vector_error": 0.47758049095278293,
+          "bad_length": true,
+          "bad_vector": true
+        }
+      },
+      "support": {
+        "queried": false,
+        "allowed": false,
+        "missing_field": 0,
+        "primitives": 0
+      },
+      "old_applied": false,
+      "guard_applied": false
+    },
+    {
+      "frame": 433,
+      "metrics": {
+        "0": {
+          "length_ratio": 0.9264975832609665,
+          "length_error": 0.07350241673903346,
+          "vector_error": 0.07438959567707837,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "1": {
+          "length_ratio": 0.9264975832609665,
+          "length_error": 0.07350241673903346,
+          "vector_error": 0.07438959567707837,
+          "bad_length": false,
+          "bad_vector": false
+        },
+        "2": {
+          "length_ratio": 0.9264975832609665,
+          "length_error": 0.07350241673903346,
+          "vector_error": 0.07438959567707837,
+          "bad_length": false,
+          "bad_vector": false
+        }
+      },
+      "support": {
+        "queried": false,
+        "allowed": false,
+        "missing_field": 0,
+        "primitives": 0
+      },
+      "old_applied": false,
+      "guard_applied": false
+    }
+  ],
+  "gate_checks": [
+    {
+      "frame": 190,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 190,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 190,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": true
+    },
+    {
+      "frame": 200,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 200,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 200,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "frame": 202,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 202,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 202,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "frame": 203,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 203,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 203,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "frame": 204,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 204,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 204,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "frame": 205,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 205,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 205,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": false
+    },
+    {
+      "frame": 247,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 247,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 247,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": true
+    },
+    {
+      "frame": 433,
+      "criterion": "no higher length/vector error than original joint",
+      "passed": true
+    },
+    {
+      "frame": 433,
+      "criterion": "no newly bad length/vector labels relative joint",
+      "passed": true
+    },
+    {
+      "frame": 433,
+      "criterion": "old rescue/fallback no worse than old consensus",
+      "passed": true
+    }
+  ],
+  "gate_passed": false,
+  "native_calls": 24,
+  "profiles": 1359,
+  "all_original_old_and_proposal_controls_exact": true,
+  "all_native_primitive_geometry_loss_equations_and_decisions_reconstructed": true
+}

@@ -1,0 +1,54 @@
+{
+  "files": {
+    "build.log": {
+      "original_path": "/workspace/localization-env/inten-natural-traces/build_checks/build.log",
+      "bytes": 16719,
+      "sha256": "3972fd63a600c32dff233b5a029601c6f9e667036cadc943d7e90059a4bc1ec0",
+      "storage": "gzip",
+      "path": "build.log.gz",
+      "stored_sha256": "61583ed2a7f2957427622dfd8e4a11d29bdbdb593d47976ad0a8af3708a4a896"
+    },
+    "build_command.json": {
+      "original_path": "/workspace/localization-env/inten-natural-traces/build_checks/build_command.json",
+      "bytes": 1178,
+      "sha256": "84081dc15fe130cc1aa90264d0f06f3681a25071301e2ee76c2913392e7670f6",
+      "storage": "verbatim",
+      "path": "build_command.json",
+      "stored_sha256": "84081dc15fe130cc1aa90264d0f06f3681a25071301e2ee76c2913392e7670f6"
+    },
+    "configure.log": {
+      "original_path": "/workspace/localization-env/inten-natural-traces/build_checks/configure.log",
+      "bytes": 14256,
+      "sha256": "47ef300adcce95cfbfce8bf874dfb19ad242b0170539151d2ea3bdf62c4151b5",
+      "storage": "gzip",
+      "path": "configure.log.gz",
+      "stored_sha256": "9bf0d77bbc77b246a983a9ea4b8aa1db6f18515b598aeaac2fd4710ddd92717b"
+    },
+    "configure_command.json": {
+      "original_path": "/workspace/localization-env/inten-natural-traces/build_checks/configure_command.json",
+      "bytes": 1209,
+      "sha256": "76e0973e1da88f094b23b886387a40845f135721700218dfbcb6c9baeb5803ab",
+      "storage": "verbatim",
+      "path": "configure_command.json",
+      "stored_sha256": "76e0973e1da88f094b23b886387a40845f135721700218dfbcb6c9baeb5803ab"
+    },
+    "ctest.log": {
+      "original_path": "/workspace/localization-env/inten-natural-traces/build_checks/ctest.log",
+      "bytes": 461,
+      "sha256": "883dd42d304422dfd3a675ca58387620f76e36249779b00ce3a72bed1bec61d1",
+      "storage": "gzip",
+      "path": "ctest.log.gz",
+      "stored_sha256": "9b6fcb6872c6237d4fb502d8c1c2f429a63b315aabc085aa99afab9b335363d4"
+    },
+    "ctest_command.json": {
+      "original_path": "/workspace/localization-env/inten-natural-traces/build_checks/ctest_command.json",
+      "bytes": 1164,
+      "sha256": "46e0751101995fe7baaffda4334aa0456caa0d4048a263373e6dfe369c89a0ea",
+      "storage": "verbatim",
+      "path": "ctest_command.json",
+      "stored_sha256": "46e0751101995fe7baaffda4334aa0456caa0d4048a263373e6dfe369c89a0ea"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

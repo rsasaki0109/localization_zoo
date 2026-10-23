@@ -1,0 +1,30 @@
+{
+  "files": {
+    "compile.stderr": {
+      "original_path": "/workspace/localization-env/inten-collapse-boundaries/build/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile.stderr",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile.stdout": {
+      "original_path": "/workspace/localization-env/inten-collapse-boundaries/build/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "verbatim",
+      "path": "compile.stdout",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile_command.json": {
+      "original_path": "/workspace/localization-env/inten-collapse-boundaries/build/compile_command.json",
+      "bytes": 7095,
+      "sha256": "f8d080067d8ad68521c7d28e47f115f1a609e3af7576c92f9dba70a166ad5f07",
+      "storage": "verbatim",
+      "path": "compile_command.json",
+      "stored_sha256": "f8d080067d8ad68521c7d28e47f115f1a609e3af7576c92f9dba70a166ad5f07"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

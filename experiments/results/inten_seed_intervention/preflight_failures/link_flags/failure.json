@@ -1,0 +1,5 @@
+{
+  "exit_code": 1,
+  "error": "compile failed",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py\", line 257, in <module>\n    try:main()\n        ^^^^^^\n  File \"/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py\", line 226, in main\n    run('compile',command,R/'build');pin=analysis.sha(R/'probe');write(E/'binary.json',dict(path=str(R/'probe'),sha256=pin,library=P['library']))\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py\", line 78, in run\n    require(result.returncode in allowed,label+' failed')\n  File \"/workspace/localization-env/inten-collapse-boundaries/worktree/experiments/results/inten_seed_intervention/run.py\", line 57, in require\n    raise ValueError(reason)\nValueError: compile failed\n"
+}

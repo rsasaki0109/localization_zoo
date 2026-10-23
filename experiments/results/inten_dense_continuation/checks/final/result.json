@@ -1,0 +1,18 @@
+{
+  "exit_code": 0,
+  "commands": {
+    "paper_ready": 0,
+    "showcase": 0,
+    "leaderboard": 0,
+    "paper_ratio": 0,
+    "full_variant": 0,
+    "budget_docs": 0,
+    "dense_docs": 0,
+    "whitespace": 0,
+    "inten_iteration_budget_Haswell": 0,
+    "inten_iteration_budget_Sandybridge": 0,
+    "inten_dense_continuation_Haswell": 0,
+    "inten_dense_continuation_Sandybridge": 0,
+    "all_python": 0
+  }
+}

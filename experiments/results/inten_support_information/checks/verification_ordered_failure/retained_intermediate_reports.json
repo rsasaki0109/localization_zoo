@@ -1,0 +1,20 @@
+{
+  "scope": "Private complete successful intermediate group reports retained; no all-case success claimed. Every native observation remains committed.",
+  "reports": {
+    "old": {
+      "retained_private": "/tmp/localization-zoo-inten-support-information-20261023/verification_ordered/workers/old.json",
+      "bytes": 7075615,
+      "sha256": "db9a56446e749c22953fb16a696709d9cb7f3a51c0766f19252fc88bfc5de28f"
+    },
+    "01": {
+      "retained_private": "/tmp/localization-zoo-inten-support-information-20261023/verification_ordered/workers/01.json",
+      "bytes": 4415707,
+      "sha256": "355d58edce4a5d87f6c0105a745dd4a9dc25e00386afd01ec468f5709e7cfd74"
+    },
+    "02": {
+      "retained_private": "/tmp/localization-zoo-inten-support-information-20261023/verification_ordered/workers/02.json",
+      "bytes": 4852440,
+      "sha256": "cba48f03a8fc239f427446bb82af0d02f5f857314c5d1eccb81c49e0f3cd540a"
+    }
+  }
+}

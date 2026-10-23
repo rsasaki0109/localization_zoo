@@ -1,0 +1,14 @@
+{
+  "numerical_commits": [
+    "f22127ab",
+    "7b398407"
+  ],
+  "sources": {
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_reciprocal_support/report/summary.json": "fec18f749851a67ebd7b074f929803af4389f0c69bab9fc444c38567a66bdf5d",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_dense_continuation/report/summary.json": "a2cdc21c259dd6dd4cf6964e60daf22c2f59c6deb1538770b807fdec9f02ae53"
+  },
+  "artifacts": {
+    "/workspace/localization-env/inten-reciprocal-support-20261022/comparison.png": "a216333cd807a4c549dfb5e89921627401bbfd6bcc55bfb238d6896588c59024",
+    "/workspace/localization-env/inten-reciprocal-support-20261022/comparison.svg": "5ca98e85c84b8387c496a5cb50b59674ac07cf09c6f8ea67dba5159ad7f9b7e2"
+  }
+}

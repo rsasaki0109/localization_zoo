@@ -1,0 +1,11 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "cwd": "/workspace/localization-env/inten-prediction-dor/worktree",
+  "exit_code": 2,
+  "reason": "Trailing whitespace in unmodified CMake stdout, not a native test failure. Byte-exact compressed logs and originals retained; all configure/build/CTest/runner commands exited0. Full collector had not started."
+}

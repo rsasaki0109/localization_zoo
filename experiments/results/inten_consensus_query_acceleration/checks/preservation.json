@@ -1,0 +1,126 @@
+{
+  "exit_code": 0,
+  "historical_aggregate_count": 785,
+  "historical_aggregates_unchanged": true,
+  "full_sequence_count": 11,
+  "sequences": {
+    "00": {
+      "frames": 4541,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "01": {
+      "frames": 1101,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "02": {
+      "frames": 4661,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "03": {
+      "frames": 801,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "04": {
+      "frames": 271,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "05": {
+      "frames": 2761,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "06": {
+      "frames": 1101,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "07": {
+      "frames": 1101,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "08": {
+      "frames": 4071,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "09": {
+      "frames": 1591,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    },
+    "10": {
+      "frames": 1201,
+      "actual_native_exits": [
+        0,
+        0
+      ],
+      "all_geometry_decisions_and_projected_steps_checked": true,
+      "reference_trace_pose_gt_exact": true,
+      "archive_roundtrip": true
+    }
+  },
+  "cached": {
+    "profiles": 1359,
+    "cached_native_calls_per_worker_count": 16,
+    "worker_counts_bitwise_equal": true,
+    "all_geometry_and_conditional_native_controls_exact": true
+  },
+  "history_and_live_producer_checked": true,
+  "policy": "All outcomes retained; outside-paper option remains default off, no per-sequence adoption or standalone FPS claim. Local rotation constraint does not fix global mapped rotation."
+}

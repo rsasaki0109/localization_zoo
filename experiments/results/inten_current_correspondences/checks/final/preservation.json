@@ -1,0 +1,26 @@
+{
+  "exit_code": 0,
+  "parent_commit": "9028e44cfe6241c2e20b22f2039d42c69bd8594b",
+  "production_source_and_interfaces_unchanged": true,
+  "historical_results_and_benchmarks_unchanged": true,
+  "old_aggregates_unchanged": 754,
+  "no_new_accuracy_aggregate": true,
+  "canonical_sha256": {
+    "README.md": "8cecbfd416174b65f3877c625479e7c0afbc0901c33143de1c349b8ac6160204",
+    "docs/index.html": "1a1d227394cf5da8eaf0cbe932725a9c035ed5d8e0f8c2bf28ab1e3e7f24fbab",
+    "docs/assets/paper/paper_ratio_table.csv": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+    "evaluation/data/paper_reported_numbers.json": "a4f843d848eda6c2cd71f93d2d504d0e0e8c8daaeac97fb6e538fe60dd6fe55e",
+    "experiments/results/index.json": "43348cf4c081f16aa6e63e33f0e800c7eb203acc7a2c829ad85644f793b96a0e"
+  },
+  "all_archives_byte_roundtrip_verified": [
+    "baseline",
+    "analysis",
+    "fetch",
+    "ablations",
+    "motion_initial_failure",
+    "motion",
+    "figures",
+    "figures_execution"
+  ],
+  "known_initial_motion_failure_preserved": true
+}

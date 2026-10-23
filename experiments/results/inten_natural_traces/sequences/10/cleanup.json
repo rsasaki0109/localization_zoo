@@ -1,0 +1,8 @@
+{
+  "sequence": "10",
+  "owned_input_dir": "/workspace/localization-env/inten-natural-traces/kitti/dataset/sequences/10/velodyne",
+  "hashes_verified_before_removal": true,
+  "removed_files": 1202,
+  "removed_bytes": 2419501774,
+  "input_dir_exists_after": false
+}

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/collection_recovery_record/command.json",
+      "bytes": 553,
+      "sha256": "125ac65bf5e9f73f79c865b493916bfbf576ea0bc92b3eb681e804709bc3d207",
+      "storage": "verbatim",
+      "path": "command.json",
+      "stored_sha256": "125ac65bf5e9f73f79c865b493916bfbf576ea0bc92b3eb681e804709bc3d207"
+    },
+    "stderr.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/collection_recovery_record/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "stdout.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/collection_recovery_record/stdout.log",
+      "bytes": 91,
+      "sha256": "a10f1f1fca7206806b3b2d6505233e5bc0cc86ab1bcf2d31db52e1c5e1c0ed7d",
+      "storage": "gzip",
+      "path": "stdout.log.gz",
+      "stored_sha256": "dbf2a41ab3c7212b24e920b16ba8cc311fddd268e76ee4db4c64b62e4303cf8d"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

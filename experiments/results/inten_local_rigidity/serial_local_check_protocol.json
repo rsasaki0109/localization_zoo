@@ -1,0 +1,8 @@
+{
+  "failure_commit": "d89405e2",
+  "observed": "First full local suite exits1 in the inherited support verifier, with empty child stderr and a recorded cgroup memory-limit kill. Its legacy temporary wrapper removes child receipts, so exact failed-child return code is unavailable; do not infer it from the empty log.",
+  "execution": "After CPU-control packing and new portable regressions finish, rerun the complete unchanged Python discovery and all required local checks with no other heavy auxiliary process. Driver concurrency is one; inherited group/checker pairing, all mathematical/native inputs, equations and original tolerances remain untouched. Preserve first failure and resource context, collect fresh before/after resource snapshots and actual exits.",
+  "source_sha256": {
+    "experiments/results/inten_local_rigidity/final_checks.py": "227ba72222a1d0b546c15bb9225191670d4f9bb12688ff19af9186818f01bc4b"
+  }
+}

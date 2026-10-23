@@ -1,0 +1,12 @@
+{
+  "storage": "interleaved_parent_jsonl",
+  "parent_archive": "experiments/results/inten_prior_control/groups/01/archive.json",
+  "parent_archive_sha256": "ae716ec8cb8a5469c32da1b47c2d199786667dfa7678b5291205c8ef0a054913",
+  "parent_name": "native.stdout.jsonl",
+  "extra_name": "support.extra.jsonl",
+  "parent_lines": 4687,
+  "extra_records": 8141,
+  "bytes": 320272677,
+  "sha256": "a6391adf37230d0b648a90b760ff0c1e3e08750995a187175347f1d83a7c5345",
+  "all_parent_native_stdout_bytes_exact": true
+}

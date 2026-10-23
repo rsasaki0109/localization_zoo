@@ -1,0 +1,7 @@
+{
+  "source_sha256": {
+    "experiments/results/inten_support_information/local_final_checks.py": "ed3a4b5fd05be6f599410aa78ac7f6d57bda436c56bdc5fbe908212c1f9e0789",
+    "experiments/results/inten_support_information/local_runtime_info.py": "1b7ab96b4623dd2e3c467b93e909450dde8e914993d016c933aae84aaeec412e"
+  },
+  "scope": "Complete unittest discovery without skips added, all required docs/table checks and all older production/result preservation. Original numeric tolerances unchanged."
+}

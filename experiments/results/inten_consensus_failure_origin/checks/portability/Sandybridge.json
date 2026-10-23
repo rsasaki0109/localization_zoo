@@ -1,0 +1,301 @@
+{
+  "exit_code": 0,
+  "kernel_override": "Sandybridge",
+  "numpy": "1.26.4",
+  "python": "3.12.14",
+  "ratio_comparisons": 137424,
+  "max_absolute_difference": 2.352229522273319e-12,
+  "strict_failures": [
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 968,
+      "metric": "final_length_ratio",
+      "committed": 0.9785977361619626,
+      "reconstructed": 0.9785977361635247,
+      "absolute_difference": 1.5621948179500578e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 974,
+      "metric": "final_length_ratio",
+      "committed": 1.0187565698949173,
+      "reconstructed": 1.018756569893793,
+      "absolute_difference": 1.1242118347354335e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 978,
+      "metric": "final_length_ratio",
+      "committed": 1.041486982186192,
+      "reconstructed": 1.0414869821873671,
+      "absolute_difference": 1.1750600492632657e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 984,
+      "metric": "final_length_ratio",
+      "committed": 1.0344888364695985,
+      "reconstructed": 1.0344888364709177,
+      "absolute_difference": 1.319166997859611e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 988,
+      "metric": "final_length_ratio",
+      "committed": 0.9926383563241381,
+      "reconstructed": 0.9926383563225645,
+      "absolute_difference": 1.5736301151036969e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 990,
+      "metric": "final_length_ratio",
+      "committed": 0.9710836320097783,
+      "reconstructed": 0.9710836320074261,
+      "absolute_difference": 2.352229522273319e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 990,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 0.9904322170705271,
+      "reconstructed": 0.9904322170689428,
+      "absolute_difference": 1.5842882561400984e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 990,
+      "metric": "s2s_length_ratio",
+      "committed": 0.9904322170705271,
+      "reconstructed": 0.9904322170689428,
+      "absolute_difference": 1.5842882561400984e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 991,
+      "metric": "final_length_ratio",
+      "committed": 1.0081502968288973,
+      "reconstructed": 1.0081502968272507,
+      "absolute_difference": 1.6466827901240322e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 993,
+      "metric": "final_length_ratio",
+      "committed": 0.9665648551027466,
+      "reconstructed": 0.9665648551042811,
+      "absolute_difference": 1.5345502646368914e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 993,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 0.9691340279998079,
+      "reconstructed": 0.9691340280013249,
+      "absolute_difference": 1.5170087408478139e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 993,
+      "metric": "s2s_length_ratio",
+      "committed": 0.9691340279998079,
+      "reconstructed": 0.9691340280013249,
+      "absolute_difference": 1.5170087408478139e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 1141,
+      "metric": "final_length_ratio",
+      "committed": 1.037648358900732,
+      "reconstructed": 1.0376483588995773,
+      "absolute_difference": 1.1546319456101628e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 1185,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 1.028846750761922,
+      "reconstructed": 1.0288467507630472,
+      "absolute_difference": 1.1253220577600587e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 1185,
+      "metric": "s2s_length_ratio",
+      "committed": 1.028846750761922,
+      "reconstructed": 1.0288467507630472,
+      "absolute_difference": 1.1253220577600587e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 1188,
+      "metric": "final_length_ratio",
+      "committed": 0.9773780753031003,
+      "reconstructed": 0.9773780753010997,
+      "absolute_difference": 2.000621890374532e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "baseline",
+      "frame": 1189,
+      "metric": "final_length_ratio",
+      "committed": 1.0187752652484474,
+      "reconstructed": 1.0187752652469526,
+      "absolute_difference": 1.4948042803553108e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 968,
+      "metric": "final_length_ratio",
+      "committed": 0.9888843789355948,
+      "reconstructed": 0.9888843789366377,
+      "absolute_difference": 1.042943509332872e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 986,
+      "metric": "final_length_ratio",
+      "committed": 0.9725465734422712,
+      "reconstructed": 0.9725465734437349,
+      "absolute_difference": 1.4636070133633439e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 990,
+      "metric": "final_length_ratio",
+      "committed": 0.9653738025946289,
+      "reconstructed": 0.9653738025930848,
+      "absolute_difference": 1.5440981826486677e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 990,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 0.9903771928269114,
+      "reconstructed": 0.9903771928253273,
+      "absolute_difference": 1.5840662115351734e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 990,
+      "metric": "s2s_length_ratio",
+      "committed": 0.9959203528597738,
+      "reconstructed": 0.9959203528581808,
+      "absolute_difference": 1.5929479957321746e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 993,
+      "metric": "final_length_ratio",
+      "committed": 0.9904361385606301,
+      "reconstructed": 0.9904361385621805,
+      "absolute_difference": 1.5504264538890311e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 993,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 0.9684397361310063,
+      "reconstructed": 0.9684397361325222,
+      "absolute_difference": 1.5158985178231887e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 993,
+      "metric": "s2s_length_ratio",
+      "committed": 0.9660971996045263,
+      "reconstructed": 0.9660971996060387,
+      "absolute_difference": 1.5123458041443882e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1000,
+      "metric": "final_length_ratio",
+      "committed": 0.9618877901810711,
+      "reconstructed": 0.9618877901795578,
+      "absolute_difference": 1.5132339825640884e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1136,
+      "metric": "final_length_ratio",
+      "committed": 0.9926722886509253,
+      "reconstructed": 0.9926722886521163,
+      "absolute_difference": 1.191047260817868e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1140,
+      "metric": "final_length_ratio",
+      "committed": 1.0088650811144408,
+      "reconstructed": 1.0088650811122972,
+      "absolute_difference": 2.1436186159462522e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1185,
+      "metric": "final_length_ratio",
+      "committed": 1.0060200771396015,
+      "reconstructed": 1.0060200771407017,
+      "absolute_difference": 1.1002310174035301e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1185,
+      "metric": "joint_s2s_length_ratio",
+      "committed": 1.0288832323530381,
+      "reconstructed": 1.0288832323541635,
+      "absolute_difference": 1.1253220577600587e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1185,
+      "metric": "s2s_length_ratio",
+      "committed": 1.0251883410104665,
+      "reconstructed": 1.0251883410115878,
+      "absolute_difference": 1.1213252548714081e-12
+    },
+    {
+      "sequence": "10",
+      "mode": "candidate",
+      "frame": 1188,
+      "metric": "final_length_ratio",
+      "committed": 0.9315375034749562,
+      "reconstructed": 0.9315375034729972,
+      "absolute_difference": 1.9589885269510887e-12
+    }
+  ],
+  "all_labels_counts_and_native_metrics_exact": true,
+  "all_differences_within_documented_relative_1e_minus10_absolute_1e_minus12": true,
+  "scope": "Offline portability probe only. No estimator, result, threshold or classification is modified."
+}

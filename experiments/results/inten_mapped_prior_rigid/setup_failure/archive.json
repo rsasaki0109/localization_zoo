@@ -1,0 +1,118 @@
+{
+  "files": {
+    "backups/source/1/push.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/1/push.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "backups/source/1/push.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "backups/source/1/push_command.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/1/push_command.json",
+      "bytes": 500,
+      "sha256": "27705e0095840acfc9071bb4c08827fcd55b0fc7a87582cc13df1dc07fc63f81",
+      "storage": "verbatim",
+      "path": "backups/source/1/push_command.json",
+      "stored_sha256": "27705e0095840acfc9071bb4c08827fcd55b0fc7a87582cc13df1dc07fc63f81"
+    },
+    "backups/source/1/push_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/1/push_stderr.log",
+      "bytes": 83,
+      "sha256": "e7453c6dc500aaaa1021f84f9211ae0f9d8c309ea7dae88221bcde70770438f7",
+      "storage": "gzip",
+      "path": "backups/source/1/push_stderr.log.gz",
+      "stored_sha256": "51c1b6dd2860a8bc03a304d8c05ff7601fba78a01ec4c72254c56f2b1846dd0e"
+    },
+    "backups/source/2/push.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/2/push.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "backups/source/2/push.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "backups/source/2/push_command.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/2/push_command.json",
+      "bytes": 501,
+      "sha256": "2b7650376190f4914340f7f0f19e7488bd12676411d62466d85fb60b8205faee",
+      "storage": "verbatim",
+      "path": "backups/source/2/push_command.json",
+      "stored_sha256": "2b7650376190f4914340f7f0f19e7488bd12676411d62466d85fb60b8205faee"
+    },
+    "backups/source/2/push_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/2/push_stderr.log",
+      "bytes": 83,
+      "sha256": "e7453c6dc500aaaa1021f84f9211ae0f9d8c309ea7dae88221bcde70770438f7",
+      "storage": "gzip",
+      "path": "backups/source/2/push_stderr.log.gz",
+      "stored_sha256": "51c1b6dd2860a8bc03a304d8c05ff7601fba78a01ec4c72254c56f2b1846dd0e"
+    },
+    "backups/source/3/push.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/3/push.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "backups/source/3/push.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "backups/source/3/push_command.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/3/push_command.json",
+      "bytes": 500,
+      "sha256": "8a7864675c96da98350fc6009ccea6314228945e31b1632d7d1fbd6c86d8e4a5",
+      "storage": "verbatim",
+      "path": "backups/source/3/push_command.json",
+      "stored_sha256": "8a7864675c96da98350fc6009ccea6314228945e31b1632d7d1fbd6c86d8e4a5"
+    },
+    "backups/source/3/push_stderr.log": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/backups/source/3/push_stderr.log",
+      "bytes": 83,
+      "sha256": "e7453c6dc500aaaa1021f84f9211ae0f9d8c309ea7dae88221bcde70770438f7",
+      "storage": "gzip",
+      "path": "backups/source/3/push_stderr.log.gz",
+      "stored_sha256": "51c1b6dd2860a8bc03a304d8c05ff7601fba78a01ec4c72254c56f2b1846dd0e"
+    },
+    "collector.stderr": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/collector.stderr",
+      "bytes": 738,
+      "sha256": "dcebed293e407706a4c1ca2152a744123cad36d29454969471665482f3428171",
+      "storage": "verbatim",
+      "path": "collector.stderr",
+      "stored_sha256": "dcebed293e407706a4c1ca2152a744123cad36d29454969471665482f3428171"
+    },
+    "collector.stdout": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/collector.stdout",
+      "bytes": 33,
+      "sha256": "28933fa0e0a67775273229d432fbd3e2f3a87d70d3396d01e61dbb651b267445",
+      "storage": "verbatim",
+      "path": "collector.stdout",
+      "stored_sha256": "28933fa0e0a67775273229d432fbd3e2f3a87d70d3396d01e61dbb651b267445"
+    },
+    "collector_command.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/collector_command.json",
+      "bytes": 493,
+      "sha256": "9c022ebb8aa141dcfe5d196ca160e805f373026205ae4f91b289bc221349b16d",
+      "storage": "verbatim",
+      "path": "collector_command.json",
+      "stored_sha256": "9c022ebb8aa141dcfe5d196ca160e805f373026205ae4f91b289bc221349b16d"
+    },
+    "failure.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/failure.json",
+      "bytes": 868,
+      "sha256": "2c5787b80b86e6b7ae8c4b6de76566f9e280bfce7eecb19495045bf8d3beb742",
+      "storage": "verbatim",
+      "path": "failure.json",
+      "stored_sha256": "2c5787b80b86e6b7ae8c4b6de76566f9e280bfce7eecb19495045bf8d3beb742"
+    },
+    "recovery.json": {
+      "original_path": "/workspace/localization-env/inten-mapped-prior-rigid/setup_failure/recovery.json",
+      "bytes": 402,
+      "sha256": "22b52ae060284d55156a8af7f43ecc2a7ae26b05e3b44bfa77b8052c2b2a1451",
+      "storage": "verbatim",
+      "path": "recovery.json",
+      "stored_sha256": "22b52ae060284d55156a8af7f43ecc2a7ae26b05e3b44bfa77b8052c2b2a1451"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

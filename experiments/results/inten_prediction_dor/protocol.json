@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "parent_commit": "b603cd20af5a9d9786886f9d3d1a68372802708e",
+  "native_reference_commit": "9a01528b05128794df962b52ace59e727e834417",
+  "sequence": "01",
+  "scope": "Full continuous01 passive DOR detection, not an accuracy candidate. No GT or hand ROI enters native producer. Retain every native frame, every first-iteration accepted facade query, and every non-ground cluster decision under all declared renders.",
+  "selected_endpoints": [
+    190,
+    200,
+    202,
+    203,
+    204,
+    205,
+    247,
+    433
+  ],
+  "detailed_frames": [
+    189,
+    190,
+    199,
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    246,
+    247,
+    432,
+    433
+  ],
+  "profile": "Unchanged PR159 candidate / PR161 reference: mapped seed, translation prior0.03, ground/facade PCA, acceleration ON; S2M spread0 and row completion OFF; max range120m, elevation0.17deg, S2M plane check0.05m. Selection07,00 diagnosis, inherited DiLO01 prior tuning, all currentKITTI development.",
+  "stages": [
+    "prediction/prior-local: available pre-S2S support using actual previous local map",
+    "prediction/current-local: after current S2M local-map rebuild, same prediction pose; retrospective diagnostic, not deployable before S2S",
+    "final/current-local: original unchanged native DOR/map insertion"
+  ],
+  "controls": "Exact all estimator-state, solver/count and DOR frame fields except scan_path and anchored_pose. Probe reports sensor-relative pose in anchored_pose; original harness applies GT-derived initial display anchor, which never enters this producer or estimator. This output-coordinate difference is declared, not interpreted as numerical solver drift. Validate scan-path conventions against archived facade-PCA candidate. All original DOR masks/insertion/history unchanged; extra calls are const. Require exact original source->instrumented transformation and first facade counts against native trace. Prediction uses drift_*(odom_*initial_relative), before S2S. Distinguish pose changes from local-map rebuild; never attribute first-vs-final solely to pose.",
+  "analysis": "For every moving step retain GT-relative motion errors offline, initial facade gradients through full damped native H, current prediction masks, previous final masks for all original neighbour supports, coverage/range discrepancies and native cluster decisions. Aggregate all full01 moving/bad/not-bad steps under inherited0.1m/20percent labels, not just favorable204. Detailed original range-image samples for every non-ground point at all inherited endpoints and previous frames. No GT in an automatic decision and no semantic-object truth inferred from a cluster.",
+  "thresholds": "Existing native dor_relative_range0.1 and dor_object_ratio0.5 unchanged. No sweep, fitted threshold, hand-box rule, or default change. A new mechanism must be separately frozen; any accuracy setting must run all full00-10 before ratios.",
+  "paper_scope": "Repository documents Sec3.3 DOR as post-S2M map insertion only and warns past pre-extraction filtering removed valid registration input. This passive study does not claim a paper-compliance defect or authorize changing defaults.",
+  "data": "Official fetch full01 only; verify all existing committed scan hashes. Preserve lossless archives, commands, sources/binaries and failures; byte-roundtrip, commit and normal push before owned raw deletion.",
+  "native_source_sha256": "49b87dcdfe4c29ec584022aff5ae8611d7d319bcee4fe91e2af857e6e1ff4bb4",
+  "diagnostic_source_sha256": "1efed7ec4194bdfe5f69fdb4f3d0ad7ea3de8c507f734598e8626e7e4f2e01fd"
+}

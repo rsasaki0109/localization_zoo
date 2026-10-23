@@ -1,0 +1,70 @@
+{
+  "files": {
+    "complete_study.py": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/workflow_record/complete_study.py",
+      "bytes": 3197,
+      "sha256": "18a2eb4bcf904f26b5e6815734deb7cbebc94f9969da8ba1454b7e47cb1ccacc",
+      "storage": "verbatim",
+      "path": "complete_study.py",
+      "stored_sha256": "18a2eb4bcf904f26b5e6815734deb7cbebc94f9969da8ba1454b7e47cb1ccacc"
+    },
+    "finalize_docs/command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/workflow_record/finalize_docs/command.json",
+      "bytes": 599,
+      "sha256": "46382b885b31d55b577a01f41ef827f6ec6c25c22663b43cee38890266f0379f",
+      "storage": "verbatim",
+      "path": "finalize_docs/command.json",
+      "stored_sha256": "46382b885b31d55b577a01f41ef827f6ec6c25c22663b43cee38890266f0379f"
+    },
+    "finalize_docs/stderr.log": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/workflow_record/finalize_docs/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "finalize_docs/stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "finalize_docs/stdout.log": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/workflow_record/finalize_docs/stdout.log",
+      "bytes": 3814,
+      "sha256": "9d393c85806f8d33fcf1b3dcbf55ca44c1917738e82b38bb6aae3712ef35bbed",
+      "storage": "gzip",
+      "path": "finalize_docs/stdout.log.gz",
+      "stored_sha256": "cc149cec39c772c12bdce41c5f81e9d6fb54f35ce3acd644bb8791bff02f4b72"
+    },
+    "finish_collection/command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/workflow_record/finish_collection/command.json",
+      "bytes": 559,
+      "sha256": "343d7e177cf327f4d0c7880e41cb8aed842d7b159233fca974483d445aabd24a",
+      "storage": "verbatim",
+      "path": "finish_collection/command.json",
+      "stored_sha256": "343d7e177cf327f4d0c7880e41cb8aed842d7b159233fca974483d445aabd24a"
+    },
+    "finish_collection/stderr.log": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/workflow_record/finish_collection/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "finish_collection/stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "finish_collection/stdout.log": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/workflow_record/finish_collection/stdout.log",
+      "bytes": 35522,
+      "sha256": "5b4d8a16a8c0f80242081395ef44794e6e8cdd59667e20ffbfd2836ca0bb0fc2",
+      "storage": "gzip",
+      "path": "finish_collection/stdout.log.gz",
+      "stored_sha256": "0b460f0e4b32827401a3d787e6b947c76f094cef4d3dd3db2cf07d97389eb3a3"
+    },
+    "finish_collection.py": {
+      "original_path": "/workspace/localization-env/inten-facade-pca/workflow_record/finish_collection.py",
+      "bytes": 8307,
+      "sha256": "494a07daedb04c970b5a15bf82dc1180f54d48b820b3a14d1cb000e0a36792a7",
+      "storage": "verbatim",
+      "path": "finish_collection.py",
+      "stored_sha256": "494a07daedb04c970b5a15bf82dc1180f54d48b820b3a14d1cb000e0a36792a7"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

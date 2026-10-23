@@ -1,0 +1,27 @@
+{
+  "observed_utc": "2026-10-21 19:03:34 UTC",
+  "failed_readonly_monitor_cell": "679",
+  "operation": "tools.exec_command: private status.py read-only monitor",
+  "reported_error": "exec_command failed: CreateProcess { message: \"Rejected(\\\"Failed to create unified exec process: exec-server transport disconnected\\\")\" }",
+  "actual_native_exit_code": null,
+  "no_native_restart": true,
+  "recovery": {
+    "pwd_probe_actual_exit_code": 0,
+    "status_probe_actual_exit_code": 0,
+    "collector_pid": 198110,
+    "collector_same_original_process_observed": true,
+    "sequence": "08",
+    "candidate_frame_after_recovery": 1379,
+    "baseline_trace_ended": true,
+    "original_session_owner_monitor_686_still_running": true
+  },
+  "environment_observation": {
+    "observations_current": true,
+    "desired_phase": "running",
+    "observed_phase": "running",
+    "connectivity": "connected",
+    "failure": null,
+    "spec_revision": "600"
+  },
+  "scope": "Read-only progress monitor transport interruption, not an observed native failure. No native restart or source/index mutation; collection continued under the original PID."
+}

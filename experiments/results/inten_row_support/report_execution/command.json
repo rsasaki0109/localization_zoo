@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_row_support/report.py",
+    "--output-dir",
+    "experiments/results/inten_row_support/report"
+  ],
+  "cwd": "/workspace/localization-env/inten-row-support/worktree",
+  "source_commit": "cce9a5ae85ed8e82fbe5d3db75a66a9ed16e86b1",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_unix": 1792478294.0475338,
+  "exit_code": 0,
+  "finished_unix": 1792478327.1193564
+}

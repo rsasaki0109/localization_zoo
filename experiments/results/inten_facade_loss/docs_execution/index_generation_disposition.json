@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "substantive_fields_equal": true,
+  "committed_generated_at": "2026-10-21T07:50:12+00:00",
+  "regenerated_generated_at": "2026-10-21T07:50:18+00:00",
+  "restored_sha256": "95ebd5633d1637ff408a893e833cae80bc657e9bd77b2f17a401ee09633715f5",
+  "regenerated_sha256": "2fc7d1a16dc0f148dc8d78e3a548c959b6503b356078df29c7f64c6ca01451a7",
+  "policy": "Retain committed import index bytes after proving only generated_at may differ."
+}

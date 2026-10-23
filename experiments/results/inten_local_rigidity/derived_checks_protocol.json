@@ -1,0 +1,11 @@
+{
+  "parent_commit": "HEAD retained complete numerical measurements before derived tables or interpretation",
+  "sources": {
+    "experiments/results/inten_local_rigidity/report_docs.py": "816893b257e9dfcd6c6d752c6947493ae3a42baa9ceed2b071091cf4b5e9a45d",
+    "experiments/results/inten_local_rigidity/final_checks.py": "6cd24d15f6010f371fb61897af13e9ee95c1195d2a6f1d693a7752cd519afe97",
+    "experiments/results/inten_local_rigidity/report/manifest.json": "57377e5aa436bef3db62d5c914800ac8a9e8ce1e68e3513884dcb22607a06606",
+    "experiments/results/inten_local_rigidity/protocol.json": "2f9165eb83e48f340585afbe58112308f3274b99d258471cf3263ebc5d0b59a2"
+  },
+  "derivation": "All original cases, all arms and executed phases/classes retained. Primary overview is predeclared arm14 joint first facade query. Per-source native cluster all/kept/removed at every first/last boundary includes centroid/bounds, signed positive and negative raw fixed-axis g, Htt, per-center discrepancy mean/median/min/max and missing counts. Complete history table retains all iterations. Full precision JSON and generated Markdown; no threshold, selector or candidate.",
+  "validation": "One complete local Python discovery (includes exact whole new summary and CSV regeneration plus all old regressions), required showcase/leaderboard/paper-ready checks, full-variant/paper-ratio regeneration, table regeneration, runtime and whitespace. Preserve source/runner/fixtures/paper data and every older result from frozen base. Actual argv/cwd/env/source/stdout/stderr/exits; final exact-head full Native/ROS2 CI and both complete decoded logs before Ready."
+}

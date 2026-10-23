@@ -1,0 +1,54 @@
+{
+  "files": {
+    "command.json": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/import_execution/command.json",
+      "bytes": 537,
+      "sha256": "f92028fd8263bce046abb0ee403a5ac64ac08f12380c9f1fc808da253f0cf145",
+      "storage": "verbatim",
+      "path": "command.json",
+      "stored_sha256": "f92028fd8263bce046abb0ee403a5ac64ac08f12380c9f1fc808da253f0cf145"
+    },
+    "index.log": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/import_execution/index.log",
+      "bytes": 47238,
+      "sha256": "0019de6fe415aa5e08932662a2d95f65c60c5d3f06be16639dd3f2c31670f409",
+      "storage": "gzip",
+      "path": "index.log.gz",
+      "stored_sha256": "8d68599cab854c2c1571d85dee79b753fe756df1b056383c98249030bdec2686"
+    },
+    "index_command.json": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/import_execution/index_command.json",
+      "bytes": 1541,
+      "sha256": "00789d92ea55b94e5fb5f4ee47c2a32d256e1ef677f204afa89e6f01998d0dc8",
+      "storage": "verbatim",
+      "path": "index_command.json",
+      "stored_sha256": "00789d92ea55b94e5fb5f4ee47c2a32d256e1ef677f204afa89e6f01998d0dc8"
+    },
+    "result.json": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/import_execution/result.json",
+      "bytes": 1247,
+      "sha256": "02b404d09ebc5b167ccd0f7e47f7f91d42b0de5bd4469f6d54d9f5190968b5e7",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "02b404d09ebc5b167ccd0f7e47f7f91d42b0de5bd4469f6d54d9f5190968b5e7"
+    },
+    "stderr.log": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/import_execution/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "stdout.log": {
+      "original_path": "/workspace/localization-env/inten-ground-pca/import_execution/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,33 @@
+{
+  "exit_code": 0,
+  "native_class_system_reconstructed": true,
+  "max_H_error": 0.0,
+  "controls": [
+    {
+      "type": "sum_control",
+      "eigen": 1,
+      "left": 1,
+      "right": 0
+    },
+    {
+      "type": "reduction_controls",
+      "dot": 1,
+      "norm2": 10000000000000000,
+      "left_norm2": 10000000000000000,
+      "right_norm2": 10000000000000002
+    }
+  ],
+  "witness_source_sha256": "89f7add696e1792e9f25e1d47dbe6212b14e971c7a6b7e7da8043e89c622d62e",
+  "numpy": {
+    "all_coordinates_exact": false,
+    "max_abs_error": 7.105427357601002e-15
+  },
+  "left": {
+    "all_coordinates_exact": false,
+    "max_abs_error": 2.220446049250313e-16
+  },
+  "right": {
+    "all_coordinates_exact": false,
+    "max_abs_error": 7.105427357601002e-15
+  }
+}

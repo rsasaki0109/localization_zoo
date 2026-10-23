@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/shared_near_range/verify_preservation.py",
+    "--output",
+    "/workspace/localization-env/inten-natural-traces/worktree/experiments/results/inten_natural_traces/checks/final/prior_preservation.json"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "source_commit": "3eb4a4caa40996dfb8a223d6c65c86a8a32ffbd0",
+  "started_unix": 1792459619.6796098,
+  "finished_unix": 1792459619.8030775,
+  "exit_code": 1,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "/workspace/localization-env/inten-natural-traces/matplotlib",
+    "XDG_CACHE_HOME": "/workspace/localization-env/inten-natural-traces/cache"
+  }
+}

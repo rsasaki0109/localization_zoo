@@ -1,0 +1,54 @@
+{
+  "evaluation/src/pcd_dogfooding.cpp": {
+    "path": "sources/evaluation/src/pcd_dogfooding.cpp.gz",
+    "sha256": "ff4bac64beb2cc9890450d565d564fd1dcd8f3c40da1186d01c1eab87a05fb7a"
+  },
+  "experiments/results/inten_intensity_consistent/archive.py": {
+    "path": "sources/experiments/results/inten_intensity_consistent/archive.py.gz",
+    "sha256": "603acdde3a61954a6fa11d7156baf0b0318323da263e9929cfad7f7ca8df74dc"
+  },
+  "experiments/results/inten_intensity_consistent/build.py": {
+    "path": "sources/experiments/results/inten_intensity_consistent/build.py.gz",
+    "sha256": "55365154ec8ca97d391f938be49b1d35ac84784515742016bfec10559f118df1"
+  },
+  "experiments/results/inten_intensity_consistent/check_recorded.py": {
+    "path": "sources/experiments/results/inten_intensity_consistent/check_recorded.py.gz",
+    "sha256": "278fe9250e3c113550e0c1a6a52a5fc515db25052898ce7657e192913f0ee85c"
+  },
+  "experiments/results/inten_intensity_consistent/common.py": {
+    "path": "sources/experiments/results/inten_intensity_consistent/common.py.gz",
+    "sha256": "c3f4eea795695ed85710ecdf0d5d0668a0e56b742c0265e606bbdc9a7a86cfcc"
+  },
+  "experiments/results/inten_intensity_consistent/field_probe.cpp": {
+    "path": "sources/experiments/results/inten_intensity_consistent/field_probe.cpp.gz",
+    "sha256": "2fa0bb3383bf838c472651d900189e55aac72a2bf52c18c17d9d00877afe9140"
+  },
+  "experiments/results/inten_intensity_consistent/probe.cpp": {
+    "path": "sources/experiments/results/inten_intensity_consistent/probe.cpp.gz",
+    "sha256": "3b32069bdc911b9542a02fba57ef4927f3f786073515c91b5e08538f4f02d213"
+  },
+  "experiments/results/inten_intensity_consistent/replay_hooks.h": {
+    "path": "sources/experiments/results/inten_intensity_consistent/replay_hooks.h.gz",
+    "sha256": "0c5744ee1ee3c59481c388ae108bea597d6f06e76ad6b6084ebf7cad07c178c9"
+  },
+  "experiments/results/inten_intensity_consistent/run.py": {
+    "path": "sources/experiments/results/inten_intensity_consistent/run.py.gz",
+    "sha256": "d92cdea784b9b4923d5c00336a4591fa5452995d3aaa9dd2d7cbdafd09ef4572"
+  },
+  "experiments/results/inten_intensity_consistent/verify.py": {
+    "path": "sources/experiments/results/inten_intensity_consistent/verify.py.gz",
+    "sha256": "ba74f949af84213eea6b96fe1a993e10534869c0e69a4f8466a8a98e0da2350c"
+  },
+  "papers/inten_loam/include/inten_loam/inten_loam_paper.h": {
+    "path": "sources/papers/inten_loam/include/inten_loam/inten_loam_paper.h.gz",
+    "sha256": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b"
+  },
+  "papers/inten_loam/src/inten_loam_paper.cpp": {
+    "path": "sources/papers/inten_loam/src/inten_loam_paper.cpp.gz",
+    "sha256": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d"
+  },
+  "papers/inten_loam/test/test_inten_loam_paper.cpp": {
+    "path": "sources/papers/inten_loam/test/test_inten_loam_paper.cpp.gz",
+    "sha256": "51deb1ce49852b57292d7dda7d9782daa478fc62e6a65d3d4959e5e4f9ee7e06"
+  }
+}

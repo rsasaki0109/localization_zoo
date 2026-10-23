@@ -1,0 +1,105 @@
+{
+  "exit_code": 0,
+  "sequences": [
+    {
+      "sequence": "00",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 4542,
+      "regenerated_crlf_lines": 4542,
+      "committed_lf_count": 4542,
+      "regenerated_lf_count": 4542
+    },
+    {
+      "sequence": "01",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 1102,
+      "regenerated_crlf_lines": 1102,
+      "committed_lf_count": 1102,
+      "regenerated_lf_count": 1102
+    },
+    {
+      "sequence": "02",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 4662,
+      "regenerated_crlf_lines": 4662,
+      "committed_lf_count": 4662,
+      "regenerated_lf_count": 4662
+    },
+    {
+      "sequence": "03",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 802,
+      "regenerated_crlf_lines": 802,
+      "committed_lf_count": 802,
+      "regenerated_lf_count": 802
+    },
+    {
+      "sequence": "04",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 272,
+      "regenerated_crlf_lines": 272,
+      "committed_lf_count": 272,
+      "regenerated_lf_count": 272
+    },
+    {
+      "sequence": "05",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 2762,
+      "regenerated_crlf_lines": 2762,
+      "committed_lf_count": 2762,
+      "regenerated_lf_count": 2762
+    },
+    {
+      "sequence": "06",
+      "byte_identical": false,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 0,
+      "regenerated_crlf_lines": 1102,
+      "committed_lf_count": 1102,
+      "regenerated_lf_count": 1102
+    },
+    {
+      "sequence": "07",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 1102,
+      "regenerated_crlf_lines": 1102,
+      "committed_lf_count": 1102,
+      "regenerated_lf_count": 1102
+    },
+    {
+      "sequence": "08",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 4072,
+      "regenerated_crlf_lines": 4072,
+      "committed_lf_count": 4072,
+      "regenerated_lf_count": 4072
+    },
+    {
+      "sequence": "09",
+      "byte_identical": false,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 0,
+      "regenerated_crlf_lines": 1592,
+      "committed_lf_count": 1592,
+      "regenerated_lf_count": 1592
+    },
+    {
+      "sequence": "10",
+      "byte_identical": true,
+      "newline_normalized_identical": true,
+      "committed_crlf_lines": 1202,
+      "regenerated_crlf_lines": 1202,
+      "committed_lf_count": 1202,
+      "regenerated_lf_count": 1202
+    }
+  ],
+  "all_text_identical_after_only_crlf_to_lf": true
+}

@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/analyze_inten_conditioning.py",
+    "--trace",
+    "/workspace/localization-env/inten-natural-traces/staging/01/on/trace.jsonl",
+    "--summary",
+    "/workspace/localization-env/inten-natural-traces/staging/01/on/summary.json",
+    "--receipt",
+    "/workspace/localization-env/inten-natural-traces/staging/01/on/native_command.json",
+    "--rotation-length-m",
+    "1",
+    "--rank-rtol",
+    "1e-09",
+    "--output-dir",
+    "/workspace/localization-env/inten-natural-traces/staging/01/conditioning"
+  ],
+  "cwd": "/workspace/localization-env/inten-natural-traces/worktree",
+  "source_commit": "b5c18d73dfb78dcd0592946d7d0b233df06f3a15",
+  "native_source_commit": "ad7d2081d2349fe4f0ec241b975723e4180cde7a",
+  "started_unix": 1792455868.5622995,
+  "finished_unix": 1792455874.3472617,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "frames": 4661,
+  "enabled": true,
+  "counts": {
+    "evaluated": 4660,
+    "usable": 4655,
+    "applied": 4655,
+    "fallback": 5,
+    "clusters": 479446,
+    "excluded": 64672,
+    "steps": 33600
+  },
+  "max_projected_step_backward_error": 1.6577878270882625e-16,
+  "all_votes_masks_and_fallbacks_reconstructed": true,
+  "all_projected_rotations_bitwise_original": true,
+  "all_projected_updates_additive_and_backward_checked": true,
+  "scope": "No GT; checks actual admission bands/decisions/refinement equations and acceptance, not independently recomputed raw geometry profiles. Cached full-point costs are separately verified bitwise against prior study at both worker counts."
+}

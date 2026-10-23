@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "raw_collection_commit": "d3854ec5f036500a6ed0ce90dbb2c1a80e2f7b6a",
+  "native_source_commit": "9a01528b05128794df962b52ace59e727e834417",
+  "collection_protocol_commit": "6a7c598d5a837d57f40f7da599197225298c36a0",
+  "preservation_base_commit": "327c5b0a3ce38dcefc7e554d6ccaecadb3aea20c",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "report": "Verify both arms use fixed mapped seed and soft prior0.03, with ground PCA on and only facade PCA different. Restore all complete archives; validate recursive mapped seed, identical extraction/GT, saved pose consistency and complete traversal. Independently reconstruct fixed prior information in BOTH arms, check every finite recorded damped solve with relative backward error<=1e-10 and retain conditioning-sensitive forward differences. Retain official RTE/rotation/ATE and native RPE, every step and every bad local frame including candidate-only failures, all error-growth blocks and current/historical diagnostic entries. Later associations condition on each realized trajectory; do not claim causal surface correctness from different paths.",
+  "import_policy": "Every arm non-default, unscored; no per-sequence adoption. Native summaries byte-preserved, raw timing retained but uniformly absent from aggregate FPS/time because paired processes share CPUs.",
+  "preservation": "All preexisting732 aggregate hashes, all prior full-variant CSV rows, canonical publication files, older scientific studies and frozen native binaries/dependencies remain intact.",
+  "prior_inspection": "Original profile chosen on07;00 informed diagnosis; soft prior fraction borrowed from DiLO01 tuning. Ground PCA retained from PR158. Facade PCA selected after committed current01 onset controls54732c2d: actual current seeds reproduce native full01 output exactly; facade contributes backward first updates at early entry while prior is inactive, and oracle initialization changes the failed output. This motivates a hypothesis, does not prove plane-normal correctness or isolate S2M. Same normal construction and1e-12 numerical degeneracy tolerance inherited unchanged from ground PCA; no new numeric tuning. Current01 is development data and acquired first for diagnosis. All prior KITTI outcomes development; no independent held-out claim. Every full sequence runs the same candidate even if first outcomes are adverse.",
+  "forward_information_diagnostic": "For every moving frame, retain first sensor-centered data Schur min/max and data/prior information projected along the GT motion direction. GT is offline diagnosis only, never a native seed or input. Selected original/current entry frames are descriptive observations along different trajectories, not matched-seed causal contrasts. This additional descriptive analysis is motivated by logical data-adaptive-prior feedback. The original collection settings remain frozen. Code and protocol are committed before numerical postprocessing; no pre-acquisition registration claim for this extra diagnostic.",
+  "prior_feedback": "Both arms keep soft-prior parameters and anchor rule fixed, not its numerical information matrix. Changing the facade Hessian can change this data-adaptive information at the very first system. Reconstruct and verify it independently in both arms. Full-run effects include this intended downstream consequence; no pure-normal or correspondence-truth causal claim.",
+  "intervention_origin": "Nearest-anchor facade PCA was chosen after committed current01 onset controls54732c2d, which motivate but do not prove a wall-normal cause. Native numerical degeneracy criterion inherited unchanged; no new numeric parameter fitted. Physical ring assignment is not tested by this intervention. No independent held-out claim.",
+  "order": "Commit sources before deriving. Commit complete report/import results before writing numerical prose. Regenerate required docs, preserve negatives, run actual-exit checks, require complete native/ROS CI at final PR head. No merge.",
+  "source_sha256": {
+    "report.py": "7f58f61d71da0f40111467072e62ce5636e4347ec618f944237cf63d61d72f0f",
+    "import_results.py": "95eeef5ce3160eea6741c79856687d7dea31ebc79c19896211a6da3e231746dc",
+    "verify.py": "61fabf4406c8567536dc631be042c9cd2da21d134fabdbbfec2f3c6c78af6c00",
+    "write_docs.py": "2d7f21af221a364dd07c08416ff2ed04a375888147dc69ae8b8d114e0aa2da63",
+    "readme_template.md": "b117afb01daf9925a3183672b06a74f51b135d4f56ca80fa0090379229d5bb71",
+    "finalize_docs.py": "79886c8971a070265209a99473dbb77443c7357a2663708644a8c82e6cf020f1"
+  }
+}

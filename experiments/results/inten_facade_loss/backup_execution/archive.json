@@ -1,0 +1,54 @@
+{
+  "files": {
+    "cleanup/push.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/backups/cleanup/push.stderr.log",
+      "bytes": 110,
+      "sha256": "e1ef6f88f0dded461de75de371d7e7ad85c825d8d114dde7a5007984b8feeaf2",
+      "storage": "gzip",
+      "path": "cleanup/push.stderr.log.gz",
+      "stored_sha256": "da6395b63e7db30b1dff5821e84997cedc7a25552be432db8f83809cbc8ef237"
+    },
+    "cleanup/push.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/backups/cleanup/push.stdout.log",
+      "bytes": 83,
+      "sha256": "16aa3619e43d059c90bfdd1e4387103e942ad4ba034057d55d4eee7e3d91b5fc",
+      "storage": "gzip",
+      "path": "cleanup/push.stdout.log.gz",
+      "stored_sha256": "f482a4fa4a7ea6c96984dc3599ab47323847ec16187aa2d7f9a9192a26212f8a"
+    },
+    "cleanup/push_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/backups/cleanup/push_command.json",
+      "bytes": 546,
+      "sha256": "be5d1e014200ed0da03bb7a0e620089cae70020098f4d1e40a9d7dd6870e5ab2",
+      "storage": "verbatim",
+      "path": "cleanup/push_command.json",
+      "stored_sha256": "be5d1e014200ed0da03bb7a0e620089cae70020098f4d1e40a9d7dd6870e5ab2"
+    },
+    "raw_controls/push.stderr.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/backups/raw_controls/push.stderr.log",
+      "bytes": 321,
+      "sha256": "a4c72c7b21a345df0fb4dde849fde30526362832433458d27dac142299aa923c",
+      "storage": "gzip",
+      "path": "raw_controls/push.stderr.log.gz",
+      "stored_sha256": "581305a07023a632a4a6e75f195e6f7ac2331d554048e2770a588475a6353ecf"
+    },
+    "raw_controls/push.stdout.log": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/backups/raw_controls/push.stdout.log",
+      "bytes": 83,
+      "sha256": "16aa3619e43d059c90bfdd1e4387103e942ad4ba034057d55d4eee7e3d91b5fc",
+      "storage": "gzip",
+      "path": "raw_controls/push.stdout.log.gz",
+      "stored_sha256": "f482a4fa4a7ea6c96984dc3599ab47323847ec16187aa2d7f9a9192a26212f8a"
+    },
+    "raw_controls/push_command.json": {
+      "original_path": "/workspace/localization-env/inten-facade-loss/backups/raw_controls/push_command.json",
+      "bytes": 547,
+      "sha256": "21bf1fe445246ddda0114b61ae29c13699af085e2d16998a8bae57925303f974",
+      "storage": "verbatim",
+      "path": "raw_controls/push_command.json",
+      "stored_sha256": "21bf1fe445246ddda0114b61ae29c13699af085e2d16998a8bae57925303f974"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

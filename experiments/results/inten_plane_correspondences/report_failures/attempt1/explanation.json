@@ -1,0 +1,4 @@
+{
+  "reason": "The initial offline wrapper forced single-thread BLAS for Python, whereas collection Python inherited unset thread selectors. Native subprocesses used explicit single-thread settings throughout. The next offline attempt restores the actual collection Python runtime policy; native data and analysis formulas are unchanged.",
+  "correction": "Keep the exact structural/numeric equality assertion and rerun with the original Python thread-selection policy; record it explicitly. Never weaken the comparison or alter raw outcomes."
+}

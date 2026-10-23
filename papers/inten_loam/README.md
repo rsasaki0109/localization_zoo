@@ -22,8 +22,9 @@ Its hypothesis was selected on 01; range/elevation and the improved reference
 profile are inherited, and geometric settings use upstream-mechanics defaults.
 All KITTI data are development data. Native mechanism tests and normal CLI
 checks pass, but acquisition failed after 768 frames of the first 01 attempt.
-The disabled reference exactly matches the archived trajectory through that
-prefix (maximum matrix difference 0). The interrupted candidate poses and
+A later recovery attempt stopped after 128 frames. The disabled reference
+exactly matches the archived trajectory through both nonempty prefixes
+(maximum matrix difference 0). The interrupted candidate poses and
 negative acquisition outcome are retained. **No complete-sequence improvement
 or acceptance is claimed yet.** Resume with the fixed settings after the
 execution environment's HTTP 503 transport failure is resolved; do not tune
@@ -53,9 +54,8 @@ See [protocol, continuous results, commands and limits](../../experiments/result
 Input range/elevation are inherited from the prior 07/00 selection; upstream
 voxel/defaults are retained, with no new parameter search. All KITTI data are
 development data. No production/default change or all-sequence improvement
-is claimed. Next: a default-off, GT-free geometric initializer independent of
-InTEn's feature-history loop, evaluated with one fixed configuration across
-all paper sequences.
+is claimed by this diagnosis. The default-off hybrid above implements the
+next experiment; its fixed all-sequence evaluation is still pending.
 
 ## Core idea
 

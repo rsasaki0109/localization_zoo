@@ -6,7 +6,12 @@ yet established.** The first KITTI 01 run was interrupted by acquisition HTTP
 503 failures after 768 frames. Its disabled/reference path matches the archived
 full-precision facade-PCA trajectory exactly through that prefix (maximum
 matrix difference 0). The incomplete candidate output is retained, not presented
-as a full KITTI result or an adoption decision.
+as a full KITTI result or an adoption decision. After a brief connection
+recovery, a fresh unchanged run stopped after 128 frames when HTTP 503 returned.
+The independent [prefix audit](interrupted_audit.json) verifies raw hashes,
+order, pose exports and exact reference parity for both nonempty attempts.
+The intervening acquisition-only retry processed no frames; it establishes no
+estimator parity or accuracy.
 
 ## What the option does
 
@@ -70,13 +75,26 @@ or Table 6. No gate verdict is available from the interrupted prefix.
   exhausted its initial retries, not a solver crash or a successful full run.
 - [Data connection probe](commands/acquisition_data_probe.stdout): the actual
   503 body identifies an Envoy `cloudflare_https_tunnel` connection failure.
-  GitHub push failed with the same transport error. A small cached ZIP-footer
-  request succeeded, which did not establish working scan acquisition.
+  GitHub push initially failed with the same transport error. One push later
+  succeeded, saving implementation commit `4fb78d02`, before the failure returned
+  ([recorded push retry](commands/push_retry.json)). Actual scan batches also
+  briefly succeeded; neither event established a stable recovered connection.
 
 The retry uses the same binary/configuration from frame zero and only adds
 bounded backoff for acquisition failures. Keep all failed attempts. A successful
 retry must not be inferred from elapsed time or partial pose files. Full native
 / ROS2 CI and full-sequence acceptance are not claimed by the focused checks.
+
+The recovery attempt and its exhausted acquisition retries are preserved in
+[preflight_failures/recovery_interrupted_01/](preflight_failures/recovery_interrupted_01/).
+All attempts ended because acquisition failed, not because an estimator failed
+the prospective accuracy gate. The gate remains unevaluated.
+
+The saved CLI results also pass an explicit [frame-count and metric audit](commands/cli_saved_validation.json).
+The initial check used a nonexistent `frames_processed` key and compared two
+missing values for that one field; `frames` and the root `num_frames` are now
+required, with the pose line count checked separately. Its original receipt is
+retained. This correction does not change any estimator output.
 
 ## Reproduction and resumption
 

@@ -16,12 +16,14 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 The default-off hybrid geometric initializer/prior is now implemented; see
 [the fixed full-sequence trial](../experiments/results/inten_geometric_prior/README.md).
 Focused native tests, normal CLI build and disabled-path fixture parity pass.
-Full evaluation is blocked by the execution environment's HTTP 503 tunnel
-failure: the first 01 attempt stopped after 768 frames, with exact disabled
-reference parity through that prefix. Keep its partial output and every failed
-fetch. Resume the same fixed binary/configuration from frame zero, then finish
-00–10 before any acceptance or accuracy claim. The subsequent acquisition
-retry changes transport backoff only. Git push is affected by the same outage.
+Full evaluation remains blocked by recurring HTTP 503 tunnel failures. The
+first 01 attempt stopped after 768 frames; a retry after reported connection
+recovery stopped after 128 frames. Both nonempty prefixes have exact disabled
+reference parity, independently checked against the archived traces and raw
+input hashes. Neither is a full accuracy result. The implementation was pushed
+successfully once, but subsequent pushes failed again. Keep all failed attempts;
+resume the same binary/configuration from frame zero, then finish 00–10 before
+any acceptance decision. Acquisition backoff changes transport only.
 
 
 The independent initialization comparison is complete; see
@@ -35,8 +37,8 @@ initialization from that prior. This is diagnostic evidence,
 not an improved full InTEn run. Good seeds still fail at 215 and 420; retain
 those adverse controls and the near-threshold case at 202.
 
-Next, prioritize a GT-free geometric initializer independent of the native
-feature-history loop, default off, followed by one fixed all-sequence trial.
+The GT-free independent initializer is now implemented as the default-off
+hybrid above. The next milestone is completion of its fixed all-sequence trial.
 Do not continue scalar/mask searches without a new causal reason. Keep the
 fixed improved profile as reference and retain every previous failed gate.
 No Table 6 or paper-number change follows from this single-sequence study.

@@ -1,0 +1,154 @@
+{"python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]", "executable": "/usr/bin/python3", "numpy": "2.2.4", "numpy_path": "/tmp/localization-zoo-inten-geometric-prior-20261023/witness_numpy2_cp313/numpy/__init__.py", "scipy": "1.15.3", "scipy_path": "/usr/lib/python3/dist-packages/scipy/__init__.py"}
+Build Dependencies:
+  blas:
+    detection method: pkgconfig
+    found: true
+    include directory: /opt/_internal/cpython-3.13.0/lib/python3.13/site-packages/scipy_openblas64/include
+    lib directory: /opt/_internal/cpython-3.13.0/lib/python3.13/site-packages/scipy_openblas64/lib
+    name: scipy-openblas
+    openblas configuration: OpenBLAS 0.3.28  USE64BITINT DYNAMIC_ARCH NO_AFFINITY
+      Haswell MAX_THREADS=64
+    pc file directory: /project/.openblas
+    version: 0.3.28
+  lapack:
+    detection method: pkgconfig
+    found: true
+    include directory: /opt/_internal/cpython-3.13.0/lib/python3.13/site-packages/scipy_openblas64/include
+    lib directory: /opt/_internal/cpython-3.13.0/lib/python3.13/site-packages/scipy_openblas64/lib
+    name: scipy-openblas
+    openblas configuration: OpenBLAS 0.3.28  USE64BITINT DYNAMIC_ARCH NO_AFFINITY
+      Haswell MAX_THREADS=64
+    pc file directory: /project/.openblas
+    version: 0.3.28
+Compilers:
+  c:
+    commands: cc
+    linker: ld.bfd
+    name: gcc
+    version: 10.2.1
+  c++:
+    commands: c++
+    linker: ld.bfd
+    name: gcc
+    version: 10.2.1
+  cython:
+    commands: cython
+    linker: cython
+    name: cython
+    version: 3.0.12
+Machine Information:
+  build:
+    cpu: x86_64
+    endian: little
+    family: x86_64
+    system: linux
+  host:
+    cpu: x86_64
+    endian: little
+    family: x86_64
+    system: linux
+Python Information:
+  path: /tmp/build-env-cd9kfynb/bin/python
+  version: '3.13'
+SIMD Extensions:
+  baseline:
+  - SSE
+  - SSE2
+  - SSE3
+  found:
+  - SSSE3
+  - SSE41
+  - POPCNT
+  - SSE42
+  - AVX
+  - F16C
+  - FMA3
+  - AVX2
+  - AVX512F
+  - AVX512CD
+  - AVX512_SKX
+  - AVX512_CLX
+  - AVX512_CNL
+  - AVX512_ICL
+  not found:
+  - AVX512_KNL
+  - AVX512_KNM
+
+Build Dependencies:
+  blas:
+    detection method: pkgconfig
+    found: true
+    include directory: /usr/include/x86_64-linux-gnu
+    lib directory: /usr/lib/x86_64-linux-gnu
+    name: blas
+    openblas configuration: unknown
+    pc file directory: /usr/lib/x86_64-linux-gnu/pkgconfig
+    version: 3.12.1
+  lapack:
+    detection method: pkgconfig
+    found: true
+    include directory: /usr/include/x86_64-linux-gnu
+    lib directory: /usr/lib/x86_64-linux-gnu
+    name: lapack
+    openblas configuration: unknown
+    pc file directory: /usr/lib/x86_64-linux-gnu/pkgconfig
+    version: 3.12.1
+  pybind11:
+    detection method: pkgconfig
+    include directory: /include
+    name: pybind11
+    version: 2.13.6
+Compilers:
+  c:
+    args: -g, -O2, -Werror=implicit-function-declaration, -ffile-prefix-map=/build/reproducible-path/scipy-1.15.3=.,
+      -fstack-protector-strong, -fstack-clash-protection, -Wformat, -Werror=format-security,
+      -fcf-protection, -Wdate-time, -D_FORTIFY_SOURCE=2
+    commands: cc
+    linker: ld.bfd
+    linker args: -Wl,-z,relro, -g, -O2, -Werror=implicit-function-declaration, -ffile-prefix-map=/build/reproducible-path/scipy-1.15.3=.,
+      -fstack-protector-strong, -fstack-clash-protection, -Wformat, -Werror=format-security,
+      -fcf-protection, -Wdate-time, -D_FORTIFY_SOURCE=2
+    name: gcc
+    version: 14.2.0
+  c++:
+    args: -g, -O2, -ffile-prefix-map=/build/reproducible-path/scipy-1.15.3=., -fstack-protector-strong,
+      -fstack-clash-protection, -Wformat, -Werror=format-security, -fcf-protection,
+      -Wdate-time, -D_FORTIFY_SOURCE=2
+    commands: c++
+    linker: ld.bfd
+    linker args: -Wl,-z,relro, -g, -O2, -ffile-prefix-map=/build/reproducible-path/scipy-1.15.3=.,
+      -fstack-protector-strong, -fstack-clash-protection, -Wformat, -Werror=format-security,
+      -fcf-protection, -Wdate-time, -D_FORTIFY_SOURCE=2
+    name: gcc
+    version: 14.2.0
+  cython:
+    commands: cython
+    linker: cython
+    name: cython
+    version: 3.0.11
+  fortran:
+    args: -fPIC
+    commands: gfortran
+    linker: ld.bfd
+    linker args: -Wl,-z,relro, -fPIC
+    name: gcc
+    version: 14.2.0
+  pythran:
+    include directory: ../../../../usr/lib/python3/dist-packages/pythran
+    version: 0.17.0
+Machine Information:
+  build:
+    cpu: x86_64
+    endian: little
+    family: x86_64
+    system: linux
+  cross-compiled: false
+  host:
+    cpu: x86_64
+    endian: little
+    family: x86_64
+    system: linux
+Python Information:
+  path: /usr/bin/python3.13
+  version: '3.13'
+

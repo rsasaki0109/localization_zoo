@@ -1,0 +1,43 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pip",
+    "install",
+    "--target",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/witness_numpy2_cp313",
+    "--no-deps",
+    "--no-cache-dir",
+    "--no-compile",
+    "--retries",
+    "0",
+    "--timeout",
+    "20",
+    "--only-binary=:all:",
+    "--python-version",
+    "3.13",
+    "--implementation",
+    "cp",
+    "--abi",
+    "cp313",
+    "numpy==2.2.4"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "576b6f1de5d74cba49ebc318de43ebcd6b204f78",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792760643.3057406,
+  "exit_code": 0,
+  "wall_seconds": 1.504022579989396,
+  "logs": {
+    ".stdout": "20d4d660262606fc631d65f5da6b004759ef9feb8da929a8d44916ae5dad4b29",
+    ".stderr": "4b0d976396e76eeb8ce32047c87f0c38ab85973f3db2ebae763a2209226e1d58"
+  }
+}

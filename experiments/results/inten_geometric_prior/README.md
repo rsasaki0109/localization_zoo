@@ -126,6 +126,13 @@ S2S distortion from the accepted mapping correction and map-history effects.
 This does not replace completing the frozen all-sequence trial after transport
 recovers.
 
+The production code supplies the independent motion to S2S only. `solveS2M`
+optimizes its own feature-map objective without that motion prior, and mapping
+acceptance checks the returned correspondence count. This identifies where to
+inspect the accepted correction; it does not establish which residual or map
+history causes the observed shortening. A passive same-history mapping replay
+should separate these effects before proposing another estimator change.
+
 The later 960-frame attempt (`5984759a`) also restarts from zero with the
 [same frozen binary](commands/frozen_binary_recovery_check.json). Its
 [predeclared cases](adverse_cases_after_approval.json) retain the same negative

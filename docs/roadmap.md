@@ -11,29 +11,34 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 ## 1. Where things stand
 
 
-### Current development decision (2026-10-23)
+### Current development decision (2026-10-24)
 
 The default-off hybrid geometric initializer/prior is now implemented; see
 [the fixed full-sequence trial](../experiments/results/inten_geometric_prior/README.md).
 Focused native tests, normal CLI build and disabled-path fixture parity pass.
-Full evaluation remains blocked by recurring HTTP 503 tunnel failures.
-The latest attempt first acquires and verifies the remaining 01 tail but stops
-after 832 frames when earlier scans cannot be fetched. All nonempty prefixes
-retain exact disabled reference parity, independently checked against archived
-traces and raw input hashes. None is a full accuracy result. Before the next
-01 restart, fetch and hash-verify its complete input; retain the available tail,
-start the unchanged estimator from zero, then finish 00–10 before deciding
-whether to retain the option. Keep all failed attempts and fixed settings.
-Normal Git push has also failed again; original local history is preserved.
+The first full fixed hybrid sequence, KITTI 01, now completes (`c99beb6a`).
+Against the frozen improved InTEn reference, official RTE is 4.481189% → 0.967180%
+and ATE is 88.786456 m → 20.265326 m. The independent audit (`11902445`)
+reconstructs all diagnostics and verifies exact reference parity across all 1101
+frames. The successful run acquired and verified every input before starting;
+retain all preceding interruptions. Normal Git publication has also recovered.
 
-The predeclared 215 case remains a negative: hybrid step length / GT length is
-1.003769 at S2S input, 0.780277 after S2S, and 0.373955 after accepted mapping.
-An accurate initializer alone does not remove that failure. The retained
-[stage diagnostics](../experiments/results/inten_geometric_prior/adverse_cases_after_tail_recovery.json)
-also include 202 and 420. Do not tune from partial results. After the frozen
-trial, investigate the accepted mapping correction with the same map history.
+This hypothesis was selected on 01; every KITTI sequence is development data.
+00 and 02–10 remain pending and are run with the same frozen binary/settings.
+Acquisition for 00 is retrying after renewed transport failures. Preserve the
+completed 01 result; a restarted controller must select only remaining sequences.
 Keep [PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) draft
-until the fixed all-sequence requirement is met.
+until the fixed all-sequence requirement and prospective retention gate finish.
+
+Bad-length steps decrease from 44 to 7, but failures remain at 209–210, 214–215,
+432–433 and 436. The last three are new relative to the reference. At 432,
+S2S length / GT is 1.005920 but accepted mapping ends at 0.734083. The
+[post-hoc complete stage report](../experiments/results/inten_geometric_prior/posthoc_bad_steps_01.json)
+retains every remaining bad step. The predeclared 215 negative also remains:
+1.003769 at S2S input, 0.780277 after S2S, and 0.373955 after mapping. These
+local negatives coexist with the full 01 improvement. Do not tune from them.
+After the frozen trial, investigate the accepted mapping correction with the
+same map history. No Table 6, paper eligibility or SOTA claim follows.
 
 A [fresh complete Python discovery](../experiments/results/inten_geometric_prior/publication_final_discovery/)
 now succeeds: 448 tests, five skipped, exit 0 (`a9f2991b`). The adapter restores

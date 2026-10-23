@@ -20,29 +20,37 @@ The fixed all-sequence trial is defined in
 [the study and protocol](../../experiments/results/inten_geometric_prior/README.md).
 Its hypothesis was selected on 01; range/elevation and the improved reference
 profile are inherited, and geometric settings use upstream-mechanics defaults.
-All KITTI data are development data. Native mechanism tests and normal CLI
-checks pass, but acquisition failed after 768 frames of the first 01 attempt.
-A later recovery attempt stopped after 128 frames; further attempts reached
-832 and 960 frames before acquisition failed again. Another retry after a
-successful real-batch fetch also stops at 960 frames when transport fails.
-The latest attempt verifies the remaining tail first but stops after 832 frames
-when earlier scans cannot be fetched. Its [audit and retained failure](../../experiments/results/inten_geometric_prior/interrupted_audit_after_tail_recovery.json)
-confirm the same controls and adverse cases. Acquire and verify the complete 01
-input before the next restart.
-The disabled reference
-exactly matches the archived trajectory through every nonempty prefix
-(maximum matrix difference 0). The interrupted candidate poses and
-negative acquisition outcome are retained. **No complete-sequence improvement
-or acceptance is claimed yet.** Resume with the fixed settings after the
-execution environment's HTTP 503 transport failure is resolved; do not tune
-from the partial run or change the published paper scores.
+All KITTI data are development data. The first complete fixed trial, 01, is
+saved in `c99beb6a` and independently reconstructed in `11902445`.
 
+| Sequence | Reference RTE [%] | Hybrid RTE [%] | Reference ATE [m] | Hybrid ATE [m] | Bad-length steps, reference / hybrid |
+|---|---:|---:|---:|---:|---:|
+| 01 | 4.481189 | 0.967180 | 88.786456 | 20.265326 | 44 / 7 |
+
+All 1101 scans are verified; reference poses exactly match the archived
+trajectory (maximum matrix difference 0). Native and independent audit exits
+are 0. RTE uses official KITTI 100–800 m segments. Bad steps exceed 20% local
+translation-length error on GT steps of at least 0.1 m. The hypothesis was
+selected on 01, so this is development evidence. 00 and 02–10 and the fixed
+all-sequence retention gate remain pending. Table 6 and paper eligibility do
+not change. Earlier transport failures and partial outputs remain archived;
+the successful run acquired all 01 inputs before starting from zero.
+
+The candidate still fails at 209–210, 214–215, 432–433 and 436. The last three
+are new bad steps relative to the reference. In the 400–500 block, bad steps
+increase from 0 to 3 and endpoint-relative translation error from 0.701984% to
+1.781673% (a block diagnostic, not KITTI RTE). At 432, independent input length
+/ GT is 0.990294 and S2S gives 1.005920, but accepted mapping reduces it to
+0.734083. The [complete post-hoc stage table](../../experiments/results/inten_geometric_prior/posthoc_bad_steps_01.json)
+retains every candidate bad step (`5b13b243`). This locates an adverse mapping
+correction without proving its residual or map-history cause; no settings are
+retuned before the fixed all-sequence trial finishes.
 
 ### Retained negative result: good seed, shortened final step
 
-The interrupted continuous 01 attempt used in this table covers 832 frames. The
-[predeclared case report](../../experiments/results/inten_geometric_prior/adverse_cases.json)
-uses local translation length / GT length (not full-sequence accuracy):
+The [complete-run predeclared case report](../../experiments/results/inten_geometric_prior/adverse_cases_complete_01.json)
+reproduces the earlier prefix diagnostics. The table uses local translation
+length / GT length, not full-sequence accuracy:
 
 | Frame | Reference final | Hybrid S2S input | Hybrid S2S output | Hybrid final |
 |---|---:|---:|---:|---:|
@@ -54,7 +62,7 @@ Frame 215 remains a severe failure: an accurate independent input is shortened
 by S2S and then by the accepted mapping stage. Frame 420 has worse S2S length
 than the reference (0.589326 versus 0.606071), even though mapping recovers the
 final step. Frame 202 remains borderline in S2S. Preserve these negatives; the
-partial evidence does not establish an all-sequence improvement or pass the
+completed 01 evidence does not establish an all-sequence improvement or pass the
 retention gate. Historical verification now restores the archived production
 sources against the unchanged frozen hashes, retaining all original numerical
 and corruption checks. The later [960-frame case report](../../experiments/results/inten_geometric_prior/adverse_cases_after_approval.json)

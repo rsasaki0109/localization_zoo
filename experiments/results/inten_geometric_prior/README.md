@@ -1,16 +1,18 @@
 # Independent geometric motion/prior trial (hybrid, not paper InTEn)
 
-The default-off `s2s_geometric_prior` option is implemented and the focused
-native tests and normal CLI integration pass. **Full-sequence accuracy is not
-yet established.** KITTI 01 attempts were interrupted by acquisition HTTP 503
-failures after 768, 128, 832 and 960 frames. Every nonempty disabled/reference
-prefix matches the archived full-precision facade-PCA trajectory exactly
-(maximum matrix difference 0). The latest independent
-[prefix audit](interrupted_audit_after_tail_recovery.json) verifies every retained
-attempt's raw hashes, ordering and pose exports. The acquisition-only retries
-processed no frames and establish no estimator parity or accuracy. Every
-incomplete candidate output and failed command remains; none establishes a
-full KITTI result or an adoption decision.
+The fixed default-off hybrid completes its first full sequence, **KITTI 01**.
+Official RTE improves from **4.481189% to 0.967180%** and ATE from
+**88.786456 m to 20.265326 m** against the frozen improved InTEn reference.
+Every reference pose matches the archived full-precision trajectory exactly.
+The independent saved-output audit passes. This hypothesis was selected on 01;
+all KITTI data are development data, and the all-sequence retention gate is
+still pending. The remaining sequences continue with the same configuration.
+
+All earlier acquisition-interrupted attempts remain under `preflight_failures/`.
+The successful run first acquired and verified the complete 01 input, then
+started the unchanged estimator from zero. Processed scans were removed only
+after hash, order and reference-control verification. This is a repository
+InTEn + Zoo KISS-ICP hybrid result, not a paper-InTEn or upstream-KISS result.
 
 ## What the option does
 
@@ -36,6 +38,51 @@ Input range/elevation and the reference's mapped prior, weak ratio, ground PCA
 and facade PCA are inherited unchanged; upstream mechanics defaults supply the
 geometric settings. There is no new sequence-specific parameter search. Every
 KITTI sequence is development data.
+
+## Full-sequence results with the fixed candidate
+
+The [full native output and metrics](sequences/01/) were committed in `c99beb6a`
+before this interpretation. The [independent audit](completed_audit_01.json)
+(`11902445`) verifies all 1101 input hashes, pose exports, source/binary pins,
+exact reference parity (maximum matrix difference 0), and reconstructs the
+complete saved diagnostic objects. Native execution and the audit both exit 0.
+
+| Sequence | Reference RTE [%] | Hybrid RTE [%] | Reference ATE [m] | Hybrid ATE [m] | Bad-length steps, reference / hybrid |
+|---|---:|---:|---:|---:|---:|
+| 01 | 4.481189 | 0.967180 | 88.786456 | 20.265326 | 44 / 7 |
+
+00 and 02–10 remain pending. RTE is official KITTI translation error over
+100–800 m segments. A bad-length step has more than 20% local translation-length
+error on a GT step of at least 0.1 m. The matching bad-vector count is also
+44 / 7. These full-sequence results do not establish all-sequence acceptance,
+a held-out generalization result, SOTA, or a paper-score update.
+
+The old prolonged failure at destination frames 204–247 is reduced to 209–210
+and 214–215, but new bad steps occur at 432–433 and 436. The 200–300 block has
+44 / 4 bad steps; 400–500 has 0 / 3. In the latter block, endpoint-relative
+translation error rises from 0.701984% to 1.781673%. This block diagnostic is
+not official KITTI RTE. The global improvement does not erase this local regression.
+
+[Every remaining bad step](posthoc_bad_steps_01.json) (`5b13b243`) is retained
+below. Selection is post hoc: the union of all candidate bad-length and
+bad-vector frames from the unchanged complete-sequence diagnostics. Values
+are translation length / GT step length. No setting was selected from them.
+
+| Frame | Reference final | Hybrid independent input | Hybrid S2S output | Hybrid final |
+|---|---:|---:|---:|---:|
+| 209 | 0.365882 | 1.007675 | 0.845556 | 0.798389 |
+| 210 | 0.353933 | 0.984569 | 0.943412 | 0.621042 |
+| 214 | 0.371042 | 0.993543 | 0.940296 | 0.742404 |
+| 215 | 0.306116 | 1.003769 | 0.780277 | 0.373955 |
+| 432 | 0.976234 | 0.990294 | 1.005920 | 0.734083 |
+| 433 | 0.926296 | 1.007687 | 0.926461 | 0.564614 |
+| 436 | 0.899063 | 0.996726 | 0.957629 | 0.735212 |
+
+None uses S2S fallback; all accept mapping. At 432, the accurate S2S output
+(1.005920) becomes 0.734083 after mapping. This locates an adverse correction,
+without establishing which map support, residual or history caused it.
+Complete the frozen trial before changing the estimator; the next causal
+study should replay mapping with the same map/history.
 
 ## Frozen prospective trial
 
@@ -86,8 +133,9 @@ retry must not be inferred from elapsed time or partial pose files. Full native
 
 The recovery attempt and its exhausted acquisition retries are preserved in
 [preflight_failures/recovery_interrupted_01/](preflight_failures/recovery_interrupted_01/).
-All attempts ended because acquisition failed, not because an estimator failed
-the prospective accuracy gate. The gate remains unevaluated.
+All retained interrupted attempts ended because acquisition failed, not because
+an estimator failed the prospective accuracy gate. The all-sequence gate remains
+unevaluated after the completed 01 result.
 
 The saved CLI results also pass an explicit [frame-count and metric audit](commands/cli_saved_validation.json).
 The initial check used a nonexistent `frames_processed` key and compared two
@@ -95,17 +143,14 @@ missing values for that one field; `frames` and the root `num_frames` are now
 required, with the pose line count checked separately. Its original receipt is
 retained. This correction does not change any estimator output.
 
-## Predeclared adverse cases in the incomplete continuous trial
+## Predeclared adverse cases reproduced in the complete 01 trial
 
-The earlier acquisition-interrupted attempt analyzed below contains 832 continuous frames
-from frame zero. The [complete prefix audit](interrupted_audit_final.json)
-verifies every retained raw hash, order and pose export, and reference matrix
-error remains 0. No full-sequence RTE/ATE or retention verdict is inferred.
-
-[adverse_cases.json](adverse_cases.json) reports the cases named in the protocol
-before execution. Each entry below is local translation length divided by GT
-translation length; 1 is correct length. These are stage diagnostics, not
-paper scores. Reference final and hybrid final include InTEn's mapping stage.
+The [complete-run case report](adverse_cases_complete_01.json) (`11902445`)
+reproduces every predeclared stage diagnostic from the retained interrupted
+prefixes. The cases below were named in the protocol before execution; they
+remain distinct from the post-hoc full-run cases above. Values are local
+translation length / GT length, not full-sequence accuracy. Reference final
+and hybrid final include InTEn's mapping stage.
 
 | Frame | Reference final | Hybrid S2S input | Hybrid S2S output | Hybrid final |
 |---|---:|---:|---:|---:|
@@ -154,11 +199,11 @@ its retries. A separate contiguous-batch probe fails while reading the remote
 ZIP directory, before any scan is extracted. The [new case report](adverse_cases_after_verified_batch.json)
 retains the previous diagnosis; all predeclared case diagnostics match the
 earlier report. The latest audit and case report are committed in `351353fa`.
-No complete sequence is available. Even a successful real-batch preflight does
+At that stage no complete sequence was available. Even a successful real-batch preflight does
 not guarantee sustained transport; avoid repeated estimator restarts while
 the recorded acquisition failure remains unresolved.
 
-The latest [attempt](commands/full_trial_after_tail_recovery.json) (`c960a788`)
+The last interrupted 01 [attempt](commands/full_trial_after_tail_recovery.json) (`c960a788`)
 first acquires and hash-verifies all remaining 01 tail scans, frames 960–1100
 (`622b4bd2`), then restarts the frozen estimator from zero. Transport fails
 earlier this time: the run stops after 832 frames while fetching 832–895.
@@ -166,9 +211,10 @@ Its [independent audit](interrupted_audit_after_tail_recovery.json) and
 [predeclared cases](adverse_cases_after_tail_recovery.json) (`b375dfbb`) retain
 exact reference parity and the same adverse-case diagnostics. The native exit
 is -9 because the controller stops the waiting process after acquisition fails.
-The next 01 restart must wait until the entire sequence's inputs are locally
-available and hash-verified; retain the already verified tail. This acquisition
-change does not change estimator settings or allow a mid-sequence state reset.
+The subsequent successful run first makes the entire sequence locally available
+and [hash-verifies every input and the frozen binary](full_01_input_preflight_20261024.json)
+(`3c8fd971`). This acquisition change does not change estimator settings or
+allow a mid-sequence state reset.
 
 ## Python validation: complete fresh discovery
 
@@ -308,12 +354,14 @@ The frozen runner/source hashes are in [binaries.json](binaries.json).
 `build.py` stages a dedicated temporary source/build tree in the existing
 container; `build_harness.py` independently compiles the normal CLI.
 `run_sequences.py --source-root <full evidence checkout> --scratch <raw root>
---commit-results` processes the frozen order, beginning with 01. Run it only
-once for a given output directory. On a transport failure, preserve that entire
+--commit-results` processes the frozen order, beginning with 01. The complete 01
+result already exists: do not overwrite or rerun it. A restarted controller must
+receive `--sequence` for each remaining sequence only. Do not start another
+controller while the current trial is running. Run each output directory once. On a transport failure, preserve that entire
 attempt under `preflight_failures/`, then restart the affected sequence from
 frame zero with the unchanged binary/settings. Do not resume an estimator from
 an arbitrary scan with empty map/history.
-For the next 01 attempt, use the official fetch script to acquire the complete
+The successful 01 attempt uses the official fetch script to acquire the complete
 sequence before starting, after the memory-heavy checks finish. Verify every
 raw hash against the archived input manifest. A small range or successful batch
 has repeatedly failed to establish sustained transport. Other sequences still

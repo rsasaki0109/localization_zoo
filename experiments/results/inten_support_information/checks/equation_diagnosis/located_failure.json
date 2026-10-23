@@ -1,0 +1,8 @@
+{
+  "failed": true,
+  "why": "Native kept H reconstruction differs",
+  "frame": 247,
+  "mode": 6,
+  "iteration": 16,
+  "feature_class": 0
+}

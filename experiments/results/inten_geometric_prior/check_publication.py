@@ -2,11 +2,23 @@
 """Regenerate in a disposable copy; historical evidence is read-only input."""
 import argparse
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
 import sys
 from receipt import save, sha
+
+
+def copy_evidence(source, target):
+    # Real Python paths preserve path-sensitive corruption checks. Large data
+    # stay read-only inputs; only generator-owned top-level JSON is writable.
+    def copy_file(src, dst):
+        if Path(src).suffix == '.py': return shutil.copy2(src, dst)
+        Path(dst).symlink_to(Path(src).resolve())
+        return dst
+    shutil.copytree(source, target, copy_function=copy_file,
+                    ignore=shutil.ignore_patterns('__pycache__'))
 
 
 def main():
@@ -15,6 +27,7 @@ def main():
     p.add_argument('--worktree',type=Path,required=True)
     p.add_argument('--scratch',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--failed-log',type=Path,help='Recheck every failed case from a completed full discovery log')
     a=p.parse_args(); src=a.source_root; dst=a.scratch
     subprocess.run(['git','clone','--shared','--no-checkout',str(a.worktree),str(dst)],check=True)
     for name in ['docs','evaluation/scripts','evaluation/data','evaluation/config','tests']:
@@ -32,18 +45,11 @@ def main():
                     dest.mkdir()
                     for item in child.iterdir():
                         if item.is_file(): shutil.copy2(item,dest/item.name)
-                        else: (dest/item.name).symlink_to(item,target_is_directory=True)
+                        else: copy_evidence(item,dest/item.name)
                 elif child.is_file(): shutil.copy2(child,dest)
                 else: dest.symlink_to(child,target_is_directory=True)
         elif source.is_file(): shutil.copy2(source,target)
         else: target.symlink_to(source,target_is_directory=True)
-    # Some legacy corruption tests compare paths to the verifier's resolved
-    # directory. Copy this small study instead of linking its entire directory.
-    for study_name in ['inten_iteration_budget','inten_dense_continuation']:
-        folder=dst/'experiments/results'/study_name
-        folder.unlink()
-        shutil.copytree(src/'experiments/results'/study_name,folder,
-                        ignore=shutil.ignore_patterns('__pycache__'))
     for child in (src/'evaluation').iterdir():
         dest=dst/'evaluation'/child.name
         if not dest.exists(): dest.symlink_to(child,target_is_directory=child.is_dir())
@@ -69,7 +75,7 @@ def main():
     (dst/old_test).write_bytes(subprocess.check_output(['git','show','HEAD:'+old_test],cwd=a.worktree))
     for study_name in ['inten_independent_onset','inten_geometric_prior']:
         study=Path('experiments/results')/study_name
-        (dst/study).symlink_to(a.worktree/study,target_is_directory=True)
+        copy_evidence(a.worktree/study,dst/study)
     for manifest in (a.worktree/'experiments').glob('inten_kitti_seq_*_full_geometric_prior_matrix.json'):
         shutil.copy2(manifest,dst/'experiments'/manifest.name)
     commands=[['evaluation/scripts/refresh_study_docs.py'],
@@ -78,8 +84,21 @@ def main():
               ['evaluation/scripts/validate_showcase.py'],
               ['evaluation/scripts/generate_leaderboard.py','--check'],
               ['evaluation/scripts/generate_paper_ready_evidence.py','--check']]
-    commands.append(['-m','unittest','discover','-s','tests'])
+    failed_names=[]
+    if a.failed_log:
+        failed_text=a.failed_log.read_text()
+        failed_names=re.findall(r'^(?:FAIL|ERROR): \S+ \(([^)]+)\)$',failed_text,re.M)
+        totals=re.search(r'^FAILED \((.+)\)$',failed_text,re.M)
+        assert totals and failed_names, 'Require a completed failing discovery log'
+        expected=sum(int(value) for value in re.findall(r'(?:failures|errors)=(\d+)',totals[1]))
+        assert len(failed_names)==expected, 'Must recheck every failed case'
+        code="import sys,unittest; sys.path.insert(0,'tests'); unittest.main(module=None,argv="+repr(['unittest',*failed_names])+")"
+        commands.append(['-c',code])
+    else:
+        commands.append(['-m','unittest','discover','-s','tests'])
     a.output.mkdir(parents=True,exist_ok=False); receipts=[]
+    if a.failed_log:
+        save(a.output/'rechecked_cases.json',{'original_log':str(a.failed_log),'original_log_sha256':sha(a.failed_log),'all_failed_cases':failed_names})
     for index,argv in enumerate(commands):
         result=subprocess.run([sys.executable,*argv],cwd=dst,capture_output=True,text=True)
         (a.output/f'{index:02d}.stdout').write_text(result.stdout)

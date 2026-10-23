@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "commands": {
+    "showcase": 0,
+    "leaderboard": 0,
+    "paper_ready": 0,
+    "full_variant": 0,
+    "paper_ratio": 0,
+    "case_docs": 0,
+    "whitespace": 0,
+    "runtime": 0,
+    "all_python": 0,
+    "preservation": 0
+  }
+}

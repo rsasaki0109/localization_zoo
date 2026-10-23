@@ -1,0 +1,46 @@
+{
+  "files": {
+    "arithmetic_components.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/arithmetic_components/arithmetic_components.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "arithmetic_components.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "arithmetic_components.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/arithmetic_components/arithmetic_components.stdout.log",
+      "bytes": 585,
+      "sha256": "c5926622144df49d9d1ec5e9fa190310a087d94db1dc10975c2a77f123d9ee22",
+      "storage": "gzip",
+      "path": "arithmetic_components.stdout.log.gz",
+      "stored_sha256": "7a5c2dd2caf59860a9c2e5605c5f0b80180a4661358ea7d9a2a58c45d96d87d4"
+    },
+    "arithmetic_components_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/arithmetic_components/arithmetic_components_command.json",
+      "bytes": 677,
+      "sha256": "a10893f976b36257b3b38ce0bbb1ecb54b05716d89b3ee5a6dea3230294ab953",
+      "storage": "verbatim",
+      "path": "arithmetic_components_command.json",
+      "stored_sha256": "a10893f976b36257b3b38ce0bbb1ecb54b05716d89b3ee5a6dea3230294ab953"
+    },
+    "result.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/arithmetic_components/result.json",
+      "bytes": 873,
+      "sha256": "5ab8fb9b50161f9ae23a7b519aaa26996dff74d2fb507169bd463e051cb378bf",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "5ab8fb9b50161f9ae23a7b519aaa26996dff74d2fb507169bd463e051cb378bf"
+    },
+    "source.py": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/arithmetic_components/source.py",
+      "bytes": 2233,
+      "sha256": "e37d065df75d4544a60b015b640fad8a7f68d175b3c4244b2726e1d5dd228d7a",
+      "storage": "verbatim",
+      "path": "source.py",
+      "stored_sha256": "e37d065df75d4544a60b015b640fad8a7f68d175b3c4244b2726e1d5dd228d7a"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

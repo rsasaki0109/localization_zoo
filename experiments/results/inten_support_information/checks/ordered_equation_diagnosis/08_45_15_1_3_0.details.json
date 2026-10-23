@@ -1,0 +1,35 @@
+{
+  "scope": "Diagnosed equation failure, not successful full validation",
+  "group": "08",
+  "frame": 45,
+  "mode": 15,
+  "translation_only": true,
+  "iteration": 3,
+  "feature_class": 0,
+  "partition": "kept",
+  "key": "H",
+  "why": "Native kept H reconstruction differs",
+  "vectorized_max_abs_error": 9.094947017729282e-12,
+  "serial_max_abs_error": 9.094947017729282e-12,
+  "serial_matches_original_tolerance": false,
+  "failing_entries": [
+    {
+      "index": [
+        4,
+        5
+      ],
+      "vectorized": 0.03615357591860402,
+      "native": 0.03615357591246493,
+      "serial": 0.03615357591860402
+    },
+    {
+      "index": [
+        5,
+        4
+      ],
+      "vectorized": 0.03615357591860402,
+      "native": 0.03615357591246493,
+      "serial": 0.03615357591860402
+    }
+  ]
+}

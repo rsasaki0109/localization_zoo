@@ -1,0 +1,70 @@
+{
+  "files": {
+    "08_45_15_1_3_0.clouds.npz": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_equation_diagnosis_archive/08_45_15_1_3_0.clouds.npz",
+      "bytes": 22335,
+      "sha256": "6b7c5431e0ff020644b95f75fdfc849b9409b02d4c5aba2876dd0ca98a5d534a",
+      "storage": "verbatim",
+      "path": "08_45_15_1_3_0.clouds.npz",
+      "stored_sha256": "6b7c5431e0ff020644b95f75fdfc849b9409b02d4c5aba2876dd0ca98a5d534a"
+    },
+    "08_45_15_1_3_0.details.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_equation_diagnosis_archive/08_45_15_1_3_0.details.json",
+      "bytes": 799,
+      "sha256": "3b78d88b21838439e091f6c31a5cc2d239879df8b07eda3b8677266cddfc9a02",
+      "storage": "verbatim",
+      "path": "08_45_15_1_3_0.details.json",
+      "stored_sha256": "3b78d88b21838439e091f6c31a5cc2d239879df8b07eda3b8677266cddfc9a02"
+    },
+    "08_45_15_1_3_0.query.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_equation_diagnosis_archive/08_45_15_1_3_0.query.json",
+      "bytes": 33288,
+      "sha256": "25ca9d120d90924f6e912aff913e9536de106ad925b3cc197bebfebf5cee4a6b",
+      "storage": "verbatim",
+      "path": "08_45_15_1_3_0.query.json",
+      "stored_sha256": "25ca9d120d90924f6e912aff913e9536de106ad925b3cc197bebfebf5cee4a6b"
+    },
+    "diagnose_ordered_equations.py": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_equation_diagnosis_archive/diagnose_ordered_equations.py",
+      "bytes": 5166,
+      "sha256": "3b381affd90f64ba4fc61c64d8a92be41fa4b648158f425a8a42e91623ac7b48",
+      "storage": "verbatim",
+      "path": "diagnose_ordered_equations.py",
+      "stored_sha256": "3b381affd90f64ba4fc61c64d8a92be41fa4b648158f425a8a42e91623ac7b48"
+    },
+    "diagnose_ordered_equations.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_equation_diagnosis_archive/diagnose_ordered_equations.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "diagnose_ordered_equations.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "diagnose_ordered_equations.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_equation_diagnosis_archive/diagnose_ordered_equations.stdout.log",
+      "bytes": 709,
+      "sha256": "7dfe2a4adc6dc08f4f049240a627a5626777350ce90889b4ef38a9e35fbab4b0",
+      "storage": "gzip",
+      "path": "diagnose_ordered_equations.stdout.log.gz",
+      "stored_sha256": "6f6e700f89ee8a3d397a887eed5fa194784a12047400e1457f987c7185e6c629"
+    },
+    "diagnose_ordered_equations_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_equation_diagnosis_archive/diagnose_ordered_equations_command.json",
+      "bytes": 673,
+      "sha256": "c1fe5c3b57dfda6d3de4211b71e61e7025c32ac46322e7ca3397500d8a4b2e39",
+      "storage": "verbatim",
+      "path": "diagnose_ordered_equations_command.json",
+      "stored_sha256": "c1fe5c3b57dfda6d3de4211b71e61e7025c32ac46322e7ca3397500d8a4b2e39"
+    },
+    "located_failure.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/ordered_equation_diagnosis_archive/located_failure.json",
+      "bytes": 139,
+      "sha256": "ba7e7148269b0a530ea123aa5906ba6d8c03a2dac08fcc10e6f5134eae8ff7ba",
+      "storage": "verbatim",
+      "path": "located_failure.json",
+      "stored_sha256": "ba7e7148269b0a530ea123aa5906ba6d8c03a2dac08fcc10e6f5134eae8ff7ba"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

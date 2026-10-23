@@ -6,6 +6,30 @@ Remote Sensing / arXiv:2209.05708 (2022/23). No public author code found.
 Reconstructed from the paper.
 
 
+
+## Experimental independent geometric prior (default off)
+
+`--inten-loam-paper-set s2s_geometric_prior=1` supplies an independent Zoo
+KISS-ICP current motion estimate to S2S, including its weak translation-prior
+target when enabled. InTEn still computes the final pose and its own map. This
+is a **repository hybrid, not the paper method**; it takes precedence over the
+mapped-motion seed when usable, requires `deskew=0`, and cannot be combined
+with forced-pose diagnostics. Default-off behavior does not run this backend.
+
+The fixed all-sequence trial is defined in
+[the study and protocol](../../experiments/results/inten_geometric_prior/README.md).
+Its hypothesis was selected on 01; range/elevation and the improved reference
+profile are inherited, and geometric settings use upstream-mechanics defaults.
+All KITTI data are development data. Native mechanism tests and normal CLI
+checks pass, but acquisition failed after 768 frames of the first 01 attempt.
+The disabled reference exactly matches the archived trajectory through that
+prefix (maximum matrix difference 0). The interrupted candidate poses and
+negative acquisition outcome are retained. **No complete-sequence improvement
+or acceptance is claimed yet.** Resume with the fixed settings after the
+execution environment's HTTP 503 transport failure is resolved; do not tune
+from the partial run or change the published paper scores.
+
+
 ## Independent initialization diagnosis (2026-10-23)
 
 A controlled-input upstream KISS-ICP run avoids the remaining KITTI 01 collapse:

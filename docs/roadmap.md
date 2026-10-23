@@ -13,6 +13,17 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ### Current development decision (2026-10-23)
 
+The default-off hybrid geometric initializer/prior is now implemented; see
+[the fixed full-sequence trial](../experiments/results/inten_geometric_prior/README.md).
+Focused native tests, normal CLI build and disabled-path fixture parity pass.
+Full evaluation is blocked by the execution environment's HTTP 503 tunnel
+failure: the first 01 attempt stopped after 768 frames, with exact disabled
+reference parity through that prefix. Keep its partial output and every failed
+fetch. Resume the same fixed binary/configuration from frame zero, then finish
+00–10 before any acceptance or accuracy claim. The subsequent acquisition
+retry changes transport backoff only. Git push is affected by the same outage.
+
+
 The independent initialization comparison is complete; see
 [the executed study](../experiments/results/inten_independent_onset/README.md).
 On full KITTI 01 with the frozen InTEn input policy, upstream KISS-ICP reaches

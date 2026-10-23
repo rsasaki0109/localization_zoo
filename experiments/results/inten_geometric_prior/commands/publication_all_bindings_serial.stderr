@@ -1,0 +1,10 @@
+Cloning into '/tmp/localization-zoo-inten-geometric-prior-20261023/publication_all_bindings_serial'...
+done.
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/check_publication.py", line 125, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/check_publication.py", line 120, in main
+    assert all(r['exit_code']==0 for r in receipts)
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

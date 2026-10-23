@@ -1,0 +1,31 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/branch-cleanup-20261022/worktree/tests:/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_inten_support_information.SupportInformationTest.test_known_line_huber_and_kept_removed_partition",
+    "test_inten_support_information.SupportInformationTest.test_native_edge_arithmetic_witness_passes_original_thresholds",
+    "test_inten_support_information.SupportInformationTest.test_invalid_reciprocal_reject_is_not_a_lost_valid_residual",
+    "test_inten_support_information.SupportInformationTest.test_changed_native_equation_is_rejected",
+    "test_inten_support_information.SupportInformationTest.test_changed_neighbour_population_is_rejected",
+    "test_inten_support_information.SupportInformationTest.test_centered_translation_information_is_origin_consistent",
+    "test_inten_support_information.SupportInformationTest.test_all_point_lround_includes_exact_halves_but_not_previous_float",
+    "test_inten_support_information.SupportInformationTest.test_changed_full_cloud_cache_binding_is_rejected",
+    "test_inten_support_information.SupportInformationTest.test_changed_native_extra_is_rejected_before_decode",
+    "test_inten_support_information.SupportInformationTest.test_changed_parent_reference_is_rejected_before_reconstruction"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "78c2f7884f34956a6ec507821082a5328f124d18",
+  "started_unix": 1792720747.8460793,
+  "finished_unix": 1792720748.3149533,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

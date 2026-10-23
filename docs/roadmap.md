@@ -18,7 +18,9 @@ The independent initialization comparison is complete; see
 On full KITTI 01 with the frozen InTEn input policy, upstream KISS-ICP reaches
 0.949387% RTE versus the fixed opt-in InTEn profile's 4.481189%. In 73 isolated
 S2S pairs, independent current/previous initial poses reduce >20% step errors
-from 46 to 2/3, with exact native replay controls. This is diagnostic evidence,
+from 46 to 2/3, with exact native replay controls. These poses also set the
+weak translation-prior target; the intervention does not separate optimizer
+initialization from that prior. This is diagnostic evidence,
 not an improved full InTEn run. Good seeds still fail at 215 and 420; retain
 those adverse controls and the near-threshold case at 202.
 

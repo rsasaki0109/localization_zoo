@@ -37,11 +37,16 @@ additional official KITTI scores. InTEn's short-step run spans 204–247.
 
 Frames 190–260 plus 420 and 433 were fixed before execution. The frozen
 `inten_facade_pca` probe uses the same scans, feature extraction and solver;
-only its forced initial pose changes. Its native-seed controls exactly
+the forced pose is the intervention. In the frozen implementation this pose
+also sets the weak translation-prior target (`s2s_translation_prior_ratio=0.03`)
+and affects its first-iteration information matrix. Thus this tests the
+**joint initializer/prior input**, not the optimizer basin with an unchanged
+objective. The original prospective protocol's initialization/objective
+question is only partially separated by this experiment. Its native-seed controls exactly
 reproduce the archived full-run S2S outputs (maximum matrix difference 0).
 All 219 outputs, including failures, are retained.
 
-| Initial pose source | Pairs | Seeds with >20% length error | Outputs with >20% length error |
+| Initial pose / prior source | Pairs | Seeds with >20% length error | Outputs with >20% length error |
 |---|---:|---:|---:|
 | Actual native full-run S2S input | 73 | 44 | 46 |
 | Independent current KISS increment | 73 | 0 | 2 |
@@ -68,11 +73,11 @@ not a robust success criterion. All continuous values are in
 
 The sensor input contains enough information for an independent geometric
 estimator to avoid the long collapse. Most paired failures are strongly
-initialization-dependent. A smaller set still pulls a good estimate toward
+dependent on the joint initializer/prior input. A smaller set still pulls a good estimate toward
 a bad solution, so initialization alone does not solve every failure.
 
 The next implementation experiment should supply a **GT-free geometric motion
-initializer independent of the InTEn feature-history loop**, behind a default-off
+initializer independent of the InTEn feature-history loop**, explicitly including the prior target, behind a default-off
 option, then run one fixed configuration across all paper sequences. Evaluate
 full official RTE and severe regressions; report residual failures such as 215
 and 420 separately. Do not turn the diagnostic KISS injection into a paper

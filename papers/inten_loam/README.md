@@ -15,10 +15,11 @@ Both cover the full 1101 frames. This is a reference comparison, not a new
 InTEn accuracy result or paper-ratio row.
 
 In 73 predeclared scan pairs, replaying native seeds reproduces the archived
-S2S outputs exactly. Replacing only the seed with the independent current
+S2S outputs exactly. Replacing the seed with the independent current
 increment reduces outputs with >20% step-length error from **46 to 2**;
-using the independent previous increment leaves **3**. The paired tests do
-not chain. Current independent seeds still fail at 215 and 420 (output/GT
+using the independent previous increment leaves **3**. The frozen solver also uses the seed as its weak translation-prior target:
+this is a joint initializer/prior intervention, not a fixed-objective basin
+test. The paired tests do not chain. Current independent seeds still fail at 215 and 420 (output/GT
 step ratios **0.783427**, **0.557228**), with 420 worse than the native seed's
 **0.606071**. Frame 202 lies near the diagnostic threshold and is not a robust
 success. The independent initializer therefore merits a full causal trial,

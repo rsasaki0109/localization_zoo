@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "import json; from pathlib import Path; p=Path('experiments/results/inten_geometric_prior/cli_fixture'); d={n:json.loads((p/(n+'_summary.json')).read_text()) for n in ['frozen','disabled','enabled']}; assert all(s['num_frames']==s['methods'][0]['frames']==len((p/(n+'_poses.txt')).read_text().splitlines())==3 for n,s in d.items()); assert all(d['frozen']['methods'][0][k]==d['disabled']['methods'][0][k] for k in ['frames','ate_m','rpe_trans_pct','rpe_rot_deg_per_m','kitti_rte_trans_pct']); assert (p/'frozen_poses.txt').read_bytes()==(p/'disabled_poses.txt').read_bytes(); print('Saved CLI frame counts, poses and metrics verified')"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "992ab66d06e7a99cdd213cc38de2706eaf7b551f",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792743887.4928904,
+  "exit_code": 0,
+  "wall_seconds": 0.023869398050010204,
+  "logs": {
+    ".stdout": "14651585516d5cb50143fcdd7b87734543b5ec968e828cc229fcdd111b7324c6",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

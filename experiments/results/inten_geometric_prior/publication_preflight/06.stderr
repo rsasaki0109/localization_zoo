@@ -1,0 +1,482 @@
+.......................................................................fixture golden: /tmp/tmpx9u5z8qc/golden.json does not exist; actual values written to /tmp/tmpx9u5z8qc/out/actual.json
+.fixture golden: /tmp/tmp5d6op5go/golden.json does not exist; actual values written to /tmp/tmp5d6op5go/out/actual.json
+fixture drift: kiss_icp/KISS-ICP.ate_m: 0.036234 != golden 0.035614
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmp5l5qvgla/golden.json with /tmp/tmp5l5qvgla/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+fixture golden: no summaries found
+fixture drift: other/X: not in golden file (new method? update the golden file)
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmphb4bdxjo/golden.json with /tmp/tmphb4bdxjo/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+.fixture golden: /tmp/tmpe65tt2ox/golden.json does not exist; actual values written to /tmp/tmpe65tt2ox/out/actual.json
+fixture drift: m/M.status: 'ok' != golden 'invalid_metric'
+fixture drift: m/M.ate_m: 0.1 != golden nan
+fixture golden: 2 difference(s). If intentional, replace /tmp/tmp7td5lahb/golden.json with /tmp/tmp7td5lahb/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+...F.................................................................F......................................../workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/00_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/00_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/01_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/01_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/02_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/02_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/03_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/03_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/04_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/04_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/05_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/05_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/06_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/06_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/07_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/07_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/08_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/08_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/09_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/09_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/10_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_query_acceleration/report/10_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/06_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/06_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/03_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/03_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/04_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/04_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/01_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/01_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/04_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/04_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/03_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/03_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/09_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/09_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/10_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/10_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/00_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/00_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/09_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/09_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/02_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/02_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/08_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/08_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/08_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/08_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/01_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/01_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/07_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/07_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/05_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/05_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/10_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/10_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/02_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/02_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/07_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/07_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/05_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/05_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/00_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/00_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_consensus_failure_origin/report/06_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_consensus_failure_origin/verify.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpjiml_l37/report/06_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  left = list(csv.reader(expected[name].open())); right = list(csv.reader(actual[name].open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.....E..........................FF...EE...EE..E...............................................................Matplotlib created a temporary cache directory at /tmp/matplotlib-1hcsw2c3 because the default path (/home/agent/.config/matplotlib) is not a writable directory; it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
+.......sssss...........................................................................................
+======================================================================
+ERROR: test_inten_dense_continuation (unittest.loader._FailedTest.test_inten_dense_continuation)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_inten_dense_continuation
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_dense_continuation.py", line 6, in <module>
+    spec=importlib.util.spec_from_file_location('dense_continuation_verify',E/'verify.py');v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
+                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_dense_continuation/verify.py", line 5, in <module>
+    from scipy.spatial import cKDTree
+ModuleNotFoundError: No module named 'scipy'
+
+
+======================================================================
+ERROR: test_inten_local_rigidity (unittest.loader._FailedTest.test_inten_local_rigidity)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_inten_local_rigidity
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_local_rigidity.py", line 10, in <module>
+    a=module('rigidity_analysis_under_test',E/'analyze.py')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_local_rigidity.py", line 8, in module
+    spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_local_rigidity/analyze.py", line 11, in <module>
+    mixed=module('rigidity_frozen_arithmetic',P/'verify_mixed.py')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_local_rigidity/common.py", line 16, in module
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_mixed.py", line 7, in <module>
+    base=importlib.util.module_from_spec(s);s.loader.exec_module(base)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_ordered.py", line 7, in <module>
+    field=importlib.util.module_from_spec(s);s.loader.exec_module(field)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_full_field.py", line 7, in <module>
+    checker=module('support_frozen_full_field',E/'verify.py')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_full_field.py", line 6, in module
+    s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify.py", line 5, in <module>
+    from scipy.spatial import cKDTree
+ModuleNotFoundError: No module named 'scipy'
+
+
+======================================================================
+ERROR: test_inten_local_rigidity_tables (unittest.loader._FailedTest.test_inten_local_rigidity_tables)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_inten_local_rigidity_tables
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_local_rigidity_tables.py", line 5, in <module>
+    table=importlib.util.module_from_spec(spec);spec.loader.exec_module(table)
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_local_rigidity/report_docs.py", line 10, in <module>
+    analyzer=module('rigidity_case_geometry',E/'analyze.py')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_local_rigidity/report_docs.py", line 8, in module
+    spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_local_rigidity/analyze.py", line 11, in <module>
+    mixed=module('rigidity_frozen_arithmetic',P/'verify_mixed.py')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_local_rigidity/common.py", line 16, in module
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_mixed.py", line 7, in <module>
+    base=importlib.util.module_from_spec(s);s.loader.exec_module(base)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_ordered.py", line 7, in <module>
+    field=importlib.util.module_from_spec(s);s.loader.exec_module(field)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_full_field.py", line 7, in <module>
+    checker=module('support_frozen_full_field',E/'verify.py')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_full_field.py", line 6, in module
+    s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify.py", line 5, in <module>
+    from scipy.spatial import cKDTree
+ModuleNotFoundError: No module named 'scipy'
+
+
+======================================================================
+ERROR: test_inten_prior_control (unittest.loader._FailedTest.test_inten_prior_control)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_inten_prior_control
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_prior_control.py", line 8, in <module>
+    v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_prior_control/verify_portable.py", line 6, in <module>
+    checker=importlib.util.module_from_spec(spec);spec.loader.exec_module(checker)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_prior_control/verify.py", line 8, in <module>
+    P=module('prior_control_parent',E.parent/'inten_reciprocal_support/verify_portable.py')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_prior_control/verify.py", line 7, in module
+    spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_reciprocal_support/verify_portable.py", line 5, in <module>
+    s=importlib.util.spec_from_file_location('reciprocal_frozen_verifier',E/'verify.py');checker=importlib.util.module_from_spec(s);s.loader.exec_module(checker)
+                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_reciprocal_support/verify.py", line 5, in <module>
+    from scipy.spatial import cKDTree
+ModuleNotFoundError: No module named 'scipy'
+
+
+======================================================================
+ERROR: test_inten_reciprocal_support (unittest.loader._FailedTest.test_inten_reciprocal_support)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_inten_reciprocal_support
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_reciprocal_support.py", line 6, in <module>
+    s=importlib.util.spec_from_file_location('reciprocal_support_check',E/'verify_portable.py');v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
+                                                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_reciprocal_support/verify_portable.py", line 5, in <module>
+    s=importlib.util.spec_from_file_location('reciprocal_frozen_verifier',E/'verify.py');checker=importlib.util.module_from_spec(s);s.loader.exec_module(checker)
+                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_reciprocal_support/verify.py", line 5, in <module>
+    from scipy.spatial import cKDTree
+ModuleNotFoundError: No module named 'scipy'
+
+
+======================================================================
+ERROR: test_inten_support_information (unittest.loader._FailedTest.test_inten_support_information)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_inten_support_information
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_support_information.py", line 9, in <module>
+    v=module('support_checked_mixed_parallel_field',E/'verify_mixed_parallel.py')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_support_information.py", line 8, in module
+    s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/experiments/results/inten_support_information/verify_mixed_parallel.py", line 7, in <module>
+    base=importlib.util.module_from_spec(s);s.loader.exec_module(base)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_mixed.py", line 7, in <module>
+    base=importlib.util.module_from_spec(s);s.loader.exec_module(base)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_ordered.py", line 7, in <module>
+    field=importlib.util.module_from_spec(s);s.loader.exec_module(field)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_full_field.py", line 7, in <module>
+    checker=module('support_frozen_full_field',E/'verify.py')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_full_field.py", line 6, in module
+    s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify.py", line 5, in <module>
+    from scipy.spatial import cKDTree
+ModuleNotFoundError: No module named 'scipy'
+
+
+======================================================================
+FAIL: test_cli_records_inputs_and_provided_pose_without_applying_overrides (test_check_scan_frame.ScanFormatTest.test_cli_records_inputs_and_provided_pose_without_applying_overrides)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_check_scan_frame.py", line 171, in test_cli_records_inputs_and_provided_pose_without_applying_overrides
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/evaluation/scripts/check_scan_frame.py", line 391, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/evaluation/scripts/check_scan_frame.py", line 360, in main
+    report['evaluator_git_commit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=Path(__file__).resolve().parents[2], text=True).strip()
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'rev-parse', 'HEAD']' returned non-zero exit status 128.
+
+
+======================================================================
+FAIL: test_lidar_degeneracy_check_runner_policy_gate_fails_bad_reports (test_experiment_scripts.RunExperimentMatrixScriptTests.test_lidar_degeneracy_check_runner_policy_gate_fails_bad_reports)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_experiment_scripts.py", line 991, in test_lidar_degeneracy_check_runner_policy_gate_fails_bad_reports
+    self.assertEqual(
+AssertionError: '/tmp/localization-zoo-inten-geometric-pri[83 chars]json' != 'evaluation/config/lidar_degeneracy_triage_policy.json'
+- /tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/evaluation/config/lidar_degeneracy_triage_policy.json
++ evaluation/config/lidar_degeneracy_triage_policy.json
+
+
+======================================================================
+FAIL: test_checker_rejects_joint_prefix_corruption (test_inten_iteration_budget.IterationBudgetTest.test_checker_rejects_joint_prefix_corruption)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_iteration_budget.py", line 47, in test_checker_rejects_joint_prefix_corruption
+    with self.assertRaisesRegex(ValueError,'prefix'):v.group_result('old')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_cli_proof_rejects_an_ignored_override (test_inten_iteration_budget.IterationBudgetTest.test_cli_proof_rejects_an_ignored_override)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_preflight/tests/test_inten_iteration_budget.py", line 55, in test_cli_proof_rejects_an_ignored_override
+    with self.assertRaisesRegex(ValueError,'CLI budget'):v.check_cli()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 396 tests in 219.708s
+
+FAILED (failures=4, errors=6, skipped=5)

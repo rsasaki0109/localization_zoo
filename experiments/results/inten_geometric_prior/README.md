@@ -154,7 +154,7 @@ SciPy, real verifier paths and sparse manifests. The corrected checkout reads
 all manifests directly from Git and preserves Python module paths; the
 [recheck](publication_repaired/) resolves those setup failures.
 
-One historical verification remains unresolved. Its protocol hashes the
+The initial historical verification failed because its protocol hashes the
 production source in the working tree, including the InTEn source/header and
 trace serializer. The new option intentionally changes those files; the
 [deterministic preflight](commands/historical_source_preflight.stdout) shows
@@ -191,6 +191,24 @@ remain unchanged; the adapter runs one worker at a time to bound memory and
 restores module state after errors. Complete Python discovery is being rerun;
 these focused checks alone do not establish a full-suite pass. The earlier
 failures and deliberately stopped incomplete retry remain archived.
+
+The completed [serial discovery](publication_all_bindings_serial/) (`1f973bd8`)
+runs 445 tests with one failure and five existing skips. Source bindings now
+pass; the remaining failure is the unchanged native Hessian reconstruction
+check for query `(08, 46, 14, false, 1, 2)`. All documentation commands pass
+and regenerated historical tables remain byte-identical.
+
+The [runtime witness](runtime_witness/) (`7aa7b0a8`) extracts that exact query
+and its source/target features from the hash-verified archive. Python 3.13.5,
+NumPy 2.2.4 and SciPy 1.15.3 fail the original check; Python 3.12.14, NumPy
+1.26.4 and SciPy 1.17.0, the combination recorded by the original experiment,
+pass it. This identifies a runtime-dependent numerical difference, without
+isolating a single library as its cause. The witness uses the same frozen
+reconstruction and unchanged `rtol=1e-10, atol=1e-12`; it does not establish a
+full-suite pass. Complete discovery is now running in the recorded runtime.
+The command explicitly sets `PYTHONPATH` to select its NumPy installation,
+while using the original base interpreter's SciPy. No archived result, hash,
+numerical tolerance or estimator setting is changed.
 
 ## Reproduction and resumption
 

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "mixed_mechanism_regressions.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/mixed_mechanism_regressions/mixed_mechanism_regressions.stderr.log",
+      "bytes": 1831,
+      "sha256": "7789945b1738f127b6a890adeec6645d622b066f4c8cc7d81167be99cbba5ed4",
+      "storage": "gzip",
+      "path": "mixed_mechanism_regressions.stderr.log.gz",
+      "stored_sha256": "df53407a24df6906d0e02d7e3b240565d6cdda84aebce53bfe5865d69030b720"
+    },
+    "mixed_mechanism_regressions.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/mixed_mechanism_regressions/mixed_mechanism_regressions.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "mixed_mechanism_regressions.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "mixed_mechanism_regressions_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/mixed_mechanism_regressions/mixed_mechanism_regressions_command.json",
+      "bytes": 1838,
+      "sha256": "fb642948eab54c50a3a7a40743c0b4b07eeff4e59335ed4fcdb18d0aee221ff4",
+      "storage": "verbatim",
+      "path": "mixed_mechanism_regressions_command.json",
+      "stored_sha256": "fb642948eab54c50a3a7a40743c0b4b07eeff4e59335ed4fcdb18d0aee221ff4"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

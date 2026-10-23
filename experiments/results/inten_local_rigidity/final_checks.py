@@ -7,8 +7,10 @@ common=importlib.util.module_from_spec(spec);spec.loader.exec_module(common)
 W,S,P,BASE=common.W,common.S,common.P,common.BASE
 read,write,sha,git,run=common.read,common.write,common.sha,common.git,common.run
 
-def main():
- stage=S/'final_checks';stage.mkdir();derived=S/'derived';derived.mkdir()
+def main(stage):
+ stage.mkdir();derived=stage.parent/(stage.name+'_derived');derived.mkdir()
+ resources=Path('/sys/fs/cgroup')
+ write(stage/'resource_before.json',{name:(resources/name).read_text() for name in ('memory.events','memory.max','memory.current','memory.peak')})
  prefix=common.PREFIX
  commands={
   'all_python':prefix+['-m','unittest','discover','-s','tests','-v'],
@@ -22,7 +24,7 @@ def main():
   'runtime':prefix+[str(P/'local_runtime_info.py')],
  }
  before={str(p.relative_to(E)):sha(p) for p in (E/'cases.md',E/'locations.md.xz',E/'cases.summary.json.xz',E/'tables_manifest.json')}
- with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+ with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
   futures={pool.submit(run,label,cmd,stage):label for label,cmd in commands.items()}
   codes={futures[f]:f.result() for f in concurrent.futures.as_completed(futures)}
  preserved={}
@@ -44,6 +46,10 @@ def main():
   write(stage/'preservation.json',dict(exit_code=1,error=str(error),base=BASE));codes['preservation']=1
  code=0 if all(v==0 for v in codes.values()) else 1
  write(stage/'result.json',dict(exit_code=code,commands=codes))
- common.module('rigidity_final_archive',P/'archive.py').archive(stage,E/'checks/final')
+ write(stage/'resource_after.json',{name:(resources/name).read_text() for name in ('memory.events','memory.max','memory.current','memory.peak')})
+ common.module('rigidity_final_archive',P/'archive.py').archive(stage,E/'checks'/stage.name)
  return code
-if __name__=='__main__':raise SystemExit(main())
+if __name__=='__main__':
+ import argparse
+ parser=argparse.ArgumentParser();parser.add_argument('--stage',type=Path,default=S/'final_checks_serial')
+ raise SystemExit(main(parser.parse_args().stage))

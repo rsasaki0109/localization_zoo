@@ -1,0 +1,18 @@
+{
+  "exit_code": 0,
+  "policy": "Only new untracked temporary symlinks removed after the original check driver finished. All complete private raw bytes and committed lossless regular files remain.",
+  "records": [
+    {
+      "temporary_alias": "experiments/results/inten_local_rigidity/cases.summary.json",
+      "retained_raw_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/complete_tables/cases.summary.json",
+      "sha256": "f6f8954464d8ae9ce327c422fd3098715eaa1830de9092630c87906e59fd5fbe",
+      "committed_complete_path": "experiments/results/inten_local_rigidity/cases.summary.json.xz"
+    },
+    {
+      "temporary_alias": "experiments/results/inten_local_rigidity/locations.md",
+      "retained_raw_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/complete_tables/locations.md",
+      "sha256": "7296558356aeaae47e7f69ff3ad0fb742683ba46040eed9efdd3165f6a48dce4",
+      "committed_complete_path": "experiments/results/inten_local_rigidity/locations.md.xz"
+    }
+  ]
+}

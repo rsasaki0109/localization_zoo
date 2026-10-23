@@ -2713,3 +2713,18 @@ thresholds, old results, defaults and paper tables do not change. No new
 candidate, rigidity gate, parameter retuning, full trial, accuracy improvement
 or SOTA claim follows. Earlier failed progression gates remain failed; a
 background/static-motion witness is still required before a support selector.
+
+
+The CPU audit retains the failed recomputation-byte criterion (`1d4e2a9e`):
+maximum point g/H differences are2.92994795e-15/1.25455202e-14 across the fixed
+Haswell/Sandybridge controls, while point-discrepancy columns have zero delta.
+The original componentwise rtol1e-10/atol1e-12 already accepts every value.
+Verifier-only recovery preserves the initial protocol/test source and all
+original result bytes. Archive transport remains byte-exact; portable numeric
+recomputation uses those unchanged original tolerances and exact discrete
+identities/counts/missing masks. Both complete controlled snapshots restore
+losslessly, and all eleven fresh study/renderer regressions exit0 (`6100e04e`).
+An initial full local run432 tests exits1 when an inherited heavy group check
+stops without stderr, alongside a recorded memory-limit kill (`d89405e2`).
+That failure remains before isolated serial revalidation; it is not a native
+measurement change or a waived mathematical failure.

@@ -45,7 +45,8 @@ choices can violate them. This is a pose-free equation conditional on frozen
 anchors, **not independent static truth or an independent ego-motion witness**.
 Intensity has no geometric anchor and remains an unchanged native control.
 
-All iteration aggregates retain counts, signed/absolute/squared sums, mean,
+Whole-history aggregates include every iteration and retain counts,
+signed/absolute/squared sums, mean,
 RMS, maximum, normalized length sums and exact per-center score quantiles.
 Missing relations and zero-length source relations stay explicit. At every
 first/last recorded pre-update boundary, every valid point retains its source
@@ -143,10 +144,56 @@ compression restores every original byte. Past CI proofs were byte/mode
 verified before moving to private host storage; original paths remain readable.
 Native inputs, binaries, libraries, worktrees and all older results remain.
 
-The eight initial mechanism checks and full analysis/pack exit0. Table recovery
-and complete roundtrip exit0. Full-suite and canonical preservation receipts
-are recorded separately as checks finish. Final exact-head Native/ROS2 CI,
-every essential step and both complete decoded logs are required before Ready.
+The CPU audit `1d4e2a9e` preserves a further verification failure: both
+Haswell/Sandybridge postprocessors exit0, but their recomputed g/H CSV bytes
+are not identical to the original host. Maximum observed point deltas are
+g2.92994795e-15 and H1.25455202e-14; both point-discrepancy columns have zero
+delta in both controls. All values already pass the original componentwise
+rtol1e-10/atol1e-12. This is a failure of the initial cross-CPU byte-equality
+test criterion, not evidence of a changed motion result.
+
+Verification-only recovery `5a6daf1c` retains the [initial protocol](initial_protocol.json)
+and [original test source](frozen_test_inten_local_rigidity.py) byte-exactly.
+The [current protocol](protocol.json) has identical witness/population and all
+original mathematical/input pins; it explicitly updates only verification
+source/metadata. Persisted reports and complete CPU-control snapshots still
+require byte-exact hash/roundtrip checks. Portable recomputation checks every
+float at the unchanged original componentwise tolerances, every discrete
+identity/count/order/setting and every missing mask exactly. Both protocol
+identities and actual CSV sizes/hashes are verified before transport metadata
+is excluded from numerical comparison. No native data, equation, neighborhood,
+threshold or original result is changed. Complete CPU summaries and every CSV
+byte are retained through lossless original-row edits, not rounded values.
+
+The isolated canonical refresh `1d4e2a9e` executes `refresh_study_docs.py` and
+both required paper-table generators with exit0. Every generated numeric paper
+CSV, indexed aggregate and root README is exact; only generated index time
+is excluded from its metadata comparison. The copied generated timestamps and
+plot metadata stay private, and historical canonical files remain untouched.
+
+Complete CPU-control transport and both strict numerical controls exit0;
+all eleven fresh local-rigidity/renderer regressions run and exit0 (`6100e04e`).
+The eight initial mechanisms, full analysis/pack, renderer recovery, complete
+table regeneration and roundtrip also exit0.
+
+The first full local discovery exits1 after432 tests with five existing
+environment skips (`d89405e2`). The inherited complete-support group verifier
+stops with empty child stderr; the environment records a memory-limit kill.
+The legacy temporary wrapper did not retain child receipts after failure,
+so its exact failed-child return code is unavailable. Auxiliary heavy checks
+had overlapped this run. Preserve this failure rather than treating empty
+stderr or the successful sibling checks as a pass. Canonical/source/table
+preservation and all other required local checks already exit0. The full
+suite is rerun without other heavy processing using the unchanged native
+group/checker schedule and original tolerances:
+
+```bash
+env PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 experiments/results/inten_local_rigidity/final_checks.py
+```
+
+Fresh serial receipts and resource snapshots are recorded separately. Final
+exact-head Native/ROS2 CI, every essential step and both complete decoded logs
+are required before Ready.
 
 All previous parameter provenance stays fixed; all observed KITTI is development.
 Earlier reciprocal/prior/field/budget/mask gates remain failed. There is no

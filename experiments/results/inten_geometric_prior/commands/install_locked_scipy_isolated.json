@@ -1,0 +1,35 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "pip",
+    "install",
+    "--target",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/ci_locked_scipy",
+    "--no-deps",
+    "--no-cache-dir",
+    "--retries",
+    "0",
+    "--timeout",
+    "20",
+    "scipy==1.15.3"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "f4c96f733345ed9db6f7c7f1616c80fe2a676b0a",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792760246.3532107,
+  "exit_code": 0,
+  "wall_seconds": 4.515326455992181,
+  "logs": {
+    ".stdout": "c9d2d48c7270281c871a4dc73bdcd98c223b383109bd976c248ec39e3dbe74cd",
+    ".stderr": "4b0d976396e76eeb8ce32047c87f0c38ab85973f3db2ebae763a2209226e1d58"
+  }
+}

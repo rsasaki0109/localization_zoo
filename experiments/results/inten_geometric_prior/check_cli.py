@@ -34,8 +34,12 @@ for name,binary in [('frozen','/workspace/localization-env/inten-facade-pca/pcd_
 assert (out/'frozen_poses.txt').read_bytes()==(out/'disabled_poses.txt').read_bytes()
 old=json.loads((out/'frozen_summary.json').read_text())['methods'][0]
 new=json.loads((out/'disabled_summary.json').read_text())['methods'][0]
-keys=['ate_m','rpe_trans_pct','rpe_rot_deg_per_m','kitti_rte_trans_pct','frames_processed']
-same={key:old.get(key)==new.get(key) for key in keys}
+keys=['ate_m','rpe_trans_pct','rpe_rot_deg_per_m','kitti_rte_trans_pct','frames']
+same={key:old[key]==new[key] for key in keys}
+for name in ['frozen','disabled','enabled']:
+    summary=json.loads((out/(name+'_summary.json')).read_text())
+    assert summary['num_frames']==summary['methods'][0]['frames']==3
+    assert len((out/(name+'_poses.txt')).read_text().splitlines())==3
 assert all(same.values())
 assert 'independent KISS-ICP' in json.loads((out/'enabled_summary.json').read_text())['methods'][0]['note']
 save(out/'check.json',{'exit_code':0,'disabled_poses_byte_equal':True,'disabled_metric_equal':same,

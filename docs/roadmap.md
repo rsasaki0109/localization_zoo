@@ -36,7 +36,15 @@ exhausted its retries (`1049b182`). The response names `cloudflare_https_tunnel`
 this is distinct from the repaired ZIP-length defect. Its native exit -9 records
 controller termination after failed acquisition. All interrupted evidence and
 its independent audit are retained; no full 00 metric or gate verdict follows.
-Resume only after actual scan acquisition recovers, preserving the completed 01.
+Normal push subsequently publishes the retained follow-up through `c3f95819`.
+A [new launch](../experiments/results/inten_geometric_prior/extended_acquisition_launch.json)
+selects only remaining sequences with `--fetch-attempts 120`. The default remains
+20; this opt-in changes acquisition retries only, so a short outage can leave the
+same native process waiting instead of discarding its map/history. The original
+binary hash and all estimator settings remain fixed. Initial small probes recover,
+but the real scan preflight again returns HTTP 503. The current launch is not a
+completed result. Inspect its live command receipt/process before starting any
+other controller; do not run duplicate sequence jobs. Preserve the completed 01.
 Keep [PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) draft
 until the fixed all-sequence requirement and prospective retention gate finish.
 

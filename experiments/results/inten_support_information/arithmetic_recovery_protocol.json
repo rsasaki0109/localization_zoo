@@ -1,0 +1,20 @@
+{
+  "reason": "NumPy matrix products and vector reductions do not preserve the original fixed-size Eigen arithmetic. A separate same-pose edge witness reconstructs the native system exactly, and cancellation controls establish native left-to-right3-term sum/dot/norm. Reconstruct fixed-size point products, norms/dots and serial weighted outer-product additions in declared source order; mathematical residuals, gates, masks, priors and original strict np.allclose thresholds remain unchanged.",
+  "calibration": "The preserved old/247 arm6 joint iteration16 edge-equation failure localized this numerical checker defect. It is verifier arithmetic calibration only; all previously observed KITTI remains development and no estimator/candidate parameter is selected.",
+  "frozen_protocol_sha256": "e9b4a236db41d59cb82a0454a8d7af274b92fc6071f705ac9c1a0c188f528b28",
+  "field_recovery_protocol_sha256": "dc173c9d2bbab17a23d2df8a80eab94eb8c47a8d2d7be459895b6f203fa7298b",
+  "transformed_function_sha256": "f27140cba97be2864ebdba4b3d9f0e61b25faf6b28d2264b59813f23d290bdaa",
+  "source_sha256": {
+    "experiments/results/inten_support_information/verify.py": "a73e787d175de1bac406d2a6bc2e4def306cead5cf8fe053becb45ac21dadff8",
+    "experiments/results/inten_support_information/verify_full_field.py": "7dbb35a823b6ad910ae48d40ac4259dd53e5975939957dbb4deda674f01dd689",
+    "experiments/results/inten_support_information/verify_ordered.py": "19c9c8350ab026997007aa706ca2d13e9008d586ed78c91f6fd752d2713d0ac5",
+    "experiments/results/inten_support_information/field_source_recovery_protocol.json": "dc173c9d2bbab17a23d2df8a80eab94eb8c47a8d2d7be459895b6f203fa7298b",
+    "experiments/results/inten_support_information/arithmetic_witness.cpp": "89f7add696e1792e9f25e1d47dbe6212b14e971c7a6b7e7da8043e89c622d62e",
+    "experiments/results/inten_support_information/checks/arithmetic_control/archive.json": "ca7d1c6b4f99be2f0fcb2ae8af6fb9882c813737128348b63a2b7d2c3880f981",
+    "experiments/results/inten_support_information/checks/arithmetic_control/result.json": "49958ff1bbd367dce8f36f3875baa819cd7ec6db058d17449a3ce00fe02dc8ed",
+    "experiments/results/inten_support_information/checks/equation_diagnosis/archive.json": "7fcc6a525560edb0a4faf8638867360af507fceadc7f1d5ce428d786f1ee5d55",
+    "experiments/results/inten_support_information/checks/ordered_trial_v2/result.json": "ce94899c4fa2a36b643ea736b0a6986f634191a40b37a89a43917373f3422b81"
+  },
+  "tolerances": "UNCHANGED equations rtol1e-10/atol1e-12 and original reciprocal/forward arithmetic checks. No normwise substitution, enlarged epsilon, case exception or result-dependent omission.",
+  "failure_policy": "Freeze before whole-population ordered verification. Preserve any later discrepancy before diagnosis; never waive the original checks or change native data. Earlier verifier and actual failed receipts remain historical evidence."
+}

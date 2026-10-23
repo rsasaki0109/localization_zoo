@@ -6,7 +6,7 @@ import numpy as np
 E=Path(__file__).resolve().parents[1]/'experiments/results/inten_support_information'
 def module(name,path):
     s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
-v=module('support_checked_full_field',E/'verify_full_field.py')
+v=module('support_checked_ordered_field',E/'verify_ordered.py')
 io=module('support_report_reader',E/'report_io.py')
 
 class SupportInformationTest(unittest.TestCase):
@@ -35,6 +35,14 @@ class SupportInformationTest(unittest.TestCase):
         self.assertEqual(counts['valid_removed'],0)
         self.assertAlmostEqual(rebuilt['all']['H'][0,0],.5)
         self.assertAlmostEqual(rebuilt['all']['g'][4],.01)
+    def test_native_edge_arithmetic_witness_passes_original_thresholds(self):
+        folder=E/'checks/equation_diagnosis';stem='old_247_6_0_16_0'
+        record=json.loads((folder/(stem+'.query.json')).read_text())
+        data=np.load(folder/(stem+'.clouds.npz'));blank=np.empty((0,6))
+        clouds={record['frame']:[data['source'],blank,blank,blank],record['frame']-1:[data['target'],blank,blank,blank]}
+        actual,_=v.checker.reconstruct(record,clouds,set(),{},{} )
+        np.testing.assert_allclose(actual['kept']['H'],np.array(record['kept']['H']).reshape(6,6),rtol=1e-10,atol=1e-12)
+        self.assertEqual(v.sum3(np.array([1e16,-1e16,1.])),1.)
     def test_invalid_reciprocal_reject_is_not_a_lost_valid_residual(self):
         record,clouds=self.line_fixture()
         clouds[0][0][:,3]=0

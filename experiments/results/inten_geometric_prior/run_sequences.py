@@ -52,7 +52,7 @@ def main():
         rawroot=a.scratch/seq;scanroot=rawroot/'dataset/sequences'/seq/'velodyne'
         batches=[list(range(start,min(start+64,len(names)))) for start in range(0,len(names),64)]
         def fetch(indices):
-            for attempt in range(3):
+            for attempt in range(20):
                 missing=[i for i in indices if not (scanroot/names[i]).exists() or sha(scanroot/names[i])!=pins[names[i]]['sha256']]
                 if not missing:return
                 argv=[sys.executable,str(a.source_root/'evaluation/scripts/fetch_kitti_odometry_sequences.py'),
@@ -61,6 +61,9 @@ def main():
                 r=subprocess.run(argv,capture_output=True,text=True)
                 save(out/f'fetch_{indices[0]:06d}_{attempt}.json',{'argv':argv,'cwd':str(Path.cwd()),
                     'source_commit':source_commit,'exit_code':r.returncode,'stdout':r.stdout,'stderr':r.stderr})
+                if r.returncode:
+                    print(f'sequence {seq}: acquisition retry {attempt+1} after failure',flush=True)
+                    time.sleep(min(30,2**min(attempt,5)))
             missing=[i for i in indices if not (scanroot/names[i]).exists() or sha(scanroot/names[i])!=pins[names[i]]['sha256']]
             if missing:raise RuntimeError(f'incomplete batch {seq}: {missing}')
         argv=['docker','exec','-i','-e','OMP_NUM_THREADS=1','-e','OPENBLAS_NUM_THREADS=1',

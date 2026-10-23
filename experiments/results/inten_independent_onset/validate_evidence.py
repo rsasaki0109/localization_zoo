@@ -39,7 +39,7 @@ def main():
     report=json.loads((root/'report/summary.json').read_text())
     assert report['controls_valid']
     ref=json.loads((a.source_root/'experiments/results/inten_facade_pca/sequences/01/candidate/summary.json').read_text())
-    method=next(m for m in ref['methods'] if m['name']=='InTEn_LOAM')
+    method=next(m for m in ref['methods'] if m['name']=='InTEn-LOAM')
     assert abs(report['trajectories']['inten_fixed']['official_metrics_from_saved_poses']['kitti_rte_trans_pct']-method['kitti_rte_trans_pct'])<.001
     receipts={}
     for name in ['fetch_missing','preprocess_build','input_tests','kiss','probe_retry','analysis']:

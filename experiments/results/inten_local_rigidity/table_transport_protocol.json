@@ -1,0 +1,23 @@
+{
+  "original_generator_commit": "6404d6bc",
+  "original_table_command": "/tmp/localization-zoo-inten-local-rigidity-20261023/tables_recovery_execution/case_docs_command.json",
+  "failure": "Archive destination creation failed ENOSPC after complete table generation exit0. Temporary symlink creation also failed ENOSPC until complete generated location bytes were copied, hash-verified and removed from workspace. Complete raw table bytes remain in private storage. Neither failure changes numerical data.",
+  "recovery": "Transport only: complete cases.summary.json and locations.md become XZ/CRC64 preset9 EXTREME regular committed files with full stored/raw hashes and byte roundtrip. cases.md remains directly readable. No table row, numeric field or precision is dropped. The original mathematical producer and every original native file remain unchanged.",
+  "source_sha256": {
+    "experiments/results/inten_local_rigidity/pack_tables.py": "8e3a400aabd4d0ed955c45e708ccd11689d021218cc9a8c824dc2241ea3d5108"
+  },
+  "preserved_raw": {
+    "cases.md": {
+      "bytes": 67636,
+      "sha256": "4be38cb83fc55e88283a94a5d798095c4717b5c01793a5ea9e6c17613204a42d"
+    },
+    "cases.summary.json": {
+      "bytes": 109286053,
+      "sha256": "f6f8954464d8ae9ce327c422fd3098715eaa1830de9092630c87906e59fd5fbe"
+    },
+    "locations.md": {
+      "bytes": 20881203,
+      "sha256": "7296558356aeaae47e7f69ff3ad0fb742683ba46040eed9efdd3165f6a48dce4"
+    }
+  }
+}

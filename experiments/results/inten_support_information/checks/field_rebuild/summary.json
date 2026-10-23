@@ -1,0 +1,247 @@
+{
+  "exit_code": 0,
+  "groups": {
+    "old": {
+      "group": "old",
+      "feature_cache_sha256": "3f1d512cf82781477b73c438082d926536709581f068db0947df9a4e918cc002",
+      "cases": [
+        {
+          "frame": 190,
+          "input_features": 91362,
+          "nodes": 21995,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 200,
+          "input_features": 88625,
+          "nodes": 17966,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 202,
+          "input_features": 88884,
+          "nodes": 17488,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 203,
+          "input_features": 88277,
+          "nodes": 17167,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 204,
+          "input_features": 89063,
+          "nodes": 16848,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 205,
+          "input_features": 88986,
+          "nodes": 16678,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 247,
+          "input_features": 78626,
+          "nodes": 17288,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 433,
+          "input_features": 64017,
+          "nodes": 11162,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        }
+      ]
+    },
+    "01": {
+      "group": "01",
+      "feature_cache_sha256": "255b53c95e2bef45ff46f82aa75812cada2c422de561961618c1f24fddae1633",
+      "cases": [
+        {
+          "frame": 425,
+          "input_features": 65561,
+          "nodes": 11301,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 426,
+          "input_features": 65207,
+          "nodes": 11290,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 810,
+          "input_features": 70126,
+          "nodes": 11407,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 811,
+          "input_features": 70551,
+          "nodes": 11439,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 837,
+          "input_features": 69842,
+          "nodes": 13285,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 838,
+          "input_features": 70267,
+          "nodes": 13549,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        }
+      ]
+    },
+    "02": {
+      "group": "02",
+      "feature_cache_sha256": "b347382312df7e22e3e59c07ff3962a5919c5e0d957b70a39600ec16e3e37bb8",
+      "cases": [
+        {
+          "frame": 1889,
+          "input_features": 93857,
+          "nodes": 8592,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 1890,
+          "input_features": 94236,
+          "nodes": 8513,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 1891,
+          "input_features": 94265,
+          "nodes": 8581,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 1892,
+          "input_features": 94040,
+          "nodes": 8577,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 1898,
+          "input_features": 93893,
+          "nodes": 8612,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 1899,
+          "input_features": 94102,
+          "nodes": 8696,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 4472,
+          "input_features": 93116,
+          "nodes": 8344,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 4473,
+          "input_features": 92777,
+          "nodes": 8388,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        }
+      ]
+    },
+    "08": {
+      "group": "08",
+      "feature_cache_sha256": "73eb65e3b8644a0d2b9300f1d9a62bbb646a3c73dad72925621016e294f7f4dc",
+      "cases": [
+        {
+          "frame": 38,
+          "input_features": 97006,
+          "nodes": 22906,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 39,
+          "input_features": 96893,
+          "nodes": 22851,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 40,
+          "input_features": 96777,
+          "nodes": 22735,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 41,
+          "input_features": 96391,
+          "nodes": 22623,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 42,
+          "input_features": 96112,
+          "nodes": 22571,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 43,
+          "input_features": 95927,
+          "nodes": 22391,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 44,
+          "input_features": 95383,
+          "nodes": 22451,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 45,
+          "input_features": 94658,
+          "nodes": 22339,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        },
+        {
+          "frame": 46,
+          "input_features": 93911,
+          "nodes": 22262,
+          "all_population_counts_exact": true,
+          "max_abs_intensity_sum_difference": 0.0
+        }
+      ]
+    }
+  },
+  "scope": "Independent all-point cached-input lattice rebuild against previously committed original native grid exports; no native estimator rerun."
+}

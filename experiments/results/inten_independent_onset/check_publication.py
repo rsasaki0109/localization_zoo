@@ -61,7 +61,7 @@ def main():
         receipts.append({'argv':[sys.executable,*argv],'cwd':str(dst),'exit_code':result.returncode})
         save(a.output/'commands.json',receipts)
         print(f'{argv}: {result.returncode}',flush=True)
-    protected=['full_variant_table.csv','full_variant_table.tex','paper_ratio_table.csv','paper_ratio_table.tex']
+    protected=['full_variant_results.csv','full_variant_results.tex','paper_ratio_table.csv','paper_ratio_table.tex']
     same={name:sha(src/'docs/assets/paper'/name)==sha(dst/'docs/assets/paper'/name) for name in protected}
     save(a.output/'summary.json',{'commands_all_passed':all(r['exit_code']==0 for r in receipts),
         'regenerated_tables_byte_equal':same,

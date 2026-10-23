@@ -1,0 +1,7 @@
+['evaluation/scripts/refresh_study_docs.py']: 0
+['evaluation/scripts/generate_full_variant_table.py']: 0
+['evaluation/scripts/generate_paper_ratio_table.py']: 0
+['evaluation/scripts/validate_showcase.py']: 0
+['evaluation/scripts/generate_leaderboard.py', '--check']: 0
+['evaluation/scripts/generate_paper_ready_evidence.py', '--check']: 0
+['-c', "import sys,unittest; sys.path.insert(0,'tests'); unittest.main(module=None,argv=['unittest', 'test_inten_geometric_prior.GeometricPriorManifestTest.test_all_sequences_share_settings_and_keep_no_gt_seed', 'test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_cost', 'test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_population', 'test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_selection', 'test_inten_support_information.SupportInformationTest.test_changed_full_cloud_cache_binding_is_rejected', 'test_inten_support_information.SupportInformationTest.test_complete_histories_native_queries_and_information_report'])"]: 1

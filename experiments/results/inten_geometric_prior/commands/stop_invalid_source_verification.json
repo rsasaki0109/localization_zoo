@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-c",
+    "import os,signal,json; from pathlib import Path; target='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired/experiments/results/inten_support_information/verify_mixed_parallel.py'; rows=[]; paths=list(Path('/proc').glob('[0-9]*/cmdline')); \nfor p in paths:\n try:a=p.read_bytes().split(b'\\0')\n except (OSError,ProcessLookupError):continue\n if len(a)>2 and a[1].decode(errors='replace')==target and b'--group' in a:\n  rows.append({'pid':int(p.parent.name),'argv':[s.decode() for s in a if s]});os.kill(int(p.parent.name),signal.SIGTERM)\nprint(json.dumps({'reason':'Stop expensive group reconstruction: recorded historical_source_preflight already proves frozen production source checks cannot pass. No check waived and no full-suite pass claimed.','terminated_workers':rows},indent=2))"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "a835a228e672f37665c30218f6df08f0dd06a2ee",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792746125.7806993,
+  "exit_code": 0,
+  "wall_seconds": 0.09343386598629877,
+  "logs": {
+    ".stdout": "8a939dca65bb211693a7195b2787624a0fcb604d6d0cae06b852db1adc477466",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

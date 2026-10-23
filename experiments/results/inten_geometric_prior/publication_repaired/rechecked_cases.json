@@ -1,0 +1,12 @@
+{
+  "original_log": "experiments/results/inten_geometric_prior/publication_retry/06.stderr",
+  "original_log_sha256": "c1ca78514a53d4ec831541854414d80505653fcbfb342289fcfef437ed6c1e1b",
+  "all_failed_cases": [
+    "test_inten_geometric_prior.GeometricPriorManifestTest.test_all_sequences_share_settings_and_keep_no_gt_seed",
+    "test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_cost",
+    "test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_population",
+    "test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_selection",
+    "test_inten_support_information.SupportInformationTest.test_changed_full_cloud_cache_binding_is_rejected",
+    "test_inten_support_information.SupportInformationTest.test_complete_histories_native_queries_and_information_report"
+  ]
+}

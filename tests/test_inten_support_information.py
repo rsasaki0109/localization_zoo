@@ -41,6 +41,8 @@ class SupportInformationTest(unittest.TestCase):
         self.assertEqual(counts['valid_removed'],0)
         self.assertAlmostEqual(rebuilt['all']['H'][0,0],.5)
         self.assertAlmostEqual(rebuilt['all']['g'][4],.01)
+        self.assertIsNone(rebuilt['all']['H'].base)
+        self.assertIsNone(rebuilt['all']['g'].base)
     def test_native_edge_arithmetic_witness_passes_original_thresholds(self):
         for directory,stem in (('equation_diagnosis','old_247_6_0_16_0'),('ordered_equation_diagnosis','08_45_15_1_3_0')):
             folder=E/'checks'/directory

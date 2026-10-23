@@ -15,7 +15,7 @@ def transform_points(p,T):
     return result+T[:3,3]
 def accumulate(terms,shape):
     initial=np.zeros((1,)+shape,dtype=np.float64)
-    return np.add.accumulate(np.concatenate((initial,terms),axis=0),axis=0)[-1]
+    return np.add.accumulate(np.concatenate((initial,terms),axis=0),axis=0)[-1].copy()
 def reduce_rows(x,a,r,valid):
     x=x[valid];a=a[valid];r=r[valid]
     J=np.column_stack((a,np.cross(x,a)))

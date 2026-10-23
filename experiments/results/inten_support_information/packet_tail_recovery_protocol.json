@@ -2,12 +2,18 @@
   "reason": "Native Eigen column-major3x3 multiply uses a two-double packet with left reduction for output rows0/1 and a scalar recursive right dot for output row2. The committed independent native witness establishes exact equality for every coordinate with this single mixed rule. Apply the same native kernel to all cases; no sequence or outcome exception.",
   "reduction": "Replace repeated scalar row reductions by add.accumulate with an explicit initial zero. Scalar-product ordering, selected source row order and every bit are preserved, checked against frozen serial reduction on fixed zero/singleton/random/adversarial masks. No pairwise/BLAS sum or threshold change.",
   "source_sha256": {
-    "experiments/results/inten_support_information/verify_mixed.py": "624625ca6e52aececa95bec888f227c1a93fec137fee573f35345def2e22ad5b",
+    "experiments/results/inten_support_information/verify_mixed.py": "51aa73ac193a1b4d221b133dcaf922068a3bc479377e2e3e2cdbdd9f2f5acc5a",
     "experiments/results/inten_support_information/verify_ordered.py": "19c9c8350ab026997007aa706ca2d13e9008d586ed78c91f6fd752d2713d0ac5",
     "experiments/results/inten_support_information/arithmetic_recovery_protocol.json": "ac314d6ce515b961b920dc2c54cab6f43aa9e2513eec7a8a3649fa3b914747e4",
     "experiments/results/inten_support_information/checks/arithmetic_components/archive.json": "08532fc698c92b9a52d8ee851c4763b649fe24efceec32f692554877cbb8edb0",
     "experiments/results/inten_support_information/checks/arithmetic_components/result.json": "5ab8fb9b50161f9ae23a7b519aaa26996dff74d2fb507169bd463e051cb378bf"
   },
   "tolerances": "All original componentwise rtol1e-10/atol1e-12, validity, native masks, forward/reciprocal checks, original field/priors and full populations unchanged.",
-  "failure_policy": "Freeze before full packet/tail verification, preserve any subsequent failure; no native rerun, data change, retuning or promotion. old247 and08/45 only calibrate numerical checker arithmetic; all prior KITTI development."
+  "failure_policy": "Freeze before full packet/tail verification, preserve any subsequent failure; no native rerun, data change, retuning or promotion. old247 and08/45 only calibrate numerical checker arithmetic; all prior KITTI development.",
+  "allocation_recovery": {
+    "before_source": "experiments/results/inten_support_information/checks/allocation_failure/before_verify_mixed.py",
+    "before_sha256": "624625ca6e52aececa95bec888f227c1a93fec137fee573f35345def2e22ad5b",
+    "after_sha256": "51aa73ac193a1b4d221b133dcaf922068a3bc479377e2e3e2cdbdd9f2f5acc5a",
+    "change": "Only copy compact final H/g out of cumulative buffers. Every arithmetic operation/value and original check stays identical; controlled-stop evidence retained before repair."
+  }
 }

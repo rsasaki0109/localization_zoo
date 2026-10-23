@@ -1,0 +1,8 @@
+{
+  "paused_prefix_frames_verified": 3072,
+  "maximum_baseline_matrix_error": 0.0,
+  "input_hashes_order_and_pose_exports_valid": true,
+  "gzip_stream_finalized": false,
+  "native_exit_code": null,
+  "full_sequence_accuracy_claim": false
+}

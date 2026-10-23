@@ -108,5 +108,10 @@
     "status": "Resolved: the owner explicitly approved uploading this payload and the entire latest result set to Draft PR #174 using the GitHub connector API. Upload succeeded; blob and recreated tree SHAs match local Git objects.",
     "git_blob_sha": "c918ba331938097a017b65a7571d27d3289c4156"
   },
-  "snapshot_note": "This mapping covers all implementation and experimental evidence through local commit 3b152ce0. The subsequent mapping-only commit is excluded to avoid a self-referential commit ID; its content tree is independently checked during API publication."
+  "snapshot_note": "This mapping covers all implementation and experimental evidence through local commit 3b152ce0. The subsequent mapping-only commit is excluded to avoid a self-referential commit ID; its content tree is independently checked during API publication.",
+  "original_local_history_published": {
+    "merge_commit": "0f34cb254514d9aacd2ed624737edb2742386e57",
+    "push_receipt": "commands/push_source_binding.json",
+    "note": "Normal Git transport recovered. This merge preserves both the original local source/evidence commits and the API-created commits, with no content change relative to its local parent. All original source IDs are now ancestors of the published PR branch; aliases remain as historical transport evidence."
+  }
 }

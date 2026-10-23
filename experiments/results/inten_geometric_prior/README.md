@@ -6,9 +6,9 @@ yet established.** KITTI 01 attempts were interrupted by acquisition HTTP 503
 failures after 768, 128, 832 and 960 frames. Every nonempty disabled/reference
 prefix matches the archived full-precision facade-PCA trajectory exactly
 (maximum matrix difference 0). The latest independent
-[prefix audit](interrupted_audit_after_approval.json) verifies every retained
-attempt's raw hashes, ordering and pose exports. The acquisition-only retry
-processed no frames and establishes no estimator parity or accuracy. Every
+[prefix audit](interrupted_audit_after_serial_fix.json) verifies every retained
+attempt's raw hashes, ordering and pose exports. The acquisition-only retries
+processed no frames and establish no estimator parity or accuracy. Every
 incomplete candidate output and failed command remains; none establishes a
 full KITTI result or an adoption decision.
 
@@ -141,6 +141,10 @@ native exit -9 is the controller stopping the waiting estimator after that
 failure. Small data probes and Git push briefly recover, then the saved
 [range probes](commands/active_retry_range_probe.stdout) again identify
 `cloudflare_https_tunnel` HTTP 503. No estimator setting or accuracy gate changes.
+A further [retry](commands/full_trial_after_serial_fix.json), started after
+successful small-range probes, fails before any native frame (`19a6a1a7`).
+Small-range success is therefore insufficient evidence of recovered scan
+transport. Retain this acquisition-only failure as well as the nonempty prefixes.
 
 ## Full Python validation is not yet green
 
@@ -205,6 +209,10 @@ once for a given output directory. On a transport failure, preserve that entire
 attempt under `preflight_failures/`, then restart the affected sequence from
 frame zero with the unchanged binary/settings. Do not resume an estimator from
 an arbitrary scan with empty map/history.
+Before restarting after an outage, use the official fetch script to obtain a
+real input batch and check its archived hashes; a tiny range probe alone is not
+enough. Existing valid raw files can be reused, but estimator history still
+starts at frame zero and the controller verifies every input again.
 
 The controller's source checkout must contain the existing `inten_facade_pca`
 input manifests and trace shards and the reference GT CSVs. The normal per-sequence

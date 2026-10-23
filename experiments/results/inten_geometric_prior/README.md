@@ -96,6 +96,30 @@ missing values for that one field; `frames` and the root `num_frames` are now
 required, with the pose line count checked separately. Its original receipt is
 retained. This correction does not change any estimator output.
 
+## Full Python validation is not yet green
+
+The full discovery and all failures are preserved in
+[publication_retry/](publication_retry/). The isolated checkout initially lacked
+SciPy, real verifier paths and sparse manifests. The corrected checkout reads
+all manifests directly from Git and preserves Python module paths; the
+[recheck](publication_repaired/) resolves those setup failures.
+
+One historical verification remains unresolved. Its protocol hashes the
+production source in the working tree, including the InTEn source/header and
+trace serializer. The new option intentionally changes those files; the
+[deterministic preflight](commands/historical_source_preflight.stdout) shows
+that this historical check cannot pass against the new source. Its original
+protocol, source hashes, archived outputs and numerical tolerances are **not**
+changed. Expensive rechecking was explicitly stopped after that precondition
+failed ([stop receipt](commands/stop_invalid_source_verification.json)); this
+is not a successful full Python/CI run. An earlier worker also terminated
+abnormally during the full discovery, whose failure is retained.
+
+Before leaving draft, separate the historical build's immutable source binding
+from current-source checks while retaining every archive/control check, then
+rerun the unresolved checks. Focused current native/CLI tests and historical
+source verification serve different purposes; neither substitutes for the other.
+
 ## Reproduction and resumption
 
 Exact commands, working directories, commits and exits live in [commands/](commands/).

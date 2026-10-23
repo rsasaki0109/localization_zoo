@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "python3",
+    "-c",
+    "from pathlib import Path; import subprocess,json,re; changes=subprocess.check_output([\"git\",\"diff\",\"--name-only\",\"6d1023fe\",\"HEAD\"],text=True).splitlines(); allowed=[\"docs/roadmap.md\",\"papers/inten_loam/README.md\",\"tests/test_inten_independent_onset.py\"]; assert all(p in allowed or p.startswith(\"experiments/results/inten_independent_onset/\") for p in changes); root=Path.cwd(); old=Path(\"/workspace/localization-env/branch-cleanup-20261022/worktree\"); page=root/\"experiments/results/inten_independent_onset/README.md\"; missing=[]; links=re.findall(r\"\\]\\(([^)]+)\\)\",page.read_text()); [(missing.append(link) if not (page.parent/link).exists() and not (old/(page.parent/link).resolve().relative_to(root)).exists() else None) for link in links if not link.startswith((\"https:\",\"http:\",\"#\"))]; assert not missing,missing; print(json.dumps({\"production_and_historical_result_changes\":False,\"study_links_valid\":True,\"changed_paths\":len(changes)},indent=2))"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/worktree",
+  "source_commit": "a6ee9e1330cdf8c93e8f8fac6be4b96ec4f30f88",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792740936.2666922,
+  "exit_code": 0,
+  "wall_seconds": 0.030513159988913685,
+  "logs": {
+    ".stdout": "234c5de2fa6af4787962090f1155e56f2f173ea717fa78c2bdc4a055385d2a8b",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

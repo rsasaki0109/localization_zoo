@@ -6,7 +6,23 @@ Official RTE improves from **4.481189% to 0.967180%** and ATE from
 Every reference pose matches the archived full-precision trajectory exactly.
 The independent saved-output audit passes. This hypothesis was selected on 01;
 all KITTI data are development data, and the all-sequence retention gate is
-still pending. The remaining sequences continue with the same configuration.
+still pending. At the user's request to close this development increment and
+merge, acquisition and evaluation are now paused. Future evaluation must use
+the same frozen configuration.
+
+The [paused 00 attempt](paused_attempts/merge_requested_00/pause.json) and all
+fetch logs are committed in `44c8b1c5`. Its
+[independent prefix audit](paused_attempts/merge_requested_00/prefix_audit.json)
+verifies 3072 saved frames, input hashes/order, exported poses and exact reference
+parity. This is not a full 00 result: native/controller exits remain null and the
+unfinalized gzip stream is explicitly retained as `.partial`. The
+[pause command receipt](commands/pause_for_merge.json) used `python -` with
+[this saved stdin program](paused_attempts/merge_requested_00/pause_stdin.py);
+the [audit command](commands/paused_prefix_audit.json) exits 0.
+SIGSTOP preserves the current map/history only while the processes survive.
+Before resuming, verify their identities/start ticks and the frozen binary; if
+state was lost, keep this attempt and restart 00 from frame zero. Merging the
+default-off implementation does not pass or waive the scientific retention gate.
 
 All earlier acquisition-interrupted attempts remain under `preflight_failures/`.
 The successful run first acquired and verified the complete 01 input, then

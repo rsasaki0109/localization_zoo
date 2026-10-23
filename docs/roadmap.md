@@ -13,6 +13,15 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ### Current development decision (2026-10-24)
 
+The user requested closing and merging this development increment. The fixed
+trial is paused, not complete; the default-off hybrid remains experimental.
+The [saved 00 prefix](../experiments/results/inten_geometric_prior/paused_attempts/merge_requested_00/prefix_audit.json)
+(`44c8b1c5`) independently verifies 3072 frames with exact reference parity.
+Full 01 remains complete; full 00 and 02–10 and the prospective retention gate
+remain future work. Resume only after checking the recorded process identities;
+if native state is gone, restart 00 from zero with the frozen settings. The
+following acquisition/recovery notes describe the history before this pause.
+
 The default-off hybrid geometric initializer/prior is now implemented; see
 [the fixed full-sequence trial](../experiments/results/inten_geometric_prior/README.md).
 Focused native tests, normal CLI build and disabled-path fixture parity pass.
@@ -51,8 +60,10 @@ still alive. The [recovery observation](../experiments/results/inten_geometric_p
 zero recorded reference matrix difference. It is a live progress snapshot, not
 a full-sequence accuracy result or independent native audit. Scan acquisition
 and normal Git push still fail with HTTP 503; preserve the running native state.
-Keep [PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) draft
-until the fixed all-sequence requirement and prospective retention gate finish.
+[PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) may merge at
+the user's explicit request with this incomplete trial documented. The fixed
+all-sequence requirement and prospective retention gate still govern any claim
+of an accepted improvement; merging does not satisfy either requirement.
 
 Bad-length steps decrease from 44 to 7, but failures remain at 209–210, 214–215,
 432–433 and 436. The last three are new relative to the reference. At 432,

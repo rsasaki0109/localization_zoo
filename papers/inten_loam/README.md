@@ -9,6 +9,13 @@ Reconstructed from the paper.
 
 ## Experimental independent geometric prior (default off)
 
+Development is paused at the user's request to merge this increment. Full KITTI
+01 is complete; full 00 and 02–10 remain unevaluated for the hybrid. The saved
+00 prefix has 3072 independently verified frames with exact reference parity
+(`44c8b1c5`; [audit](../../experiments/results/inten_geometric_prior/paused_attempts/merge_requested_00/prefix_audit.json)).
+It is not a full-sequence score. The option stays default off and the prospective
+all-sequence retention gate remains unfulfilled.
+
 `--inten-loam-paper-set s2s_geometric_prior=1` supplies an independent Zoo
 KISS-ICP current motion estimate to S2S, including its weak translation-prior
 target when enabled. InTEn still computes the final pose and its own map. This

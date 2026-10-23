@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read predeclared adverse cases from a continuous prefix; no full accuracy claim."""
+"""Read predeclared stage diagnostics; report sequence completion separately."""
 import argparse,gzip,json,sys
 from pathlib import Path
 import numpy as np
@@ -33,7 +33,10 @@ for frame in [202,215,420]:
                     's2s_fallback':row['s2s_fallback'],'s2m_accepted':row['s2m_accepted'],
                     'geometric_prior_used':row['geometric_prior_used']}
     cases.append(case)
-save(a.output,{'scope':'Predeclared 01 adverse cases in an incomplete continuous trial. No full-sequence RTE, ATE, all-sequence or retention-gate claim.',
+complete=command['exit_code']==0 and len(rows)==len(gt)
+scope=('Predeclared 01 adverse cases in a complete continuous trial. Stage diagnostics only; full-sequence metrics are reported separately. No all-sequence or retention-gate claim.' if complete else
+       'Predeclared 01 adverse cases in an incomplete continuous trial. No full-sequence RTE, ATE, all-sequence or retention-gate claim.')
+save(a.output,{'scope':scope,'sequence_complete':complete,
     'selection':'Frames 202, 215 and 420 named in protocol.json before the candidate was run. No post-result retuning.',
     'attempt':str(a.attempt),'frames_available':len(rows),'native_exit_code':command['exit_code'],
     'definition':'Ratio is norm of local translation / norm of GT local translation; destination-frame index.',

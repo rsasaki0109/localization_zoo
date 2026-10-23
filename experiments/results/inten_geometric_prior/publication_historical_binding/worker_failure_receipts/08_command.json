@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_binding/experiments/results/inten_support_information/verify_mixed_parallel.py",
+    "--group",
+    "08",
+    "--output",
+    "/tmp/support_complete_check_e_8n7_km/08.json"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_binding",
+  "exit_code": -9,
+  "started_unix": 1792751603.265655,
+  "finished_unix": 1792751627.6713407,
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "output_sha256": null,
+  "producer_sha256": "1fec42b678e9c7de0c88e65844d2f0aeb7e51d06a7d783b3b45bf170f5ab859c"
+}

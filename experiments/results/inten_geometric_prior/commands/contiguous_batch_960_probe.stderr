@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 226, in fetch
+    res, range_header = self._request(kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 192, in _request
+    res.raise_for_status()
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 503 Server Error: Service Unavailable for url: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 325, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/localization-env/branch-cleanup-20261022/worktree/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 286, in main
+    with RemoteZip(args.url) as archive:
+         ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 245, in __init__
+    super(RemoteZip, self).__init__(rio)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py", line 1371, in __init__
+    self._RealGetContents()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py", line 1434, in _RealGetContents
+    endrec = _EndRecData(fp)
+             ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py", line 305, in _EndRecData
+    fpin.seek(0, 2)
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 145, in seek
+    self.buffer = self._fetch_fun((-size, None), stream=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 230, in fetch
+    raise RemoteIOError(str(e))
+remotezip.RemoteIOError: 503 Server Error: Service Unavailable for url: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip

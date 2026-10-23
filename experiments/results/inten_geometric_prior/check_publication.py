@@ -16,8 +16,8 @@ def main():
     p.add_argument('--scratch',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     a=p.parse_args(); src=a.source_root; dst=a.scratch
-    dst.mkdir(parents=True,exist_ok=False)
-    for name in ['docs','evaluation/scripts','evaluation/data','tests']:
+    subprocess.run(['git','clone','--shared','--no-checkout',str(a.worktree),str(dst)],check=True)
+    for name in ['docs','evaluation/scripts','evaluation/data','evaluation/config','tests']:
         shutil.copytree(src/name,dst/name,ignore=shutil.ignore_patterns('__pycache__'))
     # Only generators' writable directories get copies. Large archived run
     # directories are linked for reading, never targets of the selected commands.
@@ -37,6 +37,12 @@ def main():
                 else: dest.symlink_to(child,target_is_directory=True)
         elif source.is_file(): shutil.copy2(source,target)
         else: target.symlink_to(source,target_is_directory=True)
+    # Some legacy corruption tests compare paths to the verifier's resolved
+    # directory. Copy this small study instead of linking its entire directory.
+    budget=dst/'experiments/results/inten_iteration_budget'
+    budget.unlink()
+    shutil.copytree(src/'experiments/results/inten_iteration_budget',budget,
+                    ignore=shutil.ignore_patterns('__pycache__'))
     for child in (src/'evaluation').iterdir():
         dest=dst/'evaluation'/child.name
         if not dest.exists(): dest.symlink_to(child,target_is_directory=child.is_dir())

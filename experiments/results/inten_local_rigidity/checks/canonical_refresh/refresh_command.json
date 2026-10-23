@@ -1,0 +1,20 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/repository/evaluation/scripts/refresh_study_docs.py"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "b59a8d7c75b62b27f3921b0f83eaa3e773a76bf9",
+  "finished_source_commit": "b59a8d7c75b62b27f3921b0f83eaa3e773a76bf9",
+  "exit_code": 0,
+  "started_unix": 1792732120.613553,
+  "finished_unix": 1792732137.6266882,
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "TMPDIR": "/tmp/localization-zoo-inten-local-rigidity-20261023"
+  }
+}

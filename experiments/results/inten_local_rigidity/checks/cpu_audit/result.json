@@ -1,0 +1,101 @@
+{
+  "exit_code": 1,
+  "commands": {
+    "Haswell": 0,
+    "Sandybridge": 0
+  },
+  "controls": {
+    "Haswell": {
+      "core": "Haswell",
+      "exit_code": 0,
+      "complete_summary_and_point_bytes_exact": false,
+      "point_bytes_exact": {
+        "old": false,
+        "01": false,
+        "02": false,
+        "08": false
+      },
+      "maximum_absolute_point_delta": {
+        "old": {
+          "axis_g": 6.106226635438361e-16,
+          "axis_H": 3.6637359812630166e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "01": {
+          "axis_g": 4.3021142204224816e-16,
+          "axis_H": 2.9976021664879227e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "02": {
+          "axis_g": 2.1510571102112408e-16,
+          "axis_H": 1.942890293094024e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "08": {
+          "axis_g": 3.608224830031759e-16,
+          "axis_H": 1.2545520178264269e-14,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        }
+      },
+      "original_rtol": 1e-10,
+      "original_atol": 1e-12,
+      "complete_summary_sha256": "98b7380b412327378ff3e44790f9cb2b128f367f9b19a6472bf423ed90d99bb4",
+      "points": {
+        "old": "b826a1836fe3f52ae2654327e23c7a08d10251182e6fe4818b3abfbe71671d21",
+        "01": "9371cc42657addf3cdb8f03a927ce10d79971074e62b58e604389b440471c5e1",
+        "02": "21873ab31f8bdb9d958921911f8392381776c8348fc719d0f9960e53a916c234",
+        "08": "825e2464d0cb3d4522d3a47cc8d008499107dcb5985a94f83cd4513e63a34aae"
+      }
+    },
+    "Sandybridge": {
+      "core": "Sandybridge",
+      "exit_code": 0,
+      "complete_summary_and_point_bytes_exact": false,
+      "point_bytes_exact": {
+        "old": false,
+        "01": false,
+        "02": false,
+        "08": false
+      },
+      "maximum_absolute_point_delta": {
+        "old": {
+          "axis_g": 1.0234868508263162e-15,
+          "axis_H": 5.717648576819556e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "01": {
+          "axis_g": 4.649058915617843e-16,
+          "axis_H": 2.7478019859472624e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "02": {
+          "axis_g": 2.1510571102112408e-16,
+          "axis_H": 1.942890293094024e-15,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        },
+        "08": {
+          "axis_g": 2.929947950924827e-15,
+          "axis_H": 1.1657341758564144e-14,
+          "mean_absolute_length_error_m": 0.0,
+          "maximum_absolute_length_error_m": 0.0
+        }
+      },
+      "original_rtol": 1e-10,
+      "original_atol": 1e-12,
+      "complete_summary_sha256": "2f60fb105c7216da0ebc5171a2c9e40b5ee534988c8e6d35dec72fca5a7db144",
+      "points": {
+        "old": "762942f7a0926a3929a7d0b63cf3ed3bdf7f6d587cf1500fef6a478d4e87d5ef",
+        "01": "9cf7acbb9e6d8b43707fd90c54b3bf6dc4bea4eaf30db4cf246a01317b3b1a55",
+        "02": "b1e2283ec3a6358daa738b13fc50557c96cb6423fe16e97c29443008dc0cafbf",
+        "08": "cd01dd073f44913fc949930d8e0996ee1535d9cae2e56acae79ef261d89f90a2"
+      }
+    }
+  }
+}

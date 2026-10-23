@@ -1,0 +1,86 @@
+{
+  "files": {
+    "full_variant.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/full_variant.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "full_variant.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "full_variant.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/full_variant.stdout.log",
+      "bytes": 151,
+      "sha256": "772c201b3bd68e5756d26cf2d4e467101a653a9ad6dec86ae80bf5b7c86df45b",
+      "storage": "gzip",
+      "path": "full_variant.stdout.log.gz",
+      "stored_sha256": "dd57cc989aa4f1f9296a975eb8b01d0b47aa0d5a0f4eb9559213354b5bdf3ef6"
+    },
+    "full_variant_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/full_variant_command.json",
+      "bytes": 824,
+      "sha256": "332719eaf6f9a89bf950293b733e627ccc33fea191ac62a39bce5fcb69599372",
+      "storage": "verbatim",
+      "path": "full_variant_command.json",
+      "stored_sha256": "332719eaf6f9a89bf950293b733e627ccc33fea191ac62a39bce5fcb69599372"
+    },
+    "paper_ratio.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/paper_ratio.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "paper_ratio.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "paper_ratio.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/paper_ratio.stdout.log",
+      "bytes": 750,
+      "sha256": "0708ff0863fa05aaffc46691b00cd402c879006875a5f3d4c14cd0d37df8b28f",
+      "storage": "gzip",
+      "path": "paper_ratio.stdout.log.gz",
+      "stored_sha256": "77391e323f3cc107aca0f532cd34b531127965170a7765fbe34557033bafe1b1"
+    },
+    "paper_ratio_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/paper_ratio_command.json",
+      "bytes": 824,
+      "sha256": "4144a6931c85f2ce51ec2686aaa923761cf1d9b2e62b286154fb300de3235755",
+      "storage": "verbatim",
+      "path": "paper_ratio_command.json",
+      "stored_sha256": "4144a6931c85f2ce51ec2686aaa923761cf1d9b2e62b286154fb300de3235755"
+    },
+    "refresh.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/refresh.stderr.log",
+      "bytes": 1786,
+      "sha256": "cee342229657f0197c574a04751c28809d6eb75a1d6549a1c8e800f4d875171a",
+      "storage": "gzip",
+      "path": "refresh.stderr.log.gz",
+      "stored_sha256": "6ee0cf6b54d48da4f9213ec0b873a2b70c450771ea756dca5032eac4155ed5cb"
+    },
+    "refresh.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/refresh.stdout.log",
+      "bytes": 54617,
+      "sha256": "f9f48517453395f82adc317cb5fb45f9820d50e2dfba3ee75d16080a4080926d",
+      "storage": "gzip",
+      "path": "refresh.stdout.log.gz",
+      "stored_sha256": "9154490bce974db23482940225a26faa9046b55a075c845e7e0bdb3e004857a5"
+    },
+    "refresh_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/refresh_command.json",
+      "bytes": 815,
+      "sha256": "88d2f27b5178e16e604a2f1a47c3b12bc33715937e9ad5dd3b965630a2b8a385",
+      "storage": "verbatim",
+      "path": "refresh_command.json",
+      "stored_sha256": "88d2f27b5178e16e604a2f1a47c3b12bc33715937e9ad5dd3b965630a2b8a385"
+    },
+    "result.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/receipts/result.json",
+      "bytes": 1389,
+      "sha256": "c22e9c2054b3f3e0f2a5e43806b9436f6b2d17440532b89ed69960b55f2d70b1",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "c22e9c2054b3f3e0f2a5e43806b9436f6b2d17440532b89ed69960b55f2d70b1"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

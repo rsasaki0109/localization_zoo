@@ -1,0 +1,22 @@
+{
+  "exit_code": 0,
+  "commands": {
+    "refresh": 0,
+    "full_variant": 0,
+    "paper_ratio": 0
+  },
+  "shadow_repository": "/tmp/localization-zoo-inten-local-rigidity-20261023/refresh_check/repository",
+  "all_canonical_numeric_csvs_exact": {
+    "docs/assets/paper/ct_appendix.csv": "d7fdabe7aa13bc21803846a258b2f7cc88684518ccd1d31fa7e1d9b0e0b1fef0",
+    "docs/assets/paper/default_variant_matrix.csv": "574040b80803fee529fe7bed2344a9efc8d9a837b95e50e01f826758677753df",
+    "docs/assets/paper/default_variant_matrix_long.csv": "906ba8d80d20cabfc77239d6252c34126e07562b4977727c461c7bc70a3668b2",
+    "docs/assets/paper/full_variant_results.csv": "50b22b8f892dc19dff686132e59334bc05c72b8a39644a9e72faa40620fbb7e2",
+    "docs/assets/paper/manuscript_core_defaults.csv": "b044bb71ea50dcd2a9948c65ab4fb52b269872ddb3fb1a636e6a5efbee76b131",
+    "docs/assets/paper/paper_ratio_table.csv": "9019d4db46970e2f2b7ee20a87b924d583e94f47d3bad8c52b9c3e8a6b527509",
+    "docs/assets/paper/ready_defaults.csv": "2a0c41b9ba9ac7067b5ddca7b51d2c1e78d57f4fe7d74734f14fce66fa3120d7"
+  },
+  "all_indexed_aggregates_exact": true,
+  "index_exact_except_generated_at": true,
+  "root_README_exact": true,
+  "policy": "Complete canonical driver and both required paper-table generators execute in an isolated copy. Generated timestamps/plot metadata stay private; no historical committed result is rewritten."
+}

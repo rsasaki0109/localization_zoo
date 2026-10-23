@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--output-root",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/raw/01",
+    "--sequence",
+    "01",
+    "--workers",
+    "1",
+    "--frame",
+    "128"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "8cb1e77f029736e0b801b9c4dde0fc26c868c229",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792745405.043224,
+  "exit_code": 0,
+  "wall_seconds": 3.543390929000452,
+  "logs": {
+    ".stdout": "146f0d97ea707534604495540540a14e48acd4ce47714123e057f980b8f74abe",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

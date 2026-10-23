@@ -9,6 +9,7 @@ def module(name,path):
 r=module('rigidity_mechanism_under_test',E/'rigidity.py')
 a=module('rigidity_analysis_under_test',E/'analyze.py')
 reader=module('rigidity_report_under_test',E/'report_io.py')
+portable=module('rigidity_portable_report_under_test',E/'portable.py')
 
 class LocalRigidityTest(unittest.TestCase):
     def fixture(self):
@@ -75,10 +76,11 @@ class LocalRigidityTest(unittest.TestCase):
     def test_complete_derived_report_regenerates_all_histories_and_points(self):
         with tempfile.TemporaryDirectory(prefix='rigidity_complete_') as folder:
             output=Path(folder)/'complete';actual=a.analyze(output)
-            self.assertEqual(actual,reader.read_report())
+            self.assertEqual(portable.compare_outputs(output)['exit_code'],0)
+            with self.assertRaises(AssertionError):portable.equivalent({'count':1},{'count':2})
+            with self.assertRaises(ValueError):portable.equivalent({'axis_H':1.},{'axis_H':2.})
             for group in ('old','01','02','08'):
                 raw=(output/group/'points.csv').read_bytes()
-                self.assertEqual(raw,reader.read_file(group+'/points.csv'))
                 rows=list(csv.DictReader(io.StringIO(raw.decode())))
                 self.assertTrue(rows)
                 self.assertEqual({int(row['mode']) for row in rows},{6,7,14,15})

@@ -180,6 +180,16 @@
     "papers/inten_loam/include/inten_loam/inten_loam.h": "1ea49fce47a6c183c1ff8b3e16cd9baf7df26e89d9767bcf6e5298a1c62ff15c",
     "papers/inten_loam/include/inten_loam/inten_loam_paper.h": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b",
     "papers/inten_loam/src/inten_loam_paper.cpp": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d",
-    "tests/test_inten_local_rigidity.py": "7f11caf23d1659cd0b3b471c9d797a79871253ba19c9d39fc9b9877e63548aa5"
+    "tests/test_inten_local_rigidity.py": "89f0622a391f22090af3ac3ae0ce25bab15a04731c70c1eb313bb34862a9a491",
+    "experiments/results/inten_local_rigidity/initial_protocol.json": "2f9165eb83e48f340585afbe58112308f3274b99d258471cf3263ebc5d0b59a2",
+    "experiments/results/inten_local_rigidity/frozen_test_inten_local_rigidity.py": "7f11caf23d1659cd0b3b471c9d797a79871253ba19c9d39fc9b9877e63548aa5",
+    "experiments/results/inten_local_rigidity/portable.py": "e12bbc20e9afe8db93cede09c7dee4543c42cd14ae58fd0be6f927f9deddda0d",
+    "experiments/results/inten_local_rigidity/cpu_controls.py": "34e1c6e9645779de8f22226f6a2e4f10ba533964bb55de706e95b74cd2f4714e"
+  },
+  "verification_recovery": {
+    "initial_protocol": "experiments/results/inten_local_rigidity/initial_protocol.json",
+    "initial_protocol_sha256": "2f9165eb83e48f340585afbe58112308f3274b99d258471cf3263ebc5d0b59a2",
+    "original_test_source": "experiments/results/inten_local_rigidity/frozen_test_inten_local_rigidity.py",
+    "reason": "CPU audit 1d4e2a9e: byte-equality of recomputed floating-point partial derivatives is not portable. Archive transport stays byte-exact. All recomputed floating-point fields use the original componentwise rtol1e-10/atol1e-12; counts, identities, settings and missing masks remain exact. No numerical definition, native data, parameter or original result changes."
   }
 }

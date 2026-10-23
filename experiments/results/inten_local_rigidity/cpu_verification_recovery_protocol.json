@@ -1,0 +1,14 @@
+{
+  "failure_commit": "1d4e2a9e",
+  "frozen_initial_protocol_sha256": "2f9165eb83e48f340585afbe58112308f3274b99d258471cf3263ebc5d0b59a2",
+  "frozen_original_test_sha256": "7f11caf23d1659cd0b3b471c9d797a79871253ba19c9d39fc9b9877e63548aa5",
+  "recovery": "Verification/test metadata only. Original protocol and original test criterion retained byte-exact. Every original mathematical/input/source binding is unchanged; only test-source pin is updated with explicitly pinned portable verifier and lossless CPU-control transport. Current protocol has identical witness/population and declares recovery provenance; both old/current protocol hashes are explicitly verified before comparing historical/recomputed reports.",
+  "criteria": "Persisted original reports and CPU controls restore every byte with full hashes. Recomputed reports compare every float at original inherited componentwise rtol1e-10/atol1e-12; all integer counts, indices, strings, settings, ordering and missing masks exact. Actual CSV SHA/size verified before excluding transport identities from numeric comparison. Original same-host full regression and CPU bit-equality failure remain. Both complete controlled outputs and fresh new regressions must pass before final exact-head Native/ROS2 CI.",
+  "cpu_transport": "Complete summary XZ plus complete per-line original-point-CSV edits. Every original control byte restores exactly; no numeric normalization, score truncation or omitted row.",
+  "source_sha256": {
+    "experiments/results/inten_local_rigidity/protocol.json": "c1047e4f5d09ce6b5ffaf549dbf434a2c5aa41b8963b0b4d2de9f83ced022d99",
+    "experiments/results/inten_local_rigidity/portable.py": "e12bbc20e9afe8db93cede09c7dee4543c42cd14ae58fd0be6f927f9deddda0d",
+    "experiments/results/inten_local_rigidity/cpu_controls.py": "34e1c6e9645779de8f22226f6a2e4f10ba533964bb55de706e95b74cd2f4714e",
+    "tests/test_inten_local_rigidity.py": "89f0622a391f22090af3ac3ae0ce25bab15a04731c70c1eb313bb34862a9a491"
+  }
+}

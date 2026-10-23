@@ -31,6 +31,27 @@ execution environment's HTTP 503 transport failure is resolved; do not tune
 from the partial run or change the published paper scores.
 
 
+### Retained negative result: good seed, shortened final step
+
+The latest interrupted continuous 01 attempt covers 832 frames. The
+[predeclared case report](../../experiments/results/inten_geometric_prior/adverse_cases.json)
+uses local translation length / GT length (not full-sequence accuracy):
+
+| Frame | Reference final | Hybrid S2S input | Hybrid S2S output | Hybrid final |
+|---|---:|---:|---:|---:|
+| 202 | 0.949347 | 1.006358 | 0.799373 | 0.968400 |
+| 215 | 0.306116 | 1.003769 | 0.780277 | 0.373955 |
+| 420 | 0.999430 | 1.004785 | 0.589326 | 0.986409 |
+
+Frame 215 remains a severe failure: an accurate independent input is shortened
+by S2S and then by the accepted mapping stage. Frame 420 has worse S2S length
+than the reference (0.589326 versus 0.606071), even though mapping recovers the
+final step. Frame 202 remains borderline in S2S. Preserve these negatives; the
+partial evidence does not establish an all-sequence improvement or pass the
+retention gate. Full Python CI also remains unresolved because historical
+verification currently binds production-source hashes to the working tree;
+those historical pins have not been changed to accept this extension.
+
 ## Independent initialization diagnosis (2026-10-23)
 
 A controlled-input upstream KISS-ICP run avoids the remaining KITTI 01 collapse:

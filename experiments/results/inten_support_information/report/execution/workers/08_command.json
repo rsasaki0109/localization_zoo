@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/verify_mixed_parallel.py",
+    "--group",
+    "08",
+    "--output",
+    "/tmp/localization-zoo-inten-support-information-20261023/verification_compact/workers/08.json"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "exit_code": 0,
+  "started_unix": 1792721298.2506044,
+  "finished_unix": 1792721885.4776485,
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "output_sha256": "deee239df9f5b8ed10768960293c7ed546a566e3abbb07fd43665fcbe1461211",
+  "producer_sha256": "1fec42b678e9c7de0c88e65844d2f0aeb7e51d06a7d783b3b45bf170f5ab859c"
+}

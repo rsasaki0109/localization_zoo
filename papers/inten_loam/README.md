@@ -23,7 +23,9 @@ profile are inherited, and geometric settings use upstream-mechanics defaults.
 All KITTI data are development data. Native mechanism tests and normal CLI
 checks pass, but acquisition failed after 768 frames of the first 01 attempt.
 A later recovery attempt stopped after 128 frames; further attempts reached
-832 and 960 frames before acquisition failed again. The disabled reference
+832 and 960 frames before acquisition failed again. Another retry after a
+successful real-batch fetch also stops at 960 frames when transport fails.
+The disabled reference
 exactly matches the archived trajectory through every nonempty prefix
 (maximum matrix difference 0). The interrupted candidate poses and
 negative acquisition outcome are retained. **No complete-sequence improvement

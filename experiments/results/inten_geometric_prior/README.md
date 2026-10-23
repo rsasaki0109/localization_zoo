@@ -6,7 +6,7 @@ yet established.** KITTI 01 attempts were interrupted by acquisition HTTP 503
 failures after 768, 128, 832 and 960 frames. Every nonempty disabled/reference
 prefix matches the archived full-precision facade-PCA trajectory exactly
 (maximum matrix difference 0). The latest independent
-[prefix audit](interrupted_audit_after_serial_fix.json) verifies every retained
+[prefix audit](interrupted_audit_after_verified_batch.json) verifies every retained
 attempt's raw hashes, ordering and pose exports. The acquisition-only retries
 processed no frames and establish no estimator parity or accuracy. Every
 incomplete candidate output and failed command remains; none establishes a
@@ -145,6 +145,18 @@ A further [retry](commands/full_trial_after_serial_fix.json), started after
 successful small-range probes, fails before any native frame (`19a6a1a7`).
 Small-range success is therefore insufficient evidence of recovered scan
 transport. Retain this acquisition-only failure as well as the nonempty prefixes.
+
+A subsequent [real-batch fetch](commands/real_batch_transport_after_runtime_fix.json)
+and [input/binary hash check](commands/recovered_batch_hash_validation.json)
+both pass (`b2d9cccc`). Restarting the same continuous trial nevertheless
+stops at 960 frames again (`c991f723`), after the next acquisition batch exhausts
+its retries. A separate contiguous-batch probe fails while reading the remote
+ZIP directory, before any scan is extracted. The [new case report](adverse_cases_after_verified_batch.json)
+retains the previous diagnosis; all predeclared case diagnostics match the
+earlier report. The latest audit and case report are committed in `351353fa`.
+No complete sequence is available. Even a successful real-batch preflight does
+not guarantee sustained transport; avoid repeated estimator restarts while
+the recorded acquisition failure remains unresolved.
 
 ## Full Python validation is not yet green
 

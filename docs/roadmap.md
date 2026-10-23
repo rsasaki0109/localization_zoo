@@ -19,8 +19,9 @@ Focused native tests, normal CLI build and disabled-path fixture parity pass.
 Full evaluation remains blocked by recurring HTTP 503 tunnel failures. The
 first 01 attempt stopped after 768 frames; subsequent attempts stopped after
 128, 832 and 960 frames. All nonempty prefixes have exact disabled reference parity,
-independently checked against the archived traces and raw input hashes. Neither is a full accuracy result. The implementation was pushed
-successfully once, but subsequent pushes failed again. Keep all failed attempts;
+independently checked against the archived traces and raw input hashes. None is a full accuracy result. A later attempt after a successful real-batch
+preflight also stops at 960 frames; the ZIP-directory transport fails again.
+Normal Git publication has recovered intermittently. Keep all failed attempts;
 resume the same binary/configuration from frame zero, then finish 00–10 before
 any acceptance decision. Acquisition backoff changes transport only.
 
@@ -36,8 +37,10 @@ archive checks. An adapter now restores the archived sources for support,
 prior-control and local-rigidity checks while retaining current historical
 verifier/data checks; its corruption regressions and all source preflights
 pass. Original support worker commands execute serially after a retained
-parallel worker failure. Complete Python discovery is being rerun, so full CI
-is not yet claimed. Normal Git publication briefly recovered and preserved
+parallel worker failure. Serial discovery leaves a runtime-dependent strict
+numerical mismatch. The exact failing query passes in the original recorded
+Python/NumPy/SciPy environment with unchanged tolerances; complete discovery
+is being rerun there, so full CI is not yet claimed. Git publication preserved
 the original source-commit history alongside the API transport aliases.
 
 

@@ -1,0 +1,13 @@
+{
+  "exit_code": 0,
+  "disabled_poses_byte_equal": true,
+  "disabled_metric_equal": {
+    "ate_m": true,
+    "rpe_trans_pct": true,
+    "rpe_rot_deg_per_m": true,
+    "kitti_rte_trans_pct": true,
+    "frames_processed": true
+  },
+  "new_cli_accepts_option": true,
+  "frozen_binary_sha256": "5e7a26d91796282a04d57c18ad6a2c412a2e134dee1cd9a0ef4c99936eb03289"
+}

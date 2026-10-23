@@ -1,0 +1,35 @@
+{
+  "observed_unix": 1792776870.546837,
+  "sequence": "00",
+  "complete_input_records_observed": 512,
+  "last_input_frame_observed": 511,
+  "maximum_recorded_baseline_matrix_error": 0.0,
+  "input_manifest_sha256": "28d7acf6b7af2cbc704df0cfec2a2477f31af3d1d93f10ff183c0bb240b86a5d",
+  "full_sequence_complete": false,
+  "interpretation": "Live acquisition progress only; no complete accuracy result or independent native audit.",
+  "processes": [
+    " 371089       1 S    /workspace/localization-env/host-venv/bin/python experiments/results/inten_geometric_prior/receipt.py --output experiments/results/inten_geometric_prior/commands/full_trial_extended_acquisition_wait.json -- /workspace/localization-env/host-venv/bin/python experiments/results/inten_geometric_prior/run_sequences.py --source-root /workspace/localization-env/branch-cleanup-20261022/worktree --scratch /tmp/localization-zoo-inten-geometric-prior-20261023/raw --fetch-script evaluation/scripts/fetch_kitti_odometry_sequences.py --fetch-attempts 120 --sequence 00 --sequence 02 --sequence 03 --sequence 04 --sequence 05 --sequence 06 --sequence 07 --sequence 08 --sequence 09 --sequence 10 --commit-results",
+    " 371179  371089 Sl   /workspace/localization-env/host-venv/bin/python experiments/results/inten_geometric_prior/run_sequences.py --source-root /workspace/localization-env/branch-cleanup-20261022/worktree --scratch /tmp/localization-zoo-inten-geometric-prior-20261023/raw --fetch-script evaluation/scripts/fetch_kitti_odometry_sequences.py --fetch-attempts 120 --sequence 00 --sequence 02 --sequence 03 --sequence 04 --sequence 05 --sequence 06 --sequence 07 --sequence 08 --sequence 09 --sequence 10 --commit-results",
+    " 371181  371179 Sl   docker exec -i -e OMP_NUM_THREADS=1 -e OPENBLAS_NUM_THREADS=1 localization-zoo-dev /dev/inten-geometric-prior-20261023/build/stream_runner",
+    " 371206     904 Ss   /dev/inten-geometric-prior-20261023/build/stream_runner"
+  ],
+  "binary_check": {
+    "argv": [
+      "docker",
+      "exec",
+      "localization-zoo-dev",
+      "sha256sum",
+      "/dev/inten-geometric-prior-20261023/build/stream_runner"
+    ],
+    "exit_code": 0,
+    "stdout": "404c4dca7cf4277665106f3102f4a5ac180164bf968de0760911da055078774d  /dev/inten-geometric-prior-20261023/build/stream_runner\n",
+    "stderr": ""
+  },
+  "files": {
+    "fetch_000512_16.json": "a300ede8858fae04de6cf9f34f31d04b985f30f45563001aaebe636ab6eacc4c",
+    "controller_stdout_observed.txt": "45f79b4f9686e13fa2e77626dc02ea217e8a4501e4bebdfcb49e15742015b19c",
+    "controller_receipt_observed.json": "2ff6416712797d2416495f3e219e3c6928344ef785749d93da264d3b385c1761",
+    "native_command_observed.json": "77b670ed1f2f6ab062a4da063342e9d1e2000f2c97988f6dae1e8dc362e17a50",
+    "inputs_observed.jsonl": "9c4ba7090d26fbc6f27d137945773c3cf4938bfeff3e867f97808dc7a9760c12"
+  }
+}

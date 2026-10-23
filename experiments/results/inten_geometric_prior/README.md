@@ -429,3 +429,17 @@ completion report. Check the live `commands/full_trial_extended_acquisition_wait
 and controller before launching another job. New full sequence results are
 committed only after native completion and all original controls. Completed 01
 and every previous interruption remain intact.
+
+The environment subsequently became unavailable, then returned with the original
+controller and native process still running. The read-only
+[recovery observation](recovered_runtime_observation/observation.json), committed
+in `e5d385e6`, preserves 512 complete input records (frames 0–511), all matching
+the frozen input manifest. Their recorded reference matrix difference is zero;
+this live observation is not an independent native audit or a full-sequence
+accuracy result. The running binary still matches the frozen SHA. The
+[observation command](commands/recovered_runtime_observation.json) exits 0.
+Acquisition for the next batch still reports HTTP 503, and the
+[normal Git push](commands/recovered_environment_push.json) exits 128 with the
+same `cloudflare_https_tunnel` failure. Runtime recovery therefore does not
+establish sustained network recovery. Leave the existing process and its map
+state intact; inspect the live receipt before any replacement launch.

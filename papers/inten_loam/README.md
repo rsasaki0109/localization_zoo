@@ -2611,3 +2611,48 @@ Full local Python410 tests exit0 with five existing environment skips; CPU
 reconstructions under Haswell/Sandybridge match the committed report at original
 tolerances. Derived-table regeneration and canonical source/result preservation
 checks all exit0. Complete receipts `9d20f6a8` precede this validation note.
+
+## Passive support diagnosis: valid does not imply useful motion
+
+The [native fixed-pose support study](../../experiments/results/inten_support_information/README.md)
+reruns all31 endpoints/all18 arms with all558 complete outcomes and original
+stdout bytes exact. It observes every joint/refinement iteration of the
+predeclared unfiltered/common-prior reciprocal100 arms; no passive value enters
+an estimate. Numerical `a2fd354d` and complete case tables `dcfef100` precede
+interpretation. All42,992 class observations and27,360,255 repeated source-row
+queries reconstruct, separating3,637,657 removed valid residuals from8,529,472
+reciprocal rejects that would fail later gates anyway. Original settings and
+07/00/DiLO01 provenance remain; all KITTI observations are development.
+
+| Fixed primary history | Unchanged length/GT | Initial removed/valid geometry | Initial kept/all longitudinal Schur |
+|---|---:|---:|---:|
+| old/202, rescue |0.973614185|355/617|0.569157979|
+| old/204, rescue |0.985996689|356/648|0.595870322|
+| old/247, lost recovery |0.459890548|238/472|0.637155545|
+| 08/39, newly bad length |0.682142975|319/848|0.716923510|
+| 08/45, newly bad length |0.776746136|408/943|0.692297857|
+| 02/1891, still collapsed |0.195253604|303/622|0.624142843|
+
+A larger retained-information fraction does not distinguish these adverse
+cases from rescues. Initial raw facade axis gt is0.888587984→-0.219212193 at202
+and0.671037122→-0.403371475 at204, but-5.95953280→-0.209317804 at08/39 and
+-5.42782305→-1.24928672 at08/45. With rotation fixed, the removed component
+opposes forward translation in these rescues and favors it in these adverse
+examples. At247's last filtered pose, edge gt reverses-0.745024029→0.203276439
+under the same-pose partition. This localizes signed support loss; it does not
+prove object motion or independently attribute a solved motion change to a
+class. Class H/g/cost partition additively; Schur terms do not. Mixed native
+objective units are not physical covariance. Every case, intermediate native
+query, other class and paired-consensus history remains in the complete study.
+
+Ten native mechanism tests and the final full independent reconstruction exit0.
+The initial full-cloud-lattice input error, Eigen arithmetic discrepancies
+(maximum H2.862e-11 and9.094e-12), and controlled allocation-stop exit-15 remain
+before their separately bound verifier-only recoveries. The final checker uses
+original componentwise rtol1e-10/atol1e-12, without native reruns or changed data.
+These passive observations improve diagnosis, not trajectory accuracy. Earlier
+motion gates remain failed; no new threshold, candidate, production option,
+full trial, paper-table update or SOTA claim follows. Defaults and all older
+scores stay unchanged. Next localize the signed lost/retained neighborhoods
+and test temporal correspondence consistency with an independent witness,
+retaining all rescue/adverse controls before proposing any selection rule.

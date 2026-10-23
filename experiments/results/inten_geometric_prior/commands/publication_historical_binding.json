@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "experiments/results/inten_geometric_prior/check_publication.py",
+    "--source-root",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree",
+    "--worktree",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+    "--scratch",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_binding",
+    "--output",
+    "experiments/results/inten_geometric_prior/publication_historical_binding"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "42fc7651b089fe2c2d8c4da0d7f50266902c9004",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792750742.3936062,
+  "exit_code": 1,
+  "wall_seconds": 1287.7685128009762,
+  "logs": {
+    ".stdout": "5b32975451676cb79752c40457cb4836d5394ee808d1720763ccb327dc06db14",
+    ".stderr": "7a0ca49630898961533930e71f054251b8ebaa8a214e84196619a65f8ee91ee5"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_independent_onset/run_kiss.py",
+    "--package-root",
+    "/workspace/localization-env/upstream-kiss-1.3.0",
+    "--source-root",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree",
+    "--scans",
+    "/tmp/localization-zoo-inten-independent-onset-20261023/raw/dataset/sequences/01/velodyne",
+    "--preprocess-library",
+    "/tmp/localization-zoo-inten-independent-onset-20261023/preprocess.so",
+    "--output",
+    "experiments/results/inten_independent_onset/kiss"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/worktree",
+  "source_commit": "9598a18807651eed59327e7bdb11eb6085d1aabb",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792740111.9025395,
+  "exit_code": 0,
+  "wall_seconds": 165.70290218596347,
+  "logs": {
+    ".stdout": "4bc8fe3cb24371afc2b037e56d8113ee191cff6bc73cbc535a208b7c95c225c7",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

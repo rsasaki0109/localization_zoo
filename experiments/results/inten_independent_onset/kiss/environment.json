@@ -1,0 +1,72 @@
+{
+  "config": {
+    "out_dir": "results",
+    "data": {
+      "max_range": 120.0,
+      "min_range": 0.0,
+      "deskew": false
+    },
+    "registration": {
+      "max_num_iterations": 500,
+      "convergence_criterion": 0.0001,
+      "max_num_threads": 1
+    },
+    "mapping": {
+      "voxel_size": 1.0,
+      "max_points_per_voxel": 20
+    },
+    "adaptive_threshold": {
+      "fixed_threshold": null,
+      "initial_threshold": 2.0,
+      "min_motion_th": 0.1
+    }
+  },
+  "package_version": "1.3.0",
+  "numpy_version": "2.5.3",
+  "input_manifest_sha256": "752d7e8202ffd79908566a88b38ae4d90541217ad7e0e7728db8307d0a90c7a0",
+  "preprocess_library_sha256": "eaa92019e201d0173c20bfe0a7956e95a58ce3482ec39221a4a1dc9eae97c776",
+  "package_files": {
+    "kiss_icp/__init__.py": "e4b6089fcf7add31765b5907694a36008786fd7b543c1d4a1feed9cfd1d8a1f4",
+    "kiss_icp/config/__init__.py": "e4b1f93b2bac1835d07aa28a20cc796594b4eda8fbcf0f10b40eb51b8b8884b3",
+    "kiss_icp/config/config.py": "706a37c754d945320a696f209479783ef8d3a5e7e7edea4dd162f382c4e8df82",
+    "kiss_icp/config/parser.py": "967465c5f6119d1b83a7a3a133d6903c333c80baa7285c672ac3a42b9c02fb13",
+    "kiss_icp/datasets/__init__.py": "6320434884a73eb5de7e05923c2c47ec8f9d749461cd074c184cf6de23130c2c",
+    "kiss_icp/datasets/apollo.py": "2732567e51c75143c05e3f21c458e5da273d558aa25fa075b4729a4209b32d33",
+    "kiss_icp/datasets/boreas.py": "07f4b3592dcd37016647b68eb8ebaa254d1897219787f691bd46c3fa5f040ebc",
+    "kiss_icp/datasets/generic.py": "9893977558637938f5ad0917bca5625484c97a2623e191ccef0ceb99c5217ce5",
+    "kiss_icp/datasets/helipr.py": "488771ba7c3a2f45584c571040715ea8b46a89699f42e5bd81e047b1701c6911",
+    "kiss_icp/datasets/kitti.py": "c529492c08b28b779768ff6f020872505e2787886c16cb11fe7faa89ff334dac",
+    "kiss_icp/datasets/kitti_raw.py": "55024150514e4df528c6a3cf67a84d0e374ea62b2a593d1015a00e9768edf02c",
+    "kiss_icp/datasets/mcap.py": "b55989ff647edfbd530140a8d5ae589860242dbfc03730ef7ce73555292e605d",
+    "kiss_icp/datasets/mulran.py": "b3052d1ac663570aacbf9b1a5d391aa9312ac351acd808007198b53e541689d0",
+    "kiss_icp/datasets/ncd.py": "53486eb7641978d3a89389dbd255cc8e75e9e78a9001285c938f3bee26d96e10",
+    "kiss_icp/datasets/nclt.py": "eafdea31607a5f2cea5991a856d8f8ec415020df4973ef15acb20a27ee511a20",
+    "kiss_icp/datasets/nuscenes.py": "e6d89d23bd11d4d085f254893edff36bbacd51c6c96329f727e24d295d909ffb",
+    "kiss_icp/datasets/ouster.py": "7895a70f8a9f6c50e0f61827ee809a43570004fa10069ce52427ab9d91f97674",
+    "kiss_icp/datasets/rosbag.py": "299e717a28449be44edaadca4810588b1de298760e779f1f28ebf5cc740e8544",
+    "kiss_icp/datasets/tum.py": "54184ed808e63c52104173599f5d5cd762be290513fc527056e0a1374f24b7cd",
+    "kiss_icp/kiss_icp.py": "e7db6f58e1eac8ff0029b246e01820c8762b1035114f3f4ff3481bbcfc2e2586",
+    "kiss_icp/mapping.py": "c6523a070e68fb43f2a4e7c2e0f0bc4c9390064c10e5ed555ca40021918840e2",
+    "kiss_icp/metrics.py": "607449e7b9952b1846cb22cf18e96c97e0bbf7a4b66b3668b373591b1316fe7e",
+    "kiss_icp/pipeline.py": "ddfd64639bec712c0c1c61ff64cb2150d545d6c3c5d52a426df14fd9d15ca720",
+    "kiss_icp/preprocess.py": "9b3ac86df2183967689981b05bd78303df8a32e20c6212a190c657fc86f66131",
+    "kiss_icp/pybind/kiss_icp_pybind.cpython-312-x86_64-linux-gnu.so": "fca29ee564b8e1523e0659bbc3fe9a04525fc8ad62bdc31d179435f4270815db",
+    "kiss_icp/registration.py": "1b6c4cb1d18c90bceda8b8de8cbc44621e323d2c6532e1834f49aed77f47f830",
+    "kiss_icp/threshold.py": "25d6c12e4dc130f25c7a288736428cd900e6bf8eaa6312940a57230b59c1724a",
+    "kiss_icp/tools/__init__.py": "db816990bf3c5c8965a517971566f9be535e8e215a71e52fc83adf32c0460c9c",
+    "kiss_icp/tools/cmd.py": "b499d76332fd26fefd865736e49df6ea3e2c7567e993e239c79c870cfca3f894",
+    "kiss_icp/tools/pipeline_results.py": "d09b725d20d3b934463359b1233f77645558ac1b08c1a16ae4f78106edc4295b",
+    "kiss_icp/tools/point_cloud2.py": "8daa00e57585f28f277a8be3965079823503bae793c854ed4724317c24760d36",
+    "kiss_icp/tools/progress_bar.py": "82cab4d18599af0abb89494f42c2660b3e8e2ff3f91f2ede2a35db2bfecaa4df",
+    "kiss_icp/tools/visualizer.py": "b5129b75ec08c10abbe8cd4a0a5d9dd31dc9564a0cfeda0b135aa946aa44e54e",
+    "kiss_icp/voxelization.py": "69e43286bbca4c452483e6f91ba1b5dcc17dc01886c2e3ac292ba710bc12c790",
+    "kiss_icp-1.3.0.dist-info/INSTALLER": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508",
+    "kiss_icp-1.3.0.dist-info/METADATA": "6ea4d56b77ace1d7e433de86e406c53b240c6fca788f6d8b2ec648426370ce15",
+    "kiss_icp-1.3.0.dist-info/RECORD": "3d190344fc1f87393edba284f363e67606e913f948817aa8a9cf0a4ba3e2d103",
+    "kiss_icp-1.3.0.dist-info/REQUESTED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kiss_icp-1.3.0.dist-info/WHEEL": "e5e88994666c4ec2813721104a55a9052bc8498e653426e73d3b83ff4c8dd9e8",
+    "kiss_icp-1.3.0.dist-info/direct_url.json": "7dbf0dbd812a26e24f803c560e06bdcc805881d42e5fc1572567497d3ff9ca36",
+    "kiss_icp-1.3.0.dist-info/entry_points.txt": "ca876d745d6d5f93748dcbefeefa58a60730fe88bbc9f6e375ea7d5ba631ac42",
+    "kiss_icp-1.3.0.dist-info/licenses/LICENSE": "3e4bd5a7d241a40aaa6a8bdd8575c940ad86dc40baadb206b70143c658215ea1"
+  }
+}

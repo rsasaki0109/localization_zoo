@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-independent-onset-20261023/worktree/experiments/results/inten_independent_onset/run_probe.py", line 94, in <module>
+    main()
+  File "/tmp/localization-zoo-inten-independent-onset-20261023/worktree/experiments/results/inten_independent_onset/run_probe.py", line 57, in main
+    run(docker+['cp',str(source),a.container+':'+target])
+  File "/tmp/localization-zoo-inten-independent-onset-20261023/worktree/experiments/results/inten_independent_onset/run_probe.py", line 45, in run
+    raise RuntimeError(f'command failed: {argv}')
+RuntimeError: command failed: ['docker', 'cp', '/tmp/localization-zoo-inten-independent-onset-20261023/raw/dataset/sequences/01/velodyne/000189.bin', 'localization-zoo-dev:/dev/shm/inten-independent-onset-20261023/previous.bin']

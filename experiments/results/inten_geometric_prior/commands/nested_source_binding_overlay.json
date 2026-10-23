@@ -1,0 +1,9 @@
+{
+  "source_commit": "33501e96815ed23c2db7826c786df70b69a8edfa",
+  "copied_to": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_recorded_runtime",
+  "files_sha256": {
+    "evaluation/scripts/verify_inten_support_history.py": "c5dd15a3828a549e1cf230f476b81f623e1dd2f630b7d62240d5867c49114006",
+    "tests/test_inten_support_source_binding.py": "a0781c218d1bd211b18123e04383e31fd6b71d58b677f504648cddab192a36a2"
+  },
+  "note": "The regression receipt reports the scratch clone HEAD; these current committed files were overlaid before running the command."
+}

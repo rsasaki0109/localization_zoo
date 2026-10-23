@@ -1,0 +1,51 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_geometric_prior/run_sequences.py",
+    "--source-root",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree",
+    "--scratch",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/raw",
+    "--fetch-script",
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--sequence",
+    "00",
+    "--sequence",
+    "02",
+    "--sequence",
+    "03",
+    "--sequence",
+    "04",
+    "--sequence",
+    "05",
+    "--sequence",
+    "06",
+    "--sequence",
+    "07",
+    "--sequence",
+    "08",
+    "--sequence",
+    "09",
+    "--sequence",
+    "10",
+    "--commit-results"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "242060e55a016ea82030c339a4c6bc2c76dfdf31",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792769995.317437,
+  "exit_code": 1,
+  "wall_seconds": 642.8519150549546,
+  "logs": {
+    ".stdout": "2e4bddb4ca5da4a6578ec5f1fae50c174557debed19430654cba90053a1cf689",
+    ".stderr": "2619d88fb12e23baaf8667965b2e6233dfdfdda7aab1cde7c71b5a366668f935"
+  }
+}

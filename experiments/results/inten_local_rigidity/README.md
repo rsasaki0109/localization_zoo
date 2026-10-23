@@ -191,9 +191,14 @@ group/checker schedule and original tolerances:
 env PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 experiments/results/inten_local_rigidity/final_checks.py
 ```
 
-Fresh serial receipts and resource snapshots are recorded separately. Final
-exact-head Native/ROS2 CI, every essential step and both complete decoded logs
-are required before Ready.
+The final closure keeps local revalidation receipts/resource snapshots and
+complete final CI proofs privately, without advancing the tested source head.
+All quantitative scientific outputs and the earlier failure are already
+committed. Only documentation/closure metadata changes after the serial source
+freeze; mathematical/test sources remain identical. Ready requires every
+isolated local check to pass plus full Native/ROS2 CI on the exact final head,
+every essential step and both complete decoded logs. Final CI and local checks
+run on separate machines; no heavy auxiliary process overlaps the local suite.
 
 All previous parameter provenance stays fixed; all observed KITTI is development.
 Earlier reciprocal/prior/field/budget/mask gates remain failed. There is no

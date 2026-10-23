@@ -823,9 +823,21 @@ independent. Each item says what "done" means.
     value or threshold changes. Earlier candidate gates remain failed. No
     rigidity threshold, retuning, production/default change, new full candidate
     trial, trajectory/paper-table improvement or SOTA claim follows. Before
-    another selector, obtain evidence separating common background motion from
-    other rigid motion across every rescue/adverse control; this conditional
-    two-frame distance witness alone is insufficient.
+    another selector, test consistency across different source regions under
+    common background motion while retaining every rescue/adverse control.
+    The next finite diagnostic should use region-crossing relations rather
+    than retuning this local discrepancy or promoting another mask. Rigid
+    motion within one local region alone cannot identify static support.
+    Complete CPU controls retain the initial byte-equality failure and pass
+    original strict numerical tolerances (`1d4e2a9e`/`6100e04e`); all11 fresh
+    local study/renderer regressions run and pass. The first full432-test
+    local run fails in an inherited group verifier amid a recorded memory
+    limit kill (`d89405e2`), with exact child status unavailable after legacy
+    temporary cleanup. That failure remains before isolated full revalidation.
+    Quantitative scientific outputs and all earlier failures are committed;
+    final local/CI proofs remain private to keep the tested source head fixed.
+    Ready requires every isolated local check and exact-final-head full
+    Native/ROS2 CI with both complete decoded logs; main remains unmerged.
 
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is

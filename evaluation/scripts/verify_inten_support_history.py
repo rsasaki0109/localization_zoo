@@ -28,11 +28,12 @@ def relative_path(name):
 
 
 @contextmanager
-def historical_sources(study):
+def historical_sources(study, *, build=None, extra_sources=None):
     study = Path(study)
     repository = study.parents[2]
     protocol = json.loads((study / 'protocol.json').read_text())
-    build = study / 'checks/build'
+    build = Path(build) if build is not None else study / 'checks/build'
+    extra_sources = extra_sources or {}
     manifest = json.loads((build / 'source_manifest.json').read_text())
     with tempfile.TemporaryDirectory(prefix='inten_historical_sources_') as folder:
         root = Path(folder)
@@ -40,13 +41,16 @@ def historical_sources(study):
         for name, expected in protocol['source_sha256'].items():
             relative = relative_path(name)
             if relative.parts[0] != 'experiments':
-                if relative.parts[0] not in ('papers', 'evaluation'):
+                if name in extra_sources:
+                    raw = Path(extra_sources[name]).read_bytes()
+                elif relative.parts[0] in ('papers', 'evaluation'):
+                    entry = manifest[name]
+                    if entry['sha256'] != expected:
+                        raise ValueError('Archived source manifest differs: ' + name)
+                    archive = build / relative_path(entry['path'])
+                    raw = gzip.decompress(archive.read_bytes())
+                else:
                     raise ValueError('Unexpected production source: ' + name)
-                entry = manifest[name]
-                if entry['sha256'] != expected:
-                    raise ValueError('Archived source manifest differs: ' + name)
-                archive = build / relative_path(entry['path'])
-                raw = gzip.decompress(archive.read_bytes())
                 if digest(raw) != expected:
                     raise ValueError('Archived production source changed: ' + name)
                 target = root / relative
@@ -55,6 +59,28 @@ def historical_sources(study):
             if digest((root / relative).read_bytes()) != expected:
                 raise ValueError('Frozen source changed: ' + name)
         yield root
+
+
+def rigidity_sources(study):
+    """The passive rigidity study inherits its parent's production build."""
+    return {
+        'build': study.parent / 'inten_support_information/checks/build',
+        'extra_sources': {
+            'tests/test_inten_local_rigidity.py': study.parent / (
+                'inten_geometric_prior/historical_sources/test_inten_local_rigidity.py'),
+        },
+    }
+
+
+@contextmanager
+def bind_sources(module, **kwargs):
+    with historical_sources(module.E, **kwargs) as root:
+        previous = module.W
+        module.W = root
+        try:
+            yield root
+        finally:
+            module.W = previous
 
 
 class SerialWorkers(ThreadPoolExecutor):

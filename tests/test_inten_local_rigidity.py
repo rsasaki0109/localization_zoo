@@ -10,6 +10,7 @@ r=module('rigidity_mechanism_under_test',E/'rigidity.py')
 a=module('rigidity_analysis_under_test',E/'analyze.py')
 reader=module('rigidity_report_under_test',E/'report_io.py')
 portable=module('rigidity_portable_report_under_test',E/'portable.py')
+history=module('rigidity_historical_source_binding',E.parents[2]/'evaluation/scripts/verify_inten_support_history.py')
 
 class LocalRigidityTest(unittest.TestCase):
     def fixture(self):
@@ -75,7 +76,8 @@ class LocalRigidityTest(unittest.TestCase):
             with self.assertRaises(AssertionError):next(a.stream(path.parent,'support.extra.jsonl'))
     def test_complete_derived_report_regenerates_all_histories_and_points(self):
         with tempfile.TemporaryDirectory(prefix='rigidity_complete_') as folder:
-            output=Path(folder)/'complete';actual=a.analyze(output)
+            output=Path(folder)/'complete'
+            with history.bind_sources(a,**history.rigidity_sources(E)):actual=a.analyze(output)
             self.assertEqual(portable.compare_outputs(output)['exit_code'],0)
             with self.assertRaises(AssertionError):portable.equivalent({'count':1},{'count':2})
             with self.assertRaises(ValueError):portable.equivalent({'axis_H':1.},{'axis_H':2.})

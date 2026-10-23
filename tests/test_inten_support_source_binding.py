@@ -21,6 +21,25 @@ ARCHIVE = STUDY / 'checks/build/sources' / (SOURCE + '.gz')
 
 
 class HistoricalSourceBindingTest(unittest.TestCase):
+    def test_all_affected_studies_pass_full_source_preflight(self):
+        studies = [STUDY, STUDY.parent / 'inten_prior_control', STUDY.parent / 'inten_local_rigidity']
+        for study in studies:
+            options = history.rigidity_sources(study) if study.name == 'inten_local_rigidity' else {}
+            with self.subTest(study=study.name), history.historical_sources(study, **options) as root:
+                protocol = json.loads((study / 'protocol.json').read_text())
+                for name, expected in protocol['source_sha256'].items():
+                    self.assertEqual(history.digest((root / name).read_bytes()), expected)
+
+    def test_changed_historical_test_snapshot_is_rejected(self):
+        study = STUDY.parent / 'inten_local_rigidity'
+        options = history.rigidity_sources(study)
+        snapshot = options['extra_sources']['tests/test_inten_local_rigidity.py']
+        original = Path.read_bytes
+        with patch.object(Path, 'read_bytes', lambda p: b'changed test' if p == snapshot else original(p)):
+            with self.assertRaisesRegex(ValueError, 'Archived production source changed'):
+                with history.historical_sources(study, **options):
+                    self.fail('Changed historical test snapshot accepted')
+
     def test_current_production_changes_do_not_rebind_historical_results(self):
         original = Path.read_bytes
         def changed(path):

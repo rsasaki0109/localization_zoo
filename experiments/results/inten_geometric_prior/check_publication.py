@@ -68,6 +68,8 @@ def main():
         folder.symlink_to(a.worktree/'papers'/method,target_is_directory=True)
     for name in ['docs/roadmap.md','tests/test_inten_geometric_prior.py',
                  'tests/test_inten_support_information.py',
+                 'tests/test_inten_prior_control.py',
+                 'tests/test_inten_local_rigidity.py',
                  'tests/test_inten_support_source_binding.py',
                  'evaluation/scripts/verify_inten_support_history.py',
                  'evaluation/src/pcd_dogfooding.cpp','evaluation/src/inten_trace_jsonl.h']:

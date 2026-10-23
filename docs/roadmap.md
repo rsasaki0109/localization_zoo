@@ -45,6 +45,12 @@ binary hash and all estimator settings remain fixed. Initial small probes recove
 but the real scan preflight again returns HTTP 503. The current launch is not a
 completed result. Inspect its live command receipt/process before starting any
 other controller; do not run duplicate sequence jobs. Preserve the completed 01.
+After the environment returned, the original controller/native process were
+still alive. The [recovery observation](../experiments/results/inten_geometric_prior/recovered_runtime_observation/observation.json)
+(`e5d385e6`) preserves 512 processed input records with frozen input hashes and
+zero recorded reference matrix difference. It is a live progress snapshot, not
+a full-sequence accuracy result or independent native audit. Scan acquisition
+and normal Git push still fail with HTTP 503; preserve the running native state.
 Keep [PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) draft
 until the fixed all-sequence requirement and prospective retention gate finish.
 

@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_geometric_prior/analyze_adverse_cases.py",
+    "--source-root",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree",
+    "--attempt",
+    "experiments/results/inten_geometric_prior/preflight_failures/verified_batch_interrupted_01",
+    "--output",
+    "experiments/results/inten_geometric_prior/adverse_cases_after_verified_batch.json"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "c991f7230af7b5752b262bbc955aae3cbff4d70c",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792755846.9520328,
+  "exit_code": 0,
+  "wall_seconds": 0.15831922000506893,
+  "logs": {
+    ".stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

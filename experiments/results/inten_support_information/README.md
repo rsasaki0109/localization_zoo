@@ -35,10 +35,13 @@ field or per-case setting enters the native observer.
 ## Measured support loss and its limits
 
 The complete reconstruction checks42,992 class observations and27,360,255
-source-row queries, including repeated observations across arms/iterations.
-It distinguishes3,637,657 removed **valid** residuals from8,529,472 reciprocal
-rejects that would fail later native gates anyway. These are query counts,
-not unique scene-point populations. Every forward population, validity gate,
+source-row observations, including repetitions across arms/iterations.
+There are3,637,657 removed **valid** residuals. The frozen verifier field named
+`invalid_reciprocal_rejections` counts8,529,472 invalid/non-kept rows, including
+rows with no backward test. A separate complete raw-row audit (`88738af2`)
+splits this into8,185,839 tested rejections that also fail native validity and
+343,633 empty-neighbor rows with no backward predicate. Neither category is a
+lost valid residual. These are repeated row counts, not unique scene points. Every forward population, validity gate,
 backward partition, Huber/Jacobian, class H/g/cost, additive partition and actual
 solver H/g/count reconstructs at original componentwise rtol1e-10/atol1e-12.
 
@@ -68,8 +71,9 @@ information spectrum remains in the raw archives and complete report.
 Raw axis-gradient projections reveal a different loss direction. At initial
 202, facade gt changes0.888587984→-0.219212193 after filtering;204 changes
 0.671037122→-0.403371475. At08/39 it changes-5.95953280→-0.209317804, and08/45
--5.42782305→-1.24928672. With rotation fixed, positive gt opposes forward
-translation and negative gt favors it under the native minus-gradient update.
+-5.42782305→-1.24928672. For an isolated displacement along this fixed axis, positive gt opposes
+forward translation and negative gt favors it under the native minus-gradient
+convention.
 Thus the same predicate removes an opposing component in the rescue examples
 and a forward component in the adverse examples. These are raw class terms,
 not independent solved motion contributions: rotation, other classes and later
@@ -103,6 +107,7 @@ and `report/execution/`.
 /workspace/localization-env/host-venv/bin/python experiments/results/inten_support_information/build.py
 /workspace/localization-env/host-venv/bin/python experiments/results/inten_support_information/run.py
 env PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 experiments/results/inten_support_information/verify_mixed_parallel.py --output /tmp/inten_support_verification/summary.json
+/workspace/localization-env/host-venv/bin/python experiments/results/inten_support_information/counter_audit.py --output /tmp/inten_support_counter_audit.json
 ```
 
 Ten native mechanism tests exit0 (`11948146`). Every added raw line and its
@@ -122,7 +127,7 @@ Failures remain before their separately frozen verifier-only recoveries:
   old247, with maximum H difference2.862e-11. An independent Eigen-only witness
   reproduces native H with exactly zero difference (`35ee7354`).
 - The ordered checker still exits1 on08 (`b496ce6a`);08/45's largest H difference
-  is9.094e-12. Independent coordinate witnesses identify Eigen's two-double
+  is9.095e-12. Independent coordinate witnesses identify Eigen's two-double
   packet/one-scalar-tail reduction. A single generic ordered implementation
   matches every witness coordinate, with no case exception or tolerance change.
 - A batched reducer retained cumulative buffers through final-row views.
@@ -136,3 +141,20 @@ controls and input bindings all remain. The final complete checker exits0 in
 all worker processes and globally (`a2fd354d`), using every original population
 and strict criterion. This diagnoses validation inputs/arithmetic; it is not
 an optimizer repair or a softened acceptance rule.
+
+## Final local validation
+
+Receipts `8fa02101` and the complete driver/counter audit `88738af2` precede
+this note. Full Python421 tests exit0 with five existing environment skips;
+all11 new support-information regressions actually run, including the full
+independent reconstruction and comparison to the complete committed report.
+Showcase, leaderboard, paper-ready, all-case regeneration and whitespace checks
+exit0. Full-variant/paper-ratio regeneration is byte-identical. Production
+source/headers/runner/older tests, fixture golden, official paper metadata,
+site/root README and every older experimental result remain byte-preserved
+from `c09faacb`. Complete commands, runtime fingerprints and actual exits are
+retained under `checks/final/`, `checks/final_driver/` and `checks/counter_audit/`.
+The counter audit corrects only the interpretation of a frozen label; native
+rows, equation reconstructions, scores and the original verifier stay fixed.
+Final full Native/ROS2 CI evidence must refer to the exact final workflow head;
+local or historical-head success does not substitute for it.

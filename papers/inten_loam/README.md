@@ -2620,8 +2620,10 @@ stdout bytes exact. It observes every joint/refinement iteration of the
 predeclared unfiltered/common-prior reciprocal100 arms; no passive value enters
 an estimate. Numerical `a2fd354d` and complete case tables `dcfef100` precede
 interpretation. All42,992 class observations and27,360,255 repeated source-row
-queries reconstruct, separating3,637,657 removed valid residuals from8,529,472
-reciprocal rejects that would fail later gates anyway. Original settings and
+observations reconstruct, including3,637,657 removed valid residuals. The frozen
+invalid/non-kept counter8,529,472 also includes untested rows. Complete raw audit
+`88738af2` splits it into8,185,839 tested rejections that also fail native validity
+and343,633 empty-neighbor rows with no backward test. Original settings and
 07/00/DiLO01 provenance remain; all KITTI observations are development.
 
 | Fixed primary history | Unchanged length/GT | Initial removed/valid geometry | Initial kept/all longitudinal Schur |
@@ -2636,9 +2638,9 @@ reciprocal rejects that would fail later gates anyway. Original settings and
 A larger retained-information fraction does not distinguish these adverse
 cases from rescues. Initial raw facade axis gt is0.888587984→-0.219212193 at202
 and0.671037122→-0.403371475 at204, but-5.95953280→-0.209317804 at08/39 and
--5.42782305→-1.24928672 at08/45. With rotation fixed, the removed component
-opposes forward translation in these rescues and favors it in these adverse
-examples. At247's last filtered pose, edge gt reverses-0.745024029→0.203276439
+-5.42782305→-1.24928672 at08/45. For an isolated displacement along this fixed axis, the removed
+component opposes forward translation in these rescues and favors it in these
+adverse examples. At247's last filtered pose, edge gt reverses-0.745024029→0.203276439
 under the same-pose partition. This localizes signed support loss; it does not
 prove object motion or independently attribute a solved motion change to a
 class. Class H/g/cost partition additively; Schur terms do not. Mixed native
@@ -2647,7 +2649,7 @@ query, other class and paired-consensus history remains in the complete study.
 
 Ten native mechanism tests and the final full independent reconstruction exit0.
 The initial full-cloud-lattice input error, Eigen arithmetic discrepancies
-(maximum H2.862e-11 and9.094e-12), and controlled allocation-stop exit-15 remain
+(maximum H2.862e-11 and9.095e-12), and controlled allocation-stop exit-15 remain
 before their separately bound verifier-only recoveries. The final checker uses
 original componentwise rtol1e-10/atol1e-12, without native reruns or changed data.
 These passive observations improve diagnosis, not trajectory accuracy. Earlier
@@ -2656,3 +2658,9 @@ full trial, paper-table update or SOTA claim follows. Defaults and all older
 scores stay unchanged. Next localize the signed lost/retained neighborhoods
 and test temporal correspondence consistency with an independent witness,
 retaining all rescue/adverse controls before proposing any selection rule.
+
+Full local Python421 tests exit0 with five existing environment skips; all11 new
+support-information regressions run. Complete receipts `8fa02101`/`88738af2`
+precede this note. Showcase/leaderboard/paper-ready/case checks pass, table
+regeneration is byte-identical, and every older production/source/result,
+fixture golden and paper-metadata witness is preserved from `c09faacb`.

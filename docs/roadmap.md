@@ -780,19 +780,24 @@ independent. Each item says what "done" means.
     The [passive native support study](../experiments/results/inten_support_information/README.md)
     preserves all558 complete outcomes and original stdout bytes exactly while
     partitioning every query of the predeclared passive arms at matched poses.
-    All42,992 class observations/27,360,255 repeated row queries reconstruct:
-    3,637,657 valid residuals are removed, separately from8,529,472 rejects that
-    would fail later gates. Numerical `a2fd354d`/all-case `dcfef100` precede prose.
+    All42,992 class observations/27,360,255 repeated row observations reconstruct:
+    3,637,657 valid residuals are removed. The frozen invalid/non-kept counter
+    8,529,472 includes untested rows; complete raw audit `88738af2` separates
+    8,185,839 tested rejections that also fail native validity from343,633
+    empty-neighbor rows without backward testing. Numerical `a2fd354d`/all-case `dcfef100` precede prose.
     Initial kept/all longitudinal Schur fractions are0.569157979/0.595870322 at
     rescued202/204 but0.637155545/0.716923510/0.692297857 at adverse247/08-39/08-45.
     A larger retained fraction does not distinguish recovery. Raw facade axis gt
     changes0.888587984→-0.219212193 at202 but-5.95953280→-0.209317804 at08/39;
-    the same predicate removes opposing/forward components respectively with
-    rotation fixed. At247's late filtered pose edge gt reverses-0.745024029→
+    the same predicate removes opposing/forward components respectively for an
+    isolated displacement along this fixed axis. At247's late filtered pose edge gt reverses-0.745024029→
     0.203276439. These are coupled raw equation terms, not independent motion
     effects or proof of static objects. Every case/class/refinement remains.
     Full input/arithmetic/allocation failures survive verifier-only recovery;
     original strict thresholds/data stay fixed and final complete checks exit0.
+    Full Python421 tests exit0 (five existing environment skips); all11 new
+    regressions run. Canonical preservation and table/case regeneration pass
+    (`8fa02101`/`88738af2`).
     Earlier candidate gates stay failed: no retuning, production/full trial or
     paper-table change. Next localize signed lost/retained neighborhoods and test
     temporal correspondence consistency with an independent witness before any

@@ -89,6 +89,33 @@ class SerialWorkers(ThreadPoolExecutor):
         super().__init__(max_workers=1, **kwargs)
 
 
+@contextmanager
+def bind_support_sources(verifier):
+    """Bind every nested recovery verifier, including its final source audit."""
+    with historical_sources(verifier.E) as root:
+        pending = [verifier]
+        seen = set()
+        previous = []
+        while pending:
+            module = pending.pop()
+            if id(module) in seen:
+                continue
+            seen.add(id(module))
+            if hasattr(module, 'W'):
+                previous.append((module, module.W))
+            for name in ('base', 'field', 'checker'):
+                child = getattr(module, name, None)
+                if child is not None:
+                    pending.append(child)
+        try:
+            for module, _ in previous:
+                module.W = root
+            yield root
+        finally:
+            for module, value in reversed(previous):
+                module.W = value
+
+
 def validate_in(verifier, folder):
     """Run every frozen check serially; restore module state even on error.
 
@@ -96,13 +123,10 @@ def validate_in(verifier, folder):
     group population and final global checks are executed unchanged. A pair of
     large reconstruction workers exceeds this environment's available memory.
     """
-    with historical_sources(verifier.E) as root:
-        previous = verifier.checker.W
+    with bind_support_sources(verifier):
         previous_executor = verifier.ThreadPoolExecutor
-        verifier.checker.W = root
         verifier.ThreadPoolExecutor = SerialWorkers
         try:
             return verifier.validate_in(Path(folder))
         finally:
-            verifier.checker.W = previous
             verifier.ThreadPoolExecutor = previous_executor

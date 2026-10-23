@@ -21,6 +21,50 @@ ARCHIVE = STUDY / 'checks/build/sources' / (SOURCE + '.gz')
 
 
 class HistoricalSourceBindingTest(unittest.TestCase):
+    def support_verifier(self):
+        spec = importlib.util.spec_from_file_location(
+            'support_nested_preflight', STUDY / 'verify_mixed_parallel.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    def test_original_nested_global_checks_reach_reconstruction(self):
+        verifier = self.support_verifier()
+        class ReachedReconstruction(Exception):
+            pass
+        with history.bind_support_sources(verifier):
+            verifier.bindings()
+            with patch.object(verifier.checker, 'group_result', side_effect=ReachedReconstruction):
+                with self.assertRaises(ReachedReconstruction):
+                    verifier.base.validate()
+
+    def test_nested_recovery_source_corruption_is_still_rejected(self):
+        verifier = self.support_verifier()
+        target = STUDY / 'field_source_recovery_protocol.json'
+        original = Path.read_text
+        def changed(path, *args, **kwargs):
+            raw = original(path, *args, **kwargs)
+            if path == target:
+                data = json.loads(raw)
+                data['source_sha256'][SOURCE] = '0' * 64
+                return json.dumps(data)
+            return raw
+        with history.bind_support_sources(verifier), patch.object(Path, 'read_text', changed):
+            with patch.object(verifier.checker, 'group_result', side_effect=RuntimeError('must not reconstruct')):
+                with self.assertRaisesRegex(AssertionError, 'Input recovery source changed'):
+                    verifier.base.validate()
+
+    def test_nested_source_roots_restore_after_failure(self):
+        verifier = self.support_verifier()
+        modules = [verifier, verifier.base, verifier.base.base,
+                   verifier.base.base.field, verifier.checker]
+        before = [m.W for m in modules]
+        with self.assertRaisesRegex(RuntimeError, 'final audit'):
+            with history.bind_support_sources(verifier) as root:
+                self.assertTrue(all(m.W == root for m in modules))
+                raise RuntimeError('final audit')
+        self.assertEqual([m.W for m in modules], before)
+
     def test_all_affected_studies_pass_full_source_preflight(self):
         studies = [STUDY, STUDY.parent / 'inten_prior_control', STUDY.parent / 'inten_local_rigidity']
         for study in studies:

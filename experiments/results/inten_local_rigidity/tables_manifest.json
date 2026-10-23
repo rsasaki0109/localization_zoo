@@ -1,0 +1,27 @@
+{
+  "files": {
+    "cases.md": {
+      "path": "cases.md",
+      "storage": "plain",
+      "bytes": 67636,
+      "sha256": "4be38cb83fc55e88283a94a5d798095c4717b5c01793a5ea9e6c17613204a42d",
+      "stored_sha256": "4be38cb83fc55e88283a94a5d798095c4717b5c01793a5ea9e6c17613204a42d"
+    },
+    "cases.summary.json": {
+      "path": "cases.summary.json.xz",
+      "storage": "xz",
+      "bytes": 109286053,
+      "sha256": "f6f8954464d8ae9ce327c422fd3098715eaa1830de9092630c87906e59fd5fbe",
+      "stored_sha256": "060b37342af9dbe35303ea1044c96354fad430f8fd3e37d242617cd768ebbaaa"
+    },
+    "locations.md": {
+      "path": "locations.md.xz",
+      "storage": "xz",
+      "bytes": 20881203,
+      "sha256": "7296558356aeaae47e7f69ff3ad0fb742683ba46040eed9efdd3165f6a48dce4",
+      "stored_sha256": "f2e3766cbe5706909c6df12b8d4eeca2f889e024689093d49034a2cc7712a411"
+    }
+  },
+  "compression": "XZ CRC64 preset9 EXTREME, complete original bytes; no row omission, precision change or numerical normalization",
+  "pack_source_sha256": "8e3a400aabd4d0ed955c45e708ccd11689d021218cc9a8c824dc2241ea3d5108"
+}

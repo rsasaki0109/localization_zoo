@@ -101,7 +101,9 @@ def bind_support_sources(verifier):
             if id(module) in seen:
                 continue
             seen.add(id(module))
-            if hasattr(module, 'W'):
+            # Preserve the scheduler's original worker cwd and commands. Only
+            # its nested recovery/source audits need the archived production.
+            if module is not verifier and hasattr(module, 'W'):
                 previous.append((module, module.W))
             for name in ('base', 'field', 'checker'):
                 child = getattr(module, name, None)

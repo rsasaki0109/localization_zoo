@@ -56,12 +56,14 @@ class HistoricalSourceBindingTest(unittest.TestCase):
 
     def test_nested_source_roots_restore_after_failure(self):
         verifier = self.support_verifier()
-        modules = [verifier, verifier.base, verifier.base.base,
+        modules = [verifier.base, verifier.base.base,
                    verifier.base.base.field, verifier.checker]
         before = [m.W for m in modules]
+        scheduler_root = verifier.W
         with self.assertRaisesRegex(RuntimeError, 'final audit'):
             with history.bind_support_sources(verifier) as root:
                 self.assertTrue(all(m.W == root for m in modules))
+                self.assertEqual(verifier.W, scheduler_root)
                 raise RuntimeError('final audit')
         self.assertEqual([m.W for m in modules], before)
 

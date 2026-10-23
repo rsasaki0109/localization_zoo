@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "git",
+    "push",
+    "origin",
+    "HEAD:codex/inten-geometric-prior"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "0f34cb254514d9aacd2ed624737edb2742386e57",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null
+  },
+  "start_unix": 1792750846.7225194,
+  "exit_code": 0,
+  "wall_seconds": 2.769363149011042,
+  "logs": {
+    ".stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".stderr": "bdc3a8106e5471435359e0d216dee6992fb7bd6a374c19e7e44b8d5cd017b1d7"
+  }
+}

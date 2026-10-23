@@ -1,0 +1,122 @@
+[
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_inten_independent_onset.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_full_variant_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_paper_ratio_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_diagnose_kitti_steps.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_external_odometry_evaluator.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "exit_code": 0
+  }
+]

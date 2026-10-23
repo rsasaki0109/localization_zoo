@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "docker",
+    "exec",
+    "localization-zoo-dev",
+    "rmdir",
+    "/dev/shm/inten-independent-onset-20261023"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/worktree",
+  "source_commit": "3653c434433c359d5e11da9df789ed250dbeaf8f",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792740628.2660503,
+  "exit_code": 0,
+  "wall_seconds": 0.06424134102417156,
+  "logs": {
+    ".stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

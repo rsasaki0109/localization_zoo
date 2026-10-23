@@ -1,0 +1,86 @@
+{
+  "files": {
+    "analyze.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/analyze.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "analyze.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "analyze.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/analyze.stdout.log",
+      "bytes": 139,
+      "sha256": "1c53a0429740604a511605a0f743c867bec2692451d85b7024f3a87acf60162e",
+      "storage": "gzip",
+      "path": "analyze.stdout.log.gz",
+      "stored_sha256": "c392d8f9ca61a691ab46fa72bb630efd485f7529e299529de9588475d61aff61"
+    },
+    "analyze_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/analyze_command.json",
+      "bytes": 897,
+      "sha256": "8052f703d163284af990b521ec39d7be516b9f803ebe533a4fbb196d6ef41b27",
+      "storage": "verbatim",
+      "path": "analyze_command.json",
+      "stored_sha256": "8052f703d163284af990b521ec39d7be516b9f803ebe533a4fbb196d6ef41b27"
+    },
+    "mechanisms.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/mechanisms.stderr.log",
+      "bytes": 1356,
+      "sha256": "ef3a898d429bf008329abab1a15da573b55694e7fd7d4be9d4992de7071352ad",
+      "storage": "gzip",
+      "path": "mechanisms.stderr.log.gz",
+      "stored_sha256": "378552d91da33074cf1558149bf80033879586aeadea1cb9bf4b8ed2df1d05fc"
+    },
+    "mechanisms.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/mechanisms.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "mechanisms.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "mechanisms_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/mechanisms_command.json",
+      "bytes": 1618,
+      "sha256": "262bcbcffa40cdf638428ef0db2c9cde91dcbb979d2a5b02137a423149f92250",
+      "storage": "verbatim",
+      "path": "mechanisms_command.json",
+      "stored_sha256": "262bcbcffa40cdf638428ef0db2c9cde91dcbb979d2a5b02137a423149f92250"
+    },
+    "pack.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/pack.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "pack.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "pack.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/pack.stdout.log",
+      "bytes": 77,
+      "sha256": "41f0c1e42094215d7f68546026471b5aaa2289d9135d7409f1a24679139631eb",
+      "storage": "gzip",
+      "path": "pack.stdout.log.gz",
+      "stored_sha256": "01ffa61e27389fae62f57a97f58c14ca6ebd7089157a30115b7fd25aacdbcb83"
+    },
+    "pack_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/pack_command.json",
+      "bytes": 975,
+      "sha256": "74bf3542b1fdd06f4baf2a367e4997b5afe6e6544f827d8c61b3b3cd5c91c609",
+      "storage": "verbatim",
+      "path": "pack_command.json",
+      "stored_sha256": "74bf3542b1fdd06f4baf2a367e4997b5afe6e6544f827d8c61b3b3cd5c91c609"
+    },
+    "result.json": {
+      "original_path": "/tmp/localization-zoo-inten-local-rigidity-20261023/execution/result.json",
+      "bytes": 99,
+      "sha256": "f986206be7fe4dd6afffe3c074e3cdb645bad964e056724b8cf5c11e4b6ba7bc",
+      "storage": "verbatim",
+      "path": "result.json",
+      "stored_sha256": "f986206be7fe4dd6afffe3c074e3cdb645bad964e056724b8cf5c11e4b6ba7bc"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

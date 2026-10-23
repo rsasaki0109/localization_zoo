@@ -1,0 +1,55 @@
+{
+  "files": {
+    "summary.json": {
+      "path": "summary.json.xz",
+      "bytes": 64767589,
+      "sha256": "36668fe90d73b61fa3bb68eb4e7f7c7e6caa341fff68aae35845641a5be67d4d",
+      "stored_sha256": "0bcec2803acc646d6b5a0e42b9dd43572e1b5fac87c81e8bda26c763eee32ce4"
+    },
+    "old/points.csv": {
+      "path": "old/points.csv.xz",
+      "bytes": 5429376,
+      "sha256": "573d7c7470277a0010e7fd786e1643e3e5caebc544cda554173ce9627511b2da",
+      "stored_sha256": "90ce105030e2e2f3aadd992579e3917338051b0870304789dc764c803f7f57b4"
+    },
+    "01/points.csv": {
+      "path": "01/points.csv.xz",
+      "bytes": 3936447,
+      "sha256": "b28c1a4602ff2516725a145bf4dc69f7aa6142c72a67fe376b349835b640f4be",
+      "stored_sha256": "65823125e017fefd9a288fbb7df41731672547c8d5a069183a02fd023f5cc6ad"
+    },
+    "02/points.csv": {
+      "path": "02/points.csv.xz",
+      "bytes": 7226183,
+      "sha256": "abf6f9aeeb022a0b3156b5ae487c95295c5d5a6fda5c65261876774f67096b8a",
+      "stored_sha256": "f28c0a79f079d057fa85d35531b42707b676d60bb4a1a6f8ea09356a21485849"
+    },
+    "08/points.csv": {
+      "path": "08/points.csv.xz",
+      "bytes": 10156851,
+      "sha256": "6326097e2825d255b6620867f5fd34a5d3ef0e02586b2ba1905f560463c2e30e",
+      "stored_sha256": "08a0db253b9d774a5d54a6244327f6fc65ba69db48f6551fa6f8c46f456f40e6"
+    },
+    "execution/analyze_command.json": {
+      "path": "execution/analyze_command.json.xz",
+      "bytes": 897,
+      "sha256": "8052f703d163284af990b521ec39d7be516b9f803ebe533a4fbb196d6ef41b27",
+      "stored_sha256": "535ef326aed48b22cbe24707d472bd33abba422869f04fd0117937b4885bfd78"
+    },
+    "execution/analyze.stdout.log": {
+      "path": "execution/analyze.stdout.log.xz",
+      "bytes": 139,
+      "sha256": "1c53a0429740604a511605a0f743c867bec2692451d85b7024f3a87acf60162e",
+      "stored_sha256": "160674f58a41f85bf7e2df87ad2c9e374f59d34e00aaef75e8d8275b0b7a674f"
+    },
+    "execution/analyze.stderr.log": {
+      "path": "execution/analyze.stderr.log.xz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "0040f94d11d0039505328a90b2ff48968db873e9e7967307631bf40ef5679275"
+    }
+  },
+  "compression": "XZ CRC64 preset9 EXTREME; complete original bytes, full precision, no omitted rows",
+  "pack_source_sha256": "405827a82f505e0422106d7ee1d9e6179a7f941ae3133849d9904dbd72a4afed",
+  "report_reader_sha256": "561c992bc006bd54b5a805fabfbee5c5231ee8a77f6667d3645c8270d22f7e4d"
+}

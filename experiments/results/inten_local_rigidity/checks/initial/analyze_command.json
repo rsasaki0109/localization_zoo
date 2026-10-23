@@ -1,0 +1,22 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_local_rigidity/analyze.py",
+    "--output-dir",
+    "/tmp/localization-zoo-inten-local-rigidity-20261023/output"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "8af883ceb1cbbcaa59fd205b31b1915cef4ee044",
+  "finished_source_commit": "8af883ceb1cbbcaa59fd205b31b1915cef4ee044",
+  "exit_code": 0,
+  "started_unix": 1792730435.9840262,
+  "finished_unix": 1792730591.3048453,
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "TMPDIR": "/tmp/localization-zoo-inten-local-rigidity-20261023"
+  }
+}

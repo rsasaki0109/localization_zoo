@@ -8,6 +8,7 @@ def module(name,path):
     s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('support_checked_mixed_parallel_field',E/'verify_mixed_parallel.py')
 io=module('support_report_reader',E/'report_io.py')
+history=module('support_historical_source_binding',E.parents[2]/'evaluation/scripts/verify_inten_support_history.py')
 
 class SupportInformationTest(unittest.TestCase):
     def line_fixture(self):
@@ -25,7 +26,7 @@ class SupportInformationTest(unittest.TestCase):
         return record,clouds
     def test_complete_histories_native_queries_and_information_report(self):
         with tempfile.TemporaryDirectory(prefix='support_complete_check_') as folder:
-            try:actual=v.validate_in(Path(folder))
+            try:actual=history.validate_in(v,Path(folder))
             except Exception:
                 for path in Path(folder).glob('*.stderr.log'):
                     print(path.name+'\n'+path.read_text(),file=sys.stderr)

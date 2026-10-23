@@ -76,8 +76,9 @@ def main():
     for study_name in ['inten_independent_onset','inten_geometric_prior']:
         study=Path('experiments/results')/study_name
         copy_evidence(a.worktree/study,dst/study)
-    for manifest in (a.worktree/'experiments').glob('inten_kitti_seq_*_full_geometric_prior_matrix.json'):
-        shutil.copy2(manifest,dst/'experiments'/manifest.name)
+    for index in range(11):
+        name=f'experiments/inten_kitti_seq_{index:02d}_full_geometric_prior_matrix.json'
+        (dst/name).write_bytes(subprocess.check_output(['git','show','HEAD:'+name],cwd=a.worktree))
     commands=[['evaluation/scripts/refresh_study_docs.py'],
               ['evaluation/scripts/generate_full_variant_table.py'],
               ['evaluation/scripts/generate_paper_ratio_table.py'],

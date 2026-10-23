@@ -32,5 +32,8 @@ int main(){try{
   std::cout<<"{\"type\":\"system\",\"count\":"<<count<<",\"H\":";array(H);std::cout<<",\"g\":";array(g);std::cout<<"}\n";
   // Explicit operation-order controls for Eigen's fixed-size reductions.
   Eigen::Vector3d a(1e16,-1e16,1.);std::cout<<"{\"type\":\"sum_control\",\"eigen\":"<<a.sum()<<",\"left\":"<<(a[0]+a[1])+a[2]<<",\"right\":"<<a[0]+(a[1]+a[2])<<"}\n";
+  Eigen::Vector3d b(1e8,1.,1.);std::cout<<"{\"type\":\"reduction_controls\",\"dot\":"<<a.dot(Eigen::Vector3d::Ones())
+    <<",\"norm2\":"<<b.squaredNorm()<<",\"left_norm2\":"<<(b[0]*b[0]+b[1]*b[1])+b[2]*b[2]
+    <<",\"right_norm2\":"<<b[0]*b[0]+(b[1]*b[1]+b[2]*b[2])<<"}\n";
   return 0;
 }catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

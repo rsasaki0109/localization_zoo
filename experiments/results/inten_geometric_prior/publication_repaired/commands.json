@@ -1,0 +1,61 @@
+[
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys,unittest; sys.path.insert(0,'tests'); unittest.main(module=None,argv=['unittest', 'test_inten_geometric_prior.GeometricPriorManifestTest.test_all_sequences_share_settings_and_keep_no_gt_seed', 'test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_cost', 'test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_population', 'test_inten_dense_continuation.DenseContinuationTest.test_checker_rejects_changed_selection', 'test_inten_support_information.SupportInformationTest.test_changed_full_cloud_cache_binding_is_rejected', 'test_inten_support_information.SupportInformationTest.test_complete_histories_native_queries_and_information_report'])"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired",
+    "exit_code": 1
+  }
+]

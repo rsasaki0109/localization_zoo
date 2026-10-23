@@ -37,6 +37,7 @@
 #include <vector>
 
 namespace localization_zoo {
+namespace kiss_icp { class KISSICPPipeline; }
 namespace inten_loam {
 
 struct InTenLoamPaperParams {
@@ -138,6 +139,12 @@ struct InTenLoamPaperParams {
   // rotation to prevent recursive non-rigid roundoff). Fallback and deskew still
   // use last accepted S2S motion; mapping-off/forced diagnostics are unchanged.
   bool s2s_mapped_prior = false;
+  // Repository hybrid extension, NOT in the paper; default off. An independent
+  // KISS-ICP point-to-point map supplies the current relative motion to S2S,
+  // including the weak translation-prior target. InTEn still refines the pose
+  // and updates its own map. Takes precedence over s2s_mapped_prior. Requires
+  // pre-deskewed scans (deskew=0); incompatible with forced-pose diagnostics.
+  bool s2s_geometric_prior = false;
   // Opt-in repository extension, not in the paper. At the first S2S system,
   // marginalize rotation at the sensor origin. Add a translation prior only
   // where information is below this fraction of its largest eigenvalue,
@@ -263,6 +270,8 @@ struct InTenLoamPaperTrace {
   bool initialization = false;
   PaperSolverTrace s2s, s2m;
   PaperConsensusTrace consensus;
+  bool geometric_prior_used = false;
+  Eigen::Matrix4d geometric_relative = Eigen::Matrix4d::Identity();
   bool s2s_fallback = false;
   bool s2s_dor_called = false;
   size_t s2s_dor_masked_facades = 0;
@@ -334,6 +343,7 @@ private:
   void insert(const PaperFrame& curr, const Eigen::Matrix4d& T_w, const std::vector<char>& dynamic);
 
   InTenLoamPaperParams params_;
+  std::shared_ptr<kiss_icp::KISSICPPipeline> geometric_motion_;
   std::shared_ptr<Index> prev_;   // previous frame and its kd-trees
   std::shared_ptr<Map> map_;
   Eigen::Matrix4d odom_ = Eigen::Matrix4d::Identity();    // T_w'k (S2S chain)

@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired/tests",
+    "-p",
+    "test_inten_support_source_binding.py"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "74844426bea009345e5f8b727e562e138104ee93",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792752283.3068106,
+  "exit_code": 0,
+  "wall_seconds": 0.3127765189856291,
+  "logs": {
+    ".stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".stderr": "50a3d9421d3a1ac28f292565f8eecd3b55d82e5bc813e054f784a46fc2700307"
+  }
+}

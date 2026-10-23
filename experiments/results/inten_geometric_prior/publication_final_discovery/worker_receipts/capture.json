@@ -1,0 +1,45 @@
+{
+  "scope": "Exact temporary outputs of the fresh discovery, captured after each completed worker receipt.",
+  "groups": {
+    "old": {
+      "exit_code": 0,
+      "output_sha256": "03606d04af5db48f67719a3f81ecfd96a0b3ed4503c2c6d97c6ed572b07e8149",
+      "files_sha256": {
+        "old_command.json": "d30294fd4d57ef6bab1318c80c21103fb0f77fc1137e2b48690d3b2a07e6ee06",
+        "old.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "old.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "old.json.gz": "24fce08f33cd8641c3570e85dbc65d9ffdb82f3a6c49e8f769d0a99a3c29abb3"
+      }
+    },
+    "01": {
+      "exit_code": 0,
+      "output_sha256": "121ebf92981a7f14bc869f4111000414e19992ba38356a833943efecb575ba82",
+      "files_sha256": {
+        "01_command.json": "b80fec14cbcdc8939c39b636c4a91d568bc49d24c0183972748543cf9224b84a",
+        "01.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "01.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "01.json.gz": "52a92a43d625933a81fb11138b12bfd47812efc9f7d107e836899db80088a87e"
+      }
+    },
+    "08": {
+      "exit_code": 0,
+      "output_sha256": "deee239df9f5b8ed10768960293c7ed546a566e3abbb07fd43665fcbe1461211",
+      "files_sha256": {
+        "08_command.json": "36308fe052332d82b98c639c4bb70c4da41882e62f23b873985838e609a2cfce",
+        "08.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "08.json.gz": "c9a0c5abafd1f3941d7a6adde3655d4bd0fbc8b0564e3b44063064ab5f48f4a5"
+      }
+    },
+    "02": {
+      "exit_code": 0,
+      "output_sha256": "90c6177307ddb5efddce1229a3fe14466fba3cf93eeb29403002bc2dff8731d2",
+      "files_sha256": {
+        "02_command.json": "5ea13b2107215eb789f044c8c055a64166efac2fd42f4ce61186e3ce427eff58",
+        "02.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "02.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "02.json.gz": "af960640b67be42154e5f038dd41df9153c341b4e092d4e6c3c2b4ef900436f9"
+      }
+    }
+  }
+}

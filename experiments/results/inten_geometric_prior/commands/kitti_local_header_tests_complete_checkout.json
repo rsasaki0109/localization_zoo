@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_lidar_sota_tools.py"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "79e96baed606f9a70dc33c7a790c242b3336dcce",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792769885.584658,
+  "exit_code": 0,
+  "wall_seconds": 0.17816672002663836,
+  "logs": {
+    ".stdout": "eeb025965753045178c061bac4af12da3b41c4ff9196089e71a99ca8552b9dc1",
+    ".stderr": "f9fd4f8650237b40deee9d1064a6bd924ff32c2e67ad9fe7e7b67746b1c67332"
+  }
+}

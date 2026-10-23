@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "base_commit": "5d6b8662b90634ef685745fee6727724e0722383",
+  "hypothesis": "Independent geometric motion and translation-prior targets can prevent native feature-history feedback from sustaining the KITTI 01 collapse.",
+  "method_identity": "Repository hybrid InTEn + independent Zoo KISS-ICP initializer, not paper InTEn and not official upstream KISS-ICP.",
+  "selection": "Hypothesis selected from committed independent-onset study on 01; all KITTI is development. Baseline range/elevation selected on 07/00; mapped prior and weak ratio 0.03 / PCA settings inherited unchanged from inten_facade_pca. Geometric settings copied from upstream-mechanics defaults, no sweep.",
+  "sequence_order": ["01", "00", "02", "03", "04", "05", "06", "07", "08", "09", "10"],
+  "baseline": {"s2m_plane_max_dist": 0.05, "accelerated": true, "s2s_mapped_prior": true, "s2s_translation_prior_ratio": 0.03, "s2s_ground_pca": true, "s2s_facade_pca": true, "max_range": 120.0},
+  "candidate_delta": {"s2s_geometric_prior": true},
+  "geometric_parameters": {"voxel_size": 1.0, "min_range": 0.0, "max_range": 120.0, "local_map_radius": 120.0, "map_cleanup_interval": 1, "max_points_per_voxel": 20, "initial_threshold": 2.0, "max_icp_iterations": 500, "convergence_criterion": 0.0001, "registration_voxel_multiplier": 1.5, "neighbor_voxel_radius": 1, "geman_mcclure_kernel": true, "map_min_point_distance": "sqrt(1/20)", "use_model_deviation_threshold": true},
+  "input": "Raw .bin XYZI hashes must equal archived facade study; native float arithmetic elevation 0.17 degrees, finite XYZI, strict 1 < r < 120. No GT in native runner. Continuous states from frame zero. No deskew.",
+  "transport": "One sequence at a time, bounded batches using the existing official fetch script. Each verified scan is sent to a persistent native process then removed; batches never reset estimator state. Retain per-scan hash, order, native outputs and all command exits.",
+  "controls": "Run current baseline and candidate in the same executable on every input. Compare baseline unanchored poses to every archived full-precision facade trace (max matrix error <= 1e-8); mismatch invalidates comparison and must be diagnosed without retuning.",
+  "metrics": "Official KITTI 100-800 m RTE and ATE for every full sequence; same external evaluator. Also retain complete local step diagnostics and original 01 adverse cases (202,215,420).",
+  "prospective_retention_gate": "All controls valid and all sequences complete; candidate geometric-mean RTE lower than baseline, and no sequence RTE above max(1.10*baseline, baseline+0.05 percentage points). This is an experimental retention gate, not a paper/SOTA claim. Record every negative regardless of gate.",
+  "stopping_rule": "One fixed candidate. No changed constants after reading any new result. If it fails, retain the failure and do not begin another parameter sweep. Historical scores and paper-variant eligibility remain unchanged."
+}

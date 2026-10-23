@@ -1,0 +1,6 @@
+{
+  "runner_container_path": "/dev/inten-geometric-prior-20261023/build/stream_runner",
+  "runner_sha256": "404c4dca7cf4277665106f3102f4a5ac180164bf968de0760911da055078774d",
+  "source_commit": "8faada59d8f5e7c401e82a72791bc303a81131e5",
+  "frozen_common_sha256": "c6088b7a3e42f517c570d660e7e01351665c5c3de643a4b456bbebb1927036b8"
+}

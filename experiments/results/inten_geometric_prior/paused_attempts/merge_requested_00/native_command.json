@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "docker",
+    "exec",
+    "-i",
+    "-e",
+    "OMP_NUM_THREADS=1",
+    "-e",
+    "OPENBLAS_NUM_THREADS=1",
+    "localization-zoo-dev",
+    "/dev/inten-geometric-prior-20261023/build/stream_runner"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "native_source_commit": "8faada59d8f5e7c401e82a72791bc303a81131e5",
+  "controller_source_commit": "8bbc65fbd313691bd402973a900a15bcb09aa813",
+  "binary_sha256": "404c4dca7cf4277665106f3102f4a5ac180164bf968de0760911da055078774d",
+  "input_manifest_sha256": "28d7acf6b7af2cbc704df0cfec2a2477f31af3d1d93f10ff183c0bb240b86a5d",
+  "trace_shards": {
+    "part-00000.gz": "17f968c0fa3042fa1b3858b4b80aa41c1cb52fec46c37f480ceef4cff13ac3c7",
+    "part-00001.gz": "81530720dde8075ccdfcd0276e6057ed6ece80eca5aaf061d1b499d5d8664cd8",
+    "part-00002.gz": "ce323c85439638d40f5cc91063f4a4c90a8fd3a49facaeba705afec875bd1b5b",
+    "part-00003.gz": "4d48e655bb8eb6e2a63288f11005c0e2c0dee9997728ee5ae56ca155a1102b1e"
+  },
+  "exit_code": null
+}

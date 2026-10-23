@@ -1,0 +1,13 @@
+{
+  "selection": "The first strict numerical failure in the complete serial verification, 08/46/mode14/joint/iteration1/facade. Diagnostic only; no threshold or estimator change.",
+  "archive_sha256": "1fbefeb156f584041b7f6dbebf2779f61cf82b571f97d0cb3fa86e19bdbef57b",
+  "key": [
+    46,
+    14,
+    false,
+    1,
+    2
+  ],
+  "query_sha256": "149ca66194781f9a30de24443e07145df05ee8fb2eec95805aa014393b9cb684",
+  "clouds_sha256": "20aa7f1213fffc4bf6145ee40cfc57c1a42576751016492204d8b5c62ef29d61"
+}

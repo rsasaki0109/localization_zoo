@@ -1,0 +1,138 @@
+[
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "localization-zoo-dev",
+      "mkdir",
+      "-p",
+      "/dev/inten-geometric-prior-20261023"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "stdin_sha256": null
+  },
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "-i",
+      "localization-zoo-dev",
+      "tar",
+      "xf",
+      "-",
+      "-C",
+      "/dev/inten-geometric-prior-20261023"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "stdin_sha256": "e4775b6e6b3ee8cff957f929d1bd64d65ca447d5fd974bd657bbc2d31a41dacc"
+  },
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "TMPDIR=/dev/inten-geometric-prior-20261023",
+      "localization-zoo-dev",
+      "cmake",
+      "-S",
+      "/dev/inten-geometric-prior-20261023/experiments/results/inten_geometric_prior",
+      "-B",
+      "/dev/inten-geometric-prior-20261023/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DSOURCE_ROOT=/dev/inten-geometric-prior-20261023",
+      "-DFROZEN_COMMON_LIBRARY=/workspace/localization-env/inten-natural-traces/build/common/liblocalization_common.a"
+    ],
+    "exit_code": 0,
+    "stdout": "-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n-- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)\n-- looking for PCL_COMMON\n-- looking for PCL_OCTREE\n-- looking for PCL_IO\n-- looking for PCL_SEARCH\n-- looking for PCL_SAMPLE_CONSENSUS\n-- looking for PCL_FILTERS\n-- looking for PCL_KDTREE\n-- Found required Ceres dependency: Eigen version 3.4.0 in /usr/include/eigen3\n-- Found required Ceres dependency: glog\n-- Found required Ceres dependency: gflags\n-- Found Ceres version: 2.0.0 installed in: /usr with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SuiteSparse, CXSparse, SchurSpecializations, Multithreading]\n-- Configuring done\n-- Generating done\n-- Build files have been written to: /dev/inten-geometric-prior-20261023/build\n",
+    "stderr": "** WARNING ** io features related to pcap will be disabled\n** WARNING ** io features related to png will be disabled\n",
+    "stdin_sha256": null
+  },
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "TMPDIR=/dev/inten-geometric-prior-20261023",
+      "localization-zoo-dev",
+      "cmake",
+      "--build",
+      "/dev/inten-geometric-prior-20261023/build",
+      "-j1"
+    ],
+    "exit_code": 0,
+    "stdout": "Consolidate compiler generated dependencies of target kiss_icp\n[ 14%] Built target kiss_icp\nConsolidate compiler generated dependencies of target inten_loam\n[ 35%] Built target inten_loam\nConsolidate compiler generated dependencies of target stream_runner\n[ 57%] Built target stream_runner\nConsolidate compiler generated dependencies of target test_kiss_icp\n[ 71%] Built target test_kiss_icp\nConsolidate compiler generated dependencies of target test_inten_loam\n[ 85%] Built target test_inten_loam\nConsolidate compiler generated dependencies of target test_inten_loam_paper\n[ 92%] Building CXX object inten_loam/CMakeFiles/test_inten_loam_paper.dir/test/test_inten_loam_paper.cpp.o\n[100%] Linking CXX executable test_inten_loam_paper\n[100%] Built target test_inten_loam_paper\n",
+    "stderr": "",
+    "stdin_sha256": null
+  },
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "TMPDIR=/dev/inten-geometric-prior-20261023",
+      "localization-zoo-dev",
+      "ctest",
+      "--test-dir",
+      "/dev/inten-geometric-prior-20261023/build",
+      "--output-on-failure"
+    ],
+    "exit_code": 0,
+    "stdout": "Internal ctest changing into directory: /dev/inten-geometric-prior-20261023/build\nTest project /dev/inten-geometric-prior-20261023/build\n    Start 1: test_kiss_icp\n1/3 Test #1: test_kiss_icp ....................   Passed    0.42 sec\n    Start 2: test_inten_loam\n2/3 Test #2: test_inten_loam ..................   Passed    0.02 sec\n    Start 3: test_inten_loam_paper\n3/3 Test #3: test_inten_loam_paper ............   Passed   76.30 sec\n\n100% tests passed, 0 tests failed out of 3\n\nTotal Test time (real) =  76.74 sec\n",
+    "stderr": "",
+    "stdin_sha256": null
+  },
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "TMPDIR=/dev/inten-geometric-prior-20261023",
+      "localization-zoo-dev",
+      "cat",
+      "/dev/inten-geometric-prior-20261023/build/stream_runner"
+    ],
+    "exit_code": 0,
+    "stderr": "",
+    "stdin_sha256": null,
+    "binary_sha256": "404c4dca7cf4277665106f3102f4a5ac180164bf968de0760911da055078774d"
+  },
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "TMPDIR=/dev/inten-geometric-prior-20261023",
+      "localization-zoo-dev",
+      "cat",
+      "/dev/inten-geometric-prior-20261023/build/inten_loam/test_inten_loam_paper"
+    ],
+    "exit_code": 0,
+    "stderr": "",
+    "stdin_sha256": null,
+    "binary_sha256": "21cd0bd5ddffd0693e6d407bb80cb775b9f5d24f6019114a8e8e9fcf18debd0e"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_final_discovery/experiments/results/inten_support_information/verify_mixed_parallel.py",
+    "--group",
+    "01",
+    "--output",
+    "/tmp/support_complete_check_4gy1zhhe/01.json"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_final_discovery",
+  "exit_code": 0,
+  "started_unix": 1792759903.1054564,
+  "finished_unix": 1792760213.0967813,
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "output_sha256": "121ebf92981a7f14bc869f4111000414e19992ba38356a833943efecb575ba82",
+  "producer_sha256": "1fec42b678e9c7de0c88e65844d2f0aeb7e51d06a7d783b3b45bf170f5ab859c"
+}

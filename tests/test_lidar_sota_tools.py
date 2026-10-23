@@ -76,7 +76,7 @@ class KittiSelectiveFetchTests(unittest.TestCase):
             with mock.patch.object(
                 self.module.urllib.request,
                 "urlopen",
-                return_value=FakeRangeResponse(encoded0 + encoded1),
+                side_effect=[FakeRangeResponse(encoded1[:30]), FakeRangeResponse(encoded0 + encoded1)],
             ):
                 extracted, reused = self.module.extract_sequence_range(
                     "https://example.invalid/kitti.zip",
@@ -123,12 +123,43 @@ class KittiSelectiveFetchTests(unittest.TestCase):
     def test_sparse_range_request_ends_at_selected_payload(self) -> None:
         info, encoded = self.make_entry("dataset/sequences/01/velodyne/000007.bin", b"selected", 100)
         with tempfile.TemporaryDirectory() as tmpdir:
-            with mock.patch.object(self.module.urllib.request, "urlopen", return_value=FakeRangeResponse(encoded)) as opened:
+            with mock.patch.object(self.module.urllib.request, "urlopen", side_effect=[FakeRangeResponse(encoded[:30]), FakeRangeResponse(encoded)]) as opened:
                 self.assertEqual(self.module.extract_sequence_range("https://example.invalid/kitti.zip", [info], Path(tmpdir)), (1, 0))
             self.assertEqual(opened.call_args.args[0].get_header("Range"), f"bytes=100-{100+len(encoded)-1}")
             velodyne = Path(tmpdir)/"dataset/sequences/01/velodyne"
             self.module.write_index_timestamps(velodyne, 1, [7])
             self.assertEqual((velodyne/"frame_timestamps.csv").read_text(), "frame,timestamp\n7,7\n")
+
+    def test_local_extra_length_controls_range_not_central_directory(self) -> None:
+        # Model both directions: the central/local ZIP extra fields may differ.
+        for central_extra, local_extra in ((b"", b"abcd"), (b"12345678", b"abcd")):
+            with self.subTest(central_extra=central_extra):
+                info, encoded = self.make_entry("dataset/sequences/00/velodyne/000043.bin", b"payload", 100)
+                fields = list(self.module.LOCAL_FILE_HEADER.unpack(encoded[:30]))
+                fields[-1] = len(local_extra)
+                name_end = 30 + fields[-2]
+                encoded = self.module.LOCAL_FILE_HEADER.pack(*fields) + encoded[30:name_end] + local_extra + encoded[name_end:]
+                info.extra = central_extra
+                requests = []
+                def respond(request, **_kwargs):
+                    interval = request.get_header("Range")
+                    requests.append(interval)
+                    first, last = map(int, interval.removeprefix("bytes=").split("-"))
+                    return FakeRangeResponse(encoded[first-100:last-100+1])
+                with tempfile.TemporaryDirectory() as tmpdir, mock.patch.object(self.module.urllib.request, "urlopen", side_effect=respond):
+                    self.assertEqual(self.module.extract_sequence_range("https://example.invalid/kitti.zip", [info], Path(tmpdir)), (1, 0))
+                    self.assertEqual((Path(tmpdir)/info.filename).read_bytes(), b"payload")
+                self.assertEqual(requests, ["bytes=100-129", f"bytes=100-{100+len(encoded)-1}"])
+
+    def test_truncated_or_corrupt_payload_is_never_published(self) -> None:
+        info, encoded = self.make_entry("dataset/sequences/00/velodyne/000043.bin", b"payload", 0)
+        for data, error in ((encoded[:-4], EOFError), (encoded[:-1]+b"X", RuntimeError)):
+            with self.subTest(error=error), tempfile.TemporaryDirectory() as tmpdir:
+                with mock.patch.object(self.module.urllib.request, "urlopen", side_effect=[FakeRangeResponse(encoded[:30]), FakeRangeResponse(data)]):
+                    with self.assertRaises(error):
+                        self.module.extract_sequence_range("https://example.invalid/kitti.zip", [info], Path(tmpdir))
+                self.assertFalse((Path(tmpdir)/info.filename).exists())
+                self.assertEqual(list(Path(tmpdir).rglob("*.part")), [])
 
 
 class LidarSotaVerifierTests(unittest.TestCase):

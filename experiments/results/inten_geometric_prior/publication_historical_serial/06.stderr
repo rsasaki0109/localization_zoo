@@ -1,0 +1,71 @@
+.......................................................................fixture golden: /tmp/tmpp6j82lx9/golden.json does not exist; actual values written to /tmp/tmpp6j82lx9/out/actual.json
+.fixture golden: /tmp/tmp5b5tbrzp/golden.json does not exist; actual values written to /tmp/tmp5b5tbrzp/out/actual.json
+fixture drift: kiss_icp/KISS-ICP.ate_m: 0.036234 != golden 0.035614
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmpj0t5lddd/golden.json with /tmp/tmpj0t5lddd/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+fixture golden: no summaries found
+fixture drift: other/X: not in golden file (new method? update the golden file)
+fixture golden: 1 difference(s). If intentional, replace /tmp/tmpng5vudmc/golden.json with /tmp/tmpng5vudmc/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+.fixture golden: /tmp/tmpn5v_i5ub/golden.json does not exist; actual values written to /tmp/tmpn5v_i5ub/out/actual.json
+fixture drift: m/M.status: 'ok' != golden 'invalid_metric'
+fixture drift: m/M.ate_m: 0.1 != golden nan
+fixture golden: 2 difference(s). If intentional, replace /tmp/tmp9678cqd5/golden.json with /tmp/tmp9678cqd5/out/actual.json (CI artifact 'fixture-golden-actual') and explain the change in the PR.
+............................................................................................................../tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/00_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/00_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/01_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/01_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/02_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/02_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/03_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/03_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/04_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/04_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/05_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/05_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/06_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/06_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/07_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/07_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/08_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/08_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/09_baseline_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_failure_origin/analyze.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/localization-zoo-inten-geometric-prior-20261023/publication_historical_serial/experiments/results/inten_consensus_query_acceleration/report/09_candidate_steps.csv' mode='r' encoding='UTF-8'>
+  old = {int(r['frame']): r for r in csv.DictReader((PARENT/'report'/f'{seq}_{mode}_steps.csv').open())}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback

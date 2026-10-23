@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "python3",
+    "-"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "7e3bf52eb6f97ceefbf4ee40407d43a4b6d343ca",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null
+  },
+  "start_unix": 1792751509.4418004,
+  "exit_code": 1,
+  "wall_seconds": 0.18622501497156918,
+  "logs": {
+    ".stdout": "0ebaf2528ac81c3b60a7b248fba31c6ed7064346a84f9091706612d07b16b090",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdin": {
+    "path": "experiments/results/inten_geometric_prior/commands/active_retry_range_probe.stdin.py",
+    "sha256": "5b2ecccf14969d2d3f31812f174ed02fbcf399840f53928618c1e28bdd6df809",
+    "note": "Exact here-document supplied to the recorded python3 - command; saved alongside its output."
+  }
+}

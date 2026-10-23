@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_geometric_prior/run_sequences.py",
+    "--source-root",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree",
+    "--scratch",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/raw",
+    "--commit-results"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "b2d9cccce704e5be6a8eaae4170403813dfefea8",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792755018.3653493,
+  "exit_code": 1,
+  "wall_seconds": 808.9371387469582,
+  "logs": {
+    ".stdout": "a22db040a5c4b166a8dea97102c431e54a615b69301eb81c4d96448e185060a3",
+    ".stderr": "09c046f753d4c6ce0e6546db84c608773da1022b8074329bbe5d5c7d48de9bbe"
+  }
+}

@@ -1,0 +1,18 @@
+[report] /tmp/tmpkdj4vc_u/out.json /tmp/tmpkdj4vc_u/out.md
+drift: fixed6.inclination_rmse_deg: expected 2.1, got 2.0
+[check] 2 variants, 1 drift(s)
+[check] 1 variants, 0 drift(s)
+fixture golden: 1 method results match /tmp/tmp_1y8ewue/golden.json
+fixture golden: 1 method results match /tmp/tmpykspdlhe/golden.json
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+Reconstructed complete fixed pair 00
+Reconstructed complete fixed pair 01
+Reconstructed complete fixed pair 02
+Reconstructed complete fixed pair 03
+Reconstructed complete fixed pair 04
+Reconstructed complete fixed pair 05
+Reconstructed complete fixed pair 06
+Reconstructed complete fixed pair 07
+Reconstructed complete fixed pair 08

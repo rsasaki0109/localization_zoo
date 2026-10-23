@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "python3",
+    "-c",
+    "import json,subprocess; from pathlib import Path; d=json.loads(Path(\"experiments/results/inten_geometric_prior/binaries.json\").read_text()); actual=subprocess.check_output([\"docker\",\"exec\",\"localization-zoo-dev\",\"sha256sum\",d[\"runner_container_path\"]],text=True).split()[0]; print(json.dumps({\"expected\":d[\"runner_sha256\"],\"actual\":actual,\"matches\":actual==d[\"runner_sha256\"]})); assert actual==d[\"runner_sha256\"]"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "f4c5a5110e94c49198653693d61bad1b6c31dabb",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null
+  },
+  "start_unix": 1792751202.0063396,
+  "exit_code": 0,
+  "wall_seconds": 0.12823281000601128,
+  "logs": {
+    ".stdout": "b339bf04ddef8c8fe431d7b7af5431ecad013339ee5d2a3eeeee19e277c9fbd3",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -15,6 +15,7 @@ target_include_directories(inten_loam PUBLIC
 target_link_libraries(inten_loam PUBLIC
   Eigen3::Eigen
   localization_common
+  kiss_icp
   ${PCL_LIBRARIES}
   ${CERES_LIBRARIES}
 )

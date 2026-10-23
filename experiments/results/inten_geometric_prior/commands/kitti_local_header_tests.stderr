@@ -1,0 +1,33 @@
+E.......E
+======================================================================
+ERROR: setUpClass (test_lidar_sota_tools.IdentityReferenceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/tests/test_lidar_sota_tools.py", line 202, in setUpClass
+    cls.module = load_module(
+                 ^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/tests/test_lidar_sota_tools.py", line 22, in load_module
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1132, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1190, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/evaluation/scripts/make_identity_reference_csv.py'
+
+======================================================================
+ERROR: setUpClass (test_lidar_sota_tools.LidarSotaVerifierTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/tests/test_lidar_sota_tools.py", line 168, in setUpClass
+    cls.module = load_module(
+                 ^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/tests/test_lidar_sota_tools.py", line 22, in load_module
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1132, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1190, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/evaluation/scripts/verify_lidar_sota_data.py'
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.052s
+
+FAILED (errors=2)

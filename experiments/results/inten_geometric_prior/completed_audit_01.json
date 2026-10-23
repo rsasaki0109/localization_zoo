@@ -1,0 +1,14 @@
+{
+  "sequences": [
+    {
+      "sequence": "01",
+      "frames": 1101,
+      "all_controls_valid": true,
+      "maximum_baseline_matrix_error": 0.0,
+      "all_saved_diagnostics_reconstructed": true,
+      "summary_sha256": "bc5e8fbfeee03e6f51fe4f40a01366b4aeef0138eb5e4c126383e6d6bf3f06ab",
+      "archive_sha256": "bf690d27258703ebb64deb7be329c54fa84dc51e3930b0e091a5fb71fc7b0805"
+    }
+  ],
+  "all_requested_checks_passed": true
+}

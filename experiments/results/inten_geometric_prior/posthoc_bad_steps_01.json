@@ -1,0 +1,177 @@
+{
+  "scope": "Post-hoc localization of every candidate step flagged by the unchanged complete-sequence diagnostics; no causal attribution, tuning or all-sequence acceptance claim.",
+  "selection": "Union of every candidate bad-length and bad-vector destination frame from the committed full 01 summary; unchanged >20 percent criterion on GT steps >=0.1 m.",
+  "summary_sha256": "bc5e8fbfeee03e6f51fe4f40a01366b4aeef0138eb5e4c126383e6d6bf3f06ab",
+  "native_sha256": "4d1e879836ded40ffe25b4e8da05b5cc04ecd276a35777f92f3f100fff8961c8",
+  "gt_sha256": "5b0099d9adb6bdb0a39ce905068645c911bb24e6bd4e2f303ce88aec9aae1d27",
+  "cases": [
+    {
+      "frame": 209,
+      "gt_step_m": 2.7210371966355225,
+      "reference": {
+        "s2s_input_length_ratio": 0.3290955740875003,
+        "s2s_output_length_ratio": 0.47412540308123924,
+        "final_length_ratio": 0.36588212839394396,
+        "final_vector_error_ratio": 0.6341759039420479,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false,
+        "geometric_length_ratio": null
+      },
+      "candidate": {
+        "s2s_input_length_ratio": 1.007674646685736,
+        "s2s_output_length_ratio": 0.8455557774238703,
+        "final_length_ratio": 0.7983894257056531,
+        "final_vector_error_ratio": 0.20182097474189914,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true,
+        "geometric_length_ratio": 1.007674646685736
+      }
+    },
+    {
+      "frame": 210,
+      "gt_step_m": 2.7216417684391536,
+      "reference": {
+        "s2s_input_length_ratio": 0.36580085317951233,
+        "s2s_output_length_ratio": 0.386829937330817,
+        "final_length_ratio": 0.35393263936020586,
+        "final_vector_error_ratio": 0.6460900425265101,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false,
+        "geometric_length_ratio": null
+      },
+      "candidate": {
+        "s2s_input_length_ratio": 0.9845692504553286,
+        "s2s_output_length_ratio": 0.9434118207859119,
+        "final_length_ratio": 0.6210418072511642,
+        "final_vector_error_ratio": 0.3789656733298377,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true,
+        "geometric_length_ratio": 0.9845692504553286
+      }
+    },
+    {
+      "frame": 214,
+      "gt_step_m": 2.7176911470242455,
+      "reference": {
+        "s2s_input_length_ratio": 0.3048207777244105,
+        "s2s_output_length_ratio": 0.3516822972235396,
+        "final_length_ratio": 0.3710416627099854,
+        "final_vector_error_ratio": 0.6289918142723707,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false,
+        "geometric_length_ratio": null
+      },
+      "candidate": {
+        "s2s_input_length_ratio": 0.9935425060153178,
+        "s2s_output_length_ratio": 0.9402964804950121,
+        "final_length_ratio": 0.742404371958356,
+        "final_vector_error_ratio": 0.25772950587993554,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true,
+        "geometric_length_ratio": 0.9935425060153178
+      }
+    },
+    {
+      "frame": 215,
+      "gt_step_m": 2.720216745470319,
+      "reference": {
+        "s2s_input_length_ratio": 0.3706971672765501,
+        "s2s_output_length_ratio": 0.28691040446419125,
+        "final_length_ratio": 0.30611649201784247,
+        "final_vector_error_ratio": 0.693890258091996,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false,
+        "geometric_length_ratio": null
+      },
+      "candidate": {
+        "s2s_input_length_ratio": 1.0037687674285882,
+        "s2s_output_length_ratio": 0.7802771430176708,
+        "final_length_ratio": 0.37395530206956823,
+        "final_vector_error_ratio": 0.6260549983454827,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true,
+        "geometric_length_ratio": 1.0037687674285882
+      }
+    },
+    {
+      "frame": 432,
+      "gt_step_m": 2.6423863415273248,
+      "reference": {
+        "s2s_input_length_ratio": 1.0250544322360644,
+        "s2s_output_length_ratio": 1.0055635012289397,
+        "final_length_ratio": 0.9762344995629394,
+        "final_vector_error_ratio": 0.027308298157829564,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false,
+        "geometric_length_ratio": null
+      },
+      "candidate": {
+        "s2s_input_length_ratio": 0.9902939131676298,
+        "s2s_output_length_ratio": 1.0059204645999134,
+        "final_length_ratio": 0.7340828508483339,
+        "final_vector_error_ratio": 0.26641769281767863,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true,
+        "geometric_length_ratio": 0.9902939131676298
+      }
+    },
+    {
+      "frame": 433,
+      "gt_step_m": 2.6389300603469317,
+      "reference": {
+        "s2s_input_length_ratio": 0.9775131014399613,
+        "s2s_output_length_ratio": 0.9264974814548649,
+        "final_length_ratio": 0.9262963835035901,
+        "final_vector_error_ratio": 0.07450946638282258,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false,
+        "geometric_length_ratio": null
+      },
+      "candidate": {
+        "s2s_input_length_ratio": 1.0076873129390271,
+        "s2s_output_length_ratio": 0.9264608431687582,
+        "final_length_ratio": 0.5646143659977898,
+        "final_vector_error_ratio": 0.4354300918000194,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true,
+        "geometric_length_ratio": 1.0076873129390271
+      }
+    },
+    {
+      "frame": 436,
+      "gt_step_m": 2.644856343347625,
+      "reference": {
+        "s2s_input_length_ratio": 0.9411324376936077,
+        "s2s_output_length_ratio": 0.9536727637909215,
+        "final_length_ratio": 0.8990628597961325,
+        "final_vector_error_ratio": 0.10243496276920953,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": false,
+        "geometric_length_ratio": null
+      },
+      "candidate": {
+        "s2s_input_length_ratio": 0.9967263617967556,
+        "s2s_output_length_ratio": 0.9576289111490631,
+        "final_length_ratio": 0.7352119361471505,
+        "final_vector_error_ratio": 0.26525421106748837,
+        "s2s_fallback": false,
+        "s2m_accepted": true,
+        "geometric_prior_used": true,
+        "geometric_length_ratio": 0.9967263617967556
+      }
+    }
+  ]
+}

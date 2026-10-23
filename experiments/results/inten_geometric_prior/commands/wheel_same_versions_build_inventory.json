@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=/tmp/localization-zoo-inten-geometric-prior-20261023/witness_numpy2_cp313",
+    "/usr/bin/python3",
+    "-c",
+    "import sys,numpy,scipy,json;print(json.dumps(dict(python=sys.version,executable=sys.executable,numpy=numpy.__version__,numpy_path=numpy.__file__,scipy=scipy.__version__,scipy_path=scipy.__file__)));numpy.show_config();scipy.show_config()"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "576b6f1de5d74cba49ebc318de43ebcd6b204f78",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792760679.33715,
+  "exit_code": 0,
+  "wall_seconds": 0.29818253102712333,
+  "logs": {
+    ".stdout": "9cfdbbda3219746aee525c7adf6c1a73764dd99eeae0fc85b1c9db9314dea6e5",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -132,6 +132,7 @@ inline void params(std::ostream& out, const InTenLoamPaperParams& p) {
   INTEN_TRACE_PARAM(dor_relative_range); INTEN_TRACE_PARAM(dor_object_ratio);
   out << ",\"accelerated\":" << p.accelerated;
   // Omit the disabled extension to preserve the legacy header bytes.
+  if (p.s2s_geometric_prior) out << ",\"s2s_geometric_prior\":true";
   if (p.s2s_mapped_prior) out << ",\"s2s_mapped_prior\":true";
   if (p.s2s_translation_prior_ratio > 0.0) out << ",\"s2s_translation_prior_ratio\":" << p.s2s_translation_prior_ratio;
   if (p.s2s_row_support) out << ",\"s2s_row_support\":true";
@@ -203,6 +204,9 @@ inline std::string frame(size_t input_index, const std::string& scan_path,
     out << "],\"excluded_clusters\":[";
     for (size_t k = 0; k < c.excluded_clusters.size(); ++k) { if (k) out << ','; out << c.excluded_clusters[k]; }
     out << "],\"refinement\":"; solver(out, c.refinement); out << '}';
+  }
+  if (value.geometric_prior_used) {
+    out << ",\"geometric_relative\":"; matrix(out, value.geometric_relative);
   }
   out << ",\"s2s\":";
   solver(out, value.s2s);

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_kitti_seq_03_full_geometric_prior",
+    "title": "InTEn fixed hybrid geometric-prior trial, KITTI 03",
+    "question": "Does an independent geometric initializer/prior prevent collapse without severe full-sequence regressions? Development, not a paper reproduction claim.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_03_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_03_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "kitti_rte_trans_pct",
+      "fps"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "facade_reference",
+      "label": "Frozen improved InTEn reference",
+      "design_style": "reference",
+      "intent": "Inherited facade-PCA profile. Range/elevation originally selected on 07/00; other extensions inherited unchanged. All KITTI is development.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1"
+      ]
+    },
+    {
+      "id": "geometric_prior",
+      "label": "InTEn + independent KISS motion/prior (hybrid, not in paper)",
+      "design_style": "challenger",
+      "intent": "Hypothesis selected from independent onset evidence on 01; upstream mechanics defaults without new sequence tuning. Same settings on all sequences.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--paper-pipeline-accelerated",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--inten-loam-paper-set",
+        "s2s_mapped_prior=1",
+        "--inten-loam-paper-set",
+        "s2s_translation_prior_ratio=0.03",
+        "--inten-loam-paper-set",
+        "s2s_ground_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_facade_pca=1",
+        "--inten-loam-paper-set",
+        "s2s_geometric_prior=1"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+Traceback (most recent call last):
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/util/connection.py", line 64, in create_connection
+    sock = socket.socket(af, socktype, proto)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socket.py", line 233, in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+PermissionError: [Errno 1] Operation not permitted
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 779, in urlopen
+    self._prepare_proxy(conn)
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 1074, in _prepare_proxy
+    conn.connect()
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/connection.py", line 827, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/connection.py", line 254, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPSConnection(host='proxy', port=8080): Failed to establish a new connection: [Errno 1] Operation not permitted
+
+The above exception was the direct cause of the following exception:
+
+urllib3.exceptions.ProxyError: ('Unable to connect to proxy', NewConnectionError("HTTPSConnection(host='proxy', port=8080): Failed to establish a new connection: [Errno 1] Operation not permitted"))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/urllib3/util/retry.py", line 555, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='s3.eu-central-1.amazonaws.com', port=443): Max retries exceeded with url: /avg-kitti/data_odometry_velodyne.zip (Caused by ProxyError('Unable to connect to proxy', NewConnectionError("HTTPSConnection(host='proxy', port=8080): Failed to establish a new connection: [Errno 1] Operation not permitted")))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 226, in fetch
+    res, range_header = self._request(kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 191, in _request
+    res = requests.get(self._url, stream=True, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/requests/adapters.py", line 723, in send
+    raise ProxyError(e, request=request)
+requests.exceptions.ProxyError: HTTPSConnectionPool(host='s3.eu-central-1.amazonaws.com', port=443): Max retries exceeded with url: /avg-kitti/data_odometry_velodyne.zip (Caused by ProxyError('Unable to connect to proxy', NewConnectionError("HTTPSConnection(host='proxy', port=8080): Failed to establish a new connection: [Errno 1] Operation not permitted")))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 245, in __init__
+    super(RemoteZip, self).__init__(rio)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py", line 1371, in __init__
+    self._RealGetContents()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py", line 1434, in _RealGetContents
+    endrec = _EndRecData(fp)
+             ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py", line 305, in _EndRecData
+    fpin.seek(0, 2)
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 145, in seek
+    self.buffer = self._fetch_fun((-size, None), stream=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/localization-env/host-venv/lib/python3.12/site-packages/remotezip.py", line 230, in fetch
+    raise RemoteIOError(str(e))
+remotezip.RemoteIOError: HTTPSConnectionPool(host='s3.eu-central-1.amazonaws.com', port=443): Max retries exceeded with url: /avg-kitti/data_odometry_velodyne.zip (Caused by ProxyError('Unable to connect to proxy', NewConnectionError("HTTPSConnection(host='proxy', port=8080): Failed to establish a new connection: [Errno 1] Operation not permitted")))

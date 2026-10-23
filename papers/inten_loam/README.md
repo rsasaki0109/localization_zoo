@@ -6,6 +6,81 @@ Remote Sensing / arXiv:2209.05708 (2022/23). No public author code found.
 Reconstructed from the paper.
 
 
+
+## Experimental independent geometric prior (default off)
+
+Development is paused at the user's request to merge this increment. Full KITTI
+01 is complete; full 00 and 02–10 remain unevaluated for the hybrid. The saved
+00 prefix has 3072 independently verified frames with exact reference parity
+(`44c8b1c5`; [audit](../../experiments/results/inten_geometric_prior/paused_attempts/merge_requested_00/prefix_audit.json)).
+It is not a full-sequence score. The option stays default off and the prospective
+all-sequence retention gate remains unfulfilled.
+
+`--inten-loam-paper-set s2s_geometric_prior=1` supplies an independent Zoo
+KISS-ICP current motion estimate to S2S, including its weak translation-prior
+target when enabled. InTEn still computes the final pose and its own map. This
+is a **repository hybrid, not the paper method**; it takes precedence over the
+mapped-motion seed when usable, requires `deskew=0`, and cannot be combined
+with forced-pose diagnostics. Default-off behavior does not run this backend.
+
+The fixed all-sequence trial is defined in
+[the study and protocol](../../experiments/results/inten_geometric_prior/README.md).
+Its hypothesis was selected on 01; range/elevation and the improved reference
+profile are inherited, and geometric settings use upstream-mechanics defaults.
+All KITTI data are development data. The first complete fixed trial, 01, is
+saved in `c99beb6a` and independently reconstructed in `11902445`.
+
+| Sequence | Reference RTE [%] | Hybrid RTE [%] | Reference ATE [m] | Hybrid ATE [m] | Bad-length steps, reference / hybrid |
+|---|---:|---:|---:|---:|---:|
+| 01 | 4.481189 | 0.967180 | 88.786456 | 20.265326 | 44 / 7 |
+
+All 1101 scans are verified; reference poses exactly match the archived
+trajectory (maximum matrix difference 0). Native and independent audit exits
+are 0. RTE uses official KITTI 100–800 m segments. Bad steps exceed 20% local
+translation-length error on GT steps of at least 0.1 m. The hypothesis was
+selected on 01, so this is development evidence. 00 and 02–10 and the fixed
+all-sequence retention gate remain pending. Table 6 and paper eligibility do
+not change. Earlier transport failures and partial outputs remain archived;
+the successful run acquired all 01 inputs before starting from zero.
+
+The candidate still fails at 209–210, 214–215, 432–433 and 436. The last three
+are new bad steps relative to the reference. In the 400–500 block, bad steps
+increase from 0 to 3 and endpoint-relative translation error from 0.701984% to
+1.781673% (a block diagnostic, not KITTI RTE). At 432, independent input length
+/ GT is 0.990294 and S2S gives 1.005920, but accepted mapping reduces it to
+0.734083. The [complete post-hoc stage table](../../experiments/results/inten_geometric_prior/posthoc_bad_steps_01.json)
+retains every candidate bad step (`5b13b243`). This locates an adverse mapping
+correction without proving its residual or map-history cause; no settings are
+retuned before the fixed all-sequence trial finishes.
+
+### Retained negative result: good seed, shortened final step
+
+The [complete-run predeclared case report](../../experiments/results/inten_geometric_prior/adverse_cases_complete_01.json)
+reproduces the earlier prefix diagnostics. The table uses local translation
+length / GT length, not full-sequence accuracy:
+
+| Frame | Reference final | Hybrid S2S input | Hybrid S2S output | Hybrid final |
+|---|---:|---:|---:|---:|
+| 202 | 0.949347 | 1.006358 | 0.799373 | 0.968400 |
+| 215 | 0.306116 | 1.003769 | 0.780277 | 0.373955 |
+| 420 | 0.999430 | 1.004785 | 0.589326 | 0.986409 |
+
+Frame 215 remains a severe failure: an accurate independent input is shortened
+by S2S and then by the accepted mapping stage. Frame 420 has worse S2S length
+than the reference (0.589326 versus 0.606071), even though mapping recovers the
+final step. Frame 202 remains borderline in S2S. Preserve these negatives; the
+completed 01 evidence does not establish an all-sequence improvement or pass the
+retention gate. Historical verification now restores the archived production
+sources against the unchanged frozen hashes, retaining all original numerical
+and corruption checks. The later [960-frame case report](../../experiments/results/inten_geometric_prior/adverse_cases_after_approval.json)
+retains the same diagnosis and displayed ratios. The corrected source binding
+now passes a [fresh complete Python discovery](../../experiments/results/inten_geometric_prior/publication_final_discovery/):
+448 tests, five skipped, exit 0 (`a9f2991b`). All numerical workers and the final
+source audit run together. Earlier failures remain recorded; full native/ROS2
+CI is not claimed. A same-version runtime control isolates the earlier witness
+failure to the numerical installation/build, not version numbers alone; see
+[the build comparison](../../experiments/results/inten_geometric_prior/README.md#same-version-numerical-build-control).
+
 ## Independent initialization diagnosis (2026-10-23)
 
 A controlled-input upstream KISS-ICP run avoids the remaining KITTI 01 collapse:
@@ -29,9 +104,8 @@ See [protocol, continuous results, commands and limits](../../experiments/result
 Input range/elevation are inherited from the prior 07/00 selection; upstream
 voxel/defaults are retained, with no new parameter search. All KITTI data are
 development data. No production/default change or all-sequence improvement
-is claimed. Next: a default-off, GT-free geometric initializer independent of
-InTEn's feature-history loop, evaluated with one fixed configuration across
-all paper sequences.
+is claimed by this diagnosis. The default-off hybrid above implements the
+next experiment; its fixed all-sequence evaluation is still pending.
 
 ## Core idea
 

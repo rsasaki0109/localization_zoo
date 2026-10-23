@@ -6,6 +6,8 @@ from unittest.mock import patch
 E=Path(__file__).resolve().parents[1]/'experiments/results/inten_prior_control'
 s=importlib.util.spec_from_file_location('prior_control_checks',E/'verify_portable.py')
 v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
+s=importlib.util.spec_from_file_location('prior_historical_source_binding',E.parents[2]/'evaluation/scripts/verify_inten_support_history.py')
+history=importlib.util.module_from_spec(s);s.loader.exec_module(history)
 
 class PriorControlTest(unittest.TestCase):
     def example(self):
@@ -22,7 +24,8 @@ class PriorControlTest(unittest.TestCase):
                   g=(g+J.T@information@(np.array(t)-prediction)).tolist())
         return record,solver,reference,step
     def test_complete_factorial_controls_masks_priors_updates_and_report(self):
-        actual=v.validate();v.P.V.V.V.equivalent(actual,v.read(E/'report/summary.json'))
+        with history.bind_sources(v.checker):actual=v.validate()
+        v.P.V.V.V.equivalent(actual,v.read(E/'report/summary.json'))
         self.assertEqual(actual['native_outcomes'],31*18)
         self.assertTrue(actual['all_434_inherited_complete_records_exact'])
         self.assertTrue(actual['unfiltered_common_prior_negative_controls_exact'])

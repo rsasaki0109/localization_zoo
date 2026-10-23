@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_geometric_prior/commands/active_retry_range_probe.stdin.py"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "1d99e284e71891faad323cd7d876537c18d9fcee",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null
+  },
+  "start_unix": 1792752428.044951,
+  "exit_code": 0,
+  "wall_seconds": 1.282551270967815,
+  "logs": {
+    ".stdout": "a68f421dea1dcbd7ebdd6e409415dc758d99280036c09ca63c75e99ae6046b24",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

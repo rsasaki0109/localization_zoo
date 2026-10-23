@@ -1,0 +1,117 @@
+{
+  "reason": "The environment's git HTTPS tunnel repeatedly failed with HTTP 503 after the first successful push. GitHub connector API appended equivalent-content commits without rewriting the published base. Commit metadata changes the IDs; every recreated tree was checked against the original tree SHA.",
+  "published_base": "4fb78d0244ff1f5a81dac3146761505ecf77d5dc",
+  "local_to_remote": [
+    {
+      "local_commit": "fca18441777765604fab5522fd473d876929c067",
+      "tree": "6b701e9aeab1435d699c1893f807060f9a8fb6c3",
+      "remote_commit": "d3669443997f82e66928eeb29e064143e6c6cdb2"
+    },
+    {
+      "local_commit": "992ab66d06e7a99cdd213cc38de2706eaf7b551f",
+      "tree": "5e70302fb16de15fa2bd02239b8889a1632b8969",
+      "remote_commit": "1a405576acfd87cd7af39a4eae3dbb68f1a301cd"
+    },
+    {
+      "local_commit": "adea278d9296629cd0e0ff21569afa0bb9cfc5c9",
+      "tree": "abf4f55e15eed7347280574e6a47018a1e7ecdc0",
+      "remote_commit": "cdb737d29c9ffc663080fcf092fc109bacab6bf9"
+    },
+    {
+      "local_commit": "ee67f1d111a79e1441044fc256b16d359fc378d8",
+      "tree": "c4734b01098cdc8cf0591911e19178981881b82f",
+      "remote_commit": "bf8240cbd18f15471e46ea6be5ea3aecf98dc6a3"
+    },
+    {
+      "local_commit": "5b86f1c39ca33f1c510a6fb8e66b45e4aecd8464",
+      "tree": "231e1c32884bda8e92886d63fdb29f943b519acf",
+      "remote_commit": "ec284bed64e92257548c0ccebbe4f699301b2418"
+    },
+    {
+      "local_commit": "71099ecb2389b298b4e96dd09be379747309a6b9",
+      "tree": "71f656124d67dc5fa6ed84b86a8b7f41df090e75",
+      "remote_commit": "17602e780ddd8c2c1e1a861a4a8b167d96253270"
+    },
+    {
+      "local_commit": "e7dd0c5c275f51dc692f044f8338fc143d92852d",
+      "tree": "71ff5c7532b2539066839c98589b7552d7beb869",
+      "remote_commit": "8347c501bdb77e4fed9ee1cc3b5c18bd4f770b1b"
+    },
+    {
+      "local_commit": "5cad71b4f99e5b11aee540623d63efae95b0da38",
+      "tree": "50ebf46d2459f5095894b271cf9c25dd833cf085",
+      "remote_commit": "14a6518fd9e5a5c39e8b4f8b8db451c7bc92e910"
+    },
+    {
+      "local_commit": "f4b375217b7690ee427ffa467fd9b7b3c92d1bba",
+      "tree": "1349a1a427872508274a255aba0aa5f71c0d29a4",
+      "remote_commit": "01391f1171c3756b4a895f96fbac9ff7853db787"
+    },
+    {
+      "local_commit": "8cb1e77f029736e0b801b9c4dde0fc26c868c229",
+      "tree": "181631917b1615282d962239e53897b10e91c060",
+      "remote_commit": "dbe3bed26545e4c64e14bca00556f296cbd6d843"
+    },
+    {
+      "local_commit": "3025476ebf710e4a3498844bd18204933422a9c1",
+      "tree": "c959648aabae114d80b2ee25072649dcb89c6e34",
+      "remote_commit": "b3928bbeeb98696bbcb667a9678ce009744ec268"
+    },
+    {
+      "local_commit": "a835a228e672f37665c30218f6df08f0dd06a2ee",
+      "tree": "75a53c20528a4c2089793722e9d64e41c6bf7ad2",
+      "remote_commit": "5413e3af65aec016de9184093217e12b473d96fd"
+    },
+    {
+      "local_commit": "2d1108ce0dcdb32decbb43efab0bac12ea808e52",
+      "tree": "4a00a86f131fdafdf096112eff13e313ede80ac9",
+      "remote_commit": "31ecf3b4c15e42d68d5b2b365e30ce6a16670139"
+    },
+    {
+      "local_commit": "997d85189e4bf51d04629f394c3c19217fecf1b6",
+      "tree": "7486b35c324e1de2247d780680ffe4d5e08c5b44",
+      "remote_commit": "af7997ac8375857228ae0db783a1d5ca21f94cd5"
+    },
+    {
+      "local_commit": "ca0d5e197414a1ab597f049c08596d9a529a6d45",
+      "tree": "7b21176b599321910ebeacbc1be0f0dbd6136c55",
+      "remote_commit": "28f93c0588277529d2412fdabae404ab1db27380"
+    },
+    {
+      "local_commit": "6a13ad01a69f53e3a21198b1c584d9de374da8dd",
+      "tree": "94511b7aea3d8c4b1873ec838f2c3fab602eac91",
+      "remote_commit": "d37a4c9147c6f8ffe1e84c0f8859a57546000d6f"
+    },
+    {
+      "local_commit": "3e0736e52be2a25ab4f99ebbe40ce110d57b6aa3",
+      "tree": "651f7afebfec88da1f9d13099b32509fe75c39e9",
+      "remote_commit": "de8ca838145c40d2a8268a93de5e72e6104fe88f"
+    },
+    {
+      "local_commit": "c309ef7095888f52d11ef5719eea59306af0d389",
+      "tree": "e92a5f4ca3f929846944b4ef3c11f0e31ad1191f",
+      "remote_commit": "4d7c8bff17d814901e74d4c6d32acf15aae871a8"
+    },
+    {
+      "local_commit": "3b152ce0e37715a1d5925e5a6525c23aa50f1c73",
+      "tree": "d4fefb02f182256e4ccafb546001b846c2b53214",
+      "remote_commit": "70f5870769fefb6705c8729a3fb2185a715d9937"
+    }
+  ],
+  "published_branch_head": "70f5870769fefb6705c8729a3fb2185a715d9937",
+  "pending_local_commits": [],
+  "approved_upload": {
+    "file": "experiments/results/inten_geometric_prior/preflight_failures/recovery_again_interrupted_01/native.jsonl.gz",
+    "bytes": 605342,
+    "sha256": "aa73a6f8400c7fd84feee44f095a19554d95e60e46dad4284fc6d1a93b81013a",
+    "reason": "Automatic approval review rejected this specific GitHub API blob upload and requires explicit approval of the payload/export. Additional numeric/schema and repository/PR checks did not resolve the rejection. Do not retry or use another route until approved.",
+    "status": "Resolved: the owner explicitly approved uploading this payload and the entire latest result set to Draft PR #174 using the GitHub connector API. Upload succeeded; blob and recreated tree SHAs match local Git objects.",
+    "git_blob_sha": "c918ba331938097a017b65a7571d27d3289c4156"
+  },
+  "snapshot_note": "This mapping covers all implementation and experimental evidence through local commit 3b152ce0. The subsequent mapping-only commit is excluded to avoid a self-referential commit ID; its content tree is independently checked during API publication.",
+  "original_local_history_published": {
+    "merge_commit": "0f34cb254514d9aacd2ed624737edb2742386e57",
+    "push_receipt": "commands/push_source_binding.json",
+    "note": "Normal Git transport recovered. This merge preserves both the original local source/evidence commits and the API-created commits, with no content change relative to its local parent. All original source IDs are now ancestors of the published PR branch; aliases remain as historical transport evidence."
+  }
+}

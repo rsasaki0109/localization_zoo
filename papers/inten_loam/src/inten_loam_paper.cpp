@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 #include "inten_loam/detail/feature_tree.h"
 #include "inten_loam/detail/ground_pca.h"
+#include "inten_loam/detail/geometric_prior.h"
 #include "inten_loam/detail/mapped_motion_prior.h"
 #include "inten_loam/detail/plane_row_support.h"
 #include "inten_loam/detail/translation_prior.h"
@@ -185,6 +186,12 @@ InTenLoamPaper::InTenLoamPaper(const InTenLoamPaperParams& params)
   if (!std::isfinite(params_.s2s_translation_prior_ratio) ||
       params_.s2s_translation_prior_ratio < 0.0 || params_.s2s_translation_prior_ratio > 1.0)
     throw std::invalid_argument("s2s_translation_prior_ratio must be finite and in [0,1]");
+  if (params_.s2s_geometric_prior) {
+    if (params_.deskew != 0 || !std::isfinite(params_.max_range) || params_.max_range <= 0.0)
+      throw std::invalid_argument("Geometric prior requires deskew=0 and a finite positive max_range");
+    geometric_motion_ = std::make_shared<kiss_icp::KISSICPPipeline>(
+        detail::geometricPriorParams(params_.max_range));
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -989,6 +996,8 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
                                              const std::vector<float>& intensity,
                                              InTenLoamPaperDiagnostics* diag,
                                              InTenLoamPaperTrace* trace) {
+  if (geometric_motion_ && diag && diag->forced_pose)
+    throw std::invalid_argument("Geometric prior cannot be combined with forced_pose");
   if (trace && diag && diag->forced_pose)
     throw std::invalid_argument("Passive InTEn trace cannot be combined with forced_pose");
   if (trace) {
@@ -996,6 +1005,17 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
     trace->frame_index = frame_;
   }
   InTenLoamPaperResult result;
+  Eigen::Matrix4d geometric_relative = Eigen::Matrix4d::Identity();
+  bool geometric_usable = false;
+  if (geometric_motion_) {
+    const auto geometric = geometric_motion_->registerFrame(points);
+    geometric_relative = geometric_motion_->lastDelta();
+    geometric_usable = frame_ > 0 && geometric.converged && geometric_relative.allFinite();
+    if (trace) {
+      trace->geometric_prior_used = geometric_usable;
+      trace->geometric_relative = geometric_relative;
+    }
+  }
   std::vector<Eigen::Vector3d> deskewed;
   if (params_.deskew != 0 && frame_ > 1) {
     // Sensor pose at scan fraction tau from the reference: Exp(tau xi) with
@@ -1099,6 +1119,7 @@ InTenLoamPaperResult InTenLoamPaper::process(const std::vector<Eigen::Vector3d>&
   }
 
   Eigen::Matrix4d rel = params_.s2s_mapped_prior && params_.use_mapping ? last_mapped_rel_ : last_rel_;
+  if (geometric_usable) rel = geometric_relative;
   std::vector<char> facade_dynamic;
   if (params_.s2s_predicted_dor_facade && params_.use_mapping && params_.use_dor && !forced) {
     const Eigen::Matrix4d prediction = drift_ * (odom_ * rel);

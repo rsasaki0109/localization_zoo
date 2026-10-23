@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/check_publication.py", line 93, in <module>
+    main()
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/check_publication.py", line 88, in main
+    assert all(r['exit_code']==0 for r in receipts)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

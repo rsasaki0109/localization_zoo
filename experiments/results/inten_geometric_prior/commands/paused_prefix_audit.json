@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "import json,zlib,hashlib,sys\nfrom pathlib import Path\nimport numpy as np\nr=Path('experiments/results/inten_geometric_prior')\nsys.path.insert(0,str(r.resolve()))\nfrom run_sequences import archived_frames\np=r/'paused_attempts/merge_requested_00'\nmeta=json.loads((p/'pause.json').read_text())\nfor name,digest in meta['files'].items():\n assert hashlib.sha256((p/name).read_bytes()).hexdigest()==digest,name\nd=zlib.decompressobj(31)\ndata=d.decompress((p/'native.jsonl.gz.partial').read_bytes())\nassert not d.eof and data.endswith(b'\\n')\nnative=[json.loads(x) for x in data.splitlines()]\ninputs=[json.loads(x) for x in (p/'inputs.jsonl').read_text().splitlines()]\nposes={n:np.loadtxt(p/(n+'.txt')) for n in ('reference','candidate')}\no=Path('/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_facade_pca/sequences/00')\npins=json.loads((o/'inputs.json').read_text())['files']\ncmd=json.loads((p/'native_command.json').read_text())\nassert cmd['exit_code'] is None\nassert hashlib.sha256((o/'inputs.json').read_bytes()).hexdigest()==cmd['input_manifest_sha256']\nassert cmd['trace_shards']=={f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted((o/'candidate/trace.jsonl.parts').glob('*.gz'))}\ncount=meta['complete_input_records_saved']\nassert len(native)==len(inputs)==count\nassert all(len(v)==count for v in poses.values())\nref=archived_frames(o/'candidate/trace.jsonl.parts')\nmaximum=0.0\nfor i,(row,inp) in enumerate(zip(native,inputs)):\n old=next(ref)\n assert row['frame']==inp['frame']==old['input_index']==i\n assert inp['sha256']==pins[f'{i:06d}.bin']['sha256'] and inp['bytes']==pins[f'{i:06d}.bin']['bytes']\n error=float(np.max(np.abs(np.array(row['reference']['pose'])-np.array(old['pose']))))\n assert error==inp['baseline_max_abs_error'] and error<=1e-8\n maximum=max(maximum,error)\n for n in poses:\n  expected=np.array(row[n]['pose']).reshape(4,4)[:3].flatten()\n  assert np.isfinite(expected).all() and np.array_equal(expected,poses[n][i])\nsummary={'paused_prefix_frames_verified':count,'maximum_baseline_matrix_error':maximum,'input_hashes_order_and_pose_exports_valid':True,'gzip_stream_finalized':False,'native_exit_code':None,'full_sequence_accuracy_claim':False}\n(p/'prefix_audit.json').write_text(json.dumps(summary,indent=2)+'\\n')\nprint(json.dumps(summary))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "7d44cfacdd8f3f150bf05b46b96d64c95840a230",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792796600.2841105,
+  "exit_code": 0,
+  "wall_seconds": 1.762493725051172,
+  "logs": {
+    ".stdout": "bb8b98ba4b1d559463b61df858fbb39fc83263bb137778ee11e7c863987260e8",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,10 @@
+Cloning into '/tmp/localization-zoo-inten-geometric-prior-20261023/publication_retry'...
+done.
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/check_publication.py", line 99, in <module>
+    a.output.mkdir(parents=True,exist_ok=False); receipts=[]
+    ^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/check_publication.py", line 94, in main
+    assert len(failed_names)==expected, 'Must recheck every failed case'
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

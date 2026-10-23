@@ -1,0 +1,18 @@
+{
+  "protocol": "experiments/results/inten_support_information/protocol.json",
+  "parent_commit": "c09faacb681a63079ef040fc2e3f1930e64af696",
+  "mismatches": {
+    "evaluation/src/inten_trace_jsonl.h": {
+      "recorded": "89475fada4ebd4b85e5e0646e83dac315ebe0f1471cb0842c9b5189927ed05cb",
+      "current": "8a110ec8efed5d0019814c855d80610e65afcabf93adb3e0a27c2a59b2d3e6d5"
+    },
+    "papers/inten_loam/include/inten_loam/inten_loam_paper.h": {
+      "recorded": "31f33c42462dcd5f777ff36cb9281d0e2d014de9e7d84d304a733b5fe07a641b",
+      "current": "73f1deb8e8b31e8336edcd4f171514429ae6ad2bdbf7ff7a11458dc9aad7caee"
+    },
+    "papers/inten_loam/src/inten_loam_paper.cpp": {
+      "recorded": "8b8635544423a920c25353168469f4b3f12f68e57cdf5f5a58c67eee93b2ce9d",
+      "current": "b56b814dfb9fb042b46c4395d3ed63b5b4fa1be8ef9f11d5a6e9c8576d4961f0"
+    }
+  }
+}

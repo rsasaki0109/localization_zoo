@@ -1,0 +1,6 @@
+{
+  "signal": "SIGTERM",
+  "pid": 352236,
+  "reason": "Completed discovery exposed additional deterministic production-source binding failures in prior-control and local-rigidity tests. Stop before expensive reconstruction; preserve nonzero exit and repair all bindings first.",
+  "source_commit": "02b6e369b01b90d45c64600d59203932aef2c0cf"
+}

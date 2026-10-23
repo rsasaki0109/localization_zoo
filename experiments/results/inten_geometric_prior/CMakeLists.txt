@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.16)
+project(inten_geometric_trial LANGUAGES C CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+find_package(Eigen3 REQUIRED)
+find_package(PCL REQUIRED COMPONENTS common io filters kdtree)
+find_package(GTest REQUIRED)
+add_library(localization_common STATIC IMPORTED)
+set_target_properties(localization_common PROPERTIES
+  IMPORTED_LOCATION "${FROZEN_COMMON_LIBRARY}"
+  INTERFACE_INCLUDE_DIRECTORIES "${SOURCE_ROOT}/common/include")
+enable_testing()
+add_subdirectory("${SOURCE_ROOT}/papers/kiss_icp" kiss_icp)
+add_subdirectory("${SOURCE_ROOT}/papers/inten_loam" inten_loam)
+add_executable(stream_runner stream_runner.cpp preprocess.cpp)
+target_include_directories(stream_runner PRIVATE "${SOURCE_ROOT}/evaluation/src")
+target_link_libraries(stream_runner PRIVATE inten_loam)

@@ -1,0 +1,27 @@
+[report] /tmp/tmpxr6a0_ns/out.json /tmp/tmpxr6a0_ns/out.md
+drift: fixed6.inclination_rmse_deg: expected 2.1, got 2.0
+[check] 2 variants, 1 drift(s)
+[check] 1 variants, 0 drift(s)
+fixture golden: 1 method results match /tmp/tmptg77gbw6/golden.json
+fixture golden: 1 method results match /tmp/tmpoamc34c8/golden.json
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard
+Reconstructed complete fixed pair 00
+Reconstructed complete fixed pair 01
+Reconstructed complete fixed pair 02
+Reconstructed complete fixed pair 03
+Reconstructed complete fixed pair 04
+Reconstructed complete fixed pair 05
+Reconstructed complete fixed pair 06
+Reconstructed complete fixed pair 07
+Reconstructed complete fixed pair 08
+Reconstructed complete fixed pair 09
+Reconstructed complete fixed pair 10
+Wrote 3 identity poses to /tmp/tmp7npje411/identity.csv; metrics against this file are invalid by construction.
+recorded official KISS-ICP seq 07 correction=False: RTE 0.900 %
+recorded official KISS-ICP seq 07 correction=False: RTE 0.800 %
+[report] /tmp/tmps14ruv8f/r.json /tmp/tmps14ruv8f/r.md /tmp/tmps14ruv8f/imu.yaml
+[check] 4 parameters, 0 drift(s)
+drift: gyro_white_noise_density: expected 1.0, got 8.001002583826693e-05
+[check] 1 parameters, 1 drift(s)

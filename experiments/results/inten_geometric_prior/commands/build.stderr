@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/build.py", line 30, in <module>
+    run(base+['ctest','--test-dir',target+'/build','--output-on-failure'])
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree/experiments/results/inten_geometric_prior/build.py", line 14, in run
+    if r.returncode: raise RuntimeError('build command failed')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: build command failed

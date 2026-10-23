@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=/workspace/localization-env/host-venv/lib/python3.12/site-packages",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-c",
+    "import json,hashlib,shutil,subprocess,sys\nfrom pathlib import Path\nw=Path.cwd();s=w.parent/'publication_recorded_runtime';o=Path('/workspace/localization-env/branch-cleanup-20261022/worktree');out=w/'experiments/results/inten_geometric_prior/final_docs'\nout.mkdir(exist_ok=False)\nshutil.copy2(w/'docs/roadmap.md',s/'docs/roadmap.md')\ncommands=[['evaluation/scripts/refresh_study_docs.py'],['evaluation/scripts/generate_full_variant_table.py'],['evaluation/scripts/generate_paper_ratio_table.py'],['evaluation/scripts/validate_showcase.py'],['evaluation/scripts/generate_leaderboard.py','--check'],['evaluation/scripts/generate_paper_ready_evidence.py','--check'],['-m','unittest','discover','-s','tests','-p','test_full_variant_table.py'],['-m','unittest','discover','-s','tests','-p','test_inten_geometric_prior.py']]\nrows=[]\nfor i,args in enumerate(commands):\n    result=subprocess.run([sys.executable,*args],cwd=s,capture_output=True,text=True)\n    (out/f'{i:02d}.stdout').write_text(result.stdout);(out/f'{i:02d}.stderr').write_text(result.stderr)\n    rows.append(dict(argv=[sys.executable,*args],cwd=str(s),exit_code=result.returncode))\n    (out/'commands.json').write_text(json.dumps(rows,indent=2)+'\\n')\n    print(args,result.returncode,flush=True)\nsha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\nnames=['full_variant_results.csv','full_variant_results.tex','paper_ratio_table.csv','paper_ratio_table.tex']\nsame={n:sha(s/'docs/assets/paper'/n)==sha(o/'docs/assets/paper'/n) for n in names}\nclean=subprocess.check_output(['git','status','--porcelain'],cwd=o,text=True)==''\nsummary=dict(all_commands_passed=all(row['exit_code']==0 for row in rows),regenerated_tables_byte_equal=same,historical_source_unchanged=clean)\n(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\\n')\nassert summary['all_commands_passed'] and all(same.values()) and clean\n"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "9b1c17445709b195a7bde3205769b3d457189364",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792757960.1808794,
+  "exit_code": 0,
+  "wall_seconds": 17.49280309700407,
+  "logs": {
+    ".stdout": "13f37eb87817bce0ab9b7cb83e2540e7fa71889beada41c47f80d740c49fd99f",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

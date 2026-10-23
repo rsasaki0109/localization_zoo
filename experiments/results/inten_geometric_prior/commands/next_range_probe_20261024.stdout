@@ -1,0 +1,16 @@
+[
+  {
+    "requested_range": "bytes=9936447580-9936447707",
+    "status": 206,
+    "content_range": "bytes 9936447580-9936447707/84786535790",
+    "bytes_read": 128,
+    "sha256": "707dfa122afb2fa1b2e53d257a9cb1fb0db0a9e4cdc5b14d2dc093280ed93ee6"
+  },
+  {
+    "requested_range": "bytes=-65536",
+    "status": 206,
+    "content_range": "bytes 84786470254-84786535789/84786535790",
+    "bytes_read": 65536,
+    "sha256": "f13f271750b75bb3a5ff060831db2eb93e22823adb1bfefb6dacfe74592f01a1"
+  }
+]

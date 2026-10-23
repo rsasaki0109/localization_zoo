@@ -1,0 +1,64 @@
+[
+  {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_recorded_runtime",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_recorded_runtime",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_recorded_runtime",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_recorded_runtime",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_recorded_runtime",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_recorded_runtime",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests"
+    ],
+    "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_recorded_runtime",
+    "exit_code": 1
+  }
+]

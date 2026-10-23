@@ -11,7 +11,82 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 ## 1. Where things stand
 
 
-### Current development decision (2026-10-23)
+### Current development decision (2026-10-24)
+
+The user requested closing and merging this development increment. The fixed
+trial is paused, not complete; the default-off hybrid remains experimental.
+The [saved 00 prefix](../experiments/results/inten_geometric_prior/paused_attempts/merge_requested_00/prefix_audit.json)
+(`44c8b1c5`) independently verifies 3072 frames with exact reference parity.
+Full 01 remains complete; full 00 and 02–10 and the prospective retention gate
+remain future work. Resume only after checking the recorded process identities;
+if native state is gone, restart 00 from zero with the frozen settings. The
+following acquisition/recovery notes describe the history before this pause.
+
+The default-off hybrid geometric initializer/prior is now implemented; see
+[the fixed full-sequence trial](../experiments/results/inten_geometric_prior/README.md).
+Focused native tests, normal CLI build and disabled-path fixture parity pass.
+The first full fixed hybrid sequence, KITTI 01, now completes (`c99beb6a`).
+Against the frozen improved InTEn reference, official RTE is 4.481189% → 0.967180%
+and ATE is 88.786456 m → 20.265326 m. The independent audit (`11902445`)
+reconstructs all diagnostics and verifies exact reference parity across all 1101
+frames. The successful run acquired and verified every input before starting;
+retain all preceding interruptions. Normal Git publication has also recovered.
+
+This hypothesis was selected on 01; every KITTI sequence is development data.
+00 and 02–10 remain pending and are run with the same frozen binary/settings.
+The 00 acquisition failure is a bounded-range extractor defect: local ZIP extra
+fields are 28 bytes while the central directory reports 24 (`73ca5f08`).
+The extractor now reads the final local header; CRC and frozen input SHA checks
+remain mandatory. The estimator and settings are unchanged. Preserve completed
+01; restarted controllers must select only remaining sequences and explicitly
+use the corrected fetch script. The corrected 00 attempt then processed 384
+frames with exact reference parity before renewed HTTP 503 acquisition failures
+exhausted its retries (`1049b182`). The response names `cloudflare_https_tunnel`;
+this is distinct from the repaired ZIP-length defect. Its native exit -9 records
+controller termination after failed acquisition. All interrupted evidence and
+its independent audit are retained; no full 00 metric or gate verdict follows.
+Normal push subsequently publishes the retained follow-up through `c3f95819`.
+A [new launch](../experiments/results/inten_geometric_prior/extended_acquisition_launch.json)
+selects only remaining sequences with `--fetch-attempts 120`. The default remains
+20; this opt-in changes acquisition retries only, so a short outage can leave the
+same native process waiting instead of discarding its map/history. The original
+binary hash and all estimator settings remain fixed. Initial small probes recover,
+but the real scan preflight again returns HTTP 503. The current launch is not a
+completed result. Inspect its live command receipt/process before starting any
+other controller; do not run duplicate sequence jobs. Preserve the completed 01.
+After the environment returned, the original controller/native process were
+still alive. The [recovery observation](../experiments/results/inten_geometric_prior/recovered_runtime_observation/observation.json)
+(`e5d385e6`) preserves 512 processed input records with frozen input hashes and
+zero recorded reference matrix difference. It is a live progress snapshot, not
+a full-sequence accuracy result or independent native audit. Scan acquisition
+and normal Git push still fail with HTTP 503; preserve the running native state.
+[PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174) may merge at
+the user's explicit request with this incomplete trial documented. The fixed
+all-sequence requirement and prospective retention gate still govern any claim
+of an accepted improvement; merging does not satisfy either requirement.
+
+Bad-length steps decrease from 44 to 7, but failures remain at 209–210, 214–215,
+432–433 and 436. The last three are new relative to the reference. At 432,
+S2S length / GT is 1.005920 but accepted mapping ends at 0.734083. The
+[post-hoc complete stage report](../experiments/results/inten_geometric_prior/posthoc_bad_steps_01.json)
+retains every remaining bad step. The predeclared 215 negative also remains:
+1.003769 at S2S input, 0.780277 after S2S, and 0.373955 after mapping. These
+local negatives coexist with the full 01 improvement. Do not tune from them.
+After the frozen trial, investigate the accepted mapping correction with the
+same map history. No Table 6, paper eligibility or SOTA claim follows.
+
+A [fresh complete Python discovery](../experiments/results/inten_geometric_prior/publication_final_discovery/)
+now succeeds: 448 tests, five skipped, exit 0 (`a9f2991b`). The adapter restores
+archived production sources against unchanged hashes, runs the original workers
+serially, and binds nested recovery checks. Worker outputs and the final global
+audit pass in the same execution; regenerated historical tables are byte-identical.
+Earlier failures are retained. Full native/ROS2 CI is not claimed. A controlled
+same-version comparison shows that the earlier numerical witness depends on the
+NumPy installation/build: the system build fails and a PyPI wheel passes with
+the same Python/NumPy/SciPy versions. Preserve build provenance and tolerances;
+this runtime control is not a trajectory improvement.
+
+
 
 The independent initialization comparison is complete; see
 [the executed study](../experiments/results/inten_independent_onset/README.md).
@@ -24,8 +99,8 @@ initialization from that prior. This is diagnostic evidence,
 not an improved full InTEn run. Good seeds still fail at 215 and 420; retain
 those adverse controls and the near-threshold case at 202.
 
-Next, prioritize a GT-free geometric initializer independent of the native
-feature-history loop, default off, followed by one fixed all-sequence trial.
+The GT-free independent initializer is now implemented as the default-off
+hybrid above. The next milestone is completion of its fixed all-sequence trial.
 Do not continue scalar/mask searches without a new causal reason. Keep the
 fixed improved profile as reference and retain every previous failed gate.
 No Table 6 or paper-number change follows from this single-sequence study.

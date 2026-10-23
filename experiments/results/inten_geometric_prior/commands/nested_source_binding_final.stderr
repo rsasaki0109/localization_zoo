@@ -1,0 +1,18 @@
+test_all_affected_studies_pass_full_source_preflight (test_inten_support_source_binding.HistoricalSourceBindingTest.test_all_affected_studies_pass_full_source_preflight) ... ok
+test_all_workers_execute_once_without_overlapping (test_inten_support_source_binding.HistoricalSourceBindingTest.test_all_workers_execute_once_without_overlapping) ... ok
+test_archive_paths_cannot_escape_source_fixture (test_inten_support_source_binding.HistoricalSourceBindingTest.test_archive_paths_cannot_escape_source_fixture) ... ok
+test_changed_archived_source_is_rejected_even_with_valid_gzip (test_inten_support_source_binding.HistoricalSourceBindingTest.test_changed_archived_source_is_rejected_even_with_valid_gzip) ... ok
+test_changed_historical_test_snapshot_is_rejected (test_inten_support_source_binding.HistoricalSourceBindingTest.test_changed_historical_test_snapshot_is_rejected) ... ok
+test_changed_manifest_is_rejected_against_frozen_protocol (test_inten_support_source_binding.HistoricalSourceBindingTest.test_changed_manifest_is_rejected_against_frozen_protocol) ... ok
+test_current_historical_verifier_corruption_is_not_hidden_by_archive (test_inten_support_source_binding.HistoricalSourceBindingTest.test_current_historical_verifier_corruption_is_not_hidden_by_archive) ... ok
+test_current_production_changes_do_not_rebind_historical_results (test_inten_support_source_binding.HistoricalSourceBindingTest.test_current_production_changes_do_not_rebind_historical_results) ... ok
+test_missing_archive_has_no_working_tree_fallback (test_inten_support_source_binding.HistoricalSourceBindingTest.test_missing_archive_has_no_working_tree_fallback) ... ok
+test_nested_recovery_source_corruption_is_still_rejected (test_inten_support_source_binding.HistoricalSourceBindingTest.test_nested_recovery_source_corruption_is_still_rejected) ... ok
+test_nested_source_roots_restore_after_failure (test_inten_support_source_binding.HistoricalSourceBindingTest.test_nested_source_roots_restore_after_failure) ... ok
+test_original_nested_global_checks_reach_reconstruction (test_inten_support_source_binding.HistoricalSourceBindingTest.test_original_nested_global_checks_reach_reconstruction) ... ok
+test_verifier_failure_restores_source_root (test_inten_support_source_binding.HistoricalSourceBindingTest.test_verifier_failure_restores_source_root) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.571s
+
+OK

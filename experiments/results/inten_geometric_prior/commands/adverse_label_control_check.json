@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-c",
+    "import json,hashlib\nfrom pathlib import Path\nr=Path('experiments/results/inten_geometric_prior');old=r/'adverse_cases_after_tail_recovery.json';new=r/'adverse_label_interrupted_control.json'\na=json.loads(old.read_text());b=json.loads(new.read_text());assert b.pop('sequence_complete') is False;assert a==b\nreport=dict(interrupted_label_valid=True,all_prior_diagnostics_and_scope_identical=True,old_sha256=hashlib.sha256(old.read_bytes()).hexdigest(),new_sha256=hashlib.sha256(new.read_bytes()).hexdigest())\n(r/'adverse_label_control_check.json').write_text(json.dumps(report,indent=2)+chr(10))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "7314c4ab05f6d9dce0a91c8ce0bc8564dda6fc3c",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792768860.6311758,
+  "exit_code": 0,
+  "wall_seconds": 0.03121414501219988,
+  "logs": {
+    ".stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

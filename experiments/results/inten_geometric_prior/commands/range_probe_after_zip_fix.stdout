@@ -1,0 +1,18 @@
+[
+  {
+    "requested_range": "bytes=9936447580-9936447707",
+    "status": 503,
+    "content_range": null,
+    "bytes_read": 215,
+    "sha256": "971f01aae81a63c435e602a1a728c8894b1527150a621d70d735aaca6ff930ea",
+    "body": "upstream connect error or disconnect/reset before headers. reset reason: remote connection failure, transport failure reason: immediate connect error: Invalid argument|remote address:envoy://cloudflare_https_tunnel/"
+  },
+  {
+    "requested_range": "bytes=-65536",
+    "status": 503,
+    "content_range": null,
+    "bytes_read": 215,
+    "sha256": "971f01aae81a63c435e602a1a728c8894b1527150a621d70d735aaca6ff930ea",
+    "body": "upstream connect error or disconnect/reset before headers. reset reason: remote connection failure, transport failure reason: immediate connect error: Invalid argument|remote address:envoy://cloudflare_https_tunnel/"
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "scope": "Post-run global audit of exact outputs produced by the completed discovery; not fresh discovery.",
+  "preceding_discovery_exit_code": 1,
+  "preceding_discovery_receipt_sha256": "86557f11852ec88a97b2edcabfffae93e7d1b0b49642a0c353290093a35640b1",
+  "worker_results": {
+    "old": {
+      "executed_exit_code": 0,
+      "executed_output_sha256": "03606d04af5db48f67719a3f81ecfd96a0b3ed4503c2c6d97c6ed572b07e8149",
+      "receipt_sha256": "05996a068326d4231f42604bf6aa06ba86950e5211017d9cc3b3518a26ad8591"
+    },
+    "01": {
+      "executed_exit_code": 0,
+      "executed_output_sha256": "121ebf92981a7f14bc869f4111000414e19992ba38356a833943efecb575ba82",
+      "receipt_sha256": "34cfb86a44c2be89d32517e43bd5a8d42dc1892b3c33969006826559e4c0dd50"
+    },
+    "02": {
+      "executed_exit_code": 0,
+      "executed_output_sha256": "90c6177307ddb5efddce1229a3fe14466fba3cf93eeb29403002bc2dff8731d2",
+      "receipt_sha256": "704e026d62e805f5c5d2d3cc51ac66a80b6b1fa03fe831f1b3f68b7255684256"
+    },
+    "08": {
+      "executed_exit_code": 0,
+      "executed_output_sha256": "deee239df9f5b8ed10768960293c7ed546a566e3abbb07fd43665fcbe1461211",
+      "receipt_sha256": "7cca0a273a8478dc7277250f97900d7502c379c7bc1338cd50eba172ed620057"
+    }
+  },
+  "all_original_global_checks_passed": true,
+  "original_test_result_assertions_passed": true,
+  "all_executed_worker_outputs_byte_equal": true
+}

@@ -17,13 +17,22 @@ The default-off hybrid geometric initializer/prior is now implemented; see
 [the fixed full-sequence trial](../experiments/results/inten_geometric_prior/README.md).
 Focused native tests, normal CLI build and disabled-path fixture parity pass.
 Full evaluation remains blocked by recurring HTTP 503 tunnel failures. The
-first 01 attempt stopped after 768 frames; a retry after reported connection
-recovery stopped after 128 frames. Both nonempty prefixes have exact disabled
-reference parity, independently checked against the archived traces and raw
-input hashes. Neither is a full accuracy result. The implementation was pushed
+first 01 attempt stopped after 768 frames; subsequent attempts stopped after
+128 and 832 frames. All nonempty prefixes have exact disabled reference parity,
+independently checked against the archived traces and raw input hashes. Neither is a full accuracy result. The implementation was pushed
 successfully once, but subsequent pushes failed again. Keep all failed attempts;
 resume the same binary/configuration from frame zero, then finish 00–10 before
 any acceptance decision. Acquisition backoff changes transport only.
+
+The predeclared 215 case remains a negative: hybrid step length / GT length is
+1.003769 at S2S input, 0.780277 after S2S, and 0.373955 after accepted mapping.
+An accurate initializer alone does not remove that failure. The retained
+[stage diagnostics](../experiments/results/inten_geometric_prior/adverse_cases.json)
+also include 202 and 420. Do not tune from these partial results; finish the
+frozen trial after stable transport recovery. Before leaving
+[Draft PR #174](https://github.com/rsasaki0109/localization_zoo/pull/174), resolve
+historical-source verification compatibility without changing frozen hashes
+or weakening the archive checks; full Python CI is not currently green.
 
 
 The independent initialization comparison is complete; see

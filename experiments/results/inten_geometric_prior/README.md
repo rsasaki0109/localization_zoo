@@ -96,6 +96,37 @@ missing values for that one field; `frames` and the root `num_frames` are now
 required, with the pose line count checked separately. Its original receipt is
 retained. This correction does not change any estimator output.
 
+## Predeclared adverse cases in the incomplete continuous trial
+
+The latest acquisition-interrupted attempt contains 832 continuous frames
+from frame zero. The [complete prefix audit](interrupted_audit_final.json)
+verifies every retained raw hash, order and pose export, and reference matrix
+error remains 0. No full-sequence RTE/ATE or retention verdict is inferred.
+
+[adverse_cases.json](adverse_cases.json) reports the cases named in the protocol
+before execution. Each entry below is local translation length divided by GT
+translation length; 1 is correct length. These are stage diagnostics, not
+paper scores. Reference final and hybrid final include InTEn's mapping stage.
+
+| Frame | Reference final | Hybrid S2S input | Hybrid S2S output | Hybrid final |
+|---|---:|---:|---:|---:|
+| 202 | 0.949347 | 1.006358 | 0.799373 | 0.968400 |
+| 215 | 0.306116 | 1.003769 | 0.780277 | 0.373955 |
+| 420 | 0.999430 | 1.004785 | 0.589326 | 0.986409 |
+
+At 215, the independent motion enters at 1.003769, S2S shortens it to 0.780277,
+and the accepted S2M result ends at 0.373955. The reference is also bad
+(0.306116); the hybrid still fails the >20% length diagnostic. This is direct
+negative evidence that an accurate independent seed alone does not eliminate
+this continuous trajectory's failure. At 420, S2S worsens relative to the
+reference S2S output (0.589326 versus 0.606071), although mapping recovers the
+final step to 0.986409. At 202, S2S is still near the diagnostic boundary
+(0.799373), while mapping recovers 0.968400. All these stages are retained;
+none is used to tune a new setting. A next causal diagnosis should distinguish
+S2S distortion from the accepted mapping correction and map-history effects.
+This does not replace completing the frozen all-sequence trial after transport
+recovers.
+
 ## Full Python validation is not yet green
 
 The full discovery and all failures are preserved in

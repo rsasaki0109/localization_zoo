@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/results/inten_support_information/build.py"
+  ],
+  "cwd": "/workspace/localization-env/branch-cleanup-20261022/worktree",
+  "source_commit": "31daf92871b50f8bd5d7a39a9e326cb60f989add",
+  "started_unix": 1792714215.4157255,
+  "finished_unix": 1792714251.908878,
+  "exit_code": 0,
+  "environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin_sha256": null
+}

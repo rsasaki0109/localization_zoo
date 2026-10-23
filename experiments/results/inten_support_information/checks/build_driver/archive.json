@@ -1,0 +1,30 @@
+{
+  "files": {
+    "build_driver.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/build_driver/build_driver.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "build_driver.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "build_driver.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/build_driver/build_driver.stdout.log",
+      "bytes": 72,
+      "sha256": "29d539dde8ce41135c86106a169275995b45e2cbc533399934060ffb0bd1beb3",
+      "storage": "gzip",
+      "path": "build_driver.stdout.log.gz",
+      "stored_sha256": "d7f355c178c3ec39b6bbca0836b25971a684c0be35abd9568fb175deedd5abde"
+    },
+    "build_driver_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/build_driver/build_driver_command.json",
+      "bytes": 575,
+      "sha256": "19786c6fe82dd7cfedbdfd6bc13da8b0663aab2b25be94ac99498c2295376860",
+      "storage": "verbatim",
+      "path": "build_driver_command.json",
+      "stored_sha256": "19786c6fe82dd7cfedbdfd6bc13da8b0663aab2b25be94ac99498c2295376860"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

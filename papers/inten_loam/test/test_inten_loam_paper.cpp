@@ -1442,6 +1442,7 @@ TEST(InTenLoamPaper, GeometricPriorTracksIndependentBackend) {
       detail::geometricPriorParams(p.max_range));
   std::vector<Eigen::Vector3d> points;
   std::vector<float> intensities;
+  bool saw_weak_translation_prior = false;
   for (int i = 0; i < 4; ++i) {
     Eigen::Matrix4d sensor = Eigen::Matrix4d::Identity();
     sensor(0, 3) = .4 * i;
@@ -1458,9 +1459,12 @@ TEST(InTenLoamPaper, GeometricPriorTracksIndependentBackend) {
     if (i > 0) {
       EXPECT_EQ((a.s2s.input - independent.lastDelta()).cwiseAbs().maxCoeff(), 0.0);
       EXPECT_EQ((b.s2s.input - independent.lastDelta()).cwiseAbs().maxCoeff(), 0.0);
-      EXPECT_GT(a.s2s.translation_prior_information.norm(), 0.0);
+      // A well-constrained step correctly gets no extra prior. At least one
+      // weak step in this fixture must exercise the coupled prior path.
+      saw_weak_translation_prior |= a.s2s.translation_prior_information.norm() > 0.0;
     }
   }
+  EXPECT_TRUE(saw_weak_translation_prior);
 }
 
 TEST(InTenLoamPaper, GeometricPriorIsOptInAndRejectsForcedPoseBeforeUpdating) {

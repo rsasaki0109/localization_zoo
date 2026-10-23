@@ -1,0 +1,54 @@
+{
+  "files": {
+    "input.txt": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/native_02/referenced_archive_stage/input.txt",
+      "bytes": 2176,
+      "sha256": "142ed3f7249cb1b105bfbee6066911278a080bfe6343c3b7e96f3a70738852a7",
+      "storage": "verbatim",
+      "path": "input.txt",
+      "stored_sha256": "142ed3f7249cb1b105bfbee6066911278a080bfe6343c3b7e96f3a70738852a7"
+    },
+    "input_sources.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/native_02/referenced_archive_stage/input_sources.json",
+      "bytes": 527,
+      "sha256": "d562abb21dd6e8009aa06a5dd9f2b6869271afedd64bb050740800155f70dfbc",
+      "storage": "verbatim",
+      "path": "input_sources.json",
+      "stored_sha256": "d562abb21dd6e8009aa06a5dd9f2b6869271afedd64bb050740800155f70dfbc"
+    },
+    "native.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/native_02/referenced_archive_stage/native.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "native.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "native.stdout.reference.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/native_02/referenced_archive_stage/native.stdout.reference.json",
+      "bytes": 503,
+      "sha256": "382deccba6dbb9fe918bd939fc0cdc345d418093ffb0c4a8b2c67aadb578469d",
+      "storage": "verbatim",
+      "path": "native.stdout.reference.json",
+      "stored_sha256": "382deccba6dbb9fe918bd939fc0cdc345d418093ffb0c4a8b2c67aadb578469d"
+    },
+    "native_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/native_02/referenced_archive_stage/native_command.json",
+      "bytes": 1074,
+      "sha256": "3b7fd9bce73c6acbe995df6b29cdfbce2a9e6b69e168659c6f409ef134dfc7e9",
+      "storage": "verbatim",
+      "path": "native_command.json",
+      "stored_sha256": "3b7fd9bce73c6acbe995df6b29cdfbce2a9e6b69e168659c6f409ef134dfc7e9"
+    },
+    "support.extra.jsonl": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/native_02/referenced_archive_stage/support.extra.jsonl",
+      "bytes": 317649424,
+      "sha256": "cb91b53a156bc6d39a961b84a399e2ddae0f4b92957c3da5545f319ebd737d65",
+      "storage": "xz",
+      "path": "support.extra.jsonl.xz",
+      "stored_sha256": "996d6429d239c2bd4ecc6e46d1c3afabdd4a5f96cfdd62399f87d20fb9b68b31"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

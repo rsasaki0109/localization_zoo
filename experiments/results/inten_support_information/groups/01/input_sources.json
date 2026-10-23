@@ -1,0 +1,16 @@
+{
+  "parent_group": "experiments/results/inten_iteration_budget/groups/01",
+  "parent_archive_sha256": "3694cbbab84dc89dffde5894d9272c547606e5adad9b035015495654263dcef3",
+  "feature_cache_private": "/workspace/localization-env/inten-zero-consensus-control/features_01.txt",
+  "feature_cache_sha256": "255b53c95e2bef45ff46f82aa75812cada2c422de561961618c1f24fddae1633",
+  "frames": [
+    425,
+    426,
+    810,
+    811,
+    837,
+    838
+  ],
+  "no_raw_acquired": true,
+  "no_gt_in_native_input": true
+}

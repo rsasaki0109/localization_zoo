@@ -1,0 +1,38 @@
+{
+  "files": {
+    "mechanism_regressions.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/mechanism_regressions/mechanism_regressions.stderr.log",
+      "bytes": 1641,
+      "sha256": "c46fb957ae8d8cef695c66a34b533ebf06f74605d6ef19f3700f965b61d27142",
+      "storage": "gzip",
+      "path": "mechanism_regressions.stderr.log.gz",
+      "stored_sha256": "d2a662e4ce4cb54870054685b87e28c08fdcffd2fc8bb588c83fdee7f322d75e"
+    },
+    "mechanism_regressions.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/mechanism_regressions/mechanism_regressions.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "mechanism_regressions.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "mechanism_regressions_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/mechanism_regressions/mechanism_regressions_command.json",
+      "bytes": 1712,
+      "sha256": "34e2f574a29ca5bf99b02cc06f7685bb75f121f69a89e9ab7cd3c7ccf22de178",
+      "storage": "verbatim",
+      "path": "mechanism_regressions_command.json",
+      "stored_sha256": "34e2f574a29ca5bf99b02cc06f7685bb75f121f69a89e9ab7cd3c7ccf22de178"
+    },
+    "source_binding.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/mechanism_regressions/source_binding.json",
+      "bytes": 288,
+      "sha256": "8338649c5f28dc67741a89d092918f7b4cd5ba9b0aadda8f7c51ada499a25a6e",
+      "storage": "verbatim",
+      "path": "source_binding.json",
+      "stored_sha256": "8338649c5f28dc67741a89d092918f7b4cd5ba9b0aadda8f7c51ada499a25a6e"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

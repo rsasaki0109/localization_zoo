@@ -1,0 +1,30 @@
+{
+  "files": {
+    "verify_full_field.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/verification_full_field/verify_full_field.stderr.log",
+      "bytes": 2464,
+      "sha256": "1df119c3801ccbf0b2437ea73cf14d29f81e64fb122205143c4aeadf74fb6bb6",
+      "storage": "gzip",
+      "path": "verify_full_field.stderr.log.gz",
+      "stored_sha256": "256561f07fe6e58f952926c2d45110f361c51940abe616c3053098da57c57fc4"
+    },
+    "verify_full_field.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/verification_full_field/verify_full_field.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "verify_full_field.stdout.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "verify_full_field_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/verification_full_field/verify_full_field_command.json",
+      "bytes": 825,
+      "sha256": "8605ef089a861c096e260a75470e460789a35ab5e19d3679b6a8b2d8d1964235",
+      "storage": "verbatim",
+      "path": "verify_full_field_command.json",
+      "stored_sha256": "8605ef089a861c096e260a75470e460789a35ab5e19d3679b6a8b2d8d1964235"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

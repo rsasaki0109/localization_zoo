@@ -4,6 +4,8 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import threading
+import time
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -71,11 +73,35 @@ class HistoricalSourceBindingTest(unittest.TestCase):
             self.assertNotEqual(checker.W, ROOT)
             self.assertTrue((checker.W / SOURCE).exists())
             raise RuntimeError('original verifier failure')
-        verifier = SimpleNamespace(E=STUDY, checker=checker, validate_in=fail)
+        original_executor = object()
+        verifier = SimpleNamespace(E=STUDY, checker=checker, validate_in=fail,
+                                   ThreadPoolExecutor=original_executor)
         with tempfile.TemporaryDirectory() as folder:
             with self.assertRaisesRegex(RuntimeError, 'original verifier failure'):
                 history.validate_in(verifier, folder)
         self.assertEqual(checker.W, ROOT)
+        self.assertIs(verifier.ThreadPoolExecutor, original_executor)
+
+    def test_all_workers_execute_once_without_overlapping(self):
+        active = 0
+        peak = 0
+        seen = []
+        lock = threading.Lock()
+        def work(group):
+            nonlocal active, peak
+            with lock:
+                active += 1
+                peak = max(peak, active)
+                seen.append(group)
+            time.sleep(.01)
+            with lock:
+                active -= 1
+            return group
+        with history.SerialWorkers(max_workers=2) as pool:
+            results = list(pool.map(work, ['old', '01', '08', '02']))
+        self.assertEqual(results, ['old', '01', '08', '02'])
+        self.assertEqual(seen, results)
+        self.assertEqual(peak, 1)
 
     def test_archive_paths_cannot_escape_source_fixture(self):
         for value in ('/etc/passwd', '../outside', 'sources/../../outside', ''):

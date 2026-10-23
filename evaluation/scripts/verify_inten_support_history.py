@@ -8,6 +8,7 @@ and must pass the original hashes and numerical checks. This does not validate
 the current estimator; its native tests and default-off parity are separate.
 """
 from contextlib import contextmanager
+from concurrent.futures import ThreadPoolExecutor
 import gzip
 import hashlib
 import json
@@ -56,12 +57,26 @@ def historical_sources(study):
         yield root
 
 
+class SerialWorkers(ThreadPoolExecutor):
+    """Keep the frozen pair/group order with one live worker process at a time."""
+    def __init__(self, max_workers=None, **kwargs):
+        super().__init__(max_workers=1, **kwargs)
+
+
 def validate_in(verifier, folder):
-    """Run every frozen group/global check; restore module state even on error."""
+    """Run every frozen check serially; restore module state even on error.
+
+    Only scheduling changes: the original worker commands, arithmetic, receipts,
+    group population and final global checks are executed unchanged. A pair of
+    large reconstruction workers exceeds this environment's available memory.
+    """
     with historical_sources(verifier.E) as root:
         previous = verifier.checker.W
+        previous_executor = verifier.ThreadPoolExecutor
         verifier.checker.W = root
+        verifier.ThreadPoolExecutor = SerialWorkers
         try:
             return verifier.validate_in(Path(folder))
         finally:
             verifier.checker.W = previous
+            verifier.ThreadPoolExecutor = previous_executor

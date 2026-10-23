@@ -10,6 +10,27 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+
+### Current development decision (2026-10-23)
+
+The independent initialization comparison is complete; see
+[the executed study](../experiments/results/inten_independent_onset/README.md).
+On full KITTI 01 with the frozen InTEn input policy, upstream KISS-ICP reaches
+0.949387% RTE versus the fixed opt-in InTEn profile's 4.481189%. In 73 isolated
+S2S pairs, independent current/previous initial poses reduce >20% step errors
+from 46 to 2/3, with exact native replay controls. These poses also set the
+weak translation-prior target; the intervention does not separate optimizer
+initialization from that prior. This is diagnostic evidence,
+not an improved full InTEn run. Good seeds still fail at 215 and 420; retain
+those adverse controls and the near-threshold case at 202.
+
+Next, prioritize a GT-free geometric initializer independent of the native
+feature-history loop, default off, followed by one fixed all-sequence trial.
+Do not continue scalar/mask searches without a new causal reason. Keep the
+fixed improved profile as reference and retain every previous failed gate.
+No Table 6 or paper-number change follows from this single-sequence study.
+
+
 ### Paper-number check (official KITTI RTE, 100-800 m segments)
 
 Repo value over paper value, geometric mean over the sequences run
@@ -836,8 +857,12 @@ independent. Each item says what "done" means.
     temporary cleanup. That failure remains before isolated full revalidation.
     Quantitative scientific outputs and all earlier failures are committed;
     final local/CI proofs remain private to keep the tested source head fixed.
-    Ready requires every isolated local check and exact-final-head full
-    Native/ROS2 CI with both complete decoded logs; main remains unmerged.
+    That historical ready gate required isolated local checks and final-head
+    Native/ROS2 CI logs. PR #170 was subsequently merged as `6d1023fe` after
+    the owner explicitly accepted local verification while remote CI waited.
+    The queued remote run was not counted as a pass; the scientific failures
+    above remain failures. The current next task is the independent-initializer
+    experiment described at the top of this roadmap.
 
 13. **CT-ICP 1.15x, MULLS 1.12x.** Their 00-10 averages equal the official
     code's, so the gap is upstream's. Only revisit if a paper detail is

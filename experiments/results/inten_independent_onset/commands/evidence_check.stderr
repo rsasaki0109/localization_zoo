@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-independent-onset-20261023/worktree/experiments/results/inten_independent_onset/validate_evidence.py", line 58, in <module>
+    main()
+  File "/tmp/localization-zoo-inten-independent-onset-20261023/worktree/experiments/results/inten_independent_onset/validate_evidence.py", line 42, in main
+    method=next(m for m in ref['methods'] if m['name']=='InTEn_LOAM')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration

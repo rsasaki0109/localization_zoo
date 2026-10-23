@@ -1,0 +1,53 @@
+[
+  {
+    "argv": [
+      "docker",
+      "inspect",
+      "--format",
+      "{{.Image}}",
+      "localization-zoo-dev"
+    ],
+    "stdin": null,
+    "exit_code": 0,
+    "stdout": "sha256:68f88decd1ae2b21d048f6c01ab35accd93f12cbdd66e75f4f939b20ebf7f2c9\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "localization-zoo-dev",
+      "ldd",
+      "/workspace/localization-env/inten-facade-pca/intervention_probe"
+    ],
+    "stdin": null,
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x00007f834ee89000)\n\tlibgomp.so.1 => /lib/x86_64-linux-gnu/libgomp.so.1 (0x00007f834edd9000)\n\tlibpcl_io.so.1.12 => /lib/x86_64-linux-gnu/libpcl_io.so.1.12 (0x00007f834ebe1000)\n\tlibpcl_filters.so.1.12 => /lib/x86_64-linux-gnu/libpcl_filters.so.1.12 (0x00007f834e541000)\n\tlibpcl_kdtree.so.1.12 => /lib/x86_64-linux-gnu/libpcl_kdtree.so.1.12 (0x00007f834e42b000)\n\tlibpcl_common.so.1.12 => /lib/x86_64-linux-gnu/libpcl_common.so.1.12 (0x00007f834e391000)\n\tliblz4.so.1 => /lib/x86_64-linux-gnu/liblz4.so.1 (0x00007f834e36f000)\n\tlibunwind.so.8 => /lib/x86_64-linux-gnu/libunwind.so.8 (0x00007f834e354000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f834e128000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f834e041000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f834de18000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f834ee8b000)\n\tlibboost_filesystem.so.1.74.0 => /lib/x86_64-linux-gnu/libboost_filesystem.so.1.74.0 (0x00007f834ddf8000)\n\tlibboost_iostreams.so.1.74.0 => /lib/x86_64-linux-gnu/libboost_iostreams.so.1.74.0 (0x00007f834ddde000)\n\tlibpcl_io_ply.so.1.12 => /lib/x86_64-linux-gnu/libpcl_io_ply.so.1.12 (0x00007f834dd9e000)\n\tlibvtkIOGeometry-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkIOGeometry-9.1.so.1 (0x00007f834dc1d000)\n\tlibvtkIOPLY-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkIOPLY-9.1.so.1 (0x00007f834dc02000)\n\tlibpng16.so.16 => /lib/x86_64-linux-gnu/libpng16.so.16 (0x00007f834dbc7000)\n\tlibusb-1.0.so.0 => /lib/x86_64-linux-gnu/libusb-1.0.so.0 (0x00007f834dba9000)\n\tlibOpenNI2.so.0 => /lib/x86_64-linux-gnu/libOpenNI2.so.0 (0x00007f834db4b000)\n\tlibOpenNI.so.0 => /lib/libOpenNI.so.0 (0x00007f834dade000)\n\tlibpcap.so.0.8 => /lib/x86_64-linux-gnu/libpcap.so.0.8 (0x00007f834da91000)\n\tlibvtkIOImage-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkIOImage-9.1.so.1 (0x00007f834d918000)\n\tlibvtkIOLegacy-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkIOLegacy-9.1.so.1 (0x00007f834d880000)\n\tlibvtkImagingCore-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkImagingCore-9.1.so.1 (0x00007f834d6a8000)\n\tlibvtkIOCore-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkIOCore-9.1.so.1 (0x00007f834d63c000)\n\tlibvtkCommonExecutionModel-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonExecutionModel-9.1.so.1 (0x00007f834d500000)\n\tlibvtkCommonDataModel-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonDataModel-9.1.so.1 (0x00007f834d045000)\n\tlibvtkCommonCore-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonCore-9.1.so.1 (0x00007f834c6db000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f834c6bb000)\n\tlibpcl_sample_consensus.so.1.12 => /lib/x86_64-linux-gnu/libpcl_sample_consensus.so.1.12 (0x00007f834baeb000)\n\tlibpcl_search.so.1.12 => /lib/x86_64-linux-gnu/libpcl_search.so.1.12 (0x00007f834b904000)\n\tlibpcl_octree.so.1.12 => /lib/x86_64-linux-gnu/libpcl_octree.so.1.12 (0x00007f834b6be000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007f834b693000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f834b677000)\n\tlibbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0 (0x00007f834b662000)\n\tlibzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007f834b593000)\n\tlibvtkFiltersHybrid-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkFiltersHybrid-9.1.so.1 (0x00007f834b4c3000)\n\tlibvtkRenderingCore-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkRenderingCore-9.1.so.1 (0x00007f834b2b8000)\n\tlibjsoncpp.so.25 => /lib/x86_64-linux-gnu/libjsoncpp.so.25 (0x00007f834b283000)\n\tlibvtkFiltersGeneral-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkFiltersGeneral-9.1.so.1 (0x00007f834ae4f000)\n\tlibvtkFiltersCore-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkFiltersCore-9.1.so.1 (0x00007f834a65c000)\n\tlibvtkCommonSystem-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonSystem-9.1.so.1 (0x00007f834a621000)\n\tlibvtkCommonTransforms-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonTransforms-9.1.so.1 (0x00007f834a5dd000)\n\tlibvtkCommonMath-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonMath-9.1.so.1 (0x00007f834a5bb000)\n\tlibvtksys-9.1.so.1 => /lib/x86_64-linux-gnu/libvtksys-9.1.so.1 (0x00007f834a56d000)\n\tlibvtkCommonMisc-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonMisc-9.1.so.1 (0x00007f834a165000)\n\tlibudev.so.1 => /lib/x86_64-linux-gnu/libudev.so.1 (0x00007f834a13b000)\n\tlibdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f834a136000)\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f834a131000)\n\tlibjpeg.so.8 => /lib/x86_64-linux-gnu/libjpeg.so.8 (0x00007f834a0b0000)\n\tlibtinyxml.so.2.6.2 => /lib/x86_64-linux-gnu/libtinyxml.so.2.6.2 (0x00007f834a097000)\n\tlibdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007f834a049000)\n\tlibvtkDICOMParser-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkDICOMParser-9.1.so.1 (0x00007f834a02e000)\n\tlibvtkmetaio-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkmetaio-9.1.so.1 (0x00007f8349f97000)\n\tlibvtkpugixml-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkpugixml-9.1.so.1 (0x00007f8349f5f000)\n\tlibtiff.so.5 => /lib/x86_64-linux-gnu/libtiff.so.5 (0x00007f8349ed6000)\n\tlibtbb.so.12 => /lib/x86_64-linux-gnu/libtbb.so.12 (0x00007f8349e84000)\n\tlibdouble-conversion.so.3 => /lib/x86_64-linux-gnu/libdouble-conversion.so.3 (0x00007f8349e6f000)\n\tlibvtkloguru-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkloguru-9.1.so.1 (0x00007f8349e3a000)\n\tlibvtkImagingSources-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkImagingSources-9.1.so.1 (0x00007f8349e00000)\n\tlibvtkFiltersGeometry-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkFiltersGeometry-9.1.so.1 (0x00007f8349d28000)\n\tlibvtkCommonColor-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonColor-9.1.so.1 (0x00007f8349d0c000)\n\tlibvtkFiltersSources-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkFiltersSources-9.1.so.1 (0x00007f8349c54000)\n\tlibvtkCommonComputationalGeometry-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkCommonComputationalGeometry-9.1.so.1 (0x00007f8349c21000)\n\tlibvtkfmt-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkfmt-9.1.so.1 (0x00007f8349bfe000)\n\tlibvtkkissfft-9.1.so.1 => /lib/x86_64-linux-gnu/libvtkkissfft-9.1.so.1 (0x00007f8349bf5000)\n\tlibsystemd.so.0 => /lib/x86_64-linux-gnu/libsystemd.so.0 (0x00007f8349b2e000)\n\tlibwebp.so.7 => /lib/x86_64-linux-gnu/libwebp.so.7 (0x00007f8349ac1000)\n\tlibjbig.so.0 => /lib/x86_64-linux-gnu/libjbig.so.0 (0x00007f8349ab0000)\n\tlibdeflate.so.0 => /lib/x86_64-linux-gnu/libdeflate.so.0 (0x00007f8349a8c000)\n\tlibcap.so.2 => /lib/x86_64-linux-gnu/libcap.so.2 (0x00007f8349a7f000)\n\tlibgcrypt.so.20 => /lib/x86_64-linux-gnu/libgcrypt.so.20 (0x00007f834993f000)\n\tlibgpg-error.so.0 => /lib/x86_64-linux-gnu/libgpg-error.so.0 (0x00007f8349919000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "docker",
+      "exec",
+      "localization-zoo-dev",
+      "mkdir",
+      "/dev/shm/inten-independent-onset-20261023"
+    ],
+    "stdin": null,
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "docker",
+      "cp",
+      "/tmp/localization-zoo-inten-independent-onset-20261023/raw/dataset/sequences/01/velodyne/000189.bin",
+      "localization-zoo-dev:/dev/shm/inten-independent-onset-20261023/previous.bin"
+    ],
+    "stdin": null,
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Error response from daemon: Could not find the file /dev/shm/inten-independent-onset-20261023 in container localization-zoo-dev\n"
+  }
+]

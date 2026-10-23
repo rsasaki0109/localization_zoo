@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "experiments/results/inten_independent_onset/check_publication.py",
+    "--source-root",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree",
+    "--worktree",
+    "/tmp/localization-zoo-inten-independent-onset-20261023/worktree",
+    "--scratch",
+    "/tmp/localization-zoo-inten-independent-onset-20261023/validation_tree",
+    "--output",
+    "experiments/results/inten_independent_onset/publication"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-independent-onset-20261023/worktree",
+  "source_commit": "ce8ca79354559d4a5d8c36de78fcd83650a62dbf",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792740536.6445277,
+  "exit_code": 0,
+  "wall_seconds": 18.09320777002722,
+  "logs": {
+    ".stdout": "69c829dba555cb0a6805764400c348dc64b20f5ba17981fde7315427f84323aa",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

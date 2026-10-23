@@ -5,6 +5,34 @@
 Remote Sensing / arXiv:2209.05708 (2022/23). No public author code found.
 Reconstructed from the paper.
 
+
+## Independent initialization diagnosis (2026-10-23)
+
+A controlled-input upstream KISS-ICP run avoids the remaining KITTI 01 collapse:
+official RTE is **0.949387%**, compared with **4.481189%** for the frozen
+mapped-prior / translation-prior / ground-PCA / facade-PCA InTEn profile.
+Both cover the full 1101 frames. This is a reference comparison, not a new
+InTEn accuracy result or paper-ratio row.
+
+In 73 predeclared scan pairs, replaying native seeds reproduces the archived
+S2S outputs exactly. Replacing the seed with the independent current
+increment reduces outputs with >20% step-length error from **46 to 2**;
+using the independent previous increment leaves **3**. The frozen solver also uses the seed as its weak translation-prior target:
+this is a joint initializer/prior intervention, not a fixed-objective basin
+test. The paired tests do not chain. Current independent seeds still fail at 215 and 420 (output/GT
+step ratios **0.783427**, **0.557228**), with 420 worse than the native seed's
+**0.606071**. Frame 202 lies near the diagnostic threshold and is not a robust
+success. The independent initializer therefore merits a full causal trial,
+while the remaining objective failures must also be retained.
+
+See [protocol, continuous results, commands and limits](../../experiments/results/inten_independent_onset/README.md).
+Input range/elevation are inherited from the prior 07/00 selection; upstream
+voxel/defaults are retained, with no new parameter search. All KITTI data are
+development data. No production/default change or all-sequence improvement
+is claimed. Next: a default-off, GT-free geometric initializer independent of
+InTEn's feature-history loop, evaluated with one fixed configuration across
+all paper sequences.
+
 ## Core idea
 
 InTEn-LOAM exploits **geometric + intensity + temporal** information in LiDAR sweeps:

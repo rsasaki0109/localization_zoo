@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "frames_verified": 1101,
+  "fixed_pairs_verified": 219,
+  "max_native_replay_error": 0.0,
+  "successful_receipt_sources": {
+    "fetch_missing": "fc864d371365f701880396f5f7ef01b3f361d300",
+    "preprocess_build": "6e4c13085158c509f8c0bfe5b0cb4a0b52e50389",
+    "input_tests": "9598a18807651eed59327e7bdb11eb6085d1aabb",
+    "kiss": "9598a18807651eed59327e7bdb11eb6085d1aabb",
+    "probe_retry": "b26054763c6baf71be5839ab1b2de62d6adf78b9",
+    "analysis": "32ecf277960d0276851dde35a25a34a67ddfde65"
+  },
+  "known_acquisition_failures_retained": [
+    "fetch.json",
+    "fetch_resume.json",
+    "probe.json"
+  ]
+}

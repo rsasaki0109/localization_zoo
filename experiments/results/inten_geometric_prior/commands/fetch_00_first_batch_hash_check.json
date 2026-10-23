@@ -23,5 +23,10 @@
   "logs": {
     ".stdout": "c982fa0f6994f794669d30995661c5a28f14de5052bca6c76eabd49d6b84862d",
     ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdin": {
+    "path": "experiments/results/inten_geometric_prior/commands/fetch_00_first_batch_hash_check.stdin.py",
+    "sha256": "602c938c36536f691bd3470be3e991bbaa072cd3c73a4c32a2f098a92a63d304",
+    "note": "Exact here-document supplied to the recorded python - command; the separate committed helper replay is also retained."
   }
 }

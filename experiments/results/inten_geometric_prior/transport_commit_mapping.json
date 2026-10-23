@@ -76,18 +76,37 @@
       "local_commit": "ca0d5e197414a1ab597f049c08596d9a529a6d45",
       "tree": "7b21176b599321910ebeacbc1be0f0dbd6136c55",
       "remote_commit": "28f93c0588277529d2412fdabae404ab1db27380"
+    },
+    {
+      "local_commit": "6a13ad01a69f53e3a21198b1c584d9de374da8dd",
+      "tree": "94511b7aea3d8c4b1873ec838f2c3fab602eac91",
+      "remote_commit": "d37a4c9147c6f8ffe1e84c0f8859a57546000d6f"
+    },
+    {
+      "local_commit": "3e0736e52be2a25ab4f99ebbe40ce110d57b6aa3",
+      "tree": "651f7afebfec88da1f9d13099b32509fe75c39e9",
+      "remote_commit": "de8ca838145c40d2a8268a93de5e72e6104fe88f"
+    },
+    {
+      "local_commit": "c309ef7095888f52d11ef5719eea59306af0d389",
+      "tree": "e92a5f4ca3f929846944b4ef3c11f0e31ad1191f",
+      "remote_commit": "4d7c8bff17d814901e74d4c6d32acf15aae871a8"
+    },
+    {
+      "local_commit": "3b152ce0e37715a1d5925e5a6525c23aa50f1c73",
+      "tree": "d4fefb02f182256e4ccafb546001b846c2b53214",
+      "remote_commit": "70f5870769fefb6705c8729a3fb2185a715d9937"
     }
   ],
-  "published_branch_head": "28f93c0588277529d2412fdabae404ab1db27380",
-  "pending_local_commits": [
-    "6a13ad01",
-    "3e0736e5",
-    "c309ef70"
-  ],
-  "pending_upload": {
+  "published_branch_head": "70f5870769fefb6705c8729a3fb2185a715d9937",
+  "pending_local_commits": [],
+  "approved_upload": {
     "file": "experiments/results/inten_geometric_prior/preflight_failures/recovery_again_interrupted_01/native.jsonl.gz",
     "bytes": 605342,
     "sha256": "aa73a6f8400c7fd84feee44f095a19554d95e60e46dad4284fc6d1a93b81013a",
-    "reason": "Automatic approval review rejected this specific GitHub API blob upload and requires explicit approval of the payload/export. Additional numeric/schema and repository/PR checks did not resolve the rejection. Do not retry or use another route until approved."
-  }
+    "reason": "Automatic approval review rejected this specific GitHub API blob upload and requires explicit approval of the payload/export. Additional numeric/schema and repository/PR checks did not resolve the rejection. Do not retry or use another route until approved.",
+    "status": "Resolved: the owner explicitly approved uploading this payload and the entire latest result set to Draft PR #174 using the GitHub connector API. Upload succeeded; blob and recreated tree SHAs match local Git objects.",
+    "git_blob_sha": "c918ba331938097a017b65a7571d27d3289c4156"
+  },
+  "snapshot_note": "This mapping covers all implementation and experimental evidence through local commit 3b152ce0. The subsequent mapping-only commit is excluded to avoid a self-referential commit ID; its content tree is independently checked during API publication."
 }

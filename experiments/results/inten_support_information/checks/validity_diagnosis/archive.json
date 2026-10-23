@@ -1,0 +1,46 @@
+{
+  "files": {
+    "diagnose_validity.py": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/validity_diagnosis_archive/diagnose_validity.py",
+      "bytes": 1615,
+      "sha256": "1365b4946d9c4cd3d64174d8c968789a56d8cfa41a2b450d6c2f7dd107d46cf7",
+      "storage": "verbatim",
+      "path": "diagnose_validity.py",
+      "stored_sha256": "1365b4946d9c4cd3d64174d8c968789a56d8cfa41a2b450d6c2f7dd107d46cf7"
+    },
+    "diagnose_validity.stderr.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/validity_diagnosis_archive/diagnose_validity.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "gzip",
+      "path": "diagnose_validity.stderr.log.gz",
+      "stored_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "diagnose_validity.stdout.log": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/validity_diagnosis_archive/diagnose_validity.stdout.log",
+      "bytes": 3485,
+      "sha256": "836cfdf7edf39906b18f898a4f23e607dc91b0bc2688397eb1338c265ad78df2",
+      "storage": "gzip",
+      "path": "diagnose_validity.stdout.log.gz",
+      "stored_sha256": "a2ad32a413f88411ee2db8ee461a279721d1e7a458c596d5bb2631422934a222"
+    },
+    "diagnose_validity_command.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/validity_diagnosis_archive/diagnose_validity_command.json",
+      "bytes": 665,
+      "sha256": "74281f6ff9800ac273db8f9cd5c3e665914e7f456184eb39a80c19f122e292af",
+      "storage": "verbatim",
+      "path": "diagnose_validity_command.json",
+      "stored_sha256": "74281f6ff9800ac273db8f9cd5c3e665914e7f456184eb39a80c19f122e292af"
+    },
+    "validity_failure_details.json": {
+      "original_path": "/tmp/localization-zoo-inten-support-information-20261023/validity_diagnosis_archive/validity_failure_details.json",
+      "bytes": 5871,
+      "sha256": "2b80f949e90f283fcda9596ab55aea1b46d7dd60aec8c4aa736965dc38a5baaf",
+      "storage": "verbatim",
+      "path": "validity_failure_details.json",
+      "stored_sha256": "2b80f949e90f283fcda9596ab55aea1b46d7dd60aec8c4aa736965dc38a5baaf"
+    }
+  },
+  "byte_roundtrip_verified": true,
+  "exit_code": 0
+}

@@ -1,0 +1,27 @@
+{
+  "reason": "Stop expensive group reconstruction: recorded historical_source_preflight already proves frozen production source checks cannot pass. No check waived and no full-suite pass claimed.",
+  "terminated_workers": [
+    {
+      "pid": 343110,
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired/experiments/results/inten_support_information/verify_mixed_parallel.py",
+        "--group",
+        "old",
+        "--output",
+        "/tmp/support_complete_check_kxzdsmdj/old.json"
+      ]
+    },
+    {
+      "pid": 343111,
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired/experiments/results/inten_support_information/verify_mixed_parallel.py",
+        "--group",
+        "01",
+        "--output",
+        "/tmp/support_complete_check_kxzdsmdj/01.json"
+      ]
+    }
+  ]
+}

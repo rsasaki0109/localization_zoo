@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-c",
+    "import json,hashlib; from pathlib import Path; p=Path('experiments/results/inten_support_information/protocol.json'); root=Path('/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired'); d=json.loads((root/p).read_text()); mismatches={n:{'recorded':h,'current':hashlib.sha256((root/n).read_bytes()).hexdigest()} for n,h in d['source_sha256'].items() if hashlib.sha256((root/n).read_bytes()).hexdigest()!=h}; print(json.dumps({'protocol':str(p),'parent_commit':d['parent_commit'],'mismatches':mismatches},indent=2)); raise SystemExit(bool(mismatches))"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "a835a228e672f37665c30218f6df08f0dd06a2ee",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792746079.6085422,
+  "exit_code": 1,
+  "wall_seconds": 0.036662727012299,
+  "logs": {
+    ".stdout": "e0104f9ee086eb58953d83afc8f6c86da4102a14d8fb2e9c80815e476abbcd11",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

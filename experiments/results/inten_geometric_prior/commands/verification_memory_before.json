@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-c",
+    "from pathlib import Path; import json; p=Path('/sys/fs/cgroup'); print(json.dumps({n:(p/n).read_text() for n in ['memory.max','memory.current','memory.events']}))"
+  ],
+  "cwd": "/tmp/localization-zoo-inten-geometric-prior-20261023/worktree",
+  "source_commit": "a835a228e672f37665c30218f6df08f0dd06a2ee",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "start_unix": 1792745834.3650517,
+  "exit_code": 0,
+  "wall_seconds": 0.0220086449990049,
+  "logs": {
+    ".stdout": "871f1267c11a7e07bad1743678cf6aee148c48c678bf2841469587cae5ca278b",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

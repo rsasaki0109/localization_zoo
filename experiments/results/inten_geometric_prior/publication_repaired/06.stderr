@@ -1,0 +1,21 @@
+.....01.stderr.log
+
+old.stderr.log
+
+F
+======================================================================
+FAIL: test_complete_histories_native_queries_and_information_report (test_inten_support_information.SupportInformationTest.test_complete_histories_native_queries_and_information_report)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired/tests/test_inten_support_information.py", line 28, in test_complete_histories_native_queries_and_information_report
+    try:actual=v.validate_in(Path(folder))
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/tmp/localization-zoo-inten-geometric-prior-20261023/publication_repaired/experiments/results/inten_support_information/verify_mixed_parallel.py", line 45, in validate_in
+    assert all(receipts[g]['exit_code']==0 for g in pair),('Full group verification failed',pair,str(folder))
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('Full group verification failed', ['old', '01'], '/tmp/support_complete_check_kxzdsmdj')
+
+----------------------------------------------------------------------
+Ran 6 tests in 290.936s
+
+FAILED (failures=1)

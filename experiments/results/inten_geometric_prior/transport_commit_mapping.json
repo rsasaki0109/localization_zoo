@@ -1,0 +1,41 @@
+{
+  "reason": "The environment's git HTTPS tunnel repeatedly failed with HTTP 503 after the first successful push. GitHub connector API appended equivalent-content commits without rewriting the published base. Commit metadata changes the IDs; every recreated tree was checked against the original tree SHA.",
+  "published_base": "4fb78d0244ff1f5a81dac3146761505ecf77d5dc",
+  "local_to_remote": [
+    {
+      "local_commit": "fca18441777765604fab5522fd473d876929c067",
+      "tree": "6b701e9aeab1435d699c1893f807060f9a8fb6c3",
+      "remote_commit": "d3669443997f82e66928eeb29e064143e6c6cdb2"
+    },
+    {
+      "local_commit": "992ab66d06e7a99cdd213cc38de2706eaf7b551f",
+      "tree": "5e70302fb16de15fa2bd02239b8889a1632b8969",
+      "remote_commit": "1a405576acfd87cd7af39a4eae3dbb68f1a301cd"
+    },
+    {
+      "local_commit": "adea278d9296629cd0e0ff21569afa0bb9cfc5c9",
+      "tree": "abf4f55e15eed7347280574e6a47018a1e7ecdc0",
+      "remote_commit": "cdb737d29c9ffc663080fcf092fc109bacab6bf9"
+    },
+    {
+      "local_commit": "ee67f1d111a79e1441044fc256b16d359fc378d8",
+      "tree": "c4734b01098cdc8cf0591911e19178981881b82f",
+      "remote_commit": "bf8240cbd18f15471e46ea6be5ea3aecf98dc6a3"
+    },
+    {
+      "local_commit": "5b86f1c39ca33f1c510a6fb8e66b45e4aecd8464",
+      "tree": "231e1c32884bda8e92886d63fdb29f943b519acf",
+      "remote_commit": "ec284bed64e92257548c0ccebbe4f699301b2418"
+    },
+    {
+      "local_commit": "71099ecb2389b298b4e96dd09be379747309a6b9",
+      "tree": "71f656124d67dc5fa6ed84b86a8b7f41df090e75",
+      "remote_commit": "17602e780ddd8c2c1e1a861a4a8b167d96253270"
+    },
+    {
+      "local_commit": "e7dd0c5c275f51dc692f044f8338fc143d92852d",
+      "tree": "71ff5c7532b2539066839c98589b7552d7beb869",
+      "remote_commit": "8347c501bdb77e4fed9ee1cc3b5c18bd4f770b1b"
+    }
+  ]
+}

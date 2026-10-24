@@ -1,0 +1,6 @@
+{
+  "analytic_residual_controls_valid": true,
+  "case_accounting_valid": true,
+  "original_failed_gate_and_skipped_cases_preserved": true,
+  "oracle_excluded_from_benchmark": true
+}

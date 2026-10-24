@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "package": "kiss-matcher",
+  "package_version": "1.0.2",
+  "voxel_size_m": 0.3,
+  "configuration_selection": "0.3 m from upstream Python quickstart; fixed before execution, no tuning on these pairs. Native defaults otherwise; use_quatro is the only variant toggle.",
+  "pair_selection": "Scan Context historical top-1 retrievals at queries 500,1500,2500,3500 in KITTI 00. Fixed evenly spaced query indices; no GT labels/errors used in selecting pairs.",
+  "input_policy": "Raw XYZ in metres, float32, no range crop, elevation correction or GT initialization. Reflectance ignored. All original bin hashes verified.",
+  "variants": [
+    {
+      "id": "kiss_matcher",
+      "use_quatro": false,
+      "config": {
+        "fpfh_radius": 1.5,
+        "normal_radius": 0.9000000357627869,
+        "num_max_corr": 5000,
+        "robin_noise_bound": 0.30000001192092896,
+        "robin_noise_bound_gain": 1.0,
+        "solver_noise_bound": 0.22500000894069672,
+        "solver_noise_bound_gain": 0.75,
+        "thr_linearity": 1.0,
+        "use_quatro": false,
+        "use_voxel_sampling": true,
+        "voxel_size": 0.30000001192092896
+      }
+    },
+    {
+      "id": "kiss_matcher_quatro",
+      "use_quatro": true,
+      "config": {
+        "fpfh_radius": 1.5,
+        "normal_radius": 0.9000000357627869,
+        "num_max_corr": 5000,
+        "robin_noise_bound": 0.30000001192092896,
+        "robin_noise_bound_gain": 1.0,
+        "solver_noise_bound": 0.22500000894069672,
+        "solver_noise_bound_gain": 0.75,
+        "thr_linearity": 1.0,
+        "use_quatro": true,
+        "use_voxel_sampling": true,
+        "voxel_size": 0.30000001192092896
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "scan_context_00_000500_000153",
+      "kind": "kitti",
+      "source_frame": 500,
+      "target_frame": 153,
+      "source_yaw_deg": 0,
+      "retrieval_score": -0.287499548
+    },
+    {
+      "id": "scan_context_00_001500_001439",
+      "kind": "kitti",
+      "source_frame": 1500,
+      "target_frame": 1439,
+      "source_yaw_deg": 0,
+      "retrieval_score": -0.209198702
+    },
+    {
+      "id": "scan_context_00_002500_001045",
+      "kind": "kitti",
+      "source_frame": 2500,
+      "target_frame": 1045,
+      "source_yaw_deg": 0,
+      "retrieval_score": -0.347322016
+    },
+    {
+      "id": "scan_context_00_003500_000507",
+      "kind": "kitti",
+      "source_frame": 3500,
+      "target_frame": 507,
+      "source_yaw_deg": 0,
+      "retrieval_score": -0.0525558981
+    }
+  ],
+  "inputs": {
+    "000500.bin": {
+      "name": "000500.bin",
+      "sha256": "f8622be33c2a24d7760590455c0b217d61fde6d41fb67e9d1e6d6504db7be1a1",
+      "bytes": 1991136
+    },
+    "000153.bin": {
+      "name": "000153.bin",
+      "sha256": "de55e0262dfb1a29e400e80a88c71b4593233750615c93ac9415394c14603c82",
+      "bytes": 1965328
+    },
+    "001500.bin": {
+      "name": "001500.bin",
+      "sha256": "7af234deda8963f379ba8a97a683ff18e49f6c6c362956d7a2321c7346a79ff8",
+      "bytes": 1812000
+    },
+    "001439.bin": {
+      "name": "001439.bin",
+      "sha256": "d19f17e47a38a29be6a305365b041b07e1069f65ae362455cb96a7de9e560832",
+      "bytes": 1851216
+    },
+    "002500.bin": {
+      "name": "002500.bin",
+      "sha256": "fd2d7a2d21d7b95b328f5f68a6e1cba71ed0624ae07a9533198e7c914460bc04",
+      "bytes": 1870480
+    },
+    "001045.bin": {
+      "name": "001045.bin",
+      "sha256": "414c815da93b5315768b1f423de7a96a9abce12482a86d16bcca6b186dd5464f",
+      "bytes": 1758592
+    },
+    "003500.bin": {
+      "name": "003500.bin",
+      "sha256": "e714bd2f08917d80713e06df650ee7933e23ae77281df9087d7a83095f28680e",
+      "bytes": 1961408
+    },
+    "000507.bin": {
+      "name": "000507.bin",
+      "sha256": "b2e090cf56f6f137f25e96d98b84b293df9a3b0bc3e7eb2d589e93fab58f1834",
+      "bytes": 1962720
+    }
+  },
+  "reference_csv_sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+  "success_rotation_deg": 2.0,
+  "success_translation_m": 0.5,
+  "timeout_seconds": 180,
+  "threshold_selection": "Descriptive engineering thresholds, fixed before execution; not an official paper protocol.",
+  "claim_limit": "Four sampled historical Scan Context retrievals verified by official KISS-Matcher variants with unchanged settings. GT scores pair accuracy only; not a calibrated loop-acceptance rule, full SLAM or a paper benchmark.",
+  "runtime_wheels": {
+    "numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "fd83c01228a688733f1ded5201c678f0c53ecc1006ffbc404db9f7a899ac6249",
+    "kiss_matcher-1.0.2-cp312-cp312-manylinux_2_28_x86_64.whl": "b64bdff7cf4825583538321d0fc972221c703113396405f7a85c02d4687c7b30"
+  },
+  "scan_context_queries_sha256": "8af031b15e5c5f3ab2ed363c56a20b11d778ef840ebd0b94c3af0aefc49a71d8",
+  "scan_context_queries_path": "experiments/results/place_recognition/kitti_00.json"
+}

@@ -1,0 +1,350 @@
+{
+  "protocol_sha256": "41f46065424a082b6e4992366dadf80eea2c06c7f87903ce3bd6c279b66282b1",
+  "reference_csv_sha256": "c3e35ffa624471c7299fbe99bb905387ea5b9f3f4f86114a41aead3638efd528",
+  "cases": [
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_1_yaw0",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_1_yaw0.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_1_yaw0.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.7206855080439709,
+      "success": false,
+      "rotation_error_deg": 3.1703785389599854,
+      "translation_error_m": 0.03460139328954963,
+      "estimate_sha256": "de58d696cb27e39cac5895207e20f5da4766908054d6fe4149f1c08be8197a8e"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_1_yaw90",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_1_yaw90.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_1_yaw90.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6719497080193833,
+      "success": false,
+      "rotation_error_deg": 3.1366493882799524,
+      "translation_error_m": 0.03138315452899532,
+      "estimate_sha256": "c8771e41bfdf2987ed338cc2e3db5d6892a79edd6dae151dd4797694594f1f56"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_1_yaw180",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_1_yaw180.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_1_yaw180.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.7229591109789908,
+      "success": false,
+      "rotation_error_deg": 3.132915210122341,
+      "translation_error_m": 0.029866385202685263,
+      "estimate_sha256": "9dd50498623f4a1060d97db2d7759135e1c684237a864aa279ccfc39e37c09ff"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_2_yaw0",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_2_yaw0.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_2_yaw0.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6211645430303179,
+      "success": false,
+      "rotation_error_deg": 7.12611357505417,
+      "translation_error_m": 0.04630754781628791,
+      "estimate_sha256": "860845965bd020a9c581beac0ae8765eaf5057c55f2434bf4cf8d90559b7707e"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_2_yaw90",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_2_yaw90.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_2_yaw90.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6193039559875615,
+      "success": false,
+      "rotation_error_deg": 7.122306333098863,
+      "translation_error_m": 0.03654130150406968,
+      "estimate_sha256": "56e1721c297b16362fda957f726b773fbe2f87cd033c8b9bfab62817525f8f26"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_2_yaw180",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_2_yaw180.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_0_2_yaw180.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6182024320005439,
+      "success": false,
+      "rotation_error_deg": 7.208181956941604,
+      "translation_error_m": 0.04692123239319723,
+      "estimate_sha256": "bac70abd10151645e91df87ea934b53683925326f5770310edd424c7d1b2220a"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_1_2_yaw0",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_1_2_yaw0.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_1_2_yaw0.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6192342769936658,
+      "success": false,
+      "rotation_error_deg": 3.946321099291837,
+      "translation_error_m": 0.05522081752887773,
+      "estimate_sha256": "a012ed15c62325fd9619925bb6417489764d6e26f2ed8b83df1f481d079439cd"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_1_2_yaw90",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_1_2_yaw90.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_1_2_yaw90.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6191518059931695,
+      "success": false,
+      "rotation_error_deg": 3.946862309494951,
+      "translation_error_m": 0.044872117172090546,
+      "estimate_sha256": "f0bf57b0cbf5f6e6ca22a10d901e5a182ce4f7c933f620bd0039a43462c71588"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_1_2_yaw180",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_1_2_yaw180.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher__mcd_1_2_yaw180.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6272518070181832,
+      "success": false,
+      "rotation_error_deg": 3.9427951523500893,
+      "translation_error_m": 0.049724784286644425,
+      "estimate_sha256": "6e42ee31ffc3f4ca8e8e81eb331a4efc9fea83934a6252f7231ad8ee7ff49e03"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_1_yaw0",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_1_yaw0.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_1_yaw0.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6193981019896455,
+      "success": false,
+      "rotation_error_deg": 3.148973331496667,
+      "translation_error_m": 0.028584251611139356,
+      "estimate_sha256": "b6ea65886f2a4e68cd827b028cc8c416925ad44c5453cda4480ed4bc6403f8f9"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_1_yaw90",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_1_yaw90.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_1_yaw90.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6788679169840179,
+      "success": false,
+      "rotation_error_deg": 3.1256689466857437,
+      "translation_error_m": 0.027303620238890876,
+      "estimate_sha256": "e20988f810784e36de1515010e35fbbed17ed7519c863a584566f77d42f98875"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_1_yaw180",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_1_yaw180.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_1_yaw180.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.7225977519992739,
+      "success": false,
+      "rotation_error_deg": 3.122440158088564,
+      "translation_error_m": 0.025572940919065684,
+      "estimate_sha256": "e629cb3c1aa2f0b68d8ceb756feef4def86f9d0a212bd74303e1a1403929b2f9"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_2_yaw0",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_2_yaw0.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_2_yaw0.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6261809829738922,
+      "success": false,
+      "rotation_error_deg": 7.092477496858345,
+      "translation_error_m": 0.06956880788153748,
+      "estimate_sha256": "d559c4ba2d2957990f94e3404045ef68c61f582c67f1aeeae2d8f29bba8a8241"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_2_yaw90",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_2_yaw90.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_2_yaw90.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6168101679650135,
+      "success": false,
+      "rotation_error_deg": 7.1141202335549965,
+      "translation_error_m": 0.06999373701637562,
+      "estimate_sha256": "32e136b01d51a8a9ce70d8b5b5fb64ee883db6995f2db44f4d41c1e102daebba"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_2_yaw180",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_2_yaw180.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_0_2_yaw180.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6752440920099616,
+      "success": false,
+      "rotation_error_deg": 7.077532594701973,
+      "translation_error_m": 0.06911671063000856,
+      "estimate_sha256": "5a3874320779b1e7da72037df65d724ca7c8105a23d08bd1037f92d3f9bddf5b"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_1_2_yaw0",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_1_2_yaw0.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_1_2_yaw0.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6213635369786061,
+      "success": false,
+      "rotation_error_deg": 3.9040114489774576,
+      "translation_error_m": 0.0680379244999624,
+      "estimate_sha256": "b9a93d6e934e0dc6d25879b930b0100703598ac9a487425a34fa8aff7e77b578"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_1_2_yaw90",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_1_2_yaw90.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_1_2_yaw90.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6697007329785265,
+      "success": false,
+      "rotation_error_deg": 3.879016189724753,
+      "translation_error_m": 0.06879869885571518,
+      "estimate_sha256": "0e3b693d59ebd1910d423dd1b89160c1c77a0d2f4e7870a0e73e5f223ddee2b3"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_1_2_yaw180",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_1_2_yaw180.job.json",
+        "--worker-output",
+        "experiments/results/kiss_matcher_mcd_transfer/run/kiss_matcher_quatro__mcd_1_2_yaw180.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.6713783500017598,
+      "success": false,
+      "rotation_error_deg": 3.873527774800178,
+      "translation_error_m": 0.07002114564674719,
+      "estimate_sha256": "aecde26d8b854ce32b082a022f304ee5807e17d4b9d426b14656f7d4625d8247"
+    }
+  ],
+  "all_commands_completed": true,
+  "claim_limit": "Only three adjacent scans; nearest-time reference and small motion. CI fixture has been used in repository development. Not held-out, loop-retrieval quality, full odometry, official paper benchmark or SOTA."
+}

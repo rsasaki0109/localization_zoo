@@ -1,0 +1,126 @@
+[
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/refresh_study_docs.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_full_variant_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ratio_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/validate_showcase.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_leaderboard.py",
+      "--check"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "evaluation/scripts/generate_paper_ready_evidence.py",
+      "--check"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "papers/attitude_estimation/evaluation/broad_benchmark.py",
+      "check"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "papers/allan_variance/evaluation/tumvi_allan.py",
+      "check"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_official_kiss_matcher.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 5
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_broad_benchmark.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_tumvi_allan.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_full_variant_table.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  }
+]

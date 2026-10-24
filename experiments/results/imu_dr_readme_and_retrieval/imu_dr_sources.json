@@ -1,0 +1,61 @@
+{
+  "kind": "Extraction of committed historical executions, not a new sensor-data run",
+  "sources": [
+    {
+      "dataset": "NCLT 2013-01-10, full session",
+      "artifact": "experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json",
+      "artifact_sha256": "553b47daab13d254023b7b3bcd6c00b3d296a7b948b1a10cbd7daec2dbde46fc",
+      "default": {
+        "id": "default_dr_full",
+        "ate_m": 288700.449374,
+        "rpe_trans_pct": 67435.004997,
+        "frames": 5105,
+        "args": [],
+        "command": "build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/default_dr_full/summary.json",
+        "status": "ok",
+        "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/default_dr_full/summary.json"
+      },
+      "aided": {
+        "id": "nhc_zupt_full",
+        "ate_m": 9605.454791,
+        "rpe_trans_pct": 1901.37883,
+        "frames": 5105,
+        "args": [
+          "--imu-dr-nhc",
+          "--imu-dr-zupt"
+        ],
+        "command": "build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/nhc_zupt_full/summary.json --imu-dr-nhc --imu-dr-zupt",
+        "status": "ok",
+        "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/nhc_zupt_full/summary.json"
+      }
+    },
+    {
+      "dataset": "KITTI Raw 0009, archived full fixture",
+      "artifact": "experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json",
+      "artifact_sha256": "e2e4cccb54e00744d7358a7f2bf838cfef727008a54be456799d04b01739f2fd",
+      "default": {
+        "id": "default_dr_kitti_0009_full",
+        "ate_m": 91851.969108,
+        "rpe_trans_pct": 49762.369429,
+        "frames": 443,
+        "args": [],
+        "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/summary.json",
+        "status": "ok",
+        "summary_path": "experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/summary.json"
+      },
+      "aided": {
+        "id": "nhc_zupt_kitti_0009_full",
+        "ate_m": 1067.301349,
+        "rpe_trans_pct": 812.451648,
+        "frames": 443,
+        "args": [
+          "--imu-dr-nhc",
+          "--imu-dr-zupt"
+        ],
+        "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_zupt_kitti_0009_full/summary.json --imu-dr-nhc --imu-dr-zupt",
+        "status": "ok",
+        "summary_path": "experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_zupt_kitti_0009_full/summary.json"
+      }
+    }
+  ]
+}

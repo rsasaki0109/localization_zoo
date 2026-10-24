@@ -1,0 +1,9 @@
+{
+  "uncalibrated_summary_sha256": "c96e7ed44f0528c38353a95797eca4f55465c8e4fef600490deee41e00aa2356",
+  "reference_csv_sha256": "c3e35ffa624471c7299fbe99bb905387ea5b9f3f4f86114a41aead3638efd528",
+  "sensor_to_body_sha256": "823cb521cc6989f0eb117d259247cd0537d7ab756d43975cc71f9051941155d2",
+  "formula": "T_world_sensor = T_world_body * T_body_sensor; score the same saved estimates against inv(T_world_target) * T_world_source * inv(A_source).",
+  "success_rotation_deg": 2.0,
+  "success_translation_m": 0.5,
+  "scope": "Source-backed frame-convention correction diagnostic, no rerun of matcher, threshold tuning, default change, held-out claim or full-dataset benchmark."
+}

@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "-c",
+    "import hashlib,json,subprocess,sys\nfrom pathlib import Path\nimport numpy as np\nsys.path.insert(0,str(Path('evaluation/scripts').resolve()))\nfrom evaluate_external_kitti_odometry import load_reference_csv\nr=Path('experiments/results/imu_dr_readme_and_retrieval')\nsha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\noriginal=json.loads(subprocess.check_output(['git','show','HEAD:experiments/results/kitti_place_recognition.json']))\ncurrent=json.loads((r/'place_recognition_rescore.json').read_text())\nfor a,b in zip(current['sequences'],original['sequences']):\n assert a['label']==b['label']\n for m in a['methods']:\n  for metric in ('f1_max','recall_at_100_precision','top1_recall_no_threshold'):\n   assert a['methods'][m][metric]==b['methods'][m][metric]\nprotocol=json.loads((r/'matcher_protocol.json').read_text())\nraw=Path(protocol['scan_context_queries_path'])\nassert sha(raw)==protocol['scan_context_queries_sha256']\nqueries=json.loads(raw.read_text())['methods']['scan_context']['queries']\nposes=load_reference_csv(Path('experiments/reference_data/kitti_seq_00_full_gt.csv'))\nlabels=[]\nfor case in protocol['cases']:\n i,j=case['source_frame'],case['target_frame']\n assert queries[i]==[j,case['retrieval_score']]\n assert j<=i-50\n distance=float(np.linalg.norm(poses[i][:3,3]-poses[j][:3,3]))\n labels.append({'source':i,'target':j,'score':case['retrieval_score'],'gt_separation_m':distance,'retrieval_within_4m':distance<=4})\nsummary=json.loads((r/'matcher_run/summary.json').read_text())\nassert len(summary['cases'])==len(protocol['cases'])*len(protocol['variants'])\nfor row in summary['cases']:\n assert row['exit_code']==0 and not row['timed_out']\n stem=row['variant']+'__'+row['case']\n path=r/'matcher_run'/(stem+'.estimate.json');estimate=json.loads(path.read_text())\n assert sha(path)==row['estimate_sha256'] and estimate['backend_files']\n job=json.loads((r/'matcher_run'/(stem+'.job.json')).read_text())\n assert 'reference' not in job and '--reference-csv' not in row['argv']\n assert estimate['config']==job['expected_config']\nreadme=Path('README.md').read_text()\nsources=json.loads((r/'imu_dr_sources.json').read_text())['sources']\nfor source in sources:\n data=subprocess.check_output(['git','show','HEAD:'+source['artifact']])\n assert hashlib.sha256(data).hexdigest()==source['artifact_sha256']\n for key in ('default','aided'):\n  assert f\"{source[key]['ate_m']:.3f}\" in readme\nresult={'historical_retrieval_metrics_reproduced':True,'retrieval_sources_and_configs_valid':True,'imu_dr_readme_numbers_match_committed_sources':True,'retrieval_labels':labels,'cases_completed':len(summary['cases']),'successful_registration_cases':sum(x['success'] for x in summary['cases']),'claim_limit':'Rescore of stored descriptors and a sampled geometric verification, not fresh full-sequence native retrieval or a deployed acceptance rule.'}\n(r/'audit.json').write_text(json.dumps(result,indent=2)+'\\n')\nprint(json.dumps(result,indent=2))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "27d6d9daa07c41cd721d348cfb52fc1e66b19863",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792804361.1911647,
+  "exit_code": 0,
+  "wall_seconds": 0.19184541696449742,
+  "logs": {
+    ".stdout": "14b161d75f3f48ee4dacdbfdaa5d97e98230168bc59f4be2304c429ae983860d",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

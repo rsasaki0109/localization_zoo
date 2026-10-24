@@ -16,6 +16,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--input", required=True, help="MCD pose_inW.csv path.")
     parser.add_argument("--output", required=True, help="Output GT CSV path.")
+    parser.add_argument('--sensor-to-body-json', default='',
+                        help='Opt-in T_body_sensor JSON; convert body GT to sensor GT. Legacy default unchanged.')
     parser.add_argument(
         "--frame-timestamps",
         default="",
@@ -52,6 +54,13 @@ def quat_to_rpy(qx: float, qy: float, qz: float, qw: float) -> tuple[float, floa
 
 def main() -> int:
     args = parse_args()
+    sensor_to_body = None
+    if args.sensor_to_body_json:
+        import numpy as np
+        from reference_frames import load_sensor_to_body
+        from evaluate_external_kitti_odometry import rpy_matrix
+        from kitti_poses_to_gt_csv import rotation_matrix_to_rpy
+        sensor_to_body = load_sensor_to_body(Path(args.sensor_to_body_json))
     input_path = Path(args.input)
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -102,6 +111,13 @@ def main() -> int:
             x, y, z = float(pose["x"]), float(pose["y"]), float(pose["z"])
             qx, qy, qz, qw = float(pose["qx"]), float(pose["qy"]), float(pose["qz"]), float(pose["qw"])
             roll, pitch, yaw = quat_to_rpy(qx, qy, qz, qw)
+            if sensor_to_body is not None:
+                body = np.eye(4)
+                body[:3, :3] = rpy_matrix(roll, pitch, yaw)
+                body[:3, 3] = [x, y, z]
+                sensor = body @ sensor_to_body
+                x, y, z = sensor[:3, 3]
+                roll, pitch, yaw = rotation_matrix_to_rpy(sensor[:3, :3])
             writer.writerow([
                 f"{t:.9f}",
                 f"{x:.10f}",

@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_official_kiss_matcher.py"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "322ee7a685a41ac2234891d0dca16bcecf3fe72a",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792808169.3298798,
+  "exit_code": 0,
+  "wall_seconds": 0.15458823001245037,
+  "logs": {
+    ".stdout": "66a2e5645f2320dd0d4b3d82da4bca15498a6d90d01a07f357d7e0a16562e893",
+    ".stderr": "80144f3bf12d071a1497821467ab02765712cb11da3f547a5e2b5cf79f938e9a"
+  }
+}

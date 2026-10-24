@@ -1,0 +1,4 @@
+[report] /tmp/tmpdot2vzrr/out.json /tmp/tmpdot2vzrr/out.md
+drift: fixed6.inclination_rmse_deg: expected 2.1, got 2.0
+[check] 2 variants, 1 drift(s)
+[check] 1 variants, 0 drift(s)

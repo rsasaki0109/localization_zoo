@@ -1,0 +1,37 @@
+{
+  "package_version": "1.0.2",
+  "voxel_size_m": 0.3,
+  "case": {
+    "id": "mcd_0_2_yaw180",
+    "kind": "pcd",
+    "source_frame": 0,
+    "target_frame": 2,
+    "source_yaw_deg": 180
+  },
+  "use_quatro": true,
+  "expected_config": {
+    "fpfh_radius": 1.5,
+    "normal_radius": 0.9000000357627869,
+    "num_max_corr": 5000,
+    "robin_noise_bound": 0.30000001192092896,
+    "robin_noise_bound_gain": 1.0,
+    "solver_noise_bound": 0.22500000894069672,
+    "solver_noise_bound_gain": 0.75,
+    "thr_linearity": 1.0,
+    "use_quatro": true,
+    "use_voxel_sampling": true,
+    "voxel_size": 0.30000001192092896
+  },
+  "raw_root": "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/fixtures/mcd_kth_smoke",
+  "input_format": "pcd",
+  "source": {
+    "name": "00000000/cloud.pcd",
+    "sha256": "cc61530bc780bc47ca01a926e488a55b58caeab8ad683c0bbcc416972c569df9",
+    "bytes": 987388
+  },
+  "target": {
+    "name": "00000002/cloud.pcd",
+    "sha256": "91e90a6f487b0877b80dc30275582ed02e326eec506682000a0663fd7ed640e3",
+    "bytes": 987836
+  }
+}

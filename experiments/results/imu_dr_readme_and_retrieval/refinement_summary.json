@@ -1,0 +1,96 @@
+{
+  "case_count": 8,
+  "successes": 0,
+  "cases": [
+    {
+      "case": "scan_context_00_000500_000153",
+      "variant": "kiss_matcher",
+      "rotation_error_deg": 175.5773960308649,
+      "translation_error_m": 154.1790925147455,
+      "coarse_rotation_error_deg": 155.05000933341796,
+      "coarse_translation_error_m": 153.5847613047692,
+      "native_converged": false,
+      "native_inliers": 6374,
+      "success": false
+    },
+    {
+      "case": "scan_context_00_000500_000153",
+      "variant": "kiss_matcher_quatro",
+      "rotation_error_deg": 1.536357619825415,
+      "translation_error_m": 152.20550961012054,
+      "coarse_rotation_error_deg": 2.7182701973005994,
+      "coarse_translation_error_m": 151.98268718687532,
+      "native_converged": false,
+      "native_inliers": 10105,
+      "success": false
+    },
+    {
+      "case": "scan_context_00_001500_001439",
+      "variant": "kiss_matcher",
+      "rotation_error_deg": 179.74864293432177,
+      "translation_error_m": 74.51707940365397,
+      "coarse_rotation_error_deg": 179.6381302890829,
+      "coarse_translation_error_m": 74.49627861355974,
+      "native_converged": false,
+      "native_inliers": 7348,
+      "success": false
+    },
+    {
+      "case": "scan_context_00_001500_001439",
+      "variant": "kiss_matcher_quatro",
+      "rotation_error_deg": 179.64903274702255,
+      "translation_error_m": 73.77826499890588,
+      "coarse_rotation_error_deg": 179.3280148090866,
+      "coarse_translation_error_m": 73.618266226335,
+      "native_converged": false,
+      "native_inliers": 9818,
+      "success": false
+    },
+    {
+      "case": "scan_context_00_002500_001045",
+      "variant": "kiss_matcher",
+      "rotation_error_deg": 174.56782375554624,
+      "translation_error_m": 251.30099297138727,
+      "coarse_rotation_error_deg": 173.6394884864888,
+      "coarse_translation_error_m": 252.14395867567583,
+      "native_converged": false,
+      "native_inliers": 13692,
+      "success": false
+    },
+    {
+      "case": "scan_context_00_002500_001045",
+      "variant": "kiss_matcher_quatro",
+      "rotation_error_deg": 165.53289567875527,
+      "translation_error_m": 252.62647345212943,
+      "coarse_rotation_error_deg": 163.92262277147773,
+      "coarse_translation_error_m": 252.77833103668104,
+      "native_converged": false,
+      "native_inliers": 11373,
+      "success": false
+    },
+    {
+      "case": "scan_context_00_003500_000507",
+      "variant": "kiss_matcher",
+      "rotation_error_deg": 0.2288190250616785,
+      "translation_error_m": 0.7297501563549417,
+      "coarse_rotation_error_deg": 0.3318727180598882,
+      "coarse_translation_error_m": 0.7271716158934666,
+      "native_converged": true,
+      "native_inliers": 15993,
+      "success": false
+    },
+    {
+      "case": "scan_context_00_003500_000507",
+      "variant": "kiss_matcher_quatro",
+      "rotation_error_deg": 0.22881902506804974,
+      "translation_error_m": 0.7297501563549402,
+      "coarse_rotation_error_deg": 0.17777937951526054,
+      "coarse_translation_error_m": 0.7418639891744673,
+      "native_converged": true,
+      "native_inliers": 15993,
+      "success": false
+    }
+  ],
+  "analytic_control_max_matrix_error": 0.00032498722300700056,
+  "claim_limit": "Fixed opt-in refinement diagnostic. Offline GT scoring is not a deployable acceptance rule; four selected development candidates only."
+}

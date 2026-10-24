@@ -1,0 +1,420 @@
+{
+  "oracle_diagnostic_only": true,
+  "included_in_benchmark_success_count": false,
+  "protocol_sha256": "5db15f9c2ee55e7ad8b98d32d49d19d1f7e004052302722a65b82ef9da20f0c3",
+  "backend_sha256": "f99991b4334e24791fb2ff52f89c80513b5107bd35a146ded4230b660e3d2ded",
+  "cases": [
+    {
+      "case": "scan_context_00_000500_000153",
+      "canonical_reference_max_abs_matrix_difference": 9.912581674598187e-06,
+      "frame_gate_passed": true,
+      "oracle_converged": true,
+      "diagnostics": {
+        "reference": {
+          "transform": [
+            [
+              -0.9998049559541177,
+              0.01652046666385799,
+              -0.01082239487328477,
+              2.1835473612586074
+            ],
+            [
+              -0.016480369118934086,
+              -0.9998570298445006,
+              -0.003783821380211526,
+              152.4944253248595
+            ],
+            [
+              -0.010883358088780652,
+              -0.003604726306118041,
+              0.9999342770727334,
+              -3.5128514186821627
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 0.0,
+          "translation_error_m": 2.844945146671123e-14,
+          "residuals": {
+            "source_to_target": {
+              "points": 18050,
+              "supported_points": 0,
+              "support_fraction": 0.0,
+              "supported_rmse_m": null,
+              "clipped_mean_squared_m2": 1.0,
+              "median_distance_m": 107.66127634051873
+            },
+            "target_to_source": {
+              "points": 16314,
+              "supported_points": 0,
+              "support_fraction": 0.0,
+              "supported_rmse_m": null,
+              "clipped_mean_squared_m2": 1.0,
+              "median_distance_m": 105.4249186038272
+            }
+          }
+        },
+        "gt_initialized_icp": {
+          "transform": [
+            [
+              -0.9998049559541177,
+              0.01652046666385799,
+              -0.01082239487328477,
+              2.1835473612586074
+            ],
+            [
+              -0.016480369118934086,
+              -0.9998570298445006,
+              -0.003783821380211526,
+              152.4944253248595
+            ],
+            [
+              -0.010883358088780652,
+              -0.003604726306118041,
+              0.9999342770727334,
+              -3.5128514186821627
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 0.0,
+          "translation_error_m": 2.844945146671123e-14,
+          "residuals": {
+            "source_to_target": {
+              "points": 18050,
+              "supported_points": 0,
+              "support_fraction": 0.0,
+              "supported_rmse_m": null,
+              "clipped_mean_squared_m2": 1.0,
+              "median_distance_m": 107.66127634051873
+            },
+            "target_to_source": {
+              "points": 16314,
+              "supported_points": 0,
+              "support_fraction": 0.0,
+              "supported_rmse_m": null,
+              "clipped_mean_squared_m2": 1.0,
+              "median_distance_m": 105.4249186038272
+            }
+          }
+        },
+        "kiss_matcher_refined": {
+          "transform": [
+            [
+              -0.9884121424456002,
+              -0.14693032787788796,
+              -0.03811712759107607,
+              -0.8755774165661967
+            ],
+            [
+              -0.14950742074731066,
+              0.9857513678009521,
+              0.07708289057916282,
+              -1.6522179410267686
+            ],
+            [
+              0.026248196272974977,
+              0.08188845845568793,
+              -0.9962957957174001,
+              -2.7086784747542274
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 175.5773960308649,
+          "translation_error_m": 154.1790925147455,
+          "residuals": {
+            "source_to_target": {
+              "points": 18050,
+              "supported_points": 6303,
+              "support_fraction": 0.34919667590027703,
+              "supported_rmse_m": 0.5842573285982247,
+              "clipped_mean_squared_m2": 0.7700039232026973,
+              "median_distance_m": 1.6583356827367937
+            },
+            "target_to_source": {
+              "points": 16314,
+              "supported_points": 6827,
+              "support_fraction": 0.4184749295083977,
+              "supported_rmse_m": 0.5937986587503605,
+              "clipped_mean_squared_m2": 0.729078011240772,
+              "median_distance_m": 1.2158402153442565
+            }
+          }
+        },
+        "kiss_matcher_quatro_refined": {
+          "transform": [
+            [
+              -0.9998982194730625,
+              -0.010032062457035862,
+              -0.010144378613667744,
+              0.845798745471755
+            ],
+            [
+              0.010030907873824296,
+              -0.9999496756159565,
+              0.00016468992339431986,
+              0.33326448884901627
+            ],
+            [
+              -0.010145520283660042,
+              6.291583385623524e-05,
+              0.9999485309053519,
+              -0.09105110960347296
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 1.5363576198258893,
+          "translation_error_m": 152.20550961012054,
+          "residuals": {
+            "source_to_target": {
+              "points": 18050,
+              "supported_points": 10104,
+              "support_fraction": 0.5597783933518006,
+              "supported_rmse_m": 0.47289799671037464,
+              "clipped_mean_squared_m2": 0.5654062567599608,
+              "median_distance_m": 0.8006221043725339
+            },
+            "target_to_source": {
+              "points": 16314,
+              "supported_points": 10399,
+              "support_fraction": 0.6374279759715582,
+              "supported_rmse_m": 0.49455547703586855,
+              "clipped_mean_squared_m2": 0.518477421937499,
+              "median_distance_m": 0.6719619487499433
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "scan_context_00_001500_001439",
+      "frame_gate_passed": false,
+      "canonical_reference_max_abs_matrix_difference": 0.0002311582400152945,
+      "oracle_skipped": true
+    },
+    {
+      "case": "scan_context_00_002500_001045",
+      "frame_gate_passed": false,
+      "canonical_reference_max_abs_matrix_difference": 0.00025329828472209215,
+      "oracle_skipped": true
+    },
+    {
+      "case": "scan_context_00_003500_000507",
+      "canonical_reference_max_abs_matrix_difference": 5.846196615699739e-08,
+      "frame_gate_passed": true,
+      "oracle_converged": false,
+      "diagnostics": {
+        "reference": {
+          "transform": [
+            [
+              0.9999196809759228,
+              0.01262409812730479,
+              0.0011241634583977346,
+              -0.012593375634801734
+            ],
+            [
+              -0.012623717881608756,
+              0.9999202582837798,
+              -0.0003447035600128648,
+              -0.5664861235293285
+            ],
+            [
+              -0.0011284253872406785,
+              0.0003304847514077044,
+              0.9999993087177483,
+              -0.34954482982919605
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 0.0,
+          "translation_error_m": 8.673617379884035e-19,
+          "residuals": {
+            "source_to_target": {
+              "points": 16177,
+              "supported_points": 15904,
+              "support_fraction": 0.9831241886629165,
+              "supported_rmse_m": 0.4494179627460459,
+              "clipped_mean_squared_m2": 0.21544379917895626,
+              "median_distance_m": 0.3835284799181948
+            },
+            "target_to_source": {
+              "points": 16136,
+              "supported_points": 15936,
+              "support_fraction": 0.9876053544868617,
+              "supported_rmse_m": 0.45562178427828226,
+              "clipped_mean_squared_m2": 0.21741283635864142,
+              "median_distance_m": 0.3917933789969692
+            }
+          }
+        },
+        "gt_initialized_icp": {
+          "transform": [
+            [
+              0.9999601287661555,
+              0.008927071267960317,
+              0.00021971925419923995,
+              -0.21089273076326945
+            ],
+            [
+              -0.008926747355597443,
+              0.9999591282906601,
+              -0.001433502645089434,
+              0.040634232373485756
+            ],
+            [
+              -0.00023250725417326386,
+              0.0014314841112988612,
+              0.9999989483962545,
+              0.0015568696008213042
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 0.22686943213616853,
+          "translation_error_m": 0.7288279386374895,
+          "residuals": {
+            "source_to_target": {
+              "points": 16177,
+              "supported_points": 15995,
+              "support_fraction": 0.988749459108611,
+              "supported_rmse_m": 0.19643384814530493,
+              "clipped_mean_squared_m2": 0.04940268132974454,
+              "median_distance_m": 0.10846406179369013
+            },
+            "target_to_source": {
+              "points": 16136,
+              "supported_points": 16010,
+              "support_fraction": 0.9921913733267228,
+              "supported_rmse_m": 0.19536562487066184,
+              "clipped_mean_squared_m2": 0.045678316520294845,
+              "median_distance_m": 0.1080227714419209
+            }
+          }
+        },
+        "kiss_matcher_refined": {
+          "transform": [
+            [
+              0.9999605743659702,
+              0.008876418924637298,
+              0.00024269477504762548,
+              -0.2156399422176905
+            ],
+            [
+              -0.008876069961536231,
+              0.9999596226662222,
+              -0.0014030036586037112,
+              0.04013527669007435
+            ],
+            [
+              -0.00025513862390625215,
+              0.0014007941684923062,
+              0.9999989863394761,
+              0.0016215969470690826
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 0.2288190250616785,
+          "translation_error_m": 0.7297501563549393,
+          "residuals": {
+            "source_to_target": {
+              "points": 16177,
+              "supported_points": 15994,
+              "support_fraction": 0.9886876429498671,
+              "supported_rmse_m": 0.1962712561132311,
+              "clipped_mean_squared_m2": 0.04939898381556477,
+              "median_distance_m": 0.107011095803571
+            },
+            "target_to_source": {
+              "points": 16136,
+              "supported_points": 16009,
+              "support_fraction": 0.9921294000991572,
+              "supported_rmse_m": 0.19516854704018763,
+              "clipped_mean_squared_m2": 0.04566156450893845,
+              "median_distance_m": 0.10648737718682585
+            }
+          }
+        },
+        "kiss_matcher_quatro_refined": {
+          "transform": [
+            [
+              0.99996057436597,
+              0.008876418924637385,
+              0.00024269477504774018,
+              -0.21563994221769048
+            ],
+            [
+              -0.008876069961536314,
+              0.9999596226662215,
+              -0.0014030036586048988,
+              0.040135276690071574
+            ],
+            [
+              -0.0002551386239063779,
+              0.0014007941684934888,
+              0.9999989863394763,
+              0.0016215969470711037
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 0.22881902506804974,
+          "translation_error_m": 0.729750156354938,
+          "residuals": {
+            "source_to_target": {
+              "points": 16177,
+              "supported_points": 15994,
+              "support_fraction": 0.9886876429498671,
+              "supported_rmse_m": 0.19627125611323104,
+              "clipped_mean_squared_m2": 0.049398983815564755,
+              "median_distance_m": 0.10701109580356932
+            },
+            "target_to_source": {
+              "points": 16136,
+              "supported_points": 16009,
+              "support_fraction": 0.9921294000991572,
+              "supported_rmse_m": 0.19516854704018793,
+              "clipped_mean_squared_m2": 0.04566156450893857,
+              "median_distance_m": 0.10648737718682104
+            }
+          }
+        }
+      }
+    }
+  ]
+}

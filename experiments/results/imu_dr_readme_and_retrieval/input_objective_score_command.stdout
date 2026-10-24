@@ -1,0 +1,65 @@
+{
+  "groups": [
+    {
+      "elevation_degrees": 0,
+      "objective": "ICP",
+      "cases": 8,
+      "successes": 0,
+      "true_revisit_translation_errors_m": [
+        0.7297501563549417,
+        0.7297501563549402
+      ]
+    },
+    {
+      "elevation_degrees": 0,
+      "objective": "PLANE_ICP",
+      "cases": 8,
+      "successes": 0,
+      "true_revisit_translation_errors_m": [
+        0.7304210812522359,
+        0.7304482573077302
+      ]
+    },
+    {
+      "elevation_degrees": 0,
+      "objective": "GICP",
+      "cases": 8,
+      "successes": 0,
+      "true_revisit_translation_errors_m": [
+        0.730579989953585,
+        0.7306277833111356
+      ]
+    },
+    {
+      "elevation_degrees": 0.205,
+      "objective": "ICP",
+      "cases": 8,
+      "successes": 0,
+      "true_revisit_translation_errors_m": [
+        0.7307925599561271,
+        0.7308619098769448
+      ]
+    },
+    {
+      "elevation_degrees": 0.205,
+      "objective": "PLANE_ICP",
+      "cases": 8,
+      "successes": 0,
+      "true_revisit_translation_errors_m": [
+        0.7309983103347799,
+        0.7310767653179742
+      ]
+    },
+    {
+      "elevation_degrees": 0.205,
+      "objective": "GICP",
+      "cases": 8,
+      "successes": 0,
+      "true_revisit_translation_errors_m": [
+        0.7307078229697436,
+        0.730708627360918
+      ]
+    }
+  ],
+  "raw_icp_max_matrix_replay_error": 0.0
+}

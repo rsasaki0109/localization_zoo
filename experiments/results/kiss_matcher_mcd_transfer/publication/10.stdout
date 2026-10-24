@@ -1,0 +1,3 @@
+full__pair exit 0 timeout False
+full__smoke exit 7 timeout False
+yaw__smoke exit None timeout True

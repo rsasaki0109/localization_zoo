@@ -50,6 +50,24 @@ def child_command(python, jobs, output):
             '--worker-output', str(output)]
 
 
+def load_input_cloud(path, input_format='kitti_bin'):
+    if input_format == 'kitti_bin':
+        cloud = np.fromfile(path, dtype='<f4').reshape(-1, 4)[:, :3]
+    elif input_format == 'pcd':
+        from run_official_kiss_pcd_odometry import load_pcd_xyz_timestamps
+        from analyze_lidar_degeneracy_sequence import read_pcd_header
+        header, _ = read_pcd_header(path)
+        count = int(header.get('POINTS', header.get('WIDTH', ['0']))[0])
+        cloud, _ = load_pcd_xyz_timestamps(path)
+        if len(cloud) != count:
+            raise ValueError('PCD coordinates were missing/nonfinite: ' + str(path))
+    else:
+        raise ValueError('unsupported input format: ' + input_format)
+    if not np.isfinite(cloud).all():
+        raise ValueError('nonfinite input cloud')
+    return cloud
+
+
 def worker(jobs_path, output):
     # This input has clouds/augmentations/config only; no reference poses or path.
     import kiss_matcher as km
@@ -77,10 +95,7 @@ def worker(jobs_path, output):
             path = Path(job['raw_root']) / item['name']
             if sha(path) != item['sha256'] or path.stat().st_size != item['bytes']:
                 raise ValueError('input hash/size mismatch: ' + str(path))
-            cloud = np.fromfile(path, dtype='<f4').reshape(-1, 4)[:, :3]
-            if not np.isfinite(cloud).all():
-                raise ValueError('nonfinite input cloud')
-            clouds.append(cloud)
+            clouds.append(load_input_cloud(path, job.get('input_format', 'kitti_bin')))
         source, target = clouds
         source = source @ augmentation(case['source_yaw_deg'])[:3, :3].T
     source, target = [np.ascontiguousarray(p, dtype=np.float32) for p in (source, target)]
@@ -110,6 +125,8 @@ def main():
     parser.add_argument('--manifest', type=Path)
     parser.add_argument('--raw-root', type=Path)
     parser.add_argument('--reference-csv', type=Path)
+    parser.add_argument('--reference-sensor-to-body-json', type=Path,
+                        help='Opt-in body-reference to sensor-reference conversion, scoring only.')
     parser.add_argument('--output-dir', type=Path)
     parser.add_argument('--official-python', type=Path, default=Path(sys.executable))
     parser.add_argument('--worker-jobs', type=Path, help=argparse.SUPPRESS)
@@ -123,6 +140,13 @@ def main():
     protocol = json.loads(args.manifest.read_text())
     if sha(args.reference_csv) != protocol['reference_csv_sha256']:
         raise ValueError('reference hash mismatch')
+    calibration_sha = sha(args.reference_sensor_to_body_json) if args.reference_sensor_to_body_json else None
+    if calibration_sha != protocol.get('reference_sensor_to_body_sha256'):
+        raise ValueError('reference calibration must match the pinned protocol (or both be absent)')
+    calibration = None
+    if args.reference_sensor_to_body_json:
+        from reference_frames import load_sensor_to_body
+        calibration = load_sensor_to_body(args.reference_sensor_to_body_json)
     args.output_dir.mkdir(parents=True, exist_ok=False)
     commands = []
     env = dict(os.environ, OMP_NUM_THREADS='2', OPENBLAS_NUM_THREADS='1')
@@ -133,10 +157,13 @@ def main():
             job = {'package_version': protocol['package_version'],
                    'voxel_size_m': protocol['voxel_size_m'], 'case': case,
                    'use_quatro': variant['use_quatro'], 'expected_config': variant['config']}
-            if case['kind'] == 'kitti':
+            if case['kind'] != 'synthetic':
                 job['raw_root'] = str(args.raw_root.resolve())
+                job['input_format'] = protocol.get('input_format', 'kitti_bin')
                 for name in ('source', 'target'):
-                    job[name] = protocol['inputs'][f"{case[name + '_frame']:06d}.bin"]
+                    frame = case[name + '_frame']
+                    key = protocol.get('input_keys', {}).get(str(frame), f'{frame:06d}.bin')
+                    job[name] = protocol['inputs'][key]
             job_path = args.output_dir / (stem + '.job.json')
             output = args.output_dir / (stem + '.estimate.json')
             save(job_path, job)
@@ -157,6 +184,9 @@ def main():
             save(args.output_dir/'commands.json', commands)
             print(stem, 'exit', code, 'timeout', timed_out, flush=True)
     poses = load_reference_csv(args.reference_csv)
+    if calibration is not None:
+        from reference_frames import sensor_frame_poses
+        poses = sensor_frame_poses(poses, calibration)
     scored = []
     for command in commands:
         case = next(c for c in protocol['cases'] if c['id'] == command['case'])
@@ -183,10 +213,13 @@ def main():
                               and row['translation_error_m'] <= protocol['success_translation_m'])
             row['estimate_sha256'] = sha(estimate_path)
         scored.append(row)
-    save(args.output_dir/'summary.json', {'protocol_sha256': sha(args.manifest),
+    summary = {'protocol_sha256': sha(args.manifest),
          'reference_csv_sha256': sha(args.reference_csv), 'cases': scored,
          'all_commands_completed': all(r['exit_code'] == 0 and not r['timed_out'] for r in commands),
-         'claim_limit': protocol['claim_limit']})
+         'claim_limit': protocol['claim_limit']}
+    if calibration_sha is not None:
+        summary['reference_sensor_to_body_sha256'] = calibration_sha
+    save(args.output_dir/'summary.json', summary)
 
 
 if __name__ == '__main__':

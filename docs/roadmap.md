@@ -10,6 +10,50 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### IMU dead reckoning summary and retrieval follow-up (2026-10-24)
+
+The user's requested README result is **IMU-only dead reckoning**, rather than
+orientation/noise validation. The main summary now uses committed pure-DR and
+fixed NHC+ZUPT aggregate rows, with the KITTI index-time limitations explicit.
+Other IMU tools remain linked separately. The
+[retrieval follow-up](../experiments/results/imu_dr_readme_and_retrieval/README.md)
+reproduces stored Scan Context/ISC/DTD metrics on five full KITTI sequences and
+tests official KISS-Matcher variants on four predeclared Scan Context candidates.
+All eight pair checks miss the existing accuracy criterion, including the true
+revisit's remaining translation error. Preserve these negatives; next work is
+GT/frame consistency and residual/overlap diagnostics, not threshold tuning on
+this sample. The fixed opt-in ICP follow-up is complete and remains negative:
+0/8 pass; the true revisit converges to 0.229° / 0.730 m from both initializers.
+Its protocol, original outputs, independent transform-direction control and
+post-execution GT scoring are retained in the same study. No refinement is
+adopted as a default. The InTEn trial remains paused.
+
+An oracle-only follow-up now isolates a reference/objective disagreement on the
+true revisit: GT-initialized ICP moves to 0.227° / 0.729 m while lowering point
+residuals. Its reference agrees with official poses/calibration, but this does
+not establish GT error. Two other pairs fail the unchanged strict raw-matrix
+frame check and are explicitly skipped; those diagnostic commands retain exit
+1. Analytic residual and case-accounting checks pass, and oracle estimates are
+excluded from benchmark counts. Next work concerns motion/point modeling and
+reference uncertainty, rather than repeating coarse-initializer parameter
+searches on these four queries.
+
+A fixed raw/+0.205° input and ICP/point-to-plane/GICP objective probe is now
+complete. All 48 fits are retained, and the raw-ICP replay matches exactly.
+The true revisit remains at 0.729750–0.731077 m translation error; none meets
+the unchanged criterion. This sample's negatives are not overlapping-pair
+registration recall. Stop further setting searches on these four queries and
+move to independent overlap/reference benchmark evidence before broader claims.
+
+A separate MCD fixture transfer now exposes a concrete reference-frame issue:
+the publisher's poses are body-frame references, while raw Ouster points require
+sensor-to-body calibration. The unchanged native estimates initially score 0/9
+per mode; a source-backed explicit calibrated rescore gives 9/9. New converter
+and scorer flags are opt-in; legacy defaults, CI fixtures and historical results
+are preserved. See [the full evidence and limitations](../experiments/results/kiss_matcher_mcd_transfer/README.md).
+This tiny development fixture is not a held-out benchmark, and its export/topic
+lineage and timestamp uncertainty remain open before broad accuracy claims.
+
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 
 The README again summarizes IMU orientation, Allan variance and public

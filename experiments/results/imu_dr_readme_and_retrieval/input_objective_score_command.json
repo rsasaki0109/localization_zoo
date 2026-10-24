@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "-c",
+    "import json,sys,importlib.util,hashlib\nfrom pathlib import Path\nimport numpy as np\nr=Path('experiments/results/imu_dr_readme_and_retrieval')\nsys.path.insert(0,str(r.resolve()));sys.path.insert(0,str(Path('evaluation/scripts').resolve()))\nfrom probe_input_objective import elevation\nfrom run_official_kiss_matcher import errors,expected_transform\nfrom evaluate_external_kitti_odometry import load_reference_csv\nsample=np.array([[1.,0.,0.],[0.,1.,0.],[0.,0.,2.],[1.,2.,-3.]])\ntheta=np.radians(.205);corrected=elevation(sample,.205)\nassert np.allclose(corrected[0],[np.cos(theta),0,np.sin(theta)],rtol=0,atol=1e-14)\nassert np.allclose(np.linalg.norm(sample,axis=1),np.linalg.norm(corrected,axis=1),rtol=0,atol=1e-12)\nassert np.array_equal(elevation(sample,0),sample)\nprotocol=json.loads((r/'input_objective_protocol.json').read_text())\npair=json.loads((r/'matcher_protocol.json').read_text())\nnative=json.loads((r/'input_objective_estimates.json').read_text())\nassert native['protocol_sha256']==hashlib.sha256((r/'input_objective_protocol.json').read_bytes()).hexdigest()\nref_path=Path('experiments/reference_data/kitti_seq_00_full_gt.csv')\nassert hashlib.sha256(ref_path.read_bytes()).hexdigest()==pair['reference_csv_sha256']\nposes=load_reference_csv(ref_path)\nold=json.loads((r/'refined_estimates.json').read_text())['cases']\nrows=[];maximum=0.\nfor row in native['cases']:\n assert 'error' not in row\n c=next(c for c in pair['cases'] if c['id']==row['case'])\n ref=expected_transform(poses,c['source_frame'],c['target_frame'],0)\n transform=np.array(row['transform'])\n rotation,translation=errors(transform,ref)\n if row['elevation_degrees']==0 and row['objective']=='ICP':\n  before=next(x for x in old if x['case']==row['case'] and x['variant']==row['variant'])\n  maximum=max(maximum,float(np.max(np.abs(np.array(before['transform'])-transform))))\n rows.append({k:v for k,v in row.items() if k!='transform'}|{'rotation_error_deg':rotation,'translation_error_m':translation,'translation_delta_target_xyz_m':(transform[:3,3]-ref[:3,3]).tolist(),'success':rotation<=pair['success_rotation_deg'] and translation<=pair['success_translation_m']})\nassert maximum<=protocol['raw_icp_replay_tolerance']\ngroups=[]\nfor degrees in protocol['elevation_degrees']:\n for objective in protocol['objectives']:\n  subset=[x for x in rows if x['elevation_degrees']==degrees and x['objective']==objective]\n  assert len(subset)==8\n  groups.append({'elevation_degrees':degrees,'objective':objective,'cases':len(subset),'successes':sum(x['success'] for x in subset),'true_revisit_translation_errors_m':[x['translation_error_m'] for x in subset if '003500_000507' in x['case']]})\nresult={'groups':groups,'cases':rows,'raw_icp_max_matrix_replay_error':maximum,'elevation_analytic_controls_valid':True,'claim_limit':protocol['scope']}\n(r/'input_objective_summary.json').write_text(json.dumps(result,indent=2)+'\\n')\nprint(json.dumps({'groups':groups,'raw_icp_max_matrix_replay_error':maximum},indent=2))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "5c56624f31bbc37d15af273e90f77c7fea9c391d",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792806631.8148577,
+  "exit_code": 0,
+  "wall_seconds": 0.17117799102561548,
+  "logs": {
+    ".stdout": "70675f14cddd3fa9af5bd6a3ab879ff4279b2fbfb6888251e59fe94704f3f02e",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

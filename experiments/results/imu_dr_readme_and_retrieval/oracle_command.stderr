@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/localization-zoo-imu-kiss-matcher-20261024/experiments/results/imu_dr_readme_and_retrieval/diagnose_reference_objective.py", line 108, in <module>
+    main()
+  File "/tmp/localization-zoo-imu-kiss-matcher-20261024/experiments/results/imu_dr_readme_and_retrieval/diagnose_reference_objective.py", line 77, in main
+    assert frame_difference < p['frame_matrix_check_tolerance']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,160 @@
+{
+  "protocol_sha256": "df1e0627a68470cdc5fe41b3049eada43e1f7e8f656527b77571314a73d7af3c",
+  "reference_csv_sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+  "cases": [
+    {
+      "variant": "kiss_matcher",
+      "case": "scan_context_00_000500_000153",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_000500_000153.job.json",
+        "--worker-output",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_000500_000153.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.5288834199891426,
+      "success": false,
+      "rotation_error_deg": 155.05000933341796,
+      "translation_error_m": 153.5847613047692,
+      "estimate_sha256": "add66643fa48148505db65c23470c88dac43caf4ca770840bc23ad101ccc7957"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "scan_context_00_001500_001439",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_001500_001439.job.json",
+        "--worker-output",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_001500_001439.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.5923401049803942,
+      "success": false,
+      "rotation_error_deg": 179.6381302890829,
+      "translation_error_m": 74.49627861355974,
+      "estimate_sha256": "a62f2cb89c02e7be3c66e80fcc43014c6ee664cc0d7b939a8e0e09b2a5f15694"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "scan_context_00_002500_001045",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_002500_001045.job.json",
+        "--worker-output",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_002500_001045.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.5795863589737564,
+      "success": false,
+      "rotation_error_deg": 173.6394884864888,
+      "translation_error_m": 252.14395867567583,
+      "estimate_sha256": "fce98cd0510ffba2ef5cd067304d0aae36bd61c3335af7ac7017770825e77a32"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "scan_context_00_003500_000507",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_003500_000507.job.json",
+        "--worker-output",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_003500_000507.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.5700725819915533,
+      "success": false,
+      "rotation_error_deg": 0.3318727180598882,
+      "translation_error_m": 0.7271716158934666,
+      "estimate_sha256": "d77a0f97fdf4126c71da3edc6e4bb4aeb72c7c60a8abd1a66818769a9b3e4c94"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "scan_context_00_000500_000153",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_000500_000153.job.json",
+        "--worker-output",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_000500_000153.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.5711149650160223,
+      "success": false,
+      "rotation_error_deg": 2.7182701973005994,
+      "translation_error_m": 151.98268718687532,
+      "estimate_sha256": "7ebdc441c751285aa6316c2875562a7529705fa06bd48f91a752610df5555ee9"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "scan_context_00_001500_001439",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_001500_001439.job.json",
+        "--worker-output",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_001500_001439.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.4149247980094515,
+      "success": false,
+      "rotation_error_deg": 179.3280148090866,
+      "translation_error_m": 73.618266226335,
+      "estimate_sha256": "d97200c0fa12bd585565cd156347100d2d0676e4cf357af0d1f59f52edf5f413"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "scan_context_00_002500_001045",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_002500_001045.job.json",
+        "--worker-output",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_002500_001045.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.5289770740200765,
+      "success": false,
+      "rotation_error_deg": 163.92262277147773,
+      "translation_error_m": 252.77833103668104,
+      "estimate_sha256": "e3cb6810cae4ed7007463653770a3395904669a75169b214b56e2c3c2cc0f9b9"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "scan_context_00_003500_000507",
+      "argv": [
+        "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+        "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+        "--worker-jobs",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_003500_000507.job.json",
+        "--worker-output",
+        "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_003500_000507.estimate.json"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 0.46818031603470445,
+      "success": false,
+      "rotation_error_deg": 0.17777937951526054,
+      "translation_error_m": 0.7418639891744673,
+      "estimate_sha256": "b72c18d73b3b9db36481a77acc99c2450c8666e38d7ae2bb2527f5233e4b5a5d"
+    }
+  ],
+  "all_commands_completed": true,
+  "claim_limit": "Four sampled historical Scan Context retrievals verified by official KISS-Matcher variants with unchanged settings. GT scores pair accuracy only; not a calibrated loop-acceptance rule, full SLAM or a paper benchmark."
+}

@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "-c",
+    "import hashlib,json,shutil\nfrom pathlib import Path\nr=Path('experiments/results/imu_dr_readme_and_retrieval')\np=json.loads((r/'matcher_protocol.json').read_text())\nroot=Path('/tmp/localization-zoo-scan-context-pairs-20261024')\nfolder=root/'dataset/sequences/00/velodyne'\nfor name,pin in p['inputs'].items():\n path=folder/name\n assert path.stat().st_size==pin['bytes'] and hashlib.sha256(path.read_bytes()).hexdigest()==pin['sha256']\nshutil.rmtree(root)\nprint('Removed only this follow-up download after all inputs and outcomes were committed.')\n"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "a9fd48057b8ef87bd27960eb3d0b516b77cef389",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792804494.0480697,
+  "exit_code": 0,
+  "wall_seconds": 0.037475380988325924,
+  "logs": {
+    ".stdout": "9bb07e6d0e698295ffac6e2b0843aaef6d1db4dbdd45ab3aca004cfced9346ee",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

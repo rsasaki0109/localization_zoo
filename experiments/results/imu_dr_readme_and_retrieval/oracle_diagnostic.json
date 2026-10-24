@@ -1,0 +1,207 @@
+{
+  "oracle_diagnostic_only": true,
+  "included_in_benchmark_success_count": false,
+  "protocol_sha256": "5db15f9c2ee55e7ad8b98d32d49d19d1f7e004052302722a65b82ef9da20f0c3",
+  "backend_sha256": "f99991b4334e24791fb2ff52f89c80513b5107bd35a146ded4230b660e3d2ded",
+  "cases": [
+    {
+      "case": "scan_context_00_000500_000153",
+      "canonical_reference_max_abs_matrix_difference": 9.912581674598187e-06,
+      "oracle_converged": true,
+      "diagnostics": {
+        "reference": {
+          "transform": [
+            [
+              -0.9998049559541177,
+              0.01652046666385799,
+              -0.01082239487328477,
+              2.1835473612586074
+            ],
+            [
+              -0.016480369118934086,
+              -0.9998570298445006,
+              -0.003783821380211526,
+              152.4944253248595
+            ],
+            [
+              -0.010883358088780652,
+              -0.003604726306118041,
+              0.9999342770727334,
+              -3.5128514186821627
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 0.0,
+          "translation_error_m": 2.844945146671123e-14,
+          "residuals": {
+            "source_to_target": {
+              "points": 18050,
+              "supported_points": 0,
+              "support_fraction": 0.0,
+              "supported_rmse_m": null,
+              "clipped_mean_squared_m2": 1.0,
+              "median_distance_m": 107.66127634051873
+            },
+            "target_to_source": {
+              "points": 16314,
+              "supported_points": 0,
+              "support_fraction": 0.0,
+              "supported_rmse_m": null,
+              "clipped_mean_squared_m2": 1.0,
+              "median_distance_m": 105.4249186038272
+            }
+          }
+        },
+        "gt_initialized_icp": {
+          "transform": [
+            [
+              -0.9998049559541177,
+              0.01652046666385799,
+              -0.01082239487328477,
+              2.1835473612586074
+            ],
+            [
+              -0.016480369118934086,
+              -0.9998570298445006,
+              -0.003783821380211526,
+              152.4944253248595
+            ],
+            [
+              -0.010883358088780652,
+              -0.003604726306118041,
+              0.9999342770727334,
+              -3.5128514186821627
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 0.0,
+          "translation_error_m": 2.844945146671123e-14,
+          "residuals": {
+            "source_to_target": {
+              "points": 18050,
+              "supported_points": 0,
+              "support_fraction": 0.0,
+              "supported_rmse_m": null,
+              "clipped_mean_squared_m2": 1.0,
+              "median_distance_m": 107.66127634051873
+            },
+            "target_to_source": {
+              "points": 16314,
+              "supported_points": 0,
+              "support_fraction": 0.0,
+              "supported_rmse_m": null,
+              "clipped_mean_squared_m2": 1.0,
+              "median_distance_m": 105.4249186038272
+            }
+          }
+        },
+        "kiss_matcher_refined": {
+          "transform": [
+            [
+              -0.9884121424456002,
+              -0.14693032787788796,
+              -0.03811712759107607,
+              -0.8755774165661967
+            ],
+            [
+              -0.14950742074731066,
+              0.9857513678009521,
+              0.07708289057916282,
+              -1.6522179410267686
+            ],
+            [
+              0.026248196272974977,
+              0.08188845845568793,
+              -0.9962957957174001,
+              -2.7086784747542274
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 175.5773960308649,
+          "translation_error_m": 154.1790925147455,
+          "residuals": {
+            "source_to_target": {
+              "points": 18050,
+              "supported_points": 6303,
+              "support_fraction": 0.34919667590027703,
+              "supported_rmse_m": 0.5842573285982247,
+              "clipped_mean_squared_m2": 0.7700039232026973,
+              "median_distance_m": 1.6583356827367937
+            },
+            "target_to_source": {
+              "points": 16314,
+              "supported_points": 6827,
+              "support_fraction": 0.4184749295083977,
+              "supported_rmse_m": 0.5937986587503605,
+              "clipped_mean_squared_m2": 0.729078011240772,
+              "median_distance_m": 1.2158402153442565
+            }
+          }
+        },
+        "kiss_matcher_quatro_refined": {
+          "transform": [
+            [
+              -0.9998982194730625,
+              -0.010032062457035862,
+              -0.010144378613667744,
+              0.845798745471755
+            ],
+            [
+              0.010030907873824296,
+              -0.9999496756159565,
+              0.00016468992339431986,
+              0.33326448884901627
+            ],
+            [
+              -0.010145520283660042,
+              6.291583385623524e-05,
+              0.9999485309053519,
+              -0.09105110960347296
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "rotation_error_deg": 1.5363576198258893,
+          "translation_error_m": 152.20550961012054,
+          "residuals": {
+            "source_to_target": {
+              "points": 18050,
+              "supported_points": 10104,
+              "support_fraction": 0.5597783933518006,
+              "supported_rmse_m": 0.47289799671037464,
+              "clipped_mean_squared_m2": 0.5654062567599608,
+              "median_distance_m": 0.8006221043725339
+            },
+            "target_to_source": {
+              "points": 16314,
+              "supported_points": 10399,
+              "support_fraction": 0.6374279759715582,
+              "supported_rmse_m": 0.49455547703586855,
+              "clipped_mean_squared_m2": 0.518477421937499,
+              "median_distance_m": 0.6719619487499433
+            }
+          }
+        }
+      }
+    }
+  ]
+}

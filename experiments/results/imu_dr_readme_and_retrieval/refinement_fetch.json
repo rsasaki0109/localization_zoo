@@ -1,0 +1,44 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "evaluation/scripts/fetch_kitti_odometry_sequences.py",
+    "--output-root",
+    "/tmp/localization-zoo-refinement-pairs-20261024",
+    "--sequence",
+    "00",
+    "--frame",
+    "500",
+    "--frame",
+    "153",
+    "--frame",
+    "1500",
+    "--frame",
+    "1439",
+    "--frame",
+    "2500",
+    "--frame",
+    "1045",
+    "--frame",
+    "3500",
+    "--frame",
+    "507"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "47d7a6085eca866b9bd169092b7d9f98b378c522",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792804736.3969743,
+  "exit_code": 0,
+  "wall_seconds": 5.75468696502503,
+  "logs": {
+    ".stdout": "b6c985e377fb40f25c1b5055fefcf4a4fc9ddc772b7ccffc2b7004789ed9bd32",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

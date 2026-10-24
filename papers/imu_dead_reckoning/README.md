@@ -7,6 +7,13 @@ top of the same strapdown core). Claim tier **T3 smoke / concept** per
 [`docs/paper_ready_reproducibility.md`](../../docs/paper_ready_reproducibility.md):
 "This is a compact baseline or concept port."
 
+The main repository README now includes an IMU-only dead-reckoning summary,
+using the committed full-session aggregate rows and identical NHC+ZUPT flags.
+Its exact [source rows and recorded commands](../../experiments/results/imu_dr_readme_and_retrieval/imu_dr_sources.json)
+are retained separately. That summary uses these aggregate versions rather than
+copying every historical number below; the archived KITTI fixture's nonphysical
+timestamp and stationary-detection limitations still apply.
+
 The family comparison against OdoNet / NHC-Net / NN-ZUPT (same strapdown core
 plus a trained CNN aid) that used to live only in this README is now also
 promoted into

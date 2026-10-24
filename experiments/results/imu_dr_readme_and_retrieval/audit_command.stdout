@@ -1,0 +1,38 @@
+{
+  "historical_retrieval_metrics_reproduced": true,
+  "retrieval_sources_and_configs_valid": true,
+  "imu_dr_readme_numbers_match_committed_sources": true,
+  "retrieval_labels": [
+    {
+      "source": 500,
+      "target": 153,
+      "score": -0.287499548,
+      "gt_separation_m": 152.5505088792815,
+      "retrieval_within_4m": false
+    },
+    {
+      "source": 1500,
+      "target": 1439,
+      "score": -0.209198702,
+      "gt_separation_m": 73.33680790032315,
+      "retrieval_within_4m": false
+    },
+    {
+      "source": 2500,
+      "target": 1045,
+      "score": -0.347322016,
+      "gt_separation_m": 250.5763571109715,
+      "retrieval_within_4m": false
+    },
+    {
+      "source": 3500,
+      "target": 507,
+      "score": -0.0525558981,
+      "gt_separation_m": 0.6657677592986162,
+      "retrieval_within_4m": true
+    }
+  ],
+  "cases_completed": 8,
+  "successful_registration_cases": 0,
+  "claim_limit": "Rescore of stored descriptors and a sampled geometric verification, not fresh full-sequence native retrieval or a deployed acceptance rule."
+}

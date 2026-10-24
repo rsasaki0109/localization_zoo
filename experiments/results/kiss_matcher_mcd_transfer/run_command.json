@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "evaluation/scripts/run_official_kiss_matcher.py",
+    "--manifest",
+    "experiments/results/kiss_matcher_mcd_transfer/protocol.json",
+    "--raw-root",
+    "evaluation/fixtures/mcd_kth_smoke",
+    "--reference-csv",
+    "evaluation/fixtures/mcd_kth_smoke_gt.csv",
+    "--output-dir",
+    "experiments/results/kiss_matcher_mcd_transfer/run"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "c10bebcc2853c7b37833e19f6b7408ce1d81adfb",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792807701.8557768,
+  "exit_code": 0,
+  "wall_seconds": 11.867260375991464,
+  "logs": {
+    ".stdout": "9e7e6b4f1bb24de0214056158b8420da44f6cd9d5f7b0367083d6f063d484e36",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

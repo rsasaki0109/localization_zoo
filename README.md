@@ -49,6 +49,7 @@ prove paper fidelity ([reproduction status](docs/reproduction_status.md),
 | Call a method from Python or run it on a ROS 2 bag | [Python bindings](#python-bindings-experimental) · [ROS 2](#ros-2) |
 | Use the IMU tools (motion / health SDK, attitude filters, Allan variance) | [IMU tools](docs/implementations.md#imu-motion--health-sdk) |
 | Check IMU validation results and reproduce them | [IMU validation](#imu-validation) |
+| Check official KISS-Matcher / Quatro pair registration | [Protocol, results and failures](docs/kiss_matcher_validation.md) |
 | Re-run a paper-number row | [`reproduce_paper_row.py`](#paper-number-check-official-kitti-rte) |
 | Port a method to KITTI without the usual traps | [KITTI pitfalls](docs/kitti_pitfalls.md) |
 | Inspect a new LiDAR's frame, rows, intensity and setup flags | [Sensor setup assistant](docs/sensor_setup_assistant.md) |

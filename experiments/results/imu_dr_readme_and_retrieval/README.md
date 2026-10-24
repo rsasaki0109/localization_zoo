@@ -49,6 +49,38 @@ remain future work; this experiment adds neither an acceptance gate nor SLAM.
 
 ## Reproduce
 
+### Fixed opt-in ICP refinement: negative result
+
+The follow-up freezes [a separate refinement protocol](refinement_protocol.json)
+before execution and refines the archived coarse transforms, without rerunning
+or selecting them. `small-gicp==1.0.1` uses point-to-point ICP with the documented
+numeric defaults: 0.25 m downsampling, 1 m correspondence distance, 20 iterations,
+one thread. This standalone diagnostic is opt-in; it changes no Zoo default or
+official KISS-Matcher behavior. The [worker](refine_pairs.py) receives no GT;
+the [scorer command](refinement_score_command.json) runs afterwards.
+
+The [saved result](refinement_summary.json) still passes **0/8** cases under the
+unchanged 2° / 0.5 m criterion. On true revisit 3500→507, both initializers converge
+to the same ICP solution: 0.229° / 0.730 m, versus coarse 0.332° / 0.727 m and
+0.178° / 0.742 m. Thus convergence does not establish accurate registration.
+The false candidates remain incorrect, with translation errors 73.778–252.626 m;
+the solver reports non-convergence there. No settings or thresholds are retuned.
+An independent known-transform control has maximum matrix error 0.000325,
+below its predeclared 0.001 check; worker and scoring receipts exit 0.
+
+To repeat explicitly after fetching the scans below:
+
+```bash
+python3 experiments/results/imu_dr_readme_and_retrieval/refine_pairs.py \
+  --protocol experiments/results/imu_dr_readme_and_retrieval/refinement_protocol.json \
+  --raw-root /tmp/scan-context-pairs/dataset/sequences/00/velodyne \
+  --output /tmp/scan-context-refined.json
+```
+
+This uses the committed coarse estimates and never overwrites them. GT/frame
+consistency and residual/overlap diagnostics remain open; this failed experiment
+does not justify adopting ICP or calibrating a loop gate on these four queries.
+
 Use the pinned `kiss-matcher==1.0.2`, `numpy==2.2.6` environment described in
 [the preceding study](../../../docs/kiss_matcher_validation.md). Fetch only the
 selected sequence and frames; remove the scans after preserving the results:

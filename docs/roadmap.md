@@ -21,8 +21,12 @@ reproduces stored Scan Context/ISC/DTD metrics on five full KITTI sequences and
 tests official KISS-Matcher variants on four predeclared Scan Context candidates.
 All eight pair checks miss the existing accuracy criterion, including the true
 revisit's remaining translation error. Preserve these negatives; next work is
-confidence gating and fixed opt-in refinement diagnostics, not threshold tuning
-on this sample. The InTEn trial remains paused.
+GT/frame consistency and residual/overlap diagnostics, not threshold tuning on
+this sample. The fixed opt-in ICP follow-up is complete and remains negative:
+0/8 pass; the true revisit converges to 0.229° / 0.730 m from both initializers.
+Its protocol, original outputs, independent transform-direction control and
+post-execution GT scoring are retained in the same study. No refinement is
+adopted as a default. The InTEn trial remains paused.
 
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 

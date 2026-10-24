@@ -1,0 +1,7 @@
+Collecting scipy==1.15.3
+  Downloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Requirement already satisfied: numpy<2.5,>=1.23.5 in /tmp/localization-zoo-kiss-matcher-runtime-20261024/lib/python3.12/site-packages (from scipy==1.15.3) (2.2.6)
+Downloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.3/37.3 MB 57.0 MB/s eta 0:00:00
+Installing collected packages: scipy
+Successfully installed scipy-1.15.3

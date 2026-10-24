@@ -1,0 +1,20 @@
+{
+  "config": {
+    "registration_type": "ICP",
+    "voxel_resolution": 1.0,
+    "downsampling_resolution": 0.25,
+    "max_correspondence_distance": 1.0,
+    "num_threads": 1,
+    "max_iterations": 20,
+    "rotation_epsilon": 0.0017453292519943296,
+    "translation_epsilon": 0.001
+  },
+  "selection": "Use the same fixed ICP settings on all four original pairs. GT initialization is an oracle-only causal probe, excluded from normal benchmark counts. Compare symmetric nearest-neighbor residuals at the same 1 m gate and 0.25 m sampling; report support as well as error, no tuning.",
+  "reference_sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+  "official_poses_zip_sha256": "a969190799bb3fc4a15f5f0675b1ee6b7067292599b3269bdafc1e5ba883b9e1",
+  "official_calib_zip_sha256": "fa45d2bbff828776e6df689b161415fb7cd719345454b6d3567c2ff81fa4d075",
+  "pair_protocol_sha256": "df1e0627a68470cdc5fe41b3049eada43e1f7e8f656527b77571314a73d7af3c",
+  "refined_estimates_sha256": "54c9ff677f5b835e006ecfd102148042fc8c97c7423862524d461041d31bb834",
+  "frame_matrix_check_tolerance": 0.0001,
+  "scope": "Reference frame and local objective diagnostic, not ground-truth-free registration performance or evidence that GT is wrong."
+}

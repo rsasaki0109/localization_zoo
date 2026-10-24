@@ -64,6 +64,12 @@ def main():
     extrinsic[:3] = np.array(list(map(float, tr.split()[1:]))).reshape(3, 4)
     poses = load_reference_csv(args.reference_csv)
     rows = []
+
+    def persist():
+        args.output.write_text(json.dumps({'oracle_diagnostic_only': True,
+            'included_in_benchmark_success_count': False, 'protocol_sha256': sha(args.protocol),
+            'backend_sha256': sha(Path(small_gicp.__file__)), 'cases': rows}, indent=2, allow_nan=False)+'\n')
+
     for case in pairs['cases']:
         i, j = case['source_frame'], case['target_frame']
         reference = np.linalg.solve(poses[j], poses[i])
@@ -74,7 +80,12 @@ def main():
             camera.append(matrix)
         canonical = np.linalg.inv(extrinsic) @ np.linalg.solve(camera[1], camera[0]) @ extrinsic
         frame_difference = float(np.max(np.abs(reference-canonical)))
-        assert frame_difference < p['frame_matrix_check_tolerance']
+        if frame_difference >= p['frame_matrix_check_tolerance']:
+            rows.append({'case': case['id'], 'frame_gate_passed': False,
+                         'canonical_reference_max_abs_matrix_difference': frame_difference,
+                         'oracle_skipped': True})
+            persist()
+            continue
         clouds = {}
         for name in ('source', 'target'):
             pin = pairs['inputs'][f"{case[name+'_frame']:06d}.bin"]
@@ -98,10 +109,11 @@ def main():
                                      sampled['source'], sampled['target'], transform,
                                      config['max_correspondence_distance'])}
         rows.append({'case': case['id'], 'canonical_reference_max_abs_matrix_difference': frame_difference,
-                     'oracle_converged': bool(oracle.converged), 'diagnostics': diagnostics})
-        args.output.write_text(json.dumps({'oracle_diagnostic_only': True,
-            'included_in_benchmark_success_count': False, 'protocol_sha256': sha(args.protocol),
-            'backend_sha256': sha(Path(small_gicp.__file__)), 'cases': rows}, indent=2, allow_nan=False)+'\n')
+                     'frame_gate_passed': True, 'oracle_converged': bool(oracle.converged),
+                     'diagnostics': diagnostics})
+        persist()
+    if any(not row['frame_gate_passed'] for row in rows):
+        raise SystemExit('Frame gate failed: affected oracle fits skipped; all case outcomes retained.')
 
 
 if __name__ == '__main__':

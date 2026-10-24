@@ -17,6 +17,23 @@ SPEC.loader.exec_module(MODULE)
 
 
 class OfficialMatcherTests(unittest.TestCase):
+    def test_default_kitti_loader_preserves_xyz_and_pcd_fields_are_not_xyz_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            values = np.array([[1, 2, 3, .4], [-2, 0, 4, .8]], dtype='<f4')
+            binary = root/'scan.bin'
+            values.tofile(binary)
+            np.testing.assert_array_equal(MODULE.load_input_cloud(binary), values[:, :3])
+            pcd = root/'scan.pcd'
+            # Intensity-first field order detects accidental PointXYZI reinterpretation.
+            header = 'VERSION .7\nFIELDS intensity z y x\nSIZE 4 4 4 4\nTYPE F F F F\nCOUNT 1 1 1 1\nWIDTH 2\nHEIGHT 1\nPOINTS 2\nDATA binary\n'
+            pcd.write_bytes(header.encode()+values[:, [3, 2, 1, 0]].tobytes())
+            np.testing.assert_array_equal(MODULE.load_input_cloud(pcd, 'pcd'), values[:, :3])
+            values[0, 0] = np.nan
+            pcd.write_bytes(header.encode()+values[:, [3, 2, 1, 0]].tobytes())
+            with self.assertRaisesRegex(ValueError, 'nonfinite'):
+                MODULE.load_input_cloud(pcd, 'pcd')
+
     def test_augmented_source_maps_to_target_with_noncommuting_poses(self):
         from evaluate_external_kitti_odometry import rpy_matrix
         source_pose, target_pose = np.eye(4), np.eye(4)

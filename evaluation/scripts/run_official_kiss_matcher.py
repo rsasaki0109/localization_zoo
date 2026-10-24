@@ -50,6 +50,24 @@ def child_command(python, jobs, output):
             '--worker-output', str(output)]
 
 
+def load_input_cloud(path, input_format='kitti_bin'):
+    if input_format == 'kitti_bin':
+        cloud = np.fromfile(path, dtype='<f4').reshape(-1, 4)[:, :3]
+    elif input_format == 'pcd':
+        from run_official_kiss_pcd_odometry import load_pcd_xyz_timestamps
+        from analyze_lidar_degeneracy_sequence import read_pcd_header
+        header, _ = read_pcd_header(path)
+        count = int(header.get('POINTS', header.get('WIDTH', ['0']))[0])
+        cloud, _ = load_pcd_xyz_timestamps(path)
+        if len(cloud) != count:
+            raise ValueError('PCD coordinates were missing/nonfinite: ' + str(path))
+    else:
+        raise ValueError('unsupported input format: ' + input_format)
+    if not np.isfinite(cloud).all():
+        raise ValueError('nonfinite input cloud')
+    return cloud
+
+
 def worker(jobs_path, output):
     # This input has clouds/augmentations/config only; no reference poses or path.
     import kiss_matcher as km
@@ -77,10 +95,7 @@ def worker(jobs_path, output):
             path = Path(job['raw_root']) / item['name']
             if sha(path) != item['sha256'] or path.stat().st_size != item['bytes']:
                 raise ValueError('input hash/size mismatch: ' + str(path))
-            cloud = np.fromfile(path, dtype='<f4').reshape(-1, 4)[:, :3]
-            if not np.isfinite(cloud).all():
-                raise ValueError('nonfinite input cloud')
-            clouds.append(cloud)
+            clouds.append(load_input_cloud(path, job.get('input_format', 'kitti_bin')))
         source, target = clouds
         source = source @ augmentation(case['source_yaw_deg'])[:3, :3].T
     source, target = [np.ascontiguousarray(p, dtype=np.float32) for p in (source, target)]
@@ -133,10 +148,13 @@ def main():
             job = {'package_version': protocol['package_version'],
                    'voxel_size_m': protocol['voxel_size_m'], 'case': case,
                    'use_quatro': variant['use_quatro'], 'expected_config': variant['config']}
-            if case['kind'] == 'kitti':
+            if case['kind'] != 'synthetic':
                 job['raw_root'] = str(args.raw_root.resolve())
+                job['input_format'] = protocol.get('input_format', 'kitti_bin')
                 for name in ('source', 'target'):
-                    job[name] = protocol['inputs'][f"{case[name + '_frame']:06d}.bin"]
+                    frame = case[name + '_frame']
+                    key = protocol.get('input_keys', {}).get(str(frame), f'{frame:06d}.bin')
+                    job[name] = protocol['inputs'][key]
             job_path = args.output_dir / (stem + '.job.json')
             output = args.output_dir / (stem + '.estimate.json')
             save(job_path, job)

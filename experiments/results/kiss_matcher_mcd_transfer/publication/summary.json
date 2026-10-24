@@ -1,0 +1,10 @@
+{
+  "all_commands_passed": true,
+  "historical_tables_byte_equal": {
+    "full_variant_results.csv": true,
+    "full_variant_results.tex": true,
+    "paper_ratio_table.csv": true,
+    "paper_ratio_table.tex": true
+  },
+  "readme_leaderboard_not_regenerated": true
+}

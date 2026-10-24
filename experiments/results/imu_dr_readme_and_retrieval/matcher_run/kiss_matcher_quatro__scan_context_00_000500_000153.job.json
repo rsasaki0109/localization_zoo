@@ -1,0 +1,37 @@
+{
+  "package_version": "1.0.2",
+  "voxel_size_m": 0.3,
+  "case": {
+    "id": "scan_context_00_000500_000153",
+    "kind": "kitti",
+    "source_frame": 500,
+    "target_frame": 153,
+    "source_yaw_deg": 0,
+    "retrieval_score": -0.287499548
+  },
+  "use_quatro": true,
+  "expected_config": {
+    "fpfh_radius": 1.5,
+    "normal_radius": 0.9000000357627869,
+    "num_max_corr": 5000,
+    "robin_noise_bound": 0.30000001192092896,
+    "robin_noise_bound_gain": 1.0,
+    "solver_noise_bound": 0.22500000894069672,
+    "solver_noise_bound_gain": 0.75,
+    "thr_linearity": 1.0,
+    "use_quatro": true,
+    "use_voxel_sampling": true,
+    "voxel_size": 0.30000001192092896
+  },
+  "raw_root": "/tmp/localization-zoo-scan-context-pairs-20261024/dataset/sequences/00/velodyne",
+  "source": {
+    "name": "000500.bin",
+    "sha256": "f8622be33c2a24d7760590455c0b217d61fde6d41fb67e9d1e6d6504db7be1a1",
+    "bytes": 1991136
+  },
+  "target": {
+    "name": "000153.bin",
+    "sha256": "de55e0262dfb1a29e400e80a88c71b4593233750615c93ac9415394c14603c82",
+    "bytes": 1965328
+  }
+}

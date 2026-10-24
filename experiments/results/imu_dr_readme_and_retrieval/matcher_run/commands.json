@@ -1,0 +1,122 @@
+[
+  {
+    "variant": "kiss_matcher",
+    "case": "scan_context_00_000500_000153",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_000500_000153.job.json",
+      "--worker-output",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_000500_000153.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.5288834199891426
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "scan_context_00_001500_001439",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_001500_001439.job.json",
+      "--worker-output",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_001500_001439.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.5923401049803942
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "scan_context_00_002500_001045",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_002500_001045.job.json",
+      "--worker-output",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_002500_001045.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.5795863589737564
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "scan_context_00_003500_000507",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_003500_000507.job.json",
+      "--worker-output",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher__scan_context_00_003500_000507.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.5700725819915533
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "scan_context_00_000500_000153",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_000500_000153.job.json",
+      "--worker-output",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_000500_000153.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.5711149650160223
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "scan_context_00_001500_001439",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_001500_001439.job.json",
+      "--worker-output",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_001500_001439.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4149247980094515
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "scan_context_00_002500_001045",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_002500_001045.job.json",
+      "--worker-output",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_002500_001045.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.5289770740200765
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "scan_context_00_003500_000507",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_003500_000507.job.json",
+      "--worker-output",
+      "experiments/results/imu_dr_readme_and_retrieval/matcher_run/kiss_matcher_quatro__scan_context_00_003500_000507.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.46818031603470445
+  }
+]

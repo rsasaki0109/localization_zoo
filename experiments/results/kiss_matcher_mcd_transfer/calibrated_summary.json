@@ -1,0 +1,189 @@
+{
+  "kind": "Source-backed frame-corrected rescore of the same frozen estimates; no native rerun",
+  "frame_protocol_sha256": "25f88553d4303967522fa4b6f12bdfbad140b426bcdc9a6604d87f45db24b2c3",
+  "reference_sensor_to_body_sha256": "823cb521cc6989f0eb117d259247cd0537d7ab756d43975cc71f9051941155d2",
+  "cases": [
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_1_yaw0",
+      "uncalibrated_rotation_error_deg": 3.1703785389599854,
+      "uncalibrated_translation_error_m": 0.03460139328954963,
+      "rotation_error_deg": 0.47227120850313353,
+      "translation_error_m": 0.027860749416283193,
+      "success": true,
+      "native_estimate_sha256": "de58d696cb27e39cac5895207e20f5da4766908054d6fe4149f1c08be8197a8e"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_1_yaw90",
+      "uncalibrated_rotation_error_deg": 3.1366493882799524,
+      "uncalibrated_translation_error_m": 0.03138315452899532,
+      "rotation_error_deg": 0.4257948400390462,
+      "translation_error_m": 0.026654228897514284,
+      "success": true,
+      "native_estimate_sha256": "c8771e41bfdf2987ed338cc2e3db5d6892a79edd6dae151dd4797694594f1f56"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_1_yaw180",
+      "uncalibrated_rotation_error_deg": 3.132915210122341,
+      "uncalibrated_translation_error_m": 0.029866385202685263,
+      "rotation_error_deg": 0.44372265465836036,
+      "translation_error_m": 0.02549556535849501,
+      "success": true,
+      "native_estimate_sha256": "9dd50498623f4a1060d97db2d7759135e1c684237a864aa279ccfc39e37c09ff"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_2_yaw0",
+      "uncalibrated_rotation_error_deg": 7.12611357505417,
+      "uncalibrated_translation_error_m": 0.04630754781628791,
+      "rotation_error_deg": 0.5585195360376857,
+      "translation_error_m": 0.04659535539317046,
+      "success": true,
+      "native_estimate_sha256": "860845965bd020a9c581beac0ae8765eaf5057c55f2434bf4cf8d90559b7707e"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_2_yaw90",
+      "uncalibrated_rotation_error_deg": 7.122306333098863,
+      "uncalibrated_translation_error_m": 0.03654130150406968,
+      "rotation_error_deg": 0.4203750136475288,
+      "translation_error_m": 0.03772600291509547,
+      "success": true,
+      "native_estimate_sha256": "56e1721c297b16362fda957f726b773fbe2f87cd033c8b9bfab62817525f8f26"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_0_2_yaw180",
+      "uncalibrated_rotation_error_deg": 7.208181956941604,
+      "uncalibrated_translation_error_m": 0.04692123239319723,
+      "rotation_error_deg": 0.3152146023284589,
+      "translation_error_m": 0.04637785372807973,
+      "success": true,
+      "native_estimate_sha256": "bac70abd10151645e91df87ea934b53683925326f5770310edd424c7d1b2220a"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_1_2_yaw0",
+      "uncalibrated_rotation_error_deg": 3.946321099291837,
+      "uncalibrated_translation_error_m": 0.05522081752887773,
+      "rotation_error_deg": 0.25342650995796506,
+      "translation_error_m": 0.053206152911183746,
+      "success": true,
+      "native_estimate_sha256": "a012ed15c62325fd9619925bb6417489764d6e26f2ed8b83df1f481d079439cd"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_1_2_yaw90",
+      "uncalibrated_rotation_error_deg": 3.946862309494951,
+      "uncalibrated_translation_error_m": 0.044872117172090546,
+      "rotation_error_deg": 0.244612758956027,
+      "translation_error_m": 0.045419686533487574,
+      "success": true,
+      "native_estimate_sha256": "f0bf57b0cbf5f6e6ca22a10d901e5a182ce4f7c933f620bd0039a43462c71588"
+    },
+    {
+      "variant": "kiss_matcher",
+      "case": "mcd_1_2_yaw180",
+      "uncalibrated_rotation_error_deg": 3.9427951523500893,
+      "uncalibrated_translation_error_m": 0.049724784286644425,
+      "rotation_error_deg": 0.23963275646177312,
+      "translation_error_m": 0.048419997656981274,
+      "success": true,
+      "native_estimate_sha256": "6e42ee31ffc3f4ca8e8e81eb331a4efc9fea83934a6252f7231ad8ee7ff49e03"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_1_yaw0",
+      "uncalibrated_rotation_error_deg": 3.148973331496667,
+      "uncalibrated_translation_error_m": 0.028584251611139356,
+      "rotation_error_deg": 0.4098275476991002,
+      "translation_error_m": 0.022185727480249343,
+      "success": true,
+      "native_estimate_sha256": "b6ea65886f2a4e68cd827b028cc8c416925ad44c5453cda4480ed4bc6403f8f9"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_1_yaw90",
+      "uncalibrated_rotation_error_deg": 3.1256689466857437,
+      "uncalibrated_translation_error_m": 0.027303620238890876,
+      "rotation_error_deg": 0.4188044972151962,
+      "translation_error_m": 0.022683031763168677,
+      "success": true,
+      "native_estimate_sha256": "e20988f810784e36de1515010e35fbbed17ed7519c863a584566f77d42f98875"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_1_yaw180",
+      "uncalibrated_rotation_error_deg": 3.122440158088564,
+      "uncalibrated_translation_error_m": 0.025572940919065684,
+      "rotation_error_deg": 0.42013711354772443,
+      "translation_error_m": 0.02129128853520171,
+      "success": true,
+      "native_estimate_sha256": "e629cb3c1aa2f0b68d8ceb756feef4def86f9d0a212bd74303e1a1403929b2f9"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_2_yaw0",
+      "uncalibrated_rotation_error_deg": 7.092477496858345,
+      "uncalibrated_translation_error_m": 0.06956880788153748,
+      "rotation_error_deg": 0.8015744859393744,
+      "translation_error_m": 0.06433847609020345,
+      "success": true,
+      "native_estimate_sha256": "d559c4ba2d2957990f94e3404045ef68c61f582c67f1aeeae2d8f29bba8a8241"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_2_yaw90",
+      "uncalibrated_rotation_error_deg": 7.1141202335549965,
+      "uncalibrated_translation_error_m": 0.06999373701637562,
+      "rotation_error_deg": 0.7935304716586481,
+      "translation_error_m": 0.06667745027734713,
+      "success": true,
+      "native_estimate_sha256": "32e136b01d51a8a9ce70d8b5b5fb64ee883db6995f2db44f4d41c1e102daebba"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_0_2_yaw180",
+      "uncalibrated_rotation_error_deg": 7.077532594701973,
+      "uncalibrated_translation_error_m": 0.06911671063000856,
+      "rotation_error_deg": 0.8074260654420186,
+      "translation_error_m": 0.0658848839649712,
+      "success": true,
+      "native_estimate_sha256": "5a3874320779b1e7da72037df65d724ca7c8105a23d08bd1037f92d3f9bddf5b"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_1_2_yaw0",
+      "uncalibrated_rotation_error_deg": 3.9040114489774576,
+      "uncalibrated_translation_error_m": 0.0680379244999624,
+      "rotation_error_deg": 0.41435061955291735,
+      "translation_error_m": 0.0645788774157238,
+      "success": true,
+      "native_estimate_sha256": "b9a93d6e934e0dc6d25879b930b0100703598ac9a487425a34fa8aff7e77b578"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_1_2_yaw90",
+      "uncalibrated_rotation_error_deg": 3.879016189724753,
+      "uncalibrated_translation_error_m": 0.06879869885571518,
+      "rotation_error_deg": 0.42707937145194175,
+      "translation_error_m": 0.06553217138904595,
+      "success": true,
+      "native_estimate_sha256": "0e3b693d59ebd1910d423dd1b89160c1c77a0d2f4e7870a0e73e5f223ddee2b3"
+    },
+    {
+      "variant": "kiss_matcher_quatro",
+      "case": "mcd_1_2_yaw180",
+      "uncalibrated_rotation_error_deg": 3.873527774800178,
+      "uncalibrated_translation_error_m": 0.07002114564674719,
+      "rotation_error_deg": 0.4300208829509401,
+      "translation_error_m": 0.06566123542267137,
+      "success": true,
+      "native_estimate_sha256": "aecde26d8b854ce32b082a022f304ee5807e17d4b9d426b14656f7d4625d8247"
+    }
+  ],
+  "scope": "Source-backed frame-convention correction diagnostic, no rerun of matcher, threshold tuning, default change, held-out claim or full-dataset benchmark.",
+  "fixture_lineage_limitation": "Fixture extraction topic/extrinsic lineage is not fully preserved; HHS Ouster is the documented KTH sensor mapping. Keep original scores, label calibrated rescore explicitly; do not rewrite CI fixture or historical aggregates."
+}

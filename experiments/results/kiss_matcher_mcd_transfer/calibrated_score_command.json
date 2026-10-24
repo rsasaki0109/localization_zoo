@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "-c",
+    "import json,sys\nfrom pathlib import Path\nimport numpy as np\nsys.path.insert(0,str(Path('evaluation/scripts').resolve()))\nfrom reference_frames import load_sensor_to_body,sensor_frame_poses\nfrom run_official_kiss_matcher import sha,errors,expected_transform\nfrom evaluate_external_kitti_odometry import load_reference_csv\nr=Path('experiments/results/kiss_matcher_mcd_transfer')\np=json.loads((r/'protocol.json').read_text())\nframe=json.loads((r/'calibrated_reference_protocol.json').read_text())\nassert sha(r/'run/summary.json')==frame['uncalibrated_summary_sha256']\nreference=Path('evaluation/fixtures/mcd_kth_smoke_gt.csv')\nassert sha(reference)==frame['reference_csv_sha256']\ncalib=r/'hhs_ouster_sensor_to_body.json'\nassert sha(calib)==frame['sensor_to_body_sha256']\nposes=sensor_frame_poses(load_reference_csv(reference),load_sensor_to_body(calib))\noriginal=json.loads((r/'run/summary.json').read_text())\nrows=[]\nfor old in original['cases']:\n case=next(c for c in p['cases'] if c['id']==old['case'])\n estimate_path=r/'run'/(old['variant']+'__'+old['case']+'.estimate.json')\n assert sha(estimate_path)==old['estimate_sha256']\n estimate=json.loads(estimate_path.read_text())\n assert estimate['config']==next(v for v in p['variants'] if v['id']==old['variant'])['config']\n assert estimate['backend_files'] and old['exit_code']==0\n rotation,translation=errors(np.array(estimate['transform']),expected_transform(poses,case['source_frame'],case['target_frame'],case['source_yaw_deg']))\n rows.append({'variant':old['variant'],'case':old['case'],'uncalibrated_rotation_error_deg':old['rotation_error_deg'],'uncalibrated_translation_error_m':old['translation_error_m'],'rotation_error_deg':rotation,'translation_error_m':translation,'success':rotation<=frame['success_rotation_deg'] and translation<=frame['success_translation_m'],'native_estimate_sha256':sha(estimate_path)})\nresult={'kind':'Source-backed frame-corrected rescore of the same frozen estimates; no native rerun','frame_protocol_sha256':sha(r/'calibrated_reference_protocol.json'),'reference_sensor_to_body_sha256':sha(calib),'cases':rows,'scope':frame['scope'],'fixture_lineage_limitation':json.loads((r/'reference_sources.json').read_text())['fixture_limitation']}\n(r/'calibrated_summary.json').write_text(json.dumps(result,indent=2)+'\\n')\nprint(json.dumps({v:{'successes':sum(x['success'] for x in rows if x['variant']==v),'max_rotation_error_deg':max(x['rotation_error_deg'] for x in rows if x['variant']==v),'max_translation_error_m':max(x['translation_error_m'] for x in rows if x['variant']==v)} for v in ['kiss_matcher','kiss_matcher_quatro']},indent=2))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "322ee7a685a41ac2234891d0dca16bcecf3fe72a",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792808193.2196443,
+  "exit_code": 0,
+  "wall_seconds": 0.09478329599369317,
+  "logs": {
+    ".stdout": "5757ceb347aa6d7bcdb2bbd61b07ed0c2dcdc23e3c3792d518601f1056ff1bcc",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

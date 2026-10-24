@@ -1,0 +1,12 @@
+{
+  "kiss_matcher": {
+    "successes": 9,
+    "max_rotation_error_deg": 0.5585195360376857,
+    "max_translation_error_m": 0.053206152911183746
+  },
+  "kiss_matcher_quatro": {
+    "successes": 9,
+    "max_rotation_error_deg": 0.8074260654420186,
+    "max_translation_error_m": 0.06667745027734713
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "package": "small-gicp",
+  "package_version": "1.0.1",
+  "selection": "One fixed point-to-point ICP configuration. ICP is the intervention; numeric values are the published align() defaults, not selected from these cases.",
+  "config": {
+    "registration_type": "ICP",
+    "voxel_resolution": 1.0,
+    "downsampling_resolution": 0.25,
+    "max_correspondence_distance": 1.0,
+    "num_threads": 1,
+    "max_iterations": 20,
+    "rotation_epsilon": 0.0017453292519943296,
+    "translation_epsilon": 0.001
+  },
+  "pair_protocol_sha256": "df1e0627a68470cdc5fe41b3049eada43e1f7e8f656527b77571314a73d7af3c",
+  "coarse_sha256": {
+    "kiss_matcher_quatro__scan_context_00_003500_000507.estimate.json": "b72c18d73b3b9db36481a77acc99c2450c8666e38d7ae2bb2527f5233e4b5a5d",
+    "kiss_matcher_quatro__scan_context_00_002500_001045.estimate.json": "e3cb6810cae4ed7007463653770a3395904669a75169b214b56e2c3c2cc0f9b9",
+    "kiss_matcher_quatro__scan_context_00_001500_001439.estimate.json": "d97200c0fa12bd585565cd156347100d2d0676e4cf357af0d1f59f52edf5f413",
+    "kiss_matcher_quatro__scan_context_00_000500_000153.estimate.json": "7ebdc441c751285aa6316c2875562a7529705fa06bd48f91a752610df5555ee9",
+    "kiss_matcher__scan_context_00_003500_000507.estimate.json": "d77a0f97fdf4126c71da3edc6e4bb4aeb72c7c60a8abd1a66818769a9b3e4c94",
+    "kiss_matcher__scan_context_00_002500_001045.estimate.json": "fce98cd0510ffba2ef5cd067304d0aae36bd61c3335af7ac7017770825e77a32",
+    "kiss_matcher__scan_context_00_001500_001439.estimate.json": "a62f2cb89c02e7be3c66e80fcc43014c6ee664cc0d7b939a8e0e09b2a5f15694",
+    "kiss_matcher__scan_context_00_000500_000153.estimate.json": "add66643fa48148505db65c23470c88dac43caf4ca770840bc23ad101ccc7957"
+  },
+  "interpretation": "Refine archived coarse transforms only; no rerun or selection of coarse estimates. Existing offline success thresholds unchanged. This is an explicit opt-in repository diagnostic, not official KISS-Matcher behavior or a deployment acceptance gate."
+}

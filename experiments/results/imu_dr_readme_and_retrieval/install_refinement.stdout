@@ -1,0 +1,4 @@
+Looking in links: /workspace/localization-env/upstream-small-gicp-wheels
+Processing /workspace/localization-env/upstream-small-gicp-wheels/small_gicp-1.0.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Installing collected packages: small-gicp
+Successfully installed small-gicp-1.0.1

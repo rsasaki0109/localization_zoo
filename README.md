@@ -48,7 +48,7 @@ prove paper fidelity ([reproduction status](docs/reproduction_status.md),
 | Build and run the tests | [Quick start](#quick-start) |
 | Call a method from Python or run it on a ROS 2 bag | [Python bindings](#python-bindings-experimental) · [ROS 2](#ros-2) |
 | Use the IMU tools (motion / health SDK, attitude filters, Allan variance) | [IMU tools](docs/implementations.md#imu-motion--health-sdk) |
-| Check IMU validation results and reproduce them | [IMU validation](#imu-validation) |
+| Compare IMU-only dead reckoning and classical aids | [IMU dead reckoning validation](#imu-dead-reckoning-validation) |
 | Check official KISS-Matcher / Quatro pair registration | [Protocol, results and failures](docs/kiss_matcher_validation.md) |
 | Re-run a paper-number row | [`reproduce_paper_row.py`](#paper-number-check-official-kitti-rte) |
 | Port a method to KITTI without the usual traps | [KITTI pitfalls](docs/kitti_pitfalls.md) |
@@ -152,24 +152,33 @@ FAST-LIVO2 rows are parity, not a decisive win. See the
 [promotion audit](evaluation/data/lidar_odometry_v14_promotion_audit.json) and
 [protocol](docs/lidar_odometry_sota_protocol.md).
 
-## IMU validation
+## IMU dead reckoning validation
 
-IMU validation includes orientation filters, sensor noise, and synchronized
-LiDAR–IMU ablations. The committed results and reproduction commands remain
-available independently of the LiDAR odometry leaderboard:
+Pure strapdown **IMU-only dead reckoning** and classical aiding, evaluated on
+NCLT and KITTI Raw. These are archived development ablations, separate from
+the LiDAR odometry leaderboard. ATE is in metres:
 
-| Validation | Recorded result | Evidence and commands |
-|---|---|---|
-| BROAD orientation benchmark, all 39 trials | VQF defaults: 0.70° inclination RMSE (6D), 2.30° total RMSE (9D) | [Full filter comparison](docs/attitude_benchmark.md) · [reproduce](papers/attitude_estimation/README.md#usage) · [saved results](experiments/results/broad_attitude_benchmark.json) |
-| TUM VI static IMU, Allan variance | Paper-protocol noise / random-walk fits: 0.96–1.01× the published values | [Results](docs/allan_variance.md) · [reproduce](papers/allan_variance/README.md) · [saved results](experiments/results/tumvi_allan_variance.json) |
-| Public synchronized LiDAR–IMU windows | IMU-on/off comparisons on HDL-400 and NCLT; mechanism evidence with mixed outcomes | [Comparison and limitations](docs/benchmark_overview.md) · [HDL-400 results](docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json) · [NCLT results](docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json) |
+| Dataset | Frames | Pure DR ATE | NHC + ZUPT ATE | Committed evidence |
+|---|---:|---:|---:|---|
+| NCLT 2013-01-10, full session | 5105 | 288700.449 | 9605.455 | [results and commands](experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json) |
+| KITTI Raw 0009, archived full fixture | 443 | 91851.969 | 1067.301 | [results and commands](experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json) |
 
-6D inclination excludes unobservable heading; 9D uses the magnetometer. Grid
-parameters in the full BROAD comparison were selected on BROAD itself. The
-LiDAR–IMU windows validate active IMU paths; they do not establish full-sequence
-LIO accuracy, and some IMU-on runs are worse than the IMU-off controls.
-The [motion / health SDK](papers/imu_motion_health/) also includes a deterministic
-demo that runs without a sensor download.
+The aided column uses the same `--imu-dr-nhc --imu-dr-zupt` flags in both
+datasets. The original choice of selection sequence was not recorded; these
+rows support no held-out claim. Drift remains large even with aids. The
+repository default is pure DR with all aids off.
+
+**KITTI Raw caveat:** this archived fixture uses frame-index timestamps rather
+than physical seconds, starts in motion, and produces false stationary/ZUPT
+detections during cruising. Its numbers are a harness diagnostic, not a valid
+physical-time IMU navigation benchmark. See the [method README, full ablations,
+ESKF scope and limitations](papers/imu_dead_reckoning/README.md), the
+[family comparison](docs/paper_ready_reproducibility.md#imu-dead-reckoning-family-comparison-t3),
+and the [reproduction commands](papers/imu_dead_reckoning/README.md#reproduce-requires-imucsv).
+
+Other IMU tools remain available: [BROAD attitude filters](docs/attitude_benchmark.md),
+[TUM VI Allan variance](docs/allan_variance.md), and
+[LiDAR–IMU comparisons](docs/benchmark_overview.md).
 
 ## Quick Start
 

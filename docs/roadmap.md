@@ -28,6 +28,16 @@ Its protocol, original outputs, independent transform-direction control and
 post-execution GT scoring are retained in the same study. No refinement is
 adopted as a default. The InTEn trial remains paused.
 
+An oracle-only follow-up now isolates a reference/objective disagreement on the
+true revisit: GT-initialized ICP moves to 0.227° / 0.729 m while lowering point
+residuals. Its reference agrees with official poses/calibration, but this does
+not establish GT error. Two other pairs fail the unchanged strict raw-matrix
+frame check and are explicitly skipped; those diagnostic commands retain exit
+1. Analytic residual and case-accounting checks pass, and oracle estimates are
+excluded from benchmark counts. Next work concerns motion/point modeling and
+reference uncertainty, rather than repeating coarse-initializer parameter
+searches on these four queries.
+
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 
 The README again summarizes IMU orientation, Allan variance and public

@@ -47,9 +47,7 @@ is an offline score, not a deployable loop-acceptance rule. Confidence gating,
 repeatability on more candidates and an explicitly opt-in refinement stage
 remain future work; this experiment adds neither an acceptance gate nor SLAM.
 
-## Reproduce
-
-### Fixed opt-in ICP refinement: negative result
+## Fixed opt-in ICP refinement: negative result
 
 The follow-up freezes [a separate refinement protocol](refinement_protocol.json)
 before execution and refines the archived coarse transforms, without rerunning
@@ -80,6 +78,59 @@ python3 experiments/results/imu_dr_readme_and_retrieval/refine_pairs.py \
 This uses the committed coarse estimates and never overwrites them. GT/frame
 consistency and residual/overlap diagnostics remain open; this failed experiment
 does not justify adopting ICP or calibrating a loop gate on these four queries.
+
+## Oracle reference/objective diagnostic (excluded from scores)
+
+The [preregistered diagnostic](oracle_diagnostic_protocol.json) intentionally
+uses GT initialization only to inspect reference frames and the local objective;
+it changes no benchmark estimate or success count. The four original pairs,
+ICP settings, point sampling and 1 m residual gate are fixed. Both residual
+directions report support fractions and clipped mean squared distance, so a
+low supported-point RMSE cannot hide missing overlap.
+
+The first [oracle command](oracle_command.json) exits 1 at the raw-matrix frame
+check. [All-case difference measurement](frame_difference_diagnostic.json)
+records two failed pairs with translation differences 0.000258 m / 0.000255 m
+between raw official transforms and the CSV representation; world positions
+agree within 7e-11 m, while the published rotation matrices are slightly
+nonorthogonal. This does not account for the large registration errors. The
+original 1e-4 matrix tolerance is unchanged. The
+[accounted rerun](oracle_accounted_command.json) still exits 1 and explicitly
+skips those two oracle fits, while retaining the unaffected pair diagnostics.
+No failed frame check is marked passed.
+
+For the true revisit **3500→507**, the CSV relative transform agrees with the
+independent official pose/calibration transform to 5.85e-8 per matrix element
+(translation difference 1.48e-8 m). Even initialized at that reference, ICP moves
+to **0.227° / 0.729 m** error. Source→target clipped MSE drops from
+**0.215444 to 0.049403 m²**, and reverse MSE from **0.217413 to 0.045678 m²**.
+Source support is 98.31% at the reference and 98.87% after oracle ICP. The
+archived GT-free refined estimates reach almost the same residual objective.
+
+This witnesses disagreement between the measured-cloud point-to-point objective
+and the evaluation reference on this pair. It does not establish that GT is
+wrong or that the estimated transform is correct. Further investigation should
+check point/motion modeling and reference uncertainty; no estimator setting or
+acceptance threshold is tuned from this oracle test.
+
+The false retrieval 500→153 has **zero support** within 1 m at the GT transform.
+The oracle returns its initializer there, so its zero pose error would be
+meaningless as registration performance. The archived wrong alignments instead
+have 34.92% / 55.98% source support. Neither a returned pose nor an oracle's
+GT error is a valid deployment gate.
+
+[Full residual data](oracle_accounted_diagnostic.json), failed commands,
+[frame differences](frame_difference_diagnostic.json) and
+[residual/control integrity checks](oracle_integrity_command.json) are retained.
+The latter exit 0 and verify exact-match/no-overlap analytic cases, skipped-case
+accounting and exclusion from benchmark counts. The normal result remains 0/8.
+
+The cached official archives are pinned by SHA-256 in the protocol, originally
+from `https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_poses.zip`
+and `data_odometry_calib.zip`. The diagnostic CLI explicitly requires these
+archives and the reference CSV; it is separate from the GT-free matcher worker.
+
+## Reproduce
 
 Use the pinned `kiss-matcher==1.0.2`, `numpy==2.2.6` environment described in
 [the preceding study](../../../docs/kiss_matcher_validation.md). Fetch only the

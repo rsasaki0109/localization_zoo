@@ -1,0 +1,18 @@
+{
+  "small_gicp_version": "1.0.1",
+  "pair_protocol_sha256": "df1e0627a68470cdc5fe41b3049eada43e1f7e8f656527b77571314a73d7af3c",
+  "refinement_protocol_sha256": "9dbf2d30fbca4bbe0d5acf9cc1a0b53b4f899d2956fc4ef06120f1f8a4f65055",
+  "refined_estimates_sha256": "54c9ff677f5b835e006ecfd102148042fc8c97c7423862524d461041d31bb834",
+  "elevation_degrees": [
+    0,
+    0.205
+  ],
+  "objectives": [
+    "ICP",
+    "PLANE_ICP",
+    "GICP"
+  ],
+  "raw_icp_replay_tolerance": 1e-10,
+  "selection": "Known official KISS-ICP KITTI +0.205 degree correction, not fitted here. Each native objective uses the same documented default numeric settings from the preceding protocol. All original four pairs and both archived coarse transforms; no GT seed or parameter sweep.",
+  "scope": "Opt-in measurement/objective diagnostic, not official KISS-Matcher behavior, a new default, score promotion, or selection of best per-case settings."
+}

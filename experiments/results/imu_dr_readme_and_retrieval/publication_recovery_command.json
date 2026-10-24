@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "import hashlib,json,shutil,subprocess,sys\nfrom pathlib import Path\nw=Path.cwd();r=w/'experiments/results/imu_dr_readme_and_retrieval'\ns=Path('/tmp/localization-zoo-imu-dr-retrieval-verification-20261024')\nout=r/'publication_recovery';out.mkdir(exist_ok=False)\ninitial=json.loads((r/'publication/commands.json').read_text())\nfailed=[i for i,row in enumerate(initial) if row['exit_code']!=0]\nassert failed==[8]\nfiles={}\nfor name in ['evaluation/scripts/run_official_kiss_matcher.py','tests/test_official_kiss_matcher.py']:\n target=s/name\n assert target.parent.resolve().is_relative_to(s.resolve())\n if target.is_symlink():target.unlink()\n shutil.copy2(w/name,target)\n files[name]=hashlib.sha256((w/name).read_bytes()).hexdigest()\nargv=[sys.executable,'-m','unittest','discover','-s','tests','-p','test_official_kiss_matcher.py']\nresult=subprocess.run(argv,cwd=s,capture_output=True,text=True)\n(out/'runner_tests.stdout').write_text(result.stdout)\n(out/'runner_tests.stderr').write_text(result.stderr)\nassert 'Ran 3 tests' in result.stderr\nsummary={'all_commands_passed':result.returncode==0 and all(row['exit_code']==0 for i,row in enumerate(initial) if i not in failed),'initial_failed_index':8,'reason':'Disposable validation mirror predates PR 175 and lacked its runner/test. Source files copied from current HEAD; original failing invocation retained.','recovery_command':{'argv':argv,'cwd':str(s),'exit_code':result.returncode},'source_sha256':files,'historical_tables_byte_equal':json.loads((r/'publication/summary.json').read_text())['historical_tables_byte_equal']}\n(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\\n')\nprint(json.dumps(summary,indent=2))\nassert summary['all_commands_passed'] and all(summary['historical_tables_byte_equal'].values())\n"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "a9fd48057b8ef87bd27960eb3d0b516b77cef389",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792804539.271514,
+  "exit_code": 0,
+  "wall_seconds": 0.2034131740219891,
+  "logs": {
+    ".stdout": "103c5750cc750797e45a4da20d0eb423a9324ddc331a62e8e1bc364cc5d54948",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

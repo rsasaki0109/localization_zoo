@@ -1,0 +1,29 @@
+{
+  "all_commands_passed": true,
+  "initial_failed_index": 8,
+  "reason": "Disposable validation mirror predates PR 175 and lacked its runner/test. Source files copied from current HEAD; original failing invocation retained.",
+  "recovery_command": {
+    "argv": [
+      "/workspace/localization-env/host-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_official_kiss_matcher.py"
+    ],
+    "cwd": "/tmp/localization-zoo-imu-dr-retrieval-verification-20261024",
+    "exit_code": 0
+  },
+  "source_sha256": {
+    "evaluation/scripts/run_official_kiss_matcher.py": "1f5f75dd381529b198695f851bfcb32c9bf97eea64f6356efd135140155efa9a",
+    "tests/test_official_kiss_matcher.py": "6d9daca39ea0ed6dddefc29aba42aa69423c339ce67c9da5e1af2fad9b58c4e2"
+  },
+  "historical_tables_byte_equal": {
+    "full_variant_results.csv": true,
+    "full_variant_results.tex": true,
+    "paper_ratio_table.csv": true,
+    "paper_ratio_table.tex": true
+  }
+}

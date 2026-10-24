@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "package": "kiss-matcher",
+  "package_version": "1.0.2",
+  "voxel_size_m": 0.3,
+  "configuration_selection": "Exact same 0.3 m and official variant settings as prior KITTI diagnostic, originally from upstream quickstart. No MCD-specific changes; point timestamps/intensity unused, no deskew or GT initializer.",
+  "pair_selection": "All unordered distinct pairs in the existing three-frame fixture, each with 0/90/180 degree source yaw; selected before execution, no outcome-based pair selection.",
+  "input_policy": "Raw XYZ in metres, float32, no range crop, elevation correction or GT initialization. Reflectance ignored. All original bin hashes verified.",
+  "variants": [
+    {
+      "id": "kiss_matcher",
+      "use_quatro": false,
+      "config": {
+        "fpfh_radius": 1.5,
+        "normal_radius": 0.9000000357627869,
+        "num_max_corr": 5000,
+        "robin_noise_bound": 0.30000001192092896,
+        "robin_noise_bound_gain": 1.0,
+        "solver_noise_bound": 0.22500000894069672,
+        "solver_noise_bound_gain": 0.75,
+        "thr_linearity": 1.0,
+        "use_quatro": false,
+        "use_voxel_sampling": true,
+        "voxel_size": 0.30000001192092896
+      }
+    },
+    {
+      "id": "kiss_matcher_quatro",
+      "use_quatro": true,
+      "config": {
+        "fpfh_radius": 1.5,
+        "normal_radius": 0.9000000357627869,
+        "num_max_corr": 5000,
+        "robin_noise_bound": 0.30000001192092896,
+        "robin_noise_bound_gain": 1.0,
+        "solver_noise_bound": 0.22500000894069672,
+        "solver_noise_bound_gain": 0.75,
+        "thr_linearity": 1.0,
+        "use_quatro": true,
+        "use_voxel_sampling": true,
+        "voxel_size": 0.30000001192092896
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "mcd_0_1_yaw0",
+      "kind": "pcd",
+      "source_frame": 0,
+      "target_frame": 1,
+      "source_yaw_deg": 0
+    },
+    {
+      "id": "mcd_0_1_yaw90",
+      "kind": "pcd",
+      "source_frame": 0,
+      "target_frame": 1,
+      "source_yaw_deg": 90
+    },
+    {
+      "id": "mcd_0_1_yaw180",
+      "kind": "pcd",
+      "source_frame": 0,
+      "target_frame": 1,
+      "source_yaw_deg": 180
+    },
+    {
+      "id": "mcd_0_2_yaw0",
+      "kind": "pcd",
+      "source_frame": 0,
+      "target_frame": 2,
+      "source_yaw_deg": 0
+    },
+    {
+      "id": "mcd_0_2_yaw90",
+      "kind": "pcd",
+      "source_frame": 0,
+      "target_frame": 2,
+      "source_yaw_deg": 90
+    },
+    {
+      "id": "mcd_0_2_yaw180",
+      "kind": "pcd",
+      "source_frame": 0,
+      "target_frame": 2,
+      "source_yaw_deg": 180
+    },
+    {
+      "id": "mcd_1_2_yaw0",
+      "kind": "pcd",
+      "source_frame": 1,
+      "target_frame": 2,
+      "source_yaw_deg": 0
+    },
+    {
+      "id": "mcd_1_2_yaw90",
+      "kind": "pcd",
+      "source_frame": 1,
+      "target_frame": 2,
+      "source_yaw_deg": 90
+    },
+    {
+      "id": "mcd_1_2_yaw180",
+      "kind": "pcd",
+      "source_frame": 1,
+      "target_frame": 2,
+      "source_yaw_deg": 180
+    }
+  ],
+  "inputs": {
+    "00000000/cloud.pcd": {
+      "name": "00000000/cloud.pcd",
+      "sha256": "cc61530bc780bc47ca01a926e488a55b58caeab8ad683c0bbcc416972c569df9",
+      "bytes": 987388
+    },
+    "00000001/cloud.pcd": {
+      "name": "00000001/cloud.pcd",
+      "sha256": "cc8d302c63f04900d13685ad1e17aa9e0cbd6f89702cb4c45aea76d9557de99b",
+      "bytes": 986556
+    },
+    "00000002/cloud.pcd": {
+      "name": "00000002/cloud.pcd",
+      "sha256": "91e90a6f487b0877b80dc30275582ed02e326eec506682000a0663fd7ed640e3",
+      "bytes": 987836
+    }
+  },
+  "reference_csv_sha256": "c3e35ffa624471c7299fbe99bb905387ea5b9f3f4f86114a41aead3638efd528",
+  "success_rotation_deg": 2.0,
+  "success_translation_m": 0.5,
+  "timeout_seconds": 180,
+  "threshold_selection": "Descriptive engineering thresholds, fixed before execution; not an official paper protocol.",
+  "claim_limit": "Only three adjacent scans; nearest-time reference and small motion. CI fixture has been used in repository development. Not held-out, loop-retrieval quality, full odometry, official paper benchmark or SOTA.",
+  "runtime_wheels": {
+    "numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "fd83c01228a688733f1ded5201c678f0c53ecc1006ffbc404db9f7a899ac6249",
+    "kiss_matcher-1.0.2-cp312-cp312-manylinux_2_28_x86_64.whl": "b64bdff7cf4825583538321d0fc972221c703113396405f7a85c02d4687c7b30"
+  },
+  "input_format": "pcd",
+  "input_keys": {
+    "0": "00000000/cloud.pcd",
+    "1": "00000001/cloud.pcd",
+    "2": "00000002/cloud.pcd"
+  },
+  "reference_provenance": {
+    "kind": "Body-frame fixture reference, explicitly converted with the tutorial-linked HHS Ouster sensor-to-body transform for scoring only.",
+    "fixture_timestamps_sha256": "46e35bcd38a41f27c1db136d4d77e550645921bcd4750210a2bb7fa8e9e9094c",
+    "frame_minus_reference_seconds": [
+      0.010146379470825195,
+      0.009793996810913086,
+      0.010766267776489258
+    ],
+    "limitation": "Only three adjacent scans; nearest-time reference and small motion. CI fixture has been used in repository development. Not held-out, loop-retrieval quality, full odometry, official paper benchmark or SOTA."
+  },
+  "reference_sensor_to_body_sha256": "823cb521cc6989f0eb117d259247cd0537d7ab756d43975cc71f9051941155d2"
+}

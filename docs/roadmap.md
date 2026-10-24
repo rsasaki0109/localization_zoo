@@ -10,6 +10,20 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### IMU dead reckoning summary and retrieval follow-up (2026-10-24)
+
+The user's requested README result is **IMU-only dead reckoning**, rather than
+orientation/noise validation. The main summary now uses committed pure-DR and
+fixed NHC+ZUPT aggregate rows, with the KITTI index-time limitations explicit.
+Other IMU tools remain linked separately. The
+[retrieval follow-up](../experiments/results/imu_dr_readme_and_retrieval/README.md)
+reproduces stored Scan Context/ISC/DTD metrics on five full KITTI sequences and
+tests official KISS-Matcher variants on four predeclared Scan Context candidates.
+All eight pair checks miss the existing accuracy criterion, including the true
+revisit's remaining translation error. Preserve these negatives; next work is
+confidence gating and fixed opt-in refinement diagnostics, not threshold tuning
+on this sample. The InTEn trial remains paused.
+
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 
 The README again summarizes IMU orientation, Allan variance and public

@@ -164,7 +164,7 @@ the LiDAR odometry leaderboard. ATE is in metres:
 | KITTI Raw 0009, archived full fixture | 443 | 91851.969 | 1067.301 | [results and commands](experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json) |
 
 The aided column uses the same `--imu-dr-nhc --imu-dr-zupt` flags in both
-datasets. The original choice of selection sequence was not recorded; these
+datasets. The archived aggregate rows do not identify a selection sequence; these
 rows support no held-out claim. Drift remains large even with aids. The
 repository default is pure DR with all aids off.
 

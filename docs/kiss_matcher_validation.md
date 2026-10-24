@@ -63,6 +63,13 @@ paper-number reproduction, held-out accuracy, or SOTA. The Quatro mode here is
 not an evaluation of the separate Quatro++ ground-segmentation pipeline.
 KISS-SLAM and broader revisit/low-overlap datasets remain unevaluated.
 
+The [Scan Context candidate follow-up](../experiments/results/imu_dr_readme_and_retrieval/README.md)
+now tests four fixed historical retrievals with these unchanged configurations.
+All eight registrations miss the existing accuracy criterion. The true revisit
+3500→507 retains 0.727 m / 0.742 m translation error; the remaining retrievals
+are false candidates. These negative results do not provide a loop-acceptance
+rule or a full SLAM score.
+
 ## Same-protocol provenance rerun and variability
 
 The initial audit failed because the wheel installs its native extension at the

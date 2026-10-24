@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib
 import importlib.metadata
 import json
 import os
@@ -92,13 +93,13 @@ def worker(jobs_path, output):
     transform[:3, 3] = np.asarray(result.translation)
     if not np.isfinite(transform).all():
         raise ValueError('nonfinite estimated transform')
-    package = Path(km.__file__).resolve().parent
+    backend = Path(importlib.import_module(km.KISSMatcher.__module__).__file__).resolve()
     save(output, {'transform': transform.tolist(), 'seconds': elapsed,
                   'source_points': len(source), 'target_points': len(target),
                   'rotation_inliers': matcher.get_num_rotation_inliers(),
                   'final_inliers': matcher.get_num_final_inliers(), 'config': actual,
                   'package_version': km.__version__,
-                  'backend_files': {p.name: sha(p) for p in package.glob('*.so')},
+                  'backend_files': {backend.name: sha(backend)},
                   'python': sys.version, 'platform': platform.platform(),
                   'thread_environment': {n: os.environ.get(n) for n in
                                          ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS')}})

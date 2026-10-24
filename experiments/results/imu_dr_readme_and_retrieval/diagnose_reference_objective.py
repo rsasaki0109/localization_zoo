@@ -82,7 +82,7 @@ def main():
             assert sha(path) == pin['sha256'] and path.stat().st_size == pin['bytes']
             clouds[name] = np.asarray(np.fromfile(path, dtype='<f4').reshape(-1, 4)[:, :3], dtype=np.float64)
         config = p['config']
-        sampled = {name: np.asarray(small_gicp.voxelgrid_sampling(cloud, config['downsampling_resolution'], 1))
+        sampled = {name: np.asarray(small_gicp.voxelgrid_sampling(cloud, config['downsampling_resolution'], 1).points())[:, :3]
                    for name, cloud in clouds.items()}
         oracle = small_gicp.align(clouds['target'], clouds['source'],
                                   init_T_target_source=reference, **config)

@@ -1,0 +1,42 @@
+{
+  "diagnostic_only": true,
+  "original_frame_gate_tolerance": 0.0001,
+  "rows": [
+    {
+      "case": "scan_context_00_000500_000153",
+      "max_matrix_difference": 9.912581703019896e-06,
+      "translation_difference_m": 1.0702594614618389e-05,
+      "source_world_translation_difference_m": 4.232433160370169e-11,
+      "target_world_translation_difference_m": 6.048247754318766e-11,
+      "source_rotation_nonorthogonality": 1.8376548127641001e-07,
+      "target_rotation_nonorthogonality": 1.4664851766266196e-07
+    },
+    {
+      "case": "scan_context_00_001500_001439",
+      "max_matrix_difference": 0.00023115824001607166,
+      "translation_difference_m": 0.00025826732105723994,
+      "source_world_translation_difference_m": 5.033993790194292e-11,
+      "target_world_translation_difference_m": 6.024665996860542e-11,
+      "source_rotation_nonorthogonality": 1.9611661583596174e-07,
+      "target_rotation_nonorthogonality": 2.7433066140947204e-07
+    },
+    {
+      "case": "scan_context_00_002500_001045",
+      "max_matrix_difference": 0.00025329828472564486,
+      "translation_difference_m": 0.00025512031671906467,
+      "source_world_translation_difference_m": 5.670438746787088e-11,
+      "target_world_translation_difference_m": 6.247063654527616e-11,
+      "source_rotation_nonorthogonality": 2.1190875132415243e-07,
+      "target_rotation_nonorthogonality": 1.8275256585820188e-07
+    },
+    {
+      "case": "scan_context_00_003500_000507",
+      "max_matrix_difference": 5.8461966268019694e-08,
+      "translation_difference_m": 1.4794928228991651e-08,
+      "source_world_translation_difference_m": 3.498806933846592e-11,
+      "target_world_translation_difference_m": 4.886504200874908e-11,
+      "source_rotation_nonorthogonality": 1.3250432506772825e-07,
+      "target_rotation_nonorthogonality": 6.809341668301272e-08
+    }
+  ]
+}

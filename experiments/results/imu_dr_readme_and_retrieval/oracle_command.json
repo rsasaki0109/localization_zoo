@@ -1,0 +1,36 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "experiments/results/imu_dr_readme_and_retrieval/diagnose_reference_objective.py",
+    "--protocol",
+    "experiments/results/imu_dr_readme_and_retrieval/oracle_diagnostic_protocol.json",
+    "--raw-root",
+    "/tmp/localization-zoo-oracle-pairs-20261024/dataset/sequences/00/velodyne",
+    "--reference-csv",
+    "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "--poses-zip",
+    "/tmp/localization-zoo-inten-gt-audit-20261022/official/data_odometry_poses.zip",
+    "--calib-zip",
+    "/tmp/localization-zoo-inten-gt-audit-20261022/official/data_odometry_calib.zip",
+    "--output",
+    "experiments/results/imu_dr_readme_and_retrieval/oracle_diagnostic.json"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "f018c75f0de54337b2142d9cc28186c2b2b1679e",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792805693.1928854,
+  "exit_code": 1,
+  "wall_seconds": 0.7181084299809299,
+  "logs": {
+    ".stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".stderr": "b2e1f14291d408ac9e3b71a31dc9684b621caa273b6aa203838487e7d6ef3231"
+  }
+}

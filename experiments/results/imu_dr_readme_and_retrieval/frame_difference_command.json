@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "-c",
+    "import json,zipfile,io,hashlib,sys\nfrom pathlib import Path\nimport numpy as np\nsys.path.insert(0,str(Path('evaluation/scripts').resolve()))\nfrom evaluate_external_kitti_odometry import load_reference_csv\nr=Path('experiments/results/imu_dr_readme_and_retrieval')\np=json.loads((r/'matcher_protocol.json').read_text())\ncsv=load_reference_csv(Path('experiments/reference_data/kitti_seq_00_full_gt.csv'))\no=Path('/tmp/localization-zoo-inten-gt-audit-20261022/official')\nwith zipfile.ZipFile(o/'data_odometry_poses.zip') as z: raw=np.loadtxt(io.BytesIO(z.read('dataset/poses/00.txt')))\nwith zipfile.ZipFile(o/'data_odometry_calib.zip') as z: lines=z.read('dataset/sequences/00/calib.txt').decode().splitlines()\ntr=np.eye(4);tr[:3]=np.array(list(map(float,next(x for x in lines if x.startswith('Tr:')).split()[1:]))).reshape(3,4)\nrows=[]\nfor c in p['cases']:\n i,j=c['source_frame'],c['target_frame']\n frames=[]\n for k in (i,j):\n  x=np.eye(4);x[:3]=raw[k].reshape(3,4);frames.append(x@tr)\n canonical=np.linalg.solve(frames[1],frames[0]);current=np.linalg.solve(csv[j],csv[i])\n rows.append({'case':c['id'],'max_matrix_difference':float(np.max(np.abs(canonical-current))),'translation_difference_m':float(np.linalg.norm(canonical[:3,3]-current[:3,3])),'source_world_translation_difference_m':float(np.linalg.norm(frames[0][:3,3]-csv[i][:3,3])),'target_world_translation_difference_m':float(np.linalg.norm(frames[1][:3,3]-csv[j][:3,3])),'source_rotation_nonorthogonality':float(np.max(np.abs(frames[0][:3,:3].T@frames[0][:3,:3]-np.eye(3)))),'target_rotation_nonorthogonality':float(np.max(np.abs(frames[1][:3,:3].T@frames[1][:3,:3]-np.eye(3))))})\nout={'diagnostic_only':True,'original_frame_gate_tolerance':1e-4,'rows':rows}\n(r/'frame_difference_diagnostic.json').write_text(json.dumps(out,indent=2)+'\\n')\nprint(json.dumps(out,indent=2))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "f018c75f0de54337b2142d9cc28186c2b2b1679e",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792805753.1842983,
+  "exit_code": 0,
+  "wall_seconds": 0.18511392298387364,
+  "logs": {
+    ".stdout": "c0a1c29b952e05b2943f0f03d3350f97d7fff9f4c4143b12296811af7505cf14",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

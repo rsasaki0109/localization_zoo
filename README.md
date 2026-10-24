@@ -48,6 +48,7 @@ prove paper fidelity ([reproduction status](docs/reproduction_status.md),
 | Build and run the tests | [Quick start](#quick-start) |
 | Call a method from Python or run it on a ROS 2 bag | [Python bindings](#python-bindings-experimental) · [ROS 2](#ros-2) |
 | Use the IMU tools (motion / health SDK, attitude filters, Allan variance) | [IMU tools](docs/implementations.md#imu-motion--health-sdk) |
+| Check IMU validation results and reproduce them | [IMU validation](#imu-validation) |
 | Re-run a paper-number row | [`reproduce_paper_row.py`](#paper-number-check-official-kitti-rte) |
 | Port a method to KITTI without the usual traps | [KITTI pitfalls](docs/kitti_pitfalls.md) |
 | Inspect a new LiDAR's frame, rows, intensity and setup flags | [Sensor setup assistant](docs/sensor_setup_assistant.md) |
@@ -149,6 +150,25 @@ FAST-LIVO2 rows are parity, not a decisive win. See the
 [frozen manifest](evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json),
 [promotion audit](evaluation/data/lidar_odometry_v14_promotion_audit.json) and
 [protocol](docs/lidar_odometry_sota_protocol.md).
+
+## IMU validation
+
+IMU validation includes orientation filters, sensor noise, and synchronized
+LiDAR–IMU ablations. The committed results and reproduction commands remain
+available independently of the LiDAR odometry leaderboard:
+
+| Validation | Recorded result | Evidence and commands |
+|---|---|---|
+| BROAD orientation benchmark, all 39 trials | VQF defaults: 0.70° inclination RMSE (6D), 2.30° total RMSE (9D) | [Full filter comparison](docs/attitude_benchmark.md) · [reproduce](papers/attitude_estimation/README.md#usage) · [saved results](experiments/results/broad_attitude_benchmark.json) |
+| TUM VI static IMU, Allan variance | Paper-protocol noise / random-walk fits: 0.96–1.01× the published values | [Results](docs/allan_variance.md) · [reproduce](papers/allan_variance/README.md) · [saved results](experiments/results/tumvi_allan_variance.json) |
+| Public synchronized LiDAR–IMU windows | IMU-on/off comparisons on HDL-400 and NCLT; mechanism evidence with mixed outcomes | [Comparison and limitations](docs/benchmark_overview.md) · [HDL-400 results](docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json) · [NCLT results](docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json) |
+
+6D inclination excludes unobservable heading; 9D uses the magnetometer. Grid
+parameters in the full BROAD comparison were selected on BROAD itself. The
+LiDAR–IMU windows validate active IMU paths; they do not establish full-sequence
+LIO accuracy, and some IMU-on runs are worse than the IMU-off controls.
+The [motion / health SDK](papers/imu_motion_health/) also includes a deterministic
+demo that runs without a sensor download.
 
 ## Quick Start
 

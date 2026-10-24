@@ -1,0 +1,11 @@
+Collecting kiss-matcher==1.0.2
+  Downloading kiss_matcher-1.0.2-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (1.1 kB)
+Collecting numpy==2.2.6
+  Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Downloading kiss_matcher-1.0.2-cp312-cp312-manylinux_2_28_x86_64.whl (1.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 33.7 MB/s eta 0:00:00
+Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.5/16.5 MB 69.6 MB/s eta 0:00:00
+Saved /tmp/localization-zoo-kiss-matcher-wheels-20261024/kiss_matcher-1.0.2-cp312-cp312-manylinux_2_28_x86_64.whl
+Saved /tmp/localization-zoo-kiss-matcher-wheels-20261024/numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded kiss-matcher numpy

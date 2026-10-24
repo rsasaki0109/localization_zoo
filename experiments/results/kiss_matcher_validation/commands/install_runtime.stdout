@@ -1,0 +1,5 @@
+Looking in links: /tmp/localization-zoo-kiss-matcher-wheels-20261024
+Processing /tmp/localization-zoo-kiss-matcher-wheels-20261024/kiss_matcher-1.0.2-cp312-cp312-manylinux_2_28_x86_64.whl
+Processing /tmp/localization-zoo-kiss-matcher-wheels-20261024/numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Installing collected packages: numpy, kiss-matcher
+Successfully installed kiss-matcher-1.0.2 numpy-2.2.6

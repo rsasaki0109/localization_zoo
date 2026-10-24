@@ -125,6 +125,8 @@ def main():
     parser.add_argument('--manifest', type=Path)
     parser.add_argument('--raw-root', type=Path)
     parser.add_argument('--reference-csv', type=Path)
+    parser.add_argument('--reference-sensor-to-body-json', type=Path,
+                        help='Opt-in body-reference to sensor-reference conversion, scoring only.')
     parser.add_argument('--output-dir', type=Path)
     parser.add_argument('--official-python', type=Path, default=Path(sys.executable))
     parser.add_argument('--worker-jobs', type=Path, help=argparse.SUPPRESS)
@@ -138,6 +140,13 @@ def main():
     protocol = json.loads(args.manifest.read_text())
     if sha(args.reference_csv) != protocol['reference_csv_sha256']:
         raise ValueError('reference hash mismatch')
+    calibration_sha = sha(args.reference_sensor_to_body_json) if args.reference_sensor_to_body_json else None
+    if calibration_sha != protocol.get('reference_sensor_to_body_sha256'):
+        raise ValueError('reference calibration must match the pinned protocol (or both be absent)')
+    calibration = None
+    if args.reference_sensor_to_body_json:
+        from reference_frames import load_sensor_to_body
+        calibration = load_sensor_to_body(args.reference_sensor_to_body_json)
     args.output_dir.mkdir(parents=True, exist_ok=False)
     commands = []
     env = dict(os.environ, OMP_NUM_THREADS='2', OPENBLAS_NUM_THREADS='1')
@@ -175,6 +184,9 @@ def main():
             save(args.output_dir/'commands.json', commands)
             print(stem, 'exit', code, 'timeout', timed_out, flush=True)
     poses = load_reference_csv(args.reference_csv)
+    if calibration is not None:
+        from reference_frames import sensor_frame_poses
+        poses = sensor_frame_poses(poses, calibration)
     scored = []
     for command in commands:
         case = next(c for c in protocol['cases'] if c['id'] == command['case'])
@@ -201,10 +213,13 @@ def main():
                               and row['translation_error_m'] <= protocol['success_translation_m'])
             row['estimate_sha256'] = sha(estimate_path)
         scored.append(row)
-    save(args.output_dir/'summary.json', {'protocol_sha256': sha(args.manifest),
+    summary = {'protocol_sha256': sha(args.manifest),
          'reference_csv_sha256': sha(args.reference_csv), 'cases': scored,
          'all_commands_completed': all(r['exit_code'] == 0 and not r['timed_out'] for r in commands),
-         'claim_limit': protocol['claim_limit']})
+         'claim_limit': protocol['claim_limit']}
+    if calibration_sha is not None:
+        summary['reference_sensor_to_body_sha256'] = calibration_sha
+    save(args.output_dir/'summary.json', summary)
 
 
 if __name__ == '__main__':

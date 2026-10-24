@@ -20,6 +20,16 @@ This is a compact KISS-ICP-style pipeline that keeps the main idea:
 - focuses on the registration loop and map update path
 - keeps the interface simple for benchmarking and ROS 2 wrapping
 
+## Pair matcher naming and official KISS-Matcher validation
+
+The `lz::KISSMatcher` class in this module is a local ICP pair-registration
+helper that accepts an initial guess. It does not implement MIT-SPARK's
+feature-based global **KISS-Matcher**. The external official-package
+[KISS-Matcher / Quatro-mode evaluation](../../docs/kiss_matcher_validation.md)
+uses a pinned package and a separate runner, with no GT initializer. Its small
+cached KITTI pair study includes failures and does not establish a full-sequence
+odometry result or evaluate the separate Quatro++ / KISS-SLAM pipelines.
+
 ## Correspondence Search Neighborhood
 
 Upstream KISS-ICP searches only the 27 voxels around each query

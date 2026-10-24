@@ -10,6 +10,19 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### IMU discoverability and official KISS-Matcher validation (2026-10-24)
+
+The README again summarizes IMU orientation, Allan variance and public
+synchronized LiDAR–IMU validation, with direct evidence and reproduction links.
+These results had remained in the detailed pages after the README was shortened.
+The [official KISS-Matcher study](kiss_matcher_validation.md) adds a pinned
+external global-registration runner and its Quatro mode. One fixed configuration
+per variant was committed before execution (`19bba1aa`); all raw results,
+including failures, were committed before interpretation (`f9a242eb`). This is
+an initial pair diagnostic on cached KITTI development data, not full odometry
+or an evaluation of KISS-SLAM. The existing local `lz::KISSMatcher` helper is
+documented separately to avoid conflating its ICP with the official algorithm.
+
 
 ### Current development decision (2026-10-24)
 

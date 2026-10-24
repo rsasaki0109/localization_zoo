@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "-c",
+    "import json,hashlib,subprocess,sys\nfrom pathlib import Path\nimport numpy as np\nr=Path('experiments/results/kiss_matcher_validation')\nprotocol=json.loads((r/'protocol.json').read_text())\nreceipt=json.loads((r/'commands/run_with_backend_provenance.json').read_text())\nassert receipt['exit_code']==0 and receipt['tracked_dirty']==[]\nsource=subprocess.check_output(['git','show',receipt['source_commit']+':evaluation/scripts/run_official_kiss_matcher.py'])\nassert source==Path('evaluation/scripts/run_official_kiss_matcher.py').read_bytes()\nsys.path.insert(0,str(Path('evaluation/scripts').resolve()))\nfrom evaluate_external_kitti_odometry import load_reference_csv\ngt=Path('experiments/reference_data/kitti_seq_00_full_gt.csv')\nassert hashlib.sha256(gt.read_bytes()).hexdigest()==protocol['reference_csv_sha256']\nposes=load_reference_csv(gt)\nsummary=json.loads((r/'run_with_backend_provenance/summary.json').read_text())\nassert len(summary['cases'])==len(protocol['variants'])*len(protocol['cases'])\nfor row in summary['cases']:\n stem=row['variant']+'__'+row['case']\n job=json.loads((r/'run_with_backend_provenance'/(stem+'.job.json')).read_text())\n assert 'reference' not in job and str(gt) not in json.dumps(job)\n assert '--reference-csv' not in row['argv'] and row['exit_code']==0\n result=json.loads((r/'run_with_backend_provenance'/(stem+'.estimate.json')).read_text())\n assert result['backend_files'] and result['config']==job['expected_config']\n assert hashlib.sha256((r/'run_with_backend_provenance'/(stem+'.estimate.json')).read_bytes()).hexdigest()==row['estimate_sha256']\n case=job['case']\n if case['kind']=='synthetic':\n  rng=np.random.default_rng(42);rng.uniform(-5,5,(5000,3))\n  q,v=np.linalg.qr(rng.standard_normal((3,3)));rotation=q@np.diag(np.sign(np.diag(v)))\n  if np.linalg.det(rotation)<0:rotation[:,0]*=-1\n  expected=np.eye(4);expected[:3,:3]=rotation;expected[:3,3]=[1.5,-.7,.4]\n else:\n  angle=np.radians(case['source_yaw_deg'])\n  a=np.eye(4);a[:2,:2]=[[np.cos(angle),-np.sin(angle)],[np.sin(angle),np.cos(angle)]]\n  expected=np.linalg.solve(poses[case['target_frame']],poses[case['source_frame']])@a.T\n estimate=np.array(result['transform'])\n assert np.isfinite(estimate).all() and np.allclose(estimate[3],[0,0,0,1])\n assert np.allclose(estimate[:3,:3].T@estimate[:3,:3],np.eye(3),atol=1e-5)\n assert abs(np.linalg.det(estimate[:3,:3])-1)<1e-5\n translation=float(np.linalg.norm(estimate[:3,3]-expected[:3,3]))\n rotation=float(np.degrees(np.arccos(np.clip((np.trace(expected[:3,:3].T@estimate[:3,:3])-1)/2,-1,1))))\n assert abs(translation-row['translation_error_m'])<1e-9\n assert abs(rotation-row['rotation_error_deg'])<1e-4\n assert row['success']==(rotation<=protocol['success_rotation_deg'] and translation<=protocol['success_translation_m'])\nresult={'all_cases_recomputed':True,'case_count':len(summary['cases']),'worker_gt_not_in_job_or_command':True,'runner_matches_execution_source':True}\n(r/'audit_with_backend_provenance.json').write_text(json.dumps(result,indent=2)+'\\n')\nprint(json.dumps(result))\n"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "5f4617bf7f24ee7ae1dd03f8e551fbdb62803df5",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792802286.7515743,
+  "exit_code": 0,
+  "wall_seconds": 0.15068044501822442,
+  "logs": {
+    ".stdout": "cb380f36d69ed4d037133a4ba8f82359cc8b2996dd49447b275843791c12a7c7",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

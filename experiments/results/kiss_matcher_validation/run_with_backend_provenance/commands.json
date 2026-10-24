@@ -1,0 +1,302 @@
+[
+  {
+    "variant": "kiss_matcher",
+    "case": "synthetic_full_rotation",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__synthetic_full_rotation.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__synthetic_full_rotation.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.3215709700016305
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003074_yaw0",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003074_yaw0.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003074_yaw0.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4654883840121329
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003074_yaw90",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003074_yaw90.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003074_yaw90.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.46998781396541744
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003074_yaw180",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003074_yaw180.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003074_yaw180.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.417496033012867
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003082_yaw0",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003082_yaw0.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003082_yaw0.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.47235897497739643
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003082_yaw90",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003082_yaw90.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003082_yaw90.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4179334749933332
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003082_yaw180",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003082_yaw180.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003082_yaw180.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.419201240001712
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003112_yaw0",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003112_yaw0.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003112_yaw0.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.467507321969606
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003112_yaw90",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003112_yaw90.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003112_yaw90.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4671599679859355
+  },
+  {
+    "variant": "kiss_matcher",
+    "case": "00_003072_003112_yaw180",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003112_yaw180.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher__00_003072_003112_yaw180.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4885308519587852
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "synthetic_full_rotation",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__synthetic_full_rotation.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__synthetic_full_rotation.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.26664892898406833
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003074_yaw0",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003074_yaw0.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003074_yaw0.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4674340990022756
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003074_yaw90",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003074_yaw90.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003074_yaw90.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.46754686103668064
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003074_yaw180",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003074_yaw180.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003074_yaw180.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4675863229786046
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003082_yaw0",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003082_yaw0.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003082_yaw0.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4190962049760856
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003082_yaw90",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003082_yaw90.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003082_yaw90.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.41931096703046933
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003082_yaw180",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003082_yaw180.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003082_yaw180.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.417492940032389
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003112_yaw0",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003112_yaw0.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003112_yaw0.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.46736507199238986
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003112_yaw90",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003112_yaw90.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003112_yaw90.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.4660353629733436
+  },
+  {
+    "variant": "kiss_matcher_quatro",
+    "case": "00_003072_003112_yaw180",
+    "argv": [
+      "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+      "/tmp/localization-zoo-imu-kiss-matcher-20261024/evaluation/scripts/run_official_kiss_matcher.py",
+      "--worker-jobs",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003112_yaw180.job.json",
+      "--worker-output",
+      "experiments/results/kiss_matcher_validation/run_with_backend_provenance/kiss_matcher_quatro__00_003072_003112_yaw180.estimate.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "wall_seconds": 0.46906102303182706
+  }
+]

@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "package": "kiss-matcher",
+  "package_version": "1.0.2",
+  "voxel_size_m": 0.3,
+  "configuration_selection": "0.3 m from upstream Python quickstart; fixed before execution, no tuning on these pairs. Native defaults otherwise; use_quatro is the only variant toggle.",
+  "pair_selection": "Three target frames selected from scans already cached by the paused InTEn 00 acquisition; all KITTI is development data. No selection by registration outcome.",
+  "input_policy": "Raw XYZ in metres, float32, no range crop, elevation correction or GT initialization. Reflectance ignored. All original bin hashes verified.",
+  "variants": [
+    {
+      "id": "kiss_matcher",
+      "use_quatro": false,
+      "config": {
+        "fpfh_radius": 1.5,
+        "normal_radius": 0.9000000357627869,
+        "num_max_corr": 5000,
+        "robin_noise_bound": 0.30000001192092896,
+        "robin_noise_bound_gain": 1.0,
+        "solver_noise_bound": 0.22500000894069672,
+        "solver_noise_bound_gain": 0.75,
+        "thr_linearity": 1.0,
+        "use_quatro": false,
+        "use_voxel_sampling": true,
+        "voxel_size": 0.30000001192092896
+      }
+    },
+    {
+      "id": "kiss_matcher_quatro",
+      "use_quatro": true,
+      "config": {
+        "fpfh_radius": 1.5,
+        "normal_radius": 0.9000000357627869,
+        "num_max_corr": 5000,
+        "robin_noise_bound": 0.30000001192092896,
+        "robin_noise_bound_gain": 1.0,
+        "solver_noise_bound": 0.22500000894069672,
+        "solver_noise_bound_gain": 0.75,
+        "thr_linearity": 1.0,
+        "use_quatro": true,
+        "use_voxel_sampling": true,
+        "voxel_size": 0.30000001192092896
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "synthetic_full_rotation",
+      "kind": "synthetic"
+    },
+    {
+      "id": "00_003072_003074_yaw0",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3074,
+      "source_yaw_deg": 0
+    },
+    {
+      "id": "00_003072_003074_yaw90",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3074,
+      "source_yaw_deg": 90
+    },
+    {
+      "id": "00_003072_003074_yaw180",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3074,
+      "source_yaw_deg": 180
+    },
+    {
+      "id": "00_003072_003082_yaw0",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3082,
+      "source_yaw_deg": 0
+    },
+    {
+      "id": "00_003072_003082_yaw90",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3082,
+      "source_yaw_deg": 90
+    },
+    {
+      "id": "00_003072_003082_yaw180",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3082,
+      "source_yaw_deg": 180
+    },
+    {
+      "id": "00_003072_003112_yaw0",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3112,
+      "source_yaw_deg": 0
+    },
+    {
+      "id": "00_003072_003112_yaw90",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3112,
+      "source_yaw_deg": 90
+    },
+    {
+      "id": "00_003072_003112_yaw180",
+      "kind": "kitti",
+      "source_frame": 3072,
+      "target_frame": 3112,
+      "source_yaw_deg": 180
+    }
+  ],
+  "inputs": {
+    "003072.bin": {
+      "name": "003072.bin",
+      "sha256": "b8aa9e286e46e36c302a745d023a18b10200d5428c08a88a75b6375868044796",
+      "bytes": 1920976
+    },
+    "003074.bin": {
+      "name": "003074.bin",
+      "sha256": "e97ade93ec416be3fbf53cfa05094acd6b594c26af0492269dfcc2fd621653ac",
+      "bytes": 1894944
+    },
+    "003082.bin": {
+      "name": "003082.bin",
+      "sha256": "e2c98d81e9135143918eceb235e531ed29dd0485f71ddb1a748cc3c62699ef3a",
+      "bytes": 1823712
+    },
+    "003112.bin": {
+      "name": "003112.bin",
+      "sha256": "6d240b3f6d01f82df4c97dd4088ef4062aa84526202862a92b79fc7381164b53",
+      "bytes": 1948336
+    }
+  },
+  "reference_csv_sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+  "success_rotation_deg": 2.0,
+  "success_translation_m": 0.5,
+  "timeout_seconds": 180,
+  "threshold_selection": "Descriptive engineering thresholds, fixed before execution; not an official paper protocol.",
+  "claim_limit": "Official package pair-registration diagnostic on one cached KITTI segment plus a synthetic transform. No full odometry, loop-closure retrieval, paper-number reproduction, held-out or SOTA claim. Quatro is the official package yaw-constrained variant, not a separate upstream Quatro++ pipeline.",
+  "runtime_wheels": {
+    "numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "fd83c01228a688733f1ded5201c678f0c53ecc1006ffbc404db9f7a899ac6249",
+    "kiss_matcher-1.0.2-cp312-cp312-manylinux_2_28_x86_64.whl": "b64bdff7cf4825583538321d0fc972221c703113396405f7a85c02d4687c7b30"
+  }
+}

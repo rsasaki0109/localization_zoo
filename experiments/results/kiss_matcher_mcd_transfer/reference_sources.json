@@ -6,6 +6,6 @@
   "manual_git_blob": "9c6e12fce7317982acc97fe4e4640933edb76217",
   "tutorial_source": "https://mcdviral.github.io/SLAMTutorial.html",
   "configuration_source": "https://github.com/brytsknguyen/slict/blob/master/config/mcdviral_hhs.yaml",
-  "configuration_git_blob": "490ccac74ce0d1a5d87335b9a8061809853c06f7",
+  "configuration_git_blob": "9a42dab589cf8bc5b3fecc5d1cb04cd10eb2c92d",
   "fixture_limitation": "Fixture extraction topic/extrinsic lineage is not fully preserved; HHS Ouster is the documented KTH sensor mapping. Keep original scores, label calibrated rescore explicitly; do not rewrite CI fixture or historical aggregates."
 }

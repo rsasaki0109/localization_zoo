@@ -26,7 +26,7 @@
     ]
   ],
   "source": "https://github.com/brytsknguyen/slict/blob/master/config/mcdviral_hhs.yaml",
-  "source_git_blob": "490ccac74ce0d1a5d87335b9a8061809853c06f7",
+  "source_git_blob": "9a42dab589cf8bc5b3fecc5d1cb04cd10eb2c92d",
   "source_to_body_definition": "Official MCD SLAM tutorial links this HHS Ouster configuration for KTH/TUHH. Source YAML bottom-right zero is end-of-scan metadata; homogeneous transform uses one.",
   "source_stamp_at_end": true
 }

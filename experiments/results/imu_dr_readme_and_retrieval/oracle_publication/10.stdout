@@ -1,0 +1,4 @@
+[report] /tmp/tmpmxcy9q3k/r.json /tmp/tmpmxcy9q3k/r.md /tmp/tmpmxcy9q3k/imu.yaml
+[check] 4 parameters, 0 drift(s)
+drift: gyro_white_noise_density: expected 1.0, got 8.001002583826693e-05
+[check] 1 parameters, 1 drift(s)

@@ -45,6 +45,15 @@ the unchanged criterion. This sample's negatives are not overlapping-pair
 registration recall. Stop further setting searches on these four queries and
 move to independent overlap/reference benchmark evidence before broader claims.
 
+A separate MCD fixture transfer now exposes a concrete reference-frame issue:
+the publisher's poses are body-frame references, while raw Ouster points require
+sensor-to-body calibration. The unchanged native estimates initially score 0/9
+per mode; a source-backed explicit calibrated rescore gives 9/9. New converter
+and scorer flags are opt-in; legacy defaults, CI fixtures and historical results
+are preserved. See [the full evidence and limitations](../experiments/results/kiss_matcher_mcd_transfer/README.md).
+This tiny development fixture is not a held-out benchmark, and its export/topic
+lineage and timestamp uncertainty remain open before broad accuracy claims.
+
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 
 The README again summarizes IMU orientation, Allan variance and public

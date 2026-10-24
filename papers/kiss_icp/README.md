@@ -30,6 +30,11 @@ uses a pinned package and a separate runner, with no GT initializer. Its small
 cached KITTI pair study includes failures and does not establish a full-sequence
 odometry result or evaluate the separate Quatro++ / KISS-SLAM pipelines.
 
+The external [MCD transfer/reference-frame check](../../experiments/results/kiss_matcher_mcd_transfer/README.md)
+also distinguishes body-frame GT from sensor-frame point clouds. Its calibrated
+rescore preserves the same native estimates; it is not a change to KISS-ICP or
+an independent held-out accuracy benchmark.
+
 ## Correspondence Search Neighborhood
 
 Upstream KISS-ICP searches only the 27 voxels around each query

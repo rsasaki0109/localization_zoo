@@ -63,6 +63,12 @@ paper-number reproduction, held-out accuracy, or SOTA. The Quatro mode here is
 not an evaluation of the separate Quatro++ ground-segmentation pipeline.
 KISS-SLAM and broader revisit/low-overlap datasets remain unevaluated.
 
+The [fixed-setting MCD transfer check](../experiments/results/kiss_matcher_mcd_transfer/README.md)
+uses a separate existing fixture. Its initial body/sensor reference mismatch
+gives 0/9 per mode; a documented HHS Ouster frame conversion applied only to
+scoring the same estimates gives 9/9. This is a limited calibrated-reference
+smoke check, not an independent held-out benchmark or estimator improvement.
+
 The [Scan Context candidate follow-up](../experiments/results/imu_dr_readme_and_retrieval/README.md)
 now tests four fixed historical retrievals with these unchanged configurations.
 All eight registrations miss the existing accuracy criterion. The true revisit

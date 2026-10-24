@@ -44,6 +44,25 @@ python3 evaluation/scripts/extract_ros1_lidar_imu.py \
 
 ## 手元ですぐ試せる最小データ
 
+### MCD の参照座標系に注意
+
+公開元の `pose_inW.csv` は **body frame** の姿勢です。raw Ouster 点群と
+比較する場合は `T_world_lidar = T_world_body * T_body_lidar` の変換が必要です。
+既存の CI fixture と旧結果は回帰確認用として保持し、精度比較にそのまま
+使わないでください。新しい変換は明示指定できます:
+
+```bash
+python3 evaluation/scripts/mcd_gt_to_csv.py \
+  --input /path/to/pose_inW.csv --output /tmp/mcd_lidar_gt.csv \
+  --frame-timestamps /path/to/frame_timestamps.csv \
+  --sensor-to-body-json experiments/results/kiss_matcher_mcd_transfer/hhs_ouster_sensor_to_body.json
+```
+
+この例の校正は公開元が案内する KTH/TUHH の HHS Ouster 用です。
+別センサや変換済み点群に重ねて適用しないでください。旧既定値は変更していません。
+[公開元の定義・校正根拠と再採点結果](../../experiments/results/kiss_matcher_mcd_transfer/README.md)
+には、時刻対応や fixture の由来に残る制約も記載しています。
+
 CI と同じ **3 フレーム**が `evaluation/fixtures/mcd_kth_smoke/` にあります（MCD KTH 由来、コミット対象）。
 
 ```bash

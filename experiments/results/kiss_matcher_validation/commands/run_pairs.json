@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "/tmp/localization-zoo-kiss-matcher-runtime-20261024/bin/python",
+    "evaluation/scripts/run_official_kiss_matcher.py",
+    "--manifest",
+    "experiments/results/kiss_matcher_validation/protocol.json",
+    "--raw-root",
+    "/tmp/localization-zoo-inten-geometric-prior-20261023/raw/00/dataset/sequences/00/velodyne",
+    "--reference-csv",
+    "/workspace/localization-env/branch-cleanup-20261022/worktree/experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "--output-dir",
+    "experiments/results/kiss_matcher_validation/run"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "19bba1aa5bd159284b0eb265e29c8c727f9dc614",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792802012.044683,
+  "exit_code": 0,
+  "wall_seconds": 8.885731160989963,
+  "logs": {
+    ".stdout": "4da9da898c00a1934c7446e9c4cb0c524bc267b32f6c4eccb638936b37fdfc73",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

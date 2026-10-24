@@ -1,0 +1,22 @@
+{
+  "package_version": "1.0.2",
+  "voxel_size_m": 0.3,
+  "case": {
+    "id": "synthetic_full_rotation",
+    "kind": "synthetic"
+  },
+  "use_quatro": true,
+  "expected_config": {
+    "fpfh_radius": 1.5,
+    "normal_radius": 0.9000000357627869,
+    "num_max_corr": 5000,
+    "robin_noise_bound": 0.30000001192092896,
+    "robin_noise_bound_gain": 1.0,
+    "solver_noise_bound": 0.22500000894069672,
+    "solver_noise_bound_gain": 0.75,
+    "thr_linearity": 1.0,
+    "use_quatro": true,
+    "use_voxel_sampling": true,
+    "voxel_size": 0.30000001192092896
+  }
+}

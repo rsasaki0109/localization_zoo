@@ -1,0 +1,54 @@
+{
+  "transform": [
+    [
+      -0.746395091500747,
+      0.6628939217201871,
+      0.05887287940998468,
+      1.5000871790148655
+    ],
+    [
+      0.6416420417583492,
+      0.7402882057093758,
+      -0.20067103113247492,
+      -0.6991163744803803
+    ],
+    [
+      -0.17660650506640196,
+      -0.11200455809485717,
+      -0.9778880924391128,
+      0.40040702142580936
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "seconds": 0.16283492901129648,
+  "source_points": 5000,
+  "target_points": 5000,
+  "rotation_inliers": 701,
+  "final_inliers": 700,
+  "config": {
+    "fpfh_radius": 1.5,
+    "normal_radius": 0.9000000357627869,
+    "num_max_corr": 5000,
+    "robin_noise_bound": 0.30000001192092896,
+    "robin_noise_bound_gain": 1.0,
+    "solver_noise_bound": 0.22500000894069672,
+    "solver_noise_bound_gain": 0.75,
+    "thr_linearity": 1.0,
+    "use_quatro": false,
+    "use_voxel_sampling": true,
+    "voxel_size": 0.30000001192092896
+  },
+  "package_version": "1.0.2",
+  "backend_files": {},
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "thread_environment": {
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

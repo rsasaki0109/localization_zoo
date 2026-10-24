@@ -79,6 +79,52 @@ This uses the committed coarse estimates and never overwrites them. GT/frame
 consistency and residual/overlap diagnostics remain open; this failed experiment
 does not justify adopting ICP or calibrating a loop gate on these four queries.
 
+## Fixed elevation/objective probe: no rescue on this sample
+
+[Protocol](input_objective_protocol.json) freezes raw scans versus the known
++0.205° KITTI elevation correction, and point-to-point ICP, point-to-plane ICP,
+and GICP. All numeric solver settings remain the preceding native defaults;
+the only factors are the named correction and objective. The four original
+pairs and both archived coarse transforms are reused. No GT enters the worker,
+no coarse estimates are regenerated, and no best per-case setting is selected.
+This is an opt-in repository diagnostic, not official KISS-Matcher behavior.
+
+The [worker command](input_objective_command.json) and
+[score/control command](input_objective_score_command.json) exit 0. All 48 fits
+are retained. The raw-ICP replay exactly matches the prior saved transforms
+(maximum matrix difference 0); analytic checks confirm the correction's sign,
+range preservation and zero-angle identity. The existing 2° / 0.5 m offline
+criterion is unchanged:
+
+| Elevation correction [deg] | Local objective | Cases meeting criterion | True revisit error [m], KISS seed | True revisit error [m], Quatro seed |
+|---:|---|---:|---:|---:|
+| 0 | ICP | 0/8 | 0.729750 | 0.729750 |
+| 0 | PLANE_ICP | 0/8 | 0.730421 | 0.730448 |
+| 0 | GICP | 0/8 | 0.730580 | 0.730628 |
+| 0.205 | ICP | 0/8 | 0.730793 | 0.730862 |
+| 0.205 | PLANE_ICP | 0/8 | 0.730998 | 0.731077 |
+| 0.205 | GICP | 0/8 | 0.730708 | 0.730709 |
+
+The true-revisit discrepancy persists across these input/objective choices.
+This does not identify its cause or establish an error in GT. The other three
+retrievals are negatives, so their inclusion is useful for false-candidate
+diagnostics, not as an estimate of registration recall on overlapping pairs.
+No correction, objective, or threshold is promoted. Further searches on these
+four cases are stopped; an independent overlap/reference benchmark is needed
+before broader accuracy claims.
+
+[Complete case scores and target-frame error vectors](input_objective_summary.json)
+and [native estimates](input_objective_estimates.json) include every failure.
+The probe can be invoked explicitly after installing small-gicp 1.0.1 and
+fetching the pinned inputs:
+
+```bash
+python3 experiments/results/imu_dr_readme_and_retrieval/probe_input_objective.py \
+  --protocol experiments/results/imu_dr_readme_and_retrieval/input_objective_protocol.json \
+  --raw-root /tmp/scan-context-pairs/dataset/sequences/00/velodyne \
+  --output /tmp/input-objective-probe.json
+```
+
 ## Oracle reference/objective diagnostic (excluded from scores)
 
 The [preregistered diagnostic](oracle_diagnostic_protocol.json) intentionally

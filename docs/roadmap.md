@@ -38,6 +38,13 @@ excluded from benchmark counts. Next work concerns motion/point modeling and
 reference uncertainty, rather than repeating coarse-initializer parameter
 searches on these four queries.
 
+A fixed raw/+0.205° input and ICP/point-to-plane/GICP objective probe is now
+complete. All 48 fits are retained, and the raw-ICP replay matches exactly.
+The true revisit remains at 0.729750–0.731077 m translation error; none meets
+the unchanged criterion. This sample's negatives are not overlapping-pair
+registration recall. Stop further setting searches on these four queries and
+move to independent overlap/reference benchmark evidence before broader claims.
+
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 
 The README again summarizes IMU orientation, Allan variance and public

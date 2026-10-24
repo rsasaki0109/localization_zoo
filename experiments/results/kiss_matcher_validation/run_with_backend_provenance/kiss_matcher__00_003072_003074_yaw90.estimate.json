@@ -1,0 +1,56 @@
+{
+  "transform": [
+    [
+      0.004506123278554711,
+      0.999975120021672,
+      0.005427171513943099,
+      -2.0626546853412338
+    ],
+    [
+      -0.9999862949843129,
+      0.004520507129383098,
+      -0.0026409958046075344,
+      -0.019140390026345235
+    ],
+    [
+      -0.0026654636642103203,
+      -0.005415196481798657,
+      0.9999817853093723,
+      -0.025699222448394888
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "seconds": 0.30749599396949634,
+  "source_points": 120061,
+  "target_points": 118434,
+  "rotation_inliers": 465,
+  "final_inliers": 381,
+  "config": {
+    "fpfh_radius": 1.5,
+    "normal_radius": 0.9000000357627869,
+    "num_max_corr": 5000,
+    "robin_noise_bound": 0.30000001192092896,
+    "robin_noise_bound_gain": 1.0,
+    "solver_noise_bound": 0.22500000894069672,
+    "solver_noise_bound_gain": 0.75,
+    "thr_linearity": 1.0,
+    "use_quatro": false,
+    "use_voxel_sampling": true,
+    "voxel_size": 0.30000001192092896
+  },
+  "package_version": "1.0.2",
+  "backend_files": {
+    "_kiss_matcher.cpython-312-x86_64-linux-gnu.so": "930cac3b21a8c404871183b0792748f03e7bd3367f9b37168eb50b399154de5c"
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "thread_environment": {
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

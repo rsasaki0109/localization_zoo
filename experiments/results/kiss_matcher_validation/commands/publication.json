@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/workspace/localization-env/host-venv/bin/python",
+    "-c",
+    "import hashlib,json,shutil,subprocess,sys\nfrom pathlib import Path\nw=Path.cwd()\nbase=Path('/tmp/localization-zoo-inten-geometric-prior-20261023/publication_final_discovery')\ns=Path('/tmp/localization-zoo-imu-kiss-verification-retry-20261024')\nout=w/'experiments/results/kiss_matcher_validation/publication'\nout.mkdir(exist_ok=False)\nshutil.copytree(base,s,symlinks=True)\nnames=subprocess.check_output(['git','diff','--name-only','origin/main','HEAD'],text=True).splitlines()\noverlay={}\nfor name in names:\n source=w/name\n target=s/name\n if not source.is_file():raise ValueError('expected an added/modified file: '+name)\n parent=s\n for part in Path(name).parent.parts:\n  parent=parent/part\n  if parent.is_symlink():\n   original=parent.resolve();parent.unlink();shutil.copytree(original,parent,symlinks=True)\n assert target.parent.resolve().is_relative_to(s.resolve())\n target.parent.mkdir(parents=True,exist_ok=True)\n if target.is_symlink():target.unlink()\n shutil.copy2(source,target)\n overlay[name]=hashlib.sha256(source.read_bytes()).hexdigest()\n(out/'overlay_sources.json').write_text(json.dumps(overlay,indent=2)+'\\n')\ncommands=[\n ['evaluation/scripts/refresh_study_docs.py'],\n ['evaluation/scripts/generate_full_variant_table.py'],\n ['evaluation/scripts/generate_paper_ratio_table.py'],\n ['evaluation/scripts/validate_showcase.py'],\n ['evaluation/scripts/generate_leaderboard.py','--check'],\n ['evaluation/scripts/generate_paper_ready_evidence.py','--check'],\n ['papers/attitude_estimation/evaluation/broad_benchmark.py','check'],\n ['papers/allan_variance/evaluation/tumvi_allan.py','check'],\n ['-m','unittest','discover','-s','tests','-p','test_official_kiss_matcher.py'],\n ['-m','unittest','discover','-s','tests','-p','test_broad_benchmark.py'],\n ['-m','unittest','discover','-s','tests','-p','test_tumvi_allan.py'],\n ['-m','unittest','discover','-s','tests','-p','test_full_variant_table.py']]\nrows=[]\nfor i,args in enumerate(commands):\n result=subprocess.run([sys.executable,*args],cwd=s,capture_output=True,text=True)\n (out/f'{i:02d}.stdout').write_text(result.stdout)\n (out/f'{i:02d}.stderr').write_text(result.stderr)\n rows.append({'argv':[sys.executable,*args],'cwd':str(s),'exit_code':result.returncode})\n (out/'commands.json').write_text(json.dumps(rows,indent=2)+'\\n')\n print(args,result.returncode,flush=True)\nsha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\ntables={name:sha(s/'docs/assets/paper'/name)==sha(w/'docs/assets/paper'/name) for name in ['full_variant_results.csv','full_variant_results.tex','paper_ratio_table.csv','paper_ratio_table.tex']}\nsummary={'all_commands_passed':all(r['exit_code']==0 for r in rows),'historical_tables_byte_equal':tables,'readme_leaderboard_not_regenerated':sha(s/'README.md')==sha(w/'README.md')}\n(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\\n')\nassert summary['all_commands_passed'] and all(tables.values()) and summary['readme_leaderboard_not_regenerated']\n"
+  ],
+  "cwd": "/tmp/localization-zoo-imu-kiss-matcher-20261024",
+  "source_commit": "3944f06456b4e5542d17e3831f1d9ec013423904",
+  "tracked_dirty": [],
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONPATH": null
+  },
+  "start_unix": 1792802371.6094482,
+  "exit_code": 0,
+  "wall_seconds": 16.65188327501528,
+  "logs": {
+    ".stdout": "2a2f995c7a79fcbf9603163b39ff080214e215965de7c7f3677a8f15eb7be81c",
+    ".stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

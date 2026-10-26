@@ -62,7 +62,7 @@ def interpolate(stamps, poses, stamp, max_gap_ns):
     return T
 
 
-def evaluate(mav0, trajectory, max_gap_ns=20000000):
+def evaluate(mav0, trajectory, max_gap_ns=20000000, include_samples=False):
     if type(max_gap_ns) is not int or max_gap_ns <= 0:
         raise ValueError('GT gap must be positive integer nanoseconds')
     mav0, trajectory = Path(mav0), Path(trajectory)
@@ -100,17 +100,31 @@ def evaluate(mav0, trajectory, max_gap_ns=20000000):
             valid.append((stamp, pose))
     anchor = interpolate(stamps, poses, expected[0], max_gap_ns)
     translation_errors, rotation_errors, unmatched = [], [], []
-    for stamp, estimate in valid:
+    estimates = dict(valid)
+    samples = []
+    anchor_inverse = None if anchor is None else np.linalg.inv(anchor @ T_B_rect)
+    for index, stamp in enumerate(expected):
+        estimate = estimates.get(stamp)
         gt = interpolate(stamps, poses, stamp, max_gap_ns)
-        if anchor is None or gt is None:
-            unmatched.append(stamp)
-            continue
-        reference = np.linalg.inv(anchor @ T_B_rect) @ gt @ T_B_rect
-        translation_errors.append(float(np.linalg.norm(estimate[:3, 3] - reference[:3, 3])))
-        rotation_errors.append(float(np.degrees(np.linalg.norm(cv2.Rodrigues(
-            reference[:3, :3].T @ estimate[:3, :3])[0]))))
+        reference = None if anchor_inverse is None or gt is None else anchor_inverse @ gt @ T_B_rect
+        translation_error = rotation_error = None
+        if estimate is not None:
+            if reference is None:
+                unmatched.append(stamp)
+            else:
+                translation_error = float(np.linalg.norm(estimate[:3, 3] - reference[:3, 3]))
+                rotation_error = float(np.degrees(np.linalg.norm(cv2.Rodrigues(
+                    reference[:3, :3].T @ estimate[:3, :3])[0])))
+                translation_errors.append(translation_error)
+                rotation_errors.append(rotation_error)
+        if include_samples:
+            samples.append(dict(timestamp_ns=stamp, time_s=(stamp - expected[0])*1e-9,
+                                status=rows[index]['status'] if index < len(rows) else 'missing',
+                                estimate_xyz=None if estimate is None else estimate[:3, 3].tolist(),
+                                reference_xyz=None if reference is None else reference[:3, 3].tolist(),
+                                translation_error_m=translation_error, rotation_error_deg=rotation_error))
     sources = [trajectory, gt_path] + [mav0 / c / f for c in ('cam0', 'cam1') for f in ('sensor.yaml', 'data.csv')]
-    return dict(protocol='euroc-first-pose-anchor-v1', alignment='first GT pose only; scale fixed at 1',
+    result = dict(protocol='euroc-first-pose-anchor-v1', alignment='first GT pose only; scale fixed at 1',
                 max_gt_gap_ns=max_gap_ns, expected_frames=len(expected), output_frames=len(rows),
                 complete_output=len(rows) == len(expected), tracked_frames=len(valid),
                 tracking_fraction=len(valid)/len(expected), evaluated_frames=len(translation_errors),
@@ -120,6 +134,9 @@ def evaluate(mav0, trajectory, max_gap_ns=20000000):
                 translation_rmse_m=float(np.sqrt(np.mean(np.square(translation_errors)))) if translation_errors else None,
                 rotation_rmse_deg=float(np.sqrt(np.mean(np.square(rotation_errors)))) if rotation_errors else None,
                 sources=[dict(path=str(p), sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in sources])
+    if include_samples:
+        result['samples'] = samples
+    return result
 
 
 def main():

@@ -96,3 +96,25 @@ files are never overwritten.
 The evaluator is verified with synthetic rotation, camera lever arms, known
 translation errors, missing GT, loss and truncated output. Actual EuRoC
 accuracy and full-sequence runtime have not yet been measured.
+
+## Offline diagnostic report
+
+Install `matplotlib==3.10.8` in addition to the replay dependencies, then run:
+
+```sh
+python3 python/report_euroc.py /data/MH_01_easy/mav0 trajectory.jsonl report-mh01
+```
+
+Open `report-mh01/index.html` locally. The directory must not already exist.
+The report contains exportable SVG plots of XY/XZ trajectories, translation
+and rotation errors over time, and tracking/GT availability for every camera
+frame. It includes `metrics.json` with the evaluation protocol/input hashes
+and `samples.json` with per-frame values and exact nanosecond timestamps.
+There are no remote scripts, fonts or plotting services.
+
+Reporting calls the same evaluator and accepts the same `--max-gt-gap-ns`.
+Unavailable samples create gaps, not zero-error points. The reference trajectory
+continues over lost/missing output where GT is available, making partial runs
+visible. All-lost output still produces a report with null errors and zero
+tracking coverage. The report is a diagnostic view, not evidence of a successful
+benchmark by itself. The current tests render synthetic fixtures only.

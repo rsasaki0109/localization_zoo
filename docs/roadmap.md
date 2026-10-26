@@ -10,6 +10,28 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### Fixed-configuration leaderboard (2026-10-26)
+
+The explorer now also compares the six explicitly pinned configurations from
+`evaluation/data/fixed_configuration_leaderboard.json`. Each result source is
+selected explicitly; no per-sequence minimum or metric fallback is used.
+Rank uses the unweighted arithmetic mean of official KITTI translational RTE
+(100–800 m) on all 11 sequences, not the pooled segment metric. Missing,
+failed, incomplete or metric-missing results remain visible and prevent a rank.
+Input preprocessing is fixed within each method but differs between methods.
+This retrospective comparison uses historical results, not a current-code
+rerun or an unseen-test evaluation. All KITTI is project development data.
+The partial geometric-prior trial is not included in this baseline table.
+
+Regenerate with `python3 evaluation/scripts/generate_fixed_leaderboard.py`;
+verify with `--check` and
+`python3 -m unittest discover -s tests -p test_fixed_leaderboard.py`.
+The generator checks variant identity, CLI arguments, dataset extra arguments,
+full frame counts and no-GT-seed evidence, and records aggregate SHA-256 hashes.
+Add methods by documenting the fixed configuration, selection history and
+explicit source paths in the manifest; never choose sources by their score.
+The original best-per-cell table and all stored experiment results remain intact.
+
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 
 The README again summarizes IMU orientation, Allan variance and public

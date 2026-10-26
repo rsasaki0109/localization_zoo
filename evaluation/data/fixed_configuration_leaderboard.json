@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "sequences": {
+    "10": 1201,
+    "00": 4541,
+    "01": 1101,
+    "02": 4661,
+    "03": 801,
+    "04": 271,
+    "05": 2761,
+    "06": 1101,
+    "07": 1101,
+    "08": 4071,
+    "09": 1591
+  },
+  "metric": "kitti_rte_trans_pct",
+  "aggregation": "unweighted arithmetic mean of all 11 sequence RTE values; not pooled KITTI segment error",
+  "methods": [
+    {
+      "method": "aloam",
+      "name": "A-LOAM",
+      "variant": "kitti_default",
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "07"
+      ],
+      "selection_note": "Full-sequence official KITTI RTE on 00-10, variant kitti_default, geometric mean 1.07x. kitti_default was the accuracy candidate in the existing sequence 07 profile comparison (lowest stored 100 m RPE and official RTE there). Its arguments are frozen; the added sequences do not select a profile. No sequence exceeds twice its paper value with the fixed setting. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.",
+      "selection_source": "papers/aloam/README.md",
+      "results": {
+        "10": "experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+        "00": "experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json",
+        "01": "experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+        "02": "experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json",
+        "03": "experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+        "04": "experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+        "05": "experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json",
+        "06": "experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+        "07": "experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json",
+        "08": "experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json",
+        "09": "experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json"
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "name": "LF-GICP",
+      "variant": "paper_default",
+      "args": [],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "00",
+        "02",
+        "08"
+      ],
+      "selection_note": "Full-sequence official KITTI RTE on 00-10, variant paper_default, geometric mean 1.12x. field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting. Seq 10: 5.616 % vs 0.837 % (6.71x), 26 moving steps with length error >20 % and 34 with local vector error >20 %. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.",
+      "selection_source": "papers/lf_gicp/README.md",
+      "results": {
+        "10": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+        "00": "experiments/results/lf_gicp_kitti_seq_00_full_matrix.json",
+        "01": "experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+        "02": "experiments/results/lf_gicp_kitti_seq_02_full_matrix.json",
+        "03": "experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+        "04": "experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+        "05": "experiments/results/lf_gicp_kitti_seq_05_full_matrix.json",
+        "06": "experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+        "07": "experiments/results/lf_gicp_kitti_seq_07_full_matrix.json",
+        "08": "experiments/results/lf_gicp_kitti_seq_08_full_matrix.json",
+        "09": "experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json"
+      }
+    },
+    {
+      "method": "l_lo",
+      "name": "L-LO",
+      "variant": "seq07_tuned",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.25",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "07"
+      ],
+      "selection_note": "Full-sequence official KITTI RTE on 00/02-10 (01 is NA in the paper), variant seq07_tuned, geometric mean 1.57x. cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded. Seq 09: 4.122 % vs 1.890 % (2.18x), 4 moving steps with length error >20 % and 9 with local vector error >20 %. Seq 10: 4.105 % vs 1.900 % (2.16x), 7 moving steps with length error >20 % and 17 with local vector error >20 %. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.",
+      "selection_source": "papers/l_lo/README.md",
+      "results": {
+        "10": "experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+        "00": "experiments/results/l_lo_kitti_seq_00_full_matrix.json",
+        "02": "experiments/results/l_lo_kitti_seq_02_full_matrix.json",
+        "03": "experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+        "04": "experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+        "05": "experiments/results/l_lo_kitti_seq_05_full_matrix.json",
+        "06": "experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+        "07": "experiments/results/l_lo_kitti_seq_07_full_matrix.json",
+        "08": "experiments/results/l_lo_kitti_seq_08_full_matrix.json",
+        "09": "experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json"
+      }
+    },
+    {
+      "method": "inten_loam",
+      "name": "InTEn-LOAM",
+      "variant": "paper_odometry_plane_check",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "00",
+        "07"
+      ],
+      "selection_note": "--inten-loam-paper-odometry uses FEF, S2S re-association, S2M on a temporal-voxel-filtered keyframe map, DOR map-insertion gating and a B-spline intensity residual. The fixed paper_odometry_plane_check variant explicitly uses s2m_plane_max_dist=0.05 and a 0.17 deg correction on all 00-10 sequences: geometric mean 2.19x. These KITTI choices were selected on 07 windows, with diagnosis of 00 frames 4000-4399 suggesting the plane check; 00 is not fully held out. The added sequences are evaluation only. Defaults and stored ablations are unchanged.",
+      "selection_source": "papers/inten_loam/README.md",
+      "results": {
+        "10": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+        "00": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
+        "01": "experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+        "02": "experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+        "03": "experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+        "04": "experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+        "05": "experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+        "06": "experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+        "07": "experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
+        "08": "experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+        "09": "experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json"
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "name": "Mesh-LOAM",
+      "variant": "paper_odometry_elevation",
+      "args": [
+        "--no-gt-seed",
+        "--mesh-loam-paper-odometry",
+        "--input-vertical-angle-correction-deg",
+        "0.22"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "00",
+        "07"
+      ],
+      "selection_note": "--mesh-loam-paper-odometry uses the paper input and nearest-facet association with an explicit 0.22 deg KITTI elevation correction, not specified by the paper. paper_odometry_elevation is unchanged across 00-10: geometric mean 1.28x, rather than the historical 1.08x on 00/07 alone. Both 00/07 influenced development; the added sequences did not influence the setting. No sequence exceeds twice its paper value. The correction remains opt-in and defaults are unchanged.",
+      "selection_source": "papers/mesh_loam/README.md",
+      "results": {
+        "10": "experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+        "00": "experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json",
+        "01": "experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+        "02": "experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+        "03": "experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+        "04": "experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+        "05": "experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+        "06": "experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+        "07": "experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
+        "08": "experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+        "09": "experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json"
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "name": "Quadric-LO",
+      "variant": "dense_profile",
+      "args": [
+        "--no-gt-seed",
+        "--quadric-lo-dense-profile"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "00",
+        "07"
+      ],
+      "selection_note": "Full-sequence official KITTI RTE on 00-10, variant dense_profile, geometric mean 0.85x. The existing dense profile is frozen from the 00/07 paper comparisons; both are treated as development data. No correction or parameter is selected on the added sequences. No sequence exceeds twice its paper value with the fixed setting. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.",
+      "selection_source": "papers/quadric_lo/README.md",
+      "results": {
+        "10": "experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+        "00": "experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json",
+        "01": "experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+        "02": "experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+        "03": "experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+        "04": "experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+        "05": "experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+        "06": "experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+        "07": "experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json",
+        "08": "experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+        "09": "experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json"
+      }
+    }
+  ],
+  "evidence_ref": "7f916f89feba0b596682fa1365b959d6769f720b"
+}

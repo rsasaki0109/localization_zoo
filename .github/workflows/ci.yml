@@ -7,6 +7,15 @@ on:
     branches: [main, 'codex/**']
 
 jobs:
+  fixed-leaderboard:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fixed configuration contracts and generated artifacts
+        run: |
+          python3 -m unittest discover -s tests -p test_fixed_leaderboard.py -v
+          python3 evaluation/scripts/generate_fixed_leaderboard.py --check
+
   build-and-test:
     runs-on: ubuntu-22.04
 

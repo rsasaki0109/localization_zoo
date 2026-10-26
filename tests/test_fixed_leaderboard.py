@@ -65,6 +65,20 @@ class FixedLeaderboardTests(unittest.TestCase):
         self.assertEqual(self.row()["mean"], 5)
         self.assertEqual(self.row()["rank"], 1)
 
+    def test_mean_retains_small_contributions_reproducibly(self):
+        path = self.root / board.MANIFEST
+        manifest = json.loads(path.read_text())
+        manifest["sequences"]["02"] = 3
+        manifest["methods"][0]["results"]["02"] = "results/02.json"
+        path.write_text(json.dumps(manifest))
+        data = json.loads((self.root / "results/01.json").read_text())
+        data["dataset"]["pcd_dir"] = "kitti_seq_02_full"
+        data["variants"][0]["kitti_rte_trans_pct"] = 1.0
+        self.write("02", data)
+        self.mutate("00", kitti_rte_trans_pct=1e16)
+        self.mutate("01", kitti_rte_trans_pct=1.0)
+        self.assertEqual(self.row()["mean"], 10000000000000002.0 / 3)
+
     def test_does_not_select_better_variant(self):
         path = self.root / "results/01.json"
         data = json.loads(path.read_text())
@@ -109,9 +123,45 @@ class FixedLeaderboardTests(unittest.TestCase):
         self.mutate("01", kitti_rte_trans_pct=0)
         self.assertEqual(self.row()["mean"], 0.5)
 
+    def test_audit_requires_evidence_and_rejects_gt_override(self):
+        path = self.root / board.MANIFEST
+        manifest = json.loads(path.read_text())
+        self.mutate("01", note="First pose anchor")
+        manifest["methods"][0]["odometry_audit"] = {"policy": "first_pose_anchor_only"}
+        path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, "Odometry evidence"):
+            self.row()
+        manifest["methods"][0]["odometry_audit"].update(
+            source="evaluation/src/pcd_dogfooding.cpp", function="runSample", reason="Reviewed first-pose anchor", line=1)
+        path.write_text(json.dumps(manifest))
+        self.assertEqual(self.row()["mean"], 5)
+        self.mutate("01", note="GT-seeded")
+        with self.assertRaisesRegex(ValueError, "Odometry evidence"):
+            self.row()
+        for sequence in ("00", "01"):
+            self.mutate(sequence, args=["--ct-icp-gt-seed"], note="First pose anchor")
+        manifest["methods"][0]["args"] = ["--ct-icp-gt-seed"]
+        path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, "Odometry evidence"):
+            self.row()
+
+    def test_baselines_use_fixed_profiles_and_keep_mulls_highway_failure(self):
+        data = board.collect()
+        rows = {r["method"]: r for r in data["methods"]}
+        for method in ("kiss_icp", "ct_icp", "mulls"):
+            self.assertEqual(rows[method]["coverage"], 11)
+            self.assertIsNotNone(rows[method]["rank"])
+            self.assertTrue(rows[method]["odometry_audit"]["reason"])
+        mulls = rows["mulls"]
+        self.assertEqual(mulls["variant"], "mulls_lo_elevation")
+        self.assertEqual(mulls["cells"]["01"]["value"], 5.974304)
+        self.assertIn("3 registrations stopped", mulls["cells"]["01"]["recorded_note"])
+        self.assertNotIn("--mulls-lo-highway", mulls["args"])
+        self.assertIn("unresolved", rows["ct_icp"]["selection_note"])
+
     def test_repository_evidence_and_generated_outputs(self):
         data = board.collect()
-        self.assertEqual(len(data["methods"]), 6)
+        self.assertEqual(len(data["methods"]), 9)
         incomplete = next(r for r in data["methods"] if r["method"] == "l_lo")
         self.assertEqual(incomplete["coverage"], 10)
         self.assertIsNone(incomplete["rank"])

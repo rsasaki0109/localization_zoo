@@ -195,7 +195,123 @@
         "08": "experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
         "09": "experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json"
       }
+    },
+    {
+      "method": "kiss_icp",
+      "name": "KISS-ICP",
+      "variant": "upstream_mechanics_elevation",
+      "args": [
+        "--kiss-upstream-profile",
+        "--kiss-model-deviation-threshold",
+        "--kiss-geman-mcclure-kernel",
+        "--kiss-map-min-point-distance",
+        "0.2236068",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "00",
+        "07"
+      ],
+      "selection_note": "Upstream mechanics and the +0.205 degree loader correction were investigated on 00/07. This row pins the full upstream-mechanics variant, not the minimum from those sweeps. All KITTI is development data. These are the repository port's historical results, not the official external implementation.",
+      "selection_source": "papers/kiss_icp/README.md",
+      "results": {
+        "10": "experiments/results/kiss_icp_kitti_seq_10_full_elevation_matrix.json",
+        "00": "experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json",
+        "01": "experiments/results/kiss_icp_kitti_seq_01_full_elevation_matrix.json",
+        "02": "experiments/results/kiss_icp_kitti_seq_02_full_elevation_matrix.json",
+        "03": "experiments/results/kiss_icp_kitti_seq_03_full_elevation_matrix.json",
+        "04": "experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json",
+        "05": "experiments/results/kiss_icp_kitti_seq_05_full_elevation_matrix.json",
+        "06": "experiments/results/kiss_icp_kitti_seq_06_full_elevation_matrix.json",
+        "07": "experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json",
+        "08": "experiments/results/kiss_icp_kitti_seq_08_full_elevation_matrix.json",
+        "09": "experiments/results/kiss_icp_kitti_seq_09_full_elevation_matrix.json"
+      },
+      "odometry_audit": {
+        "policy": "first_pose_anchor_only",
+        "source": "evaluation/src/pcd_dogfooding.cpp",
+        "function": "runKISSICP",
+        "line": 6397,
+        "reason": "runKISSICP uses gt.front() only as a world/first-pose anchor; subsequent poses come from scan registration and internal motion prediction. Audited at the manifest evidence_ref."
+      }
+    },
+    {
+      "method": "ct_icp",
+      "name": "CT-ICP",
+      "variant": "upstream_mechanics_elevation",
+      "args": [
+        "--ct-icp-upstream-mechanics",
+        "--input-vertical-angle-correction-deg",
+        "0.205"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "00",
+        "07"
+      ],
+      "selection_note": "Upstream driving-profile mechanics were investigated on 07 and compared on 00; all KITTI is development data. The +0.205 degree correction and all CLI arguments stay fixed. Historical replay differs on 01/02/04/05/06/07/10; its cause is unresolved. These stored values are retained, not replaced with replay results or claimed as a fresh current-code validation.",
+      "selection_source": "papers/ct_icp/README.md",
+      "results": {
+        "10": "experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json",
+        "00": "experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json",
+        "01": "experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json",
+        "02": "experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json",
+        "03": "experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json",
+        "04": "experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json",
+        "05": "experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json",
+        "06": "experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json",
+        "07": "experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json",
+        "08": "experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json",
+        "09": "experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json"
+      },
+      "odometry_audit": {
+        "policy": "first_pose_anchor_only",
+        "source": "evaluation/src/pcd_dogfooding.cpp",
+        "function": "runCTICPUpstream",
+        "line": 10012,
+        "reason": "runCTICPUpstream uses gt.front() only as a world/first-pose anchor; subsequent poses come from scan registration and internal motion prediction. Audited at the manifest evidence_ref."
+      }
+    },
+    {
+      "method": "mulls",
+      "name": "MULLS",
+      "variant": "mulls_lo_elevation",
+      "args": [
+        "--mulls-lo",
+        "--input-vertical-angle-correction-deg",
+        "0.195"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "00",
+        "01",
+        "07"
+      ],
+      "selection_note": "The urban MULLS-LO profile and +0.195 degree correction are pinned on all 11 sequences. Development comparisons include 00/07 and the 01 highway investigation; all KITTI is development data. Unlike the paper-comparison table, this row does not switch 01 to the highway profile. The urban result on 01 is retained, including its early-stop diagnostics. These are the repository port's historical results.",
+      "selection_source": "papers/mulls/README.md",
+      "results": {
+        "10": "experiments/results/mulls_kitti_seq_10_full_lo_matrix.json",
+        "00": "experiments/results/mulls_kitti_seq_00_full_lo_matrix.json",
+        "01": "experiments/results/mulls_kitti_seq_01_full_lo_matrix.json",
+        "02": "experiments/results/mulls_kitti_seq_02_full_lo_matrix.json",
+        "03": "experiments/results/mulls_kitti_seq_03_full_lo_matrix.json",
+        "04": "experiments/results/mulls_kitti_seq_04_full_lo_matrix.json",
+        "05": "experiments/results/mulls_kitti_seq_05_full_lo_matrix.json",
+        "06": "experiments/results/mulls_kitti_seq_06_full_lo_matrix.json",
+        "07": "experiments/results/mulls_kitti_seq_07_full_lo_matrix.json",
+        "08": "experiments/results/mulls_kitti_seq_08_full_lo_matrix.json",
+        "09": "experiments/results/mulls_kitti_seq_09_full_lo_matrix.json"
+      },
+      "odometry_audit": {
+        "policy": "first_pose_anchor_only",
+        "source": "evaluation/src/pcd_dogfooding.cpp",
+        "function": "runMULLSLO",
+        "line": 5799,
+        "reason": "runMULLSLO uses gt.front() only as a world/first-pose anchor; subsequent poses come from scan registration and internal motion prediction. Audited at the manifest evidence_ref."
+      }
     }
   ],
-  "evidence_ref": "7f916f89feba0b596682fa1365b959d6769f720b"
+  "evidence_ref": "b668b5c8add6c6ca426992b067de1106f0ebcea9"
 }

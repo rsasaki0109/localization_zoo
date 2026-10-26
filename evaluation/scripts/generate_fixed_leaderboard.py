@@ -103,7 +103,7 @@ def render(data):
         audit_html = (f'<p><a href="{base}{esc(audit["source"])}#L{int(audit["line"])}">'
                       f'{esc(audit["function"])}: initialization audit</a>. {esc(audit["reason"])}</p>') if audit else ""
         lines.extend([f'<details id="fixed-{esc(row["method"])}"><summary>{esc(row["name"])} — configuration and selection history</summary>',
-            f'<p>Selection / calibration sequences: {esc(", ".join(row["selection_sequences"]))}.</p>',
+            f'<p>Selection / calibration sequences: {esc(", ".join(row["selection_sequences"])) or "Not specified in source evidence"}.</p>',
             f'<p>{esc(row["selection_note"])}</p>',
             f'<p><a href="{base}{esc(row["selection_source"])}">Method evidence and limitations</a></p>',
             audit_html,

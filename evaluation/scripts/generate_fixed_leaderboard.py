@@ -67,7 +67,9 @@ def collect(root=ROOT):
         complete = all(c["status"] == "ok" for c in cells.values())
         rows.append({**spec, "cells": cells, "rank": None,
                      "coverage": sum(c["status"] == "ok" for c in cells.values()),
-                     "mean": sum(c["value"] for c in cells.values()) / len(sequences) if complete else None})
+                     # Built-in float sum changed in Python 3.12; use the same
+                     # compensated summation on every supported interpreter.
+                     "mean": math.fsum(c["value"] for c in cells.values()) / len(sequences) if complete else None})
     rows.sort(key=lambda r: (r["mean"] is None, r["mean"] if r["mean"] is not None else math.inf, r["name"]))
     for index, row in enumerate(rows):
         if row["mean"] is not None:

@@ -65,6 +65,20 @@ class FixedLeaderboardTests(unittest.TestCase):
         self.assertEqual(self.row()["mean"], 5)
         self.assertEqual(self.row()["rank"], 1)
 
+    def test_mean_retains_small_contributions_reproducibly(self):
+        path = self.root / board.MANIFEST
+        manifest = json.loads(path.read_text())
+        manifest["sequences"]["02"] = 3
+        manifest["methods"][0]["results"]["02"] = "results/02.json"
+        path.write_text(json.dumps(manifest))
+        data = json.loads((self.root / "results/01.json").read_text())
+        data["dataset"]["pcd_dir"] = "kitti_seq_02_full"
+        data["variants"][0]["kitti_rte_trans_pct"] = 1.0
+        self.write("02", data)
+        self.mutate("00", kitti_rte_trans_pct=1e16)
+        self.mutate("01", kitti_rte_trans_pct=1.0)
+        self.assertEqual(self.row()["mean"], 10000000000000002.0 / 3)
+
     def test_does_not_select_better_variant(self):
         path = self.root / "results/01.json"
         data = json.loads(path.read_text())

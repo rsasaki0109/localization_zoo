@@ -64,3 +64,35 @@ They establish plumbing and geometry only; no real EuRoC sequence has yet been
 evaluated. Next: full-sequence replay, coverage and failure reporting, body/camera
 frame-correct trajectory evaluation, then IMU integration. Keep visual results
 separate from the LiDAR leaderboard until a fixed visual evaluation protocol exists.
+
+## EuRoC trajectory evaluation
+
+```sh
+python3 python/evaluate_euroc.py /data/MH_01_easy/mav0 trajectory.jsonl metrics.json
+```
+
+This reads `state_groundtruth_estimate0/data.csv` only in the evaluator, never
+in VO. EuRoC world-from-body poses are converted to world-from-rectified-cam0
+using `T_BS` and rectification rotation, including the camera lever arm.
+The first camera timestamp anchors the reference frame. There is no global
+SE(3)/Sim(3) fitting and no scale correction. Reported translation and rotation
+RMSE are first-pose-anchored errors, not a benchmark's globally aligned ATE.
+GT translation is interpolated linearly and rotation on SO(3); extrapolation
+and gaps over `--max-gt-gap-ns` (default 20000000 ns) are rejected. Missing GT
+at the first camera timestamp makes all errors unavailable, rather than
+silently changing the anchor. Use the same gap setting across sequences.
+
+The report includes expected/output/tracked/evaluated frame counts, tracking
+and evaluation fractions over the **entire camera index**, lost timestamps,
+unwritten timestamps, and timestamps without usable GT. `complete_output`
+means all camera frames have output rows, not that tracking succeeded.
+An incomplete JSONL prefix remains incomplete; skipped or reordered frames,
+unknown pose frames, inconsistent calibration and implicit resets are errors.
+RMSE is null when nothing is evaluable; a low RMSE over a short tracked prefix
+must always be reported with coverage. SHA-256 hashes identify trajectory,
+GT, camera indices and calibrations (not every raw image). Existing metric
+files are never overwritten.
+
+The evaluator is verified with synthetic rotation, camera lever arms, known
+translation errors, missing GT, loss and truncated output. Actual EuRoC
+accuracy and full-sequence runtime have not yet been measured.

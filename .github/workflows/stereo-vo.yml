@@ -1,10 +1,10 @@
 name: Stereo VO baseline
 on:
   pull_request:
-    paths: ['python/stereo_vo.py', 'python/euroc_stereo.py', 'python/test/test_*.py', '.github/workflows/stereo-vo.yml']
+    paths: ['python/stereo_vo.py', 'python/euroc_stereo.py', 'python/evaluate_euroc.py', 'python/test/test_*.py', '.github/workflows/stereo-vo.yml']
   push:
     branches: [main]
-    paths: ['python/stereo_vo.py', 'python/euroc_stereo.py', 'python/test/test_*.py', '.github/workflows/stereo-vo.yml']
+    paths: ['python/stereo_vo.py', 'python/euroc_stereo.py', 'python/evaluate_euroc.py', 'python/test/test_*.py', '.github/workflows/stereo-vo.yml']
 jobs:
   image-geometry:
     runs-on: ubuntu-22.04

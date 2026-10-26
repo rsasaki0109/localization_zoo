@@ -52,6 +52,15 @@ class FixedLeaderboardTests(unittest.TestCase):
     def row(self):
         return board.collect(self.root)["methods"][0]
 
+    def test_sequence_columns_are_sorted(self):
+        path = self.root / board.MANIFEST
+        manifest = json.loads(path.read_text())
+        manifest["sequences"] = {"01": 3, "00": 2}
+        path.write_text(json.dumps(manifest))
+        data = board.collect(self.root)
+        self.assertEqual(list(data["sequences"]), ["00", "01"])
+        self.assertEqual(list(data["methods"][0]["cells"]), ["00", "01"])
+
     def test_mean_includes_large_error(self):
         self.assertEqual(self.row()["mean"], 5)
         self.assertEqual(self.row()["rank"], 1)

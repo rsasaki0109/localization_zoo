@@ -20,7 +20,7 @@ def number(value):
 
 def collect(root=ROOT):
     manifest = json.loads((root / MANIFEST).read_text())
-    sequences = manifest["sequences"]
+    sequences = dict(sorted(manifest["sequences"].items()))
     rows = []
     for spec in manifest["methods"]:
         cells = {}

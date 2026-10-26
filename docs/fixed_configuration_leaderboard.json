@@ -4,7 +4,6 @@
   "metric": "kitti_rte_trans_pct",
   "aggregation": "unweighted arithmetic mean of all 11 sequence RTE values; not pooled KITTI segment error",
   "sequences": {
-    "10": 1201,
     "00": 4541,
     "01": 1101,
     "02": 4661,
@@ -14,7 +13,8 @@
     "06": 1101,
     "07": 1101,
     "08": 4071,
-    "09": 1591
+    "09": 1591,
+    "10": 1201
   },
   "methods": [
     {
@@ -48,15 +48,6 @@
         "09": "experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json"
       },
       "cells": {
-        "10": {
-          "status": "ok",
-          "source": "experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
-          "value": 0.848006,
-          "source_sha256": "cd0bc5812e72ea585bcc2b20e7793cb3ecc1818ab8f1d593afd25e0a64a3d531",
-          "frames": 1201,
-          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22",
-          "recorded_status": "ok"
-        },
         "00": {
           "status": "ok",
           "source": "experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json",
@@ -146,6 +137,15 @@
           "frames": 1591,
           "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22",
           "recorded_status": "ok"
+        },
+        "10": {
+          "status": "ok",
+          "source": "experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+          "value": 0.848006,
+          "source_sha256": "cd0bc5812e72ea585bcc2b20e7793cb3ecc1818ab8f1d593afd25e0a64a3d531",
+          "frames": 1201,
+          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods mesh_loam --summary-json experiments/results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/summary.json --no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22",
+          "recorded_status": "ok"
         }
       },
       "rank": 1,
@@ -179,15 +179,6 @@
         "09": "experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json"
       },
       "cells": {
-        "10": {
-          "status": "ok",
-          "source": "experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json",
-          "value": 0.873025,
-          "source_sha256": "ca5f47d255ad6f2a4995bd5fd9c4add61c8a1d9cf1cf991d0f9fb9d001144ccc",
-          "frames": 1201,
-          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile",
-          "recorded_status": "ok"
-        },
         "00": {
           "status": "ok",
           "source": "experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json",
@@ -277,6 +268,15 @@
           "frames": 1591,
           "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile",
           "recorded_status": "ok"
+        },
+        "10": {
+          "status": "ok",
+          "source": "experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+          "value": 0.873025,
+          "source_sha256": "ca5f47d255ad6f2a4995bd5fd9c4add61c8a1d9cf1cf991d0f9fb9d001144ccc",
+          "frames": 1201,
+          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/summary.json --aloam-kitti-profile",
+          "recorded_status": "ok"
         }
       },
       "rank": 2,
@@ -312,15 +312,6 @@
         "09": "experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json"
       },
       "cells": {
-        "10": {
-          "status": "ok",
-          "source": "experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
-          "value": 1.556411,
-          "source_sha256": "df65b56c1fcc80b48b5d19a8d983650a6a94fc85e0998a0eddc199278bbc28a8",
-          "frames": 1201,
-          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile",
-          "recorded_status": "ok"
-        },
         "00": {
           "status": "ok",
           "source": "experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json",
@@ -410,6 +401,15 @@
           "frames": 1591,
           "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile",
           "recorded_status": "ok"
+        },
+        "10": {
+          "status": "ok",
+          "source": "experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+          "value": 1.556411,
+          "source_sha256": "df65b56c1fcc80b48b5d19a8d983650a6a94fc85e0998a0eddc199278bbc28a8",
+          "frames": 1201,
+          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods quadric_lo --summary-json experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/summary.json --no-gt-seed --quadric-lo-dense-profile",
+          "recorded_status": "ok"
         }
       },
       "rank": 3,
@@ -443,15 +443,6 @@
         "09": "experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json"
       },
       "cells": {
-        "10": {
-          "status": "ok",
-          "source": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
-          "value": 5.616436,
-          "source_sha256": "0b2e7453b49998729f0b69d11bb2d87b9ba78714c99047a6fb58c676313226a4",
-          "frames": 1201,
-          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/summary.json",
-          "recorded_status": "ok"
-        },
         "00": {
           "status": "ok",
           "source": "experiments/results/lf_gicp_kitti_seq_00_full_matrix.json",
@@ -541,6 +532,15 @@
           "frames": 1591,
           "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/summary.json",
           "recorded_status": "ok"
+        },
+        "10": {
+          "status": "ok",
+          "source": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+          "value": 5.616436,
+          "source_sha256": "0b2e7453b49998729f0b69d11bb2d87b9ba78714c99047a6fb58c676313226a4",
+          "frames": 1201,
+          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/summary.json",
+          "recorded_status": "ok"
         }
       },
       "rank": 4,
@@ -582,15 +582,6 @@
         "09": "experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json"
       },
       "cells": {
-        "10": {
-          "status": "ok",
-          "source": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
-          "value": 1.155652,
-          "source_sha256": "29af5c689573beeb4aa6081f2e096bb521d6540113520a468ece31c2acadff5c",
-          "frames": 1201,
-          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05",
-          "recorded_status": "ok"
-        },
         "00": {
           "status": "ok",
           "source": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
@@ -680,6 +671,15 @@
           "frames": 1591,
           "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05",
           "recorded_status": "ok"
+        },
+        "10": {
+          "status": "ok",
+          "source": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+          "value": 1.155652,
+          "source_sha256": "29af5c689573beeb4aa6081f2e096bb521d6540113520a468ece31c2acadff5c",
+          "frames": 1201,
+          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05",
+          "recorded_status": "ok"
         }
       },
       "rank": 5,
@@ -717,15 +717,6 @@
         "09": "experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json"
       },
       "cells": {
-        "10": {
-          "status": "ok",
-          "source": "experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
-          "value": 4.105241,
-          "source_sha256": "05a97e76ded26ff2d13001baca1cba56efbd6627cf10405f74fabf4dbac187c8",
-          "frames": 1201,
-          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80",
-          "recorded_status": "ok"
-        },
         "00": {
           "status": "ok",
           "source": "experiments/results/l_lo_kitti_seq_00_full_matrix.json",
@@ -810,6 +801,15 @@
           "source_sha256": "a8d4d232acbe11aaf1677fa61a91767708291acd22deec2ade4138d651cc73b8",
           "frames": 1591,
           "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80",
+          "recorded_status": "ok"
+        },
+        "10": {
+          "status": "ok",
+          "source": "experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+          "value": 4.105241,
+          "source_sha256": "05a97e76ded26ff2d13001baca1cba56efbd6627cf10405f74fabf4dbac187c8",
+          "frames": 1201,
+          "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80",
           "recorded_status": "ok"
         }
       },

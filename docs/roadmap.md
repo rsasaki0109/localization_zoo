@@ -12,7 +12,7 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ### Fixed-configuration leaderboard (2026-10-26)
 
-The explorer now also compares the nine explicitly pinned configurations from
+The explorer now also compares the eleven explicitly pinned configurations from
 `evaluation/data/fixed_configuration_leaderboard.json`. Each result source is
 selected explicitly; no per-sequence minimum or metric fallback is used.
 Rank uses the unweighted arithmetic mean of official KITTI translational RTE
@@ -43,6 +43,37 @@ records an explicit source/function audit: only the first GT pose anchors the
 trajectory; subsequent estimation uses scans and internal motion prediction.
 GT-seeding flags and contradictory GT-seeded notes remain rejected. Aggregate
 notes, including early-stop counts, are preserved in downloadable JSON.
+
+SuMa now pins raw paper_odometry, including its 01 highway and 02 corridor
+errors. LiTAMIN2 pins paper_icp_cov with the first-scan map on all eleven
+sequences. Its map-policy selection sequence is not specified by the method
+README, so the table reports unknown provenance rather than inventing one.
+Neither row switches variants per sequence or includes loop closure.
+
+### Next visual milestone
+
+The owner expressed interest in developing the visual track. Current
+VINS-Fusion, OKVIS and ORB-SLAM3 modules are compact derived prototypes;
+multimodal_dogfooding loads known 3D landmarks and 2D observations from CSV.
+They do not establish end-to-end image-based VIO or original-paper reproduction.
+
+Proposed first increment: a common stereo image frontend and a EuRoC adapter
+with camera/IMU calibration, timestamp checks, feature tracking, stereo
+triangulation and temporal association. Start with a stereo-VO baseline to
+validate image-derived geometry before adding IMU fusion. Never derive input
+landmarks or per-frame initialization from evaluation GT. An external map,
+if intentionally supplied, belongs in a separately labelled localization track.
+
+Use one declared development sequence for debugging, then freeze settings
+before running another sequence. Report SE(3)-aligned metric ATE, a precisely
+defined time-based RPE, completion/tracking failures and runtime; use Sim(3)
+only in a separately labelled monocular evaluation. Preserve partial/failed
+runs and record calibration, input hashes, commands and code provenance.
+Compare with a pinned official implementation on the same sensor inputs once
+the adapter is validated. Do not place visual rows in the LiDAR KITTI table.
+Done means images produce their own tracks/landmarks and trajectory, the full
+held-out sequence runs with frozen settings, and both successful and failed
+outputs are reproducible. This is a development plan, not completed evidence.
 
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 

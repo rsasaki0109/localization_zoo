@@ -311,7 +311,65 @@
         "line": 5799,
         "reason": "runMULLSLO uses gt.front() only as a world/first-pose anchor; subsequent poses come from scan registration and internal motion prediction. Audited at the manifest evidence_ref."
       }
+    },
+    {
+      "method": "suma",
+      "name": "SuMa",
+      "variant": "paper_odometry",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [
+        "00",
+        "02",
+        "07"
+      ],
+      "selection_note": "Pins the paper/default raw-scan pipeline on every sequence, without clean-lookup/elevation, coarse-start or translation-remap substitutions. Development and diagnosis include 00/07 and the 02 corridors; all KITTI is development data. The 01 highway failure (13.792690% RTE) and 02 corridor error remain. No loop closure or successful official-GPU reproduction is claimed.",
+      "selection_source": "papers/suma/README.md",
+      "results": {
+        "10": "experiments/results/suma_kitti_seq_10_full_paper_matrix.json",
+        "00": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json",
+        "01": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json",
+        "02": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json",
+        "03": "experiments/results/suma_kitti_seq_03_full_paper_matrix.json",
+        "04": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+        "05": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json",
+        "06": "experiments/results/suma_kitti_seq_06_full_paper_matrix.json",
+        "07": "experiments/results/suma_kitti_seq_07_full_elevation_matrix.json",
+        "08": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json",
+        "09": "experiments/results/suma_kitti_seq_09_full_paper_matrix.json"
+      }
+    },
+    {
+      "method": "litamin2",
+      "name": "LiTAMIN2",
+      "variant": "paper_icp_cov",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-paper-odometry",
+        "--litamin2-paper-map-mode",
+        "first"
+      ],
+      "dataset_extra_args": [],
+      "selection_sequences": [],
+      "selection_note": "Pins ICP+Cov with the first-scan distribution map on all sequences, not the better ICP-only result per sequence or the older GT-seeded registration path. The method README documents the fixed cohort but not a single selection sequence for this map policy; selection provenance is unspecified. All KITTI is development data. The aggregate-map ablation failures remain documented separately; no loop closure is included.",
+      "selection_source": "papers/litamin2/README.md",
+      "results": {
+        "10": "experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json",
+        "00": "experiments/results/litamin2_kitti_seq_00_full_paper_matrix.json",
+        "01": "experiments/results/litamin2_kitti_seq_01_full_paper_matrix.json",
+        "02": "experiments/results/litamin2_kitti_seq_02_full_paper_matrix.json",
+        "03": "experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json",
+        "04": "experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json",
+        "05": "experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json",
+        "06": "experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json",
+        "07": "experiments/results/litamin2_kitti_seq_07_full_paper_matrix.json",
+        "08": "experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json",
+        "09": "experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json"
+      }
     }
   ],
-  "evidence_ref": "b668b5c8add6c6ca426992b067de1106f0ebcea9"
+  "evidence_ref": "0202bf9c2aa4958cd60c6fa2b498b5c689594c11"
 }

@@ -161,13 +161,25 @@ class FixedLeaderboardTests(unittest.TestCase):
 
     def test_repository_evidence_and_generated_outputs(self):
         data = board.collect()
-        self.assertEqual(len(data["methods"]), 9)
+        self.assertEqual(len(data["methods"]), 11)
         incomplete = next(r for r in data["methods"] if r["method"] == "l_lo")
         self.assertEqual(incomplete["coverage"], 10)
         self.assertIsNone(incomplete["rank"])
         page = (ROOT / "docs/index.html").read_text()
         self.assertIn(board.render(data), page)
         self.assertEqual(json.loads((ROOT / "docs/fixed_configuration_leaderboard.json").read_text()), data)
+
+    def test_paper_paths_keep_fixed_variants_and_unknown_provenance(self):
+        data = board.collect()
+        rows = {r["method"]: r for r in data["methods"]}
+        self.assertEqual(rows["suma"]["variant"], "paper_odometry")
+        self.assertEqual(rows["suma"]["cells"]["01"]["value"], 13.79269)
+        self.assertEqual(rows["suma"]["coverage"], 11)
+        self.assertEqual(rows["litamin2"]["variant"], "paper_icp_cov")
+        self.assertEqual(rows["litamin2"]["coverage"], 11)
+        self.assertNotIn("--litamin2-icp-only", rows["litamin2"]["args"])
+        self.assertEqual(rows["litamin2"]["selection_sequences"], [])
+        self.assertIn("Not specified in source evidence", board.render(data))
 
 if __name__ == "__main__":
     unittest.main()

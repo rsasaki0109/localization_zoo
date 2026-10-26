@@ -43,11 +43,18 @@ def collect(root=ROOT):
                     if variant["args"] != spec["args"] or aggregate["dataset"].get("extra_args", []) != spec["dataset_extra_args"]:
                         raise ValueError(f"Configuration mismatch: {source}")
                     note = variant.get("note", "").lower()
-                    if "no gt seed" not in note or variant.get("design_style") == "ablation":
+                    audit = spec.get("odometry_audit", {})
+                    audited = (audit.get("policy") == "first_pose_anchor_only"
+                               and audit.get("source") == "evaluation/src/pcd_dogfooding.cpp"
+                               and bool(audit.get("function")) and bool(audit.get("reason")))
+                    arguments = variant["args"] + aggregate["dataset"].get("extra_args", [])
+                    forbidden = any("gt-seed" in arg and arg != "--no-gt-seed" for arg in arguments)
+                    if (("no gt seed" not in note and not audited) or forbidden
+                            or "gt-seeded" in note or variant.get("design_style") == "ablation"):
                         raise ValueError(f"Odometry evidence missing or ablation: {source}")
                     cell.update(source_sha256=hashlib.sha256(raw).hexdigest(),
                                 frames=variant.get("frames"), command=variant.get("command"),
-                                recorded_status=variant.get("status"))
+                                recorded_status=variant.get("status"), recorded_note=variant.get("note"))
                     if variant.get("status") != "ok":
                         cell["status"] = "failed"
                     elif variant.get("frames") != frames:
@@ -73,7 +80,7 @@ def render(data):
     esc = html.escape
     base = "https://github.com/rsasaki0109/localization_zoo/blob/" + data["evidence_ref"] + "/"
     lines = [START, '<h2 id="fixed-leaderboard">Fixed-configuration KITTI leaderboard</h2>',
-        '<p>Six explicitly pinned method configurations across sequences 00–10. Official KITTI translational RTE (100–800 m), in %. Lower is better.</p>',
+        f'<p>{len(data["methods"])} explicitly pinned method configurations across sequences 00–10. Official KITTI translational RTE (100–800 m), in %. Lower is better.</p>',
         '<p class="note">Ranked by the unweighted arithmetic mean of all 11 sequence errors, not pooled segment error. Incomplete coverage is unranked. All KITTI sequences have been used during project development; this is a retrospective comparison, not an unseen-test claim. Input preprocessing differs between methods and is part of each fixed configuration.</p>',
         '<div class="table-wrap"><table><thead><tr><th>Rank</th><th>Method / fixed variant</th><th>Mean %</th><th>Coverage</th>']
     lines += [f'<th>{s}</th>' for s in data["sequences"]]
@@ -90,10 +97,14 @@ def render(data):
     lines.append('</tbody></table></div>')
     lines.append('<p class="note">Missing = no recorded result; incomplete = wrong frame count; failed = unsuccessful run; metric missing = official RTE unavailable. Large errors remain in the mean. Historical results are not a fresh rerun of current code.</p>')
     for row in data["methods"]:
+        audit = row.get("odometry_audit")
+        audit_html = (f'<p><a href="{base}{esc(audit["source"])}#L{int(audit["line"])}">'
+                      f'{esc(audit["function"])}: initialization audit</a>. {esc(audit["reason"])}</p>') if audit else ""
         lines.extend([f'<details id="fixed-{esc(row["method"])}"><summary>{esc(row["name"])} — configuration and selection history</summary>',
             f'<p>Selection / calibration sequences: {esc(", ".join(row["selection_sequences"]))}.</p>',
             f'<p>{esc(row["selection_note"])}</p>',
             f'<p><a href="{base}{esc(row["selection_source"])}">Method evidence and limitations</a></p>',
+            audit_html,
             f'<pre><code>{esc(" ".join(row["dataset_extra_args"] + row["args"]) or "(recorded native defaults)")}</code></pre></details>'])
     lines.extend(['<p class="note"><a href="./fixed_configuration_leaderboard.json">Download results and provenance (JSON)</a> · <a href="' + 'https://github.com/rsasaki0109/localization_zoo/blob/main/' + MANIFEST + '">Pinned configurations and sources</a></p>', END])
     return "\n".join(lines)

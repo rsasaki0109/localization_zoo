@@ -12,7 +12,7 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ### Fixed-configuration leaderboard (2026-10-26)
 
-The explorer now also compares the six explicitly pinned configurations from
+The explorer now also compares the nine explicitly pinned configurations from
 `evaluation/data/fixed_configuration_leaderboard.json`. Each result source is
 selected explicitly; no per-sequence minimum or metric fallback is used.
 Rank uses the unweighted arithmetic mean of official KITTI translational RTE
@@ -31,6 +31,18 @@ full frame counts and no-GT-seed evidence, and records aggregate SHA-256 hashes.
 Add methods by documenting the fixed configuration, selection history and
 explicit source paths in the manifest; never choose sources by their score.
 The original best-per-cell table and all stored experiment results remain intact.
+
+The fixed table now also includes KISS-ICP and CT-ICP upstream mechanics with
++0.205 degree correction, and MULLS-LO urban with +0.195 degree correction.
+All three have eleven recorded full-sequence results with identical arguments.
+MULLS 01 stays urban (5.974304% RTE), rather than taking the better highway
+variant used in the paper-comparison table. CT-ICP's documented historical
+replay differences remain unresolved and are linked in its selection history.
+For runners whose result notes omit the literal no-GT-seed phrase, the manifest
+records an explicit source/function audit: only the first GT pose anchors the
+trajectory; subsequent estimation uses scans and internal motion prediction.
+GT-seeding flags and contradictory GT-seeded notes remain rejected. Aggregate
+notes, including early-stop counts, are preserved in downloadable JSON.
 
 ### IMU discoverability and official KISS-Matcher validation (2026-10-24)
 

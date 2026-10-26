@@ -126,7 +126,7 @@
 
 <!-- FIXED-LEADERBOARD:START -->
 <h2 id="fixed-leaderboard">Fixed-configuration KITTI leaderboard</h2>
-<p>Six explicitly pinned method configurations across sequences 00–10. Official KITTI translational RTE (100–800 m), in %. Lower is better.</p>
+<p>9 explicitly pinned method configurations across sequences 00–10. Official KITTI translational RTE (100–800 m), in %. Lower is better.</p>
 <p class="note">Ranked by the unweighted arithmetic mean of all 11 sequence errors, not pooled segment error. Incomplete coverage is unranked. All KITTI sequences have been used during project development; this is a retrospective comparison, not an unseen-test claim. Input preprocessing differs between methods and is part of each fixed configuration.</p>
 <div class="table-wrap"><table><thead><tr><th>Rank</th><th>Method / fixed variant</th><th>Mean %</th><th>Coverage</th>
 <th>00</th>
@@ -141,115 +141,178 @@
 <th>09</th>
 <th>10</th>
 </tr></thead><tbody>
-<tr><td>1</td><th scope="row"><a href="#fixed-mesh_loam">Mesh-LOAM</a><br><small>paper_odometry_elevation</small></th><td>0.661</td><td>11/11</td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json">0.565</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json">0.857</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json">0.607</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json">0.928</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json">0.820</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json">0.345</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json">0.418</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json">0.342</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json">0.909</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json">0.631</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json">0.848</a></td>
+<tr><td>1</td><th scope="row"><a href="#fixed-kiss_icp">KISS-ICP</a><br><small>upstream_mechanics_elevation</small></th><td>0.521</td><td>11/11</td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json">0.535</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_01_full_elevation_matrix.json">0.759</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_02_full_elevation_matrix.json">0.546</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_03_full_elevation_matrix.json">0.672</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json">0.373</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_05_full_elevation_matrix.json">0.335</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_06_full_elevation_matrix.json">0.278</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_07_full_elevation_matrix.json">0.363</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_08_full_elevation_matrix.json">0.810</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_09_full_elevation_matrix.json">0.546</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/kiss_icp_kitti_seq_10_full_elevation_matrix.json">0.513</a></td>
 </tr>
-<tr><td>2</td><th scope="row"><a href="#fixed-aloam">A-LOAM</a><br><small>kitti_default</small></th><td>0.932</td><td>11/11</td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json">0.855</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json">2.189</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json">1.029</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json">0.964</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json">0.880</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json">0.535</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json">0.602</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json">0.681</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json">0.975</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json">0.673</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json">0.873</a></td>
+<tr><td>2</td><th scope="row"><a href="#fixed-ct_icp">CT-ICP</a><br><small>upstream_mechanics_elevation</small></th><td>0.571</td><td>11/11</td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json">0.525</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json">0.716</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json">0.549</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json">0.586</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json">0.717</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json">0.315</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json">0.284</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json">0.315</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json">0.902</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json">0.629</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json">0.742</a></td>
 </tr>
-<tr><td>3</td><th scope="row"><a href="#fixed-quadric_lo">Quadric-LO</a><br><small>dense_profile</small></th><td>1.049</td><td>11/11</td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json">0.966</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json">2.060</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json">1.176</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json">1.236</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json">0.680</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json">0.588</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json">0.560</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json">0.662</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json">1.128</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json">0.933</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json">1.556</a></td>
+<tr><td>3</td><th scope="row"><a href="#fixed-mesh_loam">Mesh-LOAM</a><br><small>paper_odometry_elevation</small></th><td>0.661</td><td>11/11</td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json">0.565</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json">0.857</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json">0.607</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json">0.928</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json">0.820</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json">0.345</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json">0.418</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json">0.342</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json">0.909</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json">0.631</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json">0.848</a></td>
 </tr>
-<tr><td>4</td><th scope="row"><a href="#fixed-lf_gicp">LF-GICP</a><br><small>paper_default</small></th><td>1.253</td><td>11/11</td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_00_full_matrix.json">0.664</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json">1.816</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_02_full_matrix.json">1.075</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json">0.785</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json">0.629</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_05_full_matrix.json">0.512</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json">0.543</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_07_full_matrix.json">0.411</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_08_full_matrix.json">1.005</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json">0.725</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json">5.616</a></td>
+<tr><td>4</td><th scope="row"><a href="#fixed-aloam">A-LOAM</a><br><small>kitti_default</small></th><td>0.932</td><td>11/11</td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json">0.855</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json">2.189</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json">1.029</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json">0.964</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json">0.880</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json">0.535</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json">0.602</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json">0.681</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json">0.975</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json">0.673</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json">0.873</a></td>
 </tr>
-<tr><td>5</td><th scope="row"><a href="#fixed-inten_loam">InTEn-LOAM</a><br><small>paper_odometry_plane_check</small></th><td>2.370</td><td>11/11</td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json">0.697</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json">16.614</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json">3.221</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json">0.891</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json">0.676</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json">0.497</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json">0.359</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json">0.364</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json">0.938</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json">0.661</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json">1.156</a></td>
+<tr><td>5</td><th scope="row"><a href="#fixed-mulls">MULLS</a><br><small>mulls_lo_elevation</small></th><td>1.016</td><td>11/11</td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_00_full_lo_matrix.json">0.536</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_01_full_lo_matrix.json">5.974</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_02_full_lo_matrix.json">0.585</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_03_full_lo_matrix.json">0.609</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_04_full_lo_matrix.json">0.492</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_05_full_lo_matrix.json">0.315</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_06_full_lo_matrix.json">0.297</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_07_full_lo_matrix.json">0.319</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_08_full_lo_matrix.json">0.812</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_09_full_lo_matrix.json">0.548</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/mulls_kitti_seq_10_full_lo_matrix.json">0.691</a></td>
+</tr>
+<tr><td>6</td><th scope="row"><a href="#fixed-quadric_lo">Quadric-LO</a><br><small>dense_profile</small></th><td>1.049</td><td>11/11</td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json">0.966</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json">2.060</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json">1.176</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json">1.236</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json">0.680</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json">0.588</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json">0.560</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json">0.662</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json">1.128</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json">0.933</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json">1.556</a></td>
+</tr>
+<tr><td>7</td><th scope="row"><a href="#fixed-lf_gicp">LF-GICP</a><br><small>paper_default</small></th><td>1.253</td><td>11/11</td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_00_full_matrix.json">0.664</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json">1.816</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_02_full_matrix.json">1.075</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json">0.785</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json">0.629</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_05_full_matrix.json">0.512</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json">0.543</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_07_full_matrix.json">0.411</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_08_full_matrix.json">1.005</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json">0.725</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json">5.616</a></td>
+</tr>
+<tr><td>8</td><th scope="row"><a href="#fixed-inten_loam">InTEn-LOAM</a><br><small>paper_odometry_plane_check</small></th><td>2.370</td><td>11/11</td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json">0.697</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json">16.614</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json">3.221</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json">0.891</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json">0.676</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json">0.497</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json">0.359</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json">0.364</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json">0.938</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json">0.661</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json">1.156</a></td>
 </tr>
 <tr><td>—</td><th scope="row"><a href="#fixed-l_lo">L-LO</a><br><small>seq07_tuned</small></th><td>—</td><td>10/11</td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_00_full_matrix.json">1.479</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_00_full_matrix.json">1.479</a></td>
 <td>missing</td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_02_full_matrix.json">4.478</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json">3.066</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json">2.135</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_05_full_matrix.json">1.473</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json">1.315</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_07_full_matrix.json">1.004</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_08_full_matrix.json">1.661</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json">4.122</a></td>
-<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json">4.105</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_02_full_matrix.json">4.478</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json">3.066</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json">2.135</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_05_full_matrix.json">1.473</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json">1.315</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_07_full_matrix.json">1.004</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_08_full_matrix.json">1.661</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json">4.122</a></td>
+<td><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json">4.105</a></td>
 </tr>
 </tbody></table></div>
 <p class="note">Missing = no recorded result; incomplete = wrong frame count; failed = unsuccessful run; metric missing = official RTE unavailable. Large errors remain in the mean. Historical results are not a fresh rerun of current code.</p>
+<details id="fixed-kiss_icp"><summary>KISS-ICP — configuration and selection history</summary>
+<p>Selection / calibration sequences: 00, 07.</p>
+<p>Upstream mechanics and the +0.205 degree loader correction were investigated on 00/07. This row pins the full upstream-mechanics variant, not the minimum from those sweeps. All KITTI is development data. These are the repository port&#x27;s historical results, not the official external implementation.</p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/kiss_icp/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/evaluation/src/pcd_dogfooding.cpp#L6397">runKISSICP: initialization audit</a>. runKISSICP uses gt.front() only as a world/first-pose anchor; subsequent poses come from scan registration and internal motion prediction. Audited at the manifest evidence_ref.</p>
+<pre><code>--kiss-upstream-profile --kiss-model-deviation-threshold --kiss-geman-mcclure-kernel --kiss-map-min-point-distance 0.2236068 --input-vertical-angle-correction-deg 0.205</code></pre></details>
+<details id="fixed-ct_icp"><summary>CT-ICP — configuration and selection history</summary>
+<p>Selection / calibration sequences: 00, 07.</p>
+<p>Upstream driving-profile mechanics were investigated on 07 and compared on 00; all KITTI is development data. The +0.205 degree correction and all CLI arguments stay fixed. Historical replay differs on 01/02/04/05/06/07/10; its cause is unresolved. These stored values are retained, not replaced with replay results or claimed as a fresh current-code validation.</p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/ct_icp/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/evaluation/src/pcd_dogfooding.cpp#L10012">runCTICPUpstream: initialization audit</a>. runCTICPUpstream uses gt.front() only as a world/first-pose anchor; subsequent poses come from scan registration and internal motion prediction. Audited at the manifest evidence_ref.</p>
+<pre><code>--ct-icp-upstream-mechanics --input-vertical-angle-correction-deg 0.205</code></pre></details>
 <details id="fixed-mesh_loam"><summary>Mesh-LOAM — configuration and selection history</summary>
 <p>Selection / calibration sequences: 00, 07.</p>
 <p>--mesh-loam-paper-odometry uses the paper input and nearest-facet association with an explicit 0.22 deg KITTI elevation correction, not specified by the paper. paper_odometry_elevation is unchanged across 00-10: geometric mean 1.28x, rather than the historical 1.08x on 00/07 alone. Both 00/07 influenced development; the added sequences did not influence the setting. No sequence exceeds twice its paper value. The correction remains opt-in and defaults are unchanged.</p>
-<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/papers/mesh_loam/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/mesh_loam/README.md">Method evidence and limitations</a></p>
+
 <pre><code>--no-gt-seed --mesh-loam-paper-odometry --input-vertical-angle-correction-deg 0.22</code></pre></details>
 <details id="fixed-aloam"><summary>A-LOAM — configuration and selection history</summary>
 <p>Selection / calibration sequences: 07.</p>
 <p>Full-sequence official KITTI RTE on 00-10, variant kitti_default, geometric mean 1.07x. kitti_default was the accuracy candidate in the existing sequence 07 profile comparison (lowest stored 100 m RPE and official RTE there). Its arguments are frozen; the added sequences do not select a profile. No sequence exceeds twice its paper value with the fixed setting. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.</p>
-<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/papers/aloam/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/aloam/README.md">Method evidence and limitations</a></p>
+
 <pre><code>--aloam-kitti-profile</code></pre></details>
+<details id="fixed-mulls"><summary>MULLS — configuration and selection history</summary>
+<p>Selection / calibration sequences: 00, 01, 07.</p>
+<p>The urban MULLS-LO profile and +0.195 degree correction are pinned on all 11 sequences. Development comparisons include 00/07 and the 01 highway investigation; all KITTI is development data. Unlike the paper-comparison table, this row does not switch 01 to the highway profile. The urban result on 01 is retained, including its early-stop diagnostics. These are the repository port&#x27;s historical results.</p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/mulls/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/evaluation/src/pcd_dogfooding.cpp#L5799">runMULLSLO: initialization audit</a>. runMULLSLO uses gt.front() only as a world/first-pose anchor; subsequent poses come from scan registration and internal motion prediction. Audited at the manifest evidence_ref.</p>
+<pre><code>--mulls-lo --input-vertical-angle-correction-deg 0.195</code></pre></details>
 <details id="fixed-quadric_lo"><summary>Quadric-LO — configuration and selection history</summary>
 <p>Selection / calibration sequences: 00, 07.</p>
 <p>Full-sequence official KITTI RTE on 00-10, variant dense_profile, geometric mean 0.85x. The existing dense profile is frozen from the 00/07 paper comparisons; both are treated as development data. No correction or parameter is selected on the added sequences. No sequence exceeds twice its paper value with the fixed setting. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.</p>
-<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/papers/quadric_lo/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/quadric_lo/README.md">Method evidence and limitations</a></p>
+
 <pre><code>--no-gt-seed --quadric-lo-dense-profile</code></pre></details>
 <details id="fixed-lf_gicp"><summary>LF-GICP — configuration and selection history</summary>
 <p>Selection / calibration sequences: 00, 02, 08.</p>
 <p>Full-sequence official KITTI RTE on 00-10, variant paper_default, geometric mean 1.12x. field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting. Seq 10: 5.616 % vs 0.837 % (6.71x), 26 moving steps with length error &gt;20 % and 34 with local vector error &gt;20 %. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.</p>
-<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/papers/lf_gicp/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/lf_gicp/README.md">Method evidence and limitations</a></p>
+
 <pre><code>(recorded native defaults)</code></pre></details>
 <details id="fixed-inten_loam"><summary>InTEn-LOAM — configuration and selection history</summary>
 <p>Selection / calibration sequences: 00, 07.</p>
 <p>--inten-loam-paper-odometry uses FEF, S2S re-association, S2M on a temporal-voxel-filtered keyframe map, DOR map-insertion gating and a B-spline intensity residual. The fixed paper_odometry_plane_check variant explicitly uses s2m_plane_max_dist=0.05 and a 0.17 deg correction on all 00-10 sequences: geometric mean 2.19x. These KITTI choices were selected on 07 windows, with diagnosis of 00 frames 4000-4399 suggesting the plane check; 00 is not fully held out. The added sequences are evaluation only. Defaults and stored ablations are unchanged.</p>
-<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/papers/inten_loam/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/inten_loam/README.md">Method evidence and limitations</a></p>
+
 <pre><code>--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05</code></pre></details>
 <details id="fixed-l_lo"><summary>L-LO — configuration and selection history</summary>
 <p>Selection / calibration sequences: 07.</p>
 <p>Full-sequence official KITTI RTE on 00/02-10 (01 is NA in the paper), variant seq07_tuned, geometric mean 1.57x. cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded. Seq 09: 4.122 % vs 1.890 % (2.18x), 4 moving steps with length error &gt;20 % and 9 with local vector error &gt;20 %. Seq 10: 4.105 % vs 1.900 % (2.16x), 7 moving steps with length error &gt;20 % and 17 with local vector error &gt;20 %. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.</p>
-<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/7f916f89feba0b596682fa1365b959d6769f720b/papers/l_lo/README.md">Method evidence and limitations</a></p>
+<p><a href="https://github.com/rsasaki0109/localization_zoo/blob/b668b5c8add6c6ca426992b067de1106f0ebcea9/papers/l_lo/README.md">Method evidence and limitations</a></p>
+
 <pre><code>--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80</code></pre></details>
 <p class="note"><a href="./fixed_configuration_leaderboard.json">Download results and provenance (JSON)</a> · <a href="https://github.com/rsasaki0109/localization_zoo/blob/main/evaluation/data/fixed_configuration_leaderboard.json">Pinned configurations and sources</a></p>
 <!-- FIXED-LEADERBOARD:END -->

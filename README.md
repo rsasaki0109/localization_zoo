@@ -55,6 +55,10 @@ prove paper fidelity ([reproduction status](docs/reproduction_status.md),
 | Inspect a new LiDAR's frame, rows, intensity and setup flags | [Sensor setup assistant](docs/sensor_setup_assistant.md) |
 | Add a paper or extend a benchmark | [Adding a new paper](#adding-a-new-paper) · [CONTRIBUTING](CONTRIBUTING.md) |
 
+Compare one configuration across KITTI 00–10 in the
+[fixed-configuration leaderboard](https://rsasaki0109.github.io/localization_zoo/#fixed-leaderboard),
+with selection history, missing results and source evidence.
+
 <!-- LEADERBOARD:START -->
 ## Leaderboard — odometry, RPE [drift %/100 m], lower is better
 

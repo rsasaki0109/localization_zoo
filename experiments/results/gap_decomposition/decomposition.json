@@ -1,0 +1,3788 @@
+{
+  "schema_version": 1,
+  "metric": "official KITTI RTE translation [%]",
+  "channels": [
+    "horizontal",
+    "vertical",
+    "rotation",
+    "yaw",
+    "tilt",
+    "translation",
+    "scale"
+  ],
+  "rows": [
+    {
+      "method": "aloam",
+      "sequence": "00",
+      "paper_rte_pct": 0.78,
+      "table6_rte_pct": 0.855,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/aloam_kitti_seq_00_full_transfer_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt",
+      "recomputed_rte_pct": 0.8522556291382544,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "aloam",
+      "sequence": "01",
+      "paper_rte_pct": 1.43,
+      "table6_rte_pct": 2.189,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_01_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/aloam_kitti_seq_01_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 2.1888217750881593,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.414074358830385,
+        "vertical": 2.134766043407993,
+        "rotation": 1.9348282232624943,
+        "yaw": 0.3572204585166176,
+        "tilt": 1.8116473387632621,
+        "translation": 0.826719611387561,
+        "scale": 0.13371386369600546
+      },
+      "ratio_to_paper": 1.530644597963748,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9888631879932763,
+        "vertical": 1.4928433869985966,
+        "rotation": 1.3530267295541918,
+        "yaw": 0.24980451644518714,
+        "tilt": 1.2668862508834002,
+        "translation": 0.5781256023689239,
+        "scale": 0.09350619838881502
+      }
+    },
+    {
+      "method": "aloam",
+      "sequence": "02",
+      "paper_rte_pct": 0.92,
+      "table6_rte_pct": 1.029,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/02/audit/replays/aloam_kitti_seq_02_full_transfer_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt",
+      "recomputed_rte_pct": 1.0776623587695109,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "aloam",
+      "sequence": "03",
+      "paper_rte_pct": 0.86,
+      "table6_rte_pct": 0.964,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/aloam_kitti_seq_03_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.9641001959719728,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.752540800081542,
+        "vertical": 0.5554538021739408,
+        "rotation": 0.924403064716008,
+        "yaw": 0.19222884973765314,
+        "tilt": 0.8882577902677053,
+        "translation": 0.8593879728862083,
+        "scale": 0.3182399008243604
+      },
+      "ratio_to_paper": 1.121046739502294,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8750474419552814,
+        "vertical": 0.6458765141557451,
+        "rotation": 1.0748872845534976,
+        "yaw": 0.22352191829959667,
+        "tilt": 1.0328578956601224,
+        "translation": 0.9992883405653584,
+        "scale": 0.3700463963073958
+      }
+    },
+    {
+      "method": "aloam",
+      "sequence": "04",
+      "paper_rte_pct": 0.71,
+      "table6_rte_pct": 0.88,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/aloam_kitti_seq_04_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.8803156543162036,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6060143200426469,
+        "vertical": 0.5549941308452744,
+        "rotation": 0.6089495713658214,
+        "yaw": 0.09996422332898833,
+        "tilt": 0.5934502498698067,
+        "translation": 0.6353670712846025,
+        "scale": 0.4733538927996501
+      },
+      "ratio_to_paper": 1.2398812032622586,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8535412958347139,
+        "vertical": 0.781681874429964,
+        "rotation": 0.8576754526279176,
+        "yaw": 0.140794680745054,
+        "tilt": 0.8358454223518405,
+        "translation": 0.8948831989923979,
+        "scale": 0.666695623661479
+      }
+    },
+    {
+      "method": "aloam",
+      "sequence": "05",
+      "paper_rte_pct": 0.57,
+      "table6_rte_pct": 0.535,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/aloam_kitti_seq_05_full_transfer_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt",
+      "recomputed_rte_pct": 0.5396819359858928,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "aloam",
+      "sequence": "06",
+      "paper_rte_pct": 0.65,
+      "table6_rte_pct": 0.602,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_06_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/aloam_kitti_seq_06_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.6021646499865707,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.35010051979379553,
+        "vertical": 0.45540379372873957,
+        "rotation": 0.5396438655901715,
+        "yaw": 0.17458027808828935,
+        "tilt": 0.4749396472313869,
+        "translation": 0.3482215223155853,
+        "scale": 0.08933330598131836
+      },
+      "ratio_to_paper": 0.9264071538254933,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.538616184298147,
+        "vertical": 0.7006212211211378,
+        "rotation": 0.8302213316771869,
+        "yaw": 0.26858504321275284,
+        "tilt": 0.7306763803559798,
+        "translation": 0.5357254189470543,
+        "scale": 0.1374358553558744
+      }
+    },
+    {
+      "method": "aloam",
+      "sequence": "07",
+      "paper_rte_pct": 0.63,
+      "table6_rte_pct": 0.681,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/aloam_kitti_seq_07_full_sweep_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt",
+      "recomputed_rte_pct": 0.6734306066585356,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "aloam",
+      "sequence": "08",
+      "paper_rte_pct": 1.12,
+      "table6_rte_pct": 0.975,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/08/audit/replays/aloam_kitti_seq_08_full_transfer_matrix__kitti_default_native/dogfooding_results/A_LOAM.txt",
+      "recomputed_rte_pct": 0.9875876192927368,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "aloam",
+      "sequence": "09",
+      "paper_rte_pct": 0.77,
+      "table6_rte_pct": 0.673,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/aloam_kitti_seq_09_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.6729656993403367,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4031580023043992,
+        "vertical": 0.5098989618928703,
+        "rotation": 0.6980169584242993,
+        "yaw": 0.3302626519247731,
+        "tilt": 0.5532335439845062,
+        "translation": 0.5694605075301195,
+        "scale": 0.1476891824397091
+      },
+      "ratio_to_paper": 0.873981427714723,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.5235818211745444,
+        "vertical": 0.6622064440167147,
+        "rotation": 0.906515530421168,
+        "yaw": 0.4289125349672378,
+        "tilt": 0.7184851220578002,
+        "translation": 0.7395591006884668,
+        "scale": 0.19180413303858324
+      }
+    },
+    {
+      "method": "aloam",
+      "sequence": "10",
+      "paper_rte_pct": 0.79,
+      "table6_rte_pct": 0.873,
+      "variant": "kitti_default",
+      "aggregate": "experiments/results/aloam_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/aloam_kitti_seq_10_full_paper_comp_matrix/kitti_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.8730253054862223,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6574761391500256,
+        "vertical": 0.5766692048697443,
+        "rotation": 0.8420804365857426,
+        "yaw": 0.5144714504703466,
+        "tilt": 0.5854574979163122,
+        "translation": 0.35812620163421305,
+        "scale": 0.11406955495904365
+      },
+      "ratio_to_paper": 1.1050953234002814,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8322482774050957,
+        "vertical": 0.7299610188224611,
+        "rotation": 1.0659246032730918,
+        "yaw": 0.6512296841396792,
+        "tilt": 0.7410854404003951,
+        "translation": 0.45332430586609246,
+        "scale": 0.14439184172030842
+      }
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "00",
+      "paper_rte_pct": 0.49,
+      "table6_rte_pct": 0.525,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_00_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/ct_icp_kitti_seq_00_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.5251120618765934,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.46208383308140344,
+        "vertical": 0.19024474325612584,
+        "rotation": 0.43610285567243734,
+        "yaw": 0.3951684661292083,
+        "tilt": 0.12554295530417384,
+        "translation": 0.5369129030813267,
+        "scale": 0.21999443314065617
+      },
+      "ratio_to_paper": 1.071657269135905,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9430282307783744,
+        "vertical": 0.3882545780737262,
+        "rotation": 0.8900058279029334,
+        "yaw": 0.8064662574065475,
+        "tilt": 0.2562101128656609,
+        "translation": 1.0957406185333198,
+        "scale": 0.4489682308992983
+      }
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "01",
+      "paper_rte_pct": 0.76,
+      "table6_rte_pct": 0.716,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_01_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/01/audit/replays/ct_icp_kitti_seq_01_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.7153892928968121,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6480499354755834,
+        "vertical": 0.23891693558540897,
+        "rotation": 1.0084834774421503,
+        "yaw": 0.9652106626329756,
+        "tilt": 0.26902494852257647,
+        "translation": 0.983305562304487,
+        "scale": 0.2871022288089893
+      },
+      "ratio_to_paper": 0.9413017011800159,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8526972835205044,
+        "vertical": 0.3143643889281697,
+        "rotation": 1.3269519440028292,
+        "yaw": 1.2700140297802311,
+        "tilt": 0.3539801954244427,
+        "translation": 1.2938231082953775,
+        "scale": 0.3777660905381438
+      }
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "02",
+      "paper_rte_pct": 0.52,
+      "table6_rte_pct": 0.549,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_02_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/02/audit/replays/ct_icp_kitti_seq_02_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.551572616457204,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "03",
+      "paper_rte_pct": 0.72,
+      "table6_rte_pct": 0.586,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_03_full_upstream_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "04",
+      "paper_rte_pct": 0.39,
+      "table6_rte_pct": 0.717,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_04_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/04/audit/replays/ct_icp_kitti_seq_04_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.7299905770704318,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "05",
+      "paper_rte_pct": 0.25,
+      "table6_rte_pct": 0.315,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_05_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/ct_icp_kitti_seq_05_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.31358590581576223,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.25967425869732264,
+        "vertical": 0.12361309699704362,
+        "rotation": 0.3591750220084799,
+        "yaw": 0.31237288888338727,
+        "tilt": 0.117035057564275,
+        "translation": 0.343506662251165,
+        "scale": 0.13224274157578791
+      },
+      "ratio_to_paper": 1.254343623263049,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.0386970347892905,
+        "vertical": 0.4944523879881745,
+        "rotation": 1.4367000880339196,
+        "yaw": 1.249491555533549,
+        "tilt": 0.4681402302571,
+        "translation": 1.37402664900466,
+        "scale": 0.5289709663031517
+      }
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "06",
+      "paper_rte_pct": 0.27,
+      "table6_rte_pct": 0.284,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_06_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/06/audit/replays/ct_icp_kitti_seq_06_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.28524972451827907,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2592008922427847,
+        "vertical": 0.08136504832848941,
+        "rotation": 0.349668885499423,
+        "yaw": 0.32656529095578546,
+        "tilt": 0.0946495806653455,
+        "translation": 0.3366318309711611,
+        "scale": 0.092686791780415
+      },
+      "ratio_to_paper": 1.0564804611788112,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9600033046029062,
+        "vertical": 0.30135203084625706,
+        "rotation": 1.295069946294159,
+        "yaw": 1.20950107761402,
+        "tilt": 0.35055400246424256,
+        "translation": 1.2467845591524485,
+        "scale": 0.34328441400153703
+      }
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "07",
+      "paper_rte_pct": 0.31,
+      "table6_rte_pct": 0.315,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_07_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/ct_icp_kitti_seq_07_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.31998950180801045,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "08",
+      "paper_rte_pct": 0.81,
+      "table6_rte_pct": 0.902,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_08_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/08/audit/replays/ct_icp_kitti_seq_08_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.9015555986490043,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6712647573408097,
+        "vertical": 0.5042119810889766,
+        "rotation": 0.6128049502256856,
+        "yaw": 0.5726219114522311,
+        "tilt": 0.1341302415361182,
+        "translation": 0.7375857779496456,
+        "scale": 0.2152827076605027
+      },
+      "ratio_to_paper": 1.1130316032703755,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8287219226429748,
+        "vertical": 0.6224839272703414,
+        "rotation": 0.7565493212662785,
+        "yaw": 0.7069406314225074,
+        "tilt": 0.1655928907853311,
+        "translation": 0.91059972586376,
+        "scale": 0.2657811205685218
+      }
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "09",
+      "paper_rte_pct": 0.49,
+      "table6_rte_pct": 0.629,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_09_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/09/audit/replays/ct_icp_kitti_seq_09_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.6287760740335433,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5424993782444617,
+        "vertical": 0.2644968640110558,
+        "rotation": 0.549516248400988,
+        "yaw": 0.5302631922283414,
+        "tilt": 0.0939863763094329,
+        "translation": 0.6408760287880203,
+        "scale": 0.22583448468277645
+      },
+      "ratio_to_paper": 1.283216477619476,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.1071415882540034,
+        "vertical": 0.5397895183899099,
+        "rotation": 1.1214617314305877,
+        "yaw": 1.0821697800578396,
+        "tilt": 0.19180893124374063,
+        "translation": 1.3079102628326946,
+        "scale": 0.46088670343423765
+      }
+    },
+    {
+      "method": "ct_icp",
+      "sequence": "10",
+      "paper_rte_pct": 0.48,
+      "table6_rte_pct": 0.742,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/ct_icp_kitti_seq_10_full_upstream_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/10/audit/replays/ct_icp_kitti_seq_10_full_upstream_matrix__upstream_mechanics_elevation_native/dogfooding_results/CT_ICP.txt",
+      "recomputed_rte_pct": 0.7436890925467134,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "dilo",
+      "sequence": "00",
+      "paper_rte_pct": 0.64,
+      "table6_rte_pct": 0.549,
+      "variant": "paper_odometry_spread_keypoints",
+      "aggregate": "experiments/results/dilo_kitti_seq_00_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/dilo_kitti_seq_00_full_paper_comp_matrix__paper_odometry_spread_keypoints_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.5488443297499326,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4582686296612298,
+        "vertical": 0.23033407994129665,
+        "rotation": 0.531943233752401,
+        "yaw": 0.4654083744014771,
+        "tilt": 0.18803313837425956,
+        "translation": 0.48920935951773936,
+        "scale": 0.12400614634357121
+      },
+      "ratio_to_paper": 0.8575692652342697,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7160447338456715,
+        "vertical": 0.359896999908276,
+        "rotation": 0.8311613027381266,
+        "yaw": 0.7272005850023079,
+        "tilt": 0.2938017787097805,
+        "translation": 0.7643896242464677,
+        "scale": 0.19375960366183
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "01",
+      "paper_rte_pct": 1.07,
+      "table6_rte_pct": 1.518,
+      "variant": "paper_odometry_degenerate",
+      "aggregate": "experiments/results/dilo_kitti_seq_01_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/01/audit/replays/dilo_kitti_seq_01_full_paper_comp_matrix__paper_odometry_degenerate_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 1.5175353134703398,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.2795766905525803,
+        "vertical": 0.6277872921941579,
+        "rotation": 1.0789375415456366,
+        "yaw": 0.7375510862956758,
+        "tilt": 0.6320725518011391,
+        "translation": 0.9495648073102735,
+        "scale": 0.3423855917161526
+      },
+      "ratio_to_paper": 1.4182573023087286,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.1958660659369909,
+        "vertical": 0.5867170955085587,
+        "rotation": 1.0083528425660155,
+        "yaw": 0.6893000806501642,
+        "tilt": 0.5907220110291019,
+        "translation": 0.8874437451497883,
+        "scale": 0.3199865343141613
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "02",
+      "paper_rte_pct": 0.67,
+      "table6_rte_pct": 0.734,
+      "variant": "paper_odometry_degenerate",
+      "aggregate": "experiments/results/dilo_kitti_seq_02_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/02/audit/replays/dilo_kitti_seq_02_full_paper_comp_matrix__paper_odometry_degenerate_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.7338262866706119,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.598210802536919,
+        "vertical": 0.556702710111793,
+        "rotation": 0.69594612113088,
+        "yaw": 0.5739250894090278,
+        "tilt": 0.290584561019632,
+        "translation": 0.5240898669982598,
+        "scale": 0.18093676619632623
+      },
+      "ratio_to_paper": 1.095263114433749,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8928519440849537,
+        "vertical": 0.8308995673310342,
+        "rotation": 1.0387255539266864,
+        "yaw": 0.8566046110582504,
+        "tilt": 0.43370830002930144,
+        "translation": 0.7822236820869548,
+        "scale": 0.2700548749198899
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "03",
+      "paper_rte_pct": 0.74,
+      "table6_rte_pct": 0.725,
+      "variant": "paper_odometry_spread_keypoints",
+      "aggregate": "experiments/results/dilo_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/03/audit/replays/dilo_kitti_seq_03_full_paper_comp_matrix__paper_odometry_spread_keypoints_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.725247164510024,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5420534646788894,
+        "vertical": 0.4296775069973016,
+        "rotation": 0.7763424663475361,
+        "yaw": 0.7577895127214278,
+        "tilt": 0.09276478885476086,
+        "translation": 0.9406937297892856,
+        "scale": 0.39867075608799024
+      },
+      "ratio_to_paper": 0.9800637358243568,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7325046819984992,
+        "vertical": 0.5806452797260833,
+        "rotation": 1.049111441010184,
+        "yaw": 1.0240398820559835,
+        "tilt": 0.12535782277670388,
+        "translation": 1.271207742958494,
+        "scale": 0.5387442649837706
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "04",
+      "paper_rte_pct": 0.45,
+      "table6_rte_pct": 0.332,
+      "variant": "paper_odometry_spread_keypoints",
+      "aggregate": "experiments/results/dilo_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/04/audit/replays/dilo_kitti_seq_04_full_paper_comp_matrix__paper_odometry_spread_keypoints_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.3323040760549353,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.30410522966688336,
+        "vertical": 0.10821408691711656,
+        "rotation": 0.09520903405099117,
+        "yaw": 0.07541420261908789,
+        "tilt": 0.050218343685926224,
+        "translation": 0.376789421672906,
+        "scale": 0.12685661265265008
+      },
+      "ratio_to_paper": 0.7384535023443006,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6757893992597408,
+        "vertical": 0.24047574870470348,
+        "rotation": 0.2115756312244248,
+        "yaw": 0.16758711693130643,
+        "tilt": 0.11159631930205827,
+        "translation": 0.8373098259397911,
+        "scale": 0.28190358367255575
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "05",
+      "paper_rte_pct": 0.46,
+      "table6_rte_pct": 0.409,
+      "variant": "paper_odometry_degenerate",
+      "aggregate": "experiments/results/dilo_kitti_seq_05_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/dilo_kitti_seq_05_full_paper_comp_matrix__paper_odometry_degenerate_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.4093148102309173,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.3361649230172055,
+        "vertical": 0.19483682995904653,
+        "rotation": 0.45516528858184896,
+        "yaw": 0.4039802170620183,
+        "tilt": 0.17584384070650835,
+        "translation": 0.3012507698649214,
+        "scale": 0.07991294880764489
+      },
+      "ratio_to_paper": 0.8898148048498202,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7307933109069685,
+        "vertical": 0.4235583259979272,
+        "rotation": 0.9894897577866282,
+        "yaw": 0.8782178631783006,
+        "tilt": 0.38226921892719207,
+        "translation": 0.6548929779672203,
+        "scale": 0.17372380175574975
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "06",
+      "paper_rte_pct": 0.41,
+      "table6_rte_pct": 0.374,
+      "variant": "paper_odometry_spread_keypoints",
+      "aggregate": "experiments/results/dilo_kitti_seq_06_full_paper_comp_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "dilo",
+      "sequence": "07",
+      "paper_rte_pct": 0.42,
+      "table6_rte_pct": 0.372,
+      "variant": "paper_odometry_spread_keypoints",
+      "aggregate": "experiments/results/dilo_kitti_seq_07_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/dilo_kitti_seq_07_full_paper_comp_matrix__paper_odometry_spread_keypoints_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.3721304453282443,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2976732397981495,
+        "vertical": 0.18677183560881336,
+        "rotation": 0.2860520066552861,
+        "yaw": 0.2059493628104992,
+        "tilt": 0.16440700270582934,
+        "translation": 0.3099446944146476,
+        "scale": 0.1255906260387495
+      },
+      "ratio_to_paper": 0.8860248698291531,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7087458090432132,
+        "vertical": 0.44469484668765086,
+        "rotation": 0.6810762063221097,
+        "yaw": 0.4903556257392838,
+        "tilt": 0.3914452445376889,
+        "translation": 0.7379635581301134,
+        "scale": 0.2990253000922607
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "08",
+      "paper_rte_pct": 0.93,
+      "table6_rte_pct": 0.967,
+      "variant": "paper_odometry_degenerate",
+      "aggregate": "experiments/results/dilo_kitti_seq_08_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/08/audit/replays/dilo_kitti_seq_08_full_paper_comp_matrix__paper_odometry_degenerate_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.9671123406834049,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6378755381285102,
+        "vertical": 0.6409494874233362,
+        "rotation": 0.6724208750977243,
+        "yaw": 0.4644273710970489,
+        "tilt": 0.3903408521562,
+        "translation": 0.7547800652686532,
+        "scale": 0.2549613281627756
+      },
+      "ratio_to_paper": 1.0399057426703278,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6858876754070001,
+        "vertical": 0.6891929972293938,
+        "rotation": 0.723033199029811,
+        "yaw": 0.4993842699968267,
+        "tilt": 0.41972134640451614,
+        "translation": 0.8115914680308098,
+        "scale": 0.27415196576642537
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "09",
+      "paper_rte_pct": 0.64,
+      "table6_rte_pct": 0.537,
+      "variant": "paper_odometry_spread_keypoints",
+      "aggregate": "experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/09/audit/replays/dilo_kitti_seq_09_full_paper_comp_matrix__paper_odometry_spread_keypoints_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.5367695343364214,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.43693852158311963,
+        "vertical": 0.2453561762266752,
+        "rotation": 0.4471886072900697,
+        "yaw": 0.38121509960004146,
+        "tilt": 0.18973378033483915,
+        "translation": 0.5471801688817023,
+        "scale": 0.15942395899115633
+      },
+      "ratio_to_paper": 0.8387023974006584,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6827164399736244,
+        "vertical": 0.38336902535418,
+        "rotation": 0.6987321988907339,
+        "yaw": 0.5956485931250648,
+        "tilt": 0.29645903177318617,
+        "translation": 0.8549690138776598,
+        "scale": 0.24909993592368176
+      }
+    },
+    {
+      "method": "dilo",
+      "sequence": "10",
+      "paper_rte_pct": 0.85,
+      "table6_rte_pct": 0.864,
+      "variant": "paper_odometry_spread_keypoints",
+      "aggregate": "experiments/results/dilo_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/10/audit/replays/dilo_kitti_seq_10_full_paper_comp_matrix__paper_odometry_spread_keypoints_native/dogfooding_results/DiLO.txt",
+      "recomputed_rte_pct": 0.8644431193768984,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.7188335523114032,
+        "vertical": 0.44534008609891207,
+        "rotation": 0.7304481645205482,
+        "yaw": 0.6308813852425226,
+        "tilt": 0.34926041221582527,
+        "translation": 0.3689748113328678,
+        "scale": 0.12470310613619086
+      },
+      "ratio_to_paper": 1.0169919051492924,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8456865321310626,
+        "vertical": 0.5239295130575436,
+        "rotation": 0.8593507817888802,
+        "yaw": 0.7422133944029677,
+        "tilt": 0.4108946026068533,
+        "translation": 0.4340880133327857,
+        "scale": 0.14670953663081276
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "00",
+      "paper_rte_pct": 0.54,
+      "table6_rte_pct": 0.586,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/elo_kitti_seq_00_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.5863007466421867,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.49742419727048487,
+        "vertical": 0.24142525002510076,
+        "rotation": 0.5929767385476211,
+        "yaw": 0.5385897833085879,
+        "tilt": 0.16649446335077295,
+        "translation": 0.4976804330712164,
+        "scale": 0.12624964811900624
+      },
+      "ratio_to_paper": 1.0857421234114568,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9211559208712682,
+        "vertical": 0.44708379634277917,
+        "rotation": 1.0981050713844835,
+        "yaw": 0.997388487608496,
+        "tilt": 0.3083230802792091,
+        "translation": 0.9216304316133637,
+        "scale": 0.23379564466482636
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "01",
+      "paper_rte_pct": 0.61,
+      "table6_rte_pct": 0.869,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/01/audit/replays/elo_kitti_seq_01_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.8687865039870025,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.8407761653534823,
+        "vertical": 0.2151243218449398,
+        "rotation": 0.37743492707615633,
+        "yaw": 0.22878023749401752,
+        "tilt": 0.2751764879517493,
+        "translation": 0.9410542496152295,
+        "scale": 0.22675097732135452
+      },
+      "ratio_to_paper": 1.424240170470496,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.3783215825466923,
+        "vertical": 0.35266282269662264,
+        "rotation": 0.6187457820920595,
+        "yaw": 0.37504956966232383,
+        "tilt": 0.451108996642212,
+        "translation": 1.5427118846151304,
+        "scale": 0.3717229136415648
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "02",
+      "paper_rte_pct": 0.54,
+      "table6_rte_pct": 0.77,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_02_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/02/audit/replays/elo_kitti_seq_02_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.7697380143013679,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6894875862236187,
+        "vertical": 0.3692758433659345,
+        "rotation": 0.6710667086870592,
+        "yaw": 0.6318027334352679,
+        "tilt": 0.14474346604909866,
+        "translation": 0.5235953046773173,
+        "scale": 0.18482176074406576
+      },
+      "ratio_to_paper": 1.4254407672247553,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.2768288633770717,
+        "vertical": 0.6838441543813601,
+        "rotation": 1.2427161271982576,
+        "yaw": 1.1700050619171627,
+        "tilt": 0.26804345564647897,
+        "translation": 0.9696209345876246,
+        "scale": 0.34226251989641804
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "03",
+      "paper_rte_pct": 0.65,
+      "table6_rte_pct": 0.89,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/03/audit/replays/elo_kitti_seq_03_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.8902248916327314,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.7281526842270604,
+        "vertical": 0.4461632363461406,
+        "rotation": 1.1253716654203116,
+        "yaw": 1.1061230227714645,
+        "tilt": 0.12410150098772943,
+        "translation": 0.8895483821390592,
+        "scale": 0.3253835314662215
+      },
+      "ratio_to_paper": 1.3695767563580483,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.1202348988108621,
+        "vertical": 0.6864049789940624,
+        "rotation": 1.7313410237235562,
+        "yaw": 1.7017277273407145,
+        "tilt": 0.19092538613496834,
+        "translation": 1.3685359725216295,
+        "scale": 0.5005900484095716
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "04",
+      "paper_rte_pct": 0.32,
+      "table6_rte_pct": 0.268,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/04/audit/replays/elo_kitti_seq_04_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.26848201735055754,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.21380111066105612,
+        "vertical": 0.13419560586885806,
+        "rotation": 0.13677783144840217,
+        "yaw": 0.09640571718032112,
+        "tilt": 0.08842601487194593,
+        "translation": 0.33775026098681066,
+        "scale": 0.06082394318828768
+      },
+      "ratio_to_paper": 0.8390063042204923,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6681284708158003,
+        "vertical": 0.41936126834018145,
+        "rotation": 0.42743072327625675,
+        "yaw": 0.3012678661885035,
+        "tilt": 0.276331296474831,
+        "translation": 1.0554695655837834,
+        "scale": 0.190074822463399
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "05",
+      "paper_rte_pct": 0.33,
+      "table6_rte_pct": 0.399,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/elo_kitti_seq_05_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.399095768356073,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.3589874404938425,
+        "vertical": 0.13839873793247556,
+        "rotation": 0.41907146610142754,
+        "yaw": 0.3698936812293789,
+        "tilt": 0.1333763471470755,
+        "translation": 0.3206377750898086,
+        "scale": 0.08725789436064485
+      },
+      "ratio_to_paper": 1.2093811162305244,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.0878407287692198,
+        "vertical": 0.4193901149468956,
+        "rotation": 1.2699135336406895,
+        "yaw": 1.12088994311933,
+        "tilt": 0.4041707489305318,
+        "translation": 0.9716296214842685,
+        "scale": 0.2644178616989238
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "06",
+      "paper_rte_pct": 0.3,
+      "table6_rte_pct": 0.411,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/06/audit/replays/elo_kitti_seq_06_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.4112490117514357,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.33612055485122166,
+        "vertical": 0.17734795522134308,
+        "rotation": 0.4682157069447556,
+        "yaw": 0.38031452223329526,
+        "tilt": 0.2055107173738922,
+        "translation": 0.3377868086752069,
+        "scale": 0.1291151312003761
+      },
+      "ratio_to_paper": 1.3708300391714523,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.1204018495040722,
+        "vertical": 0.5911598507378103,
+        "rotation": 1.5607190231491854,
+        "yaw": 1.2677150741109842,
+        "tilt": 0.6850357245796407,
+        "translation": 1.1259560289173562,
+        "scale": 0.43038377066792033
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "07",
+      "paper_rte_pct": 0.31,
+      "table6_rte_pct": 0.391,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/elo_kitti_seq_07_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.39073362487039853,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.33261555139194027,
+        "vertical": 0.17000895450159276,
+        "rotation": 0.35133342062605283,
+        "yaw": 0.3048148432899246,
+        "tilt": 0.13630962362978086,
+        "translation": 0.30095915186336586,
+        "scale": 0.1294040061137062
+      },
+      "ratio_to_paper": 1.2604310479690275,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.072953391586904,
+        "vertical": 0.5484159822632024,
+        "rotation": 1.133333614922751,
+        "yaw": 0.9832736880320148,
+        "tilt": 0.43970846332187374,
+        "translation": 0.9708359737527931,
+        "scale": 0.41743227778614905
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "08",
+      "paper_rte_pct": 0.79,
+      "table6_rte_pct": 1.079,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_08_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/08/audit/replays/elo_kitti_seq_08_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 1.0786103112119072,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.8542513282160371,
+        "vertical": 0.5389740972118593,
+        "rotation": 0.7522610395185689,
+        "yaw": 0.6704146377923934,
+        "tilt": 0.2345868356105275,
+        "translation": 0.7589576602571553,
+        "scale": 0.26905325612269176
+      },
+      "ratio_to_paper": 1.3653295078631735,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.0813307952101736,
+        "vertical": 0.6822456926732395,
+        "rotation": 0.9522291639475555,
+        "yaw": 0.8486261237878397,
+        "tilt": 0.29694536153231327,
+        "translation": 0.9607058990596902,
+        "scale": 0.34057374192745793
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "09",
+      "paper_rte_pct": 0.48,
+      "table6_rte_pct": 0.678,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/09/audit/replays/elo_kitti_seq_09_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.6779042041888147,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5717319640557572,
+        "vertical": 0.3134413080351786,
+        "rotation": 0.3539404768699185,
+        "yaw": 0.2756451117789056,
+        "tilt": 0.20020541966339614,
+        "translation": 0.5638763261686138,
+        "scale": 0.1643184037496198
+      },
+      "ratio_to_paper": 1.412300425393364,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.1911082584494943,
+        "vertical": 0.6530027250732888,
+        "rotation": 0.7373759934789968,
+        "yaw": 0.5742606495393867,
+        "tilt": 0.41709462429874195,
+        "translation": 1.1747423461846123,
+        "scale": 0.34233000781170797
+      }
+    },
+    {
+      "method": "elo",
+      "sequence": "10",
+      "paper_rte_pct": 0.59,
+      "table6_rte_pct": 0.504,
+      "variant": "dense_elevation_paper_normals_unbiased",
+      "aggregate": "experiments/results/elo_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/10/audit/replays/elo_kitti_seq_10_full_paper_comp_matrix__dense_elevation_paper_normals_unbiased_native/dogfooding_results/ELO.txt",
+      "recomputed_rte_pct": 0.5040002256224279,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4210462030961966,
+        "vertical": 0.25850252491536574,
+        "rotation": 0.34992004006408706,
+        "yaw": 0.25652096099817717,
+        "tilt": 0.20865038830190485,
+        "translation": 0.3564226086163052,
+        "scale": 0.1009569767314977
+      },
+      "ratio_to_paper": 0.8542376705464879,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.713637632366435,
+        "vertical": 0.43813987273790805,
+        "rotation": 0.5930848136679442,
+        "yaw": 0.434781289827419,
+        "tilt": 0.353644725935432,
+        "translation": 0.6041061162988224,
+        "scale": 0.17111351988389442
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "00",
+      "paper_rte_pct": 0.5,
+      "table6_rte_pct": 0.523,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "01",
+      "paper_rte_pct": 0.82,
+      "table6_rte_pct": 0.842,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/01/audit/replays/imls_slam_kitti_seq_01_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.8423932967180402,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.7991342339830426,
+        "vertical": 0.23439675694122805,
+        "rotation": 0.30118028393290786,
+        "yaw": 0.13419479875394824,
+        "tilt": 0.2476669667181658,
+        "translation": 0.9001865223990265,
+        "scale": 0.15613910353533
+      },
+      "ratio_to_paper": 1.0273088984366345,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9745539438817593,
+        "vertical": 0.2858497035868635,
+        "rotation": 0.367293029186473,
+        "yaw": 0.1636521936023759,
+        "tilt": 0.30203288624166563,
+        "translation": 1.0977884419500323,
+        "scale": 0.19041354089674392
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "02",
+      "paper_rte_pct": 0.53,
+      "table6_rte_pct": 0.522,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_02_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/02/audit/replays/imls_slam_kitti_seq_02_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.521956592325881,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.35705956069359945,
+        "vertical": 0.3104273887321949,
+        "rotation": 0.32874517391075053,
+        "yaw": 0.2705344596552209,
+        "tilt": 0.140919506874923,
+        "translation": 0.5279682660681044,
+        "scale": 0.14764763929815425
+      },
+      "ratio_to_paper": 0.9848237591054357,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.673697284327546,
+        "vertical": 0.5857120542116885,
+        "rotation": 0.6202739130391519,
+        "yaw": 0.5104423767079639,
+        "tilt": 0.26588586202815656,
+        "translation": 0.9961665397511403,
+        "scale": 0.2785804515059514
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "03",
+      "paper_rte_pct": 0.68,
+      "table6_rte_pct": 0.77,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/03/audit/replays/imls_slam_kitti_seq_03_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.7702887428558863,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4701552989874988,
+        "vertical": 0.5277871414215294,
+        "rotation": 0.43251005119617836,
+        "yaw": 0.37117542613395305,
+        "tilt": 0.19372350466850108,
+        "translation": 0.8710264235918856,
+        "scale": 0.2932284891171361
+      },
+      "ratio_to_paper": 1.132777563023362,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6914048514522041,
+        "vertical": 0.7761575609140138,
+        "rotation": 0.6360441929355564,
+        "yaw": 0.5458462149028721,
+        "tilt": 0.28488750686544273,
+        "translation": 1.2809212111645376,
+        "scale": 0.43121836634872956
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "04",
+      "paper_rte_pct": 0.33,
+      "table6_rte_pct": 0.425,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/04/audit/replays/imls_slam_kitti_seq_04_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.42533137814251465,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.3834031208819433,
+        "vertical": 0.15089799093351022,
+        "rotation": 0.14132280153067625,
+        "yaw": 0.035954626035697414,
+        "tilt": 0.13450619534376135,
+        "translation": 0.40186689205392834,
+        "scale": 0.16578071805255318
+      },
+      "ratio_to_paper": 1.2888829640682262,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.1618276390361917,
+        "vertical": 0.4572666391924552,
+        "rotation": 0.42825091372932195,
+        "yaw": 0.10895341222938609,
+        "tilt": 0.40759453134473134,
+        "translation": 1.2177784607694797,
+        "scale": 0.5023658122804642
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "05",
+      "paper_rte_pct": 0.32,
+      "table6_rte_pct": 0.292,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_05_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/imls_slam_kitti_seq_05_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.29173275198062865,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.255508105372,
+        "vertical": 0.10332566120841451,
+        "rotation": 0.3173666697641186,
+        "yaw": 0.27740363257786127,
+        "tilt": 0.10535696891305264,
+        "translation": 0.30733656855261987,
+        "scale": 0.08344114274890994
+      },
+      "ratio_to_paper": 0.9116648499394645,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7984628292875001,
+        "vertical": 0.32289269127629533,
+        "rotation": 0.9917708430128706,
+        "yaw": 0.8668863518058164,
+        "tilt": 0.3292405278532895,
+        "translation": 0.9604267767269371,
+        "scale": 0.2607535710903436
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "06",
+      "paper_rte_pct": 0.33,
+      "table6_rte_pct": 0.36,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_06_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/06/audit/replays/imls_slam_kitti_seq_06_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.3597488516749202,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.3175464277966025,
+        "vertical": 0.13686401322846875,
+        "rotation": 0.24802590652418774,
+        "yaw": 0.15221993518520993,
+        "tilt": 0.1781949200121637,
+        "translation": 0.3364778407761056,
+        "scale": 0.1287866213514649
+      },
+      "ratio_to_paper": 1.090148035378546,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.962261902413947,
+        "vertical": 0.4147394340256629,
+        "rotation": 0.7515936561339022,
+        "yaw": 0.4612725308642725,
+        "tilt": 0.5399846060974657,
+        "translation": 1.0196298205336534,
+        "scale": 0.39026248894383303
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "07",
+      "paper_rte_pct": 0.33,
+      "table6_rte_pct": 0.339,
+      "variant": "paper_odometry_w100",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_07_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/imls_slam_kitti_seq_07_full_paper_comp_matrix__paper_odometry_w100_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.33940618822854035,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2996585463776308,
+        "vertical": 0.12418255586309968,
+        "rotation": 0.1889097437034347,
+        "yaw": 0.14943877896328364,
+        "tilt": 0.09308154555485401,
+        "translation": 0.3194873050492992,
+        "scale": 0.11871458675005368
+      },
+      "ratio_to_paper": 1.0285036006925465,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9080562011443357,
+        "vertical": 0.3763107753427263,
+        "rotation": 0.5724537687982869,
+        "yaw": 0.4528447847372231,
+        "tilt": 0.28206528956016363,
+        "translation": 0.9681433486342399,
+        "scale": 0.3597411719698596
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "08",
+      "paper_rte_pct": 0.8,
+      "table6_rte_pct": 0.844,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_08_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/08/audit/replays/imls_slam_kitti_seq_08_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.8439840502833161,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6071104337675819,
+        "vertical": 0.5060149480682894,
+        "rotation": 0.4515883171485619,
+        "yaw": 0.4080881915393049,
+        "tilt": 0.12539085551475607,
+        "translation": 0.7438718404057002,
+        "scale": 0.2353460195169773
+      },
+      "ratio_to_paper": 1.054980062854145,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7588880422094774,
+        "vertical": 0.6325186850853617,
+        "rotation": 0.5644853964357024,
+        "yaw": 0.5101102394241311,
+        "tilt": 0.15673856939344508,
+        "translation": 0.9298398005071252,
+        "scale": 0.2941825243962216
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "09",
+      "paper_rte_pct": 0.55,
+      "table6_rte_pct": 0.515,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/09/audit/replays/imls_slam_kitti_seq_09_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.5151339419130044,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.404302660405435,
+        "vertical": 0.27783409798491676,
+        "rotation": 0.31391022496883947,
+        "yaw": 0.271085403948206,
+        "tilt": 0.12114170156164068,
+        "translation": 0.5356214811990232,
+        "scale": 0.1327922322523312
+      },
+      "ratio_to_paper": 0.9366071671145535,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7350957461916999,
+        "vertical": 0.5051529054271213,
+        "rotation": 0.570745863579708,
+        "yaw": 0.4928825526331018,
+        "tilt": 0.22025763920298305,
+        "translation": 0.9738572385436784,
+        "scale": 0.2414404222769658
+      }
+    },
+    {
+      "method": "imls_slam",
+      "sequence": "10",
+      "paper_rte_pct": 0.53,
+      "table6_rte_pct": 0.571,
+      "variant": "paper_odometry_w100_coarse_start",
+      "aggregate": "experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/10/audit/replays/imls_slam_kitti_seq_10_full_paper_comp_matrix__paper_odometry_w100_coarse_start_native/dogfooding_results/IMLS_SLAM.txt",
+      "recomputed_rte_pct": 0.5710675406940601,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4853202819827024,
+        "vertical": 0.24273886454857477,
+        "rotation": 0.43253238759101725,
+        "yaw": 0.3640158439805796,
+        "tilt": 0.17984587782362402,
+        "translation": 0.36253439292736195,
+        "scale": 0.12375785025075302
+      },
+      "ratio_to_paper": 1.077485925837849,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9156986452503818,
+        "vertical": 0.4579978576388203,
+        "rotation": 0.8160988445113533,
+        "yaw": 0.686822347133169,
+        "tilt": 0.339331844950234,
+        "translation": 0.6840271564667206,
+        "scale": 0.23350537783160946
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "00",
+      "paper_rte_pct": 0.52,
+      "table6_rte_pct": 0.697,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/inten_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_plane_check_native/dogfooding_results/InTEn_LOAM.txt",
+      "recomputed_rte_pct": 0.6967202053933619,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.61884958911629,
+        "vertical": 0.2550247720487689,
+        "rotation": 0.6582406739625752,
+        "yaw": 0.5987830793568336,
+        "tilt": 0.17085526484490263,
+        "translation": 0.5408589264606045,
+        "scale": 0.23944247018228398
+      },
+      "ratio_to_paper": 1.3398465488333882,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.190095363685173,
+        "vertical": 0.49043225393994017,
+        "rotation": 1.2658474499280292,
+        "yaw": 1.1515059218400645,
+        "tilt": 0.3285678170094281,
+        "translation": 1.0401133201165471,
+        "scale": 0.46046628881208457
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "01",
+      "paper_rte_pct": 0.64,
+      "table6_rte_pct": 16.614,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 16.613803546696957,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 16.518144292469103,
+        "vertical": 0.7462376102349564,
+        "rotation": 1.2763955736876689,
+        "yaw": 1.1197506553373222,
+        "tilt": 0.4806360118892715,
+        "translation": 16.666108063619017,
+        "scale": 14.181155460809885
+      },
+      "ratio_to_paper": 25.959068041713994,
+      "channel_ratio_to_paper": {
+        "horizontal": 25.809600456982974,
+        "vertical": 1.1659962659921193,
+        "rotation": 1.9943680838869826,
+        "yaw": 1.749610398964566,
+        "tilt": 0.7509937685769867,
+        "translation": 26.040793849404714,
+        "scale": 22.158055407515445
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "02",
+      "paper_rte_pct": 0.54,
+      "table6_rte_pct": 3.221,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 3.221229866703389,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 3.1101455883099134,
+        "vertical": 0.7127243866834241,
+        "rotation": 2.4875853032246313,
+        "yaw": 2.434937880670712,
+        "tilt": 0.3652273560373461,
+        "translation": 3.357231025348357,
+        "scale": 2.945293149434904
+      },
+      "ratio_to_paper": 5.965240493895164,
+      "channel_ratio_to_paper": {
+        "horizontal": 5.75952886724058,
+        "vertical": 1.319859975339674,
+        "rotation": 4.606639450415984,
+        "yaw": 4.509144223464281,
+        "tilt": 0.6763469556247149,
+        "translation": 6.217094491385845,
+        "scale": 5.4542465730276
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "03",
+      "paper_rte_pct": 0.63,
+      "table6_rte_pct": 0.891,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.8906014585283438,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.7659350253302882,
+        "vertical": 0.370618862618034,
+        "rotation": 1.2246073671366282,
+        "yaw": 1.2060916275087918,
+        "tilt": 0.10610587911433333,
+        "translation": 0.8022013208440376,
+        "scale": 0.18473934877351042
+      },
+      "ratio_to_paper": 1.413653108775149,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.215769881476648,
+        "vertical": 0.5882839089175143,
+        "rotation": 1.9438212176771876,
+        "yaw": 1.9144311547758601,
+        "tilt": 0.16842203034021164,
+        "translation": 1.2733354299111708,
+        "scale": 0.29323706154525464
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "04",
+      "paper_rte_pct": 0.37,
+      "table6_rte_pct": 0.676,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.6760974403920373,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6492223854657665,
+        "vertical": 0.174197134204117,
+        "rotation": 0.1600734508316047,
+        "yaw": 0.06469382376724755,
+        "tilt": 0.1351880787886686,
+        "translation": 0.6658746484766309,
+        "scale": 0.5426186972449675
+      },
+      "ratio_to_paper": 1.8272903794379387,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.754655095853423,
+        "vertical": 0.47080306541653244,
+        "rotation": 0.43263094819352627,
+        "yaw": 0.1748481723439123,
+        "tilt": 0.36537318591532053,
+        "translation": 1.7996612120990025,
+        "scale": 1.4665370195809933
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "05",
+      "paper_rte_pct": 0.36,
+      "table6_rte_pct": 0.497,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.49728870165121897,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4551794541243771,
+        "vertical": 0.1520027059904015,
+        "rotation": 0.6411649494954842,
+        "yaw": 0.5877342688797564,
+        "tilt": 0.1754722726915979,
+        "translation": 0.3508953332417348,
+        "scale": 0.13278569665614373
+      },
+      "ratio_to_paper": 1.3813575045867195,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.2643873725677142,
+        "vertical": 0.4222297388622264,
+        "rotation": 1.7810137485985673,
+        "yaw": 1.6325951913326568,
+        "tilt": 0.4874229796988831,
+        "translation": 0.9747092590048189,
+        "scale": 0.36884915737817703
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "06",
+      "paper_rte_pct": 0.24,
+      "table6_rte_pct": 0.359,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.3586424966231453,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.30993553882613706,
+        "vertical": 0.15153122106281927,
+        "rotation": 0.27921603049957666,
+        "yaw": 0.2007105468653601,
+        "tilt": 0.17301863228165,
+        "translation": 0.3505898714177575,
+        "scale": 0.10013627810375361
+      },
+      "ratio_to_paper": 1.494343735929772,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.2913980784422379,
+        "vertical": 0.631380087761747,
+        "rotation": 1.1634001270815695,
+        "yaw": 0.8362939452723338,
+        "tilt": 0.7209109678402082,
+        "translation": 1.460791130907323,
+        "scale": 0.4172344920989734
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "07",
+      "paper_rte_pct": 0.34,
+      "table6_rte_pct": 0.364,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/inten_loam_kitti_seq_07_full_paper_comp_matrix__paper_odometry_plane_check_native/dogfooding_results/InTEn_LOAM.txt",
+      "recomputed_rte_pct": 0.36413133969941597,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.28301961351134836,
+        "vertical": 0.19731736599219873,
+        "rotation": 0.3291907207629949,
+        "yaw": 0.2680498826035085,
+        "tilt": 0.14181521262506583,
+        "translation": 0.33534322979450637,
+        "scale": 0.15683826369142273
+      },
+      "ratio_to_paper": 1.070974528527694,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8324106279745539,
+        "vertical": 0.5803451940947021,
+        "rotation": 0.9682080022441025,
+        "yaw": 0.7883820076573779,
+        "tilt": 0.41710356654431124,
+        "translation": 0.9863036170426657,
+        "scale": 0.46128901085712565
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "08",
+      "paper_rte_pct": 0.71,
+      "table6_rte_pct": 0.938,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.9379380415488435,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.7086019321111904,
+        "vertical": 0.512317882129504,
+        "rotation": 0.6909242455769549,
+        "yaw": 0.6481212344108317,
+        "tilt": 0.16882670328623134,
+        "translation": 0.7398790123255771,
+        "scale": 0.25159265395628044
+      },
+      "ratio_to_paper": 1.3210394951392164,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9980308902974513,
+        "vertical": 0.7215744818725409,
+        "rotation": 0.9731327402492322,
+        "yaw": 0.9128468090293405,
+        "tilt": 0.2377840891355371,
+        "translation": 1.0420831159515171,
+        "scale": 0.3543558506426485
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "09",
+      "paper_rte_pct": 0.48,
+      "table6_rte_pct": 0.661,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.6614342371139902,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5823975361012635,
+        "vertical": 0.250498067384603,
+        "rotation": 0.5467553405283988,
+        "yaw": 0.5143736262678982,
+        "tilt": 0.11923739524492946,
+        "translation": 0.5852102886921473,
+        "scale": 0.2585884651446274
+      },
+      "ratio_to_paper": 1.3779879939874795,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.2133282002109658,
+        "vertical": 0.5218709737179229,
+        "rotation": 1.139073626100831,
+        "yaw": 1.0716117213914547,
+        "tilt": 0.24841124009360305,
+        "translation": 1.2191881014419736,
+        "scale": 0.5387259690513071
+      }
+    },
+    {
+      "method": "inten_loam",
+      "sequence": "10",
+      "paper_rte_pct": 0.45,
+      "table6_rte_pct": 1.156,
+      "variant": "paper_odometry_plane_check",
+      "aggregate": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/inten_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+      "recomputed_rte_pct": 1.1556522288728002,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.0811991760028636,
+        "vertical": 0.3170895139657313,
+        "rotation": 0.982703932814214,
+        "yaw": 0.9093082542347074,
+        "tilt": 0.24459653770108492,
+        "translation": 0.5335949072125198,
+        "scale": 0.3584290919185464
+      },
+      "ratio_to_paper": 2.568116064161778,
+      "channel_ratio_to_paper": {
+        "horizontal": 2.4026648355619193,
+        "vertical": 0.7046433643682918,
+        "rotation": 2.18378651736492,
+        "yaw": 2.0206850094104607,
+        "tilt": 0.5435478615579664,
+        "translation": 1.1857664604722662,
+        "scale": 0.7965090931523253
+      }
+    },
+    {
+      "method": "kiss_icp",
+      "sequence": "00",
+      "paper_rte_pct": 0.51,
+      "table6_rte_pct": 0.535,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "kiss_icp",
+      "sequence": "04",
+      "paper_rte_pct": 0.36,
+      "table6_rte_pct": 0.373,
+      "variant": "upstream_mechanics_elevation",
+      "aggregate": "experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/04/audit/replays/kiss_icp_kitti_seq_04_full_elevation_matrix__upstream_mechanics_elevation_native/dogfooding_results/KISS_ICP.txt",
+      "recomputed_rte_pct": 0.3732699382382375,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.33410698310476644,
+        "vertical": 0.13938589671984247,
+        "rotation": 0.06757959718426768,
+        "yaw": 0.05193723186011443,
+        "tilt": 0.0367053757087858,
+        "translation": 0.3948062238170445,
+        "scale": 0.17295437003344294
+      },
+      "ratio_to_paper": 1.0368609395506598,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9280749530687957,
+        "vertical": 0.38718304644400686,
+        "rotation": 0.18772110328963243,
+        "yaw": 0.14427008850031786,
+        "tilt": 0.10195937696884945,
+        "translation": 1.096683955047346,
+        "scale": 0.48042880564845264
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "00",
+      "paper_rte_pct": 0.91,
+      "table6_rte_pct": 1.479,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_00_full_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/l_lo_kitti_seq_00_full_matrix__seq07_tuned_native/dogfooding_results/L_LO.txt",
+      "recomputed_rte_pct": 1.4791689053281765,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.8868358457633414,
+        "vertical": 0.9821219298520996,
+        "rotation": 1.6395655502308422,
+        "yaw": 0.9593121677851795,
+        "tilt": 1.1567194472299271,
+        "translation": 1.0833222814766947,
+        "scale": 0.20741659206922944
+      },
+      "ratio_to_paper": 1.6254603355254686,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9745448854542212,
+        "vertical": 1.0792548679693401,
+        "rotation": 1.8017203848690573,
+        "yaw": 1.0541891953683291,
+        "tilt": 1.2711202716812386,
+        "translation": 1.1904640455787854,
+        "scale": 0.2279303209551972
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "02",
+      "paper_rte_pct": 2.35,
+      "table6_rte_pct": 4.478,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_02_full_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/02/audit/replays/l_lo_kitti_seq_02_full_matrix__seq07_tuned_native/dogfooding_results/L_LO.txt",
+      "recomputed_rte_pct": 4.477621498615674,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 3.045135159759231,
+        "vertical": 2.6807694108994773,
+        "rotation": 4.368111360492106,
+        "yaw": 2.574158720209682,
+        "tilt": 3.0520649695140745,
+        "translation": 2.7550609456978554,
+        "scale": 1.4833207483726698
+      },
+      "ratio_to_paper": 1.9053708504747549,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.2958021956422259,
+        "vertical": 1.1407529408082882,
+        "rotation": 1.8587707916987686,
+        "yaw": 1.0953866894509283,
+        "tilt": 1.298751050857053,
+        "translation": 1.1723663598714278,
+        "scale": 0.6312003184564552
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "03",
+      "paper_rte_pct": 2.92,
+      "table6_rte_pct": 3.066,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "recomputed_rte_pct": 3.0659057374351253,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.9273115922515307,
+        "vertical": 2.093153111898623,
+        "rotation": 3.186238660970533,
+        "yaw": 2.2517595361678753,
+        "tilt": 1.8503093760227858,
+        "translation": 0.7232041053284277,
+        "scale": 0.22644804031051907
+      },
+      "ratio_to_paper": 1.0499677182997005,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6600382165244968,
+        "vertical": 0.7168332574995284,
+        "rotation": 1.0911776236200454,
+        "yaw": 0.7711505260848888,
+        "tilt": 0.6336675945283513,
+        "translation": 0.24767263881110538,
+        "scale": 0.07755069873647914
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "04",
+      "paper_rte_pct": 2.28,
+      "table6_rte_pct": 2.135,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "recomputed_rte_pct": 2.1352804321752896,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.4544434368893693,
+        "vertical": 1.4840483421993074,
+        "rotation": 1.264483368114165,
+        "yaw": 1.2333495442152789,
+        "tilt": 0.12663191730877435,
+        "translation": 1.565954012089957,
+        "scale": 0.5763782877887259
+      },
+      "ratio_to_paper": 0.9365265053400393,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6379137881093725,
+        "vertical": 0.6508983957014507,
+        "rotation": 0.5545979684711251,
+        "yaw": 0.5409427825505609,
+        "tilt": 0.05554031460911156,
+        "translation": 0.6868219351271743,
+        "scale": 0.25279749464417806
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "05",
+      "paper_rte_pct": 0.82,
+      "table6_rte_pct": 1.473,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_05_full_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/l_lo_kitti_seq_05_full_matrix__seq07_tuned_native/dogfooding_results/L_LO.txt",
+      "recomputed_rte_pct": 1.4725046392117924,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.8921480861511656,
+        "vertical": 0.9670851003687715,
+        "rotation": 1.4949122515220796,
+        "yaw": 0.9543105600448256,
+        "tilt": 0.9905303391157891,
+        "translation": 1.4901073133839093,
+        "scale": 0.18966650617184402
+      },
+      "ratio_to_paper": 1.79573736489243,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.0879854709160557,
+        "vertical": 1.1793720736204532,
+        "rotation": 1.8230637213683898,
+        "yaw": 1.163793365908324,
+        "tilt": 1.207963828189987,
+        "translation": 1.8172040407120846,
+        "scale": 0.23130061728273663
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "06",
+      "paper_rte_pct": 0.66,
+      "table6_rte_pct": 1.315,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "recomputed_rte_pct": 1.314530961414963,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5350203820971733,
+        "vertical": 1.1368548081380339,
+        "rotation": 1.7687777721955493,
+        "yaw": 0.5228276989272012,
+        "tilt": 1.5983095649525092,
+        "translation": 1.4472390605308871,
+        "scale": 0.17841319155338203
+      },
+      "ratio_to_paper": 1.991713577901459,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8106369425714747,
+        "vertical": 1.722507285057627,
+        "rotation": 2.6799663215084077,
+        "yaw": 0.792163180192729,
+        "tilt": 2.421681159018953,
+        "translation": 2.192786455349829,
+        "scale": 0.2703230175051243
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "07",
+      "paper_rte_pct": 0.69,
+      "table6_rte_pct": 1.004,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_07_full_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "l_lo",
+      "sequence": "08",
+      "paper_rte_pct": 1.37,
+      "table6_rte_pct": 1.661,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_08_full_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/08/audit/replays/l_lo_kitti_seq_08_full_matrix__seq07_tuned_native/dogfooding_results/L_LO.txt",
+      "recomputed_rte_pct": 1.661195879650136,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.068348707532536,
+        "vertical": 1.0944721144177139,
+        "rotation": 1.6120879233466858,
+        "yaw": 0.853631401344512,
+        "tilt": 1.2385018325832038,
+        "translation": 1.5287797938035046,
+        "scale": 0.3945363757199998
+      },
+      "ratio_to_paper": 1.212551736970902,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7798165748412671,
+        "vertical": 0.7988847550494261,
+        "rotation": 1.1767065133917414,
+        "yaw": 0.6230886141200817,
+        "tilt": 0.9040159361921195,
+        "translation": 1.1158976597105872,
+        "scale": 0.28798275599999984
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "09",
+      "paper_rte_pct": 1.89,
+      "table6_rte_pct": 4.122,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "recomputed_rte_pct": 4.12214490461843,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.4582980873138802,
+        "vertical": 3.5048271427678213,
+        "rotation": 4.709234958795377,
+        "yaw": 1.6540737101525667,
+        "tilt": 3.94676844580684,
+        "translation": 1.4801145441897008,
+        "scale": 0.27568774787586836
+      },
+      "ratio_to_paper": 2.1810290500626617,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7715862895840636,
+        "vertical": 1.8544058956443499,
+        "rotation": 2.4916587083573423,
+        "yaw": 0.8751712752129983,
+        "tilt": 2.088237272913672,
+        "translation": 0.7831293884601592,
+        "scale": 0.14586653326765522
+      }
+    },
+    {
+      "method": "l_lo",
+      "sequence": "10",
+      "paper_rte_pct": 1.9,
+      "table6_rte_pct": 4.105,
+      "variant": "seq07_tuned",
+      "aggregate": "experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "recomputed_rte_pct": 4.105240817534366,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.5359633074098678,
+        "vertical": 3.5575782577973056,
+        "rotation": 3.938632730753234,
+        "yaw": 1.387134850824425,
+        "tilt": 3.413834154823768,
+        "translation": 1.3435706998867796,
+        "scale": 0.13042357534910853
+      },
+      "ratio_to_paper": 2.1606530618601925,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8084017407420357,
+        "vertical": 1.872409609367003,
+        "rotation": 2.072964595133281,
+        "yaw": 0.7300709741181185,
+        "tilt": 1.796754818328299,
+        "translation": 0.7071424736246209,
+        "scale": 0.0686439870258466
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "00",
+      "paper_rte_pct": 0.692,
+      "table6_rte_pct": 0.664,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_00_full_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/lf_gicp_kitti_seq_00_full_matrix__paper_default_native/dogfooding_results/LF_GICP.txt",
+      "recomputed_rte_pct": 0.663948923444886,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4463689792340065,
+        "vertical": 0.4174188540342608,
+        "rotation": 0.6007605623785796,
+        "yaw": 0.3685842235420766,
+        "tilt": 0.39077791075999646,
+        "translation": 0.49602556980898316,
+        "scale": 0.14700970252801351
+      },
+      "ratio_to_paper": 0.9594637622035925,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6450418775057898,
+        "vertical": 0.6032064364656948,
+        "rotation": 0.8681511017031497,
+        "yaw": 0.532636161187972,
+        "tilt": 0.5647079635260065,
+        "translation": 0.716799956371363,
+        "scale": 0.21244176665897907
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "01",
+      "paper_rte_pct": 1.822,
+      "table6_rte_pct": 1.816,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/lf_gicp_kitti_seq_01_full_paper_comp_matrix/paper_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 1.816414875534397,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.1838050140332834,
+        "vertical": 1.6967757172321278,
+        "rotation": 1.5860995376463147,
+        "yaw": 0.4275838504966403,
+        "tilt": 1.4353976837176814,
+        "translation": 0.8884449484426058,
+        "scale": 0.10917320558452012
+      },
+      "ratio_to_paper": 0.9969346188443452,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6497283282290249,
+        "vertical": 0.9312709754292688,
+        "rotation": 0.870526639761973,
+        "yaw": 0.23467829335710225,
+        "tilt": 0.7878143159811642,
+        "translation": 0.48762071813534896,
+        "scale": 0.059919432263732225
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "02",
+      "paper_rte_pct": 1.084,
+      "table6_rte_pct": 1.075,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_02_full_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "03",
+      "paper_rte_pct": 1.207,
+      "table6_rte_pct": 0.785,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/lf_gicp_kitti_seq_03_full_paper_comp_matrix/paper_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.7853543011910405,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4871100321295766,
+        "vertical": 0.5836209011944217,
+        "rotation": 1.044107027745782,
+        "yaw": 0.5403099522129987,
+        "tilt": 0.8726267616985691,
+        "translation": 0.7633364851227994,
+        "scale": 0.27395084319533974
+      },
+      "ratio_to_paper": 0.650666363869959,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.4035708634047859,
+        "vertical": 0.4835301584046575,
+        "rotation": 0.8650431050089329,
+        "yaw": 0.447647019231979,
+        "tilt": 0.7229716335530812,
+        "translation": 0.6324245941365363,
+        "scale": 0.2269683870715325
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "04",
+      "paper_rte_pct": 0.814,
+      "table6_rte_pct": 0.629,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/lf_gicp_kitti_seq_04_full_paper_comp_matrix/paper_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.6288833469552877,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.3206958659858516,
+        "vertical": 0.5083715071474807,
+        "rotation": 0.4864319837604024,
+        "yaw": 0.11220489933092383,
+        "tilt": 0.4733327062876508,
+        "translation": 0.4068454110092501,
+        "scale": 0.20704597952362438
+      },
+      "ratio_to_paper": 0.7725839643185353,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.39397526533888405,
+        "vertical": 0.6245350210657011,
+        "rotation": 0.597582289631944,
+        "yaw": 0.1378438566718966,
+        "tilt": 0.5814898111641902,
+        "translation": 0.499810087234951,
+        "scale": 0.2543562402010128
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "05",
+      "paper_rte_pct": 0.577,
+      "table6_rte_pct": 0.512,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_05_full_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/lf_gicp_kitti_seq_05_full_matrix__paper_default_native/dogfooding_results/LF_GICP.txt",
+      "recomputed_rte_pct": 0.5119044751620249,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2654903376459412,
+        "vertical": 0.3972608819863702,
+        "rotation": 0.4622032116399078,
+        "yaw": 0.2197547011688976,
+        "tilt": 0.36458170269911716,
+        "translation": 0.2942928090715318,
+        "scale": 0.08508452281751942
+      },
+      "ratio_to_paper": 0.8871827992409443,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.46012190233265376,
+        "vertical": 0.6884937296124267,
+        "rotation": 0.80104542745218,
+        "yaw": 0.38085736771039447,
+        "tilt": 0.6318573703624215,
+        "translation": 0.5100395304532614,
+        "scale": 0.14746017819327456
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "06",
+      "paper_rte_pct": 0.546,
+      "table6_rte_pct": 0.543,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/lf_gicp_kitti_seq_06_full_paper_comp_matrix/paper_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.5427701245810628,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.3313968061756243,
+        "vertical": 0.40261733318293697,
+        "rotation": 0.46180845065187215,
+        "yaw": 0.21172597590840073,
+        "tilt": 0.3680633496752951,
+        "translation": 0.33412697712078504,
+        "scale": 0.1124603755744079
+      },
+      "ratio_to_paper": 0.9940844772546936,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6069538574645132,
+        "vertical": 0.7373943831189321,
+        "rotation": 0.8458030231719269,
+        "yaw": 0.38777651265274854,
+        "tilt": 0.674108699039002,
+        "translation": 0.6119541705508883,
+        "scale": 0.20597138383591188
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "07",
+      "paper_rte_pct": 0.496,
+      "table6_rte_pct": 0.411,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "08",
+      "paper_rte_pct": 0.878,
+      "table6_rte_pct": 1.005,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_08_full_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "09",
+      "paper_rte_pct": 0.566,
+      "table6_rte_pct": 0.725,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/lf_gicp_kitti_seq_09_full_paper_comp_matrix/paper_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.7245751858118984,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5565114842479296,
+        "vertical": 0.4656058818312914,
+        "rotation": 0.5834814377463332,
+        "yaw": 0.21594657486101113,
+        "tilt": 0.49995161933294385,
+        "translation": 0.5052100858992841,
+        "scale": 0.1786013541012717
+      },
+      "ratio_to_paper": 1.2801681728125414,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9832358378938687,
+        "vertical": 0.8226252329174761,
+        "rotation": 1.0308859324140163,
+        "yaw": 0.3815310509911858,
+        "tilt": 0.8833067479380634,
+        "translation": 0.892597324910396,
+        "scale": 0.31555009558528574
+      }
+    },
+    {
+      "method": "lf_gicp",
+      "sequence": "10",
+      "paper_rte_pct": 0.837,
+      "table6_rte_pct": 5.616,
+      "variant": "paper_default",
+      "aggregate": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/lf_gicp_kitti_seq_10_full_paper_comp_matrix/paper_default/trajectory_kitti.txt",
+      "recomputed_rte_pct": 5.616435698212667,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 5.490720043065934,
+        "vertical": 0.45416152325957565,
+        "rotation": 5.14318727368219,
+        "yaw": 5.012077531798642,
+        "tilt": 0.6002072079865731,
+        "translation": 1.2725633850116884,
+        "scale": 1.2052351312587928
+      },
+      "ratio_to_paper": 6.7101979668012754,
+      "channel_ratio_to_paper": {
+        "horizontal": 6.56000005145273,
+        "vertical": 0.5426063599278085,
+        "rotation": 6.144787662702736,
+        "yaw": 5.988145199281532,
+        "tilt": 0.7170934384546872,
+        "translation": 1.520386362021133,
+        "scale": 1.4399463933796808
+      }
+    },
+    {
+      "method": "litamin2",
+      "sequence": "00",
+      "paper_rte_pct": 0.78,
+      "table6_rte_pct": 0.948,
+      "variant": "paper_icp_first",
+      "aggregate": "experiments/results/litamin2_kitti_seq_00_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/litamin2_kitti_seq_00_full_paper_matrix__paper_icp_first_native/dogfooding_results/LiTAMIN2_ICP.txt",
+      "recomputed_rte_pct": 0.9479488769312276,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4992239855278392,
+        "vertical": 0.7092533873416651,
+        "rotation": 0.9062843189174372,
+        "yaw": 0.47825437432217316,
+        "tilt": 0.654357172132711,
+        "translation": 0.527415760541775,
+        "scale": 0.17399010113746072
+      },
+      "ratio_to_paper": 1.2153190729887533,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6400307506767169,
+        "vertical": 0.9092992145405963,
+        "rotation": 1.1619029729710733,
+        "yaw": 0.6131466337463758,
+        "tilt": 0.8389194514521936,
+        "translation": 0.6761740519766346,
+        "scale": 0.22306423222751373
+      }
+    },
+    {
+      "method": "litamin2",
+      "sequence": "01",
+      "paper_rte_pct": 2.1,
+      "table6_rte_pct": 1.809,
+      "variant": "paper_icp_first",
+      "aggregate": "experiments/results/litamin2_kitti_seq_01_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/01/audit/replays/litamin2_kitti_seq_01_full_paper_matrix__paper_icp_first_native/dogfooding_results/LiTAMIN2_ICP.txt",
+      "recomputed_rte_pct": 1.8086711083331222,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.1462489614352984,
+        "vertical": 1.7587431870879404,
+        "rotation": 1.5352868004010554,
+        "yaw": 0.2707965955825629,
+        "tilt": 1.4828063661316528,
+        "translation": 0.8604022646543277,
+        "scale": 0.0966219320368451
+      },
+      "ratio_to_paper": 0.8612719563491058,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.5458328387787135,
+        "vertical": 0.8374967557561621,
+        "rotation": 0.7310889525719311,
+        "yaw": 0.12895075980122042,
+        "tilt": 0.7060982695865013,
+        "translation": 0.40971536412110837,
+        "scale": 0.04601044382706909
+      }
+    },
+    {
+      "method": "litamin2",
+      "sequence": "02",
+      "paper_rte_pct": 0.95,
+      "table6_rte_pct": 1.135,
+      "variant": "paper_icp_first",
+      "aggregate": "experiments/results/litamin2_kitti_seq_02_full_paper_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "litamin2",
+      "sequence": "03",
+      "paper_rte_pct": 0.96,
+      "table6_rte_pct": 0.756,
+      "variant": "paper_icp_cov",
+      "aggregate": "experiments/results/litamin2_kitti_seq_03_full_paper_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "litamin2",
+      "sequence": "04",
+      "paper_rte_pct": 1.05,
+      "table6_rte_pct": 0.902,
+      "variant": "paper_icp_cov",
+      "aggregate": "experiments/results/litamin2_kitti_seq_04_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/04/audit/replays/litamin2_kitti_seq_04_full_paper_matrix__paper_icp_cov_native/dogfooding_results/LiTAMIN2.txt",
+      "recomputed_rte_pct": 0.9023311824900402,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.531383476341239,
+        "vertical": 0.6741921251124008,
+        "rotation": 0.5636744281613699,
+        "yaw": 0.060742317574788415,
+        "tilt": 0.5555055300027597,
+        "translation": 0.584647627225364,
+        "scale": 0.4281810395226731
+      },
+      "ratio_to_paper": 0.8593630309428953,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.5060795012773704,
+        "vertical": 0.6420877382022865,
+        "rotation": 0.5368327887251142,
+        "yaw": 0.05784982626170325,
+        "tilt": 0.529052885716914,
+        "translation": 0.5568072640241561,
+        "scale": 0.40779146621206963
+      }
+    },
+    {
+      "method": "litamin2",
+      "sequence": "05",
+      "paper_rte_pct": 0.55,
+      "table6_rte_pct": 0.601,
+      "variant": "paper_icp_first",
+      "aggregate": "experiments/results/litamin2_kitti_seq_05_full_paper_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "litamin2",
+      "sequence": "06",
+      "paper_rte_pct": 0.55,
+      "table6_rte_pct": 0.494,
+      "variant": "paper_icp_first",
+      "aggregate": "experiments/results/litamin2_kitti_seq_06_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/06/audit/replays/litamin2_kitti_seq_06_full_paper_matrix__paper_icp_first_native/dogfooding_results/LiTAMIN2_ICP.txt",
+      "recomputed_rte_pct": 0.49417174256206586,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2230439763626503,
+        "vertical": 0.40751860402530576,
+        "rotation": 0.4635908509149999,
+        "yaw": 0.2296030417550441,
+        "tilt": 0.3468640763363738,
+        "translation": 0.3233822385745549,
+        "scale": 0.03954343749966777
+      },
+      "ratio_to_paper": 0.8984940773855742,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.40553450247754597,
+        "vertical": 0.7409429164096468,
+        "rotation": 0.8428924562090907,
+        "yaw": 0.41746007591826195,
+        "tilt": 0.630661956975225,
+        "translation": 0.5879677064991906,
+        "scale": 0.07189715909030503
+      }
+    },
+    {
+      "method": "litamin2",
+      "sequence": "07",
+      "paper_rte_pct": 0.48,
+      "table6_rte_pct": 0.477,
+      "variant": "paper_icp_cov",
+      "aggregate": "experiments/results/litamin2_kitti_seq_07_full_paper_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "litamin2",
+      "sequence": "08",
+      "paper_rte_pct": 1.01,
+      "table6_rte_pct": 0.981,
+      "variant": "paper_icp_first",
+      "aggregate": "experiments/results/litamin2_kitti_seq_08_full_paper_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "litamin2",
+      "sequence": "09",
+      "paper_rte_pct": 0.69,
+      "table6_rte_pct": 0.777,
+      "variant": "paper_icp_cov",
+      "aggregate": "experiments/results/litamin2_kitti_seq_09_full_paper_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "litamin2",
+      "sequence": "10",
+      "paper_rte_pct": 0.8,
+      "table6_rte_pct": 0.939,
+      "variant": "paper_icp_first",
+      "aggregate": "experiments/results/litamin2_kitti_seq_10_full_paper_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "00",
+      "paper_rte_pct": 0.53,
+      "table6_rte_pct": 0.565,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_00_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/mesh_loam_kitti_seq_00_full_paper_comp_matrix__paper_odometry_elevation_native/dogfooding_results/Mesh_LOAM.txt",
+      "recomputed_rte_pct": 0.567400884810015,
+      "status": "poses_do_not_reproduce_table6"
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "01",
+      "paper_rte_pct": 0.64,
+      "table6_rte_pct": 0.857,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_01_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_01_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.8572108340068657,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.7012003081511491,
+        "vertical": 0.43014398319808667,
+        "rotation": 0.5395926361853804,
+        "yaw": 0.24577930329484818,
+        "tilt": 0.4623990421699615,
+        "translation": 0.9088940803989386,
+        "scale": 0.22647903836445346
+      },
+      "ratio_to_paper": 1.3393919281357276,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.0956254814861703,
+        "vertical": 0.6720999737470104,
+        "rotation": 0.843113494039657,
+        "yaw": 0.3840301613982003,
+        "tilt": 0.7224985033905649,
+        "translation": 1.4201470006233414,
+        "scale": 0.3538734974444585
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "02",
+      "paper_rte_pct": 0.52,
+      "table6_rte_pct": 0.607,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_02_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.6066660405964719,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.42481571584647143,
+        "vertical": 0.4058162352865984,
+        "rotation": 0.5209359390536725,
+        "yaw": 0.3909435783588845,
+        "tilt": 0.285974026401875,
+        "translation": 0.5136851839392604,
+        "scale": 0.1506593920419405
+      },
+      "ratio_to_paper": 1.1666654626855228,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8169532997047527,
+        "vertical": 0.7804158370896123,
+        "rotation": 1.0017998827955241,
+        "yaw": 0.7518145737670855,
+        "tilt": 0.5499500507728365,
+        "translation": 0.9878561229601162,
+        "scale": 0.2897296000806548
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "03",
+      "paper_rte_pct": 0.63,
+      "table6_rte_pct": 0.928,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_03_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.9276730730603273,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.45796680751569224,
+        "vertical": 0.7574243748140678,
+        "rotation": 0.8187092353237345,
+        "yaw": 0.7174687031749696,
+        "tilt": 0.359644182778273,
+        "translation": 0.8683134742933628,
+        "scale": 0.33024943471528934
+      },
+      "ratio_to_paper": 1.4724969413655988,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7269314405010988,
+        "vertical": 1.2022609124032821,
+        "rotation": 1.2995384687678326,
+        "yaw": 1.1388392113888406,
+        "tilt": 0.5708637821877349,
+        "translation": 1.3782753560212109,
+        "scale": 0.5242054519290307
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "04",
+      "paper_rte_pct": 0.41,
+      "table6_rte_pct": 0.82,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_04_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.8198344885832607,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.7096033058876283,
+        "vertical": 0.2966998996008988,
+        "rotation": 0.514748279564403,
+        "yaw": 0.2942393903176952,
+        "tilt": 0.29023999231788317,
+        "translation": 0.6480578642357687,
+        "scale": 0.38444863740865964
+      },
+      "ratio_to_paper": 1.999596313617709,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.7307397704576302,
+        "vertical": 0.7236582917095093,
+        "rotation": 1.255483608693666,
+        "yaw": 0.7176570495553541,
+        "tilt": 0.7079024202875199,
+        "translation": 1.5806289371604116,
+        "scale": 0.9376796034357553
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "05",
+      "paper_rte_pct": 0.34,
+      "table6_rte_pct": 0.345,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_05_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.3447184421690961,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2919022611621427,
+        "vertical": 0.12926970891713926,
+        "rotation": 0.40254188463926466,
+        "yaw": 0.3511206827163976,
+        "tilt": 0.13376302188919362,
+        "translation": 0.3000383998781102,
+        "scale": 0.08065815614509154
+      },
+      "ratio_to_paper": 1.0138777710855766,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8585360622415961,
+        "vertical": 0.3802050262268802,
+        "rotation": 1.1839467195272488,
+        "yaw": 1.032707890342346,
+        "tilt": 0.3934206526152753,
+        "translation": 0.8824658819944418,
+        "scale": 0.2372298710149751
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "06",
+      "paper_rte_pct": 0.35,
+      "table6_rte_pct": 0.418,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_06_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_06_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.41807793087641887,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2805302817409242,
+        "vertical": 0.27429030467628507,
+        "rotation": 0.3702280756658287,
+        "yaw": 0.1737105877400781,
+        "tilt": 0.28722881281639523,
+        "translation": 0.3394655922175689,
+        "scale": 0.14610993650478493
+      },
+      "ratio_to_paper": 1.1945083739326254,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8015150906883549,
+        "vertical": 0.7836865847893859,
+        "rotation": 1.0577945019023678,
+        "yaw": 0.49631596497165176,
+        "tilt": 0.8206537509039864,
+        "translation": 0.9699016920501969,
+        "scale": 0.4174569614422427
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "07",
+      "paper_rte_pct": 0.31,
+      "table6_rte_pct": 0.342,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_07_full_paper_comp_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "08",
+      "paper_rte_pct": 0.82,
+      "table6_rte_pct": 0.909,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_08_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.9089711726158081,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6110419974404633,
+        "vertical": 0.5902070201846996,
+        "rotation": 0.5913013384831742,
+        "yaw": 0.47456042150289723,
+        "tilt": 0.26015363434116784,
+        "translation": 0.7445145804990662,
+        "scale": 0.24333200296694368
+      },
+      "ratio_to_paper": 1.1085014300192781,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7451731676103212,
+        "vertical": 0.7197646587618288,
+        "rotation": 0.7210991932721638,
+        "yaw": 0.5787322213449967,
+        "tilt": 0.31726052968435103,
+        "translation": 0.9079446103647149,
+        "scale": 0.29674634508163866
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "09",
+      "paper_rte_pct": 0.47,
+      "table6_rte_pct": 0.631,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_09_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.6305388736059738,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.3975233673196291,
+        "vertical": 0.4360624791764555,
+        "rotation": 0.48233568485255257,
+        "yaw": 0.3561165205467714,
+        "tilt": 0.27003460785232936,
+        "translation": 0.5238945178500635,
+        "scale": 0.13671387012963226
+      },
+      "ratio_to_paper": 1.341572071502072,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8457943985524025,
+        "vertical": 0.9277925088860757,
+        "rotation": 1.0262461379841545,
+        "yaw": 0.7576947245675988,
+        "tilt": 0.5745417188347434,
+        "translation": 1.1146691869150287,
+        "scale": 0.29088057474389845
+      }
+    },
+    {
+      "method": "mesh_loam",
+      "sequence": "10",
+      "paper_rte_pct": 0.56,
+      "table6_rte_pct": 0.848,
+      "variant": "paper_odometry_elevation",
+      "aggregate": "experiments/results/mesh_loam_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/mesh_loam_kitti_seq_10_full_paper_comp_matrix/paper_odometry_elevation/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.8480061148862943,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6366607707856601,
+        "vertical": 0.5138264833128419,
+        "rotation": 0.7174284950278189,
+        "yaw": 0.5287093044721083,
+        "tilt": 0.4385043048992337,
+        "translation": 0.35518464824744705,
+        "scale": 0.11826292311627161
+      },
+      "ratio_to_paper": 1.5142966337255255,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.1368942335458214,
+        "vertical": 0.9175472916300746,
+        "rotation": 1.2811223125496765,
+        "yaw": 0.9441237579859075,
+        "tilt": 0.7830434016057743,
+        "translation": 0.6342583004418697,
+        "scale": 0.21118379127905643
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "00",
+      "paper_rte_pct": 0.51,
+      "table6_rte_pct": 0.536,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_00_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/mulls_kitti_seq_00_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.5361370432338552,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4566370954561322,
+        "vertical": 0.2279589731118351,
+        "rotation": 0.47099640847736574,
+        "yaw": 0.4315618267526658,
+        "tilt": 0.1267913416600571,
+        "translation": 0.48756098929414154,
+        "scale": 0.12786351910136445
+      },
+      "ratio_to_paper": 1.0512491043801082,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8953668538355533,
+        "vertical": 0.44697837865065704,
+        "rotation": 0.9235223695634622,
+        "yaw": 0.8461996602993447,
+        "tilt": 0.2486104738432492,
+        "translation": 0.9560019397924344,
+        "scale": 0.250712782551695
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "01",
+      "paper_rte_pct": 0.62,
+      "table6_rte_pct": 0.674,
+      "variant": "mulls_lo_highway_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_01_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/01/audit/replays/mulls_kitti_seq_01_full_lo_matrix__mulls_lo_highway_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.6735612260318502,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6558417963282268,
+        "vertical": 0.10836361613991966,
+        "rotation": 0.2799009081715073,
+        "yaw": 0.24969476992190995,
+        "tilt": 0.0903763645570614,
+        "translation": 0.8792479257560992,
+        "scale": 0.12744647769646159
+      },
+      "ratio_to_paper": 1.0863890742449196,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.0578093489164948,
+        "vertical": 0.17478002603212847,
+        "rotation": 0.45145307769597953,
+        "yaw": 0.40273349987404833,
+        "tilt": 0.14576832993074418,
+        "translation": 1.418141815735644,
+        "scale": 0.2055588349942929
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "02",
+      "paper_rte_pct": 0.55,
+      "table6_rte_pct": 0.585,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_02_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/02/audit/replays/mulls_kitti_seq_02_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.5854556581296572,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.46759601399920536,
+        "vertical": 0.31719692115476417,
+        "rotation": 0.4884899884615974,
+        "yaw": 0.45411059647550006,
+        "tilt": 0.09864256767662634,
+        "translation": 0.5086740000651147,
+        "scale": 0.13699391178932577
+      },
+      "ratio_to_paper": 1.0644648329630129,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.850174570907646,
+        "vertical": 0.5767216748268439,
+        "rotation": 0.8881636153847225,
+        "yaw": 0.8256556299554546,
+        "tilt": 0.1793501230484115,
+        "translation": 0.9248618183002084,
+        "scale": 0.24907983961695593
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "03",
+      "paper_rte_pct": 0.61,
+      "table6_rte_pct": 0.609,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_03_full_lo_matrix.json",
+      "status": "no_committed_poses"
+    },
+    {
+      "method": "mulls",
+      "sequence": "04",
+      "paper_rte_pct": 0.35,
+      "table6_rte_pct": 0.492,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_04_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/04/audit/replays/mulls_kitti_seq_04_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.49166250982846393,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4682545457294931,
+        "vertical": 0.12061764648753791,
+        "rotation": 0.0816936953324273,
+        "yaw": 0.0640123296044038,
+        "tilt": 0.04385888804663762,
+        "translation": 0.46349122313534763,
+        "scale": 0.3008961283605357
+      },
+      "ratio_to_paper": 1.4047500280813257,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.3378701306556946,
+        "vertical": 0.3446218471072512,
+        "rotation": 0.23341055809264946,
+        "yaw": 0.18289237029829658,
+        "tilt": 0.12531110870467893,
+        "translation": 1.3242606375295647,
+        "scale": 0.8597032238872448
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "05",
+      "paper_rte_pct": 0.28,
+      "table6_rte_pct": 0.315,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_05_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/mulls_kitti_seq_05_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.3148047729407603,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2972358293362609,
+        "vertical": 0.0661790820401583,
+        "rotation": 0.3645736179060169,
+        "yaw": 0.34678285036264467,
+        "tilt": 0.055418684937082706,
+        "translation": 0.2992727400630124,
+        "scale": 0.08077412812210422
+      },
+      "ratio_to_paper": 1.1243027605027154,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.0615565333437889,
+        "vertical": 0.23635386442913675,
+        "rotation": 1.3020486353786316,
+        "yaw": 1.238510179866588,
+        "tilt": 0.19792387477529536,
+        "translation": 1.0688312145107586,
+        "scale": 0.28847902900751504
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "06",
+      "paper_rte_pct": 0.24,
+      "table6_rte_pct": 0.297,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_06_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/06/audit/replays/mulls_kitti_seq_06_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.2973286486945538,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.26492063945462213,
+        "vertical": 0.10902523402827549,
+        "rotation": 0.2675229091884624,
+        "yaw": 0.21257036016102906,
+        "tilt": 0.1290358212677108,
+        "translation": 0.323087240700745,
+        "scale": 0.10982034496277912
+      },
+      "ratio_to_paper": 1.2388693695606408,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.1038359977275922,
+        "vertical": 0.4542718084511479,
+        "rotation": 1.11467878828526,
+        "yaw": 0.8857098340042878,
+        "tilt": 0.5376492552821284,
+        "translation": 1.3461968362531043,
+        "scale": 0.4575847706782464
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "07",
+      "paper_rte_pct": 0.29,
+      "table6_rte_pct": 0.319,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_07_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/mulls_kitti_seq_07_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.3194019777357442,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.28268820842790915,
+        "vertical": 0.12191127413928157,
+        "rotation": 0.21431098498118453,
+        "yaw": 0.18672518936061086,
+        "tilt": 0.07756996552335929,
+        "translation": 0.31497456731699847,
+        "scale": 0.11628350719112147
+      },
+      "ratio_to_paper": 1.101386130123256,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9747869256134799,
+        "vertical": 0.4203837039285572,
+        "rotation": 0.7390033964868432,
+        "yaw": 0.6438799633124513,
+        "tilt": 0.26748263973572173,
+        "translation": 1.0861191976448223,
+        "scale": 0.4009776110038672
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "08",
+      "paper_rte_pct": 0.8,
+      "table6_rte_pct": 0.812,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_08_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/08/audit/replays/mulls_kitti_seq_08_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.8119887847676036,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5847884756256234,
+        "vertical": 0.4820108192943017,
+        "rotation": 0.5544275850183068,
+        "yaw": 0.4971832967094454,
+        "tilt": 0.16406714434567474,
+        "translation": 0.733688707467563,
+        "scale": 0.22202774024720667
+      },
+      "ratio_to_paper": 1.0149859809595045,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7309855945320293,
+        "vertical": 0.6025135241178771,
+        "rotation": 0.6930344812728835,
+        "yaw": 0.6214791208868067,
+        "tilt": 0.20508393043209341,
+        "translation": 0.9171108843344536,
+        "scale": 0.2775346753090083
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "09",
+      "paper_rte_pct": 0.49,
+      "table6_rte_pct": 0.548,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_09_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/09/audit/replays/mulls_kitti_seq_09_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.5482327892003033,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.4542184631509811,
+        "vertical": 0.24297137227276133,
+        "rotation": 0.4838908507076225,
+        "yaw": 0.4565420170995049,
+        "tilt": 0.09961507531642655,
+        "translation": 0.5215353772707316,
+        "scale": 0.13562311633409965
+      },
+      "ratio_to_paper": 1.1188424269393944,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9269764554101655,
+        "vertical": 0.49585994341379863,
+        "rotation": 0.987532348382903,
+        "yaw": 0.9317184022438876,
+        "tilt": 0.2032960720743399,
+        "translation": 1.0643579127974114,
+        "scale": 0.27678187006959115
+      }
+    },
+    {
+      "method": "mulls",
+      "sequence": "10",
+      "paper_rte_pct": 0.61,
+      "table6_rte_pct": 0.691,
+      "variant": "mulls_lo_elevation",
+      "aggregate": "experiments/results/mulls_kitti_seq_10_full_lo_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/10/audit/replays/mulls_kitti_seq_10_full_lo_matrix__mulls_lo_elevation_native/dogfooding_results/MULLS.txt",
+      "recomputed_rte_pct": 0.690852084515328,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6447480623517281,
+        "vertical": 0.17012047451041287,
+        "rotation": 0.5238522806284207,
+        "yaw": 0.48330926404178504,
+        "tilt": 0.08671105136226177,
+        "translation": 0.3729129034404202,
+        "scale": 0.13610517927519872
+      },
+      "ratio_to_paper": 1.1325444008448,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.0569640366421773,
+        "vertical": 0.2788860237875621,
+        "rotation": 0.8587742305383946,
+        "yaw": 0.7923102689209591,
+        "tilt": 0.14214926452829799,
+        "translation": 0.6113326285908528,
+        "scale": 0.22312324471344053
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "00",
+      "paper_rte_pct": 0.92,
+      "table6_rte_pct": 0.966,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_00_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/quadric_lo_kitti_seq_00_full_paper_comp_matrix__dense_profile_native/dogfooding_results/Quadric_LO.txt",
+      "recomputed_rte_pct": 0.9656436321748517,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.48197259818926985,
+        "vertical": 0.7446070877623678,
+        "rotation": 0.9258792283053213,
+        "yaw": 0.44077534466544066,
+        "tilt": 0.7265220080697765,
+        "translation": 0.5204652671146776,
+        "scale": 0.13063871964166837
+      },
+      "ratio_to_paper": 1.049612643668317,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.5238832589013802,
+        "vertical": 0.8093555301764868,
+        "rotation": 1.0063904655492624,
+        "yaw": 0.4791036355059137,
+        "tilt": 0.7896978348584527,
+        "translation": 0.5657231164289973,
+        "scale": 0.14199860830616126
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "01",
+      "paper_rte_pct": 2.61,
+      "table6_rte_pct": 2.06,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_01_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_01_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 2.059582111311187,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 1.464887975665621,
+        "vertical": 1.7788530873758077,
+        "rotation": 1.6116134241435986,
+        "yaw": 0.33849095094569137,
+        "tilt": 1.5469640702769276,
+        "translation": 1.0115793398453992,
+        "scale": 0.20527757770066624
+      },
+      "ratio_to_paper": 0.7891119200426004,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.5612597607914257,
+        "vertical": 0.6815529070405394,
+        "rotation": 0.617476407717854,
+        "yaw": 0.129690019519422,
+        "tilt": 0.5927065403359876,
+        "translation": 0.38757829112850545,
+        "scale": 0.07865041291213266
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "02",
+      "paper_rte_pct": 1.16,
+      "table6_rte_pct": 1.176,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_02_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_02_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 1.1758918980058126,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.478061060285041,
+        "vertical": 1.0608012644317126,
+        "rotation": 1.0131004950425793,
+        "yaw": 0.37866758687189067,
+        "tilt": 0.8706418559478,
+        "translation": 0.5604139871363083,
+        "scale": 0.22829361568355128
+      },
+      "ratio_to_paper": 1.0136999120739765,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.41212160369400086,
+        "vertical": 0.9144838486480282,
+        "rotation": 0.8733624957263615,
+        "yaw": 0.32643757488956093,
+        "tilt": 0.7505533240929311,
+        "translation": 0.48311550615198995,
+        "scale": 0.19680484110650973
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "03",
+      "paper_rte_pct": 1.45,
+      "table6_rte_pct": 1.236,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_03_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_03_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 1.2362533012540966,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.9285160493495355,
+        "vertical": 0.7594359384556921,
+        "rotation": 1.1233929280029527,
+        "yaw": 0.29853685640283684,
+        "tilt": 1.0586406867412808,
+        "translation": 0.8938731127274433,
+        "scale": 0.37700904328279883
+      },
+      "ratio_to_paper": 0.8525884836235149,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6403558961031279,
+        "vertical": 0.5237489230728911,
+        "rotation": 0.7747537434503122,
+        "yaw": 0.20588748717437025,
+        "tilt": 0.7300970253388144,
+        "translation": 0.6164642156740988,
+        "scale": 0.2600062367467578
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "04",
+      "paper_rte_pct": 0.87,
+      "table6_rte_pct": 0.68,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_04_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_04_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.6798959180482387,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.334317132195396,
+        "vertical": 0.5650856001515658,
+        "rotation": 0.5043406917582381,
+        "yaw": 0.06712195258758545,
+        "tilt": 0.49164137758502474,
+        "translation": 0.3511895031186386,
+        "scale": 0.0787773152967127
+      },
+      "ratio_to_paper": 0.781489560974987,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.3842725657418345,
+        "vertical": 0.6495236783351331,
+        "rotation": 0.579701944549699,
+        "yaw": 0.07715166964090282,
+        "tilt": 0.5651050317069249,
+        "translation": 0.40366609553866506,
+        "scale": 0.09054863827208356
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "05",
+      "paper_rte_pct": 0.76,
+      "table6_rte_pct": 0.588,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_05_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_05_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.5879918000698504,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.24894704171424278,
+        "vertical": 0.49034318243568586,
+        "rotation": 0.5621839928475463,
+        "yaw": 0.22236755718593346,
+        "tilt": 0.47507930488175426,
+        "translation": 0.3123269677676596,
+        "scale": 0.1253908003282869
+      },
+      "ratio_to_paper": 0.77367342114454,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.3275618969924247,
+        "vertical": 0.6451883979416919,
+        "rotation": 0.7397157800625609,
+        "yaw": 0.29258889103412294,
+        "tilt": 0.6251043485286241,
+        "translation": 0.41095653653639425,
+        "scale": 0.16498789516879855
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "06",
+      "paper_rte_pct": 0.55,
+      "table6_rte_pct": 0.56,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_06_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_06_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.5596738927077188,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.31482820839555165,
+        "vertical": 0.4405251623016569,
+        "rotation": 0.46010194828444917,
+        "yaw": 0.1846589174559382,
+        "tilt": 0.3810247058953705,
+        "translation": 0.33889507590026213,
+        "scale": 0.14636650271958077
+      },
+      "ratio_to_paper": 1.017588895832216,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.5724149243555484,
+        "vertical": 0.800954840548467,
+        "rotation": 0.8365489968808166,
+        "yaw": 0.335743486283524,
+        "tilt": 0.6927721925370373,
+        "translation": 0.6161728652732038,
+        "scale": 0.2661209140356014
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "07",
+      "paper_rte_pct": 1.09,
+      "table6_rte_pct": 0.662,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_07_full_paper_comp_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/quadric_lo_kitti_seq_07_full_paper_comp_matrix__dense_profile_native/dogfooding_results/Quadric_LO.txt",
+      "recomputed_rte_pct": 0.6620045071227572,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.332413670463795,
+        "vertical": 0.5218161085266454,
+        "rotation": 0.609680902964561,
+        "yaw": 0.2613602466540399,
+        "tilt": 0.5013579938841446,
+        "translation": 0.34760609346251853,
+        "scale": 0.17292707213152658
+      },
+      "ratio_to_paper": 0.6073435845162909,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.3049666701502706,
+        "vertical": 0.4787303747950875,
+        "rotation": 0.5593402779491385,
+        "yaw": 0.23978004280187146,
+        "tilt": 0.45996146227903173,
+        "translation": 0.3189046729013931,
+        "scale": 0.15864869002892346
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "08",
+      "paper_rte_pct": 1.68,
+      "table6_rte_pct": 1.128,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_08_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_08_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 1.1280391810190804,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5987951603371073,
+        "vertical": 0.8495124526000686,
+        "rotation": 0.9123878627005401,
+        "yaw": 0.35448658479500705,
+        "tilt": 0.7824470703448914,
+        "translation": 0.7591823752855976,
+        "scale": 0.279466104986414
+      },
+      "ratio_to_paper": 0.6714518934637383,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.3564256906768496,
+        "vertical": 0.5056621741667076,
+        "rotation": 0.5430880135122262,
+        "yaw": 0.21100391952083755,
+        "tilt": 0.46574230377672104,
+        "translation": 0.45189427100333196,
+        "scale": 0.16634887201572263
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "09",
+      "paper_rte_pct": 0.85,
+      "table6_rte_pct": 0.933,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_09_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_09_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 0.9328004814697418,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5235775436809917,
+        "vertical": 0.7959871822174607,
+        "rotation": 0.8958197437413098,
+        "yaw": 0.2593516522405961,
+        "tilt": 0.8148139870356272,
+        "translation": 0.5344477738983782,
+        "scale": 0.17653277125680306
+      },
+      "ratio_to_paper": 1.0974123311408728,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6159735808011668,
+        "vertical": 0.9364555084911302,
+        "rotation": 1.0539055808721292,
+        "yaw": 0.30511959087128954,
+        "tilt": 0.9586046906301497,
+        "translation": 0.6287620869392685,
+        "scale": 0.2076856132432977
+      }
+    },
+    {
+      "method": "quadric_lo",
+      "sequence": "10",
+      "paper_rte_pct": 1.76,
+      "table6_rte_pct": 1.556,
+      "variant": "dense_profile",
+      "aggregate": "experiments/results/quadric_lo_kitti_seq_10_full_paper_comp_matrix.json",
+      "poses": "experiments/results/runs/quadric_lo_kitti_seq_10_full_paper_comp_matrix/dense_profile/trajectory_kitti.txt",
+      "recomputed_rte_pct": 1.556410715496337,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6608423808665658,
+        "vertical": 1.3894570937240205,
+        "rotation": 1.44705222962263,
+        "yaw": 0.3744458068651256,
+        "tilt": 1.3743257458115843,
+        "translation": 0.37504540741503073,
+        "scale": 0.14452886478225332
+      },
+      "ratio_to_paper": 0.8843242701683732,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.37547862549236694,
+        "vertical": 0.7894642577977389,
+        "rotation": 0.8221887668310398,
+        "yaw": 0.21275329935518497,
+        "tilt": 0.7808669010293092,
+        "translation": 0.2130939814858129,
+        "scale": 0.08211867317173484
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "00",
+      "paper_rte_pct": 0.7,
+      "table6_rte_pct": 0.697,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/00/audit/replays/suma_kitti_seq_00_full_transfer_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.6972358539670201,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5932195900284429,
+        "vertical": 0.26759784066692366,
+        "rotation": 0.595515467162815,
+        "yaw": 0.5131605448365509,
+        "tilt": 0.21938513148258995,
+        "translation": 0.5220271599351493,
+        "scale": 0.21449994901257974
+      },
+      "ratio_to_paper": 0.996051219952886,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.84745655718349,
+        "vertical": 0.3822826295241767,
+        "rotation": 0.8507363816611644,
+        "yaw": 0.7330864926236442,
+        "tilt": 0.31340733068941423,
+        "translation": 0.7457530856216419,
+        "scale": 0.30642849858939963
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "01",
+      "paper_rte_pct": 1.7,
+      "table6_rte_pct": 3.55,
+      "variant": "paper_odometry_clean_lookup_elevation",
+      "aggregate": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/01/audit/replays/suma_kitti_seq_01_full_paper_matrix__paper_odometry_clean_lookup_elevation_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 3.550459351549588,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 3.3910151344927213,
+        "vertical": 0.5743548930148253,
+        "rotation": 0.7109336127268602,
+        "yaw": 0.3699812238677633,
+        "tilt": 0.5502905793981598,
+        "translation": 3.2943360281187246,
+        "scale": 2.857443426563905
+      },
+      "ratio_to_paper": 2.0885055009115225,
+      "channel_ratio_to_paper": {
+        "horizontal": 1.9947147849957185,
+        "vertical": 0.3378558194204855,
+        "rotation": 0.418196242780506,
+        "yaw": 0.21763601403986074,
+        "tilt": 0.323700340822447,
+        "translation": 1.9378447224227793,
+        "scale": 1.680849074449356
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "02",
+      "paper_rte_pct": 1.1,
+      "table6_rte_pct": 0.784,
+      "variant": "paper_odometry_clean_lookup_elevation",
+      "aggregate": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/02/audit/replays/suma_kitti_seq_02_full_transfer_matrix__paper_odometry_clean_lookup_elevation_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.783562702284693,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.5540523760517791,
+        "vertical": 0.5029494302298034,
+        "rotation": 0.5901594137389963,
+        "yaw": 0.3706812614872944,
+        "tilt": 0.4023799096471665,
+        "translation": 0.5540574545642625,
+        "scale": 0.2635088465019544
+      },
+      "ratio_to_paper": 0.7123297293497209,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.5036839782288901,
+        "vertical": 0.4572267547543667,
+        "rotation": 0.536508557944542,
+        "yaw": 0.33698296498844943,
+        "tilt": 0.3657999178610604,
+        "translation": 0.5036885950584203,
+        "scale": 0.23955349681995852
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "03",
+      "paper_rte_pct": 0.7,
+      "table6_rte_pct": 0.651,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_03_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/03/audit/replays/suma_kitti_seq_03_full_paper_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.6510900338721802,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.582969613859578,
+        "vertical": 0.2867125251083984,
+        "rotation": 0.6980469120848426,
+        "yaw": 0.5545467704473457,
+        "tilt": 0.3393547146907079,
+        "translation": 1.0513150604598758,
+        "scale": 0.3206273354780654
+      },
+      "ratio_to_paper": 0.9301286198174004,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8328137340851115,
+        "vertical": 0.4095893215834263,
+        "rotation": 0.9972098744069181,
+        "yaw": 0.7922096720676367,
+        "tilt": 0.48479244955815415,
+        "translation": 1.5018786577998227,
+        "scale": 0.4580390506829506
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "04",
+      "paper_rte_pct": 0.4,
+      "table6_rte_pct": 0.417,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/04/audit/replays/suma_kitti_seq_04_full_paper_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.41684509996564284,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.3652355666634197,
+        "vertical": 0.1701946755111818,
+        "rotation": 0.3582101220769139,
+        "yaw": 0.20912633525178165,
+        "tilt": 0.2834387068095175,
+        "translation": 0.4292590877843393,
+        "scale": 0.29371128210066755
+      },
+      "ratio_to_paper": 1.042112749914107,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.9130889166585493,
+        "vertical": 0.4254866887779545,
+        "rotation": 0.8955253051922847,
+        "yaw": 0.5228158381294541,
+        "tilt": 0.7085967670237937,
+        "translation": 1.073147719460848,
+        "scale": 0.7342782052516689
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "05",
+      "paper_rte_pct": 0.5,
+      "table6_rte_pct": 0.379,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/05/audit/replays/suma_kitti_seq_05_full_transfer_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.37934354524777353,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2968601079627632,
+        "vertical": 0.1775182821449085,
+        "rotation": 0.44905999026269916,
+        "yaw": 0.2934352704766019,
+        "tilt": 0.2964168536859961,
+        "translation": 0.3419402792413014,
+        "scale": 0.08551344484897896
+      },
+      "ratio_to_paper": 0.7586870904955471,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.5937202159255264,
+        "vertical": 0.355036564289817,
+        "rotation": 0.8981199805253983,
+        "yaw": 0.5868705409532038,
+        "tilt": 0.5928337073719921,
+        "translation": 0.6838805584826028,
+        "scale": 0.17102688969795793
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "06",
+      "paper_rte_pct": 0.4,
+      "table6_rte_pct": 0.286,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_06_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/06/audit/replays/suma_kitti_seq_06_full_paper_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.2856914400118647,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.255696983400454,
+        "vertical": 0.10465201664839674,
+        "rotation": 0.3404394107048535,
+        "yaw": 0.23281356369334857,
+        "tilt": 0.20103307453545566,
+        "translation": 0.3789194571369422,
+        "scale": 0.10380435677753365
+      },
+      "ratio_to_paper": 0.7142286000296617,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.6392424585011349,
+        "vertical": 0.26163004162099185,
+        "rotation": 0.8510985267621337,
+        "yaw": 0.5820339092333714,
+        "tilt": 0.5025826863386391,
+        "translation": 0.9472986428423554,
+        "scale": 0.2595108919438341
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "07",
+      "paper_rte_pct": 0.4,
+      "table6_rte_pct": 0.331,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_07_full_elevation_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/07/audit/replays/suma_kitti_seq_07_full_elevation_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.3312255104268135,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.2642605947654084,
+        "vertical": 0.15924490382661582,
+        "rotation": 0.3542468839778975,
+        "yaw": 0.21392903691039447,
+        "tilt": 0.22460128536291443,
+        "translation": 0.33045397712979385,
+        "scale": 0.13353365886947585
+      },
+      "ratio_to_paper": 0.8280637760670336,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.660651486913521,
+        "vertical": 0.39811225956653956,
+        "rotation": 0.8856172099447437,
+        "yaw": 0.5348225922759862,
+        "tilt": 0.561503213407286,
+        "translation": 0.8261349428244846,
+        "scale": 0.3338341471736896
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "08",
+      "paper_rte_pct": 1.0,
+      "table6_rte_pct": 1.06,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/08/audit/replays/suma_kitti_seq_08_full_transfer_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 1.0601434226274074,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.7089696374543127,
+        "vertical": 0.6598144561209565,
+        "rotation": 0.7509319517058503,
+        "yaw": 0.5720025155235932,
+        "tilt": 0.3519495676740888,
+        "translation": 0.7706493212361969,
+        "scale": 0.22284071105098785
+      },
+      "ratio_to_paper": 1.0601434226274074,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.7089696374543127,
+        "vertical": 0.6598144561209565,
+        "rotation": 0.7509319517058503,
+        "yaw": 0.5720025155235932,
+        "tilt": 0.3519495676740888,
+        "translation": 0.7706493212361969,
+        "scale": 0.22284071105098785
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "09",
+      "paper_rte_pct": 0.5,
+      "table6_rte_pct": 0.51,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_09_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/09/audit/replays/suma_kitti_seq_09_full_paper_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.5102861243769341,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.42097287616377027,
+        "vertical": 0.2622226721179994,
+        "rotation": 0.6491351731144617,
+        "yaw": 0.45115743286546106,
+        "tilt": 0.39124595393948736,
+        "translation": 0.6306442039192508,
+        "scale": 0.18706510209779093
+      },
+      "ratio_to_paper": 1.0205722487538682,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8419457523275405,
+        "vertical": 0.5244453442359988,
+        "rotation": 1.2982703462289233,
+        "yaw": 0.9023148657309221,
+        "tilt": 0.7824919078789747,
+        "translation": 1.2612884078385016,
+        "scale": 0.37413020419558185
+      }
+    },
+    {
+      "method": "suma",
+      "sequence": "10",
+      "paper_rte_pct": 0.7,
+      "table6_rte_pct": 0.698,
+      "variant": "paper_odometry",
+      "aggregate": "experiments/results/suma_kitti_seq_10_full_paper_matrix.json",
+      "poses": "experiments/results/shared_near_range/sequences/10/audit/replays/suma_kitti_seq_10_full_paper_matrix__paper_odometry_native/dogfooding_results/SuMa.txt",
+      "recomputed_rte_pct": 0.6978802451708159,
+      "status": "ok",
+      "channels_rte_pct": {
+        "horizontal": 0.6022814312853987,
+        "vertical": 0.3488480213755989,
+        "rotation": 0.4909411176089307,
+        "yaw": 0.32334162619124407,
+        "tilt": 0.30864858629175657,
+        "translation": 0.5351114693234125,
+        "scale": 0.2762133839968586
+      },
+      "ratio_to_paper": 0.9969717788154514,
+      "channel_ratio_to_paper": {
+        "horizontal": 0.8604020446934267,
+        "vertical": 0.4983543162508556,
+        "rotation": 0.7013444537270439,
+        "yaw": 0.4619166088446344,
+        "tilt": 0.44092655184536655,
+        "translation": 0.7644449561763036,
+        "scale": 0.39459054856694087
+      }
+    }
+  ]
+}

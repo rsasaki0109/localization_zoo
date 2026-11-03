@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-10-21T22:13:40+00:00
+> Generated: 2026-11-03T04:38:14+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -544,19 +544,30 @@ Does the same variant win across all datasets? Instability here is the core evid
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | dogfooding_results/kitti_seq_00_full | no_mitigation | 7.848 | 3.8 |
+| dogfooding_results/kitti_seq_00_full | no_mitigation | 7.848 | 6.4 |
 | dogfooding_results/kitti_seq_01_full | paper_default | 94.094 | 2.0 |
+| dogfooding_results/kitti_seq_01_full | paper_default | 94.094 | 2.8 |
 | dogfooding_results/kitti_seq_02_full | no_mitigation | 27.186 | 3.6 |
+| dogfooding_results/kitti_seq_02_full | no_mitigation | 27.186 | 6.0 |
 | dogfooding_results/kitti_seq_03_full | paper_default | 5.074 | 3.4 |
+| dogfooding_results/kitti_seq_03_full | no_mitigation | 5.061 | 4.9 |
 | dogfooding_results/kitti_seq_04_full | paper_default | 1.719 | 2.3 |
+| dogfooding_results/kitti_seq_04_full | paper_default | 1.719 | 3.8 |
 | dogfooding_results/kitti_seq_05_full | no_mitigation | 5.556 | 5.4 |
+| dogfooding_results/kitti_seq_05_full | paper_default | 5.556 | 6.2 |
 | dogfooding_results/kitti_seq_06_full | paper_default | 2.133 | 2.3 |
+| dogfooding_results/kitti_seq_06_full | sensor_centered_fisher | 2.124 | 4.0 |
 | dogfooding_results/kitti_seq_07_full | paper_default | 0.646 | 8.8 |
 | dogfooding_results/kitti_seq_07_full | paper_default | 0.646 | 4.1 |
+| dogfooding_results/kitti_seq_07_full | paper_default | 0.646 | 7.4 |
 | dogfooding_results/kitti_seq_08_full | no_mitigation | 16.280 | 2.9 |
+| dogfooding_results/kitti_seq_08_full | sensor_centered_fisher | 13.474 | 4.9 |
 | dogfooding_results/kitti_seq_09_full | paper_default | 7.784 | 1.6 |
+| dogfooding_results/kitti_seq_09_full | no_mitigation | 6.402 | 5.2 |
 | dogfooding_results/kitti_seq_10_full | paper_default | 50.982 | 2.0 |
+| dogfooding_results/kitti_seq_10_full | no_mitigation | 6.686 | 7.2 |
 
-**Stability**: 2 unique default(s) across 12 windows.
+**Stability**: 3 unique default(s) across 23 windows.
 
 ### LINS
 
@@ -1298,9 +1309,10 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| no_mitigation | 11.568 | 4.0 | 5 |
-| paper_default | 18.951 | 3.3 | 12 |
+| no_mitigation | 14.830 | 4.9 | 16 |
+| paper_default | 19.747 | 4.2 | 23 |
 | paper_default_elevation | 1.859 | 8.3 | 1 |
+| sensor_centered_fisher | 17.849 | 5.2 | 11 |
 
 ### LINS
 

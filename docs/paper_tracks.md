@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-10-21T22:13:25+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `657` ready, `1` blocked, `14` skipped problems.
+Current coverage: `668` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -428,12 +428,23 @@ Current coverage: `657` ready, `1` blocked, `14` skipped problems.
 | LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 41.756 | 1.0 | `dogfooding_results/kitti_seq_02_full` |
 | LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 6.449 | 0.8 | `dogfooding_results/kitti_seq_05_full` |
 | LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 17.896 | 0.9 | `dogfooding_results/kitti_seq_08_full` |
+| LF-GICP KITTI Odom seq 00 full (4541 frames): sensor-centred Fisher direction | `ready` | `no_mitigation` | 7.848 | 6.6 | `dogfooding_results/kitti_seq_00_full` |
+| LF-GICP KITTI Odom seq 01 full (1101 frames): sensor-centred Fisher direction | `ready` | `paper_default` | 94.094 | 2.9 | `dogfooding_results/kitti_seq_01_full` |
 | LF-GICP KITTI Odom seq 01 full: fixed-configuration paper comparison | `ready` | `paper_default` | 94.094 | 2.0 | `dogfooding_results/kitti_seq_01_full` |
+| LF-GICP KITTI Odom seq 02 full (4661 frames): sensor-centred Fisher direction | `ready` | `no_mitigation` | 27.186 | 6.1 | `dogfooding_results/kitti_seq_02_full` |
+| LF-GICP KITTI Odom seq 03 full (801 frames): sensor-centred Fisher direction | `ready` | `no_mitigation` | 5.023 | 4.9 | `dogfooding_results/kitti_seq_03_full` |
 | LF-GICP KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `paper_default` | 5.074 | 3.4 | `dogfooding_results/kitti_seq_03_full` |
+| LF-GICP KITTI Odom seq 04 full (271 frames): sensor-centred Fisher direction | `ready` | `paper_default` | 1.719 | 4.0 | `dogfooding_results/kitti_seq_04_full` |
 | LF-GICP KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `paper_default` | 1.719 | 2.3 | `dogfooding_results/kitti_seq_04_full` |
+| LF-GICP KITTI Odom seq 05 full (2761 frames): sensor-centred Fisher direction | `ready` | `paper_default` | 5.556 | 6.2 | `dogfooding_results/kitti_seq_05_full` |
+| LF-GICP KITTI Odom seq 06 full (1101 frames): sensor-centred Fisher direction | `ready` | `sensor_centered_fisher` | 2.124 | 4.0 | `dogfooding_results/kitti_seq_06_full` |
 | LF-GICP KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `paper_default` | 2.133 | 2.3 | `dogfooding_results/kitti_seq_06_full` |
+| LF-GICP KITTI Odom seq 07 full (1101 frames): sensor-centred Fisher direction | `ready` | `paper_default` | 0.646 | 7.4 | `dogfooding_results/kitti_seq_07_full` |
 | LF-GICP KITTI Odom seq 07 full: elevation correction ablation | `ready` | `paper_default` | 0.646 | 8.8 | `dogfooding_results/kitti_seq_07_full` |
+| LF-GICP KITTI Odom seq 08 full (4071 frames): sensor-centred Fisher direction | `ready` | `sensor_centered_fisher` | 13.474 | 5.1 | `dogfooding_results/kitti_seq_08_full` |
+| LF-GICP KITTI Odom seq 09 full (1591 frames): sensor-centred Fisher direction | `ready` | `no_mitigation` | 6.402 | 5.2 | `dogfooding_results/kitti_seq_09_full` |
 | LF-GICP KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `paper_default` | 7.784 | 1.6 | `dogfooding_results/kitti_seq_09_full` |
+| LF-GICP KITTI Odom seq 10 full (1201 frames): sensor-centred Fisher direction | `ready` | `no_mitigation` | 6.686 | 7.2 | `dogfooding_results/kitti_seq_10_full` |
 | LF-GICP KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `paper_default` | 50.982 | 2.0 | `dogfooding_results/kitti_seq_10_full` |
 | LF-GICP on KITTI Odom seq 00 full (4541 frames) | `ready` | `no_mitigation` | 7.848 | 3.8 | `dogfooding_results/kitti_seq_00_full` |
 | LF-GICP on KITTI Odom seq 02 full (4661 frames) | `ready` | `no_mitigation` | 27.186 | 3.6 | `dogfooding_results/kitti_seq_02_full` |
@@ -698,7 +709,7 @@ Current coverage: `657` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 657 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 668 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

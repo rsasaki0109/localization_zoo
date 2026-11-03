@@ -215,10 +215,11 @@ TEST(LFGICP, PaperWeakDirectionDependsOnWorldOriginSensorCentredDoesNot) {
   // (omega, rho - t x omega) is a rotation about the sensor, not a translation.
   const Eigen::Vector3d omega = v_far.head<3>();
   const Eigen::Vector3d local_rho = v_far.tail<3>() - far_sensor.cross(omega);
-  // At a 10 m lever arm the rotation moves points 10x more than the
-  // sensor-local translation does.
+  // A point 10 m from the sensor moves 10 |omega| under the rotation, more
+  // than ten times the sensor-local translation |local_rho|.
+  const double lever_m = 10.0;
   EXPECT_GT(omega.norm(), 1e-4);
-  EXPECT_LT(10.0 * local_rho.norm(), 10.0 * omega.norm());
+  EXPECT_GT(lever_m * omega.norm(), 10.0 * local_rho.norm());
 
   const auto w_near = fisherWeights(near.jac, near.info, near.H);
   const auto w_far = fisherWeights(far.jac, far.info, far.H);

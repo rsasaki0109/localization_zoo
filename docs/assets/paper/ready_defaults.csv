@@ -311,17 +311,28 @@ lego_loam,kitti_seq_08_full,gt-backed,kitti_default,KITTI default,17.896468,0.92
 lego_loam,mcd_kth_day_06_108,gt-backed,fast,Fast,6.098881,9.923787,experiments/results/lego_loam_mcd_kth_day_06_matrix.json
 lego_loam,mcd_ntu_day_02_108,gt-backed,fast,Fast,0.078650,8.362960,experiments/results/lego_loam_mcd_ntu_day_02_matrix.json
 lego_loam,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.401108,10.053788,experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json
+lf_gicp,kitti_seq_00_full,gt-backed,no_mitigation,Vanilla VGICP backend,7.848136,6.388643,experiments/results/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_00_full,gt-backed,no_mitigation,Vanilla VGICP backend,7.848136,3.754108,experiments/results/lf_gicp_kitti_seq_00_full_matrix.json
+lf_gicp,kitti_seq_01_full,gt-backed,paper_default,Paper default (fresh reference),94.093942,2.797556,experiments/results/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_01_full,gt-backed,paper_default,Paper default,94.093942,1.996714,experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json
+lf_gicp,kitti_seq_02_full,gt-backed,no_mitigation,Vanilla VGICP backend,27.185742,6.020117,experiments/results/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_02_full,gt-backed,no_mitigation,Vanilla VGICP backend,27.185742,3.580422,experiments/results/lf_gicp_kitti_seq_02_full_matrix.json
+lf_gicp,kitti_seq_03_full,gt-backed,no_mitigation,Vanilla VGICP backend,5.061151,4.948465,experiments/results/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_03_full,gt-backed,paper_default,Paper default,5.074145,3.385107,experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json
+lf_gicp,kitti_seq_04_full,gt-backed,paper_default,Paper default (fresh reference),1.719360,3.756593,experiments/results/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_04_full,gt-backed,paper_default,Paper default,1.719360,2.316361,experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json
+lf_gicp,kitti_seq_05_full,gt-backed,paper_default,Paper default (fresh reference),5.555945,6.249888,experiments/results/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_05_full,gt-backed,no_mitigation,Vanilla VGICP backend,5.555945,5.392308,experiments/results/lf_gicp_kitti_seq_05_full_matrix.json
+lf_gicp,kitti_seq_06_full,gt-backed,sensor_centered_fisher,Sensor-centred Fisher direction (not in the paper),2.123928,3.970958,experiments/results/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_06_full,gt-backed,paper_default,Paper default,2.132569,2.267460,experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json
+lf_gicp,kitti_seq_07_full,gt-backed,paper_default,Paper default (fresh reference),0.646241,7.405834,experiments/results/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_07_full,gt-backed,paper_default,"paper_default (Table 6 variant on seq 07, raw scans)",0.646241,8.765675,experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json
 lf_gicp,kitti_seq_07_full,gt-backed,paper_default,Paper default,0.646241,4.124560,experiments/results/lf_gicp_kitti_seq_07_full_matrix.json
+lf_gicp,kitti_seq_08_full,gt-backed,sensor_centered_fisher,Sensor-centred Fisher direction (not in the paper),13.474345,4.938105,experiments/results/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_08_full,gt-backed,no_mitigation,Vanilla VGICP backend,16.280087,2.931235,experiments/results/lf_gicp_kitti_seq_08_full_matrix.json
+lf_gicp,kitti_seq_09_full,gt-backed,no_mitigation,Vanilla VGICP backend,6.402308,5.224493,experiments/results/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_09_full,gt-backed,paper_default,Paper default,7.784214,1.631624,experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json
+lf_gicp,kitti_seq_10_full,gt-backed,no_mitigation,Vanilla VGICP backend,6.686339,7.175028,experiments/results/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix.json
 lf_gicp,kitti_seq_10_full,gt-backed,paper_default,Paper default,50.981598,2.029845,experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json
 lins,hdl_400_open_ct_lio_120,reference-based,fast,Fast,29.745231,71.863775,experiments/results/lins_hdl_400_reference_matrix.json
 lins,kitti_raw_0009_200,gt-backed,fast,Fast,120.032189,104.959144,experiments/results/lins_kitti_raw_0009_nogt_matrix.json

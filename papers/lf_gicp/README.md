@@ -29,7 +29,7 @@ Two opt-in additions that are **not in the paper** (both default off; the defaul
 - **Unspecified details** filled with conventional choices: minimum range 1 m, voxel eviction by last-update frame, first-order SE(3) increment, 27-voxel correspondence search.
 - No deskewing: KITTI Odometry scans have no per-point times (the paper also evaluates KITTI without deskewing and without the mounting-angle correction).
 - **Linearization point of Eq. (2).** The paper calls `delta xi` a "local twist" but writes `J = [-[Rp + t]x, I]` with `T <- exp(delta xi) T`, i.e. a twist about the world origin. This implementation follows the equation. The Fisher weights of Eq. (7) use the weakest eigenvector of that Hessian, which therefore depends on where the world origin is; see [Sequence 10 and the Fisher direction](#sequence-10-and-the-fisher-direction).
-- **Gate firing rate.** The paper reports that its `lambda0` condition keeps the gate off on KITTI open roads (at most 8 % of frames, Table I caption). Here, with beta_f = 0.25, the gate is on for 1100/1101 frames of 01, 268/271 of 04, 403/801 of 03, 631/1591 of 09 and 429/1201 of 10, so the calibration does not reproduce that behaviour on every sequence.
+- **Gate firing rate.** The paper reports that its `lambda0` condition keeps the gate off on KITTI open roads (at most 8 % of frames, Table I caption). Here, with beta_f = 0.25, the gate is on for 1100/1101 frames of 01, 268/271 of 04, 403/801 of 03, 631/1591 of 09, 429/1201 of 10, 787/4071 of 08 and 628/4661 of 02 (00, 05, 06 and 07: at most 1.2 %), so the calibration does not reproduce that behaviour on every sequence.
 
 ## Results
 
@@ -139,3 +139,42 @@ All 11 selected stored LF-GICP full-sequence cells complete with native exits 0.
 
 [Complete report and commands](../../experiments/results/shared_near_range/completion/03/report/summary.json) retain all original audit exits, summaries, logs, saved poses, frozen comparisons and verified input cleanup. KITTI replay does not establish fresh NCLT accuracy.
 <!-- /SHARED_NEAR_RANGE_REPLAY -->
+
+## Sequence 10 and the Fisher direction
+
+Opt-in, **not in the paper**: `--lf-gicp-sensor-centered-fisher` (default off).
+[Protocol, traces, all runs and commands](../../experiments/results/lf_gicp_sensor_centered_fisher/README.md).
+
+**Cause of the 6.71x on 10.** Eq. (2) linearizes about the world origin, and the
+Fisher weights of Eq. (7) follow the weakest eigenvector of that Hessian. A
+rotation about the sensor needs a translation part `t x omega` in that twist, so
+once the vehicle is about 100 m or more from the origin the weakest direction is
+a rotation about the sensor in 92-100 % of frames, not the weak translation axis.
+On 10 the gate is on for frames 1-429; from frame 100 on the vehicle is
+110-325 m from the origin (100-frame block means), and the drift blocks 200-400
+lie in this stretch. The largest applied weight grows to 119 and half of the total
+weight sits on 9-14 % of the correspondences. Taking the direction in a tangent
+centred on the sensor keeps it a translation (83-100 % of frames) with weights
+of at most 25.
+
+**One fixed setting on all of 00-10** (official RTE; the fresh `paper_default`
+equals the stored results on every sequence):
+
+| Arm | Geometric mean vs paper | Mean RTE [%] | 10 | Lower / higher than `paper_default` (05 equal) |
+|---|---:|---:|---:|---|
+| `paper_default` | 1.12x | 1.253 | 5.616 (6.71x) | - |
+| `--lf-gicp-sensor-centered-fisher` | 1.04x | 0.910 | 0.993 (1.19x) | 4 (02, 08, 09, 10) / 6 (00, 01, 03, 04, 06, 07) |
+| `--lf-gicp-no-mitigation` | 0.98x | 0.848 | 0.831 (0.99x) | 4 (02, 08, 09, 10) / 6 (00, 01, 03, 04, 06, 07) |
+| paper LF-GICP / VGICP | 1.00x / - | 0.865 / 1.203 | 0.837 / 1.604 | - |
+
+The opt-in removes the failure on 10 and leaves no sequence above twice the
+paper, but it is not a general improvement: 04 rises from 0.629 to 1.079 %
+(+72 %), 03 from 0.785 to 1.020 %, 00 from 0.664 to 0.765 %, 01 from 1.816 to
+1.993 %, 07 from 0.411 to 0.444 %. Where the gate stays on for most of a
+sequence, weighting the true weak translation axis costs accuracy, as the
+paper says it does under dilution. The backend without mitigation is closest to
+the paper's LF-GICP numbers and 0.70x the paper's VGICP column, so the paper's
+gain over VGICP does not appear here as a gain from the mitigation; the gate
+firing far more often than the paper's at most 8 % of KITTI frames remains the
+open discrepancy. Defaults and Table 6 (`paper_default`) are unchanged.
+

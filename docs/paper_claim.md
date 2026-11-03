@@ -83,7 +83,10 @@ against the official code's 0.585 %, or 1.10x the paper's per-sequence values.
 MULLS with `--mulls-lo` averages 0.572 %, against the official code's 0.576 %,
 or 1.06x the paper's per-sequence values. LiTAMIN2, IMLS-SLAM and DiLO also
 reach near-paper means with the protocols and deviations documented above.
-LF-GICP fails to reproduce sequence 10 despite its near-paper mean.
+LF-GICP fails to reproduce sequence 10 despite its near-paper mean; the cause
+is the world-origin Fisher direction of the paper's Eq. (2)/(7), and the
+opt-in sensor-centred direction (not in the paper, 1.04x over 00-10) is worse
+on six sequences, so it does not replace the fixed `paper_default` row.
 L-LO, ELO, Mesh-LOAM and InTEn-LOAM do not reproduce the paper numbers.
 
 What may not be claimed: faithful reproduction for those methods with a

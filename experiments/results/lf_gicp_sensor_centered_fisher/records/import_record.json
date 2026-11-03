@@ -1,0 +1,167 @@
+[
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680276.4113398,
+    "finished_unix": 1793680276.7740576,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680276.777219,
+    "finished_unix": 1793680276.9836392,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680276.9895666,
+    "finished_unix": 1793680277.1947052,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680277.198071,
+    "finished_unix": 1793680277.4731116,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680277.4773388,
+    "finished_unix": 1793680277.7783186,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680277.784762,
+    "finished_unix": 1793680278.0549884,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680278.0581138,
+    "finished_unix": 1793680278.3169298,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680278.321354,
+    "finished_unix": 1793680278.5522633,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680278.5572484,
+    "finished_unix": 1793680278.7895448,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680278.7949948,
+    "finished_unix": 1793680279.0433023,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": [
+      "/usr/local/bin/python3",
+      "evaluation/scripts/run_experiment_matrix.py",
+      "--manifest",
+      "experiments/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix.json",
+      "--merge-existing-index",
+      "--reuse-existing"
+    ],
+    "exit_code": 0,
+    "started_unix": 1793680279.0463548,
+    "finished_unix": 1793680279.269315,
+    "stdout_tail": "one] wrote experiments/results/vlom_kitti_seq_00_full_paper_comp_matrix.json\n[done] wrote experiments/results/vlom_kitti_seq_07_full_paper_comp_matrix.json\n[done] wrote experiments/results/voxel_gicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json\n[done] wrote experiments/results/xicp_hdl_400_reference_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0009_nogt_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_full_matrix.json\n[done] wrote experiments/results/xicp_kitti_raw_0061_matrix.json\n[done] wrote experiments/results/xicp_mcd_kth_day_06_matrix.json\n[done] wrote experiments/results/xicp_mcd_ntu_day_02_matrix.json\n[done] wrote experiments/results/xicp_mcd_tuhh_night_09_matrix.json\n[done] wrote docs/experiments.md\n[done] wrote docs/decisions.md\n[done] wrote docs/interfaces.md\n",
+    "stderr_tail": ""
+  }
+]

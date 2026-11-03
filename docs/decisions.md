@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -4893,6 +4893,19 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LF-GICP KITTI Odom seq 00 full (4541 frames): sensor-centred Fisher direction
+
+- Current default: `no_mitigation`.
+- Active challengers: `paper_default`.
+- Reference variants: `sensor_centered_fisher`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| sensor_centered_fisher | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LF-GICP KITTI Odom seq 01 full: fixed-configuration paper comparison
 
 - Current default: `paper_default`.
@@ -4901,6 +4914,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 01 full (1101 frames): sensor-centred Fisher direction
+
+- Current default: `paper_default`.
+- Active challengers: `sensor_centered_fisher`, `no_mitigation`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| sensor_centered_fisher | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| no_mitigation | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## LF-GICP on KITTI Odom seq 02 full (4661 frames)
 
@@ -4913,6 +4938,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LF-GICP KITTI Odom seq 02 full (4661 frames): sensor-centred Fisher direction
+
+- Current default: `no_mitigation`.
+- Active challengers: `paper_default`, `sensor_centered_fisher`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| sensor_centered_fisher | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LF-GICP KITTI Odom seq 03 full: fixed-configuration paper comparison
 
 - Current default: `paper_default`.
@@ -4922,6 +4959,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LF-GICP KITTI Odom seq 03 full (801 frames): sensor-centred Fisher direction
+
+- Current default: `no_mitigation`.
+- Active challengers: `paper_default`, `sensor_centered_fisher`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| sensor_centered_fisher | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LF-GICP KITTI Odom seq 04 full: fixed-configuration paper comparison
 
 - Current default: `paper_default`.
@@ -4930,6 +4979,19 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 04 full (271 frames): sensor-centred Fisher direction
+
+- Current default: `paper_default`.
+- Active challengers: `no_mitigation`.
+- Reference variants: `sensor_centered_fisher`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| sensor_centered_fisher | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_mitigation | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## LF-GICP on KITTI Odom seq 05 full (2761 frames)
 
@@ -4942,6 +5004,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LF-GICP KITTI Odom seq 05 full (2761 frames): sensor-centred Fisher direction
+
+- Current default: `paper_default`.
+- Active challengers: `sensor_centered_fisher`, `no_mitigation`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| sensor_centered_fisher | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| no_mitigation | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## LF-GICP KITTI Odom seq 06 full: fixed-configuration paper comparison
 
 - Current default: `paper_default`.
@@ -4950,6 +5024,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 06 full (1101 frames): sensor-centred Fisher direction
+
+- Current default: `sensor_centered_fisher`.
+- Active challengers: `paper_default`, `no_mitigation`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| sensor_centered_fisher | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_mitigation | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## LF-GICP KITTI Odom seq 07 full: elevation correction ablation
 
@@ -4973,6 +5059,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | no_mitigation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LF-GICP KITTI Odom seq 07 full (1101 frames): sensor-centred Fisher direction
+
+- Current default: `paper_default`.
+- Reference variants: `sensor_centered_fisher`, `no_mitigation`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| sensor_centered_fisher | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_mitigation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LF-GICP on KITTI Odom seq 08 full (4071 frames)
 
 - Current default: `no_mitigation`.
@@ -4984,6 +5082,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LF-GICP KITTI Odom seq 08 full (4071 frames): sensor-centred Fisher direction
+
+- Current default: `sensor_centered_fisher`.
+- Active challengers: `paper_default`, `no_mitigation`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| sensor_centered_fisher | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_mitigation | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## LF-GICP KITTI Odom seq 09 full: fixed-configuration paper comparison
 
 - Current default: `paper_default`.
@@ -4993,6 +5103,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LF-GICP KITTI Odom seq 09 full (1591 frames): sensor-centred Fisher direction
+
+- Current default: `no_mitigation`.
+- Reference variants: `paper_default`, `sensor_centered_fisher`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| sensor_centered_fisher | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LF-GICP KITTI Odom seq 10 full: fixed-configuration paper comparison
 
 - Current default: `paper_default`.
@@ -5001,6 +5123,18 @@ _Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP KITTI Odom seq 10 full (1201 frames): sensor-centred Fisher direction
+
+- Current default: `no_mitigation`.
+- Reference variants: `paper_default`, `sensor_centered_fisher`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| sensor_centered_fisher | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LINS on the public HDL-400 reference window
 

@@ -1,0 +1,139 @@
+{
+  "trace": "centred_trace.csv.gz",
+  "block_frames": 100,
+  "lever_m": 10.0,
+  "frames": 1201,
+  "gated_frames": 446,
+  "blocks": [
+    {
+      "first_frame": 0,
+      "frames": 100,
+      "gated_frames": 99,
+      "mean_distance_from_origin_m": 26.238099092552048,
+      "world_weak_rotation_fraction": 0.020202020202020204,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": 10.75163516,
+      "mean_half_weight_fraction": 0.32523593111515153
+    },
+    {
+      "first_frame": 100,
+      "frames": 100,
+      "gated_frames": 100,
+      "mean_distance_from_origin_m": 109.75514788276983,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": 12.47315398,
+      "mean_half_weight_fraction": 0.2781035134630001
+    },
+    {
+      "first_frame": 200,
+      "frames": 100,
+      "gated_frames": 100,
+      "mean_distance_from_origin_m": 185.17177498027183,
+      "world_weak_rotation_fraction": 0.92,
+      "sensor_weak_rotation_fraction": 0.17,
+      "max_applied_weight": 25.01829481,
+      "mean_half_weight_fraction": 0.293881401801
+    },
+    {
+      "first_frame": 300,
+      "frames": 100,
+      "gated_frames": 100,
+      "mean_distance_from_origin_m": 251.34709714546258,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": 12.04436464,
+      "mean_half_weight_fraction": 0.31468183283299994
+    },
+    {
+      "first_frame": 400,
+      "frames": 100,
+      "gated_frames": 47,
+      "mean_distance_from_origin_m": 325.29897052434063,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": 18.62263128,
+      "mean_half_weight_fraction": 0.31611344404680847
+    },
+    {
+      "first_frame": 500,
+      "frames": 100,
+      "gated_frames": 0,
+      "mean_distance_from_origin_m": 405.79129541093664,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.17,
+      "max_applied_weight": null,
+      "mean_half_weight_fraction": null
+    },
+    {
+      "first_frame": 600,
+      "frames": 100,
+      "gated_frames": 0,
+      "mean_distance_from_origin_m": 462.3423207963554,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": null,
+      "mean_half_weight_fraction": null
+    },
+    {
+      "first_frame": 700,
+      "frames": 100,
+      "gated_frames": 0,
+      "mean_distance_from_origin_m": 547.2717529337237,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": null,
+      "mean_half_weight_fraction": null
+    },
+    {
+      "first_frame": 800,
+      "frames": 100,
+      "gated_frames": 0,
+      "mean_distance_from_origin_m": 660.5636112887628,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": null,
+      "mean_half_weight_fraction": null
+    },
+    {
+      "first_frame": 900,
+      "frames": 100,
+      "gated_frames": 0,
+      "mean_distance_from_origin_m": 631.6416649624214,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.1,
+      "max_applied_weight": null,
+      "mean_half_weight_fraction": null
+    },
+    {
+      "first_frame": 1000,
+      "frames": 100,
+      "gated_frames": 0,
+      "mean_distance_from_origin_m": 588.6257428861536,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": null,
+      "mean_half_weight_fraction": null
+    },
+    {
+      "first_frame": 1100,
+      "frames": 100,
+      "gated_frames": 0,
+      "mean_distance_from_origin_m": 550.4845556740427,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": null,
+      "mean_half_weight_fraction": null
+    },
+    {
+      "first_frame": 1200,
+      "frames": 1,
+      "gated_frames": 0,
+      "mean_distance_from_origin_m": 547.2897705899891,
+      "world_weak_rotation_fraction": 1.0,
+      "sensor_weak_rotation_fraction": 0.0,
+      "max_applied_weight": null,
+      "mean_half_weight_fraction": null
+    }
+  ]
+}

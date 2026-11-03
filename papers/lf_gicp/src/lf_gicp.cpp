@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <functional>
 #include <unordered_set>
 
 namespace localization_zoo {
@@ -164,6 +165,45 @@ std::vector<double> fisherWeights(
   return weights;
 }
 
+Eigen::Matrix<double, 6, 6> centeredHessian(
+    const Eigen::Matrix<double, 6, 6>& hessian, const Eigen::Vector3d& origin) {
+  Eigen::Matrix<double, 6, 6> A = Eigen::Matrix<double, 6, 6>::Identity();
+  A.block<3, 3>(3, 0) = skew(origin);
+  return A.transpose() * hessian * A;
+}
+
+std::vector<double> fisherWeights(
+    const std::vector<Eigen::Matrix<double, 3, 6>>& jacobians,
+    const std::vector<Eigen::Matrix3d>& informations,
+    const Eigen::Matrix<double, 6, 6>& hessian,
+    const Eigen::Vector3d& tangent_origin,
+    Eigen::Matrix<double, 6, 1>* world_direction) {
+  std::vector<double> weights(jacobians.size(), 1.0);
+  if (jacobians.empty()) return weights;
+  // J_c = J_world A, so the centred weak direction v_c acts on the world
+  // Jacobians as v = A v_c; A v_c = [omega; rho + origin x omega].
+  Eigen::SelfAdjointEigenSolver<Eigen::Matrix<double, 6, 6>> eig(
+      centeredHessian(hessian, tangent_origin));
+  const Eigen::Matrix<double, 6, 1> vc = eig.eigenvectors().col(0);
+  Eigen::Matrix<double, 6, 1> v;
+  v.head<3>() = vc.head<3>();
+  v.tail<3>() = vc.tail<3>() + tangent_origin.cross(vc.head<3>());
+  if (world_direction != nullptr) *world_direction = v;
+  double sum = 0.0;
+  for (size_t m = 0; m < jacobians.size(); ++m) {
+    const Eigen::Vector3d jv = jacobians[m] * v;
+    weights[m] = jv.dot(informations[m] * jv);
+    sum += weights[m];
+  }
+  const double mean = sum / static_cast<double>(jacobians.size());
+  if (!(mean > 0.0)) {
+    std::fill(weights.begin(), weights.end(), 1.0);
+    return weights;
+  }
+  for (double& w : weights) w /= mean;
+  return weights;
+}
+
 // ---------------------------------------------------------------- the gate
 
 bool DegeneracyGate::update(double f0, double lambda0) {
@@ -265,6 +305,12 @@ LFGICPResult LFGICPOdometry::registerFrame(
   std::vector<Eigen::Matrix3d> info;
   std::vector<Eigen::Vector3d> resid;
   std::vector<double> huber;
+  // Passive diagnostics: last unweighted system, its linearization centre
+  // and the weights applied on that iteration.
+  Eigen::Matrix<double, 6, 6> diag_H = Eigen::Matrix<double, 6, 6>::Zero();
+  Eigen::Vector3d diag_center = Eigen::Vector3d::Zero();
+  std::vector<double> diag_weights;
+  bool diag_valid = false;
   for (int it = 0; it < params_.max_iterations; ++it) {
     jac.clear();
     info.clear();
@@ -308,10 +354,17 @@ LFGICPResult LFGICPOdometry::registerFrame(
       H += JtW * jac[m];
       b += JtW * resid[m];
     }
+    diag_H = H;
+    diag_center = T.block<3, 1>(0, 3);
+    diag_valid = true;
+    diag_weights.clear();
     if (degenerate) {
       std::vector<Eigen::Matrix3d> weighted_info(info.size());
       for (size_t m = 0; m < info.size(); ++m) weighted_info[m] = huber[m] * info[m];
-      const auto w = fisherWeights(jac, weighted_info, H);
+      const auto w = params_.sensor_centered_fisher
+                         ? fisherWeights(jac, weighted_info, H, diag_center)
+                         : fisherWeights(jac, weighted_info, H);
+      diag_weights = w;
       H.setZero();
       b.setZero();
       for (size_t m = 0; m < jac.size(); ++m) {
@@ -326,6 +379,32 @@ LFGICPResult LFGICPOdometry::registerFrame(
     T = expTwist(dx) * T;
     result.iterations = it + 1;
     if (dx.norm() < params_.convergence_epsilon) break;
+  }
+
+  result.diagnostics.gate_median_f0 = gate_.medianF0();
+  result.diagnostics.gate_median_lambda0 = gate_.medianLambda0();
+  if (diag_valid) {
+    auto& d = result.diagnostics;
+    d.valid = true;
+    Eigen::SelfAdjointEigenSolver<Eigen::Matrix<double, 6, 6>> world_eig(diag_H);
+    d.world_weak = world_eig.eigenvectors().col(0);
+    d.world_weak_eigenvalue = world_eig.eigenvalues()(0);
+    Eigen::SelfAdjointEigenSolver<Eigen::Matrix<double, 6, 6>> sensor_eig(
+        centeredHessian(diag_H, diag_center));
+    d.sensor_weak = sensor_eig.eigenvectors().col(0);
+    d.sensor_weak_eigenvalue = sensor_eig.eigenvalues()(0);
+    if (!diag_weights.empty()) {
+      std::vector<double> sorted = diag_weights;
+      std::sort(sorted.begin(), sorted.end(), std::greater<double>());
+      d.max_weight = sorted.front();
+      double total = 0.0;
+      for (double w : sorted) total += w;
+      double running = 0.0;
+      size_t count = 0;
+      while (count < sorted.size() && running < 0.5 * total) running += sorted[count++];
+      d.half_weight_fraction =
+          static_cast<double>(count) / static_cast<double>(sorted.size());
+    }
   }
 
   // KISS-style model deviation for the adaptive threshold.

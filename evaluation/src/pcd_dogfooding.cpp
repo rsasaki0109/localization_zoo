@@ -2194,6 +2194,10 @@ struct LFGICPDogfoodingOptions {
   bool enable_mitigation = true;
   double covariance_regularization = 2.0;
   double field_regularization = 0.25;
+  // Not in the paper; opt-in (papers/lf_gicp/README.md).
+  bool sensor_centered_fisher = false;
+  // Optional passive per-frame trace (CSV); empty disables it.
+  std::string trace_csv;
 };
 
 struct GenZICPDogfoodingOptions {
@@ -7109,9 +7113,28 @@ MethodResult runLFGICP(const std::vector<std::string>& pcd_dirs,
   params.enable_mitigation = options.enable_mitigation;
   params.covariance_regularization = options.covariance_regularization;
   params.field_regularization = options.field_regularization;
+  params.sensor_centered_fisher = options.sensor_centered_fisher;
   LFGICPOdometry odom(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  std::ofstream trace;
+  if (!options.trace_csv.empty()) {
+    trace.open(options.trace_csv);
+    if (!trace) {
+      throw std::runtime_error("cannot open --lf-gicp-trace-csv " +
+                               options.trace_csv);
+    }
+    trace << "input_index,degenerate,f0,lambda0,median_f0,median_lambda0,"
+             "iterations,correspondences,diag_valid,"
+             "world_weak_w0,world_weak_w1,world_weak_w2,"
+             "world_weak_r0,world_weak_r1,world_weak_r2,world_weak_eigenvalue,"
+             "sensor_weak_w0,sensor_weak_w1,sensor_weak_w2,"
+             "sensor_weak_r0,sensor_weak_r1,sensor_weak_r2,sensor_weak_eigenvalue,"
+             "max_weight,half_weight_fraction,"
+             "x,y,z\n";
+    trace << std::setprecision(10);
+  }
 
   std::vector<double> f0s, lambdas;
   auto t0 = Clock::now();
@@ -7124,6 +7147,19 @@ MethodResult runLFGICP(const std::vector<std::string>& pcd_dirs,
     if (result.field.sampled_voxels > 0) {
       f0s.push_back(result.field.f0);
       lambdas.push_back(result.field.lambda0);
+    }
+    if (trace.is_open()) {
+      const auto& d = result.diagnostics;
+      trace << i << ',' << (result.degenerate ? 1 : 0) << ',' << result.field.f0
+            << ',' << result.field.lambda0 << ',' << d.gate_median_f0 << ','
+            << d.gate_median_lambda0 << ',' << result.iterations << ','
+            << result.correspondences << ',' << (d.valid ? 1 : 0);
+      for (int k = 0; k < 6; ++k) trace << ',' << d.world_weak(k);
+      trace << ',' << d.world_weak_eigenvalue;
+      for (int k = 0; k < 6; ++k) trace << ',' << d.sensor_weak(k);
+      trace << ',' << d.sensor_weak_eigenvalue << ',' << d.max_weight << ','
+            << d.half_weight_fraction << ',' << result.pose(0, 3) << ','
+            << result.pose(1, 3) << ',' << result.pose(2, 3) << '\n';
     }
     res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
     if (i % 10 == 0) {
@@ -7146,6 +7182,7 @@ MethodResult runLFGICP(const std::vector<std::string>& pcd_dirs,
        << (options.enable_mitigation ? "on" : "off")
        << " beta=" << options.covariance_regularization
        << " field_beta=" << options.field_regularization
+       << (options.sensor_centered_fisher ? " sensor_centered_fisher=on" : "")
        << " degenerate_frames=" << odom.degenerateFrames() << "/" << odom.frames()
        << " median_f0=" << median_of(f0s) << " median_lambda0=" << median_of(lambdas);
   res.note = note.str();
@@ -12140,7 +12177,7 @@ int main(int argc, char** argv) {
               << " [--kiss-fast-profile] [--kiss-upstream-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-legacy-27-neighborhood]"
-              << " [--lf-gicp-no-mitigation] [--lf-gicp-beta X] [--lf-gicp-field-beta X] [--l-lo-set key=value]..."
+              << " [--lf-gicp-no-mitigation] [--lf-gicp-beta X] [--lf-gicp-field-beta X] [--lf-gicp-sensor-centered-fisher] [--lf-gicp-trace-csv PATH] [--l-lo-set key=value]..."
                << " [--kiss-pg-scan-context-threshold X]"
                << " [--kiss-pg-correction-gain X]"
                << " [--kiss-pg-external-poses KITTI_POSES]"
@@ -16226,6 +16263,14 @@ int main(int argc, char** argv) {
       lf_gicp_options.covariance_regularization = std::stod(argv[++i]);
       continue;
     }
+    if (arg == "--lf-gicp-sensor-centered-fisher") {
+      lf_gicp_options.sensor_centered_fisher = true;
+      continue;
+    }
+    if (arg == "--lf-gicp-trace-csv" && i + 1 < argc) {
+      lf_gicp_options.trace_csv = argv[++i];
+      continue;
+    }
     if (arg == "--kiss-legacy-27-neighborhood") {
       // Upstream KISS-ICP / pre-2026-08-02 correspondence search; reproduces
       // KISS-ICP aggregates recorded before the v14 change.
@@ -17707,7 +17752,9 @@ int main(int argc, char** argv) {
   if (isMethodEnabled(selected_methods, "lf_gicp")) {
     std::cout << "Running LF-GICP..." << std::endl;
     std::cout << "  mitigation=" << (lf_gicp_options.enable_mitigation ? "on" : "off")
-              << " beta=" << lf_gicp_options.covariance_regularization << std::endl;
+              << " beta=" << lf_gicp_options.covariance_regularization
+              << (lf_gicp_options.sensor_centered_fisher ? " sensor_centered_fisher=on" : "")
+              << std::endl;
     results.push_back(runLFGICP(pcd_dirs, gt, lf_gicp_options));
   }
 

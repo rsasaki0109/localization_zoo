@@ -111,7 +111,7 @@ audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 |---|---|---:|---|
 | LiTAMIN2 | 00-10 | 1.01x | paper pipeline; one fixed setting on all 11: 1.05x ([details](papers/litamin2/README.md)) |
 | A-LOAM | 00-10 | 1.07x | one setting selected on 07; vs secondary-source LOAM values ([details](papers/aloam/README.md#full-kitti-comparison-with-one-configuration)) |
-| LF-GICP | 00-10 | 1.12x | one setting; calibrated on 00 after earlier 02/08 observations; above 2x: 10 (6.71x) ([details](papers/lf_gicp/README.md#full-kitti-comparison-with-one-configuration)) |
+| LF-GICP | 00-10 | 1.12x | one setting; calibrated on 00 after earlier 02/08 observations; above 2x: 10 (6.71x), caused by the world-origin Fisher direction; an opt-in sensor-centred direction gives 1.04x but is worse on six sequences ([details](papers/lf_gicp/README.md#sequence-10-and-the-fisher-direction)) |
 | KISS-ICP | 00/04 | 1.04x | upstream elevation correction; 00-10 average equals the official code's ([details](papers/kiss_icp/README.md#deviations-from-upstream-kiss-icp-130)) |
 | MULLS | 00-10 | 1.12x | MULLS-LO; 00-10 average equals the official code's ([details](papers/mulls/README.md)) |
 | CT-ICP | 00-10 | 1.15x | upstream pipeline; 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |

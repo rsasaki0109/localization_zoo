@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-21T22:13:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -499,17 +499,28 @@ The runner is responsible for:
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/lego_loam_mcd_ntu_day_02_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/lego_loam_mcd_tuhh_night_09_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
 | LF-GICP on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/lf_gicp_kitti_seq_00_full_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json` |
+| LF-GICP KITTI Odom seq 00 full (4541 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix.json` |
 | LF-GICP KITTI Odom seq 01 full: fixed-configuration paper comparison | `ready` | `experiments/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json` |
+| LF-GICP KITTI Odom seq 01 full (1101 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix.json` |
 | LF-GICP on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/lf_gicp_kitti_seq_02_full_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json` |
+| LF-GICP KITTI Odom seq 02 full (4661 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix.json` |
 | LF-GICP KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `experiments/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json` |
+| LF-GICP KITTI Odom seq 03 full (801 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix.json` |
 | LF-GICP KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `experiments/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json` |
+| LF-GICP KITTI Odom seq 04 full (271 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix.json` |
 | LF-GICP on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/lf_gicp_kitti_seq_05_full_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json` |
+| LF-GICP KITTI Odom seq 05 full (2761 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix.json` |
 | LF-GICP KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `experiments/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json` |
+| LF-GICP KITTI Odom seq 06 full (1101 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix.json` | `lf_gicp` | `sensor_centered_fisher` | `experiments/results/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix.json` |
 | LF-GICP KITTI Odom seq 07 full: elevation correction ablation | `ready` | `experiments/lf_gicp_kitti_seq_07_full_elevation_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json` |
 | LF-GICP on KITTI Odom seq 07 full (1101 frames) | `ready` | `experiments/lf_gicp_kitti_seq_07_full_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json` |
+| LF-GICP KITTI Odom seq 07 full (1101 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix.json` |
 | LF-GICP on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/lf_gicp_kitti_seq_08_full_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json` |
+| LF-GICP KITTI Odom seq 08 full (4071 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix.json` | `lf_gicp` | `sensor_centered_fisher` | `experiments/results/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix.json` |
 | LF-GICP KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `experiments/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json` |
+| LF-GICP KITTI Odom seq 09 full (1591 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix.json` |
 | LF-GICP KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `experiments/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json` |
+| LF-GICP KITTI Odom seq 10 full (1201 frames): sensor-centred Fisher direction | `ready` | `experiments/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix.json` |
 | LINS on the public HDL-400 reference window | `ready` | `experiments/lins_hdl_400_reference_matrix.json` | `lins` | `fast` | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lins_kitti_raw_0009_full_matrix.json` | `lins` | `fast` | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
 | LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/lins_kitti_raw_0009_matrix.json` | `lins` | `fast` | `experiments/results/lins_kitti_raw_0009_matrix.json` |

@@ -1,0 +1,681 @@
+{
+  "schema_version": 1,
+  "study": "lf_gicp_sensor_centered_fisher",
+  "metric": "official KITTI translational RTE [%] (100-800 m)",
+  "paper_source": "arXiv 2608.19522 Table I (LF-GICP and VGICP columns)",
+  "rows": [
+    {
+      "sequence": "00",
+      "paper_lf_gicp_rte_pct": 0.692,
+      "paper_vgicp_rte_pct": 1.062,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.663949,
+          "kitti_rte_rot_deg_per_100m": 0.329046,
+          "rpe_trans_pct": 0.82278,
+          "ate_m": 9.336575,
+          "fps": 6.557249,
+          "gated_frames": 33,
+          "registered_frames": 4541
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.76509,
+          "kitti_rte_rot_deg_per_100m": 0.349486,
+          "rpe_trans_pct": 0.834202,
+          "ate_m": 10.794083,
+          "fps": 6.452303,
+          "gated_frames": 32,
+          "registered_frames": 4541
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.73363,
+          "kitti_rte_rot_deg_per_100m": 0.356604,
+          "rpe_trans_pct": 0.831276,
+          "ate_m": 7.848136,
+          "fps": 6.388643,
+          "gated_frames": 0,
+          "registered_frames": 4541
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_00_full_matrix.json",
+        "kitti_rte_trans_pct": 0.663949,
+        "rpe_trans_pct": 0.82278,
+        "ate_m": 9.336575,
+        "frames": 4541
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 1.1523324833684516,
+      "ratio_to_paper": {
+        "paper_default": 0.95946387283237,
+        "sensor_centered_fisher": 1.1056213872832372,
+        "no_mitigation": 1.0601589595375724
+      },
+      "no_mitigation_over_paper_vgicp": 0.6908003766478342
+    },
+    {
+      "sequence": "01",
+      "paper_lf_gicp_rte_pct": 1.822,
+      "paper_vgicp_rte_pct": 2.39,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 1.816415,
+          "kitti_rte_rot_deg_per_100m": 0.460507,
+          "rpe_trans_pct": 0.919631,
+          "ate_m": 94.093942,
+          "fps": 2.797556,
+          "gated_frames": 1100,
+          "registered_frames": 1101
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 1.9929,
+          "kitti_rte_rot_deg_per_100m": 0.501233,
+          "rpe_trans_pct": 0.969207,
+          "ate_m": 103.851824,
+          "fps": 2.784406,
+          "gated_frames": 1100,
+          "registered_frames": 1101
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 1.923464,
+          "kitti_rte_rot_deg_per_100m": 0.470821,
+          "rpe_trans_pct": 0.967821,
+          "ate_m": 99.120948,
+          "fps": 2.89549,
+          "gated_frames": 0,
+          "registered_frames": 1101
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json",
+        "kitti_rte_trans_pct": 1.816415,
+        "rpe_trans_pct": 0.919631,
+        "ate_m": 94.093942,
+        "frames": 1101
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 1.0971611663634138,
+      "ratio_to_paper": {
+        "paper_default": 0.9969346871569703,
+        "sensor_centered_fisher": 1.0937980241492864,
+        "no_mitigation": 1.055688254665203
+      },
+      "no_mitigation_over_paper_vgicp": 0.8047966527196653
+    },
+    {
+      "sequence": "02",
+      "paper_lf_gicp_rte_pct": 1.084,
+      "paper_vgicp_rte_pct": 1.429,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 1.07538,
+          "kitti_rte_rot_deg_per_100m": 0.376033,
+          "rpe_trans_pct": 0.892164,
+          "ate_m": 33.031673,
+          "fps": 6.080693,
+          "gated_frames": 628,
+          "registered_frames": 4661
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 1.058676,
+          "kitti_rte_rot_deg_per_100m": 0.372074,
+          "rpe_trans_pct": 0.888434,
+          "ate_m": 30.41332,
+          "fps": 6.105606,
+          "gated_frames": 634,
+          "registered_frames": 4661
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 1.07365,
+          "kitti_rte_rot_deg_per_100m": 0.381963,
+          "rpe_trans_pct": 0.883793,
+          "ate_m": 27.185742,
+          "fps": 6.020117,
+          "gated_frames": 0,
+          "registered_frames": 4661
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_02_full_matrix.json",
+        "kitti_rte_trans_pct": 1.07538,
+        "rpe_trans_pct": 0.892164,
+        "ate_m": 33.031673,
+        "frames": 4661
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 0.9844668861239747,
+      "ratio_to_paper": {
+        "paper_default": 0.9920479704797047,
+        "sensor_centered_fisher": 0.9766383763837637,
+        "no_mitigation": 0.9904520295202951
+      },
+      "no_mitigation_over_paper_vgicp": 0.7513296011196641
+    },
+    {
+      "sequence": "03",
+      "paper_lf_gicp_rte_pct": 1.207,
+      "paper_vgicp_rte_pct": 1.165,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 0.785354,
+          "kitti_rte_rot_deg_per_100m": 0.523409,
+          "rpe_trans_pct": 0.644761,
+          "ate_m": 5.074145,
+          "fps": 4.777441,
+          "gated_frames": 403,
+          "registered_frames": 801
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 1.020283,
+          "kitti_rte_rot_deg_per_100m": 0.505688,
+          "rpe_trans_pct": 0.840565,
+          "ate_m": 5.023159,
+          "fps": 4.511812,
+          "gated_frames": 403,
+          "registered_frames": 801
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 0.897005,
+          "kitti_rte_rot_deg_per_100m": 0.503927,
+          "rpe_trans_pct": 0.7462,
+          "ate_m": 5.061151,
+          "fps": 4.948465,
+          "gated_frames": 0,
+          "registered_frames": 801
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json",
+        "kitti_rte_trans_pct": 0.785354,
+        "rpe_trans_pct": 0.644761,
+        "ate_m": 5.074145,
+        "frames": 801
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 1.2991377136934428,
+      "ratio_to_paper": {
+        "paper_default": 0.6506661143330571,
+        "sensor_centered_fisher": 0.8453048881524441,
+        "no_mitigation": 0.7431690140845071
+      },
+      "no_mitigation_over_paper_vgicp": 0.7699613733905579
+    },
+    {
+      "sequence": "04",
+      "paper_lf_gicp_rte_pct": 0.814,
+      "paper_vgicp_rte_pct": 1.065,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 0.628883,
+          "kitti_rte_rot_deg_per_100m": 0.514029,
+          "rpe_trans_pct": 0.492733,
+          "ate_m": 1.71936,
+          "fps": 3.756593,
+          "gated_frames": 268,
+          "registered_frames": 271
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 1.078803,
+          "kitti_rte_rot_deg_per_100m": 0.537077,
+          "rpe_trans_pct": 0.810966,
+          "ate_m": 3.468625,
+          "fps": 3.529054,
+          "gated_frames": 268,
+          "registered_frames": 271
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 0.745934,
+          "kitti_rte_rot_deg_per_100m": 0.430032,
+          "rpe_trans_pct": 0.574243,
+          "ate_m": 2.071889,
+          "fps": 3.99588,
+          "gated_frames": 0,
+          "registered_frames": 271
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json",
+        "kitti_rte_trans_pct": 0.628883,
+        "rpe_trans_pct": 0.492733,
+        "ate_m": 1.71936,
+        "frames": 271
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 1.7154271939295545,
+      "ratio_to_paper": {
+        "paper_default": 0.7725835380835381,
+        "sensor_centered_fisher": 1.325310810810811,
+        "no_mitigation": 0.9163808353808355
+      },
+      "no_mitigation_over_paper_vgicp": 0.7004075117370893
+    },
+    {
+      "sequence": "05",
+      "paper_lf_gicp_rte_pct": 0.577,
+      "paper_vgicp_rte_pct": 0.841,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.511904,
+          "kitti_rte_rot_deg_per_100m": 0.302012,
+          "rpe_trans_pct": 0.511771,
+          "ate_m": 5.555945,
+          "fps": 6.249888,
+          "gated_frames": 0,
+          "registered_frames": 2761
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.511904,
+          "kitti_rte_rot_deg_per_100m": 0.302012,
+          "rpe_trans_pct": 0.511771,
+          "ate_m": 5.555945,
+          "fps": 6.003596,
+          "gated_frames": 0,
+          "registered_frames": 2761
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.511904,
+          "kitti_rte_rot_deg_per_100m": 0.302012,
+          "rpe_trans_pct": 0.511771,
+          "ate_m": 5.555945,
+          "fps": 5.999489,
+          "gated_frames": 0,
+          "registered_frames": 2761
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_05_full_matrix.json",
+        "kitti_rte_trans_pct": 0.511904,
+        "rpe_trans_pct": 0.511771,
+        "ate_m": 5.555945,
+        "frames": 2761
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 1.0,
+      "ratio_to_paper": {
+        "paper_default": 0.8871819757365685,
+        "sensor_centered_fisher": 0.8871819757365685,
+        "no_mitigation": 0.8871819757365685
+      },
+      "no_mitigation_over_paper_vgicp": 0.6086848989298455
+    },
+    {
+      "sequence": "06",
+      "paper_lf_gicp_rte_pct": 0.546,
+      "paper_vgicp_rte_pct": 0.698,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.54277,
+          "kitti_rte_rot_deg_per_100m": 0.242359,
+          "rpe_trans_pct": 0.572485,
+          "ate_m": 2.132569,
+          "fps": 3.850468,
+          "gated_frames": 3,
+          "registered_frames": 1101
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.543673,
+          "kitti_rte_rot_deg_per_100m": 0.243223,
+          "rpe_trans_pct": 0.572172,
+          "ate_m": 2.123928,
+          "fps": 3.970958,
+          "gated_frames": 3,
+          "registered_frames": 1101
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.543222,
+          "kitti_rte_rot_deg_per_100m": 0.244613,
+          "rpe_trans_pct": 0.562212,
+          "ate_m": 2.26049,
+          "fps": 3.901277,
+          "gated_frames": 0,
+          "registered_frames": 1101
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json",
+        "kitti_rte_trans_pct": 0.54277,
+        "rpe_trans_pct": 0.572485,
+        "ate_m": 2.132569,
+        "frames": 1101
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 1.0016636881183558,
+      "ratio_to_paper": {
+        "paper_default": 0.994084249084249,
+        "sensor_centered_fisher": 0.9957380952380951,
+        "no_mitigation": 0.9949120879120879
+      },
+      "no_mitigation_over_paper_vgicp": 0.7782550143266476
+    },
+    {
+      "sequence": "07",
+      "paper_lf_gicp_rte_pct": 0.496,
+      "paper_vgicp_rte_pct": 0.596,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.411405,
+          "kitti_rte_rot_deg_per_100m": 0.249794,
+          "rpe_trans_pct": 0.540379,
+          "ate_m": 0.646241,
+          "fps": 7.405834,
+          "gated_frames": 13,
+          "registered_frames": 1101
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.444493,
+          "kitti_rte_rot_deg_per_100m": 0.257373,
+          "rpe_trans_pct": 0.522457,
+          "ate_m": 0.880865,
+          "fps": 7.320234,
+          "gated_frames": 13,
+          "registered_frames": 1101
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.482533,
+          "kitti_rte_rot_deg_per_100m": 0.265389,
+          "rpe_trans_pct": 0.522659,
+          "ate_m": 0.968265,
+          "fps": 7.389965,
+          "gated_frames": 0,
+          "registered_frames": 1101
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_07_full_matrix.json",
+        "kitti_rte_trans_pct": 0.411405,
+        "rpe_trans_pct": 0.540379,
+        "ate_m": 0.646241,
+        "frames": 1101
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 1.0804268300093582,
+      "ratio_to_paper": {
+        "paper_default": 0.829445564516129,
+        "sensor_centered_fisher": 0.8961552419354839,
+        "no_mitigation": 0.9728487903225806
+      },
+      "no_mitigation_over_paper_vgicp": 0.8096191275167786
+    },
+    {
+      "sequence": "08",
+      "paper_lf_gicp_rte_pct": 0.878,
+      "paper_vgicp_rte_pct": 1.11,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 1.004991,
+          "kitti_rte_rot_deg_per_100m": 0.307864,
+          "rpe_trans_pct": 1.346663,
+          "ate_m": 16.413545,
+          "fps": 5.009964,
+          "gated_frames": 787,
+          "registered_frames": 4071
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 0.889344,
+          "kitti_rte_rot_deg_per_100m": 0.289652,
+          "rpe_trans_pct": 1.34033,
+          "ate_m": 13.474345,
+          "fps": 4.938105,
+          "gated_frames": 746,
+          "registered_frames": 4071
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 0.918448,
+          "kitti_rte_rot_deg_per_100m": 0.301311,
+          "rpe_trans_pct": 1.309268,
+          "ate_m": 16.280087,
+          "fps": 5.067351,
+          "gated_frames": 0,
+          "registered_frames": 4071
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_08_full_matrix.json",
+        "kitti_rte_trans_pct": 1.004991,
+        "rpe_trans_pct": 1.346663,
+        "ate_m": 16.413545,
+        "frames": 4071
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 0.8849273277074123,
+      "ratio_to_paper": {
+        "paper_default": 1.144636674259681,
+        "sensor_centered_fisher": 1.0129202733485194,
+        "no_mitigation": 1.0460683371298405
+      },
+      "no_mitigation_over_paper_vgicp": 0.8274306306306306
+    },
+    {
+      "sequence": "09",
+      "paper_lf_gicp_rte_pct": 0.566,
+      "paper_vgicp_rte_pct": 1.268,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.724575,
+          "kitti_rte_rot_deg_per_100m": 0.321929,
+          "rpe_trans_pct": 0.68215,
+          "ate_m": 7.784214,
+          "fps": 4.821761,
+          "gated_frames": 631,
+          "registered_frames": 1591
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.713385,
+          "kitti_rte_rot_deg_per_100m": 0.306849,
+          "rpe_trans_pct": 0.648952,
+          "ate_m": 7.322162,
+          "fps": 4.767968,
+          "gated_frames": 594,
+          "registered_frames": 1591
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.66908,
+          "kitti_rte_rot_deg_per_100m": 0.319982,
+          "rpe_trans_pct": 0.648181,
+          "ate_m": 6.402308,
+          "fps": 5.224493,
+          "gated_frames": 0,
+          "registered_frames": 1591
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json",
+        "kitti_rte_trans_pct": 0.724575,
+        "rpe_trans_pct": 0.68215,
+        "ate_m": 7.784214,
+        "frames": 1591
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 0.9845564641341477,
+      "ratio_to_paper": {
+        "paper_default": 1.2801678445229683,
+        "sensor_centered_fisher": 1.260397526501767,
+        "no_mitigation": 1.1821201413427562
+      },
+      "no_mitigation_over_paper_vgicp": 0.5276656151419559
+    },
+    {
+      "sequence": "10",
+      "paper_lf_gicp_rte_pct": 0.837,
+      "paper_vgicp_rte_pct": 1.604,
+      "arms": {
+        "paper_default": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix/paper_default/summary.json",
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 5.616436,
+          "kitti_rte_rot_deg_per_100m": 1.638993,
+          "rpe_trans_pct": 2.45454,
+          "ate_m": 50.981598,
+          "fps": 6.514061,
+          "gated_frames": 429,
+          "registered_frames": 1201
+        },
+        "sensor_centered_fisher": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 0.9934,
+          "kitti_rte_rot_deg_per_100m": 0.428976,
+          "rpe_trans_pct": 0.861621,
+          "ate_m": 13.431052,
+          "fps": 6.361888,
+          "gated_frames": 446,
+          "registered_frames": 1201
+        },
+        "no_mitigation": {
+          "summary": "experiments/results/runs/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix/no_mitigation/summary.json",
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 0.830684,
+          "kitti_rte_rot_deg_per_100m": 0.36825,
+          "rpe_trans_pct": 0.756906,
+          "ate_m": 6.686339,
+          "fps": 7.175028,
+          "gated_frames": 0,
+          "registered_frames": 1201
+        }
+      },
+      "historical_paper_default": {
+        "aggregate": "experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json",
+        "kitti_rte_trans_pct": 5.616436,
+        "rpe_trans_pct": 2.45454,
+        "ate_m": 50.981598,
+        "frames": 1201
+      },
+      "fresh_reference_matches_historical": true,
+      "candidate_over_reference": 0.17687373273727322,
+      "ratio_to_paper": {
+        "paper_default": 6.710198327359619,
+        "sensor_centered_fisher": 1.186857825567503,
+        "no_mitigation": 0.9924540023894862
+      },
+      "no_mitigation_over_paper_vgicp": 0.5178827930174563
+    }
+  ],
+  "aggregate": {
+    "geometric_mean_ratio_to_paper": {
+      "paper_default": 1.118600562163813,
+      "sensor_centered_fisher": 1.0428916423840016,
+      "no_mitigation": 0.9794240773841519
+    },
+    "mean_rte_pct": {
+      "paper_default": 1.2529147272727272,
+      "sensor_centered_fisher": 0.9101773636363636,
+      "no_mitigation": 0.8481412727272727
+    },
+    "paper_mean_rte_pct": {
+      "lf_gicp": 0.8653636363636363,
+      "vgicp": 1.2025454545454546
+    },
+    "candidate_over_reference_geometric_mean": 0.9323181818956351,
+    "candidate_vs_reference": {
+      "lower": 4,
+      "higher": 6,
+      "equal": 1
+    },
+    "candidate_vs_no_mitigation": {
+      "lower": 3,
+      "higher": 7
+    },
+    "above_twice_paper": {
+      "paper_default": [
+        "10"
+      ],
+      "sensor_centered_fisher": [],
+      "no_mitigation": []
+    },
+    "no_mitigation_over_paper_vgicp_geometric_mean": 0.6992278719578934,
+    "fresh_reference_matches_historical_all": true
+  }
+}

@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-11-03T06:49:12+00:00
+> Generated: 2026-11-03T09:49:34+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -572,8 +572,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness, no per-frame GT seed. Fixed paper_default on every sequence with a paper value. Previously committed matching results are reused unchanged; added sequences do not select parameters. field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting.
 **Current claim**: Full KITTI Odometry coverage with one fixed setting — Full-sequence official KITTI RTE on 00-10, variant paper_default, geometric mean 1.12x. field beta 0.25 was calibrated on sequence 00 first 500 frames against the paper dilution range, after earlier 02/08 runs exposed excessive gating. Those sequences influenced the decision to recalibrate; no added sequence influences the frozen setting. Seq 10: 5.616 % vs 0.837 % (6.71x), 26 moving steps with length error >20 % and 34 with local vector error >20 %. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.
 **Numeric comparison**: Same metric, 1.12x on 00-10 with one fixed setting — paper_default, official KITTI RTE [%], repo vs paper: 00 0.664 vs 0.692 (0.96x); 01 1.816 vs 1.822 (1.00x); 02 1.075 vs 1.084 (0.99x); 03 0.785 vs 1.207 (0.65x); 04 0.629 vs 0.814 (0.77x); 05 0.512 vs 0.577 (0.89x); 06 0.543 vs 0.546 (0.99x); 07 0.411 vs 0.496 (0.83x); 08 1.005 vs 0.878 (1.14x); 09 0.725 vs 0.566 (1.28x); 10 5.616 vs 0.837 (6.71x); geometric mean 1.12x. Sources and exact commands: experiments/results/remaining_kitti_coverage/. Table 6 is restricted to this fixed variant.
-**Main blocker**: Seq 10: 5.616 % vs 0.837 % (6.71x), 26 moving steps with length error >20 % and 34 with local vector error >20 %. The field regularization was calibrated on KITTI 00 after earlier 02/08 observations. Genuine absence scenes in GEODE remain unavailable, so full KITTI coverage does not validate that paper claim.
-**Next step**: Trace association and optimization through the measured failure intervals; keep this negative fixed-setting baseline and any non-paper fix opt-in.
+**Main blocker**: Seq 10: 5.616 % vs 0.837 % (6.71x), 26 moving steps with length error >20 % and 34 with local vector error >20 %. Cause located: Eq. (2) linearizes about the world origin, so the weakest Hessian eigenvector used by the Fisher weights (Eq. 7) becomes a rotation about the sensor once the vehicle is about 100 m from the origin; on 10 the gate is on for frames 1-429. The opt-in sensor-centred direction (not in the paper) gives 10 0.993 % (1.19x) and 1.04x over 00-10, but is worse than paper_default on 00/01/03/04/06/07; without mitigation the backend scores 0.98x. The gate fires far more often than the paper's at most 8 % of KITTI frames (01 100 %, 04 99 %, 03 50 %, 09 40 %, 10 36 %), which follows from the beta_f calibration on KITTI 00 after earlier 02/08 observations. Genuine absence scenes in GEODE remain unavailable, so full KITTI coverage does not validate that paper claim.
+**Next step**: Calibrate the gate so that it reproduces the paper's KITTI firing rate by the paper's own two-trace rule (needs GEODE Tunnel01); keep paper_default as the Table 6 variant and the sensor-centred direction opt-in (experiments/results/lf_gicp_sensor_centered_fisher/).
 
 ### Paper-Reported Values
 
@@ -596,19 +596,30 @@ For an explicit statement of implementation scope and what the repo currently cl
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
 | KITTI | Vanilla VGICP backend | 7.848 | 0.831 | 0.006775 | 3.75 |
+| KITTI | Vanilla VGICP backend | 7.848 | 0.831 | 0.006775 | 6.39 |
 | KITTI | Paper default | 94.094 | 0.920 | 0.004873 | 2.00 |
+| KITTI | Paper default (fresh reference) | 94.094 | 0.920 | 0.004873 | 2.80 |
 | KITTI | Vanilla VGICP backend | 27.186 | 0.884 | 0.005697 | 3.58 |
+| KITTI | Vanilla VGICP backend | 27.186 | 0.884 | 0.005697 | 6.02 |
 | KITTI | Paper default | 5.074 | 0.645 | 0.005395 | 3.39 |
+| KITTI | Vanilla VGICP backend | 5.061 | 0.746 | 0.005270 | 4.95 |
 | KITTI | Paper default | 1.719 | 0.493 | 0.005192 | 2.32 |
+| KITTI | Paper default (fresh reference) | 1.719 | 0.493 | 0.005192 | 3.76 |
 | KITTI | Vanilla VGICP backend | 5.556 | 0.512 | 0.004895 | 5.39 |
+| KITTI | Paper default (fresh reference) | 5.556 | 0.512 | 0.004895 | 6.25 |
 | KITTI | Paper default | 2.133 | 0.572 | 0.003767 | 2.27 |
+| KITTI | Sensor-centred Fisher direction (not in the paper) | 2.124 | 0.572 | 0.003773 | 3.97 |
 | KITTI | paper_default (Table 6 variant on seq 07, raw scans) | 0.646 | 0.540 | 0.003946 | 8.77 |
 | KITTI | Paper default | 0.646 | 0.540 | 0.003946 | 4.12 |
+| KITTI | Paper default (fresh reference) | 0.646 | 0.540 | 0.003946 | 7.41 |
 | KITTI | Vanilla VGICP backend | 16.280 | 1.309 | 0.005269 | 2.93 |
+| KITTI | Sensor-centred Fisher direction (not in the paper) | 13.474 | 1.340 | 0.005425 | 4.94 |
 | KITTI | Paper default | 7.784 | 0.682 | 0.006319 | 1.63 |
+| KITTI | Vanilla VGICP backend | 6.402 | 0.648 | 0.005355 | 5.22 |
 | KITTI | Paper default | 50.982 | 2.455 | 0.018687 | 2.03 |
+| KITTI | Vanilla VGICP backend | 6.686 | 0.757 | 0.005739 | 7.18 |
 
-**Notes**: Paper average 0.865 % over 00-10; same raw-scan protocol as this repository's KITTI data.
+**Notes**: Paper average 0.865 % over 00-10; same raw-scan protocol as this repository's KITTI data. Sensor-centred Fisher study (one fixed opt-in setting, all 00-10, fresh paper_default equal to stored results): experiments/results/lf_gicp_sensor_centered_fisher/README.md.
 
 ---
 

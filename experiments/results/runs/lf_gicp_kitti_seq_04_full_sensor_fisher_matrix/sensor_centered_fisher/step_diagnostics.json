@@ -1,0 +1,85 @@
+{
+  "frames": 271,
+  "official_metrics_from_saved_poses": {
+    "frames": 271,
+    "reference_frames": 271,
+    "tracking_success_rate": 1.0,
+    "ate_m": 3.4686247374461785,
+    "rpe_trans_pct": 0.8109657385311723,
+    "rpe_rot_deg_per_m": 0.005550807515835859,
+    "rpe_segments": 208,
+    "kitti_rte_trans_pct": 1.0788025675291997,
+    "kitti_rte_rot_deg_per_100m": 0.5370773204086712,
+    "kitti_rte_segments": 43,
+    "trajectory_length_m": 393.64527707635335
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 0.9987861279943088,
+  "moving_step_count": 270,
+  "step_length_ratio_median": 0.9987752547249706,
+  "steps_length_off_over_threshold": 0,
+  "steps_vector_off_over_threshold": 0,
+  "bad_length_step_frame_ranges": [],
+  "bad_vector_step_frame_ranges": [],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 137.18298063486523,
+      "path_length_ratio": 0.9974610297504936,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9987013969457603,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 1.1236794159960304,
+      "block_relative_translation_error_pct": 0.8191099294601542,
+      "block_relative_rotation_error_deg_per_100m": 0.4489469097034517
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 144.36863004693618,
+      "path_length_ratio": 1.0003319755222837,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.99937293550592,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 1.1236794159960304,
+      "position_error_end_m": 4.15837014386421,
+      "block_relative_translation_error_pct": 1.1725230407546994,
+      "block_relative_rotation_error_deg_per_100m": 0.5792986799185608
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 270,
+      "gt_distance_m": 112.09366640246202,
+      "path_length_ratio": 0.9984168746325172,
+      "moving_step_count": 70,
+      "step_length_ratio_median": 0.9986468588721893,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 4.15837014386421,
+      "position_error_end_m": 7.8046552497887385,
+      "block_relative_translation_error_pct": 0.8105792173642166,
+      "block_relative_rotation_error_deg_per_100m": 0.4467155346783934
+    }
+  ],
+  "benchmark_summary": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/study_stage/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+  "benchmark_method": "LF-GICP",
+  "schema_version": 1,
+  "command": "python3 /home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py --estimate /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/study_stage/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/sensor_centered_fisher/trajectory_kitti.txt --gt /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/study_stage/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/sensor_centered_fisher/evaluated_gt_kitti.txt --summary /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/study_stage/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json --method LF-GICP --output /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/study_stage/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/sensor_centered_fisher/step_diagnostics.json",
+  "estimate_path": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/study_stage/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/sensor_centered_fisher/trajectory_kitti.txt",
+  "gt_path": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/study_stage/runs/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix/sensor_centered_fisher/evaluated_gt_kitti.txt"
+}

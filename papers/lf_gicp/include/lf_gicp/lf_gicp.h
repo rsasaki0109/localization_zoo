@@ -40,6 +40,15 @@ struct LFGICPParams {
   // beta used for the field's planarity only (see README: the paper's lambda0
   // scale is matched on its KITTI 00 calibration trace).
   double field_regularization = 0.25;
+
+  // Not in the paper; opt-in, default off. Eq. (2) linearizes about the world
+  // origin (J = [-[Rp + t]x, I]), so the weakest eigenvector of H used by the
+  // Fisher weights (Eq. 7) depends on where the world origin is: far from it,
+  // a rotation about the sensor costs |t|^2 more in the twist norm and becomes
+  // the "weakest" direction. When true, the weak direction is taken in a
+  // tangent centred on the current sensor position instead. Only the
+  // weighting direction changes; the solver parametrization does not.
+  bool sensor_centered_fisher = false;
 };
 
 /// Localizability statistics of the current local map (paper Eqs. 5-6).
@@ -106,10 +115,27 @@ LocalizabilityField computeLocalizabilityField(
 
 /// Soft Fisher-information weights (paper Eq. 7): w_m = q_m / mean(q), with
 /// q_m = v^T J_m^T Omega_m J_m v for the weakest Hessian eigenvector v.
+/// Jacobians and Hessian use the world twist [omega; rho] of Eq. (2).
 std::vector<double> fisherWeights(
     const std::vector<Eigen::Matrix<double, 3, 6>>& jacobians,
     const std::vector<Eigen::Matrix3d>& informations,
     const Eigen::Matrix<double, 6, 6>& hessian);
+
+/// Same weights, but v is the weakest eigenvector in a tangent centred on
+/// `tangent_origin` (rotation about that point, world-aligned axes). Not in
+/// the paper; with tangent_origin = 0 it equals the overload above. If
+/// `world_direction` is given it receives v expressed in the world twist.
+std::vector<double> fisherWeights(
+    const std::vector<Eigen::Matrix<double, 3, 6>>& jacobians,
+    const std::vector<Eigen::Matrix3d>& informations,
+    const Eigen::Matrix<double, 6, 6>& hessian,
+    const Eigen::Vector3d& tangent_origin,
+    Eigen::Matrix<double, 6, 1>* world_direction = nullptr);
+
+/// Re-express a world-twist Hessian in the tangent centred on `origin`:
+/// H_c = A^T H A with A = [[I, 0], [[origin]x, I]] (J_c = J_world A).
+Eigen::Matrix<double, 6, 6> centeredHessian(
+    const Eigen::Matrix<double, 6, 6>& hessian, const Eigen::Vector3d& origin);
 
 /// Trailing-median gate with hysteresis (paper Sec. III-F, Alg. S1).
 class DegeneracyGate {
@@ -129,12 +155,31 @@ class DegeneracyGate {
   double median_lambda0_ = 1.0;
 };
 
+/// Passive diagnostics of the final Gauss-Newton system of a frame. They are
+/// computed whether or not the gate is active and never change the estimate.
+struct LFGICPDiagnostics {
+  bool valid = false;
+  double gate_median_f0 = 0.0;
+  double gate_median_lambda0 = 0.0;
+  /// Weakest unit eigenvector of the unweighted H in the world twist (Eq. 2)
+  /// and in the tangent centred on the sensor; [omega; rho] each.
+  Eigen::Matrix<double, 6, 1> world_weak = Eigen::Matrix<double, 6, 1>::Zero();
+  Eigen::Matrix<double, 6, 1> sensor_weak = Eigen::Matrix<double, 6, 1>::Zero();
+  double world_weak_eigenvalue = 0.0;
+  double sensor_weak_eigenvalue = 0.0;
+  /// Fisher weights actually applied on the last iteration (gate active only).
+  double max_weight = 1.0;
+  /// Fraction of correspondences carrying half of the total applied weight.
+  double half_weight_fraction = 0.5;
+};
+
 struct LFGICPResult {
   Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
   int iterations = 0;
   int correspondences = 0;
   bool degenerate = false;
   LocalizabilityField field;
+  LFGICPDiagnostics diagnostics;
 };
 
 class LFGICPOdometry {

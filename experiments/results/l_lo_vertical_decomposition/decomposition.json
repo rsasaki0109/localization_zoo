@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "method": "L-LO seq07_tuned",
+  "metric": "official KITTI RTE translation [%]",
+  "rows": [
+    {
+      "sequence": "00",
+      "paper_rte_pct": 0.91,
+      "gt_source": "experiments/results/runs/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix/no_mitigation/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 0.9740108866159691,
+      "gt_roll_free_rte_pct": 1.0547264011512982,
+      "gt_height_range_m": 19.97643867
+    },
+    {
+      "sequence": "02",
+      "paper_rte_pct": 2.35,
+      "gt_source": "experiments/results/runs/inten_loam_kitti_seq_02_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 2.801274508513589,
+      "gt_roll_free_rte_pct": 0.9552822339470942,
+      "gt_height_range_m": 49.126849
+    },
+    {
+      "sequence": "03",
+      "paper_rte_pct": 2.92,
+      "gt_source": "experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 2.2122594079516658,
+      "gt_roll_free_rte_pct": 0.9240936413835894,
+      "gt_height_range_m": 40.4733772,
+      "estimate_source": "experiments/results/runs/l_lo_kitti_seq_03_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "estimate_rte_pct": 3.065905746254204,
+      "horizontal_only_rte_pct": 1.9273116107613797,
+      "vertical_only_rte_pct": 2.0931531117600324,
+      "estimate_height_range_m": 2.2850016303
+    },
+    {
+      "sequence": "04",
+      "paper_rte_pct": 2.28,
+      "gt_source": "experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 1.5410026403296122,
+      "gt_roll_free_rte_pct": 0.010492238257556344,
+      "gt_height_range_m": 5.1796671,
+      "estimate_source": "experiments/results/runs/l_lo_kitti_seq_04_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "estimate_rte_pct": 2.135280431926477,
+      "horizontal_only_rte_pct": 1.4544434334818328,
+      "vertical_only_rte_pct": 1.48404834264962,
+      "estimate_height_range_m": 0.7874952274
+    },
+    {
+      "sequence": "05",
+      "paper_rte_pct": 0.82,
+      "gt_source": "experiments/results/runs/inten_loam_kitti_seq_05_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 0.9010941756113617,
+      "gt_roll_free_rte_pct": 0.6851598527207238,
+      "gt_height_range_m": 13.481150750000001
+    },
+    {
+      "sequence": "06",
+      "paper_rte_pct": 0.66,
+      "gt_source": "experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 0.912247513133816,
+      "gt_roll_free_rte_pct": 0.2946115558098367,
+      "gt_height_range_m": 6.59880892,
+      "estimate_source": "experiments/results/runs/l_lo_kitti_seq_06_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "estimate_rte_pct": 1.3145309629345097,
+      "horizontal_only_rte_pct": 0.5350203907616432,
+      "vertical_only_rte_pct": 1.1368548077064673,
+      "estimate_height_range_m": 3.853294365
+    },
+    {
+      "sequence": "07",
+      "paper_rte_pct": 0.69,
+      "gt_source": "experiments/results/runs/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix/no_mitigation/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 0.7571750994203554,
+      "gt_roll_free_rte_pct": 0.9085409174042146,
+      "gt_height_range_m": 3.255713762
+    },
+    {
+      "sequence": "08",
+      "paper_rte_pct": 1.37,
+      "gt_source": "experiments/results/runs/inten_loam_kitti_seq_08_full_paper_comp_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 1.095241642042191,
+      "gt_roll_free_rte_pct": 1.419317414604568,
+      "gt_height_range_m": 37.00713898
+    },
+    {
+      "sequence": "09",
+      "paper_rte_pct": 1.89,
+      "gt_source": "experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 3.5373518977506695,
+      "gt_roll_free_rte_pct": 1.2264372513068695,
+      "gt_height_range_m": 36.03820622,
+      "estimate_source": "experiments/results/runs/l_lo_kitti_seq_09_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "estimate_rte_pct": 4.122144901023783,
+      "horizontal_only_rte_pct": 1.4582980762115085,
+      "vertical_only_rte_pct": 3.504827143289414,
+      "estimate_height_range_m": 2.9308080522999997
+    },
+    {
+      "sequence": "10",
+      "paper_rte_pct": 1.9,
+      "gt_source": "experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+      "gt_planar_rte_pct": 3.8432558632298432,
+      "gt_roll_free_rte_pct": 0.6658843083644747,
+      "gt_height_range_m": 23.7884894,
+      "estimate_source": "experiments/results/runs/l_lo_kitti_seq_10_full_paper_comp_matrix/seq07_tuned/trajectory_kitti.txt",
+      "estimate_rte_pct": 4.105240817120998,
+      "horizontal_only_rte_pct": 1.53596329884382,
+      "vertical_only_rte_pct": 3.557578256112775,
+      "estimate_height_range_m": 7.895819663
+    }
+  ]
+}

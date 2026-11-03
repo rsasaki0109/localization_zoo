@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "arms": {
+    "reference": {
+      "official_rte_pct": 1.155652,
+      "rpe_100m_pct": 0.843492,
+      "ate_m": 9.669713,
+      "frames": 1201,
+      "s2s_frames": 1200,
+      "s2s": {
+        "mean_deg": -0.0048090276704665,
+        "std_deg": 0.04377627556081703,
+        "sum_deg": -5.7708332045598,
+        "mean_abs_deg": 0.03469651370717183,
+        "yaw_only_rte_pct": 1.0678289809884998
+      },
+      "final": {
+        "mean_deg": -0.0024160067837003464,
+        "std_deg": 0.039408207709933855,
+        "sum_deg": -2.8992081404404155,
+        "mean_abs_deg": 0.030122096757506794,
+        "yaw_only_rte_pct": 0.9093082558747686
+      },
+      "s2s_stop_reasons": {
+        "iteration_limit": 843,
+        "converged": 357
+      },
+      "s2s_net_yaw_correction_deg": {
+        "mean_deg": 8.21771323387154e-06,
+        "std_deg": 0.10804785135395742,
+        "sum_deg": 0.009861255880645847,
+        "mean_abs_deg": 0.07607128669236696
+      },
+      "s2s_last_iteration_yaw_update_deg": {
+        "mean_deg": -0.00016614851868086312,
+        "std_deg": 0.02765990944759195,
+        "sum_deg": -0.19937822241703573,
+        "mean_abs_deg": 0.012678933887912885
+      },
+      "final_bias_ratio_to_reference": 1.0,
+      "rte_ratio_to_reference": 1.0,
+      "implicated_by_rule": false
+    },
+    "no_edge": {
+      "official_rte_pct": 1.425969,
+      "rpe_100m_pct": 1.027774,
+      "ate_m": 13.455048,
+      "frames": 1201,
+      "s2s_frames": 1200,
+      "s2s": {
+        "mean_deg": -0.008786699286601779,
+        "std_deg": 0.09255472621465666,
+        "sum_deg": -10.544039143922134,
+        "mean_abs_deg": 0.06558384247327868,
+        "yaw_only_rte_pct": 3.6119880461616147
+      },
+      "final": {
+        "mean_deg": -0.0031368017133771107,
+        "std_deg": 0.04724931269807392,
+        "sum_deg": -3.764162056052533,
+        "mean_abs_deg": 0.03565674664064986,
+        "yaw_only_rte_pct": 1.2385431371543592
+      },
+      "s2s_stop_reasons": {
+        "iteration_limit": 599,
+        "converged": 601
+      },
+      "s2s_net_yaw_correction_deg": {
+        "mean_deg": -1.8584632812694336e-05,
+        "std_deg": 0.1487349180541038,
+        "sum_deg": -0.022301559375233204,
+        "mean_abs_deg": 0.10832258801134712
+      },
+      "s2s_last_iteration_yaw_update_deg": {
+        "mean_deg": 0.0002201146576667526,
+        "std_deg": 0.004633416123495938,
+        "sum_deg": 0.2641375892001031,
+        "mean_abs_deg": 0.001979585902976453
+      },
+      "final_bias_ratio_to_reference": 1.2983414345272646,
+      "rte_ratio_to_reference": 1.2339086507010761,
+      "implicated_by_rule": false
+    },
+    "no_facade": {
+      "official_rte_pct": 1.130368,
+      "rpe_100m_pct": 0.944658,
+      "ate_m": 8.504522,
+      "frames": 1201,
+      "s2s_frames": 1200,
+      "s2s": {
+        "mean_deg": -0.004503481535753659,
+        "std_deg": 0.07703431561107552,
+        "sum_deg": -5.4041778429043905,
+        "mean_abs_deg": 0.060169408621943685,
+        "yaw_only_rte_pct": 2.1208188279936655
+      },
+      "final": {
+        "mean_deg": -0.0017596526737584908,
+        "std_deg": 0.05507502299538628,
+        "sum_deg": -2.111583208510189,
+        "mean_abs_deg": 0.04295683877621466,
+        "yaw_only_rte_pct": 0.7892923822424257
+      },
+      "s2s_stop_reasons": {
+        "iteration_limit": 1192,
+        "converged": 8
+      },
+      "s2s_net_yaw_correction_deg": {
+        "mean_deg": 6.291946255381598e-05,
+        "std_deg": 0.10872044935075242,
+        "sum_deg": 0.07550335506457917,
+        "mean_abs_deg": 0.07458190846245046
+      },
+      "s2s_last_iteration_yaw_update_deg": {
+        "mean_deg": -0.0005314633619950896,
+        "std_deg": 0.14560256562817592,
+        "sum_deg": -0.6377560343941076,
+        "mean_abs_deg": 0.1142253813460187
+      },
+      "final_bias_ratio_to_reference": 0.7283310153059313,
+      "rte_ratio_to_reference": 0.9781214414027753,
+      "implicated_by_rule": false
+    },
+    "no_intensity": {
+      "official_rte_pct": 1.210837,
+      "rpe_100m_pct": 0.8376,
+      "ate_m": 9.674905,
+      "frames": 1201,
+      "s2s_frames": 1200,
+      "s2s": {
+        "mean_deg": -0.005114636683575013,
+        "std_deg": 0.043733909627190384,
+        "sum_deg": -6.137564020290016,
+        "mean_abs_deg": 0.03469548914911196,
+        "yaw_only_rte_pct": 1.0727762326931813
+      },
+      "final": {
+        "mean_deg": -0.0025288337981205413,
+        "std_deg": 0.03912883212804641,
+        "sum_deg": -3.0346005577446498,
+        "mean_abs_deg": 0.030002494813141548,
+        "yaw_only_rte_pct": 0.9613894953885661
+      },
+      "s2s_stop_reasons": {
+        "iteration_limit": 869,
+        "converged": 331
+      },
+      "s2s_net_yaw_correction_deg": {
+        "mean_deg": 7.445904865077679e-06,
+        "std_deg": 0.10800742744587014,
+        "sum_deg": 0.008935085838093215,
+        "mean_abs_deg": 0.07589076164191003
+      },
+      "s2s_last_iteration_yaw_update_deg": {
+        "mean_deg": -0.0007212039209859082,
+        "std_deg": 0.0284803405275085,
+        "sum_deg": -0.8654447051830898,
+        "mean_abs_deg": 0.013158593151193136
+      },
+      "final_bias_ratio_to_reference": 1.046699792062417,
+      "rte_ratio_to_reference": 1.047752264522538,
+      "implicated_by_rule": false
+    },
+    "no_ground": {
+      "official_rte_pct": 1.868578,
+      "rpe_100m_pct": 0.958705,
+      "ate_m": 19.004043,
+      "frames": 1201,
+      "s2s_frames": 1200,
+      "s2s": {
+        "mean_deg": -0.005265685057816367,
+        "std_deg": 0.04399300815252378,
+        "sum_deg": -6.318822069379641,
+        "mean_abs_deg": 0.03484923646343337,
+        "yaw_only_rte_pct": 1.2877238809134046
+      },
+      "final": {
+        "mean_deg": -0.0024888809761138015,
+        "std_deg": 0.040879192227786944,
+        "sum_deg": -2.986657171336562,
+        "mean_abs_deg": 0.031417633592311124,
+        "yaw_only_rte_pct": 0.9798500968552301
+      },
+      "s2s_stop_reasons": {
+        "iteration_limit": 954,
+        "converged": 246
+      },
+      "s2s_net_yaw_correction_deg": {
+        "mean_deg": 7.819293547985477e-06,
+        "std_deg": 0.1079423944071237,
+        "sum_deg": 0.009383152257582572,
+        "mean_abs_deg": 0.07588578659041652
+      },
+      "s2s_last_iteration_yaw_update_deg": {
+        "mean_deg": -0.0006854667490303352,
+        "std_deg": 0.030109399332679962,
+        "sum_deg": -0.8225600988364022,
+        "mean_abs_deg": 0.014171597730578748
+      },
+      "final_bias_ratio_to_reference": 1.0301630744189556,
+      "rte_ratio_to_reference": 1.616903704575426,
+      "implicated_by_rule": false
+    }
+  }
+}

@@ -34,14 +34,26 @@ def arm_result(folder: Path, out_dir: Path) -> dict:
         next((folder / "dogfooding_results").glob("*_evaluated_gt.txt"))))
     est = heading.normalize_first_pose(heading.load_kitti_poses(folder / "dogfooding_results/InTEn_LOAM.txt"))
     s2s_out = {}
+    stops: dict[str, int] = {}
+    net_yaw, last_yaw = [], []
     with (folder / "trace.jsonl").open() as handle:
         for line in handle:
             head = line[:40].replace(" ", "")
             if '"type":"frame"' not in head:
                 continue
             record = json.loads(line)
-            if record["s2s"].get("called"):
-                s2s_out[record["input_index"]] = np.asarray(record["s2s"]["output"], dtype=float).reshape(4, 4)
+            s2s = record["s2s"]
+            if not s2s.get("called"):
+                continue
+            s2s_out[record["input_index"]] = np.asarray(s2s["output"], dtype=float).reshape(4, 4)
+            stops[s2s["stop"]] = stops.get(s2s["stop"], 0) + 1
+            # S2S yaw correction relative to its own prediction, and the yaw of
+            # the last applied update (delta layout: translation, rotation).
+            before = np.asarray(s2s["input"], dtype=float).reshape(4, 4)
+            net_yaw.append(heading.wrap(heading.yaw(s2s_out[record["input_index"]]) - heading.yaw(before)))
+            deltas = [it["delta"] for it in s2s["iterations"] if it.get("delta")]
+            if deltas:
+                last_yaw.append(deltas[-1][5])
     gt_rel, est_rel = heading.relative(gt), heading.relative(est)
     s2s_err, final_err, frames = [], [], []
     for k, (G, E) in enumerate(zip(gt_rel, est_rel), start=1):
@@ -59,7 +71,10 @@ def arm_result(folder: Path, out_dir: Path) -> dict:
     complete = len(frames) == len(gt) - 1
     result = {"official_rte_pct": summary["kitti_rte_trans_pct"], "rpe_100m_pct": summary["rpe_trans_pct"],
               "ate_m": summary["ate_m"], "frames": summary["frames"], "s2s_frames": len(frames),
-              "s2s": heading.stats(np.degrees(s2s_err)), "final": heading.stats(np.degrees(final_err))}
+              "s2s": heading.stats(np.degrees(s2s_err)), "final": heading.stats(np.degrees(final_err)),
+              "s2s_stop_reasons": stops,
+              "s2s_net_yaw_correction_deg": heading.stats(np.degrees(np.array(net_yaw))),
+              "s2s_last_iteration_yaw_update_deg": heading.stats(np.degrees(np.array(last_yaw)))}
     if complete:
         result["s2s"]["yaw_only_rte_pct"] = heading.yaw_only_rte(s2s_err, gt)
         result["final"]["yaw_only_rte_pct"] = heading.yaw_only_rte(final_err, gt)
@@ -101,6 +116,12 @@ def main() -> int:
               f"{r['s2s'].get('yaw_only_rte_pct', float('nan')):10.4f} | {r['final']['mean_deg']:+10.5f} "
               f"{r['final']['std_deg']:9.5f} {r['final'].get('yaw_only_rte_pct', float('nan')):12.4f} "
               f"{r.get('implicated_by_rule', '-')}")
+    print("S2S stop reasons, net yaw correction vs its prediction, last-iteration yaw update [deg]:")
+    for arm, r in results.items():
+        if "s2s_stop_reasons" in r:
+            print(f"  {arm:13s} {r['s2s_stop_reasons']}  net {r['s2s_net_yaw_correction_deg']['mean_deg']:+.6f}  "
+                  f"last {r['s2s_last_iteration_yaw_update_deg']['mean_deg']:+.6f} "
+                  f"(mean abs {r['s2s_last_iteration_yaw_update_deg']['mean_abs_deg']:.5f})")
     return 0
 
 

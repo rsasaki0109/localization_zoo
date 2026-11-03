@@ -1017,6 +1017,10 @@ independent. Each item says what "done" means.
   the existing opt-in vertical mode drifts in altitude on 10 (4.540 % /
   10.149 %). A drift-free vertical estimate would be an opt-in extension
   ([decomposition](../experiments/results/l_lo_vertical_decomposition/README.md)).
+- [Table 6 gap triage](../experiments/results/gap_decomposition/README.md)
+  attributes every remaining gap with committed poses to error channels:
+  step-length collapse (InTEn-LOAM 01/02/04, SuMa 01), heading (InTEn-LOAM
+  10/03/05, ELO 03), distributed (ELO, Mesh-LOAM). Locates error types only.
 - New paper ports: follow [CONTRIBUTING.md](../CONTRIBUTING.md) (KITTI 00/07
   full, `--no-gt-seed`, at least 3 mechanism tests, README with negative
   results); run all paper sequences before claiming a ratio.

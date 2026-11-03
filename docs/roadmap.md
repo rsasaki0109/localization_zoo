@@ -1021,6 +1021,9 @@ independent. Each item says what "done" means.
   attributes every remaining gap with committed poses to error channels:
   step-length collapse (InTEn-LOAM 01/02/04, SuMa 01), heading (InTEn-LOAM
   10/03/05, ELO 03), distributed (ELO, Mesh-LOAM). Locates error types only.
+  InTEn-LOAM's KITTI 10 heading bias is not carried by any single feature
+  class ([class-removal arms](../experiments/results/inten_heading_classes/README.md),
+  negative); a per-class S2S yaw-gradient split needs a native trace extension.
 - New paper ports: follow [CONTRIBUTING.md](../CONTRIBUTING.md) (KITTI 00/07
   full, `--no-gt-seed`, at least 3 mechanism tests, README with negative
   results); run all paper sequences before claiming a ratio.

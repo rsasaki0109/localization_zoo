@@ -127,8 +127,8 @@ twice the paper's total error.
 
 **The bias drives the heading error, not the noise.** On 03/05/10 almost every
 method has a small negative yaw bias, which may be a common GT/calibration
-component. InTEn-LOAM's bias is the largest on all three sequences, apart from
-LF-GICP's sign-flipped failure on 10:
+component. InTEn-LOAM's bias is the largest on 10 (apart from LF-GICP's
+sign-flipped failure) and on 03; on 05 only L-LO's is larger:
 
 | Seq | InTEn-LOAM bias | Other methods' bias |
 |---|---:|---|

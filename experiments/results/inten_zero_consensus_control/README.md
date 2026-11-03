@@ -116,9 +116,9 @@ paper metadata and old full-sequence evidence are unchanged.
 
 **Verification after later source changes.** `79e96bae` (bounded ZIP range fix)
 later changed `evaluation/scripts/fetch_kitti_odometry_sequences.py` and
-`tests/test_lidar_sota_tools.py`. The pinned hashes in `protocol.json` are unchanged:
-`verify.py` (non-history mode, as run by `tests/test_inten_zero_consensus_control.py`)
-checks them against the copies this study used at `b3c22c0b`,
+`tests/test_lidar_sota_tools.py`. The frozen `verify.py` and the pinned hashes in
+`protocol.json` are unchanged. `tests/test_inten_zero_consensus_control.py` points the
+verifier's source root at a temporary tree whose two drifted files are the byte-exact
+copies this study pinned at `b3c22c0b`,
 `reference_fetch_kitti_odometry_sequences.py.txt` and
-`reference_test_lidar_sota_tools.py.txt`, as it already does for
-`papers/inten_loam/src/inten_loam_paper.cpp`.
+`reference_test_lidar_sota_tools.py.txt`; every other path resolves to the checkout.

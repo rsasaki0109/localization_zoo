@@ -36,12 +36,6 @@ def validate(history=True):
             source=W/path
             if not history and path=='papers/inten_loam/src/inten_loam_paper.cpp':
                 source=E.parent/'inten_intensity_continuity/reference_native.cpp'
-            # 79e96bae later fixed the bounded ZIP range and its test; these are
-            # the copies the study pinned (b3c22c0b). The pinned hashes are unchanged.
-            if not history and path=='evaluation/scripts/fetch_kitti_odometry_sequences.py':
-                source=E/'reference_fetch_kitti_odometry_sequences.py.txt'
-            if not history and path=='tests/test_lidar_sota_tools.py':
-                source=E/'reference_test_lidar_sota_tools.py.txt'
             assert c.sha(source)==digest,path
         summaries={};profiles=0;calls=0;failures=[]
         with tempfile.TemporaryDirectory() as temporary:

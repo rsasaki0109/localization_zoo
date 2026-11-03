@@ -91,6 +91,31 @@ The 1.46x gap on 07 is supported by these observations:
 - the vertical part, which no frame-to-frame ground-plane estimate here improves;
 - the tested GT-derived roll-free baselines also exceed the paper value; this does not prove every possible roll-free estimate must do so.
 
+## Horizontal and vertical error on 09/10
+
+[Channel decomposition](../../experiments/results/l_lo_vertical_decomposition/README.md)
+of the committed full-sequence poses (official RTE against the full GT):
+
+| Seq | Paper | Estimate | Horizontal-only error | Vertical-only error | GT with flat vertical channel |
+|---|---:|---:|---:|---:|---:|
+| 09 | 1.89 | 4.122 | 1.458 | 3.505 | 3.537 |
+| 10 | 1.90 | 4.105 | 1.536 | 3.558 | 3.843 |
+
+With the GT vertical channel, the horizontal module alone is below the paper on
+both sequences; the whole gap is vertical. The estimate's vertical channel is
+about as wrong as a flat one: `pitch_mode=0` sets each step's z to zero and does
+not follow road grade, and 09/10 climb 36 m / 24 m. Even GT x, y and yaw with a
+flat vertical channel score 3.5-3.8 %, so a frame-to-frame estimate that does not
+track height and grade cannot reach the paper there.
+
+The two existing opt-in vertical modes do not help (sequence 10, development
+check, otherwise `seq07_tuned`): `pitch_mode=1` with `vertical_angle_correction_deg=0.4`
+scores 4.540 % (estimated altitude range 69.9 m vs 23.8 m in GT) and `pitch_mode=1`
+alone 10.149 % (173.4 m). Integrating frame-to-frame plane changes lets altitude
+drift by tens of metres. No full-sequence run was made; defaults are unchanged.
+Their earlier rejection on 07 (above) was made on a sequence with only 3.3 m of
+height change, where a vertical estimate can only add noise.
+
 <!-- FIXED-KITTI-RESULTS:START -->
 
 ## Full KITTI comparison with one configuration

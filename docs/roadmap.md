@@ -178,7 +178,7 @@ variant runs on every sequence.
 | Mesh-LOAM | 1.28x | 00-10 | - | one setting; no sequence above 2x |
 | ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x) |
 | InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x |
-| L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x) |
+| L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), both in the vertical channel (horizontal alone below the paper) |
 
 Per-method details and negative results live in each `papers/<method>/README.md`;
 the claim wording is in [paper_claim.md](paper_claim.md).
@@ -993,9 +993,13 @@ independent. Each item says what "done" means.
 ### Backlog
 
 - Full-coverage failures still need a solver-level explanation: LF-GICP 10
-  (6.71x), L-LO 09/10 (2.18x / 2.16x). Saved-pose drift intervals and block
-  errors are in their method READMEs; these diagnostics locate failures
-  without establishing their cause.
+  (6.71x). Saved-pose drift intervals and block errors are in its method
+  README; these diagnostics locate failures without establishing their cause.
+- L-LO 09/10 (2.18x / 2.16x) is located in the vertical channel: with GT
+  height/pitch/roll its horizontal error is 1.458 / 1.536 %, below the paper;
+  the existing opt-in vertical mode drifts in altitude on 10 (4.540 % /
+  10.149 %). A drift-free vertical estimate would be an opt-in extension
+  ([decomposition](../experiments/results/l_lo_vertical_decomposition/README.md)).
 - New paper ports: follow [CONTRIBUTING.md](../CONTRIBUTING.md) (KITTI 00/07
   full, `--no-gt-seed`, at least 3 mechanism tests, README with negative
   results); run all paper sequences before claiming a ratio.

@@ -7216,14 +7216,19 @@ bool setLLOParam(localization_zoo::l_lo::LLOParams& p, const std::string& kv) {
       {"patch_half_length", &p.patch_half_length},
       {"patch_half_width", &p.patch_half_width},
       {"patch_blind_radius", &p.patch_blind_radius},
-      {"vertical_angle_correction_deg", &p.vertical_angle_correction_deg}};
+      {"vertical_angle_correction_deg", &p.vertical_angle_correction_deg},
+      {"ground_map_cell", &p.ground_map_cell},
+      {"ground_map_huber", &p.ground_map_huber}};
   std::map<std::string, int*> ints = {
       {"min_cluster_points", &p.min_cluster_points},
       {"max_cluster_points", &p.max_cluster_points},
       {"sor_k", &p.sor_k},
       {"max_rounds", &p.max_rounds},
       {"min_matches", &p.min_matches},
-      {"pitch_mode", &p.pitch_mode}};
+      {"pitch_mode", &p.pitch_mode},
+      {"ground_map_frames", &p.ground_map_frames},
+      {"ground_map_iterations", &p.ground_map_iterations},
+      {"ground_map_min_residuals", &p.ground_map_min_residuals}};
   if (auto it = doubles.find(key); it != doubles.end()) {
     *it->second = v;
     return true;

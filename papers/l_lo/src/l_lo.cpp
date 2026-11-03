@@ -1,5 +1,7 @@
 #include "l_lo/l_lo.h"
 
+#include <cstdint>
+
 #include <Eigen/Dense>
 
 #include <algorithm>
@@ -346,6 +348,114 @@ Eigen::Vector3d LLOOdometry::estimateHorizontal(const std::vector<Polygon>& prev
   return delta;
 }
 
+long long LLOOdometry::groundCell(double x, double y) const {
+  const long long ix = static_cast<long long>(std::floor(x / params_.ground_map_cell));
+  const long long iy = static_cast<long long>(std::floor(y / params_.ground_map_cell));
+  const unsigned long long key = (static_cast<unsigned long long>(ix) << 32) ^
+                                 static_cast<unsigned long long>(static_cast<uint32_t>(iy));
+  return static_cast<long long>(key);
+}
+
+std::vector<Eigen::Vector3d> LLOOdometry::thinGround(const std::vector<Eigen::Vector3d>& ground) const {
+  // One mean point per cell of the ground band, in the sensor frame.
+  std::unordered_map<long long, std::pair<Eigen::Vector3d, int>> cells;
+  std::vector<long long> order;
+  for (const auto& p : ground) {
+    const double r = p.head<2>().norm();
+    if (r < params_.pitch_ground_min_range || r > params_.pitch_ground_max_range) continue;
+    const long long key = groundCell(p.x(), p.y());
+    auto it = cells.find(key);
+    if (it == cells.end()) {
+      cells.emplace(key, std::make_pair(p, 1));
+      order.push_back(key);
+    } else {
+      it->second.first += p;
+      ++it->second.second;
+    }
+  }
+  std::vector<Eigen::Vector3d> out;
+  out.reserve(order.size());
+  for (long long key : order) {
+    const auto& c = cells.at(key);
+    out.push_back(c.first / c.second);
+  }
+  return out;
+}
+
+void LLOOdometry::insertGround(const std::vector<Eigen::Vector3d>& sensor_ground, const Eigen::Matrix4d& pose) {
+  std::vector<Eigen::Vector3d> world;
+  world.reserve(sensor_ground.size());
+  for (const auto& p : sensor_ground) {
+    const Eigen::Vector3d w = pose.block<3, 3>(0, 0) * p + pose.block<3, 1>(0, 3);
+    world.push_back(w);
+    CellSum& cell = ground_map_[groundCell(w.x(), w.y())];
+    cell.z += w.z();
+    ++cell.n;
+  }
+  ground_map_frames_.push_back(std::move(world));
+  while (static_cast<int>(ground_map_frames_.size()) > params_.ground_map_frames) {
+    for (const auto& w : ground_map_frames_.front()) {
+      auto it = ground_map_.find(groundCell(w.x(), w.y()));
+      if (it == ground_map_.end()) continue;
+      it->second.z -= w.z();
+      if (--it->second.n <= 0) ground_map_.erase(it);
+    }
+    ground_map_frames_.pop_front();
+  }
+}
+
+Eigen::Matrix4d LLOOdometry::solveGroundMap(const std::vector<Eigen::Vector3d>& sensor_ground,
+                                            const Eigen::Matrix4d& prediction) const {
+  // Height, pitch and roll against the mean ground height of the map cells.
+  // With R = Rz(yaw) Ry(pitch) Rx(roll) the world height of a sensor point is
+  // t_z - sin(pitch) p_x + cos(pitch) (sin(roll) p_y + cos(roll) p_z): it does
+  // not depend on yaw, so x, y and yaw stay as predicted.
+  const Eigen::Matrix3d R0 = prediction.block<3, 3>(0, 0);
+  const double yaw = std::atan2(R0(1, 0), R0(0, 0));
+  double pitch = std::asin(std::clamp(-R0(2, 0), -1.0, 1.0));
+  double roll = std::atan2(R0(2, 1), R0(2, 2));
+  double z = prediction(2, 3);
+  const double tx = prediction(0, 3), ty = prediction(1, 3);
+  auto rotation = [&](double p, double r) {
+    return (Eigen::AngleAxisd(yaw, Eigen::Vector3d::UnitZ()) * Eigen::AngleAxisd(p, Eigen::Vector3d::UnitY()) *
+            Eigen::AngleAxisd(r, Eigen::Vector3d::UnitX()))
+        .toRotationMatrix();
+  };
+  for (int it = 0; it < params_.ground_map_iterations; ++it) {
+    const Eigen::Matrix3d R = rotation(pitch, roll);
+    const double cp = std::cos(pitch), sp = std::sin(pitch), cr = std::cos(roll), sr = std::sin(roll);
+    Eigen::Matrix3d H = Eigen::Matrix3d::Zero();
+    Eigen::Vector3d g = Eigen::Vector3d::Zero();
+    int used = 0;
+    for (const auto& p : sensor_ground) {
+      const Eigen::Vector3d w = R * p + Eigen::Vector3d(tx, ty, z);
+      const auto cell = ground_map_.find(groundCell(w.x(), w.y()));
+      if (cell == ground_map_.end() || cell->second.n <= 0) continue;
+      const double residual = w.z() - cell->second.z / cell->second.n;
+      const double weight = std::abs(residual) <= params_.ground_map_huber
+                                ? 1.0
+                                : params_.ground_map_huber / std::abs(residual);
+      const Eigen::Vector3d J(1.0, -cp * p.x() - sp * (sr * p.y() + cr * p.z()), cp * (cr * p.y() - sr * p.z()));
+      H += weight * J * J.transpose();
+      g += weight * J * residual;
+      ++used;
+    }
+    if (used < params_.ground_map_min_residuals) break;
+    const Eigen::Vector3d step = H.ldlt().solve(-g);
+    if (!step.allFinite()) break;
+    z += step.x();
+    pitch += step.y();
+    roll += step.z();
+    if (step.norm() < 1e-7) break;
+  }
+  Eigen::Matrix4d out = Eigen::Matrix4d::Identity();
+  out.block<3, 3>(0, 0) = rotation(pitch, roll);
+  out(0, 3) = tx;
+  out(1, 3) = ty;
+  out(2, 3) = z;
+  return out;
+}
+
 LLOResult LLOOdometry::registerFrame(const std::vector<Eigen::Vector3d>& raw_scan) {
   LLOResult result;
   std::vector<Eigen::Vector3d> corrected;
@@ -372,11 +482,15 @@ LLOResult LLOOdometry::registerFrame(const std::vector<Eigen::Vector3d>& raw_sca
   }
   const Eigen::Vector3d ground_normal = fitPlaneNormal(band);
 
+  std::vector<Eigen::Vector3d> map_ground;
+  if (params_.pitch_mode == 3) map_ground = thinGround(ground);
+
   if (!initialized_) {
     initialized_ = true;
     previous_clusters_ = std::move(clusters);
     previous_ground_normal_ = ground_normal;
     previous_ground_ = ground;
+    if (params_.pitch_mode == 3) insertGround(map_ground, pose_);
     result.pose = pose_;
     return result;
   }
@@ -453,6 +567,25 @@ LLOResult LLOOdometry::registerFrame(const std::vector<Eigen::Vector3d>& raw_sca
   Eigen::Vector3d delta = prediction;
   if (result.matches >= params_.min_matches) {
     delta = estimateHorizontal(prev_hulls, curr_hulls, prediction, &result.rounds, &result.overlap_ratio);
+  }
+
+  if (params_.pitch_mode == 3) {
+    // Horizontal motion in the previous sensor's x-y plane, then height,
+    // pitch and roll against the ground-height map (not in the paper).
+    const Eigen::Matrix3d R_prev = pose_.block<3, 3>(0, 0);
+    Eigen::Matrix4d predicted = Eigen::Matrix4d::Identity();
+    predicted.block<3, 1>(0, 3) = pose_.block<3, 1>(0, 3) + R_prev * Eigen::Vector3d(delta.x(), delta.y(), 0.0);
+    predicted.block<3, 3>(0, 0) = Eigen::AngleAxisd(delta.z(), Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    // Rotate the yaw about the world vertical, keeping the previous tilt.
+    predicted.block<3, 3>(0, 0) = predicted.block<3, 3>(0, 0) * R_prev;
+    pose_ = solveGroundMap(map_ground, predicted);
+    insertGround(map_ground, pose_);
+    last_delta_ = delta;
+    previous_clusters_ = std::move(clusters);
+    previous_ground_normal_ = ground_normal;
+    previous_ground_ = std::move(ground);
+    result.pose = pose_;
+    return result;
   }
 
   // Vertical pose: roll assumed zero; pitch change from the change of the

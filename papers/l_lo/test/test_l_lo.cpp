@@ -143,3 +143,136 @@ TEST(LLO, SamePatchVerticalModeFollowsAGrade) {
     }
   }
 }
+
+namespace {
+
+// Ground at height(x) plus box landmarks standing on it.
+std::vector<Eigen::Vector3d> streetWithHeight(double (*height)(double)) {
+  std::mt19937 rng(5);
+  std::uniform_real_distribution<double> u(0.0, 1.0);
+  std::vector<Eigen::Vector3d> world;
+  for (int i = 0; i < 30000; ++i) {
+    const double x = -40 + 120 * u(rng);
+    world.emplace_back(x, -20 + 40 * u(rng), -1.73 + height(x));
+  }
+  for (int b = 0; b < 40; ++b) {
+    const Eigen::Vector3d c(-20 + 2.5 * b, (b % 2 ? 7.0 : -7.0) + 2 * u(rng), -0.9 + 0.5 * u(rng));
+    const Eigen::Vector3d half(0.4 + 1.5 * u(rng), 0.4 + 1.0 * u(rng), 0.5 + 1.0 * u(rng));
+    for (int i = 0; i < 1500; ++i) {
+      Eigen::Vector3d p = c + Eigen::Vector3d((2 * u(rng) - 1) * half.x(), (2 * u(rng) - 1) * half.y(),
+                                              (2 * u(rng) - 1) * half.z());
+      const int face = i % 4;
+      if (face == 0) p.x() = c.x() + half.x();
+      if (face == 1) p.x() = c.x() - half.x();
+      if (face == 2) p.y() = c.y() + half.y();
+      if (face == 3) p.y() = c.y() - half.y();
+      p.z() += height(c.x());
+      world.push_back(p);
+    }
+  }
+  return world;
+}
+
+std::vector<Eigen::Vector3d> scanAt(const std::vector<Eigen::Vector3d>& world, const Eigen::Matrix4d& pose) {
+  const Eigen::Matrix4d inv = pose.inverse();
+  std::vector<Eigen::Vector3d> scan;
+  scan.reserve(world.size());
+  for (const auto& p : world) scan.push_back(inv.block<3, 3>(0, 0) * p + inv.block<3, 1>(0, 3));
+  return scan;
+}
+
+Eigen::Matrix4d bodyPose(double x, double z, double pitch, double roll) {
+  Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+  T.block<3, 3>(0, 0) = (Eigen::AngleAxisd(pitch, Eigen::Vector3d::UnitY()) *
+                         Eigen::AngleAxisd(roll, Eigen::Vector3d::UnitX())).toRotationMatrix();
+  T(0, 3) = x;
+  T(2, 3) = z;
+  return T;
+}
+
+double flat(double) { return 0.0; }
+double gradeAfter8(double x) { return x < 8.0 ? 0.0 : 0.04 * (x - 8.0); }
+
+}  // namespace
+
+TEST(LLO, GroundMapModeRecoversBodyRollAndPitchOnFlatGround) {
+  // Flat road; from frame 3 the body rolls 0.02 rad and pitches -0.015 rad.
+  // pitch_mode 3 recovers both from the ground-height map; the paper mode
+  // assumes zero roll.
+  const auto world = streetWithHeight(flat);
+  for (int mode : {0, 3}) {
+    LLOParams params;
+    params.pitch_mode = mode;
+    LLOOdometry odom(params);
+    Eigen::Matrix4d truth;
+    for (int k = 0; k < 10; ++k) {
+      truth = bodyPose(k, 0.0, k >= 3 ? -0.015 : 0.0, k >= 3 ? 0.02 : 0.0);
+      odom.registerFrame(scanAt(world, truth));
+    }
+    const Eigen::Matrix3d R = odom.pose().block<3, 3>(0, 0);
+    const double roll = std::atan2(R(2, 1), R(2, 2));
+    const double pitch = std::asin(-R(2, 0));
+    if (mode == 3) {
+      EXPECT_NEAR(roll, 0.02, 0.003);
+      EXPECT_NEAR(pitch, -0.015, 0.003);
+      EXPECT_LT(std::abs(odom.pose()(2, 3)), 0.03);
+    } else {
+      EXPECT_LT(std::abs(roll), 1e-6);  // the paper mode never estimates roll
+    }
+  }
+}
+
+TEST(LLO, GroundMapModeFollowsAGradeChange) {
+  // Flat for x < 8 m, then a 4 % climb; the body pitches with the road.
+  // Frame-to-frame pitch_mode 0 loses height; pitch_mode 3 tracks it.
+  const auto world = streetWithHeight(gradeAfter8);
+  const double grade_pitch = -std::atan(0.04);
+  double final_z[2] = {0.0, 0.0};
+  double final_pitch = 0.0;
+  Eigen::Matrix4d truth;
+  int slot = 0;
+  for (int mode : {0, 3}) {
+    LLOParams params;
+    params.pitch_mode = mode;
+    LLOOdometry odom(params);
+    for (int k = 0; k < 20; ++k) {
+      truth = bodyPose(k, gradeAfter8(k), k >= 8 ? grade_pitch : 0.0, 0.0);
+      odom.registerFrame(scanAt(world, truth));
+    }
+    final_z[slot++] = odom.pose()(2, 3);
+    if (mode == 3) final_pitch = std::asin(-odom.pose()(2, 0));
+  }
+  // Mode 0 recovers only part of the 0.44 m climb; mode 3 tracks it.
+  const double error0 = std::abs(final_z[0] - truth(2, 3));
+  const double error3 = std::abs(final_z[1] - truth(2, 3));
+  EXPECT_GT(error0, 0.15);
+  EXPECT_LT(error3, 0.05);
+  EXPECT_LT(error3, 0.25 * error0);
+  EXPECT_NEAR(final_pitch, grade_pitch, 0.005);
+}
+
+TEST(LLO, GroundMapModeLeavesHorizontalMotionUnchangedOnFlatGround) {
+  // The height of a sensor point does not depend on yaw, so on flat ground
+  // with a level body mode 3 reproduces the horizontal trajectory of mode 0.
+  const auto world = streetWithHeight(flat);
+  Eigen::Matrix4d poses[2];
+  int slot = 0;
+  for (int mode : {0, 3}) {
+    LLOParams params;
+    params.pitch_mode = mode;
+    LLOOdometry odom(params);
+    Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+    for (int k = 0; k < 8; ++k) {
+      if (k > 0) {
+        Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+        step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+        step(0, 3) = 1.0;
+        truth = truth * step;
+      }
+      odom.registerFrame(scanAt(world, truth));
+    }
+    poses[slot++] = odom.pose();
+  }
+  EXPECT_LT((poses[0].block<2, 1>(0, 3) - poses[1].block<2, 1>(0, 3)).norm(), 2e-3);
+  EXPECT_NEAR(std::atan2(poses[0](1, 0), poses[0](0, 0)), std::atan2(poses[1](1, 0), poses[1](0, 0)), 1e-4);
+}

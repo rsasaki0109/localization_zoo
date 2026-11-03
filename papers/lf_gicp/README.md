@@ -17,12 +17,19 @@ A GICP scan-to-map odometry (paper Sec. III-A) with the paper's degeneracy handl
 
 `pcd_dogfooding --methods lf_gicp` runs it; `--lf-gicp-no-mitigation` disables the gate (the paper's vanilla VGICP backend ablation), `--lf-gicp-beta X` changes beta, and `--lf-gicp-field-beta X` changes beta_f.
 
+Two opt-in additions that are **not in the paper** (both default off; the default output is unchanged):
+
+- `--lf-gicp-sensor-centered-fisher` takes the Fisher-weighting direction in a tangent centred on the sensor instead of the world origin; see [Sequence 10 and the Fisher direction](#sequence-10-and-the-fisher-direction).
+- `--lf-gicp-trace-csv PATH` writes a passive per-frame trace: field statistics, gate medians, the weakest Hessian direction in both tangents and the applied weight concentration.
+
 ## Reproduction notes and deviations
 
 - **Planarity definition.** Sec. III-C says the field is built "before regularization", but Table IV shows `f0` changing with beta, which only happens if `rho_v = (lambda3 - lambda2) / lambda3` is computed from a regularized information `(C + beta_f I)^-1`. The field therefore has its own `field_regularization` (beta_f), separate from the GICP beta = 2.0.
 - **lambda0 scale and beta_f.** The gate thresholds only make sense on the paper's `lambda0` scale, where open-road "dilution" scenes span 0.0168-0.0334 (Fig. 3). On the paper's own calibration trace (KITTI 00, first 500 frames) the median `lambda0` is 0.191 / 0.0201 / 0.0110 / 0.0058 / 0.0030 for beta_f = 0 / 0.25 / 0.5 / 1.0 / 2.0. The first run used beta_f = 2.0; the gate then stayed on for 82-100 % of KITTI 02/08 frames and hurt accuracy, which is the dilution failure the paper's `lambda0` condition exists to prevent. After seeing that, beta_f was re-chosen by a rule that uses only the calibration trace and the paper's published range, not any evaluated error: the smallest beta_f whose median falls inside the dilution range, so **beta_f = 0.25**. GEODE tunnels are not available here, so the gate has not been checked on genuine absence.
 - **Unspecified details** filled with conventional choices: minimum range 1 m, voxel eviction by last-update frame, first-order SE(3) increment, 27-voxel correspondence search.
 - No deskewing: KITTI Odometry scans have no per-point times (the paper also evaluates KITTI without deskewing and without the mounting-angle correction).
+- **Linearization point of Eq. (2).** The paper calls `delta xi` a "local twist" but writes `J = [-[Rp + t]x, I]` with `T <- exp(delta xi) T`, i.e. a twist about the world origin. This implementation follows the equation. The Fisher weights of Eq. (7) use the weakest eigenvector of that Hessian, which therefore depends on where the world origin is; see [Sequence 10 and the Fisher direction](#sequence-10-and-the-fisher-direction).
+- **Gate firing rate.** The paper reports that its `lambda0` condition keeps the gate off on KITTI open roads (at most 8 % of frames, Table I caption). Here, with beta_f = 0.25, the gate is on for 1100/1101 frames of 01, 268/271 of 04, 403/801 of 03, 631/1591 of 09 and 429/1201 of 10, so the calibration does not reproduce that behaviour on every sequence.
 
 ## Results
 

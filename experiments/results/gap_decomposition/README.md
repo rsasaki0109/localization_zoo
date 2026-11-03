@@ -103,3 +103,56 @@ attributes to tilt and the vertical channel, matching the
 All KITTI is project development data. These attributions locate error types on
 saved trajectories; they change no estimator, default, stored result or Table 6
 value.
+
+## InTEn-LOAM heading error (follow-up)
+
+`inten_heading.py` reads the committed passive trace of the unchanged
+`paper_odometry_plane_check` run on KITTI 10
+(`experiments/results/inten_natural_traces/sequences/10/on`). It compares
+per-frame relative yaw at three stages with GT: the S2S prediction, the S2S
+output, and the final pose after S2M. Results are in
+[`inten_heading.json`](inten_heading.json).
+
+| Stage (KITTI 10) | Mean yaw error [deg/frame] | Std | Sum over 1200 steps [deg] | Yaw-only official RTE |
+|---|---:|---:|---:|---:|
+| S2S prediction | -0.0048 | 0.098 | -5.78 | 1.456 % |
+| S2S output | -0.0048 | 0.044 | -5.77 | 1.068 % |
+| Final (after S2M) | -0.0024 | 0.039 | -2.90 | 0.909 % |
+
+The paper's total on 10 is 0.45 %.
+
+**S2S leaves the bias in; S2M halves it.** S2S removes most of the prediction's
+noise but none of its bias. S2M halves the bias, and the remainder alone is
+twice the paper's total error.
+
+**The bias drives the heading error, not the noise.** On 03/05/10 almost every
+method has a small negative yaw bias, which may be a common GT/calibration
+component. InTEn-LOAM's bias is the largest on all three sequences, apart from
+LF-GICP's sign-flipped failure on 10:
+
+| Seq | InTEn-LOAM bias | Other methods' bias |
+|---|---:|---|
+| 10 | -0.0024 | -0.0001 to -0.0018 |
+| 03 | -0.0043 | -0.0006 to -0.0039 |
+| 05 | -0.0020 | -0.0005 to -0.0029 (L-LO -0.0029, the rest at most -0.0013) |
+
+Quadric-LO is noisier (std 0.048-0.051) but nearly unbiased, and its yaw channel
+stays at 0.21-0.29x the paper. InTEn-LOAM's yaw channel reaches 1.6-2.0x.
+
+**The bias does not follow turning or speed.** A per-frame regression on GT
+turn rate and step length explains at most 1.5 % of the variance at any stage.
+On straight frames the S2S bias is largest at walking speed (step below 0.3 m:
+-0.0155 deg/frame over 124 frames). After S2M the bias is -0.002 to
+-0.0066 deg/frame at every speed. Slow frames contribute only about 0.3 deg of
+the 2.9 deg total.
+
+These are observations on saved traces of one development sequence (10),
+compared across methods on 03/05/10. They locate the heading error in a
+systematic per-frame bias that S2S does not correct and S2M only halves. They do
+not identify which association or residual produces it. Finding that needs a
+native intervention, for example S2S with selected feature classes removed at
+fixed history, as the earlier InTEn studies did for step length.
+
+```bash
+python3 experiments/results/gap_decomposition/inten_heading.py   # needs decomposition.json; writes inten_heading.json
+```

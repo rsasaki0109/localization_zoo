@@ -1,0 +1,146 @@
+{
+  "generated_at": "2026-11-03T04:31:17+00:00",
+  "manifest_path": "experiments/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix.json",
+  "problem": {
+    "id": "lf_gicp_kitti_seq_03_full_sensor_fisher",
+    "title": "LF-GICP KITTI Odom seq 03 full (801 frames): sensor-centred Fisher direction",
+    "question": "Does taking the Fisher-weighting direction in a sensor-centred tangent, instead of the world-origin twist of the paper's Eq. (2), change full-sequence accuracy with one fixed setting?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_03_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_03_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lf_gicp",
+    "primary_method": "LF-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_03_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_03_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_default",
+      "label": "Paper default (fresh reference)",
+      "design_style": "balanced",
+      "intent": "Paper Table SI constants with the localizability-field gate and soft Fisher weighting; rerun on the same binary as the candidate.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/paper_default/summary.json",
+      "summary_path": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/paper_default/summary.json",
+      "log_path": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/paper_default/run.log",
+      "status": "ok",
+      "ate_m": 5.074145,
+      "rpe_trans_pct": 0.644761,
+      "rpe_rot_deg_per_m": 0.005395,
+      "fps": 4.777441,
+      "time_ms": 167662.981515,
+      "frames": 801,
+      "note": "Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=403/801 median_f0=0.131267 median_lambda0=0.0140053",
+      "benchmark_score": 97.77,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 0.785354,
+      "kitti_rte_rot_deg_per_100m": 0.523409,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v230",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "sensor_centered_fisher",
+      "label": "Sensor-centred Fisher direction (not in the paper)",
+      "design_style": "ablation",
+      "intent": "Same gate and weights, with the weakest Hessian eigenvector taken in a tangent centred on the sensor instead of the world origin. Opt-in, default off.",
+      "args": [
+        "--lf-gicp-sensor-centered-fisher"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json --lf-gicp-sensor-centered-fisher",
+      "summary_path": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/sensor_centered_fisher/summary.json",
+      "log_path": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/sensor_centered_fisher/run.log",
+      "status": "ok",
+      "ate_m": 5.023159,
+      "rpe_trans_pct": 0.840565,
+      "rpe_rot_deg_per_m": 0.005499,
+      "fps": 4.511812,
+      "time_ms": 177533.985335,
+      "frames": 801,
+      "note": "Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 sensor_centered_fisher=on degenerate_frames=403/801 median_f0=0.129314 median_lambda0=0.0138155",
+      "benchmark_score": 95.59,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 1.020283,
+      "kitti_rte_rot_deg_per_100m": 0.505688,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v230",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "no_mitigation",
+      "label": "Vanilla VGICP backend",
+      "design_style": "ablation",
+      "intent": "Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).",
+      "args": [
+        "--lf-gicp-no-mitigation"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/no_mitigation/summary.json --lf-gicp-no-mitigation",
+      "summary_path": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/no_mitigation/summary.json",
+      "log_path": "experiments/results/runs/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix/no_mitigation/run.log",
+      "status": "ok",
+      "ate_m": 5.061151,
+      "rpe_trans_pct": 0.7462,
+      "rpe_rot_deg_per_m": 0.00527,
+      "fps": 4.948465,
+      "time_ms": 161868.38592,
+      "frames": 801,
+      "note": "Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 field_beta=0.25 degenerate_frames=0/801 median_f0=0.129708 median_lambda0=0.0139602",
+      "benchmark_score": 99.62,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.897005,
+      "kitti_rte_rot_deg_per_100m": 0.503927,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v230",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

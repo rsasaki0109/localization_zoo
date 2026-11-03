@@ -1,0 +1,50 @@
+Reading remote ZIP directory: https://s3.eu-central-1.amazonaws.com/avg-kitti/data_odometry_velodyne.zip
+KITTI 00: 4541 frames, 8.22 GiB
+Traceback (most recent call last):
+  File "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 338, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 314, in main
+    counts = list(
+        executor.map(
+    ...<4 lines>...
+        )
+    )
+  File "/usr/local/lib/python3.13/concurrent/futures/_base.py", line 625, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/_base.py", line 318, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/_base.py", line 453, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/concurrent/futures/_base.py", line 402, in __get_result
+    raise self._exception
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 316, in <lambda>
+    lambda chunk: extract_sequence_range(
+                  ~~~~~~~~~~~~~~~~~~~~~~^
+        args.url, chunk, output_root, args.overwrite
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 257, in extract_sequence_range
+    checksum = copy_exact_with_crc(
+        response, output, info.compress_size
+    )
+  File "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py", line 150, in copy_exact_with_crc
+    chunk = stream.read(min(remaining, COPY_CHUNK_BYTES))
+  File "/usr/local/lib/python3.13/http/client.py", line 494, in read
+    s = self.fp.read(amt)
+  File "/usr/local/lib/python3.13/socket.py", line 723, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "/usr/local/lib/python3.13/ssl.py", line 1327, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/ssl.py", line 1161, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer

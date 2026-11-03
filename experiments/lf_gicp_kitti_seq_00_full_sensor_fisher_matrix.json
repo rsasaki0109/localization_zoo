@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "lf_gicp_kitti_seq_00_full_sensor_fisher",
+    "title": "LF-GICP KITTI Odom seq 00 full (4541 frames): sensor-centred Fisher direction",
+    "question": "Does taking the Fisher-weighting direction in a sensor-centred tangent, instead of the world-origin twist of the paper's Eq. (2), change full-sequence accuracy with one fixed setting?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lf_gicp",
+    "primary_method": "LF-GICP"
+  },
+  "variants": [
+    {
+      "id": "paper_default",
+      "label": "Paper default (fresh reference)",
+      "design_style": "balanced",
+      "intent": "Paper Table SI constants with the localizability-field gate and soft Fisher weighting; rerun on the same binary as the candidate.",
+      "args": []
+    },
+    {
+      "id": "sensor_centered_fisher",
+      "label": "Sensor-centred Fisher direction (not in the paper)",
+      "design_style": "ablation",
+      "intent": "Same gate and weights, with the weakest Hessian eigenvector taken in a tangent centred on the sensor instead of the world origin. Opt-in, default off.",
+      "args": [
+        "--lf-gicp-sensor-centered-fisher"
+      ]
+    },
+    {
+      "id": "no_mitigation",
+      "label": "Vanilla VGICP backend",
+      "design_style": "ablation",
+      "intent": "Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).",
+      "args": [
+        "--lf-gicp-no-mitigation"
+      ]
+    }
+  ]
+}

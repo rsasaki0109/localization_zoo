@@ -1,0 +1,186 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1591
+GT poses: 1591
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 1705.0 m
+Running LF-GICP...
+  mitigation=on beta=2.0 sensor_centered_fisher=on
+
+  [LF-GICP] 0/1591 voxels=5107 degenerate=0
+  [LF-GICP] 10/1591 voxels=8582 degenerate=10
+  [LF-GICP] 20/1591 voxels=9747 degenerate=20
+  [LF-GICP] 30/1591 voxels=10899 degenerate=30
+  [LF-GICP] 40/1591 voxels=12880 degenerate=40
+  [LF-GICP] 50/1591 voxels=14443 degenerate=50
+  [LF-GICP] 60/1591 voxels=15860 degenerate=60
+  [LF-GICP] 70/1591 voxels=17264 degenerate=70
+  [LF-GICP] 80/1591 voxels=18777 degenerate=80
+  [LF-GICP] 90/1591 voxels=20398 degenerate=90
+  [LF-GICP] 100/1591 voxels=21628 degenerate=100
+  [LF-GICP] 110/1591 voxels=22908 degenerate=110
+  [LF-GICP] 120/1591 voxels=24330 degenerate=120
+  [LF-GICP] 130/1591 voxels=25350 degenerate=130
+  [LF-GICP] 140/1591 voxels=26443 degenerate=140
+  [LF-GICP] 150/1591 voxels=27754 degenerate=150
+  [LF-GICP] 160/1591 voxels=29100 degenerate=160
+  [LF-GICP] 170/1591 voxels=30186 degenerate=170
+  [LF-GICP] 180/1591 voxels=32307 degenerate=180
+  [LF-GICP] 190/1591 voxels=36263 degenerate=190
+  [LF-GICP] 200/1591 voxels=40192 degenerate=200
+  [LF-GICP] 210/1591 voxels=43271 degenerate=210
+  [LF-GICP] 220/1591 voxels=46556 degenerate=220
+  [LF-GICP] 230/1591 voxels=50912 degenerate=230
+  [LF-GICP] 240/1591 voxels=55159 degenerate=240
+  [LF-GICP] 250/1591 voxels=58789 degenerate=250
+  [LF-GICP] 260/1591 voxels=62436 degenerate=260
+  [LF-GICP] 270/1591 voxels=65545 degenerate=270
+  [LF-GICP] 280/1591 voxels=67994 degenerate=280
+  [LF-GICP] 290/1591 voxels=69851 degenerate=290
+  [LF-GICP] 300/1591 voxels=71658 degenerate=300
+  [LF-GICP] 310/1591 voxels=73781 degenerate=310
+  [LF-GICP] 320/1591 voxels=75711 degenerate=320
+  [LF-GICP] 330/1591 voxels=77225 degenerate=330
+  [LF-GICP] 340/1591 voxels=78460 degenerate=340
+  [LF-GICP] 350/1591 voxels=80427 degenerate=350
+  [LF-GICP] 360/1591 voxels=82050 degenerate=360
+  [LF-GICP] 370/1591 voxels=83200 degenerate=370
+  [LF-GICP] 380/1591 voxels=84672 degenerate=380
+  [LF-GICP] 390/1591 voxels=86842 degenerate=390
+  [LF-GICP] 400/1591 voxels=88355 degenerate=400
+  [LF-GICP] 410/1591 voxels=89940 degenerate=410
+  [LF-GICP] 420/1591 voxels=91945 degenerate=420
+  [LF-GICP] 430/1591 voxels=93707 degenerate=430
+  [LF-GICP] 440/1591 voxels=95582 degenerate=440
+  [LF-GICP] 450/1591 voxels=97437 degenerate=450
+  [LF-GICP] 460/1591 voxels=98519 degenerate=460
+  [LF-GICP] 470/1591 voxels=99676 degenerate=470
+  [LF-GICP] 480/1591 voxels=100746 degenerate=480
+  [LF-GICP] 490/1591 voxels=101543 degenerate=490
+  [LF-GICP] 500/1591 voxels=102416 degenerate=500
+  [LF-GICP] 510/1591 voxels=102027 degenerate=510
+  [LF-GICP] 520/1591 voxels=101717 degenerate=520
+  [LF-GICP] 530/1591 voxels=101469 degenerate=530
+  [LF-GICP] 540/1591 voxels=101355 degenerate=540
+  [LF-GICP] 550/1591 voxels=101348 degenerate=550
+  [LF-GICP] 560/1591 voxels=100990 degenerate=560
+  [LF-GICP] 570/1591 voxels=101307 degenerate=570
+  [LF-GICP] 580/1591 voxels=101631 degenerate=580
+  [LF-GICP] 590/1591 voxels=101842 degenerate=590
+  [LF-GICP] 600/1591 voxels=101917 degenerate=594
+  [LF-GICP] 610/1591 voxels=101900 degenerate=594
+  [LF-GICP] 620/1591 voxels=101445 degenerate=594
+  [LF-GICP] 630/1591 voxels=100996 degenerate=594
+  [LF-GICP] 640/1591 voxels=100577 degenerate=594
+  [LF-GICP] 650/1591 voxels=100285 degenerate=594
+  [LF-GICP] 660/1591 voxels=100327 degenerate=594
+  [LF-GICP] 670/1591 voxels=100367 degenerate=594
+  [LF-GICP] 680/1591 voxels=100225 degenerate=594
+  [LF-GICP] 690/1591 voxels=100083 degenerate=594
+  [LF-GICP] 700/1591 voxels=99685 degenerate=594
+  [LF-GICP] 710/1591 voxels=100026 degenerate=594
+  [LF-GICP] 720/1591 voxels=100194 degenerate=594
+  [LF-GICP] 730/1591 voxels=100038 degenerate=594
+  [LF-GICP] 740/1591 voxels=98820 degenerate=594
+  [LF-GICP] 750/1591 voxels=96463 degenerate=594
+  [LF-GICP] 760/1591 voxels=93880 degenerate=594
+  [LF-GICP] 770/1591 voxels=91496 degenerate=594
+  [LF-GICP] 780/1591 voxels=88571 degenerate=594
+  [LF-GICP] 790/1591 voxels=84447 degenerate=594
+  [LF-GICP] 800/1591 voxels=82091 degenerate=594
+  [LF-GICP] 810/1591 voxels=81263 degenerate=594
+  [LF-GICP] 820/1591 voxels=80350 degenerate=594
+  [LF-GICP] 830/1591 voxels=78546 degenerate=594
+  [LF-GICP] 840/1591 voxels=76702 degenerate=594
+  [LF-GICP] 850/1591 voxels=75984 degenerate=594
+  [LF-GICP] 860/1591 voxels=75590 degenerate=594
+  [LF-GICP] 870/1591 voxels=75596 degenerate=594
+  [LF-GICP] 880/1591 voxels=75688 degenerate=594
+  [LF-GICP] 890/1591 voxels=75192 degenerate=594
+  [LF-GICP] 900/1591 voxels=74617 degenerate=594
+  [LF-GICP] 910/1591 voxels=74859 degenerate=594
+  [LF-GICP] 920/1591 voxels=74556 degenerate=594
+  [LF-GICP] 930/1591 voxels=73818 degenerate=594
+  [LF-GICP] 940/1591 voxels=73060 degenerate=594
+  [LF-GICP] 950/1591 voxels=72232 degenerate=594
+  [LF-GICP] 960/1591 voxels=71757 degenerate=594
+  [LF-GICP] 970/1591 voxels=71341 degenerate=594
+  [LF-GICP] 980/1591 voxels=71101 degenerate=594
+  [LF-GICP] 990/1591 voxels=71020 degenerate=594
+  [LF-GICP] 1000/1591 voxels=70967 degenerate=594
+  [LF-GICP] 1010/1591 voxels=71346 degenerate=594
+  [LF-GICP] 1020/1591 voxels=71009 degenerate=594
+  [LF-GICP] 1030/1591 voxels=70465 degenerate=594
+  [LF-GICP] 1040/1591 voxels=69814 degenerate=594
+  [LF-GICP] 1050/1591 voxels=69963 degenerate=594
+  [LF-GICP] 1060/1591 voxels=70422 degenerate=594
+  [LF-GICP] 1070/1591 voxels=70115 degenerate=594
+  [LF-GICP] 1080/1591 voxels=69222 degenerate=594
+  [LF-GICP] 1090/1591 voxels=68603 degenerate=594
+  [LF-GICP] 1100/1591 voxels=68386 degenerate=594
+  [LF-GICP] 1110/1591 voxels=68741 degenerate=594
+  [LF-GICP] 1120/1591 voxels=69638 degenerate=594
+  [LF-GICP] 1130/1591 voxels=69991 degenerate=594
+  [LF-GICP] 1140/1591 voxels=70150 degenerate=594
+  [LF-GICP] 1150/1591 voxels=70444 degenerate=594
+  [LF-GICP] 1160/1591 voxels=70936 degenerate=594
+  [LF-GICP] 1170/1591 voxels=71200 degenerate=594
+  [LF-GICP] 1180/1591 voxels=71425 degenerate=594
+  [LF-GICP] 1190/1591 voxels=71179 degenerate=594
+  [LF-GICP] 1200/1591 voxels=71249 degenerate=594
+  [LF-GICP] 1210/1591 voxels=70978 degenerate=594
+  [LF-GICP] 1220/1591 voxels=70814 degenerate=594
+  [LF-GICP] 1230/1591 voxels=69862 degenerate=594
+  [LF-GICP] 1240/1591 voxels=69225 degenerate=594
+  [LF-GICP] 1250/1591 voxels=69053 degenerate=594
+  [LF-GICP] 1260/1591 voxels=69206 degenerate=594
+  [LF-GICP] 1270/1591 voxels=69194 degenerate=594
+  [LF-GICP] 1280/1591 voxels=68422 degenerate=594
+  [LF-GICP] 1290/1591 voxels=68120 degenerate=594
+  [LF-GICP] 1300/1591 voxels=68084 degenerate=594
+  [LF-GICP] 1310/1591 voxels=67818 degenerate=594
+  [LF-GICP] 1320/1591 voxels=67864 degenerate=594
+  [LF-GICP] 1330/1591 voxels=67700 degenerate=594
+  [LF-GICP] 1340/1591 voxels=67963 degenerate=594
+  [LF-GICP] 1350/1591 voxels=68496 degenerate=594
+  [LF-GICP] 1360/1591 voxels=69404 degenerate=594
+  [LF-GICP] 1370/1591 voxels=69684 degenerate=594
+  [LF-GICP] 1380/1591 voxels=69670 degenerate=594
+  [LF-GICP] 1390/1591 voxels=69644 degenerate=594
+  [LF-GICP] 1400/1591 voxels=69706 degenerate=594
+  [LF-GICP] 1410/1591 voxels=69919 degenerate=594
+  [LF-GICP] 1420/1591 voxels=69802 degenerate=594
+  [LF-GICP] 1430/1591 voxels=69967 degenerate=594
+  [LF-GICP] 1440/1591 voxels=70253 degenerate=594
+  [LF-GICP] 1450/1591 voxels=70424 degenerate=594
+  [LF-GICP] 1460/1591 voxels=70870 degenerate=594
+  [LF-GICP] 1470/1591 voxels=71235 degenerate=594
+  [LF-GICP] 1480/1591 voxels=71935 degenerate=594
+  [LF-GICP] 1490/1591 voxels=73977 degenerate=594
+  [LF-GICP] 1500/1591 voxels=77672 degenerate=594
+  [LF-GICP] 1510/1591 voxels=78812 degenerate=594
+  [LF-GICP] 1520/1591 voxels=79205 degenerate=594
+  [LF-GICP] 1530/1591 voxels=80231 degenerate=594
+  [LF-GICP] 1540/1591 voxels=80840 degenerate=594
+  [LF-GICP] 1550/1591 voxels=80966 degenerate=594
+  [LF-GICP] 1560/1591 voxels=81304 degenerate=594
+  [LF-GICP] 1570/1591 voxels=81442 degenerate=594
+  [LF-GICP] 1580/1591 voxels=81931 degenerate=594
+  [LF-GICP] 1590/1591 voxels=81775 degenerate=594
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+LF-GICP                 ok          7.322       0.649          1591        333685.1       4.8         
+
+Notes:
+- LF-GICP: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 sensor_centered_fisher=on degenerate_frames=594/1591 median_f0=0.148944 median_lambda0=0.0163146
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_09_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_09_full_evaluation_manifest.json)

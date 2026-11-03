@@ -10,6 +10,24 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### LF-GICP sequence 10 (2026-11-03)
+
+The 6.71x on KITTI 10 has a located cause. The paper's Eq. (2) linearizes about
+the world origin, so the weakest Hessian eigenvector that drives its Fisher
+weights (Eq. 7) becomes a rotation about the sensor once the vehicle is about
+100 m from the origin; on 10 the gate is on for frames 1-429 and the weights
+concentrate (max 119). The opt-in `--lf-gicp-sensor-centered-fisher` (not in
+the paper, default off) takes that direction about the sensor. One fixed
+setting on all of 00-10, against a fresh `paper_default` that equals every
+stored result: 10 5.616 % → 0.993 % (1.19x), geometric mean 1.12x → 1.04x, but
+4 sequences lower and 6 higher (04 +72 %, 03 +30 %, 00 +15 %, 01 +10 %, 07 +8 %,
+06 +0.2 %). Without mitigation the backend scores 0.98x. Table 6 and defaults
+stay on `paper_default`. The open discrepancy is the gate: it fires on 13-100 %
+of the frames of 01/02/03/04/08/09/10, where the paper reports at most 8 % on
+KITTI. A faithful recalibration needs the paper's second calibration trace
+(GEODE Tunnel01). The protocol was committed before the full runs;
+[study, traces and commands](../experiments/results/lf_gicp_sensor_centered_fisher/README.md).
+
 ### Fixed-configuration leaderboard (2026-10-26)
 
 The explorer now also compares the nine explicitly pinned configurations from
@@ -167,7 +185,7 @@ variant runs on every sequence.
 |---|---:|---|---|---|
 | LiTAMIN2 | 1.01x | 00-10 | - | one setting 1.05x |
 | A-LOAM | 1.07x | 00-10 | - | one setting selected on 07; vs secondary-source LOAM values; no sequence above 2x |
-| LF-GICP | 1.12x | 00-10 | - | one setting; calibrated on 00 after earlier 02/08 observations; above 2x: 10 (6.71x) |
+| LF-GICP | 1.12x | 00-10 | - | one setting; calibrated on 00 after earlier 02/08 observations; above 2x: 10 (6.71x), cause located; opt-in sensor-centred Fisher direction 1.04x, not adopted |
 | KISS-ICP | 1.04x | 00/04 | - | 00-10 average equals the official code's |
 | MULLS | 1.12x | 00-10 | - | 00-10 average equals the official code's |
 | CT-ICP | 1.15x | 00-10 | - | 00-10 average equals the official code's |
@@ -992,10 +1010,11 @@ independent. Each item says what "done" means.
 
 ### Backlog
 
-- Full-coverage failures still need a solver-level explanation: LF-GICP 10
-  (6.71x), L-LO 09/10 (2.18x / 2.16x). Saved-pose drift intervals and block
-  errors are in their method READMEs; these diagnostics locate failures
-  without establishing their cause.
+- Full-coverage failures still need a solver-level explanation: L-LO 09/10
+  (2.18x / 2.16x). Saved-pose drift intervals and block errors are in its
+  method README; these diagnostics locate failures without establishing their
+  cause. LF-GICP 10 (6.71x) is explained (see "LF-GICP sequence 10" above);
+  its remaining open item is the gate firing rate.
 - New paper ports: follow [CONTRIBUTING.md](../CONTRIBUTING.md) (KITTI 00/07
   full, `--no-gt-seed`, at least 3 mechanism tests, README with negative
   results); run all paper sequences before claiming a ratio.

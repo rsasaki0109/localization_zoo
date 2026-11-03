@@ -1,0 +1,54 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 271
+GT poses: 271
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 393.6 m
+Running LF-GICP...
+  mitigation=off beta=2.0
+
+  [LF-GICP] 0/271 voxels=6896 degenerate=0
+  [LF-GICP] 10/271 voxels=14761 degenerate=0
+  [LF-GICP] 20/271 voxels=19334 degenerate=0
+  [LF-GICP] 30/271 voxels=22277 degenerate=0
+  [LF-GICP] 40/271 voxels=24703 degenerate=0
+  [LF-GICP] 50/271 voxels=27538 degenerate=0
+  [LF-GICP] 60/271 voxels=29714 degenerate=0
+  [LF-GICP] 70/271 voxels=31917 degenerate=0
+  [LF-GICP] 80/271 voxels=34483 degenerate=0
+  [LF-GICP] 90/271 voxels=36416 degenerate=0
+  [LF-GICP] 100/271 voxels=37768 degenerate=0
+  [LF-GICP] 110/271 voxels=39241 degenerate=0
+  [LF-GICP] 120/271 voxels=41178 degenerate=0
+  [LF-GICP] 130/271 voxels=42648 degenerate=0
+  [LF-GICP] 140/271 voxels=44659 degenerate=0
+  [LF-GICP] 150/271 voxels=46719 degenerate=0
+  [LF-GICP] 160/271 voxels=48411 degenerate=0
+  [LF-GICP] 170/271 voxels=49968 degenerate=0
+  [LF-GICP] 180/271 voxels=51753 degenerate=0
+  [LF-GICP] 190/271 voxels=53953 degenerate=0
+  [LF-GICP] 200/271 voxels=56455 degenerate=0
+  [LF-GICP] 210/271 voxels=58945 degenerate=0
+  [LF-GICP] 220/271 voxels=62669 degenerate=0
+  [LF-GICP] 230/271 voxels=66904 degenerate=0
+  [LF-GICP] 240/271 voxels=71638 degenerate=0
+  [LF-GICP] 250/271 voxels=75588 degenerate=0
+  [LF-GICP] 260/271 voxels=79219 degenerate=0
+  [LF-GICP] 270/271 voxels=82330 degenerate=0
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+LF-GICP                 ok          2.072       0.574          271         67819.9        4.0         
+
+Notes:
+- LF-GICP: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 field_beta=0.25 degenerate_frames=0/271 median_f0=0.130936 median_lambda0=0.0132446
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_04_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_04_full_evaluation_manifest.json)

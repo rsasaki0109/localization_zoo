@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-21T01:09:38+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-11-03T04:37:49+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -336,17 +336,28 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | lego_loam | `mcd_ntu_day_02_108` | gt-backed | `fast` | 0.079 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | lego_loam | `mcd_tuhh_night_09_108` | gt-backed | `fast` | 1.401 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
 | lf_gicp | `kitti_seq_00_full` | gt-backed | `no_mitigation` | 7.848 | 3.8 | `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json` |
+| lf_gicp | `kitti_seq_00_full` | gt-backed | `no_mitigation` | 7.848 | 6.4 | `experiments/results/lf_gicp_kitti_seq_00_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_01_full` | gt-backed | `paper_default` | 94.094 | 2.0 | `experiments/results/lf_gicp_kitti_seq_01_full_paper_comp_matrix.json` |
+| lf_gicp | `kitti_seq_01_full` | gt-backed | `paper_default` | 94.094 | 2.8 | `experiments/results/lf_gicp_kitti_seq_01_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_02_full` | gt-backed | `no_mitigation` | 27.186 | 3.6 | `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json` |
+| lf_gicp | `kitti_seq_02_full` | gt-backed | `no_mitigation` | 27.186 | 6.0 | `experiments/results/lf_gicp_kitti_seq_02_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_03_full` | gt-backed | `paper_default` | 5.074 | 3.4 | `experiments/results/lf_gicp_kitti_seq_03_full_paper_comp_matrix.json` |
+| lf_gicp | `kitti_seq_03_full` | gt-backed | `no_mitigation` | 5.061 | 4.9 | `experiments/results/lf_gicp_kitti_seq_03_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_04_full` | gt-backed | `paper_default` | 1.719 | 2.3 | `experiments/results/lf_gicp_kitti_seq_04_full_paper_comp_matrix.json` |
+| lf_gicp | `kitti_seq_04_full` | gt-backed | `paper_default` | 1.719 | 3.8 | `experiments/results/lf_gicp_kitti_seq_04_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_05_full` | gt-backed | `no_mitigation` | 5.556 | 5.4 | `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json` |
+| lf_gicp | `kitti_seq_05_full` | gt-backed | `paper_default` | 5.556 | 6.2 | `experiments/results/lf_gicp_kitti_seq_05_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_06_full` | gt-backed | `paper_default` | 2.133 | 2.3 | `experiments/results/lf_gicp_kitti_seq_06_full_paper_comp_matrix.json` |
+| lf_gicp | `kitti_seq_06_full` | gt-backed | `sensor_centered_fisher` | 2.124 | 4.0 | `experiments/results/lf_gicp_kitti_seq_06_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_07_full` | gt-backed | `paper_default` | 0.646 | 8.8 | `experiments/results/lf_gicp_kitti_seq_07_full_elevation_matrix.json` |
 | lf_gicp | `kitti_seq_07_full` | gt-backed | `paper_default` | 0.646 | 4.1 | `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json` |
+| lf_gicp | `kitti_seq_07_full` | gt-backed | `paper_default` | 0.646 | 7.4 | `experiments/results/lf_gicp_kitti_seq_07_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_08_full` | gt-backed | `no_mitigation` | 16.280 | 2.9 | `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json` |
+| lf_gicp | `kitti_seq_08_full` | gt-backed | `sensor_centered_fisher` | 13.474 | 4.9 | `experiments/results/lf_gicp_kitti_seq_08_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_09_full` | gt-backed | `paper_default` | 7.784 | 1.6 | `experiments/results/lf_gicp_kitti_seq_09_full_paper_comp_matrix.json` |
+| lf_gicp | `kitti_seq_09_full` | gt-backed | `no_mitigation` | 6.402 | 5.2 | `experiments/results/lf_gicp_kitti_seq_09_full_sensor_fisher_matrix.json` |
 | lf_gicp | `kitti_seq_10_full` | gt-backed | `paper_default` | 50.982 | 2.0 | `experiments/results/lf_gicp_kitti_seq_10_full_paper_comp_matrix.json` |
+| lf_gicp | `kitti_seq_10_full` | gt-backed | `no_mitigation` | 6.686 | 7.2 | `experiments/results/lf_gicp_kitti_seq_10_full_sensor_fisher_matrix.json` |
 | lins | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | lins | `kitti_raw_0009_200` | gt-backed | `fast` | 120.032 | 120.7 | `experiments/results/lins_kitti_raw_0009_matrix.json` |
 | lins | `kitti_raw_0009_200` | gt-backed | `fast` | 120.032 | 105.0 | `experiments/results/lins_kitti_raw_0009_nogt_matrix.json` |

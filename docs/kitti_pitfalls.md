@@ -95,6 +95,21 @@ constrain the forward direction, they push it.
   BEV ground term added about +1.3 mm forward per scan.
 - Check: one Gauss-Newton step from the ground-truth increment; split the
   forward gradient by class (ground / non-ground).
+- Fix that worked on three methods: let the ground give no information along
+  the sensor's forward axis. Remove the forward component of the ground
+  residuals' translation Jacobian in sensor-centred coordinates, and keep
+  height, roll, pitch, lateral and yaw. It is opt-in and not in any of these
+  papers.
+  - InTEn-LOAM `s2s_ground_no_forward`: 02 3.221 -> 0.823 %, held-out
+    sequences within 5 %
+    ([study](../experiments/results/inten_ground_forward/README.md)).
+  - SuMa `ground_no_forward_vertical_cos=0.866`: 01 13.793 -> 1.629 %, 02
+    3.512 -> 1.558 %, one setting at 0.94x
+    ([study](../experiments/results/suma_ground_forward/README.md)).
+  - ELO `ground_constrains_forward=false`.
+- Not for walls: the same treatment for InTEn-LOAM facades along the forward
+  axis makes 01/02 much worse (16.6 -> 41.7 %, 0.82 -> 2.99 %). The facades
+  carry most of the forward constraint there.
 
 **Lookups that blend empty pixels.** A bilinear lookup over a rendered model
 that mixes in empty texels pulls samples toward the sensor.

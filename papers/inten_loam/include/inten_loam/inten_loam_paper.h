@@ -177,6 +177,13 @@ struct InTenLoamPaperParams {
   // per solver; all other classes and gates are unchanged.
   bool s2s_ground_no_forward = false;
   bool s2m_ground_no_forward = false;
+  // Repository extension, not in the paper; default 0 (off). The same for S2S
+  // facade residuals whose plane runs nearly along the sensor's forward axis:
+  // |normal . forward| below this value (0.5: within 30 deg of the axis; above
+  // 1: every facade). Facades facing the direction of travel keep their
+  // forward information. Walls and rails along a highway behave like the ground on
+  // KITTI 01 (README).
+  double s2s_facade_no_forward_below = 0.0;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).

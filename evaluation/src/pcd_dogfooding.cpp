@@ -4960,6 +4960,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "s2s_geometry_consensus") pp.s2s_geometry_consensus = v != 0.0;
       else if (k == "s2s_ground_no_forward") pp.s2s_ground_no_forward = v != 0.0;
       else if (k == "s2m_ground_no_forward") pp.s2m_ground_no_forward = v != 0.0;
+      else if (k == "s2s_facade_no_forward_below") pp.s2s_facade_no_forward_below = v;
       else if (k == "max_ground") pp.max_ground = static_cast<int>(v);
       else if (k == "facades_per_sector") pp.facades_per_sector = static_cast<int>(v);
       else if (k == "edges_per_sector") pp.edges_per_sector = static_cast<int>(v);
@@ -5065,6 +5066,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
     if (pp.s2s_geometry_consensus) res.note += "; S2S fixed-rotation geometric translation consensus enabled (repository extension, opt-in)";
     if (pp.s2s_ground_no_forward) res.note += "; S2S ground without forward information enabled (repository extension, opt-in)";
     if (pp.s2m_ground_no_forward) res.note += "; S2M ground without forward information enabled (repository extension, opt-in)";
+    if (pp.s2s_facade_no_forward_below > 0.0) res.note += "; S2S along-axis facades without forward information enabled (repository extension, opt-in)";
     return res;
   }
 

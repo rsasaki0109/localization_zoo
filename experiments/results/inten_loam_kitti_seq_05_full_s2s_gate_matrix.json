@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-11-04T22:04:08+00:00",
+  "manifest_path": "experiments/inten_loam_kitti_seq_05_full_s2s_gate_matrix.json",
+  "problem": {
+    "id": "inten_loam_kitti_seq_05_full_s2s_gate",
+    "title": "InTEn-LOAM KITTI Odom seq 05 full (2761 frames): 5 m S2S gate with ground without forward",
+    "question": "Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_odometry_plane_check",
+      "label": "Paper odometry + plane check (fresh reference)",
+      "design_style": "balanced",
+      "intent": "Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check/run.log",
+      "status": "ok",
+      "ate_m": 9.976094,
+      "rpe_trans_pct": 0.414278,
+      "rpe_rot_deg_per_m": 0.003794,
+      "fps": 3.364801,
+      "time_ms": 820553.834198,
+      "frames": 2761,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1434 s2m=2265 dor points/frame=150",
+      "benchmark_score": 98.61,
+      "readability_score": 2.5,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.3,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 0.497289,
+      "kitti_rte_rot_deg_per_100m": 0.305854,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v233",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "paper_odometry_plane_check_gate25_ground_no_forward",
+      "label": "Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper)",
+      "design_style": "ablation",
+      "intent": "Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--inten-loam-paper-set",
+        "s2s_gate_sq=25",
+        "--inten-loam-paper-set",
+        "s2s_ground_no_forward=1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1",
+      "summary_path": "experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json",
+      "log_path": "experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log",
+      "status": "ok",
+      "ate_m": 9.820146,
+      "rpe_trans_pct": 0.437575,
+      "rpe_rot_deg_per_m": 0.004033,
+      "fps": 3.406078,
+      "time_ms": 810609.669199,
+      "frames": 2761,
+      "note": "InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1768 s2m=2260 dor points/frame=152; S2S ground without forward information enabled (repository extension, opt-in)",
+      "benchmark_score": 100.0,
+      "readability_score": 1.3,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.5,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 0.477948,
+      "kitti_rte_rot_deg_per_100m": 0.31291,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v233",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

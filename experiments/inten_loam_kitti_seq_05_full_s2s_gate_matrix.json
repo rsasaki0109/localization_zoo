@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "inten_loam_kitti_seq_05_full_s2s_gate",
+    "title": "InTEn-LOAM KITTI Odom seq 05 full (2761 frames): 5 m S2S gate with ground without forward",
+    "question": "Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "inten_loam",
+    "primary_method": "InTEn-LOAM"
+  },
+  "variants": [
+    {
+      "id": "paper_odometry_plane_check",
+      "label": "Paper odometry + plane check (fresh reference)",
+      "design_style": "balanced",
+      "intent": "Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05"
+      ]
+    },
+    {
+      "id": "paper_odometry_plane_check_gate25_ground_no_forward",
+      "label": "Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper)",
+      "design_style": "ablation",
+      "intent": "Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.",
+      "args": [
+        "--no-gt-seed",
+        "--inten-loam-paper-odometry",
+        "--input-max-range-m",
+        "120",
+        "--input-vertical-angle-correction-deg",
+        "0.17",
+        "--inten-loam-paper-set",
+        "s2m_plane_max_dist=0.05",
+        "--inten-loam-paper-set",
+        "s2s_gate_sq=25",
+        "--inten-loam-paper-set",
+        "s2s_ground_no_forward=1"
+      ]
+    }
+  ]
+}

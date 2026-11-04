@@ -1,0 +1,83 @@
+{
+  "purpose": "Development check before the protocol: S2S nearest-neighbour gate 1 m (default) vs 5 m (s2s_gate_sq=25, the LOAM-family value fixed before the run), with and without s2s_ground_no_forward, on KITTI 01/02. Gates 10 m and 20 m were run on 01 afterwards only to see whether the effect saturates; they do not choose the setting.",
+  "binary_sha256": "d6351e4eb954b28d6113259ae584f25dbe1c52ad0d5c7f483e34ae661bcb2e4e",
+  "code_commit": "13f0de5e (main)",
+  "scripts": [
+    "dev_run.sh (reference / gate25 / gate25_ground, 01 and 02 concurrently)",
+    "dev_run_wider_gates.sh (gate100_ground / gate400_ground, 01 only)"
+  ],
+  "rows": [
+    {
+      "sequence": "01",
+      "arm": "reference",
+      "kitti_rte_trans_pct": 16.613803,
+      "ate_m": 275.59327,
+      "bad_length_steps": 136,
+      "path_length_ratio": 0.871760341112982,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "01",
+      "arm": "gate25",
+      "kitti_rte_trans_pct": 11.040279,
+      "ate_m": 155.908122,
+      "bad_length_steps": 109,
+      "path_length_ratio": 0.9076515103624431,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "01",
+      "arm": "gate25_ground",
+      "kitti_rte_trans_pct": 9.384227,
+      "ate_m": 137.335668,
+      "bad_length_steps": 94,
+      "path_length_ratio": 0.9220438795311557,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "01",
+      "arm": "gate100_ground",
+      "kitti_rte_trans_pct": 9.083629,
+      "ate_m": 132.173185,
+      "bad_length_steps": 92,
+      "path_length_ratio": 0.9240201200199194,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "01",
+      "arm": "gate400_ground",
+      "kitti_rte_trans_pct": 9.048884,
+      "ate_m": 131.408305,
+      "bad_length_steps": 92,
+      "path_length_ratio": 0.9249386094348832,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "02",
+      "arm": "reference",
+      "kitti_rte_trans_pct": 3.22123,
+      "ate_m": 122.844508,
+      "bad_length_steps": 133,
+      "path_length_ratio": 0.9649228610791891,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "02",
+      "arm": "gate25",
+      "kitti_rte_trans_pct": 3.083234,
+      "ate_m": 119.953889,
+      "bad_length_steps": 136,
+      "path_length_ratio": 0.9666328706155263,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "02",
+      "arm": "gate25_ground",
+      "kitti_rte_trans_pct": 0.811155,
+      "ate_m": 41.407181,
+      "bad_length_steps": 18,
+      "path_length_ratio": 0.9977335528214315,
+      "exit": "exit 0"
+    }
+  ]
+}

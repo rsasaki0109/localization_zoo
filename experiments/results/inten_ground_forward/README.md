@@ -36,11 +36,17 @@ used in the development check below.
 
 Unit tests (`papers/inten_loam/test/test_inten_loam_paper.cpp`):
 
-- at a fixed initial pose only the ground class's forward row and column change;
-- with both flags on, the street fixture is still tracked 500 m from the origin
-  at a 30 deg heading.
+- S2S, at a fixed initial pose: only the ground class's forward row and column
+  change.
+- S2M, at a forced pose 500 m from the origin with a 30 deg heading: expressed
+  about the sensor, the ground system has no forward information: the norm of
+  its forward row is 3.7e-13 (round-off), against a forward information of 0.85
+  without the flag (translation trace 854). The other classes are
+  bit-identical.
+- With both flags on, the street fixture is still tracked within the bounds of
+  the existing tracking test.
 
-All 61 InTEn-LOAM paper tests pass.
+All 62 InTEn-LOAM paper tests pass.
 
 ## Development: 01 and 02
 

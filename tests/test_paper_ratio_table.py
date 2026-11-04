@@ -94,6 +94,33 @@ class PaperRatioTableTests(unittest.TestCase):
         self.assertEqual(row["repo_best_variant"], "paper_default")
         self.assertEqual(row["selected_from_n"], "1")
 
+    def test_ablations_need_an_explicit_pin(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            results = root / "results"
+            results.mkdir()
+            (results / "a_matrix.json").write_text(json.dumps({
+                "stable_interface": {"methods": "demo"},
+                "dataset": {"pcd_dir": "kitti_seq_00_full"},
+                "variants": [
+                    {"id": "paper_default", "rpe_trans_pct": 1.0, "kitti_rte_trans_pct": 0.9, "note": ""},
+                    {"id": "opt_in", "design_style": "ablation", "rpe_trans_pct": 0.5,
+                     "kitti_rte_trans_pct": 0.4, "note": ""},
+                ],
+            }))
+            paper = root / "paper.json"
+            paper.write_text(json.dumps({"methods": {"demo": {"reported_values": {"kitti_00": 0.5}}}}))
+            free = self.module.collect_rows(paper, results)[0]
+            paper.write_text(json.dumps({"methods": {"demo": {
+                "reported_values": {"kitti_00": 0.5}, "repo_variants": ["opt_in"]}}}))
+            pinned = self.module.collect_rows(paper, results)[0]
+        # Unpinned selection never picks an ablation, however good it is ...
+        self.assertEqual(free["repo_best_variant"], "paper_default")
+        self.assertEqual(free["selected_from_n"], "1")
+        # ... an explicit pin does.
+        self.assertEqual(pinned["repo_best_variant"], "opt_in")
+        self.assertEqual(pinned["repo_best_rpe_pct"], "0.400")
+
     def test_every_kitti_paper_value_cites_its_source(self) -> None:
         methods = json.loads(
             (REPO_ROOT / "evaluation/data/paper_reported_numbers.json").read_text()

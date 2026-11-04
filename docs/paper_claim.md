@@ -58,7 +58,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Near paper | MULLS (MULLS-LO reimplementation, `--mulls-lo`, highway profile on 01, 0.195 deg correction as the official profile; 00-10 average equals the official code's; see `papers/mulls/README.md`) | 00-10 | 1.12x |
 | Near paper | CT-ICP (upstream pipeline, `--ct-icp-upstream-mechanics`, on corrected scans as upstream; 00-10 average equals the official code's; see `papers/ct_icp/README.md`) | 00-10 | 1.15x |
 | Gap remains | L-LO (no author code; fixed `seq07_tuned` selected on 07; 01 is NA; tested GT-derived roll-free baselines exceed the 00/07 paper values without proving a global bound; above 2x: 09 (2.18x), 10 (2.16x), see `papers/l_lo/README.md`) | 00/02-10 | 1.57x |
-| Near paper | SuMa (Frame-to-Model; paper pipeline `--suma-paper`, best of two variants per sequence; 01 at 2.09x; one setting for all: 1.25x; see `papers/suma/README.md`) | 00-10 | 0.97x |
+| Near paper | SuMa (Frame-to-Model; paper pipeline `--suma-paper` with the official defaults and one setting on all 11 sequences, plus a ground-pixel forward drop, not in the paper, chosen on 01/02 where the official defaults fail (8.11x / 3.19x -> 0.96x / 1.42x); held-out 09/10 about 7 % worse; see `papers/suma/README.md`) | 00-10 | 0.94x |
 | Near paper | Quadric-LO (no author code; fixed `dense_profile` selected using 00/07; scan-to-submap Table II; earlier 02 evidence exists; no sequence above 2x, see `papers/quadric_lo/README.md`) | 00-10 | 0.85x |
 | Gap remains | Mesh-LOAM (no author code; fixed `paper_odometry_elevation`, nearest-facet association, 0.1 m input, explicit 0.22 deg correction; selected using 00/07; no sequence above twice the paper value, see `papers/mesh_loam/README.md`) | 00-10 | 1.28x |
 | Gap remains | ELO (no author code; 0.195 deg correction, the paper normal patch and forward-bias fixes chosen on 07 windows; 2.60x before; the same setting on all 11 sequences, 0.84-1.43x, see `papers/elo/README.md`) | 00-10 | 1.22x |
@@ -93,7 +93,7 @@ What may not be claimed: faithful reproduction for those methods with a
 remaining gap, a KISS-ICP, CT-ICP or MULLS claim for the repository default,
 or any ratio as unbiased. Table 6 selects within each method's allowed pool;
 selection among variants on a scored sequence is optimistic. A-LOAM,
-LF-GICP, L-LO, Quadric-LO, Mesh-LOAM and InTEn-LOAM now pin one fixed variant
+LF-GICP, L-LO, Quadric-LO, Mesh-LOAM, InTEn-LOAM and SuMa now pin one fixed variant
 on every sequence with a paper value, including reused matching results.
 The added runs did not select parameters. Their READMEs record development
 sequences and earlier observations that influenced selection; in particular,

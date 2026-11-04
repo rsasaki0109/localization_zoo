@@ -11150,6 +11150,7 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
       else if (k == "initialize_identity") pp.initialize_identity = v != 0.0;
       else if (k == "degenerate_ratio") pp.degenerate_ratio = v;
       else if (k == "coarse_frames") pp.coarse_frames = static_cast<int>(v);
+      else if (k == "ground_no_forward_vertical_cos") pp.ground_no_forward_vertical_cos = v;
       else if (k == "coarse_iterations") pp.coarse_iterations = static_cast<int>(v);
       else if (k == "coarse_distance_scale") pp.coarse_distance_scale = v;
       else if (k == "fallback_rot_threshold") pp.fallback_rot_threshold = v;
@@ -11181,6 +11182,9 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
     if (pp.degenerate_ratio > 0.0)
       res.note += "; opt-in local translation remap ratio=" + std::to_string(pp.degenerate_ratio) +
                   " (not in the paper)";
+    if (pp.ground_no_forward_vertical_cos > 0.0)
+      res.note += "; opt-in ground pixels without forward information, vertical cos=" +
+                  std::to_string(pp.ground_no_forward_vertical_cos) + " (not in the paper)";
     if (pp.coarse_frames > 0 && pp.coarse_iterations > 0)
       res.note += "; opt-in initial coarse registrations=" + std::to_string(coarse_starts) +
                   " frames=" + std::to_string(pp.coarse_frames) +

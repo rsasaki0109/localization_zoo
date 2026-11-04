@@ -10,6 +10,28 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### SuMa one setting (2026-11-04)
+
+The SuMa paper path fails on KITTI 01 (8.11x) and 02 (3.19x) with the official
+defaults, so Table 6 has selected between two variants per sequence. The cause
+is the same as in InTEn-LOAM 02: a biased forward term from the ground pixels.
+The opt-in `ground_no_forward_vertical_cos=0.866` (not in the paper) removes
+the forward information of pixels whose normal lies within 30 deg of vertical.
+The bound was fixed before any run, 01/02 were the development sequences, and
+the protocol was committed before the held-out runs. One fixed setting against
+a fresh `paper_odometry` that equals every stored result:
+
+- 01: 13.793 % → 1.629 % (0.96x); 02: 3.512 % → 1.558 % (1.42x);
+- held-out 00/03-10: geometric mean 0.977x, 5 lower and 4 higher; 09 (+7.1 %)
+  and 10 (+6.8 %) are adverse;
+- one setting over 00-10: 1.254x → 0.941x, with none above 2x, against 0.967x
+  for best-of-two.
+
+The InTEn-LOAM analogue for facades along the forward axis was rejected on its
+development sequences (01 16.6 → 41.7 %). Table 6 and the defaults are
+unchanged; pinning SuMa to the one setting is the owner's decision.
+[Study, protocol and records](../experiments/results/suma_ground_forward/README.md).
+
 ### InTEn-LOAM sequence 02 (2026-11-04)
 
 The 5.97x on KITTI 02 has a located cause. Its two collapse runs (frames
@@ -211,7 +233,7 @@ variant runs on every sequence.
 | KISS-ICP | 1.04x | 00/04 | - | 00-10 average equals the official code's |
 | MULLS | 1.12x | 00-10 | - | 00-10 average equals the official code's |
 | CT-ICP | 1.15x | 00-10 | - | 00-10 average equals the official code's |
-| SuMa | 0.97x | 00-10 | - | 01 (highway) 2.09x; one setting 1.25x |
+| SuMa | 0.97x | 00-10 | - | 01 (highway) 2.09x; one setting 1.25x; opt-in ground-pixel forward drop gives one setting 0.94x, none above 2x, not adopted |
 | Quadric-LO | 0.85x | 00-10 | - | one setting selected using 00/07; scan-to-submap reference; no sequence above 2x |
 | DiLO | 0.96x | 00-10 | - | one setting; 01 needs the degenerate-direction remap (chosen on 01) |
 | IMLS-SLAM | 1.05x | 00-10 | - | one setting; coarse first registration fixes 04 |
@@ -1054,7 +1076,12 @@ independent. Each item says what "done" means.
   `s2s_ground_no_forward` gives 02 1.52x and 00-10 1.93x, with the held-out
   sequences within ±5 %; promoting it is the owner's decision
   ([study](../experiments/results/inten_ground_forward/README.md)). 01 (25.96x)
-  is unchanged and needs the edge/facade side.
+  is unchanged and needs the edge/facade side. The same treatment for
+  along-axis facades makes 01 and 02 much worse (rejected in development).
+- SuMa can run with one setting: the opt-in ground-pixel forward drop gives
+  0.94x on 00-10 with none above 2x (01 0.96x, 02 1.42x; 09/10 +7 %).
+  Pinning Table 6 to it instead of best-of-two is the owner's decision
+  ([study](../experiments/results/suma_ground_forward/README.md)).
 - New paper ports: follow [CONTRIBUTING.md](../CONTRIBUTING.md) (KITTI 00/07
   full, `--no-gt-seed`, at least 3 mechanism tests, README with negative
   results); run all paper sequences before claiming a ratio.

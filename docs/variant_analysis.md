@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-11-04T09:32:19+00:00
+> Generated: 2026-11-04T13:16:05+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -849,19 +849,30 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-KTH | fast | 7.419 | 150.2 |
 | MCD-NTU | dense | 0.036 | 33.9 |
 | MCD-TUHH | default | 1.414 | 59.1 |
+| dogfooding_results/kitti_seq_00_full | paper_odometry_ground_no_forward | 7.799 | 6.8 |
 | dogfooding_results/kitti_seq_00_full | default | 50.852 | 33.8 |
+| dogfooding_results/kitti_seq_01_full | paper_odometry_ground_no_forward | 75.751 | 9.6 |
 | dogfooding_results/kitti_seq_01_full | paper_odometry_clean_lookup_elevation | 59.043 | 6.4 |
+| dogfooding_results/kitti_seq_02_full | paper_odometry_ground_no_forward | 38.792 | 6.8 |
 | dogfooding_results/kitti_seq_02_full | paper_odometry_clean_lookup_elevation | 16.837 | 4.4 |
+| dogfooding_results/kitti_seq_03_full | paper_odometry | 1.449 | 6.9 |
 | dogfooding_results/kitti_seq_03_full | paper_odometry | 1.449 | 4.7 |
+| dogfooding_results/kitti_seq_04_full | paper_odometry_ground_no_forward | 0.953 | 8.2 |
 | dogfooding_results/kitti_seq_04_full | paper_odometry | 0.974 | 5.0 |
+| dogfooding_results/kitti_seq_05_full | paper_odometry | 3.420 | 7.0 |
 | dogfooding_results/kitti_seq_05_full | default | 10.983 | 40.3 |
+| dogfooding_results/kitti_seq_06_full | paper_odometry | 2.961 | 7.2 |
 | dogfooding_results/kitti_seq_06_full | paper_odometry_clean_lookup_elevation | 2.873 | 4.8 |
 | dogfooding_results/kitti_seq_07_full | dense_profile | 3.971 | 35.6 |
+| dogfooding_results/kitti_seq_07_full | paper_odometry | 1.060 | 7.1 |
+| dogfooding_results/kitti_seq_08_full | paper_odometry_ground_no_forward | 23.474 | 7.0 |
 | dogfooding_results/kitti_seq_08_full | dense_profile | 19.290 | 26.6 |
+| dogfooding_results/kitti_seq_09_full | paper_odometry_ground_no_forward | 6.424 | 6.9 |
 | dogfooding_results/kitti_seq_09_full | paper_odometry | 6.469 | 4.4 |
+| dogfooding_results/kitti_seq_10_full | paper_odometry | 5.253 | 7.2 |
 | dogfooding_results/kitti_seq_10_full | paper_odometry | 5.253 | 4.6 |
 
-**Stability**: 6 unique default(s) across 19 windows.
+**Stability**: 7 unique default(s) across 30 windows.
 
 ### VGICP-SLAM
 
@@ -1489,8 +1500,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense_profile | 20.729 | 27.7 | 5 |
 | dense_profile_elevation | 3.694 | 34.5 | 1 |
 | fast | 376.693 | 109.8 | 8 |
-| paper_odometry | 27.270 | 4.6 | 11 |
+| paper_odometry | 27.270 | 6.0 | 22 |
 | paper_odometry_clean_lookup_elevation | 12.862 | 4.6 | 10 |
+| paper_odometry_ground_no_forward | 15.380 | 7.3 | 11 |
 
 ### VGICP-SLAM
 

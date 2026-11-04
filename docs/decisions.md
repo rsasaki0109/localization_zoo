@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-04T13:15:51+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -7587,6 +7587,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## SuMa KITTI Odom seq 00 full (4541 frames): ground pixels without forward information
+
+- Current default: `paper_odometry_ground_no_forward`.
+- Active challengers: `paper_odometry`.
+- Aggregate result: `experiments/results/suma_kitti_seq_00_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_odometry_ground_no_forward | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## SuMa transfer check on KITTI Odom seq 00 full (4541 frames)
 
 - Current default: `default`.
@@ -7601,6 +7612,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## SuMa KITTI Odom seq 01 full (1101 frames): ground pixels without forward information
+
+- Current default: `paper_odometry_ground_no_forward`.
+- Reference variants: `paper_odometry`.
+- Aggregate result: `experiments/results/suma_kitti_seq_01_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_ground_no_forward | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## SuMa paper pipeline on KITTI Odom seq 01 full (1101 frames)
 
 - Current default: `paper_odometry_clean_lookup_elevation`.
@@ -7611,6 +7633,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_clean_lookup_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa KITTI Odom seq 02 full (4661 frames): ground pixels without forward information
+
+- Current default: `paper_odometry_ground_no_forward`.
+- Reference variants: `paper_odometry`.
+- Aggregate result: `experiments/results/suma_kitti_seq_02_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_odometry_ground_no_forward | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## SuMa transfer check on KITTI Odom seq 02 full (4661 frames)
 
@@ -7626,6 +7659,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_clean_lookup_elevation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## SuMa KITTI Odom seq 03 full (801 frames): ground pixels without forward information
+
+- Current default: `paper_odometry`.
+- Active challengers: `paper_odometry_ground_no_forward`.
+- Aggregate result: `experiments/results/suma_kitti_seq_03_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_ground_no_forward | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## SuMa paper pipeline on KITTI Odom seq 03 full (801 frames)
 
 - Current default: `paper_odometry`.
@@ -7636,6 +7680,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa KITTI Odom seq 04 full (271 frames): ground pixels without forward information
+
+- Current default: `paper_odometry_ground_no_forward`.
+- Active challengers: `paper_odometry`.
+- Aggregate result: `experiments/results/suma_kitti_seq_04_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_odometry_ground_no_forward | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## SuMa paper pipeline on KITTI Odom seq 04 full (271 frames)
 
@@ -7648,6 +7703,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## SuMa KITTI Odom seq 05 full (2761 frames): ground pixels without forward information
+
+- Current default: `paper_odometry`.
+- Active challengers: `paper_odometry_ground_no_forward`.
+- Aggregate result: `experiments/results/suma_kitti_seq_05_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_ground_no_forward | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## SuMa transfer check on KITTI Odom seq 05 full (2761 frames)
 
 - Current default: `default`.
@@ -7659,6 +7725,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa KITTI Odom seq 06 full (1101 frames): ground pixels without forward information
+
+- Current default: `paper_odometry`.
+- Active challengers: `paper_odometry_ground_no_forward`.
+- Aggregate result: `experiments/results/suma_kitti_seq_06_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_ground_no_forward | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## SuMa paper pipeline on KITTI Odom seq 06 full (1101 frames)
 
@@ -7685,6 +7762,28 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## SuMa KITTI Odom seq 07 full (1101 frames): ground pixels without forward information
+
+- Current default: `paper_odometry`.
+- Active challengers: `paper_odometry_ground_no_forward`.
+- Aggregate result: `experiments/results/suma_kitti_seq_07_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_ground_no_forward | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## SuMa KITTI Odom seq 08 full (4071 frames): ground pixels without forward information
+
+- Current default: `paper_odometry_ground_no_forward`.
+- Active challengers: `paper_odometry`.
+- Aggregate result: `experiments/results/suma_kitti_seq_08_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_odometry_ground_no_forward | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## SuMa transfer check on KITTI Odom seq 08 full (4071 frames)
 
 - Current default: `dense_profile`.
@@ -7698,6 +7797,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_odometry | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## SuMa KITTI Odom seq 09 full (1591 frames): ground pixels without forward information
+
+- Current default: `paper_odometry_ground_no_forward`.
+- Active challengers: `paper_odometry`.
+- Aggregate result: `experiments/results/suma_kitti_seq_09_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_odometry_ground_no_forward | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## SuMa paper pipeline on KITTI Odom seq 09 full (1591 frames)
 
 - Current default: `paper_odometry`.
@@ -7708,6 +7818,17 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_odometry_clean_lookup_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa KITTI Odom seq 10 full (1201 frames): ground pixels without forward information
+
+- Current default: `paper_odometry`.
+- Reference variants: `paper_odometry_ground_no_forward`.
+- Aggregate result: `experiments/results/suma_kitti_seq_10_full_ground_forward_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_odometry | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| paper_odometry_ground_no_forward | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## SuMa paper pipeline on KITTI Odom seq 10 full (1201 frames)
 

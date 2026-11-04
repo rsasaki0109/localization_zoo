@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-11-04T09:32:03+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-11-04T13:15:51+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `689` ready, `1` blocked, `14` skipped problems.
+Current coverage: `700` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -656,7 +656,18 @@ Current coverage: `689` ready, `1` blocked, `14` skipped problems.
 | Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.109 | 110.3 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.462 | 17.3 | `dogfooding_results/kitti_raw_0009_full` |
 | small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory | `ready` | `gate_0_5` | 0.348 | 11.8 | `dogfooding_results/nclt_2013_01_10_full` |
+| SuMa KITTI Odom seq 00 full (4541 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 7.799 | 6.9 | `dogfooding_results/kitti_seq_00_full` |
+| SuMa KITTI Odom seq 01 full (1101 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 75.751 | 9.8 | `dogfooding_results/kitti_seq_01_full` |
+| SuMa KITTI Odom seq 02 full (4661 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 38.792 | 6.8 | `dogfooding_results/kitti_seq_02_full` |
+| SuMa KITTI Odom seq 03 full (801 frames): ground pixels without forward information | `ready` | `paper_odometry` | 1.449 | 6.9 | `dogfooding_results/kitti_seq_03_full` |
+| SuMa KITTI Odom seq 04 full (271 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 0.953 | 8.3 | `dogfooding_results/kitti_seq_04_full` |
+| SuMa KITTI Odom seq 05 full (2761 frames): ground pixels without forward information | `ready` | `paper_odometry` | 3.420 | 7.0 | `dogfooding_results/kitti_seq_05_full` |
+| SuMa KITTI Odom seq 06 full (1101 frames): ground pixels without forward information | `ready` | `paper_odometry` | 2.961 | 7.2 | `dogfooding_results/kitti_seq_06_full` |
+| SuMa KITTI Odom seq 07 full (1101 frames): ground pixels without forward information | `ready` | `paper_odometry` | 1.060 | 7.1 | `dogfooding_results/kitti_seq_07_full` |
 | SuMa KITTI Odom seq 07 full: elevation correction ablation | `ready` | `dense_profile` | 1.060 | 35.6 | `dogfooding_results/kitti_seq_07_full` |
+| SuMa KITTI Odom seq 08 full (4071 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 23.474 | 7.1 | `dogfooding_results/kitti_seq_08_full` |
+| SuMa KITTI Odom seq 09 full (1591 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 6.424 | 7.0 | `dogfooding_results/kitti_seq_09_full` |
+| SuMa KITTI Odom seq 10 full (1201 frames): ground pixels without forward information | `ready` | `paper_odometry` | 5.253 | 7.2 | `dogfooding_results/kitti_seq_10_full` |
 | SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense` | 2.245 | 21.0 | `dogfooding_results/kitti_raw_0009_200` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.245 | 19.6 | `dogfooding_results/kitti_raw_0009_200` |
 | SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 4.073 | 15.9 | `dogfooding_results/kitti_raw_0009_full` |
@@ -730,7 +741,7 @@ Current coverage: `689` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 689 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 700 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

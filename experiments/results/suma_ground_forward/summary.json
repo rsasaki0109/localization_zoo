@@ -1,0 +1,573 @@
+{
+  "schema_version": 1,
+  "metric": "official KITTI RTE translation [%]",
+  "paper_source": "SuMa (RSS 2018) Table II, Frame-to-Model",
+  "development_sequences": [
+    "01",
+    "02"
+  ],
+  "rows": [
+    {
+      "sequence": "00",
+      "development": false,
+      "paper_rte_pct": 0.7,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.697236,
+          "rpe_trans_pct": 0.815476,
+          "ate_m": 8.196443,
+          "bad_length_steps": 13,
+          "moving_steps": 4514,
+          "path_length_ratio": 0.9969934464802296,
+          "scale_only_rte_pct": 0.21449994901257974,
+          "yaw_only_rte_pct": 0.5131605448365509
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.688997,
+          "rpe_trans_pct": 0.817325,
+          "ate_m": 7.799354,
+          "bad_length_steps": 13,
+          "moving_steps": 4514,
+          "path_length_ratio": 0.9968632663528709,
+          "scale_only_rte_pct": 0.21963741162605122,
+          "yaw_only_rte_pct": 0.5022385258353607
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json",
+        "frames": 4541,
+        "kitti_rte_trans_pct": 0.697236,
+        "rpe_trans_pct": 0.815476,
+        "ate_m": 8.196443
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.697,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 0.9960514285714286,
+        "paper_odometry_ground_no_forward": 0.9842814285714286
+      },
+      "candidate_over_reference": 0.9881833410782002
+    },
+    {
+      "sequence": "01",
+      "development": true,
+      "paper_rte_pct": 1.7,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 13.79269,
+          "rpe_trans_pct": 15.865817,
+          "ate_m": 175.82676,
+          "bad_length_steps": 134,
+          "moving_steps": 1100,
+          "path_length_ratio": 1.1360072569557846,
+          "scale_only_rte_pct": 13.579229399062054,
+          "yaw_only_rte_pct": 1.4991820884859401
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 1.629255,
+          "rpe_trans_pct": 1.038834,
+          "ate_m": 75.750551,
+          "bad_length_steps": 7,
+          "moving_steps": 1100,
+          "path_length_ratio": 1.0048070944710998,
+          "scale_only_rte_pct": 0.5526656056989775,
+          "yaw_only_rte_pct": 0.8617372364676965
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_01_full_paper_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 13.79269,
+        "rpe_trans_pct": 15.865817,
+        "ate_m": 175.82676
+      },
+      "table6_best_of_two": {
+        "rte_pct": 3.55,
+        "variant": "paper_odometry_clean_lookup_elevation"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 8.11334705882353,
+        "paper_odometry_ground_no_forward": 0.9583852941176471
+      },
+      "candidate_over_reference": 0.11812452828273526
+    },
+    {
+      "sequence": "02",
+      "development": true,
+      "paper_rte_pct": 1.1,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 3.511588,
+          "rpe_trans_pct": 4.043563,
+          "ate_m": 70.307811,
+          "bad_length_steps": 168,
+          "moving_steps": 4660,
+          "path_length_ratio": 1.035154440448664,
+          "scale_only_rte_pct": 3.3141063008890117,
+          "yaw_only_rte_pct": 1.7851973840400832
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 1.557798,
+          "rpe_trans_pct": 1.65113,
+          "ate_m": 38.79193,
+          "bad_length_steps": 82,
+          "moving_steps": 4660,
+          "path_length_ratio": 1.0088032071051345,
+          "scale_only_rte_pct": 1.0394403495589888,
+          "yaw_only_rte_pct": 1.207026186186779
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json",
+        "frames": 4661,
+        "kitti_rte_trans_pct": 3.511588,
+        "rpe_trans_pct": 4.043563,
+        "ate_m": 70.307811
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.784,
+        "variant": "paper_odometry_clean_lookup_elevation"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 3.192352727272727,
+        "paper_odometry_ground_no_forward": 1.41618
+      },
+      "candidate_over_reference": 0.44361639235582306
+    },
+    {
+      "sequence": "03",
+      "development": false,
+      "paper_rte_pct": 0.7,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 0.65109,
+          "rpe_trans_pct": 0.910284,
+          "ate_m": 1.448501,
+          "bad_length_steps": 1,
+          "moving_steps": 785,
+          "path_length_ratio": 1.0027396180108026,
+          "scale_only_rte_pct": 0.3206273354780654,
+          "yaw_only_rte_pct": 0.5545467704473457
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 0.629665,
+          "rpe_trans_pct": 0.887127,
+          "ate_m": 1.454644,
+          "bad_length_steps": 1,
+          "moving_steps": 785,
+          "path_length_ratio": 1.0022067697343393,
+          "scale_only_rte_pct": 0.2923186299051705,
+          "yaw_only_rte_pct": 0.5566853167048169
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_03_full_paper_matrix.json",
+        "frames": 801,
+        "kitti_rte_trans_pct": 0.65109,
+        "rpe_trans_pct": 0.910284,
+        "ate_m": 1.448501
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.651,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 0.9301285714285714,
+        "paper_odometry_ground_no_forward": 0.8995214285714287
+      },
+      "candidate_over_reference": 0.9670936429679462
+    },
+    {
+      "sequence": "04",
+      "development": false,
+      "paper_rte_pct": 0.4,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 0.416845,
+          "rpe_trans_pct": 0.392312,
+          "ate_m": 0.974258,
+          "bad_length_steps": 0,
+          "moving_steps": 270,
+          "path_length_ratio": 1.0016942287169197,
+          "scale_only_rte_pct": 0.29371128210066755,
+          "yaw_only_rte_pct": 0.20912633525178165
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 0.306694,
+          "rpe_trans_pct": 0.289633,
+          "ate_m": 0.953011,
+          "bad_length_steps": 0,
+          "moving_steps": 270,
+          "path_length_ratio": 0.9987224543245972,
+          "scale_only_rte_pct": 0.12815833302160315,
+          "yaw_only_rte_pct": 0.20679783276817426
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+        "frames": 271,
+        "kitti_rte_trans_pct": 0.416845,
+        "rpe_trans_pct": 0.392312,
+        "ate_m": 0.974258
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.417,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 1.0421125,
+        "paper_odometry_ground_no_forward": 0.766735
+      },
+      "candidate_over_reference": 0.735750698700956
+    },
+    {
+      "sequence": "05",
+      "development": false,
+      "paper_rte_pct": 0.5,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.379344,
+          "rpe_trans_pct": 0.41595,
+          "ate_m": 3.420344,
+          "bad_length_steps": 0,
+          "moving_steps": 2683,
+          "path_length_ratio": 0.9987643543170934,
+          "scale_only_rte_pct": 0.08551344484897896,
+          "yaw_only_rte_pct": 0.2934352704766019
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.391948,
+          "rpe_trans_pct": 0.420896,
+          "ate_m": 3.494918,
+          "bad_length_steps": 0,
+          "moving_steps": 2683,
+          "path_length_ratio": 0.998448044067978,
+          "scale_only_rte_pct": 0.09959637161273466,
+          "yaw_only_rte_pct": 0.3118943394154126
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json",
+        "frames": 2761,
+        "kitti_rte_trans_pct": 0.379344,
+        "rpe_trans_pct": 0.41595,
+        "ate_m": 3.420344
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.379,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 0.758688,
+        "paper_odometry_ground_no_forward": 0.783896
+      },
+      "candidate_over_reference": 1.033225779239951
+    },
+    {
+      "sequence": "06",
+      "development": false,
+      "paper_rte_pct": 0.4,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.285691,
+          "rpe_trans_pct": 0.403648,
+          "ate_m": 2.961054,
+          "bad_length_steps": 0,
+          "moving_steps": 1100,
+          "path_length_ratio": 1.0014252586687071,
+          "scale_only_rte_pct": 0.10380435677753365,
+          "yaw_only_rte_pct": 0.23281356369334857
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.275171,
+          "rpe_trans_pct": 0.380615,
+          "ate_m": 3.326807,
+          "bad_length_steps": 0,
+          "moving_steps": 1100,
+          "path_length_ratio": 1.000987278191222,
+          "scale_only_rte_pct": 0.0826425800285799,
+          "yaw_only_rte_pct": 0.2606344849704919
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_06_full_paper_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 0.285691,
+        "rpe_trans_pct": 0.403648,
+        "ate_m": 2.961054
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.286,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 0.7142274999999999,
+        "paper_odometry_ground_no_forward": 0.6879274999999999
+      },
+      "candidate_over_reference": 0.9631769989254125
+    },
+    {
+      "sequence": "07",
+      "development": false,
+      "paper_rte_pct": 0.4,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.331226,
+          "rpe_trans_pct": 0.420559,
+          "ate_m": 1.059569,
+          "bad_length_steps": 0,
+          "moving_steps": 1009,
+          "path_length_ratio": 0.9979292149221222,
+          "scale_only_rte_pct": 0.13353365886947585,
+          "yaw_only_rte_pct": 0.21392903691039447
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.338687,
+          "rpe_trans_pct": 0.429395,
+          "ate_m": 1.110783,
+          "bad_length_steps": 0,
+          "moving_steps": 1009,
+          "path_length_ratio": 0.99761060257651,
+          "scale_only_rte_pct": 0.14996520817655062,
+          "yaw_only_rte_pct": 0.2216190583595694
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_07_full_elevation_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 0.331226,
+        "rpe_trans_pct": 0.420559,
+        "ate_m": 1.059569
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.331,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 0.828065,
+        "paper_odometry_ground_no_forward": 0.8467175
+      },
+      "candidate_over_reference": 1.0225254056142936
+    },
+    {
+      "sequence": "08",
+      "development": false,
+      "paper_rte_pct": 1.0,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 1.060143,
+          "rpe_trans_pct": 1.295921,
+          "ate_m": 24.04984,
+          "bad_length_steps": 23,
+          "moving_steps": 4040,
+          "path_length_ratio": 0.99734596110873,
+          "scale_only_rte_pct": 0.22284071105098785,
+          "yaw_only_rte_pct": 0.5720025155235932
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 1.051613,
+          "rpe_trans_pct": 1.301869,
+          "ate_m": 23.473598,
+          "bad_length_steps": 20,
+          "moving_steps": 4040,
+          "path_length_ratio": 0.9968754558023953,
+          "scale_only_rte_pct": 0.2252961670962143,
+          "yaw_only_rte_pct": 0.5661233648394269
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json",
+        "frames": 4071,
+        "kitti_rte_trans_pct": 1.060143,
+        "rpe_trans_pct": 1.295921,
+        "ate_m": 24.04984
+      },
+      "table6_best_of_two": {
+        "rte_pct": 1.06,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 1.060143,
+        "paper_odometry_ground_no_forward": 1.051613
+      },
+      "candidate_over_reference": 0.9919539156510017
+    },
+    {
+      "sequence": "09",
+      "development": false,
+      "paper_rte_pct": 0.5,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.510286,
+          "rpe_trans_pct": 0.633652,
+          "ate_m": 6.469266,
+          "bad_length_steps": 0,
+          "moving_steps": 1590,
+          "path_length_ratio": 0.9992592221934204,
+          "scale_only_rte_pct": 0.18706510209779093,
+          "yaw_only_rte_pct": 0.45115743286546106
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.546265,
+          "rpe_trans_pct": 0.622506,
+          "ate_m": 6.424045,
+          "bad_length_steps": 0,
+          "moving_steps": 1590,
+          "path_length_ratio": 0.9984449668950773,
+          "scale_only_rte_pct": 0.21735676046749716,
+          "yaw_only_rte_pct": 0.4336532028216912
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_09_full_paper_matrix.json",
+        "frames": 1591,
+        "kitti_rte_trans_pct": 0.510286,
+        "rpe_trans_pct": 0.633652,
+        "ate_m": 6.469266
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.51,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 1.020572,
+        "paper_odometry_ground_no_forward": 1.09253
+      },
+      "candidate_over_reference": 1.0705075193126992
+    },
+    {
+      "sequence": "10",
+      "development": false,
+      "paper_rte_pct": 0.7,
+      "arms": {
+        "paper_odometry": {
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 0.69788,
+          "rpe_trans_pct": 0.782007,
+          "ate_m": 5.252594,
+          "bad_length_steps": 0,
+          "moving_steps": 1153,
+          "path_length_ratio": 0.9975536061129615,
+          "scale_only_rte_pct": 0.2762133839968586,
+          "yaw_only_rte_pct": 0.32334162619124407
+        },
+        "paper_odometry_ground_no_forward": {
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 0.745468,
+          "rpe_trans_pct": 0.787987,
+          "ate_m": 6.600523,
+          "bad_length_steps": 1,
+          "moving_steps": 1153,
+          "path_length_ratio": 0.9969297710889302,
+          "scale_only_rte_pct": 0.3078520745092876,
+          "yaw_only_rte_pct": 0.38338064296758007
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/suma_kitti_seq_10_full_paper_matrix.json",
+        "frames": 1201,
+        "kitti_rte_trans_pct": 0.69788,
+        "rpe_trans_pct": 0.782007,
+        "ate_m": 5.252594
+      },
+      "table6_best_of_two": {
+        "rte_pct": 0.698,
+        "variant": "paper_odometry"
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry": 0.9969714285714285,
+        "paper_odometry_ground_no_forward": 1.0649542857142857
+      },
+      "candidate_over_reference": 1.0681893735312662
+    }
+  ],
+  "aggregate": {
+    "geometric_mean_ratio_to_paper": {
+      "paper_odometry": 1.2544285694506447,
+      "paper_odometry_ground_no_forward": 0.9414154683505153
+    },
+    "table6_best_of_two_geometric_mean_ratio_to_paper": 0.9674276045256369,
+    "candidate_over_reference_geometric_mean": 0.7504735552720964,
+    "held_out_candidate_over_reference_geometric_mean": 0.9770726360005936,
+    "held_out_lower": [
+      "00",
+      "03",
+      "04",
+      "06",
+      "08"
+    ],
+    "held_out_higher": [
+      "05",
+      "07",
+      "09",
+      "10"
+    ],
+    "adverse_over_5_percent": [
+      "09",
+      "10"
+    ],
+    "above_twice_paper": {
+      "paper_odometry": [
+        "01",
+        "02"
+      ],
+      "paper_odometry_ground_no_forward": []
+    },
+    "fresh_reference_matches_stored_all": true
+  }
+}

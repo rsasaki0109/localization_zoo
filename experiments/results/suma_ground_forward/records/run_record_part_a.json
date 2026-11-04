@@ -1,0 +1,337 @@
+{
+  "binary": "/home/user/localization_zoo/build/evaluation/pcd_dogfooding",
+  "binary_sha256": "d6351e4eb954b28d6113259ae584f25dbe1c52ad0d5c7f483e34ae661bcb2e4e",
+  "git_head": "44604b9b6953c9459a14394c816b7cf046cc8f3a",
+  "argv": [
+    "experiments/results/suma_ground_forward/run_study.py",
+    "--kitti-root",
+    "/home/user/kitti_data",
+    "--work-root",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA",
+    "--stage-root",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage",
+    "--record",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/run_record_A.json",
+    "--sequence",
+    "02",
+    "--sequence",
+    "00",
+    "--sequence",
+    "08"
+  ],
+  "sequences": [
+    {
+      "sequence": "02",
+      "commands": [
+        {
+          "arm": "paper_odometry",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry/suma_kitti_seq_02_full_ground_forward_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry/matrix.log",
+          "started_unix": 1793795825.3470495,
+          "finished_unix": 1793796514.5552843,
+          "exit_code": 0
+        },
+        {
+          "arm": "paper_odometry_ground_no_forward",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry_ground_no_forward/suma_kitti_seq_02_full_ground_forward_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry_ground_no_forward/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry_ground_no_forward/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry_ground_no_forward/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/paper_odometry_ground_no_forward/matrix.log",
+          "started_unix": 1793795825.3537912,
+          "finished_unix": 1793796514.5553832,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry/summary.json",
+            "--method",
+            "SuMa",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/diagnose_paper_odometry.log",
+          "started_unix": 1793796514.5567703,
+          "finished_unix": 1793796515.0153437,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry_ground_no_forward/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry_ground_no_forward/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json",
+            "--method",
+            "SuMa",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry_ground_no_forward/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/02/diagnose_paper_odometry_ground_no_forward.log",
+          "started_unix": 1793796515.0164585,
+          "finished_unix": 1793796515.4595585,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 4661,
+        "total_bytes": 9368771184,
+        "aggregate_sha256": "30376074baa8caec6ff3f900660d5be353dbd2504df6bb14ce898b0baa31d81f"
+      },
+      "input_after": {
+        "scan_count": 4661,
+        "total_bytes": 9368771184,
+        "aggregate_sha256": "30376074baa8caec6ff3f900660d5be353dbd2504df6bb14ce898b0baa31d81f"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "00",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "00"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/fetch.log",
+          "started_unix": 1793796530.370242,
+          "finished_unix": 1793796642.2020566,
+          "exit_code": 0
+        },
+        {
+          "arm": "paper_odometry",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry/suma_kitti_seq_00_full_ground_forward_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry/matrix.log",
+          "started_unix": 1793796648.8830905,
+          "finished_unix": 1793797311.0065968,
+          "exit_code": 0
+        },
+        {
+          "arm": "paper_odometry_ground_no_forward",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry_ground_no_forward/suma_kitti_seq_00_full_ground_forward_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry_ground_no_forward/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry_ground_no_forward/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry_ground_no_forward/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/paper_odometry_ground_no_forward/matrix.log",
+          "started_unix": 1793796648.8898125,
+          "finished_unix": 1793797315.7259705,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry/summary.json",
+            "--method",
+            "SuMa",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/diagnose_paper_odometry.log",
+          "started_unix": 1793797315.7271612,
+          "finished_unix": 1793797316.1932752,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry_ground_no_forward/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry_ground_no_forward/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json",
+            "--method",
+            "SuMa",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry_ground_no_forward/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/00/diagnose_paper_odometry_ground_no_forward.log",
+          "started_unix": 1793797316.194608,
+          "finished_unix": 1793797316.665161,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 4541,
+        "total_bytes": 8827275200,
+        "aggregate_sha256": "34723ab901f679e2c9d07535790582b40952bc4e0749b006beed2570f1d7dbe6"
+      },
+      "input_after": {
+        "scan_count": 4541,
+        "total_bytes": 8827275200,
+        "aggregate_sha256": "34723ab901f679e2c9d07535790582b40952bc4e0749b006beed2570f1d7dbe6"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "08",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "08"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/fetch.log",
+          "started_unix": 1793797327.9426177,
+          "finished_unix": 1793797432.8377383,
+          "exit_code": 0
+        },
+        {
+          "arm": "paper_odometry",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry/suma_kitti_seq_08_full_ground_forward_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry/matrix.log",
+          "started_unix": 1793797438.7098892,
+          "finished_unix": 1793798011.960783,
+          "exit_code": 0
+        },
+        {
+          "arm": "paper_odometry_ground_no_forward",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry_ground_no_forward/suma_kitti_seq_08_full_ground_forward_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry_ground_no_forward/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry_ground_no_forward/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry_ground_no_forward/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/paper_odometry_ground_no_forward/matrix.log",
+          "started_unix": 1793797438.7178204,
+          "finished_unix": 1793798017.419014,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry/summary.json",
+            "--method",
+            "SuMa",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/diagnose_paper_odometry.log",
+          "started_unix": 1793798017.419906,
+          "finished_unix": 1793798017.8058803,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry_ground_no_forward/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry_ground_no_forward/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json",
+            "--method",
+            "SuMa",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/stage/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry_ground_no_forward/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/suma_gf/workA/08/diagnose_paper_odometry_ground_no_forward.log",
+          "started_unix": 1793798017.8068535,
+          "finished_unix": 1793798018.16055,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 4071,
+        "total_bytes": 7985272992,
+        "aggregate_sha256": "0e0fbf684cdeb781b41459e589ff5a3f323355617361fba688a9382ab7366ae9"
+      },
+      "input_after": {
+        "scan_count": 4071,
+        "total_bytes": 7985272992,
+        "aggregate_sha256": "0e0fbf684cdeb781b41459e589ff5a3f323355617361fba688a9382ab7366ae9"
+      },
+      "scans_deleted": true,
+      "complete": true
+    }
+  ]
+}

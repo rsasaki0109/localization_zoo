@@ -115,7 +115,7 @@ audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 | KISS-ICP | 00/04 | 1.04x | upstream elevation correction; 00-10 average equals the official code's ([details](papers/kiss_icp/README.md#deviations-from-upstream-kiss-icp-130)) |
 | MULLS | 00-10 | 1.12x | MULLS-LO; 00-10 average equals the official code's ([details](papers/mulls/README.md)) |
 | CT-ICP | 00-10 | 1.15x | upstream pipeline; 00-10 average equals the official code's ([details](papers/ct_icp/README.md)) |
-| SuMa | 00-10 | 0.97x | paper frame-to-model pipeline; 01 (highway) 2.09x; one setting for all 1.25x ([details](papers/suma/README.md#full-sequences)) |
+| SuMa | 00-10 | 0.97x | paper frame-to-model pipeline; 01 (highway) 2.09x; one setting for all 1.25x; an opt-in ground-pixel forward drop gives one setting at 0.94x, none above 2x ([details](papers/suma/README.md#ground-pixels-without-forward-information-opt-in-not-in-the-paper)) |
 | Quadric-LO | 00-10 | 0.85x | one setting selected using 00/07; scan-to-submap reference ([details](papers/quadric_lo/README.md#full-kitti-comparison-with-one-configuration)) |
 | DiLO | 00-10 | 0.96x | plane-only paper pipeline, one setting on all 11; 01 (highway) needs a degenerate-direction remap chosen on 01 (8.13x -> 1.42x) ([details](papers/dilo/README.md)) |
 | IMLS-SLAM | 00-10 | 1.05x | paper pipeline, one setting on all 11; a coarse first registration fixes 04, which starts in motion (36x -> 1.29x) ([details](papers/imls_slam/README.md)) |

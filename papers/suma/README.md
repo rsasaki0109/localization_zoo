@@ -144,6 +144,37 @@ Regression windows with `normalize_bilinear = true` + 0.22 deg: 07 f0-399
 1.151 % (1.104 %). The defaults stay official; for KITTI runs where seq 02
 matters, use `normalize_bilinear = true` with the 0.22 deg correction.
 
+### Ground pixels without forward information (opt-in, not in the paper)
+
+`--suma-paper-set ground_no_forward_vertical_cos=0.866` (default 0, off). Pixels
+whose model normal lies within 30 deg of the sensor's vertical axis stop giving
+information along the sensor's forward axis. The forward component of their
+translation Jacobian is removed in sensor-centred coordinates. Everything else
+is unchanged: the official lookup, raw scans without correction, all gates and
+the map update. This targets the ground forward bias diagnosed on 02 above.
+InTEn-LOAM (`s2s_ground_no_forward`) and ELO (`ground_constrains_forward`) use
+the same idea.
+
+[Full study, protocol and records](../../experiments/results/suma_ground_forward/README.md).
+The 30 deg bound was fixed before any run. 01 and 02 were the development
+sequences, and the protocol was committed before the held-out runs. Official
+KITTI RTE with one fixed setting, against a fresh `paper_odometry` that equals
+every stored result:
+
+- 01: 13.793 % → 1.629 % (8.11x → 0.96x the paper); 02: 3.512 % → 1.558 %
+  (3.19x → 1.42x).
+- Held-out 00 and 03-10:
+  - candidate/reference geometric mean 0.977x;
+  - lower on 00, 03, 04, 06 and 08 (04: 0.417 → 0.307 %);
+  - higher on 05, 07, 09 and 10;
+  - 09 (+7.1 %) and 10 (+6.8 %) exceed +5 % and are recorded as adverse.
+- One setting over 00-10: 0.941x, with no sequence above 2x. This compares
+  with 1.254x for the official defaults alone and 0.967x for the current
+  best-of-two Table 6.
+
+Table 6 keeps its best-of-two selection and the defaults stay official. Pinning
+SuMa to this one setting is the owner's decision.
+
 ### Full sequences
 
 The shared initial coarse/fine stage policy is separately available through
@@ -364,8 +395,10 @@ setting for every sequence does worse: the official defaults give 1.25x
 (01 fails at 8.1x, 02 at 3.2x, every other sequence 0.71-1.06x), the
 normalised lookup with the correction 1.41x (05 not run with it). The two
 failures are the degenerate stretches described above (corridor, highway),
-where the forward direction is weakly constrained. About 4-6 FPS, single
-thread. The paper's numbers have one decimal.
+where the forward direction is weakly constrained. The opt-in ground-pixel
+forward drop above gives one setting at 0.94x with no sequence above 2x
+(not adopted). About 4-6 FPS, single thread. The paper's numbers have one
+decimal.
 
 <!-- SHARED_NEAR_RANGE_REPLAY -->
 ## Shared-loader full KITTI replay

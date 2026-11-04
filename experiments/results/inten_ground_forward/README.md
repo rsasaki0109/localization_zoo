@@ -137,6 +137,37 @@ correction comes from edges and facades, not from the ground.
 - Every KITTI sequence is project development data, and 01/02 chose the
   setting.
 
+## Follow-up: along-axis facades (negative, development only)
+
+At the KITTI 01 collapse entries (frames 214-218 and 418-421), the facade class
+pulls each S2S step backwards in the first update, by 1.5-5 % of the GT step;
+the ground class is negligible there
+([seed interventions](../inten_seed_intervention/README.md), natural seeds). The
+step then shrinks from seed to seed (0.98 → 0.95 → 0.79 → 0.53 → 0.34 of GT at
+214-218). Walls and rails along a highway resemble the ground on 02, so the
+same treatment was tried for facades.
+
+`--inten-loam-paper-set s2s_facade_no_forward_below=c` (not in the paper,
+default 0) applies it to S2S facade residuals with `|normal . forward| < c`.
+`c = 0.5` covers planes within 30 deg of the forward axis; values above 1 cover
+every facade. A unit test checks that only those facades lose forward
+information. Both arms keep `s2s_ground_no_forward=1`. Development runs on the
+same binary ([records](development_facade/)):
+
+| Seq | Ground only | + facades within 30 deg (`c = 0.5`) | + every facade (`c = 1.5`) |
+|---|---:|---:|---:|
+| 01 | 16.637 % (136 bad-length steps) | 41.677 % (339) | 43.071 % (353) |
+| 02 | 0.823 % (20) | 2.991 % (124) | 3.320 % (134) |
+
+**Rejected on the development sequences; no full run follows.**
+- On both sequences the facades carry most of S2S's forward constraint. Without
+  it, 01's path shrinks to 0.66 of GT.
+- The backward pull at the 01 entries is real, but removing the facades'
+  forward information makes things worse. Its cause is more likely in which
+  facade points are associated than in a normal bias like the ground's.
+- The ground-only arm on this binary reproduces the study exactly
+  (16.6365 % / 0.8227 %).
+
 ## Commands and execution record
 
 ```bash

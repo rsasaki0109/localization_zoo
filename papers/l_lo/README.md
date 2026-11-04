@@ -116,6 +116,26 @@ drift by tens of metres. No full-sequence run was made; defaults are unchanged.
 Their earlier rejection on 07 (above) was made on a sequence with only 3.3 m of
 height change, where a vertical estimate can only add noise.
 
+## Ground-height-map vertical mode (opt-in, not in the paper)
+
+`--l-lo-set pitch_mode=3` estimates height, pitch and roll from the current
+ground band against a world ground-height map of the last 30 frames
+(scan-to-map); x, y and yaw stay those of the horizontal module. Its constants
+were fixed before any KITTI run. With `seq07_tuned` unchanged, one fixed setting
+on all of 00/02-10 (official RTE; the fresh reference equals every stored
+result):
+
+| Arm | Geometric mean vs paper | 09 | 10 | Above 2x |
+|---|---:|---:|---:|---|
+| `seq07_tuned` (Table 6) | 1.57x | 4.122 % (2.18x) | 4.105 % (2.16x) | 09, 10 |
+| `seq07_tuned` + `pitch_mode=3` | 1.29x | 2.304 % (1.22x) | 2.345 % (1.23x) | none |
+
+The mode lowers RTE on 9 of 10 sequences. 00 rises from 1.479 to 1.577 %. The
+horizontal channel stays within 0.1 points everywhere, while the vertical
+channel halves on 09/10. ATE rises on 7 sequences (10: 8.6 to 16.9 m) because
+absolute height can still drift with the map. Defaults and Table 6 are
+unchanged. [Protocol, all runs and commands](../../experiments/results/l_lo_ground_map/README.md).
+
 <!-- FIXED-KITTI-RESULTS:START -->
 
 ## Full KITTI comparison with one configuration

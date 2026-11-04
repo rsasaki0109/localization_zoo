@@ -122,7 +122,7 @@ audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 | Mesh-LOAM | 00-10 | 1.28x | one fixed setting; no sequence above twice the paper value ([details](papers/mesh_loam/README.md#kitti-00-10-with-one-configuration)) |
 | ELO | 00-10 | 1.22x | gap remains; values chosen on 07, the other ten sequences 0.84-1.43x, none fails ([details](papers/elo/README.md#all-kitti-sequences-00-10)) |
 | InTEn-LOAM | 00-10 | 2.19x | one fixed setting; gaps on 01 (25.96x), 02 (5.97x), 10 (2.57x), with drift diagnostics ([details](papers/inten_loam/README.md#kitti-00-10-with-one-configuration)) |
-| L-LO | 00/02-10 | 1.57x | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), whose gap is in the vertical channel ([details](papers/l_lo/README.md#horizontal-and-vertical-error-on-0910)) |
+| L-LO | 00/02-10 | 1.57x | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), whose gap is in the vertical channel; an opt-in ground-height-map vertical mode gives 1.29x ([details](papers/l_lo/README.md#ground-height-map-vertical-mode-opt-in-not-in-the-paper)) |
 
 Most gaps closed by the same few checks (elevation correction, no deskew on
 KITTI, association with moved points, map biases): see

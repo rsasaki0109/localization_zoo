@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-11-03T04:38:14+00:00
+> Generated: 2026-11-04T01:21:29+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -500,24 +500,34 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | seq07_tuned | 15.664 | 6.1 |
 | dogfooding_results/kitti_seq_00_full | seq07_tuned | 15.664 | 4.4 |
+| dogfooding_results/kitti_seq_02_full | seq07_tuned | 142.012 | 4.6 |
 | dogfooding_results/kitti_seq_02_full | default | 58.272 | 3.2 |
+| dogfooding_results/kitti_seq_03_full | seq07_tuned_ground_map | 13.929 | 5.3 |
 | dogfooding_results/kitti_seq_03_full | seq07_tuned | 24.086 | 2.8 |
+| dogfooding_results/kitti_seq_04_full | seq07_tuned | 5.259 | 2.6 |
 | dogfooding_results/kitti_seq_04_full | seq07_tuned | 5.259 | 0.9 |
+| dogfooding_results/kitti_seq_05_full | seq07_tuned_ground_map | 14.052 | 6.5 |
 | dogfooding_results/kitti_seq_05_full | default | 8.785 | 5.3 |
+| dogfooding_results/kitti_seq_06_full | seq07_tuned | 5.791 | 9.4 |
 | dogfooding_results/kitti_seq_06_full | seq07_tuned | 5.791 | 3.3 |
 | dogfooding_results/kitti_seq_07_full | cluster_cell_0p15 | 2.890 | 17.9 |
 | dogfooding_results/kitti_seq_07_full | sor_std_2 | 1.998 | 6.8 |
 | dogfooding_results/kitti_seq_07_full | cell_0p35_gtol_0p15_range_80_min15 | 2.561 | 7.7 |
+| dogfooding_results/kitti_seq_07_full | seq07_tuned | 2.693 | 8.7 |
 | dogfooding_results/kitti_seq_07_full | default | 2.045 | 5.1 |
 | dogfooding_results/kitti_seq_07_full | pitch_band_10_40 | 1.957 | 5.1 |
 | dogfooding_results/kitti_seq_07_full | voxel_0p4 | 3.178 | 22.9 |
 | dogfooding_results/kitti_seq_07_full | rounds_600_tol_1e5 | 2.045 | 5.9 |
+| dogfooding_results/kitti_seq_08_full | seq07_tuned | 36.390 | 6.3 |
 | dogfooding_results/kitti_seq_08_full | default | 32.662 | 3.7 |
+| dogfooding_results/kitti_seq_09_full | seq07_tuned_ground_map | 34.788 | 4.3 |
 | dogfooding_results/kitti_seq_09_full | seq07_tuned | 36.396 | 1.2 |
+| dogfooding_results/kitti_seq_10_full | seq07_tuned | 8.632 | 5.3 |
 | dogfooding_results/kitti_seq_10_full | seq07_tuned | 8.632 | 1.3 |
 
-**Stability**: 8 unique default(s) across 16 windows.
+**Stability**: 9 unique default(s) across 26 windows.
 
 ### LEGO-LOAM
 
@@ -1288,7 +1298,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | pitch_band_3_15 | 2.346 | 5.2 | 1 |
 | pitch_band_5_40 | 1.989 | 5.1 | 1 |
 | rounds_600_tol_1e5 | 2.045 | 5.9 | 1 |
-| seq07_tuned | 29.237 | 3.0 | 10 |
+| seq07_tuned | 29.237 | 4.5 | 20 |
+| seq07_tuned_ground_map | 29.755 | 5.8 | 10 |
 | shape_0p2 | 2.189 | 5.9 | 1 |
 | shape_0p8 | 3.239 | 5.1 | 1 |
 | sor_std_2 | 1.998 | 6.8 | 1 |

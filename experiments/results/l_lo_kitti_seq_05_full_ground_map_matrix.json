@@ -1,0 +1,123 @@
+{
+  "generated_at": "2026-11-04T01:19:51+00:00",
+  "manifest_path": "experiments/l_lo_kitti_seq_05_full_ground_map_matrix.json",
+  "problem": {
+    "id": "l_lo_kitti_seq_05_full_ground_map",
+    "title": "L-LO KITTI Odom seq 05 full (2761 frames): ground-height-map vertical mode",
+    "question": "Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "seq07_tuned",
+      "label": "Seq 07 tuned (fresh reference)",
+      "design_style": "balanced",
+      "intent": "Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.25",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80",
+      "summary_path": "experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned/summary.json",
+      "log_path": "experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned/run.log",
+      "status": "ok",
+      "ate_m": 15.45275,
+      "rpe_trans_pct": 1.588754,
+      "rpe_rot_deg_per_m": 0.016032,
+      "fps": 6.656987,
+      "time_ms": 414752.200233,
+      "frames": 2761,
+      "note": "Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=39.913 frames_below_3_matches=0/2760",
+      "benchmark_score": 95.47,
+      "readability_score": 3.2,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.8,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative.",
+      "kitti_rte_trans_pct": 1.472505,
+      "kitti_rte_rot_deg_per_100m": 0.805422,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v230",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "seq07_tuned_ground_map",
+      "label": "Seq 07 tuned + ground-height-map vertical (not in the paper)",
+      "design_style": "ablation",
+      "intent": "Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.",
+      "args": [
+        "--l-lo-set",
+        "cluster_cell=0.25",
+        "--l-lo-set",
+        "ground_tolerance=0.15",
+        "--l-lo-set",
+        "max_range=80",
+        "--l-lo-set",
+        "pitch_mode=3"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3",
+      "summary_path": "experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned_ground_map/summary.json",
+      "log_path": "experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned_ground_map/run.log",
+      "status": "ok",
+      "ate_m": 14.052043,
+      "rpe_trans_pct": 0.816368,
+      "rpe_rot_deg_per_m": 0.0095,
+      "fps": 6.542798,
+      "time_ms": 421990.743658,
+      "frames": 2761,
+      "note": "Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=39.913 frames_below_3_matches=0/2760",
+      "benchmark_score": 99.14,
+      "readability_score": 2.6,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.4,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.307679,
+      "kitti_rte_rot_deg_per_100m": 0.667327,
+      "host": {
+        "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "logical_cores": 4,
+        "memory_gib": 15.7,
+        "os": "Ubuntu 24.04.5 LTS",
+        "kernel": "6.18.44-fc-v230",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

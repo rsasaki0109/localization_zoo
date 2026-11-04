@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-04T01:20:56+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -468,21 +468,31 @@ The runner is responsible for:
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `experiments/kiss_icp_mulran_parkinglot_120_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `experiments/kiss_icp_mulran_parkinglot_full_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_profile_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_profile_matrix.json` |
+| L-LO KITTI Odom seq 00 full (4541 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_00_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_00_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/l_lo_kitti_seq_00_full_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
+| L-LO KITTI Odom seq 02 full (4661 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_02_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_02_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/l_lo_kitti_seq_02_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_02_full_matrix.json` |
+| L-LO KITTI Odom seq 03 full (801 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_03_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned_ground_map` | `experiments/results/l_lo_kitti_seq_03_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `experiments/l_lo_kitti_seq_03_full_paper_comp_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json` |
+| L-LO KITTI Odom seq 04 full (271 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_04_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_04_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `experiments/l_lo_kitti_seq_04_full_paper_comp_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json` |
+| L-LO KITTI Odom seq 05 full (2761 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_05_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned_ground_map` | `experiments/results/l_lo_kitti_seq_05_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/l_lo_kitti_seq_05_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_05_full_matrix.json` |
+| L-LO KITTI Odom seq 06 full (1101 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_06_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_06_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `experiments/l_lo_kitti_seq_06_full_paper_comp_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: landmark extraction, finer clustering cells | `ready` | `experiments/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json` | `l_lo` | `cluster_cell_0p15` | `experiments/results/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: landmark extraction sweep | `ready` | `experiments/l_lo_kitti_seq_07_cluster_sweep_matrix.json` | `l_lo` | `sor_std_2` | `experiments/results/l_lo_kitti_seq_07_cluster_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: combinations of the best round-1 settings | `ready` | `experiments/l_lo_kitti_seq_07_combo_sweep_matrix.json` | `l_lo` | `cell_0p35_gtol_0p15_range_80_min15` | `experiments/results/l_lo_kitti_seq_07_combo_sweep_matrix.json` |
+| L-LO KITTI Odom seq 07 full (1101 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_07_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_07_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 07 full (1101 frames) | `ready` | `experiments/l_lo_kitti_seq_07_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_07_full_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: vertical pose sweep | `ready` | `experiments/l_lo_kitti_seq_07_pitch_sweep_matrix.json` | `l_lo` | `pitch_band_10_40` | `experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: pre-processing sweep | `ready` | `experiments/l_lo_kitti_seq_07_preproc_sweep_matrix.json` | `l_lo` | `voxel_0p4` | `experiments/results/l_lo_kitti_seq_07_preproc_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: registration sweep | `ready` | `experiments/l_lo_kitti_seq_07_registration_sweep_matrix.json` | `l_lo` | `rounds_600_tol_1e5` | `experiments/results/l_lo_kitti_seq_07_registration_sweep_matrix.json` |
+| L-LO KITTI Odom seq 08 full (4071 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_08_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_08_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/l_lo_kitti_seq_08_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_08_full_matrix.json` |
+| L-LO KITTI Odom seq 09 full (1591 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_09_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned_ground_map` | `experiments/results/l_lo_kitti_seq_09_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `experiments/l_lo_kitti_seq_09_full_paper_comp_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json` |
+| L-LO KITTI Odom seq 10 full (1201 frames): ground-height-map vertical mode | `ready` | `experiments/l_lo_kitti_seq_10_full_ground_map_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_10_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `experiments/l_lo_kitti_seq_10_full_paper_comp_matrix.json` | `l_lo` | `seq07_tuned` | `experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/lego_loam_hdl_400_reference_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lego_loam_kitti_raw_0009_full_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |

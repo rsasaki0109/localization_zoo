@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-04T01:20:56+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -393,21 +393,31 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 73.621 | 26.9 | `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `experiments/results/kiss_icp_profile_matrix.json` |
+| L-LO KITTI Odom seq 00 full (4541 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 15.664 | 6.1 | `experiments/results/l_lo_kitti_seq_00_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 00 full (4541 frames) | `ready` | `seq07_tuned` | 15.664 | 4.4 | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
+| L-LO KITTI Odom seq 02 full (4661 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 142.012 | 4.6 | `experiments/results/l_lo_kitti_seq_02_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 02 full (4661 frames) | `ready` | `default` | 58.272 | 3.6 | `experiments/results/l_lo_kitti_seq_02_full_matrix.json` |
+| L-LO KITTI Odom seq 03 full (801 frames): ground-height-map vertical mode | `ready` | `seq07_tuned_ground_map` | 13.929 | 5.4 | `experiments/results/l_lo_kitti_seq_03_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 24.086 | 2.8 | `experiments/results/l_lo_kitti_seq_03_full_paper_comp_matrix.json` |
+| L-LO KITTI Odom seq 04 full (271 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 5.259 | 2.6 | `experiments/results/l_lo_kitti_seq_04_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 5.259 | 0.9 | `experiments/results/l_lo_kitti_seq_04_full_paper_comp_matrix.json` |
+| L-LO KITTI Odom seq 05 full (2761 frames): ground-height-map vertical mode | `ready` | `seq07_tuned_ground_map` | 14.052 | 6.7 | `experiments/results/l_lo_kitti_seq_05_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 8.785 | 5.3 | `experiments/results/l_lo_kitti_seq_05_full_matrix.json` |
+| L-LO KITTI Odom seq 06 full (1101 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 5.791 | 9.4 | `experiments/results/l_lo_kitti_seq_06_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 5.791 | 3.3 | `experiments/results/l_lo_kitti_seq_06_full_paper_comp_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: landmark extraction, finer clustering cells | `ready` | `cluster_cell_0p15` | 1.686 | 17.9 | `experiments/results/l_lo_kitti_seq_07_cluster_fine_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: landmark extraction sweep | `ready` | `sor_std_2` | 1.998 | 6.8 | `experiments/results/l_lo_kitti_seq_07_cluster_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: combinations of the best round-1 settings | `ready` | `cell_0p35_gtol_0p15_range_80_min15` | 2.561 | 7.9 | `experiments/results/l_lo_kitti_seq_07_combo_sweep_matrix.json` |
+| L-LO KITTI Odom seq 07 full (1101 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 2.693 | 8.7 | `experiments/results/l_lo_kitti_seq_07_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 07 full (1101 frames) | `ready` | `default` | 2.045 | 5.1 | `experiments/results/l_lo_kitti_seq_07_full_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: vertical pose sweep | `ready` | `pitch_band_10_40` | 1.957 | 5.2 | `experiments/results/l_lo_kitti_seq_07_pitch_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: pre-processing sweep | `ready` | `voxel_0p4` | 2.013 | 22.9 | `experiments/results/l_lo_kitti_seq_07_preproc_sweep_matrix.json` |
 | L-LO on KITTI Odom seq 07 full: registration sweep | `ready` | `rounds_600_tol_1e5` | 2.045 | 5.9 | `experiments/results/l_lo_kitti_seq_07_registration_sweep_matrix.json` |
+| L-LO KITTI Odom seq 08 full (4071 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 36.390 | 6.3 | `experiments/results/l_lo_kitti_seq_08_full_ground_map_matrix.json` |
 | L-LO on KITTI Odom seq 08 full (4071 frames) | `ready` | `default` | 32.662 | 4.0 | `experiments/results/l_lo_kitti_seq_08_full_matrix.json` |
+| L-LO KITTI Odom seq 09 full (1591 frames): ground-height-map vertical mode | `ready` | `seq07_tuned_ground_map` | 34.788 | 4.3 | `experiments/results/l_lo_kitti_seq_09_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 36.396 | 1.2 | `experiments/results/l_lo_kitti_seq_09_full_paper_comp_matrix.json` |
+| L-LO KITTI Odom seq 10 full (1201 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 8.632 | 5.3 | `experiments/results/l_lo_kitti_seq_10_full_ground_map_matrix.json` |
 | L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 8.632 | 1.3 | `experiments/results/l_lo_kitti_seq_10_full_paper_comp_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.147 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
@@ -22416,6 +22426,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## L-LO KITTI Odom seq 00 full (4541 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_00_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_00_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 15.664 | 6.1 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 19.935 | 6.0 | 88.5 | 2.60 | 3.40 | Keep as reference variant |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 6.1 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 15.664 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_00_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_00_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_00_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=36.5291 frames_below_3_matches=0/4540
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_00_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_00_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_00_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=36.5291 frames_below_3_matches=0/4540
+
+
 ## L-LO on KITTI Odom seq 00 full (4541 frames)
 
 - **Problem ID**: `l_lo_kitti_seq_00_full`
@@ -22462,6 +22520,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=36.5291 frames_below_3_matches=0/4540
+
+
+## L-LO KITTI Odom seq 02 full (4661 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_02_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_02_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 142.012 | 4.6 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 143.594 | 4.5 | 98.9 | 2.60 | 3.40 | Keep as active challenger |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 4.6 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 142.012 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_02_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_02_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_02_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.5805 frames_below_3_matches=6/4660
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_02_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_02_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_02_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.5805 frames_below_3_matches=6/4660
 
 
 ## L-LO on KITTI Odom seq 02 full (4661 frames)
@@ -22512,6 +22618,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.5805 frames_below_3_matches=6/4660
 
 
+## L-LO KITTI Odom seq 03 full (801 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_03_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_03_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 24.086 | 5.4 | 78.9 | 3.20 | 3.80 | Keep as reference variant |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 13.929 | 5.3 | 99.5 | 2.60 | 3.40 | Adopt as current default |
+
+### Observations
+
+1. `seq07_tuned_ground_map` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 5.4 FPS.
+3. `seq07_tuned_ground_map` is the most accurate observed variant at 13.929 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=32.6987 frames_below_3_matches=0/800
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=32.6987 frames_below_3_matches=0/800
+
+
 ## L-LO KITTI Odom seq 03 full: fixed-configuration paper comparison
 
 - **Problem ID**: `l_lo_kitti_seq_03_full_paper_comp`
@@ -22548,6 +22702,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=32.6987 frames_below_3_matches=0/800
 
 
+## L-LO KITTI Odom seq 04 full (271 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_04_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_04_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 5.259 | 2.6 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 7.113 | 2.6 | 86.5 | 2.60 | 3.40 | Keep as reference variant |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 2.6 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 5.259 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.6222 frames_below_3_matches=0/270
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.6222 frames_below_3_matches=0/270
+
+
 ## L-LO KITTI Odom seq 04 full: fixed-configuration paper comparison
 
 - **Problem ID**: `l_lo_kitti_seq_04_full_paper_comp`
@@ -22582,6 +22784,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.6222 frames_below_3_matches=0/270
+
+
+## L-LO KITTI Odom seq 05 full (2761 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_05_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_05_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 15.453 | 6.7 | 95.5 | 3.20 | 3.80 | Keep as active challenger |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 14.052 | 6.5 | 99.1 | 2.60 | 3.40 | Adopt as current default |
+
+### Observations
+
+1. `seq07_tuned_ground_map` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 6.7 FPS.
+3. `seq07_tuned_ground_map` is the most accurate observed variant at 14.052 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=39.913 frames_below_3_matches=0/2760
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_05_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=39.913 frames_below_3_matches=0/2760
 
 
 ## L-LO on KITTI Odom seq 05 full (2761 frames)
@@ -22630,6 +22880,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=39.913 frames_below_3_matches=0/2760
+
+
+## L-LO KITTI Odom seq 06 full (1101 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_06_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_06_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 5.791 | 9.4 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 6.156 | 9.1 | 95.9 | 2.60 | 3.40 | Keep as active challenger |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 9.4 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 5.791 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=54.5791 frames_below_3_matches=0/1100
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=54.5791 frames_below_3_matches=0/1100
 
 
 ## L-LO KITTI Odom seq 06 full: fixed-configuration paper comparison
@@ -22932,6 +23230,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=34.7345 frames_below_3_matches=0/1100
 
 
+## L-LO KITTI Odom seq 07 full (1101 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_07_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_07_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 2.693 | 8.7 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 2.965 | 8.6 | 94.8 | 2.60 | 3.40 | Keep as active challenger |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 8.7 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 2.693 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=36.7645 frames_below_3_matches=0/1100
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=36.7645 frames_below_3_matches=0/1100
+
+
 ## L-LO on KITTI Odom seq 07 full (1101 frames)
 
 - **Problem ID**: `l_lo_kitti_seq_07_full`
@@ -23220,6 +23566,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100
 
 
+## L-LO KITTI Odom seq 08 full (4071 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_08_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_08_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 36.390 | 6.3 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 38.086 | 6.2 | 96.9 | 2.60 | 3.40 | Keep as active challenger |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 6.3 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 36.390 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_08_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_08_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_08_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=43.3509 frames_below_3_matches=0/4070
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_08_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_08_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_08_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=43.3509 frames_below_3_matches=0/4070
+
+
 ## L-LO on KITTI Odom seq 08 full (4071 frames)
 
 - **Problem ID**: `l_lo_kitti_seq_08_full`
@@ -23268,6 +23662,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=43.3509 frames_below_3_matches=0/4070
 
 
+## L-LO KITTI Odom seq 09 full (1591 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_09_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_09_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 36.396 | 4.3 | 97.8 | 3.20 | 3.80 | Keep as active challenger |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 34.788 | 4.3 | 99.8 | 2.60 | 3.40 | Adopt as current default |
+
+### Observations
+
+1. `seq07_tuned_ground_map` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 4.3 FPS.
+3. `seq07_tuned_ground_map` is the most accurate observed variant at 34.788 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=35.8289 frames_below_3_matches=0/1590
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=35.8289 frames_below_3_matches=0/1590
+
+
 ## L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison
 
 - **Problem ID**: `l_lo_kitti_seq_09_full_paper_comp`
@@ -23302,6 +23744,54 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=35.8289 frames_below_3_matches=0/1590
+
+
+## L-LO KITTI Odom seq 10 full (1201 frames): ground-height-map vertical mode
+
+- **Problem ID**: `l_lo_kitti_seq_10_full_ground_map`
+- **Question**: Does the opt-in ground-height-map vertical estimate (pitch_mode 3, not in the paper) change full-sequence accuracy with the fixed seq07_tuned horizontal setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_10_full_ground_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Seq 07 tuned (fresh reference) | balanced | 8.632 | 5.3 | 100.0 | 3.20 | 3.80 | Adopt as current default |
+| Seq 07 tuned + ground-height-map vertical (not in the paper) | ablation | 16.936 | 5.3 | 75.3 | 2.60 | 3.40 | Keep as reference variant |
+
+### Observations
+
+1. `seq07_tuned` is the current default for this problem.
+2. `seq07_tuned` is the fastest observed variant at 5.3 FPS.
+3. `seq07_tuned` is the most accurate observed variant at 8.632 m ATE.
+
+### Variant Notes
+
+#### `seq07_tuned`
+
+- Intent: Fixed Table 6 setting (cluster_cell 0.25, ground_tolerance 0.15, max_range 80), rerun on the same binary as the candidate.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned/run.log`
+- Readability proxy: 3.20 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.80 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.2883 frames_below_3_matches=0/1200
+
+#### `seq07_tuned_ground_map`
+
+- Intent: Same horizontal setting; height, pitch and roll against a 30-frame world ground-height map (pitch_mode 3). Opt-in, default off.
+- CLI args: `--l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned_ground_map/summary.json --l-lo-set cluster_cell=0.25 --l-lo-set ground_tolerance=0.15 --l-lo-set max_range=80 --l-lo-set pitch_mode=3`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned_ground_map/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned_ground_map/run.log`
+- Readability proxy: 2.60 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.40 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=26.2883 frames_below_3_matches=0/1200
 
 
 ## L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison

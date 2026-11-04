@@ -1,0 +1,54 @@
+{
+  "purpose": "Development check before the protocol: official SuMa defaults on raw scans with and without ground pixels' forward information, KITTI 01/02.",
+  "binary_sha256": "d6351e4eb954b28d6113259ae584f25dbe1c52ad0d5c7f483e34ae661bcb2e4e",
+  "code_commit": "7e1c89ba",
+  "threshold": "ground_no_forward_vertical_cos=0.866 (30 deg from vertical), fixed before the run; no other value tried",
+  "script": "dev_run.sh, two arms concurrent per sequence, 01 and 02 concurrently, OMP_NUM_THREADS=1",
+  "step_diagnostics_command": "python3 evaluation/scripts/diagnose_kitti_steps.py --estimate <arm>/dogfooding_results/SuMa.txt --gt <arm>/dogfooding_results/velodyne_evaluated_gt.txt --summary <arm>/summary.json --method SuMa --output <arm>/steps.json",
+  "rows": [
+    {
+      "sequence": "01",
+      "arm": "paper_odometry",
+      "kitti_rte_trans_pct": 13.79269,
+      "rpe_trans_pct": 15.865817,
+      "ate_m": 175.82676,
+      "frames": 1101,
+      "bad_length_steps": 134,
+      "path_length_ratio": 1.1360072569557846,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "01",
+      "arm": "paper_odometry_ground_no_forward",
+      "kitti_rte_trans_pct": 1.629255,
+      "rpe_trans_pct": 1.038834,
+      "ate_m": 75.750551,
+      "frames": 1101,
+      "bad_length_steps": 7,
+      "path_length_ratio": 1.0048070944710998,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "02",
+      "arm": "paper_odometry",
+      "kitti_rte_trans_pct": 3.511588,
+      "rpe_trans_pct": 4.043563,
+      "ate_m": 70.307811,
+      "frames": 4661,
+      "bad_length_steps": 168,
+      "path_length_ratio": 1.035154440448664,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "02",
+      "arm": "paper_odometry_ground_no_forward",
+      "kitti_rte_trans_pct": 1.557798,
+      "rpe_trans_pct": 1.65113,
+      "ate_m": 38.79193,
+      "frames": 4661,
+      "bad_length_steps": 82,
+      "path_length_ratio": 1.0088032071051345,
+      "exit": "exit 0"
+    }
+  ]
+}

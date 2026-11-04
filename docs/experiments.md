@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-04T13:15:51+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -657,16 +657,27 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 | SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense` | 2.245 | 21.0 | `experiments/results/suma_kitti_raw_0009_nogt_matrix.json` |
 | SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 15.381 | 110.9 | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
 | SuMa on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `dense` | 1.496 | 111.2 | `experiments/results/suma_kitti_raw_0061_matrix.json` |
+| SuMa KITTI Odom seq 00 full (4541 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 7.799 | 6.9 | `experiments/results/suma_kitti_seq_00_full_ground_forward_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `default` | 8.196 | 33.8 | `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json` |
+| SuMa KITTI Odom seq 01 full (1101 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 75.751 | 9.8 | `experiments/results/suma_kitti_seq_01_full_ground_forward_matrix.json` |
 | SuMa paper pipeline on KITTI Odom seq 01 full (1101 frames) | `ready` | `paper_odometry_clean_lookup_elevation` | 59.043 | 6.6 | `experiments/results/suma_kitti_seq_01_full_paper_matrix.json` |
+| SuMa KITTI Odom seq 02 full (4661 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 38.792 | 6.8 | `experiments/results/suma_kitti_seq_02_full_ground_forward_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `paper_odometry_clean_lookup_elevation` | 16.837 | 38.0 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
+| SuMa KITTI Odom seq 03 full (801 frames): ground pixels without forward information | `ready` | `paper_odometry` | 1.449 | 6.9 | `experiments/results/suma_kitti_seq_03_full_ground_forward_matrix.json` |
 | SuMa paper pipeline on KITTI Odom seq 03 full (801 frames) | `ready` | `paper_odometry` | 1.449 | 4.7 | `experiments/results/suma_kitti_seq_03_full_paper_matrix.json` |
+| SuMa KITTI Odom seq 04 full (271 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 0.953 | 8.3 | `experiments/results/suma_kitti_seq_04_full_ground_forward_matrix.json` |
 | SuMa paper pipeline on KITTI Odom seq 04 full (271 frames) | `ready` | `paper_odometry` | 0.974 | 5.0 | `experiments/results/suma_kitti_seq_04_full_paper_matrix.json` |
+| SuMa KITTI Odom seq 05 full (2761 frames): ground pixels without forward information | `ready` | `paper_odometry` | 3.420 | 7.0 | `experiments/results/suma_kitti_seq_05_full_ground_forward_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 3.420 | 40.3 | `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json` |
+| SuMa KITTI Odom seq 06 full (1101 frames): ground pixels without forward information | `ready` | `paper_odometry` | 2.961 | 7.2 | `experiments/results/suma_kitti_seq_06_full_ground_forward_matrix.json` |
 | SuMa paper pipeline on KITTI Odom seq 06 full (1101 frames) | `ready` | `paper_odometry_clean_lookup_elevation` | 2.873 | 4.8 | `experiments/results/suma_kitti_seq_06_full_paper_matrix.json` |
 | SuMa KITTI Odom seq 07 full: elevation correction ablation | `ready` | `dense_profile` | 1.060 | 35.6 | `experiments/results/suma_kitti_seq_07_full_elevation_matrix.json` |
+| SuMa KITTI Odom seq 07 full (1101 frames): ground pixels without forward information | `ready` | `paper_odometry` | 1.060 | 7.1 | `experiments/results/suma_kitti_seq_07_full_ground_forward_matrix.json` |
+| SuMa KITTI Odom seq 08 full (4071 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 23.474 | 7.1 | `experiments/results/suma_kitti_seq_08_full_ground_forward_matrix.json` |
 | SuMa transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `dense_profile` | 15.718 | 39.6 | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |
+| SuMa KITTI Odom seq 09 full (1591 frames): ground pixels without forward information | `ready` | `paper_odometry_ground_no_forward` | 6.424 | 7.0 | `experiments/results/suma_kitti_seq_09_full_ground_forward_matrix.json` |
 | SuMa paper pipeline on KITTI Odom seq 09 full (1591 frames) | `ready` | `paper_odometry` | 6.469 | 4.4 | `experiments/results/suma_kitti_seq_09_full_paper_matrix.json` |
+| SuMa KITTI Odom seq 10 full (1201 frames): ground pixels without forward information | `ready` | `paper_odometry` | 5.253 | 7.2 | `experiments/results/suma_kitti_seq_10_full_ground_forward_matrix.json` |
 | SuMa paper pipeline on KITTI Odom seq 10 full (1201 frames) | `ready` | `paper_odometry` | 5.253 | 4.6 | `experiments/results/suma_kitti_seq_10_full_paper_matrix.json` |
 | SuMa on MCD KTH day-06 sequence | `ready` | `fast` | 6.064 | 150.2 | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
 | SuMa on MCD NTU day-02 sequence | `ready` | `dense` | 0.036 | 124.1 | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |
@@ -36991,6 +37002,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
 
 
+## SuMa KITTI Odom seq 00 full (4541 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_00_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_00_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 8.196 | 6.9 | 97.6 | 4.30 | 4.50 | Keep as active challenger |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 7.799 | 6.8 | 99.7 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_ground_no_forward` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 6.9 FPS.
+3. `paper_odometry_ground_no_forward` is the most accurate observed variant at 7.799 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_00_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
+
+
 ## SuMa transfer check on KITTI Odom seq 00 full (4541 frames)
 
 - **Problem ID**: `suma_kitti_seq_00_full_transfer`
@@ -37063,6 +37122,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
 
+## SuMa KITTI Odom seq 01 full (1101 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_01_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_01_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 175.827 | 9.8 | 71.5 | 4.30 | 4.50 | Keep as reference variant |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 75.751 | 9.6 | 99.2 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_ground_no_forward` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 9.8 FPS.
+3. `paper_odometry_ground_no_forward` is the most accurate observed variant at 75.751 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_01_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_01_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_01_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=107
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_01_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_01_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_01_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=42; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
+
+
 ## SuMa paper pipeline on KITTI Odom seq 01 full (1101 frames)
 
 - **Problem ID**: `suma_kitti_seq_01_full_paper`
@@ -37109,6 +37216,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=5
+
+
+## SuMa KITTI Odom seq 02 full (4661 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_02_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_02_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 70.308 | 6.8 | 77.5 | 4.30 | 4.50 | Keep as reference variant |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 38.792 | 6.8 | 100.0 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_ground_no_forward` is the fastest observed variant at 6.8 FPS.
+3. `paper_odometry_ground_no_forward` is the most accurate observed variant at 38.792 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=97
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_02_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=50; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
 
 
 ## SuMa transfer check on KITTI Odom seq 02 full (4661 frames)
@@ -37183,6 +37338,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
 
+## SuMa KITTI Odom seq 03 full (801 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_03_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_03_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 1.449 | 6.9 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 1.455 | 6.8 | 99.1 | 3.70 | 4.10 | Keep as active challenger |
+
+### Observations
+
+1. `paper_odometry` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 6.9 FPS.
+3. `paper_odometry` is the most accurate observed variant at 1.449 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_03_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_03_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_03_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_03_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_03_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_03_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
+
+
 ## SuMa paper pipeline on KITTI Odom seq 03 full (801 frames)
 
 - **Problem ID**: `suma_kitti_seq_03_full_paper`
@@ -37231,6 +37434,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
 
+## SuMa KITTI Odom seq 04 full (271 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_04_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_04_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 0.974 | 8.3 | 98.9 | 4.30 | 4.50 | Keep as active challenger |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 0.953 | 8.2 | 99.3 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_ground_no_forward` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 8.3 FPS.
+3. `paper_odometry_ground_no_forward` is the most accurate observed variant at 0.953 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_04_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_04_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_04_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_04_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_04_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_04_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
+
+
 ## SuMa paper pipeline on KITTI Odom seq 04 full (271 frames)
 
 - **Problem ID**: `suma_kitti_seq_04_full_paper`
@@ -37277,6 +37528,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+
+## SuMa KITTI Odom seq 05 full (2761 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_05_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_05_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 3.420 | 7.0 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 3.495 | 7.0 | 98.8 | 3.70 | 4.10 | Keep as active challenger |
+
+### Observations
+
+1. `paper_odometry` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 7.0 FPS.
+3. `paper_odometry` is the most accurate observed variant at 3.420 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_05_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_05_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_05_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_05_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_05_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_05_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
 
 
 ## SuMa transfer check on KITTI Odom seq 05 full (2761 frames)
@@ -37337,6 +37636,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+
+## SuMa KITTI Odom seq 06 full (1101 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_06_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_06_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 2.961 | 7.2 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 3.327 | 7.2 | 94.3 | 3.70 | 4.10 | Keep as active challenger |
+
+### Observations
+
+1. `paper_odometry` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 7.2 FPS.
+3. `paper_odometry` is the most accurate observed variant at 2.961 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_06_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_06_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_06_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_06_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_06_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_06_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
 
 
 ## SuMa paper pipeline on KITTI Odom seq 06 full (1101 frames)
@@ -37459,6 +37806,102 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
 
+## SuMa KITTI Odom seq 07 full (1101 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_07_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_07_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 1.060 | 7.1 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 1.111 | 7.0 | 96.9 | 3.70 | 4.10 | Keep as active challenger |
+
+### Observations
+
+1. `paper_odometry` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 7.1 FPS.
+3. `paper_odometry` is the most accurate observed variant at 1.060 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_07_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_07_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_07_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_07_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_07_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_07_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
+
+
+## SuMa KITTI Odom seq 08 full (4071 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_08_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_08_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 24.050 | 7.1 | 98.8 | 4.30 | 4.50 | Keep as active challenger |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 23.474 | 7.0 | 99.5 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_ground_no_forward` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 7.1 FPS.
+3. `paper_odometry_ground_no_forward` is the most accurate observed variant at 23.474 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_08_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
+
+
 ## SuMa transfer check on KITTI Odom seq 08 full (4071 frames)
 
 - **Problem ID**: `suma_kitti_seq_08_full_transfer`
@@ -37531,6 +37974,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
 
 
+## SuMa KITTI Odom seq 09 full (1591 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_09_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_09_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 6.469 | 7.0 | 99.7 | 4.30 | 4.50 | Keep as active challenger |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 6.424 | 6.9 | 99.8 | 3.70 | 4.10 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_ground_no_forward` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 7.0 FPS.
+3. `paper_odometry_ground_no_forward` is the most accurate observed variant at 6.424 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_09_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_09_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_09_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=1
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_09_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_09_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_09_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
+
+
 ## SuMa paper pipeline on KITTI Odom seq 09 full (1591 frames)
 
 - **Problem ID**: `suma_kitti_seq_09_full_paper`
@@ -37577,6 +38068,54 @@ _Generated at 2026-11-04T09:32:02+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+
+## SuMa KITTI Odom seq 10 full (1201 frames): ground pixels without forward information
+
+- **Problem ID**: `suma_kitti_seq_10_full_ground_forward`
+- **Question**: Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_10_full_ground_forward_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| SuMaPaper, official defaults on raw scans (fresh reference) | balanced | 5.253 | 7.2 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| SuMaPaper + ground pixels without forward information (not in the paper) | ablation | 6.601 | 7.2 | 89.6 | 3.70 | 4.10 | Keep as reference variant |
+
+### Observations
+
+1. `paper_odometry` is the current default for this problem.
+2. `paper_odometry` is the fastest observed variant at 7.2 FPS.
+3. `paper_odometry` is the most accurate observed variant at 5.253 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry`
+
+- Intent: Unchanged paper_odometry setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --suma-paper`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_10_full_ground_forward_matrix/paper_odometry/summary.json --no-gt-seed --suma-paper`
+- Summary: `experiments/results/runs/suma_kitti_seq_10_full_ground_forward_matrix/paper_odometry/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_10_full_ground_forward_matrix/paper_odometry/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0
+
+#### `paper_odometry_ground_no_forward`
+
+- Intent: Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_10_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json --no-gt-seed --suma-paper --suma-paper-set ground_no_forward_vertical_cos=0.866`
+- Summary: `experiments/results/runs/suma_kitti_seq_10_full_ground_forward_matrix/paper_odometry_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_10_full_ground_forward_matrix/paper_odometry_ground_no_forward/run.log`
+- Readability proxy: 3.70 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: SuMa paper pipeline (SuMaPaper: rendered surfel model, projective frame-to-model ICP, surfel stability and fusion per RSS 2018 / official default.xml); raw scans, no GT seed, no loop closure. frame-to-frame fallbacks=0; opt-in ground pixels without forward information, vertical cos=0.866000 (not in the paper)
 
 
 ## SuMa paper pipeline on KITTI Odom seq 10 full (1201 frames)

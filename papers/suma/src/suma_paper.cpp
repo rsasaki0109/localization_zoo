@@ -327,6 +327,9 @@ void SuMaPaper::accumulate(const VertexNormalMap& data, const VertexNormalMap& m
   const Eigen::Matrix3d R = pose.topLeftCorner<3, 3>();
   const Eigen::Vector3d t = pose.block<3, 1>(0, 3);
   const double k = params_.huber_factor;
+  const double ground_cos = params_.ground_no_forward_vertical_cos;
+  const Eigen::Vector3d forward = R.col(0).normalized();
+  const Eigen::Vector3d up = R.col(2).normalized();
   for (int i = 0; i < static_cast<int>(data.vertex.size()); ++i) {
     if (!data.valid(i)) continue;
     const Eigen::Vector3d v_d = R * data.vertex[i].cast<double>() + t;
@@ -351,6 +354,11 @@ void SuMaPaper::accumulate(const VertexNormalMap& data, const VertexNormalMap& m
     Eigen::Matrix<double, 6, 1> J;
     J.head<3>() = m.normal;
     J.tail<3>() = v_d.cross(m.normal);
+    if (ground_cos > 0.0 && std::abs(m.normal.dot(up)) >= ground_cos * m.normal.norm()) {
+      const Eigen::Vector3d kept = m.normal - m.normal.dot(forward) * forward;
+      J.head<3>() = kept;
+      J.tail<3>() = (v_d - t).cross(m.normal) + t.cross(kept);
+    }
     out->JtJ.noalias() += weight * J * J.transpose();
     out->Jtf.noalias() += weight * residual * J;
     ++out->inliers;

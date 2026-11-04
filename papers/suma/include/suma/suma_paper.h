@@ -86,6 +86,15 @@ struct SuMaPaperParams {
   // leaves method-specific residuals, normal gates and fallback unchanged.
   // 0 frames disables it. Budgets and the gate multiplier are transferred
   // from the existing IMLS-SLAM startup choice, not tuned on SuMa.
+  // Non-paper opt-in, default 0 (off): ground-like pixels (model normal within
+  // acos(value) of the sensor's vertical axis; 0.866: 30 deg) give no
+  // information along the sensor's forward axis. The forward component of
+  // their translation Jacobian is removed in sensor-centred coordinates
+  // (dt_c = dt + dw x t). On KITTI 02 the ground carries most of the forward
+  // gradient through slightly tilted normals where nothing else constrains
+  // forward motion (README, "Seq 02"); InTEn-LOAM's s2s_ground_no_forward
+  // and ELO's ground_constrains_forward do the same.
+  double ground_no_forward_vertical_cos = 0.0;
   int coarse_frames = 0;
   int coarse_iterations = 10;
   double coarse_distance_scale = 5.0;

@@ -391,7 +391,7 @@ suma,kitti_seq_03_full,paper_odometry
 suma,kitti_seq_04_full,paper_odometry
 suma,kitti_seq_05_full,default
 suma,kitti_seq_06_full,paper_odometry_clean_lookup_elevation
-suma,kitti_seq_07_full,dense_profile
+suma,kitti_seq_07_full,paper_odometry
 suma,kitti_seq_08_full,dense_profile
 suma,kitti_seq_09_full,paper_odometry
 suma,kitti_seq_10_full,paper_odometry

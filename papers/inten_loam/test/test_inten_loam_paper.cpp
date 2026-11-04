@@ -1139,6 +1139,50 @@ TEST(InTenLoamPaper, GroundNoForwardRemovesOnlyForwardGroundInformation) {
   EXPECT_LT((a.s2s_g[1].tail<5>()-b.s2s_g[1].tail<5>()).norm(), 1e-9 * (1.0 + a.s2s_g[1].norm()));
 }
 
+TEST(InTenLoamPaper, AlongAxisFacadesLoseOnlyTheirForwardInformation) {
+  EXPECT_EQ(InTenLoamPaperParams{}.s2s_facade_no_forward_below, 0.0);
+  // Street walls run along x (normals +-y, rippled here so that their normals
+  // carry a small forward component); recess and end walls face +-x. Below 0.5
+  // only the walls along the axis lose forward information; above 1 every
+  // facade does. Other classes stay bit-identical.
+  InTenLoamPaperParams params; params.use_mapping = false; params.s2s_row_support = true;
+  InTenLoamPaper baseline(params);
+  params.s2s_facade_no_forward_below = 0.5;
+  InTenLoamPaper along(params);
+  params.s2s_facade_no_forward_below = 1.5;
+  InTenLoamPaper every(params);
+  std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+  Eigen::Matrix4d seed = Eigen::Matrix4d::Identity(), truth = seed;
+  auto ripple = [&](double origin_x) {
+    for (auto& point : points) if (std::abs(std::abs(point.y()) - 8.0) < 1e-6)
+      point.y() += .01*std::sin(2*(point.x()+origin_x)+3*point.z());
+  };
+  scanAt(seed, &points, &intensity); ripple(0.0);
+  baseline.process(points, intensity); along.process(points, intensity); every.process(points, intensity);
+  truth(0, 3) = .3;
+  scanAt(truth, &points, &intensity); ripple(truth(0, 3));
+  InTenLoamPaperDiagnostics a, b, c; a.forced_pose = &seed; b.forced_pose = &seed; c.forced_pose = &seed;
+  baseline.process(points, intensity, &a); along.process(points, intensity, &b); every.process(points, intensity, &c);
+  ASSERT_GT(a.s2s_n[2], 100);
+  for (int k = 0; k < 4; ++k) {
+    EXPECT_EQ(a.s2s_n[k], b.s2s_n[k]);
+    EXPECT_EQ(a.s2s_n[k], c.s2s_n[k]);
+    if (k == 2) continue;
+    EXPECT_EQ((a.s2s_H[k]-b.s2s_H[k]).norm(), 0.0);
+    EXPECT_EQ((a.s2s_H[k]-c.s2s_H[k]).norm(), 0.0);
+  }
+  const double full = a.s2s_H[2](0, 0), facing = b.s2s_H[2](0, 0), none = c.s2s_H[2](0, 0);
+  EXPECT_GT(full, 0.0);
+  EXPECT_GT(facing, 0.5 * full);   // most forward facade information comes from facing walls
+  EXPECT_LT(facing, full);         // ... but the along-axis walls contributed some
+  EXPECT_LT(none, 1e-12 * full);
+  // Lateral facade information is untouched in every arm.
+  EXPECT_NEAR(b.s2s_H[2](1, 1), a.s2s_H[2](1, 1), 1e-9 * a.s2s_H[2](1, 1));
+  EXPECT_NEAR(c.s2s_H[2](1, 1), a.s2s_H[2](1, 1), 1e-9 * a.s2s_H[2](1, 1));
+  InTenLoamPaperParams invalid; invalid.s2s_facade_no_forward_below = -1.0;
+  EXPECT_THROW(InTenLoamPaper{invalid}, std::invalid_argument);
+}
+
 TEST(InTenLoamPaper, GroundNoForwardDropsSensorForwardInformationInS2MAwayFromTheOrigin) {
   // Map built from forced poses 500 m from the origin at a 30 deg heading. At
   // the forced pose, the S2M ground system expressed about the sensor (tangent

@@ -35,6 +35,12 @@ held-out runs. Official KITTI RTE with one fixed setting against a fresh
 
 Table 6 and the defaults stay on `paper_odometry_plane_check`.
 
+The same treatment for S2S facades that run along the forward axis
+(`s2s_facade_no_forward_below`, opt-in) was rejected on the development
+sequences: 01 16.637 → 41.677 % and 02 0.823 → 2.991 %. The facades carry most
+of the forward constraint there
+([follow-up](../../experiments/results/inten_ground_forward/README.md#follow-up-along-axis-facades-negative-development-only)).
+
 ## Experimental independent geometric prior (default off)
 
 Development is paused at the user's request to merge this increment. Full KITTI

@@ -48,12 +48,14 @@ struct System {
   // target frame. The translation of the sensor origin, t_c = t + w x o, then
   // gets no information along d: J_t = a - (a.d) d and J_w = (x - o) x a +
   // o x J_t, which reduces to [a, x x a] when nothing is dropped.
+  // Only residuals with |a.d| < drop_below |a| are affected (infinity: all).
   void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr,
-           bool cauchy = false, const Eigen::Vector3d* drop = nullptr, const Eigen::Vector3d* origin = nullptr) {
+           bool cauchy = false, const Eigen::Vector3d* drop = nullptr, const Eigen::Vector3d* origin = nullptr,
+           double drop_below = std::numeric_limits<double>::infinity()) {
     Vec6 J;
     J.head<3>() = a;
     J.tail<3>() = x.cross(a);
-    if (drop != nullptr && origin != nullptr) {
+    if (drop != nullptr && origin != nullptr && std::abs(a.dot(*drop)) < drop_below * a.norm()) {
       const Eigen::Vector3d kept = a - a.dot(*drop) * *drop;
       J.head<3>() = kept;
       J.tail<3>() = (x - *origin).cross(a) + origin->cross(kept);
@@ -103,7 +105,8 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
                         const Query& query, double huber, bool accelerated,
                         System* system, System* also,
                         std::vector<int>* indices, std::vector<float>* distances, bool cauchy = false,
-                        bool drop_forward = false) {
+                        bool drop_forward = false,
+                        double drop_below = std::numeric_limits<double>::infinity()) {
   // Sensor forward axis and origin in the target frame (used only when the
   // forward translation information of this class is dropped).
   const Eigen::Vector3d forward = R.col(0).normalized();
@@ -115,7 +118,7 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
       Eigen::Vector3d gradient;
       double residual;
       if (query(f, x, &gradient, &residual, indices, distances))
-        system->add(x, gradient, residual, huber, also, cauchy, drop, origin);
+        system->add(x, gradient, residual, huber, also, cauchy, drop, origin, drop_below);
     }
     return;
   }
@@ -137,7 +140,7 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
     }
   }
   for (const auto& value : values)
-    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also, cauchy, drop, origin);
+    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also, cauchy, drop, origin, drop_below);
 }
 
 void bspline(double t, double B[4], double dB[4]) {
@@ -201,6 +204,8 @@ InTenLoamPaper::InTenLoamPaper(const InTenLoamPaperParams& params)
   if (!std::isfinite(params_.s2s_translation_prior_ratio) ||
       params_.s2s_translation_prior_ratio < 0.0 || params_.s2s_translation_prior_ratio > 1.0)
     throw std::invalid_argument("s2s_translation_prior_ratio must be finite and in [0,1]");
+  if (!std::isfinite(params_.s2s_facade_no_forward_below) || params_.s2s_facade_no_forward_below < 0.0)
+    throw std::invalid_argument("s2s_facade_no_forward_below must be finite and non-negative");
   if (params_.s2s_geometric_prior) {
     if (params_.deskew != 0 || !std::isfinite(params_.max_range) || params_.max_range <= 0.0)
       throw std::invalid_argument("Geometric prior requires deskew=0 and a finite positive max_range");
@@ -758,8 +763,12 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
         *residual = nrm.dot(x - qj.p);
         return true;
       };
+      const bool facade_drop = cls == 1 && params_.s2s_facade_no_forward_below > 0.0;
       accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2,
-                         cls == 1 && params_.s2s_facade_cauchy, cls == 0 && params_.s2s_ground_no_forward);
+                         cls == 1 && params_.s2s_facade_cauchy,
+                         (cls == 0 && params_.s2s_ground_no_forward) || facade_drop,
+                         facade_drop ? params_.s2s_facade_no_forward_below
+                                     : std::numeric_limits<double>::infinity());
       counts[1 + cls] = sys.n - before;
     }
     // Reflectors (eq. 7) against the previous scan intensity field.

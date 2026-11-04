@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "suma_kitti_seq_00_full_ground_forward",
+    "title": "SuMa KITTI Odom seq 00 full (4541 frames): ground pixels without forward information",
+    "question": "Does removing the forward component of ground-like pixels (ground_no_forward_vertical_cos=0.866, not in the paper) change full-sequence accuracy of the official SuMa defaults on raw scans?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "variants": [
+    {
+      "id": "paper_odometry",
+      "label": "SuMaPaper, official defaults on raw scans (fresh reference)",
+      "design_style": "balanced",
+      "intent": "Unchanged paper_odometry setting, rerun on the same binary as the candidate.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper"
+      ]
+    },
+    {
+      "id": "paper_odometry_ground_no_forward",
+      "label": "SuMaPaper + ground pixels without forward information (not in the paper)",
+      "design_style": "ablation",
+      "intent": "Same setting; pixels whose model normal is within 30 deg of vertical give no forward information. Opt-in, default off; chosen on development sequences 01/02.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-paper",
+        "--suma-paper-set",
+        "ground_no_forward_vertical_cos=0.866"
+      ]
+    }
+  ]
+}

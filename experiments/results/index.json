@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T09:32:02+00:00",
+  "generated_at": "2026-11-04T13:15:51+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -5861,6 +5861,15 @@
       "current_default": "dense"
     },
     {
+      "problem_id": "suma_kitti_seq_00_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 00 full (4541 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_00_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_00_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry_ground_no_forward"
+    },
+    {
       "problem_id": "suma_kitti_seq_00_full_transfer",
       "title": "SuMa transfer check on KITTI Odom seq 00 full (4541 frames)",
       "status": "ready",
@@ -5868,6 +5877,15 @@
       "manifest_path": "experiments/suma_kitti_seq_00_full_transfer_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json",
       "current_default": "default"
+    },
+    {
+      "problem_id": "suma_kitti_seq_01_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 01 full (1101 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_01_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_01_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry_ground_no_forward"
     },
     {
       "problem_id": "suma_kitti_seq_01_full_paper",
@@ -5879,6 +5897,15 @@
       "current_default": "paper_odometry_clean_lookup_elevation"
     },
     {
+      "problem_id": "suma_kitti_seq_02_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 02 full (4661 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_02_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_02_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry_ground_no_forward"
+    },
+    {
       "problem_id": "suma_kitti_seq_02_full_transfer",
       "title": "SuMa transfer check on KITTI Odom seq 02 full (4661 frames)",
       "status": "ready",
@@ -5886,6 +5913,15 @@
       "manifest_path": "experiments/suma_kitti_seq_02_full_transfer_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json",
       "current_default": "paper_odometry_clean_lookup_elevation"
+    },
+    {
+      "problem_id": "suma_kitti_seq_03_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 03 full (801 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_03_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_03_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry"
     },
     {
       "problem_id": "suma_kitti_seq_03_full_paper",
@@ -5897,12 +5933,30 @@
       "current_default": "paper_odometry"
     },
     {
+      "problem_id": "suma_kitti_seq_04_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 04 full (271 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_04_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_04_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry_ground_no_forward"
+    },
+    {
       "problem_id": "suma_kitti_seq_04_full_paper",
       "title": "SuMa paper pipeline on KITTI Odom seq 04 full (271 frames)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_seq_04_full_paper_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_04_full_paper_matrix.json",
+      "current_default": "paper_odometry"
+    },
+    {
+      "problem_id": "suma_kitti_seq_05_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 05 full (2761 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_05_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_05_full_ground_forward_matrix.json",
       "current_default": "paper_odometry"
     },
     {
@@ -5913,6 +5967,15 @@
       "manifest_path": "experiments/suma_kitti_seq_05_full_transfer_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json",
       "current_default": "default"
+    },
+    {
+      "problem_id": "suma_kitti_seq_06_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 06 full (1101 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_06_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_06_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry"
     },
     {
       "problem_id": "suma_kitti_seq_06_full_paper",
@@ -5933,6 +5996,24 @@
       "current_default": "dense_profile"
     },
     {
+      "problem_id": "suma_kitti_seq_07_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 07 full (1101 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_07_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_07_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry"
+    },
+    {
+      "problem_id": "suma_kitti_seq_08_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 08 full (4071 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_08_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_08_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry_ground_no_forward"
+    },
+    {
       "problem_id": "suma_kitti_seq_08_full_transfer",
       "title": "SuMa transfer check on KITTI Odom seq 08 full (4071 frames)",
       "status": "ready",
@@ -5942,12 +6023,30 @@
       "current_default": "dense_profile"
     },
     {
+      "problem_id": "suma_kitti_seq_09_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 09 full (1591 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_09_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_09_full_ground_forward_matrix.json",
+      "current_default": "paper_odometry_ground_no_forward"
+    },
+    {
       "problem_id": "suma_kitti_seq_09_full_paper",
       "title": "SuMa paper pipeline on KITTI Odom seq 09 full (1591 frames)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_seq_09_full_paper_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_seq_09_full_paper_matrix.json",
+      "current_default": "paper_odometry"
+    },
+    {
+      "problem_id": "suma_kitti_seq_10_full_ground_forward",
+      "title": "SuMa KITTI Odom seq 10 full (1201 frames): ground pixels without forward information",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_10_full_ground_forward_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_10_full_ground_forward_matrix.json",
       "current_default": "paper_odometry"
     },
     {

@@ -338,3 +338,43 @@ TEST(SuMaPaperTest, RecoversKnownMotion) {
   EXPECT_GT(last.inliers, 5000);
   EXPECT_FALSE(last.fallback);
 }
+
+TEST(SuMaPaperTest, GroundWithoutForwardRemovesOnlyTheForwardRowOfGroundPixels) {
+  EXPECT_EQ(SuMaPaperParams{}.ground_no_forward_vertical_cos, 0.0);
+  SuMaPaperParams params;
+  params.max_iterations = 1;
+  SuMaPaper reference(params);
+  reference.process(simulateScan(Eigen::Matrix4d::Identity()));
+  const auto model = reference.renderModel(Eigen::Matrix4d::Identity(), reference.renderConfidenceThreshold());
+  const auto data = reference.computeVertexNormalMap(simulateScan(makePose(0.3, 0.1, 0.02, 0, 0, 0.01)));
+  SuMaPaper::IcpStats base, drop;
+  const auto control = reference.alignProjective(data, model, Eigen::Matrix4d::Identity(), 2, 30, &base);
+  ASSERT_GT(base.inliers, 1000);
+  params.ground_no_forward_vertical_cos = 0.866;  // within 30 deg of vertical
+  SuMaPaper candidate(params);
+  candidate.alignProjective(data, model, Eigen::Matrix4d::Identity(), 2, 30, &drop);
+  EXPECT_EQ(drop.inliers, base.inliers);
+  // At the identity the sensor origin is the target origin: only the forward
+  // row and column change, and only by the ground pixels' share.
+  for (int i = 1; i < 6; ++i)
+    for (int j = 1; j < 6; ++j) EXPECT_EQ(drop.JtJ(i, j), base.JtJ(i, j));
+  EXPECT_LT(drop.JtJ(0, 0), base.JtJ(0, 0));
+  EXPECT_GT(drop.JtJ(0, 0), 0.0);  // the front and back walls still hold x
+  params.ground_no_forward_vertical_cos = 0.0;
+  SuMaPaper disabled(params);
+  EXPECT_EQ(disabled.alignProjective(data, model, Eigen::Matrix4d::Identity(), 2, 30), control);
+}
+
+TEST(SuMaPaperTest, GroundWithoutForwardStillRecoversKnownMotion) {
+  SuMaPaperParams params;
+  params.ground_no_forward_vertical_cos = 0.866;
+  SuMaPaper suma(params);
+  suma.process(simulateScan(Eigen::Matrix4d::Identity()));
+  const auto model = suma.renderModel(Eigen::Matrix4d::Identity(), suma.renderConfidenceThreshold());
+  const Eigen::Matrix4d truth = makePose(0.8, 0.15, 0.03, 0.01, -0.008, 0.03);
+  const auto moved = suma.computeVertexNormalMap(simulateScan(truth));
+  const Eigen::Matrix4d est = suma.alignProjective(moved, model, Eigen::Matrix4d::Identity(), 2.0, 30.0);
+  // Same bounds as ProjectiveAssociationRecoversPerturbation.
+  EXPECT_LT((est.block<3, 1>(0, 3) - truth.block<3, 1>(0, 3)).norm(), 0.03);
+  EXPECT_LT(rotationErrorDeg(est, truth), 0.1);
+}

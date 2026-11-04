@@ -532,16 +532,27 @@ suma,kitti_raw_0009_200,gt-backed,default,Default,3.376615,19.189738,experiments
 suma,kitti_raw_0009_full,gt-backed,dense,Dense,4.072790,15.619824,experiments/results/suma_kitti_raw_0009_full_matrix.json
 suma,kitti_raw_0061_200,gt-backed,dense,Dense,1.495999,33.536524,experiments/results/suma_kitti_raw_0061_matrix.json
 suma,kitti_raw_0061_full,gt-backed,fast,Fast,32.428710,110.931140,experiments/results/suma_kitti_raw_0061_full_matrix.json
+suma,kitti_seq_00_full,gt-backed,paper_odometry_ground_no_forward,SuMaPaper + ground pixels without forward information (not in the paper),7.799354,6.811872,experiments/results/suma_kitti_seq_00_full_ground_forward_matrix.json
 suma,kitti_seq_00_full,gt-backed,default,default,50.851985,33.776567,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
+suma,kitti_seq_01_full,gt-backed,paper_odometry_ground_no_forward,SuMaPaper + ground pixels without forward information (not in the paper),75.750551,9.642679,experiments/results/suma_kitti_seq_01_full_ground_forward_matrix.json
 suma,kitti_seq_01_full,gt-backed,paper_odometry_clean_lookup_elevation,"SuMa paper pipeline, normalised model lookup + 0.22 deg correction",59.042981,6.377259,experiments/results/suma_kitti_seq_01_full_paper_matrix.json
+suma,kitti_seq_02_full,gt-backed,paper_odometry_ground_no_forward,SuMaPaper + ground pixels without forward information (not in the paper),38.791930,6.779453,experiments/results/suma_kitti_seq_02_full_ground_forward_matrix.json
 suma,kitti_seq_02_full,gt-backed,paper_odometry_clean_lookup_elevation,"SuMa paper pipeline, normalised model lookup + 0.22 deg correction",16.836660,4.429848,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
+suma,kitti_seq_03_full,gt-backed,paper_odometry,"SuMaPaper, official defaults on raw scans (fresh reference)",1.448501,6.939508,experiments/results/suma_kitti_seq_03_full_ground_forward_matrix.json
 suma,kitti_seq_03_full,gt-backed,paper_odometry,"SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",1.448501,4.702934,experiments/results/suma_kitti_seq_03_full_paper_matrix.json
+suma,kitti_seq_04_full,gt-backed,paper_odometry_ground_no_forward,SuMaPaper + ground pixels without forward information (not in the paper),0.953011,8.165975,experiments/results/suma_kitti_seq_04_full_ground_forward_matrix.json
 suma,kitti_seq_04_full,gt-backed,paper_odometry,"SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",0.974258,5.034063,experiments/results/suma_kitti_seq_04_full_paper_matrix.json
+suma,kitti_seq_05_full,gt-backed,paper_odometry,"SuMaPaper, official defaults on raw scans (fresh reference)",3.420344,7.021093,experiments/results/suma_kitti_seq_05_full_ground_forward_matrix.json
 suma,kitti_seq_05_full,gt-backed,default,default,10.983178,40.331556,experiments/results/suma_kitti_seq_05_full_transfer_matrix.json
+suma,kitti_seq_06_full,gt-backed,paper_odometry,"SuMaPaper, official defaults on raw scans (fresh reference)",2.961054,7.195894,experiments/results/suma_kitti_seq_06_full_ground_forward_matrix.json
 suma,kitti_seq_06_full,gt-backed,paper_odometry_clean_lookup_elevation,"SuMa paper pipeline, normalised model lookup + 0.22 deg correction",2.872549,4.756806,experiments/results/suma_kitti_seq_06_full_paper_matrix.json
+suma,kitti_seq_07_full,gt-backed,paper_odometry,"SuMaPaper, official defaults on raw scans (fresh reference)",1.059569,7.118433,experiments/results/suma_kitti_seq_07_full_ground_forward_matrix.json
 suma,kitti_seq_07_full,gt-backed,dense_profile,"dense_profile (Table 6 variant on seq 07, raw scans)",3.970935,35.600179,experiments/results/suma_kitti_seq_07_full_elevation_matrix.json
+suma,kitti_seq_08_full,gt-backed,paper_odometry_ground_no_forward,SuMaPaper + ground pixels without forward information (not in the paper),23.473598,7.036789,experiments/results/suma_kitti_seq_08_full_ground_forward_matrix.json
 suma,kitti_seq_08_full,gt-backed,dense_profile,dense profile,19.290022,26.626118,experiments/results/suma_kitti_seq_08_full_transfer_matrix.json
+suma,kitti_seq_09_full,gt-backed,paper_odometry_ground_no_forward,SuMaPaper + ground pixels without forward information (not in the paper),6.424045,6.948554,experiments/results/suma_kitti_seq_09_full_ground_forward_matrix.json
 suma,kitti_seq_09_full,gt-backed,paper_odometry,"SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",6.469266,4.436344,experiments/results/suma_kitti_seq_09_full_paper_matrix.json
+suma,kitti_seq_10_full,gt-backed,paper_odometry,"SuMaPaper, official defaults on raw scans (fresh reference)",5.252594,7.193729,experiments/results/suma_kitti_seq_10_full_ground_forward_matrix.json
 suma,kitti_seq_10_full,gt-backed,paper_odometry,"SuMa paper pipeline (rendered surfel model, projective frame-to-model ICP)",5.252594,4.559601,experiments/results/suma_kitti_seq_10_full_paper_matrix.json
 suma,mcd_kth_day_06_108,gt-backed,fast,Fast,7.418622,150.195655,experiments/results/suma_mcd_kth_day_06_matrix.json
 suma,mcd_ntu_day_02_108,gt-backed,dense,Dense,0.035750,33.946904,experiments/results/suma_mcd_ntu_day_02_matrix.json

@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-11-04T18:06:39+00:00
+> Generated: 2026-11-04T22:06:11+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -805,8 +805,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Repo scope**: Paper reimplementation (no author code) with the paper pipeline — From-paper reimplementation in the shared harness, no GT seed. One fixed variant on KITTI Odometry 00-10; existing 00/07 results are reused unchanged, and 01-06 / 08-10 are new evaluation-only full runs. Table 6 is restricted to this variant; historical ablations remain stored.
 **Current claim**: Gap remains on KITTI Odometry 00-10 with one fixed setting — --inten-loam-paper-odometry uses FEF, S2S re-association, S2M on a temporal-voxel-filtered keyframe map, DOR map-insertion gating and a B-spline intensity residual. The fixed paper_odometry_plane_check variant explicitly uses s2m_plane_max_dist=0.05 and a 0.17 deg correction on all 00-10 sequences: geometric mean 2.19x. These KITTI choices were selected on 07 windows, with diagnosis of 00 frames 4000-4399 suggesting the plane check; 00 is not fully held out. The added sequences are evaluation only. Defaults and stored ablations are unchanged.
 **Numeric comparison**: Same metric, 2.19x on 00-10 with one fixed setting — paper_odometry_plane_check, official KITTI RTE [%], repo vs paper: 00 0.697 vs 0.52 (1.34x); 01 16.614 vs 0.64 (25.96x); 02 3.221 vs 0.54 (5.97x); 03 0.891 vs 0.63 (1.41x); 04 0.676 vs 0.37 (1.83x); 05 0.497 vs 0.36 (1.38x); 06 0.359 vs 0.24 (1.49x); 07 0.364 vs 0.34 (1.07x); 08 0.938 vs 0.71 (1.32x); 09 0.661 vs 0.48 (1.38x); 10 1.156 vs 0.45 (2.57x); geometric mean 2.19x. Table 6 pins this variant for every sequence. Sources: experiments/results/inten_loam_kitti_seq_NN_full_paper_comp_matrix.json and experiments/results/mesh_inten_kitti_coverage/summary.json.
-**Main blocker**: 01: 16.614 % vs 0.64 % (25.96x), with motion-length deficits at destination frames 217-253 and 420-518; 136 moving steps differ in length by >20 %. 02: 3.221 % vs 0.54 % (5.97x), with 133 such steps, principally 1878-1943 and 4460-4524; these come mainly from the S2S ground forward term: the opt-in s2s_ground_no_forward (not in the paper, chosen on 01/02) gives 0.823 % (1.52x) and 20 such steps, while the held-out 00/03-10 stay within 5 % (geometric mean 0.995x) and the 00-10 geometric mean falls from 2.19x to 1.93x. 10: 1.156 % vs 0.45 % (2.57x), but no moving step exceeds 20 % length or vector error; the 600-700 block grows from 6.7 to 9.2 m position error. For 01 and 10, saved-pose diagnostics locate drift without identifying its solver-level cause.
-**Next step**: Owner decision whether the opt-in S2S ground-without-forward flag (1.93x on 00-10, experiments/results/inten_ground_forward/) should become the Table 6 variant. Trace association and optimization through the measured 01 failure intervals (edge/facade pull, unchanged by the flag) and the heading bias on 10. Keep this negative fixed-setting baseline; any non-paper correction must be opt-in and validated on all sequences.
+**Main blocker**: 01: 16.614 % vs 0.64 % (25.96x), with motion-length deficits at destination frames 217-253 and 420-518; 136 moving steps differ in length by >20 %. 02: 3.221 % vs 0.54 % (5.97x), with 133 such steps, principally 1878-1943 and 4460-4524; these come mainly from the S2S ground forward term: the opt-in s2s_ground_no_forward (not in the paper, chosen on 01/02) gives 0.823 % (1.52x) and 20 such steps, while the held-out 00/03-10 stay within 5 % (geometric mean 0.995x) and the 00-10 geometric mean falls from 2.19x to 1.93x; adding the LOAM-family 5 m S2S gate (s2s_gate_sq=25, the paper leaves it open) gives 1.82x, with 01 at 9.384 % (14.66x) and the held-out sequences within 5 %. 10: 1.156 % vs 0.45 % (2.57x), but no moving step exceeds 20 % length or vector error; the 600-700 block grows from 6.7 to 9.2 m position error. For 01 and 10, saved-pose diagnostics locate drift without identifying its solver-level cause.
+**Next step**: Owner decision whether the opt-in S2S ground-without-forward flag with the 5 m S2S gate (1.82x on 00-10, experiments/results/inten_s2s_gate/) should become the Table 6 variant. Trace association and optimization through the measured 01 failure intervals (edge/facade pull, unchanged by the flag) and the heading bias on 10. Keep this negative fixed-setting baseline; any non-paper correction must be opt-in and validated on all sequences.
 
 ### Paper-Reported Values
 
@@ -830,26 +830,37 @@ For an explicit statement of implementation scope and what the repo currently cl
 |---|---|---:|---:|---:|---:|
 | KITTI | Paper odometry + plane check (fresh reference) | 17.644 | 0.803 | 0.005112 | 4.99 |
 | KITTI | InTEn-LOAM paper pipeline without the intensity residual | 16.112 | 0.820 | 0.005641 | 2.62 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 17.266 | 0.799 | 0.005171 | 3.61 |
 | KITTI | Paper odometry + plane check + S2S ground without forward (not in the paper) | 275.834 | 13.727 | 0.004189 | 7.11 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 275.593 | 13.720 | 0.004111 | 1.65 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 137.336 | 8.497 | 0.003462 | 5.10 |
 | KITTI | Paper odometry + plane check + S2S ground without forward (not in the paper) | 40.214 | 0.907 | 0.003605 | 5.60 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 122.845 | 3.607 | 0.010788 | 1.82 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 41.407 | 0.881 | 0.003572 | 3.98 |
 | KITTI | Paper odometry + plane check (fresh reference) | 6.262 | 0.587 | 0.006389 | 6.08 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 6.262 | 0.587 | 0.006389 | 1.55 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 6.265 | 0.591 | 0.006423 | 4.24 |
 | KITTI | Paper odometry + plane check (fresh reference) | 1.540 | 0.702 | 0.003353 | 6.80 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 1.540 | 0.702 | 0.003353 | 1.71 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 1.559 | 0.711 | 0.003439 | 4.78 |
 | KITTI | Paper odometry + plane check (fresh reference) | 9.976 | 0.414 | 0.003794 | 4.74 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 9.976 | 0.414 | 0.003794 | 1.21 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 9.820 | 0.438 | 0.004033 | 3.41 |
 | KITTI | Paper odometry + plane check (fresh reference) | 1.918 | 0.511 | 0.002331 | 5.59 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 1.918 | 0.511 | 0.002331 | 1.79 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 1.940 | 0.510 | 0.002349 | 3.99 |
 | KITTI | Paper odometry + plane check + S2S ground without forward (not in the paper) | 1.384 | 0.431 | 0.003226 | 4.67 |
 | KITTI | InTEn-LOAM paper pipeline without the intensity residual | 1.193 | 0.465 | 0.003995 | 3.20 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 1.309 | 0.440 | 0.003082 | 3.46 |
 | KITTI | Paper odometry + plane check (fresh reference) | 27.673 | 1.310 | 0.004499 | 4.71 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 27.673 | 1.310 | 0.004499 | 1.26 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 27.556 | 1.323 | 0.004699 | 3.21 |
 | KITTI | Paper odometry + plane check + S2S ground without forward (not in the paper) | 10.693 | 0.709 | 0.003828 | 5.64 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 11.000 | 0.700 | 0.003665 | 2.11 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 10.072 | 0.701 | 0.003559 | 3.82 |
 | KITTI | Paper odometry + plane check + S2S ground without forward (not in the paper) | 8.748 | 0.848 | 0.004574 | 5.32 |
 | KITTI | InTEn-LOAM paper pipeline, 0.05 m S2M plane check + 0.17 deg correction | 9.670 | 0.843 | 0.004653 | 1.83 |
+| KITTI | Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | 8.677 | 0.825 | 0.004441 | 3.95 |
 
 **Notes**: Paper average 0.54 % (frame-weighted). Includes scan-to-local-map refinement, no loop closure. Values taken from arXiv v1, not checked against the published version. Values read from the paper PDF on 2026-10-12.
 

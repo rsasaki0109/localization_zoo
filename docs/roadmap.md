@@ -10,6 +10,25 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### InTEn-LOAM 01 and the S2S gate (2026-11-04)
+
+On the 01 highway, InTEn-LOAM's S2S recovers from a GT seed but not from a
+seed that is a few percent short. Its 1 m nearest-neighbour gate is narrow
+against about 2.5 m per scan, and the paper leaves this value open.
+
+One fixed setting with the LOAM-family 5 m gate (`s2s_gate_sq=25`) and
+`s2s_ground_no_forward`, against a fresh reference that equals every stored
+result:
+
+- 01: 16.614 → 9.384 % (14.66x);
+- 02: 0.811 %;
+- held-out sequences: 0.989x, with 7 of 9 lower and none above +5 %;
+- 00-10: 2.19x → 1.82x.
+
+01 and 10 stay above 2x. Wider gates saturate on 01 (9.08 / 9.05 %). Table 6 is
+unchanged; promotion is the owner's decision.
+[Study](../experiments/results/inten_s2s_gate/README.md).
+
 ### SuMa one setting (2026-11-04)
 
 The SuMa paper path fails on KITTI 01 (8.11x) and 02 (3.19x) with the official
@@ -240,7 +259,7 @@ variant runs on every sequence.
 | IMLS-SLAM | 1.05x | 00-10 | - | one setting; coarse first registration fixes 04 |
 | Mesh-LOAM | 1.28x | 00-10 | - | one setting; no sequence above 2x |
 | ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x) |
-| InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x; 02 collapse located in the S2S ground forward term, opt-in ground without forward 1.93x (02 1.52x), not adopted |
+| InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x; 02 collapse located in the S2S ground forward term, opt-in ground without forward 1.93x (02 1.52x), with a 5 m S2S gate 1.82x (01 14.66x), not adopted |
 | L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), both in the vertical channel; opt-in ground-height-map vertical mode 1.29x, none above 2x |
 
 Per-method details and negative results live in each `papers/<method>/README.md`;
@@ -1079,6 +1098,9 @@ independent. Each item says what "done" means.
   ([study](../experiments/results/inten_ground_forward/README.md)). 01 (25.96x)
   is unchanged and needs the edge/facade side. The same treatment for
   along-axis facades makes 01 and 02 much worse (rejected in development).
+  A 5 m S2S gate (LOAM value; 1 m default) with the ground flag gives 01
+  9.384 % (14.66x) and 1.82x over 00-10, with held-out sequences within 5 %
+  ([study](../experiments/results/inten_s2s_gate/README.md)).
 - SuMa can run with one setting: the opt-in ground-pixel forward drop gives
   0.94x on 00-10 with none above 2x (01 0.96x, 02 1.42x; 09/10 +7 %).
   Table 6 is pinned to it (owner decision, 2026-11-04)

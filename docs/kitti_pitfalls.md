@@ -159,6 +159,10 @@ SuMa's seq 02 failure).
 - Symptom: a sudden, sustained over- or under-estimate of the step at
   12-14 m/s; KITTI 01 and parts of 02 and of 00 (frames 4000-4300).
 - Fallbacks keyed to sudden changes do not catch a gradual drift.
+- Narrow correspondence gates keep a short step short: InTEn-LOAM's 1 m S2S
+  nearest-neighbour gate at about 2.5 m per scan. The LOAM-family 5 m gate
+  takes 01 from 16.6 to 9.4 % with the ground fix, and wider gates saturate
+  ([study](../experiments/results/inten_s2s_gate/README.md)).
 - Keeping weak directions at the prediction helps: DiLO's plane key points on
   01 collapse towards zero motion after frame 473 (8.70 %); leaving
   translation directions whose eigenvalue is below 0.03 of the largest at the

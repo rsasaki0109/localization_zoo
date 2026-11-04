@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-11-04T18:06:37+00:00
+> Generated: 2026-11-04T22:06:10+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -432,28 +432,39 @@ Does the same variant win across all datasets? Instability here is the core evid
 |---|---|---:|---:|
 | dogfooding_results/kitti_seq_00_full | paper_odometry_plane_check | 17.644 | 5.0 |
 | dogfooding_results/kitti_seq_00_full | paper_odometry_no_intensity | 16.112 | 2.6 |
+| dogfooding_results/kitti_seq_00_full | paper_odometry_plane_check_gate25_ground_no_forward | 17.266 | 3.6 |
 | dogfooding_results/kitti_seq_01_full | paper_odometry_plane_check_ground_no_forward | 275.834 | 7.1 |
 | dogfooding_results/kitti_seq_01_full | paper_odometry_plane_check | 275.593 | 1.7 |
+| dogfooding_results/kitti_seq_01_full | paper_odometry_plane_check_gate25_ground_no_forward | 137.336 | 5.1 |
 | dogfooding_results/kitti_seq_02_full | paper_odometry_plane_check_ground_no_forward | 40.214 | 5.6 |
 | dogfooding_results/kitti_seq_02_full | paper_odometry_plane_check | 122.845 | 1.8 |
+| dogfooding_results/kitti_seq_02_full | paper_odometry_plane_check_gate25_ground_no_forward | 41.407 | 4.0 |
 | dogfooding_results/kitti_seq_03_full | paper_odometry_plane_check | 6.262 | 6.1 |
 | dogfooding_results/kitti_seq_03_full | paper_odometry_plane_check | 6.262 | 1.6 |
+| dogfooding_results/kitti_seq_03_full | paper_odometry_plane_check_gate25_ground_no_forward | 6.265 | 4.2 |
 | dogfooding_results/kitti_seq_04_full | paper_odometry_plane_check | 1.540 | 6.8 |
 | dogfooding_results/kitti_seq_04_full | paper_odometry_plane_check | 1.540 | 1.7 |
+| dogfooding_results/kitti_seq_04_full | paper_odometry_plane_check_gate25_ground_no_forward | 1.559 | 4.8 |
 | dogfooding_results/kitti_seq_05_full | paper_odometry_plane_check | 9.976 | 4.7 |
 | dogfooding_results/kitti_seq_05_full | paper_odometry_plane_check | 9.976 | 1.2 |
+| dogfooding_results/kitti_seq_05_full | paper_odometry_plane_check_gate25_ground_no_forward | 9.820 | 3.4 |
 | dogfooding_results/kitti_seq_06_full | paper_odometry_plane_check | 1.918 | 5.6 |
 | dogfooding_results/kitti_seq_06_full | paper_odometry_plane_check | 1.918 | 1.8 |
+| dogfooding_results/kitti_seq_06_full | paper_odometry_plane_check_gate25_ground_no_forward | 1.940 | 4.0 |
 | dogfooding_results/kitti_seq_07_full | paper_odometry_plane_check_ground_no_forward | 1.384 | 4.7 |
 | dogfooding_results/kitti_seq_07_full | paper_odometry_no_intensity | 1.193 | 3.2 |
+| dogfooding_results/kitti_seq_07_full | paper_odometry_plane_check_gate25_ground_no_forward | 1.309 | 3.5 |
 | dogfooding_results/kitti_seq_08_full | paper_odometry_plane_check | 27.673 | 4.7 |
 | dogfooding_results/kitti_seq_08_full | paper_odometry_plane_check | 27.673 | 1.3 |
+| dogfooding_results/kitti_seq_08_full | paper_odometry_plane_check_gate25_ground_no_forward | 27.556 | 3.2 |
 | dogfooding_results/kitti_seq_09_full | paper_odometry_plane_check_ground_no_forward | 10.693 | 5.6 |
 | dogfooding_results/kitti_seq_09_full | paper_odometry_plane_check | 11.000 | 2.1 |
+| dogfooding_results/kitti_seq_09_full | paper_odometry_plane_check_gate25_ground_no_forward | 10.072 | 3.8 |
 | dogfooding_results/kitti_seq_10_full | paper_odometry_plane_check_ground_no_forward | 8.748 | 5.3 |
 | dogfooding_results/kitti_seq_10_full | paper_odometry_plane_check | 9.670 | 1.8 |
+| dogfooding_results/kitti_seq_10_full | paper_odometry_plane_check_gate25_ground_no_forward | 8.677 | 3.9 |
 
-**Stability**: 3 unique default(s) across 22 windows.
+**Stability**: 4 unique default(s) across 33 windows.
 
 ### ISC-LOAM
 
@@ -1258,7 +1269,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | paper_odometry_no_correction | 12.150 | 2.3 | 2 |
 | paper_odometry_no_intensity | 8.652 | 2.9 | 2 |
 | paper_odometry_no_mapping | 25.771 | 8.5 | 2 |
-| paper_odometry_plane_check | 44.144 | 3.6 | 22 |
+| paper_odometry_plane_check | 44.144 | 3.7 | 33 |
+| paper_odometry_plane_check_gate25_ground_no_forward | 23.928 | 4.0 | 11 |
 | paper_odometry_plane_check_ground_no_forward | 36.706 | 5.5 | 11 |
 
 ### ISC-LOAM

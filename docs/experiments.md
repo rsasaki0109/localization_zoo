@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -253,6 +253,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 00: predicted-DOR facade gate | `ready` | `-` | 17.051 | - | `experiments/results/inten_loam_kitti_seq_00_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 00: recursive fixed-rotation geometry consensus | `ready` | `-` | 17.051 | - | `experiments/results/inten_loam_kitti_seq_00_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 00: fixed missing-row support experiment | `ready` | `-` | 17.589 | - | `experiments/results/inten_loam_kitti_seq_00_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 00 full (4541 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 17.266 | 3.6 | `experiments/results/inten_loam_kitti_seq_00_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 00: weak-translation prediction prior | `ready` | `-` | 17.064 | - | `experiments/results/inten_loam_kitti_seq_00_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 01: S2S facade Cauchy influence | `ready` | `-` | 88.786 | - | `experiments/results/inten_loam_kitti_seq_01_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 01: accepted facade PCA normals | `ready` | `-` | 88.786 | - | `experiments/results/inten_loam_kitti_seq_01_full_facade_pca_matrix.json` |
@@ -264,6 +265,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 01: predicted-DOR facade gate | `ready` | `-` | 88.786 | - | `experiments/results/inten_loam_kitti_seq_01_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 01: recursive fixed-rotation geometry consensus | `ready` | `-` | 88.786 | - | `experiments/results/inten_loam_kitti_seq_01_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 01: fixed missing-row support experiment | `ready` | `-` | 275.593 | - | `experiments/results/inten_loam_kitti_seq_01_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 01 full (1101 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 137.336 | 5.1 | `experiments/results/inten_loam_kitti_seq_01_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 01: weak-translation prediction prior | `ready` | `-` | 100.494 | - | `experiments/results/inten_loam_kitti_seq_01_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 02: S2S facade Cauchy influence | `ready` | `-` | 40.603 | - | `experiments/results/inten_loam_kitti_seq_02_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 02: accepted facade PCA normals | `ready` | `-` | 40.603 | - | `experiments/results/inten_loam_kitti_seq_02_full_facade_pca_matrix.json` |
@@ -275,6 +277,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 02: predicted-DOR facade gate | `ready` | `-` | 40.603 | - | `experiments/results/inten_loam_kitti_seq_02_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 02: recursive fixed-rotation geometry consensus | `ready` | `-` | 40.603 | - | `experiments/results/inten_loam_kitti_seq_02_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 02: fixed missing-row support experiment | `ready` | `-` | 122.845 | - | `experiments/results/inten_loam_kitti_seq_02_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 02 full (4661 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 41.407 | 4.0 | `experiments/results/inten_loam_kitti_seq_02_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 02: weak-translation prediction prior | `ready` | `-` | 48.906 | - | `experiments/results/inten_loam_kitti_seq_02_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 03: S2S facade Cauchy influence | `ready` | `-` | 6.251 | - | `experiments/results/inten_loam_kitti_seq_03_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 03: accepted facade PCA normals | `ready` | `-` | 6.251 | - | `experiments/results/inten_loam_kitti_seq_03_full_facade_pca_matrix.json` |
@@ -286,6 +289,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 03: predicted-DOR facade gate | `ready` | `-` | 6.207 | - | `experiments/results/inten_loam_kitti_seq_03_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 03: recursive fixed-rotation geometry consensus | `ready` | `-` | 6.251 | - | `experiments/results/inten_loam_kitti_seq_03_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 03: fixed missing-row support experiment | `ready` | `-` | 6.256 | - | `experiments/results/inten_loam_kitti_seq_03_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 03 full (801 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 6.262 | 4.2 | `experiments/results/inten_loam_kitti_seq_03_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 03: weak-translation prediction prior | `ready` | `-` | 6.450 | - | `experiments/results/inten_loam_kitti_seq_03_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 04: S2S facade Cauchy influence | `ready` | `-` | 1.552 | - | `experiments/results/inten_loam_kitti_seq_04_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 04: accepted facade PCA normals | `ready` | `-` | 1.551 | - | `experiments/results/inten_loam_kitti_seq_04_full_facade_pca_matrix.json` |
@@ -297,6 +301,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 04: predicted-DOR facade gate | `ready` | `-` | 1.563 | - | `experiments/results/inten_loam_kitti_seq_04_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 04: recursive fixed-rotation geometry consensus | `ready` | `-` | 1.542 | - | `experiments/results/inten_loam_kitti_seq_04_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 04: fixed missing-row support experiment | `ready` | `-` | 1.540 | - | `experiments/results/inten_loam_kitti_seq_04_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 04 full (271 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 1.540 | 4.8 | `experiments/results/inten_loam_kitti_seq_04_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 04: weak-translation prediction prior | `ready` | `-` | 1.544 | - | `experiments/results/inten_loam_kitti_seq_04_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 05: S2S facade Cauchy influence | `ready` | `-` | 9.531 | - | `experiments/results/inten_loam_kitti_seq_05_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 05: accepted facade PCA normals | `ready` | `-` | 9.417 | - | `experiments/results/inten_loam_kitti_seq_05_full_facade_pca_matrix.json` |
@@ -308,6 +313,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 05: predicted-DOR facade gate | `ready` | `-` | 9.639 | - | `experiments/results/inten_loam_kitti_seq_05_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 05: recursive fixed-rotation geometry consensus | `ready` | `-` | 9.639 | - | `experiments/results/inten_loam_kitti_seq_05_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 05: fixed missing-row support experiment | `ready` | `-` | 9.879 | - | `experiments/results/inten_loam_kitti_seq_05_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 05 full (2761 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 9.820 | 3.4 | `experiments/results/inten_loam_kitti_seq_05_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 05: weak-translation prediction prior | `ready` | `-` | 9.887 | - | `experiments/results/inten_loam_kitti_seq_05_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 06: S2S facade Cauchy influence | `ready` | `-` | 1.953 | - | `experiments/results/inten_loam_kitti_seq_06_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 06: accepted facade PCA normals | `ready` | `-` | 1.906 | - | `experiments/results/inten_loam_kitti_seq_06_full_facade_pca_matrix.json` |
@@ -319,6 +325,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 06: predicted-DOR facade gate | `ready` | `-` | 1.931 | - | `experiments/results/inten_loam_kitti_seq_06_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 06: recursive fixed-rotation geometry consensus | `ready` | `-` | 1.882 | - | `experiments/results/inten_loam_kitti_seq_06_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 06: fixed missing-row support experiment | `ready` | `-` | 1.918 | - | `experiments/results/inten_loam_kitti_seq_06_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 06 full (1101 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 1.918 | 4.0 | `experiments/results/inten_loam_kitti_seq_06_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 06: weak-translation prediction prior | `ready` | `-` | 1.924 | - | `experiments/results/inten_loam_kitti_seq_06_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 07: S2S facade Cauchy influence | `ready` | `-` | 1.391 | - | `experiments/results/inten_loam_kitti_seq_07_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 07: accepted facade PCA normals | `ready` | `-` | 1.391 | - | `experiments/results/inten_loam_kitti_seq_07_full_facade_pca_matrix.json` |
@@ -330,6 +337,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 07: predicted-DOR facade gate | `ready` | `-` | 1.391 | - | `experiments/results/inten_loam_kitti_seq_07_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 07: recursive fixed-rotation geometry consensus | `ready` | `-` | 1.391 | - | `experiments/results/inten_loam_kitti_seq_07_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 07: fixed missing-row support experiment | `ready` | `-` | 1.429 | - | `experiments/results/inten_loam_kitti_seq_07_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 07 full (1101 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 1.309 | 3.5 | `experiments/results/inten_loam_kitti_seq_07_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 07: weak-translation prediction prior | `ready` | `-` | 1.661 | - | `experiments/results/inten_loam_kitti_seq_07_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 08: S2S facade Cauchy influence | `ready` | `-` | 28.621 | - | `experiments/results/inten_loam_kitti_seq_08_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 08: accepted facade PCA normals | `ready` | `-` | 28.631 | - | `experiments/results/inten_loam_kitti_seq_08_full_facade_pca_matrix.json` |
@@ -341,6 +349,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 08: predicted-DOR facade gate | `ready` | `-` | 28.344 | - | `experiments/results/inten_loam_kitti_seq_08_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 08: recursive fixed-rotation geometry consensus | `ready` | `-` | 28.897 | - | `experiments/results/inten_loam_kitti_seq_08_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 08: fixed missing-row support experiment | `ready` | `-` | 27.673 | - | `experiments/results/inten_loam_kitti_seq_08_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 08 full (4071 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 27.556 | 3.2 | `experiments/results/inten_loam_kitti_seq_08_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 08: weak-translation prediction prior | `ready` | `-` | 28.287 | - | `experiments/results/inten_loam_kitti_seq_08_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 09: S2S facade Cauchy influence | `ready` | `-` | 11.067 | - | `experiments/results/inten_loam_kitti_seq_09_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 09: accepted facade PCA normals | `ready` | `-` | 11.038 | - | `experiments/results/inten_loam_kitti_seq_09_full_facade_pca_matrix.json` |
@@ -352,6 +361,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 09: predicted-DOR facade gate | `ready` | `-` | 10.886 | - | `experiments/results/inten_loam_kitti_seq_09_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 09: recursive fixed-rotation geometry consensus | `ready` | `-` | 10.404 | - | `experiments/results/inten_loam_kitti_seq_09_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 09: fixed missing-row support experiment | `ready` | `-` | 11.000 | - | `experiments/results/inten_loam_kitti_seq_09_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 09 full (1591 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 10.072 | 3.8 | `experiments/results/inten_loam_kitti_seq_09_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 09: weak-translation prediction prior | `ready` | `-` | 11.134 | - | `experiments/results/inten_loam_kitti_seq_09_full_translation_prior_matrix.json` |
 | InTEn-LOAM KITTI 10: S2S facade Cauchy influence | `ready` | `-` | 8.852 | - | `experiments/results/inten_loam_kitti_seq_10_full_facade_loss_matrix.json` |
 | InTEn-LOAM KITTI 10: accepted facade PCA normals | `ready` | `-` | 8.852 | - | `experiments/results/inten_loam_kitti_seq_10_full_facade_pca_matrix.json` |
@@ -363,6 +373,7 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 | InTEn-LOAM KITTI 10: predicted-DOR facade gate | `ready` | `-` | 8.852 | - | `experiments/results/inten_loam_kitti_seq_10_full_prediction_dor_matrix.json` |
 | InTEn-LOAM KITTI 10: recursive fixed-rotation geometry consensus | `ready` | `-` | 8.852 | - | `experiments/results/inten_loam_kitti_seq_10_full_recursive_consensus_matrix.json` |
 | InTEn-LOAM KITTI 10: fixed missing-row support experiment | `ready` | `-` | 9.508 | - | `experiments/results/inten_loam_kitti_seq_10_full_row_support_matrix.json` |
+| InTEn-LOAM KITTI Odom seq 10 full (1201 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 8.677 | 3.9 | `experiments/results/inten_loam_kitti_seq_10_full_s2s_gate_matrix.json` |
 | InTEn-LOAM KITTI 10: weak-translation prediction prior | `ready` | `-` | 9.902 | - | `experiments/results/inten_loam_kitti_seq_10_full_translation_prior_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
@@ -15128,6 +15139,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1915 s2m=2292 dor points/frame=128; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI Odom seq 00 full (4541 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_00_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_00_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 17.644 | 3.5 | 97.8 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 17.266 | 3.6 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 3.6 FPS.
+3. `paper_odometry_plane_check_gate25_ground_no_forward` is the most accurate observed variant at 17.266 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1382 s2m=2290 dor points/frame=128
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_00_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_00_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_00_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1703 s2m=2291 dor points/frame=128; S2S ground without forward information enabled (repository extension, opt-in)
+
+
 ## InTEn-LOAM KITTI 00: weak-translation prediction prior
 
 - **Problem ID**: `inten_loam_kitti_seq_00_full_translation_prior`
@@ -15642,6 +15701,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.55 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.65 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1008 s2m=1483 dor points/frame=234; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI Odom seq 01 full (1101 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_01_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_01_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 275.593 | 4.9 | 73.3 | 2.50 | 3.30 | Keep as reference variant |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 137.336 | 5.1 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 5.1 FPS.
+3. `paper_odometry_plane_check_gate25_ground_no_forward` is the most accurate observed variant at 137.336 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_01_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_01_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_01_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=850 s2m=1483 dor points/frame=232
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_01_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_01_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_01_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1356 s2m=1489 dor points/frame=164; S2S ground without forward information enabled (repository extension, opt-in)
 
 
 ## InTEn-LOAM KITTI 01: weak-translation prediction prior
@@ -16160,6 +16267,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1504 s2m=2023 dor points/frame=60; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI Odom seq 02 full (4661 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_02_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_02_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 122.845 | 3.8 | 65.1 | 2.50 | 3.30 | Keep as reference variant |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 41.407 | 4.0 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 4.0 FPS.
+3. `paper_odometry_plane_check_gate25_ground_no_forward` is the most accurate observed variant at 41.407 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_02_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_02_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1039 s2m=2023 dor points/frame=58
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_02_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_02_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_02_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1333 s2m=2040 dor points/frame=52; S2S ground without forward information enabled (repository extension, opt-in)
+
+
 ## InTEn-LOAM KITTI 02: weak-translation prediction prior
 
 - **Problem ID**: `inten_loam_kitti_seq_02_full_translation_prior`
@@ -16674,6 +16829,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.55 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.65 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1224 s2m=1855 dor points/frame=32; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI Odom seq 03 full (801 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_03_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_03_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 6.262 | 4.1 | 98.7 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 6.265 | 4.2 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 4.2 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 6.262 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_03_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_03_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_03_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=904 s2m=1854 dor points/frame=32
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_03_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_03_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_03_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1185 s2m=1854 dor points/frame=32; S2S ground without forward information enabled (repository extension, opt-in)
 
 
 ## InTEn-LOAM KITTI 03: weak-translation prediction prior
@@ -17192,6 +17395,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1025 s2m=1645 dor points/frame=200; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI Odom seq 04 full (271 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_04_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_04_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 1.540 | 4.5 | 97.5 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 1.559 | 4.8 | 99.4 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 4.8 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 1.540 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=834 s2m=1645 dor points/frame=197
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1234 s2m=1646 dor points/frame=191; S2S ground without forward information enabled (repository extension, opt-in)
+
+
 ## InTEn-LOAM KITTI 04: weak-translation prediction prior
 
 - **Problem ID**: `inten_loam_kitti_seq_04_full_translation_prior`
@@ -17708,6 +17959,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1919 s2m=2257 dor points/frame=151; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI Odom seq 05 full (2761 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_05_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_05_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 9.976 | 3.4 | 98.6 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 9.820 | 3.4 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 3.4 FPS.
+3. `paper_odometry_plane_check_gate25_ground_no_forward` is the most accurate observed variant at 9.820 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1434 s2m=2265 dor points/frame=150
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_05_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1768 s2m=2260 dor points/frame=152; S2S ground without forward information enabled (repository extension, opt-in)
+
+
 ## InTEn-LOAM KITTI 05: weak-translation prediction prior
 
 - **Problem ID**: `inten_loam_kitti_seq_05_full_translation_prior`
@@ -18222,6 +18521,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.55 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.65 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1219 s2m=1865 dor points/frame=233; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI Odom seq 06 full (1101 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_06_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_06_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 1.918 | 3.9 | 99.0 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 1.940 | 4.0 | 99.4 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 4.0 FPS.
+3. `paper_odometry_plane_check` is the most accurate observed variant at 1.918 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_06_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_06_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1027 s2m=1866 dor points/frame=233
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_06_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_06_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_06_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1383 s2m=1865 dor points/frame=235; S2S ground without forward information enabled (repository extension, opt-in)
 
 
 ## InTEn-LOAM KITTI 06: weak-translation prediction prior
@@ -18800,6 +19147,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1922 s2m=2309 dor points/frame=149; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI Odom seq 07 full (1101 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_07_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_07_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 1.461 | 3.4 | 94.4 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 1.309 | 3.5 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 3.5 FPS.
+3. `paper_odometry_plane_check_gate25_ground_no_forward` is the most accurate observed variant at 1.309 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1385 s2m=2306 dor points/frame=151
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_07_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_07_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_07_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1677 s2m=2306 dor points/frame=150; S2S ground without forward information enabled (repository extension, opt-in)
+
+
 ## InTEn-LOAM KITTI 07: weak-translation prediction prior
 
 - **Problem ID**: `inten_loam_kitti_seq_07_full_translation_prior`
@@ -19314,6 +19709,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.55 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.65 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1795 s2m=2160 dor points/frame=150; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI Odom seq 08 full (4071 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_08_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_08_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 27.673 | 3.2 | 99.2 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 27.556 | 3.2 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 3.2 FPS.
+3. `paper_odometry_plane_check_gate25_ground_no_forward` is the most accurate observed variant at 27.556 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_08_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_08_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1347 s2m=2160 dor points/frame=150
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_08_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_08_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_08_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1651 s2m=2161 dor points/frame=151; S2S ground without forward information enabled (repository extension, opt-in)
 
 
 ## InTEn-LOAM KITTI 08: weak-translation prediction prior
@@ -19832,6 +20275,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1497 s2m=1959 dor points/frame=119; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
 
 
+## InTEn-LOAM KITTI Odom seq 09 full (1591 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_09_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_09_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 11.000 | 3.7 | 94.7 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 10.072 | 3.8 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 3.8 FPS.
+3. `paper_odometry_plane_check_gate25_ground_no_forward` is the most accurate observed variant at 10.072 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_09_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_09_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_09_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1113 s2m=1963 dor points/frame=120
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_09_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_09_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_09_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1437 s2m=1960 dor points/frame=119; S2S ground without forward information enabled (repository extension, opt-in)
+
+
 ## InTEn-LOAM KITTI 09: weak-translation prediction prior
 
 - **Problem ID**: `inten_loam_kitti_seq_09_full_translation_prior`
@@ -20346,6 +20837,54 @@ _Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.55 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.65 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=2028 s2m=2314 dor points/frame=110; repository acceleration enabled (opt-in, not in the paper); S2S missing-row completion enabled (repository extension, opt-in); imported full paired experiment; timing is not a standalone speed measurement; actual argv in adjacent native_command.json
+
+
+## InTEn-LOAM KITTI Odom seq 10 full (1201 frames): 5 m S2S gate with ground without forward
+
+- **Problem ID**: `inten_loam_kitti_seq_10_full_s2s_gate`
+- **Question**: Does a 5 m S2S nearest-neighbour gate (s2s_gate_sq=25, the LOAM-family value) together with s2s_ground_no_forward change full-sequence accuracy with the fixed paper_odometry_plane_check setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `inten_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/inten_loam_kitti_seq_10_full_s2s_gate_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper odometry + plane check (fresh reference) | balanced | 9.670 | 3.9 | 93.9 | 2.50 | 3.30 | Keep as active challenger |
+| Paper odometry + plane check + 5 m S2S gate + S2S ground without forward (not in the paper) | ablation | 8.677 | 3.9 | 100.0 | 1.30 | 2.50 | Adopt as current default |
+
+### Observations
+
+1. `paper_odometry_plane_check_gate25_ground_no_forward` is the current default for this problem.
+2. `paper_odometry_plane_check_gate25_ground_no_forward` is the fastest observed variant at 3.9 FPS.
+3. `paper_odometry_plane_check_gate25_ground_no_forward` is the most accurate observed variant at 8.677 m ATE.
+
+### Variant Notes
+
+#### `paper_odometry_plane_check`
+
+- Intent: Fixed Table 6 setting (07-selected 0.17 deg correction and 0.05 m S2M plane check), rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_10_full_s2s_gate_matrix/paper_odometry_plane_check/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_10_full_s2s_gate_matrix/paper_odometry_plane_check/run.log`
+- Readability proxy: 2.50 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1469 s2m=2310 dor points/frame=110
+
+#### `paper_odometry_plane_check_gate25_ground_no_forward`
+
+- Intent: Same setting; S2S nearest-neighbour gate 5 m (s2s_gate_sq=25, the paper leaves it open; A-LOAM uses 25) and s2s_ground_no_forward=1. Opt-in; chosen on development sequences 01/02.
+- CLI args: `--no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods inten_loam --summary-json experiments/results/runs/inten_loam_kitti_seq_10_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --no-gt-seed --inten-loam-paper-odometry --input-max-range-m 120 --input-vertical-angle-correction-deg 0.17 --inten-loam-paper-set s2m_plane_max_dist=0.05 --inten-loam-paper-set s2s_gate_sq=25 --inten-loam-paper-set s2s_ground_no_forward=1`
+- Summary: `experiments/results/runs/inten_loam_kitti_seq_10_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json`
+- Log: `experiments/results/runs/inten_loam_kitti_seq_10_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/run.log`
+- Readability proxy: 1.30 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.50 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=1732 s2m=2311 dor points/frame=109; S2S ground without forward information enabled (repository extension, opt-in)
 
 
 ## InTEn-LOAM KITTI 10: weak-translation prediction prior

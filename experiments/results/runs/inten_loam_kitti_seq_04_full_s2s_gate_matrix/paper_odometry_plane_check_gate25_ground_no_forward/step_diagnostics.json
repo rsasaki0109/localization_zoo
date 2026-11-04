@@ -1,0 +1,85 @@
+{
+  "frames": 271,
+  "official_metrics_from_saved_poses": {
+    "frames": 271,
+    "reference_frames": 271,
+    "tracking_success_rate": 1.0,
+    "ate_m": 1.558601135150312,
+    "rpe_trans_pct": 0.7108375972208345,
+    "rpe_rot_deg_per_m": 0.0034392993095614874,
+    "rpe_segments": 208,
+    "kitti_rte_trans_pct": 0.6870454875026416,
+    "kitti_rte_rot_deg_per_100m": 0.33033394740410166,
+    "kitti_rte_segments": 43,
+    "trajectory_length_m": 393.64527707635335
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 0.994359566089299,
+  "moving_step_count": 270,
+  "step_length_ratio_median": 0.9951091339782401,
+  "steps_length_off_over_threshold": 0,
+  "steps_vector_off_over_threshold": 0,
+  "bad_length_step_frame_ranges": [],
+  "bad_vector_step_frame_ranges": [],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 137.18298063486523,
+      "path_length_ratio": 0.9944052659711867,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9961715065829295,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 0.9911439287025359,
+      "block_relative_translation_error_pct": 0.7224977356260243,
+      "block_relative_rotation_error_deg_per_100m": 0.18414917797121524
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 144.36863004693618,
+      "path_length_ratio": 0.9955812153250849,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9960656894026358,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.9911439287025359,
+      "position_error_end_m": 1.96401125191794,
+      "block_relative_translation_error_pct": 0.6486714558180434,
+      "block_relative_rotation_error_deg_per_100m": 0.39502232097414014
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 270,
+      "gt_distance_m": 112.09366640246202,
+      "path_length_ratio": 0.9927302405578762,
+      "moving_step_count": 70,
+      "step_length_ratio_median": 0.9935753467490108,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 1.96401125191794,
+      "position_error_end_m": 2.8045462216616577,
+      "block_relative_translation_error_pct": 0.7371249511260726,
+      "block_relative_rotation_error_deg_per_100m": 0.6235103676170201
+    }
+  ],
+  "benchmark_summary": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gate/stage/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json",
+  "benchmark_method": "InTEn-LOAM",
+  "schema_version": 1,
+  "command": "python3 /home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py --estimate /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gate/stage/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/trajectory_kitti.txt --gt /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gate/stage/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/evaluated_gt_kitti.txt --summary /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gate/stage/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/summary.json --method InTEn-LOAM --output /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gate/stage/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/step_diagnostics.json",
+  "estimate_path": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gate/stage/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/trajectory_kitti.txt",
+  "gt_path": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gate/stage/runs/inten_loam_kitti_seq_04_full_s2s_gate_matrix/paper_odometry_plane_check_gate25_ground_no_forward/evaluated_gt_kitti.txt"
+}

@@ -35,6 +35,15 @@ held-out runs. Official KITTI RTE with one fixed setting against a fresh
 
 Table 6 and the defaults stay on `paper_odometry_plane_check`.
 
+**With a 5 m S2S gate.** Adding `--inten-loam-paper-set s2s_gate_sq=25` (the
+LOAM-family value; the paper leaves the gate open) gives one setting at 1.82x
+over 00-10 ([study](../../experiments/results/inten_s2s_gate/README.md)). The
+default gate is 1 m, which a short seed at highway speed exceeds.
+- 01 falls from 16.614 % to 9.384 % (25.96x → 14.66x); 02 is 0.811 %.
+- Held-out 00 and 03-10: 0.989x against the reference, 7 of 9 lower, none above
+  +5 % (08 +4.2 %, 04 +1.6 %).
+- Wider gates (10 m and 20 m) saturate on 01 and were not used.
+
 The same treatment for S2S facades that run along the forward axis
 (`s2s_facade_no_forward_below`, opt-in) was rejected on the development
 sequences: 01 16.637 → 41.677 % and 02 0.823 → 2.991 %. The facades carry most

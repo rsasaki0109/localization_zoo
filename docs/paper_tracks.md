@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-11-04T18:06:04+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-11-04T22:05:42+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `700` ready, `1` blocked, `14` skipped problems.
+Current coverage: `711` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -347,26 +347,37 @@ Current coverage: `700` ready, `1` blocked, `14` skipped problems.
 | InTEn-LOAM KITTI 10: S2M plane-spread check | `ready` | `-` | 8.852 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI 10: S2S facade Cauchy influence | `ready` | `-` | 8.852 | - | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI 10: weak-translation prediction prior | `ready` | `-` | 9.902 | - | `dogfooding_results/kitti_seq_10_full` |
+| InTEn-LOAM KITTI Odom seq 00 full (4541 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 17.266 | 3.6 | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI Odom seq 00 full (4541 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check` | 17.615 | 5.0 | `dogfooding_results/kitti_seq_00_full` |
 | InTEn-LOAM KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 16.033 | 9.4 | `dogfooding_results/kitti_seq_00_full` |
+| InTEn-LOAM KITTI Odom seq 01 full (1101 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 137.336 | 5.1 | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI Odom seq 01 full (1101 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check_ground_no_forward` | 275.593 | 7.1 | `dogfooding_results/kitti_seq_01_full` |
 | InTEn-LOAM KITTI Odom seq 01 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 275.593 | 1.7 | `dogfooding_results/kitti_seq_01_full` |
+| InTEn-LOAM KITTI Odom seq 02 full (4661 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 41.407 | 4.0 | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI Odom seq 02 full (4661 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check_ground_no_forward` | 40.214 | 5.6 | `dogfooding_results/kitti_seq_02_full` |
 | InTEn-LOAM KITTI Odom seq 02 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 122.845 | 1.8 | `dogfooding_results/kitti_seq_02_full` |
+| InTEn-LOAM KITTI Odom seq 03 full (801 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 6.262 | 4.2 | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI Odom seq 03 full (801 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check` | 6.262 | 6.1 | `dogfooding_results/kitti_seq_03_full` |
 | InTEn-LOAM KITTI Odom seq 03 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 6.262 | 1.6 | `dogfooding_results/kitti_seq_03_full` |
+| InTEn-LOAM KITTI Odom seq 04 full (271 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 1.540 | 4.8 | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI Odom seq 04 full (271 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check` | 1.540 | 6.8 | `dogfooding_results/kitti_seq_04_full` |
 | InTEn-LOAM KITTI Odom seq 04 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.540 | 1.7 | `dogfooding_results/kitti_seq_04_full` |
+| InTEn-LOAM KITTI Odom seq 05 full (2761 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 9.820 | 3.4 | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI Odom seq 05 full (2761 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check` | 9.976 | 4.8 | `dogfooding_results/kitti_seq_05_full` |
 | InTEn-LOAM KITTI Odom seq 05 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.976 | 1.2 | `dogfooding_results/kitti_seq_05_full` |
+| InTEn-LOAM KITTI Odom seq 06 full (1101 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 1.918 | 4.0 | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI Odom seq 06 full (1101 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check` | 1.918 | 5.6 | `dogfooding_results/kitti_seq_06_full` |
 | InTEn-LOAM KITTI Odom seq 06 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 1.918 | 1.8 | `dogfooding_results/kitti_seq_06_full` |
+| InTEn-LOAM KITTI Odom seq 07 full (1101 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 1.309 | 3.5 | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI Odom seq 07 full (1101 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check_ground_no_forward` | 1.384 | 4.8 | `dogfooding_results/kitti_seq_07_full` |
 | InTEn-LOAM KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_no_intensity` | 1.193 | 9.2 | `dogfooding_results/kitti_seq_07_full` |
+| InTEn-LOAM KITTI Odom seq 08 full (4071 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 27.556 | 3.2 | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI Odom seq 08 full (4071 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check` | 27.673 | 4.7 | `dogfooding_results/kitti_seq_08_full` |
 | InTEn-LOAM KITTI Odom seq 08 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 27.673 | 1.3 | `dogfooding_results/kitti_seq_08_full` |
+| InTEn-LOAM KITTI Odom seq 09 full (1591 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 10.072 | 3.8 | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI Odom seq 09 full (1591 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check_ground_no_forward` | 10.693 | 5.7 | `dogfooding_results/kitti_seq_09_full` |
 | InTEn-LOAM KITTI Odom seq 09 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 11.000 | 2.1 | `dogfooding_results/kitti_seq_09_full` |
+| InTEn-LOAM KITTI Odom seq 10 full (1201 frames): 5 m S2S gate with ground without forward | `ready` | `paper_odometry_plane_check_gate25_ground_no_forward` | 8.677 | 3.9 | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI Odom seq 10 full (1201 frames): S2S ground without forward information | `ready` | `paper_odometry_plane_check_ground_no_forward` | 8.748 | 5.4 | `dogfooding_results/kitti_seq_10_full` |
 | InTEn-LOAM KITTI Odom seq 10 full: comparison with the paper's KITTI table | `ready` | `paper_odometry_plane_check` | 9.670 | 1.8 | `dogfooding_results/kitti_seq_10_full` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.321 | 37.6 | `dogfooding_results/kitti_raw_0009_200` |
@@ -741,7 +752,7 @@ Current coverage: `700` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 700 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 711 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

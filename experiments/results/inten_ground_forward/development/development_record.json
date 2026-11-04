@@ -1,0 +1,75 @@
+{
+  "purpose": "Development check before the protocol: chooses between S2S-only and S2S+S2M ground-without-forward on KITTI 01/02.",
+  "binary_sha256": "463043f3682ed0507f147b18134f3611c591a353aeb4644d14ca6618b0e1332b",
+  "code_commit": "0a36954e",
+  "script": "dev_run.sh (arms: reference = paper_odometry_plane_check; s2s = + s2s_ground_no_forward=1; both = + s2s_ground_no_forward=1 + s2m_ground_no_forward=1), three arms concurrent, OMP_NUM_THREADS=1",
+  "step_diagnostics_command": "python3 evaluation/scripts/diagnose_kitti_steps.py --estimate <arm>/dogfooding_results/InTEn_LOAM.txt --gt <arm>/dogfooding_results/velodyne_evaluated_gt.txt --summary <arm>/summary.json --method InTEn-LOAM --output <arm>/steps.json",
+  "rows": [
+    {
+      "sequence": "01",
+      "arm": "reference",
+      "kitti_rte_trans_pct": 16.613803,
+      "rpe_trans_pct": 13.719847,
+      "ate_m": 275.59327,
+      "frames": 1101,
+      "bad_length_steps": 136,
+      "path_length_ratio": 0.871760341112982,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "01",
+      "arm": "s2s",
+      "kitti_rte_trans_pct": 16.636475,
+      "rpe_trans_pct": 13.727182,
+      "ate_m": 275.833517,
+      "frames": 1101,
+      "bad_length_steps": 136,
+      "path_length_ratio": 0.8718405352394535,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "01",
+      "arm": "both",
+      "kitti_rte_trans_pct": 16.708486,
+      "rpe_trans_pct": 13.792575,
+      "ate_m": 276.887006,
+      "frames": 1101,
+      "bad_length_steps": 137,
+      "path_length_ratio": 0.8717805657797638,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "02",
+      "arm": "reference",
+      "kitti_rte_trans_pct": 3.22123,
+      "rpe_trans_pct": 3.607352,
+      "ate_m": 122.844508,
+      "frames": 4661,
+      "bad_length_steps": 133,
+      "path_length_ratio": 0.9649228610791891,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "02",
+      "arm": "s2s",
+      "kitti_rte_trans_pct": 0.822654,
+      "rpe_trans_pct": 0.907373,
+      "ate_m": 40.214288,
+      "frames": 4661,
+      "bad_length_steps": 20,
+      "path_length_ratio": 0.9971103665404292,
+      "exit": "exit 0"
+    },
+    {
+      "sequence": "02",
+      "arm": "both",
+      "kitti_rte_trans_pct": 0.855253,
+      "rpe_trans_pct": 0.894382,
+      "ate_m": 42.868656,
+      "frames": 4661,
+      "bad_length_steps": 15,
+      "path_length_ratio": 0.9972640556973267,
+      "exit": "exit 0"
+    }
+  ]
+}

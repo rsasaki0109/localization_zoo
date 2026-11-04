@@ -1098,6 +1098,76 @@ TEST(InTenLoamPaper, GroundPcaChangesOnlyGroundAtFixedInitialPose) {
   EXPECT_GT((a.s2s_H[1]-b.s2s_H[1]).norm(), 1e-6);
 }
 
+TEST(InTenLoamPaper, GroundNoForwardRemovesOnlyForwardGroundInformation) {
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2s_ground_no_forward);
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2m_ground_no_forward);
+  // Row completion in both arms: on this dense synthetic ring the ten nearest
+  // ground neighbours lie on one row, which leaves almost no ground triangles.
+  InTenLoamPaperParams params; params.use_mapping = false; params.s2s_row_support = true;
+  InTenLoamPaper baseline(params);
+  params.s2s_ground_no_forward = true;
+  InTenLoamPaper candidate(params);
+  std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+  Eigen::Matrix4d seed = Eigen::Matrix4d::Identity(), truth = seed;
+  auto ripple = [&](double origin_x) {
+    for (auto& point : points) if (std::abs(point.z()+1.7) < 1e-6)
+      point.z() += .004*std::sin(3*(point.x()+origin_x)+2*point.y());
+  };
+  scanAt(seed, &points, &intensity); ripple(0.0);
+  baseline.process(points, intensity); candidate.process(points, intensity);
+  truth(0, 3) = .3;
+  scanAt(truth, &points, &intensity); ripple(truth(0, 3));
+  // The forced seed is the previous pose: S2S starts from the identity, so the
+  // sensor forward axis is x and the sensor origin is the target origin.
+  InTenLoamPaperDiagnostics a, b; a.forced_pose = &seed; b.forced_pose = &seed;
+  baseline.process(points, intensity, &a); candidate.process(points, intensity, &b);
+  ASSERT_GT(a.s2s_n[1], 100);
+  for (int c = 0; c < 4; ++c) {
+    EXPECT_EQ(a.s2s_n[c], b.s2s_n[c]);
+    if (c == 1) continue;
+    EXPECT_EQ((a.s2s_H[c]-b.s2s_H[c]).norm(), 0.0);
+    EXPECT_EQ((a.s2s_g[c]-b.s2s_g[c]).norm(), 0.0);
+  }
+  // Ground: the forward row and column vanish, everything else is unchanged.
+  EXPECT_GT(std::abs(a.s2s_H[1](0, 0)), 0.0);
+  EXPECT_EQ(b.s2s_H[1].row(0).norm(), 0.0);
+  EXPECT_EQ(b.s2s_H[1].col(0).norm(), 0.0);
+  EXPECT_EQ(b.s2s_g[1](0), 0.0);
+  EXPECT_LT((a.s2s_H[1].bottomRightCorner<5, 5>()-b.s2s_H[1].bottomRightCorner<5, 5>()).norm(),
+            1e-9 * a.s2s_H[1].norm());
+  EXPECT_LT((a.s2s_g[1].tail<5>()-b.s2s_g[1].tail<5>()).norm(), 1e-9 * (1.0 + a.s2s_g[1].norm()));
+}
+
+TEST(InTenLoamPaper, GroundNoForwardTracksWithMappingAwayFromTheOrigin) {
+  // Both solvers, a pose 500 m from the origin and a heading of 30 deg: the
+  // dropped direction is the sensor's forward axis in the target frame, and
+  // the S2M rotation columns are taken about the sensor, not the map origin.
+  InTenLoamPaperParams params;
+  params.s2s_ground_no_forward = true;
+  params.s2m_ground_no_forward = true;
+  InTenLoamPaper odo(params);
+  std::vector<Eigen::Vector3d> pts;
+  std::vector<float> inten;
+  Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+  step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  step(0, 3) = 1.0;
+  Eigen::Matrix4d world = Eigen::Matrix4d::Identity();
+  world.block<3, 3>(0, 0) = Eigen::AngleAxisd(M_PI / 6, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  world.block<3, 1>(0, 3) = Eigen::Vector3d(400.0, -300.0, 20.0);
+  InTenLoamPaperResult r;
+  for (int k = 0; k < 8; ++k) {
+    if (k > 0) truth = truth * step;
+    scanAt(truth, &pts, &inten);
+    InTenLoamPaperDiagnostics diag;
+    if (k == 0) diag.forced_pose = &world;
+    r = odo.process(pts, inten, k == 0 ? &diag : nullptr);
+  }
+  const Eigen::Matrix4d expected = world * truth;
+  EXPECT_LT((r.pose.block<3, 1>(0, 3) - expected.block<3, 1>(0, 3)).norm(), 0.25);
+  EXPECT_LT(Eigen::AngleAxisd(r.pose.block<3, 3>(0, 0) * expected.block<3, 3>(0, 0).transpose()).angle(), 0.005);
+}
+
 TEST(InTenLoamPaper, FacadePcaChangesOnlyFacadeAtFixedInitialPose) {
   EXPECT_FALSE(InTenLoamPaperParams{}.s2s_facade_pca);
   InTenLoamPaperParams params; params.use_mapping = false; params.s2s_ground_pca = true;

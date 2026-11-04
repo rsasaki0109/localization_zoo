@@ -44,11 +44,20 @@ struct System {
   int n = 0;
   bool track_residual = false;
   double weighted_squared_residual = 0.0;
+  // `drop` (optional): unit direction d and origin o of the sensor in the
+  // target frame. The translation of the sensor origin, t_c = t + w x o, then
+  // gets no information along d: J_t = a - (a.d) d and J_w = (x - o) x a +
+  // o x J_t, which reduces to [a, x x a] when nothing is dropped.
   void add(const Eigen::Vector3d& x, const Eigen::Vector3d& a, double r, double huber, System* also = nullptr,
-           bool cauchy = false) {
+           bool cauchy = false, const Eigen::Vector3d* drop = nullptr, const Eigen::Vector3d* origin = nullptr) {
     Vec6 J;
     J.head<3>() = a;
     J.tail<3>() = x.cross(a);
+    if (drop != nullptr && origin != nullptr) {
+      const Eigen::Vector3d kept = a - a.dot(*drop) * *drop;
+      J.head<3>() = kept;
+      J.tail<3>() = (x - *origin).cross(a) + origin->cross(kept);
+    }
     const double w = cauchy ? 1.0 / (1.0 + (r / huber) * (r / huber))
                             : (std::abs(r) <= huber ? 1.0 : huber / std::abs(r));
     H += w * J * J.transpose();
@@ -93,14 +102,20 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
                         const Eigen::Matrix3d& R, const Eigen::Vector3d& t,
                         const Query& query, double huber, bool accelerated,
                         System* system, System* also,
-                        std::vector<int>* indices, std::vector<float>* distances, bool cauchy = false) {
+                        std::vector<int>* indices, std::vector<float>* distances, bool cauchy = false,
+                        bool drop_forward = false) {
+  // Sensor forward axis and origin in the target frame (used only when the
+  // forward translation information of this class is dropped).
+  const Eigen::Vector3d forward = R.col(0).normalized();
+  const Eigen::Vector3d* drop = drop_forward ? &forward : nullptr;
+  const Eigen::Vector3d* origin = drop_forward ? &t : nullptr;
   if (!accelerated) {
     for (const auto& f : features) {
       const Eigen::Vector3d x = R * f.p + t;
       Eigen::Vector3d gradient;
       double residual;
       if (query(f, x, &gradient, &residual, indices, distances))
-        system->add(x, gradient, residual, huber, also, cauchy);
+        system->add(x, gradient, residual, huber, also, cauchy, drop, origin);
     }
     return;
   }
@@ -122,7 +137,7 @@ void accumulateFeatures(const std::vector<PaperFeature>& features,
     }
   }
   for (const auto& value : values)
-    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also, cauchy);
+    if (value.valid) system->add(value.x, value.gradient, value.value, huber, also, cauchy, drop, origin);
 }
 
 void bspline(double t, double B[4], double dB[4]) {
@@ -744,7 +759,7 @@ int InTenLoamPaper::solveS2S(const PaperFrame& curr, Eigen::Matrix4d* T, ClassSy
         return true;
       };
       accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2,
-                         cls == 1 && params_.s2s_facade_cauchy);
+                         cls == 1 && params_.s2s_facade_cauchy, cls == 0 && params_.s2s_ground_no_forward);
       counts[1 + cls] = sys.n - before;
     }
     // Reflectors (eq. 7) against the previous scan intensity field.
@@ -875,7 +890,8 @@ int InTenLoamPaper::solveS2M(const PaperFrame& curr, Eigen::Matrix4d* T, int cla
         *residual = nrm.dot(x - c);
         return true;
       };
-      accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2);
+      accumulateFeatures(src, R, t, plane, huber, params_.accelerated, &sys, cs(1 + cls), &idx, &d2,
+                         false, cls == 0 && params_.s2m_ground_no_forward);
       counts[1 + cls] = sys.n - before;
     }
     const int before_intensity = sys.n;

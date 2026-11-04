@@ -12,6 +12,7 @@
 #include <Eigen/Cholesky>
 
 #include <cmath>
+#include <cstdio>
 #include <stdexcept>
 
 #include <limits>
@@ -1096,6 +1097,126 @@ TEST(InTenLoamPaper, GroundPcaChangesOnlyGroundAtFixedInitialPose) {
     EXPECT_EQ((a.s2s_g[c]-b.s2s_g[c]).norm(), 0.0);
   }
   EXPECT_GT((a.s2s_H[1]-b.s2s_H[1]).norm(), 1e-6);
+}
+
+TEST(InTenLoamPaper, GroundNoForwardRemovesOnlyForwardGroundInformation) {
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2s_ground_no_forward);
+  EXPECT_FALSE(InTenLoamPaperParams{}.s2m_ground_no_forward);
+  // Row completion in both arms: on this dense synthetic ring the ten nearest
+  // ground neighbours lie on one row, which leaves almost no ground triangles.
+  InTenLoamPaperParams params; params.use_mapping = false; params.s2s_row_support = true;
+  InTenLoamPaper baseline(params);
+  params.s2s_ground_no_forward = true;
+  InTenLoamPaper candidate(params);
+  std::vector<Eigen::Vector3d> points; std::vector<float> intensity;
+  Eigen::Matrix4d seed = Eigen::Matrix4d::Identity(), truth = seed;
+  auto ripple = [&](double origin_x) {
+    for (auto& point : points) if (std::abs(point.z()+1.7) < 1e-6)
+      point.z() += .004*std::sin(3*(point.x()+origin_x)+2*point.y());
+  };
+  scanAt(seed, &points, &intensity); ripple(0.0);
+  baseline.process(points, intensity); candidate.process(points, intensity);
+  truth(0, 3) = .3;
+  scanAt(truth, &points, &intensity); ripple(truth(0, 3));
+  // The forced seed is the previous pose: S2S starts from the identity, so the
+  // sensor forward axis is x and the sensor origin is the target origin.
+  InTenLoamPaperDiagnostics a, b; a.forced_pose = &seed; b.forced_pose = &seed;
+  baseline.process(points, intensity, &a); candidate.process(points, intensity, &b);
+  ASSERT_GT(a.s2s_n[1], 100);
+  for (int c = 0; c < 4; ++c) {
+    EXPECT_EQ(a.s2s_n[c], b.s2s_n[c]);
+    if (c == 1) continue;
+    EXPECT_EQ((a.s2s_H[c]-b.s2s_H[c]).norm(), 0.0);
+    EXPECT_EQ((a.s2s_g[c]-b.s2s_g[c]).norm(), 0.0);
+  }
+  // Ground: the forward row and column vanish, everything else is unchanged.
+  EXPECT_GT(std::abs(a.s2s_H[1](0, 0)), 0.0);
+  EXPECT_EQ(b.s2s_H[1].row(0).norm(), 0.0);
+  EXPECT_EQ(b.s2s_H[1].col(0).norm(), 0.0);
+  EXPECT_EQ(b.s2s_g[1](0), 0.0);
+  EXPECT_LT((a.s2s_H[1].bottomRightCorner<5, 5>()-b.s2s_H[1].bottomRightCorner<5, 5>()).norm(),
+            1e-9 * a.s2s_H[1].norm());
+  EXPECT_LT((a.s2s_g[1].tail<5>()-b.s2s_g[1].tail<5>()).norm(), 1e-9 * (1.0 + a.s2s_g[1].norm()));
+}
+
+TEST(InTenLoamPaper, GroundNoForwardDropsSensorForwardInformationInS2MAwayFromTheOrigin) {
+  // Map built from forced poses 500 m from the origin at a 30 deg heading. At
+  // the forced pose, the S2M ground system expressed about the sensor (tangent
+  // dt_c = dt + dw x t) has no information along the sensor's forward axis;
+  // the other classes are bit-identical to the flag-off arm.
+  InTenLoamPaperParams params;
+  InTenLoamPaper baseline(params);
+  params.s2m_ground_no_forward = true;
+  InTenLoamPaper candidate(params);
+  std::vector<Eigen::Vector3d> pts;
+  std::vector<float> inten;
+  Eigen::Matrix4d world = Eigen::Matrix4d::Identity();
+  world.block<3, 3>(0, 0) = Eigen::AngleAxisd(M_PI / 6, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  world.block<3, 1>(0, 3) = Eigen::Vector3d(400.0, -300.0, 20.0);
+  Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+  step(0, 3) = 1.0;
+  Eigen::Matrix4d truth = Eigen::Matrix4d::Identity(), forced = world;
+  InTenLoamPaperDiagnostics a, b;
+  for (int k = 0; k < 4; ++k) {
+    if (k > 0) truth = truth * step;
+    forced = world * truth;
+    scanAt(truth, &pts, &inten);
+    // A gentle ripple fixed in the street frame, so the ground carries some
+    // forward information for the flag-off arm.
+    for (auto& point : pts) if (std::abs(point.z()+1.7) < 1e-6)
+      point.z() += .004*std::sin(3*(point.x()+truth(0, 3))+2*point.y());
+    a = InTenLoamPaperDiagnostics{}; b = InTenLoamPaperDiagnostics{};
+    a.forced_pose = &forced; b.forced_pose = &forced;
+    baseline.process(pts, inten, &a);
+    candidate.process(pts, inten, &b);
+  }
+  ASSERT_GT(a.s2m_n[1], 100);
+  for (int c = 0; c < 4; ++c) {
+    EXPECT_EQ(a.s2m_n[c], b.s2m_n[c]);
+    if (c == 1) continue;
+    EXPECT_EQ((a.s2m_H[c]-b.s2m_H[c]).norm(), 0.0);
+    EXPECT_EQ((a.s2m_g[c]-b.s2m_g[c]).norm(), 0.0);
+  }
+  const Eigen::Vector3d t = forced.block<3, 1>(0, 3);
+  const Eigen::Vector3d d = forced.block<3, 3>(0, 0).col(0);
+  InTenLoamPaperDiagnostics::Mat6 Ainv = InTenLoamPaperDiagnostics::Mat6::Identity();
+  Ainv.block<3, 3>(0, 3) << 0, -t.z(), t.y(), t.z(), 0, -t.x(), -t.y(), t.x(), 0;
+  auto centred = [&](const InTenLoamPaperDiagnostics::Mat6& H) { return Ainv.transpose() * H * Ainv; };
+  const InTenLoamPaperDiagnostics::Mat6 Ha = centred(a.s2m_H[1]), Hb = centred(b.s2m_H[1]);
+  const InTenLoamPaperDiagnostics::Vec6 gb = Ainv.transpose() * b.s2m_g[1];
+  const Eigen::Matrix3d Ta = Ha.topLeftCorner(3, 3);
+  const double forward_off = d.dot(Ta * d);
+  const double forward_row_on = (d.transpose() * Hb.topRows(3)).norm();
+  const double forward_gradient_on = std::abs(d.dot(gb.head(3)));
+  std::printf("S2M ground forward information: off %.6g (trace %.6g), on row %.3g, gradient %.3g\n",
+              forward_off, Ta.trace(), forward_row_on, forward_gradient_on);
+  // The flag-off arm does carry forward ground information here ...
+  EXPECT_GT(forward_off, 1e-5 * Ta.trace());
+  // ... the flag-on arm carries none, in any row, and no forward gradient.
+  EXPECT_LT(forward_row_on, 1e-8 * Hb.norm());
+  EXPECT_LT(forward_gradient_on, 1e-8 * (1.0 + gb.norm()));
+}
+
+TEST(InTenLoamPaper, GroundNoForwardStillTracksForwardMotion) {
+  InTenLoamPaperParams params;
+  params.s2s_ground_no_forward = true;
+  params.s2m_ground_no_forward = true;
+  InTenLoamPaper odo(params);
+  std::vector<Eigen::Vector3d> pts;
+  std::vector<float> inten;
+  Eigen::Matrix4d truth = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d step = Eigen::Matrix4d::Identity();
+  step.block<3, 3>(0, 0) = Eigen::AngleAxisd(0.01, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  step(0, 3) = 1.0;
+  InTenLoamPaperResult r;
+  for (int k = 0; k < 8; ++k) {
+    if (k > 0) truth = truth * step;
+    scanAt(truth, &pts, &inten);
+    r = odo.process(pts, inten);
+  }
+  // Same bounds as TracksForwardMotionAtFullScale.
+  EXPECT_LT((r.pose.block<3, 1>(0, 3) - truth.block<3, 1>(0, 3)).norm(), 0.25);
+  EXPECT_LT(Eigen::AngleAxisd(r.pose.block<3, 3>(0, 0) * truth.block<3, 3>(0, 0).transpose()).angle(), 0.005);
 }
 
 TEST(InTenLoamPaper, FacadePcaChangesOnlyFacadeAtFixedInitialPose) {

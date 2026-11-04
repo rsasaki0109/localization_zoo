@@ -10,6 +10,28 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### InTEn-LOAM sequence 02 (2026-11-04)
+
+The 5.97x on KITTI 02 has a located cause. Its two collapse runs (frames
+1878-1943 and 4460-4524) are short at the S2S output. There, without edge
+support, the ground class's small biased forward term sets the step length.
+
+The opt-in `s2s_ground_no_forward` (not in the paper, default off) removes the
+forward part of the S2S ground Jacobian in sensor-centred coordinates. It was
+chosen on 01/02, and its protocol was committed before the held-out runs. One
+fixed setting on 00-10, against a fresh `paper_odometry_plane_check` that
+equals every stored result:
+
+- 02: 3.221 % → 0.823 % (1.52x); bad-length steps 133 → 20;
+- 01: unchanged (16.614 → 16.636 %);
+- held-out 00/03-10: geometric mean 0.995x, 3 lower and 6 higher by 0.06-1.6 %,
+  none above +5 %;
+- 00-10 against the paper: 2.19x → 1.93x.
+
+Table 6 and the defaults stay on `paper_odometry_plane_check`; promotion is the
+owner's decision.
+[Study, protocol and records](../experiments/results/inten_ground_forward/README.md).
+
 ### LF-GICP sequence 10 (2026-11-03)
 
 The 6.71x on KITTI 10 has a located cause. The paper's Eq. (2) linearizes about
@@ -195,7 +217,7 @@ variant runs on every sequence.
 | IMLS-SLAM | 1.05x | 00-10 | - | one setting; coarse first registration fixes 04 |
 | Mesh-LOAM | 1.28x | 00-10 | - | one setting; no sequence above 2x |
 | ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x) |
-| InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x |
+| InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x; 02 collapse located in the S2S ground forward term, opt-in ground without forward 1.93x (02 1.52x), not adopted |
 | L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), both in the vertical channel; opt-in ground-height-map vertical mode 1.29x, none above 2x |
 
 Per-method details and negative results live in each `papers/<method>/README.md`;
@@ -1027,6 +1049,12 @@ independent. Each item says what "done" means.
   InTEn-LOAM's KITTI 10 heading bias is not carried by any single feature
   class ([class-removal arms](../experiments/results/inten_heading_classes/README.md),
   negative); a per-class S2S yaw-gradient split needs a native trace extension.
+- InTEn-LOAM 02 (5.97x) is explained: the S2S ground forward term shortens
+  steps where no edges constrain forward motion. The opt-in
+  `s2s_ground_no_forward` gives 02 1.52x and 00-10 1.93x, with the held-out
+  sequences within ±5 %; promoting it is the owner's decision
+  ([study](../experiments/results/inten_ground_forward/README.md)). 01 (25.96x)
+  is unchanged and needs the edge/facade side.
 - New paper ports: follow [CONTRIBUTING.md](../CONTRIBUTING.md) (KITTI 00/07
   full, `--no-gt-seed`, at least 3 mechanism tests, README with negative
   results); run all paper sequences before claiming a ratio.

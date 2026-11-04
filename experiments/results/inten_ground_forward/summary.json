@@ -1,0 +1,529 @@
+{
+  "schema_version": 1,
+  "metric": "official KITTI RTE translation [%]",
+  "paper_source": "InTEn-LOAM Table 1, RTE (%)",
+  "development_sequences": [
+    "01",
+    "02"
+  ],
+  "rows": [
+    {
+      "sequence": "00",
+      "development": false,
+      "paper_rte_pct": 0.52,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.69672,
+          "rpe_trans_pct": 0.80322,
+          "ate_m": 17.644136,
+          "bad_length_steps": 13,
+          "moving_steps": 4514,
+          "path_length_ratio": 0.9963980653578614,
+          "scale_only_rte_pct": 0.23944247018228398,
+          "yaw_only_rte_pct": 0.5987830793568336
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.701039,
+          "rpe_trans_pct": 0.801975,
+          "ate_m": 17.615358,
+          "bad_length_steps": 13,
+          "moving_steps": 4514,
+          "path_length_ratio": 0.9963832932213782,
+          "scale_only_rte_pct": 0.23973498761465992,
+          "yaw_only_rte_pct": 0.6219085939223836
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_00_full_paper_comp_matrix.json",
+        "frames": 4541,
+        "kitti_rte_trans_pct": 0.69672,
+        "rpe_trans_pct": 0.80322,
+        "ate_m": 17.644136
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 1.339846153846154,
+        "paper_odometry_plane_check_ground_no_forward": 1.348151923076923
+      },
+      "candidate_over_reference": 1.0061990469629118
+    },
+    {
+      "sequence": "01",
+      "development": true,
+      "paper_rte_pct": 0.64,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 16.613803,
+          "rpe_trans_pct": 13.719847,
+          "ate_m": 275.59327,
+          "bad_length_steps": 136,
+          "moving_steps": 1100,
+          "path_length_ratio": 0.871760341112982,
+          "scale_only_rte_pct": 14.181155460809885,
+          "yaw_only_rte_pct": 1.1197506553373222
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 16.636475,
+          "rpe_trans_pct": 13.727182,
+          "ate_m": 275.833517,
+          "bad_length_steps": 136,
+          "moving_steps": 1100,
+          "path_length_ratio": 0.8718405352394535,
+          "scale_only_rte_pct": 14.168460487892002,
+          "yaw_only_rte_pct": 1.0955687505763936
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_01_full_paper_comp_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 16.613803,
+        "rpe_trans_pct": 13.719847,
+        "ate_m": 275.59327
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 25.9590671875,
+        "paper_odometry_plane_check_ground_no_forward": 25.9944921875
+      },
+      "candidate_over_reference": 1.0013646484191487
+    },
+    {
+      "sequence": "02",
+      "development": true,
+      "paper_rte_pct": 0.54,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 3.22123,
+          "rpe_trans_pct": 3.607352,
+          "ate_m": 122.844508,
+          "bad_length_steps": 133,
+          "moving_steps": 4660,
+          "path_length_ratio": 0.9649228610791891,
+          "scale_only_rte_pct": 2.945293149434904,
+          "yaw_only_rte_pct": 2.434937880670712
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 0.822654,
+          "rpe_trans_pct": 0.907373,
+          "ate_m": 40.214288,
+          "bad_length_steps": 20,
+          "moving_steps": 4660,
+          "path_length_ratio": 0.9971103665404292,
+          "scale_only_rte_pct": 0.2908050944806978,
+          "yaw_only_rte_pct": 0.62962453833967
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_02_full_paper_comp_matrix.json",
+        "frames": 4661,
+        "kitti_rte_trans_pct": 3.22123,
+        "rpe_trans_pct": 3.607352,
+        "ate_m": 122.844508
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 5.96524074074074,
+        "paper_odometry_plane_check_ground_no_forward": 1.5234333333333332
+      },
+      "candidate_over_reference": 0.25538505477721246
+    },
+    {
+      "sequence": "03",
+      "development": false,
+      "paper_rte_pct": 0.63,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 0.890601,
+          "rpe_trans_pct": 0.587428,
+          "ate_m": 6.262153,
+          "bad_length_steps": 2,
+          "moving_steps": 785,
+          "path_length_ratio": 1.0003468928184378,
+          "scale_only_rte_pct": 0.18473934877351042,
+          "yaw_only_rte_pct": 1.2060916275087918
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 0.89374,
+          "rpe_trans_pct": 0.592333,
+          "ate_m": 6.271285,
+          "bad_length_steps": 0,
+          "moving_steps": 785,
+          "path_length_ratio": 1.000387144583201,
+          "scale_only_rte_pct": 0.18691936031269887,
+          "yaw_only_rte_pct": 1.207857824750572
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_03_full_paper_comp_matrix.json",
+        "frames": 801,
+        "kitti_rte_trans_pct": 0.890601,
+        "rpe_trans_pct": 0.587428,
+        "ate_m": 6.262153
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 1.4136523809523809,
+        "paper_odometry_plane_check_ground_no_forward": 1.4186349206349207
+      },
+      "candidate_over_reference": 1.0035245862063933
+    },
+    {
+      "sequence": "04",
+      "development": false,
+      "paper_rte_pct": 0.37,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 0.676097,
+          "rpe_trans_pct": 0.702437,
+          "ate_m": 1.539561,
+          "bad_length_steps": 0,
+          "moving_steps": 270,
+          "path_length_ratio": 0.9945070698186844,
+          "scale_only_rte_pct": 0.5426186972449675,
+          "yaw_only_rte_pct": 0.06469382376724755
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 0.683074,
+          "rpe_trans_pct": 0.708633,
+          "ate_m": 1.555672,
+          "bad_length_steps": 0,
+          "moving_steps": 270,
+          "path_length_ratio": 0.9944006213485027,
+          "scale_only_rte_pct": 0.5503210977930675,
+          "yaw_only_rte_pct": 0.06341839359377195
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_04_full_paper_comp_matrix.json",
+        "frames": 271,
+        "kitti_rte_trans_pct": 0.676097,
+        "rpe_trans_pct": 0.702437,
+        "ate_m": 1.539561
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 1.8272891891891891,
+        "paper_odometry_plane_check_ground_no_forward": 1.846145945945946
+      },
+      "candidate_over_reference": 1.0103195251568933
+    },
+    {
+      "sequence": "05",
+      "development": false,
+      "paper_rte_pct": 0.36,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.497289,
+          "rpe_trans_pct": 0.414278,
+          "ate_m": 9.976094,
+          "bad_length_steps": 0,
+          "moving_steps": 2683,
+          "path_length_ratio": 0.9980313018463631,
+          "scale_only_rte_pct": 0.13278569665614373,
+          "yaw_only_rte_pct": 0.5877342688797564
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.503913,
+          "rpe_trans_pct": 0.420818,
+          "ate_m": 10.122381,
+          "bad_length_steps": 0,
+          "moving_steps": 2683,
+          "path_length_ratio": 0.9979338201507094,
+          "scale_only_rte_pct": 0.13946752416753072,
+          "yaw_only_rte_pct": 0.604289156107435
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_05_full_paper_comp_matrix.json",
+        "frames": 2761,
+        "kitti_rte_trans_pct": 0.497289,
+        "rpe_trans_pct": 0.414278,
+        "ate_m": 9.976094
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 1.3813583333333332,
+        "paper_odometry_plane_check_ground_no_forward": 1.3997583333333334
+      },
+      "candidate_over_reference": 1.0133202222450126
+    },
+    {
+      "sequence": "06",
+      "development": false,
+      "paper_rte_pct": 0.24,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.358642,
+          "rpe_trans_pct": 0.511128,
+          "ate_m": 1.917879,
+          "bad_length_steps": 0,
+          "moving_steps": 1100,
+          "path_length_ratio": 0.9980853116994757,
+          "scale_only_rte_pct": 0.10013627810375361,
+          "yaw_only_rte_pct": 0.2007105468653601
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.352176,
+          "rpe_trans_pct": 0.506795,
+          "ate_m": 1.941326,
+          "bad_length_steps": 0,
+          "moving_steps": 1100,
+          "path_length_ratio": 0.9981202268858304,
+          "scale_only_rte_pct": 0.09980760452581938,
+          "yaw_only_rte_pct": 0.1923987908058962
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_06_full_paper_comp_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 0.358642,
+        "rpe_trans_pct": 0.511128,
+        "ate_m": 1.917879
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 1.4943416666666667,
+        "paper_odometry_plane_check_ground_no_forward": 1.4674
+      },
+      "candidate_over_reference": 0.9819708790381494
+    },
+    {
+      "sequence": "07",
+      "development": false,
+      "paper_rte_pct": 0.34,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.364131,
+          "rpe_trans_pct": 0.431591,
+          "ate_m": 1.461444,
+          "bad_length_steps": 0,
+          "moving_steps": 1009,
+          "path_length_ratio": 0.9970295629282283,
+          "scale_only_rte_pct": 0.15683826369142273,
+          "yaw_only_rte_pct": 0.2680498826035085
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.346913,
+          "rpe_trans_pct": 0.430718,
+          "ate_m": 1.38442,
+          "bad_length_steps": 0,
+          "moving_steps": 1009,
+          "path_length_ratio": 0.997103541855162,
+          "scale_only_rte_pct": 0.15255636818222437,
+          "yaw_only_rte_pct": 0.26028782151200847
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_07_full_paper_comp_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 0.364131,
+        "rpe_trans_pct": 0.431591,
+        "ate_m": 1.461444
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 1.0709735294117646,
+        "paper_odometry_plane_check_ground_no_forward": 1.0203323529411765
+      },
+      "candidate_over_reference": 0.9527148196665487
+    },
+    {
+      "sequence": "08",
+      "development": false,
+      "paper_rte_pct": 0.71,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 0.937938,
+          "rpe_trans_pct": 1.309602,
+          "ate_m": 27.673206,
+          "bad_length_steps": 20,
+          "moving_steps": 4040,
+          "path_length_ratio": 0.9967827180049063,
+          "scale_only_rte_pct": 0.25159265395628044,
+          "yaw_only_rte_pct": 0.6481212344108317
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 0.952967,
+          "rpe_trans_pct": 1.305104,
+          "ate_m": 29.389891,
+          "bad_length_steps": 19,
+          "moving_steps": 4040,
+          "path_length_ratio": 0.9968003917962424,
+          "scale_only_rte_pct": 0.24934273007489088,
+          "yaw_only_rte_pct": 0.6922430559569989
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_08_full_paper_comp_matrix.json",
+        "frames": 4071,
+        "kitti_rte_trans_pct": 0.937938,
+        "rpe_trans_pct": 1.309602,
+        "ate_m": 27.673206
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 1.3210394366197185,
+        "paper_odometry_plane_check_ground_no_forward": 1.3422070422535213
+      },
+      "candidate_over_reference": 1.0160234471788114
+    },
+    {
+      "sequence": "09",
+      "development": false,
+      "paper_rte_pct": 0.48,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.661434,
+          "rpe_trans_pct": 0.699965,
+          "ate_m": 11.000039,
+          "bad_length_steps": 0,
+          "moving_steps": 1590,
+          "path_length_ratio": 0.9968971824084848,
+          "scale_only_rte_pct": 0.2585884651446274,
+          "yaw_only_rte_pct": 0.5143736262678982
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.661804,
+          "rpe_trans_pct": 0.708599,
+          "ate_m": 10.692797,
+          "bad_length_steps": 0,
+          "moving_steps": 1590,
+          "path_length_ratio": 0.9968518293634684,
+          "scale_only_rte_pct": 0.2622335042084168,
+          "yaw_only_rte_pct": 0.530706232234028
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_09_full_paper_comp_matrix.json",
+        "frames": 1591,
+        "kitti_rte_trans_pct": 0.661434,
+        "rpe_trans_pct": 0.699965,
+        "ate_m": 11.000039
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 1.3779875,
+        "paper_odometry_plane_check_ground_no_forward": 1.3787583333333333
+      },
+      "candidate_over_reference": 1.000559390657269
+    },
+    {
+      "sequence": "10",
+      "development": false,
+      "paper_rte_pct": 0.45,
+      "arms": {
+        "paper_odometry_plane_check": {
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 1.155652,
+          "rpe_trans_pct": 0.843492,
+          "ate_m": 9.669713,
+          "bad_length_steps": 0,
+          "moving_steps": 1153,
+          "path_length_ratio": 0.9956185552286556,
+          "scale_only_rte_pct": 0.3584290919185464,
+          "yaw_only_rte_pct": 0.9093082542347074
+        },
+        "paper_odometry_plane_check_ground_no_forward": {
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 1.119986,
+          "rpe_trans_pct": 0.848163,
+          "ate_m": 8.748119,
+          "bad_length_steps": 0,
+          "moving_steps": 1153,
+          "path_length_ratio": 0.9957322204719702,
+          "scale_only_rte_pct": 0.3543707690890862,
+          "yaw_only_rte_pct": 0.8598844330798106
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/inten_loam_kitti_seq_10_full_paper_comp_matrix.json",
+        "frames": 1201,
+        "kitti_rte_trans_pct": 1.155652,
+        "rpe_trans_pct": 0.843492,
+        "ate_m": 9.669713
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "paper_odometry_plane_check": 2.5681155555555555,
+        "paper_odometry_plane_check_ground_no_forward": 2.4888577777777776
+      },
+      "candidate_over_reference": 0.9691377681170457
+    }
+  ],
+  "aggregate": {
+    "geometric_mean_ratio_to_paper": {
+      "paper_odometry_plane_check": 2.189334130353078,
+      "paper_odometry_plane_check_ground_no_forward": 1.9256017864362691
+    },
+    "candidate_over_reference_geometric_mean": 0.879537645597168,
+    "held_out_candidate_over_reference_geometric_mean": 0.994644514292796,
+    "held_out_lower": [
+      "06",
+      "07",
+      "10"
+    ],
+    "held_out_higher": [
+      "00",
+      "03",
+      "04",
+      "05",
+      "08",
+      "09"
+    ],
+    "adverse_over_5_percent": [],
+    "above_twice_paper": {
+      "paper_odometry_plane_check": [
+        "01",
+        "02",
+        "10"
+      ],
+      "paper_odometry_plane_check_ground_no_forward": [
+        "01",
+        "10"
+      ]
+    },
+    "fresh_reference_matches_stored_all": true
+  }
+}

@@ -4958,6 +4958,8 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       else if (k == "s2s_intensity_consistent") pp.s2s_intensity_consistent = v != 0.0;
       else if (k == "s2s_facade_cauchy") pp.s2s_facade_cauchy = v != 0.0;
       else if (k == "s2s_geometry_consensus") pp.s2s_geometry_consensus = v != 0.0;
+      else if (k == "s2s_ground_no_forward") pp.s2s_ground_no_forward = v != 0.0;
+      else if (k == "s2m_ground_no_forward") pp.s2m_ground_no_forward = v != 0.0;
       else if (k == "max_ground") pp.max_ground = static_cast<int>(v);
       else if (k == "facades_per_sector") pp.facades_per_sector = static_cast<int>(v);
       else if (k == "edges_per_sector") pp.edges_per_sector = static_cast<int>(v);
@@ -5061,6 +5063,8 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
     if (pp.s2s_intensity_consistent) res.note += "; S2S fixed-node intensity completion enabled (repository extension, opt-in)";
     if (pp.s2s_facade_cauchy) res.note += "; S2S facade Cauchy influence enabled (repository extension, opt-in)";
     if (pp.s2s_geometry_consensus) res.note += "; S2S fixed-rotation geometric translation consensus enabled (repository extension, opt-in)";
+    if (pp.s2s_ground_no_forward) res.note += "; S2S ground without forward information enabled (repository extension, opt-in)";
+    if (pp.s2m_ground_no_forward) res.note += "; S2M ground without forward information enabled (repository extension, opt-in)";
     return res;
   }
 

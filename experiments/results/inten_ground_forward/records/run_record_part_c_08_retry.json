@@ -1,0 +1,129 @@
+{
+  "binary": "/home/user/localization_zoo/build/evaluation/pcd_dogfooding",
+  "binary_sha256": "463043f3682ed0507f147b18134f3611c591a353aeb4644d14ca6618b0e1332b",
+  "git_head": "fc91a7194c5df32da90f0c70db16d7b4930fd4d5",
+  "argv": [
+    "experiments/results/inten_ground_forward/run_study.py",
+    "--kitti-root",
+    "/home/user/kitti_data",
+    "--work-root",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC",
+    "--stage-root",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage",
+    "--record",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/run_record_C.json",
+    "--sequence",
+    "08"
+  ],
+  "sequences": [
+    {
+      "sequence": "08",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "08"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/fetch.log",
+          "started_unix": 1793783667.0144615,
+          "finished_unix": 1793783703.0377886,
+          "exit_code": 0
+        },
+        {
+          "arm": "paper_odometry_plane_check",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check/inten_loam_kitti_seq_08_full_ground_forward_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check/matrix.log",
+          "started_unix": 1793783708.970597,
+          "finished_unix": 1793784574.0267153,
+          "exit_code": 0
+        },
+        {
+          "arm": "paper_odometry_plane_check_ground_no_forward",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check_ground_no_forward/inten_loam_kitti_seq_08_full_ground_forward_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check_ground_no_forward/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check_ground_no_forward/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check_ground_no_forward/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/paper_odometry_plane_check_ground_no_forward/matrix.log",
+          "started_unix": 1793783708.9714215,
+          "finished_unix": 1793784574.026763,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage/runs/inten_loam_kitti_seq_08_full_ground_forward_matrix/paper_odometry_plane_check/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage/runs/inten_loam_kitti_seq_08_full_ground_forward_matrix/paper_odometry_plane_check/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage/runs/inten_loam_kitti_seq_08_full_ground_forward_matrix/paper_odometry_plane_check/summary.json",
+            "--method",
+            "InTEn-LOAM",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage/runs/inten_loam_kitti_seq_08_full_ground_forward_matrix/paper_odometry_plane_check/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/diagnose_paper_odometry_plane_check.log",
+          "started_unix": 1793784574.0280688,
+          "finished_unix": 1793784574.358265,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage/runs/inten_loam_kitti_seq_08_full_ground_forward_matrix/paper_odometry_plane_check_ground_no_forward/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage/runs/inten_loam_kitti_seq_08_full_ground_forward_matrix/paper_odometry_plane_check_ground_no_forward/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage/runs/inten_loam_kitti_seq_08_full_ground_forward_matrix/paper_odometry_plane_check_ground_no_forward/summary.json",
+            "--method",
+            "InTEn-LOAM",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/stage/runs/inten_loam_kitti_seq_08_full_ground_forward_matrix/paper_odometry_plane_check_ground_no_forward/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/inten_gf/workC/08/diagnose_paper_odometry_plane_check_ground_no_forward.log",
+          "started_unix": 1793784574.3596632,
+          "finished_unix": 1793784574.6777453,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 4071,
+        "total_bytes": 7985272992,
+        "aggregate_sha256": "0e0fbf684cdeb781b41459e589ff5a3f323355617361fba688a9382ab7366ae9"
+      },
+      "input_after": {
+        "scan_count": 4071,
+        "total_bytes": 7985272992,
+        "aggregate_sha256": "0e0fbf684cdeb781b41459e589ff5a3f323355617361fba688a9382ab7366ae9"
+      },
+      "scans_deleted": true,
+      "complete": true
+    }
+  ]
+}

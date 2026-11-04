@@ -167,6 +167,16 @@ struct InTenLoamPaperParams {
   // Strict-majority/interior consensus and successful refinement are required;
   // otherwise keep the original solve. No GT, hand region or motion semantics.
   bool s2s_geometry_consensus = false;
+  // Repository extension, not in the paper; default off. Ground residuals
+  // keep their height, roll and pitch information but give no information
+  // along the sensor's forward axis: in sensor-centred tangent coordinates
+  // the forward component of their translation Jacobian is removed. Flat
+  // ground carries little true forward information, while its many
+  // residuals add a small biased forward term that decides the step length
+  // where nothing else constrains it (KITTI 02 corridors, README). One flag
+  // per solver; all other classes and gates are unchanged.
+  bool s2s_ground_no_forward = false;
+  bool s2m_ground_no_forward = false;
 };
 
 // One feature: sensor-frame point, intensity in [0, 1], scan line (row).

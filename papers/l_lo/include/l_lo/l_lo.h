@@ -7,6 +7,8 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
+#include <deque>
+#include <unordered_map>
 #include <vector>
 
 namespace localization_zoo {
@@ -46,6 +48,10 @@ struct LLOParams {
   //    frames; the normal change gives the relative pitch and the plane
   //    offsets give the height change.
   // 2: pitch as in 0, height change as in 1.
+  // 3: not in the paper (opt-in): height, pitch and roll from the current
+  //    ground points against a world-frame ground-height map of the last
+  //    ground_map_frames frames (scan-to-map, so per-frame tilt noise is not
+  //    integrated); x, y and yaw are unchanged from the horizontal module.
   int pitch_mode = 0;
   double patch_half_length = 10.0;  // m, along x of frame k
   double patch_half_width = 6.0;    // m, along y of frame k
@@ -54,6 +60,12 @@ struct LLOParams {
   // HDL-64 scans make flat ground look bowl-shaped; uncorrected, the
   // same-patch pitch picks up a systematic per-frame bias (mode 1).
   double vertical_angle_correction_deg = 0.0;
+  // pitch_mode 3 only. The ground band is pitch_ground_min/max_range.
+  int ground_map_frames = 30;        // window of the ground-height map
+  double ground_map_cell = 0.5;      // m, height-map and point-thinning cell
+  double ground_map_huber = 0.1;     // m
+  int ground_map_iterations = 5;
+  int ground_map_min_residuals = 50;
 };
 
 struct Cluster {
@@ -110,6 +122,17 @@ class LLOOdometry {
   std::vector<Eigen::Vector3d> previous_ground_;
   Eigen::Vector3d last_delta_ = Eigen::Vector3d::Zero();  // dx, dy, dyaw
   Eigen::Matrix4d pose_ = Eigen::Matrix4d::Identity();
+
+  // pitch_mode 3: thinned world ground points per frame and the summed
+  // heights per (x, y) cell over the window.
+  struct CellSum { double z = 0.0; int n = 0; };
+  std::deque<std::vector<Eigen::Vector3d>> ground_map_frames_;
+  std::unordered_map<long long, CellSum> ground_map_;
+  long long groundCell(double x, double y) const;
+  std::vector<Eigen::Vector3d> thinGround(const std::vector<Eigen::Vector3d>& ground) const;
+  void insertGround(const std::vector<Eigen::Vector3d>& sensor_ground, const Eigen::Matrix4d& pose);
+  Eigen::Matrix4d solveGroundMap(const std::vector<Eigen::Vector3d>& sensor_ground,
+                                 const Eigen::Matrix4d& prediction) const;
 };
 
 }  // namespace l_lo

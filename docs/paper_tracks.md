@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-11-04T01:20:59+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `668` ready, `1` blocked, `14` skipped problems.
+Current coverage: `678` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -398,10 +398,20 @@ Current coverage: `668` ready, `1` blocked, `14` skipped problems.
 | KISS-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_recent_map` | 2.360 | 18.2 | `dogfooding_results/kitti_raw_0009_200` |
 | KISS-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 3.721 | 10.8 | `dogfooding_results/kitti_raw_0009_full` |
 | KISS-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 4.343 | 11.2 | `dogfooding_results/kitti_raw_0061_full` |
+| L-LO KITTI Odom seq 00 full (4541 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 15.664 | 6.1 | `dogfooding_results/kitti_seq_00_full` |
+| L-LO KITTI Odom seq 02 full (4661 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 142.012 | 4.6 | `dogfooding_results/kitti_seq_02_full` |
+| L-LO KITTI Odom seq 03 full (801 frames): ground-height-map vertical mode | `ready` | `seq07_tuned_ground_map` | 13.929 | 5.4 | `dogfooding_results/kitti_seq_03_full` |
 | L-LO KITTI Odom seq 03 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 24.086 | 2.8 | `dogfooding_results/kitti_seq_03_full` |
+| L-LO KITTI Odom seq 04 full (271 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 5.259 | 2.6 | `dogfooding_results/kitti_seq_04_full` |
 | L-LO KITTI Odom seq 04 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 5.259 | 0.9 | `dogfooding_results/kitti_seq_04_full` |
+| L-LO KITTI Odom seq 05 full (2761 frames): ground-height-map vertical mode | `ready` | `seq07_tuned_ground_map` | 14.052 | 6.7 | `dogfooding_results/kitti_seq_05_full` |
+| L-LO KITTI Odom seq 06 full (1101 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 5.791 | 9.4 | `dogfooding_results/kitti_seq_06_full` |
 | L-LO KITTI Odom seq 06 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 5.791 | 3.3 | `dogfooding_results/kitti_seq_06_full` |
+| L-LO KITTI Odom seq 07 full (1101 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 2.693 | 8.7 | `dogfooding_results/kitti_seq_07_full` |
+| L-LO KITTI Odom seq 08 full (4071 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 36.390 | 6.3 | `dogfooding_results/kitti_seq_08_full` |
+| L-LO KITTI Odom seq 09 full (1591 frames): ground-height-map vertical mode | `ready` | `seq07_tuned_ground_map` | 34.788 | 4.3 | `dogfooding_results/kitti_seq_09_full` |
 | L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 36.396 | 1.2 | `dogfooding_results/kitti_seq_09_full` |
+| L-LO KITTI Odom seq 10 full (1201 frames): ground-height-map vertical mode | `ready` | `seq07_tuned` | 8.632 | 5.3 | `dogfooding_results/kitti_seq_10_full` |
 | L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison | `ready` | `seq07_tuned` | 8.632 | 1.3 | `dogfooding_results/kitti_seq_10_full` |
 | L-LO on KITTI Odom seq 00 full (4541 frames) | `ready` | `seq07_tuned` | 15.664 | 4.4 | `dogfooding_results/kitti_seq_00_full` |
 | L-LO on KITTI Odom seq 02 full (4661 frames) | `ready` | `default` | 58.272 | 3.6 | `dogfooding_results/kitti_seq_02_full` |
@@ -709,7 +719,7 @@ Current coverage: `668` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 668 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 678 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

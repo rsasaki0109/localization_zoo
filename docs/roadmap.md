@@ -196,7 +196,7 @@ variant runs on every sequence.
 | Mesh-LOAM | 1.28x | 00-10 | - | one setting; no sequence above 2x |
 | ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x) |
 | InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x |
-| L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), both in the vertical channel (horizontal alone below the paper) |
+| L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), both in the vertical channel; opt-in ground-height-map vertical mode 1.29x, none above 2x |
 
 Per-method details and negative results live in each `papers/<method>/README.md`;
 the claim wording is in [paper_claim.md](paper_claim.md).
@@ -1015,8 +1015,11 @@ independent. Each item says what "done" means.
 - L-LO 09/10 (2.18x / 2.16x) is located in the vertical channel: with GT
   height/pitch/roll its horizontal error is 1.458 / 1.536 %, below the paper;
   the existing opt-in vertical mode drifts in altitude on 10 (4.540 % /
-  10.149 %). A drift-free vertical estimate would be an opt-in extension
-  ([decomposition](../experiments/results/l_lo_vertical_decomposition/README.md)).
+  10.149 %). The opt-in ground-height-map mode (`pitch_mode=3`, not in the
+  paper) brings 00/02-10 from 1.57x to 1.29x with no sequence above 2x
+  (09/10 1.22x/1.23x; 00 worsens; ATE rises on 7 sequences); promoting it is
+  the owner's decision ([decomposition](../experiments/results/l_lo_vertical_decomposition/README.md),
+  [ground-map study](../experiments/results/l_lo_ground_map/README.md)).
 - [Table 6 gap triage](../experiments/results/gap_decomposition/README.md)
   attributes every remaining gap with committed poses to error channels:
   step-length collapse (InTEn-LOAM 01/02/04, SuMa 01), heading (InTEn-LOAM

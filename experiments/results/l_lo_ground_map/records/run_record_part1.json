@@ -1,0 +1,678 @@
+{
+  "binary": "/home/user/localization_zoo/build/evaluation/pcd_dogfooding",
+  "binary_sha256": "f11f6032619734bcfe05255ed9d9b4a9e4636cdd9133a984ddfa2addb43ee4d8",
+  "git_head": "aa057fab57775b68324058d48679cbe6f09b9028",
+  "argv": [
+    "experiments/results/l_lo_ground_map/run_study.py",
+    "--kitti-root",
+    "/home/user/kitti_data",
+    "--work-root",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work",
+    "--stage-root",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage",
+    "--record",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_record.json",
+    "--sequence",
+    "10",
+    "--sequence",
+    "04",
+    "--sequence",
+    "03",
+    "--sequence",
+    "06",
+    "--sequence",
+    "07",
+    "--sequence",
+    "09",
+    "--sequence",
+    "05",
+    "--sequence",
+    "00",
+    "--sequence",
+    "02",
+    "--sequence",
+    "08"
+  ],
+  "sequences": [
+    {
+      "sequence": "10",
+      "commands": [
+        {
+          "arm": "seq07_tuned",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned/l_lo_kitti_seq_10_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned/matrix.log",
+          "started_unix": 1793749662.962691,
+          "finished_unix": 1793749888.3018284,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned_ground_map",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned_ground_map/l_lo_kitti_seq_10_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned_ground_map/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned_ground_map/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned_ground_map/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/seq07_tuned_ground_map/matrix.log",
+          "started_unix": 1793749662.9634926,
+          "finished_unix": 1793749889.329195,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/diagnose_seq07_tuned.log",
+          "started_unix": 1793749889.3308034,
+          "finished_unix": 1793749889.6968167,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned_ground_map/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned_ground_map/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned_ground_map/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_10_full_ground_map_matrix/seq07_tuned_ground_map/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/10/diagnose_seq07_tuned_ground_map.log",
+          "started_unix": 1793749889.6978316,
+          "finished_unix": 1793749889.9072301,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1201,
+        "total_bytes": 2419491968,
+        "aggregate_sha256": "c95284270051dff342e48bd06f5185fb10ea7006c5f0d172c832f4f2dd1df4c3"
+      },
+      "input_after": {
+        "scan_count": 1201,
+        "total_bytes": 2419491968,
+        "aggregate_sha256": "c95284270051dff342e48bd06f5185fb10ea7006c5f0d172c832f4f2dd1df4c3"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "04",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "04"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/fetch.log",
+          "started_unix": 1793749894.1464143,
+          "finished_unix": 1793749904.9927337,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned/l_lo_kitti_seq_04_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned/matrix.log",
+          "started_unix": 1793749905.6309588,
+          "finished_unix": 1793750008.5023048,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned_ground_map",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned_ground_map/l_lo_kitti_seq_04_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned_ground_map/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned_ground_map/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned_ground_map/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/seq07_tuned_ground_map/matrix.log",
+          "started_unix": 1793749905.6317189,
+          "finished_unix": 1793750009.4520082,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/diagnose_seq07_tuned.log",
+          "started_unix": 1793750009.4529543,
+          "finished_unix": 1793750009.6579783,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned_ground_map/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned_ground_map/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned_ground_map/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_04_full_ground_map_matrix/seq07_tuned_ground_map/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/04/diagnose_seq07_tuned_ground_map.log",
+          "started_unix": 1793750009.6589737,
+          "finished_unix": 1793750009.841484,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 271,
+        "total_bytes": 545112912,
+        "aggregate_sha256": "9f4be2c370385a933765d36dbecfc4285a7b52cb6a01386c8643ed7407d8b5cf"
+      },
+      "input_after": {
+        "scan_count": 271,
+        "total_bytes": 545112912,
+        "aggregate_sha256": "9f4be2c370385a933765d36dbecfc4285a7b52cb6a01386c8643ed7407d8b5cf"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "03",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "03"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/fetch.log",
+          "started_unix": 1793750011.0084102,
+          "finished_unix": 1793750035.354752,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned/l_lo_kitti_seq_03_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned/matrix.log",
+          "started_unix": 1793750036.9186888,
+          "finished_unix": 1793750186.6814058,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned_ground_map",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned_ground_map/l_lo_kitti_seq_03_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned_ground_map/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned_ground_map/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned_ground_map/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/seq07_tuned_ground_map/matrix.log",
+          "started_unix": 1793750036.9195042,
+          "finished_unix": 1793750188.2491884,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/diagnose_seq07_tuned.log",
+          "started_unix": 1793750188.2502093,
+          "finished_unix": 1793750188.4177854,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned_ground_map/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned_ground_map/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned_ground_map/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_03_full_ground_map_matrix/seq07_tuned_ground_map/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/03/diagnose_seq07_tuned_ground_map.log",
+          "started_unix": 1793750188.4187188,
+          "finished_unix": 1793750188.6020103,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 801,
+        "total_bytes": 1588811840,
+        "aggregate_sha256": "39c7e9c2481fdd0f2b3a5fc32125ce86e1bf5c6c55b9116123ddbab64fc4848d"
+      },
+      "input_after": {
+        "scan_count": 801,
+        "total_bytes": 1588811840,
+        "aggregate_sha256": "39c7e9c2481fdd0f2b3a5fc32125ce86e1bf5c6c55b9116123ddbab64fc4848d"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "06",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "06"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/fetch.log",
+          "started_unix": 1793750191.3070261,
+          "finished_unix": 1793750452.5235713,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned/l_lo_kitti_seq_06_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned/matrix.log",
+          "started_unix": 1793750454.6701705,
+          "finished_unix": 1793750572.4854321,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned_ground_map",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned_ground_map/l_lo_kitti_seq_06_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned_ground_map/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned_ground_map/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned_ground_map/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/seq07_tuned_ground_map/matrix.log",
+          "started_unix": 1793750454.6709943,
+          "finished_unix": 1793750575.191246,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/diagnose_seq07_tuned.log",
+          "started_unix": 1793750575.19272,
+          "finished_unix": 1793750575.4027736,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned_ground_map/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned_ground_map/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned_ground_map/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_06_full_ground_map_matrix/seq07_tuned_ground_map/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/06/diagnose_seq07_tuned_ground_map.log",
+          "started_unix": 1793750575.4036236,
+          "finished_unix": 1793750575.5715668,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1101,
+        "total_bytes": 2154443008,
+        "aggregate_sha256": "fb43183ce1349327c7fc5b922b872d812a7f252250cc28571f899c419588a5ab"
+      },
+      "input_after": {
+        "scan_count": 1101,
+        "total_bytes": 2154443008,
+        "aggregate_sha256": "fb43183ce1349327c7fc5b922b872d812a7f252250cc28571f899c419588a5ab"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "07",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "07"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/fetch.log",
+          "started_unix": 1793750578.730989,
+          "finished_unix": 1793750628.0504527,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned/l_lo_kitti_seq_07_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned/matrix.log",
+          "started_unix": 1793750630.04461,
+          "finished_unix": 1793750757.2102995,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned_ground_map",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned_ground_map/l_lo_kitti_seq_07_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned_ground_map/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned_ground_map/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned_ground_map/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/seq07_tuned_ground_map/matrix.log",
+          "started_unix": 1793750630.0453598,
+          "finished_unix": 1793750758.8265638,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/diagnose_seq07_tuned.log",
+          "started_unix": 1793750758.8275113,
+          "finished_unix": 1793750758.9959464,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned_ground_map/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned_ground_map/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned_ground_map/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_07_full_ground_map_matrix/seq07_tuned_ground_map/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/07/diagnose_seq07_tuned_ground_map.log",
+          "started_unix": 1793750758.9968224,
+          "finished_unix": 1793750759.1523132,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1101,
+        "total_bytes": 2137363408,
+        "aggregate_sha256": "bb048723ea9d86166eacf7a98f4e714d572c063220afef82924140b592f04aa8"
+      },
+      "input_after": {
+        "scan_count": 1101,
+        "total_bytes": 2137363408,
+        "aggregate_sha256": "bb048723ea9d86166eacf7a98f4e714d572c063220afef82924140b592f04aa8"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "09",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "09"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/fetch.log",
+          "started_unix": 1793750762.27355,
+          "finished_unix": 1793750806.9068146,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned/l_lo_kitti_seq_09_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned/matrix.log",
+          "started_unix": 1793750809.441445,
+          "finished_unix": 1793751179.240409,
+          "exit_code": 0
+        },
+        {
+          "arm": "seq07_tuned_ground_map",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned_ground_map/l_lo_kitti_seq_09_full_ground_map_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned_ground_map/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned_ground_map/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned_ground_map/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/seq07_tuned_ground_map/matrix.log",
+          "started_unix": 1793750809.4423864,
+          "finished_unix": 1793751180.4811842,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/diagnose_seq07_tuned.log",
+          "started_unix": 1793751180.4823937,
+          "finished_unix": 1793751180.703109,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned_ground_map/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned_ground_map/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned_ground_map/summary.json",
+            "--method",
+            "L-LO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_stage/runs/l_lo_kitti_seq_09_full_ground_map_matrix/seq07_tuned_ground_map/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/llo_work/09/diagnose_seq07_tuned_ground_map.log",
+          "started_unix": 1793751180.7042055,
+          "finished_unix": 1793751180.9284732,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1591,
+        "total_bytes": 3166327600,
+        "aggregate_sha256": "20dec1ed92fc8e9dec7af230ea687d7216dc6746ab808984d10132f51344655d"
+      },
+      "input_after": {
+        "scan_count": 1591,
+        "total_bytes": 3166327600,
+        "aggregate_sha256": "20dec1ed92fc8e9dec7af230ea687d7216dc6746ab808984d10132f51344655d"
+      },
+      "scans_deleted": true,
+      "complete": true
+    }
+  ]
+}

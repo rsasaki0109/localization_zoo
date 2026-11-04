@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-04T01:20:56+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -4537,6 +4537,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## L-LO KITTI Odom seq 00 full (4541 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned`.
+- Reference variants: `seq07_tuned_ground_map`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_00_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned_ground_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## L-LO on KITTI Odom seq 00 full (4541 frames)
 
 - Current default: `seq07_tuned`.
@@ -4547,6 +4558,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO KITTI Odom seq 02 full (4661 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned`.
+- Active challengers: `seq07_tuned_ground_map`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_02_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned_ground_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## L-LO on KITTI Odom seq 02 full (4661 frames)
 
@@ -4559,6 +4581,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | seq07_tuned | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## L-LO KITTI Odom seq 03 full (801 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned_ground_map`.
+- Reference variants: `seq07_tuned`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_03_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| seq07_tuned_ground_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## L-LO KITTI Odom seq 03 full: fixed-configuration paper comparison
 
 - Current default: `seq07_tuned`.
@@ -4568,6 +4601,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## L-LO KITTI Odom seq 04 full (271 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned`.
+- Reference variants: `seq07_tuned_ground_map`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_04_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned_ground_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## L-LO KITTI Odom seq 04 full: fixed-configuration paper comparison
 
 - Current default: `seq07_tuned`.
@@ -4576,6 +4620,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO KITTI Odom seq 05 full (2761 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned_ground_map`.
+- Active challengers: `seq07_tuned`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_05_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| seq07_tuned_ground_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## L-LO on KITTI Odom seq 05 full (2761 frames)
 
@@ -4587,6 +4642,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | seq07_tuned | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## L-LO KITTI Odom seq 06 full (1101 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned`.
+- Active challengers: `seq07_tuned_ground_map`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_06_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned_ground_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## L-LO KITTI Odom seq 06 full: fixed-configuration paper comparison
 
@@ -4643,6 +4709,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 | cell_0p35_gtol_0p15_range_80_min15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cell_0p35_gtol_0p15_range_80_shape_pitch | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## L-LO KITTI Odom seq 07 full (1101 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned`.
+- Active challengers: `seq07_tuned_ground_map`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_07_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned_ground_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## L-LO on KITTI Odom seq 07 full (1101 frames)
 
 - Current default: `default`.
@@ -4696,6 +4773,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 | shape_0p2 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | rounds_600_tol_1e5 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## L-LO KITTI Odom seq 08 full (4071 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned`.
+- Active challengers: `seq07_tuned_ground_map`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_08_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned_ground_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## L-LO on KITTI Odom seq 08 full (4071 frames)
 
 - Current default: `default`.
@@ -4707,6 +4795,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | seq07_tuned | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## L-LO KITTI Odom seq 09 full (1591 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned_ground_map`.
+- Active challengers: `seq07_tuned`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_09_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| seq07_tuned_ground_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## L-LO KITTI Odom seq 09 full: fixed-configuration paper comparison
 
 - Current default: `seq07_tuned`.
@@ -4715,6 +4814,17 @@ _Generated at 2026-11-03T04:37:48+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO KITTI Odom seq 10 full (1201 frames): ground-height-map vertical mode
+
+- Current default: `seq07_tuned`.
+- Reference variants: `seq07_tuned_ground_map`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_10_full_ground_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| seq07_tuned | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| seq07_tuned_ground_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## L-LO KITTI Odom seq 10 full: fixed-configuration paper comparison
 

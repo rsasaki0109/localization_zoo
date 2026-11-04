@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-11-03T09:49:34+00:00
+> Generated: 2026-11-04T01:21:56+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -633,8 +633,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness, no per-frame GT seed. Fixed seq07_tuned on every sequence with a paper value. Previously committed matching results are reused unchanged; added sequences do not select parameters. cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded.
 **Current claim**: Full KITTI Odometry coverage with one fixed setting — Full-sequence official KITTI RTE on 00/02-10 (01 is NA in the paper), variant seq07_tuned, geometric mean 1.57x. cluster_cell=0.25, ground_tolerance=0.15 and max_range=80 were selected by the existing 100 m RPE sweeps on sequence 07 and previously transferred unchanged to 00/02/05/08. Sequence 01 is NA in the paper and excluded. Seq 09: 4.122 % vs 1.890 % (2.18x), 4 moving steps with length error >20 % and 9 with local vector error >20 %. Seq 10: 4.105 % vs 1.900 % (2.16x), 7 moving steps with length error >20 % and 17 with local vector error >20 %. The method README includes all per-sequence values and saved-pose drift diagnostics. Defaults and historical results are unchanged.
 **Numeric comparison**: Same metric, 1.57x on 00/02-10 (01 is NA in the paper) with one fixed setting — seq07_tuned, official KITTI RTE [%], repo vs paper: 00 1.479 vs 0.910 (1.63x); 02 4.478 vs 2.350 (1.91x); 03 3.066 vs 2.920 (1.05x); 04 2.135 vs 2.280 (0.94x); 05 1.473 vs 0.820 (1.80x); 06 1.315 vs 0.660 (1.99x); 07 1.004 vs 0.690 (1.46x); 08 1.661 vs 1.370 (1.21x); 09 4.122 vs 1.890 (2.18x); 10 4.105 vs 1.900 (2.16x); geometric mean 1.57x. Sources and exact commands: experiments/results/remaining_kitti_coverage/. Table 6 is restricted to this fixed variant.
-**Main blocker**: Seq 09: 4.122 % vs 1.890 % (2.18x); seq 10: 4.105 % vs 1.900 % (2.16x). A channel decomposition of the saved poses puts the whole gap in the vertical channel: with GT z, pitch and roll the horizontal error alone is 1.458 % / 1.536 %, below the paper, while the estimate's vertical channel alone gives 3.505 % / 3.558 %, close to a flat vertical channel (GT planar 3.537 % / 3.843 %). The default pitch_mode=0 does not model height or road grade; the existing opt-in pitch_mode=1 drifts in altitude on 10 (4.540 % with a 0.4 deg correction, 10.149 % without). The paper leaves numeric parameters unspecified and the tested GT-derived roll-free baselines stay above the 00/07 paper values. Those tested trajectories are not a proof of a lower bound over all possible estimates.
-**Next step**: A vertical estimate that does not drift frame to frame (for example against a local ground map) would be needed on 09/10; it is outside the paper's frame-to-frame method and must stay opt-in (experiments/results/l_lo_vertical_decomposition/).
+**Main blocker**: Seq 09: 4.122 % vs 1.890 % (2.18x); seq 10: 4.105 % vs 1.900 % (2.16x). A channel decomposition of the saved poses puts the whole gap in the vertical channel: with GT z, pitch and roll the horizontal error alone is 1.458 % / 1.536 %, below the paper, while the estimate's vertical channel alone gives 3.505 % / 3.558 %, close to a flat vertical channel (GT planar 3.537 % / 3.843 %). The default pitch_mode=0 does not model height or road grade; the existing opt-in pitch_mode=1 drifts in altitude on 10 (4.540 % with a 0.4 deg correction, 10.149 % without). The opt-in ground-height-map mode (pitch_mode=3, not in the paper) brings 00/02-10 to 1.29x with no sequence above 2x (09 1.22x, 10 1.23x; 00 worsens 1.479 -> 1.577 %), but absolute height can still drift (ATE rises on 7 sequences). The paper leaves numeric parameters unspecified and the tested GT-derived roll-free baselines stay above the 00/07 paper values. Those tested trajectories are not a proof of a lower bound over all possible estimates.
+**Next step**: Owner decision whether the opt-in ground-height-map vertical mode (pitch_mode=3, outside the paper's frame-to-frame method; 1.29x on 00/02-10) should become the Table 6 variant (experiments/results/l_lo_ground_map/); Table 6 stays on seq07_tuned until then.
 
 ### Paper-Reported Values
 
@@ -655,21 +655,31 @@ For an explicit statement of implementation scope and what the repo currently cl
 
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
+| KITTI | Seq 07 tuned (fresh reference) | 15.664 | 1.539 | 0.020500 | 6.09 |
 | KITTI | Seq 07 tuned | 15.664 | 1.539 | 0.020500 | 4.37 |
+| KITTI | Seq 07 tuned (fresh reference) | 142.012 | 3.966 | 0.036657 | 4.57 |
 | KITTI | Default | 58.272 | 4.283 | 0.037143 | 3.18 |
+| KITTI | Seq 07 tuned + ground-height-map vertical (not in the paper) | 13.929 | 1.088 | 0.015363 | 5.30 |
 | KITTI | Seq 07 tuned | 24.086 | 1.826 | 0.023715 | 2.82 |
+| KITTI | Seq 07 tuned (fresh reference) | 5.259 | 1.819 | 0.011828 | 2.64 |
 | KITTI | Seq 07 tuned | 5.259 | 1.819 | 0.011828 | 0.88 |
+| KITTI | Seq 07 tuned + ground-height-map vertical (not in the paper) | 14.052 | 0.816 | 0.009500 | 6.54 |
 | KITTI | Default | 8.785 | 1.719 | 0.015879 | 5.30 |
+| KITTI | Seq 07 tuned (fresh reference) | 5.791 | 1.649 | 0.012480 | 9.36 |
 | KITTI | Seq 07 tuned | 5.791 | 1.649 | 0.012480 | 3.26 |
 | KITTI | cluster cell 0p15 | 2.890 | 1.319 | 0.017045 | 17.90 |
 | KITTI | sor std 2 | 1.998 | 1.376 | 0.015596 | 6.79 |
 | KITTI | cell 0p35 gtol 0p15 range 80 min15 | 2.561 | 1.222 | 0.015045 | 7.72 |
+| KITTI | Seq 07 tuned (fresh reference) | 2.693 | 1.165 | 0.015409 | 8.67 |
 | KITTI | Default | 2.045 | 1.335 | 0.015446 | 5.10 |
 | KITTI | pitch band 10 40 | 1.957 | 1.349 | 0.015678 | 5.13 |
 | KITTI | voxel 0p4 | 3.178 | 1.399 | 0.015898 | 22.94 |
 | KITTI | rounds 600 tol 1e5 | 2.045 | 1.335 | 0.015446 | 5.87 |
+| KITTI | Seq 07 tuned (fresh reference) | 36.390 | 2.051 | 0.018142 | 6.30 |
 | KITTI | Default | 32.662 | 2.193 | 0.018837 | 3.75 |
+| KITTI | Seq 07 tuned + ground-height-map vertical (not in the paper) | 34.788 | 1.207 | 0.012908 | 4.29 |
 | KITTI | Seq 07 tuned | 36.396 | 2.483 | 0.038126 | 1.16 |
+| KITTI | Seq 07 tuned (fresh reference) | 8.632 | 3.430 | 0.037561 | 5.33 |
 | KITTI | Seq 07 tuned | 8.632 | 3.430 | 0.037561 | 1.31 |
 
 **Notes**: Paper average 1.59 % over the reported sequences.

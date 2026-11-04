@@ -172,8 +172,9 @@ every stored result:
   with 1.254x for the official defaults alone and 0.967x for the current
   best-of-two Table 6.
 
-Table 6 keeps its best-of-two selection and the defaults stay official. Pinning
-SuMa to this one setting is the owner's decision.
+**Table 6 is pinned to this one setting** (`repo_variants`, owner decision
+2026-11-04). The setting is outside the paper and was chosen on 01/02. The code
+defaults stay official, with the option off.
 
 ### Full sequences
 
@@ -389,15 +390,15 @@ Official KITTI RTE, full sequences, no GT seed (`--suma-paper`;
 | 09 | | **0.510 %** | 0.962 % | 0.5 % |
 | 10 | | **0.698 %** | 0.897 % | 0.7 % |
 
-Table 6 takes the better variant per sequence: geometric mean 0.97x over
+Until 2026-11-04, Table 6 took the better variant per sequence: geometric mean 0.97x over
 00-10, with seq 01 (highway) at 2.09x the only sequence clearly behind. One
 setting for every sequence does worse: the official defaults give 1.25x
 (01 fails at 8.1x, 02 at 3.2x, every other sequence 0.71-1.06x), the
 normalised lookup with the correction 1.41x (05 not run with it). The two
 failures are the degenerate stretches described above (corridor, highway),
 where the forward direction is weakly constrained. The opt-in ground-pixel
-forward drop above gives one setting at 0.94x with no sequence above 2x
-(not adopted). About 4-6 FPS, single thread. The paper's numbers have one
+forward drop above gives one setting at 0.94x with no sequence above 2x;
+Table 6 now uses it. About 4-6 FPS, single thread. The paper's numbers have one
 decimal.
 
 <!-- SHARED_NEAR_RANGE_REPLAY -->

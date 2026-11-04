@@ -107,9 +107,13 @@ and 08, and higher on 02, 05, 07, 09 and 10.
 - SuMa can now run with **one setting** that is below the paper on average.
   That setting is outside the paper. It worsens 09 and 10 by about 7 %, and on
   02 it is worse than the clean-lookup variant.
-- Defaults do not change, and Table 6 keeps its best-of-two selection. The
-  candidate is an ablation variant, so Table 6 cannot select it. Pinning SuMa
-  to this one setting is the owner's decision.
+- Defaults do not change. When this study was merged, Table 6 kept its
+  best-of-two selection; the candidate is an ablation variant, so Table 6
+  could not select it on its own.
+- **Update (owner decision, 2026-11-04).** Table 6 is now pinned to
+  `paper_odometry_ground_no_forward` through `repo_variants`. An explicit pin
+  admits an ablation variant (`generate_paper_ratio_table.py`). SuMa's row is
+  0.94x with one setting, and the code defaults stay official.
 - Every KITTI sequence is project development data, and 01/02 motivated the
   change.
 

@@ -7,8 +7,10 @@ same full KITTI Odometry sequence:
 
   - pool: every variant of that method in experiments/results/*_matrix.json whose
     dataset is kitti_seq_<NN>_full, that produced a translational RPE, and that
-    is not GT-seeded (pure odometry only), restricted to repo_variants when
-    the paper metadata pins a comparison configuration
+    is not GT-seeded (pure odometry only) and not an ablation, restricted to
+    repo_variants when the paper metadata pins a comparison configuration. A
+    pin is an explicit owner choice, so it also admits a pinned variant whose
+    design_style is ablation (an opt-in that is not in the paper)
   - metric: the official KITTI RTE (kitti_rte_trans_pct, 100-800 m) when any
     pool variant has it (from the aggregate or from the re-run evidence in
     experiments/results/kitti_rte_rescore.json), otherwise the repository
@@ -100,8 +102,7 @@ def collect_pools(
             continue
         for variant in aggregate.get("variants", []):
             rpe = variant.get("rpe_trans_pct")
-            if (rpe is None or not math.isfinite(float(rpe)) or is_gt_seeded(variant)
-                    or variant.get("design_style") == "ablation"):
+            if rpe is None or not math.isfinite(float(rpe)) or is_gt_seeded(variant):
                 continue
             rte = variant.get("kitti_rte_trans_pct")
             if rte is None:
@@ -112,6 +113,7 @@ def collect_pools(
                     "rte": float(rte) if rte is not None and math.isfinite(float(rte)) else None,
                     "variant": str(variant["id"]),
                     "aggregate": f"experiments/results/{path.name}",
+                    "ablation": variant.get("design_style") == "ablation",
                 }
             )
     return pools
@@ -142,6 +144,8 @@ def collect_rows(
             allowed = info.get("repo_variants")
             if allowed:
                 pool = [item for item in pool if item["variant"] in allowed]
+            else:
+                pool = [item for item in pool if not item["ablation"]]
             selected_from = len(pool)
             metric = "rpe_100m"
             if any(item["rte"] is not None for item in pool):

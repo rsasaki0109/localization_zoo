@@ -28,8 +28,9 @@ a fresh `paper_odometry` that equals every stored result:
   for best-of-two.
 
 The InTEn-LOAM analogue for facades along the forward axis was rejected on its
-development sequences (01 16.6 → 41.7 %). Table 6 and the defaults are
-unchanged; pinning SuMa to the one setting is the owner's decision.
+development sequences (01 16.6 → 41.7 %). At the owner's decision
+(2026-11-04), Table 6 is pinned to this one setting; the code defaults stay
+official (option off).
 [Study, protocol and records](../experiments/results/suma_ground_forward/README.md).
 
 ### InTEn-LOAM sequence 02 (2026-11-04)
@@ -220,7 +221,7 @@ No Table 6 or paper-number change follows from this single-sequence study.
 Repo value over paper value, geometric mean over the sequences run
 ([Table 6](assets/paper/paper_ratio_table.csv),
 `evaluation/scripts/generate_paper_ratio_table.py`). A-LOAM, LF-GICP,
-L-LO, Quadric-LO, Mesh-LOAM and InTEn-LOAM are restricted to one fixed
+L-LO, Quadric-LO, Mesh-LOAM, InTEn-LOAM and SuMa are restricted to one fixed
 variant across every sequence with a paper value. Other methods may select
 among allowed variants per sequence. "One setting" is the ratio when one
 variant runs on every sequence.
@@ -233,7 +234,7 @@ variant runs on every sequence.
 | KISS-ICP | 1.04x | 00/04 | - | 00-10 average equals the official code's |
 | MULLS | 1.12x | 00-10 | - | 00-10 average equals the official code's |
 | CT-ICP | 1.15x | 00-10 | - | 00-10 average equals the official code's |
-| SuMa | 0.97x | 00-10 | - | 01 (highway) 2.09x; one setting 1.25x; opt-in ground-pixel forward drop gives one setting 0.94x, none above 2x, not adopted |
+| SuMa | 0.94x | 00-10 | - | one setting: official defaults + opt-in ground-pixel forward drop (not in the paper, chosen on 01/02), none above 2x; official defaults alone 1.25x; earlier best-of-two 0.97x |
 | Quadric-LO | 0.85x | 00-10 | - | one setting selected using 00/07; scan-to-submap reference; no sequence above 2x |
 | DiLO | 0.96x | 00-10 | - | one setting; 01 needs the degenerate-direction remap (chosen on 01) |
 | IMLS-SLAM | 1.05x | 00-10 | - | one setting; coarse first registration fixes 04 |
@@ -1080,8 +1081,9 @@ independent. Each item says what "done" means.
   along-axis facades makes 01 and 02 much worse (rejected in development).
 - SuMa can run with one setting: the opt-in ground-pixel forward drop gives
   0.94x on 00-10 with none above 2x (01 0.96x, 02 1.42x; 09/10 +7 %).
-  Pinning Table 6 to it instead of best-of-two is the owner's decision
-  ([study](../experiments/results/suma_ground_forward/README.md)).
+  Table 6 is pinned to it (owner decision, 2026-11-04)
+  ([study](../experiments/results/suma_ground_forward/README.md)). Open: the
+  remaining 02 gap (1.42x) and the 09/10 cost.
 - New paper ports: follow [CONTRIBUTING.md](../CONTRIBUTING.md) (KITTI 00/07
   full, `--no-gt-seed`, at least 3 mechanism tests, README with negative
   results); run all paper sequences before claiming a ratio.

@@ -213,11 +213,11 @@
       "repo_scope_label": "Paper reimplementation with the paper's frame-to-model pipeline (SuMaPaper)",
       "repo_scope_summary": "Dense surfel odometry from range-image maps inside the shared benchmark harness.",
       "reproduction_status_label": "Near paper on KITTI Odometry 00-10 (paper pipeline)",
-      "reproduction_status_summary": "--suma-paper (rendered surfel model, projective frame-to-model ICP, surfel stability and fusion, official default.xml values, no loop closure). Official KITTI RTE 00-10, official defaults on raw scans: 0.697 / 13.793 / 3.512 / 0.651 / 0.417 / 0.379 / 0.286 / 0.331 / 1.060 / 0.510 / 0.698 %; normalised model lookup + 0.22 deg correction: 0.884 / 3.550 / 0.784 / 1.186 / 0.802 / - / 0.530 / 0.521 / 1.179 / 0.962 / 0.897 %; paper 0.7 / 1.7 / 1.1 / 0.7 / 0.4 / 0.5 / 0.4 / 0.4 / 1.0 / 0.5 / 0.7 %. Best variant per sequence 0.97x (01 2.09x); one setting for all 1.25x (official) or 1.41x (normalised).",
-      "numeric_comparison_label": "Same metric, 0.97x on 00-10 (best of two variants per sequence)",
-      "numeric_comparison_summary": "Best variant per sequence: 00 1.00x, 01 2.09x, 02 0.71x, 03 0.93x, 04 1.04x, 05 0.76x, 06 0.71x, 07 0.83x, 08 1.06x, 09 1.02x, 10 1.00x. See docs/assets/paper/paper_ratio_table.csv (Table 6).",
-      "main_blocker": "Among the paper-path variants no single setting wins everywhere: the official model lookup on raw scans drifts forward on degenerate stretches (02 corridors 3.2x, 01 highway 8.1x); the normalised lookup with the correction fixes 02 and halves 01 (still 2.09x) but costs elsewhere. The drift comes mainly from the ground pixels' forward term: the opt-in ground_no_forward_vertical_cos=0.866 (not in the paper, chosen on 01/02) gives one setting at 0.94x on 00-10 with none above 2x (01 0.96x, 02 1.42x; held-out 09/10 worsen by about 7 %). Official SuMa (GPU/OpenGL) cannot run here for a direct check.",
-      "next_step": "Owner decision whether to pin SuMa's Table 6 to the one opt-in setting (0.94x, experiments/results/suma_ground_forward/) instead of the best-of-two selection; check the official code on a GPU host.",
+      "reproduction_status_summary": "--suma-paper (rendered surfel model, projective frame-to-model ICP, surfel stability and fusion, official default.xml values, no loop closure). Official KITTI RTE 00-10, official defaults on raw scans: 0.697 / 13.793 / 3.512 / 0.651 / 0.417 / 0.379 / 0.286 / 0.331 / 1.060 / 0.510 / 0.698 %; normalised model lookup + 0.22 deg correction: 0.884 / 3.550 / 0.784 / 1.186 / 0.802 / - / 0.530 / 0.521 / 1.179 / 0.962 / 0.897 %; paper 0.7 / 1.7 / 1.1 / 0.7 / 0.4 / 0.5 / 0.4 / 0.4 / 1.0 / 0.5 / 0.7 %. Table 6 is pinned (owner decision, 2026-11-04) to one setting: official defaults on raw scans plus the opt-in ground_no_forward_vertical_cos=0.866 (ground pixels without forward information, not in the paper, chosen on 01/02): 0.689 / 1.629 / 1.558 / 0.630 / 0.307 / 0.392 / 0.275 / 0.339 / 1.052 / 0.546 / 0.745 %, 0.94x, none above 2x. Earlier best variant per sequence 0.97x (01 2.09x); official defaults alone 1.25x, normalised lookup 1.41x.",
+      "numeric_comparison_label": "Same metric, 0.94x on 00-10 with one setting (opt-in ground-pixel forward drop)",
+      "numeric_comparison_summary": "One setting (paper_odometry_ground_no_forward): 00 0.98x, 01 0.96x, 02 1.42x, 03 0.90x, 04 0.77x, 05 0.78x, 06 0.69x, 07 0.85x, 08 1.05x, 09 1.09x, 10 1.06x. Chosen on 01/02; the held-out 09/10 are about 7 % above the official defaults. See docs/assets/paper/paper_ratio_table.csv (Table 6) and experiments/results/suma_ground_forward/.",
+      "main_blocker": "Among the paper-path variants no single setting wins everywhere: the official model lookup on raw scans drifts forward on degenerate stretches (02 corridors 3.2x, 01 highway 8.1x); the normalised lookup with the correction fixes 02 and halves 01 (still 2.09x) but costs elsewhere. The drift comes mainly from the ground pixels' forward term: the opt-in ground_no_forward_vertical_cos=0.866 (not in the paper, chosen on 01/02) gives one setting at 0.94x on 00-10 with none above 2x (01 0.96x, 02 1.42x; held-out 09/10 worsen by about 7 %); Table 6 is pinned to it. Official SuMa (GPU/OpenGL) cannot run here for a direct check.",
+      "next_step": "Check the official code on a GPU host, and whether the remaining 02 gap (1.42x; the normalised lookup reaches 0.71x there) and the 09/10 cost of the ground-pixel forward drop can be closed with the same one setting.",
       "reported_dataset": "KITTI Odometry (sequences 00-10)",
       "reported_metric": "KITTI RTE translation [%] (official 100-800 m segments)",
       "reported_values": {
@@ -240,7 +240,10 @@
       },
       "reported_hardware": "Intel i7-6700 @ 3.4 GHz, 16 GB RAM, Nvidia GeForce GTX 960 (GPU)",
       "reported_fps": null,
-      "notes": "Paper values are rounded to one decimal, so ratios carry up to ~25 % rounding uncertainty on short-error sequences."
+      "notes": "Paper values are rounded to one decimal, so ratios carry up to ~25 % rounding uncertainty on short-error sequences.",
+      "repo_variants": [
+        "paper_odometry_ground_no_forward"
+      ]
     },
     "aloam": {
       "claim_level": "indicative",

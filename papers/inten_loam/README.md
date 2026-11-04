@@ -5,7 +5,35 @@
 Remote Sensing / arXiv:2209.05708 (2022/23). No public author code found.
 Reconstructed from the paper.
 
+## S2S ground without forward information (opt-in, not in the paper)
 
+`--inten-loam-paper-set s2s_ground_no_forward=1` (default off). In S2S the ground
+residuals stop constraining motion along the sensor's forward axis; height,
+roll, pitch, lateral motion and yaw are kept. Technically, the forward
+component of their translation Jacobian is removed in sensor-centred tangent
+coordinates, and every other class, gate and S2M stays unchanged.
+`s2m_ground_no_forward` does the same in S2M; it was only used in the
+development check.
+
+Why: on KITTI 02 the steps collapse in corridor-like stretches without edge
+support. There the ground's small biased forward term sets the step length.
+
+[Full study, protocol and records](../../experiments/results/inten_ground_forward/README.md).
+Development sequences were 01 and 02, and the protocol was committed before the
+held-out runs. Official KITTI RTE with one fixed setting against a fresh
+`paper_odometry_plane_check`, which equals every stored result:
+
+- 02: 3.221 % → 0.823 % (5.97x → 1.52x the paper). Bad-length steps fall from
+  133 to 20, and both collapse runs (1878-1943, 4460-4524) break up.
+- 01: unchanged (16.614 → 16.636 %). Its backward pull comes from edges and
+  facades.
+- Held-out 00 and 03-10: candidate/reference geometric mean 0.995x. 06, 07 and
+  10 are lower; 00, 03, 04, 05, 08 and 09 are higher by 0.06-1.6 %. None rises
+  by more than 5 %.
+- Geometric mean against the paper over 00-10: 2.19x → 1.93x. 01 and 10 remain
+  above 2x.
+
+Table 6 and the defaults stay on `paper_odometry_plane_check`.
 
 ## Experimental independent geometric prior (default off)
 

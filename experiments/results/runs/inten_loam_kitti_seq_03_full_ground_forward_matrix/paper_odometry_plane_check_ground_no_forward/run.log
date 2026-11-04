@@ -1,0 +1,109 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 801
+GT poses: 801
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 560.8 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+
+=== InTEn-LOAM ===
+  stride=2 cyl=1024x64 intensity_reg=1 tvf=1 dor=1 mapping=1
+
+  [InTEn-LOAM paper] 0/801 g/f/e/r=1000/1246/480/300 s2s=0 s2m=0 (e/g/f/i 0/0/0/0)   
+  [InTEn-LOAM paper] 10/801 g/f/e/r=1000/1358/545/300 s2s=1630 s2m=2471 (e/g/f/i 303/842/1137/189)   
+  [InTEn-LOAM paper] 20/801 g/f/e/r=1000/1155/507/300 s2s=1403 s2m=2271 (e/g/f/i 279/851/905/236)   
+  [InTEn-LOAM paper] 30/801 g/f/e/r=1000/1231/531/300 s2s=1450 s2m=2250 (e/g/f/i 266/834/936/214)   
+  [InTEn-LOAM paper] 40/801 g/f/e/r=1000/1120/486/300 s2s=1272 s2m=2172 (e/g/f/i 285/836/845/206)   
+  [InTEn-LOAM paper] 50/801 g/f/e/r=1000/1033/532/300 s2s=1194 s2m=2111 (e/g/f/i 248/870/781/212)   
+  [InTEn-LOAM paper] 60/801 g/f/e/r=1000/931/570/300 s2s=1194 s2m=2039 (e/g/f/i 271/867/688/213)   
+  [InTEn-LOAM paper] 70/801 g/f/e/r=1000/857/560/300 s2s=1191 s2m=2079 (e/g/f/i 314/892/649/224)   
+  [InTEn-LOAM paper] 80/801 g/f/e/r=1000/804/511/300 s2s=1112 s2m=1983 (e/g/f/i 275/903/574/231)   
+  [InTEn-LOAM paper] 90/801 g/f/e/r=1000/716/445/300 s2s=938 s2m=1882 (e/g/f/i 240/908/505/229)   
+  [InTEn-LOAM paper] 100/801 g/f/e/r=1000/708/460/300 s2s=906 s2m=1945 (e/g/f/i 242/911/552/240)   
+  [InTEn-LOAM paper] 110/801 g/f/e/r=1000/741/527/300 s2s=1041 s2m=1955 (e/g/f/i 283/921/514/237)   
+  [InTEn-LOAM paper] 120/801 g/f/e/r=1000/819/504/300 s2s=1111 s2m=1993 (e/g/f/i 272/886/606/229)   
+  [InTEn-LOAM paper] 130/801 g/f/e/r=1000/852/463/300 s2s=1092 s2m=1940 (e/g/f/i 217/906/588/229)   
+  [InTEn-LOAM paper] 140/801 g/f/e/r=1000/774/342/300 s2s=962 s2m=1812 (e/g/f/i 166/902/531/213)   
+  [InTEn-LOAM paper] 150/801 g/f/e/r=1000/776/290/300 s2s=853 s2m=1851 (e/g/f/i 139/917/556/239)   
+  [InTEn-LOAM paper] 160/801 g/f/e/r=1000/866/346/300 s2s=951 s2m=1974 (e/g/f/i 180/901/666/227)   
+  [InTEn-LOAM paper] 170/801 g/f/e/r=1000/882/368/300 s2s=972 s2m=1977 (e/g/f/i 193/913/636/235)   
+  [InTEn-LOAM paper] 180/801 g/f/e/r=1000/895/390/300 s2s=1013 s2m=2028 (e/g/f/i 207/883/697/241)   
+  [InTEn-LOAM paper] 190/801 g/f/e/r=1000/1117/442/300 s2s=1243 s2m=2234 (e/g/f/i 244/867/880/243)   
+  [InTEn-LOAM paper] 200/801 g/f/e/r=1000/1005/394/300 s2s=1134 s2m=2061 (e/g/f/i 202/897/737/225)   
+  [InTEn-LOAM paper] 210/801 g/f/e/r=1000/877/288/300 s2s=933 s2m=1869 (e/g/f/i 158/912/558/241)   
+  [InTEn-LOAM paper] 220/801 g/f/e/r=1000/837/309/300 s2s=930 s2m=1865 (e/g/f/i 169/911/537/248)   
+  [InTEn-LOAM paper] 230/801 g/f/e/r=1000/769/373/300 s2s=924 s2m=1812 (e/g/f/i 175/893/512/232)   
+  [InTEn-LOAM paper] 240/801 g/f/e/r=1000/771/271/300 s2s=843 s2m=1805 (e/g/f/i 141/892/539/233)   
+  [InTEn-LOAM paper] 250/801 g/f/e/r=1000/856/260/300 s2s=861 s2m=1884 (e/g/f/i 147/891/607/239)   
+  [InTEn-LOAM paper] 260/801 g/f/e/r=1000/792/226/300 s2s=780 s2m=1849 (e/g/f/i 136/894/584/235)   
+  [InTEn-LOAM paper] 270/801 g/f/e/r=1000/739/205/300 s2s=733 s2m=1753 (e/g/f/i 115/923/485/230)   
+  [InTEn-LOAM paper] 280/801 g/f/e/r=1000/741/197/300 s2s=755 s2m=1759 (e/g/f/i 112/932/475/240)   
+  [InTEn-LOAM paper] 290/801 g/f/e/r=1000/769/235/300 s2s=774 s2m=1790 (e/g/f/i 99/928/533/230)   
+  [InTEn-LOAM paper] 300/801 g/f/e/r=1000/772/223/300 s2s=760 s2m=1776 (e/g/f/i 125/918/503/230)   
+  [InTEn-LOAM paper] 310/801 g/f/e/r=1000/818/190/300 s2s=825 s2m=1748 (e/g/f/i 90/893/534/231)   
+  [InTEn-LOAM paper] 320/801 g/f/e/r=1000/825/229/300 s2s=859 s2m=1842 (e/g/f/i 122/898/577/245)   
+  [InTEn-LOAM paper] 330/801 g/f/e/r=1000/955/248/300 s2s=908 s2m=1910 (e/g/f/i 136/818/723/233)   
+  [InTEn-LOAM paper] 340/801 g/f/e/r=1000/1042/271/300 s2s=1073 s2m=1973 (e/g/f/i 117/847/798/211)   
+  [InTEn-LOAM paper] 350/801 g/f/e/r=1000/825/231/300 s2s=842 s2m=1776 (e/g/f/i 107/874/568/227)   
+  [InTEn-LOAM paper] 360/801 g/f/e/r=1000/853/268/300 s2s=936 s2m=1793 (e/g/f/i 131/866/552/244)   
+  [InTEn-LOAM paper] 370/801 g/f/e/r=1000/871/296/300 s2s=925 s2m=1843 (e/g/f/i 168/866/560/249)   
+  [InTEn-LOAM paper] 380/801 g/f/e/r=1000/788/271/300 s2s=794 s2m=1731 (e/g/f/i 142/867/496/226)   
+  [InTEn-LOAM paper] 390/801 g/f/e/r=1000/729/190/300 s2s=766 s2m=1731 (e/g/f/i 105/888/512/226)   
+  [InTEn-LOAM paper] 400/801 g/f/e/r=1000/882/197/300 s2s=814 s2m=1851 (e/g/f/i 88/852/669/242)   
+  [InTEn-LOAM paper] 410/801 g/f/e/r=1000/973/178/300 s2s=840 s2m=1808 (e/g/f/i 67/809/710/222)   
+  [InTEn-LOAM paper] 420/801 g/f/e/r=1000/986/273/300 s2s=978 s2m=1933 (e/g/f/i 165/816/748/204)   
+  [InTEn-LOAM paper] 430/801 g/f/e/r=1000/851/223/300 s2s=801 s2m=1782 (e/g/f/i 123/829/637/193)   
+  [InTEn-LOAM paper] 440/801 g/f/e/r=1000/851/179/300 s2s=766 s2m=1731 (e/g/f/i 112/840/578/201)   
+  [InTEn-LOAM paper] 450/801 g/f/e/r=1000/806/232/300 s2s=839 s2m=1677 (e/g/f/i 125/815/530/207)   
+  [InTEn-LOAM paper] 460/801 g/f/e/r=1000/864/356/300 s2s=993 s2m=1756 (e/g/f/i 195/780/600/181)   
+  [InTEn-LOAM paper] 470/801 g/f/e/r=1000/891/280/300 s2s=925 s2m=1736 (e/g/f/i 153/783/590/210)   
+  [InTEn-LOAM paper] 480/801 g/f/e/r=1000/868/225/300 s2s=849 s2m=1889 (e/g/f/i 135/858/678/218)   
+  [InTEn-LOAM paper] 490/801 g/f/e/r=1000/951/261/300 s2s=990 s2m=2034 (e/g/f/i 172/885/740/237)   
+  [InTEn-LOAM paper] 500/801 g/f/e/r=1000/939/186/300 s2s=911 s2m=1951 (e/g/f/i 121/905/680/245)   
+  [InTEn-LOAM paper] 510/801 g/f/e/r=1000/910/217/300 s2s=877 s2m=1832 (e/g/f/i 115/903/552/262)   
+  [InTEn-LOAM paper] 520/801 g/f/e/r=1000/902/224/300 s2s=874 s2m=1871 (e/g/f/i 121/903/599/248)   
+  [InTEn-LOAM paper] 530/801 g/f/e/r=1000/634/255/300 s2s=708 s2m=1639 (e/g/f/i 147/882/367/243)   
+  [InTEn-LOAM paper] 540/801 g/f/e/r=1000/682/374/300 s2s=840 s2m=1683 (e/g/f/i 209/864/387/223)   
+  [InTEn-LOAM paper] 550/801 g/f/e/r=1000/704/376/300 s2s=872 s2m=1677 (e/g/f/i 218/886/358/215)   
+  [InTEn-LOAM paper] 560/801 g/f/e/r=1000/716/361/300 s2s=859 s2m=1645 (e/g/f/i 175/881/374/215)   
+  [InTEn-LOAM paper] 570/801 g/f/e/r=1000/704/343/300 s2s=873 s2m=1677 (e/g/f/i 168/878/412/219)   
+  [InTEn-LOAM paper] 580/801 g/f/e/r=1000/648/325/300 s2s=794 s2m=1599 (e/g/f/i 142/880/357/220)   
+  [InTEn-LOAM paper] 590/801 g/f/e/r=1000/898/295/300 s2s=911 s2m=1892 (e/g/f/i 172/872/618/230)   
+  [InTEn-LOAM paper] 600/801 g/f/e/r=1000/824/353/300 s2s=918 s2m=1754 (e/g/f/i 161/874/484/235)   
+  [InTEn-LOAM paper] 610/801 g/f/e/r=1000/681/286/300 s2s=796 s2m=1656 (e/g/f/i 130/878/453/195)   
+  [InTEn-LOAM paper] 620/801 g/f/e/r=1000/455/253/300 s2s=602 s2m=1504 (e/g/f/i 151/843/303/207)   
+  [InTEn-LOAM paper] 630/801 g/f/e/r=1000/505/234/300 s2s=627 s2m=1486 (e/g/f/i 109/853/322/202)   
+  [InTEn-LOAM paper] 640/801 g/f/e/r=1000/571/186/300 s2s=637 s2m=1635 (e/g/f/i 106/860/442/227)   
+  [InTEn-LOAM paper] 650/801 g/f/e/r=1000/562/124/300 s2s=599 s2m=1615 (e/g/f/i 62/860/456/237)   
+  [InTEn-LOAM paper] 660/801 g/f/e/r=1000/732/116/300 s2s=666 s2m=1731 (e/g/f/i 67/855/575/234)   
+  [InTEn-LOAM paper] 670/801 g/f/e/r=1000/911/112/300 s2s=807 s2m=1892 (e/g/f/i 65/832/751/244)   
+  [InTEn-LOAM paper] 680/801 g/f/e/r=1000/1044/95/300 s2s=870 s2m=1977 (e/g/f/i 60/823/850/244)   
+  [InTEn-LOAM paper] 690/801 g/f/e/r=1000/975/89/300 s2s=832 s2m=1908 (e/g/f/i 45/834/787/242)   
+  [InTEn-LOAM paper] 700/801 g/f/e/r=1000/983/132/300 s2s=838 s2m=1939 (e/g/f/i 84/838/785/232)   
+  [InTEn-LOAM paper] 710/801 g/f/e/r=1000/932/114/300 s2s=806 s2m=1922 (e/g/f/i 54/884/750/234)   
+  [InTEn-LOAM paper] 720/801 g/f/e/r=1000/926/129/300 s2s=798 s2m=1932 (e/g/f/i 74/892/721/245)   
+  [InTEn-LOAM paper] 730/801 g/f/e/r=1000/866/125/300 s2s=808 s2m=1932 (e/g/f/i 70/905/698/259)   
+  [InTEn-LOAM paper] 740/801 g/f/e/r=1000/839/119/300 s2s=795 s2m=1884 (e/g/f/i 70/918/643/253)   
+  [InTEn-LOAM paper] 750/801 g/f/e/r=1000/778/147/300 s2s=755 s2m=1848 (e/g/f/i 92/930/573/253)   
+  [InTEn-LOAM paper] 760/801 g/f/e/r=1000/694/170/300 s2s=707 s2m=1763 (e/g/f/i 98/922/485/258)   
+  [InTEn-LOAM paper] 770/801 g/f/e/r=1000/704/199/300 s2s=752 s2m=1816 (e/g/f/i 122/920/507/267)   
+  [InTEn-LOAM paper] 780/801 g/f/e/r=1000/750/202/300 s2s=780 s2m=1758 (e/g/f/i 99/911/478/270)   
+  [InTEn-LOAM paper] 790/801 g/f/e/r=1000/721/198/300 s2s=778 s2m=1791 (e/g/f/i 98/928/489/276)   
+  [InTEn-LOAM paper] 800/801 g/f/e/r=1000/770/241/300 s2s=834 s2m=1878 (e/g/f/i 125/922/554/277)   
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+InTEn-LOAM              ok          6.271       0.592          801         138572.9       5.8         
+
+Notes:
+- InTEn-LOAM: InTEn-LOAM paper pipeline (FEF, S2S Alg. 1 with re-association, S2M Alg. 2 with TVF map, DOR gating map insertion); no GT seed. intensity=on mapping=on dor=on mean pairs s2s=904 s2m=1854 dor points/frame=32; S2S ground without forward information enabled (repository extension, opt-in)
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_03_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_03_full_evaluation_manifest.json)

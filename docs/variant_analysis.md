@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-11-04T22:06:10+00:00
+> Generated: 2026-11-05T10:44:15+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -279,19 +279,30 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| dogfooding_results/kitti_seq_00_full | dense_elevation_paper_normals_unbiased | 14.245 | 3.6 |
 | dogfooding_results/kitti_seq_00_full | dense_elevation_paper_normals | 12.632 | 3.1 |
+| dogfooding_results/kitti_seq_01_full | dense_elevation_paper_normals_unbiased_paper_bev | 8.598 | 1.4 |
 | dogfooding_results/kitti_seq_01_full | dense_elevation_paper_normals_unbiased | 17.997 | 1.0 |
+| dogfooding_results/kitti_seq_02_full | dense_elevation_paper_normals_unbiased | 29.828 | 3.0 |
 | dogfooding_results/kitti_seq_02_full | dense_elevation_paper_normals_unbiased | 29.828 | 2.4 |
+| dogfooding_results/kitti_seq_03_full | dense_elevation_paper_normals_unbiased | 5.238 | 2.9 |
 | dogfooding_results/kitti_seq_03_full | dense_elevation_paper_normals_unbiased | 5.238 | 2.5 |
 | dogfooding_results/kitti_seq_04_full | dense_elevation_paper_normals_unbiased | 0.557 | 1.7 |
+| dogfooding_results/kitti_seq_04_full | dense_elevation_paper_normals_unbiased | 0.557 | 1.7 |
+| dogfooding_results/kitti_seq_05_full | dense_elevation_paper_normals_unbiased | 3.802 | 3.5 |
 | dogfooding_results/kitti_seq_05_full | dense_elevation_paper_normals_unbiased | 3.802 | 2.4 |
+| dogfooding_results/kitti_seq_06_full | dense_elevation_paper_normals_unbiased | 3.915 | 2.7 |
 | dogfooding_results/kitti_seq_06_full | dense_elevation_paper_normals_unbiased | 3.915 | 1.2 |
+| dogfooding_results/kitti_seq_07_full | dense_elevation_paper_normals_unbiased | 1.521 | 3.8 |
 | dogfooding_results/kitti_seq_07_full | dense_elevation_paper_normals_unbiased | 1.521 | 3.6 |
+| dogfooding_results/kitti_seq_08_full | dense_elevation_paper_normals_unbiased | 23.811 | 2.9 |
 | dogfooding_results/kitti_seq_08_full | dense_elevation_paper_normals_unbiased | 23.811 | 2.3 |
+| dogfooding_results/kitti_seq_09_full | dense_elevation_paper_normals_unbiased | 3.109 | 2.6 |
 | dogfooding_results/kitti_seq_09_full | dense_elevation_paper_normals_unbiased | 3.109 | 1.7 |
+| dogfooding_results/kitti_seq_10_full | dense_elevation_paper_normals_unbiased | 1.533 | 3.6 |
 | dogfooding_results/kitti_seq_10_full | dense_elevation_paper_normals_unbiased | 1.533 | 2.0 |
 
-**Stability**: 2 unique default(s) across 11 windows.
+**Stability**: 3 unique default(s) across 22 windows.
 
 ### FAST-LIO2
 
@@ -1150,7 +1161,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 |---|---:|---:|---:|
 | dense_elevation | 11.790 | 2.2 | 2 |
 | dense_elevation_paper_normals | 7.025 | 3.2 | 2 |
-| dense_elevation_paper_normals_unbiased | 9.596 | 2.1 | 11 |
+| dense_elevation_paper_normals_unbiased | 9.596 | 2.5 | 22 |
+| dense_elevation_paper_normals_unbiased_paper_bev | 9.017 | 2.4 | 11 |
 | dense_profile | 12.424 | 2.4 | 2 |
 | fast_profile | 13.020 | 4.3 | 2 |
 | paper_profile_elevation | 12.628 | 1.6 | 2 |

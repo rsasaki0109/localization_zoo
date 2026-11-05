@@ -10,6 +10,20 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### ELO with the paper's BEV (2026-11-05)
+
+ELO's dense profile keeps a 0.2 m running-mean ground BEV, where the paper
+keeps one closest vertex per 0.1 m cell. After the forward-bias fixes, the
+paper's BEV no longer hurt on 07 windows. On all 11 sequences, against a fresh
+reference that equals every stored result:
+
+- 1.22x → 1.18x;
+- lower on 01, 02, 03, 06, 08 and 09 (08 -15 %, 01 -13 %);
+- higher on 00, 04, 05 and 10; 04 (+13 %) and 10 (+9.5 %) are adverse.
+
+Table 6 is unchanged; adopting the paper's BEV is the owner's decision.
+[Study](../experiments/results/elo_paper_bev/README.md).
+
 ### InTEn-LOAM 01 and the S2S gate (2026-11-04)
 
 On the 01 highway, InTEn-LOAM's S2S recovers from a GT seed but not from a
@@ -258,7 +272,7 @@ variant runs on every sequence.
 | DiLO | 0.96x | 00-10 | - | one setting; 01 needs the degenerate-direction remap (chosen on 01) |
 | IMLS-SLAM | 1.05x | 00-10 | - | one setting; coarse first registration fixes 04 |
 | Mesh-LOAM | 1.28x | 00-10 | - | one setting; no sequence above 2x |
-| ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x) |
+| ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x); the paper's 0.1 m single-vertex BEV gives 1.18x (6 of 10 held-out lower, 04/10 worse), not adopted |
 | InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x; 02 collapse located in the S2S ground forward term, opt-in ground without forward 1.93x (02 1.52x), with a 5 m S2S gate 1.82x (01 14.66x), not adopted |
 | L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), both in the vertical channel; opt-in ground-height-map vertical mode 1.29x, none above 2x |
 

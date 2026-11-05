@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T22:05:41+00:00",
+  "generated_at": "2026-11-05T10:43:52+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1352,6 +1352,15 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "elo_kitti_seq_00_full_paper_bev",
+      "title": "ELO KITTI Odom seq 00 full (4541 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_00_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_00_full_paper_bev_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
       "problem_id": "elo_kitti_seq_00_full_paper_comp",
       "title": "ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table",
       "status": "ready",
@@ -1361,12 +1370,30 @@
       "current_default": "dense_elevation_paper_normals"
     },
     {
+      "problem_id": "elo_kitti_seq_01_full_paper_bev",
+      "title": "ELO KITTI Odom seq 01 full (1101 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_01_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_01_full_paper_bev_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased_paper_bev"
+    },
+    {
       "problem_id": "elo_kitti_seq_01_full_paper_comp",
       "title": "ELO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/elo_kitti_seq_01_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
+      "problem_id": "elo_kitti_seq_02_full_paper_bev",
+      "title": "ELO KITTI Odom seq 02 full (4661 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_02_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_02_full_paper_bev_matrix.json",
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
@@ -1379,12 +1406,30 @@
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
+      "problem_id": "elo_kitti_seq_03_full_paper_bev",
+      "title": "ELO KITTI Odom seq 03 full (801 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_03_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_03_full_paper_bev_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
       "problem_id": "elo_kitti_seq_03_full_paper_comp",
       "title": "ELO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/elo_kitti_seq_03_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
+      "problem_id": "elo_kitti_seq_04_full_paper_bev",
+      "title": "ELO KITTI Odom seq 04 full (271 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_04_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_04_full_paper_bev_matrix.json",
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
@@ -1397,12 +1442,30 @@
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
+      "problem_id": "elo_kitti_seq_05_full_paper_bev",
+      "title": "ELO KITTI Odom seq 05 full (2761 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_05_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_05_full_paper_bev_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
       "problem_id": "elo_kitti_seq_05_full_paper_comp",
       "title": "ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/elo_kitti_seq_05_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
+      "problem_id": "elo_kitti_seq_06_full_paper_bev",
+      "title": "ELO KITTI Odom seq 06 full (1101 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_06_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_06_full_paper_bev_matrix.json",
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
@@ -1415,12 +1478,30 @@
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
+      "problem_id": "elo_kitti_seq_07_full_paper_bev",
+      "title": "ELO KITTI Odom seq 07 full (1101 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_07_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_07_full_paper_bev_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
       "problem_id": "elo_kitti_seq_07_full_paper_comp",
       "title": "ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/elo_kitti_seq_07_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
+      "problem_id": "elo_kitti_seq_08_full_paper_bev",
+      "title": "ELO KITTI Odom seq 08 full (4071 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_08_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_08_full_paper_bev_matrix.json",
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
@@ -1433,12 +1514,30 @@
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {
+      "problem_id": "elo_kitti_seq_09_full_paper_bev",
+      "title": "ELO KITTI Odom seq 09 full (1591 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_09_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_09_full_paper_bev_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
       "problem_id": "elo_kitti_seq_09_full_paper_comp",
       "title": "ELO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/elo_kitti_seq_09_full_paper_comp_matrix.json",
       "aggregate_path": "experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json",
+      "current_default": "dense_elevation_paper_normals_unbiased"
+    },
+    {
+      "problem_id": "elo_kitti_seq_10_full_paper_bev",
+      "title": "ELO KITTI Odom seq 10 full (1201 frames): the paper's 0.1 m single-vertex BEV",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/elo_kitti_seq_10_full_paper_bev_matrix.json",
+      "aggregate_path": "experiments/results/elo_kitti_seq_10_full_paper_bev_matrix.json",
       "current_default": "dense_elevation_paper_normals_unbiased"
     },
     {

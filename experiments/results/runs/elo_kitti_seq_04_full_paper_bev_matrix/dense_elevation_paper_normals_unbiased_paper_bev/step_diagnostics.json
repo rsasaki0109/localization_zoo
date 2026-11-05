@@ -1,0 +1,85 @@
+{
+  "frames": 271,
+  "official_metrics_from_saved_poses": {
+    "frames": 271,
+    "reference_frames": 271,
+    "tracking_success_rate": 1.0,
+    "ate_m": 0.6029124358646116,
+    "rpe_trans_pct": 0.3370445697989144,
+    "rpe_rot_deg_per_m": 0.0016211002578568612,
+    "rpe_segments": 208,
+    "kitti_rte_trans_pct": 0.3045295114168646,
+    "kitti_rte_rot_deg_per_100m": 0.160071872995211,
+    "kitti_rte_segments": 43,
+    "trajectory_length_m": 393.64527707635335
+  },
+  "definitions": {
+    "frame_index": "Zero-based; a step index is its destination frame (i-1 -> i).",
+    "step_length_ratio": "norm(estimated local translation) / norm(GT local translation)",
+    "step_vector_error": "norm(estimated local translation - GT local translation) / norm(GT local translation)",
+    "moving_step": "GT step >= 0.1 m; shorter steps excluded from relative step counts.",
+    "block_error": "Relative pose error between block endpoints, divided by GT path length; diagnostic only, not KITTI RTE."
+  },
+  "parameters": {
+    "block_frames": 100,
+    "min_step_m": 0.1,
+    "relative_step_threshold": 0.2
+  },
+  "path_length_ratio": 0.9997654612461707,
+  "moving_step_count": 270,
+  "step_length_ratio_median": 0.9996769409484156,
+  "steps_length_off_over_threshold": 0,
+  "steps_vector_off_over_threshold": 0,
+  "bad_length_step_frame_ranges": [],
+  "bad_vector_step_frame_ranges": [],
+  "blocks": [
+    {
+      "first_pose_frame": 0,
+      "last_pose_frame": 100,
+      "gt_distance_m": 137.18298063486523,
+      "path_length_ratio": 0.9987702968398782,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 0.9987254528117246,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.0,
+      "position_error_end_m": 0.4718228857828797,
+      "block_relative_translation_error_pct": 0.3439368962749945,
+      "block_relative_rotation_error_deg_per_100m": 0.13493796009366738
+    },
+    {
+      "first_pose_frame": 100,
+      "last_pose_frame": 200,
+      "gt_distance_m": 144.36863004693618,
+      "path_length_ratio": 1.0002114823184645,
+      "moving_step_count": 100,
+      "step_length_ratio_median": 1.0009569548890056,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.4718228857828797,
+      "position_error_end_m": 0.7714761651955645,
+      "block_relative_translation_error_pct": 0.3366073532157122,
+      "block_relative_rotation_error_deg_per_100m": 0.1865089955446939
+    },
+    {
+      "first_pose_frame": 200,
+      "last_pose_frame": 270,
+      "gt_distance_m": 112.09366640246202,
+      "path_length_ratio": 1.0004089246158032,
+      "moving_step_count": 70,
+      "step_length_ratio_median": 0.999863832306495,
+      "steps_length_off_over_threshold": 0,
+      "steps_vector_off_over_threshold": 0,
+      "position_error_start_m": 0.7714761651955645,
+      "position_error_end_m": 0.749214037203413,
+      "block_relative_translation_error_pct": 0.2265471049084621,
+      "block_relative_rotation_error_deg_per_100m": 0.15718898211408128
+    }
+  ],
+  "benchmark_summary": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+  "benchmark_method": "ELO",
+  "schema_version": 1,
+  "command": "python3 /home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py --estimate /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt --gt /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt --summary /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --method ELO --output /tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json",
+  "estimate_path": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+  "gt_path": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt"
+}

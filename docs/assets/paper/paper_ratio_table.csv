@@ -32,17 +32,17 @@ dilo,07,0.420,"Table 1 DiLO, average translation error (%)",kitti_rte,0.372,0.89
 dilo,08,0.930,"Table 1 DiLO, average translation error (%)",kitti_rte,0.967,1.04,0.967,1,1,paper_odometry_degenerate,experiments/results/dilo_kitti_seq_08_full_paper_comp_matrix.json
 dilo,09,0.640,"Table 1 DiLO, average translation error (%)",kitti_rte,0.537,0.84,0.537,2,2,paper_odometry_spread_keypoints,experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json
 dilo,10,0.850,"Table 1 DiLO, average translation error (%)",kitti_rte,0.864,1.02,0.864,2,2,paper_odometry_spread_keypoints,experiments/results/dilo_kitti_seq_10_full_paper_comp_matrix.json
-elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.586,1.09,0.656,5,5,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_00_full_paper_bev_matrix.json
-elo,01,0.610,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.869,1.42,0.869,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_01_full_paper_bev_matrix.json
-elo,02,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.770,1.43,0.770,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_02_full_paper_bev_matrix.json
-elo,03,0.650,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.890,1.37,0.890,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_03_full_paper_bev_matrix.json
-elo,04,0.320,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.268,0.84,0.268,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_04_full_paper_bev_matrix.json
-elo,05,0.330,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.399,1.21,0.399,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_05_full_paper_bev_matrix.json
-elo,06,0.300,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.411,1.37,0.411,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_06_full_paper_bev_matrix.json
-elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.391,1.26,0.480,5,5,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_07_full_paper_bev_matrix.json
-elo,08,0.790,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,1.079,1.37,1.079,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_08_full_paper_bev_matrix.json
-elo,09,0.480,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.678,1.41,0.678,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_09_full_paper_bev_matrix.json
-elo,10,0.590,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.504,0.85,0.504,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_10_full_paper_bev_matrix.json
+elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.608,1.13,0.608,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_00_full_paper_bev_matrix.json
+elo,01,0.610,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.754,1.24,0.754,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_01_full_paper_bev_matrix.json
+elo,02,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.727,1.35,0.727,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_02_full_paper_bev_matrix.json
+elo,03,0.650,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.826,1.27,0.826,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_03_full_paper_bev_matrix.json
+elo,04,0.320,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.305,0.95,0.305,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_04_full_paper_bev_matrix.json
+elo,05,0.330,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.411,1.25,0.411,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_05_full_paper_bev_matrix.json
+elo,06,0.300,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.382,1.27,0.382,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_06_full_paper_bev_matrix.json
+elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.373,1.20,0.373,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_07_full_paper_bev_matrix.json
+elo,08,0.790,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.922,1.17,0.922,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_08_full_paper_bev_matrix.json
+elo,09,0.480,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.630,1.31,0.630,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_09_full_paper_bev_matrix.json
+elo,10,0.590,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.552,0.94,0.552,1,1,dense_elevation_paper_normals_unbiased_paper_bev,experiments/results/elo_kitti_seq_10_full_paper_bev_matrix.json
 imls_slam,00,0.500,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.523,1.05,0.526,4,4,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json
 imls_slam,01,0.820,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.842,1.03,0.865,2,2,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json
 imls_slam,02,0.530,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.522,0.98,0.522,1,1,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_02_full_paper_comp_matrix.json
@@ -54,17 +54,17 @@ imls_slam,07,0.330,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.339,
 imls_slam,08,0.800,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.844,1.05,0.844,1,1,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_08_full_paper_comp_matrix.json
 imls_slam,09,0.550,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.515,0.94,0.515,1,1,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_09_full_paper_comp_matrix.json
 imls_slam,10,0.530,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.571,1.08,0.571,1,1,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_10_full_paper_comp_matrix.json
-inten_loam,00,0.520,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.697,1.34,0.697,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_00_full_ground_forward_matrix.json
-inten_loam,01,0.640,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,16.614,25.96,16.614,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_01_full_ground_forward_matrix.json
-inten_loam,02,0.540,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,3.221,5.97,3.221,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_02_full_ground_forward_matrix.json
-inten_loam,03,0.630,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.891,1.41,0.891,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_03_full_ground_forward_matrix.json
-inten_loam,04,0.370,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.676,1.83,0.676,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_04_full_ground_forward_matrix.json
-inten_loam,05,0.360,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.497,1.38,0.497,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_05_full_ground_forward_matrix.json
-inten_loam,06,0.240,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.359,1.49,0.359,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_06_full_ground_forward_matrix.json
-inten_loam,07,0.340,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.364,1.07,0.364,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_07_full_ground_forward_matrix.json
-inten_loam,08,0.710,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.938,1.32,0.938,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_08_full_ground_forward_matrix.json
-inten_loam,09,0.480,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.661,1.38,0.661,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_09_full_ground_forward_matrix.json
-inten_loam,10,0.450,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,1.156,2.57,1.156,3,3,paper_odometry_plane_check,experiments/results/inten_loam_kitti_seq_10_full_ground_forward_matrix.json
+inten_loam,00,0.520,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.685,1.32,0.685,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_00_full_s2s_gate_matrix.json
+inten_loam,01,0.640,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,9.384,14.66,9.384,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_01_full_s2s_gate_matrix.json
+inten_loam,02,0.540,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.811,1.50,0.811,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_02_full_s2s_gate_matrix.json
+inten_loam,03,0.630,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.888,1.41,0.888,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_03_full_s2s_gate_matrix.json
+inten_loam,04,0.370,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.687,1.86,0.687,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_04_full_s2s_gate_matrix.json
+inten_loam,05,0.360,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.478,1.33,0.478,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_05_full_s2s_gate_matrix.json
+inten_loam,06,0.240,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.357,1.49,0.357,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_06_full_s2s_gate_matrix.json
+inten_loam,07,0.340,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.356,1.05,0.356,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_07_full_s2s_gate_matrix.json
+inten_loam,08,0.710,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.978,1.38,0.978,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_08_full_s2s_gate_matrix.json
+inten_loam,09,0.480,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,0.643,1.34,0.643,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_09_full_s2s_gate_matrix.json
+inten_loam,10,0.450,"Table 1 InTEn-LOAM, RTE (%)",kitti_rte,1.108,2.46,1.108,1,1,paper_odometry_plane_check_gate25_ground_no_forward,experiments/results/inten_loam_kitti_seq_10_full_s2s_gate_matrix.json
 kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.535,1.05,0.928,12,12,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_00_full_elevation_matrix.json
 kiss_icp,04,0.360,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.373,1.04,0.646,2,2,upstream_mechanics_elevation,experiments/results/kiss_icp_kitti_seq_04_full_elevation_matrix.json
 l_lo,00,0.910,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,1.479,1.63,1.479,2,2,seq07_tuned,experiments/results/l_lo_kitti_seq_00_full_ground_map_matrix.json

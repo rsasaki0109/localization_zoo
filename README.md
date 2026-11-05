@@ -100,7 +100,7 @@ values may not reproduce ([drift audit](experiments/results/kitti_drift_audit.js
 
 Paper-reported KITTI Odometry error against the repository on the same full
 sequences and the official metric (100–800 m segments). A-LOAM, LF-GICP,
-L-LO, Quadric-LO, Mesh-LOAM, InTEn-LOAM and SuMa each pin one variant across all
+L-LO, Quadric-LO, Mesh-LOAM, InTEn-LOAM, SuMa and ELO each pin one variant across all
 sequences with paper values; selection sequences are documented in their
 READMEs. Other rows may select among variants on each evaluated sequence,
 which makes those ratios optimistic bounds. Per-sequence values are in
@@ -120,8 +120,8 @@ audit in [`docs/paper_claim.md`](docs/paper_claim.md).
 | DiLO | 00-10 | 0.96x | plane-only paper pipeline, one setting on all 11; 01 (highway) needs a degenerate-direction remap chosen on 01 (8.13x -> 1.42x) ([details](papers/dilo/README.md)) |
 | IMLS-SLAM | 00-10 | 1.05x | paper pipeline, one setting on all 11; a coarse first registration fixes 04, which starts in motion (36x -> 1.29x) ([details](papers/imls_slam/README.md)) |
 | Mesh-LOAM | 00-10 | 1.28x | one fixed setting; no sequence above twice the paper value ([details](papers/mesh_loam/README.md#kitti-00-10-with-one-configuration)) |
-| ELO | 00-10 | 1.22x | gap remains; values chosen on 07, the other ten sequences 0.84-1.43x, none fails; the paper's 0.1 m single-vertex BEV gives 1.18x ([details](papers/elo/README.md#all-kitti-sequences-00-10)) |
-| InTEn-LOAM | 00-10 | 2.19x | one fixed setting; gaps on 01 (25.96x), 02 (5.97x), 10 (2.57x); 02 located in the S2S ground forward term; opt-in ground fix with a 5 m S2S gate 1.82x, 01 14.66x ([details](papers/inten_loam/README.md#s2s-ground-without-forward-information-opt-in-not-in-the-paper)) |
+| ELO | 00-10 | 1.18x | gap remains; one setting chosen on 07 with the paper's 0.1 m single-vertex ground BEV, 0.94-1.35x, none fails ([details](papers/elo/README.md#all-kitti-sequences-00-10)) |
+| InTEn-LOAM | 00-10 | 1.82x | one fixed setting with an opt-in S2S ground fix and the LOAM-family 5 m S2S gate (not in the paper, chosen on 01/02); gaps on 01 (14.66x) and 10 (2.46x); paper_odometry_plane_check alone 2.19x ([details](papers/inten_loam/README.md#s2s-ground-without-forward-information-opt-in-not-in-the-paper)) |
 | L-LO | 00/02-10 | 1.57x | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), whose gap is in the vertical channel; an opt-in ground-height-map vertical mode gives 1.29x ([details](papers/l_lo/README.md#ground-height-map-vertical-mode-opt-in-not-in-the-paper)) |
 
 Most gaps closed by the same few checks (elevation correction, no deskew on

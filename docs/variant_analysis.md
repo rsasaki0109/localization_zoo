@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-11-05T10:44:15+00:00
+> Generated: 2026-11-05T11:33:32+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 

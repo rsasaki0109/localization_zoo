@@ -44,6 +44,11 @@ default gate is 1 m, which a short seed at highway speed exceeds.
   +5 % (08 +4.2 %, 04 +1.6 %).
 - Wider gates (10 m and 20 m) saturate on 01 and were not used.
 
+**Table 6 is pinned to this setting**
+(`paper_odometry_plane_check_gate25_ground_no_forward`, owner decision
+2026-11-05). Both additions are outside the paper and were chosen on 01/02. The
+code defaults are unchanged.
+
 The same treatment for S2S facades that run along the forward axis
 (`s2s_facade_no_forward_below`, opt-in) was rejected on the development
 sequences: 01 16.637 → 41.677 % and 02 0.823 → 2.991 %. The facades carry most
@@ -325,8 +330,10 @@ the added coverage runs. Every row below uses the same fixed variant.
 | 10 | 0.45 | 1.156 | 2.57x | 1.835 |
 
 Geometric mean over all sequences with paper values: **2.19x**
-with the fixed setting. Table 6 is restricted to this same variant by
-`repo_variants` in `evaluation/data/paper_reported_numbers.json`.
+with the fixed setting. Table 6 was restricted to this variant by
+`repo_variants` in `evaluation/data/paper_reported_numbers.json` until
+2026-11-05. It now uses `paper_odometry_plane_check_gate25_ground_no_forward`
+(1.82x; see the top of this README).
 The historical 00/07 ablations above remain available in their original
 result aggregates.
 

@@ -1,0 +1,906 @@
+{
+  "binary": "/home/user/localization_zoo/build/evaluation/pcd_dogfooding",
+  "binary_sha256": "d6351e4eb954b28d6113259ae584f25dbe1c52ad0d5c7f483e34ae661bcb2e4e",
+  "git_head": "9fb66ecdeeef2c17c7402419b355d0d1a0d03d8f",
+  "argv": [
+    "experiments/results/elo_paper_bev/run_study.py",
+    "--kitti-root",
+    "/home/user/kitti_data",
+    "--work-root",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB",
+    "--stage-root",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage",
+    "--record",
+    "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/run_record_B.json",
+    "--sequence",
+    "04",
+    "--sequence",
+    "01",
+    "--sequence",
+    "09",
+    "--sequence",
+    "05",
+    "--sequence",
+    "10",
+    "--sequence",
+    "03",
+    "--sequence",
+    "06",
+    "--sequence",
+    "07"
+  ],
+  "sequences": [
+    {
+      "sequence": "04",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "04"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/fetch.log",
+          "started_unix": 1793869081.9076457,
+          "finished_unix": 1793869097.097424,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased/elo_kitti_seq_04_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased/matrix.log",
+          "started_unix": 1793869097.9043071,
+          "finished_unix": 1793869263.2378685,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased_paper_bev",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased_paper_bev/elo_kitti_seq_04_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased_paper_bev/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased_paper_bev/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased_paper_bev/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/dense_elevation_paper_normals_unbiased_paper_bev/matrix.log",
+          "started_unix": 1793869097.910184,
+          "finished_unix": 1793869282.875344,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/diagnose_dense_elevation_paper_normals_unbiased.log",
+          "started_unix": 1793869282.8779614,
+          "finished_unix": 1793869283.5162263,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/04/diagnose_dense_elevation_paper_normals_unbiased_paper_bev.log",
+          "started_unix": 1793869283.5174944,
+          "finished_unix": 1793869283.7385054,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 271,
+        "total_bytes": 545112912,
+        "aggregate_sha256": "9f4be2c370385a933765d36dbecfc4285a7b52cb6a01386c8643ed7407d8b5cf"
+      },
+      "input_after": {
+        "scan_count": 271,
+        "total_bytes": 545112912,
+        "aggregate_sha256": "9f4be2c370385a933765d36dbecfc4285a7b52cb6a01386c8643ed7407d8b5cf"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "01",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "01"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/fetch.log",
+          "started_unix": 1793869284.5261385,
+          "finished_unix": 1793869333.7752514,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased/elo_kitti_seq_01_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased/matrix.log",
+          "started_unix": 1793869335.527878,
+          "finished_unix": 1793870034.5460296,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased_paper_bev",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased_paper_bev/elo_kitti_seq_01_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased_paper_bev/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased_paper_bev/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased_paper_bev/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/dense_elevation_paper_normals_unbiased_paper_bev/matrix.log",
+          "started_unix": 1793869335.5341713,
+          "finished_unix": 1793870096.4969966,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/diagnose_dense_elevation_paper_normals_unbiased.log",
+          "started_unix": 1793870096.498385,
+          "finished_unix": 1793870096.7572663,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/01/diagnose_dense_elevation_paper_normals_unbiased_paper_bev.log",
+          "started_unix": 1793870096.758556,
+          "finished_unix": 1793870097.0102825,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1101,
+        "total_bytes": 1861691744,
+        "aggregate_sha256": "5f9f5464266c8a56f72741f85a84f93c708adb7d00a9e3466389cd92c05f97d4"
+      },
+      "input_after": {
+        "scan_count": 1101,
+        "total_bytes": 1861691744,
+        "aggregate_sha256": "5f9f5464266c8a56f72741f85a84f93c708adb7d00a9e3466389cd92c05f97d4"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "09",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "09"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/fetch.log",
+          "started_unix": 1793870100.2839708,
+          "finished_unix": 1793870706.609389,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased/elo_kitti_seq_09_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased/matrix.log",
+          "started_unix": 1793870709.9124992,
+          "finished_unix": 1793871322.7234783,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased_paper_bev",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased_paper_bev/elo_kitti_seq_09_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased_paper_bev/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased_paper_bev/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased_paper_bev/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/dense_elevation_paper_normals_unbiased_paper_bev/matrix.log",
+          "started_unix": 1793870709.9132006,
+          "finished_unix": 1793871409.174953,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/diagnose_dense_elevation_paper_normals_unbiased.log",
+          "started_unix": 1793871409.176028,
+          "finished_unix": 1793871409.4830012,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/09/diagnose_dense_elevation_paper_normals_unbiased_paper_bev.log",
+          "started_unix": 1793871409.4839027,
+          "finished_unix": 1793871409.7937634,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1591,
+        "total_bytes": 3166327600,
+        "aggregate_sha256": "20dec1ed92fc8e9dec7af230ea687d7216dc6746ab808984d10132f51344655d"
+      },
+      "input_after": {
+        "scan_count": 1591,
+        "total_bytes": 3166327600,
+        "aggregate_sha256": "20dec1ed92fc8e9dec7af230ea687d7216dc6746ab808984d10132f51344655d"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "05",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "05"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/fetch.log",
+          "started_unix": 1793871414.820362,
+          "finished_unix": 1793871658.399822,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased/elo_kitti_seq_05_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased/matrix.log",
+          "started_unix": 1793871663.9572947,
+          "finished_unix": 1793872443.0648592,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased_paper_bev",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased_paper_bev/elo_kitti_seq_05_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased_paper_bev/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased_paper_bev/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased_paper_bev/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/dense_elevation_paper_normals_unbiased_paper_bev/matrix.log",
+          "started_unix": 1793871663.9587266,
+          "finished_unix": 1793872609.1091106,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/diagnose_dense_elevation_paper_normals_unbiased.log",
+          "started_unix": 1793872609.1173906,
+          "finished_unix": 1793872609.6329296,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/05/diagnose_dense_elevation_paper_normals_unbiased_paper_bev.log",
+          "started_unix": 1793872609.634395,
+          "finished_unix": 1793872610.0372193,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 2761,
+        "total_bytes": 5523663648,
+        "aggregate_sha256": "89f136f1f6bac5a9b9d8fc65bf1ebea1374d4c470396a37ee99c81d75b556e94"
+      },
+      "input_after": {
+        "scan_count": 2761,
+        "total_bytes": 5523663648,
+        "aggregate_sha256": "89f136f1f6bac5a9b9d8fc65bf1ebea1374d4c470396a37ee99c81d75b556e94"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "10",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "10"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/fetch.log",
+          "started_unix": 1793872619.8618348,
+          "finished_unix": 1793872653.27788,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased/elo_kitti_seq_10_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased/matrix.log",
+          "started_unix": 1793872655.5368114,
+          "finished_unix": 1793872994.0219505,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased_paper_bev",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased_paper_bev/elo_kitti_seq_10_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased_paper_bev/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased_paper_bev/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased_paper_bev/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/dense_elevation_paper_normals_unbiased_paper_bev/matrix.log",
+          "started_unix": 1793872655.5376432,
+          "finished_unix": 1793873068.2414684,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/diagnose_dense_elevation_paper_normals_unbiased.log",
+          "started_unix": 1793873068.2425795,
+          "finished_unix": 1793873068.441114,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/10/diagnose_dense_elevation_paper_normals_unbiased_paper_bev.log",
+          "started_unix": 1793873068.4420211,
+          "finished_unix": 1793873068.64079,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1201,
+        "total_bytes": 2419491968,
+        "aggregate_sha256": "c95284270051dff342e48bd06f5185fb10ea7006c5f0d172c832f4f2dd1df4c3"
+      },
+      "input_after": {
+        "scan_count": 1201,
+        "total_bytes": 2419491968,
+        "aggregate_sha256": "c95284270051dff342e48bd06f5185fb10ea7006c5f0d172c832f4f2dd1df4c3"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "03",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "03"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/fetch.log",
+          "started_unix": 1793873072.764496,
+          "finished_unix": 1793873127.3725655,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased/elo_kitti_seq_03_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased/matrix.log",
+          "started_unix": 1793873128.8768506,
+          "finished_unix": 1793873405.5481205,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased_paper_bev",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased_paper_bev/elo_kitti_seq_03_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased_paper_bev/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased_paper_bev/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased_paper_bev/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/dense_elevation_paper_normals_unbiased_paper_bev/matrix.log",
+          "started_unix": 1793873128.8776023,
+          "finished_unix": 1793873480.982762,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/diagnose_dense_elevation_paper_normals_unbiased.log",
+          "started_unix": 1793873480.9841008,
+          "finished_unix": 1793873481.1756103,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/03/diagnose_dense_elevation_paper_normals_unbiased_paper_bev.log",
+          "started_unix": 1793873481.1764786,
+          "finished_unix": 1793873481.3436515,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 801,
+        "total_bytes": 1588811840,
+        "aggregate_sha256": "39c7e9c2481fdd0f2b3a5fc32125ce86e1bf5c6c55b9116123ddbab64fc4848d"
+      },
+      "input_after": {
+        "scan_count": 801,
+        "total_bytes": 1588811840,
+        "aggregate_sha256": "39c7e9c2481fdd0f2b3a5fc32125ce86e1bf5c6c55b9116123ddbab64fc4848d"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "06",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "06"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/fetch.log",
+          "started_unix": 1793873484.1771138,
+          "finished_unix": 1793873516.7124953,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased/elo_kitti_seq_06_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased/matrix.log",
+          "started_unix": 1793873518.763361,
+          "finished_unix": 1793873926.2927468,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased_paper_bev",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased_paper_bev/elo_kitti_seq_06_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased_paper_bev/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased_paper_bev/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased_paper_bev/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/dense_elevation_paper_normals_unbiased_paper_bev/matrix.log",
+          "started_unix": 1793873518.7642026,
+          "finished_unix": 1793873989.6838484,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/diagnose_dense_elevation_paper_normals_unbiased.log",
+          "started_unix": 1793873989.6848543,
+          "finished_unix": 1793873989.944443,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/06/diagnose_dense_elevation_paper_normals_unbiased_paper_bev.log",
+          "started_unix": 1793873989.9454448,
+          "finished_unix": 1793873990.2009332,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1101,
+        "total_bytes": 2154443008,
+        "aggregate_sha256": "fb43183ce1349327c7fc5b922b872d812a7f252250cc28571f899c419588a5ab"
+      },
+      "input_after": {
+        "scan_count": 1101,
+        "total_bytes": 2154443008,
+        "aggregate_sha256": "fb43183ce1349327c7fc5b922b872d812a7f252250cc28571f899c419588a5ab"
+      },
+      "scans_deleted": true,
+      "complete": true
+    },
+    {
+      "sequence": "07",
+      "commands": [
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/fetch_kitti_odometry_sequences.py",
+            "--output-root",
+            "/home/user/kitti_data",
+            "--sequence",
+            "07"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/fetch.log",
+          "started_unix": 1793873994.0281212,
+          "finished_unix": 1793874256.274289,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased/elo_kitti_seq_07_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased/matrix.log",
+          "started_unix": 1793874258.476967,
+          "finished_unix": 1793874552.2306783,
+          "exit_code": 0
+        },
+        {
+          "arm": "dense_elevation_paper_normals_unbiased_paper_bev",
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/run_experiment_matrix.py",
+            "--manifest",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased_paper_bev/elo_kitti_seq_07_full_paper_bev_matrix.json",
+            "--binary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased_paper_bev/launch.sh",
+            "--output-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased_paper_bev/results",
+            "--docs-dir",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased_paper_bev/docs"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/dense_elevation_paper_normals_unbiased_paper_bev/matrix.log",
+          "started_unix": 1793874258.48219,
+          "finished_unix": 1793874605.8565788,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/diagnose_dense_elevation_paper_normals_unbiased.log",
+          "started_unix": 1793874605.8576422,
+          "finished_unix": 1793874606.1145763,
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "/usr/local/bin/python3",
+            "/home/user/localization_zoo/evaluation/scripts/diagnose_kitti_steps.py",
+            "--estimate",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/trajectory_kitti.txt",
+            "--gt",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/evaluated_gt_kitti.txt",
+            "--summary",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json",
+            "--method",
+            "ELO",
+            "--output",
+            "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/stage/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/step_diagnostics.json"
+          ],
+          "log": "/tmp/claude-0/-home-user-localization-zoo/71b1d203-b71a-5dc6-9879-f7b53e1f1a41/scratchpad/elo_bev/workB/07/diagnose_dense_elevation_paper_normals_unbiased_paper_bev.log",
+          "started_unix": 1793874606.1159196,
+          "finished_unix": 1793874606.3748815,
+          "exit_code": 0
+        }
+      ],
+      "input_before": {
+        "scan_count": 1101,
+        "total_bytes": 2137363408,
+        "aggregate_sha256": "bb048723ea9d86166eacf7a98f4e714d572c063220afef82924140b592f04aa8"
+      },
+      "input_after": {
+        "scan_count": 1101,
+        "total_bytes": 2137363408,
+        "aggregate_sha256": "bb048723ea9d86166eacf7a98f4e714d572c063220afef82924140b592f04aa8"
+      },
+      "scans_deleted": true,
+      "complete": true
+    }
+  ]
+}

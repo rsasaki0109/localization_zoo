@@ -1,0 +1,108 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 801
+GT poses: 801
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 560.8 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running ELO...
+  source_voxel_size=0.1 max_source_points=80000 sri=2048x80 bev_res=0.1 ground_weight=5.0
+
+  [ELO] 0/801 sri=6131 bev=8504
+  [ELO] 10/801 sri=21656 bev=36195
+  [ELO] 20/801 sri=21678 bev=44278
+  [ELO] 30/801 sri=23008 bev=51629
+  [ELO] 40/801 sri=21984 bev=62226
+  [ELO] 50/801 sri=21605 bev=70416
+  [ELO] 60/801 sri=23470 bev=81240
+  [ELO] 70/801 sri=24473 bev=90066
+  [ELO] 80/801 sri=25211 bev=99042
+  [ELO] 90/801 sri=25821 bev=103579
+  [ELO] 100/801 sri=27306 bev=100996
+  [ELO] 110/801 sri=25209 bev=111691
+  [ELO] 120/801 sri=24899 bev=121381
+  [ELO] 130/801 sri=23414 bev=115032
+  [ELO] 140/801 sri=23313 bev=111454
+  [ELO] 150/801 sri=23134 bev=101301
+  [ELO] 160/801 sri=24895 bev=93467
+  [ELO] 170/801 sri=22903 bev=87877
+  [ELO] 180/801 sri=22648 bev=84402
+  [ELO] 190/801 sri=20265 bev=80142
+  [ELO] 200/801 sri=19325 bev=81092
+  [ELO] 210/801 sri=20998 bev=80247
+  [ELO] 220/801 sri=19337 bev=76658
+  [ELO] 230/801 sri=19753 bev=77935
+  [ELO] 240/801 sri=23789 bev=79559
+  [ELO] 250/801 sri=21964 bev=83882
+  [ELO] 260/801 sri=24146 bev=85059
+  [ELO] 270/801 sri=26134 bev=84210
+  [ELO] 280/801 sri=23314 bev=83721
+  [ELO] 290/801 sri=23577 bev=78193
+  [ELO] 300/801 sri=19902 bev=72568
+  [ELO] 310/801 sri=19052 bev=63315
+  [ELO] 320/801 sri=22144 bev=52486
+  [ELO] 330/801 sri=22874 bev=50039
+  [ELO] 340/801 sri=20951 bev=49438
+  [ELO] 350/801 sri=23663 bev=50011
+  [ELO] 360/801 sri=22981 bev=50427
+  [ELO] 370/801 sri=22463 bev=48983
+  [ELO] 380/801 sri=21656 bev=52798
+  [ELO] 390/801 sri=21833 bev=60360
+  [ELO] 400/801 sri=20774 bev=67817
+  [ELO] 410/801 sri=20573 bev=79298
+  [ELO] 420/801 sri=17969 bev=93129
+  [ELO] 430/801 sri=16428 bev=100972
+  [ELO] 440/801 sri=19125 bev=92685
+  [ELO] 450/801 sri=20890 bev=89832
+  [ELO] 460/801 sri=19531 bev=86119
+  [ELO] 470/801 sri=24334 bev=78755
+  [ELO] 480/801 sri=22324 bev=88605
+  [ELO] 490/801 sri=19551 bev=80355
+  [ELO] 500/801 sri=24320 bev=69776
+  [ELO] 510/801 sri=26092 bev=67204
+  [ELO] 520/801 sri=24450 bev=72924
+  [ELO] 530/801 sri=22009 bev=79599
+  [ELO] 540/801 sri=20288 bev=83395
+  [ELO] 550/801 sri=17522 bev=90222
+  [ELO] 560/801 sri=15834 bev=87831
+  [ELO] 570/801 sri=17212 bev=90771
+  [ELO] 580/801 sri=20901 bev=91399
+  [ELO] 590/801 sri=23549 bev=75626
+  [ELO] 600/801 sri=23801 bev=70552
+  [ELO] 610/801 sri=24246 bev=71924
+  [ELO] 620/801 sri=25177 bev=75253
+  [ELO] 630/801 sri=26362 bev=82126
+  [ELO] 640/801 sri=27994 bev=82926
+  [ELO] 650/801 sri=28661 bev=83493
+  [ELO] 660/801 sri=27672 bev=85507
+  [ELO] 670/801 sri=27704 bev=71587
+  [ELO] 680/801 sri=26615 bev=66051
+  [ELO] 690/801 sri=25750 bev=64405
+  [ELO] 700/801 sri=24783 bev=68795
+  [ELO] 710/801 sri=21889 bev=79718
+  [ELO] 720/801 sri=22042 bev=82102
+  [ELO] 730/801 sri=21270 bev=85086
+  [ELO] 740/801 sri=20501 bev=81009
+  [ELO] 750/801 sri=20472 bev=83250
+  [ELO] 760/801 sri=20548 bev=85868
+  [ELO] 770/801 sri=20892 bev=87620
+  [ELO] 780/801 sri=21414 bev=86005
+  [ELO] 790/801 sri=23359 bev=83801
+  [ELO] 800/801 sri=24875 bev=86938
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+ELO                     ok          5.032       0.759          801         351946.6       2.3         
+
+Notes:
+- ELO: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.020 g=12080 ng=3980 w=0.00
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_03_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_03_full_evaluation_manifest.json)

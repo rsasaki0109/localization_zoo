@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-11-04T22:05:42+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-11-05T10:43:52+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `711` ready, `1` blocked, `14` skipped problems.
+Current coverage: `722` ready, `1` blocked, `14` skipped problems.
 
 ## Current State
 
@@ -161,17 +161,28 @@ Current coverage: `711` ready, `1` blocked, `14` skipped problems.
 | DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.9 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | DLO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.101 | 15.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `dogfooding_results/kitti_raw_0009_full` |
+| ELO KITTI Odom seq 00 full (4541 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 14.245 | 3.6 | `dogfooding_results/kitti_seq_00_full` |
 | ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals` | 12.632 | 4.3 | `dogfooding_results/kitti_seq_00_full` |
 | ELO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 17.997 | 1.0 | `dogfooding_results/kitti_seq_01_full` |
+| ELO KITTI Odom seq 01 full (1101 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased_paper_bev` | 8.598 | 1.6 | `dogfooding_results/kitti_seq_01_full` |
 | ELO KITTI Odom seq 02 full (4661 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 29.828 | 2.4 | `dogfooding_results/kitti_seq_02_full` |
+| ELO KITTI Odom seq 02 full (4661 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 28.738 | 3.0 | `dogfooding_results/kitti_seq_02_full` |
 | ELO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 5.238 | 2.5 | `dogfooding_results/kitti_seq_03_full` |
+| ELO KITTI Odom seq 03 full (801 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 5.032 | 2.9 | `dogfooding_results/kitti_seq_03_full` |
 | ELO KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 0.557 | 1.7 | `dogfooding_results/kitti_seq_04_full` |
+| ELO KITTI Odom seq 04 full (271 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 0.557 | 1.7 | `dogfooding_results/kitti_seq_04_full` |
 | ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.802 | 2.4 | `dogfooding_results/kitti_seq_05_full` |
+| ELO KITTI Odom seq 05 full (2761 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 3.802 | 3.5 | `dogfooding_results/kitti_seq_05_full` |
 | ELO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.915 | 1.2 | `dogfooding_results/kitti_seq_06_full` |
+| ELO KITTI Odom seq 06 full (1101 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 3.915 | 2.7 | `dogfooding_results/kitti_seq_06_full` |
+| ELO KITTI Odom seq 07 full (1101 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 1.521 | 3.8 | `dogfooding_results/kitti_seq_07_full` |
 | ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals_unbiased` | 1.418 | 4.4 | `dogfooding_results/kitti_seq_07_full` |
 | ELO KITTI Odom seq 08 full (4071 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 23.811 | 2.3 | `dogfooding_results/kitti_seq_08_full` |
+| ELO KITTI Odom seq 08 full (4071 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 23.423 | 2.9 | `dogfooding_results/kitti_seq_08_full` |
 | ELO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.109 | 1.7 | `dogfooding_results/kitti_seq_09_full` |
+| ELO KITTI Odom seq 09 full (1591 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 3.109 | 2.6 | `dogfooding_results/kitti_seq_09_full` |
 | ELO KITTI Odom seq 10 full (1201 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 1.533 | 2.0 | `dogfooding_results/kitti_seq_10_full` |
+| ELO KITTI Odom seq 10 full (1201 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 1.533 | 3.6 | `dogfooding_results/kitti_seq_10_full` |
 | F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.972 | 8.7 | `dogfooding_results/kitti_seq_07_full` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.883 | 28.0 | `dogfooding_results/kitti_raw_0009_200` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.883 | 24.6 | `dogfooding_results/kitti_raw_0009_200` |
@@ -752,7 +763,7 @@ Current coverage: `711` ready, `1` blocked, `14` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 711 ready problems under stable dogfooding binaries and one shared summary JSON interface.
+- The stable benchmark contract now covers 722 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_seeded_reference` at 94.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

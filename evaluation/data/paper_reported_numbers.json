@@ -371,8 +371,8 @@
       "reproduction_status_summary": "The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07. Three forward-bias fixes of the projective model (same-surface fusion in the closest-point SRI update, no forward term from the noisy BEV ground normals, curvature threshold 0.03), chosen on 07 windows with 00 held out, bring it to 0.586 / 0.391 % vs the paper's 0.54 / 0.31 % (1.09x / 1.26x, geometric mean 1.17x). See papers/elo/README.md.",
       "numeric_comparison_label": "Same metric, 1.22x on 00-10 (one setting, chosen on 07)",
       "numeric_comparison_summary": "dense_elevation_paper_normals_unbiased on 00-10: 0.84-1.43x, geometric mean 1.22x; 00 0.586 vs 0.54, 07 0.391 vs 0.31. Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).",
-      "main_blocker": "The paper fusion weight w2 (\"inlier ratio between the non-ground points and ground ones\") is ambiguous; the reading implemented here does not help.",
-      "next_step": "Try other readings of w2 and the ground test; run the remaining KITTI sequences.",
+      "main_blocker": "The paper fusion weight w2 (\"inlier ratio between the non-ground points and ground ones\") is ambiguous; the reading implemented here does not help. The paper's 0.1 m single-vertex ground BEV, run on all 11 sequences with the current fixes, gives 1.18x instead of 1.22x (lower on 6 of 10 held-out sequences, 04/10 about 10-13 % worse; experiments/results/elo_paper_bev/).",
+      "next_step": "Owner decision whether ELO's Table 6 row should use the paper's 0.1 m single-vertex BEV (1.18x); try other readings of w2 and the ground test.",
       "reported_dataset": "KITTI Odometry (sequences 00-10)",
       "reported_metric": "KITTI RTE translation [%] (official KITTI t_rel (100-800 m))",
       "reported_values": {

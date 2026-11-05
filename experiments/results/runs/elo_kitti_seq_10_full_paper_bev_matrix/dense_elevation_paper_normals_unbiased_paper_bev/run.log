@@ -1,0 +1,148 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 1201
+GT poses: 1201
+IMU samples: 0 (imu.csv not found)
+Timestamp source: frame_timestamps.csv
+GT format: csv_lidar_pose (time_domain=seconds)
+GT association: exact_frame_id
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 919.4 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running ELO...
+  source_voxel_size=0.1 max_source_points=80000 sri=2048x80 bev_res=0.1 ground_weight=5.0
+
+  [ELO] 0/1201 sri=2819 bev=20265
+  [ELO] 10/1201 sri=13118 bev=82446
+  [ELO] 20/1201 sri=17013 bev=102766
+  [ELO] 30/1201 sri=19648 bev=105689
+  [ELO] 40/1201 sri=20427 bev=101011
+  [ELO] 50/1201 sri=22879 bev=92783
+  [ELO] 60/1201 sri=22839 bev=78783
+  [ELO] 70/1201 sri=21123 bev=89112
+  [ELO] 80/1201 sri=19349 bev=94551
+  [ELO] 90/1201 sri=19679 bev=84991
+  [ELO] 100/1201 sri=21529 bev=78123
+  [ELO] 110/1201 sri=22720 bev=71062
+  [ELO] 120/1201 sri=24399 bev=62376
+  [ELO] 130/1201 sri=25112 bev=51150
+  [ELO] 140/1201 sri=24057 bev=43782
+  [ELO] 150/1201 sri=22104 bev=37848
+  [ELO] 160/1201 sri=22738 bev=34787
+  [ELO] 170/1201 sri=24901 bev=31903
+  [ELO] 180/1201 sri=24327 bev=28982
+  [ELO] 190/1201 sri=19676 bev=25407
+  [ELO] 200/1201 sri=17447 bev=23244
+  [ELO] 210/1201 sri=16908 bev=22209
+  [ELO] 220/1201 sri=18201 bev=23420
+  [ELO] 230/1201 sri=24832 bev=23603
+  [ELO] 240/1201 sri=20901 bev=23178
+  [ELO] 250/1201 sri=19605 bev=27104
+  [ELO] 260/1201 sri=19971 bev=31647
+  [ELO] 270/1201 sri=23566 bev=33933
+  [ELO] 280/1201 sri=23528 bev=35763
+  [ELO] 290/1201 sri=24471 bev=38082
+  [ELO] 300/1201 sri=24374 bev=40274
+  [ELO] 310/1201 sri=19486 bev=37173
+  [ELO] 320/1201 sri=22522 bev=35036
+  [ELO] 330/1201 sri=21045 bev=34808
+  [ELO] 340/1201 sri=20864 bev=33932
+  [ELO] 350/1201 sri=21272 bev=37253
+  [ELO] 360/1201 sri=24895 bev=35585
+  [ELO] 370/1201 sri=26680 bev=34743
+  [ELO] 380/1201 sri=21398 bev=37760
+  [ELO] 390/1201 sri=25482 bev=42507
+  [ELO] 400/1201 sri=24068 bev=46258
+  [ELO] 410/1201 sri=23289 bev=46175
+  [ELO] 420/1201 sri=23363 bev=49664
+  [ELO] 430/1201 sri=22905 bev=50411
+  [ELO] 440/1201 sri=22325 bev=51304
+  [ELO] 450/1201 sri=18824 bev=46904
+  [ELO] 460/1201 sri=22890 bev=46567
+  [ELO] 470/1201 sri=22762 bev=47551
+  [ELO] 480/1201 sri=21910 bev=46237
+  [ELO] 490/1201 sri=22316 bev=50401
+  [ELO] 500/1201 sri=20598 bev=47466
+  [ELO] 510/1201 sri=23042 bev=44917
+  [ELO] 520/1201 sri=23571 bev=39589
+  [ELO] 530/1201 sri=21285 bev=33246
+  [ELO] 540/1201 sri=25084 bev=32516
+  [ELO] 550/1201 sri=26441 bev=32532
+  [ELO] 560/1201 sri=21401 bev=26207
+  [ELO] 570/1201 sri=26414 bev=28271
+  [ELO] 580/1201 sri=26894 bev=27638
+  [ELO] 590/1201 sri=28033 bev=28482
+  [ELO] 600/1201 sri=23887 bev=28668
+  [ELO] 610/1201 sri=22989 bev=33742
+  [ELO] 620/1201 sri=26244 bev=49403
+  [ELO] 630/1201 sri=27770 bev=61096
+  [ELO] 640/1201 sri=28547 bev=66624
+  [ELO] 650/1201 sri=28098 bev=68057
+  [ELO] 660/1201 sri=26014 bev=71458
+  [ELO] 670/1201 sri=24473 bev=74274
+  [ELO] 680/1201 sri=23794 bev=72656
+  [ELO] 690/1201 sri=22710 bev=70878
+  [ELO] 700/1201 sri=23020 bev=72240
+  [ELO] 710/1201 sri=23032 bev=68839
+  [ELO] 720/1201 sri=22053 bev=67503
+  [ELO] 730/1201 sri=24146 bev=74955
+  [ELO] 740/1201 sri=29521 bev=72526
+  [ELO] 750/1201 sri=29688 bev=61926
+  [ELO] 760/1201 sri=25731 bev=53300
+  [ELO] 770/1201 sri=20883 bev=46820
+  [ELO] 780/1201 sri=22166 bev=50617
+  [ELO] 790/1201 sri=21305 bev=51710
+  [ELO] 800/1201 sri=22144 bev=56150
+  [ELO] 810/1201 sri=19999 bev=57627
+  [ELO] 820/1201 sri=20404 bev=58841
+  [ELO] 830/1201 sri=22285 bev=61069
+  [ELO] 840/1201 sri=27644 bev=58270
+  [ELO] 850/1201 sri=31140 bev=57740
+  [ELO] 860/1201 sri=30550 bev=62551
+  [ELO] 870/1201 sri=27907 bev=58836
+  [ELO] 880/1201 sri=28048 bev=57633
+  [ELO] 890/1201 sri=29402 bev=60374
+  [ELO] 900/1201 sri=30905 bev=59465
+  [ELO] 910/1201 sri=19611 bev=52567
+  [ELO] 920/1201 sri=19107 bev=46528
+  [ELO] 930/1201 sri=20183 bev=37936
+  [ELO] 940/1201 sri=21729 bev=28718
+  [ELO] 950/1201 sri=23615 bev=29851
+  [ELO] 960/1201 sri=31972 bev=33839
+  [ELO] 970/1201 sri=33279 bev=35569
+  [ELO] 980/1201 sri=32722 bev=41455
+  [ELO] 990/1201 sri=32164 bev=36977
+  [ELO] 1000/1201 sri=33449 bev=38750
+  [ELO] 1010/1201 sri=32664 bev=39603
+  [ELO] 1020/1201 sri=28420 bev=40447
+  [ELO] 1030/1201 sri=26784 bev=38913
+  [ELO] 1040/1201 sri=24626 bev=34947
+  [ELO] 1050/1201 sri=28402 bev=32862
+  [ELO] 1060/1201 sri=32250 bev=33810
+  [ELO] 1070/1201 sri=30052 bev=33416
+  [ELO] 1080/1201 sri=30158 bev=35572
+  [ELO] 1090/1201 sri=25309 bev=33911
+  [ELO] 1100/1201 sri=23045 bev=32280
+  [ELO] 1110/1201 sri=26195 bev=31825
+  [ELO] 1120/1201 sri=32247 bev=33801
+  [ELO] 1130/1201 sri=36801 bev=37007
+  [ELO] 1140/1201 sri=38396 bev=41199
+  [ELO] 1150/1201 sri=40110 bev=42095
+  [ELO] 1160/1201 sri=41703 bev=41604
+  [ELO] 1170/1201 sri=43801 bev=40879
+  [ELO] 1180/1201 sri=42929 bev=40092
+  [ELO] 1190/1201 sri=41249 bev=38868
+  [ELO] 1200/1201 sri=41043 bev=34769
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Drift[m/100m]  Frames      Time [ms]      FPS         
+------------------------------------------------------------------------------------------------------
+ELO                     ok          3.638       0.742          1201        412484.4       2.9         
+
+Notes:
+- ELO: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.023 g=7999 ng=4548 w=0.00
+
+Results saved to dogfooding_results/ (evaluated GT: dogfooding_results/kitti_seq_10_full_evaluated_gt.txt, manifest: dogfooding_results/kitti_seq_10_full_evaluation_manifest.json)

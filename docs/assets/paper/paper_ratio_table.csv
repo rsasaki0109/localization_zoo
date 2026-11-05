@@ -32,17 +32,17 @@ dilo,07,0.420,"Table 1 DiLO, average translation error (%)",kitti_rte,0.372,0.89
 dilo,08,0.930,"Table 1 DiLO, average translation error (%)",kitti_rte,0.967,1.04,0.967,1,1,paper_odometry_degenerate,experiments/results/dilo_kitti_seq_08_full_paper_comp_matrix.json
 dilo,09,0.640,"Table 1 DiLO, average translation error (%)",kitti_rte,0.537,0.84,0.537,2,2,paper_odometry_spread_keypoints,experiments/results/dilo_kitti_seq_09_full_paper_comp_matrix.json
 dilo,10,0.850,"Table 1 DiLO, average translation error (%)",kitti_rte,0.864,1.02,0.864,2,2,paper_odometry_spread_keypoints,experiments/results/dilo_kitti_seq_10_full_paper_comp_matrix.json
-elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.586,1.09,0.964,4,4,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json
-elo,01,0.610,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.869,1.42,0.869,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json
-elo,02,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.770,1.43,0.770,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_02_full_paper_comp_matrix.json
-elo,03,0.650,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.890,1.37,0.890,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json
-elo,04,0.320,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.268,0.84,0.268,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json
-elo,05,0.330,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.399,1.21,0.399,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json
-elo,06,0.300,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.411,1.37,0.411,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json
-elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.391,1.26,0.687,4,4,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json
-elo,08,0.790,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,1.079,1.37,1.079,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_08_full_paper_comp_matrix.json
-elo,09,0.480,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.678,1.41,0.678,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json
-elo,10,0.590,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.504,0.85,0.504,1,1,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_10_full_paper_comp_matrix.json
+elo,00,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.586,1.09,0.656,5,5,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_00_full_paper_bev_matrix.json
+elo,01,0.610,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.869,1.42,0.869,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_01_full_paper_bev_matrix.json
+elo,02,0.540,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.770,1.43,0.770,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_02_full_paper_bev_matrix.json
+elo,03,0.650,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.890,1.37,0.890,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_03_full_paper_bev_matrix.json
+elo,04,0.320,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.268,0.84,0.268,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_04_full_paper_bev_matrix.json
+elo,05,0.330,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.399,1.21,0.399,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_05_full_paper_bev_matrix.json
+elo,06,0.300,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.411,1.37,0.411,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_06_full_paper_bev_matrix.json
+elo,07,0.310,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.391,1.26,0.480,5,5,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_07_full_paper_bev_matrix.json
+elo,08,0.790,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,1.079,1.37,1.079,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_08_full_paper_bev_matrix.json
+elo,09,0.480,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.678,1.41,0.678,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_09_full_paper_bev_matrix.json
+elo,10,0.590,"Table II Frame-to-Model (proposed), t_rel (%)",kitti_rte,0.504,0.85,0.504,2,2,dense_elevation_paper_normals_unbiased,experiments/results/elo_kitti_seq_10_full_paper_bev_matrix.json
 imls_slam,00,0.500,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.523,1.05,0.526,4,4,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_00_full_paper_comp_matrix.json
 imls_slam,01,0.820,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.842,1.03,0.865,2,2,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_01_full_paper_comp_matrix.json
 imls_slam,02,0.530,"Table I Our SLAM, drift in translation (%)",kitti_rte,0.522,0.98,0.522,1,1,paper_odometry_w100_coarse_start,experiments/results/imls_slam_kitti_seq_02_full_paper_comp_matrix.json

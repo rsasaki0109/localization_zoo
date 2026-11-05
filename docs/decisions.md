@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-05T10:43:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1813,6 +1813,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## ELO KITTI Odom seq 00 full (4541 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_00_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
 - Current default: `dense_elevation_paper_normals`.
@@ -1829,6 +1840,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_elevation_paper_normals_unbiased | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## ELO KITTI Odom seq 01 full (1101 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Reference variants: `dense_elevation_paper_normals_unbiased`.
+- Aggregate result: `experiments/results/elo_kitti_seq_01_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## ELO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline
 
 - Current default: `dense_elevation_paper_normals_unbiased`.
@@ -1837,6 +1859,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ELO KITTI Odom seq 02 full (4661 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_02_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## ELO KITTI Odom seq 02 full (4661 frames): held-out check of the paper pipeline
 
@@ -1847,6 +1880,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## ELO KITTI Odom seq 03 full (801 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_03_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## ELO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline
 
 - Current default: `dense_elevation_paper_normals_unbiased`.
@@ -1855,6 +1899,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ELO KITTI Odom seq 04 full (271 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_04_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## ELO KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline
 
@@ -1865,6 +1920,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## ELO KITTI Odom seq 05 full (2761 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Reference variants: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_05_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline
 
 - Current default: `dense_elevation_paper_normals_unbiased`.
@@ -1874,6 +1940,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## ELO KITTI Odom seq 06 full (1101 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_06_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## ELO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline
 
 - Current default: `dense_elevation_paper_normals_unbiased`.
@@ -1882,6 +1959,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ELO KITTI Odom seq 07 full (1101 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_07_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
 
@@ -1899,6 +1987,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_profile_elevation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## ELO KITTI Odom seq 08 full (4071 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_08_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## ELO KITTI Odom seq 08 full (4071 frames): held-out check of the paper pipeline
 
 - Current default: `dense_elevation_paper_normals_unbiased`.
@@ -1908,6 +2007,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## ELO KITTI Odom seq 09 full (1591 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Active challengers: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_09_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## ELO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline
 
 - Current default: `dense_elevation_paper_normals_unbiased`.
@@ -1916,6 +2026,17 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ELO KITTI Odom seq 10 full (1201 frames): the paper's 0.1 m single-vertex BEV
+
+- Current default: `dense_elevation_paper_normals_unbiased`.
+- Reference variants: `dense_elevation_paper_normals_unbiased_paper_bev`.
+- Aggregate result: `experiments/results/elo_kitti_seq_10_full_paper_bev_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_elevation_paper_normals_unbiased | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_elevation_paper_normals_unbiased_paper_bev | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## ELO KITTI Odom seq 10 full (1201 frames): held-out check of the paper pipeline
 

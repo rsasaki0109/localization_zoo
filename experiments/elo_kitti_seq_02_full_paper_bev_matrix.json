@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "elo_kitti_seq_02_full_paper_bev",
+    "title": "ELO KITTI Odom seq 02 full (4661 frames): the paper's 0.1 m single-vertex BEV",
+    "question": "Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "elo",
+    "primary_method": "ELO"
+  },
+  "variants": [
+    {
+      "id": "dense_elevation_paper_normals_unbiased",
+      "label": "Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference)",
+      "design_style": "balanced",
+      "intent": "Unchanged Table 6 setting, rerun on the same binary as the candidate.",
+      "args": [
+        "--no-gt-seed",
+        "--elo-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.195",
+        "--elo-normal-full-patch",
+        "--elo-sri-fuse-same-surface",
+        "--elo-ground-no-forward",
+        "--elo-curvature-threshold",
+        "0.03"
+      ]
+    },
+    {
+      "id": "dense_elevation_paper_normals_unbiased_paper_bev",
+      "label": "Same + the paper's 0.1 m single-vertex ground BEV",
+      "design_style": "ablation",
+      "intent": "Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.",
+      "args": [
+        "--no-gt-seed",
+        "--elo-dense-profile",
+        "--input-vertical-angle-correction-deg",
+        "0.195",
+        "--elo-normal-full-patch",
+        "--elo-sri-fuse-same-surface",
+        "--elo-ground-no-forward",
+        "--elo-curvature-threshold",
+        "0.03",
+        "--elo-bev-resolution",
+        "0.1",
+        "--elo-bev-keep-closest"
+      ]
+    }
+  ]
+}

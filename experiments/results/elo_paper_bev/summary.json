@@ -1,0 +1,525 @@
+{
+  "schema_version": 1,
+  "metric": "official KITTI RTE translation [%]",
+  "paper_source": "ELO Table II, Frame-to-Model (proposed), t_rel (%)",
+  "development_sequences": [
+    "07"
+  ],
+  "rows": [
+    {
+      "sequence": "00",
+      "development": false,
+      "paper_rte_pct": 0.54,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.586301,
+          "rpe_trans_pct": 0.757206,
+          "ate_m": 14.244683,
+          "bad_length_steps": 12,
+          "moving_steps": 4514,
+          "path_length_ratio": 0.9996425284080848,
+          "scale_only_rte_pct": 0.12624964811900624,
+          "yaw_only_rte_pct": 0.5385897833085879
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 4541,
+          "kitti_rte_trans_pct": 0.608196,
+          "rpe_trans_pct": 0.753519,
+          "ate_m": 14.580164,
+          "bad_length_steps": 12,
+          "moving_steps": 4514,
+          "path_length_ratio": 0.9996819799737886,
+          "scale_only_rte_pct": 0.12405486752467056,
+          "yaw_only_rte_pct": 0.5029228505128251
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json",
+        "frames": 4541,
+        "kitti_rte_trans_pct": 0.586301,
+        "rpe_trans_pct": 0.757206,
+        "ate_m": 14.244683
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.0857425925925925,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.1262888888888887
+      },
+      "candidate_over_reference": 1.0373442992592543
+    },
+    {
+      "sequence": "01",
+      "development": false,
+      "paper_rte_pct": 0.61,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.868787,
+          "rpe_trans_pct": 0.933782,
+          "ate_m": 17.997468,
+          "bad_length_steps": 0,
+          "moving_steps": 1100,
+          "path_length_ratio": 1.0018136106132876,
+          "scale_only_rte_pct": 0.22675097732135452,
+          "yaw_only_rte_pct": 0.22878023749401752
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.753945,
+          "rpe_trans_pct": 0.899289,
+          "ate_m": 8.597608,
+          "bad_length_steps": 0,
+          "moving_steps": 1100,
+          "path_length_ratio": 1.002049549807357,
+          "scale_only_rte_pct": 0.2416632028370484,
+          "yaw_only_rte_pct": 0.270112302682221
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 0.868787,
+        "rpe_trans_pct": 0.933782,
+        "ate_m": 17.997468
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.4242409836065573,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.2359754098360656
+      },
+      "candidate_over_reference": 0.8678133996019738
+    },
+    {
+      "sequence": "02",
+      "development": false,
+      "paper_rte_pct": 0.54,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 0.769738,
+          "rpe_trans_pct": 0.826584,
+          "ate_m": 29.827775,
+          "bad_length_steps": 3,
+          "moving_steps": 4660,
+          "path_length_ratio": 1.0018318198261222,
+          "scale_only_rte_pct": 0.18482176074406576,
+          "yaw_only_rte_pct": 0.6318027334352679
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 4661,
+          "kitti_rte_trans_pct": 0.72698,
+          "rpe_trans_pct": 0.817017,
+          "ate_m": 28.737517,
+          "bad_length_steps": 2,
+          "moving_steps": 4660,
+          "path_length_ratio": 1.0017588453260589,
+          "scale_only_rte_pct": 0.17747366025980088,
+          "yaw_only_rte_pct": 0.5740156967666667
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_02_full_paper_comp_matrix.json",
+        "frames": 4661,
+        "kitti_rte_trans_pct": 0.769738,
+        "rpe_trans_pct": 0.826584,
+        "ate_m": 29.827775
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.4254407407407408,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.346259259259259
+      },
+      "candidate_over_reference": 0.9444512288596898
+    },
+    {
+      "sequence": "03",
+      "development": false,
+      "paper_rte_pct": 0.65,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 0.890225,
+          "rpe_trans_pct": 0.747267,
+          "ate_m": 5.238028,
+          "bad_length_steps": 1,
+          "moving_steps": 785,
+          "path_length_ratio": 1.0030437696054475,
+          "scale_only_rte_pct": 0.3253835314662215,
+          "yaw_only_rte_pct": 1.1061230227714645
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 801,
+          "kitti_rte_trans_pct": 0.826349,
+          "rpe_trans_pct": 0.758916,
+          "ate_m": 5.031763,
+          "bad_length_steps": 1,
+          "moving_steps": 785,
+          "path_length_ratio": 1.0029883713812144,
+          "scale_only_rte_pct": 0.3251980111864715,
+          "yaw_only_rte_pct": 0.9929344621719117
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json",
+        "frames": 801,
+        "kitti_rte_trans_pct": 0.890225,
+        "rpe_trans_pct": 0.747267,
+        "ate_m": 5.238028
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.369576923076923,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.2713061538461539
+      },
+      "candidate_over_reference": 0.9282473531972254
+    },
+    {
+      "sequence": "04",
+      "development": false,
+      "paper_rte_pct": 0.32,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 0.268482,
+          "rpe_trans_pct": 0.316075,
+          "ate_m": 0.556908,
+          "bad_length_steps": 0,
+          "moving_steps": 270,
+          "path_length_ratio": 0.9997489830013484,
+          "scale_only_rte_pct": 0.06082394318828768,
+          "yaw_only_rte_pct": 0.09640571718032112
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 271,
+          "kitti_rte_trans_pct": 0.304529,
+          "rpe_trans_pct": 0.337045,
+          "ate_m": 0.602912,
+          "bad_length_steps": 0,
+          "moving_steps": 270,
+          "path_length_ratio": 0.9997654612461707,
+          "scale_only_rte_pct": 0.06360976437260385,
+          "yaw_only_rte_pct": 0.051826640953515
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json",
+        "frames": 271,
+        "kitti_rte_trans_pct": 0.268482,
+        "rpe_trans_pct": 0.316075,
+        "ate_m": 0.556908
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 0.83900625,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 0.951653125
+      },
+      "candidate_over_reference": 1.1342622596673146
+    },
+    {
+      "sequence": "05",
+      "development": false,
+      "paper_rte_pct": 0.33,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.399096,
+          "rpe_trans_pct": 0.446934,
+          "ate_m": 3.802446,
+          "bad_length_steps": 0,
+          "moving_steps": 2683,
+          "path_length_ratio": 1.0010161970571156,
+          "scale_only_rte_pct": 0.08725789436064485,
+          "yaw_only_rte_pct": 0.3698936812293789
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 2761,
+          "kitti_rte_trans_pct": 0.411391,
+          "rpe_trans_pct": 0.424052,
+          "ate_m": 5.808841,
+          "bad_length_steps": 0,
+          "moving_steps": 2683,
+          "path_length_ratio": 1.0010789178942945,
+          "scale_only_rte_pct": 0.08924608447994327,
+          "yaw_only_rte_pct": 0.4233698943184998
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json",
+        "frames": 2761,
+        "kitti_rte_trans_pct": 0.399096,
+        "rpe_trans_pct": 0.446934,
+        "ate_m": 3.802446
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.2093818181818181,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.2466393939393938
+      },
+      "candidate_over_reference": 1.030807124100467
+    },
+    {
+      "sequence": "06",
+      "development": false,
+      "paper_rte_pct": 0.3,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.411249,
+          "rpe_trans_pct": 0.409237,
+          "ate_m": 3.915241,
+          "bad_length_steps": 0,
+          "moving_steps": 1100,
+          "path_length_ratio": 1.0016720964759498,
+          "scale_only_rte_pct": 0.1291151312003761,
+          "yaw_only_rte_pct": 0.38031452223329526
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.381626,
+          "rpe_trans_pct": 0.369086,
+          "ate_m": 4.076878,
+          "bad_length_steps": 0,
+          "moving_steps": 1100,
+          "path_length_ratio": 1.0016739495289633,
+          "scale_only_rte_pct": 0.12782890762077975,
+          "yaw_only_rte_pct": 0.3879386452158701
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 0.411249,
+        "rpe_trans_pct": 0.409237,
+        "ate_m": 3.915241
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.37083,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.2720866666666668
+      },
+      "candidate_over_reference": 0.9279682139044716
+    },
+    {
+      "sequence": "07",
+      "development": true,
+      "paper_rte_pct": 0.31,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.390734,
+          "rpe_trans_pct": 0.436838,
+          "ate_m": 1.521455,
+          "bad_length_steps": 0,
+          "moving_steps": 1009,
+          "path_length_ratio": 1.0003902951454886,
+          "scale_only_rte_pct": 0.1294040061137062,
+          "yaw_only_rte_pct": 0.3048148432899246
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 1101,
+          "kitti_rte_trans_pct": 0.372876,
+          "rpe_trans_pct": 0.408073,
+          "ate_m": 1.575705,
+          "bad_length_steps": 0,
+          "moving_steps": 1009,
+          "path_length_ratio": 1.0003275981523734,
+          "scale_only_rte_pct": 0.12685074320487555,
+          "yaw_only_rte_pct": 0.28921180827005
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json",
+        "frames": 1101,
+        "kitti_rte_trans_pct": 0.390734,
+        "rpe_trans_pct": 0.436838,
+        "ate_m": 1.521455
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.2604322580645162,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.2028258064516129
+      },
+      "candidate_over_reference": 0.9542962731679351
+    },
+    {
+      "sequence": "08",
+      "development": false,
+      "paper_rte_pct": 0.79,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 1.07861,
+          "rpe_trans_pct": 1.380782,
+          "ate_m": 23.810511,
+          "bad_length_steps": 21,
+          "moving_steps": 4040,
+          "path_length_ratio": 1.000737484197476,
+          "scale_only_rte_pct": 0.26905325612269176,
+          "yaw_only_rte_pct": 0.6704146377923934
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 4071,
+          "kitti_rte_trans_pct": 0.921727,
+          "rpe_trans_pct": 1.320532,
+          "ate_m": 23.423396,
+          "bad_length_steps": 20,
+          "moving_steps": 4040,
+          "path_length_ratio": 1.0007307641299674,
+          "scale_only_rte_pct": 0.2645036088124717,
+          "yaw_only_rte_pct": 0.5703879136386693
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_08_full_paper_comp_matrix.json",
+        "frames": 4071,
+        "kitti_rte_trans_pct": 1.07861,
+        "rpe_trans_pct": 1.380782,
+        "ate_m": 23.810511
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.3653291139240507,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.1667430379746835
+      },
+      "candidate_over_reference": 0.8545507644097495
+    },
+    {
+      "sequence": "09",
+      "development": false,
+      "paper_rte_pct": 0.48,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.677904,
+          "rpe_trans_pct": 0.690942,
+          "ate_m": 3.108678,
+          "bad_length_steps": 0,
+          "moving_steps": 1590,
+          "path_length_ratio": 1.0004906640527327,
+          "scale_only_rte_pct": 0.1643184037496198,
+          "yaw_only_rte_pct": 0.2756451117789056
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 1591,
+          "kitti_rte_trans_pct": 0.629636,
+          "rpe_trans_pct": 0.705238,
+          "ate_m": 3.109317,
+          "bad_length_steps": 0,
+          "moving_steps": 1590,
+          "path_length_ratio": 1.0004605477189716,
+          "scale_only_rte_pct": 0.15413700695758897,
+          "yaw_only_rte_pct": 0.1923628039379948
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json",
+        "frames": 1591,
+        "kitti_rte_trans_pct": 0.677904,
+        "rpe_trans_pct": 0.690942,
+        "ate_m": 3.108678
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 1.4122999999999999,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 1.3117416666666666
+      },
+      "candidate_over_reference": 0.9287981779130968
+    },
+    {
+      "sequence": "10",
+      "development": false,
+      "paper_rte_pct": 0.59,
+      "arms": {
+        "dense_elevation_paper_normals_unbiased": {
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 0.504,
+          "rpe_trans_pct": 0.735712,
+          "ate_m": 1.532586,
+          "bad_length_steps": 0,
+          "moving_steps": 1153,
+          "path_length_ratio": 0.9998096087621008,
+          "scale_only_rte_pct": 0.1009569767314977,
+          "yaw_only_rte_pct": 0.25652096099817717
+        },
+        "dense_elevation_paper_normals_unbiased_paper_bev": {
+          "status": "ok",
+          "frames": 1201,
+          "kitti_rte_trans_pct": 0.551928,
+          "rpe_trans_pct": 0.741678,
+          "ate_m": 3.637741,
+          "bad_length_steps": 1,
+          "moving_steps": 1153,
+          "path_length_ratio": 0.999753414656509,
+          "scale_only_rte_pct": 0.10261522185345903,
+          "yaw_only_rte_pct": 0.34317856220346205
+        }
+      },
+      "stored_reference": {
+        "aggregate": "experiments/results/elo_kitti_seq_10_full_paper_comp_matrix.json",
+        "frames": 1201,
+        "kitti_rte_trans_pct": 0.504,
+        "rpe_trans_pct": 0.735712,
+        "ate_m": 1.532586
+      },
+      "fresh_reference_matches_stored": true,
+      "ratio_to_paper": {
+        "dense_elevation_paper_normals_unbiased": 0.8542372881355933,
+        "dense_elevation_paper_normals_unbiased_paper_bev": 0.935471186440678
+      },
+      "candidate_over_reference": 1.0950952380952381
+    }
+  ],
+  "aggregate": {
+    "geometric_mean_ratio_to_paper": {
+      "dense_elevation_paper_normals_unbiased": 1.2175667374522077,
+      "dense_elevation_paper_normals_unbiased_paper_bev": 1.1802789782007115
+    },
+    "candidate_over_reference_geometric_mean": 0.9693751823990182,
+    "held_out_candidate_over_reference_geometric_mean": 0.9708961161303472,
+    "held_out_lower": [
+      "01",
+      "02",
+      "03",
+      "06",
+      "08",
+      "09"
+    ],
+    "held_out_higher": [
+      "00",
+      "04",
+      "05",
+      "10"
+    ],
+    "adverse_over_5_percent": [
+      "04",
+      "10"
+    ],
+    "above_twice_paper": {
+      "dense_elevation_paper_normals_unbiased": [],
+      "dense_elevation_paper_normals_unbiased_paper_bev": []
+    },
+    "fresh_reference_matches_stored_all": true
+  }
+}

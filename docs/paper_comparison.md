@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-11-04T22:06:11+00:00
+> Generated: 2026-11-05T10:44:16+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -707,8 +707,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Repo scope**: Paper reimplementation (no author code) — From-paper reimplementation in the shared harness; see the method README.
 **Current claim**: KITTI Odometry 00-10 with the correction and the paper normal patch — The dense profile with the 0.195 deg correction the paper applies and the eq. 12 normal patch read as the full patch size scores official KITTI RTE 0.656 / 0.480 % on 00 / 07. Three forward-bias fixes of the projective model (same-surface fusion in the closest-point SRI update, no forward term from the noisy BEV ground normals, curvature threshold 0.03), chosen on 07 windows with 00 held out, bring it to 0.586 / 0.391 % vs the paper's 0.54 / 0.31 % (1.09x / 1.26x, geometric mean 1.17x). See papers/elo/README.md.
 **Numeric comparison**: Same metric, 1.22x on 00-10 (one setting, chosen on 07) — dense_elevation_paper_normals_unbiased on 00-10: 0.84-1.43x, geometric mean 1.22x; 00 0.586 vs 0.54, 07 0.391 vs 0.31. Repo values: experiments/results/elo_kitti_seq_NN_full_paper_comp_matrix.json (Table 6).
-**Main blocker**: The paper fusion weight w2 ("inlier ratio between the non-ground points and ground ones") is ambiguous; the reading implemented here does not help.
-**Next step**: Try other readings of w2 and the ground test; run the remaining KITTI sequences.
+**Main blocker**: The paper fusion weight w2 ("inlier ratio between the non-ground points and ground ones") is ambiguous; the reading implemented here does not help. The paper's 0.1 m single-vertex ground BEV, run on all 11 sequences with the current fixes, gives 1.18x instead of 1.22x (lower on 6 of 10 held-out sequences, 04/10 about 10-13 % worse; experiments/results/elo_paper_bev/).
+**Next step**: Owner decision whether ELO's Table 6 row should use the paper's 0.1 m single-vertex BEV (1.18x); try other readings of w2 and the ground test.
 
 ### Paper-Reported Values
 
@@ -730,16 +730,27 @@ For an explicit statement of implementation scope and what the repo currently cl
 
 | Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
 |---|---|---:|---:|---:|---:|
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 14.245 | 0.757 | 0.004415 | 3.64 |
 | KITTI | ELO dense profile + 0.195 deg correction + the paper's normal patch size | 12.632 | 0.862 | 0.004886 | 3.11 |
+| KITTI | Same + the paper's 0.1 m single-vertex ground BEV | 8.598 | 0.899 | 0.001893 | 1.45 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 17.997 | 0.934 | 0.002267 | 1.00 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 29.828 | 0.827 | 0.003609 | 3.02 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 29.828 | 0.827 | 0.003609 | 2.37 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 5.238 | 0.747 | 0.005862 | 2.90 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 5.238 | 0.747 | 0.005862 | 2.49 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 0.557 | 0.316 | 0.001548 | 1.66 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 0.557 | 0.316 | 0.001548 | 1.67 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 3.802 | 0.447 | 0.003400 | 3.55 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.802 | 0.447 | 0.003400 | 2.42 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 3.915 | 0.409 | 0.002782 | 2.70 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.915 | 0.409 | 0.002782 | 1.19 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 1.521 | 0.437 | 0.003413 | 3.75 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 1.521 | 0.437 | 0.003413 | 3.64 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 23.811 | 1.381 | 0.005285 | 2.90 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 23.811 | 1.381 | 0.005285 | 2.33 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 3.109 | 0.691 | 0.003436 | 2.60 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 3.109 | 0.691 | 0.003436 | 1.65 |
+| KITTI | Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | 1.533 | 0.736 | 0.003874 | 3.55 |
 | KITTI | ELO dense profile + 0.195 deg correction + paper normal patch + forward-bias fixes | 1.533 | 0.736 | 0.003874 | 2.00 |
 
 **Notes**: Paper average 0.50 % (online test 0.68 %). The frame-to-frame variant scores 1.14/0.83/0.91/1.25/0.83/0.75/0.76/0.60/1.34/1.18/2.57 %. No loop closure. Values read from the paper PDF on 2026-10-12.

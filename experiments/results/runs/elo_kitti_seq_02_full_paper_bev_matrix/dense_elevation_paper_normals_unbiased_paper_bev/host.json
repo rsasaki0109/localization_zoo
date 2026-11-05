@@ -1,0 +1,8 @@
+{
+  "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+  "logical_cores": 4,
+  "memory_gib": 15.7,
+  "os": "Ubuntu 24.04.5 LTS",
+  "kernel": "6.18.44-fc-v236",
+  "architecture": "x86_64"
+}

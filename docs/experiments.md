@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-11-05T10:43:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -156,16 +156,27 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 | DLO throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.070 | 10.7 | `experiments/results/dlo_mcd_kth_day_06_matrix.json` |
 | DLO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.016 | 16.6 | `experiments/results/dlo_mcd_ntu_day_02_matrix.json` |
 | DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.9 | `experiments/results/dlo_mcd_tuhh_night_09_matrix.json` |
+| ELO KITTI Odom seq 00 full (4541 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 14.245 | 3.6 | `experiments/results/elo_kitti_seq_00_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals` | 12.632 | 4.3 | `experiments/results/elo_kitti_seq_00_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 01 full (1101 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased_paper_bev` | 8.598 | 1.6 | `experiments/results/elo_kitti_seq_01_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 17.997 | 1.0 | `experiments/results/elo_kitti_seq_01_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 02 full (4661 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 28.738 | 3.0 | `experiments/results/elo_kitti_seq_02_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 02 full (4661 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 29.828 | 2.4 | `experiments/results/elo_kitti_seq_02_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 03 full (801 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 5.032 | 2.9 | `experiments/results/elo_kitti_seq_03_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 5.238 | 2.5 | `experiments/results/elo_kitti_seq_03_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 04 full (271 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 0.557 | 1.7 | `experiments/results/elo_kitti_seq_04_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 0.557 | 1.7 | `experiments/results/elo_kitti_seq_04_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 05 full (2761 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 3.802 | 3.5 | `experiments/results/elo_kitti_seq_05_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.802 | 2.4 | `experiments/results/elo_kitti_seq_05_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 06 full (1101 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 3.915 | 2.7 | `experiments/results/elo_kitti_seq_06_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.915 | 1.2 | `experiments/results/elo_kitti_seq_06_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 07 full (1101 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 1.521 | 3.8 | `experiments/results/elo_kitti_seq_07_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table | `ready` | `dense_elevation_paper_normals_unbiased` | 1.418 | 4.4 | `experiments/results/elo_kitti_seq_07_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 08 full (4071 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 23.423 | 2.9 | `experiments/results/elo_kitti_seq_08_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 08 full (4071 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 23.811 | 2.3 | `experiments/results/elo_kitti_seq_08_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 09 full (1591 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 3.109 | 2.6 | `experiments/results/elo_kitti_seq_09_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 3.109 | 1.7 | `experiments/results/elo_kitti_seq_09_full_paper_comp_matrix.json` |
+| ELO KITTI Odom seq 10 full (1201 frames): the paper's 0.1 m single-vertex BEV | `ready` | `dense_elevation_paper_normals_unbiased` | 1.533 | 3.6 | `experiments/results/elo_kitti_seq_10_full_paper_bev_matrix.json` |
 | ELO KITTI Odom seq 10 full (1201 frames): held-out check of the paper pipeline | `ready` | `dense_elevation_paper_normals_unbiased` | 1.533 | 2.0 | `experiments/results/elo_kitti_seq_10_full_paper_comp_matrix.json` |
 | FAST-LIO2 on the public HDL-400 reference window | `ready` | `fast` | 0.104 | 9.1 | `experiments/results/fast_lio2_hdl_400_reference_matrix.json` |
 | FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.199 | 13.5 | `experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json` |
@@ -9551,6 +9562,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
 
 
+## ELO KITTI Odom seq 00 full (4541 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_00_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_00_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 14.245 | 3.6 | 100.0 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 14.580 | 3.0 | 90.0 | 1.10 | 2.30 | Keep as active challenger |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 3.6 FPS.
+3. `dense_elevation_paper_normals_unbiased` is the most accurate observed variant at 14.245 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_00_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_00_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_00_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=9383 ng=4904 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_00_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_00_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_00_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.022 g=9255 ng=4903 w=0.00
+
+
 ## ELO KITTI Odom seq 00 full: comparison with the paper's KITTI table
 
 - **Problem ID**: `elo_kitti_seq_00_full_paper_comp`
@@ -9647,6 +9706,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=9383 ng=4904 w=0.00
 
 
+## ELO KITTI Odom seq 01 full (1101 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_01_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_01_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_01_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_01_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 17.997 | 1.6 | 73.9 | 2.05 | 2.95 | Keep as reference variant |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 8.598 | 1.4 | 95.9 | 1.10 | 2.30 | Adopt as current default |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased_paper_bev` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 1.6 FPS.
+3. `dense_elevation_paper_normals_unbiased_paper_bev` is the most accurate observed variant at 8.598 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.032 g=13563 ng=2320 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_01_full experiments/reference_data/kitti_seq_01_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_01_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.026 g=13202 ng=2320 w=0.00
+
+
 ## ELO KITTI Odom seq 01 full (1101 frames): held-out check of the paper pipeline
 
 - **Problem ID**: `elo_kitti_seq_01_full_paper_comp`
@@ -9681,6 +9788,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.032 g=13563 ng=2320 w=0.00
+
+
+## ELO KITTI Odom seq 02 full (4661 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_02_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_02_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 29.828 | 3.0 | 98.2 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 28.738 | 2.5 | 91.3 | 1.10 | 2.30 | Keep as active challenger |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 3.0 FPS.
+3. `dense_elevation_paper_normals_unbiased_paper_bev` is the most accurate observed variant at 28.738 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_02_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_02_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_02_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.022 g=10390 ng=4363 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_02_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_02_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_02_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.020 g=10258 ng=4363 w=0.00
 
 
 ## ELO KITTI Odom seq 02 full (4661 frames): held-out check of the paper pipeline
@@ -9719,6 +9874,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.022 g=10390 ng=4363 w=0.00
 
 
+## ELO KITTI Odom seq 03 full (801 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_03_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_03_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_03_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_03_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 5.238 | 2.9 | 98.0 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 5.032 | 2.3 | 89.3 | 1.10 | 2.30 | Keep as active challenger |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 2.9 FPS.
+3. `dense_elevation_paper_normals_unbiased_paper_bev` is the most accurate observed variant at 5.032 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.021 g=12211 ng=3980 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_03_full experiments/reference_data/kitti_seq_03_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_03_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.020 g=12080 ng=3980 w=0.00
+
+
 ## ELO KITTI Odom seq 03 full (801 frames): held-out check of the paper pipeline
 
 - **Problem ID**: `elo_kitti_seq_03_full_paper_comp`
@@ -9753,6 +9956,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.021 g=12211 ng=3980 w=0.00
+
+
+## ELO KITTI Odom seq 04 full (271 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_04_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_04_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_04_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_04_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 0.557 | 1.7 | 100.0 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 0.603 | 1.5 | 90.8 | 1.10 | 2.30 | Keep as active challenger |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 1.7 FPS.
+3. `dense_elevation_paper_normals_unbiased` is the most accurate observed variant at 0.557 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.024 g=12938 ng=3977 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_04_full experiments/reference_data/kitti_seq_04_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_04_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.021 g=12698 ng=3976 w=0.00
 
 
 ## ELO KITTI Odom seq 04 full (271 frames): held-out check of the paper pipeline
@@ -9791,6 +10042,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.024 g=12938 ng=3977 w=0.00
 
 
+## ELO KITTI Odom seq 05 full (2761 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_05_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_05_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 3.802 | 3.5 | 100.0 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 5.809 | 2.9 | 73.9 | 1.10 | 2.30 | Keep as reference variant |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 3.5 FPS.
+3. `dense_elevation_paper_normals_unbiased` is the most accurate observed variant at 3.802 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=10206 ng=4612 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_05_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.022 g=10055 ng=4611 w=0.00
+
+
 ## ELO KITTI Odom seq 05 full (2761 frames): held-out check of the paper pipeline
 
 - **Problem ID**: `elo_kitti_seq_05_full_paper_comp`
@@ -9827,6 +10126,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=10206 ng=4612 w=0.00
 
 
+## ELO KITTI Odom seq 06 full (1101 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_06_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_06_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_06_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_06_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 3.915 | 2.7 | 100.0 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 4.077 | 2.3 | 91.3 | 1.10 | 2.30 | Keep as active challenger |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 2.7 FPS.
+3. `dense_elevation_paper_normals_unbiased` is the most accurate observed variant at 3.915 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.023 g=13101 ng=3926 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_06_full experiments/reference_data/kitti_seq_06_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_06_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.021 g=12905 ng=3925 w=0.00
+
+
 ## ELO KITTI Odom seq 06 full (1101 frames): held-out check of the paper pipeline
 
 - **Problem ID**: `elo_kitti_seq_06_full_paper_comp`
@@ -9861,6 +10208,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.023 g=13101 ng=3926 w=0.00
+
+
+## ELO KITTI Odom seq 07 full (1101 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_07_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_07_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 1.521 | 3.8 | 100.0 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 1.576 | 3.2 | 90.6 | 1.10 | 2.30 | Keep as active challenger |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 3.8 FPS.
+3. `dense_elevation_paper_normals_unbiased` is the most accurate observed variant at 1.521 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.022 g=9139 ng=4578 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_07_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.019 g=9039 ng=4578 w=0.00
 
 
 ## ELO KITTI Odom seq 07 full: comparison with the paper's KITTI table
@@ -9959,6 +10354,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.022 g=9139 ng=4578 w=0.00
 
 
+## ELO KITTI Odom seq 08 full (4071 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_08_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_08_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 23.811 | 2.9 | 99.2 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 23.423 | 2.5 | 92.8 | 1.10 | 2.30 | Keep as active challenger |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 2.9 FPS.
+3. `dense_elevation_paper_normals_unbiased_paper_bev` is the most accurate observed variant at 23.423 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_08_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_08_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_08_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.026 g=10136 ng=3544 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_08_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_08_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_08_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.022 g=9989 ng=3544 w=0.00
+
+
 ## ELO KITTI Odom seq 08 full (4071 frames): held-out check of the paper pipeline
 
 - **Problem ID**: `elo_kitti_seq_08_full_paper_comp`
@@ -9995,6 +10438,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.026 g=10136 ng=3544 w=0.00
 
 
+## ELO KITTI Odom seq 09 full (1591 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_09_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_09_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_09_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_09_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 3.109 | 2.6 | 100.0 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 3.109 | 2.3 | 93.8 | 1.10 | 2.30 | Keep as active challenger |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 2.6 FPS.
+3. `dense_elevation_paper_normals_unbiased` is the most accurate observed variant at 3.109 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=10829 ng=4062 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_09_full experiments/reference_data/kitti_seq_09_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_09_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.022 g=10672 ng=4061 w=0.00
+
+
 ## ELO KITTI Odom seq 09 full (1591 frames): held-out check of the paper pipeline
 
 - **Problem ID**: `elo_kitti_seq_09_full_paper_comp`
@@ -10029,6 +10520,54 @@ _Generated at 2026-11-04T22:05:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.025 g=10829 ng=4062 w=0.00
+
+
+## ELO KITTI Odom seq 10 full (1201 frames): the paper's 0.1 m single-vertex BEV
+
+- **Problem ID**: `elo_kitti_seq_10_full_paper_bev`
+- **Question**: Does the paper's ground BEV (0.1 m cells, one closest vertex per cell) instead of the dense profile's 0.2 m running mean change full-sequence accuracy with the fixed Table 6 setting?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_10_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `elo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/elo_kitti_seq_10_full_paper_bev_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Dense profile + correction + paper normal patch + forward-bias fixes (fresh reference) | balanced | 1.533 | 3.6 | 100.0 | 2.05 | 2.95 | Adopt as current default |
+| Same + the paper's 0.1 m single-vertex ground BEV | ablation | 3.638 | 2.9 | 62.1 | 1.10 | 2.30 | Keep as reference variant |
+
+### Observations
+
+1. `dense_elevation_paper_normals_unbiased` is the current default for this problem.
+2. `dense_elevation_paper_normals_unbiased` is the fastest observed variant at 3.6 FPS.
+3. `dense_elevation_paper_normals_unbiased` is the most accurate observed variant at 1.533 m ATE.
+
+### Variant Notes
+
+#### `dense_elevation_paper_normals_unbiased`
+
+- Intent: Unchanged Table 6 setting, rerun on the same binary as the candidate.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03`
+- Summary: `experiments/results/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased/run.log`
+- Readability proxy: 2.05 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.027 g=8094 ng=4548 w=0.00
+
+#### `dense_elevation_paper_normals_unbiased_paper_bev`
+
+- Intent: Same setting with --elo-bev-resolution 0.1 --elo-bev-keep-closest (paper Sec. III; the dense profile uses 0.2 m running means). Chosen from the committed 07 window checks.
+- CLI args: `--no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_10_full experiments/reference_data/kitti_seq_10_full_gt.csv --methods elo --summary-json experiments/results/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json --no-gt-seed --elo-dense-profile --input-vertical-angle-correction-deg 0.195 --elo-normal-full-patch --elo-sri-fuse-same-surface --elo-ground-no-forward --elo-curvature-threshold 0.03 --elo-bev-resolution 0.1 --elo-bev-keep-closest`
+- Summary: `experiments/results/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/summary.json`
+- Log: `experiments/results/runs/elo_kitti_seq_10_full_paper_bev_matrix/dense_elevation_paper_normals_unbiased_paper_bev/run.log`
+- Readability proxy: 1.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.30 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.023 g=7999 ng=4548 w=0.00
 
 
 ## ELO KITTI Odom seq 10 full (1201 frames): held-out check of the paper pipeline

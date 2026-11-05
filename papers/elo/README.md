@@ -86,6 +86,21 @@ Geometric mean over 11 sequences: 1.22x.
 
 No sequence fails; the gap is spread over all of them (0.84-1.43x).
 
+**With the paper's ground BEV** (`--elo-bev-resolution 0.1 --elo-bev-keep-closest`:
+0.1 m cells, one closest vertex each, instead of the dense profile's 0.2 m
+running mean). One fixed run on all 11 sequences, against a fresh reference
+that equals every stored result
+([study, protocol and records](../../experiments/results/elo_paper_bev/README.md)):
+
+- Over 00-10 the ratio is 1.18x, against 1.22x for the current setting.
+- It is lower on 01, 02, 03, 06, 08 and 09 (08: 1.079 → 0.922 %; 01:
+  0.869 → 0.754 %), and higher on 00, 04, 05 and 10.
+- 04 (+13 %) and 10 (+9.5 %) are adverse. On both, the reference was already
+  below the paper.
+
+This is the paper's setting, not an extension. Table 6 keeps the current
+variant until the owner decides.
+
 ## Paper mechanics and the gap to the paper
 
 A line-by-line comparison with the paper found these differences in the harness

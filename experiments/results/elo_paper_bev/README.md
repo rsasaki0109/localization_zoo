@@ -86,9 +86,10 @@ with the paper's BEV they are 0.95x / 0.94x.
 - It is not uniformly better: it is lower on 6 of 10 held-out sequences and
   adverse on 04 and 10.
 - No sequence is above twice the paper in either arm.
-- Defaults and Table 6 (unpinned for ELO) do not change. The candidate is an
-  ablation variant, so Table 6 does not pick it. Adopting the paper's BEV for
-  ELO's Table 6 row is the owner's decision.
+- Defaults do not change. When this study was merged, Table 6 kept the
+  dense-profile BEV.
+- **Update (owner decision, 2026-11-05).** Table 6 is now pinned to
+  `dense_elevation_paper_normals_unbiased_paper_bev` (1.18x).
 - Every KITTI sequence is project development data.
 
 ## Commands and execution record

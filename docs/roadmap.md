@@ -10,6 +10,22 @@ gap to a paper is either closed or explained. Writing a paper is not a goal.
 
 ## 1. Where things stand
 
+### Table 6 pins for ELO and InTEn-LOAM (2026-11-05)
+
+At the owner's decision, Table 6 now pins:
+- **ELO** to the paper's 0.1 m single-vertex ground BEV: 1.22x → 1.18x. This is
+  the paper's own setting.
+- **InTEn-LOAM** to `paper_odometry_plane_check_gate25_ground_no_forward`: 2.19x
+  → 1.82x. This is an opt-in S2S ground fix plus the LOAM-family 5 m gate, not in
+  the paper, chosen on 01/02.
+
+Not pinned:
+- L-LO's `pitch_mode=3`: it replaces the paper's vertical estimation, and ATE
+  rises on 7 sequences.
+- LF-GICP's sensor-centred Fisher direction: 6 sequences are worse.
+
+Code defaults are unchanged.
+
 ### ELO with the paper's BEV (2026-11-05)
 
 ELO's dense profile keeps a 0.2 m running-mean ground BEV, where the paper
@@ -254,7 +270,7 @@ No Table 6 or paper-number change follows from this single-sequence study.
 Repo value over paper value, geometric mean over the sequences run
 ([Table 6](assets/paper/paper_ratio_table.csv),
 `evaluation/scripts/generate_paper_ratio_table.py`). A-LOAM, LF-GICP,
-L-LO, Quadric-LO, Mesh-LOAM, InTEn-LOAM and SuMa are restricted to one fixed
+L-LO, Quadric-LO, Mesh-LOAM, InTEn-LOAM, SuMa and ELO are restricted to one fixed
 variant across every sequence with a paper value. Other methods may select
 among allowed variants per sequence. "One setting" is the ratio when one
 variant runs on every sequence.
@@ -272,8 +288,8 @@ variant runs on every sequence.
 | DiLO | 0.96x | 00-10 | - | one setting; 01 needs the degenerate-direction remap (chosen on 01) |
 | IMLS-SLAM | 1.05x | 00-10 | - | one setting; coarse first registration fixes 04 |
 | Mesh-LOAM | 1.28x | 00-10 | - | one setting; no sequence above 2x |
-| ELO | 1.22x | 00-10 | - | gap spread over all sequences (0.84-1.43x); the paper's 0.1 m single-vertex BEV gives 1.18x (6 of 10 held-out lower, 04/10 worse), not adopted |
-| InTEn-LOAM | 2.19x | 00-10 | - | one setting; 01 25.96x, 02 5.97x, 10 2.57x; 02 collapse located in the S2S ground forward term, opt-in ground without forward 1.93x (02 1.52x), with a 5 m S2S gate 1.82x (01 14.66x), not adopted |
+| ELO | 1.18x | 00-10 | - | one setting with the paper's 0.1 m single-vertex ground BEV (0.94-1.35x); the dense-profile BEV gave 1.22x |
+| InTEn-LOAM | 1.82x | 00-10 | - | one setting with the opt-in S2S ground fix and 5 m S2S gate (not in the paper, chosen on 01/02); 01 14.66x, 10 2.46x; paper_odometry_plane_check alone 2.19x |
 | L-LO | 1.57x | 00/02-10 | - | one setting selected on 07; 01 is NA in the paper; above 2x: 09 (2.18x), 10 (2.16x), both in the vertical channel; opt-in ground-height-map vertical mode 1.29x, none above 2x |
 
 Per-method details and negative results live in each `papers/<method>/README.md`;
@@ -566,10 +582,14 @@ independent. Each item says what "done" means.
 
 ### Phase 4: remaining gaps to the papers
 
-11. **ELO 1.22x.** Spread over all sequences, not a failure. The paper
-    fusion weight w2 is ambiguous, and the reading implemented here does not
-    help ([papers/elo/README.md](../papers/elo/README.md)).
-12. **InTEn-LOAM 2.19x on 00-10 with one setting.** Large motion deficits
+11. **ELO 1.18x** (1.22x before the paper's BEV was pinned). Spread over all
+    sequences, not a failure. The paper fusion weight w2 is ambiguous, and the
+    reading implemented here does not help
+    ([papers/elo/README.md](../papers/elo/README.md)).
+12. **InTEn-LOAM 1.82x on 00-10 with one setting.** This is the pinned S2S
+    ground fix plus the 5 m gate; `paper_odometry_plane_check` alone gives
+    2.19x. With the pinned setting, 01 is 14.66x and 10 is 2.46x. The history
+    below describes `paper_odometry_plane_check`. Large motion deficits
     appear in 01 frames 217-253 / 420-518 and 02 frames 1878-1943 /
     4460-4524. Sequence 10 reaches 2.57x without any moving step exceeding
     20 % length or vector error; its error grows through smaller increments.

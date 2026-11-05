@@ -105,8 +105,10 @@ Official KITTI translational RTE [%] (100-800 m), no GT seed.
 - On the held-out sequences, the change is neutral to slightly positive (7 of 9
   lower, none above +5 %).
 - 01 remains far from the paper (14.66x), and 10 stays above 2x (2.46x).
-- Defaults do not change, and Table 6 / `repo_variants` stay on
-  `paper_odometry_plane_check`. Promoting the setting is the owner's decision.
+- Defaults do not change. When this study was merged, Table 6 stayed on
+  `paper_odometry_plane_check`.
+- **Update (owner decision, 2026-11-05).** Table 6 is now pinned to
+  `paper_odometry_plane_check_gate25_ground_no_forward` (1.82x).
 - Every KITTI sequence is project development data, and 01/02 chose the
   setting.
 

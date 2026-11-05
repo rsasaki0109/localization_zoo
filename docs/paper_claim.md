@@ -61,10 +61,10 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Near paper | SuMa (Frame-to-Model; paper pipeline `--suma-paper` with the official defaults and one setting on all 11 sequences, plus a ground-pixel forward drop, not in the paper, chosen on 01/02 where the official defaults fail (8.11x / 3.19x -> 0.96x / 1.42x); held-out 09/10 about 7 % worse; see `papers/suma/README.md`) | 00-10 | 0.94x |
 | Near paper | Quadric-LO (no author code; fixed `dense_profile` selected using 00/07; scan-to-submap Table II; earlier 02 evidence exists; no sequence above 2x, see `papers/quadric_lo/README.md`) | 00-10 | 0.85x |
 | Gap remains | Mesh-LOAM (no author code; fixed `paper_odometry_elevation`, nearest-facet association, 0.1 m input, explicit 0.22 deg correction; selected using 00/07; no sequence above twice the paper value, see `papers/mesh_loam/README.md`) | 00-10 | 1.28x |
-| Gap remains | ELO (no author code; 0.195 deg correction, the paper normal patch and forward-bias fixes chosen on 07 windows; 2.60x before; the same setting on all 11 sequences, 0.84-1.43x, see `papers/elo/README.md`) | 00-10 | 1.22x |
+| Gap remains | ELO (no author code; 0.195 deg correction, the paper normal patch and forward-bias fixes chosen on 07 windows, with the paper's 0.1 m single-vertex ground BEV; 2.60x before; the same setting on all 11 sequences, 0.94-1.35x, see `papers/elo/README.md`) | 00-10 | 1.18x |
 | Near paper | IMLS-SLAM (paper pipeline, `--imls-slam-paper-odometry`, 0.22 deg correction; 2.66x before; one setting on all 11 sequences with a coarse first registration, not in the paper, that only matters for 04, which starts in motion: 36x without it, see `papers/imls_slam/README.md`) | 00-10 | 1.05x |
 | Near paper | DiLO (plane-only paper pipeline `--dilo-paper-odometry` with spread planar key points, slope-aware vertical fill and the 0.18 deg correction, chosen on 07 windows with some 00 windows in view; edge key points do not help on KITTI; 4.12x before; one setting on all 11 sequences with a degenerate-direction remap, not in the paper, chosen on 01 where the highway otherwise collapses (8.13x -> 1.42x), see `papers/dilo/README.md`) | 00-10 | 0.96x |
-| Gap remains | InTEn-LOAM (no author code; fixed `paper_odometry_plane_check`, 0.17 deg correction and 0.05 m plane check chosen on 07 windows with 00 influencing diagnosis; 01 25.96x, 02 5.97x, 10 2.57x, with saved-pose drift diagnostics, see `papers/inten_loam/README.md`) | 00-10 | 2.19x |
+| Gap remains | InTEn-LOAM (no author code; fixed `paper_odometry_plane_check_gate25_ground_no_forward`: 0.17 deg correction and 0.05 m plane check chosen on 07 windows, plus an S2S ground fix, not in the paper, and the LOAM-family 5 m S2S gate, both chosen on 01/02; 01 14.66x, 10 2.46x; 2.19x without the two additions, see `papers/inten_loam/README.md`) | 00-10 | 1.82x |
 
 What may be claimed: the fixed A-LOAM, LF-GICP and Quadric-LO comparisons
 now cover KITTI 00-10, and L-LO covers every sequence with a paper value
@@ -93,7 +93,7 @@ What may not be claimed: faithful reproduction for those methods with a
 remaining gap, a KISS-ICP, CT-ICP or MULLS claim for the repository default,
 or any ratio as unbiased. Table 6 selects within each method's allowed pool;
 selection among variants on a scored sequence is optimistic. A-LOAM,
-LF-GICP, L-LO, Quadric-LO, Mesh-LOAM, InTEn-LOAM and SuMa now pin one fixed variant
+LF-GICP, L-LO, Quadric-LO, Mesh-LOAM, InTEn-LOAM, SuMa and ELO now pin one fixed variant
 on every sequence with a paper value, including reused matching results.
 The added runs did not select parameters. Their READMEs record development
 sequences and earlier observations that influenced selection; in particular,
